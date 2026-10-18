@@ -7,7 +7,6 @@ catzc:
     name: import-repository-with-history
     filetype: ps1
     kind: function
-    subkind: writer
     language: powershell
     track: automation
     tracktype: modules

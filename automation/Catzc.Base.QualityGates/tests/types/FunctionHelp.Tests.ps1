@@ -1,0 +1,78 @@
+Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
+    BeforeAll {
+        $script:config = [ordered]@{
+            synopsis    = 'Gets a widget.'
+            description = "Reads the widget registry.`n`n- one`n- two"
+            parameters  = [ordered]@{ Name = 'The widget name.'; Force = 'Skips the gadget check.' }
+            outputs     = '[Widget] the widget.'
+            examples    = @('Get-Widget -Name cog', "`$w = Get-Widget -Name cog`n`$w.Size")
+        }
+        $script:section = [Catzc.Base.QualityGates.FunctionHelp]::FromConfig($script:config).ToSection()
+    }
+
+    It 'renders the help in the fixed shape, each subsection once and in order, its text as written' -Tag 'ADR-REPO-HELP#2' {
+        $script:section | Should -BeExactly (
+            "## help`n`n### synopsis`n`nGets a widget.`n`n### description`n`nReads the widget registry.`n`n- one`n- two`n`n" +
+            "### parameter Name`n`nThe widget name.`n`n### parameter Force`n`nSkips the gadget check.`n`n### outputs`n`n[Widget] the widget.`n`n" +
+            "### example 1`n`n``````powershell`nGet-Widget -Name cog`n```````n`n### example 2`n`n``````powershell`n`$w = Get-Widget -Name cog`n`$w.Size`n```````n")
+    }
+
+    It 'reads back what it renders' {
+        $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("# docs`n`n$($script:section)")
+        $help.present | Should -BeTrue
+        $help.findings.Count | Should -Be 0
+        $help.synopsis | Should -BeExactly 'Gets a widget.'
+        $help.description | Should -BeExactly "Reads the widget registry.`n`n- one`n- two"
+        @($help.parameters | ForEach-Object Key) | Should -Be @('Name', 'Force')
+        $help.outputs | Should -BeExactly '[Widget] the widget.'
+        $help.examples[1] | Should -BeExactly "`$w = Get-Widget -Name cog`n`$w.Size"
+    }
+
+    It 'reads a synopsis a formatter wrapped as the one line it was written as' {
+        $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`n### synopsis`n`nGets a widget`nfrom the registry.`n")
+        $help.synopsis | Should -BeExactly 'Gets a widget from the registry.'
+    }
+
+    It 'never takes a heading inside an example fence for a subsection' {
+        $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`n### synopsis`n`nGets.`n`n### example 1`n`n``````powershell`n### not a heading`n```````n")
+        $help.findings.Count | Should -Be 0
+        $help.examples[0] | Should -BeExactly '### not a heading'
+    }
+
+    It 'reports a subsection the shape does not name, one out of order, text before the first, and a missing synopsis' -Tag 'ADR-REPO-HELP#4' {
+        $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`nstray`n`n### outputs`n`nx`n`n### description`n`ny`n`n### remarks`n`nz`n")
+        $help.findings | Should -Contain 'the help section holds text before its first subsection: put it under ### synopsis or ### description'
+        @($help.findings | Where-Object { $_ -like '*out of order*' }).Count | Should -Be 1
+        $help.findings | Should -Contain 'the help section has a subsection the shape does not name: ''### remarks'''
+        $help.findings | Should -Contain 'the help section has no synopsis'
+    }
+
+    It 'stops the section at the page''s next section, so a comment section is no help' {
+        $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`n### synopsis`n`nGets.`n`n## comment:1`n`n### stray`n")
+        $help.findings.Count | Should -Be 0
+    }
+
+    It 'reports no section on a page without one' {
+        [Catzc.Base.QualityGates.FunctionHelp]::Parse("# docs`n`n## comment:1`n").present | Should -BeFalse
+    }
+
+    Context 'writing the section into a page' -Tag 'ADR-REPO-COMMENTS#6' {
+        It 'puts a new section before the page''s first section and keeps every other byte' {
+            $page = "# docs/x.ps1`n`nThe intro.`n`n## comment:1`n`nAbove ``x``.`n"
+            [Catzc.Base.QualityGates.FunctionHelp]::WithSection($page, "## help`n`n### synopsis`n`nGets.`n") |
+                Should -BeExactly "# docs/x.ps1`n`nThe intro.`n`n## help`n`n### synopsis`n`nGets.`n`n## comment:1`n`nAbove ``x``.`n"
+        }
+
+        It 'appends the section to a page with no section yet' {
+            [Catzc.Base.QualityGates.FunctionHelp]::WithSection("# docs/x.ps1`n`nThe intro.`n", "## help`n`n### synopsis`n`nGets.`n") |
+                Should -BeExactly "# docs/x.ps1`n`nThe intro.`n`n## help`n`n### synopsis`n`nGets.`n"
+        }
+
+        It 'replaces an existing section, so a second write changes nothing' {
+            $page = "# t`n`n## help`n`n### synopsis`n`nOld.`n`n## comment:1`n`nx`n"
+            $once = [Catzc.Base.QualityGates.FunctionHelp]::WithSection($page, "## help`n`n### synopsis`n`nNew.`n")
+            $once | Should -BeExactly "# t`n`n## help`n`n### synopsis`n`nNew.`n`n## comment:1`n`nx`n"
+            [Catzc.Base.QualityGates.FunctionHelp]::WithSection($once, "## help`n`n### synopsis`n`nNew.`n") | Should -BeExactly $once
+        }
+    }
+}

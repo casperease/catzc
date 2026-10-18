@@ -158,12 +158,24 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 ### Phase 5: help on the comment page
 
-- [ ] `automation/Catzc.Base.QualityGates/private/Get-HelpHeadFinding.ps1`: check the `## help` section of the comment page (synopsis
-      present, one `### parameter` per `param()` entry in order) instead of the head's `config` part, and name every other reader of head
-      help before the move. (check: `tests/Get-HelpHeadFinding.Tests.ps1`)
-- [ ] `automation/Catzc.Base.QualityGates/Export-Comments.ps1`: a help step that moves a head's help keys into the page's `## help` section
-      in the fixed shape and leaves an existing section alone; run once over the tree, then per-file `Test-Comments`. (check:
-      `tests/Export-Comments.Tests.ps1`, a second run changes nothing)
+Built 2026-10-18, wired into nothing yet, so no file changes until the pass: `types/FunctionHelp.cs` (renders, parses and inserts the
+section), `CodeMetaHead.WithoutConfig` and `MarkdownMetaBlock.WithoutConfig`, `CommentEngine.FreshPage` (the one fresh-page opening),
+`private/Move-FunctionHelp.ps1` (one file, refuses a non-help config key) and `private/Get-HelpPageFinding.ps1` (the page-based check,
+the same faults as the head one). 83 tests pass over them and the existing Export-Comments, Get-HelpHeadFinding, CodeMetaHead and
+MarkdownMetaBlock tests. `Export-Comments` keeps a `## help` section untouched: its page parser treats everything before the first
+`## comment:<n>` as the prefix, written back verbatim. A full dry run (`out/help-preview.ps1`, pages under `out/help-preview/`): 752 files
+move, 839 hold no help, one is unmapped, one has page findings, and after Prettier 243 of the 752 pages fail markdownlint (856 errors,
+537 of them MD033 for placeholders such as `<build>`), because the help was written as plain text inside YAML.
+
+- [ ] Decide how help text that is plain text becomes a page section (243 pages fail markdownlint as written). (check: the answer is
+      recorded under Decided)
+- [ ] `automation/Catzc.Base.QualityGates/configs/comments.yml`: map `.claude/drawio` to a page folder, so
+      `.claude/drawio/minimaps/highlights.ps1` has a page for its help. (check: `out/help-preview.ps1` reports no unmapped file)
+- [ ] `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`: document `Text` and `Color`, which its help does not name.
+      (check: `out/help-preview.ps1` reports no page findings)
+- [ ] The switch, in the one tree-wide pass: `Invoke-ImprintStep.ps1`'s `ps-help` step calls `Get-HelpPageFinding` with the page text,
+      `Get-HelpHeadFinding.ps1` and its test go, `Move-FunctionHelp` runs over every PowerShell file, then `Format-Links` and `Format-Code`
+      over the pages. (check: `Test-Formatting`, `Test-Comments`, `Test-Markdownlint` over the pages, a second move changes nothing)
 
 ## Refs
 

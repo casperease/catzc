@@ -139,4 +139,11 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         { $script:block::Render([ordered]@{ '' = 'widget' }, [ordered]@{}, $script:none) } | Should -Throw
         { $script:block::Render([ordered]@{}, [ordered]@{ '' = 'widget' }, $script:none) } | Should -Throw
     }
+
+    It 'drops the config part and keeps the facts as written, and a block with nothing else is no block' -Tag 'ADR-REPO-HELP#1' {
+        $lines = [string[]] @('catzc:', '  immutable:', '    path: widget.ps1', '  config:', '    synopsis: Gets.', '    parameters:', '      Name: N.')
+        $script:block::WithoutConfig($lines) | Should -Be @('catzc:', '  immutable:', '    path: widget.ps1')
+        $script:block::WithoutConfig([string[]] @('catzc:', '  config:', '    synopsis: Gets.')).Count | Should -Be 0
+        $script:block::WithoutConfig([string[]] @('catzc:', '  edges:', '    page: p.md')) | Should -Be @('catzc:', '  edges:', '    page: p.md')
+    }
 }

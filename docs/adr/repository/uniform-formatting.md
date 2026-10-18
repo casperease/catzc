@@ -14,12 +14,14 @@ catzc:
     defines:
       - ADR-REPO-FORMAT#{1-9}
     cites:
+      - ADR-AUTO-CACHE#10
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-CODEMETA#4
       - ADR-REPO-COMMENTS#5
       - ADR-REPO-CONTRACT#{5,6}
       - ADR-REPO-FILEMETA#{1,3,5}
     links:
+      - docs/adr/automation/caching.md#rule-adr-auto-cache10
       - docs/adr/pipelines/pipeline-naming-and-placement.md
       - docs/adr/principles/configure-not-program.md
       - docs/adr/pwsh/powershell-formatting.md
@@ -105,13 +107,16 @@ engine that formats its files, or states in `no_formatter:` why it has none. `Fo
 vendored code, contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
 [ADR-REPO-CONTRACT#5](api-contracts.md#rule-adr-repo-contract5)), and the files `.gitattributes` marks `binary`, such as the generated
 output under `automation/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same entries — there is no formatting
-command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1). The registry lists, under `imprint:`, each **imprint step**:
-a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the top of the registry is global: it runs
-over every file whose carrier is not none ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)), whatever its language, as the meta
-block does ([ADR-REPO-CODEMETA#4](code-file-meta.md#rule-adr-repo-codemeta4)). A language's own entry lists the steps that concern only its
-files, such as the C# namespace. A step may also write a companion file that belongs to the file it formats: the `comments` step moves a
-file's long comments into the file's comment page ([ADR-REPO-COMMENTS#5](comments-in-docs.md#rule-adr-repo-comments5)), and that page
-carries its own meta block, whose `kind` marks it as a comment page. `Test-Formatting` checks the same steps, and no check names one.
+command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1). An engine's entry also lists its `settings:`, and those
+entries are its whole cache stamp: its own settings files and the `tools.yml` keys of the tools it runs, nothing else, so another tool's pin
+edit leaves its results warm ([ADR-AUTO-CACHE#10](../automation/caching.md#rule-adr-auto-cache10)). The registry lists, under `imprint:`,
+each **imprint step**: a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the top of the
+registry is global: it runs over every file whose carrier is not none ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)),
+whatever its language, as the meta block does ([ADR-REPO-CODEMETA#4](code-file-meta.md#rule-adr-repo-codemeta4)). A language's own entry
+lists the steps that concern only its files, such as the C# namespace. A step may also write a companion file that belongs to the file it
+formats: the `comments` step moves a file's long comments into the file's comment page
+([ADR-REPO-COMMENTS#5](comments-in-docs.md#rule-adr-repo-comments5)), and that page carries its own meta block, whose `kind` marks it as a
+comment page. `Test-Formatting` checks the same steps, and no check names one.
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 

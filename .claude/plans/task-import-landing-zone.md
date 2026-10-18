@@ -30,6 +30,8 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#5
+      - ADR-AUTO-TEST#10
+      - ADR-AZ-LZ#1
       - ADR-DSGN-TRACK#17
 ---
 
@@ -74,11 +76,11 @@ source's kebab name, a clash fails, no suffix is ever added (ADR-AUTO-DEFAULT#6,
   `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`, not the Docs glossary; "landing zone" is ADR-AZ-LZ#1's term, so the ADRs say
   "where imports land" and the glossary contrasts landing address with landing zone, both ways; `note` stays defined until
   task-file-head-leftovers step 10 (D20). Test-Glossary clean on the terms after the back-contrasts.
-- Step 4: `Import-RepositoryWithHistory.ps1`, the history move a subtree merge in core git (fetch, `merge -s ours
-  --allow-unrelated-histories --no-commit`, `read-tree --prefix -u`, one commit); it also asserts the target has nothing staged.
-  `ANALYZER issues=0`; the manifest lists it.
-- Step 5: the test file is L2, not L1: it runs real git, which ADR-AUTO-TEST#10 keeps out of L0 and L1. `[Invoke-TestFile] Passed
-  (snapshot)`, 8 of 8 (`out/test-file/20261018-104015-c9e450`).
+- Step 4: `Import-RepositoryWithHistory.ps1`, the history move a subtree merge in core git (fetch,
+  `merge -s ours --allow-unrelated-histories --no-commit`, `read-tree --prefix -u`, one commit); it also asserts the target has nothing
+  staged. `ANALYZER issues=0`; the manifest lists it.
+- Step 5: the test file is L2, not L1: it runs real git, which ADR-AUTO-TEST#10 keeps out of L0 and L1.
+  `[Invoke-TestFile] Passed (snapshot)`, 8 of 8 (`out/test-file/20261018-104015-c9e450`).
 - Step 6: `docs/how-to/automation/sort-an-import.md`, `LINKS issues=0`, `MDLINT issues=0`; no how-to index page exists to list it in.
 - Step 7: the Phase 1 step of plan-plans-body-sha-landing-zone is ticked.
 

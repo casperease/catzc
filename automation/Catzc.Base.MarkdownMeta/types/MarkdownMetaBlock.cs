@@ -134,6 +134,27 @@ public static class MarkdownMetaBlock
         return lines;
     }
 
+    // The block without its config part; a block left with only its own `catzc:` line is no block.
+    public static IReadOnlyList<string> WithoutConfig(IReadOnlyList<string> block)
+    {
+        var lines = new List<string>();
+        if (block == null) { return lines; }
+        bool inside = false;
+        foreach (string line in block)
+        {
+            if (line.StartsWith("  " + ConfigKey + ":", StringComparison.Ordinal) && !line.StartsWith("   ", StringComparison.Ordinal))
+            {
+                inside = true;
+                continue;
+            }
+            if (inside && (line.Trim().Length == 0 || line.StartsWith("   ", StringComparison.Ordinal))) { continue; }
+            inside = false;
+            lines.Add(line);
+        }
+        if (lines.Count == 1 && lines[0] == MarkdownDocument.MetaKey + ":") { lines.Clear(); }
+        return lines;
+    }
+
     // The keys at the block's first level, two spaces in: `immutable`, `edges`, `config`, and anything else an author wrote.
     public static IReadOnlyList<string> SectionKeys(IReadOnlyList<string> block) => KeysAt(block, 2, null);
 

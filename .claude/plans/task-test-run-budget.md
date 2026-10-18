@@ -25,6 +25,10 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-CACHE#10
+      - ADR-REPO-FORMAT#8
 ---
 
 # Task: the full test run under its 180 s roof
@@ -35,11 +39,18 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
 
 ## Steps
 
-1. D08 recorded; `docs/adr/repository/uniform-formatting.md`: one sentence, an engine's cache stamp contains its own tool pin and its own
-   settings files, nothing else. Check: Test-AdrRegistry, Test-Links.
-2. The stamp: find where it is built (`Catzc.Base.Engines` or the Format-Code cache in QualityGates); per engine, hash only that engine's
-   pin from `tools.yml` and its settings files. Two tests: an unrelated pin edit leaves another engine's cache warm; every declared stamp
-   input invalidates it (the risk is a stale result from a missed input). Check: the Test-Formatting tests pass cold and warm.
+1. [x] D08 recorded; `docs/adr/repository/uniform-formatting.md`: one sentence, an engine's cache stamp contains its own tool pin and its
+       own settings files, nothing else. Check: Test-AdrRegistry, Test-Links. Done 2026-10-18: ADR-REPO-FORMAT#8 says an engine's
+       `settings:` entries are its whole stamp, citing ADR-AUTO-CACHE#10; `ADRREG issues=0`, `LINKS issues=0`, `MDLINT issues=0`.
+2. [x] The stamp: find where it is built (`Catzc.Base.Engines` or the Format-Code cache in QualityGates); per engine, hash only that
+       engine's pin from `tools.yml` and its settings files. Two tests: an unrelated pin edit leaves another engine's cache warm; every
+       declared stamp input invalidates it (the risk is a stale result from a missed input). Check: the Test-Formatting tests pass cold and
+       warm. Correction 2026-10-18, from the tree: the work had already landed. `Get-FormatEngineStamp` (QualityGates, private) hashes each
+       `<file>#<key>` entry by that key's value alone, and every engine in `languages.yml` lists `tools.yml#<tool>` keys, never the whole
+       registry. Its tests already hold both cases: 'stays when only another key changes' and 'changes when that key's value changes', plus
+       the missing-input and never-the-whole-registry cases; 13 of 13 pass. `Test-Formatting.Tests.ps1` passes 4 of 5 cold and warm (15.2 s,
+       then 10.2 s); the failure is its integrity case, "formatting leaves the repository unchanged", over 18 unformatted working-tree
+       files, none of them a stamp file.
 3. After the user's two full runs with the new history: `Invoke-TestFile.Tests.ps1` no longer shares a shard with
    `Test-Formatting.Tests.ps1`; record the shard table and wall clock against the 265.8 s run in the plan. Check: the table in the plan.
 4. Next three files by cost (Get-BicepParameterModel.Shipped 33.6 s, Import-Catzc 32.9 s, Build-Bicep.L2 31.3 s, then the Test-BuildArtifact

@@ -190,8 +190,8 @@ column names are the value-chain concerns.
 The **unordered track** (`.unordered`, class `unordered`) is where imports land, and the unordered part of the repository is whatever is
 still under `.unordered/`. An **import** brings an outside repository into this one with its full history; it lands at a **landing
 address**, `.unordered/<name>`, where the name is a short kebab word unique among the addresses. **Sorting** moves a file from its landing
-address to its module or track with `git mv`, so its history follows. The track is not part of the system: no command, default, glob,
-gate, generator, or agent reads, writes, or falls back to it unless a person names it, and nothing depends on a file in it.
+address to its module or track with `git mv`, so its history follows. The track is not part of the system: no command, default, glob, gate,
+generator, or agent reads, writes, or falls back to it unless a person names it, and nothing depends on a file in it.
 
 - [The unordered track](#the-unordered-track)
 
@@ -300,12 +300,12 @@ label that names none.
 ### The unordered track
 
 An outside repository brought into this one arrives with a history worth keeping and a layout that matches none of this repository's
-modules. Importing it straight into a module would mix its files with code the gates hold to the domain rules before anyone has judged
-them; leaving the history behind would lose the record of why each file is the way it is. The unordered track is the place between: a
-root folder that git tracks and the world map counts, so the place rule (ADR-DSGN-TRACK#1) holds, and each import lands whole at its own
-landing address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so `git log
---follow` keeps every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name that is
-taken fails the import, so a second import of the same source is a decision, never an accident.
+modules. Importing it straight into a module would mix its files with code the gates hold to the domain rules before anyone has judged them;
+leaving the history behind would lose the record of why each file is the way it is. The unordered track is the place between: a root folder
+that git tracks and the world map counts, so the place rule (ADR-DSGN-TRACK#1) holds, and each import lands whole at its own landing
+address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so `git log --follow` keeps
+every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name that is taken fails the
+import, so a second import of the same source is a decision, never an accident.
 
 The track is where imports land, not a source: it has no tech-stack beyond what an import brings, no consumer, and no default. Anything that
 quietly read from it would make the system depend on files nobody has sorted yet, so the rule is stated as a prohibition, and every other

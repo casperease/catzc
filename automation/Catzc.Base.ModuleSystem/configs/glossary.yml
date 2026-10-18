@@ -80,8 +80,8 @@ concepts:
     domain: design
     defined_by: ADR-DSGN-TRACK#17
     short:
-      The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads
-      or falls back to it.
+      The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads or
+      falls back to it.
     realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Variants/configs/variants.yml" }
   import:
     key: import
@@ -91,8 +91,7 @@ concepts:
     realized_by: { kind: function, pattern: "Import-RepositoryWithHistory" }
     contrasts:
       importer:
-        The importer brings catzc's modules into a session; an import brings an outside repository's files and history into this
-        repository.
+        The importer brings catzc's modules into a session; an import brings an outside repository's files and history into this repository.
   landing address:
     key: landing_address
     domain: design
@@ -367,5 +366,4 @@ concepts:
         Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and modules into a session.
       run mode: A run mode says where the importer reads the modules from; the importer decides which modules, languages and engines load.
       import:
-        An import brings an outside repository's files and history into this repository; the importer brings catzc's modules into a
-        session.
+        An import brings an outside repository's files and history into this repository; the importer brings catzc's modules into a session.

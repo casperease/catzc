@@ -18,6 +18,10 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-CACHE#10
+      - ADR-REPO-FORMAT#8
 ---
 
 # The full test run under its 180 s roof
@@ -45,7 +49,10 @@ so the value is a suite that proves the same in less time. The user runs full su
 
 - [x] Decide the stamp rule (check: the ADR sentence exists). Decided 2026-10-18 (D08): an engine's stamp contains its own tool pin and its
       own settings files, nothing else; the sentence and the tests are task-test-run-budget steps 1 and 2.
-- [ ] Change the stamp, add both tests (check: Test-Formatting tests pass cold and warm).
+- [x] Change the stamp, add both tests (check: Test-Formatting tests pass cold and warm). Done 2026-10-18, already in the tree: each engine
+      lists `tools.yml#<tool>` keys and `Get-FormatEngineStamp` hashes each key alone (ADR-AUTO-CACHE#10); its 13 tests hold both cases and
+      pass, and ADR-REPO-FORMAT#8 states the stamp. `Test-Formatting.Tests.ps1` is 4 of 5 cold and warm; its integrity case fails on
+      unformatted working-tree files only.
 - [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting after two runs (check: the shard manifests of two runs
       place them apart).
 - [ ] Next three files by cost, one at a time via the test-optimization agent (check: same assertions, lower time).

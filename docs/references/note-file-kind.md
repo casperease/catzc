@@ -13,7 +13,6 @@ catzc:
   edges:
     cites:
       - ADR-DSGN-TRACK#17
-      - ADR-REPO-FILEMETA#11
 ---
 
 # The `note` file kind: what it said, and where it lives now
@@ -28,12 +27,13 @@ note:
   files: [".unordered/**"]
   git:
     attributes: [catzc-notes]
-    why: the unordered track holds fragments frozen as they were committed, not product docs — the content tools (links, Markdown
-      titles, source conventions) leave them as written, like out/ for the spelling, lint and glossary scans.
+    why:
+      the unordered track holds fragments frozen as they were committed, not product docs — the content tools (links, Markdown titles,
+      source conventions) leave them as written, like out/ for the spelling, lint and glossary scans.
 ```
 
-It did two jobs. It named the file kind of everything under `.unordered/`, and its `git` block gave those files the `catzc-notes`
-attribute, which `Get-ContentExemptPath` and the source-conventions engine-set exemption read so the content tools left them as written.
+It did two jobs. It named the file kind of everything under `.unordered/`, and its `git` block gave those files the `catzc-notes` attribute,
+which `Get-ContentExemptPath` and the source-conventions engine-set exemption read so the content tools left them as written.
 ADR-DSGN-TRACK#17 bolded **note** as the term, and the ModuleSystem glossary defined it.
 
 ## Why it goes

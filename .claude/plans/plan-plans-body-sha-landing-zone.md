@@ -75,10 +75,10 @@ other plan.
       then the minimaps are re-rendered on the user's ask (diagram work, never unasked) (check: Test-GeneratedFiles reports Unstamped 0).
 - [x] Binding audit of the .unordered references, read-only. Done 2026-10-17 (audit): the section "Binding audit" below holds one verdict
       per code and config line (12 files) and the markdown counts. Check: 12 verdict rows, a counts table, three authored pages named.
-- [x] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean). Done 2026-10-18
-      (task-import-landing-zone): rule 17 and its section, track-types.md and track-types.yml, four terms in the ModuleSystem glossary,
-      `Import-RepositoryWithHistory` (subtree merge in core git) and `Import-RepositoryWithHistory.Tests.ps1`, 8 of 8 passed, L2 because it
-      runs real git (`out/test-file/20261018-104015-c9e450`), the how-to `docs/how-to/automation/sort-an-import.md`.
+- [x] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean). Done 2026-10-18 (task-import-landing-zone):
+      rule 17 and its section, track-types.md and track-types.yml, four terms in the ModuleSystem glossary, `Import-RepositoryWithHistory`
+      (subtree merge in core git) and `Import-RepositoryWithHistory.Tests.ps1`, 8 of 8 passed, L2 because it runs real git
+      (`out/test-file/20261018-104015-c9e450`), the how-to `docs/how-to/automation/sort-an-import.md`.
 - [x] Phase 2 rules and gate; the cleaner exists. Done 2026-10-17 (plans ADR): ADR-REPO-PLANS with nine rules, ADR-REPO-FOLDERS#12 (stable
       locators), ADR-REPO-VOCAB#9 (PowerShell naming), Test-Plans with plans.yml and PlansConfig, registered as a markdown check and as
       plan-clear's check; the folder brought to the shape (statuses, targets, Open steps sections, checks on every step). Check: Test-Plans

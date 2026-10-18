@@ -176,4 +176,19 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
             $parsed.Rest | Should -BeExactly $text
         }
     }
+
+    Context 'removing the config part' -Tag 'ADR-REPO-HELP#1' {
+        It 'keeps the facts as written and drops the authored lines' {
+            $text = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '  config:', '    synopsis: Gets.', '---', '*/', '', 'class B { }', ''
+            [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($text, $script:block).WithoutConfig() |
+                Should -BeExactly (& $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '---', '*/', '', 'class B { }', '')
+        }
+
+        It 'removes a head that held nothing but config, and leaves a file without a head as it is' {
+            $text = & $script:lf '/*', '---', 'catzc:', '  config:', '    synopsis: Gets.', '---', '*/', '', 'class B { }', ''
+            [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($text, $script:block).WithoutConfig() | Should -BeExactly (& $script:lf 'class B { }', '')
+            $bare = & $script:lf 'class B { }', ''
+            [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($bare, $script:block).WithoutConfig() | Should -BeExactly $bare
+        }
+    }
 }

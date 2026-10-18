@@ -14,6 +14,8 @@ catzc:
     module: Catzc.Base.Variants
     moduletype: pwsh-folder
     catzc_bundle: azure
+  edges:
+    page: docs/references/automation/catzc-base-variants/types/TrackTypeEntry.cs.md
 ---
 */
 
@@ -35,8 +37,6 @@ public sealed class TrackTypeEntry
     // The module types a module of a track of this type may have.
     public IReadOnlyList<string> admits { get; }
 
-    // The git attributes every file under a place of a track of this type gets in the generated .gitattributes, and why;
-    // empty and null when the type gives none.
     public IReadOnlyList<string> gitAttributes { get; }
     public string gitWhy { get; }
 

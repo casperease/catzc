@@ -274,6 +274,12 @@ public static class CommentEngine
         return new CommentFileResult(repoRelativePath, pagePath, newText, newPage, blocks);
     }
 
+    // The opening of a page the exporter or the help move writes for the first time: its title and the line that says what it holds.
+    public static string FreshPage(string repoRelativePath) =>
+        "# " + repoRelativePath + "\n\n"
+        + "The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its\n"
+        + "comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.\n";
+
     // The page ignores these words too, or moved prose would fail a spell check the file itself passed.
     public static IReadOnlyList<string> IgnoredWords(string text, string extension)
     {
@@ -575,11 +581,7 @@ public static class CommentEngine
         {
             var builder = new StringBuilder();
             bool fresh = Sections.Count == 0 && Prefix.Trim().Length == 0;
-            string prefix = fresh
-                ? "# " + repoRelativePath + "\n\n"
-                    + "The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its\n"
-                    + "comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.\n"
-                : Prefix.TrimEnd('\n') + "\n";
+            string prefix = fresh ? FreshPage(repoRelativePath) : Prefix.TrimEnd('\n') + "\n";
             builder.Append(WithIgnoreLine(prefix, repoRelativePath, ignoredWords).TrimEnd('\n')).Append("\n\n");
             if (!fresh)
             {

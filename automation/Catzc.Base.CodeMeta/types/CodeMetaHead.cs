@@ -123,7 +123,14 @@ public sealed class CodeMetaHead
     public string WithFacts(IDictionary immutable, IDictionary edges)
     {
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(immutable, edges, config);
+        return Compose(MarkdownMetaBlock.Render(immutable, edges, config));
+    }
+
+    // The whole text again with the head's authored config part removed and its facts kept as written; a head with nothing else goes.
+    public string WithoutConfig() => HasHead ? Compose(MarkdownMetaBlock.WithoutConfig(metaBlock)) : Before + Rest;
+
+    string Compose(IReadOnlyList<string> block)
+    {
         if (block.Count == 0) { return Before + Rest; }
         var text = new StringBuilder(Before);
         if (Before.Length > 0 && !Before.EndsWith("\n", StringComparison.Ordinal)) { text.Append(NewLine); }

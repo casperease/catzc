@@ -33,8 +33,8 @@ module or track where each belongs. This guide covers both.
    Import-RepositoryWithHistory -Source C:\projects\widget-tools -DryRun
    ```
 
-   The landing name is the source's folder or repository name in kebab case. Pass `-Name` for another short kebab word, and `-Ref` for a
-   ref other than the source's default branch. A name that is taken fails; no suffix is ever added.
+   The landing name is the source's folder or repository name in kebab case. Pass `-Name` for another short kebab word, and `-Ref` for a ref
+   other than the source's default branch. A name that is taken fails; no suffix is ever added.
 
 4. Run the same command without `-DryRun`. One merge commit joins the source's history to this repository's, and the files land under
    `.unordered/<name>/`; nothing outside the address changes.
@@ -55,5 +55,5 @@ Move one file or one folder per step, then run the gates that hold the place it 
 
 ## What stays
 
-Whatever is still under `.unordered/` is the work left to sort. Nothing reads from it or depends on it, so a half-sorted import never
-breaks the system. When a landing address is empty, remove its folder.
+Whatever is still under `.unordered/` is the work left to sort. Nothing reads from it or depends on it, so a half-sorted import never breaks
+the system. When a landing address is empty, remove its folder.
