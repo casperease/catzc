@@ -1,0 +1,7 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-FunctionDependency, the quality gate that checks every
+# function-to-function call resolves to a defined command, and returns its result under -PassThru.
+parameters:
+  ModulesRoot: string
+  OutputFolder: string
+  PassThru: switch
+output: Catzc.Base.Reports.QualityGateResult

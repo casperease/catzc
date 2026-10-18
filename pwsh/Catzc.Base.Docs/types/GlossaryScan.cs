@@ -69,7 +69,10 @@ public static class GlossaryScan
     public static string[] Forms(IEnumerable<GlossaryEntry> entries, IEnumerable<string> trackedFiles, string root, IDictionary surfaceCache)
     {
         List<Hit> hits = new List<Hit>();
-        foreach (Source source in Sources(entries, e => e.Options.checks.Contains("forms") && e.Concept.forms.Count > 0))
+        List<GlossaryEntry> all = entries.ToList();
+        // A qualifier that makes another defined term with the head (`staging` + `slot`) names that concept, not a form of this one.
+        HashSet<string> definedTerms = new HashSet<string>(all.Select(e => Whitespace.Replace(e.Concept.term, " ")), StringComparer.OrdinalIgnoreCase);
+        foreach (Source source in Sources(all, e => e.Options.checks.Contains("forms") && e.Concept.forms.Count > 0))
         {
             var concepts = source.Entries.Select(e =>
             {
@@ -79,6 +82,7 @@ public static class GlossaryScan
                 return new
                 {
                     e.Concept.term,
+                    Head = head,
                     e.Concept.defined_by,
                     Allowed = new HashSet<string>(e.Concept.forms, StringComparer.OrdinalIgnoreCase),
                     Forms = string.Join(", ", e.Concept.forms.Select(f => f + " " + head).Concat(new[] { head })),
@@ -96,7 +100,8 @@ public static class GlossaryScan
                     foreach (Match match in concept.Qualified.Matches(segment.Text))
                     {
                         string qualifier = match.Groups["q"].Value;
-                        if (!concept.Allowed.Contains(qualifier) && !FunctionWords.Contains(qualifier) && !Number.IsMatch(qualifier))
+                        if (!concept.Allowed.Contains(qualifier) && !FunctionWords.Contains(qualifier) && !Number.IsMatch(qualifier)
+                            && !definedTerms.Contains(qualifier + " " + concept.Head))
                         {
                             uses.Add(match);
                         }

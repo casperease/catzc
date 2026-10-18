@@ -38,7 +38,8 @@ Every issue the gate found, one message each; empty when the repository passes.
 
 ### parameter `Facts`
 
-Optional ordered facts about the run (e.g. @{ Terms = 412 }), listed in the report and added to the -PassThru object.
+Optional ordered facts about the run (e.g. @{ Terms = 412 }), listed in the report (a list fact as its count) and returned under the
+result's `Facts`.
 
 ### parameter `OutputFolder`
 
@@ -46,11 +47,11 @@ The report base folder. Defaults to `<output root>/<folder from reports.yml>`.
 
 ### parameter `PassThru`
 
-Return { Subject; IssueCount; Issues; ReportPath; `<facts>` } instead of throwing on issues.
+Return the gate's `QualityGateResult` (Subject, IssueCount, Issues, ReportPath and Facts) instead of throwing on issues.
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

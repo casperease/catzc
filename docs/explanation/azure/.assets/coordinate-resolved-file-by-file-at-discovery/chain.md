@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8dd89e7e45ff"
+    with_body_sha: "1d36346f34a8"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
+    path: docs/explanation/azure/.assets/coordinate-resolved-file-by-file-at-discovery/chain.md
+    source: docs/explanation/azure/.assets/coordinate-resolved-file-by-file-at-discovery/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

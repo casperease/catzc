@@ -56,7 +56,7 @@ Return the gate result { Subject; IssueCount; Issues; ReportPath; Generators } i
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

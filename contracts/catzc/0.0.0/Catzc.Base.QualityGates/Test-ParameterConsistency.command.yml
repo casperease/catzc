@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-ParameterConsistency, the quality gate that checks one
+# parameter name means one type across the public functions, and returns its result under -PassThru.
+parameters:
+  OutputFolder: string
+  PassThru: switch
+output: Catzc.Base.Reports.QualityGateResult

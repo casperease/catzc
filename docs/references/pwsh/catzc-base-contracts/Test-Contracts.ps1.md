@@ -64,7 +64,7 @@ throwing on issues. Assets counts every checked asset, PinnedAssets those of old
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

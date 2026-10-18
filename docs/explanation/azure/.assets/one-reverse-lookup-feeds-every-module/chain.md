@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5fe876297045"
+    with_body_sha: "06ee6a83bfd5"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
+    path: docs/explanation/azure/.assets/one-reverse-lookup-feeds-every-module/chain.md
+    source: docs/explanation/azure/.assets/one-reverse-lookup-feeds-every-module/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

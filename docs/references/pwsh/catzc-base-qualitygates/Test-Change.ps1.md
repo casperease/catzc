@@ -54,7 +54,7 @@ Return the gate result { Subject; IssueCount; Issues; ReportPath; Changed; Tests
 
 ### outputs
 
-`[pscustomobject]` With -PassThru or -DryRun only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru or -DryRun only.
 
 ### example 1
 

@@ -19,9 +19,9 @@ Anyone who runs an Azure DevOps REST function in cats, from a pipeline or a term
 you have set is used, from the top down. When that setup is wrong you see its own message, and cats does not quietly try the next one: to
 switch credentials, unset the one above.
 
-![What you set decides the credential](../.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png)
+![What you set decides the credential](.assets/what-you-set-decides-the-credential/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](what-you-set-decides-the-credential.drawio.md). Each failure carries
+The diagram is described element by element in [its asset description](.assets/what-you-set-decides-the-credential/diagram.drawio.md). Each failure carries
 a verbatim fragment of its message; the full messages are quoted below.
 
 ## Walkthrough

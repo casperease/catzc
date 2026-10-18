@@ -19,9 +19,9 @@ The tracks ADR sets rules at three levels: what a track is, how a deployable-uni
 the first two in code, when the configuration loads and in integrity tests. The rule that binds one unit to one pipeline, and the rule that
 a cross-cutting slice is a scope rather than a new track, have no check in code: code review holds them.
 
-![Tracks and units are checked in code, 1-1 is review only](../.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png)
+![Tracks and units are checked in code, 1-1 is review only](.assets/unit-to-pipeline-rule-is-review-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](unit-to-pipeline-rule-is-review-only.drawio.md).
+The diagram is described element by element in [its asset description](.assets/unit-to-pipeline-rule-is-review-only/diagram.drawio.md).
 
 ## Walkthrough
 

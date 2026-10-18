@@ -52,7 +52,7 @@ Return the gate result { Subject; IssueCount; Issues; ReportPath; Scripts } inst
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

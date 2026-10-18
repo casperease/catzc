@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c48b8d1da699
+    with_body_sha: "15f26278a589"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
-    source: docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
+    path: docs/explanation/azure/.assets/one-namer-assembles-every-name/chain.md
+    source: docs/explanation/azure/.assets/one-namer-assembles-every-name/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

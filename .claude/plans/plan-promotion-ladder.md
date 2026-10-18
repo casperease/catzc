@@ -51,8 +51,15 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
   subscriptions; an optional `staging_for: <environment>` on the environment record (AzureEnvironmentRecord) names what it stages,
   validated in AzureConfig (target exists, neither per_subscription, every subscription listing it lists its target); "inactive until
   activated" is run-time state DEPLOY's cutover changes, not config; DEPLOY reads `staging_for`.
-- [ ] Pre-prod: the staging slot in the prod subscription, declared in the azure config and inactive until activated (check: the
+- [x] Landed 2026-10-18 by session catzc-59, verdict: "AzureConfig.Tests passed (4 new staging_for cases plus the shipped azure.yml
+      integrity), EnvironmentApprovalsConfig.Tests passed, ADRREG ok, Test-Links/Test-Comments ok on the ADR and 3 reference pages,
+      Test-Contracts ok, Format-Code clean" (new rule ADR-AZ-DATAMOD#12; `preprod: staging_for: prod`). Original step: Pre-prod: the
+      staging slot in the prod subscription, declared in the azure config and inactive until activated (check: the
       resolver's L0 tests pass; Test-Contracts clean).
+- Step 5 shape, decided by the orchestrator on the user's delegation 2026-10-18: the deploy-and-verify stages are extracted now into one
+  stage template both CD and DEPLOY call (ADR-FLOW-CD-TYPE#9, no fork), cd-customer and cd-shared keep an identical stage graph, so the
+  user's pending CD proof run (plan-explanation-drift-gaps Q1, Q2) proves the template that will live; four `deploy-<unit>.yaml` files;
+  the certifying CD run tags its own run `certified-<rung>`. The user is the one approver in `approver_group.members` (2026-10-18).
 - [ ] The DEPLOY pipeline: takes a CI run id, resolves that run's artifact, deploys it to prod; the certifying CD run records the run id
       (check: Test-Pipelines and the pipeline contract check clean; the first real run is the user's).
 

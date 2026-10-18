@@ -20,9 +20,9 @@ gate that stops the flow when they break: the function naming, the configuration
 thin in the first place (no reimplementation, everything as code, a swappable substrate) have no code behind them and are held by review
 alone.
 
-![Three gates guard the CLI and az; thinness has none](../.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png)
+![Three gates guard the CLI and az; thinness has none](.assets/what-keeps-the-platform-thin/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](what-keeps-the-platform-thin.drawio.md).
+The diagram is described element by element in [its asset description](.assets/what-keeps-the-platform-thin/diagram.drawio.md).
 
 ## Walkthrough
 

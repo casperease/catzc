@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7591509a654e"
+    with_body_sha: "822246c68989"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--config-path-is-a-coordinate--meta.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
+    path: docs/explanation/azure/.assets/config-path-is-a-coordinate/chain.md
+    source: docs/explanation/azure/.assets/config-path-is-a-coordinate/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

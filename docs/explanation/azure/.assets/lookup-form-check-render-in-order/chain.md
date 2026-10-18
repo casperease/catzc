@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e95843409ed9
+    with_body_sha: "6f3c4df74260"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md
-    source: docs/explanation/.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
+    path: docs/explanation/azure/.assets/lookup-form-check-render-in-order/chain.md
+    source: docs/explanation/azure/.assets/lookup-form-check-render-in-order/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

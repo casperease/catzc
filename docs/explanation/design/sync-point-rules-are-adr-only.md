@@ -19,9 +19,9 @@ The sync point is the commit `main-UAT` holds: upstream integrators take it, nev
 the promotion ladder around it, only one has a gate in cats: the BVT rung, checked by the `ci-automation` pipeline. Every rule about
 occupants, the sync point and the dirty HEAD is ADR-only, so "sync from `main-UAT`" is a convention that no code checks.
 
-![Only BVT has a gate in code; the sync-point rules are ADR-only](../.assets/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png)
+![Only BVT has a gate in code; the sync-point rules are ADR-only](.assets/sync-point-rules-are-adr-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](sync-point-rules-are-adr-only.drawio.md).
+The diagram is described element by element in [its asset description](.assets/sync-point-rules-are-adr-only/diagram.drawio.md).
 
 ## Walkthrough
 

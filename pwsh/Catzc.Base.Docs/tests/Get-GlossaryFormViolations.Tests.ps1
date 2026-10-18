@@ -90,6 +90,27 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:1 says `"sprocket widget`" — $script:tail")
     }
 
+    It 'allows a qualifier that makes another defined term with the head, and still reports one that does not' -Tag 'ADR-REPO-VOCAB#8' {
+        $relative = 'docs/alpha.md'
+        $full = Join-Path $TestDrive $relative
+        [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+        [System.IO.File]::WriteAllText($full, "The sprocket widget runs.`nThe gizmo widget runs.")
+        $sprocketWidget = [Catzc.Base.Docs.GlossaryConcept]::new('sprocket widget', [ordered]@{
+                key         = 'sprocket_widget'
+                domain      = 'design'
+                defined_by  = 'ADR-TST-SPROCKET#1'
+                short       = 'A sprocket widget.'
+                realized_by = [ordered]@{ kind = 'prose-only' }
+            })
+        $defined = [Catzc.Base.Docs.GlossaryEntry]::new($sprocketWidget, 'Catzc.Gadget', 'widgets/Catzc.Gadget/configs/glossary.yml',
+            [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
+        $parameters = @{ Entries = @((& $script:entry), $defined); Files = [string[]] @($relative); Root = [string] $TestDrive }
+        $found = @(InModuleScope Catzc.Base.Docs -Parameters $parameters {
+                Get-GlossaryFormViolations -Entry $Entries -TrackedFile $Files -Root $Root
+            })
+        $found | Should -Be @("docs/alpha.md:2 says `"gizmo widget`" — $script:tail")
+    }
+
     It 'skips a source that opts out of the forms check' -Tag 'ADR-REPO-VOCAB#2' {
         & $script:scan @{ 'docs/alpha.md' = @('The sprocket widget runs.') } @{ checks = @('anchored', 'single', 'avoid', 'enforced') } |
             Should -BeNullOrEmpty

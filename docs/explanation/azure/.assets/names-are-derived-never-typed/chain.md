@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aae266d5c0df
+    with_body_sha: "555fd936cd29"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-naming--names-are-derived-never-typed--operations.chain.md
-    source: docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
+    path: docs/explanation/azure/.assets/names-are-derived-never-typed/chain.md
+    source: docs/explanation/azure/.assets/names-are-derived-never-typed/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

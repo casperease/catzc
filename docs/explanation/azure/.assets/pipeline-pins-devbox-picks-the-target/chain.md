@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "55cf61c7ba12"
+    with_body_sha: "073a99cbe747"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
+    path: docs/explanation/azure/.assets/pipeline-pins-devbox-picks-the-target/chain.md
+    source: docs/explanation/azure/.assets/pipeline-pins-devbox-picks-the-target/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

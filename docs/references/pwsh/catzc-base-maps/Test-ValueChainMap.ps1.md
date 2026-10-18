@@ -41,7 +41,7 @@ NonEmptyCells counts the cells that hold at least one ADR, and Labels the printe
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

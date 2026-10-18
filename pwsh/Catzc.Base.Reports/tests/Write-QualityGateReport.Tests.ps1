@@ -28,10 +28,10 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     It 'returns the result with its facts instead of throwing under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
         $result = Write-QualityGateReport -Subject gadget -Title Test-Gadget -Issues @('one problem') `
             -Facts ([ordered]@{ Files = 3 }) -PassThru
+        $result | Should -BeOfType ([Catzc.Base.Reports.QualityGateResult])
         $result.Subject | Should -Be 'gadget'
         $result.IssueCount | Should -Be 1
         $result.Issues | Should -Be @('one problem')
-        $result.Files | Should -Be 3
         $result.Facts['Files'] | Should -Be 3
         [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'gadget.md')) | Should -Match '- Files: 3'
     }

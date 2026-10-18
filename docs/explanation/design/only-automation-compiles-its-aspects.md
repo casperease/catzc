@@ -19,9 +19,9 @@ depend on that reader, and they use the convention differently. `Catzc.Base.Glob
 folder and derives two globsets per module. `Catzc.Base.Maps` reads every track's entry, the infrastructure one included, but only to decide
 whether a file is live for the world map. No part of cats derives a globset from the infrastructure convention.
 
-![Only automation compiles its aspects](../.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png)
+![Only automation compiles its aspects](.assets/only-automation-compiles-its-aspects/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](only-automation-compiles-its-aspects.drawio.md).
+The diagram is described element by element in [its asset description](.assets/only-automation-compiles-its-aspects/diagram.drawio.md).
 
 ## Walkthrough
 

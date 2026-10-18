@@ -20,9 +20,9 @@ two test runs, two asserts, and the tests behind the mode function. The seventh,
 alone, because no code tells the kinds apart. A reader who wants to know which run-mode promises are enforced finds the gate for each rule
 here.
 
-![Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](../.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png)
+![Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](.assets/which-run-mode-rules-have-a-gate/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](which-run-mode-rules-have-a-gate.drawio.md).
+The diagram is described element by element in [its asset description](.assets/which-run-mode-rules-have-a-gate/diagram.drawio.md).
 
 ## Walkthrough
 

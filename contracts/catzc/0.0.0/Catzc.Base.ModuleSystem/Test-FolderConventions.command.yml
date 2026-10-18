@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-FolderConventions, the quality gate that checks every
+# module folder under pwsh/ follows the folder and file conventions, and returns its result under -PassThru.
+parameters:
+  OutputFolder: string
+  PassThru: switch
+output: Catzc.Base.Reports.QualityGateResult

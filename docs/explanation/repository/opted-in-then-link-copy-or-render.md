@@ -21,9 +21,9 @@ Supports ADR-REPO-ROOTCFG#2, #4, #5, #7 and #8 (implementation lens).
 validates it; keeps the opted-in entries; and for each one either asks for a link, composes the source under a generated-file head, or asks
 a generator for its output and writes the same head over it. Two primitives in `Catzc.Base.Files` do every write.
 
-![The optIn filter, then link, copy or render, through two write primitives](../.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png)
+![The optIn filter, then link, copy or render, through two write primitives](.assets/opted-in-then-link-copy-or-render/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](opted-in-then-link-copy-or-render.drawio.md).
+The diagram is described element by element in [its asset description](.assets/opted-in-then-link-copy-or-render/diagram.drawio.md).
 
 ## Walkthrough
 

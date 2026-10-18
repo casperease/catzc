@@ -18,9 +18,9 @@ ships is a deployable-unit, and each pipeline is the delivery machine of what it
 two CI pipelines bind the `automation` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks ADR and
 the globset ADR both say so.
 
-![CD binds through units, CI binds the track sets](../.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png)
+![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](units-not-tracks-own-the-pipelines.drawio.md).
+The diagram is described element by element in [its asset description](.assets/units-not-tracks-own-the-pipelines/diagram.drawio.md).
 
 ## Walkthrough
 

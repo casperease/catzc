@@ -20,9 +20,9 @@ a built `Catzc` package. Each mode has its own entry script and its own code roo
 handed on to one importer, which loads one set of modules, and those modules find their own files through the same code root. That is why a
 build is a second run mode of the same modules, and not a second product.
 
-![Two code roots feed one importer, which loads the same modules](../.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png)
+![Two code roots feed one importer, which loads the same modules](.assets/two-roots-one-importer-same-modules/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](two-roots-one-importer-same-modules.drawio.md).
+The diagram is described element by element in [its asset description](.assets/two-roots-one-importer-same-modules/diagram.drawio.md).
 
 ## Walkthrough
 

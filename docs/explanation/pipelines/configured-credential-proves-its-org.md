@@ -17,9 +17,9 @@ the credential by what is configured, in a fixed order, and never by trial and e
 configured organization or tenant before a header leaves, and when it fails it raises its own error instead of handing over to the next
 source.
 
-![The first configured source wins and proves its org](../.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png)
+![The first configured source wins and proves its org](.assets/configured-credential-proves-its-org/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](configured-credential-proves-its-org.drawio.md).
+The diagram is described element by element in [its asset description](.assets/configured-credential-proves-its-org/diagram.drawio.md).
 
 ## Walkthrough
 

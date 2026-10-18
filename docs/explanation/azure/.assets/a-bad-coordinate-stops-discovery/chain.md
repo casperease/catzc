@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2949c0eee0f9"
+    with_body_sha: b5af6df1bb01
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
+    path: docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery/chain.md
+    source: docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

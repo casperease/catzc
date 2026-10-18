@@ -18,9 +18,9 @@ Supports ADR-PIPE-AUTH#1, #2, #3 and #5 (implementation lens).
 is a short ladder of four checks and three returns: two guarded early returns, then the az CLI path, which asserts twice before its final
 return. Every check either returns a header, passes control on, or throws; a check that throws never hands over to the next rung.
 
-![Four checks in code order, three returns and three throws](../.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png)
+![Four checks in code order, three returns and three throws](.assets/three-guarded-early-returns/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](three-guarded-early-returns.drawio.md).
+The diagram is described element by element in [its asset description](.assets/three-guarded-early-returns/diagram.drawio.md).
 
 ## Walkthrough
 

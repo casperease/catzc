@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2711c689b20f"
+    with_body_sha: b7fa6f2f04fe
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
+    path: docs/explanation/azure/.assets/coordinate-rules-and-their-gates/chain.md
+    source: docs/explanation/azure/.assets/coordinate-rules-and-their-gates/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

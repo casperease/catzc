@@ -20,9 +20,9 @@ commit state each one grants beside it, the gates split cleanly into those a pip
 ADRs. Three checks exist in code: PR build validation, the BVT, and the stop that keeps a failed stage from reaching the next one. Every
 gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 
-![Only PR build validation, the BVT and the failure stop are checked in code](../.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png)
+![Only PR build validation, the BVT and the failure stop are checked in code](.assets/which-rung-gates-exist-in-code/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](which-rung-gates-exist-in-code.drawio.md).
+The diagram is described element by element in [its asset description](.assets/which-rung-gates-exist-in-code/diagram.drawio.md).
 
 ## Walkthrough
 

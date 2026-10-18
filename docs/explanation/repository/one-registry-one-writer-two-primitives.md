@@ -20,9 +20,9 @@ Root config materialisation in cats has four parts and one direction. Sources of
 `Catzc.Base.Files` owns; and the targets fall into two kinds that differ by one boolean. The dependency edges point one way, from the
 RootConfig module to the Files module and to the modules that hold the generators, and nothing reads the registry back.
 
-![One registry, one writer, two write primitives, two kinds of target](../.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png)
+![One registry, one writer, two write primitives, two kinds of target](.assets/one-registry-one-writer-two-primitives/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-registry-one-writer-two-primitives.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-registry-one-writer-two-primitives/diagram.drawio.md).
 
 ## Walkthrough
 

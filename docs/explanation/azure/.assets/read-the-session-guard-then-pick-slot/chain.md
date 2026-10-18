@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "70f0b7bdda00"
+    with_body_sha: bd336e08ac81
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
+    path: docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot/chain.md
+    source: docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

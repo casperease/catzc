@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9dc562f534d
+    with_body_sha: "4e5c36aa788f"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--four-gates-hold-the-session-rule--governance.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
+    path: docs/explanation/azure/.assets/four-gates-hold-the-session-rule/chain.md
+    source: docs/explanation/azure/.assets/four-gates-hold-the-session-rule/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

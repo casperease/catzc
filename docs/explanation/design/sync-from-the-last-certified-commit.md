@@ -14,9 +14,9 @@ Supports ADR-DSGN-LIFE#6, #7 and #8 (meta lens).
 the commit to build on is the one the always-on non-prod environment holds, because it has already cleared every gate a machine decides.
 When the newest commit fails, it becomes the dirty HEAD, and nothing follows it.
 
-![Sync from the last certified commit, not from the tip of main](../.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png)
+![Sync from the last certified commit, not from the tip of main](.assets/sync-from-the-last-certified-commit/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](sync-from-the-last-certified-commit.drawio.md).
+The diagram is described element by element in [its asset description](.assets/sync-from-the-last-certified-commit/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -16,9 +16,9 @@ ADR-PIPE-AUTH has seven rules, and tests check only some of them. The L0 tests o
 proofs, and one CI step checks that the token mapping works. The PAT's binding to the org, the empty-token assert, the one-function rule and
 the no-caching rule have no gate at all.
 
-![Which auth rungs have a gate](../.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png)
+![Which auth rungs have a gate](.assets/which-auth-rungs-have-a-gate/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](which-auth-rungs-have-a-gate.drawio.md).
+The diagram is described element by element in [its asset description](.assets/which-auth-rungs-have-a-gate/diagram.drawio.md).
 
 ## Walkthrough
 

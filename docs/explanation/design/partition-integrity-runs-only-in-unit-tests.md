@@ -20,9 +20,9 @@ a check when the config loads. Two do not. The partition check of ADR-DSGN-ASPEC
 sha lock of ADR-DSGN-ASPECT#4 has no mechanism at all. Knowing which rules a gate holds, and which only the ADR states, tells a reviewer
 where a mistake would slip through.
 
-![Partition integrity runs only in unit tests](../.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png)
+![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](partition-integrity-runs-only-in-unit-tests.drawio.md).
+The diagram is described element by element in [its asset description](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.md).
 
 ## Walkthrough
 

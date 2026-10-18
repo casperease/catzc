@@ -42,7 +42,7 @@ Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSet; Workf
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

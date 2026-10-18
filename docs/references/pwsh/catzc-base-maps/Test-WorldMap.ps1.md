@@ -43,7 +43,7 @@ on issues. StackViolations counts the files that break their track's tech-stack,
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

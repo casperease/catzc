@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4ff151bf22ef"
+    with_body_sha: "10790806c823"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
-    source: docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+    path: docs/explanation/azure/.assets/how-each-naming-rule-is-held/chain.md
+    source: docs/explanation/azure/.assets/how-each-naming-rule-is-held/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -1,0 +1,27 @@
+# One artifact into $(Pipeline.Workspace)/<Artifact>: from this run, or, when RunId is set, from that run of ArtifactPipeline (DEPLOY
+# takes the exact artifact CI built, by run id; ADR-FLOW-CD#6).
+parameters:
+  - name: Artifact
+    type: string
+  - name: ArtifactPipeline
+    type: string
+    default: ""
+  - name: RunId
+    type: string
+    default: ""
+
+steps:
+  - ${{ if eq(parameters.RunId, '') }}:
+      - download: current
+        artifact: ${{ parameters.Artifact }}
+  - ${{ else }}:
+      - task: DownloadPipelineArtifact@2
+        displayName: "Download ${{ parameters.Artifact }} from ${{ parameters.ArtifactPipeline }} run ${{ parameters.RunId }}"
+        inputs:
+          buildType: specific
+          project: $(System.TeamProjectId)
+          definition: ${{ parameters.ArtifactPipeline }}
+          buildVersionToDownload: specific
+          pipelineId: ${{ parameters.RunId }}
+          artifactName: ${{ parameters.Artifact }}
+          targetPath: $(Pipeline.Workspace)/${{ parameters.Artifact }}

@@ -18,9 +18,9 @@ checker in cats tests it, and nothing in the repository runs the deploy it allow
 way, since every `Deploy_*` stage runs only from main. The drawing rules of ADR-DSGN-VISUAL that colour these commits have no checker
 either, and none is expected.
 
-![ADR-DSGN-LIFE#9 is ADR-only and every Deploy stage is main-only](../.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png)
+![ADR-DSGN-LIFE#9 is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](out-of-band-deploy-is-adr-only.drawio.md).
+The diagram is described element by element in [its asset description](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.md).
 
 ## Walkthrough
 

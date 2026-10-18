@@ -1,7 +1,7 @@
 function Write-QualityGateReport {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'Every gate forwards its own -OutputFolder here, empty when its caller gave none; an explicit empty argument would override a declared default (ADR-PWSH-PARAM#4)')]
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [Parameter(Mandatory)]
         [ValidatePattern('^[a-z0-9]+(-[a-z0-9]+)*$')]
@@ -75,18 +75,7 @@ function Write-QualityGateReport {
     Write-Message "$Title report: $runDir" -ForegroundColor Cyan -NoHeader
 
     if ($PassThru) {
-        $result = [ordered]@{
-            Subject    = $Subject
-            IssueCount = $Issues.Count
-            Issues     = [string[]] @($Issues)
-            ReportPath = $runDir
-        }
-        # A temporary seam, facts flattened and under Facts ([ADR-PRIN-ONELIVE#8](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive8)).
-        foreach ($key in $Facts.Keys) {
-            $result[$key] = $Facts[$key]
-        }
-        $result['Facts'] = [Catzc.Base.Reports.QualityGateResult]::new($Subject, [string[]] @($Issues), $runDir, $Facts).Facts
-        return [pscustomobject]$result
+        return [Catzc.Base.Reports.QualityGateResult]::new($Subject, [string[]] @($Issues), $runDir, $Facts)
     }
 
     if ($Issues.Count -gt 0) {

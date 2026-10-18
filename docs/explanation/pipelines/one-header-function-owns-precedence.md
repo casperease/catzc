@@ -18,9 +18,9 @@ Cats calls the Azure DevOps REST API from several modules, but only one function
 call uses. The API functions never touch a credential themselves. Around that function sit the parts it rests on: the step template that
 supplies the pipeline token, the az CLI module, and `ado.yml`, which every proof is checked against.
 
-![One header function owns the precedence](../.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png)
+![One header function owns the precedence](.assets/one-header-function-owns-precedence/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-header-function-owns-precedence.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-header-function-owns-precedence/diagram.drawio.md).
 
 ## Walkthrough
 

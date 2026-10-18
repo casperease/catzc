@@ -52,7 +52,7 @@ EngineSet; NeutralCodes }) instead of throwing on issues. EngineSet and NeutralC
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 

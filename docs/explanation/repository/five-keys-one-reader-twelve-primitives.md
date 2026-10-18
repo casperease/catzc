@@ -21,9 +21,9 @@ Supports ADR-REPO-VARIANT#1, #2, #4, #5 and #6 (implementation lens).
 fifteen public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
 the accessor to the `Test-` and `Assert-` guards that answer a question or stop the run.
 
-![Five keys, one private reader, twelve exported primitives](../.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png)
+![Five keys, one private reader, twelve exported primitives](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](five-keys-one-reader-twelve-primitives.drawio.md).
+The diagram is described element by element in [its asset description](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.md).
 
 ## Walkthrough
 

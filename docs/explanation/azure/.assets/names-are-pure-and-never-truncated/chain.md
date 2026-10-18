@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c1398ad59b06
+    with_body_sha: "24c016b308a9"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-naming--names-are-pure-and-never-truncated--meta.chain.md
-    source: docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
+    path: docs/explanation/azure/.assets/names-are-pure-and-never-truncated/chain.md
+    source: docs/explanation/azure/.assets/names-are-pure-and-never-truncated/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

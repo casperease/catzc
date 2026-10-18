@@ -49,113 +49,16 @@ stages:
               - publish: out/template/expedition
                 artifact: expedition
 
-  # --- Deploy foundation (per-subscription Key Vault) — main only --------------------------------
-  - stage: Deploy_Foundation
-    displayName: "Deploy foundation (${{ parameters.Customer }})"
-    dependsOn: CI
-    # Skipped when the customer's unit is untouched; the later Deploy stages chain on this one, so they skip with it.
-    condition:
-      and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'],
-      'True'))
-    jobs:
-      - ${{ each f in parameters.Foundations }}:
-          - deployment: Foundation_${{ f.env }}
-            displayName: "foundation → ${{ f.env }}"
-            environment: ${{ parameters.Customer }}-${{ f.env }}
-            pool:
-              vmImage: ubuntu-latest
-            strategy:
-              runOnce:
-                deploy:
-                  steps:
-                    - checkout: self
-                    - download: current
-                      artifact: foundation
-                    - template: /pipelines/steps/invoke-automation.yaml
-                      parameters:
-                        DisplayName: "Deploy-Bicep ${{ f.env }} foundation (session target, assert ${{ f.subscriptionIdAssertIs }})"
-                        Mode: azcli
-                        ServiceConnection: ${{ f.serviceConnection }}
-                        RunCommand:
-                          'Deploy-Bicep -Environment ${{ f.env }} -Template foundation -SubscriptionIdAssertIs ${{ f.subscriptionIdAssertIs
-                          }} -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
-
-  # --- Deploy discovery (the customer's spoke, per subscription) — after foundation, main only ----
-  - stage: Deploy_Discovery
-    displayName: "Deploy discovery (${{ parameters.Customer }})"
-    dependsOn: Deploy_Foundation
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-    jobs:
-      - ${{ each d in parameters.Discoveries }}:
-          - deployment: Discovery_${{ d.env }}
-            displayName: "discovery → ${{ d.env }}"
-            environment: ${{ parameters.Customer }}-${{ d.env }}
-            pool:
-              vmImage: ubuntu-latest
-            strategy:
-              runOnce:
-                deploy:
-                  steps:
-                    - checkout: self
-                    - download: current
-                      artifact: discovery
-                    - template: /pipelines/steps/invoke-automation.yaml
-                      parameters:
-                        DisplayName: "Deploy-Bicep ${{ d.env }} discovery (session target, assert ${{ d.subscriptionIdAssertIs }})"
-                        Mode: azcli
-                        ServiceConnection: ${{ d.serviceConnection }}
-                        RunCommand:
-                          'Deploy-Bicep -Environment ${{ d.env }} -Template discovery -SubscriptionIdAssertIs ${{ d.subscriptionIdAssertIs
-                          }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
-
-  - ${{ if gt(length(parameters.Expeditions), 0) }}:
-      - stage: Deploy_Expedition
-        displayName: "Deploy expedition (${{ parameters.Customer }})"
-        dependsOn: Deploy_Discovery
-        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-        jobs:
-          - ${{ each w in parameters.Expeditions }}:
-              - ${{ if w.slot }}:
-                  - deployment: Expedition_${{ w.env }}_${{ w.slot }}
-                    displayName: "expedition → ${{ w.env }}-${{ w.slot }}"
-                    environment: ${{ parameters.Customer }}-${{ w.env }}-${{ w.slot }}
-                    pool:
-                      vmImage: ubuntu-latest
-                    strategy:
-                      runOnce:
-                        deploy:
-                          steps:
-                            - checkout: self
-                            - download: current
-                              artifact: expedition
-                            - template: /pipelines/steps/invoke-automation.yaml
-                              parameters:
-                                DisplayName:
-                                  "Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{
-                                  w.subscriptionIdAssertIs }})"
-                                Mode: azcli
-                                ServiceConnection: ${{ w.serviceConnection }}
-                                RunCommand:
-                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }} -SubscriptionIdAssertIs
-                                  ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
-              - ${{ else }}:
-                  - deployment: Expedition_${{ w.env }}
-                    displayName: "expedition → ${{ w.env }}"
-                    environment: ${{ parameters.Customer }}-${{ w.env }}
-                    pool:
-                      vmImage: ubuntu-latest
-                    strategy:
-                      runOnce:
-                        deploy:
-                          steps:
-                            - checkout: self
-                            - download: current
-                              artifact: expedition
-                            - template: /pipelines/steps/invoke-automation.yaml
-                              parameters:
-                                DisplayName: "Deploy-Bicep ${{ w.env }} expedition (session target, assert ${{ w.subscriptionIdAssertIs }})"
-                                Mode: azcli
-                                ServiceConnection: ${{ w.serviceConnection }}
-                                RunCommand:
-                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs ${{
-                                  w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
+  # --- Deploy foundation → discovery → expedition, main only: the unit's one deploy path, shared with its DEPLOY ---------------
+  - template: /pipelines/stages/deploy-unit.yaml
+    parameters:
+      Unit: ${{ parameters.Customer }}
+      Foundations: ${{ parameters.Foundations }}
+      Discoveries: ${{ parameters.Discoveries }}
+      Expeditions: ${{ parameters.Expeditions }}
+      DependsOn: CI
+      # Skipped when the customer's unit is untouched; the later Deploy stages chain on this one, so they skip with it.
+      FirstCondition:
+        and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'],
+        'True'))
+      Condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))

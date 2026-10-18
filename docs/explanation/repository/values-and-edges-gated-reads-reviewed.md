@@ -17,9 +17,9 @@ The six rules of the variants decision are held by two gates and one habit. The 
 loads; the module-dependency check proves that the module keeps its three declared edges; and the rule that nothing reads the file directly,
 the one the decision is named for, has no gate at all and is left to code review. That gap is what the diagram points at.
 
-![Values and module edges pass a quality gate; the no-direct-read rule is left to review](../.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png)
+![Values and module edges pass a quality gate; the no-direct-read rule is left to review](.assets/values-and-edges-gated-reads-reviewed/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](values-and-edges-gated-reads-reviewed.drawio.md).
+The diagram is described element by element in [its asset description](.assets/values-and-edges-gated-reads-reviewed/diagram.drawio.md).
 
 ## Walkthrough
 

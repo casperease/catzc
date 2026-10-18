@@ -31,7 +31,7 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; KindCount; Process
 
 ### outputs
 
-`[pscustomobject]` With -PassThru only.
+`[Catzc.Base.Reports.QualityGateResult]` With -PassThru only.
 
 ### example 1
 
