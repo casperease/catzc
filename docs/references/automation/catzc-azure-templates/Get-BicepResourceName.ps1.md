@@ -24,6 +24,72 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Generates an Azure resource name for a template's slot from the naming standard.
+
+### description
+
+The templating-layer name generator. It resolves the name components from the template and
+environment, then assembles the name for the requested resource type via Get-AzureResourceName:
+
+- env         — the environment NAME (generous types) and its 2-char shortcode (restricted)
+- slot        — the optional special-slot discriminator (`-Slot`)
+- region_code — the environment's azure.yml region_code
+- org         — azure.yml top-level org
+- short_name  — the template's options.yml short_name
+- order       — the active naming order (Get-AdoNaming; the ado_naming repo-wide variant)
+
+The caller supplies only what is genuinely per-call: the resource Type and optional Customer /
+Role. Two intended uses for the same generator:
+
+```text
+validation — compare a name configured in a template's ParametersFile against the generated
+             one to catch drift.
+generation — produce the name to inject into the built parameter files (the PrePost seam).
+```
+
+### parameter Template
+
+Template name.
+
+### parameter Environment
+
+Environment shortname.
+
+### parameter Type
+
+Resource-type abbreviation — a key of Get-AzureResourceTypeSet (`rg`, `st`, `kv`, ...).
+
+### parameter Slot
+
+Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
+
+### parameter Customer
+
+Optional customer, named by its key OR its 2-char shortcode (customer.yml). Its readable key renders in
+generous names and its 2-char shortcode in restricted ones — both resolved here (Get-AzureCustomer) and
+passed to the namer.
+
+### parameter Role
+
+Optional 2-3 char sibling discriminator among same-type resources (per resource).
+
+### example 1
+
+```powershell
+Get-BicepResourceName -Template sample -Environment dev -Type st   # -> deweuzctsmplst
+```
+
+### example 2
+
+```powershell
+Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type rg
+# -> dev-001-weu-zct-sidx-rg
+```
+
 ## comment:1
 
 Above `$envEntry = $azure.environments[$Environment]`, written with `#`.

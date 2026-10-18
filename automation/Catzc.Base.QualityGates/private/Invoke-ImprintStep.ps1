@@ -21,17 +21,6 @@ catzc:
     cites:
       - ADR-PRIN-CONFIG#2
       - ADR-REPO-FORMAT#8
-  config:
-    synopsis: Runs one imprint step over the given files and returns what it changed and what it cannot repair.
-    description: 'A language is never named here: which language runs which step is configuration, not code.'
-    parameters:
-      Step: The step name, as languages.yml spells it.
-      File: Absolute paths of the files to imprint.
-      RepositoryRoot: The repository root.
-      DryRun: List the files the step would change without writing them.
-    outputs: |-
-      [pscustomobject] @{ Changed; Unfixable } — absolute paths changed (or, under -DryRun, that would change), and a map of absolute path
-      to the problem for the files a person must repair.
 ---
 #>
 
@@ -87,10 +76,17 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            # The help is data in the head, so the step only reports what a person must settle and changes no file.
-            $form = (Get-Config -Config file-carriers).Find('powershell').Form()
+            # The help is the ## help section of the file's comment page, so the step only reports what a person must settle and changes no file.
+            $comments = Get-Config -Config comments
             foreach ($path in $File) {
-                $findings = @(Get-HelpHeadFinding -Text ([System.IO.File]::ReadAllText($path)) -Form $form)
+                $page = $comments.PageFor(([System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/'))
+                $pageText = if ($page -and [System.IO.File]::Exists((& $absolute $page))) {
+                    [System.IO.File]::ReadAllText((& $absolute $page))
+                }
+                else {
+                    $null
+                }
+                $findings = @(Get-HelpPageFinding -Text ([System.IO.File]::ReadAllText($path)) -PageText $pageText)
                 if ($findings.Count -gt 0) {
                     $outcome.Unfixable[$path] = "function help needs a hand edit: $($findings -join '; ')"
                 }

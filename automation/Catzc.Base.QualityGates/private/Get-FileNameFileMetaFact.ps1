@@ -20,19 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-FileNameFileMetaFact.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#11
-  config:
-    synopsis: 'The file-name meta kind''s facts: the folder of the file under its module, and its name in kebab case.'
-    description: |-
-      The path under the module (the whole path for a file placed in no module) is split into an optional folder, a kebab-case name and the
-      file type, which the file-type kind writes
-      ([ADR-REPO-FILEMETA#11](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta11)). The split asserts that the three build the path
-      back, so a path that is not made of them stops the run. A file directly in its module has no folder, so that key is left out of its
-      head.
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

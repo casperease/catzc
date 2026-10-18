@@ -20,31 +20,6 @@ catzc:
     cites:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-PARAM#4
-  config:
-    synopsis: 'Writes a quality gate''s report, prints it, and ends the gate: throws once with every issue, or returns the result.'
-    description: |-
-      The one implementation of a quality gate's output
-      ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)), so every gate reports the same way:
-
-        - a run folder <output root>/<folder>/<stamp>/ holding <report_file> — a markdown report naming the gate, its
-          facts, and every issue — and <latest_file> beside the stamped folders, naming the latest run;
-        - each issue printed, then the count (or "No <subject> issues found."), then the report path;
-        - with -PassThru, a result object instead of a throw; otherwise, when there are issues, one throw that lists them
-          all (a fail-fast, aggregated verdict).
-
-      Folder and file names come from configs/reports.yml (Catzc.Base.Reports.ReportsConfig), whose defaults give
-      out/test-<subject>/<yyyyMMdd-HHmmss>/<subject>.md and out/test-<subject>/latest.txt. A gate calls this last, with the
-      issues it collected; it never writes its own report.
-    parameters:
-      Subject: The gate's subject, kebab-case ('spelling', 'shipped-configs'); names the report folder and file.
-      Title: The gate's display name ('Test-Spelling'); heads the report and starts the failure message.
-      Issues: Every issue the gate found, one message each; empty when the repository passes.
-      Facts: Optional ordered facts about the run (e.g. @{ Terms = 412 }), listed in the report and added to the -PassThru object.
-      OutputFolder: The report base folder. Defaults to <output root>/<folder from reports.yml>.
-      PassThru: Return { Subject; IssueCount; Issues; ReportPath; <facts> } instead of throwing on issues.
-    outputs: '[pscustomobject] With -PassThru only.'
-    examples:
-      - Write-QualityGateReport -Subject spelling -Title Test-Spelling -Issues $issues -Facts ([ordered]@{ Files = 812 }) -PassThru:$PassThru
 ---
 #>
 

@@ -25,6 +25,70 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Discovers all bicep templates under $(Get-RepositoryRoot)/infrastructure/templates.
+
+### description
+
+Scans `infrastructure/templates/` at depth 1 for template folders (reusable bicep modules live
+in the sibling `infrastructure/modules/` and are NOT discovered here). Each folder must contain
+a `main.bicep` and a `configuration/` subfolder. A config lives at the configuration ROOT —
+`configuration/<env>[-<slot>].yml`, a shared-platform deployment — or under a customer subfolder,
+`configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY from
+customer.yml. One config file ⟷ one resource group
+([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)). The filename
+resolves (Resolve-BicepConfigName) to its environment + optional slot: `dev.yml` (base slot of env
+`dev`), `dev-001.yml` (slot `001`). The SUBSCRIPTION is resolved per config
+(Get-BicepConfigSubscriptionCandidates): a root config's env must be served by exactly one
+non-customer subscription; a customer config's env by exactly one of that customer's subscriptions.
+Validated at discovery: the subfolder is a defined customer key, and every config resolves to
+exactly one subscription id.
+
+Returns one ordered dictionary per template with these keys:
+
+```text
+name                  — folder name (the template identifier)
+folder                — absolute path to the template folder
+main                  — path to main.bicep
+bicep_files           — all *.bicep files in the template folder
+configuration_folder  — path to the configuration/ subfolder
+configuration_files   — *.yml files at the configuration root and in configuration/<customer>/
+environments          — distinct env names across the slots (excluding 'default')
+subscriptions         — distinct resolved subscription names across the slots
+customers             — distinct customer names across the slots (the config subfolders)
+slots                 — one per config file: { name (=config), environment, slot, subscription, customer }
+                        (slot/customer empty for a base / shared-platform slot)
+short_name            — the Azure id segment (2-5 alnum, globally unique). DERIVED from the folder name
+                        ([Catzc.Azure.Templates.BicepShortName]::Resolve) unless options.yml overrides it
+output_folder         — where Build-Bicep writes main.json + parameters.<subscription>.<slot>.json
+deployment_mode       — 'Incremental' unless overridden by options.yml
+deployment_target     — 'ResourceGroup' unless overridden by options.yml
+environment_kind      — 'standard' unless options.yml sets it; the env-class bit (standard|subscription, see
+[ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md))
+customer_deployment   — whether this is a customer template; defaults to the have_customers variant unless
+                        options.yml sets it
+prepost_module        — path to PrePost.psm1 if present (key omitted otherwise)
+resources             — extra files in resources/ if present (key omitted otherwise)
+```
+
+Returns an empty array if no `infrastructure/templates/` folder exists at the repo root.
+
+A template's `short_name` is DERIVED from its folder name by default (the first 5 `[a-z0-9]` characters,
+hyphens dropped via
+`[Catzc.Azure.Templates.BicepShortName]::Resolve`. A template MAY override it (and/or declare
+`deployment_mode` / `deployment_target` / `environment_kind`) in an OPTIONAL `options.yml` beside
+`main.bicep`; Read-BicepTemplateOptions validates it (strict schema) and the values overlay the
+defaults here. Templates with no options.yml take the derived short_name and the mode/target defaults.
+
+### example 1
+
+```powershell
+Get-BicepTemplates | Format-Table name, deployment_target, environments
+```
+
 ## comment:1
 
 Above `if ($null -eq...`, written with `#`.

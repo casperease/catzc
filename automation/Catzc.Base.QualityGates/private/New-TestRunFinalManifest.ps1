@@ -17,27 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
-  config:
-    synopsis: Builds a test run's terminal run.json record.
-    description: |-
-      The record Invoke-TestRun stamps in its finally, on every exit path (Write-TestRunManifest): the terminal status
-      and timestamps, the tiers, category, and modules it ran, the failure counts, the run's context
-      (Get-TestRunContext, when the run got far enough to have one), what only the worker run knows
-      (ConvertTo-TestRunManifestEntry), and — for a run with an opt-out tag — the tag and how many tests it excluded.
-    parameters:
-      Status: 'The terminal status: passed, failed, or crashed.'
-      StartedAt: The run's start, as an ISO 8601 string.
-      MinLevel: The run's lowest tier.
-      MaxLevel: The highest tier the run executed.
-      Category: The category filter.
-      Modules: The modules in scope.
-      FailedCount: The number of failed tests.
-      FailedShardLabels: The shards that reported failure.
-      Context: The run's context record, or $null when the run failed before it had one.
-      WorkerRun: Invoke-TestAutomationWorkers' result, or $null.
-      OptOutTag: The run's opt-out tags; empty for none.
-      OptOutExcludedCount: How many tests the opt-out tags excluded.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] the run.json record.'
 ---
 #>
 

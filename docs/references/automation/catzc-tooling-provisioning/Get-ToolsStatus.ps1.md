@@ -19,6 +19,31 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Reports the installation status of all registered tools.
+
+### description
+
+Reads tool definitions from configs/tools.yml and checks each tool's
+presence, version, package manager, and install scope on the current
+machine. Returns status objects for programmatic use and writes a summary.
+Idempotent — safe to run at any time, read-only.
+
+### example 1
+
+```powershell
+Get-ToolsStatus
+```
+
+### example 2
+
+```powershell
+Get-ToolsStatus | Where-Object Status -ne 'OK'
+```
+
 ## comment:1
 
 Above `$versionJobs = @{}`, written with `#`.

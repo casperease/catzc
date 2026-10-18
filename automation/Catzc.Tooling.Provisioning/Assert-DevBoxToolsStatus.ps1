@@ -17,14 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
-  config:
-    synopsis: Asserts all tools are available at the correct version.
-    description: |-
-      Calls Get-ToolsStatus and throws if any tool is Missing or WrongVersion.
-      Tools with status OK or Usable pass — the tool works regardless of how
-      it was installed. Chocolatey status is ignored.
-    examples:
-      - Assert-DevBoxToolsStatus
 ---
 #>
 

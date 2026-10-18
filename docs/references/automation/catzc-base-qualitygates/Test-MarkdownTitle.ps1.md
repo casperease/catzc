@@ -1,0 +1,56 @@
+# automation/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+The Markdown title and heading quality gate: fails on any in-scope file whose H1 is not a title
+or whose headings are not in normal form.
+
+### description
+
+Runs the same check as Format-MarkdownTitle, read-only, and reports every file whose first line after any YAML
+front matter is not an H1 title (an H1 that is the file's path, or no H1), every heading with a trailing reference
+group, every unquoted dora-explains paragraph, every link to an anchor that moves, and every duplicate anchor. Running
+Format-MarkdownTitle fixes all of them except a Duplicate, an Untitled file and a Missing title, which the author
+writes; each issue says which.
+A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+through Write-QualityGateReport, which writes out/test-markdown-title/, prints every issue, and throws once
+listing them all. It needs the source tree: it throws in build mode.
+
+It rests on [ADR-REPO-FORMAT#6](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6) and [ADR-REPO-FORMAT#7](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format7).
+
+### parameter Path
+
+Files or folders to check. Default: every in-scope file.
+
+### parameter RepositoryRoot
+
+The repository root titles are relative to. Default: the loaded repository root.
+
+### parameter OutputFolder
+
+The report base folder. Defaults to `<out>/test-markdown-title`.
+
+### parameter PassThru
+
+Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
+
+### outputs
+
+Throws on any violation; with -PassThru, returns the result object.
+
+### example 1
+
+```powershell
+Test-MarkdownTitle
+```
+
+### example 2
+
+```powershell
+(Test-MarkdownTitle -PassThru).Issues
+```

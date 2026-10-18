@@ -22,6 +22,39 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Hashes every file of one contract version folder, the content a release freezes.
+
+### description
+
+A released version folder is immutable
+([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)); its .frozen record holds the
+hashes this returns, so a later change to any file shows as a different hash. Every file under the folder counts, at
+any depth, contract.yml included; only the record itself, .frozen directly in the folder, does not.
+
+Each hash is the SHA-256 of the file's bytes with every CRLF read as LF. Contract assets are text, and a checkout
+with core.autocrlf materialises them with CRLF while another checkout of the same commit has LF; reading line
+endings as LF gives every checkout of one commit the same hashes.
+
+### parameter Folder
+
+The version folder's absolute path.
+
+### outputs
+
+`[System.Collections.Specialized.OrderedDictionary]` The path under the folder, in communication form
+([ADR-AUTO-PATH#2](../../../../adr/automation/path-representation.md#rule-adr-auto-path2)), to its lowercase hex SHA-256,
+in ordinal order of path; keys compare ordinally.
+
+### example 1
+
+```powershell
+Get-ContractFileHashes -Folder $versionFolder
+```
+
 ## comment:1
 
 Above `$files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @()...`, written with `#`.

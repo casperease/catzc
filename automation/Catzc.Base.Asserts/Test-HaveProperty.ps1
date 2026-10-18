@@ -17,17 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
-  config:
-    synopsis: Tests whether an object has a specific property, or a nested chain of properties.
-    parameters:
-      Object: The object to inspect.
-      PropertyName: |-
-        The property name to look for. Dotted paths (e.g. 'parent.child.value')
-        walk each level in turn; a missing or null-valued intermediate short-circuits to $false
-        rather than throwing.
-    examples:
-      - Test-HaveProperty $object 'Name'
-      - Test-HaveProperty $config 'parent.child.etc.value'
 ---
 #>
 

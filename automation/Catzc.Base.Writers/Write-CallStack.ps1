@@ -16,10 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
-  config:
-    synopsis: Writes the current call stack in red for debugging.
-    examples:
-      - Write-CallStack
 ---
 #>
 

@@ -18,17 +18,6 @@ catzc:
     page: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
     cites:
       - ADR-AUTO-UVPY
-  config:
-    synopsis: Installs a tool using the platform package manager.
-    description: |-
-      Uses winget on Windows, brew on macOS, and apt-get on Linux.
-      Idempotent — skips if already installed at the correct version.
-      If the wrong version is found, -Force uninstalls and reinstalls.
-      Without -Force, throws with instructions.
-    parameters:
-      Tool: The snake_case tool key as defined in tools.yml.
-      Version: Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
-      Force: Automatically uninstall the wrong version before installing the correct one.
 ---
 #>
 

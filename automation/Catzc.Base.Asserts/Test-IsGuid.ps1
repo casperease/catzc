@@ -17,12 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Test-IsGuid.Tests.ps1
-  config:
-    synopsis: Tests whether a string is a valid GUID.
-    parameters:
-      ObjectGuid: The string to validate as a GUID.
-    examples:
-      - Test-IsGuid '15000000-1700-a000-601d-000000000000'
 ---
 #>
 

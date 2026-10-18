@@ -19,6 +19,25 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Returns tool names from tools.yml in dependency-safe install order.
+
+### description
+
+Performs a topological sort based on DependsOn fields. Tools with no
+dependencies come first, tools that depend on others come after their
+dependencies. Throws on circular dependencies.
+
+### example 1
+
+```powershell
+Get-ToolInstallOrder
+# Returns @('python', 'java', 'dotnet', 'node_js', 'terraform', 'poetry', 'az_cli', 'py_spark')
+```
+
 ## comment:1
 
 Above `$dependency = $allTools[$name]['depends_on']`, written with `#`.

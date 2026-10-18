@@ -15,17 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Tests whether an Azure CLI extension is installed.
-    description: |-
-      Returns $true if the named extension is installed, $false otherwise. Uses `az extension show` (a core
-      command) and inspects the exit code, so it never throws on a missing extension and never triggers a
-      dynamic install. Companion to Assert-AzCliExtension, mirroring the Test-/Assert-AzCliConnected pair.
-    parameters:
-      Name: The extension name (e.g. 'ip-group').
-    outputs: System.Boolean
-    examples:
-      - if (Test-AzCliExtension 'ip-group') { '...installed' }
 ---
 #>
 

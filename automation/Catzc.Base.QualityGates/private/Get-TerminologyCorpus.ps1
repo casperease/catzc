@@ -20,26 +20,6 @@ catzc:
     cites:
       - ADR-AZ-DATAMOD
       - ADR-PWSH-PESTER#9
-  config:
-    synopsis: |-
-      Builds the lower-cased text corpus the terminology orphan check searches — one bulk read, not a grep
-      per term.
-    description: |-
-      Concatenates the lower-cased text of the authored tree so orphan detection can confirm each registry term
-      is genuinely referenced. The net is deliberately WIDER than Test-Spelling's lint scope: on top of the
-      spell-scanned extensions it also scans the authored config files with no extension (.gitignore, .gitattributes,
-      .markdownlintignore, .prettierignore), because a term can be justified solely by a usage there — e.g. a
-      *.stackdump ignore pattern in .gitignore that the editor's cspell flags but Test-Spelling never scans.
-      Narrowing the orphan net to the lint scope manufactures false orphans, so it searches the whole tree.
-
-      Excludes the registry and its generated dictionaries — where every term trivially appears — so a hit in the
-      corpus means the term is referenced elsewhere. Returned as one string; the caller tests membership with a
-      case-insensitive substring check (ordinal, on already-lower-cased text), deliberately lenient: a term
-      embedded in a larger identifier still counts as referenced.
-    parameters:
-      Root: The repository root to scan under.
-      Exclude: Full paths to omit from the corpus (the registry file and the generated dictionaries).
-    outputs: '[string] The concatenated, lower-cased corpus.'
 ---
 #>
 

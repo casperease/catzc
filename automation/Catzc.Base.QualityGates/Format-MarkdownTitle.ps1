@@ -21,31 +21,6 @@ catzc:
     cites:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-FORMAT#{6,7}
-  config:
-    synopsis: Makes the H1 of every in-scope Markdown file its title and brings its headings into normal form.
-    description: |-
-      Makes each file's first line after any YAML front matter its title, an H1 that is not the file's path: an H1 that is
-      the path followed by one code-span line takes that line's text as its wording (the line goes), and a file with no
-      title is reported, since only a person can write one. Then each heading below it is made plain
-      words: a trailing group of code spans or a citation moves to its own line below the heading, a dora-explains
-      entry's DORA paragraph becomes a > blockquote, and every link to an anchor that changed is re-pointed
-      (Get-MarkdownHeadingFinding). A duplicate anchor is reported, not fixed — the author rewords it. The scope is every
-      git-tracked *.md file except those .gitattributes marks vendored or generated and the test fixture trees
-      (Get-MarkdownScope). Files are written as UTF-8 without a BOM, with their own line endings kept; a file
-      already in form is not touched, so a second run changes nothing. Test-MarkdownTitle is the gate. A source-tree
-      tool: it throws in build mode (Assert-SourceTree).
-    parameters:
-      Path: 'Files or folders to title. Default: every in-scope file.'
-      RepositoryRoot: 'The repository root titles are relative to. Default: the loaded repository root.'
-      DryRun: Report what would change without writing any file.
-      PassThru: Return a result object ({ ChangedCount; ChangedFiles; FileCount; DryRun }) instead of only the changed paths.
-    outputs: |-
-      [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result
-      object.
-    examples:
-      - Format-MarkdownTitle
-      - Format-MarkdownTitle -DryRun -PassThru
-      - Format-MarkdownTitle -Path docs/references
 ---
 #>
 

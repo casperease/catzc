@@ -16,14 +16,6 @@ catzc:
     visibility: public
   edges:
     page: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
-  config:
-    synopsis: Uninstalls a tool using the platform package manager.
-    description: |-
-      Uses winget on Windows, brew on macOS, and apt-get on Linux.
-      Skips if the tool is not installed.
-    parameters:
-      Tool: The snake_case tool key as defined in tools.yml.
-      Version: Version override. Defaults to the locked version.
 ---
 #>
 

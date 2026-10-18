@@ -19,6 +19,24 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Returns the descriptor for a single bicep template by name.
+
+### parameter Name
+
+Template name (the folder name under infrastructure/templates/).
+
+### example 1
+
+```powershell
+$t = Get-BicepTemplate sample
+$t.main
+$t.environments
+```
+
 ## comment:1
 
 Above `$template = (Get-BicepTemplates) | Where-Object { $_.name -eq $Name } |...`, written with `#`.

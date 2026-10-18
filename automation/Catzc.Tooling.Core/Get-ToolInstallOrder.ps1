@@ -17,16 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
     test: automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
-  config:
-    synopsis: Returns tool names from tools.yml in dependency-safe install order.
-    description: |-
-      Performs a topological sort based on DependsOn fields. Tools with no
-      dependencies come first, tools that depend on others come after their
-      dependencies. Throws on circular dependencies.
-    examples:
-      - |-
-        Get-ToolInstallOrder
-        # Returns @('python', 'java', 'dotnet', 'node_js', 'terraform', 'poetry', 'az_cli', 'py_spark')
 ---
 #>
 

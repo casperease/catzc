@@ -17,16 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md
     test: automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
-  config:
-    synopsis: Reports the installation status of all registered tools.
-    description: |-
-      Reads tool definitions from configs/tools.yml and checks each tool's
-      presence, version, package manager, and install scope on the current
-      machine. Returns status objects for programmatic use and writes a summary.
-      Idempotent — safe to run at any time, read-only.
-    examples:
-      - Get-ToolsStatus
-      - Get-ToolsStatus | Where-Object Status -ne 'OK'
 ---
 #>
 

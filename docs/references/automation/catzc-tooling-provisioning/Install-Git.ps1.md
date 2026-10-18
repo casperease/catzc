@@ -19,6 +19,37 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Installs Git (user-space on Windows, package manager elsewhere).
+
+### description
+
+Windows: Downloads the latest PortableGit from git-scm.com (GitHub
+releases) and extracts to LOCALAPPDATA\Git. No admin required.
+Persists PATH for future sessions.
+macOS: brew install git.
+Linux: apt-get install git (requires root).
+Idempotent — skips if already installed.
+
+### parameter Force
+
+Remove an existing installation before reinstalling.
+
+### example 1
+
+```powershell
+Install-Git
+```
+
+### example 2
+
+```powershell
+Install-Git -Force
+```
+
 ## comment:1
 
 Above `$digest = if ($asset.PSObject.Properties['digest']) {`, written with `#`.

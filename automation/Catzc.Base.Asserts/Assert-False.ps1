@@ -17,14 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-False.Tests.ps1
-  config:
-    synopsis: Asserts that a value is boolean $false.
-    parameters:
-      Value: The value to test. Must be exactly [bool] $false.
-      ErrorText: Custom error message. Defaults to file and line info.
-    examples:
-      - Assert-False $result
-      - Assert-False ($x -eq 1) -ErrorText 'x should not equal 1'
 ---
 #>
 

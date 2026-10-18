@@ -21,16 +21,6 @@ catzc:
     cites:
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FORMAT#6
-  config:
-    synopsis: 'The file-path meta kind''s fact: the file''s repository-relative path.'
-    description: |-
-      The path is a derived fact, so a moved file drifts and the formatter rewrites it; the H1 is the file's title, never its path
-      ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)).
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

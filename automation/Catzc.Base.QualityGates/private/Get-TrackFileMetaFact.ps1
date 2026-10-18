@@ -20,17 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
     cites:
       - ADR-DSGN-TRACK#1
-  config:
-    synopsis: 'The track meta kind''s fact: the track whose root folder holds the file.'
-    description: |-
-      The track is the one Get-Track names for the path, from the `tracks` registry
-      ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)). A root file, which no track holds, gets an empty value, so
-      the key is left out of its head.
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

@@ -16,22 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1
-  config:
-    synopsis: Returns the Azure tag *names* used to record what was last deployed.
-    description: |-
-      For ResourceGroup-target templates the tags live on the RG and have generic names
-      (`Deployed_From_Commit`, etc.) — every template that deploys into that RG writes the
-      same three tags.
-
-      For Subscription-target templates the tags live on the subscription itself, so they
-      are prefixed with the template name to avoid collisions across templates.
-
-      Returned shape:
-        { commit, build_id, branch }
-    parameters:
-      Template: Template name.
-    examples:
-      - Get-BicepTrackTagNameSet sample
 ---
 #>
 

@@ -16,23 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
-  config:
-    synopsis: Deep clones a PowerShell object.
-    description: |-
-      Recursively copies hashtables, ordered dictionaries, PSCustomObjects,
-      arrays, and lists. Value types and strings are returned as-is (immutable
-      or copied by value). Unknown reference types are returned by reference.
-
-      PSCustomObject cloning only copies NoteProperties. Use -AcceptWarnings
-      to suppress the warning about this limitation.
-
-      Does not use BinaryFormatter or any serialization-based approach.
-    parameters:
-      InputObject: The object to deep clone.
-      AcceptWarnings: Suppresses warnings about PSCustomObject cloning limitations.
-    examples:
-      - '$clone = Copy-Object $original'
-      - '$clone = Copy-Object $original -AcceptWarnings'
 ---
 #>
 

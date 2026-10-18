@@ -14,18 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Installs Terraform via the platform package manager.
-    description: |-
-      Windows: winget. macOS: Homebrew (hashicorp/tap). Linux: HashiCorp
-      apt repository (configured inline if not already present).
-      Idempotent — skips if already installed at the correct version.
-    parameters:
-      Version: Terraform version to install. Defaults to the locked version in Get-ToolConfig.
-      Force: Replace an existing installation at the wrong version.
-    examples:
-      - Install-Terraform
-      - Install-Terraform -Version '1.15'
 ---
 #>
 

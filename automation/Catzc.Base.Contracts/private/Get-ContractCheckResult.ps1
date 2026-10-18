@@ -19,27 +19,6 @@ catzc:
     cites:
       - ADR-REPO-CMDCONTRACT#4
       - ADR-REPO-CONTRACT#6
-  config:
-    synopsis: Checks one contract asset against the repository by its kind, and returns the result.
-    description: |-
-      Runs the check of the asset's kind ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)):
-      - Presence: the target exists with the exact case of its path (Get-ContractPresenceFindings);
-      - Fragment: the target exists and contains the fragment (Get-ContractFragmentFindings);
-      - Schema on a real file: the target exists and validates against the schema (Get-ContractSchemaFindings);
-      - Schema on a sample payload (its target is a sample under the asset's own module folder): the schema is well-formed
-        and uses the supported keywords only; the sample is not validated here, since its own check does that, so a
-        defect gives one finding on one result;
-      - Sample: the payload parses, and validates against the schema beside it (Get-ContractSampleFindings).
-      - Command: the command's file exists and declares the signature the contract states
-        (Get-ContractCommandFindings,
-        [ADR-REPO-CMDCONTRACT#4](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract4)).
-      A failed check is findings on the result, never an exception.
-    parameters:
-      RepositoryRoot: The repository root the asset and its target are relative to.
-      Asset: The asset to check.
-    outputs: '[Catzc.Base.Contracts.ContractCheckResult]'
-    examples:
-      - Get-ContractCheckResult -RepositoryRoot $root -Asset $asset
 ---
 #>
 

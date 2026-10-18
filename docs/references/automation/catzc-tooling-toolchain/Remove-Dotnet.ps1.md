@@ -22,6 +22,53 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
+
+### description
+
+The destructive escape hatch beside Install-/Uninstall-Dotnet
+([ADR-AUTO-REMOVE](../../../adr/automation/tool-removal-lifecycle.md)). It refuses the managed install —
+Uninstall-Dotnet
+owns that — and decides "managed" for the folder it is about to remove, not for whatever `dotnet` resolves to on
+PATH: in a catzc session PATH always leads to the managed install, so asking about PATH would refuse every stray one.
+
+Windows: the target folder defaults to the `dotnet` on PATH, or, when that is the managed install, the machine-wide
+C:\Program Files\dotnet. A folder that Windows-registered products own (the .NET SDK / runtime installers, listed in
+Apps & features) is not deleted by hand — that would orphan every entry — so the products are listed with the
+command that removes each by its own installer, and nothing is touched. Installer bundles come first and alone: a
+bundle holds the MSI products it installed, which go only with it, so the next run names whatever is left. Only an
+unregistered folder is deleted, with
+its machine PATH entry and DOTNET_ROOT (needs Administrator,
+[ADR-AUTO-REMOVE#6](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
+
+Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip /
+stray binary).
+
+### parameter InstallDir
+
+The .NET installation folder to evict (Windows). Default: the `dotnet` on PATH, or the machine-wide
+C:\Program Files\dotnet when the one on PATH is the managed install.
+
+### parameter Force
+
+Actually perform the removal. Without this, shows what would be removed.
+
+### example 1
+
+```powershell
+Remove-Dotnet
+```
+
+### example 2
+
+```powershell
+Remove-Dotnet -InstallDir 'C:\Program Files\dotnet' -Force
+```
+
 ## comment:1
 
 Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.

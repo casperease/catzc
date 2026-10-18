@@ -17,17 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Test-NotNullOrWhitespace.Tests.ps1
-  config:
-    synopsis: Tests whether a value is not null, empty, or whitespace.
-    parameters:
-      Value: The value to test.
-    examples:
-      - |-
-        Test-NotNullOrWhitespace 'hello'
-        # True
-      - |-
-        Test-NotNullOrWhitespace '  '
-        # False
 ---
 #>
 

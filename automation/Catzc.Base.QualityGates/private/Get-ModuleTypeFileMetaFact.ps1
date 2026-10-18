@@ -20,17 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
     cites:
       - ADR-DSGN-TRACK#3
-  config:
-    synopsis: 'The module-type meta kind''s fact: the type of the module a file is placed in, from the module-types registry.'
-    description: |-
-      The module type is the one Get-PathModule names for the path ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)):
-      a pwsh-folder, a settings, a pipeline and so on, as the module-types registry declares them. A file placed in no
-      module gets an empty value, so the key is left out of its head.
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

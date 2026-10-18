@@ -16,20 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
-  config:
-    synopsis: Runs java with the given arguments.
-    description: |-
-      Asserts that the installed Java version matches the locked version
-      in Get-ToolConfig before executing the command.
-    parameters:
-      Arguments: Arguments to pass to java.
-      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
-      NoAssert: Skip exit code assertion.
-      Silent: Suppress the command log line.
-      DryRun: Return the command string without executing. Used for testing.
-    examples:
-      - Invoke-Java '--version'
-      - Invoke-Java '--version' -DryRun
 ---
 #>
 

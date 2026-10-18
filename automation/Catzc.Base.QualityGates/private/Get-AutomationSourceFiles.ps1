@@ -17,10 +17,6 @@ catzc:
     visibility: private
   edges:
     page: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
-  config:
-    synopsis: The canonical set of authored PowerShell files the analysis quality gates cover.
-    description: Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.
-    outputs: '[string[]] Absolute paths, in discovery order.'
 ---
 #>
 

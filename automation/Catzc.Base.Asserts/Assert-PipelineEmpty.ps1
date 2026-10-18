@@ -17,15 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-PipelineEmpty.Tests.ps1
-  config:
-    synopsis: Asserts that the pipeline contains no objects.
-    description: |-
-      Throws on the first object received. Must be used as a pipeline consumer;
-      passing -InputObject directly is an error.
-    parameters:
-      InputObject: Pipeline input (do not pass directly).
-    examples:
-      - Get-ChildPath $logFolder -File -Filter '*.log' | Assert-PipelineEmpty
 ---
 #>
 

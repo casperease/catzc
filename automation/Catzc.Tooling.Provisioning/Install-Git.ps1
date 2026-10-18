@@ -17,20 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
     test: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
-  config:
-    synopsis: Installs Git (user-space on Windows, package manager elsewhere).
-    description: |-
-      Windows: Downloads the latest PortableGit from git-scm.com (GitHub
-      releases) and extracts to LOCALAPPDATA\Git. No admin required.
-      Persists PATH for future sessions.
-      macOS: brew install git.
-      Linux: apt-get install git (requires root).
-      Idempotent — skips if already installed.
-    parameters:
-      Force: Remove an existing installation before reinstalling.
-    examples:
-      - Install-Git
-      - Install-Git -Force
 ---
 #>
 

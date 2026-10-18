@@ -17,17 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
-  config:
-    synopsis: Lists the tracked files that carry a meta block, each with the carrier entry that says where it goes.
-    description: |-
-      A file is in scope when its class has a front-matter or comment-head carrier, the class does not leave it out, an imprint kind's
-      globs match it, and `.gitattributes` does not exempt it or opt it out.
-    parameters:
-      RepositoryRoot: The repository root the returned paths are relative to.
-      Path: Optional files or folders (absolute or relative to the current location) to limit the scope to.
-      Config: The meta-kind registry.
-      Resolver: 'The carrier resolver. Default: built from the shipped file-carriers and languages registries.'
-    outputs: '[pscustomobject] @{ Path; Carrier } per file, Path repository-relative and ''/''-separated, in git''s order.'
 ---
 #>
 

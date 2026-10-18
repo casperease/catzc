@@ -17,13 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-TypeIs.Tests.ps1
-  config:
-    synopsis: Asserts that an object is a specific .NET type.
-    parameters:
-      Object: The object whose type to check.
-      TypeFullName: The expected full type name (e.g. 'System.String').
-    examples:
-      - Assert-TypeIs $value 'System.Int32'
 ---
 #>
 

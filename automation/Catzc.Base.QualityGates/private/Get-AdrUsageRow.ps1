@@ -17,19 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Base.QualityGates/tests/Get-AdrUsageRow.Tests.ps1
-  config:
-    synopsis: The ADR citations one file's meta head holds, as rows of code and rule.
-    description: |-
-      Pure: it takes the text, the path and the citation map, and reads no file. The `cites` edge of the head gives one row per citation,
-      a group such as `ADR-X#{1,3}` expanded to its rules and a bare code kept as the whole ADR (Rule is null). The `links` edge gives a row
-      for every link into a registered ADR, with the rule its anchor names (Rule is null for a link to the ADR itself). A link to a
-      document under docs/adr/ that no code owns, such as the index, gives no row.
-    parameters:
-      Text: The whole file as text.
-      Path: The file's repository-relative path.
-      Map: The ADR citation map.
-      Form: The comment syntax of a code file's head (a Catzc.Base.CodeMeta.HeadForm). Omitted for a Markdown file, which carries its block in front matter.
-    outputs: '[pscustomobject] one @{ Path; Code; Rule; Source } per row, with Source `head` or `link`.'
 ---
 #>
 

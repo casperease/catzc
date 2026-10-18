@@ -17,14 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Base.QualityGates/tests/Format-TierRange.Tests.ps1
-  config:
-    synopsis: 'Formats a tier range the way a test run names it: ''L2'' for one tier, ''L0-L2'' for a range.'
-    parameters:
-      MinLevel: The lowest tier.
-      MaxLevel: The highest tier.
-    outputs: '[string]'
-    examples:
-      - Format-TierRange -MinLevel 0 -MaxLevel 2
 ---
 #>
 

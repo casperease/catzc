@@ -1,0 +1,32 @@
+# automation/Catzc.Base.QualityGates/private/Save-FileMetaResult.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Writes the files an engine run found drifted, and names the findings no tool can repair.
+
+### description
+
+The one writer behind Format-FileMeta and the file-meta imprint step, so the two cannot disagree. Files are UTF-8 without a BOM.
+
+It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
+
+### parameter Result
+
+What Invoke-FileMetaEngine returned.
+
+### parameter RepositoryRoot
+
+The repository root the result's paths are relative to.
+
+### parameter DryRun
+
+Report what would change without writing any file.
+
+### outputs
+
+`[pscustomobject]` @{ Fixed; Unowned } — Fixed holds the engine's file entries that changed, Unowned the findings left for a person.

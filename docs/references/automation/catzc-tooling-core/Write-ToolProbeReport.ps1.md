@@ -1,0 +1,35 @@
+# automation/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Writes a compact table of tool existence checks: where each tool was found, its version, and the timings.
+
+### description
+
+Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader
+([ADR-PWSH-ANNOUNCE#7](../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce7)): one
+row per tool with Found, Method (probe | path | none), Version against Required, VersionOk, ProbeMs and
+VersionMs, then the path. The header line names the session actor the checks ran as. Writes
+nothing for no records. With no -Probe it checks every tool in tools.yml.
+
+### parameter Probe
+
+The probe records to render (Catzc.Base.Execution.ExecutableProbe, from Test-Tool -PassThru or
+Resolve-ToolExecutable). Accepts pipeline input. Defaults to every tool in tools.yml.
+
+### example 1
+
+```powershell
+Write-ToolProbeReport
+```
+
+### example 2
+
+```powershell
+'bash', 'go' | ForEach-Object { Test-Tool $_ -PassThru } | Write-ToolProbeReport
+```

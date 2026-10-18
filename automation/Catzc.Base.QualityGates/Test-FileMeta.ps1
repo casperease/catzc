@@ -18,18 +18,6 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST#35
-  config:
-    synopsis: 'The file meta quality gate: fails on any in-scope file whose meta block differs from what Format-FileMeta would write.'
-    description: 'A key no meta kind owns is reported too: the author decides whether it belongs in `config` or goes.'
-    parameters:
-      Path: 'Files or folders to check. Default: every in-scope file.'
-      RepositoryRoot: 'The repository root paths are relative to. Default: the loaded repository root.'
-      OutputFolder: The report base folder. Defaults to <out>/test-file-meta.
-      PassThru: Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
-    outputs: Throws on any violation; with -PassThru, returns the result object.
-    examples:
-      - Test-FileMeta
-      - (Test-FileMeta -PassThru).Issues
 ---
 #>
 

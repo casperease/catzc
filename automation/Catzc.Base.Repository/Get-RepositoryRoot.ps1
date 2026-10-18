@@ -16,11 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Repository/tests/Get-RepositoryRoot.Tests.ps1
-  config:
-    synopsis: Returns the repository root path.
-    description: Returns the value of $env:RepositoryRoot set by importer.ps1.
-    examples:
-      - Get-RepositoryRoot
 ---
 #>
 

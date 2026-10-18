@@ -16,24 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
-  config:
-    synopsis: Renders module dependency edges to JSON, YAML, Markdown, or PlantUML.
-    description: |-
-      Serializes ModuleDependencyEdge objects (from Get-ModuleDependencyEdges) to the format chosen by -As:
-
-        - Puml     — a `@startuml … @enduml` graph for visualization (a solid arrow per actual edge,
-                     labelled with the call count; a dashed arrow per declared/allowed edge).
-        - Markdown — a `| From | To | Kind | Calls |` table.
-        - Json     — the edge objects as JSON.
-        - Yaml     — the edges as a YAML sequence of `from/to/kind/call_count` maps.
-
-      The format is a typed parameter (ModuleDependencyFormat), so `-As <TAB>` validates and tab-completes.
-    parameters:
-      Edge: The edges to render (pipeline). Produced by Get-ModuleDependencyEdges.
-      As: 'Output format: Json | Yaml | Markdown | Puml. Defaults to Puml.'
-    examples:
-      - Get-ModuleDependencyEdges | ConvertTo-ModuleDependencyDiagram -As Puml
-      - Get-ModuleDependencyEdges -Declared | ConvertTo-ModuleDependencyDiagram -As Markdown
 ---
 #>
 

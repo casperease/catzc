@@ -17,34 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
-  config:
-    synopsis: 'Collects the facts that say what a test run is and where it runs: its context block.'
-    description: |-
-      One record of the run's context, for the console block under the banner (Write-TestRunContext) and for
-      run.json, so a reader of either knows what ran without inferring it:
-
-      - entryPoint, run (source | build), and codeRoot — the modules the workers load (the build's own automation/
-        folder for a build run, Get-CatzcModulesRoot otherwise);
-      - location (in-place | snapshot, the location's Mode) and locationReason — who held the working folder, or
-        -Isolated;
-      - tiersRequested, tiersRunning, and tierCap — why the top tier is lower than asked (Resolve-TestRunMaxLevel);
-      - actor — Pipeline, Agent, or Person (Get-SessionActor);
-      - tools — whether git, az, and dotnet are on the PATH (found with Get-Command; no process is started);
-      - selection — all tests, a test suite, the modules, the category, and the -Rule filter.
-    parameters:
-      EntryPoint: The entry point's command name.
-      EntryScript: The script the workers dot-source; empty is the source importer.
-      Location: The location Enter-TestRunLocation returned.
-      MinLevel: The run's lowest tier.
-      RequestedMaxLevel: The highest tier the caller asked for.
-      MaxLevel: The highest tier the run executes (after Resolve-TestRunMaxLevel).
-      Category: The category filter.
-      Modules: The modules in scope; empty is every module.
-      Suite: A test suite's name, when the modules were resolved from one; otherwise empty.
-      Rule: The -Rule filter.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] the context, keyed as run.json records it.'
-    examples:
-      - Get-TestRunContext -EntryPoint Test-Automation -Location $location -RequestedMaxLevel 3 -MaxLevel 2
 ---
 #>
 

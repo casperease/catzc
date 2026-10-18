@@ -20,18 +20,6 @@ catzc:
     cites:
       - ADR-AUTO-PKGMGR
       - ADR-AUTO-UVPY
-  config:
-    synopsis: Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.
-    description: |-
-      Linux has no uv apt package, so the fresh-machine bootstrap is Astral's standalone release: resolve the
-      newest astral-sh/uv release matching the locked version prefix, download the platform tarball verified
-      against the release asset's published SHA-256 (Save-VerifiedDownload — the Install-Git discipline, see
-      [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md)), and extract uv and uvx into the uv tool-bin
-      (~/.local/bin,
-      [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)). Entirely user-space: no package manager, no
-      elevation. The standalone build is also the one `uv self update` serves, so later upgrades stay in place.
-    parameters:
-      Version: The locked uv version prefix from tools.yml (e.g. '0.11').
 ---
 #>
 

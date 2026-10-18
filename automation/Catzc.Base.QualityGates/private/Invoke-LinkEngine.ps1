@@ -15,22 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-  config:
-    synopsis: Builds the link engine for a repository and runs it over a file scope.
-    description: |-
-      The one place Format-Links and Test-Links assemble the engine, so the aligner and the gate can never disagree:
-      the ADR citation map (Get-AdrCitationMap), the line limits (Get-LinkLineLimit over .editorconfig and links.yml),
-      the default limit, the wrap mode, this repository's web URL (Get-RepositoryWebUrl), the string-citation check's
-      exempt globs (links.yml string_citations), and the paths git tracks, so a
-      markdown link to a file GitHub does not have is reported. Any other root (a test's scratch root) has no tracked
-      set to compare against, so the tracked check is skipped there. Reads only — the result
-      carries each changed file's new text for the caller to write.
-    parameters:
-      RepositoryRoot: The repository root.
-      Path: Optional files or folders to limit the run to (Get-LinkScope); default the git-tracked repository.
-      Kind: Which link kinds to process.
-      Wrap: How an aligned comment line that outgrows its limit is wrapped.
-    outputs: '[Catzc.Base.QualityGates.LinkEngineResult]'
 ---
 #>
 

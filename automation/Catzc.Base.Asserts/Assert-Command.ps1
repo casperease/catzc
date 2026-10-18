@@ -17,13 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-Command.Tests.ps1
-  config:
-    synopsis: Asserts that a command exists on the system.
-    parameters:
-      Command: The command name to look up via Get-Command.
-      ErrorText: Custom error message. Defaults to '<Command> is not installed'.
-    examples:
-      - Assert-Command 'git'
 ---
 #>
 

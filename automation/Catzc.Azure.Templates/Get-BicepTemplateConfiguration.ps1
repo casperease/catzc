@@ -19,33 +19,6 @@ catzc:
     test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
     cites:
       - ADR-AZ-DATAMOD
-  config:
-    synopsis: Loads a template's per-slot config and returns the ordered dictionary.
-    description: |-
-      Returns the parsed yml as an ordered dictionary — typically just a `ParametersFile` (the
-      template's ARM parameters, written statically). No merge with global config happens here;
-      PrePost's Invoke-BicepPrepareParameterSet is the merge seam. The resource-group name is not
-      read from this file — it is derived by Get-BicepResourceGroupName.
-
-      The config address is literal ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): a configuration-root file
-      `configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file
-      `configuration/<customer>/<env>[-<slot>].yml` when -Customer is given. No resolution machinery —
-      the coordinate IS the file.
-    parameters:
-      Template: Template name (folder under infrastructure/templates/).
-      Environment: Environment shortname. Must be configured for the template.
-      Slot: |-
-        Optional special-slot discriminator — 1-3 lowercase alphanumeric chars (`001`, `blu`, …). Selects
-        `<env>-<slot>.yml`; omitted selects the env's base slot `<env>.yml`. The selected config must exist.
-      Customer: |-
-        Optional customer key (a configuration subfolder). Selects the config under
-        `configuration/<customer>/`; omitted selects the configuration-root (shared-platform) config.
-    examples:
-      - '$configuration = Get-BicepTemplateConfiguration sample dev'
-      - '$configuration = Get-BicepTemplateConfiguration sample dev -Customer apex'
-      - |-
-        $configuration = Get-BicepTemplateConfiguration indexed-template prod -Slot 001
-        $configuration.ParametersFile.parameters.storageAccountName.value
 ---
 #>
 

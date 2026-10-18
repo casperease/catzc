@@ -17,15 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-azure-templates/Get-BicepTemplate.ps1.md
     test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1
-  config:
-    synopsis: Returns the descriptor for a single bicep template by name.
-    parameters:
-      Name: Template name (the folder name under infrastructure/templates/).
-    examples:
-      - |-
-        $t = Get-BicepTemplate sample
-        $t.main
-        $t.environments
 ---
 #>
 

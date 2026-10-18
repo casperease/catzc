@@ -16,21 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
-  config:
-    synopsis: Returns the transitive closure of all functions that a given function depends on.
-    description: |-
-      Takes a function name and walks the call graph produced by Get-FunctionDependency
-      using breadth-first search. Returns every function reachable from the root, with
-      the depth at which it was first encountered and the caller that introduced it.
-
-      Accepts pipeline input from Get-FunctionDependency. If no pipeline input is
-      provided, calls Get-FunctionDependency automatically.
-    parameters:
-      Function: The name of the root function to trace dependencies from.
-      Dependency: Function dependency objects from Get-FunctionDependency. Accepts pipeline input.
-    examples:
-      - Get-FunctionDependencyTree -Function 'Install-Poetry'
-      - Get-FunctionDependency | Get-FunctionDependencyTree -Function 'Get-ModuleDependency'
 ---
 #>
 

@@ -16,17 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
-  config:
-    synopsis: Displays exception details for use in catch blocks.
-    description: |-
-      Prints exception type, message, script stack trace, and any inner exceptions.
-      Falls back to $global:Error if no ErrorRecord is provided.
-    parameters:
-      ErrorRecord: The ErrorRecord to display. If omitted, uses $global:Error.
-      GlobalErrorIndex: Index into $global:Error when no ErrorRecord is given. Defaults to 0 (most recent).
-    examples:
-      - try { Get-Item C:\no } catch { Write-Exception $_ }
-      - Write-Exception -GlobalErrorIndex 2
 ---
 #>
 

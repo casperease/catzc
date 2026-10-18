@@ -20,16 +20,6 @@ catzc:
     test: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
     cites:
       - ADR-AUTO-UVPY#2
-  config:
-    synopsis: Installs a Python-library tool into the uv-managed Python via `uv pip`.
-    description: |-
-      Private helper for Install-PySpark. Mirrors Install-Tool's contract but installs the package INTO the
-      uv-managed Python with `uv pip install --system` (so it stays importable, unlike an isolated `uv tool`).
-      Handles idempotency, -Force, and version verification. uv presence is asserted by Invoke-Pip.
-    parameters:
-      Tool: The snake_case tool key as defined in tools.yml (must declare pip_package).
-      Version: Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
-      Force: Uninstall a wrong version before installing the correct one.
 ---
 #>
 

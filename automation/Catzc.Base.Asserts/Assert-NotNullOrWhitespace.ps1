@@ -17,13 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-NotNullOrWhitespace.Tests.ps1
-  config:
-    synopsis: Asserts that a value is not null, empty, or whitespace.
-    parameters:
-      Value: The value to test. Evaluated via [string]::IsNullOrWhiteSpace().
-      ErrorText: Custom error message. Defaults to file and line info.
-    examples:
-      - Assert-NotNullOrWhitespace $name
 ---
 #>
 

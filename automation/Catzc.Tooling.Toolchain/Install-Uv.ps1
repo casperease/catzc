@@ -17,20 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md
     test: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
-  config:
-    synopsis: Installs or upgrades uv, Astral's Python handler.
-    description: |-
-      uv is user-space on every platform. A fresh machine bootstraps it via winget on Windows and brew on macOS
-      (both hash-verified, user-scope, no admin), and from Astral's standalone GitHub release on Linux
-      (Install-UvStandalone — verified download into ~/.local/bin; there is no uv apt package). An
-      already-present uv is upgraded through its install source: Linux re-runs the standalone install
-      (Install-UvStandalone — the extracted tarball carries no `uv self update` receipt), macOS re-runs brew and
-      a winget-managed uv re-runs winget (both via Install-Tool); only a Windows uv installed by Astral's own
-      script (receipt-backed) upgrades with `uv self update`. Idempotent — skips if the correct version is already
-      on PATH.
-    parameters:
-      Version: uv version to install. Defaults to the locked version in Get-ToolConfig.
-      Force: Upgrade even when a build is already present.
 ---
 #>
 

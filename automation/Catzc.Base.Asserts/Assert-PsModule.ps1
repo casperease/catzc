@@ -17,13 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-PsModule.Tests.ps1
-  config:
-    synopsis: Asserts that a PowerShell module is available.
-    parameters:
-      Module: The module name to look up via Get-Module -ListAvailable.
-      ErrorText: Optional message to throw instead of the default.
-    examples:
-      - Assert-PsModule 'Pester'
 ---
 #>
 

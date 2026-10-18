@@ -16,18 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Repository/tests/Get-OutputRoot.Tests.ps1
-  config:
-    synopsis: Returns the path to the output directory for the current execution context.
-    description: |-
-      In an Azure DevOps pipeline, returns $env:BUILD_ARTIFACTSTAGINGDIRECTORY.
-      Locally on DevBox, returns {RepositoryRoot}/out.
-
-      With -EnsureExists, creates the directory if it does not exist.
-    parameters:
-      EnsureExists: Create the output directory if it does not exist.
-    examples:
-      - '$outDir = Get-OutputRoot'
-      - '$outDir = Get-OutputRoot -EnsureExists'
 ---
 #>
 

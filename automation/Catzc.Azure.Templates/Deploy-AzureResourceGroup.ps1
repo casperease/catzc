@@ -16,23 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
-  config:
-    synopsis: Idempotently ensures a resource group exists in a given subscription and region.
-    description: |-
-      Runs `az group exists`; if missing, runs `az group create` at the given region in the given
-      subscription. The subscription + region are resolved by the caller (Deploy-Bicep, from the
-      deployment context) and passed in — this function does NOT re-resolve them from azure.yml, so the RG
-      is always created in the SAME subscription the deployment targets (including customer deploys).
-
-      Returns an ordered dictionary `{ name, provisioning_state }` where provisioning_state is
-      'Succeeded' (just created), 'Skipped' (already existed), or 'DryRun'.
-    parameters:
-      SubscriptionId: The subscription the resource group must live in (from the resolved deployment context).
-      Region: The Azure region to create the resource group in.
-      ResourceGroup: The resource group name to ensure.
-      DryRun: Preview only — report the resource group that would be created and make no change.
-    examples:
-      - Deploy-AzureResourceGroup -SubscriptionId $context.environment.subscription.id -Region westeurope -ResourceGroup rg-sample-dev
 ---
 #>
 

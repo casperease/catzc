@@ -18,25 +18,6 @@ catzc:
     test: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
     cites:
       - ADR-AUTO-TEST#33
-  config:
-    synopsis: Removes an installation directory and cleans it from system PATH.
-    description: |-
-      Shared helper for Remove-NodeJs, Remove-Python, etc. Deletes the
-      directory, removes matching entries from the system (Machine) PATH,
-      and clears the specified Machine environment variables. Windows-only.
-
-      Every persistent write goes through its seam — Set-EnvironmentPath for
-      the PATH, Set-PermanentEnvironmentVariable for a variable — which
-      announces the change; Windows broadcasts WM_SETTINGCHANGE on each
-      persistent write, so running shells pick it up
-      ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
-    parameters:
-      InstallDir: Resolved absolute path to the installation directory.
-      ExtraPathDirs: |-
-        Subdirectory names under InstallDir that are also on PATH
-        (e.g. 'Scripts' for Python, 'wbin' for AzCli).
-      EnvironmentVariables: System-level environment variable names to clear.
-    outputs: '[bool] Whether the system PATH changed.'
 ---
 #>
 

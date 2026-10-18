@@ -20,16 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinesFileMetaFact.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#3
-  config:
-    synopsis: 'The adr-defines meta kind''s fact: the rules an ADR defines itself, spelled as citations.'
-    description: |-
-      The rules come from the file's own rule headings, so the list is what the file declares and not what it cites. They are written in
-      the minimal form, `ADR-<CODE>#{1,3-5}` (Catzc.Base.Docs.AdrCodeForm), without globs.
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

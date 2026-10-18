@@ -14,13 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls a uv-managed tool.
-    description: |-
-      Removes a CLI installed via Install-UvTool (`uv tool uninstall <uv_tool>`). Idempotent — skips if the
-      tool is not installed.
-    parameters:
-      Tool: The snake_case tool key as defined in tools.yml (must declare uv_tool).
 ---
 #>
 

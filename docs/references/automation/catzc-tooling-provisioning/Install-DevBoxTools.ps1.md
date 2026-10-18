@@ -19,6 +19,36 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Provisions the local development environment with all required tools.
+
+### description
+
+Installs all locked tool versions in dependency order (derived from
+DependsOn in tools.yml). Idempotent — safe to run repeatedly. Skips
+tools that are already installed at the correct version. Tools at the
+correct version but installed outside the expected manager are left
+untouched with a message.
+
+### parameter Force
+
+Replace existing installations that are at the wrong version.
+
+### example 1
+
+```powershell
+Install-DevBoxTools
+```
+
+### example 2
+
+```powershell
+Install-DevBoxTools -Force
+```
+
 ## comment:1
 
 Above `Uninstall-Chocolatey`, written with `#`.

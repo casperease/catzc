@@ -14,20 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Returns the Azure CLI's currently active subscription.
-    description: |-
-      Thin wrapper over `az account show` (via Invoke-AzCli) returning the active subscription as an object
-      (Id, Name, TenantId, State, IsDefault). This is a data read, so the underlying call is silenced.
-      Throws with remediation when there is no active context (e.g. not logged in).
-
-      Pairs with Set-CurrentAzSubscription for a save / switch / restore idiom:
-          $original = Get-CurrentAzSubscription
-          try     { Set-CurrentAzSubscription -SubscriptionId $target; do-stuff}
-          finally { Set-CurrentAzSubscription -SubscriptionId $original.Id }
-    examples:
-      - Get-CurrentAzSubscription
-      - (Get-CurrentAzSubscription).Id
 ---
 #>
 

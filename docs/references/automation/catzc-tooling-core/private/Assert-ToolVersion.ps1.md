@@ -22,6 +22,27 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Asserts the installed version of a tool matches its locked version.
+
+### description
+
+Checks once per session and caches the result. Subsequent calls
+for the same tool return immediately.
+
+Devbox lever: a tool may declare an optional `devbox_version` in tools.yml. OUTSIDE a CI pipeline
+(Test-IsRunningInPipeline is false) an installed version matching EITHER the locked `version` or the
+`devbox_version` prefix is accepted, so a devbox can run a functional off-pin tool for local pre-commit
+tooling. A pipeline session ignores the lever and enforces the locked `version` alone, keeping
+main/master builds deterministically locked.
+
+### parameter Tool
+
+The snake_case tool key as defined in tools.yml.
+
 ## comment:1
 
 Above `$script:toolVersionCache = @{}`, written with `#`.

@@ -22,6 +22,59 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Generates [index](../../../adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source
+of truth for the ADR domain structure.
+
+### description
+
+index.md is a derived projection of automation/Catzc.Base.Docs/configs/adrs.yml: authored preamble and
+authoring-convention prose wrapped around one code-registry table per domain (in declared order). Every
+ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format Get-CatsAdrIndex parses and the citation
+grammar Show-Cats presents. Each link path is resolved to the real `docs/adr/<domain>/**/<slug>.md` file.
+
+The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked
+linguist-generated so its diff collapses, and reproduced on every import (before Build-Readme, which generates
+the docs/adr README from it), so adrs.yml is the ONLY place the registry is edited — a hand-edit to index.md is overwritten
+on the next load. See [ADR-REPO-README](../../../adr/repository/generated-readmes.md) for the generated-file pattern.
+
+Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare,
+write only on drift), so a clean tree costs one file read.
+
+### parameter DryRun
+
+Report whether index.md would change without writing it. See
+[ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+
+### parameter Silent
+
+The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
+
+### parameter PassThru
+
+Return a result object ({ Path; Changed; DryRun }) instead of the repo-relative path.
+
+### outputs
+
+`[string]` The repo-relative path of the generated index (with -PassThru, the result object instead).
+
+### example 1
+
+```powershell
+Build-AdrIndex
+Regenerates docs/adr/index.md from adrs.yml.
+```
+
+### example 2
+
+```powershell
+Build-AdrIndex -DryRun -PassThru
+Reports whether the on-disk index is stale without writing it.
+```
+
 ## comment:1
 
 Above `$reflow = {`, written with `#`.

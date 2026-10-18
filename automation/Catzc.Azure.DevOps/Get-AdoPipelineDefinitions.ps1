@@ -16,22 +16,6 @@ catzc:
     visibility: public
   edges:
     page: docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md
-  config:
-    synopsis: Lists all registered pipeline definitions from Azure DevOps.
-    description: |-
-      Queries the ADO Build Definitions REST API and returns a flattened
-      list of pipeline definitions with their YAML paths, repository names,
-      and ADO folder placement.
-
-      YamlPath is normalized (leading '/' stripped) to match the RelativePath
-      output of Get-AdoYamlFiles for easy cross-referencing.
-    parameters:
-      Project: Azure DevOps project name. Defaults to the value in ado.yml.
-      Organization: Azure DevOps organization URL. Defaults to the value in ado.yml.
-    examples:
-      - Get-AdoPipelineDefinitions
-      - Get-AdoPipelineDefinitions -Organization 'https://dev.azure.com/myorg' -Project 'myproject'
-      - Get-AdoPipelineDefinitions | Where-Object RepositoryName -eq 'big-mono'
 ---
 #>
 

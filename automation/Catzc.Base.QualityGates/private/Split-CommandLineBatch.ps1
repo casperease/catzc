@@ -17,18 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Base.QualityGates/tests/Split-CommandLineBatch.Tests.ps1
-  config:
-    synopsis: Splits a list of command-line arguments into batches whose joined length stays under a limit.
-    description: |-
-      A formatter engine that takes files as arguments runs once per batch, so formatting every tracked file never
-      exceeds the command-line length. The binding limit is cmd.exe's 8 191 characters: npm installs tools such as
-      prettier as .cmd shims, which cmd.exe expands with the node path prepended, so the default leaves room for that.
-      Each item is counted with the quotes and the separating space it is written with. An item longer than the limit
-      is a batch of its own.
-    parameters:
-      Item: The arguments, in order.
-      MaxLength: The longest joined batch, in characters.
-    outputs: '[string[]] One array per batch, in order.'
 ---
 #>
 

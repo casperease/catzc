@@ -14,22 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Removes a manually installed Python and cleans up system PATH.
-    description: |-
-      Deletes the Python installation folder and removes it (and its Scripts
-      subdirectory) from the system-level PATH. Requires Administrator.
-      Auto-detects the install directory from Get-Command if not specified.
-
-      This is for Python installations that do not appear in Apps & Features
-      or winget. If Python is managed by winget, use Uninstall-Python instead.
-    parameters:
-      InstallDir: Path to the Python installation folder. Auto-detected from PATH if omitted.
-      Force: Actually perform the removal. Without this, shows what would be removed.
-    examples:
-      - Remove-Python
-      - Remove-Python -Force
-      - Remove-Python -InstallDir 'C:\Python312' -Force
 ---
 #>
 

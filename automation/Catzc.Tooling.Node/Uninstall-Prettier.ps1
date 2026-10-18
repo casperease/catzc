@@ -14,11 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls Prettier (the global npm package).
-    description: Idempotent — skips if Prettier or npm is not present (nothing to uninstall).
-    examples:
-      - Uninstall-Prettier
 ---
 #>
 

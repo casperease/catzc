@@ -22,6 +22,30 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Installs a Python-library tool into the uv-managed Python via `uv pip`.
+
+### description
+
+Private helper for Install-PySpark. Mirrors Install-Tool's contract but installs the package INTO the
+uv-managed Python with `uv pip install --system` (so it stays importable, unlike an isolated `uv tool`).
+Handles idempotency, -Force, and version verification. uv presence is asserted by Invoke-Pip.
+
+### parameter Tool
+
+The snake_case tool key as defined in tools.yml (must declare pip_package).
+
+### parameter Version
+
+Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
+
+### parameter Force
+
+Uninstall a wrong version before installing the correct one.
+
 ## comment:1
 
 Above `$pythonVersion = (Get-ToolConfig -Tool 'python').version`, written with `#`.

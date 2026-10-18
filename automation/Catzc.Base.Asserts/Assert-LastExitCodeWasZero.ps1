@@ -17,18 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
-  config:
-    synopsis: Asserts that $LASTEXITCODE is 0.
-    description: |-
-      Checks the global $LASTEXITCODE variable and throws if it is non-zero.
-      Resets $LASTEXITCODE after checking unless -DoNotReset is specified.
-    parameters:
-      DoNotReset: Keep $LASTEXITCODE intact after the assertion.
-    examples:
-      - |-
-        git status
-        Assert-LastExitCodeWasZero
-      - Assert-LastExitCodeWasZero -DoNotReset
 ---
 #>
 

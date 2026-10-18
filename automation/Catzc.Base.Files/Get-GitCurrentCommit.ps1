@@ -16,13 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
-  config:
-    synopsis: Returns the current git commit hash (full 40-char SHA).
-    description: |-
-      The commit HEAD names in the checkout at Get-RepositoryRoot, read from its ref files in-process
-      ([Catzc.Base.Git.GitRefs]) — what `git rev-parse HEAD` answers, without starting git.
-    examples:
-      - Get-GitCurrentCommit
 ---
 #>
 

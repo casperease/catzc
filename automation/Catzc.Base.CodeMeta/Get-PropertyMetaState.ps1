@@ -17,22 +17,6 @@ catzc:
   edges:
     cites:
       - ADR-REPO-FILEMETA#8
-  config:
-    synopsis: Reads what a JSON text or an MSBuild project says about its own meta property, without changing it.
-    description: |-
-      Pure: it takes the text and the property's name, reads no file and no config
-      ([ADR-REPO-FILEMETA#8](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta8)). The property is an ignored top-level member
-      of a JSON file, or the CDATA property inside the first PropertyGroup labelled catzc of an MSBuild project.
-    parameters:
-      Text: The whole JSON file or MSBuild project as text.
-      Property: The name of the property that holds the block (e.g. // or $comment in JSON, CatzcMeta in a project).
-      Strip: Beginnings of old values of the property that Format-PropertyMetaHead replaces instead of leaving as foreign.
-    outputs: |-
-      [pscustomobject] @{ IsObject; HasHead; Foreign; Sections; ImmutableKeys; EdgeKeys; ConfigLines } — Sections are the keys directly under
-      `catzc`, ImmutableKeys the keys under `immutable`, EdgeKeys the edge names under `edges`, and ConfigLines the authored lines under
-      `config`, as written.
-    examples:
-      - Get-PropertyMetaState -Text $text -Property '//' | Select-Object -ExpandProperty ImmutableKeys
 ---
 #>
 

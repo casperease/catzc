@@ -17,17 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
-  config:
-    synopsis: Tests whether a tool's install home satisfies one session_host_probes entry at the locked version.
-    description: |-
-      A probe is a home-relative path whose last segment is `{version}` (validated by ToolConfig). The home
-      satisfies it when the probe's parent folder holds a directory named exactly the version, or starting with
-      "<version>." — so `sdk/{version}` at version 10.0 matches sdk/10.0.201 but not sdk/10.01 or sdk/6.0.428.
-      A pure filesystem check: no process is started, so it is safe on the importer's hot path.
-    parameters:
-      ToolHome: The install home to probe (the directory holding the tool's executable).
-      Probe: One session_host_probes entry, for example 'sdk/{version}'.
-      Version: The tool's locked version (ToolConfig.version).
 ---
 #>
 

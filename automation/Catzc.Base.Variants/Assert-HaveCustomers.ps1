@@ -17,17 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
-  config:
-    synopsis: Asserts the repo has customer deployments enabled — for all customers, or for specific names — else throws.
-    description: |-
-      The throwing companion to Test-HaveCustomers. With no -Name it requires the repo to be customer-enabled
-      at all; with -Name it requires every named customer to be enabled. Throws naming the disabled or
-      not-enabled customer(s) and pointing at the `have_customers` variant. Guards a customer-only code path.
-    parameters:
-      Name: Zero or more customer names to require. Omit to require the repo-wide capability.
-    examples:
-      - Assert-HaveCustomers
-      - Assert-HaveCustomers -Name acme
 ---
 #>
 

@@ -18,21 +18,6 @@ catzc:
     test: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
     cites:
       - ADR-PWSH-ANNOUNCE#7
-  config:
-    synopsis: 'Writes a compact table of tool existence checks: where each tool was found, its version, and the timings.'
-    description: |-
-      Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader
-      ([ADR-PWSH-ANNOUNCE#7](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce7)): one
-      row per tool with Found, Method (probe | path | none), Version against Required, VersionOk, ProbeMs and
-      VersionMs, then the path. The header line names the session actor the checks ran as. Writes
-      nothing for no records. With no -Probe it checks every tool in tools.yml.
-    parameters:
-      Probe: |-
-        The probe records to render (Catzc.Base.Execution.ExecutableProbe, from Test-Tool -PassThru or
-        Resolve-ToolExecutable). Accepts pipeline input. Defaults to every tool in tools.yml.
-    examples:
-      - Write-ToolProbeReport
-      - '''bash'', ''go'' | ForEach-Object { Test-Tool $_ -PassThru } | Write-ToolProbeReport'
 ---
 #>
 

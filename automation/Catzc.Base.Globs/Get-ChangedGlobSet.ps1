@@ -18,34 +18,6 @@ catzc:
     test: automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
     cites:
       - ADR-FLOW-CD-GLOBS#{1,4}
-  config:
-    synopsis: The globsets a diff touches — the computed area-of-control of a change.
-    description: |-
-      Reflects a change into the globset registry: returns every declared globset whose scan program
-      (GlobSet.Matches, last-match-wins
-      [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)) selects at least one changed
-      path. The "which areas of
-      control did this change touch" fact, computed from git at the real refs — reading the merged tree as it
-      actually is, so it is immune to the squash-merge and concurrent-merge staleness a per-set hash frozen on a
-      branch would suffer, and correct across renames (Get-ChangedFile splits a rename into both of its paths).
-
-      The changed paths come either explicitly (-ChangedFile, a pure and testable call) or from a git range
-      (-Range) resolved through Get-ChangedFile. -IncludeModules also matches the derived per-module sets
-      (Get-ModuleGlobSet), so a report can name the changed modules, not only the declared units.
-
-      In a pipeline this is the "is there anything here for us to process?" gate: a deployable unit's stage asks
-      whether its own set is in the returned list and stops early when it is not. The reference commit that
-      range is measured from is the resolver's job, never this function's.
-    parameters:
-      ChangedFile: The changed repo-relative, '/'-separated paths to reflect (e.g. a diff's file list). May be empty.
-      Range: A git diff range to resolve the changed paths from, e.g. 'HEAD^1..HEAD'.
-      IncludeModules: Also match the derived module globsets, not only the declared registry.
-    outputs: |-
-      [Catzc.Base.Globs.GlobSet] Each touched set — declared sets in registry order, then, with
-      -IncludeModules, the touched derived module sets.
-    examples:
-      - Get-ChangedGlobSet -Range 'HEAD^1..HEAD'
-      - Get-ChangedGlobSet -ChangedFile @('infrastructure/modules/network/main.bicep')
 ---
 #>
 

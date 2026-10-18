@@ -97,10 +97,13 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         BeforeEach {
             $script:helpFile = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpFile) -Force
-            $head = @('<#', '---', 'catzc:', '  immutable:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: automation-function', '  config:', '    synopsis: Gets a gadget.', '    parameters:', '      Widget: The widget.', '    outputs: ''[string] The gadget.''', '---', '#>', '')
             $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}')
-            $script:helpText = (($head + $function) -join "`n") + "`n"
+            $script:helpText = ($function -join "`n") + "`n"
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
+            $script:helpPage = Join-Path $script:root ((Get-Config -Config comments).PageFor('automation/Widget/Get-Gadget.ps1'))
+            $null = New-Item -ItemType Directory -Path (Split-Path $script:helpPage) -Force
+            $script:pageText = "# automation/Widget/Get-Gadget.ps1`n`n## help`n`n### synopsis`n`nGets a gadget.`n`n### parameter Widget`n`nThe widget.`n`n### outputs`n`n``[string]`` The gadget.`n"
+            [System.IO.File]::WriteAllText($script:helpPage, $script:pageText)
         }
 
         It 'finds nothing in help that is in order, and writes no file' {
@@ -113,16 +116,25 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $script:helpText
         }
 
-        It 'returns a finding only a person can settle as a file to repair, and still writes no file' {
-            $broken = $script:helpText.Replace("      Widget: The widget.`n", '')
-            [System.IO.File]::WriteAllText($script:helpFile, $broken)
+        It 'returns a finding only a person can settle as a file to repair, and still writes no file' -Tag 'ADR-REPO-HELP#4' {
+            $broken = $script:pageText.Replace("### parameter Widget`n`nThe widget.`n`n", '')
+            [System.IO.File]::WriteAllText($script:helpPage, $broken)
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
                 param($Root, $File)
                 Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
             }
             $outcome.Changed.Count | Should -Be 0
-            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*the parameter Widget is declared but has no entry in parameters*'
-            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $broken
+            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*the parameter Widget is declared but has no ### parameter subsection*'
+            [System.IO.File]::ReadAllText($script:helpPage) | Should -BeExactly $broken
+        }
+
+        It 'reports a function file that has no comment page' -Tag 'ADR-REPO-HELP#4' {
+            Remove-Item -LiteralPath $script:helpPage
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
+                param($Root, $File)
+                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
+            }
+            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*the file has no comment page*'
         }
 
         It 'reports a comment-based help block as a file to repair' {

@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-config-defaults]
   value: high
-  blocked_on: task-config-defaults-variants (ADR-CATS#5, landed 2026-10-17, names the folder)
+  blocked_on: nothing; task-config-defaults-variants is done (2026-10-18) and ADR-CATS#5 names the folder
   targets:
     [
       automation/Catzc.Base.Config,

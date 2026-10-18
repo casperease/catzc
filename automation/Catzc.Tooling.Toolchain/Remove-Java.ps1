@@ -18,23 +18,6 @@ catzc:
     page: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
     cites:
       - ADR-AUTO-REMOVE#{3,6}
-  config:
-    synopsis: Removes a manually installed Java JDK and cleans up system PATH.
-    description: |-
-      Deletes the JDK installation folder and removes it (and its bin
-      subdirectory) from the system-level PATH. Requires Administrator.
-      Auto-detects the install directory from Get-Command if not specified.
-
-      This is for JDK installations (Oracle, AdoptOpenJDK, etc.) that
-      are not managed by winget/brew/apt. If Java is managed by the
-      tooling system, use Uninstall-Java instead.
-    parameters:
-      InstallDir: Path to the JDK installation folder. Auto-detected from PATH if omitted.
-      Force: Actually perform the removal. Without this, shows what would be removed.
-    examples:
-      - Remove-Java
-      - Remove-Java -Force
-      - Remove-Java -InstallDir 'C:\Program Files\Java\jdk-17' -Force
 ---
 #>
 

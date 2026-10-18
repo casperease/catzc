@@ -14,20 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Runs npm with the given arguments.
-    description: |-
-      Asserts that the installed npm version matches the locked version
-      in Get-ToolConfig before executing the command.
-    parameters:
-      Arguments: Arguments to pass to npm.
-      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
-      NoAssert: Skip exit code assertion.
-      Silent: Suppress the command log line.
-      DryRun: Return the command string without executing.
-    examples:
-      - Invoke-Npm 'install'
-      - Invoke-Npm 'run build' -PassThru
 ---
 #>
 

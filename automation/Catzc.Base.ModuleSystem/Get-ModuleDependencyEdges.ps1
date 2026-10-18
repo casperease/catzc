@@ -16,20 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
-  config:
-    synopsis: Returns the module dependency graph as typed ModuleDependencyEdge objects.
-    description: |-
-      By default returns the ACTUAL cross-module call edges derived from the code (via Get-ModuleDependency)
-      — each carrying its call count and the calling functions. With -Declared, returns the ALLOWED edges
-      from configs/dependencies.yml instead: each module's permitted dependencies (a target may be a GROUP
-      name), plus each group's internal member->member layering.
-
-      Pipe the result to ConvertTo-ModuleDependencyDiagram to render JSON / YAML / Markdown / PlantUML.
-    parameters:
-      Declared: Return the declared (allowed) graph from dependencies.yml instead of the actual code-derived graph.
-    examples:
-      - Get-ModuleDependencyEdges
-      - Get-ModuleDependencyEdges -Declared | ConvertTo-ModuleDependencyDiagram -As Puml
 ---
 #>
 

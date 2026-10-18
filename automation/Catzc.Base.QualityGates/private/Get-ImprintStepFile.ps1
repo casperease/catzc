@@ -19,14 +19,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-ImprintStepFile.Tests.ps1
     cites:
       - ADR-REPO-FORMAT#8
-  config:
-    synopsis: Lists the files one imprint step may write, in its own scope.
-    description: 'A step is never named by a language: which languages it covers is configuration, so this only answers which files the step reads.'
-    parameters:
-      Step: The step name, as languages.yml spells it.
-      RepositoryRoot: The repository root.
-      Path: Optional files or folders to limit the scope to.
-    outputs: '[string[]] Absolute paths.'
 ---
 #>
 

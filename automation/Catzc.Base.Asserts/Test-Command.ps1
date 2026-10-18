@@ -17,12 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Test-Command.Tests.ps1
-  config:
-    synopsis: Tests whether a command exists in the current session.
-    parameters:
-      Command: The command name to check.
-    examples:
-      - Test-Command 'git'
 ---
 #>
 

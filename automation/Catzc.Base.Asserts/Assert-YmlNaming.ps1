@@ -17,23 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
-  config:
-    synopsis: Validates that all property keys in a parsed YAML object use snake_case.
-    description: |-
-      Recursively walks a parsed YAML structure and asserts that every property key
-      matches snake_case (lowercase letters, digits, underscores, starting with a letter).
-      List items and values are not checked.
-    parameters:
-      Yaml: The parsed YAML object (from ConvertFrom-Yaml -Ordered).
-      PropertyPath: |-
-        Optional root prefix for error messages. Useful when validating a subtree,
-        e.g. Assert-YmlNaming $config.customers 'customers' will report paths as
-        'customers.blue.details' instead of 'blue.details'.
-    examples:
-      - |-
-        $config = Get-Content config.yml -Raw | ConvertFrom-Yaml -Ordered
-        Assert-YmlNaming $config
-      - Assert-YmlNaming $config.customers 'customers'
 ---
 #>
 

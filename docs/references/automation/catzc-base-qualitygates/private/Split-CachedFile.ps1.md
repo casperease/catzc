@@ -1,0 +1,37 @@
+# automation/Catzc.Base.QualityGates/private/Split-CachedFile.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Splits a quality check's files into those its result cache already knows are clean and those to check.
+
+### description
+
+The read half of a result cache ([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)): each
+file inside the repository gets the key '`<SHA-256 of its bytes>:<stamp>`'; a file whose cache entry equals its key is
+cached, every other file is pending. A file outside the repository, or one that does not exist, is always pending
+and never keyed (it is never recorded). Update-ResultCache is the write half.
+
+### parameter File
+
+The check's files.
+
+### parameter Cache
+
+The result cache (Get-ResultCache).
+
+### parameter Stamp
+
+The check's input stamp (Get-ContentStamp).
+
+### parameter RepositoryRoot
+
+The repository root.
+
+### outputs
+
+`[pscustomobject]` { Pending = `string[]` in the given order; CachedCount; Key = full path -> @(relative path, key) }.

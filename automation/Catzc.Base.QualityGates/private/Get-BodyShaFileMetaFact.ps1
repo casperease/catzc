@@ -20,14 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-BodyShaFileMetaFact.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#3
-  config:
-    synopsis: 'The body-sha meta kind''s fact: the hash of the file''s body below its front matter.'
-    description: The hash changes exactly when the body does; front matter and line endings never move it.
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

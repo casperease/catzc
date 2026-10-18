@@ -20,16 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-VisibilityFileMetaFact.Tests.ps1
     cites:
       - ADR-REPO-CODEMETA#2
-  config:
-    synopsis: 'The visibility meta kind''s fact: whether a module''s function file is public or private, from its folder.'
-    description: |-
-      A file in the module's private folder is private, and any other file of the module is public. The modules root and the folder name
-      are the kind's `root` and `private_folder` settings, `automation` and `private` unless the registry says otherwise.
-    parameters:
-      State: What the file's carrier reader returned.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

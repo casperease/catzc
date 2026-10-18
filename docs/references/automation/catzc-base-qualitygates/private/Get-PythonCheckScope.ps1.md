@@ -1,0 +1,28 @@
+# automation/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Lists what the Python checks read: every Python test folder, and every tracked .py file outside the Python root.
+
+### description
+
+Every .py file the repository holds takes the Python checks
+([ADR-AUTO-PY#8](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)): the Python test folders
+(Get-LanguageTestFolders, language python — a folder, so a new test file counts before it is committed), and the
+tracked .py files anywhere else, such as the agent helpers under .claude/ (Get-GitTrackedPath, read from the index).
+
+### outputs
+
+`[string]` Full paths: the test folders first, in their order, then the other files in ordinal order. Nothing when
+the repository holds no Python.
+
+### example 1
+
+```powershell
+$scope = @(Get-PythonCheckScope)
+```

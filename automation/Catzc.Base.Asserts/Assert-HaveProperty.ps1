@@ -17,17 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-HaveProperty.Tests.ps1
-  config:
-    synopsis: Asserts that an object has a named property, or a nested chain of properties.
-    parameters:
-      Object: The object to inspect.
-      PropertyName: |-
-        The property name that must exist on the object. Dotted paths
-        (e.g. 'parent.child.etc.value') are walked level by level; the failure
-        message names the deepest segment that was reached before the chain broke.
-    examples:
-      - Assert-HaveProperty $response 'StatusCode'
-      - Assert-HaveProperty $config 'parent.child.etc.value'
 ---
 #>
 

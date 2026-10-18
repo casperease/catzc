@@ -15,14 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-  config:
-    synopsis: Asserts that a value is not $null.
-    parameters:
-      Value: The value to test. Must not be $null.
-      ErrorText: Custom error message. Defaults to file and line info.
-    examples:
-      - Assert-NotNull $result
-      - Assert-NotNull $release -ErrorText 'GitHub API returned null'
 ---
 #>
 

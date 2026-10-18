@@ -17,17 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
     test: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
-  config:
-    synopsis: Installs a CLI as an isolated uv tool.
-    description: |-
-      Mirrors Install-Tool's contract but installs via `uv tool install <uv_tool>==<version>.*` — each tool gets
-      its own isolated environment with uv's managed Python (user-space, no admin, no shared-env pollution).
-      Used for az_cli, poetry, and other Python-based CLIs. Handles idempotency, -Force, and version verify.
-      uv is the install mechanism, so it must be present (Invoke-Uv asserts it).
-    parameters:
-      Tool: The snake_case tool key as defined in tools.yml (must declare uv_tool).
-      Version: Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
-      Force: Uninstall a wrong version before installing the correct one.
 ---
 #>
 

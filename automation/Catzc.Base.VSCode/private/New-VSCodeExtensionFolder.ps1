@@ -19,19 +19,6 @@ catzc:
     test: automation/Catzc.Base.VSCode/tests/New-VSCodeExtensionFolder.Tests.ps1
     cites:
       - ADR-AUTO-ASSETDEP#1
-  config:
-    synopsis: Renders one of the repository's own editor extensions to a folder the editor can pack, from its registry entry and its script.
-    description: |-
-      The extension's package.json is rendered from its entry under `extensions:` in vscode-extensions.yml, and its script is copied from
-      the module's `assets/extensions/<name>.js` to `extension.js`. The folder is generated output: it is replaced on every render, so
-      nothing in it is edited by hand.
-    parameters:
-      Extension: The registry entry to render.
-      OutputDirectory: The folder the extension folder is written under, as `<OutputDirectory>/<name>/`.
-      AssetDirectory: "The folder that holds the extension scripts. Default: the module's assets/extensions/."
-    outputs: '[string] The full path of the rendered extension folder.'
-    examples:
-      - New-VSCodeExtensionFolder -Extension $entry -OutputDirectory (Join-Path (Get-OutputRoot) 'vscode-extensions')
 ---
 #>
 

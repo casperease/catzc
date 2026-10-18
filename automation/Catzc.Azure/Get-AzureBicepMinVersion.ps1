@@ -16,14 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
-  config:
-    synopsis: Returns the minimum required Bicep CLI version from azure.yml.
-    description: |-
-      Reads the required `bicep_min_version` global from configs/azure.yml (validated as MAJOR.MINOR.PATCH
-      by the AzureConfig type on load) and returns it as a [version] for comparison. Assert-AzCliBicep /
-      Test-AzCliBicep use it to decide whether `az bicep build` may run.
-    examples:
-      - 'Get-AzureBicepMinVersion   # -> 0.30.0'
 ---
 #>
 

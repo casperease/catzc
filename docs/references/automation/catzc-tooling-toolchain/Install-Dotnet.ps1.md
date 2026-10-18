@@ -24,6 +24,53 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Installs the .NET SDK via official Microsoft install scripts (user-space).
+
+### description
+
+Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved
+through Get-CatzcModuleRoot, so the same in source and build mode) instead of package managers.
+Install directory resolved by Get-ScriptInstallDir (LOCALAPPDATA on
+Windows, HOME on Unix — overridable in tools.yml).
+No admin required. Persists DOTNET_ROOT and PATH for future sessions.
+Idempotent — converges to the desired state on every run: when our
+install dir already holds the locked version the download is skipped,
+but the environment (session + persistent PATH, DOTNET_ROOT) is still
+converged, so a machine whose PATH persistence was lost is repaired by
+re-running. Only a right-version dotnet from elsewhere on PATH (a
+system-wide install we do not manage) is a true no-op.
+
+NOT for CI pipelines. In Azure DevOps, use the native UseDotNet task
+which activates pre-cached versions instantly:
+
+- task: UseDotNet@2
+  inputs:
+    version: '10.x'
+
+### parameter Version
+
+.NET SDK version to install. Defaults to the locked version in Get-ToolConfig.
+
+### parameter Force
+
+Replace an existing installation at the wrong version.
+
+### example 1
+
+```powershell
+Install-Dotnet
+```
+
+### example 2
+
+```powershell
+Install-Dotnet -Version '10.0'
+```
+
 ## comment:1
 
 Above `$needsInstall = $true`, written with `#`.

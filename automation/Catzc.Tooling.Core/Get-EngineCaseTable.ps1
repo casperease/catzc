@@ -19,20 +19,6 @@ catzc:
     test: automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1
     cites:
       - ADR-AUTO-ENGINE#1
-  config:
-    synopsis: 'Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.'
-    description: |-
-      Reads a YAML engine case table and validates it through the EngineCaseTable type: every case fills every engine
-      column, or names why it does not apply ("n/a: <reason>"), so the parity of a behaviour across every engine is
-      explicit case by case. Returns one hashtable per case and engine, shaped for Pester's -ForEach
-      (Case, Engine, Fields, NotApplicable): Fields is the column's map, NotApplicable the reason when it does not apply.
-    parameters:
-      Path: 'The table file: absolute, or relative to the repository root (never to the current directory).'
-      Engine: Return only this engine's rows.
-      Applicable: Return only the rows that apply (skip the "n/a" cells).
-    outputs: '[hashtable] One per case and engine, in file order.'
-    examples:
-      - Get-EngineCaseTable automation/Catzc.Base.Timeouts/tests/assets/engine-cases/bounded-command.yml -Applicable
 ---
 #>
 

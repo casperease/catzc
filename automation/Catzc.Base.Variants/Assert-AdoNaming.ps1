@@ -17,17 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Variants/tests/Assert-AdoNaming.Tests.ps1
-  config:
-    synopsis: Asserts the repo's Azure resource-name order (the `ado_naming` variant) is the one named, else throws.
-    description: |-
-      The throwing companion to Test-AdoNaming. Pass exactly one of -Standard or -Classic; throws (naming the
-      actual order and where to change it) when the repo's order does not match. Guards a code path that only
-      holds under one naming convention.
-    parameters:
-      Standard: Require the 'standard' order.
-      Classic: Require the 'classic' order.
-    examples:
-      - Assert-AdoNaming -Standard
 ---
 #>
 

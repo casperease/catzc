@@ -15,13 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Tests whether a file is free to open (not locked by another handle).
-    description: The inverse of Test-FileIsLocked. See its notes on Windows (mandatory) vs Linux/macOS (advisory) locking.
-    parameters:
-      Path: Path to the file to test.
-    examples:
-      - Test-FileIsNotLocked $dllPath
 ---
 #>
 

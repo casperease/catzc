@@ -17,17 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
-  config:
-    synopsis: Asserts a module (optionally at a specific version) is available from the configured vendor source.
-    description: |-
-      The throwing half of the restorability check (Test-VendorModuleAvailable is the query). Throws an
-      actionable error when the source cannot offer the module, so a caller — chiefly Remove-VendorModules — never
-      deletes a committed binary that the network cannot restore.
-    parameters:
-      Name: The module name that must be available on the source.
-      Version: An optional exact version that must be available.
-    examples:
-      - Assert-VendorModuleAvailable -Name Pester -Version '5.5.0'
 ---
 #>
 

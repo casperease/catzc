@@ -17,24 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
-  config:
-    synopsis: Derives a template slot's resource-group name from the Azure naming standard.
-    description: |-
-      Convenience over Get-BicepResourceName for the resource-group type — the single source of the RG
-      name for both Get-BicepDeploymentContext (the deploy target) and Set-BicepTrackingTagSet (the tag
-      scope), so the two never drift. The resource-group name is derived from the naming standard, never
-      hand-typed in config (one config file ⟷ one resource group).
-    parameters:
-      Template: Template name.
-      Environment: Environment shortname.
-      Slot: Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
-      Customer: Optional customer; renders into the RG name and is required to disambiguate a per-customer RG.
-    examples:
-      - 'Get-BicepResourceGroupName -Template sample -Environment dev          # -> dev-weu-zct-smpl-rg'
-      - 'Get-BicepResourceGroupName -Template sample -Environment dev -Customer apex   # -> dev-weu-zct-smpl-apex-rg'
-      - |-
-        Get-BicepResourceGroupName -Template sample-indexed -Environment dev -Slot 001
-        # -> dev-001-weu-zct-sidx-rg
 ---
 #>
 

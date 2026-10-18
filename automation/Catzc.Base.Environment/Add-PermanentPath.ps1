@@ -17,28 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
     test: automation/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
-  config:
-    synopsis: Adds a directory to PATH persistently and in the current session.
-    description: |-
-      Cross-platform PATH persistence:
-      - Windows: writes to the User-scope registry PATH.
-      - Linux/macOS: appends a marked block to the PowerShell profile.
-      - Always: updates $env:PATH for the current session.
-
-      Idempotent — skips if the path is already present.
-    parameters:
-      Path: The directory to add. Must exist.
-      Prepend: Place the path at the beginning instead of the end.
-      Label: |-
-        Identity marker for Unix profile blocks. Defaults to the leaf folder name.
-        Must match when calling Remove-PermanentPath.
-      Sync: |-
-        After adding, call Sync-SessionPath to merge any other new registry
-        entries into the current session (Windows only).
-    examples:
-      - Add-PermanentPath '/usr/local/go/bin'
-      - Add-PermanentPath $installDir -Prepend -Label 'Install-Dotnet'
-      - Add-PermanentPath $toolDir -Sync
 ---
 #>
 

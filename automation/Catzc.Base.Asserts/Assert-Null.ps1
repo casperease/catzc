@@ -17,13 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-Null.Tests.ps1
-  config:
-    synopsis: Asserts that a value is $null.
-    parameters:
-      Value: The value to test. Must be exactly $null.
-      ErrorText: Custom error message. Defaults to file and line info.
-    examples:
-      - Assert-Null $result
 ---
 #>
 

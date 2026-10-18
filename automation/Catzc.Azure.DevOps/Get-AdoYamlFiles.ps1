@@ -19,23 +19,6 @@ catzc:
     test: automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
     cites:
       - ADR-PWSH-PESTER#9
-  config:
-    synopsis: Scans a directory recursively for YAML files and classifies each as Pipeline, Template, or Unknown.
-    description: |-
-      Finds all .yml and .yaml files under the specified path, parses each with
-      ConvertFrom-Yaml, and uses top-level key heuristics to classify the file
-      as an Azure DevOps pipeline, a template (with subtype), or unknown.
-
-      Files that fail YAML parsing are included in the output with ParseError set
-      and Classification set to Unknown.
-    parameters:
-      Path: Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
-      Exclude: |-
-        Directory names to skip during scanning. Matched as exact names anywhere in the path.
-        Defaults to @('.git', 'node_modules', '.terraform').
-    examples:
-      - Get-AdoYamlFiles -Path 'C:\repos\big-mono'
-      - Get-AdoYamlFiles -Path 'C:\repos\big-mono' -Exclude @('.git', 'node_modules', 'vendor')
 ---
 #>
 

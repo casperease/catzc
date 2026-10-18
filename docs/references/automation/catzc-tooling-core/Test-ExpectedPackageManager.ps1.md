@@ -19,6 +19,40 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Tests whether a tool is managed by the expected package manager.
+
+### description
+
+Checks the platform's expected package manager to determine if it
+currently manages the given tool. Check order: system-provided, UserInstallDir (script-installed, and an
+MSYS2-package tool's tree on Windows), uv, platform-specific (winget/brew/apt), pip and npm (cross-platform
+fallbacks), then an MSYS2-package tool that declares no manager for this platform, which is the system's. So an
+MSYS2-package tool that also declares an apt_package is judged by apt on Linux. Returns $false if the manager is
+not available.
+
+### parameter Config
+
+Tool configuration hashtable from Get-ToolConfig / tools.yml.
+
+### parameter WingetListCache
+
+Pre-fetched winget list output (Get-WingetListCache), so a batch of checks lists once.
+Pre-fetched winget list output. When provided, skips the per-tool
+winget list call — pass the result of Get-WingetListCache.
+
+### parameter Path
+
+For a script-installed tool, or an MSYS2-package tool on Windows: judge this install folder (or a file in it)
+instead of the one the command resolves to on PATH. A removal names the folder it is about to delete, so the
+managed install's position on PATH never decides whether a different folder is managed
+([ADR-AUTO-REMOVE#3](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
+The install folder to judge, for a script-installed or an MSYS2-package tool. Default: the folder the command
+resolves to on PATH — which, in a catzc session, is always the managed install, so a removal of another folder names it.
+
 ## comment:1
 
 Above `if ($Config.script_install -or ($Config.msys2_url -and $IsWindows)) {`, written with `#`.

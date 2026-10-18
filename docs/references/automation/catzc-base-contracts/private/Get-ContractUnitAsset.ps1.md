@@ -1,0 +1,50 @@
+# automation/Catzc.Base.Contracts/private/Get-ContractUnitAsset.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Lists the contract assets of the selected versions of one unit.
+
+### description
+
+A unit folder, `contracts/<unit>/`, holds only version folders named `<major>.<minor>.<patch>`
+([ADR-REPO-CONTRACT#2](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)); 0.0.0 is the unit's draft
+([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)). Every version folder name is
+checked, selected or not, so a misnamed folder throws on any listing; a file directly in the unit folder throws too.
+A selection that matches no version folder gives nothing. Versions come in ordinal order.
+
+### parameter Unit
+
+The deployable-unit folder name.
+
+### parameter Folder
+
+The unit folder's absolute path.
+
+### parameter Version
+
+The version folder names to list; wildcards allowed.
+
+### parameter TargetRoot
+
+The target roots, module name to repository-relative folder
+([ADR-REPO-CONTRACT#2](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)). A module it does not name
+takes the repository root.
+
+### parameter RepositoryRoot
+
+The repository root the target roots resolve against.
+
+### outputs
+
+`[Catzc.Base.Contracts.ContractAsset[]]`
+
+### example 1
+
+```powershell
+Get-ContractUnitAsset -Unit widget -Folder $unitFolder -Version 0.0.0 -TargetRoot @{} -RepositoryRoot $repositoryRoot
+```

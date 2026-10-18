@@ -17,14 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1
-  config:
-    synopsis: Tests whether a budget GUID is exempt from its normal time limit in this run environment.
-    description: The boolean form of Get-TimeoutExemption, which defines the lookup.
-    parameters:
-      Budget: The budget's immutable GUID.
-      Shell: The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
-    examples:
-      - if (Test-IsTimeoutExempt $budget) { Write-Message 'running exempt while tuned' }
 ---
 #>
 

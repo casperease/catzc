@@ -18,39 +18,6 @@ catzc:
     test: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
     cites:
       - ADR-PWSH-CACHE
-  config:
-    synopsis: Locates an executable without starting a process, then confirms its version once per session.
-    description: |-
-      The generic existence check, in two timed steps, from plain inputs:
-
-      1. Locate, with no process start: the first of -Candidate that exists wins (Method 'probe'); else the first
-         application named -Command on PATH (Method 'path'); else Method 'none'. A path in -Exclude never counts, as
-         a candidate or on PATH (for bash on Windows, the WSL launcher). %VAR% environment variables in candidates
-         and exclusions are expanded.
-      2. Confirm: only for a located executable, run it once with -VersionArguments (Get-ExecutableVersion) and
-         match its output against -VersionPattern. VersionOk is true when the version starts with -RequiredVersion
-         or one of -AcceptVersion (any parsed version, when no version is required).
-
-      The version is a lazy session cache entry keyed by the executable's path, its last write time and the
-      arguments ([ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md)), so a process starts at
-      most once per executable per session, while a reinstall, an upgrade or a removal is seen on the next call. The
-      locate step runs on every call: it is file checks only.
-
-      The caller chooses the candidates for its platform and run environment; Resolve-ToolExecutable does that for a
-      tools.yml entry. The record carries the session actor (Get-SessionActor), for the report.
-    parameters:
-      Name: The name the record carries (a tools.yml key, for a tool).
-      Command: The command name looked up on PATH when no candidate exists. Defaults to -Name.
-      Candidate: The candidate executable paths, in order. Empty for a PATH-only lookup.
-      Exclude: Executable paths that never count, as a candidate or on PATH.
-      VersionArguments: The arguments that make the executable print its version (e.g. '--version').
-      VersionPattern: The regex that captures the version as the named group (?<ver>...).
-      RequiredVersion: The version prefix the reported version must start with. Empty accepts any parsed version.
-      AcceptVersion: Further version prefixes that also satisfy the check (for a tool, the devbox_version lever outside a pipeline).
-    outputs: '[Catzc.Base.Execution.ExecutableProbe]'
-    examples:
-      - Find-Executable -Name 'widget' -Candidate '%LOCALAPPDATA%\Widget\widget.exe' -VersionArguments '--version' -VersionPattern 'widget (?<ver>[\d.]+)' -RequiredVersion '5'
-      - (Find-Executable -Name 'gadget' -VersionArguments 'version' -VersionPattern 'v(?<ver>[\d.]+)').Path
 ---
 #>
 

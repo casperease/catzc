@@ -15,12 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-  config:
-    synopsis: Throws if the current session is not running as Administrator.
-    parameters:
-      ErrorText: Custom error message.
-    examples:
-      - Assert-IsAdministrator
 ---
 #>
 

@@ -14,14 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Returns the install scope of a tool based on its binary location.
-    description: |-
-      Determines whether a tool is installed in user-space or machine-wide
-      by inspecting the binary path. Returns 'user', 'machine', or 'unknown'.
-    parameters:
-      Config: Tool configuration hashtable from Get-ToolConfig / tools.yml.
-      Location: Full path to the tool binary (from Get-Command .Source).
 ---
 #>
 

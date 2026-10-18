@@ -14,13 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls ShellCheck installed by Install-Shellcheck.
-    description: Delegates to Uninstall-Tool, which removes the winget or brew package the tools.yml `shellcheck` entry names.
-    parameters:
-      Version: 'The installed version to remove. Default: whatever is installed.'
-    examples:
-      - Uninstall-Shellcheck
 ---
 #>
 

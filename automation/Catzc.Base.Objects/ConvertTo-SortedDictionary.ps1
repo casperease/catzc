@@ -16,14 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
-  config:
-    synopsis: Recursively converts dictionaries to ordered form for stable output.
-    description: |-
-      OrderedDictionaries keep their original key order.
-      Plain Hashtables get their keys sorted alphabetically.
-      Nested dictionaries are processed recursively.
-    parameters:
-      Dictionary: The dictionary to process.
 ---
 #>
 

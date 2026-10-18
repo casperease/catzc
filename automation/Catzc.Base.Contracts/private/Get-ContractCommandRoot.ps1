@@ -20,23 +20,6 @@ catzc:
     cites:
       - ADR-AUTO-MODULE#1
       - ADR-REPO-CMDCONTRACT#{3,4}
-  config:
-    synopsis: Returns the root folder of the module whose command contracts are being resolved, where its command files sit.
-    description: |-
-      A command contract names its command by placement
-      ([ADR-REPO-CMDCONTRACT#3](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)): the module folder
-      is the owner, and the command's file sits under the module's root beside its other public functions. The root comes from the
-      one resolver of a module, Get-CatzcModule
-      ([ADR-AUTO-MODULE#1](/docs/adr/automation/module-model.md#rule-adr-auto-module1)), looked up by name in the code
-      track; no module of that name throws, naming the module. A module whose languages do not include PowerShell throws
-      NotImplemented: only the PowerShell checker exists
-      ([ADR-REPO-CMDCONTRACT#4](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract4)).
-    parameters:
-      Module: The owning module's name, the asset's module folder.
-      RepositoryRoot: The tree the module is resolved in.
-    outputs: '[string] The module''s root, repository-relative and ''/''-separated.'
-    examples:
-      - Get-ContractCommandRoot -Module Catzc.Base.Languages -RepositoryRoot $root
 ---
 #>
 

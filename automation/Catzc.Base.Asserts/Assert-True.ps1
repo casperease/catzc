@@ -17,14 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-True.Tests.ps1
-  config:
-    synopsis: Asserts that a value is boolean $true.
-    parameters:
-      Value: The value to test. Must be exactly [bool] $true.
-      ErrorText: Custom error message. Defaults to file and line info.
-    examples:
-      - Assert-True $result
-      - Assert-True ($x -eq 1) -ErrorText 'x must equal 1'
 ---
 #>
 

@@ -20,24 +20,6 @@ catzc:
     test: automation/Catzc.Base.Timeouts/tests/Assert-Wait.Tests.ps1
     cites:
       - ADR-AUTO-FAILFAST#{5,7}
-  config:
-    synopsis: A watchpoint — stands where the thread or process may be blocked, writes loudly, warns once and lets go.
-    description: |-
-      Holds the calling thread for Seconds + Milliseconds in ten evenly spaced ticks and writes a line per tick through
-      Write-Message: when the tick was due, when it ran, and how late it was. A blocked thread or a starved process cannot keep
-      that schedule, so a late tick is the evidence. It ends with one Write-Message -Warning line (always, blocked or not), then
-      returns. It stops nothing and throws nothing for a block; only an invalid argument throws.
-
-      The closing line is Write-Message -Warning, not the Write-Warning cmdlet: the importer sets $WarningPreference = 'Stop',
-      so the cmdlet would terminate where this must let go. A watchpoint is a diagnostic — it costs its full duration on every
-      run and is removed once the block it found is bounded (Invoke-WithTimeout, a timeouts.yml entry).
-    parameters:
-      Seconds: 'Whole seconds to stand. Default: the timeouts registry''s wait.seconds, one second declared once on TimeoutsConfig.'
-      Milliseconds: 'Milliseconds added to Seconds. Default: the registry''s wait.milliseconds, one millisecond declared once on TimeoutsConfig.'
-    examples:
-      - Assert-Wait
-      - Assert-Wait -Seconds 2
-      - Assert-Wait -Seconds 0 -Milliseconds 250
 ---
 #>
 

@@ -17,25 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
     test: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
-  config:
-    synopsis: Installs the Go toolchain from the official go.dev archive into a user-space home.
-    description: |-
-      Resolves the newest stable release of the locked version from the go.dev release feed (Get-GoRelease),
-      downloads its archive for this platform and verifies it against the SHA-256 the feed publishes
-      (Save-VerifiedDownload), and extracts it into the script-install home (Get-ScriptInstallDir: Windows
-      %LOCALAPPDATA%\go, Unix ~/.go). No package manager and no admin on any platform, so Windows, Linux and macOS
-      take the same path. The home's bin folder is put on the session and persistent PATH.
-
-      Idempotent — converges to the desired state on every run: when the home already holds the locked version the
-      download is skipped, but PATH is still converged, so a lost PATH entry is repaired by re-running. A Go at the
-      locked version found elsewhere (a pipeline's hosted tool cache, activated by the native Go task) satisfies the
-      contract and is left untouched.
-    parameters:
-      Version: Go version to install. Defaults to the locked version in Get-ToolConfig.
-      Force: Replace an installation in the managed home at the wrong version.
-    examples:
-      - Install-Go
-      - Install-Go -Version '1.27' -Force
 ---
 #>
 

@@ -19,14 +19,6 @@ catzc:
     test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
     cites:
       - ADR-AUTO-TEST#33
-  config:
-    synopsis: Uninstalls Chocolatey from the current machine.
-    description: |-
-      Removes the Chocolatey package manager if it is installed.
-      Idempotent — safe to run when Chocolatey is not present.
-      Windows-only; returns immediately on other platforms.
-    examples:
-      - Uninstall-Chocolatey
 ---
 #>
 

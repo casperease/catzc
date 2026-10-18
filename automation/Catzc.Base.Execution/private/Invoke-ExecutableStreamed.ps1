@@ -17,36 +17,6 @@ catzc:
     visibility: private
   edges:
     page: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md
-  config:
-    synopsis: |-
-      Runs a CLI command with live-streamed output, exit code handling, and
-      optional structured output capture.
-    description: |-
-      Private implementation for Invoke-Executable (default mode).
-
-      Uses a C# CliRunner class (types/CliRunner.cs) that reads stdout/stderr
-      char-by-char on background threads via Console.Write. Preserves \r
-      carriage returns (spinners, progress bars) and Unicode. Output bypasses
-      PowerShell's output stream entirely — zero pipeline leaks.
-
-      Limitation: ANSI color codes are NOT preserved. When stdout is redirected
-      to a pipe (which Process does internally), most CLI tools detect this via
-      isatty() and disable colored output. This is a fundamental OS-level
-      constraint — the child process never emits the escape sequences. Solving
-      this would require ConPTY (pseudo-terminal). Use -Direct when colors
-      are important and pipeline leaks are acceptable.
-    parameters:
-      Command: The command string to execute.
-      WorkingDirectory: The directory to run the command in.
-      PassThru: Return a Catzc.Base.Execution.CliResult object with Output, Errors, Full, ExitCode, and Raw.
-      NoAssert: Skip the exit code assertion.
-      Silent: Suppress all console output. Output is still captured for -PassThru.
-      TimeoutSeconds: The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
-      AsBytes: |-
-        Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary
-        stream. Returns the CliResult as -PassThru does.
-      InputText: Written to the child's stdin, which is then closed; absent, stdin is left as before.
-      DryRun: Return the command string without executing.
 ---
 #>
 

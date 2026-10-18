@@ -19,46 +19,6 @@ catzc:
     test: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
     cites:
       - ADR-AZ-DATAMOD
-  config:
-    synopsis: Composes the immutable deployment-context object Deploy-Bicep operates on.
-    description: |-
-      Resolves everything Deploy-Bicep needs into ONE immutable object with exactly three concerns —
-      the deployment PLAN, the build ARTIFACTS, and the target IDENTITY:
-
-        deployment   — the plan: { template, name, mode, target, resource_group? }
-        artifacts    — the built files: { did_local_build, folder, template_file, parameters_file, prepost_module? }
-        environment  — the target identity: the resolved Get-AzureEnvironment (env + serving subscription)
-
-      Build-folder resolution:
-      - Pipeline: $ArtifactsFolder is required and is used as-is.
-      - Devbox + no -DoNotRebuild: Build-Bicep is invoked here, then its output is used.
-      - Devbox + -DoNotRebuild: the template's standard output_folder is used; the function
-        throws if it does not exist.
-
-      DoNotRun handling: when the template's deployment_mode is 'DoNotRun', this function
-      returns $null (signal to skip) unless -OverrideDoNotRunAndRun is set.
-
-      Subscription-target templates leave `deployment.resource_group` unset and assert that
-      `configuration/<slot>.yml` does NOT carry a `ResourceGroup` key.
-      The target SUBSCRIPTION is the az session's (in a pipeline: the service connection's), resolved
-      against azure.yml by Get-AzCliSessionSubscription; the slot addressed is (session customer?, env,
-      slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See
-      [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
-    parameters:
-      Environment: Environment shortname (must be in azure.yml and in the template's environment list).
-      Template: Template name (folder under infrastructure/templates/).
-      Slot: |-
-        Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot
-        (config file + parameters artifact + resource group). Omitted -> the env's base / index-0 slot.
-      SubscriptionIdAssertIs: |-
-        Optional guard — the subscription GUID the az session is expected to target. Throws when the
-        session's subscription differs (in a pipeline that means a mis-wired service connection). Never a
-        selector: the session always determines the target.
-      ArtifactsFolder: Required on a build agent. Points at the downloaded build output.
-      DoNotRebuild: Devbox-only. Reuse an existing build in the template's output_folder instead of rebuilding.
-      OverrideDoNotRunAndRun: Devbox-only. Bypass the DoNotRun guard (returns context instead of $null).
-    examples:
-      - '$context = Get-BicepDeploymentContext -Environment dev -Template sample'
 ---
 #>
 

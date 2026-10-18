@@ -17,16 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.QualityGates/tests/Assert-ManagedGuid.Tests.ps1
-  config:
-    synopsis: Asserts a GUID is registered in the managed-GUID registry (configs/guids.yml); throws when it is not.
-    description: |-
-      The throwing counterpart of Test-ManagedGuid; both share one lookup (Resolve-ManagedGuid), so they can
-      never disagree. Comparison is case-insensitive by [guid] value. Succeeds silently — the absence of an
-      error is the output.
-    parameters:
-      Guid: The GUID to assert.
-    examples:
-      - Assert-ManagedGuid '499b84ac-1321-427f-aa17-267ca6975798'
 ---
 #>
 

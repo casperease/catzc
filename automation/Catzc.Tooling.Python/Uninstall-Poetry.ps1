@@ -14,13 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls Poetry.
-    description: |-
-      Removes the uv-managed install (`uv tool uninstall poetry`) via Uninstall-UvTool. Idempotent — skips if
-      Poetry is not installed.
-    examples:
-      - Uninstall-Poetry
 ---
 #>
 

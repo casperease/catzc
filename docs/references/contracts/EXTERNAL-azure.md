@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "6a564f6431b0"
-    with_inputs_sha: fee8796a467bd852113b1f47d8e01c0b80833f0a11a9e9d1bf1c4e8d686b8622
+    with_inputs_sha: "3d78a0c75403625ffdb402edddfa91bee4d5743b0b240e8f88e1986d7988a42d"
     repo_status: locked
     path: docs/references/contracts/EXTERNAL-azure.md
     source: contracts/EXTERNAL-azure

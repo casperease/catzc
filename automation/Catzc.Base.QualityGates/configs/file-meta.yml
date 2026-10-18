@@ -19,8 +19,6 @@
 
 # Whether a file of a class must, may or must not carry a block; the first class that matches decides, else the default (forbidden on the type).
 head_policy:
-  # Every in-scope file keeps its block until the one strip pass, which deletes this line so the type's default holds.
-  default: required
   classes:
     agent: required
     capability: required
@@ -115,7 +113,7 @@ kinds:
     keys: [defines]
     select: [{ classes: [adr], languages: [markdown] }]
 
-  # The ADR codes a file cites; a code class also lists bare domain codes and keeps what its head holds (domain_ and held_classes default).
+  # The ADR codes a file and its comment page cite, never read back from its head; a code class also lists bare domain codes (domain_classes default).
   adr-codes:
     section: edges
     keys: [cites]

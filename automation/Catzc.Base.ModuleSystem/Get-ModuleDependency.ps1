@@ -16,16 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
-  config:
-    synopsis: Compiles a module-level dependency edge map from function-level dependencies.
-    description: |-
-      Takes the output of Get-FunctionDependency and collapses it into unique
-      module-to-module edges with call counts and the functions involved.
-    parameters:
-      Dependency: Function dependency objects from Get-FunctionDependency. Accepts pipeline input.
-    examples:
-      - Get-FunctionDependency | Get-ModuleDependency
-      - Get-FunctionDependency | Get-ModuleDependency | Where-Object { $_.From -eq 'Catzc.Tooling.Core' }
 ---
 #>
 

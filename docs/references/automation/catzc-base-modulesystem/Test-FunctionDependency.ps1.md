@@ -22,6 +22,60 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+The function dependency quality gate: every function-to-function call resolves to a defined command.
+
+### description
+
+Parses every .ps1 file (excluding tests) under the automation root using AST,
+then checks each function call against: (a) the definitions map of automation
+functions, and (b) Get-Command for built-ins, vendor modules, and other loaded
+commands.
+
+An issue is an unresolved call ('`<caller>` -> `<missing>` (`<module>/<file>:<line>`)') or two modules defining the
+same public (module-root) function name — exported names must be globally unique, mirroring the importer's
+Assert-UniqueModuleFunctionName. Duplicate private names across modules are allowed (privates are
+module-scoped and not exported).
+
+A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
+through Write-QualityGateReport, which writes out/test-function-dependency/, prints every issue, and throws
+once listing them all; -PassThru returns the result instead.
+
+Must run post-import so Get-Command covers all loaded modules. Reads the per-function source files, which
+exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
+[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+
+### parameter AutomationRoot
+
+Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
+
+### parameter OutputFolder
+
+The report base folder. Defaults to `<out>/test-function-dependency`.
+
+### parameter PassThru
+
+Return a result object ({ Subject; IssueCount; Issues; ReportPath; FunctionCount }) instead of throwing.
+
+### outputs
+
+Throws on any issue; with -PassThru, returns the result object.
+
+### example 1
+
+```powershell
+Test-FunctionDependency
+```
+
+### example 2
+
+```powershell
+(Test-FunctionDependency -PassThru).Issues
+```
+
 ## comment:1
 
 Above `$parsed = [System.Collections.Generic.List[object]]::new()`, written with `#`.

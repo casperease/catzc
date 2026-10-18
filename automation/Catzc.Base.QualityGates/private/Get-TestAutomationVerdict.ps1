@@ -20,29 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationVerdict.Tests.ps1
     cites:
       - ADR-AUTO-XPLAT#6
-  config:
-    synopsis: Derives a completed run's verdict — the Passed/Failed result and its one-line reason — from the run facts.
-    description: |-
-      The single place that turns the aggregated run facts (the test verdict, the failed-test count, failed-shard
-      labels, the timing verdict) into the two values the closing banner and the failure throw both consume: a
-      'Passed'/'Failed' Result — a timing-only or budget-only failure reads Failed even though the test verdict
-      passed — and a Summary reason: the counts-in-time on a pass, or the cause on a fail (failed tests, a failed
-      shard with no failed test row, a devbox run over its whole-run budget, or an -EnforceTimings over-limit).
-      Extracted from Test-Automation so the reason wording
-      lives once and the orchestrator stays a single, readable responsibility.
-    parameters:
-      Rows: The run's aggregated per-test rows — the over-limit count is recomputed from these on the timing path.
-      Limits: The per-level millisecond limits, for the over-limit count.
-      RunResult: The test verdict ('Passed'/'Failed') from the rows, before folding in the timing verdict.
-      FailedCount: The failed-test-row count.
-      FailedShardLabels: Labels of shards that reported a failed run with no failed test row (a container/discovery error).
-      TimingFailure: Whether -EnforceTimings failed the run on an over-limit test.
-      BudgetFailure: Whether a devbox run outlasted its whole-run budget (tests.run_seconds), which fails it.
-      RunBudgetSeconds: The whole-run budget, for the budget-failure wording.
-      PassedCount: Passed-test count, for the pass summary wording.
-      SkippedCount: Skipped-test count, for the pass summary wording.
-      DurationSeconds: Wall-clock duration, for the pass summary wording.
-    outputs: '[hashtable] @{ Result = ''Passed''|''Failed''; Summary = ''<one-line reason>'' }'
 ---
 #>
 

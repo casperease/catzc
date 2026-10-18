@@ -17,19 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
     test: automation/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
-  config:
-    synopsis: Provisions the local development environment with all required tools.
-    description: |-
-      Installs all locked tool versions in dependency order (derived from
-      DependsOn in tools.yml). Idempotent — safe to run repeatedly. Skips
-      tools that are already installed at the correct version. Tools at the
-      correct version but installed outside the expected manager are left
-      untouched with a message.
-    parameters:
-      Force: Replace existing installations that are at the wrong version.
-    examples:
-      - Install-DevBoxTools
-      - Install-DevBoxTools -Force
 ---
 #>
 

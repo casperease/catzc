@@ -21,19 +21,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
     cites:
       - ADR-REPO-LINK#5
-  config:
-    synopsis: 'The adr-codes meta kind''s fact: the ADR citations the file and its comment page make, sorted and without duplicates.'
-    description: |-
-      A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
-      listed under `defines`, never here, and a code the ADR index does not register is no citation. A file whose class the kind's
-      `domain_classes` setting names also lists a bare `ADR-<CODE>`, and one whose class `held_classes` names keeps every code its head
-      already holds, so the head is where its citations live; both settings default to the classes the kind selects. The spelling is
-      [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5), and the order is ordinal, so a rerun never moves a code.
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 
@@ -93,19 +80,6 @@ function Get-AdrCodesFileMetaFact {
         }
         if (-not $registered) {
             [void] $codes.Remove($code)
-        }
-    }
-    $held = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('held_classes'), $fileClass)
-    if ($held -and $State.PSObject.Properties['EdgeLists'] -and $State.EdgeLists.Contains($Kind.keys[0])) {
-        foreach ($token in $State.EdgeLists[$Kind.keys[0]]) {
-            try {
-                foreach ($code in [Catzc.Base.Docs.AdrCodeForm]::Expand($token)) {
-                    [void] $codes.Add($code)
-                }
-            }
-            catch [System.FormatException] {
-                continue
-            }
         }
     }
     [ordered]@{ $Kind.keys[0] = [string[]] @([Catzc.Base.Docs.AdrCodeForm]::Minimize([string[]] @($codes), $map)) }

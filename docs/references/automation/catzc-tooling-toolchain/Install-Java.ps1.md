@@ -22,6 +22,39 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Installs Microsoft OpenJDK via the platform package manager.
+
+### description
+
+After installation, sets JAVA_HOME for the current session and
+persists it for future sessions (User registry on Windows, $PROFILE
+on Unix). Modeled on Install-Dotnet / DOTNET_ROOT.
+Idempotent — skips if already installed at the correct version.
+
+### parameter Version
+
+Java version to install. Defaults to the locked version in Get-ToolConfig.
+
+### parameter Force
+
+Replace an existing installation at the wrong version.
+
+### example 1
+
+```powershell
+Install-Java
+```
+
+### example 2
+
+```powershell
+Install-Java -Version '21'
+```
+
 ## comment:1
 
 Above `if ($env:JAVA_HOME -ne $javaHome) {`, written with `#`.

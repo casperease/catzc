@@ -17,15 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-IsGuidInRange.Tests.ps1
-  config:
-    synopsis: Asserts that a GUID lies inside an inclusive GUID range.
-    description: The throwing form of Test-IsGuidInRange, which defines the ordering.
-    parameters:
-      ObjectGuid: The GUID to check.
-      From: The first GUID of the range (inclusive).
-      To: The last GUID of the range (inclusive).
-    examples:
-      - Assert-IsGuidInRange $budget -From $exemption.range.from -To $exemption.range.to
 ---
 #>
 

@@ -19,20 +19,6 @@ catzc:
     cites:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-OUTDIR#2
-  config:
-    synopsis: Returns the folder the world-map PDFs are written to.
-    description: |-
-      The world map writes recurring files, so they land in their own folder under the output root
-      ([ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)): Get-OutputRoot
-      joined with the output_folder of configs/maps.yml (read through Get-Config, typed as Catzc.Base.Maps.MapsConfig;
-      default world-map). It is also the seam a test mocks to a folder of its own
-      ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
-    parameters:
-      EnsureExists: Create the folder (and the output root) when it does not exist.
-    outputs: '[string] the absolute folder path.'
-    examples:
-      - 'Get-WorldMapOutputRoot                    # -> <repository>/out/world-map'
-      - Get-WorldMapOutputRoot -EnsureExists
 ---
 #>
 

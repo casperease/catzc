@@ -16,22 +16,6 @@ catzc:
     visibility: public
   edges:
     page: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
-  config:
-    synopsis: Logs in to Azure CLI.
-    description: Skips login if already authenticated. Use -Force to re-authenticate.
-    parameters:
-      ServicePrincipal: Login as a service principal. Requires Tenant, ClientId, and ClientSecret.
-      ManagedIdentity: Login using managed identity.
-      DeviceCode: Login using device code flow (for environments without a browser).
-      Tenant: Azure AD tenant ID. Required for service principal login.
-      ClientId: Service principal app/client ID. Required for service principal login.
-      ClientSecret: Service principal secret. Required for service principal login.
-      Force: Force re-authentication even if already logged in.
-    examples:
-      - Connect-AzCli
-      - Connect-AzCli -DeviceCode
-      - Connect-AzCli -ServicePrincipal -Tenant $t -ClientId $id -ClientSecret $secret
-      - Connect-AzCli -ManagedIdentity
 ---
 #>
 

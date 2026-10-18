@@ -22,6 +22,34 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Rebuilds the session PATH from the registry on Windows. No-op on Unix.
+
+### description
+
+Reads Machine and User PATH from the Windows registry and rebuilds
+$env:PATH. Registry entries form the base; session-only entries
+(e.g. from Add-PermanentPath or a tool's install script) are kept
+only if their directory still exists on disk.
+
+This handles both directions:
+
+- New entries added to the registry by an installer appear in the session.
+- Entries removed from the registry by an uninstaller disappear from
+  the session (even if the directory still exists on disk).
+
+On Linux/macOS this function is a no-op — package managers update PATH
+through profile scripts that take effect on next shell launch.
+
+### example 1
+
+```powershell
+Sync-SessionPath
+```
+
 ## comment:1
 
 Above `$seen = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.

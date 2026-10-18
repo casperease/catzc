@@ -16,20 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Tooling.Python/tests/Invoke-Python.Tests.ps1
-  config:
-    synopsis: Runs python with the given arguments.
-    description: |-
-      Asserts that the installed Python version matches the locked version
-      in Get-ToolConfig before executing the command.
-    parameters:
-      Arguments: Arguments to pass to python.
-      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
-      NoAssert: Skip exit code assertion.
-      Silent: Suppress the command log line.
-      DryRun: Return the command string without executing. Used for testing.
-    examples:
-      - Invoke-Python '--version'
-      - Invoke-Python '--version' -DryRun
 ---
 #>
 

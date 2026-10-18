@@ -16,10 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Writers/tests/Write-EnvironmentDiagnostic.Tests.ps1
-  config:
-    synopsis: Displays all environment variables sorted by name.
-    examples:
-      - Write-EnvironmentDiagnostic
 ---
 #>
 

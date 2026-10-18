@@ -17,19 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
-  config:
-    synopsis: Asserts the number of objects in the pipeline.
-    description: |-
-      Counts pipeline objects and validates against -Equals, -Minimum, or -Maximum.
-      Objects are passed through. Fails early when the count exceeds -Equals or -Maximum.
-    parameters:
-      InputObject: Pipeline input (do not pass directly).
-      Equals: Exact expected count.
-      Minimum: Minimum acceptable count (inclusive).
-      Maximum: Maximum acceptable count (inclusive).
-    examples:
-      - Get-Process | Assert-PipelineCount -Minimum 1
-      - 1..3 | Assert-PipelineCount 3
 ---
 #>
 

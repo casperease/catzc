@@ -16,17 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.MarkdownMeta/tests/Remove-MarkdownFrontMatter.Tests.ps1
-  config:
-    synopsis: Returns a Markdown text without its YAML front matter.
-    description: |-
-      For a copy that carries the content but not the file's meta: a generated README, which a reader opens with its title first. The
-      blank line that separates written front matter from the body goes with it. A text with no front matter comes back unchanged.
-      Pure: it reads no file and no config.
-    parameters:
-      Text: The whole Markdown file as text.
-    outputs: '[string] the text from its first body line on.'
-    examples:
-      - Remove-MarkdownFrontMatter -Text $text
 ---
 #>
 

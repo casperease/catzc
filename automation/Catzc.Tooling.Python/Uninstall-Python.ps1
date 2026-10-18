@@ -14,14 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls the uv-provisioned Python.
-    description: Removes the uv-managed CPython (`uv python uninstall <version>`). Idempotent — skips if not installed.
-    parameters:
-      Version: Python version to uninstall. Defaults to the locked version in Get-ToolConfig.
-    examples:
-      - Uninstall-Python
-      - Uninstall-Python -Version '3.12'
 ---
 #>
 

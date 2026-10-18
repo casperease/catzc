@@ -17,18 +17,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Git/tests/Test-RepositorySnapshot.Tests.ps1
-  config:
-    synopsis: Returns true when a repository is a test-run snapshot made by New-RepositorySnapshot.
-    description: |-
-      The one reader of the snapshot provenance marker (.git/catzc-snapshot.json) that New-RepositorySnapshot
-      writes. A snapshot is a disposable clone a test run executes in: Remove-RepositorySnapshot deletes only a
-      snapshot, and the importer's generated-file commit never commits inside one.
-    parameters:
-      Path: 'The repository root to check. Default: the loaded repository root.'
-    outputs: '[bool]'
-    examples:
-      - Test-RepositorySnapshot
-      - Test-RepositorySnapshot 'C:\Temp\catzc-run-0f3a'
 ---
 #>
 

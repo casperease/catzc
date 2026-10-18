@@ -21,23 +21,6 @@ catzc:
       - ADR-AUTO-GO#6
       - ADR-AUTO-PY#4
       - ADR-REPO-FORMAT#8
-  config:
-    synopsis: Renders the content of a generator-produced managed root file — the registry's generator dispatch.
-    description: |-
-      A rootconfig entry with a `generator` names a function that renders the target's whole content (header
-      included) rather than an authored source file to copy. This dispatch is the one place a generator name is
-      bound to its invocation, so Build-RootConfig stays generic and an unknown name fails loudly instead of
-      invoking an arbitrary command. Each generator is called in its content-returning form (never its writing
-      form) — Build-RootConfig owns the write, through the same Write-FileIfChanged path as every copy-in.
-
-      A generator returns either one string (the content of the entry's single target) or one { Target; Content }
-      record per file it renders (a multi-file generator, e.g. New-GoWorkspace with its
-      Catzc.Base.Languages.GoWorkspaceFile records). The entry's target is passed on, so a multi-file generator
-      renders only the files the entry names; a wildcard target (e.g. go/tests/*/go.mod) selects a set of files.
-    parameters:
-      Name: The generator function name from the registry entry (e.g. 'New-Importer').
-      Target: 'The entry''s target: a repository-relative path, or a wildcard pattern over a multi-file generator''s files.'
-    outputs: '[string] The rendered target content, or [object[]] one { Target; Content } record per rendered file.'
 ---
 #>
 

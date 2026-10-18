@@ -16,14 +16,6 @@ catzc:
     visibility: public
   edges:
     page: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
-  config:
-    synopsis: Sets the active Azure CLI subscription.
-    description: Skips if the requested subscription is already active.
-    parameters:
-      Subscription: Subscription name or ID.
-    examples:
-      - Set-AzCliSubscription 'my-subscription'
-      - Set-AzCliSubscription '50a0ed00-de00-50b0-0000-000000000000'
 ---
 #>
 

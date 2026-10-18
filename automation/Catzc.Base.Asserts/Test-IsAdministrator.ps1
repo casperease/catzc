@@ -15,10 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
-  config:
-    synopsis: Returns true if the current session is running as Administrator (Windows) or root (Linux/macOS).
-    examples:
-      - Test-IsAdministrator
 ---
 #>
 

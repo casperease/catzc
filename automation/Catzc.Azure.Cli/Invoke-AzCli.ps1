@@ -17,27 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
     test: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
-  config:
-    synopsis: Runs az with the given arguments.
-    description: |-
-      Asserts that the installed Azure CLI version matches the locked version
-      in Get-ToolConfig before executing the command.
-
-      Dynamic extension install is disabled for the duration of the call
-      (AZURE_EXTENSION_USE_DYNAMIC_INSTALL=no), so a command that requires an
-      uninstalled extension fails with a non-zero exit code instead of blocking
-      on an interactive "(Y/n)" install prompt that captured stdin would hide.
-      That failure surfaces through the usual exit-code assertion as a throw.
-    parameters:
-      Arguments: Arguments to pass to az.
-      PassThru: Return a CliResult object with Output, Errors, Full, and ExitCode.
-      NoAssert: Skip exit code assertion.
-      Silent: Suppress the command log line.
-      DryRun: Return the command string without executing. Used for testing.
-    examples:
-      - Invoke-AzCli 'account show'
-      - Invoke-AzCli 'group list' -PassThru
-      - Invoke-AzCli 'version' -DryRun
 ---
 #>
 

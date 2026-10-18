@@ -19,6 +19,50 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Publishes the Claude Code Bash time-safeguard hook (a small C# program) when its source has changed.
+
+### description
+
+The hook (.claude/hooks/Assert-BashTimeout/) runs before every Bash call an agent makes and denies a call that
+does not run inside the safeguard
+([ADR-AUTO-FAILFAST#7](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). It is a
+compiled program rather than a script because it runs that often: it starts in about a third of the time pwsh
+does. This publishes it, framework-dependent, to .claude/hooks/bin/ (gitignored), and records a hash of the
+sources beside it; while the hash matches and the program is present, it does nothing, so the importer can run
+it on every import.
+
+dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper lives in the Tooling layer, which
+this Base module must not depend on, so dotnet must be on PATH. The hook's C# code lives in the source tree, so it
+stops with a named error in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+
+### parameter OutputDirectory
+
+Where to publish the hook. Defaults to .claude/hooks/bin/ — the path .claude/settings.json runs it from.
+
+### parameter Force
+
+Publish even when the source hash recorded at the last publish matches.
+
+### outputs
+
+`[string]` The published program's path.
+
+### example 1
+
+```powershell
+Build-BashTimeoutHook
+```
+
+### example 2
+
+```powershell
+Build-BashTimeoutHook -Force
+```
+
 ## comment:1
 
 Above `$sources = @(Get-ChildPath $project -File -Filter '*.cs', '*.csproj' -Depth 1...`, written with `#`.

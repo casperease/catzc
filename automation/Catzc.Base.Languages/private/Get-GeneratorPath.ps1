@@ -19,16 +19,6 @@ catzc:
     test: automation/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#7
-  config:
-    synopsis: Returns the repository-relative path of the file a generator command is defined in.
-    description: |-
-      A generated file's head names its generator by that path, so a reader opens the writer straight from the head. The command is looked
-      up among the loaded functions, and one that is not loaded is an error: a head never names a generator that cannot be found.
-    parameters:
-      Name: The generator command, such as Build-AdrIndex.
-    outputs: '[string] The path relative to the root the catzc code lives in (the repository root in the mono repo), with forward slashes.'
-    examples:
-      - Get-GeneratorPath Build-AdrIndex   # automation/Catzc.Base.Docs/Build-AdrIndex.ps1
 ---
 #>
 

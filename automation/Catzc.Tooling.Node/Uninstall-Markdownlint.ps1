@@ -14,11 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls markdownlint-cli2 (the global npm package).
-    description: Idempotent — skips if markdownlint-cli2 or npm is not present (nothing to uninstall).
-    examples:
-      - Uninstall-Markdownlint
 ---
 #>
 

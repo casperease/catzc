@@ -17,20 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
     test: automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
-  config:
-    synopsis: Scans every tracked text file for GUID literals and returns one record per occurrence.
-    description: |-
-      The repository-wide managed-GUID scanner. It reads the tracked-file universe (Get-GuidScanFiles) and
-      matches the canonical hyphenated GUID form only — deliberately never bare 32-hex, which would
-      false-positive on hashes (the durable SHAs are 64 hex and unhyphenated, so they never match). Paths
-      come back repo-relative (communication form); guids come back lowercase. The managed-guid quality
-      gate (Test-ManagedGuids) asserts every returned guid against the registry (configs/guids.yml), and every
-      registry entry against these results.
-    outputs: 'One ordered dictionary per occurrence: @{ file; line; guid }.'
-    examples:
-      - |-
-        Get-RepositoryGuids | Where-Object { -not (Test-ManagedGuid $_.guid) }
-        Lists every unregistered GUID occurrence in the repository.
 ---
 #>
 

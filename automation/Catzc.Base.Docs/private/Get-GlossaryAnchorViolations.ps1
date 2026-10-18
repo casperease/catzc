@@ -19,29 +19,6 @@ catzc:
     test: automation/Catzc.Base.Docs/tests/Get-GlossaryAnchorViolations.Tests.ps1
     cites:
       - ADR-REPO-VOCAB#1
-  config:
-    synopsis: Lists the glossary terms that are not anchored on their defining rule (check G2) — one message per violation.
-    description: |-
-      A defined term has one home: the ADR rule its concept names in `defined_by`, whose normative summary bolds it
-      ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)). For every concept whose
-      source takes part in
-      the `anchored` check, this reports:
-        - a `defined_by` citation that names no rule of any indexed ADR;
-        - a defining rule whose normative summary does not contain `**<term>**` (case-insensitive, whitespace
-          collapsed, so a term bolded across a wrapped line still counts).
-      Only the normative summary counts (Get-CatsAdrRules' Statement): bold text in the ADR body or in the rule's
-      linked bullets never anchors a term, and neither does a mention inside an inline code span.
-
-      Private helper for the glossary checks; not exported.
-    parameters:
-      Entry: The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
-      IndexPath: |-
-        Absolute path to the ADR index whose ADRs hold the rules. Defaults to
-        [index](/docs/adr/index.md); a test points it at
-        a fixture index beside fixture ADR files.
-    outputs: '[string[]] One message per violation, in glossary order; empty when every term is anchored.'
-    examples:
-      - Get-GlossaryAnchorViolations
 ---
 #>
 

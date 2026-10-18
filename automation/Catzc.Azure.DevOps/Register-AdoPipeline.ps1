@@ -14,32 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Creates an Azure DevOps pipeline pointing to a YAML file.
-    description: |-
-      Uses the ADO Pipelines REST API to register a pipeline definition backed
-      by a YAML file. Supports both Azure Repos Git and GitHub repositories.
-      Throws if a pipeline with the same name already exists.
-
-      Requires authentication via Get-AdoAuthorizationHeader (pipeline token or az login).
-    parameters:
-      Name: Display name for the pipeline in Azure DevOps.
-      YamlPath: Repository-relative path to the YAML file (e.g. 'pipelines/ci-automation.yaml').
-      GitHubRepository: |-
-        Full GitHub repository URL (e.g. 'https://github.com/owner/repo').
-        When set, the pipeline takes its source from GitHub instead of Azure Repos Git.
-        Requires a GitHub service connection in the ADO project.
-      ConnectionId: ID of the GitHub service connection in ADO. Required when using -GitHubRepository.
-      Project: Azure DevOps project name. Defaults to the value in ado.yml.
-      Organization: Azure DevOps organization URL. Defaults to the value in ado.yml.
-      RepositoryName: |-
-        Name of the Azure Repos Git repository. Ignored when -GitHubRepository is set.
-        Defaults to this checkout's repository (Get-AdoRepositoryName).
-      FolderPath: Pipeline folder path in ADO. Defaults to root ('\').
-    examples:
-      - Register-AdoPipeline 'CI' 'pipelines/ci-automation.yaml'
-      - Register-AdoPipeline 'CI' 'pipelines/ci-automation.yaml' -GitHubRepository 'https://github.com/casperease/catzc' -ConnectionId $id
-      - Register-AdoPipeline 'CI Expected Failures' 'pipelines/ci-automation-expected-failures.yaml' -FolderPath '\CI'
 ---
 #>
 

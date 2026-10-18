@@ -14,12 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls Terraform via the platform package manager.
-    parameters:
-      Version: Terraform version to uninstall. Defaults to the locked version in Get-ToolConfig.
-    examples:
-      - Uninstall-Terraform
 ---
 #>
 

@@ -19,18 +19,6 @@ catzc:
     test: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
     cites:
       - ADR-AUTO-OVERLAY
-  config:
-    synopsis: Merges a consumer overlay's config fragment onto a bundled config, key by key.
-    description: |-
-      A fragment states only the keys that differ ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)):
-        - a map merges into the bundled map recursively;
-        - a scalar or a list replaces the bundled value (a list is never appended to, so the result is predictable);
-        - an explicit null removes the key, so the config type's declared default applies.
-      A key the fragment does not name keeps the bundled value. Neither input is changed; the result is a new
-      ordered dictionary, which the config's own type then validates like any parsed config.
-    parameters:
-      Base: The parsed bundled config.
-      Fragment: The parsed overlay fragment.
 ---
 #>
 

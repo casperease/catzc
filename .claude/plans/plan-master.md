@@ -81,9 +81,9 @@ Open, in execution order:
 - kind-becomes-role -> task-kind-becomes-role.md (open; steps 1, 7 and 8 done 2026-10-18; steps 2 to 6, the rename itself, wait for session
   catzc-e5's file-meta work and a quiet window for the tree-wide head pass; the namespace line is a question for the user): kind becomes
   role through the registry and generators; tracks.md rule 19 one primary language; WorldMapBuilder links; Test-ShippedTypes.
-- config-defaults-variants -> task-config-defaults-variants.md (open; ready): config defaults Phase 1, VariantsConfig constants, getters
-  lose -Default.
-- config-defaults-fragment -> task-config-defaults-fragment.md (open; after config-defaults-variants): the .catzc fragment, config without a
+- config-defaults-variants -> task-config-defaults-variants.md (done 2026-10-18; every step ticked; the aspects default follows the tree
+  and Q2 is reopened for the user in plan-config-defaults): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
+- config-defaults-fragment -> task-config-defaults-fragment.md (open; ready): the .catzc fragment, config without a
   shipped file, Build-ConfigDefaultsContract.
 - config-defaults-postures -> task-config-defaults-postures.md (open; after config-defaults-fragment): every typed config into a posture,
   the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.

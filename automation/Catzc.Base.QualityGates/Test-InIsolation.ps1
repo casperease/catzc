@@ -18,42 +18,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md
     test: automation/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
-  config:
-    synopsis: |-
-      Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true
-      isolation) or the current session (fast) — so a subset of the toolset is verified deterministically.
-    description: |-
-      Front half (both modes): resolve the module set with Get-ModuleProfile (a named profile from
-      configs/profiles.yml, or an explicit -Modules seed → dependency closure + infrastructure), then
-      Copy-Automation it into a fresh sandbox (-EmptyDestination). Back half depends on -Isolation:
-
-        Process   (default, TRUE isolation) — run Pester in a child `pwsh -NoProfile`:
-                  `. <sandbox>/importer.ps1 -SkipJanitors` (the optimized initializer — janitors skipped, the
-                  committed .compiled reused) then Invoke-Pester over the sandbox's tests. A clean session, so
-                  no residue from an earlier run is present in it by construction. Launched via Invoke-Executable.
-
-        InProcess (fast) — point $env:RepositoryRoot at the sandbox and Invoke-Pester the sandbox's test files in
-                  THIS session, using the already-loaded modules (no re-import, no process spin-up). The dev
-                  session's loaded code is what runs (residue), and $env:RepositoryRoot is restored afterwards.
-
-      Integrity tests bind to the whole real repo and are meaningless in a subset sandbox, so -Category defaults
-      to Logic (hermetic). Tiers default to L0+L1 (the unit tiers). Excluded tags are computed by Get-TestExcludeTag.
-    parameters:
-      ModuleProfile: 'A profile from configs/profiles.yml (minimal, base, azure, tooling, full). Default: minimal.'
-      Modules: An explicit seed list instead of a named profile — resolved through the same closure logic.
-      Isolation: Process (child pwsh, true isolation — default) or InProcess (current session, fast).
-      Category: Logic (default), Integrity, or Both. Integrity assumes the full real repo — use only with the full profile.
-      MaxLevel: Highest tier to run (0-4). Default 1 (L0+L1 — the hermetic unit tiers). Alias -Level.
-      MinLevel: Lowest tier to run (0-4). Default 0.
-      Destination: |-
-        Sandbox directory. Default: a fresh tmp dir (removed after, unless -KeepSandbox). A given -Destination is
-        never auto-removed.
-      KeepSandbox: Keep the sandbox (and its results.xml) after the run instead of deleting it.
-      PassThru: Return the run summary object instead of throwing on failure.
-    outputs: '[pscustomobject] with Isolation, Sandbox, Modules, Total, Failed, Success, ResultsPath (under -PassThru).'
-    examples:
-      - Test-InIsolation -ModuleProfile azure
-      - Test-InIsolation -Modules Catzc.Base.Config -Isolation InProcess -PassThru
 ---
 #>
 

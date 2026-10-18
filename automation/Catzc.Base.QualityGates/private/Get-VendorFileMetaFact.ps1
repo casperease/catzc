@@ -20,17 +20,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Get-VendorFileMetaFact.Tests.ps1
     cites:
       - ADR-DSGN-TRACKTYPE#6
-  config:
-    synopsis: 'The vendor meta kind''s fact: the vendor that reads the files of the track that holds the file.'
-    description: |-
-      The track is the one Get-Track names for the path, and its vendor is the one the `tracks` registry declares for it
-      ([ADR-DSGN-TRACKTYPE#3](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype3)). A root file, and a file of a track with no
-      vendor, gets an empty value, so the key is left out of its head.
-    parameters:
-      State: What Get-MarkdownMetaState read from the file.
-      Path: The file's repository-relative path.
-      Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.'
 ---
 #>
 

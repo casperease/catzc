@@ -23,24 +23,6 @@ catzc:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9
-  config:
-    synopsis: Compiles a list of function-to-function calls across all automation modules using AST.
-    description: |-
-      Parses every .ps1 file (excluding tests) under the automation root, builds a
-      definition map of all functions, then walks each function body for CommandAst
-      nodes and cross-references them against the map.
-
-      Reads the per-function source files, which exist only in the source tree, so it stops with a named error
-      in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
-    parameters:
-      AutomationRoot: Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
-      ParsedScripts: |-
-        The call's shared parse of each script; the session cache of the result stays, this only spares a second
-        parse of a file within one build.
-    examples:
-      - Get-FunctionDependency
-      - Get-FunctionDependency | Where-Object CrossModule
-      - Get-FunctionDependency | Get-ModuleDependency
 ---
 #>
 

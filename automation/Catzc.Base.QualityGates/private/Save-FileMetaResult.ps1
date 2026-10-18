@@ -19,14 +19,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Save-FileMetaResult.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#3
-  config:
-    synopsis: Writes the files an engine run found drifted, and names the findings no tool can repair.
-    description: The one writer behind Format-FileMeta and the file-meta imprint step, so the two cannot disagree. Files are UTF-8 without a BOM.
-    parameters:
-      Result: What Invoke-FileMetaEngine returned.
-      RepositoryRoot: The repository root the result's paths are relative to.
-      DryRun: Report what would change without writing any file.
-    outputs: '[pscustomobject] @{ Fixed; Unowned } — Fixed holds the engine''s file entries that changed, Unowned the findings left for a person.'
 ---
 #>
 

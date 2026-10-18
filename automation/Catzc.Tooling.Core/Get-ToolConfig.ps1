@@ -16,16 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
-  config:
-    synopsis: Returns the locked configuration for a CLI tool as a validated ToolConfig.
-    description: |-
-      Looks one tool's locked definition up in configs/tools.yml, read through Get-Config — which constructs the
-      typed Catzc.Base.Execution.ToolsConfig once per session (validating every entry) and caches it, so repeated
-      calls return the same ToolConfig instance.
-    parameters:
-      Tool: The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
-    examples:
-      - '$config = Get-ToolConfig -Tool ''python'''
 ---
 #>
 

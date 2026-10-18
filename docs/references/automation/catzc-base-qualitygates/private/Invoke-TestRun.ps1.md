@@ -24,6 +24,116 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Performs one test run through the parallel harness — the shared core of Test-Automation and Test-CatzcBuild.
+
+### description
+
+The harness both runs share ([ADR-AUTO-TEST#30](../../../../adr/automation/test-automation.md#rule-adr-auto-test30)):
+lazy-load Pester from the code root, scan the selected
+modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category filter, open
+a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial
+phases, apply per-module protection, run the workers, and write the timing check, reports, verdict, and
+-PassThru summary. The two test runs differ only in what they pass in:
+
+- the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source
+  importer; the build's Import-Catzc.ps1 for the build run) — the one seam;
+- an opt-out tag (-OptOutTag 'source-only' for the build run): its tests are excluded from the run
+  and counted and listed on the console and in excluded-tests.csv in the run directory
+  ([ADR-AUTO-TEST#31](../../../../adr/automation/test-automation.md#rule-adr-auto-test31));
+- the entry point's name (-EntryPoint), which names the default report folder under out/, the protection key,
+  and the failure message; and the banner title (-Title).
+
+### parameter EntryPoint
+
+The entry point's command name: 'Test-Automation' or 'Test-CatzcBuild'. Its key names the default report folder
+(out/test-automation, out/test-catzc-build) and prefixes the protection key.
+
+### parameter Title
+
+The banner title (Write-TestAutomationHeader).
+
+### parameter MinLevel
+
+The lowest tier asked for; it must not exceed MaxLevel (Test-Automation's -MinLevel).
+
+### parameter MaxLevel
+
+The highest tier asked for; the run's location caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
+
+### parameter Modules
+
+The modules whose tests/ folders run; empty runs every module plus the dot-prefixed infrastructure.
+
+### parameter Category
+
+Logic, Integrity or Both: which category of tests runs (Test-Automation's -Category).
+
+### parameter Workers
+
+Explicit pool size; 0 sizes automatically (Test-Automation's -Workers).
+
+### parameter GreedyGroupSize
+
+Greedy files run side by side in groups of this size; 0 reads greedy_group_size from test-policy.yml.
+
+### parameter TimeoutSeconds
+
+The entry point's own limit (its `[TimeLimit]` through Get-TimeoutSeconds -Command); no default here.
+
+### parameter Output
+
+Pester output verbosity: Detailed, Normal, Minimal or Diagnostic (Test-Automation's -Output).
+
+### parameter PassThru
+
+Return the aggregated per-test rows and the shard descriptors (Test-Automation's -PassThru).
+
+### parameter EnforceTimings
+
+Fail the run when a test is over its time limit; by default over-limit tests are only reported
+(Test-Automation's -EnforceTimings).
+
+### parameter Rule
+
+Narrows the run to the tests that cite these ADR rules (Test-Automation's -Rule).
+
+### parameter Suite
+
+A test suite's name, when -Modules was resolved from one (Test-Automation -Suite); the context block names it.
+
+### parameter OutputFolder
+
+Report base; empty resolves to `<out>/<entry point in lowercase>`.
+
+### parameter OptOutTag
+
+Opt-out tags of this test run: tests carrying one are excluded, counted, and listed — never silently.
+
+### parameter EntryScript
+
+The script each worker dot-sources to load the modules; empty is the source importer.
+
+### parameter EntryParameter
+
+Named arguments for -EntryScript.
+
+### parameter Isolated
+
+Run in a snapshot of the working folder even when it is free (Enter-TestRunLocation).
+
+### parameter KeepSandbox
+
+Keep the snapshot (when the run used one) after the run, for a post-mortem.
+
+### parameter DiagnoseBlocking
+
+Stand a watchpoint (Assert-Wait) at four places in the startup, before the workers launch, to show where the thread or process
+stalls (Test-Automation's -DiagnoseBlocking). Each costs its full duration, so it is off by default.
+
 ## comment:1
 
 Above `Write-Message '.' -NoHeader -NoNewline`, written with `#`.

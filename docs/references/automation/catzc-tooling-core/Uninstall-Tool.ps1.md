@@ -19,6 +19,25 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Uninstalls a tool using the platform package manager.
+
+### description
+
+Uses winget on Windows, brew on macOS, and apt-get on Linux.
+Skips if the tool is not installed.
+
+### parameter Tool
+
+The snake_case tool key as defined in tools.yml.
+
+### parameter Version
+
+Version override. Defaults to the locked version.
+
 ## comment:1
 
 Above `if ($config.npm_package) {`, written with `#`.

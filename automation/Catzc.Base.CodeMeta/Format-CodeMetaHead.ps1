@@ -19,18 +19,6 @@ catzc:
     test: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#3
-  config:
-    synopsis: Returns a code text with its meta head imprinted from the given facts.
-    description: |-
-      The same facts always give the same bytes, so a second run changes no file and a formatter never undoes the head.
-    parameters:
-      Text: The whole code file as text.
-      Form: 'The head''s comment syntax: a Catzc.Base.CodeMeta.HeadForm.'
-      Immutable: The place facts, an ordered dictionary of key to value.
-      Edges: The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the head.
-    outputs: '[string] the whole text, with the head replaced.'
-    examples:
-      - Format-CodeMetaHead -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')) -Immutable ([ordered]@{ path = 'automation/Widget/types/Gadget.cs'; module = 'Widget' })
 ---
 #>
 

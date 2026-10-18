@@ -16,12 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Base.Execution/tests/Get-LastExitCode.Tests.ps1
-  config:
-    synopsis: Returns the current $LASTEXITCODE value, or warns if none exists.
-    examples:
-      - |-
-        Get-LastExitCode
-        # Returns the exit code from the last native command
 ---
 #>
 

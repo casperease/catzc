@@ -17,15 +17,6 @@ catzc:
     visibility: private
   edges:
     test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
-  config:
-    synopsis: Creates and returns a fresh timestamped run directory under the report base.
-    description: |-
-      Each Test-Automation run writes its artifacts into <OutputFolder>/yyyyMMdd-HHmmss/, suffixed -2, -3, … when
-      a same-second directory already exists, so rapid or concurrent runs never collide. The directory is created
-      before it is returned.
-    parameters:
-      OutputFolder: The report base directory the timestamped run directory is created under.
-    outputs: '[string] the created run directory''s absolute path.'
 ---
 #>
 

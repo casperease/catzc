@@ -19,6 +19,20 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+The canonical set of authored PowerShell files the analysis quality gates cover.
+
+### description
+
+Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.
+
+### outputs
+
+`[string[]]` Absolute paths, in discovery order.
+
 ## comment:1
 
 Above `foreach ($script in Get-ChildPath $testsPath -File -Filter '*.Tests.ps1'...`, written with `#`.

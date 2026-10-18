@@ -14,13 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls PySpark from the uv-managed Python via `uv pip`.
-    description: |-
-      Idempotent — skips if PySpark is not installed or if Python is
-      not available (nothing to uninstall).
-    examples:
-      - Uninstall-PySpark
 ---
 #>
 

@@ -1,0 +1,47 @@
+# automation/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Returns a JSON text or an MSBuild project with its meta property imprinted from the given facts.
+
+### description
+
+The block is the text of one property, in either carrier: in a JSON file an ignored top-level member, in an XML file whose root is an
+MSBuild project a CDATA property named for the block inside the first PropertyGroup labelled catzc. The same facts always give the
+same bytes, so a second run changes no file (ADR-REPO-FILEMETA#8). A text that is neither, or whose property holds something else,
+comes back as it was.
+
+### parameter Text
+
+The whole JSON file or MSBuild project as text.
+
+### parameter Property
+
+The name of the property that holds the block (e.g. // or $comment in JSON, CatzcMeta in a project).
+
+### parameter Strip
+
+Beginnings of old values of the property that are replaced.
+
+### parameter Immutable
+
+The place facts, an ordered dictionary of key to value.
+
+### parameter Edges
+
+The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the property.
+
+### outputs
+
+`[string]` the whole text, with the property written first.
+
+### example 1
+
+```powershell
+Format-PropertyMetaHead -Text $text -Property '//' -Immutable ([ordered]@{ path = 'widget/gadget.json'; kind = 'other' })
+```

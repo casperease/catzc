@@ -91,8 +91,7 @@ The diagram is described element by element in [its asset description](three-gat
 ## Where the code and the ADR differ
 
 ADR-REPO-ROOTCFG#6 lists the drift check among the integrity test's assertions; the integrity check `Test-RootConfigFiles` compares no
-content, and the drift check lives in `Test-GeneratedFiles`. `Test-GeneratedFiles` does not list `New-PythonProject` among the generators it
-can be asked for, although the registry names it; a stale `pyproject.toml` is still caught by the default run.
+content, and the drift check lives in `Test-GeneratedFiles`.
 
 ## See also
 

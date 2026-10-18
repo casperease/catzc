@@ -19,20 +19,6 @@ catzc:
     test: automation/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
     cites:
       - ADR-REPO-FILEMETA#5
-  config:
-    synopsis: Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share.
-    description: |-
-      Each file's `immutable` and `edges` parts are rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as written.
-      A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
-      ([ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
-    parameters:
-      RepositoryRoot: The repository root paths are relative to.
-      Path: Optional files or folders to limit the scope to.
-      Config: 'The meta-kind registry. Default: the shipped one.'
-      Entry: The files to check, each { Path; Carrier }, instead of the scope git and the registries give.
-    outputs: |-
-      [pscustomobject] @{ FileCount; Files } — Files holds every file with a finding: @{ Path; Findings; Fixed }, each
-      finding @{ Path; Line; Kind; Actual; Expected }.
 ---
 #>
 

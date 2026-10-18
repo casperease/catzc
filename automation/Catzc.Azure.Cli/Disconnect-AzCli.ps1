@@ -16,11 +16,6 @@ catzc:
     visibility: public
   edges:
     page: docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md
-  config:
-    synopsis: Logs out of Azure CLI.
-    description: Skips if not currently logged in.
-    examples:
-      - Disconnect-AzCli
 ---
 #>
 

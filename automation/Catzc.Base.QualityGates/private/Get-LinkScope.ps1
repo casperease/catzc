@@ -18,18 +18,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
     test: automation/Catzc.Base.QualityGates/tests/Get-LinkScope.Tests.ps1
-  config:
-    synopsis: Lists the repository-relative files the link engine reads.
-    description: |-
-      With no -Path, every git-tracked file (Get-GitTrackedPath) — the repository as committed, not whatever lies
-      untracked in the working folder. With -Path, the given files and the files under the given folders, from the
-      filesystem. Either way a file the content tools leave as written (Get-ContentExemptPath: vendored, generated,
-      fixture, or contract asset) is never aligned. No list of its own: a new class is declared in the .gitattributes
-      source.
-    parameters:
-      RepositoryRoot: The repository root the returned paths are relative to.
-      Path: Optional files or folders (absolute or relative to the current location) to limit the scope to.
-    outputs: '[string[]] repository-relative, ''/''-separated paths.'
 ---
 #>
 

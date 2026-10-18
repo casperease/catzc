@@ -19,25 +19,6 @@ catzc:
     cites:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER#9
-  config:
-    synopsis: Lists all exported automation functions.
-    description: |-
-      Takes the modules of the code track from the resolver (Get-CatzcModule),
-      finds the matching loaded modules, and returns their exported functions.
-
-      With -NotUsedInternally, filters to functions that are never called by
-      another automation function (no incoming edges in the call graph).
-
-      The listing describes the loaded modules, so it works in both run modes
-      ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
-      -NotUsedInternally reads the per-function source files, so it stops with a named error in build mode
-      (Assert-SourceTree).
-    parameters:
-      NotUsedInternally: Only return functions that have no incoming calls from other automation functions.
-      AutomationRoot: Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
-    examples:
-      - Get-AutomationFunctions
-      - Get-AutomationFunctions -NotUsedInternally
 ---
 #>
 

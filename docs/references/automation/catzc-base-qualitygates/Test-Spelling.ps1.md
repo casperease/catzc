@@ -22,6 +22,62 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Spell-checks the repository's known file types with cspell and writes a report under out/.
+
+### description
+
+Runs the Code Spell Checker CLI (cspell) over the repository's known text file types — Markdown,
+PowerShell, YAML, JSON, C#, and Bicep — applying the single repo dictionary at /cspell.yml.
+
+A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): every
+cspell issue line ('`<path>:<line>:<col>` - Unknown word (`<word>`) …') is an issue, and the gate ends through
+Write-QualityGateReport, which writes out/test-spelling/, prints every issue, and throws once listing them all
+— so the misspelled words are named in the failure itself
+([ADR-AUTO-CONSOLE#6](../../../adr/automation/console-output-matters.md#rule-adr-auto-console6)).
+-PassThru returns the result object instead. A cspell tool error (exit > 1) or a scan that matched no files
+throws before the report: there is no verdict to report.
+
+cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
+
+### parameter Path
+
+Repository-relative paths or globs to check (cspell expands a glob). Defaults to the repository's known file types.
+cspell still applies the ignorePaths from cspell.yml.
+
+### parameter Exclude
+
+Globs the spelling QUALITY GATE skips, passed to cspell as --exclude. Defaults to the authored/generated trees
+that are out of scope to spell-check (out/, docs/notes, the machine-derived `configuration/**`
+trees). Non-authored noise (vendor, install scripts, compiled output, binaries) lives in cspell.yml
+ignorePaths instead — this parameter is for content scope, not third-party noise.
+Content the spelling quality gate does NOT check (authored/generated text, not third-party noise — that
+lives in cspell.yml ignorePaths). Passed to cspell as --exclude globs.
+
+### parameter OutputFolder
+
+The report base folder. Defaults to `<out>/test-spelling`.
+
+### parameter PassThru
+
+Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, ExitCode }) instead of throwing.
+
+### example 1
+
+```powershell
+Test-Spelling
+```
+
+### example 2
+
+```powershell
+$result = Test-Spelling -PassThru
+$result.IssueCount
+```
+
 ## comment:1
 
 Above `'**/README.md'`, written with `#`.

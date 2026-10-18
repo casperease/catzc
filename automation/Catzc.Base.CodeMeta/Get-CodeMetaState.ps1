@@ -18,19 +18,6 @@ catzc:
     test: automation/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
     cites:
       - ADR-REPO-CODEMETA#1
-  config:
-    synopsis: Reads what a code text says about its own meta head, without changing it.
-    description: |-
-      Pure: it takes the text and the head's comment syntax, reads no file and no config.
-    parameters:
-      Text: The whole code file as text.
-      Form: 'The head''s comment syntax: a Catzc.Base.CodeMeta.HeadForm.'
-    outputs: |-
-      [pscustomobject] @{ HasHead; Sections; ImmutableKeys; EdgeKeys; EdgeLists; ConfigLines; Before; Rest; NewLine } — Sections are the keys
-      directly under `catzc`, ImmutableKeys the keys under `immutable`, EdgeKeys the edge names under `edges`, EdgeLists each list edge with
-      its items, and ConfigLines the authored lines under `config`, as written.
-    examples:
-      - Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')) | Select-Object -ExpandProperty ImmutableKeys
 ---
 #>
 

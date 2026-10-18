@@ -19,6 +19,33 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Fast, subprocess-free check: does a resolved tool location belong to the installer layer?
+
+### description
+
+The session janitor (Sync-SessionTools) uses this to flag tools running from outside the directories the
+toolchain installs into. It is a cheap PREFIX check by design — no `winget list`, no version probe — so it
+is safe to run for every tool on every import. It is advisory, not authoritative: Get-ToolsStatus (which
+shells out to the package manager) stays the precise classifier. On Windows the user-scope roots it trusts
+are both winget layouts (%LOCALAPPDATA%\Microsoft\WinGet\Packages for portable packages and
+%LOCALAPPDATA%\Programs for installer packages such as OpenJDK) plus uv's standalone bin
+(%USERPROFILE%\.local\bin). An MSYS2-package tool (msys2_url) is owned on Windows inside the tree it installs into
+(Get-ScriptInstallDir over its windows_install_dir), and wherever the system puts it elsewhere. Machine-scope /
+Program Files installs, and npm/pip tools whose global bin sits outside the platform root, read as unmanaged
+here — an acceptable false "foreign" for an advisory message, never a gate.
+
+### parameter Config
+
+The tool's ToolConfig (from Get-ToolConfig).
+
+### parameter Location
+
+The resolved on-disk path of the tool's command — (Get-Command `<command>).Source`.
+
 ## comment:1
 
 Above `if ($Config.msys2_url) {`, written with `#`.

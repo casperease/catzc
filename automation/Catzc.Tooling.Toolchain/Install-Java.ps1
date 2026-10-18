@@ -19,19 +19,6 @@ catzc:
     test: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
     cites:
       - ADR-AUTO-CONSOLE#11
-  config:
-    synopsis: Installs Microsoft OpenJDK via the platform package manager.
-    description: |-
-      After installation, sets JAVA_HOME for the current session and
-      persists it for future sessions (User registry on Windows, $PROFILE
-      on Unix). Modeled on Install-Dotnet / DOTNET_ROOT.
-      Idempotent — skips if already installed at the correct version.
-    parameters:
-      Version: Java version to install. Defaults to the locked version in Get-ToolConfig.
-      Force: Replace an existing installation at the wrong version.
-    examples:
-      - Install-Java
-      - Install-Java -Version '21'
 ---
 #>
 

@@ -22,6 +22,23 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Returns the consumer overlay root Get-Config merges fragments from, cached per pair of session anchors.
+
+### description
+
+Get-Config sits on the hot path, so the overlay root (Get-CatzcOverlayRoot, which derives the run mode from the
+two roots) is worked out once per RepositoryRoot / CatzcModulesRoot pair and kept for the session
+([ADR-PWSH-CACHE](../../../../adr/pwsh/script-scope-caching.md)). A change of either anchor — a new working root, or
+a switch of run mode — is a new key, so the answer never outlives the roots it came from.
+
+### outputs
+
+`[string]` The overlay root, or nothing.
+
 ## comment:1
 
 Above `if...`, written with `#`.

@@ -17,20 +17,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md
     test: automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
-  config:
-    synopsis: Installs the Postman desktop app (user-space, no admin required).
-    description: |-
-      Windows: Downloads the official installer from dl.pstmn.io and runs it
-      silently. Installs to LOCALAPPDATA\Postman (Squirrel/Electron default).
-      macOS: brew install --cask postman.
-      Linux: Downloads the tar.gz from dl.pstmn.io and extracts to
-      HOME/.local/Postman.
-      Idempotent — skips if already installed.
-    parameters:
-      Force: Remove an existing installation before reinstalling.
-    examples:
-      - Install-Postman
-      - Install-Postman -Force
 ---
 #>
 

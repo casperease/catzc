@@ -18,15 +18,6 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
     test: automation/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
-  config:
-    synopsis: Asserts that a filesystem path exists.
-    parameters:
-      Path: The path to test.
-      PathType: 'The kind of path to require: Any (default), Container, or Leaf.'
-      ErrorText: Optional message to throw instead of the default.
-    examples:
-      - Assert-PathExist './config.json'
-      - Assert-PathExist './src' -PathType Container
 ---
 #>
 

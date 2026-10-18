@@ -16,15 +16,6 @@ catzc:
     visibility: public
   edges:
     test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
-  config:
-    synopsis: Uninstalls the Postman desktop app.
-    description: |-
-      Windows: Removes LOCALAPPDATA\Postman directory.
-      macOS: brew uninstall --cask postman.
-      Linux: Removes HOME/.local/Postman directory.
-      Idempotent — skips if not installed.
-    examples:
-      - Uninstall-Postman
 ---
 #>
 

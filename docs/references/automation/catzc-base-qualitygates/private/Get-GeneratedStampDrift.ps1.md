@@ -1,0 +1,43 @@
+# automation/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Compares the body hash in every generated tracked file's head with the hash of its body.
+
+### description
+
+A generated tracked file opens with `with_body_sha`, the hash of the content below its head
+([ADR-REPO-FILEMETA#7](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta7)), so the drift check can read
+the stamp before the content. This reads every file .gitattributes marks `linguist-generated` (or the paths it is
+given), finds the head through the file's carrier, and reports one issue per file whose stamp is not the hash of
+its body. A file whose carrier holds no head (a binary, a sidecar) is skipped; a file with a head carrier but no
+stamp is listed as unstamped and is no issue, since its writer does not write a head yet.
+
+Private helper of Test-GeneratedFiles; not exported.
+
+### parameter RepositoryRoot
+
+The repository root the paths are relative to.
+
+### parameter Path
+
+The repository-relative files to check. Default: every tracked file .gitattributes marks linguist-generated.
+
+### parameter Resolver
+
+The carrier resolver. Default: built from the shipped file-carriers and languages registries.
+
+### outputs
+
+`[pscustomobject]` @{ Stamped; Unstamped; Issues } — the count of stamped files, the unstamped paths, and one issue per stale stamp.
+
+### example 1
+
+```powershell
+Get-GeneratedStampDrift -RepositoryRoot (Get-RepositoryRoot)
+```

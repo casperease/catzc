@@ -14,11 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Uninstalls cspell (the global npm package).
-    description: Idempotent — skips if cspell or npm is not present (nothing to uninstall).
-    examples:
-      - Uninstall-Cspell
 ---
 #>
 

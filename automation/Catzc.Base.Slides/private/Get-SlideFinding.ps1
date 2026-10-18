@@ -15,19 +15,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: private
-  config:
-    synopsis: Renders one slide through its pattern and returns the rendered section with every fault found.
-    description: |-
-      The one place the checks of a slide live, shared by the render and the gate (ADR-REPO-SLIDES#3, ADR-REPO-SLIDES#4): the head
-      names a pattern the kit holds and a whole-number order; the pattern's fields are filled within their capacities; every cited code
-      is a rule the ADR index knows; a body that quotes a rule carries the registry's text verbatim; and every text of every field is
-      found in the rendered section. Nothing is fixed and nothing shrinks; each fault names the file and the field.
-    parameters:
-      Slide: A slide as Read-SlideFile returns it.
-      Kit: The kit as Get-SlidesKit returns it.
-      Page: The slide's position in the deck, written where the pattern shows a page number.
-      RepositoryRoot: The repository root, for the ADR index and for the paths the faults name.
-    outputs: '[pscustomobject] @{ Html; Faults ([Catzc.Base.Slides.SlideFault[]]) }.'
 ---
 #>
 

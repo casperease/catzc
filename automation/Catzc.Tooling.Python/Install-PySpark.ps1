@@ -14,18 +14,6 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
     visibility: public
-  config:
-    synopsis: Installs PySpark into the uv-managed Python via `uv pip`.
-    description: |-
-      Installs pyspark with `uv pip install --system` so it is importable in the uv-managed Python. Requires uv
-      and Python (depends_on python for install ordering). Java is a runtime dependency — Invoke-PySpark asserts
-      it before PySpark is used.
-    parameters:
-      Version: PySpark version to install. Defaults to the locked version in Get-ToolConfig.
-      Force: Replace an existing installation at the wrong version.
-    examples:
-      - Install-PySpark
-      - Install-PySpark -Version '3.5'
 ---
 #>
 

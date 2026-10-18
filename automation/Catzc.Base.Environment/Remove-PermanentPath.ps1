@@ -19,26 +19,6 @@ catzc:
     test: automation/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
     cites:
       - ADR-PWSH-DRYRUN#1
-  config:
-    synopsis: Removes a directory from PATH persistently and in the current session.
-    description: |-
-      Cross-platform PATH removal:
-      - Windows: removes from the User-scope registry PATH.
-      - Linux/macOS: removes the marked block from the PowerShell profile.
-      - Always: removes from $env:PATH for the current session.
-
-      Idempotent — no error if the path is not present.
-    parameters:
-      Path: The directory to remove.
-      Label: |-
-        Identity marker for Unix profile blocks. Must match the label used
-        when Add-PermanentPath was called. Defaults to the leaf folder name.
-      Sync: |-
-        After removing, call Sync-SessionPath to refresh the session PATH
-        from the registry (Windows only).
-    examples:
-      - Remove-PermanentPath '/usr/local/go/bin'
-      - Remove-PermanentPath $installDir -Label 'Install-Dotnet'
 ---
 #>
 

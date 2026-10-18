@@ -45,6 +45,8 @@ pages:
     docs: docs/references/infrastructure
   - source: .claude/hooks
     docs: docs/references/automation/claude-hooks
+  - source: .claude/drawio
+    docs: docs/references/automation/claude-drawio
   - source: automation/.scriptanalyzer
     docs: docs/references/automation/scriptanalyzer
   - source: automation/.internal

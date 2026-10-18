@@ -18,21 +18,6 @@ catzc:
   edges:
     cites:
       - ADR-REPO-CONTRACT#6
-  config:
-    synopsis: Checks that a contract asset's target file exists with the exact case of its path, and returns the findings.
-    description: |-
-      The presence check of [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
-      which every fragment and schema check runs first. An outside platform reads the path as written, and a case-insensitive
-      file system (Windows, the default macOS volume) would find a file whose case differs, so the path is walked one
-      segment at a time against the directory listing and each segment compares ordinally. A segment that exists only in
-      another case, a missing segment, a folder where the file belongs, and a file where a folder belongs are each one
-      finding naming the path; a present file gives none.
-    parameters:
-      RepositoryRoot: The repository root the path is relative to.
-      Path: The target, repository-relative and '/'-separated.
-    outputs: '[string[]] The findings; none when the file is present.'
-    examples:
-      - Get-ContractPresenceFindings -RepositoryRoot $root -Path '.widget/flows/build.yml'
 ---
 #>
 
