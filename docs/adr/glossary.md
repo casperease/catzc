@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: e2cb9426eaef
-    with_inputs_sha: "69154a2d51090d858bbcfdd532c6ff911100f716d33cb90ead5250cbef640959"
+    with_inputs_sha: ffd7f5f3b1c166adfbd10a70a4769bebad386c1cb218fd882ba47504f589b032
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -278,7 +278,7 @@ The one commit an always-on environment holds, deployed there as its release can
 
 | Avoid               | Say instead                           |
 | ------------------- | ------------------------------------- |
-| `current occupant`  | occupant (the <\environment> occupant) |
+| `current occupant`  | occupant (the <environment> occupant) |
 | `current occupants` | occupants                             |
 | `resident commit`   | occupant                              |
 
@@ -779,7 +779,7 @@ tests; each is a member of the one generated uv workspace.
 
 ### quality gate
 
-A gate checking one property of the whole repository automatically — one Test-<\subject> function that reports through
+A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
 Write-QualityGateReport and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST#35](automation/test-automation.md#rule-adr-auto-test35)
@@ -1071,7 +1071,7 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 
 ### command contract
 
-A provided contract asset, <\module>/<\Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
+A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
 contract language; a command is public exactly when one names it.
 
 - **Defined by:** [ADR-REPO-CMDCONTRACT#1](repository/command-contracts.md#rule-adr-repo-cmdcontract1)

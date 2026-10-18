@@ -1,6 +1,6 @@
 Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
     BeforeAll {
-        $rules = Join-Path $TestDrive 'scriptanalyzer'
+        $rules = Join-Path $TestDrive '.scriptanalyzer'
         [void][System.IO.Directory]::CreateDirectory($rules)
         [System.IO.File]::WriteAllText((Join-Path $rules 'WidgetRules.psm1'), (@('function Measure-Widget { }', 'function Get-Helper { }') -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $rules 'CatzcRules.psm1'), 'function Measure-Dispatch { }')
@@ -9,9 +9,7 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
-        Mock Resolve-RepoPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq 'automation/.scriptanalyzer' } {
-            Join-Path $TestDrive 'scriptanalyzer'
-        }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET:1', 'ADR-TST-WIDGET:2' }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
             [pscustomobject]@{ analyzers = [ordered]@{
@@ -30,7 +28,7 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
     }
 
     It 'throws once naming an unknown id and an unmapped custom rule' {
-        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'scriptanalyzer/GadgetRules.psm1'), 'function Measure-Gadget { }')
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive '.scriptanalyzer/GadgetRules.psm1'), 'function Measure-Gadget { }')
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
             [pscustomobject]@{ analyzers = [ordered]@{ 'Measure-Widget' = @('ADR-TST-WIDGET#1', 'ADR-TST-WIDGET#9') } }
         }
@@ -38,7 +36,7 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
             $thrown = { Test-AnalyzerAdrMap -OutputFolder $out } | Should -Throw -PassThru
         }
         finally {
-            Remove-Item (Join-Path $TestDrive 'scriptanalyzer/GadgetRules.psm1')
+            Remove-Item (Join-Path $TestDrive '.scriptanalyzer/GadgetRules.psm1')
         }
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-AnalyzerAdrMap failed: 2 issue(s)*'

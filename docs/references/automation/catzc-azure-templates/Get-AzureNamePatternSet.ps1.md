@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The three Azure resource-name patterns the generator (Get-AzureResourceName) renders.
+The four Azure resource-name patterns the generator (Get-AzureResourceName) renders.
 
 ### description
 

@@ -11,7 +11,7 @@ Returns the Azure resource-type registry used by Get-AzureResourceName.
 
 ### description
 
-Each entry is keyed by its name abbreviation (the `<type>` segment of a resource name) and ties to one of three render/constraint patterns
+Each entry is keyed by its name abbreviation (the `<type>` segment of a resource name) and ties to one of four render/constraint patterns
 (Get-AzureNamePatternSet):
 
 ```text

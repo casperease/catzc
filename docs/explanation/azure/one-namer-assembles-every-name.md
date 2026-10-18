@@ -55,13 +55,6 @@ The diagram is described element by element in [its asset description](one-namer
 - The subscription only selects the deploy target. It is never a name component and never an input to the resolver; the customer that
   renders is derived from it by the caller (ADR-AZ-NAMING#8).
 
-## Where the code and the ADR differ
-
-- The ADR has four patterns, and so do the code and its tests, but the help text of `Get-AzureNamePatternSet` and `Get-AzureResourceTypeSet`
-  still says three.
-- The help text of `Get-AdoNaming` says resource names are typed into each slot config and that a build-time check flags a mismatch; no
-  in-tree caller compares configured names, and the validation use that `Get-BicepResourceName` describes is not wired.
-
 ## See also
 
 - [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — the decision this article explains.

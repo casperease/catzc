@@ -49,9 +49,8 @@ The diagram is described element by element in [its asset description](one-heade
 
 ## Where the code and the ADR differ
 
-- The ADR says a PAT is bound to the configured org by construction. The API functions default `-Organization` from `ado.yml` but accept any
-  value, and nothing checks it against the header's source.
-- The help text of `Register-AdoPipeline` names only the pipeline token and az login, and leaves out the PAT.
+The ADR says a PAT is bound to the configured org by construction. The API functions default `-Organization` from `ado.yml` but accept any
+value, and nothing checks it against the header's source.
 
 ## See also
 

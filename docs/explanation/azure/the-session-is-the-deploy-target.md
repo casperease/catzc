@@ -40,11 +40,6 @@ The diagram is described element by element in [its asset description](the-sessi
   its target: `-SubscriptionIdAssertIs` is mandatory in a pipeline and optional on a devbox (ADR-AZ-DATAMOD#7).
 - The assert is a guard, never a selector: a mismatch means a mis-wired service connection and fails loudly (ADR-AZ-DATAMOD#7).
 
-## Where the code and the ADR differ
-
-- The help text of `Get-BicepDeploymentContext` says a Subscription-target config lives at `configuration/<slot>.yml`; the code reads every
-  config at `configuration/[<customer>/]<env>[-<slot>].yml`, as the ADR states.
-
 ## See also
 
 - [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains.

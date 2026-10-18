@@ -60,6 +60,7 @@ the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
 
 - The read-only rule is stated by the ADR and repeated in the help texts, and no code or test prevents a write through a resolved node.
 - The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
+
 ## See also
 
 - [Config value addressing](../../adr/configuration/config-value-addressing.md) — the decision this article explains, and

@@ -56,11 +56,6 @@ The diagram is described element by element in [its asset description](one-rever
   it addresses the customer's config and renders into the names (ADR-AZ-DATAMOD#4).
 - The subscription is never a name component; the customer that renders is derived from it (ADR-AZ-NAMING#8).
 
-## Where the code and the ADR differ
-
-- The help text of `Get-BicepDeploymentContext` says a Subscription-target config lives at `configuration/<slot>.yml`; the code reads every
-  config at `configuration/[<customer>/]<env>[-<slot>].yml`, as the ADR states.
-
 ## See also
 
 - [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains.

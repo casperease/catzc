@@ -33,8 +33,7 @@ The diagram is described element by element in [its asset description](how-each-
    throws on an unknown customer.
 3. **Registry lookups.** The namer first looks up the resource type, then the order, then the type's pattern, and throws on any it does not
    know. L0 tests pin the `standard` and `classic` orders and the four patterns, and check that every type ties to a known pattern. The
-   order is fixed once per importer session by the `ado_naming` variant. Two help texts still speak of three patterns, and the help text of
-   `Get-AdoNaming` still says names are typed into each slot config and checked at build time, which no code does.
+   order is fixed once per importer session by the `ado_naming` variant.
 4. **Format checks.** Every component is matched case-sensitively against its format, and the namer throws on the first that fails. Just
    before, it throws when a restricted pattern lacks the 2-char environment or customer shortcode. The L0 content cases hold 12 rejects,
    seven of them format rejects.
@@ -59,8 +58,6 @@ The diagram is described element by element in [its asset description](how-each-
 
 - The ADR says the limit throw names which components to shorten; the code always lists `short_name`, slot, customer and role.
 - The ADR makes `options.yml` optional; the integrity test's message says `options.yml` must declare a `short_name`.
-- The ADR has four patterns; the help texts of `Get-AzureNamePatternSet` and `Get-AzureResourceTypeSet` say three.
-- The ADR derives every name; the help text of `Get-AdoNaming` says names are typed into slot configs and checked at build time.
 
 ## See also
 

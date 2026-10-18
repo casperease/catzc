@@ -6,7 +6,7 @@ Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
 
     It 'lists citations and links from the tracked files' -Tag 'ADR-REPO-FILEMETA#3' {
         $rows.Count | Should -BeGreaterThan 0
-        @($rows.Source | Sort-Object -Unique) | Should -Be @('head', 'link')
+        @($rows.Source | Sort-Object -Unique) | Should -Be @('cites', 'link')
     }
 
     It 'gives every row a path, a registered code, and a rule that code declares' -Tag 'ADR-REPO-FILEMETA#3' {

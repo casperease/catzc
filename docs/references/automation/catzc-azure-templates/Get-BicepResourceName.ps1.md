@@ -23,14 +23,9 @@ requested resource type via Get-AzureResourceName:
 - short_name — the template's options.yml short_name
 - order — the active naming order (Get-AdoNaming; the ado_naming repo-wide variant)
 
-The caller supplies only what is genuinely per-call: the resource Type and optional Customer / Role. Two intended uses for the same
-generator:
-
-```text
-validation — compare a name configured in a template's ParametersFile against the generated
-             one to catch drift.
-generation — produce the name to inject into the built parameter files (the PrePost seam).
-```
+The caller supplies only what is genuinely per-call: the resource Type and optional Customer / Role. The name it returns is the one
+injected into the built parameter files (the PrePost seam); a name is derived, never typed into a config, so there is nothing to compare it
+against.
 
 ### parameter Template
 

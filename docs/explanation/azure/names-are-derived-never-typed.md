@@ -54,9 +54,7 @@ same, adjust the slot or the `short_name`, and there is no automatic hash.
 
 ## Where the code and the ADR differ
 
-- The ADR says the limit throw names which components to shorten; the code always lists the same four.
-- The help text of `Get-AdoNaming` says resource names are typed into each slot config and that a build-time check flags a mismatch, which
-  contradicts "derived, never typed": no in-tree caller compares configured names.
+The ADR says the limit throw names which components to shorten; the code always lists the same four.
 
 ## See also
 

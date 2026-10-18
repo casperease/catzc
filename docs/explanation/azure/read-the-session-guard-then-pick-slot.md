@@ -58,11 +58,6 @@ The diagram is described element by element in [its asset description](read-the-
 - The joins resolve on demand in `Get-AzureEnvironment` and `Get-BicepDeploymentContext`; the deploy-time subscription is the az session's,
   reverse-resolved by `Get-AzCliSessionSubscription`, and `-SubscriptionIdAssertIs` is a guard, never a selector (ADR-AZ-DATAMOD#7).
 
-## Where the code and the ADR differ
-
-- The help text of `Get-BicepDeploymentContext` says a Subscription-target config lives at `configuration/<slot>.yml`; the code reads every
-  config at `configuration/[<customer>/]<env>[-<slot>].yml`, as the ADR states.
-
 ## See also
 
 - [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains.
