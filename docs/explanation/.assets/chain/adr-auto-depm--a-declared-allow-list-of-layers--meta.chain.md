@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "87f294aa273c"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
+    source: docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One declared allow-list says what may depend on what, and every edge points down: the value-chain minimap
 
 ```text

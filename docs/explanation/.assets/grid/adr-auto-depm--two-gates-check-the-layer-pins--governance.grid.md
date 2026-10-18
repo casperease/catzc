@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4c4acd17029f"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
+    source: docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two gates check the layer pins, and one rule is left to review: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: dc058bbc2865
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One module folder has two independent readers: the tree minimap
 
 ```text

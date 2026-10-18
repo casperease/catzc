@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3e3397dbd97e"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # You edit globs.yml, and every other step prints what cats derived from it: the tree minimap
 
 ```text

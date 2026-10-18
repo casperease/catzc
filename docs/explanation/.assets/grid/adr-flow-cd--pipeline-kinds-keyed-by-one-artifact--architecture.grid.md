@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "38609ac06075"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.grid.md
+    source: docs/explanation/.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact: the world-map minimap
 
 ```text

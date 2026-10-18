@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "512d312d6c00"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md
+    source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two sections of dependencies.yml are unioned into one allow-set per source module: the tree minimap
 
 ```text

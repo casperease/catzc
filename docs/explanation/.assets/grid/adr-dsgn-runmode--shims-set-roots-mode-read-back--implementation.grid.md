@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "046ff6354d17"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.grid.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "7e67e2f7563c"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md
+    source: docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Callers in any module read config through one module: the value-chain minimap
 
 ```text

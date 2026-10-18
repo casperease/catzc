@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6457c91f4f6b"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.tree.md
+    source: docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Build-Modules builds, verifies, and leaves one folder that every target copies whole: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: aa61f98d56b7
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A shell call carries its limit, or the hook denies it with a reason; it is never rewritten: the world-map minimap
 
 ```text

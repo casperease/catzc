@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "21bc6556b003"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A stage returns only on $false; a doubt prints a message and proceeds; a typo throws: the value-chain minimap
 
 ```text

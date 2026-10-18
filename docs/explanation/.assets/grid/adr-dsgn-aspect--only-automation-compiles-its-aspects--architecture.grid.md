@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: fdf757430f59
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.grid.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Both tracks' conventions are read, but only the automation track's compiles into globsets: the world-map minimap
 
 ```text

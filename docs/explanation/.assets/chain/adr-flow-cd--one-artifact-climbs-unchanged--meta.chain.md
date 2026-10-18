@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: cbd65a1f3182
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd--one-artifact-climbs-unchanged--meta.chain.md
+    source: docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One artifact is built once and climbs to production unchanged: the value-chain minimap
 
 ```text

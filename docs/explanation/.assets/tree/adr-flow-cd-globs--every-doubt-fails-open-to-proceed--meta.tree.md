@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "22b89e62b540"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed: the tree minimap
 
 ```text

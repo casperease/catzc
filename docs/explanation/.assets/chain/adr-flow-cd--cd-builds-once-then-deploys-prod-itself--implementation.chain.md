@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "899619711a8c"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.md
+    source: docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The customer CD pipeline builds once, then deploys the prod tier itself: the value-chain minimap
 
 ```text

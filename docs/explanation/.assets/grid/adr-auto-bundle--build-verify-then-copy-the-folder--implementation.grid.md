@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b9d2d7d08695
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.grid.md
+    source: docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Build-Modules builds, verifies, and leaves one folder that every target copies whole: the world-map minimap
 
 ```text

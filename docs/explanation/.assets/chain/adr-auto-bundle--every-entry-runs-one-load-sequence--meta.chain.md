@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "7ef3e2e8549f"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.chain.md
+    source: docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every entry runs one load sequence: the value-chain minimap
 
 ```text

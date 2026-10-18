@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "93bd011ba3d3"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The manifest and the aspects both come from one folder: the world-map minimap
 
 ```text

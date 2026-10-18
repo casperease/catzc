@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "0b572822fc82"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.tree.md
+    source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An undeclared module edge fails the gate with one line per issue: the tree minimap
 
 ```text

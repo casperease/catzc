@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "128719c98229"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it: the tree minimap
 
 ```text

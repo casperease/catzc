@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e5af91e7f9de
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Peers in a layer never share a file, except in the loose-fileset layer: the tree minimap
 
 ```text

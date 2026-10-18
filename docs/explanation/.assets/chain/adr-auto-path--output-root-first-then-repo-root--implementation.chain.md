@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b7df48a20809
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
+    source: docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Output root first, then repository root, else absolute, and out/ re-anchors on the output root: the value-chain minimap
 
 ```text

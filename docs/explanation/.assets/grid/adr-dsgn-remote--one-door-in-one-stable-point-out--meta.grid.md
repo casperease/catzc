@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "880ad0bed050"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.grid.md
+    source: docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Changes enter through one door, and consumers build on one stable point: the world-map minimap
 
 ```text

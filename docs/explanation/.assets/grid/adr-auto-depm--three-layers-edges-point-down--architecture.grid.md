@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e702d5f339d1
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-depm--three-layers-edges-point-down--architecture.grid.md
+    source: docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Module dependencies form three layers, and every edge points down: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c83d8f656ec2
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree: the tree minimap
 
 ```text

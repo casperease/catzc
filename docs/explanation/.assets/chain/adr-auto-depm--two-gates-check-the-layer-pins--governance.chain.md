@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "0cf18c8a2407"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md
+    source: docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two gates check the layer pins, and one rule is left to review: the value-chain minimap
 
 ```text

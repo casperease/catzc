@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "59f5df15025e"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md
+    source: docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The import materialises every root file; two gates catch drift and name the fix: the tree minimap
 
 ```text

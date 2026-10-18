@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "7e7a5c7c2e26"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live: the value-chain minimap
 
 ```text

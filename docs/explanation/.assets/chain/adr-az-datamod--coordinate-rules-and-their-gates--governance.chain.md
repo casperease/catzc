@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "2711c689b20f"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.md
+    source: docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two ADRs rule the coordinate; one shared check and the integrity tests hold them: the value-chain minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6db3aa7063eb"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.md
+    source: docs/explanation/.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain: the value-chain minimap
 
 ```text

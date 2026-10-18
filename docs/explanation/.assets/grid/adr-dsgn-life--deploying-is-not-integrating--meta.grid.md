@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "43806c0e7fc5"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Deploying a topic commit is not integrating it: the world-map minimap
 
 ```text

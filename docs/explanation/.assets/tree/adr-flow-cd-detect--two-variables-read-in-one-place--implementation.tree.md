@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "0a37cd82dfd9"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two variables, one reader, 24 callers, and one analyzer rule for every other read: the tree minimap
 
 ```text

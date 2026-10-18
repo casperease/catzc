@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "16f990c991d0"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam: the tree minimap
 
 ```text

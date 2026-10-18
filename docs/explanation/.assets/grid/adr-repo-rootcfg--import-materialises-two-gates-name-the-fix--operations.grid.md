@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3ee34f2ed3ff"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md
+    source: docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The import materialises every root file; two gates catch drift and name the fix: the world-map minimap
 
 ```text

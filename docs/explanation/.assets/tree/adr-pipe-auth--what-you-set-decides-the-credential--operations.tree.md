@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4d348ba12239"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
+    source: docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # What you set decides the credential, and each wrong setup stops with its own message: the tree minimap
 
 ```text

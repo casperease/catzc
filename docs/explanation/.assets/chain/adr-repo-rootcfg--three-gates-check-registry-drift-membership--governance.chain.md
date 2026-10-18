@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "66802dfd51cc"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.chain.md
+    source: docs/explanation/.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three gates check the registry, the drift and the git membership; one rule has no gate: the value-chain minimap
 
 ```text

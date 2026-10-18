@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "15d808cf373c"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Each run mode has one entry script, and a mixed session throws: the tree minimap
 
 ```text

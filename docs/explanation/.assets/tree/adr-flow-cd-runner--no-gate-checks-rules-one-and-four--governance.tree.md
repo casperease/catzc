@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "639225f2de53"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # No gate checks the runner rules 1 or 4, and the step template breaks rule 3: the tree minimap
 
 ```text

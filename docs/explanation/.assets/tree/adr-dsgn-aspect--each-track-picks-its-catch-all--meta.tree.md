@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "065abda7814a"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Each track picks its catch-all: a stray module file falls to tests, a stray template file to live: the tree minimap
 
 ```text

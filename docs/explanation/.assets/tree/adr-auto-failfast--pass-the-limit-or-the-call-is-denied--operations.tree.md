@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4b1b4196eeec"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A call inside the limit runs; outside it, the hook denies it and says how to re-issue it: the tree minimap
 
 ```text

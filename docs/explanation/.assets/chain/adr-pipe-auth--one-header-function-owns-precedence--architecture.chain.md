@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b571ff042fe9
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-pipe-auth--one-header-function-owns-precedence--architecture.chain.md
+    source: docs/explanation/.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One function owns the credential precedence, and ado.yml anchors every proof: the value-chain minimap
 
 ```text

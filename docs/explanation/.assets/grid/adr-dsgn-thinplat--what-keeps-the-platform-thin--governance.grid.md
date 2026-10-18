@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e3db7fd70e78
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.grid.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three gates guard the CLI and az, but nothing checks that cats stays thin: the world-map minimap
 
 ```text

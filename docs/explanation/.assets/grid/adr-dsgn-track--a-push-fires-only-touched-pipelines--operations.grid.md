@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "934a052e96a5"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md
+    source: docs/explanation/.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A push starts only the pipelines whose globset it touches: the world-map minimap
 
 ```text

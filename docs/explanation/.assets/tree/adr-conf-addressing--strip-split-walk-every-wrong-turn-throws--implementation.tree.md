@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "470aa9e7b078"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md
+    source: docs/explanation/.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Strip, split, read once, walk one segment at a time; every wrong turn throws: the tree minimap
 
 ```text

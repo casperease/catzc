@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1edd226d50ed"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--merging-to-main-is-what-deploys--operations.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Merging to main is what deploys; there is no run that deploys a topic: the tree minimap
 
 ```text

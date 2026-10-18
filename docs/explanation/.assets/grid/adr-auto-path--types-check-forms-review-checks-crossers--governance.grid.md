@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e26436746e9c
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-path--types-check-forms-review-checks-crossers--governance.grid.md
+    source: docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three types check path forms at construction, and the crossing rules are left to review: the world-map minimap
 
 ```text

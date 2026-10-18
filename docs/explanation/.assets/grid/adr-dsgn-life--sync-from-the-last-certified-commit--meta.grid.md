@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a954e68fe02e
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Sync from the last certified commit, not from the tip of main: the world-map minimap
 
 ```text

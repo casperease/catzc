@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "171e8fd0f97c"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
+    source: docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One declared allow-list says what may depend on what, and every edge points down: the tree minimap
 
 ```text

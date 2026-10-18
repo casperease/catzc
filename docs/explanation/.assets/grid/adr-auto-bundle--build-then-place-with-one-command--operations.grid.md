@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: ee2c84823e4a
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-bundle--build-then-place-with-one-command--operations.grid.md
+    source: docs/explanation/.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Build the bundle once, then place it with one command: the world-map minimap
 
 ```text

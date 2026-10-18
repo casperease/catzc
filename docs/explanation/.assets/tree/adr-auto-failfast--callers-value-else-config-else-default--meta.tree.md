@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: abae153f3680
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--callers-value-else-config-else-default--meta.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it: the tree minimap
 
 ```text

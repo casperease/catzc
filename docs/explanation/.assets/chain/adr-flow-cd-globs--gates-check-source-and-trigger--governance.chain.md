@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8c1da78180d4"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Gates check the source of each globset and the trigger, but not the git reflection or the identity: the value-chain minimap
 
 ```text

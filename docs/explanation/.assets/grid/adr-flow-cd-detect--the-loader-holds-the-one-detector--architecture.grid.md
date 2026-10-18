@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "7670a60cb360"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The detector lives in the loader, which both run modes import first and keep loaded: the world-map minimap
 
 ```text

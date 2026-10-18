@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1e58f9948f3a"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.chain.md
+    source: docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A call inside the limit runs; outside it, the hook denies it and says how to re-issue it: the value-chain minimap
 
 ```text

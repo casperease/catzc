@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "9e2ba91940e2"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Peers in a layer never share a file, except in the loose-fileset layer: the value-chain minimap
 
 ```text

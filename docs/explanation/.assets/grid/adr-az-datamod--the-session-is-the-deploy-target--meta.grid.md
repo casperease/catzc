@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8e140c9bba38"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--the-session-is-the-deploy-target--meta.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The az session is the deploy target, and the guard only checks it: the world-map minimap
 
 ```text

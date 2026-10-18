@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "781b92869e6f"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-depm--three-layers-edges-point-down--architecture.tree.md
+    source: docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Module dependencies form three layers, and every edge points down: the tree minimap
 
 ```text

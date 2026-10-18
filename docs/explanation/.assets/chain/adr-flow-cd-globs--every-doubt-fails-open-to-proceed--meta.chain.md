@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "044d81a71fce"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed: the value-chain minimap
 
 ```text

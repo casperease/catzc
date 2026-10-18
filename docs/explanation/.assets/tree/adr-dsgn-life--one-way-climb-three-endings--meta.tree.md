@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4fcbd9fe0c4e"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--one-way-climb-three-endings--meta.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A commit only climbs, then ends in one of three ways: the tree minimap
 
 ```text

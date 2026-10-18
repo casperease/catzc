@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3b855ad349ea"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.grid.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every module file is in exactly one aspect: the world-map minimap
 
 ```text

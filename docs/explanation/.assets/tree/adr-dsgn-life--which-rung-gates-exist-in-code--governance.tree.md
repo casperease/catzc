@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "86e7bffe7254"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Only PR build validation, the BVT and the failure stop are checked in code: the tree minimap
 
 ```text

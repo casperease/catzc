@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e934dcc7e83b
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd--a-merge-runs-cd-to-prod--operations.tree.md
+    source: docs/explanation/.assets/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A merge to main runs the CD pipeline all the way to prod, with no approval: the tree minimap
 
 ```text

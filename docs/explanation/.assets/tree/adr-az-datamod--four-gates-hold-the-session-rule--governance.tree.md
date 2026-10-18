@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a82c8a51a232
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-az-datamod--four-gates-hold-the-session-rule--governance.tree.md
+    source: docs/explanation/.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Four gates hold the session rule; the customer and the name hold by construction: the tree minimap
 
 ```text

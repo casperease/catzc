@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "063a15f24c38"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-conf-loading--three-caches-back-one-reader--implementation.tree.md
+    source: docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three session caches back the one config reader: the tree minimap
 
 ```text

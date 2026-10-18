@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: fe04307240cb
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--three-tests-prove-the-hook--governance.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only: the world-map minimap
 
 ```text

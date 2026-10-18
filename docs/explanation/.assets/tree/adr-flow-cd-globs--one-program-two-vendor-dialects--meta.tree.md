@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "47e6776962c5"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: df8b08e748fc
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-loading--callers-depend-on-one-config-module--architecture.grid.md
+    source: docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Callers in any module read config through one module: the world-map minimap
 
 ```text

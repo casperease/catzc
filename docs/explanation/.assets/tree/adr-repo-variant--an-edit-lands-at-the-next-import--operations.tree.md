@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1a6733ceca44"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-repo-variant--an-edit-lands-at-the-next-import--operations.tree.md
+    source: docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An edit to a variant lands at the next import, and a wrong value fails once, at load: the tree minimap
 
 ```text

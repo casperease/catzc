@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "629628e7e634"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.grid.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call: the world-map minimap
 
 ```text

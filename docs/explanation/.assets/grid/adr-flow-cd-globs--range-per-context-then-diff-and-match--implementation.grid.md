@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a2978eb0cfbf
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Check the name, pick the range per context, then diff git and match the paths: the world-map minimap
 
 ```text

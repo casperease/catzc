@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "609f1f99533c"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One function answers "am I in a pipeline?", and every branch on context asks it: the world-map minimap
 
 ```text

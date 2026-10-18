@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1c9c5b44b6a3"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "56582e0e4057"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-bundle--what-gates-each-bundle-stage--governance.grid.md
+    source: docs/explanation/.assets/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every stage of the bundle has a rule, and two gates check it: the world-map minimap
 
 ```text

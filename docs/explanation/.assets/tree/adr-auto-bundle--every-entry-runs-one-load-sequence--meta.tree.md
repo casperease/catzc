@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: ebff8880e87d
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.tree.md
+    source: docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every entry runs one load sequence: the tree minimap
 
 ```text

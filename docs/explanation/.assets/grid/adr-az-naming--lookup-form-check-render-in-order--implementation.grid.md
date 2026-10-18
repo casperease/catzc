@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e9a0fedf3adc
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-naming--lookup-form-check-render-in-order--implementation.grid.md
+    source: docs/explanation/.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The namer looks up, forms, checks and renders a name in that order: the world-map minimap
 
 ```text

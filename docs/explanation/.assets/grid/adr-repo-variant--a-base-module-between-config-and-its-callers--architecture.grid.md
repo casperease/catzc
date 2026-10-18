@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "04aa04723da5"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.grid.md
+    source: docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Catzc.Base.Variants sits in Base, over Config, under every real caller: the world-map minimap
 
 ```text

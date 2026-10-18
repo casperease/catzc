@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "12e4f87a1422"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Catzc.Base.Globs owns the check, the loader names the context, and git names the change: the world-map minimap
 
 ```text

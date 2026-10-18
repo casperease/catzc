@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3cb4ae3c6e5e"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-path--one-out-string-two-places--operations.grid.md
+    source: docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline: the world-map minimap
 
 ```text

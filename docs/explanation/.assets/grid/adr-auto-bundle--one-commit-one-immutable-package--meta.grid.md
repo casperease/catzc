@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "24df0af92c1f"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md
+    source: docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One commit becomes one verified, immutable package, and every code root is a copy of it: the world-map minimap
 
 ```text

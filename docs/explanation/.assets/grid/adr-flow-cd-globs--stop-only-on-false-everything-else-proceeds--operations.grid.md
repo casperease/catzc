@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "26582bb4188c"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A stage returns only on $false; a doubt prints a message and proceeds; a typo throws: the world-map minimap
 
 ```text

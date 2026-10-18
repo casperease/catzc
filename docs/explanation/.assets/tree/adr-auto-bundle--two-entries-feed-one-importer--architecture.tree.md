@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "9352abe2f52d"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-bundle--two-entries-feed-one-importer--architecture.tree.md
+    source: docs/explanation/.assets/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two entry scripts feed one importer, and the importer leaves once the load is done: the tree minimap
 
 ```text

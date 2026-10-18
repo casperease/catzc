@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: b2de28286074
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-bundle--invoke-importer-in-code-order--implementation.grid.md
+    source: docs/explanation/.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain: the world-map minimap
 
 ```text

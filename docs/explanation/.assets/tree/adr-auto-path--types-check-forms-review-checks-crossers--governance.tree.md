@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "28a11a603a0d"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-path--types-check-forms-review-checks-crossers--governance.tree.md
+    source: docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Three types check path forms at construction, and the crossing rules are left to review: the tree minimap
 
 ```text

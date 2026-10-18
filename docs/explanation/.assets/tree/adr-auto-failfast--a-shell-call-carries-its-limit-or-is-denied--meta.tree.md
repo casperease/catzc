@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "33671dc15c21"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A shell call carries its limit, or the hook denies it with a reason; it is never rewritten: the tree minimap
 
 ```text

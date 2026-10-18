@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "9804b4fde154"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Drop a file, and the next import exports it: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: d3f3baef343e
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam: the world-map minimap
 
 ```text

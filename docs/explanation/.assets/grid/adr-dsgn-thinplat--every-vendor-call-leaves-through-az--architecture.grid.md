@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "907a6864a092"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every vendor call leaves cats through the az CLI: the world-map minimap
 
 ```text

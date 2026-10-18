@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: bd236efdfe95
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md
+    source: docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Code holds all eight naming rules, seven of them behind a check that throws: the tree minimap
 
 ```text

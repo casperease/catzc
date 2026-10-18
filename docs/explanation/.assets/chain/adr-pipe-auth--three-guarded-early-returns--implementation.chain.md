@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "90e967177d59"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-pipe-auth--three-guarded-early-returns--implementation.chain.md
+    source: docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The header function is four checks and three returns, and none falls through on failure: the value-chain minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: cf46209c2bed
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-conf-loading--callers-depend-on-one-config-module--architecture.tree.md
+    source: docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Callers in any module read config through one module: the tree minimap
 
 ```text

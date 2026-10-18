@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: dd12b03deb0a
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-az-datamod--coordinate-rules-and-their-gates--governance.tree.md
+    source: docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two ADRs rule the coordinate; one shared check and the integrity tests hold them: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "1782208d02c6"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The pipelines wire only topic, landed and BVT; past BVT there is no ladder: the tree minimap
 
 ```text

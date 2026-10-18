@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a5a6bc4d460d
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--a-stopped-run-names-its-limit--operations.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A run past its limit stops with a message that names the limit and where to change it: the tree minimap
 
 ```text

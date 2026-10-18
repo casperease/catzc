@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c2c705dd7b67
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Test-GlobSetIndependence groups every set by layer and tests each same-layer pair: the value-chain minimap
 
 ```text

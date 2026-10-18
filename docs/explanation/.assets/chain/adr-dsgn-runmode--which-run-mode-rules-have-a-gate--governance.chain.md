@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e467d2a4ce7f
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.chain.md
+    source: docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the value-chain minimap
 
 ```text

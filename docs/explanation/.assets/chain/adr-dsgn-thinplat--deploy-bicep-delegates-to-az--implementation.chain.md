@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "08dc4e85f066"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.chain.md
+    source: docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az: the value-chain minimap
 
 ```text

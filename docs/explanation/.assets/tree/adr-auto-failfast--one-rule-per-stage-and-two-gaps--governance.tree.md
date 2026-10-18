@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: fc8cfc3bb541
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.tree.md
+    source: docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two rules govern every stage, tests and the hook check them, and two gaps remain: the tree minimap
 
 ```text

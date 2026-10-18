@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "50e80cdd7b48"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md
+    source: docs/explanation/.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Deploying a topic commit is not integrating it: the tree minimap
 
 ```text

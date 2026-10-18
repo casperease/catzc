@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e52fe47cd0c5
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md
+    source: docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Templating and identity join through one shared check and one resolver: the value-chain minimap
 
 ```text

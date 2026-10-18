@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "86668f10412e"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-track--one-unit-one-pipeline--meta.grid.md
+    source: docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A track ships through a deployable-unit, and each unit has one pipeline: the world-map minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "83f287b1ab00"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-az-naming--names-are-pure-and-never-truncated--meta.tree.md
+    source: docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An Azure name is a pure function of its components, and it is never truncated: the tree minimap
 
 ```text

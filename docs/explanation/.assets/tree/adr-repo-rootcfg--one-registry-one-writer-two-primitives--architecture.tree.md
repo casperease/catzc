@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: a4b84a558086
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.tree.md
+    source: docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One registry, one writer, two write primitives, two kinds of target: the tree minimap
 
 ```text

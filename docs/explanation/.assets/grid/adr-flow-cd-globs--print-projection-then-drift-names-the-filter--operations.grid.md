@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c8474d4c7b47
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Print the projection, and a drifted pipeline fails naming the filter that differs: the world-map minimap
 
 ```text

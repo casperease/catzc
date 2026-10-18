@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: d02faea02166
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-path--two-forms-never-a-third--meta.grid.md
+    source: docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A path has two forms, never a third, and one pair of crossers moves it between them: the world-map minimap
 
 ```text

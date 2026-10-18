@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "99159b8067c8"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-auto-bundle--invoke-importer-in-code-order--implementation.tree.md
+    source: docs/explanation/.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain: the tree minimap
 
 ```text

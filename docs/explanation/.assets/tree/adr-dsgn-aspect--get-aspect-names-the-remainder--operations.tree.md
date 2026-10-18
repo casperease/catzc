@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "7ad14c14f2ad"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.tree.md
+    source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads: the tree minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "5f901f99e03c"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.md
+    source: docs/explanation/.assets/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One field in globs.yml, pipeline:, binds a set to its pipeline file: the value-chain minimap
 
 ```text

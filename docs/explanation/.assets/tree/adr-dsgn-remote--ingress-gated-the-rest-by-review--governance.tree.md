@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "38ce136a4a6c"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.tree.md
+    source: docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Only ingress is checked by gates; the source-of-truth and integration rules rest on code review: the tree minimap
 
 ```text

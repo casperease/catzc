@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8e81b8e74739"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md
+    source: docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # What you set decides the credential, and each wrong setup stops with its own message: the world-map minimap
 
 ```text

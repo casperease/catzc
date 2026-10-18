@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: feceedb7da3d
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-loading--one-reader-one-cache-per-session--meta.grid.md
+    source: docs/explanation/.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every config read goes through one reader and one session cache: the world-map minimap
 
 ```text

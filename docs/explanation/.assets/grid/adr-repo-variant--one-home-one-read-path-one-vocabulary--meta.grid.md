@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: fb95b2b30ae1
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.grid.md
+    source: docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A repo-wide switch has one home, one read path and one guard vocabulary: the world-map minimap
 
 ```text

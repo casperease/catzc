@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4d43c129df5a"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The runner is the only seam from pipeline YAML into PowerShell: the world-map minimap
 
 ```text

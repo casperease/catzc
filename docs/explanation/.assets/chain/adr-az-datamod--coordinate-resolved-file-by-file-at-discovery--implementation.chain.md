@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8dd89e7e45ff"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.chain.md
+    source: docs/explanation/.assets/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Discovery resolves every config file's coordinate through one shared check: the value-chain minimap
 
 ```text

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e0feefd1e895
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
+    source: docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Sync from the last certified commit, not from the tip of main: the value-chain minimap
 
 ```text

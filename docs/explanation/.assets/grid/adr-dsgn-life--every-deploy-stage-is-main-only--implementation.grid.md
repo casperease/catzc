@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e620dcc322c4
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.md
+    source: docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every Deploy stage in cats runs only from main, so no topic commit is deployed: the world-map minimap
 
 ```text

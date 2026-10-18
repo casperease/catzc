@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "47c23b5be5d5"
+    repo_status: locked
+    path: docs/explanation/.assets/chain/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.chain.md
+    source: docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Two rules govern every stage, tests and the hook check them, and two gaps remain: the value-chain minimap
 
 ```text

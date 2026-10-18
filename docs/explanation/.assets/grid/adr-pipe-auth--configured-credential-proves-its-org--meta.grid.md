@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: f3abc6d49a3f
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-pipe-auth--configured-credential-proves-its-org--meta.grid.md
+    source: docs/explanation/.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The first configured credential wins, and it must prove its org: the world-map minimap
 
 ```text

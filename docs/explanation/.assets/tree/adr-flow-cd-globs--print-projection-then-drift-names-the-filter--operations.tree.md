@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "9167754bc278"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Print the projection, and a drifted pipeline fails naming the filter that differs: the tree minimap
 
 ```text

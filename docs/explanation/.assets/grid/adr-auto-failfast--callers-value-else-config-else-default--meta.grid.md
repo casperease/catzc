@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "6bbb4efefa7b"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-auto-failfast--callers-value-else-config-else-default--meta.grid.md
+    source: docs/explanation/.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it: the world-map minimap
 
 ```text

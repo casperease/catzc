@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "2b41314933b2"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-conf-addressing--type-an-address-get-the-value--operations.tree.md
+    source: docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Type an address and get its value back; a wrong address throws its message at the call: the tree minimap
 
 ```text

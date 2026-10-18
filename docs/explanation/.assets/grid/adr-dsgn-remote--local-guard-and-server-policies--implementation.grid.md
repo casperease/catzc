@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "3830a8c90d3a"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
+    source: docs/explanation/.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The code carries both halves of ingress, but nothing finds the last verified commit: the world-map minimap
 
 ```text

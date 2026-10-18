@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e7e65368244f
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-az-datamod--config-path-is-a-coordinate--meta.grid.md
+    source: docs/explanation/.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A config file's path is a coordinate that resolves to one subscription and one resource group: the world-map minimap
 
 ```text

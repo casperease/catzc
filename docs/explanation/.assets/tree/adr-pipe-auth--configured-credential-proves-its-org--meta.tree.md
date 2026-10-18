@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "5e19d981b7c8"
+    repo_status: locked
+    path: docs/explanation/.assets/tree/adr-pipe-auth--configured-credential-proves-its-org--meta.tree.md
+    source: docs/explanation/.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The first configured credential wins, and it must prove its org: the tree minimap
 
 ```text

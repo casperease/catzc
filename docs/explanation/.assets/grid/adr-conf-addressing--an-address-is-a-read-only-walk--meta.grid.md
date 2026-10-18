@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "478b262d4f18"
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-conf-addressing--an-address-is-a-read-only-walk--meta.grid.md
+    source: docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # A config address is a read-only walk over the one cached config, never a second reader: the world-map minimap
 
 ```text

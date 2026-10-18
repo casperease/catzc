@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: c84046ff256c
+    repo_status: locked
+    path: docs/explanation/.assets/grid/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
+    kind: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # Every globset carries one of three layers, and only two are declared: the world-map minimap
 
 ```text
