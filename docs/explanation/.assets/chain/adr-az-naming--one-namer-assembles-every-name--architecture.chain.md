@@ -1,7 +1,7 @@
 # One resolver gathers the components and one namer assembles every Azure name: the value-chain minimap
 
 ```text
-Where ADR-AZ-NAMING sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-AZ-NAMING sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

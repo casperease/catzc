@@ -21,7 +21,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 12 lit of 91 files
 - automation × csharp: 17 lit of 286 files
-- automation × powershell: 383 lit of 1618 files
+- automation × powershell: 383 lit of 1619 files
 - automation × yaml: 11 lit of 112 files
 - docs × markdown: 322 lit of 2220 files
 - github-workflows × yaml: 1 lit of 2 files, touched
@@ -864,7 +864,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.QualityGates/configs/glossary.yml][426]: selected by [ADR-AUTO-TEST][1]: the file cites it at line 24 (text), line
   40 (text), line 49 (text), line 59 (text), line 86 (text), line 101 (text), line 124 (text), line 136 (text), line 146 (text), line 156
   (text), line 171 (text) and line 185 (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][427]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 1237
+- [automation/Catzc.Base.QualityGates/configs/terminology.yml][427]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 1235
   (text).
 - [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][428]: selected by [ADR-AUTO-TEST][1]: the file cites it at line 120 (body
   comment) (a passing mention only).
@@ -2156,7 +2156,7 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 161 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 165 (text),
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 179 (text), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 23
   (header), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 102 (header),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1237 (text),
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1235 (text),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 22 (header),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 28 (header),
   `automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1` line 23 (header),

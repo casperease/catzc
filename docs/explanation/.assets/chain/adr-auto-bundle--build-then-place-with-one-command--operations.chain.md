@@ -1,7 +1,7 @@
 # Build the bundle once, then place it with one command: the value-chain minimap
 
 ```text
-Where ADR-AUTO-BUNDLE sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-AUTO-BUNDLE sits in the value chain: value-chain stack down, value-chain concerns across.
 2 of 25 cells lit.
 ```
 

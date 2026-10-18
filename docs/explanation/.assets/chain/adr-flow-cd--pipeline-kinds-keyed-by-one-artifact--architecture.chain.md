@@ -1,7 +1,7 @@
 # CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact: the value-chain minimap
 
 ```text
-Where ADR-FLOW-CD sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-FLOW-CD sits in the value chain: value-chain stack down, value-chain concerns across.
 4 of 25 cells lit.
 ```
 

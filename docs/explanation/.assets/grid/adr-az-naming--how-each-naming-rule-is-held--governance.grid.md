@@ -19,7 +19,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - automation × csharp: 3 lit of 286 files
-- automation × powershell: 7 lit of 1618 files
+- automation × powershell: 7 lit of 1619 files
 - automation × yaml: 1 lit of 112 files
 - docs × markdown: 17 lit of 2220 files
 - pipelines × pipeline-yaml: 1 lit of 9 files

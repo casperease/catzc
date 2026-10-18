@@ -1,7 +1,7 @@
 # Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live: the value-chain minimap
 
 ```text
-Where ADR-DSGN-ASPECT sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-ASPECT sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

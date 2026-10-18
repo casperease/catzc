@@ -1,7 +1,7 @@
 # The az session is the deploy target, and the guard only checks it: the value-chain minimap
 
 ```text
-Where ADR-AZ-DATAMOD sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-AZ-DATAMOD sits in the value chain: value-chain stack down, value-chain concerns across.
 2 of 25 cells lit.
 ```
 

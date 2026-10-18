@@ -1,7 +1,7 @@
 # Consumers bind to one CLI, and everything behind it is delegated to the vendor: the value-chain minimap
 
 ```text
-Where ADR-DSGN-THINPLAT sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-THINPLAT sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

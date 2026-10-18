@@ -19,7 +19,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - automation × csharp: 5 lit of 286 files
-- automation × powershell: 41 lit of 1618 files
+- automation × powershell: 41 lit of 1619 files
 - automation × yaml: 2 lit of 112 files
 - docs × markdown: 39 lit of 2220 files
 - github-workflows × yaml: 1 lit of 2 files, touched
@@ -144,7 +144,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][51]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 120 (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][52]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1237
+- [automation/Catzc.Base.QualityGates/configs/terminology.yml][52]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1235
   (text).
 
 ### docs × markdown (39 lit files)
@@ -298,7 +298,7 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 161 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 165 (text),
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 179 (text), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 23
   (header), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 102 (header),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1237 (text),
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1235 (text),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 22 (header),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 28 (header),
   `automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1` line 23 (header),

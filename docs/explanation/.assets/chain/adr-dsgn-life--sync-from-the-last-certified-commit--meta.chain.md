@@ -1,7 +1,7 @@
 # Sync from the last certified commit, not from the tip of main: the value-chain minimap
 
 ```text
-Where ADR-DSGN-LIFE sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-LIFE sits in the value chain: value-chain stack down, value-chain concerns across.
 3 of 25 cells lit.
 ```
 

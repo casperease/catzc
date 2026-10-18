@@ -21,7 +21,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 14 lit of 91 files
 - automation × csharp: 30 lit of 286 files
-- automation × powershell: 83 lit of 1618 files
+- automation × powershell: 83 lit of 1619 files
 - automation × yaml: 9 lit of 112 files
 - docs × markdown: 83 lit of 2220 files
 - github-workflows × yaml: 1 lit of 2 files, touched
@@ -317,7 +317,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.QualityGates/configs/source-conventions.yml][140]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 26
   (text).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][141]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 316 (text)
-  and line 319 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 1237 (text).
+  and line 319 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 1235 (text).
 - [automation/Catzc.Base.Variants/configs/track-types.yml][142]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 59 (text).
 
 ### docs × markdown (83 lit files)
@@ -707,7 +707,7 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 161 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 165 (text),
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 179 (text), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 23
   (header), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 102 (header),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1237 (text),
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1235 (text),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 22 (header),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 28 (header),
   `automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1` line 23 (header),

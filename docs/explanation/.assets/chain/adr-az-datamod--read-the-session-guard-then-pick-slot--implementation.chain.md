@@ -1,7 +1,7 @@
 # Get-BicepDeploymentContext reads the session, guards it, then picks the slot: the value-chain minimap
 
 ```text
-Where ADR-AZ-DATAMOD sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-AZ-DATAMOD sits in the value chain: value-chain stack down, value-chain concerns across.
 2 of 25 cells lit.
 ```
 

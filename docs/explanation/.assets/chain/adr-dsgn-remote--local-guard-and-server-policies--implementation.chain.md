@@ -1,7 +1,7 @@
 # The code carries both halves of ingress, but nothing finds the last verified commit: the value-chain minimap
 
 ```text
-Where ADR-DSGN-REMOTE sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-REMOTE sits in the value chain: value-chain stack down, value-chain concerns across.
 2 of 25 cells lit.
 ```
 

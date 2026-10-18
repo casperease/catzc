@@ -1,7 +1,7 @@
 # The PAT proof and the empty-token assert have no gate: the value-chain minimap
 
 ```text
-Where ADR-PIPE-AUTH sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-PIPE-AUTH sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

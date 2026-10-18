@@ -1,7 +1,7 @@
 # The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call: the value-chain minimap
 
 ```text
-Where ADR-DSGN-ASPECT sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-ASPECT sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

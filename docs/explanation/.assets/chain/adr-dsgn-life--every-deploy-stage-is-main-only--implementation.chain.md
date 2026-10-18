@@ -1,7 +1,7 @@
 # Every Deploy stage in cats runs only from main, so no topic commit is deployed: the value-chain minimap
 
 ```text
-Where ADR-DSGN-LIFE sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-LIFE sits in the value chain: value-chain stack down, value-chain concerns across.
 3 of 25 cells lit.
 ```
 

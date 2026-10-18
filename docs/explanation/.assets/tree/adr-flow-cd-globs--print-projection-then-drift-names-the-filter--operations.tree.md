@@ -195,7 +195,7 @@ The group holds the files of automation/Catzc.Base.QualityGates; each sits in it
 - [automation/Catzc.Base.QualityGates/Test-Automation.ps1][75], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][1]: the
   file cites it at line 23 (header) and line 102 (header).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][76], in the cell automation × yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the
-  file cites it at line 1237 (text).
+  file cites it at line 1235 (text).
 - [automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1][77], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 22 (header) and line 28 (header).
 - [automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1][78], in the cell automation × powershell: selected by
@@ -319,7 +319,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 161 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 165 (text),
   `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 179 (text), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 23
   (header), `automation/Catzc.Base.QualityGates/Test-Automation.ps1` line 102 (header),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1237 (text),
+  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1235 (text),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 22 (header),
   `automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1` line 28 (header),
   `automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1` line 23 (header),

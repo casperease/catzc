@@ -1,8 +1,8 @@
 # Two variables, one reader, 24 callers, and one analyzer rule for every other read: the value-chain minimap
 
 ```text
-Where ADR-FLOW-CD-DETECT sit in the value chain: value-chain stack down, value-chain concerns across.
-No cell is lit: the cited ADRs land only in automation, which the AUTO row already names.
+Where ADR-FLOW-CD-DETECT sits in the value chain: value-chain stack down, value-chain concerns across.
+No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
 ![The value-chain minimap of Two variables, one reader, 24 callers, and one analyzer rule for every other read](adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.png)
@@ -17,7 +17,6 @@ Value-chain map: value-chain stack × value-chain concerns. The grid crosses the
 CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy, access) and lights 0 cells, filled in ink. Every other cell
 is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
-
 
 ## Key
 

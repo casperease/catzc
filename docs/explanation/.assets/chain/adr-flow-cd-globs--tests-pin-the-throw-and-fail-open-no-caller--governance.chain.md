@@ -2,7 +2,7 @@
 
 ```text
 Where ADR-AUTO-FAILFAST, ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS sit in the value chain: value-chain stack down, value-chain concerns across.
-No cell is lit: the cited ADRs land only in automation, which the AUTO row already names.
+No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
 ![The value-chain minimap of Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it](adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.chain.png)
@@ -18,7 +18,6 @@ Value-chain map: value-chain stack × value-chain concerns. The grid crosses the
 CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy, access) and lights 0 cells, filled in ink. Every other cell
 is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
-
 
 ## Key
 

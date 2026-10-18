@@ -1,7 +1,7 @@
 # Code holds all eight naming rules, seven of them behind a check that throws: the value-chain minimap
 
 ```text
-Where ADR-AZ-NAMING sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-AZ-NAMING sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

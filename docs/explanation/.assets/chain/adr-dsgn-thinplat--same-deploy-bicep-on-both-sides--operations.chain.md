@@ -1,7 +1,7 @@
 # A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription: the value-chain minimap
 
 ```text
-Where ADR-DSGN-THINPLAT sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-THINPLAT sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

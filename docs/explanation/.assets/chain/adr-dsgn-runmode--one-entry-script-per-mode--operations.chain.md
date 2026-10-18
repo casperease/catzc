@@ -1,7 +1,7 @@
 # Each run mode has one entry script, and a mixed session throws: the value-chain minimap
 
 ```text
-Where ADR-DSGN-RUNMODE sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-RUNMODE sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 

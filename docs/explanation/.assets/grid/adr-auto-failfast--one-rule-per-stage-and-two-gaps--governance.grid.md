@@ -21,7 +21,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 27 lit of 91 files
 - automation × csharp: 33 lit of 286 files
-- automation × powershell: 40 lit of 1618 files
+- automation × powershell: 40 lit of 1619 files
 - automation × yaml: 4 lit of 112 files
 - docs × markdown: 65 lit of 2220 files
 - pipelines × pipeline-yaml: 1 lit of 9 files

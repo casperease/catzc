@@ -1,7 +1,7 @@
 # Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the value-chain minimap
 
 ```text
-Where ADR-DSGN-RUNMODE sit in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-DSGN-RUNMODE sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 
