@@ -323,7 +323,7 @@ Summary (ours): Treat the platform, its documentation, its deployment, and its t
 This is [ADR-PRIN-EAC#1](../../principles/everything-as-code.md#rule-adr-prin-eac1): every artifact needed to build, test, deploy, or
 operate the system lives in version control. The templates under `infrastructure/templates/`, the shared modules under
 `infrastructure/modules/`, the configs under each template's `configuration/`, the repository-wide settings in `azure.yml`, `network.yml`,
-and `customer.yml`, the pipelines under `pipelines/`, the automation under `automation/`, the tests beside it, and the ADRs that decide them
+and `customer.yml`, the pipelines under `pipelines/`, the automation under `pwsh/`, the tests beside it, and the ADRs that decide them
 are all files in one repository. The build-validation policies are config too (`build-validation.yml`, applied by
 `Sync-AdoBuildValidations`), and a pipeline is registered from its file by `Register-AdoPipeline`.
 

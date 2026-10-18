@@ -4,28 +4,18 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
         ([Catzc.Base.Slides.SlidesConfig]::new($null)).kit | Should -Be '.claude/slides'
     }
 
-    It 'takes the declared defaults for the draw.io kit and the diagram batch' -Tag 'ADR-AUTO-DEFAULT#6' {
-        $config = [Catzc.Base.Slides.SlidesConfig]::new(@{})
-        $config.drawio_kit | Should -Be '.claude/drawio'
-        $config.diagram_batch | Should -Be 25
-        $config.diagram_folders | Should -Be @('docs/explanation/.assets')
+    It 'takes the declared default for the draw.io kit' -Tag 'ADR-AUTO-DEFAULT#6' {
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{})).drawio_kit | Should -Be '.claude/drawio'
     }
 
-    It 'maps the diagram folders it is given, and rejects an empty list or a folder not in communication form' {
-        ([Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets/', 'docs/gadgets') })).diagram_folders |
-            Should -Be @('docs/widgets/.assets', 'docs/gadgets')
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @() }) } | Should -Throw '*diagram_folders names no folder*'
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = 'docs/widgets' }) } | Should -Throw '*diagram_folders must be a list*'
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('../widgets') }) } | Should -Throw '*communication form*'
-    }
-
-    It 'maps a draw.io kit and a batch it is given, and rejects a batch below one or a kit not in communication form' {
-        $config = [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = 'widget/kit/'; diagram_batch = 7 })
-        $config.drawio_kit | Should -Be 'widget/kit'
-        $config.diagram_batch | Should -Be 7
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 0 }) } | Should -Throw '*diagram_batch*at least 1*'
-        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 'many' }) } | Should -Throw '*diagram_batch*'
+    It 'maps a draw.io kit it is given, and rejects one not in communication form' {
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = 'widget/kit/' })).drawio_kit | Should -Be 'widget/kit'
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = '../kit' }) } | Should -Throw '*drawio_kit*communication form*'
+    }
+
+    It 'lists no diagram folder: a diagram folder is found under docs/**/.assets/**, so the old keys are unknown' -Tag 'ADR-REPO-SLIDES#7' {
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets') }) } | Should -Throw '*unknown key ''diagram_folders''*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 7 }) } | Should -Throw '*unknown key ''diagram_batch''*'
     }
 
     It 'maps the kit folder it is given, without a trailing slash' {

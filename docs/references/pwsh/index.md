@@ -1,6 +1,6 @@
 # Module reference
 
-One article per automation module. Each is written **responsibilities-first**: it does not walk through individual functions — it declares
+One article per catzc module. Each is written **responsibilities-first**: it does not walk through individual functions — it declares
 the _responsibilities_ the module owns, explains the module in terms of those responsibilities, and only at the end sorts the module's
 functions and configuration into them.
 
@@ -76,7 +76,7 @@ Modules are layered — a module may only call into the modules it declares in `
 
 ## Beyond the modules
 
-Two reference areas cover the parts of `automation/` that are not themselves `pwsh/*` modules:
+Two reference areas cover the parts of `pwsh/` that are not themselves modules:
 
 - [Internal (`.psm1` shared infrastructure)](internal/index.md) — the loader and shared libraries under `pwsh/.internal/` that run the
   import sequence and load every module above.

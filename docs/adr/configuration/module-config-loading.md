@@ -79,7 +79,7 @@ are no per-module reader wrappers and no dependency guard. Only `Get-Config` is 
 `Discovery, not per-module wrappers`
 
 A config name is **global**. `Resolve-ConfigEntry` builds a one-time `name → entries` index by scanning every
-`automation/<module>/configs/*.yml`, then resolves the requested name to a single `@{ Name; Module; Path }`. The owning module is
+`pwsh/<module>/configs/*.yml`, then resolves the requested name to a single `@{ Name; Module; Path }`. The owning module is
 _discovered_ from where the file lives — not declared by a wrapper and not passed by the caller. `-Module` exists only to disambiguate the
 rare case of the same config name in two modules; the seam throws on an **unknown** name and on an **ambiguous** name (asking for
 `-Module`).
@@ -111,7 +111,7 @@ config, a type that does not resolve, and a shipped config that does not load ar
 
 `Invoke-ConfigValidator, for owners without a C# type`
 
-Not every owner of a config can ship a C# type: types compile only from `automation/<module>/types/`, and a track or deployable-unit that
+Not every owner of a config can ship a C# type: types compile only from `pwsh/<module>/types/`, and a track or deployable-unit that
 carries its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK#3`). For those, `Catzc.Base.ConfigExtensions`
 keeps the PowerShell validator form. `Invoke-ConfigValidator -Config <dict> -Name <name> -Module <owner>` finds the validator by convention
 (`Assert-<TitleCase(name)>Config`, so `widget-parts` → `Assert-WidgetPartsConfig`) or by `-Validator`, and runs it **in the owning module's

@@ -2,13 +2,10 @@ function Build-Diagrams {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string[]] $Folder,
+        [string[]] $Path,
 
         [ValidateSet('all', 'prepare', 'highlight', 'join')]
         [string] $Stage = 'all',
-
-        [ValidateRange(1, 10000)]
-        [int] $Batch = (Get-Config -Config slides).diagram_batch,
 
         [string] $Kit = (Get-Config -Config slides).drawio_kit,
 
@@ -23,18 +20,37 @@ function Build-Diagrams {
     $renderer = Join-Path $root "$Kit/drawio_forward.py"
     Assert-PathExist $renderer -PathType Leaf -ErrorText "Build-Diagrams: the draw.io kit '$Kit' has no drawio_forward.py; slides.yml drawio_kit names the kit."
 
-    # The folders whose slides carry the minimap sidebar (diagram_folders), or the folders asked for; a slide is a tracked .drawio.png in one.
-    $slides = @(Get-GitTrackedPath '.' | Where-Object { $_ -like '*.drawio.png' })
-    $named = if ($Folder) {
-        $Folder
+    # A diagram folder is `<article-folder>/.assets/<name>/` holding a tracked diagram.drawio.png; it is found, never listed.
+    $tracked = @(Get-GitTrackedPath '.')
+    $found = @($tracked | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.png$' } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) })
+    $folders = if ($Path) {
+        @(foreach ($folderPath in $Path) {
+                $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/').TrimEnd('/')
+                Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram folder (<article-folder>/.assets/<name>/ holding a tracked diagram.drawio.png)."
+                $relative
+            })
     }
     else {
-        (Get-Config -Config slides).diagram_folders
+        $found
     }
-    $folders = @($named | ForEach-Object { ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $_))) -replace '\\', '/').TrimEnd('/') })
+
+    # The locality gate: a folder's article is the one page beside its .assets that embeds its diagram.drawio.png.
+    $articles = @{}
+    foreach ($folderPath in $folders) {
+        $articleFolder = $folderPath.Substring(0, $folderPath.LastIndexOf('/.assets/'))
+        $name = $folderPath.Substring($folderPath.LastIndexOf('/') + 1)
+        $embed = '\]\((\./)?\.assets/' + [regex]::Escape($name) + '/diagram\.drawio\.png[)#\s]'
+        $pages = @($tracked | Where-Object { $_ -like '*.md' -and $_.Substring(0, [Math]::Max(0, $_.LastIndexOf('/'))) -ceq $articleFolder })
+        $embedders = @($pages | Where-Object { [System.IO.File]::ReadAllText((Join-Path $root $_)) -match $embed })
+        Assert-True ($embedders.Count -le 1) -ErrorText "Build-Diagrams: $folderPath is embedded by $($embedders.Count) pages ($($embedders -join ', ')); a diagram belongs to one article."
+        $articles[$folderPath] = $embedders | Select-Object -First 1
+        if ($embedders.Count -eq 0) {
+            Write-Message "Build-Diagrams: $folderPath is an orphan; no page in $articleFolder embeds its diagram.drawio.png." -Warning
+        }
+    }
 
     $uv = 'uv'
-    if (-not $DryRun) {
+    if (-not $DryRun -and $folders.Count -gt 0) {
         $tool = Resolve-ToolExecutable -Tool uv
         Assert-True $tool.Found -ErrorText 'Build-Diagrams: uv is not installed (no managed uv found). Run Install-Uv.'
         $uv = "`"$($tool.Path)`""
@@ -48,59 +64,39 @@ function Build-Diagrams {
     }
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($folderPath in $folders) {
-        $count = @($slides | Where-Object { $_.Substring(0, $_.LastIndexOf('/')) -ceq $folderPath }).Count
-        if ($count -eq 0) {
-            Write-Message "Build-Diagrams: $folderPath holds no tracked slide; skipped."
-            continue
-        }
         foreach ($name in $stages) {
-            # The prepare stage writes the folder's slide list in one call; the per-slide stages run in slices of -Batch.
-            $slices = [System.Collections.Generic.List[pscustomobject]]::new()
-            if ($name -eq 'prepare') {
-                $slices.Add([pscustomobject]@{ Start = $null; End = $null })
-            }
-            else {
-                for ($start = 0; $start -lt $count; $start += $Batch) {
-                    $slices.Add([pscustomobject]@{ Start = $start; End = [Math]::Min($start + $Batch, $count) })
-                }
-            }
-            foreach ($slice in $slices) {
-                $arguments = "run --with pillow python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name"
-                if ($null -ne $slice.Start) {
-                    $arguments += " --start $($slice.Start) --end $($slice.End)"
-                }
-                $run = [pscustomobject]@{ Folder = $folderPath; Stage = $name; Start = $slice.Start; End = $slice.End; ExitCode = $null; Status = 'dry-run' }
-                if ($DryRun) {
-                    Write-Message "Would run: uv $arguments"
-                    $runs.Add($run)
-                    continue
-                }
-                $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
-                $run.ExitCode = $result.ExitCode
-                # The renderer's exit codes: 0 clean, 2 warnings with every artifact delivered, 3 nothing to render.
-                $run.Status = switch ($result.ExitCode) {
-                    0 {
-                        'clean'
-                    }
-                    2 {
-                        'warnings'
-                    }
-                    3 {
-                        'nothing'
-                    }
-                    default {
-                        'failed'
-                    }
-                }
+            $arguments = "run --with pillow python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name"
+            $run = [pscustomobject]@{ Folder = $folderPath; Article = $articles[$folderPath]; Stage = $name; ExitCode = $null; Status = 'dry-run' }
+            if ($DryRun) {
+                Write-Message "Would run: uv $arguments"
                 $runs.Add($run)
-                if ($run.Status -eq 'warnings') {
-                    Write-Message "Build-Diagrams: $folderPath $name $($slice.Start)..$($slice.End) finished with warnings; see out/drawio/$(Split-Path $folderPath -Leaf)/bulk.md." -Warning
-                }
-                Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath, stage $name (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
+                continue
             }
+            $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
+            $run.ExitCode = $result.ExitCode
+            # The renderer's exit codes: 0 clean, 2 warnings with every artifact delivered, 3 nothing to render.
+            $run.Status = switch ($result.ExitCode) {
+                0 {
+                    'clean'
+                }
+                2 {
+                    'warnings'
+                }
+                3 {
+                    'nothing'
+                }
+                default {
+                    'failed'
+                }
+            }
+            $runs.Add($run)
+            if ($run.Status -eq 'warnings') {
+                Write-Message "Build-Diagrams: $folderPath $name finished with warnings; see the renderer's bulk report under out/drawio/." -Warning
+            }
+            Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath, stage $name (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
         }
-        Write-Message "Build-Diagrams: $folderPath, $count slide(s), stages $($stages -join ', ') done."
     }
+    Write-Message "Build-Diagrams: $($folders.Count) diagram folder(s), stages $($stages -join ', ')$(if ($DryRun) { ', dry run' }) done."
 
     if ($PassThru) {
         return $runs.ToArray()

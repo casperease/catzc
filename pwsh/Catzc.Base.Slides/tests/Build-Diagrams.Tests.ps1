@@ -1,70 +1,90 @@
-Describe 'Build-Diagrams' -Tag 'L0', 'logic' {
+Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'kit')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'kit/drawio_forward.py'), "# renderer stand-in`n")
+        $pages = [ordered]@{
+            'kit/drawio_forward.py'  = "# renderer stand-in`n"
+            'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a/diagram.drawio.png)`n`n![Widget B](./.assets/widget-b/diagram.drawio.png)`n"
+            'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a/diagram.drawio.md)`n"
+            'docs/gadgets/index.md'  = "# Gadgets`n`n![Gadget](.assets/gadget/diagram.drawio.png)`n"
+            'docs/gadgets/second.md' = "# Second`n`n![Gadget again](.assets/gadget/diagram.drawio.png)`n"
+            'docs/gizmos/index.md'   = "# Gizmos`n`n![Elsewhere](../widgets/.assets/gizmo/diagram.drawio.png)`n"
+        }
+        foreach ($file in $pages.Keys) {
+            $full = Join-Path $script:widgetRoot $file
+            [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+            [System.IO.File]::WriteAllText($full, $pages[$file])
+        }
+        $script:tracked = @($pages.Keys | Where-Object { $_ -like 'docs/*' }) + @(
+            'docs/widgets/.assets/widget-a/diagram.drawio.png', 'docs/widgets/.assets/widget-a/diagram.drawio.md', 'docs/widgets/.assets/widget-a/grid.png',
+            'docs/widgets/.assets/widget-b/diagram.drawio.png', 'docs/gadgets/.assets/gadget/diagram.drawio.png',
+            'docs/gizmos/.assets/gizmo/diagram.drawio.png', 'docs/widgets/.assets/loose.drawio.png')
     }
 
     BeforeEach {
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides {
-            'docs/widgets/.assets/a.drawio.png', 'docs/widgets/.assets/b.drawio.png', 'docs/widgets/.assets/c.drawio.png',
-            'docs/gadgets/.assets/d.drawio.png', 'docs/gadgets/.assets/d.drawio.md', 'docs/gadgets/plain.md'
-        }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked | Where-Object { $_ -notlike 'docs/gadgets/*' } }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 0; Output = '' } }
         Mock Write-Message -ModuleName Catzc.Base.Slides { }
-        Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'slides' } {
-            [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/gadgets/.assets', 'docs/widgets/.assets') })
-        }
         $script:build = {
             param([hashtable] $Arguments = @{})
             Build-Diagrams -Kit kit -RepositoryRoot $script:widgetRoot -PassThru @Arguments
         }
     }
 
-    It 'renders only the folders diagram_folders names, so a slide without a sidebar keeps its picture' {
-        Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'slides' } {
-            [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets') })
-        }
-        @(& $script:build @{ Stage = 'prepare' }).Folder | Should -Be @('docs/widgets/.assets')
-    }
-
-    It 'renders every configured folder, prepare once, then highlight and join in slices of the batch' {
-        $runs = @(& $script:build @{ Batch = 2 })
-        @($runs | ForEach-Object { "$($_.Folder) $($_.Stage) $($_.Start)..$($_.End)" }) | Should -Be @(
-            'docs/gadgets/.assets prepare ..', 'docs/gadgets/.assets highlight 0..1', 'docs/gadgets/.assets join 0..1',
-            'docs/widgets/.assets prepare ..', 'docs/widgets/.assets highlight 0..2', 'docs/widgets/.assets highlight 2..3',
-            'docs/widgets/.assets join 0..2', 'docs/widgets/.assets join 2..3')
+    It 'rebuilds one diagram folder, every stage, with its article found beside its .assets' {
+        $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/widget-a' })
+        @($runs | ForEach-Object { "$($_.Folder) $($_.Stage)" }) | Should -Be @(
+            'docs/widgets/.assets/widget-a prepare', 'docs/widgets/.assets/widget-a highlight', 'docs/widgets/.assets/widget-a join')
+        @($runs.Article | Sort-Object -Unique) | Should -Be @('docs/widgets/index.md')
         @($runs.Status | Sort-Object -Unique) | Should -Be @('clean')
     }
 
-    It 'calls the kit''s renderer through uv with Pillow, the folder absolute, one stage and one slice per call' {
-        & $script:build @{ Folder = 'docs/widgets/.assets'; Stage = 'highlight'; Batch = 5 } | Out-Null
+    It 'with no path, rebuilds every diagram folder under docs/**/.assets/**, and nothing that is not one' {
+        $folders = @(& $script:build @{ Stage = 'prepare' }).Folder
+        $folders | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b', 'docs/gizmos/.assets/gizmo')
+    }
+
+    It 'calls the kit''s renderer through uv with Pillow, the folder absolute, one stage per call' {
+        & $script:build @{ Path = 'docs/widgets/.assets/widget-b'; Stage = 'highlight' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --with pillow python "*kit*drawio_forward.py" --all "*docs*widgets*.assets" --stage highlight --start 0 --end 3'
+            $Command -like '"C:/tools/uv.exe" run --with pillow python "*kit*drawio_forward.py" --all "*docs*widgets*.assets*widget-b" --stage highlight'
         }
     }
 
-    It 'lists the calls under -DryRun and runs none' -Tag 'ADR-AUTO-DRYRUN#2' {
-        $runs = @(& $script:build @{ DryRun = $true; Stage = 'prepare' })
-        $runs.Count | Should -Be 2
+    It 'reports an orphan and still renders it: the locality gate finds no article for a folder its page embeds from elsewhere' {
+        $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/gizmo'; Stage = 'prepare' })
+        $runs.Status | Should -Be @('clean')
+        $runs.Article | Should -BeNullOrEmpty
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning -and $Message -like '*docs/gizmos/.assets/gizmo is an orphan*' } -Times 1 -Exactly
+    }
+
+    It 'fails when two pages embed one diagram' {
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
+        { & $script:build @{ Path = 'docs/gadgets/.assets/gadget' } } | Should -Throw '*embedded by 2 pages (docs/gadgets/index.md, docs/gadgets/second.md)*'
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0
+    }
+
+    It 'refuses a path that is not a diagram folder' {
+        { & $script:build @{ Path = 'docs/widgets/.assets' } } | Should -Throw '*is not a diagram folder*'
+    }
+
+    It 'lists the calls per folder under -DryRun and runs none' -Tag 'ADR-AUTO-DRYRUN#2' {
+        $runs = @(& $script:build @{ DryRun = $true; Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' })
+        $runs.Count | Should -Be 6
         @($runs.Status | Sort-Object -Unique) | Should -Be @('dry-run')
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0
         Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.Slides -Times 0
     }
 
     It 'reports warnings and goes on, takes nothing to render as done, and stops on any other exit' {
+        $one = @{ Path = 'docs/widgets/.assets/widget-a'; Stage = 'join' }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 2; Output = '' } }
-        @(& $script:build @{ Folder = 'docs/gadgets/.assets'; Stage = 'join' }).Status | Should -Be @('warnings')
+        @(& $script:build $one).Status | Should -Be @('warnings')
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning } -Times 1 -Exactly
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 3; Output = '' } }
-        @(& $script:build @{ Folder = 'docs/gadgets/.assets'; Stage = 'join' }).Status | Should -Be @('nothing')
+        @(& $script:build $one).Status | Should -Be @('nothing')
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 1; Output = "line one`nTraceback: widget" } }
-        { & $script:build @{ Folder = 'docs/gadgets/.assets'; Stage = 'join' } } | Should -Throw '*renderer failed on docs/gadgets/.assets, stage join (exit 1)*Traceback: widget*'
-    }
-
-    It 'skips a named folder that holds no tracked slide' {
-        @(& $script:build @{ Folder = 'docs/plain' }).Count | Should -Be 0
+        { & $script:build $one } | Should -Throw '*renderer failed on docs/widgets/.assets/widget-a, stage join (exit 1)*Traceback: widget*'
     }
 
     It 'stops when the kit has no renderer' {

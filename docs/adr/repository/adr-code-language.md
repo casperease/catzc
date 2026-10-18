@@ -26,8 +26,8 @@ answer the Cloud Adoption Framework are `ADR-AZ-CAF-<NAME>` and those that answe
 
 ### Rule ADR-REPO-ADRCODE:4
 
-A rule is named, never numbered: its last segment says what the rule says, as spelled-out words joined with no length cap
-(`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`). A rule that answers a vendor checklist item takes that item's id as its segment.
+A rule is named, never numbered: its last segment says what the rule says, as spelled-out words joined with no length cap (the rule "bound
+every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item takes that item's id as its segment.
 
 - [Names, not numbers](#names-not-numbers)
 

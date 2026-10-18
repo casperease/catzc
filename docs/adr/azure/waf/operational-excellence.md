@@ -519,7 +519,7 @@ with orchestration or policy tools.
 
 #### What OE:10 means here
 
-The automation is the catzc module system itself: every operation is a function in a module under `automation/`, tested by
+The automation is the catzc module system itself: every operation is a function in a module under `pwsh/`, tested by
 [ADR-AUTO-TEST](../../automation/test-automation.md), idempotent ([ADR-AUTO-IDEM](../../automation/idempotent-state-functions.md)),
 previewable with `-DryRun` ([ADR-AUTO-DRYRUN](../../automation/dry-run.md)), and bounded in time
 ([ADR-AUTO-FAILFAST#7](../../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). Pipelines call it through one runner and keep

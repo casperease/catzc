@@ -8,6 +8,7 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
             'docs/widgets/assets/widget/diagram.drawio.md'  = "# Widget described`n`n[the article](../../index.md) [the grid](grid.md) ![grid](grid.png)`n"
             'docs/widgets/assets/widget/grid.md'            = "# Grid`n`n[the description](diagram.drawio.md)`n"
             'docs/widgets/assets/widget/grid.png'           = 'png'
+            'docs/adr/index.md'                             = "# Widget decisions`n"
             'docs/gadgets/index.md'                         = "# Gadgets`n`n[the widget slide](../widgets/assets/widget/diagram.drawio.md#top)`n"
         }
         foreach ($file in $files.Keys) {
@@ -27,8 +28,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
 
         $result.Moves.Count | Should -Be 4
         Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget') | Should -BeFalse
-        $staged = (Invoke-Executable 'git status --porcelain' -WorkingDirectory $script:widgetRoot -PassThru -Silent).Output
-        $staged | Should -Match 'R  docs/widgets/assets/widget/grid.png -> docs/widgets/.assets/widget/grid.png'
+        $index = @((Invoke-Executable 'git ls-files' -WorkingDirectory $script:widgetRoot -PassThru -Silent).Output -split "`r?`n")
+        $index | Should -Contain 'docs/widgets/.assets/widget/grid.png'
+        $index | Should -Not -Contain 'docs/widgets/assets/widget/grid.png'
         & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](.assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
         & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n[the widget slide](../widgets/.assets/widget/diagram.drawio.md#top)`n"
         & $script:read 'docs/widgets/.assets/widget/diagram.drawio.md' | Should -BeExactly "# Widget described`n`n[the article](../../index.md) [the grid](grid.md) ![grid](grid.png)`n"

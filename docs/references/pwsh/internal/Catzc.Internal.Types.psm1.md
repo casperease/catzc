@@ -25,7 +25,7 @@ Above `[CmdletBinding()]`, written with `#`.
     Returns the combined 8-char hash of every module's C# type sources, with the per-file snapshot and the
     source list, in order, that the loader compiles.
 .PARAMETER ModulesRoot
-    The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
+    The modules folder. Its non-dot subfolders are the modules whose types/*.cs are hashed.
 .PARAMETER Module
     Omitted, every non-dot module is hashed; a named module without a types folder contributes nothing.
     [comment:2](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment2)
@@ -104,7 +104,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
     A loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
     [comment:8](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment8)
 .PARAMETER ModulesRoot
-    The code root (an automation/ folder) whose type sources to compare.
+    The code root (a pwsh/ folder) whose type sources to compare.
 .PARAMETER HashResult
     The Get-CombinedTypeHash result for the root, when the caller has it already; computed otherwise.
 .OUTPUTS
@@ -132,7 +132,7 @@ Above `[CmdletBinding()]` (occurrence 3), written with `#`.
     Compiles a frozen copy of the sources, so a save mid-compile cannot make the DLL name differ from its bytes.
     [comment:10](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment10)
 .PARAMETER ModulesRoot
-    The automation directory whose non-dot module folders hold the types/*.cs sources.
+    The modules folder whose non-dot module folders hold the types/*.cs sources.
 .PARAMETER Module
     Restricts the compile (and its hash) to these module folders. Omitted, every module's types compile.
 .PARAMETER OutputDirectory

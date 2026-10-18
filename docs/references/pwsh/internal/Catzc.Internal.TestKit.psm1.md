@@ -10,7 +10,7 @@ Above `Set-StrictMode -Version Latest   # this module's scope: every function he
 ```text
 Catzc.Internal.TestKit — an on-demand fixture library for Pester tests.
 
-Many tests stand up a synthetic repository on disk: a temp root, an automation/<module> tree, and
+Many tests stand up a synthetic repository on disk: a temp root, a pwsh/<module> tree, and
 $env:RepositoryRoot pointed at it (restored afterwards). This centralizes that boilerplate. It is a .internal
 shared module (dot-prefixed, so the module conventions — one-function-per-file, Verb-Noun-only exports — do
 not apply; this is a multi-function fixture helper). It is NOT loaded by the importer at startup — a test
@@ -29,7 +29,7 @@ Above `[CmdletBinding()]`, written with `#`.
 
 ```text
 .SYNOPSIS
-    Fabricate one module folder under a (fake) repo root: automation/<Name>/, with public function files at
+    Fabricate one module folder under a (fake) repo root: pwsh/<Name>/, with public function files at
     the module root, private/<fn>.ps1 files, and any extra files (path relative to the module folder).
     Returns the module directory path.
 ```
@@ -41,8 +41,8 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceState
 ```text
 .SYNOPSIS
     Create a fresh temp repository root, populate it, point $env:RepositoryRoot at it and $env:CatzcModulesRoot
-    at its automation/ folder (so the fake tree reads as source mode), and return a handle
-    { Root; Automation; Saved } to pass to Remove-FakeRepositoryRoot. -Modules maps a module name to a spec
+    at its pwsh/ folder (so the fake tree reads as source mode), and return a handle
+    { Root; ModulesRoot; Saved } to pass to Remove-FakeRepositoryRoot. -Modules maps a module name to a spec
     (@{ Public=..; Private=..; Files=.. }; $null/empty = a bare folder). -Files maps repo-root-relative
     paths to content (importer.ps1, .editorconfig, …). -WorkingRootOnly moves only $env:RepositoryRoot and
     leaves the code root on the loaded modules — for a test that writes into a fixture working root while
@@ -56,7 +56,7 @@ Above `$saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot =...`,
 ```text
 Both roots move together, so the fake tree reads as source mode (Get-CatzcRunMode compares them,
 [ADR-DSGN-RUNMODE#4](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode4)): the code root is the fake
-repository's own automation/ folder.
+repository's own pwsh/ folder.
 ```
 
 ## comment:5

@@ -171,7 +171,7 @@ them all).
 
 ## Open steps
 
-- [ ] 1. Write `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`) with the grammar's rules 1–9 and register it in `adrs.yml`.
+- [x] 1. Write `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`) with the grammar as its 8 rules and register it in `adrs.yml`.
       Add the `code_language` check to `Test-AdrRegistry` (segment form, domain segment, numbered rule headings, sibling uniqueness), in
       `report` mode in `adr-checks.yml`, so today's tree reports and never fails. The index's "Citing a rule" and ADR-REPO-LINK keep the `#`
       form until step 6, because it is the live spelling until then. Check: the `Test-AdrRegistry` and `AdrChecksConfig` test files pass;
@@ -183,8 +183,10 @@ them all).
       level, through `Update-AdrCitation -CodeMap`; the flow domain's `code` in `adrs.yml` goes from `FLOW-CD` to `FLOW` (its ADR codes
       stay; `ADR-FLOW-CD` is then the ADR `CD` with its four sibling ADRs below it). Message the orchestrator first. Check: `Test-Links` and `Test-AdrRegistry` on the moved
       ADRs.
-- [ ] 4. Rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: `Test-AdrRegistry` on that
-      file.
+- [ ] 4. First, `Test-Spelling` takes the segments of every registered code and rule heading as known words, read from `adrs.yml` and the
+      registries at run time, and the hand-written code-body entries leave `terminology.yml` in the same change (open question 1). Then
+      rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: the `Test-Spelling` test file
+      passes; `Test-Spelling` clean on `docs/adr`; `Test-AdrRegistry` on each rewritten file.
 - [ ] 5. Rewrite the citations through `Update-AdrCitation -RuleMap`, one area at a time in the order `docs/adr`, `pwsh`,
       `docs/explanation`, `docs/references` (heads regenerate), `contracts`, `.claude`. Message the orchestrator first. In
       `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
@@ -218,3 +220,5 @@ Recorded 2026-10-18 with the user:
    unknown word, and today each ADR code body is a hand-written `terminology.yml` entry (`onelive`, `failfast`). With 1645 rule slugs that
    is 1645 hand entries. Recommendation: `Test-Spelling` takes the segments of every registered code and rule heading as known words,
    derived from `adrs.yml` and the registries at run time, and the hand entries for code bodies go in the same change. Needed before step 2.
+   Decided 2026-10-18 by the orchestrator on the user's delegation: the recommendation, as one mechanism read from the registry
+   (ADR-PRIN-ONELIVE: the hand entries are deleted in the same change, no fallback).

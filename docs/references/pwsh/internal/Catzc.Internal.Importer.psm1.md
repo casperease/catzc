@@ -84,7 +84,7 @@ Above `[switch] $Bundle`, written with `#`.
 
 ```text
 Load as an installed bundle, not the mono repo. Honour the pre-set $env:CatzcModulesRoot (the bundle's
-own automation/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
+own pwsh/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
 -SkipJanitors (a bundle is a read-only install with no git work tree). Only the bundle bootstrap passes
 this; the mono shim never does, so an inherited CatzcModulesRoot can never divert a mono/fixture load.
 ```
@@ -143,10 +143,10 @@ Repository root — the WORKING root (out/, repo-relative paths, git), set on $e
 Above `if ($Bundle -and $env:CatzcModulesRoot) {`, written with `#`.
 
 ```text
-Catzc code anchor — the automation/ tree that holds the loaded modules; config, type and vendor discovery
-follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/automation
+Catzc code anchor — the pwsh/ tree that holds the loaded modules; config, type and vendor discovery
+follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/pwsh
 and nothing pre-sets it, so it is derived here (a no-op split). An installed bundle's Catzc.psm1 pre-sets it
-to the bundle's own automation/, so the importer honours that — this is what makes catzc relocatable.
+to the bundle's own pwsh/, so the importer honours that — this is what makes catzc relocatable.
 ```
 
 ## comment:14

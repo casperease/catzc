@@ -20,7 +20,7 @@ Above `function Measure-NoScriptRootAnchor {`, written with `#`.
 Above `$file = $ScriptBlockAst.Extent.File`, written with `#`.
 
 ```text
-Only module function files are in scope: automation/<Module>/<File>.ps1 or automation/<Module>/private/<File>.ps1,
+Only module function files are in scope: pwsh/<Module>/<File>.ps1 or pwsh/<Module>/private/<File>.ps1,
 where <Module> is not dot-prefixed (.internal, .scriptanalyzer, .vendor are infrastructure).
 ```
 

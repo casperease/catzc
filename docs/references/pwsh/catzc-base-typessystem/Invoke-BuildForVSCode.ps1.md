@@ -12,7 +12,7 @@ pathway, separate from the runtime's Add-Type compile.
 
 ### description
 
-The runtime compiles every `automation/<Module>/types/*.cs` at import with Add-Type (Import-CSharpTypes), and that path is never touched
+The runtime compiles every `pwsh/<Module>/types/*.cs` at import with Add-Type (Import-CSharpTypes), and that path is never touched
 here. This is the SECOND, editor-facing pathway: it drives `dotnet build` over the committed pwsh/.internal/assets/Catzc.Types.csproj
 (auto-loaded in the editor via the root catzc.sln). That build does two things Add-Type does not — it runs the Roslyn analyzers
 (EnableNETAnalyzers), and it runs the project's stamp task, which FAILS when the committed `pwsh/.compiled/Catzc.Types.<hash>.dll` is stale

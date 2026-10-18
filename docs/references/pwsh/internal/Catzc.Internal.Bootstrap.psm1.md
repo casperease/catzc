@@ -55,7 +55,7 @@ Above `function Clear-CompiledType {`, written with `#`.
     Unlike Clear-ModuleTypeCache it wipes every build before import in any context, skipping only locked DLLs.
     [comment:4](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment4)
 .PARAMETER ModulesRoot
-    Path to the automation directory (the parent of .compiled/).
+    Path to the modules folder (the parent of .compiled/).
 ```
 
 ## comment:5
@@ -164,7 +164,7 @@ Above `function Import-CSharpTypes {`, written with `#`.
     One assembly lets a type in one module reference a type in another; the module graph is policed by tests.
     [comment:13](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment13)
 .PARAMETER ModulesRoot
-    The automation directory. Its non-dot subfolders are the modules; the assembly is written to its .compiled/.
+    The modules folder. Its non-dot subfolders are the modules; the assembly is written to its .compiled/.
 .PARAMETER DiagnoseLoadTime
     Emit a single combined compile/cache-load timing line (surfaced by importer.ps1 -DiagnoseLoadTime).
 .PARAMETER PrebuiltOnly
@@ -312,7 +312,7 @@ Above `function Assert-UniqueModuleFunctionName {`, written with `#`.
 
 ```text
 .SYNOPSIS
-    Fails the import when an exported function name collides — across automation modules, or with a shipped
+    Fails the import when an exported function name collides — across catzc modules, or with a shipped
     (vendored/built-in) command that is already imported.
 .DESCRIPTION
     PowerShell silently lets the last imported command shadow the rest, so this turns a clash into a loud failure.
@@ -328,7 +328,7 @@ Above `function Assert-UniqueModuleFunctionName {`, written with `#`.
 Above `$shipped = @{}`, written with `#`.
 
 ```text
-2) An automation function shadowing an already-imported SHIPPED command (vendored module or built-in).
+2) A module function shadowing an already-imported SHIPPED command (vendored module or built-in).
    Vendor modules and built-ins import before our modules, so a name clash means our -Scope Global import
    would silently shadow them. Scope the check to shipped commands by module path — under .vendor/ or
    $PSHOME — so a user's unrelated session module never blocks the import, and our own modules (current
@@ -340,7 +340,7 @@ Above `$shipped = @{}`, written with `#`.
 Above `$isShipped = ($base -like "$PSHOME*") -or ($base -match '[\\/]\.vendor[\\/]')...`, written with `#`.
 
 ```text
-Shipped = a command that loads BEFORE our automation modules and would be silently shadowed by our
+Shipped = a command that loads BEFORE our catzc modules and would be silently shadowed by our
 -Scope Global import: built-ins ($PSHOME), vendored third-party (.vendor), and the .internal shared
 modules (loaded by the importer before this check). The .internal modules sit directly in the folder,
 so their ModuleBase ENDS at .internal (no trailing separator) — match that too.
@@ -354,7 +354,7 @@ Above `function Get-ForeignCatzcModule {`, written with `#`.
 .SYNOPSIS
     Returns every loaded catzc module that does not come from the given code root.
 .DESCRIPTION
-    The package module also belongs when its ModuleBase is the root's parent, since its code root is automation/.
+    The package module also belongs when its ModuleBase is the root's parent, since its code root is pwsh/.
     [comment:29](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment29)
 .PARAMETER ModulesRoot
     The active code root (CatzcModulesRoot).
@@ -419,10 +419,10 @@ otherwise be silent (the module imported last shadows the others).
 Above `$stale = @(Get-Module |`, written with `#`.
 
 ```text
-Remove previously loaded automation modules (handles deleted/renamed modules). Exclude Bootstrap, the
+Remove previously loaded catzc modules (handles deleted/renamed modules). Exclude Bootstrap, the
 vendored third-party modules (.vendor), and the .internal shared modules — the last are loaded by the
 importer before this runs and must SURVIVE into the session (Import-CSharpTypes and post-import cover
-functions call them); they live under the automation root, so without this they match the stale sweep.
+functions call them); they live under the modules root, so without this they match the stale sweep.
 ```
 
 ## comment:35

@@ -211,27 +211,34 @@ automation itself", which means the layer); `gitignore.yml` Format-Code yaml app
       clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md` (check: grep clean; Test-Comments and
+  Landed 2026-10-18 by session catzc-59, batch 6, the five ticked below, each Test-Comments ok and Test-Links ok.
+- [x] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestAutomationTestPaths.Tests.ps1.md` (check: grep clean; Test-Comments and
+- [x] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestAutomationTestPaths.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-repository/Get-CatzcModulesRoot.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-repository/Get-CatzcModulesRoot.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
       (synopsis "root of the catzc automation tree" and the description's `<RepositoryRoot>/automation`)
-- [ ] `docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/index.md` (check: grep clean; Test-Comments and Test-Links clean) (the "engine-agnostic `automation/` rules"
+- [x] `docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+  Landed 2026-10-18 by session catzc-59, batch 7, the five ticked below, each Test-Comments ok and Test-Links ok (index.md keeps the
+  getting-started/automation/ link: it is the system guide and no pwsh/ index exists).
+- [x] `docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/index.md` (check: grep clean; Test-Comments and Test-Links clean) (the "engine-agnostic `automation/` rules"
       sentence means the ADR domain and stays)
-- [ ] `docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/internal/catzc-internal-testkit.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/internal/tests/Import-CSharpTypes.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/scriptanalyzer/NoScriptRootAnchor.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [ ] `docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
+  Landed 2026-10-18 by session catzc-59, batch 8, the four ticked below, each Test-Comments ok and Test-Links ok (the TestKit handle
+  corrected to `{ Root; ModulesRoot; Saved }`, as the code returns it; "not the automation's to delete" kept, it means the layer).
+- [x] `docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/internal/catzc-internal-testkit.md` (check: grep clean; Test-Comments and Test-Links clean)
+  Landed 2026-10-18 by session catzc-59, batch 9, the three ticked below, each Test-Comments ok and Test-Links ok; every comment-page
+  step in this section is done.
+- [x] `docs/references/pwsh/internal/tests/Import-CSharpTypes.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/scriptanalyzer/NoScriptRootAnchor.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
+- [x] `docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
 
 ### The references asset folder named after the old track
 

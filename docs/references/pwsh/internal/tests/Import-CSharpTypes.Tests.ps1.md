@@ -83,7 +83,7 @@ Above `$namespaceA = "CatzcTestRootA$runId"`, written with `#`.
 
 ```text
 Regression: the session guard is keyed by ModulesRoot. Loading root A, then a DIFFERENT root B
-(this is exactly what the test-fixture trees do vs the real automation tree), must NOT make a
+(this is exactly what the test-fixture trees do vs the real pwsh/ tree), must NOT make a
 re-import of root A throw a bogus "types changed". Before the fix a single global was overwritten
 by the last root loaded, so the next real import after a test run threw on session-leaked
 fixture state. Each root must track its own hash/snapshot.

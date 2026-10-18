@@ -168,10 +168,10 @@ identities.
 
 | Pattern               | Matches                              | Does not match              |
 | --------------------- | ------------------------------------ | --------------------------- |
-| `pwsh/**`             | `automation/a.ps1`, `automation/x/y` | `automation2/a.ps1`         |
+| `pwsh/**`             | `pwsh/a.ps1`, `pwsh/x/y`             | `pwsh2/a.ps1`               |
 | `**/*.md`             | `README.md`, `docs/adr/index.md`     | `docs/adr` (a folder)       |
 | `pipelines/ci-*.yaml` | `pipelines/ci-automation.yaml`       | `pipelines/steps/ci-x.yaml` |
-| `**/tests/**/*.ps1`   | `automation/M/tests/a.Tests.ps1`     | `automation/M/a.ps1`        |
+| `**/tests/**/*.ps1`   | `pwsh/M/tests/a.Tests.ps1`           | `pwsh/M/a.ps1`              |
 
 Hygiene is structural (`ADR-PRIN-POKAYOKE`): separators are `/` only, patterns are repo-relative (no leading `/`), no `.`/`..` segments, and
 no backtick — `WildcardPattern` treats the backtick as an escape character, and an escape character in a path pattern signals a mistake, so
@@ -278,7 +278,7 @@ belongs to the `automation` track (a loose-fileset) AND the `catzc-base-globs` m
 one file. Cross-layer overlap is never a violation; only same-layer overlap is.
 
 A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
-in a clean tree, a tripwire for a file dropped at `automation/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt
+in a clean tree, a tripwire for a file dropped at `pwsh/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt
 because its sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared
 registry and the derived module sets ([ADR-REPO-PROTGLOB#7](../repository/protected-globs.md#rule-adr-repo-protglob7)) together, so a
 mis-scoped module include, a deployable-unit that reaches into another's files, or an umbrella mistakenly declared a `module` fails as a

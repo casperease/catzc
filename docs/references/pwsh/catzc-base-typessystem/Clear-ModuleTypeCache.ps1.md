@@ -37,7 +37,7 @@ loaded code root is still cleaned in either mode.
 
 ### parameter `ModulesRoot`
 
-Path to the automation directory (the parent of .compiled/). Defaults to the loaded code root (Get-CatzcModulesRoot).
+Path to the modules folder (the parent of .compiled/). Defaults to the loaded code root (Get-CatzcModulesRoot).
 
 ### parameter `DryRun`
 

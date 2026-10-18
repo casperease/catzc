@@ -32,7 +32,7 @@ Reads each module's C# type files (`types/*.cs`), which exist only in the source
 
 ### parameter `ModulesRoot`
 
-Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
+Path to the modules folder. Defaults to the loaded code root (Get-CatzcModulesRoot).
 
 ### example 1
 

@@ -12,7 +12,7 @@ Above `function Test-ModuleFunctionFile {`, written with `#`.
     Custom PSScriptAnalyzer rules for a function's parameter surface
     ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
 .DESCRIPTION
-    Two checks over the functions in a module function file — a.ps1 directly under automation/<Module>/ (public) or...
+    Two checks over the functions in a module function file — a.ps1 directly under pwsh/<Module>/ (public) or...
     [comment:1](/docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md#comment1)
 ```
 
