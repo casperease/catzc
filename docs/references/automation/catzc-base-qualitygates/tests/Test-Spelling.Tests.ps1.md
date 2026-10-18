@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `$fixture = 'automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md'`, written with `#`.
+Above `$fixture =...`, written with `#`.
 
 ```text
 cspell globs are relative to the repo root (Test-Spelling's working directory), so use the

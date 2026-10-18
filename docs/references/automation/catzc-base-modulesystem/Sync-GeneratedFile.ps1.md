@@ -83,7 +83,7 @@ stamp commit stages and names exactly what this sync did, never a sibling path t
 
 ## comment:2
 
-Above `if ($changed -contains 'automation/.compiled') {`, written with `#`.
+Above `if ($changed -contains $compiled) {`, written with `#`.
 
 ```text
 .compiled must hold exactly the current build
@@ -95,7 +95,7 @@ the -1. Hold the .compiled commit back until it is tidy; any other changed gener
 
 ## comment:3
 
-Above `if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged...`, written with `#`.
+Above `if ($changed -contains $compiled -and (Test-GitPathChanged...`, written with `#`.
 
 ```text
 The build is named for the hash of the working-tree type sources. While any of them differs from HEAD — often

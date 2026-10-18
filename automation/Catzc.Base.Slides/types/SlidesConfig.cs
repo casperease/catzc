@@ -12,19 +12,29 @@ public sealed class SlidesConfig
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public const string DefaultKit = ".claude/slides";
+    public const string DefaultDrawioKit = ".claude/drawio";
+    public const int DefaultDiagramBatch = 25;
     public const string KitDefaultsFile = "slides.yml";
     public const string PatternsFolder = "patterns";
     public const string SlideSuffix = ".slide.md";
     public const string DeckFile = "deck.md";
 
-    private static readonly string[] AllowedKeys = { "kit" };
+    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "diagram_batch" };
 
     public string kit { get; }
+
+    // The draw.io kit whose renderer rebuilds every diagram from its embedded model and the repository's maps.
+    public string drawio_kit { get; }
+
+    // How many slides one renderer call takes in the per-slide stages, so each call stays inside its time limit.
+    public int diagram_batch { get; }
 
     public SlidesConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         string kitValue = DefaultKit;
+        string drawioValue = DefaultDrawioKit;
+        int batchValue = DefaultDiagramBatch;
 
         if (raw != null)
         {
@@ -37,21 +47,18 @@ public sealed class SlidesConfig
                 }
             }
 
-            if (raw.Contains("kit") && raw["kit"] != null)
+            kitValue = Folder(raw, "kit", kitValue, errors);
+            drawioValue = Folder(raw, "drawio_kit", drawioValue, errors);
+
+            if (raw.Contains("diagram_batch") && raw["diagram_batch"] != null)
             {
-                string value = raw["kit"] as string;
-                bool communicationForm = !string.IsNullOrWhiteSpace(value)
-                    && !Path.IsPathRooted(value)
-                    && !value.StartsWith("/", StringComparison.Ordinal)
-                    && value.IndexOf('\\') < 0
-                    && !value.Split('/').Any(segment => segment == "." || segment == "..");
-                if (!communicationForm)
+                if (!int.TryParse(Convert.ToString(raw["diagram_batch"], CultureInfo.InvariantCulture), NumberStyles.Integer, CultureInfo.InvariantCulture, out int batch) || batch < 1)
                 {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "kit '{0}' must be a repository-relative folder in communication form: '/'-separated, no '.' or '..' segment, not absolute", value));
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "diagram_batch '{0}' must be a whole number of slides, at least 1", raw["diagram_batch"]));
                 }
                 else
                 {
-                    kitValue = value.TrimEnd('/');
+                    batchValue = batch;
                 }
             }
         }
@@ -62,5 +69,24 @@ public sealed class SlidesConfig
         }
 
         kit = kitValue;
+        drawio_kit = drawioValue;
+        diagram_batch = batchValue;
+    }
+
+    static string Folder(IDictionary raw, string key, string fallback, List<string> errors)
+    {
+        if (!raw.Contains(key) || raw[key] == null) { return fallback; }
+        string value = raw[key] as string;
+        bool communicationForm = !string.IsNullOrWhiteSpace(value)
+            && !Path.IsPathRooted(value)
+            && !value.StartsWith("/", StringComparison.Ordinal)
+            && value.IndexOf('\\') < 0
+            && !value.Split('/').Any(segment => segment == "." || segment == "..");
+        if (!communicationForm)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} '{1}' must be a repository-relative folder in communication form: '/'-separated, no '.' or '..' segment, not absolute", key, value));
+            return fallback;
+        }
+        return value.TrimEnd('/');
     }
 }

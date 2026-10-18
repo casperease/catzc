@@ -93,7 +93,7 @@ Fixed template around the generated param block. Single-quoted here-strings keep
 
 ## comment:5
 
-Above ``$content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"``, written with `#`.
+Above ``$content = ($explanation + "`n" + $paramBlock + "`n`n" + $body +...``, written with `#`.
 
 ```text
 LF throughout, one trailing newline. The explanation/param/body join and the EOF newline match the committed

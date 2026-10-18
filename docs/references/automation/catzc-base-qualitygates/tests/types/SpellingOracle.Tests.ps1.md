@@ -14,7 +14,7 @@ analyzer rule (Measure-SpellOutIdentifiers) reads — which give the same answer
 
 ## comment:2
 
-Above `$englishPath = Join-Path (Get-RepositoryRoot)...`, written with `#`.
+Above `$englishPath = Get-CatzcModuleRoot 'assets/english.txt.gz' -Module...`, written with `#`.
 
 ```text
 Binds to the shipped English list + the generated term lists — an integrity test by construction

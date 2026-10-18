@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-config-defaults]
   value: high
-  blocked_on: steps 3 and 4 wait for the user's choice of the .catzc track's type and vendor; step 5 can start
+  blocked_on: nothing; step 7 is the plan tick
   targets:
     [
       automation/Catzc.Base.Config,
@@ -46,15 +46,17 @@ rename is a data edit.
        builds it from an empty map, merges the fragment and refuses one for a sealed config through the existing check. Two new cases;
        `[Invoke-TestFile] Passed` for Get-Config.Tests (`out/test-file/20261018-124212-7c7ab1`); `SHIPPED issues=0`, `VALIDATORS issues=0`,
        `ANALYZER issues=0`.
-3. Waits for the user: the world map fails a tracked file in no track, and `.catzc` is a new root folder no track declares. Declaring it
-   means choosing its track type and vendor; `vendor-settings` with catzc as its vendor is the nearest fit, which makes catzc the vendor of
-   its own settings (D22 answered the defaults, not this). Create `.catzc/<track>/Catzc.Base.Variants/configs/variants.yml` with this
-   repository's own `tracks`, `aspects` and `have_customers: all`. Check: `Get-Config -Config variants` in source mode returns the same
-   object as before (compare the two serialisations in a test or a background script).
-4. `automation/Catzc.Base.Variants/configs/variants.yml` stays and shows the sensible defaults (D22): the values the `VariantsConfig` type
-   declares (`ado_naming: standard`, `git_workspace: main-direct`, `have_customers: false`, the infrastructure aspect), with this
-   repository's own values moved to its fragment in step 3; `tracks` is required and has no default, so the shipped file names it in a
-   comment and the fragment gives it. Check: the five getters' tests pass; Test-ShippedConfigs clean.
+3. [x] Declare `.catzc` and write this repository's fragment. Done 2026-10-18 on D28 (delegated by the user): `.catzc` is a
+       `vendor-settings` track with vendor `catzc`, a new entry in the vendor registry (track-types.yml), and
+       `.catzc/automation/Catzc.Base.Variants/configs/variants.yml` holds `have_customers: all`. Correction from the tree: the fragment holds
+       only that key. `tracks` stays in the shipped file, because it has no default, build mode reads no `.catzc` fragment (so a bundle
+       import would find no tracks), and the NoTrackRootLiteral analyzer reads the shipped tracks. `aspects` stays too, since its shipped value
+       is the type's default. Check: in source mode `Get-Config -Config variants` reads `have_customers` as all and Get-EnabledCustomers as
+       all, as before.
+4. [x] The shipped `variants.yml` shows the defaults (D22): `have_customers: false`, the type's `DefaultHaveCustomers`, and the `differs`
+       reason in configs.yml is gone with the difference. Check: `[Invoke-TestFile] Passed` for VariantsConfig.Tests, Get-EnabledCustomers.Tests,
+       Get-Track.Tests, Get-ConfigOverlayRoot.Tests and TrackTypesConfig.Tests (`out/test-file/20261018-135401` to `-135425`);
+       `SHIPPED issues=0`, `WORLDMAP issues=0`, `FILEMETA issues=0`.
 5. [x] The defaults check (D22: defaults live in both the shipped config assets and the config types, and most of the time they match): for
        every registered config type with a shipped file, compare each key the file states with the default the type declares for it, and
        report a key whose two values differ unless the config's entry in `configs.yml` lists it under `differs` with a one-sentence reason
@@ -73,7 +75,8 @@ rename is a data edit.
        Build-ConfigDefaultsContract). Done 2026-10-18: ADR-AUTO-DEFAULT#6 and its "Where defaults come from" section say the default is
        programmed on the type as its `Default<Key>` constant and shown in the shipped file, the two agreeing unless `differs` gives the
        reason. Check: `ADRREG issues=0`, `LINKS issues=0` on the ADR.
-7. `plan-config-defaults.md`: tick Phases 2 and 3 when steps 3 to 6 are in the tree. Check: grep `- [ ]` counts Phases 4 and 5 only.
+7. [x] `plan-config-defaults.md`: tick Phases 2 and 3 when steps 3 to 6 are in the tree. Check: grep `- [ ]` counts Phases 4 and 5 only.
+       Done 2026-10-18.
 
 ## Report
 
