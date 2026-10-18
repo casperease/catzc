@@ -78,8 +78,9 @@ Open, in execution order:
 - module-model-closeout -> task-module-model-closeout.md (open; every step done by 2026-10-18 apart from step 9, the user's run of all
   tests): module model close-out, the rule 6 funnel (the tests entries in languages.yml), infrastructure track (a design step in
   plan-module-kinds-tracks), waits_on cleared.
-- kind-becomes-role -> task-kind-becomes-role.md (open; ready, the closeout's steps 1 to 4 are done): kind becomes role through the registry
-  and generators; tracks.md rule 19 one primary language; WorldMapBuilder links; Test-ShippedTypes; the namespace line.
+- kind-becomes-role -> task-kind-becomes-role.md (open; steps 1, 7 and 8 done 2026-10-18; steps 2 to 6, the rename itself, wait for session
+  catzc-e5's file-meta work and a quiet window for the tree-wide head pass; the namespace line is a question for the user): kind becomes
+  role through the registry and generators; tracks.md rule 19 one primary language; WorldMapBuilder links; Test-ShippedTypes.
 - config-defaults-variants -> task-config-defaults-variants.md (open; ready): config defaults Phase 1, VariantsConfig constants, getters
   lose -Default.
 - config-defaults-fragment -> task-config-defaults-fragment.md (open; after config-defaults-variants): the .catzc fragment, config without a

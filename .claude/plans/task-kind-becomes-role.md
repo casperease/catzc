@@ -3,7 +3,9 @@ task:
   status: open
   plans: [plan-module-kinds-tracks]
   value: high
-  blocked_on: nothing; task-module-model-closeout steps 1 to 4 are done (2026-10-18)
+  blocked_on:
+    steps 2 to 6 wait for session catzc-e5, which holds the file-meta engine, file-meta.yml, the head contract and the file-meta ADR, and
+    step 5's tree-wide head pass needs a quiet window the user names
   targets:
     [
       automation/Catzc.Base.Globs/configs/file-kinds.yml,
@@ -26,6 +28,9 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-PLANS#3
 ---
 
 # Task: kind becomes role; the track rules
@@ -37,10 +42,12 @@ through the generators, never by sweep: change the source once, regenerate, veri
 
 ## Steps
 
-1. Read first, no edit: `file-kinds.yml` (the registry), `file-meta.yml` kind `file-kind` (keys `kind, subkind`), `head.schema.json` and
-   `head.sample.yml` in `contracts/catzc/0.0.0`, `languages.yml` `layout:` rows (`role:` is already the word there). List every consumer of
-   the key `kind` (`grep -rn "\.kind\b\|\['kind'\]\|kind:" automation --include=*.ps1 --include=*.cs` counted per file) in
-   `plan-module-kinds-tracks.md` under a "Rename map" heading. Check: the map exists with counts.
+1. [x] Read first, no edit: `file-kinds.yml` (the registry), `file-meta.yml` kind `file-kind` (keys `kind, subkind`), `head.schema.json` and
+       `head.sample.yml` in `contracts/catzc/0.0.0`, `languages.yml` `layout:` rows (`role:` is already the word there). List every consumer
+       of the key `kind` (`grep -rn "\.kind\b\|\['kind'\]\|kind:" automation --include=*.ps1 --include=*.cs` counted per file) in
+       `plan-module-kinds-tracks.md` under a "Rename map" heading. Check: the map exists with counts. Done 2026-10-18 under the plan's
+       rename step instead of a new heading, since the plan shape fixes the sections (ADR-REPO-PLANS#3): eight file-kind consumers named
+       with counts; the grep's other hits are head lines and unrelated kinds.
 2. `automation/Catzc.Base.Variants/types` or wherever `FileKind` lives: the type gains `Role`; `Kind` is reserved for the object kind
    resolved from the track (module, pipeline, settings, vendor, docs). Tests updated. Fresh pwsh. Check: the type's Pester file passes.
 3. `file-meta.yml`: kind `file-kind` becomes `file-role` with `keys: [role, subkind]`; a new kind `object-kind` with `keys: [kind]` reads
@@ -54,11 +61,14 @@ through the generators, never by sweep: change the source once, regenerate, veri
    rule 19: a track has one primary language by default, declared in the tracks registry, and a module in it may override (Q35);
    ADR-AUTO-MODULE text may now say kind (D02 lifts the hold). Glossary: `role` defined by the file-meta rule, `kind` by the tracks rule;
    the file-kinds entries' `kind` and `subkind` concepts re-pointed. Check: Test-AdrRegistry, Test-Links, Test-Glossary clean.
-7. `Test-Links` on `automation/Catzc.Base.Docs/types/WorldMapBuilder.cs` (or its current path). Check: zero findings.
-8. `Test-ShippedTypes` in a fresh process: `TrackTypeEntry` and `VendorEntry` resolve after import, or the reason is fixed in the type
-   (Q88). Check: the gate is clean on Catzc.Base.Variants.
+7. [x] `Test-Links` on `automation/Catzc.Base.Docs/types/WorldMapBuilder.cs` (or its current path). Check: zero findings. 2026-10-18: it
+       lives in `Catzc.Base.Maps/types`; `LINKS issues=0` (`out/test-links/20261018-122129`).
+8. [x] `Test-ShippedTypes` in a fresh process: `TrackTypeEntry` and `VendorEntry` resolve after import, or the reason is fixed in the type
+       (Q88). Check: the gate is clean on Catzc.Base.Variants. 2026-10-18: `SHIPPEDTYPES issues=0`
+       (`out/test-shipped-types/20261018-122129`).
 9. Namespace follow-up (Q36): one Decided line in the plan stating what the namespace of a module is once kinds land (recommendation: the
-   track name, so `Catzc.Base.*` stays for the pwsh track) and whether a step follows. Check: the line exists.
+   track name, so `Catzc.Base.*` stays for the pwsh track) and whether a step follows. Check: the line exists. 2026-10-18: nobody has
+   decided it, so the plan carries it as an open question for the next decision round, with the recommendation, not as a Decided line.
 10. Tick the plan's five open steps. Check: grep `- [ ]` in `plan-module-kinds-tracks.md` counts zero; the plan then holds only its carried
     drafts and is trimmed by plan-clear (Q11: carried text goes when its data is in the tree).
 

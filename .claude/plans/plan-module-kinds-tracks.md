@@ -33,7 +33,7 @@ catzc:
       - ADR-AUTO-ENGINE#{1,4,6,7}
       - ADR-AUTO-TYPES#{1,3,9}
       - ADR-DSGN-ASPECT#{1,2,5}
-      - ADR-DSGN-TRACK#{1-3,5-7,11,17}
+      - ADR-DSGN-TRACK#{1-3,5-7,11,17,18}
       - ADR-PWSH-MANIFEST#{3-5}
       - ADR-REPO-CONTRACT#{3,6}
       - ADR-REPO-FILEMETA#12
@@ -132,15 +132,25 @@ the user's own and changes what every head's track key means. The config default
       types may place below its root, or the infrastructure track declares its two places; then the resolver change and a fixture test
       (check: `Get-CatzcModule -TrackType     infrastructure` names the three templates and the Bicep modules, and the L0 test covers a
       nested place of a non-code track).
-- [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean).
-- [ ] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there).
+- [ ] Rename kind to role; kind takes the object meaning, partitioned by track (check: Test-FileMeta, Test-FileKinds clean). Rename map,
+      read 2026-10-18 (task-kind-becomes-role step 1): the head key `kind` is written in the head of every tracked file it selects; in code,
+      27 source files and 40 test files name a key spelled `kind`, and most of them mean another kind (a network's, an output format's, a
+      citation's, a glossary realization's). The file-kind consumers are eight: `FileKindsConfig.cs` (5 uses), `FileKindEntry.cs` and
+      `FileKindMatch.cs` (1 each) and `Get-FileKind.ps1` (1) in Globs; `Format-GeneratedFileHead.ps1` (1) and `GeneratedHeadConfig.cs` (2,
+      the known and required head keys) in Languages; `Get-ReadmeContent.ps1` (1) in Docs; and `Get-FileKindFileMetaFact.ps1` (1) with
+      `file-meta.yml` in QualityGates. The rename waits for session catzc-e5, which holds the file-meta engine, `file-meta.yml`, the head
+      contract and the file-meta ADR, and its tree-wide `Format-FileMeta` pass needs a quiet window, since it rewrites the head of every
+      file other sessions are editing.
+- [x] Rerun Test-Links on WorldMapBuilder.cs (check: zero findings there). 2026-10-18: `LINKS issues=0` (`out/test-links/20261018-122129`).
 - [x] Look at the 3 Get-ModuleProtectionIdentity failures (check: that test file): run 2026-10-16, 11 passed, 0 failed; the file is in
       QualityGates and isolated from tracks; nothing to fix (out/module-model-protection-identity.md). Run it again after the
       dependencies.yml edges land.
-- [ ] ADR-DSGN-TRACK gains the rule that a track has one primary language by default (check: Test-AdrRegistry, Test-Links).
-- [ ] Namespace follow-up after kinds land (check: a decided section here).
-- [ ] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (check: the waits_on line in both heads is
-      gone).
+- [x] ADR-DSGN-TRACK gains the rule that a track has one primary language by default (check: Test-AdrRegistry, Test-Links). In the tree as
+      ADR-DSGN-TRACK#18, "A track has one primary language by default", so the task's "rule 19" is that rule; `ADRREG issues=0`.
+- [ ] Namespace follow-up after kinds land (check: a decided section here). Open question for the next decision round: is a module's
+      namespace its track's name, which keeps `Catzc.Base.*` for the pwsh track (the recommendation), and does a step follow?
+- [x] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (check: the waits_on line in both heads is
+      gone). Done 2026-10-18 by task-module-model-closeout step 10.
 
 ## Refs
 

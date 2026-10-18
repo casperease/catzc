@@ -84,7 +84,12 @@ other plan.
       hash in its name its identity), now `Unstamped: 3`; the templates' class is corrected. Read from the tree: what marks them is the
       template `assets/root/.gitattributes` itself, which git applies to its own folder, so its `/importer.ps1`, `/importer.sh` and
       `/.gitattributes` lines mark the templates beside it; no pattern in it can avoid that, so the correction is a rename of the
-      template, which waits for the user's choice of name.
+      template, which waits for the user's choice of name. Renamed 2026-10-18 to `assets/root/gitattributes.template` (the user's
+      choice): rootconfig.yml's source line, New-GitAttributes and its integrity test's name, and the manual test plan row moved with it;
+      Build-RootConfig rewrote the root head's source line; the RootConfig tests pass (30, 5, 8, 2, 7, 4, 5, 3) and
+      ManualTestPlan-Coverage 2 of 2; `Unstamped: 2`. The two left are `importer.ps1` and `importer.sh` beside the template: git falls
+      back to the index copy of a `.gitattributes` missing from the working tree, and the plain `mv` left the old template staged, so the
+      count reaches 0 once the user commits the rename (then this step is ticked with the re-run's verdict).
 - [x] Binding audit of the .unordered references, read-only. Done 2026-10-17 (audit): the section "Binding audit" below holds one verdict
       per code and config line (12 files) and the markdown counts. Check: 12 verdict rows, a counts table, three authored pages named.
 - [x] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean). Done 2026-10-18 (task-import-landing-zone):

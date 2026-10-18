@@ -121,7 +121,7 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'New-GitAttributes — shipped assets/root/.gitattributes' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'New-GitAttributes — shipped assets/root/gitattributes.template' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     It 'renders the shipped template through the shipped file-kinds registry with the placeholder filled' {
         $text = New-GitAttributes
         $text | Should -Not -Match '\{\{'

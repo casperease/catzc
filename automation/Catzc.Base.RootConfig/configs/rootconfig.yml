@@ -140,7 +140,7 @@ files:
   - target: .gitattributes
     generator: New-GitAttributes
     sources:
-      - automation/Catzc.Base.RootConfig/assets/root/.gitattributes
+      - automation/Catzc.Base.RootConfig/assets/root/gitattributes.template
       - automation/Catzc.Base.Globs/configs/file-kinds.yml
     carrier: dotfile
     committed: true

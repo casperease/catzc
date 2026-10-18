@@ -102,6 +102,17 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $result.PageText.Contains("### description`n`nReads the registry.`n`nIt rests on [ADR-WIDGET#1](/docs/adr/widget.md#rule-adr-widget1).`n") | Should -BeTrue
     }
 
+    It 'adds no sentence for an empty or a null list of codes' {
+        foreach ($links in @(@(), $null)) {
+            $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Path = $script:codePath; Links = $links } {
+                param($Root, $Path, $Links)
+                Move-FunctionHelp -Path $Path -RepositoryRoot $Root -RestsOn $Links -DryRun
+            }
+            $result.Moved | Should -BeTrue
+            $result.PageText.Contains('It rests on') | Should -BeFalse
+        }
+    }
+
     It 'computes both texts under -DryRun and writes neither file' -Tag 'ADR-AUTO-DRYRUN#2' {
         $result = & $script:move -DryRun
         $result.Moved | Should -BeTrue
