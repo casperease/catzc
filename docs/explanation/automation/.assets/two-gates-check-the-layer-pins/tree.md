@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "761edfc48a9d"
+    with_body_sha: "43569b972ea8"
     repo_status: locked
     path: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/tree.md
     source: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/diagram.drawio.png
@@ -16,25 +16,25 @@ catzc:
 
 ```text
 Which files cite ADR-AUTO-DEPM and ADR-AUTO-TEST: every file of the world map is a tile, grouped by top-level folder.
-454 files lit in 24 groups.
+450 files lit in 24 groups.
 ```
 
 ![The tree minimap of Two gates check the layer pins, and one rule is left to review](tree.png)
 
-This is the tree minimap in the sidebar of the governance diagram of [Two gates check the layer pins, and one rule is left to review][455],
+This is the tree minimap in the sidebar of the governance diagram of [Two gates check the layer pins, and one rule is left to review][451],
 which explains [ADR-AUTO-DEPM][1] and [ADR-AUTO-TEST][2]. It lights every file that cites those codes, grouped by folder, so it shows which
 files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 454 files in 24 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 450 files in 24 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 365 lit files
 - QualityGates (pwsh/Catzc.Base.QualityGates): 36 lit files
 - Docs (pwsh/Catzc.Base.Docs): 12 lit files
-- .claude: 10 lit files
+- .claude: 6 lit files
 - Globs (pwsh/Catzc.Base.Globs): 4 lit files
 - adr/auto (docs/adr/automation): 3 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
@@ -70,488 +70,488 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   (text) and line 67 (text).
 - [docs/how-to/pwsh/manual-test-plan/test-harness.md][6], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 15 (text).
-- [docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md][7], in the cell docs ×
-  markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 44 (text).
-- [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][8], in the cell docs ×
-  markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 47 (text), line 54 (text), line 54 (text), line 71 (text) and line 73
-  (text); selected by [ADR-AUTO-TEST][2]: the file cites it at line 53 (text) and line 53 (text).
-- [docs/references/.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md][9], in the cell docs ×
-  markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 18 (text), line 20 (text), line 49 (text), line 49 (text), line 49
-  (text) and line 62 (text).
-- [docs/references/pipelines/ci-automation.yaml.md][10], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
+- [docs/references/pipelines/ci-automation.yaml.md][7], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
   line 94 (text).
-- [docs/references/pipelines/ci-infrastructure.yaml.md][11], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it
+- [docs/references/pipelines/ci-infrastructure.yaml.md][8], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it
   at line 22 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md][12], in the cell docs × markdown:
-  selected by [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md][13], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-devops/configs/identity-tokens.yml.md][14], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md][15], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md][16], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md][17], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md][18], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text), line 20 (text) and line 23 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md][19], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 28 (text) and line 36 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleCustomer.Tests.ps1.md][20], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 27 (text) and line 39 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md][21], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text) and line 35 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md][22], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text), line 13 (text), line 25 (text) and line 37 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithModule.Tests.ps1.md][23], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 27 (text) and line 39 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md][24], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 21 (text) and line 30 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md][25], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 25 (text) and line 35 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md][26], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 22 (text), line 40 (text) and line 49 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md][27], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 57 (text), line 57 (text) and line 67 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md][28], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 26 (text) and line 56 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][29], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 19 (text), line 22 (text), line 25 (text), line 30 (text) and line 39 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md][30], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md][31], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepResourceGroupName.Tests.ps1.md][32], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md][33], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 17 (text) and line 17 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplate.Tests.ps1.md][34], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateConfiguration.Tests.ps1.md][35], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 15 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md][36], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text), line 13 (text), line 23 (text) and line 23 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateNames.Tests.ps1.md][37], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md][38], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text), line 13 (text), line 32 (text) and line 32 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md][39], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 17 (text) and line 17 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md][40], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md][41], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md][42], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 57 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][43], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md][44], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure/configs/identity-tokens.yml.md][45], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md][46], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md][47], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md][48], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure/tests/Get-AzureEnvironment.Tests.ps1.md][49], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md][50], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1.md][51], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md][52], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md][53], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 15 (text) and line 16 (text).
-- [docs/references/pwsh/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md][54], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 15 (text).
-- [docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md][55], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md][56], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 12 (text), line 23 (text), line 26 (text) and line 44 (text).
-- [docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md][57], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md][58], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md][59], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md][60], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md][61], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md][62], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md][63], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md][64], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md][65], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md][66], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md][67], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 17 (text).
-- [docs/references/pwsh/catzc-base-docs.md][68], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 32
-  (text).
-- [docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md][69], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md][70], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md][71], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md][72], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][73], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 25 (text).
-- [docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md][74], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md][75], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 29 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md][76], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md][77], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md][78], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md][79], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md][80], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md][81], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md][82], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md][83], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 13 (text) and line 22 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md][84], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md][85], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md][86], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md][87], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md][88], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md][89], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1.md][90], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md][91], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md][92], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md][93], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md][94], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md][95], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md][96], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md][97], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md][98], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md][99], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 8 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md][100], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md][101], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md][102], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 25 (text) and line 26 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md][103], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md][104], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md][105], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md][106], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md][107], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md][108], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md][109], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md][110], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][111], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md][112], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][113], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 33 (text).
-- [docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md][114], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 136 (text).
-- [docs/references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md][115], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 95 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md][116], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md][117], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md][118], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md][119], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md][120], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md][121], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md][122], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md][123], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text), line 21 (text) and line 23 (text).
-- [docs/references/pwsh/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md][124], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md][125], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md][126], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 16 (text).
-- [docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md][127], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs.md][128], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 42
-  (text).
-- [docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md][129], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md][130], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md][131], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md][132], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][133], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md][134], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md][135], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][136], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md][137], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md][138], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text) and line 14 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md][139], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][140], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text) and line 15 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md][141], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md][142], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 35 (text).
-- [docs/references/pwsh/catzc-base-languages.md][143], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 37 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md][144], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md][145], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md][146], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md][147], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md][148], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md][149], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md][150], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md][151], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-languages/types/BashTestResult.cs.md][152], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-languages/types/GoTestResult.cs.md][153], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md][154], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][155], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 43 (text).
-- [docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md][156], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md][157], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md][158], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md][159], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md][160], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 17 (text).
-- [docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md][161], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 15 (text) and line 17 (text).
-- [docs/references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md][162], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md][163], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-modulesystem.md][164], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 34 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md][165], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 58 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md][166], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md][167], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md][168], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md][169], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md][170], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md][171], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md][172], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][173], in the cell docs × markdown: selected by
+- [docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md][9], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 95 (text).
+- [docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.verify.md][10], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 44 (text).
+- [docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md][11], in the cell docs × markdown: selected by
   [ADR-AUTO-DEPM][1]: the file cites it at line 110 (text) and line 114 (text); selected by [ADR-AUTO-TEST][2]: the file cites it at line 39
   (text), line 41 (text), line 104 (text) and line 104 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md][174], in the cell docs × markdown:
-  selected by [ADR-AUTO-TEST][2]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md][175], in the cell docs × markdown:
-  selected by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md][176], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md][177], in the cell docs × markdown:
-  selected by [ADR-AUTO-TEST][2]: the file cites it at line 17 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md][178], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 22 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-FolderConventions.Tests.ps1.md][179], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md][180], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md][181], in the cell docs × markdown: selected
-  by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-ModuleCycles.Tests.ps1.md][182], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md][183], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/ArtifactsConfig.cs.md][184], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][185], in the cell docs × markdown: selected by
-  [ADR-AUTO-DEPM][1]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][186], in the cell docs × markdown: selected by
-  [ADR-AUTO-DEPM][1]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][187], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md][188], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md][189], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md][190], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md][191], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 17 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md][192], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 21 (text), line 30 (text), line 34 (text), line 39 (text) and line 40 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md][193], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md][194], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 20 (text), line 32 (text), line 33 (text), line 96 (text), line 110 (text), line 216 (text) and line 226 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md][195], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md][196], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text), line 22 (text) and line 47 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md][197], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md][198], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md][199], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-FileMeta.ps1.md][200], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md][201], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 17 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md][202], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md][203], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Links.ps1.md][204], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md][205], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text) and line 28 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-ManagedGuids.ps1.md][206], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md][207], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 18 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md][208], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Markdownlint.ps1.md][209], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 20 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md][210], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md][211], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 30 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md][212], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md][213], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md][214], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 39 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Spelling.ps1.md][215], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
-  file cites it at line 17 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Terminology.ps1.md][216], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 27 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-TestTitles.ps1.md][217], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
-  the file cites it at line 14 (text) and line 18 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/generated-files.yml.md][218], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md][219], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 42 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md][220], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 42 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md][221], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Assert-TestTagGate.ps1.md][222], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md][223], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 19 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md][224], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-GeneratedFileGenerator.ps1.md][225], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md][226], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 20 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md][227], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 30 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md][228], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md][229], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md][230], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md][231], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-BuildArtifactProbe.ps1.md][232], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md][233], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text) and line 21 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md][234], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text), line 23 (text), line 222 (text) and line 302 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md][235], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md][236], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text), line 62 (text) and line 121 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md][237], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 24 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][238], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md][239], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Split-TestAutomationFiles.ps1.md][240], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 26 (text) and line 30 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][241], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md][242], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 37 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md][243], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 52 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md][244], in the cell docs × markdown: selected by
-  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md][245], in the cell docs × markdown: selected by
+- [docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.verify.md][12], in the cell docs × markdown: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 47 (text), line 54 (text), line 54 (text), line 71 (text) and line 73 (text); selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 53 (text) and line 53 (text).
+- [docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md][13], in the cell docs × markdown: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 21 (text), line 25 (text), line 28 (text), line 96 (text), line 96 (text), line 96 (text)
   and line 101 (text).
+- [docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.verify.md][14], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text), line 20 (text), line 49 (text), line 49 (text), line 49 (text) and line 62
+  (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md][15], in the cell docs × markdown:
+  selected by [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md][16], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
+  cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure-devops/configs/identity-tokens.yml.md][17], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md][18], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md][19], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md][20], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md][21], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text), line 20 (text) and line 23 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md][22], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 28 (text) and line 36 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleCustomer.Tests.ps1.md][23], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 27 (text) and line 39 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md][24], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text) and line 35 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md][25], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text), line 13 (text), line 25 (text) and line 37 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithModule.Tests.ps1.md][26], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 27 (text) and line 39 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md][27], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 21 (text) and line 30 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md][28], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 25 (text) and line 35 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md][29], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 22 (text), line 40 (text) and line 49 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md][30], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 57 (text), line 57 (text) and line 67 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md][31], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text), line 15 (text), line 26 (text) and line 56 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][32], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 19 (text), line 22 (text), line 25 (text), line 30 (text) and line 39 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md][33], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md][34], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepResourceGroupName.Tests.ps1.md][35], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md][36], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 17 (text) and line 17 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplate.Tests.ps1.md][37], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateConfiguration.Tests.ps1.md][38], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 15 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md][39], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text), line 13 (text), line 23 (text) and line 23 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateNames.Tests.ps1.md][40], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md][41], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text), line 13 (text), line 32 (text) and line 32 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md][42], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 17 (text) and line 17 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md][43], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md][44], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md][45], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 57 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][46], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md][47], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
+  cites it at line 14 (text).
+- [docs/references/pwsh/catzc-azure/configs/identity-tokens.yml.md][48], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md][49], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md][50], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md][51], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure/tests/Get-AzureEnvironment.Tests.ps1.md][52], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md][53], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1.md][54], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md][55], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md][56], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 15 (text) and line 16 (text).
+- [docs/references/pwsh/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md][57], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 15 (text).
+- [docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md][58], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md][59], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 12 (text), line 23 (text), line 26 (text) and line 44 (text).
+- [docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md][60], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md][61], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md][62], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md][63], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md][64], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md][65], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md][66], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md][67], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md][68], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md][69], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md][70], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 17 (text).
+- [docs/references/pwsh/catzc-base-docs.md][71], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 32
+  (text).
+- [docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md][72], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md][73], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
+  cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md][74], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md][75], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][76], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
+  cites it at line 25 (text).
+- [docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md][77], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md][78], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 29 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md][79], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md][80], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md][81], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md][82], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md][83], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md][84], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md][85], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md][86], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 13 (text) and line 22 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md][87], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md][88], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md][89], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md][90], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md][91], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md][92], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1.md][93], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md][94], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md][95], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md][96], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md][97], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md][98], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md][99], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md][100], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md][101], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md][102], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 8 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md][103], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md][104], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md][105], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 25 (text) and line 26 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md][106], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md][107], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md][108], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md][109], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md][110], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md][111], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md][112], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md][113], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][114], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md][115], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
+  cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][116], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 33 (text).
+- [docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md][117], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 136 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md][118], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md][119], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md][120], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md][121], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md][122], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md][123], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md][124], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md][125], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text), line 21 (text) and line 23 (text).
+- [docs/references/pwsh/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md][126], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md][127], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md][128], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 16 (text).
+- [docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md][129], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-globs.md][130], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 42
+  (text).
+- [docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md][131], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md][132], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md][133], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md][134], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][135], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md][136], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md][137], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][138], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md][139], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md][140], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text) and line 14 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md][141], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][142], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text) and line 15 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md][143], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md][144], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 35 (text).
+- [docs/references/pwsh/catzc-base-languages.md][145], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
+  line 37 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md][146], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md][147], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md][148], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md][149], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md][150], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md][151], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md][152], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md][153], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-languages/types/BashTestResult.cs.md][154], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-base-languages/types/GoTestResult.cs.md][155], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md][156], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][157], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 43 (text).
+- [docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md][158], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md][159], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file
+  cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md][160], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md][161], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md][162], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 17 (text).
+- [docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md][163], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 15 (text) and line 17 (text).
+- [docs/references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md][164], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md][165], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem.md][166], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
+  line 34 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md][167], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 58 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md][168], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md][169], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md][170], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md][171], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md][172], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md][173], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md][174], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md][175], in the cell docs × markdown:
+  selected by [ADR-AUTO-TEST][2]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md][176], in the cell docs × markdown:
+  selected by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md][177], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md][178], in the cell docs × markdown:
+  selected by [ADR-AUTO-TEST][2]: the file cites it at line 17 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md][179], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text) and line 22 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-FolderConventions.Tests.ps1.md][180], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md][181], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md][182], in the cell docs × markdown: selected
+  by [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-ModuleCycles.Tests.ps1.md][183], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md][184], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/ArtifactsConfig.cs.md][185], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][186], in the cell docs × markdown: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][187], in the cell docs × markdown: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][188], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]:
+  the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md][189], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md][190], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md][191], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md][192], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 17 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md][193], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 21 (text), line 30 (text), line 34 (text), line 39 (text) and line 40 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md][194], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md][195], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 20 (text), line 32 (text), line 33 (text), line 96 (text), line 110 (text), line 216 (text) and line 226 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md][196], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 16 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md][197], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text), line 22 (text) and line 47 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md][198], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md][199], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md][200], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-FileMeta.ps1.md][201], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md][202], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 17 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md][203], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md][204], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Links.ps1.md][205], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md][206], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 21 (text) and line 28 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-ManagedGuids.ps1.md][207], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md][208], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 18 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md][209], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Markdownlint.ps1.md][210], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 20 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md][211], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md][212], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 30 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md][213], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md][214], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md][215], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text) and line 39 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Spelling.ps1.md][216], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the
+  file cites it at line 17 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Terminology.ps1.md][217], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 27 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-TestTitles.ps1.md][218], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]:
+  the file cites it at line 14 (text) and line 18 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/generated-files.yml.md][219], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md][220], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 42 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md][221], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 42 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md][222], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Assert-TestTagGate.ps1.md][223], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md][224], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 19 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md][225], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-GeneratedFileGenerator.ps1.md][226], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md][227], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 20 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md][228], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 30 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md][229], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md][230], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md][231], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md][232], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-BuildArtifactProbe.ps1.md][233], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md][234], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 16 (text) and line 21 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md][235], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 14 (text), line 23 (text), line 222 (text) and line 302 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md][236], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md][237], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text), line 62 (text) and line 121 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md][238], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text) and line 24 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][239], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md][240], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Split-TestAutomationFiles.ps1.md][241], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 26 (text) and line 30 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][242], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md][243], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 37 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md][244], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 52 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md][245], in the cell docs × markdown: selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 18 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md][246], in the cell docs × markdown: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md][247], in the cell docs × markdown: selected by
@@ -904,28 +904,20 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 - [pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1][415], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
   file cites it at line 1 (header).
 
-### .claude (10 lit files)
+### .claude (6 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/CLAUDE.md][416], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 54 (text).
 - [.claude/agents/test-optimization.md][417], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 5
   (text).
-- [.claude/plans/decisions-2026-10-16.md][418], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 80
-  (text) and line 83 (text).
-- [.claude/plans/plan-assert-wait.md][419], in the cell .claude × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 57
-  (text); selected by [ADR-AUTO-TEST][2]: the file cites it at line 48 (text).
-- [.claude/plans/plan-automation-word-residue.md][420], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 373 (text).
-- [.claude/plans/plan-explanation-drift-gaps.md][421], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
-  line 99 (text).
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][422], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file
-  cites it at line 205 (text).
-- [.claude/plans/task-test-run-budget.md][423], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 90
-  (text).
-- [.claude/skills/catzc-module/SKILL.md][424], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 29
+- [.claude/plans/plan-automation-word-residue.md][418], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at
+  line 24 (text).
+- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][419], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file
+  cites it at line 73 (text), line 73 (text), line 73 (text), line 73 (text) and line 74 (text).
+- [.claude/skills/catzc-module/SKILL.md][420], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 29
   (text) and line 42 (text).
-- [.claude/skills/test-speed/SKILL.md][425], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 4
+- [.claude/skills/test-speed/SKILL.md][421], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 4
   (text), line 26 (text), line 27 (text), line 28 (text), line 29 (text), line 30 (text), line 31 (text), line 43 (text), line 44 (text),
   line 45 (text), line 47 (text), line 47 (text) and line 50 (text).
 
@@ -933,13 +925,13 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 
 The group holds the files of pwsh/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1][426], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
+- [pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1][422], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
   the file cites it at line 15 (text), line 26 (text) and line 38 (text).
-- [pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1][427], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1][423], in the cell pwsh × powershell: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 14 (text), line 21 (text) and line 32 (text).
-- [pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][428], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
+- [pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][424], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
   file cites it at line 24 (text), line 32 (text) and line 45 (text).
-- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][429], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
+- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][425], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 41 (text).
 
 ### adr/auto (docs/adr/automation, 3 lit files)
@@ -948,7 +940,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 - [docs/adr/automation/controlling-module-dependencies.md][1], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the ADR's own
   file.
-- [docs/adr/automation/dora-explains.md][430], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 365
+- [docs/adr/automation/dora-explains.md][426], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 365
   (text); selected by [ADR-AUTO-TEST][2]: the file cites it at line 140 (text).
 - [docs/adr/automation/test-automation.md][2], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the ADR's own file.
 
@@ -956,62 +948,62 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][431], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 543 (text), line 601
+- [docs/adr/glossary.md][427], in the cell docs × markdown: selected by [ADR-AUTO-TEST][2]: the file cites it at line 543 (text), line 601
   (text), line 623 (text), line 758 (text), line 826 (text), line 844 (text), line 856 (text), line 870 (text), line 892 (text), line 906
   (text), line 917 (text) and line 937 (text).
-- [docs/adr/index.md][432], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text); selected by
+- [docs/adr/index.md][428], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text); selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 156 (text).
 
 ### Az.Templates (pwsh/Catzc.Azure.Templates, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][433], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][429], in the cell pwsh × powershell: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 5 (text).
-- [pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml][434], in the cell pwsh × yaml: selected by [ADR-AUTO-TEST][2]:
+- [pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml][430], in the cell pwsh × yaml: selected by [ADR-AUTO-TEST][2]:
   the file cites it at line 7 (header).
 
 ### Maps (pwsh/Catzc.Base.Maps, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][435], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
+- [pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][431], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 37 (text), line 66 (text), line 72 (text) and line 80 (text).
-- [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][436], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file cites
+- [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][432], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file cites
   it at line 45 (text), line 96 (text), line 103 (text) and line 111 (text).
 
 ### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1][437], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1][433], in the cell pwsh × powershell: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 27 (text), line 33 (text) and line 43 (text).
-- [pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1][438], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
+- [pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1][434], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
   the file cites it at line 16 (text) and line 28 (text).
 
 ### Reports (pwsh/Catzc.Base.Reports, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Reports; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1][439], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
+- [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1][435], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
   file cites it at line 10 (text), line 20 (text), line 28 (text), line 39 (text) and line 45 (text).
-- [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1][440], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
+- [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1][436], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
   file cites it at line 2 (text), line 10 (text) and line 17 (text).
 
 ### Tool.Core (pwsh/Catzc.Tooling.Core, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Tooling.Core; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1][441], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
+- [pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1][437], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
   the file cites it at line 1 (text).
-- [pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1][442], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
+- [pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1][438], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]:
   the file cites it at line 74 (body comment) (a passing mention only).
 
 ### Root files (1 lit file)
 
 The group holds the files of Root files; each sits in its world-map cell and is lit by:
 
-- [importer.ps1][443], in the cell Root files × powershell: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner
+- [importer.ps1][439], in the cell Root files × powershell: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner
   module's files (files.yml), which cite it at `pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 1 (text) and
   `pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 77 (text).
 
@@ -1019,7 +1011,7 @@ The group holds the files of Root files; each sits in its world-map cell and is 
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][444], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing
+- [pipelines/ci-automation.yaml][440], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 138 (text); selected by
   [ADR-AUTO-TEST][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
   `pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 1 (text), `pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 77 (text),
@@ -1161,88 +1153,88 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 The group holds the files of pwsh/.internal; each sits in its world-map cell and is lit by:
 
-- [pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1][445], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file cites it
+- [pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1][441], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file cites it
   at line 1 (text) and line 77 (text).
 
 ### .scriptanalyzer (pwsh/.scriptanalyzer, 1 lit file)
 
 The group holds the files of pwsh/.scriptanalyzer; each sits in its world-map cell and is lit by:
 
-- [pwsh/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1][446], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
+- [pwsh/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1][442], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 147 (text).
 
 ### Az.DevOps (pwsh/Catzc.Azure.DevOps, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Azure.DevOps; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][447], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
+- [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][443], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 42 (text) and line 51 (text).
 
 ### Contracts (pwsh/Catzc.Base.Contracts, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Contracts; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1][448], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
+- [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1][444], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 26 (text), line 46 (text), line 70 (text) and line 197 (text).
 
 ### Engines (pwsh/Catzc.Base.Engines, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Engines; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml][449], in the cell pwsh × yaml: selected by [ADR-AUTO-TEST][2]: the
+- [pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml][445], in the cell pwsh × yaml: selected by [ADR-AUTO-TEST][2]: the
   file cites it at line 5 (header).
 
 ### Environment (pwsh/Catzc.Base.Environment, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Environment; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1][450], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1][446], in the cell pwsh × powershell: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
 
 ### Execution (pwsh/Catzc.Base.Execution, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Execution; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1][451], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
+- [pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1][447], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the
   file cites it at line 79 (text) and line 79 (text).
 
 ### Modules (pwsh/Catzc.Base.Modules, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Modules; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1][452], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
+- [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1][448], in the cell pwsh × powershell: selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 1 (header).
 
 ### RootConfig (pwsh/Catzc.Base.RootConfig, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.RootConfig; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][453], in the cell pwsh × yaml: selected by [ADR-AUTO-TEST][2]: the file cites
+- [pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][449], in the cell pwsh × yaml: selected by [ADR-AUTO-TEST][2]: the file cites
   it at line 120 (body comment) (a passing mention only).
 
 ### Tool.KeyHandler (pwsh/Catzc.Tooling.KeyHandler, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1][454], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1][450], in the cell pwsh × powershell: selected by
   [ADR-AUTO-TEST][2]: the file cites it at line 1 (text).
 
 ## Keywords
 
-- [world map][456]
-- [track][457]
-- [file language][458]
-- [cell][459]
-- [lit cell][460]
-- [root file][461]
-- [.claude][462]: a track
-- [docs][462]: a track
-- [pipelines][462]: a track
-- [pwsh][462]: a track
-- [markdown][463]: a file language
-- [pipeline-yaml][463]: a file language
-- [powershell][463]: a file language
-- [yaml][463]: a file language
+- [world map][452]
+- [track][453]
+- [file language][454]
+- [cell][455]
+- [lit cell][456]
+- [root file][457]
+- [.claude][458]: a track
+- [docs][458]: a track
+- [pipelines][458]: a track
+- [pwsh][458]: a track
+- [markdown][459]: a file language
+- [pipeline-yaml][459]: a file language
+- [powershell][459]: a file language
+- [yaml][459]: a file language
 
 [1]: ../../../../adr/automation/controlling-module-dependencies.md
 [2]: ../../../../adr/automation/test-automation.md
@@ -1250,245 +1242,245 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [4]: ../../../../how-to/pwsh/manual-test-plan.md
 [5]: ../../../../how-to/pwsh/manual-test-plan/azure.md
 [6]: ../../../../how-to/pwsh/manual-test-plan/test-harness.md
-[7]: ../../../../references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
-[8]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[9]: ../../../../references/.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
-[10]: ../../../../references/pipelines/ci-automation.yaml.md
-[11]: ../../../../references/pipelines/ci-infrastructure.yaml.md
-[12]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
-[13]: ../../../../references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md
-[14]: ../../../../references/pwsh/catzc-azure-devops/configs/identity-tokens.yml.md
-[15]: ../../../../references/pwsh/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
-[16]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md
-[17]: ../../../../references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md
-[18]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
-[19]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md
-[20]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleCustomer.Tests.ps1.md
-[21]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md
-[22]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md
-[23]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithModule.Tests.ps1.md
-[24]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md
-[25]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md
-[26]: ../../../../references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md
-[27]: ../../../../references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md
-[28]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md
-[29]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
-[30]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md
-[31]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md
-[32]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepResourceGroupName.Tests.ps1.md
-[33]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md
-[34]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplate.Tests.ps1.md
-[35]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateConfiguration.Tests.ps1.md
-[36]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md
-[37]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateNames.Tests.ps1.md
-[38]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md
-[39]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md
-[40]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md
-[41]: ../../../../references/pwsh/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md
-[42]: ../../../../references/pwsh/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md
-[43]: ../../../../references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
-[44]: ../../../../references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md
-[45]: ../../../../references/pwsh/catzc-azure/configs/identity-tokens.yml.md
-[46]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md
-[47]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md
-[48]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md
-[49]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureEnvironment.Tests.ps1.md
-[50]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md
-[51]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1.md
-[52]: ../../../../references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
-[53]: ../../../../references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
-[54]: ../../../../references/pwsh/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
-[55]: ../../../../references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md
-[56]: ../../../../references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md
-[57]: ../../../../references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
-[58]: ../../../../references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md
-[59]: ../../../../references/pwsh/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md
-[60]: ../../../../references/pwsh/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md
-[61]: ../../../../references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
-[62]: ../../../../references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md
-[63]: ../../../../references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md
-[64]: ../../../../references/pwsh/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md
-[65]: ../../../../references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md
-[66]: ../../../../references/pwsh/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md
-[67]: ../../../../references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
-[68]: ../../../../references/pwsh/catzc-base-docs.md
-[69]: ../../../../references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md
-[70]: ../../../../references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md
-[71]: ../../../../references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
-[72]: ../../../../references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
-[73]: ../../../../references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-[74]: ../../../../references/pwsh/catzc-base-docs/configs/adr-checks.yml.md
-[75]: ../../../../references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md
-[76]: ../../../../references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md
-[77]: ../../../../references/pwsh/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md
-[78]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md
-[79]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
-[80]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md
-[81]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md
-[82]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md
-[83]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
-[84]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md
-[85]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md
-[86]: ../../../../references/pwsh/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md
-[87]: ../../../../references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md
-[88]: ../../../../references/pwsh/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md
-[89]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md
-[90]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1.md
-[91]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md
-[92]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md
-[93]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md
-[94]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md
-[95]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md
-[96]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md
-[97]: ../../../../references/pwsh/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md
-[98]: ../../../../references/pwsh/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md
-[99]: ../../../../references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md
-[100]: ../../../../references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md
-[101]: ../../../../references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md
-[102]: ../../../../references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-[103]: ../../../../references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
-[104]: ../../../../references/pwsh/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md
-[105]: ../../../../references/pwsh/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md
-[106]: ../../../../references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md
-[107]: ../../../../references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md
-[108]: ../../../../references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-[109]: ../../../../references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md
-[110]: ../../../../references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md
-[111]: ../../../../references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md
-[112]: ../../../../references/pwsh/catzc-base-docs/types/CheckMode.cs.md
-[113]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
-[114]: ../../../../references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
-[115]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
-[116]: ../../../../references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
-[117]: ../../../../references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
-[118]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
-[119]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md
-[120]: ../../../../references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md
-[121]: ../../../../references/pwsh/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md
-[122]: ../../../../references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md
-[123]: ../../../../references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md
-[124]: ../../../../references/pwsh/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md
-[125]: ../../../../references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md
-[126]: ../../../../references/pwsh/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
-[127]: ../../../../references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md
-[128]: ../../../../references/pwsh/catzc-base-globs.md
-[129]: ../../../../references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
-[130]: ../../../../references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
-[131]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
-[132]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
-[133]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
-[134]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md
-[135]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md
-[136]: ../../../../references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
-[137]: ../../../../references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md
-[138]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md
-[139]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md
-[140]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
-[141]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md
-[142]: ../../../../references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
-[143]: ../../../../references/pwsh/catzc-base-languages.md
-[144]: ../../../../references/pwsh/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md
-[145]: ../../../../references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md
-[146]: ../../../../references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md
-[147]: ../../../../references/pwsh/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md
-[148]: ../../../../references/pwsh/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md
-[149]: ../../../../references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md
-[150]: ../../../../references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md
-[151]: ../../../../references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md
-[152]: ../../../../references/pwsh/catzc-base-languages/types/BashTestResult.cs.md
-[153]: ../../../../references/pwsh/catzc-base-languages/types/GoTestResult.cs.md
-[154]: ../../../../references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md
-[155]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-[156]: ../../../../references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md
-[157]: ../../../../references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
-[158]: ../../../../references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md
-[159]: ../../../../references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md
-[160]: ../../../../references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
-[161]: ../../../../references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
-[162]: ../../../../references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md
-[163]: ../../../../references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
-[164]: ../../../../references/pwsh/catzc-base-modulesystem.md
-[165]: ../../../../references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
-[166]: ../../../../references/pwsh/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md
-[167]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md
-[168]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
-[169]: ../../../../references/pwsh/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md
-[170]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md
-[171]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
-[172]: ../../../../references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md
-[173]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
-[174]: ../../../../references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md
-[175]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
-[176]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
-[177]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md
-[178]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md
-[179]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-FolderConventions.Tests.ps1.md
-[180]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md
-[181]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md
-[182]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-ModuleCycles.Tests.ps1.md
-[183]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md
-[184]: ../../../../references/pwsh/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
-[185]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[186]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[187]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
-[188]: ../../../../references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md
-[189]: ../../../../references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md
-[190]: ../../../../references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
-[191]: ../../../../references/pwsh/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md
-[192]: ../../../../references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md
-[193]: ../../../../references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
-[194]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md
-[195]: ../../../../references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md
-[196]: ../../../../references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
-[197]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md
-[198]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md
-[199]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md
-[200]: ../../../../references/pwsh/catzc-base-qualitygates/Test-FileMeta.ps1.md
-[201]: ../../../../references/pwsh/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md
-[202]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md
-[203]: ../../../../references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md
-[204]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Links.ps1.md
-[205]: ../../../../references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md
-[206]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ManagedGuids.ps1.md
-[207]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md
-[208]: ../../../../references/pwsh/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md
-[209]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Markdownlint.ps1.md
-[210]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md
-[211]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md
-[212]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md
-[213]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md
-[214]: ../../../../references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md
-[215]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Spelling.ps1.md
-[216]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Terminology.ps1.md
-[217]: ../../../../references/pwsh/catzc-base-qualitygates/Test-TestTitles.ps1.md
-[218]: ../../../../references/pwsh/catzc-base-qualitygates/configs/generated-files.yml.md
-[219]: ../../../../references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md
-[220]: ../../../../references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md
-[221]: ../../../../references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md
-[222]: ../../../../references/pwsh/catzc-base-qualitygates/private/Assert-TestTagGate.ps1.md
-[223]: ../../../../references/pwsh/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md
-[224]: ../../../../references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
-[225]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-GeneratedFileGenerator.ps1.md
-[226]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md
-[227]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
-[228]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md
-[229]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md
-[230]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md
-[231]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md
-[232]: ../../../../references/pwsh/catzc-base-qualitygates/private/Invoke-BuildArtifactProbe.ps1.md
-[233]: ../../../../references/pwsh/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md
-[234]: ../../../../references/pwsh/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
-[235]: ../../../../references/pwsh/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md
-[236]: ../../../../references/pwsh/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
-[237]: ../../../../references/pwsh/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md
-[238]: ../../../../references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md
-[239]: ../../../../references/pwsh/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md
-[240]: ../../../../references/pwsh/catzc-base-qualitygates/private/Split-TestAutomationFiles.ps1.md
-[241]: ../../../../references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md
-[242]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md
-[243]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
-[244]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
-[245]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md
+[7]: ../../../../references/pipelines/ci-automation.yaml.md
+[8]: ../../../../references/pipelines/ci-infrastructure.yaml.md
+[9]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
+[10]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.verify.md
+[11]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
+[12]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.verify.md
+[13]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md
+[14]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.verify.md
+[15]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
+[16]: ../../../../references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md
+[17]: ../../../../references/pwsh/catzc-azure-devops/configs/identity-tokens.yml.md
+[18]: ../../../../references/pwsh/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
+[19]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md
+[20]: ../../../../references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md
+[21]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
+[22]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md
+[23]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleCustomer.Tests.ps1.md
+[24]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md
+[25]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md
+[26]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithModule.Tests.ps1.md
+[27]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md
+[28]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md
+[29]: ../../../../references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md
+[30]: ../../../../references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md
+[31]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md
+[32]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
+[33]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md
+[34]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md
+[35]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepResourceGroupName.Tests.ps1.md
+[36]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md
+[37]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplate.Tests.ps1.md
+[38]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateConfiguration.Tests.ps1.md
+[39]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md
+[40]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateNames.Tests.ps1.md
+[41]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md
+[42]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md
+[43]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md
+[44]: ../../../../references/pwsh/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md
+[45]: ../../../../references/pwsh/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md
+[46]: ../../../../references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
+[47]: ../../../../references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md
+[48]: ../../../../references/pwsh/catzc-azure/configs/identity-tokens.yml.md
+[49]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md
+[50]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md
+[51]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md
+[52]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureEnvironment.Tests.ps1.md
+[53]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md
+[54]: ../../../../references/pwsh/catzc-azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1.md
+[55]: ../../../../references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
+[56]: ../../../../references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
+[57]: ../../../../references/pwsh/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
+[58]: ../../../../references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md
+[59]: ../../../../references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md
+[60]: ../../../../references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
+[61]: ../../../../references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md
+[62]: ../../../../references/pwsh/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md
+[63]: ../../../../references/pwsh/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md
+[64]: ../../../../references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
+[65]: ../../../../references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md
+[66]: ../../../../references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md
+[67]: ../../../../references/pwsh/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md
+[68]: ../../../../references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md
+[69]: ../../../../references/pwsh/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md
+[70]: ../../../../references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
+[71]: ../../../../references/pwsh/catzc-base-docs.md
+[72]: ../../../../references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md
+[73]: ../../../../references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md
+[74]: ../../../../references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
+[75]: ../../../../references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
+[76]: ../../../../references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+[77]: ../../../../references/pwsh/catzc-base-docs/configs/adr-checks.yml.md
+[78]: ../../../../references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md
+[79]: ../../../../references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md
+[80]: ../../../../references/pwsh/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md
+[81]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md
+[82]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
+[83]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md
+[84]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md
+[85]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md
+[86]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
+[87]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md
+[88]: ../../../../references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md
+[89]: ../../../../references/pwsh/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md
+[90]: ../../../../references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md
+[91]: ../../../../references/pwsh/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md
+[92]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md
+[93]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1.md
+[94]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md
+[95]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md
+[96]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md
+[97]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md
+[98]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md
+[99]: ../../../../references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md
+[100]: ../../../../references/pwsh/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md
+[101]: ../../../../references/pwsh/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md
+[102]: ../../../../references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md
+[103]: ../../../../references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md
+[104]: ../../../../references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md
+[105]: ../../../../references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+[106]: ../../../../references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
+[107]: ../../../../references/pwsh/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md
+[108]: ../../../../references/pwsh/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md
+[109]: ../../../../references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md
+[110]: ../../../../references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md
+[111]: ../../../../references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
+[112]: ../../../../references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md
+[113]: ../../../../references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md
+[114]: ../../../../references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md
+[115]: ../../../../references/pwsh/catzc-base-docs/types/CheckMode.cs.md
+[116]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+[117]: ../../../../references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
+[118]: ../../../../references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
+[119]: ../../../../references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
+[120]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
+[121]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md
+[122]: ../../../../references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md
+[123]: ../../../../references/pwsh/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md
+[124]: ../../../../references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md
+[125]: ../../../../references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md
+[126]: ../../../../references/pwsh/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md
+[127]: ../../../../references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md
+[128]: ../../../../references/pwsh/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
+[129]: ../../../../references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md
+[130]: ../../../../references/pwsh/catzc-base-globs.md
+[131]: ../../../../references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
+[132]: ../../../../references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
+[133]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+[134]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
+[135]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
+[136]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md
+[137]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md
+[138]: ../../../../references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
+[139]: ../../../../references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md
+[140]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md
+[141]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md
+[142]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+[143]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md
+[144]: ../../../../references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+[145]: ../../../../references/pwsh/catzc-base-languages.md
+[146]: ../../../../references/pwsh/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md
+[147]: ../../../../references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md
+[148]: ../../../../references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md
+[149]: ../../../../references/pwsh/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md
+[150]: ../../../../references/pwsh/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md
+[151]: ../../../../references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md
+[152]: ../../../../references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md
+[153]: ../../../../references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md
+[154]: ../../../../references/pwsh/catzc-base-languages/types/BashTestResult.cs.md
+[155]: ../../../../references/pwsh/catzc-base-languages/types/GoTestResult.cs.md
+[156]: ../../../../references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md
+[157]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[158]: ../../../../references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md
+[159]: ../../../../references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+[160]: ../../../../references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md
+[161]: ../../../../references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md
+[162]: ../../../../references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
+[163]: ../../../../references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+[164]: ../../../../references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md
+[165]: ../../../../references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
+[166]: ../../../../references/pwsh/catzc-base-modulesystem.md
+[167]: ../../../../references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
+[168]: ../../../../references/pwsh/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md
+[169]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md
+[170]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
+[171]: ../../../../references/pwsh/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md
+[172]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md
+[173]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
+[174]: ../../../../references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md
+[175]: ../../../../references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md
+[176]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
+[177]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
+[178]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md
+[179]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md
+[180]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-FolderConventions.Tests.ps1.md
+[181]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md
+[182]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md
+[183]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-ModuleCycles.Tests.ps1.md
+[184]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md
+[185]: ../../../../references/pwsh/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
+[186]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[187]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[188]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[189]: ../../../../references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md
+[190]: ../../../../references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md
+[191]: ../../../../references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
+[192]: ../../../../references/pwsh/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md
+[193]: ../../../../references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md
+[194]: ../../../../references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
+[195]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md
+[196]: ../../../../references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md
+[197]: ../../../../references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
+[198]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md
+[199]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md
+[200]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md
+[201]: ../../../../references/pwsh/catzc-base-qualitygates/Test-FileMeta.ps1.md
+[202]: ../../../../references/pwsh/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md
+[203]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md
+[204]: ../../../../references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md
+[205]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Links.ps1.md
+[206]: ../../../../references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md
+[207]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ManagedGuids.ps1.md
+[208]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md
+[209]: ../../../../references/pwsh/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md
+[210]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Markdownlint.ps1.md
+[211]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md
+[212]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md
+[213]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md
+[214]: ../../../../references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md
+[215]: ../../../../references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md
+[216]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Spelling.ps1.md
+[217]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Terminology.ps1.md
+[218]: ../../../../references/pwsh/catzc-base-qualitygates/Test-TestTitles.ps1.md
+[219]: ../../../../references/pwsh/catzc-base-qualitygates/configs/generated-files.yml.md
+[220]: ../../../../references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md
+[221]: ../../../../references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md
+[222]: ../../../../references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md
+[223]: ../../../../references/pwsh/catzc-base-qualitygates/private/Assert-TestTagGate.ps1.md
+[224]: ../../../../references/pwsh/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md
+[225]: ../../../../references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
+[226]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-GeneratedFileGenerator.ps1.md
+[227]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md
+[228]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
+[229]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md
+[230]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md
+[231]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md
+[232]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md
+[233]: ../../../../references/pwsh/catzc-base-qualitygates/private/Invoke-BuildArtifactProbe.ps1.md
+[234]: ../../../../references/pwsh/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md
+[235]: ../../../../references/pwsh/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
+[236]: ../../../../references/pwsh/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md
+[237]: ../../../../references/pwsh/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
+[238]: ../../../../references/pwsh/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md
+[239]: ../../../../references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md
+[240]: ../../../../references/pwsh/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md
+[241]: ../../../../references/pwsh/catzc-base-qualitygates/private/Split-TestAutomationFiles.ps1.md
+[242]: ../../../../references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md
+[243]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md
+[244]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
+[245]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
 [246]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md
 [247]: ../../../../references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
 [248]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md
@@ -1661,49 +1653,45 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [415]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
 [416]: ../../../../../.claude/CLAUDE.md
 [417]: ../../../../../.claude/agents/test-optimization.md
-[418]: ../../../../../.claude/plans/decisions-2026-10-16.md
-[419]: ../../../../../.claude/plans/plan-assert-wait.md
-[420]: ../../../../../.claude/plans/plan-automation-word-residue.md
-[421]: ../../../../../.claude/plans/plan-explanation-drift-gaps.md
-[422]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[423]: ../../../../../.claude/plans/task-test-run-budget.md
-[424]: ../../../../../.claude/skills/catzc-module/SKILL.md
-[425]: ../../../../../.claude/skills/test-speed/SKILL.md
-[426]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-[427]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
-[428]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
-[429]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-[430]: ../../../../adr/automation/dora-explains.md
-[431]: ../../../../adr/glossary.md
-[432]: ../../../../adr/index.md
-[433]: ../../../../../pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
-[434]: ../../../../../pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml
-[435]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
-[436]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-[437]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
-[438]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
-[439]: ../../../../../pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-[440]: ../../../../../pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-[441]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
-[442]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
-[443]: ../../../../../importer.ps1
-[444]: ../../../../../pipelines/ci-automation.yaml
-[445]: ../../../../../pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
-[446]: ../../../../../pwsh/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
-[447]: ../../../../../pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-[448]: ../../../../../pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-[449]: ../../../../../pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml
-[450]: ../../../../../pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
-[451]: ../../../../../pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
-[452]: ../../../../../pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-[453]: ../../../../../pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-[454]: ../../../../../pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-[455]: ../../two-gates-check-the-layer-pins.md
-[456]: ../../../../adr/glossary.md#world-map
-[457]: ../../../../adr/glossary.md#track
-[458]: ../../../../adr/glossary.md#file-language
-[459]: ../../../../adr/glossary.md#cell
-[460]: ../../../../adr/glossary.md#lit-cell
-[461]: ../../../../adr/glossary.md#root-file
-[462]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[463]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[418]: ../../../../../.claude/plans/plan-automation-word-residue.md
+[419]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[420]: ../../../../../.claude/skills/catzc-module/SKILL.md
+[421]: ../../../../../.claude/skills/test-speed/SKILL.md
+[422]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+[423]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+[424]: ../../../../../pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+[425]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+[426]: ../../../../adr/automation/dora-explains.md
+[427]: ../../../../adr/glossary.md
+[428]: ../../../../adr/index.md
+[429]: ../../../../../pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
+[430]: ../../../../../pwsh/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml
+[431]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+[432]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+[433]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+[434]: ../../../../../pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+[435]: ../../../../../pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+[436]: ../../../../../pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+[437]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
+[438]: ../../../../../pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
+[439]: ../../../../../importer.ps1
+[440]: ../../../../../pipelines/ci-automation.yaml
+[441]: ../../../../../pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
+[442]: ../../../../../pwsh/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
+[443]: ../../../../../pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+[444]: ../../../../../pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+[445]: ../../../../../pwsh/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml
+[446]: ../../../../../pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
+[447]: ../../../../../pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
+[448]: ../../../../../pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
+[449]: ../../../../../pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+[450]: ../../../../../pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
+[451]: ../../two-gates-check-the-layer-pins.md
+[452]: ../../../../adr/glossary.md#world-map
+[453]: ../../../../adr/glossary.md#track
+[454]: ../../../../adr/glossary.md#file-language
+[455]: ../../../../adr/glossary.md#cell
+[456]: ../../../../adr/glossary.md#lit-cell
+[457]: ../../../../adr/glossary.md#root-file
+[458]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[459]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
