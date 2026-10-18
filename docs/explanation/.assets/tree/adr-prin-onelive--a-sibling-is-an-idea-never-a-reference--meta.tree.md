@@ -1,4 +1,4 @@
-# out/drawio/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta/tree/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.tree.md
+# docs/explanation/.assets/tree/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.tree.md
 
 `Tree minimap: adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`
 
@@ -294,26 +294,26 @@ Terms the cited ADRs define:
 
 - [go test module][80], defined by [ADR-AUTO-GO#2][81]
 
-[1]: ../../../../docs/adr/automation/go/go-test-artifacts.md
-[2]: ../../../../docs/adr/principles/one-living-version.md
-[3]: ../../../../docs/how-to/getting-started/automation/go/index.md
-[4]: ../../../../docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
-[5]: ../../../../docs/references/agent-contracts.md
-[6]: ../../../../docs/references/automation/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-[7]: ../../../../docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
-[8]: ../../../../docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[9]: ../../../../docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
-[10]: ../../../../docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
-[11]: ../../../../docs/references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md
-[12]: ../../../../docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
-[13]: ../../../../docs/references/automation/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md
-[14]: ../../../../docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
-[15]: ../../../../docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
-[16]: ../../../../docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
-[17]: ../../../../docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
-[18]: ../../../../docs/references/automation/internal/Catzc.Internal.Importer.psm1.md
-[19]: ../../../../docs/references/automation/internal/Catzc.Internal.Loader.psm1.md
-[20]: ../../../../docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
+[1]: ../../../adr/automation/go/go-test-artifacts.md
+[2]: ../../../adr/principles/one-living-version.md
+[3]: ../../../how-to/getting-started/automation/go/index.md
+[4]: ../../../references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
+[5]: ../../../references/agent-contracts.md
+[6]: ../../../references/automation/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
+[7]: ../../../references/automation/catzc-base-docs/types/CheckModes.cs.md
+[8]: ../../../references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+[9]: ../../../references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
+[10]: ../../../references/automation/catzc-base-qualitygates/configs/comments.yml.md
+[11]: ../../../references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md
+[12]: ../../../references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
+[13]: ../../../references/automation/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md
+[14]: ../../../references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
+[15]: ../../../references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
+[16]: ../../../references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
+[17]: ../../../references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
+[18]: ../../../references/automation/internal/Catzc.Internal.Importer.psm1.md
+[19]: ../../../references/automation/internal/Catzc.Internal.Loader.psm1.md
+[20]: ../../../references/automation/internal/Catzc.Internal.Vendor.psm1.md
 [21]: ../../../../.claude/CLAUDE.md
 [22]: ../../../../.claude/plans/decisions-2026-10-16.md
 [23]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
@@ -359,19 +359,19 @@ Terms the cited ADRs define:
 [63]: ../../../../automation/Catzc.Base.Files/Write-FileIfChanged.ps1
 [64]: ../../../../automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
 [65]: ../../../../automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-[66]: ../../../../docs/adr/glossary.md
-[67]: ../../../../docs/adr/index.md
-[68]: ../../../../docs/adr/automation/dora-explains.md
-[69]: ../../../../docs/adr/principles/dora-explains.md
+[66]: ../../../adr/glossary.md
+[67]: ../../../adr/index.md
+[68]: ../../../adr/automation/dora-explains.md
+[69]: ../../../adr/principles/dora-explains.md
 [70]: ../../../../automation/Catzc.Base.Git/configs/gitignore.yml
 [71]: ../../../../automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
 [72]: ../../../../pipelines/ci-automation.yaml
-[73]: ../../../../docs/adr/glossary.md#world-map
-[74]: ../../../../docs/adr/glossary.md#track
-[75]: ../../../../docs/adr/glossary.md#file-language
-[76]: ../../../../docs/adr/glossary.md#cell
-[77]: ../../../../docs/adr/glossary.md#lit-cell
+[73]: ../../../adr/glossary.md#world-map
+[74]: ../../../adr/glossary.md#track
+[75]: ../../../adr/glossary.md#file-language
+[76]: ../../../adr/glossary.md#cell
+[77]: ../../../adr/glossary.md#lit-cell
 [78]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
 [79]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
-[80]: ../../../../docs/adr/glossary.md#go-test-module
-[81]: ../../../../docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2
+[80]: ../../../adr/glossary.md#go-test-module
+[81]: ../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2

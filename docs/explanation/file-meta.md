@@ -153,11 +153,15 @@ Decided on 2026-10-18:
   fact back, so stripping every head changes no verdict.
 - **The single-file command is `Sync-FileMeta`.** It sits beside `Format-FileMeta` and `Test-FileMeta`.
 
+- **A comment page is an authored file, and help is its `## help` section.** The page is already where a code file's prose lives:
+  `Export-Comments` only appends new `## comment:<n>` sections, and a section a person edits stays as edited
+  ([ADR-REPO-COMMENTS#2](../adr/repository/comments-in-docs.md#rule-adr-repo-comments2)). So the page leaves `locked_classes` and carries no
+  body hash, no `generator` and, as authored docs, no head. Help is one section in a fixed shape: `### synopsis`, `### description`,
+  `### parameter <Name>` in `param()` order, `### outputs` and `### example <n>`, which `Export-Comments` never writes or reorders. Today's
+  help moves out of the heads through one tested step of `Export-Comments`, as the comments did.
+
 ## Still open
 
-- **A comment page is a locked, generated file today.** The `repo-status` kind lists `comment-page` under `locked_classes`, and the page
-  carries `with_body_sha` and a `generator`, because `Export-Comments` writes it. Help an author writes there makes the page partly
-  authored, so the page needs an authored part the exporter keeps, or its class moves out of `locked_classes`.
 - **`Get-Help` finds nothing in the code file.** Comment-based help stays forbidden, so in-shell help reads the page, through the reference
   tooling or a help provider.
 

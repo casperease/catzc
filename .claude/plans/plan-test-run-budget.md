@@ -44,7 +44,8 @@ so the value is a suite that proves the same in less time. The user runs full su
 ## Open steps
 
 - [x] Decide the stamp rule (check: the ADR sentence exists). Decided 2026-10-18 (D08): an engine's stamp contains its own tool pin and its
-      own settings files, nothing else; the sentence and the tests are T029 steps 1 and 2.
+      own settings files, nothing else; the sentence and the tests are task-test-run-budget
+      steps 1 and 2.
 - [ ] Change the stamp, add both tests (check: Test-Formatting tests pass cold and warm).
 - [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting after two runs (check: the shard manifests of two runs
       place them apart).

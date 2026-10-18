@@ -37,9 +37,9 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] TestKeys = { "level_ms", "run_seconds" };
 
     // The default Assert-Wait: one second and one millisecond, one pair for every environment.
-    private static readonly string[] WaitKeys = { "seconds", "millisecs" };
+    private static readonly string[] WaitKeys = { "seconds", "milliseconds" };
     public const int WaitDefaultSeconds = 1;
-    public const int WaitDefaultMillisecs = 1;
+    public const int WaitDefaultMilliseconds = 1;
     private static readonly string[] TestLevels = TestTiers.Names;
 
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
@@ -81,13 +81,13 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds].
     public IDictionary tests { get; }
 
-    // The Assert-Wait defaults, defaults filled in: wait[seconds], wait[millisecs].
+    // The Assert-Wait defaults, defaults filled in: wait[seconds], wait[milliseconds].
     public IDictionary wait { get; }
 
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
     private int testRunSeconds = TestRunDefaultSeconds;
     private int waitSeconds = WaitDefaultSeconds;
-    private int waitMillisecs = WaitDefaultMillisecs;
+    private int waitMilliseconds = WaitDefaultMilliseconds;
 
     public TimeoutsConfig(IDictionary d)
     {
@@ -224,7 +224,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         wait = new Hashtable(StringComparer.OrdinalIgnoreCase)
         {
             { "seconds", waitSeconds },
-            { "millisecs", waitMillisecs },
+            { "milliseconds", waitMilliseconds },
         };
     }
 
@@ -233,7 +233,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid wait (must be a map of seconds, millisecs)");
+            errors.Add("invalid wait (must be a map of seconds, milliseconds)");
             return;
         }
         CheckKeys(map, WaitKeys, "wait.", errors);
@@ -246,7 +246,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
                 errors.Add(string.Format("invalid wait.{0} '{1}' (must be a positive whole number)", key, map[key]));
                 continue;
             }
-            if (key == "seconds") { waitSeconds = number.Value; } else { waitMillisecs = number.Value; }
+            if (key == "seconds") { waitSeconds = number.Value; } else { waitMilliseconds = number.Value; }
         }
     }
 

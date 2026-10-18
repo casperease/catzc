@@ -176,21 +176,21 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
         It 'resolves the Assert-Wait defaults, one second and one millisecond, when wait is absent' -Tag 'ADR-AUTO-DEFAULT#6' {
             $config = New-TimeoutsConfig ([ordered]@{})
             $config.wait['seconds'] | Should -Be 1
-            $config.wait['millisecs'] | Should -Be 1
+            $config.wait['milliseconds'] | Should -Be 1
             [Catzc.Base.Timeouts.TimeoutsConfig]::WaitDefaultSeconds | Should -Be 1
-            [Catzc.Base.Timeouts.TimeoutsConfig]::WaitDefaultMillisecs | Should -Be 1
+            [Catzc.Base.Timeouts.TimeoutsConfig]::WaitDefaultMilliseconds | Should -Be 1
         }
 
         It 'overrides one wait number and keeps the other default' {
-            $config = New-TimeoutsConfig ([ordered]@{ wait = @{ millisecs = 250 } })
+            $config = New-TimeoutsConfig ([ordered]@{ wait = @{ milliseconds = 250 } })
             $config.wait['seconds'] | Should -Be 1
-            $config.wait['millisecs'] | Should -Be 250
+            $config.wait['milliseconds'] | Should -Be 250
         }
 
         It 'rejects a bad wait section: <case>' -ForEach @(
             @{ case = 'an unknown key'; wait = @{ hours = 1 }; message = "*unknown key 'wait.hours'*" }
             @{ case = 'a zero'; wait = @{ seconds = 0 }; message = "*invalid wait.seconds '0'*" }
-            @{ case = 'a negative number'; wait = @{ millisecs = -5 }; message = "*invalid wait.millisecs '-5'*" }
+            @{ case = 'a negative number'; wait = @{ milliseconds = -5 }; message = "*invalid wait.milliseconds '-5'*" }
             @{ case = 'a shape that is not a map'; wait = 3; message = '*invalid wait (must be a map*' }
         ) {
             { New-TimeoutsConfig ([ordered]@{ wait = $wait }) } | Should -Throw $message

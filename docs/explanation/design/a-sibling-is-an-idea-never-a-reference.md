@@ -1,3 +1,54 @@
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/design/a-sibling-is-an-idea-never-a-reference.md
+    folder: docs/explanation/design
+    name: a-sibling-is-an-idea-never-a-reference
+    filetype: md
+    kind: explanation
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    cites:
+      - ADR-AI#5
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-GO#1
+      - ADR-AUTO-MODULE#1
+      - ADR-CATS#{1,2}
+      - ADR-DSGN-TRACK#{1,3}
+      - ADR-PRIN-CONFIG#3
+      - ADR-PRIN-ONELIVE#{1,5}
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-OUTDIR#{1,12}
+      - ADR-REPO-PLANS#{5,9}
+    links:
+      - docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go1
+      - docs/adr/automation/module-model.md#rule-adr-auto-module1
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype1
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track1
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track17
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track5
+      - docs/adr/principles/cats-and-catzc.md#rule-adr-cats1
+      - docs/adr/principles/cats-and-catzc.md#rule-adr-cats2
+      - docs/adr/principles/configure-not-program.md#rule-adr-prin-config3
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive5
+      - docs/adr/repository/ai-agent-contract.md#rule-adr-ai5
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract1
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract2
+      - docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract1
+      - docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1
+      - docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir12
+      - docs/adr/repository/plans.md#rule-adr-repo-plans5
+      - docs/adr/repository/plans.md#rule-adr-repo-plans9
+      - docs/explanation/.assets/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.drawio.png
+      - docs/explanation/design/a-sibling-is-an-idea-never-a-reference.drawio.md
+---
+
 # A sibling is an idea, never a reference
 
 ```text
@@ -22,16 +73,16 @@ passes before it lands here as a rule.
 
 ## Walkthrough
 
-1. **The sibling.** The left store is eac, the repository of the same family built in Go. At the foot of its band, what it keeps as its
-   own: a rule is a `.feature` specification, and no file sits unordered.
+1. **The sibling.** The left store is eac, the repository of the same family built in Go. At the foot of its band, what it keeps as its own:
+   a rule is a `.feature` specification, and no file sits unordered.
 2. **The shared model.** The named set in the middle holds what both repositories agree on: a module is a placement with a kind, a default
    is declared once, public is what a contract names per unit, change is keyed by the unit's hash, and one output root holds everything
    unsorted.
-3. **The gate.** An idea leaves eac named where it is used and reaches the owning ADR, which decides whether and how catzc takes it. An
-   idea with no ADR to hold it opens a question for the user.
-4. **The result.** What passes is rebuilt to catzc's rules, one living version with nothing ported alongside, and lands in catzc as a
-   rule. At the foot of the right band, what catzc keeps as its own: a rule is an ADR cited by code, and `.unordered` is the landing zone
-   of an import.
+3. **The gate.** An idea leaves eac named where it is used and reaches the owning ADR, which decides whether and how catzc takes it. An idea
+   with no ADR to hold it opens a question for the user.
+4. **The result.** What passes is rebuilt to catzc's rules, one living version with nothing ported alongside, and lands in catzc as a rule.
+   At the foot of the right band, what catzc keeps as its own: a rule is an ADR cited by code, and `.unordered` is the landing zone of an
+   import.
 
 The diagram's glyphs and edges are listed in [its description](a-sibling-is-an-idea-never-a-reference.drawio.md).
 
@@ -92,8 +143,8 @@ An idea from eac enters catzc in three steps, and the same three would carry a c
 Three ideas came this way and are now catzc rules: the per-unit contract folder with a version segment, the top level named by stack, and
 the output root as the only place for intermediate files. Ideas that are available the other way, each for eac's own sessions to weigh, are
 the command contract as data proven by one check, the analyzer that forbids a literal default outside the defaults declaration, the named
-axis of on-demand against committed resources, gated plans that hold the delta only, a glossary generated from the rules that define its
-terms, and retention by output area.
+axis of on-demand against committed resources, plans that hold the delta only, proven by a quality gate, a glossary generated from the rules
+that define its terms, and retention by output area.
 
 ## What this article does not say
 

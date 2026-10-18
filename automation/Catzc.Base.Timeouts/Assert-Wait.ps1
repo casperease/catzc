@@ -33,7 +33,7 @@ catzc:
       run and is removed once the block it found is bounded (Invoke-WithTimeout, a timeouts.yml entry).
     parameters:
       Seconds: 'Whole seconds to stand. Default: the timeouts registry''s wait.seconds, one second declared once on TimeoutsConfig.'
-      Milliseconds: 'Milliseconds added to Seconds. Default: the registry''s wait.millisecs, one millisecond declared once on TimeoutsConfig.'
+      Milliseconds: 'Milliseconds added to Seconds. Default: the registry''s wait.milliseconds, one millisecond declared once on TimeoutsConfig.'
     examples:
       - Assert-Wait
       - Assert-Wait -Seconds 2
@@ -48,7 +48,7 @@ function Assert-Wait {
         [int] $Seconds = (Get-Config -Config timeouts).wait['seconds'],
 
         [ValidateRange(0, 3600000)]
-        [int] $Milliseconds = (Get-Config -Config timeouts).wait['millisecs']
+        [int] $Milliseconds = (Get-Config -Config timeouts).wait['milliseconds']
     )
 
     $totalMs = $Seconds * 1000 + $Milliseconds

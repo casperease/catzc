@@ -14,6 +14,9 @@ catzc:
     module: Catzc.Base.RootConfig
     moduletype: pwsh-folder
     catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-AUTO-ASSETDEP#3
 ---
 #>
 
@@ -87,5 +90,14 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
         { New-GitAttributes } | Should -Throw '*exactly once, found 0*'
         Set-Template "{{file-kind-attributes}}`n{{file-kind-attributes}}`n"
         { New-GitAttributes } | Should -Throw '*exactly once, found 2*'
+    }
+}
+
+Describe 'New-GitAttributes — shipped assets/root/.gitattributes' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    It 'renders the shipped template through the shipped file-kinds registry with the placeholder filled' {
+        $text = New-GitAttributes
+        $text | Should -Not -Match '\{\{'
+        $text | Should -Match '(?m)^automation/\.compiled/\*\* binary$'
+        $text | Should -Match '(?m)^\S+ .*catzc-'
     }
 }

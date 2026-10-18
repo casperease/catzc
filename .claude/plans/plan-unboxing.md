@@ -91,10 +91,10 @@ allocation, else it is reverted.
 
 - [ ] The user runs Clear-ModuleTypeCache so .compiled holds one DLL, then commits types, tests, docs and that DLL (check: one
       Catzc.Types.*.dll; git status clean for them).
-- [x] A fresh session runs the three leftover checks in the prompt (check: its report). Done 2026-10-17 (task033, session catzc-6c
+- [x] A fresh session runs the three leftover checks in the prompt (check: its report). Done 2026-10-17 (closeout, session catzc-6c
       read-only): `.compiled` holds one DLL pair; `Test-ShippedTypes` is clean in a fresh process
-      (`out/test-shipped-types/20261017-210518`), so the `Catzc.Base.Variants` findings once attributed to task012 (Q88) are gone; the
-      optional ADR-AUTO-CACHE sentence on type-level statics was declined 2026-10-18 (D18).
+      (`out/test-shipped-types/20261017-210518`), so the `Catzc.Base.Variants` findings once attributed to kind-becomes-role (Q88) are
+      gone; the optional ADR-AUTO-CACHE sentence on type-level statics was declined 2026-10-18 (D18).
 - [x] Only on the user's go: plan P4 and P5, measure first (check: the 15 percent bar on the row). Decided 2026-10-18 (D11): stay closed.
 
 ## Refs

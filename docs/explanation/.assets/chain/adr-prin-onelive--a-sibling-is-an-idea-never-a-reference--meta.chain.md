@@ -1,4 +1,4 @@
-# out/drawio/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta/chain/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.md
+# docs/explanation/.assets/chain/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.md
 
 `Value-chain minimap: adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`
 
@@ -63,15 +63,15 @@ Terms the cited ADRs define:
 
 - [go test module][11], defined by [ADR-AUTO-GO#2][12]
 
-[1]: ../../../../docs/adr/automation/go/go-test-artifacts.md
-[2]: ../../../../docs/adr/principles/one-living-version.md
-[3]: ../../../../docs/adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../../docs/adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../../docs/adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../../../docs/adr/glossary.md#value-chain-map
-[7]: ../../../../docs/adr/glossary.md#value-chain-stack
-[8]: ../../../../docs/adr/glossary.md#value-chain-concern
-[9]: ../../../../docs/adr/glossary.md#cell
-[10]: ../../../../docs/adr/glossary.md#lit-cell
-[11]: ../../../../docs/adr/glossary.md#go-test-module
-[12]: ../../../../docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2
+[1]: ../../../adr/automation/go/go-test-artifacts.md
+[2]: ../../../adr/principles/one-living-version.md
+[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[6]: ../../../adr/glossary.md#value-chain-map
+[7]: ../../../adr/glossary.md#value-chain-stack
+[8]: ../../../adr/glossary.md#value-chain-concern
+[9]: ../../../adr/glossary.md#cell
+[10]: ../../../adr/glossary.md#lit-cell
+[11]: ../../../adr/glossary.md#go-test-module
+[12]: ../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2

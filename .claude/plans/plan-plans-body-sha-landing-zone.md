@@ -66,17 +66,17 @@ other plan.
 
 ## Open steps
 
-- [x] Phase 0 policy. Done 2026-10-17 (task007): file-meta.yml `body-sha` selects the generated kinds (comment-page, index, glossary), one
+- [x] Phase 0 policy. Done 2026-10-17 (Phase 0): file-meta.yml `body-sha` selects the generated kinds (comment-page, index, glossary), one
       Format-FileMeta run removed `with_body_sha` from 755 authored pages, Test-GeneratedFiles compares every generated tracked file's stamp
       with its body (Get-GeneratedStampDrift), FILEMETA#3, #7 and #13 say so. Check: Test-FileMeta reports one finding, the peer-dirty
       `docs/adr/repository/function-help.md`, which its owner's next Format-FileMeta clears (`out/test-file-meta/20261017-064738`).
 - [ ] Phase 0, the unstamped writers: `.claude/drawio/minimaps/render.py` writes the 444 minimap pages with no head, and
       `Catzc.Internal.Types.psm1` writes the compiled types manifest with none; each writer writes the head through the one head function,
       then the minimaps are re-rendered on the user's ask (diagram work, never unasked) (check: Test-GeneratedFiles reports Unstamped 0).
-- [x] Binding audit of the .unordered references, read-only. Done 2026-10-17 (task008): the section "Binding audit" below holds one verdict
+- [x] Binding audit of the .unordered references, read-only. Done 2026-10-17 (audit): the section "Binding audit" below holds one verdict
       per code and config line (12 files) and the markdown counts. Check: 12 verdict rows, a counts table, three authored pages named.
 - [ ] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean).
-- [x] Phase 2 rules and gate; the cleaner exists. Done 2026-10-17 (task010): ADR-REPO-PLANS with nine rules, ADR-REPO-FOLDERS#12 (stable
+- [x] Phase 2 rules and gate; the cleaner exists. Done 2026-10-17 (plans ADR): ADR-REPO-PLANS with nine rules, ADR-REPO-FOLDERS#12 (stable
       locators), ADR-REPO-VOCAB#9 (PowerShell naming), Test-Plans with plans.yml and PlansConfig, registered as a markdown check and as
       plan-clear's check; the folder brought to the shape (statuses, targets, Open steps sections, checks on every step). Check: Test-Plans
       "No plans issues found." on this folder (`out/test-plans/20261017-174646`).
@@ -84,20 +84,20 @@ other plan.
       commits (check: `ls .unordered` shows no `15-10-2026`).
 - [ ] Retire the old .unordered wording, then update CLAUDE.md (check: Test-Links, Test-Terminology clean).
 
-## Binding audit of `.unordered` (task008, 2026-10-17, read-only)
+## Binding audit of `.unordered` (2026-10-17, read-only)
 
 Twelve code and config files name `.unordered`. Verdicts: `go`, a reading of the folder as a measure, a track getter, a default or a
-definition, which T009 changes with the landing-zone terms; `stay`, a scan exclusion that keeps imported text out of this repository's own
-checks until it is sorted (where the tool walks the disk and not the git index, ADR-AUTO-TRACKED is the reason; where it reads tracked
-files, scope is); `track`, the tracks registry, which stays because imported content is tracked.
+definition, which the import task changes with the landing-zone terms; `stay`, a scan exclusion that keeps imported text out of this
+repository's own checks until it is sorted (where the tool walks the disk and not the git index, ADR-AUTO-TRACKED is the reason; where it
+reads tracked files, scope is); `track`, the tracks registry, which stays because imported content is tracked.
 
 | File and line                                                             | What it does with `.unordered`                                                         | Verdict                                                                                                                |
 | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `automation/Catzc.Base.Variants/configs/variants.yml:53`                  | the `.unordered` track: its place, type `unordered`, language markdown                 | track                                                                                                                  |
 | `automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1:100-101`        | pins the track's type and that a path under it resolves to the track                   | track; the fixture path names `15-10-2026` and is renamed when the folder goes                                         |
-| `automation/Catzc.Base.Globs/configs/file-kinds.yml:42`                   | the `note` kind, "a fragment frozen when it was committed", files `.unordered/**`      | go: T009 replaces the kind, its definition and its `catzc-notes` attribute with the landing-zone terms                 |
+| `automation/Catzc.Base.Globs/configs/file-kinds.yml:42`                   | the `note` kind, "a fragment frozen when it was committed", files `.unordered/**`      | go: the import task replaces the kind, its definition and its `catzc-notes` attribute with the landing-zone terms      |
 | `.gitattributes:134`                                                      | `.unordered/** catzc-notes`, generated from file-kinds.yml                             | go with file-kinds.yml; the content exemption itself stays, under the new class name                                   |
-| `automation/Catzc.Base.QualityGates/configs/source-conventions.yml:26`    | engine-set exemption, reason "working notes, not product docs (the catzc-notes class)" | go: the exemption stays, its reason and class name follow T009                                                         |
+| `automation/Catzc.Base.QualityGates/configs/source-conventions.yml:26`    | engine-set exemption, reason "working notes, not product docs (the catzc-notes class)" | go: the exemption stays, its reason and class name follow the import task                                              |
 | `automation/Catzc.Base.Globs/configs/globs.yml:133`                       | the markdown integrity scan's loose fileset excludes `.unordered/**`                   | stay: a fileset walked on disk                                                                                         |
 | `automation/Catzc.Base.QualityGates/Test-Markdownlint.ps1:64`             | markdownlint ignore `!.unordered`                                                      | stay: markdownlint walks the disk                                                                                      |
 | `automation/Catzc.Base.QualityGates/Test-Spelling.ps1:81`                 | cspell exclude `.unordered/**`                                                         | stay: cspell walks the disk                                                                                            |
@@ -117,10 +117,11 @@ Markdown mentions, 299 files on 2026-10-17 (`grep -rl .unordered docs automation
 | `.claude/plans`            | 16    | plans, task files, questionnaires and decisions; not edited here                          |
 | `docs/adr/design`          | 1     | `tracks.md`, authored                                                                     |
 
-No comment page names it. The authored pages that state the old meaning, "frozen fragments, finished plans", and that T009 rewrites:
-`docs/adr/design/tracks.md` (rule 17 and the section "The unordered track"), `docs/adr/design/track-types.md` ("the frozen shelf", line
-119), and `automation/Catzc.Base.Globs/configs/file-kinds.yml` (the `note` kind's definition, which the glossary and the file-kinds page
-carry). `automation/Catzc.Base.ModuleSystem/configs/glossary.yml:130` lists `unordered` only as a track type, no old meaning.
+No comment page names it. The authored pages that state the old meaning, "frozen fragments, finished plans", and that the import task
+rewrites: `docs/adr/design/tracks.md` (rule 17 and the section "The unordered track"), `docs/adr/design/track-types.md` ("the frozen
+shelf", line 119), and `automation/Catzc.Base.Globs/configs/file-kinds.yml` (the `note` kind's definition, which the glossary and the
+file-kinds page carry). `automation/Catzc.Base.ModuleSystem/configs/glossary.yml:130` lists `unordered` only as a track type, no old
+meaning.
 
 ## Decided in the questionnaire round of 2026-10-16 (decisions-2026-10-16.md, Q01 to Q12)
 
