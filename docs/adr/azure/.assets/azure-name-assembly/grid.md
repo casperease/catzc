@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: e231711ebc0a
+    repo_status: locked
+    path: docs/adr/azure/.assets/azure-name-assembly/grid.md
+    source: docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.png
+    role: adr
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # ADR: Azure resource naming standard: the world-map minimap
 
 ```text

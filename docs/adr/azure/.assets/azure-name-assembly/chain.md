@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "99e8778071a3"
+    repo_status: locked
+    path: docs/adr/azure/.assets/azure-name-assembly/chain.md
+    source: docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.png
+    role: adr
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # ADR: Azure resource naming standard: the value-chain minimap
 
 ```text

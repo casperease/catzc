@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "8b515fca4276"
+    repo_status: locked
+    path: docs/adr/azure/.assets/azure-name-assembly/tree.md
+    source: docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.png
+    role: adr
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # ADR: Azure resource naming standard: the tree minimap
 
 ```text

@@ -240,7 +240,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         }
 
         It 'reports a numbered heading as Unhandled and leaves it as written' {
-            $text = "### Rule ADR-WIDGET-COG" + ":2`n"
+            $text = '### Rule ADR-WIDGET-COG' + ":2`n"
             & $script:update 'notes/numbered-heading.md' $text | Should -BeExactly $text
             @($script:changes.Kind) | Should -Be @([Catzc.Base.Docs.AdrCitationChangeKind]::Unhandled)
         }
