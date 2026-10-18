@@ -25,6 +25,7 @@ function Read-CommandSignature {
 
     $parameters = [System.Collections.Generic.List[Catzc.Base.Contracts.ContractParameter]]::new()
     $output = [Catzc.Base.Contracts.ContractCommand]::DefaultOutput
+    $defaultSet = $null
     $block = $function.Body.ParamBlock
     if ($block) {
         foreach ($parameter in $block.Parameters) {
@@ -96,7 +97,18 @@ function Read-CommandSignature {
             elseif ($null -ne $value) {
                 $default = [Catzc.Base.Contracts.ContractParameter]::ComputedDefault
             }
-            $parameters.Add([Catzc.Base.Contracts.ContractParameter]::new($parameter.Name.VariablePath.UserPath, $type, $isList, $mandatory, $default, $pipeline))
+            $memberOf = $inEverySet ? @() : [string[]] $sets
+            $parameters.Add([Catzc.Base.Contracts.ContractParameter]::new($parameter.Name.VariablePath.UserPath, $type, $isList, $mandatory, $default, $pipeline, $memberOf))
+        }
+
+        foreach ($attribute in $block.Attributes) {
+            if ($attribute -is [System.Management.Automation.Language.AttributeAst] -and $attribute.TypeName.Name -cin 'CmdletBinding', 'CmdletBindingAttribute') {
+                foreach ($argument in $attribute.NamedArguments) {
+                    if ($argument.ArgumentName -ieq 'DefaultParameterSetName' -and $argument.Argument -is [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                        $defaultSet = $argument.Argument.Value
+                    }
+                }
+            }
         }
 
         foreach ($attribute in $block.Attributes) {
@@ -116,5 +128,5 @@ function Read-CommandSignature {
         }
     }
 
-    [Catzc.Base.Contracts.ContractCommand]::new($parameters, $output)
+    [Catzc.Base.Contracts.ContractCommand]::new($parameters, $output, $defaultSet)
 }

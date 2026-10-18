@@ -104,7 +104,7 @@ public sealed class ContractParameter
     }
 
     // Whether the parameter takes part in a call shaped by the set: it names that set, or it names none and so belongs to every set.
-    public bool IsInSet(string set) => Sets.Count == 0 || (set != null && Sets.Contains(set));
+    public bool IsInSet(string set) => Sets.Count == 0 || (set != null && ((List<string>)Sets).Contains(set));
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 

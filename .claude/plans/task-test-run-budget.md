@@ -88,6 +88,11 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
    The scheduler, decided by the orchestrator on the user's delegation: one PesterRunner pool with a per-class cap (greedy files start in
    any slot a parallel shard frees, at most `greedy_group_size` at once, serial last and alone); "build-heavy apart" is a `greedy_apart`
    list in `test-policy.yml` with its default declared once on TestPolicyConfig; ADR-AUTO-TEST#26 is reworded to the pool.
+   Part 1 landed 2026-10-18 by session catzc-93, verdict: "the analyzer cache is split into two passes, rules and spelling, each keyed on
+   every input it declares (ADR-AUTO-CACHE#10); a dictionary-only change re-runs only the spelling pass: 22.9 s against 151.7 s for a
+   full cold run, and 4.1 s warm; repo-wide .internal Test-ScriptAnalyzer.Tests passes" (new CatzcSpelling.psm1 and private
+   Invoke-ScriptAnalyzerShards; settings re-linked). Part 2 written, unverified: blocked on the importer's compile error in
+   ContractParameter.cs:107 (catzc-f3's in-progress step 8).
 7. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report

@@ -91,9 +91,9 @@ Open, in execution order:
 - promotion-ladder -> plan-promotion-ladder.md (blocked on the decision round; its README step is task-loose-ends step 5; once Q1 to Q4 are
   answered the plan gains its build steps, main-uat, release-uat behind RC, pre-prod behind RBC, the DEPLOY pipeline, and a task file is
   written for them at this position).
-- closing-sweep -> task-closing-sweep.md (open; runs after every batch): done plans deleted with one line each in value-of-plan.md, whose
-  table still carries rows for plans already deleted (plan-assets-beside-articles, plan-adr-ai, plan-adr-cats) and lacks rows for
-  plan-unboxing's siblings.
+- closing-sweep -> task-closing-sweep.md (open; runs after every batch): done plans deleted with one line each in value-of-plan.md. The
+  sweep of 2026-10-18 (catzc-59) found no candidate; the three deleted plans have no table rows, only their "Deleted" lines;
+  plan-adr-code-language got its row.
 - final-full-run -> task-user-runs-and-commits.md, its last step (open; after every chunk above): a new session, `. ./importer.ps1`, then
   `Test-Automation` once over the whole repository, by hand; the one place the tree is tested. Closes plan-bounded-folder-enumeration,
   plan-file-head-immutable-edges-classes, plan-module-model-closeout and plan-test-run-budget's shard check.

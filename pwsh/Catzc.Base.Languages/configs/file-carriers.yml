@@ -39,6 +39,11 @@ carriers:
   asset: { carrier: none, reason: "a binary file, so the description beside it carries what a reader needs" }
 
   # Classes of files that belong to no language.
+  # A diagram folder's slide keeps its block in the description beside it, diagram.drawio.md in the same folder.
+  diagram-folder:
+    files: ["docs/**/.assets/*/diagram.drawio.png"]
+    carrier: sidecar
+    sidecar: "{base}.md"
   diagram:
     files: ["docs/.assets/**/*.drawio.png", "docs/explanation/.assets/**/*.drawio.png"]
     carrier: sidecar
