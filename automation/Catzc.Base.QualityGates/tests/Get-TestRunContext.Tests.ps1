@@ -57,7 +57,7 @@ Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
             Suite = 'widget'; Modules = @('TstWidget'); Category = 'Logic'; Rule = @('ADR-WI-ONE#1')
         }
         $context.run | Should -Be 'build'
-        $context.codeRoot | Should -Be (Join-Path 'C:\gadget' 'automation')
+        $context.codeRoot | Should -Be (Join-Path 'C:\gadget' (Get-CatzcModulesFolder))
         $context.selection | Should -Be 'suite widget; modules: TstWidget; category Logic; rules: ADR-WI-ONE#1'
     }
 }

@@ -22,9 +22,9 @@ Describe 'Get-TestFileModule' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'names the module folder of a test file under automation/' {
-        Get-Unit (Get-RepoPath 'automation/Catzc.Gadget/tests/Get-Gadget.Tests.ps1') | Should -Be 'Catzc.Gadget'
-        Get-Unit (Get-RepoPath 'automation/.internal/tests/Get-Gadget.Tests.ps1') | Should -Be '.internal'
+    It 'names the module folder of a test file under the modules folder' {
+        Get-Unit (Get-RepoPath "$(Get-CatzcModulesFolder)/Catzc.Gadget/tests/Get-Gadget.Tests.ps1") | Should -Be 'Catzc.Gadget'
+        Get-Unit (Get-RepoPath "$(Get-CatzcModulesFolder)/.internal/tests/Get-Gadget.Tests.ps1") | Should -Be '.internal'
         Should -Invoke Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
     }
 
@@ -35,7 +35,7 @@ Describe 'Get-TestFileModule' -Tag 'L0', 'logic' {
         Get-Unit (Get-RepoPath $Relative) | Should -Be $Module
     }
 
-    It 'throws for a path that is neither under automation/ nor a language test folder' {
+    It 'throws for a path that is neither under the modules folder nor a language test folder' {
         { Get-Unit (Get-RepoPath 'go/tests/catzc-gadget') } | Should -Throw '*neither under*'
     }
 }

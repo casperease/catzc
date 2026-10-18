@@ -1,5 +1,6 @@
 Describe 'Get-VisibilityFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' {
     BeforeAll {
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         function script:Get-Fact {
             param([string] $Path, [hashtable] $Settings = @{})
             $entry = @{ keys = @('visibility') }
@@ -15,10 +16,10 @@ Describe 'Get-VisibilityFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' 
     }
 
     It 'is private under the module''s private folder and public anywhere else in the module' {
-        (Get-Fact 'automation/Catzc.Widget/private/Get-Sprocket.ps1').Keys | Should -Be @('visibility')
-        (Get-Fact 'automation/Catzc.Widget/private/Get-Sprocket.ps1')['visibility'] | Should -BeExactly 'private'
-        (Get-Fact 'automation/Catzc.Widget/Get-Gadget.ps1')['visibility'] | Should -BeExactly 'public'
-        (Get-Fact 'automation/Catzc.Widget/tests/private/Get-Cog.Tests.ps1')['visibility'] | Should -BeExactly 'public' -Because 'only a private folder directly under the module counts'
+        (Get-Fact 'widget-modules/Catzc.Widget/private/Get-Sprocket.ps1').Keys | Should -Be @('visibility')
+        (Get-Fact 'widget-modules/Catzc.Widget/private/Get-Sprocket.ps1')['visibility'] | Should -BeExactly 'private'
+        (Get-Fact 'widget-modules/Catzc.Widget/Get-Gadget.ps1')['visibility'] | Should -BeExactly 'public'
+        (Get-Fact 'widget-modules/Catzc.Widget/tests/private/Get-Cog.Tests.ps1')['visibility'] | Should -BeExactly 'public' -Because 'only a private folder directly under the module counts'
     }
 
     It 'takes the modules root and the private folder''s name from the kind''s settings' {
@@ -27,6 +28,6 @@ Describe 'Get-VisibilityFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' 
     }
 
     It 'refuses a file outside any module, naming the file' {
-        { Get-Fact 'docs/gadget.ps1' } | Should -Throw "*kind 'visibility' applies to files under automation/<module>/, but selected 'docs/gadget.ps1'*"
+        { Get-Fact 'docs/gadget.ps1' } | Should -Throw "*kind 'visibility' applies to files under widget-modules/<module>/, but selected 'docs/gadget.ps1'*"
     }
 }

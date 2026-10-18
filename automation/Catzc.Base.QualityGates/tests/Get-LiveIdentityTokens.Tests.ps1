@@ -20,14 +20,14 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         $script:configOwner = @{ customer = 'Catzc.Base.Widget'; azure = 'Catzc.Base.Widget'; ado = 'Catzc.Base.Gadget' }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'identity-tokens' -and $ListOwners } -MockWith {
             foreach ($module in @($declarations.Keys | Sort-Object)) {
-                [pscustomobject]@{ Name = 'identity-tokens'; Module = $module; Path = "automation/$module/configs/identity-tokens.yml" }
+                [pscustomobject]@{ Name = 'identity-tokens'; Module = $module; Path = "widgets/$module/configs/identity-tokens.yml" }
             }
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'identity-tokens' -and $Module } -MockWith {
             [Catzc.Base.QualityGates.IdentityTokensConfig]::new(@{ tokens = $declarations[$Module] })
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -ne 'identity-tokens' -and $ListOwners } -MockWith {
-            [pscustomobject]@{ Name = $Config; Module = $configOwner[$Config]; Path = "automation/$($configOwner[$Config])/configs/$Config.yml" }
+            [pscustomobject]@{ Name = $Config; Module = $configOwner[$Config]; Path = "widgets/$($configOwner[$Config])/configs/$Config.yml" }
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'customer' -and -not $ListOwners } -MockWith {
             [ordered]@{ customers = [ordered]@{ acme = @{ shortcode = 'ac' }; globex = @{ shortcode = 'gx' } } }

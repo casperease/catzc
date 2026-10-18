@@ -7,15 +7,15 @@ Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6', 'ADR-REPO-
     BeforeEach {
         # git is the one boundary: ls-files lists what is tracked, check-attr says what .gitattributes marks.
         Mock Get-GitTrackedPath {
-            'docs/widget.md', 'docs/widget.yml', 'docs/own-meta.md', 'automation/.vendor/Gadget/README.md',
-            'automation/Widget/tests/assets/fixture.md', 'docs/generated-widget.md',
+            'docs/widget.md', 'docs/widget.yml', 'docs/own-meta.md', 'widgets/.vendor/Gadget/README.md',
+            'widgets/Widget/tests/assets/fixture.md', 'docs/generated-widget.md',
             'contracts/widget/0.0.0/Gadget/.github/README.md'
         } -ModuleName Catzc.Base.QualityGates
         # The declared classes, as .gitattributes would report them (unspecified attributes are left out).
         Mock Get-GitAttributeValue {
             @{
-                'automation/.vendor/Gadget/README.md'             = @{ 'linguist-vendored' = 'set' }
-                'automation/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
+                'widgets/.vendor/Gadget/README.md'             = @{ 'linguist-vendored' = 'set' }
+                'widgets/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
                 'docs/generated-widget.md'                        = @{ 'linguist-generated' = 'set' }
                 'docs/own-meta.md'                                = @{ 'catzc-meta' = 'unset' }
                 'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' }
