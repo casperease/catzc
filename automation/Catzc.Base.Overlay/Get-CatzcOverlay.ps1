@@ -8,6 +8,8 @@ function Get-CatzcOverlay {
         return
     }
     $modulesRoot = Get-CatzcModulesRoot
+    # The overlay root is .catzc/<track folder> (ADR-CATS#5) and names its own folder, so the records spell no track folder of their own.
+    $prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\', '/')))"
     $folders = [string[]] @([System.IO.Directory]::GetDirectories($overlayRoot))
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)
     foreach ($folder in $folders) {
@@ -20,7 +22,7 @@ function Get-CatzcOverlay {
                 Target       = $moduleName
                 Visibility   = $null
                 File         = $folder
-                RelativePath = ".catzc/automation/$moduleName"
+                RelativePath = "$prefix/$moduleName"
             }
             continue
         }
@@ -59,7 +61,7 @@ function Get-CatzcOverlay {
                 Target       = $target
                 Visibility   = $visibility
                 File         = $file
-                RelativePath = ".catzc/automation/$moduleName/$relative"
+                RelativePath = "$prefix/$moduleName/$relative"
             }
         }
     }

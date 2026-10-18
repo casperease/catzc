@@ -1,8 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
-# The one bootstrap constant: the folder under the repository root that holds the modules. It is read before any registry
-# loads, so it cannot come from one; everything after the import reads it back through Get-CatzcModulesRoot, and
-# New-Importer writes the shim's loader line from that resolver (ADR-AUTO-LAYERS).
 $script:modulesFolder = 'automation'
 
 function Invoke-Importer {

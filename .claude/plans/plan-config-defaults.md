@@ -91,12 +91,12 @@ It generalises to every typed config in configs.yml.
       throws naming the key and where to add it; `Get-Variant` lost `-Default`, the four getters and `Get-Aspect` read the typed value.
       `[Invoke-TestFile] Passed` for VariantsConfig.Tests (`out/test-file/20261018-122657-c1b4fc`, four new cases), Get-AdoNaming,
       Get-GitWorkspace, Get-EnabledCustomers, Get-Track and Get-Aspect (`20261018-122704` to `20261018-122725`); `ANALYZER issues=0`,
-      `SHIPPED issues=0`; `have_customers` is false on the type and an empty set through `Get-EnabledCustomers`. Correction from the
-      tree: the decided aspects default (Q2, a universal `[ { all: ["**"] } ]` per track with no entry) is not what the code does or
-      can do. `Get-Aspect` gives such a track the code convention, live patterns from the language registry, which the variants type
-      cannot own, and `WorldMapBuilder` counts a file live only when its aspect is named `live`, so the universal catch-all would make
-      every file of a non-code track non-live and change what the world map's stack checks read. `DefaultAspects` is therefore the
-      built-in `infrastructure` convention moved onto the type, and the code fallback stays in `Get-Aspect`.
+      `SHIPPED issues=0`; `have_customers` is false on the type and an empty set through `Get-EnabledCustomers`. Correction from the tree:
+      the decided aspects default (Q2, a universal `[ { all: ["**"] } ]` per track with no entry) is not what the code does or can do.
+      `Get-Aspect` gives such a track the code convention, live patterns from the language registry, which the variants type cannot own, and
+      `WorldMapBuilder` counts a file live only when its aspect is named `live`, so the universal catch-all would make every file of a
+      non-code track non-live and change what the world map's stack checks read. `DefaultAspects` is therefore the built-in `infrastructure`
+      convention moved onto the type, and the code fallback stays in `Get-Aspect`.
 - [ ] Q2 reopened for the user (2026-10-18): keep the tree's aspects default (the infrastructure built-in on the type, the code convention
       for any other track without an entry), or apply the universal catch-all knowing it makes non-code tracks non-live on the world map
       (check: a Decided line here with the user's answer).

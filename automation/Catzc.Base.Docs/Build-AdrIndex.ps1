@@ -10,11 +10,11 @@ function Build-AdrIndex {
     )
 
     $inputsSha = Get-InputStamp -Path @(
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/configs/adrs.yml')
+        (Get-CatzcModuleRoot 'configs/adrs.yml')
         (Resolve-RepoPath 'docs/adr')
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Build-AdrIndex.ps1')
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/types')
+        (Get-CatzcModuleRoot 'Build-AdrIndex.ps1')
+        (Get-CatzcModuleRoot 'Format-MarkdownParagraph.ps1')
+        (Get-CatzcModuleRoot 'types')
     ) -Exclude '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
     $indexPath = Resolve-RepoPath 'docs/adr/index.md'
     if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $indexPath -InputsSha $inputsSha)) {
@@ -216,7 +216,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -InputsSha $inputsSha -Source 'automation/Catzc.Base.Docs/configs/adrs.yml' -FileKind (Get-FileKind 'docs/adr/index.md')
+    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -InputsSha $inputsSha -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/adrs.yml')) -FileKind (Get-FileKind 'docs/adr/index.md')
     $target = Resolve-RepoPath 'docs/adr/index.md'
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 

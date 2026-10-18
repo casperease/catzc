@@ -7,7 +7,7 @@ function Save-PSReadLineKeyHandlerSet {
     if (-not $Path) {
         # The capture is an authoring step: it writes the committed source config, never the loaded copy.
         Assert-SourceTree
-        $Path = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml'
+        $Path = Join-Path (Get-CatzcModulesRoot) 'Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml'
     }
 
     Assert-PsModule 'PSReadLine'

@@ -13,11 +13,11 @@ function Build-Glossary {
 
     $inputsSha = Get-InputStamp -Path @(
         @(Get-Config -Config glossary -ListOwners | ForEach-Object Path)
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/configs/adrs.yml')
+        (Get-CatzcModuleRoot 'configs/adrs.yml')
         (Resolve-RepoPath 'docs/adr')
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Build-Glossary.ps1')
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/types')
+        (Get-CatzcModuleRoot 'Build-Glossary.ps1')
+        (Get-CatzcModuleRoot 'Format-MarkdownParagraph.ps1')
+        (Get-CatzcModuleRoot 'types')
     ) -Exclude ([System.Management.Automation.WildcardPattern]::Escape($Path)), '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
     if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $Path -InputsSha $inputsSha)) {
         return ConvertTo-RepoRelativePath $Path

@@ -19,14 +19,19 @@ function Get-Config {
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 
     $fragmentPath = $null
-    $cacheKey = $entry.Path
+    $cacheKey = if ($entry.Path) {
+        $entry.Path
+    }
+    else {
+        "type:$($entry.Module)/$($entry.Name)"
+    }
     $overlayRoot = Get-ConfigOverlayRoot
     if ($overlayRoot) {
         $candidate = [System.IO.Path]::Combine($overlayRoot, $entry.Module, 'configs', "$($entry.Name).yml")
         if ([System.IO.File]::Exists($candidate)) {
             $fragmentPath = $candidate
             $stamp = [System.IO.FileInfo]::new($candidate)
-            $cacheKey = "$($entry.Path)|$candidate|$($stamp.LastWriteTimeUtc.Ticks)|$($stamp.Length)"
+            $cacheKey = "$cacheKey|$candidate|$($stamp.LastWriteTimeUtc.Ticks)|$($stamp.Length)"
         }
     }
 
@@ -37,8 +42,13 @@ function Get-Config {
         return $script:configCache[$cacheKey]
     }
 
-    Assert-PathExist $entry.Path
-    $raw = Get-Content $entry.Path -Raw | ConvertFrom-Yaml -Ordered
+    $raw = if ($entry.Path) {
+        Assert-PathExist $entry.Path
+        Get-Content $entry.Path -Raw | ConvertFrom-Yaml -Ordered
+    }
+    else {
+        [ordered]@{}
+    }
 
     $registered = (Get-ConfigRegistry)[$entry.Name]
     if ($fragmentPath) {
@@ -61,7 +71,7 @@ function Get-Config {
         $ret = $type::new($raw)
     }
 
-    Write-Verbose "Loaded config '$($entry.Name)' from: $($entry.Path)"
+    Write-Verbose "Loaded config '$($entry.Name)' from: $(if ($entry.Path) { $entry.Path } else { "its type's defaults ($($entry.Module))" })"
     $script:configCache[$cacheKey] = $ret
     $script:configCache[$cacheKey]
 }

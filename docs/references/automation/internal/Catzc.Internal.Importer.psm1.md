@@ -458,3 +458,13 @@ Above `$initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)`, wr
 The three parts sum to the total: the initializer is everything before the vendor import starts, the
 module import runs from there to the last module loaded, the finalizer is the rest (assert, overlay, janitors, cleanup).
 ```
+
+## comment:41
+
+Above `$script:modulesFolder = 'automation'`, written with `#`.
+
+```text
+The one bootstrap constant: the folder under the repository root that holds the modules. It is read before any registry
+loads, so it cannot come from one; everything after the import reads it back through Get-CatzcModulesRoot, and
+New-Importer writes the shim's loader line from that resolver (ADR-AUTO-LAYERS).
+```

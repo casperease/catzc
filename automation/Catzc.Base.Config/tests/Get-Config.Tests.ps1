@@ -170,6 +170,39 @@ namespace CatzcGetConfigTest {
             $result -is [CatzcGetConfigTest.FixtureConfig] | Should -BeTrue
             $result.Raw['k'] | Should -Be 'v'
         }
+
+        It 'builds a registered type with no shipped file from an empty map, and merges the repository''s fragment onto it' -Tag 'ADR-AUTO-DEFAULT#6' {
+            $overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $overlay 'Catzc.Base.Widget/configs') | Out-Null
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -like 'fixfree*' } -MockWith {
+                @{ Name = $Config; Module = 'Catzc.Base.Widget'; Path = $null }
+            }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith {
+                [ordered]@{ fixfree = @{ type = 'CatzcGetConfigTest.FixtureConfig' }; 'fixfree-merged' = @{ type = 'CatzcGetConfigTest.FixtureConfig' } }
+            }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
+
+            (Get-Config -Config fixfree).Raw.Count | Should -Be 0
+            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/fixfree-merged.yml') -Value 'limit: 5'
+            (Get-Config -Config fixfree-merged).Raw['limit'] | Should -Be 5
+        }
+    }
+
+    Context 'a registered type with no shipped file (Resolve-ConfigEntry)' -Tag 'logic' {
+        It 'lists it under the module its type''s namespace names, with no path' {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $root 'Catzc.Base.Widget') | Out-Null
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { $root }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{ gadgetry = @{ type = 'Catzc.Base.Widget.GadgetryConfig' } } }
+            $entry = InModuleScope Catzc.Base.Config {
+                $script:configIndex = $null
+                Resolve-ConfigEntry -Config gadgetry
+            }
+            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+            $entry.Module | Should -Be 'Catzc.Base.Widget'
+            $entry.Path | Should -BeNullOrEmpty
+        }
     }
 
     Context 'registry self-validation (Catzc.Base.Config.ConfigsConfig)' -Tag 'logic' {

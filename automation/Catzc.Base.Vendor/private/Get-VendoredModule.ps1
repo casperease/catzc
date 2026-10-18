@@ -3,7 +3,7 @@ function Get-VendoredModule {
     [OutputType([pscustomobject])]
     param()
 
-    $vendorRoot = Join-Path (Get-RepositoryRoot) 'automation/.vendor'
+    $vendorRoot = Join-Path (Get-CatzcModulesRoot) '.vendor'
     if (-not (Test-Path $vendorRoot)) {
         return @()
     }

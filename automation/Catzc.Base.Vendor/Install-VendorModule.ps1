@@ -16,7 +16,7 @@ function Install-VendorModule {
         throw "Module '$Name' is currently loaded. Please run Install-VendorModule in a fresh PowerShell session."
     }
 
-    $vendorRoot = Join-Path (Get-RepositoryRoot) 'automation/.vendor'
+    $vendorRoot = Join-Path (Get-CatzcModulesRoot) '.vendor'
     if (-not (Test-Path $vendorRoot)) {
         Write-Verbose "Creating vendor directory: $vendorRoot"
         New-Item -Path $vendorRoot -ItemType Directory -Force | Out-Null

@@ -78,17 +78,18 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 ### Phase 2: remove the read-backs, one file at a time
 
-- [ ] Decide each of the 113 held codes that no text spells out (`out/held-nowhere.txt`, such as `ADR-AUTO-TYPES#8` in
+- [x] Decide each of the 113 held codes that no text spells out (`out/held-nowhere.txt`, such as `ADR-AUTO-TYPES#8` in
       `ContractCommand.cs`): an author either writes the real link into the file's help or comment page, or the code goes, recorded on a
       page first (never dropped silently). Decided 2026-10-18 by the user: a file's citations are the real links inferred from its own text
       and its page. Measured over the 448 files dropping the merge rewrites: 942 held codes, 226 already in the body or the page, 603 only
       in the help text inside the head (mostly links, such as `[ADR-AZ-CLI#1](...)` in `Assert-AzCliBicep.ps1`, which the kind does not scan
       because it reads the text below the head), 113 nowhere. The help move (Phase 5) brings the 603 onto the page, where the kind reads
-      them. (check: `out/held-nowhere.txt` is empty after a fresh measurement)
-- [ ] `automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1`: drop the `held_classes` merge of the head's `cites` edge,
+      them. (check: `out/held-nowhere.txt` is empty after a fresh measurement) — 2026-10-18: kept, written as real links (see the decision
+      under Phase 5); the fresh measurement before the pass left only `ADR-REPO-LINK#9`, which names no rule.
+- [x] `automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1`: drop the `held_classes` merge of the head's `cites` edge,
       so codes come from the body and the comment page only; drop `held_classes` from the `adr-codes` comment in `file-meta.yml`; lands in
       the one tree-wide pass, after the help move and the 113 decisions. (check: `tests/Get-AdrCodesFileMetaFact.Tests.ps1`, and a dry run
-      loses no code)
+      loses no code) — 2026-10-18 12:29, landed with the pass; its tests pass.
 - [ ] `automation/Catzc.Base.QualityGates/private/Get-AdrUsageRow.ps1`: compute `cites` and `links` from the body (the same processors the
       imprint calls) instead of `EdgeLists`. (check: its Pester file, and `Get-AdrUsage` gives the same rows on a stripped copy)
 - [ ] The generated-or-authored decision: tell a generated file by the writer registry (`configs/generated-files.yml`) and the
@@ -114,9 +115,14 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 ### The one tree-wide pass (after Phases 2, 4 and 5)
 
-- [ ] `automation/Catzc.Base.QualityGates/configs/file-meta.yml`: delete `default: required` and its comment line, so the type's `forbidden`
+- [x] `automation/Catzc.Base.QualityGates/configs/file-meta.yml`: delete `default: required` and its comment line, so the type's `forbidden`
       holds, after the help has moved to the comment pages (Phase 5), so no code head is left with a `config` part; then run
-      `Format-FileMeta` once over the tree. (check: `Test-FileMeta` reports no finding, and no `ForbiddenConfig`)
+      `Format-FileMeta` once over the tree. (check: `Test-FileMeta` reports no finding, and no `ForbiddenConfig`) — 2026-10-18 12:30–12:33
+      (`out/one-pass.ps1`, four stages, log `out/one-pass.log`): the help of 756 files moved, none refused; 756 pages link-fixed and
+      formatted; 3,639 of 4,614 heads changed with no `ForbiddenConfig`; Test-FileMeta and Test-Spelling pass. The pass's own faults are
+      fixed (a wrapped comment in `FunctionHelp.cs`, two dangling help links, `.claude/drawio`'s long comments exported, three help pages
+      fixed by hand). What Test-Comments, Test-Links and Test-Markdownlint still report is peer work in flight or orphans older than this
+      plan (comment sections naming lines such as `WithFacts(IDictionary derived)`), each named to its session.
 
 ### Phase 4: the single-file command
 
@@ -147,12 +153,12 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       placeholder, glob, bracket or placeholder URL token as code and turns a bare URL into an autolink. The first conversion took the
       preview from 856 errors on 243 pages to 39 on 26.
 - [x] Rerun the preview with the URL and spaced-placeholder rules and Prettier's prose wrap, and list what still fails for its author.
-      (check: `out/help-preview-lint.txt` lists only author faults) — 2026-10-18 (`out/help-preview-only.sh`): 755 files move, 4 errors
-      on 3 pages remain: `Get-ClaudeMdAgentNames.ps1` and `Get-AdrDoraCoverageViolations.ps1` write a heading code span with its trailing space
-      (MD038), and `Test-ConsoleReadyType.ps1`'s description gives one MD038 and one MD013 whose cause is not yet found. Prettier
-      renumbers `Deploy-Bicep.ps1`'s flow, which skips 2.
-- [x] Settle the 113 held-only citations. (check: every one is a real link or recorded as dropped) — 2026-10-18 the user decided: keep
-      all, written as real links. 29 C# types and tests without help carry a one-line `Rests on [ADR-X#n](...)` comment (Test-Links and
+      (check: `out/help-preview-lint.txt` lists only author faults) — 2026-10-18 (`out/help-preview-only.sh`): 755 files move, 4 errors on 3
+      pages remain: `Get-ClaudeMdAgentNames.ps1` and `Get-AdrDoraCoverageViolations.ps1` write a heading code span with its trailing space
+      (MD038), and `Test-ConsoleReadyType.ps1`'s description gives one MD038 and one MD013 whose cause is not yet found. Prettier renumbers
+      `Deploy-Bicep.ps1`'s flow, which skips 2.
+- [x] Settle the 113 held-only citations. (check: every one is a real link or recorded as dropped) — 2026-10-18 the user decided: keep all,
+      written as real links. 29 C# types and tests without help carry a one-line `Rests on [ADR-X#n](...)` comment (Test-Links and
       Test-Comments pass, no head changes, their tests pass); the 53 files with help get the sentence through `Move-FunctionHelp -RestsOn`
       in the pass (tested). `CodeLinkRewriter.cs` holds `ADR-REPO-LINK#9`, which is no rule of its ADR, so it is dropped in the pass and
       named in `out/one-pass.log`.
@@ -162,23 +168,28 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       `New-VSCodeExtensionFolder.Tests.ps1` it added today; Test-Links and Test-Comments pass, no head changes, the tests pass.
       `New-VSCodeExtensionFolder.ps1` has help, so the pass's `-RestsOn` carries its `ADR-AUTO-ASSETDEP#1` once the measurement runs again.
 - [x] A dry run of `out/one-pass.ps1` before the five edits. (check: every file with help moves or is refused for a named reason) —
-      2026-10-18 12:23, after a fresh measurement (66 held-only codes: 65 in 54 help files, carried by `-RestsOn`; one, `ADR-REPO-LINK#9`
-      in `CodeLinkRewriter.cs`, names no rule) and a fix for an empty `-RestsOn` list arriving as `$null`: 755 files move, 2 are refused
+      2026-10-18 12:23, after a fresh measurement (66 held-only codes: 65 in 54 help files, carried by `-RestsOn`; one, `ADR-REPO-LINK#9` in
+      `CodeLinkRewriter.cs`, names no rule) and a fix for an empty `-RestsOn` list arriving as `$null`: 755 files move, 2 are refused
       (`.claude/drawio/minimaps/highlights.ps1` and `stamp.ps1`, no page mapped, which edit 5 settles).
-- [ ] The user reviews `out/one-pass.ps1` before it runs (drafted, never run: lists the five edits that land first, moves the help with
-      `-RestsOn` from `out/held-links.tsv` and `-Go` only, formats the pages, runs `Format-FileMeta` and six gates, logging to
-      `out/one-pass.log`). (check: the user's go-ahead)
+- [x] The user reviews `out/one-pass.ps1` before it runs. (check: the user's go-ahead) — 2026-10-18: the user said go on; the pass ran
+      12:29–12:33 after peers were told to hold their formatters, and each was told when it was done.
 - [x] Run the help tests (`out/help-tests.sh`: FunctionHelp, Move-FunctionHelp, Get-HelpPageFinding, Export-Comments, CodeMetaHead,
-      MarkdownMetaBlock). (check: the run passes) — 2026-10-18 12:03: 82 pass, after a fix to a spaced placeholder followed by another;
-      the Phase 5 files carry their heads (`Sync-FileMeta`, a second run changes nothing) and pass Test-FileMeta, Test-Links,
-      Test-Spelling and Test-ScriptAnalyzer.
-- [ ] `automation/Catzc.Base.QualityGates/configs/comments.yml`: map `.claude/drawio` to a page folder, so
-      `.claude/drawio/minimaps/highlights.ps1` has a page for its help. (check: `out/help-preview.ps1` reports no unmapped file)
+      MarkdownMetaBlock). (check: the run passes) — 2026-10-18 12:03: 82 pass, after a fix to a spaced placeholder followed by another; the
+      Phase 5 files carry their heads (`Sync-FileMeta`, a second run changes nothing) and pass Test-FileMeta, Test-Links, Test-Spelling and
+      Test-ScriptAnalyzer.
+- [x] `automation/Catzc.Base.QualityGates/configs/comments.yml`: map `.claude/drawio` to a page folder, so
+      `.claude/drawio/minimaps/highlights.ps1` has a page for its help. (check: `out/help-preview.ps1` reports no unmapped file) —
+      2026-10-18: mapped to `docs/references/automation/claude-drawio`; the pass refused no file, and the folder's long comments moved.
 - [ ] `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`: document `Text` and `Color`, which its help does not name.
       (check: `out/help-preview.ps1` reports no page findings)
-- [ ] The switch, in the one tree-wide pass: `Invoke-ImprintStep.ps1`'s `ps-help` step calls `Get-HelpPageFinding` with the page text,
+- [x] The switch, in the one tree-wide pass: `Invoke-ImprintStep.ps1`'s `ps-help` step calls `Get-HelpPageFinding` with the page text,
       `Get-HelpHeadFinding.ps1` and its test go, `Move-FunctionHelp` runs over every PowerShell file, then `Format-Links` and `Format-Code`
-      over the pages. (check: `Test-Formatting`, `Test-Comments`, `Test-Markdownlint` over the pages, a second move changes nothing)
+      over the pages. (check: `Test-Formatting`, `Test-Comments`, `Test-Markdownlint` over the pages, a second move changes nothing) —
+      2026-10-18: done in the pass (see "The one tree-wide pass"); the `ps-help` tests read a page now and pass. `Test-Formatting` over the
+      tree was not run (the user's full runs cover it).
+- [ ] `docs/explanation/file-meta.md`: present tense for the landed state: the help lives on the comment pages, `Get-HelpHeadFinding` is
+      gone, the head policy holds with `forbidden` by default, and the read-backs left are `Get-AdrUsageRow` and the generated-or-authored
+      decision. (check: Test-Links, Test-Markdownlint on the article)
 
 ## Refs
 

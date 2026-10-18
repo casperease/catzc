@@ -35,7 +35,7 @@ function Invoke-WithTimeout {
         throw [System.TimeoutException]::new(
             "Stopped after $([math]::Round($stopwatch.Elapsed.TotalSeconds, 1))s: '$Activity' did not finish within its " +
             "$Seconds-second limit. Make it faster, or raise the limit: pass -Seconds, tune limits.<environment>.pwsh in " +
-            'automation/Catzc.Base.Timeouts/configs/timeouts.yml, or pass a -Budget and exempt it in timeout-exemptions.yml ' +
+            'the Catzc.Base.Timeouts timeouts.yml, or pass a -Budget and exempt it in timeout-exemptions.yml ' +
             'while it is tuned.'
         )
     }

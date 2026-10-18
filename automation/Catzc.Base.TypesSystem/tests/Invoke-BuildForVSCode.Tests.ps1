@@ -2,7 +2,7 @@ Describe 'Invoke-BuildForVSCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.
         Mock Assert-SourceTree -ModuleName Catzc.Base.TypesSystem { }
-        Mock Get-RepositoryRoot -ModuleName Catzc.Base.TypesSystem { $TestDrive }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.TypesSystem { $TestDrive }
         Mock Assert-PathExist -ModuleName Catzc.Base.TypesSystem { }
         Mock Test-Command -ModuleName Catzc.Base.TypesSystem { $true }
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {

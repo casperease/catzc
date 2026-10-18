@@ -15,7 +15,7 @@ fixture registry.
 
 ## comment:2
 
-Above `$engineExtension = @((Get-Config -Config languages).engines.Values |...`, written with `#`.
+Above `$engineExtension = @((Get-Config -Config languages).formatters.Values |...`, written with `#`.
 
 ```text
 Get-Config constructs the VscodeExtensionsConfig type on load, so a render is also the shape proof. The

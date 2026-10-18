@@ -23,13 +23,13 @@ first; C# edits need a fresh pwsh.
 
 ## Steps
 
-1. [x] Bootstrap constants: one constant in `Catzc.Internal.Importer.psm1` from which `New-Importer` writes the shim's line (the
-   generated `importer.ps1` stops being a second place; `Build-RootConfig 'importer.ps1'` regenerates it). Check: `New-Importer.Tests.ps1`
-   passes; Test-GeneratedFiles clean. Done 2026-10-18: `$script:modulesFolder = 'automation'` at the module's top is the one constant;
-   Invoke-Importer and Invoke-ConsumerOverlay read it (the `.catzc/<folder>` overlay check too). New-Importer reads the folder back through
-   `Get-CatzcModulesRoot` relative to the root, finds the overlay with it and writes the shim's two `{{modules-folder}}` places from it, so
-   the shim spells no folder of its own. The shim it renders equals the committed `importer.ps1`; New-Importer 9/9, Write-ImporterMessage
-   5/5, `GENERATED issues=0`, `ANALYZER issues=0` on both files.
+1. [x] Bootstrap constants: one constant in `Catzc.Internal.Importer.psm1` from which `New-Importer` writes the shim's line (the generated
+       `importer.ps1` stops being a second place; `Build-RootConfig 'importer.ps1'` regenerates it). Check: `New-Importer.Tests.ps1` passes;
+       Test-GeneratedFiles clean. Done 2026-10-18: `$script:modulesFolder = 'automation'` at the module's top is the one constant;
+       Invoke-Importer and Invoke-ConsumerOverlay read it (the `.catzc/<folder>` overlay check too). New-Importer reads the folder back
+       through `Get-CatzcModulesRoot` relative to the root, finds the overlay with it and writes the shim's two `{{modules-folder}}` places
+       from it, so the shim spells no folder of its own. The shim it renders equals the committed `importer.ps1`; New-Importer 9/9,
+       Write-ImporterMessage 5/5, `GENERATED issues=0`, `ANALYZER issues=0` on both files.
 2. The Bash hook keeps its own constant (`BashSafeguard.ConfigRelativePath` and the csproj, no importer there); try the csproj change on a
    copy first and confirm the layers doctrine's edge fact before touching the real one. Check: the hook builds; a denied call is still
    logged to out/time-safeguard.log.
@@ -39,7 +39,14 @@ first; C# edits need a fresh pwsh.
 4. Test fixtures that bake `<root>/automation`: a root from the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.
 5. S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment page regenerated. Check: Test-Links,
    Test-Comments on the touched files.
-6. Guard: `automation/.scriptanalyzer/NoTrackRootLiteral.psm1` (or a source-conventions entry if the convention gate fits better): a string
+6. [x] Guard, built first (the user's choice 2026-10-18, so its report is step 3's exact worklist): `automation/.scriptanalyzer/NoTrackRootLiteral.psm1`
+   reports, at severity Information, a string literal or expandable string equal to the place of a `modules` track or starting with it
+   plus `/` (help and comments are not strings, so they never count); the places come from variants.yml and the exemptions from
+   `source-conventions.yml` `track_root_literal.exempt` (SourceConventionsConfig reads the key), so the rule names no root. Registered in
+   CatzcRules.psm1. NoTrackRootLiteral 4/4, SourceConventionsConfig 4/4, CustomRuleWiring 19/19. First report
+   (`out/track-root-literal-worklist.txt`): 49 code files with 103 findings (step 3), 204 test files with 762 (step 4); C# constants such
+   as `GlobsConfig.ConfigPath` are outside the analyzer and stay on the step 3 list by hand. Original wording of this step:
+   `automation/.scriptanalyzer/NoTrackRootLiteral.psm1` (or a source-conventions entry if the convention gate fits better): a string
    literal equal to any track root in code outside `variants.yml` and the resolvers is a finding citing ADR-AUTO-LAYERS; allowlist declared
    once in its config. Tests with fixtures; registered in `PSScriptAnalyzerSettings.psd1`. Check: its tests pass; Test-ScriptAnalyzer over
    automation reports only the allowlist.

@@ -14,7 +14,7 @@ function Invoke-BuildForVSCode {
         throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Invoke-BuildForVSCode.'
     }
 
-    $project = Join-Path (Get-RepositoryRoot) 'automation/.internal/assets/Catzc.Types.csproj'
+    $project = Join-Path (Get-CatzcModulesRoot) '.internal/assets/Catzc.Types.csproj'
     Assert-PathExist $project
 
     $result = Invoke-Executable "dotnet build `"$project`" --configuration $Configuration" -PassThru

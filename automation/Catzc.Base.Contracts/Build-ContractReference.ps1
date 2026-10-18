@@ -22,8 +22,8 @@ function Build-ContractReference {
 
     $inputsSha = Get-InputStamp -Root $RepositoryRoot -Path @(
         (Join-Path $RepositoryRoot 'contracts')
-        (Resolve-RepoPath 'automation/Catzc.Base.Contracts')
-        (Resolve-RepoPath 'automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
+        (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Contracts')
+        (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Docs/Format-MarkdownParagraph.ps1')
     ) -Exclude '*/contracts/README.md', '*/Catzc.Base.Contracts/README.md', '*/Catzc.Base.Contracts/tests/*'
     if (-not $PassThru -and [System.IO.Directory]::Exists((Join-Path $RepositoryRoot $pageFolder))) {
         $emitted = @([System.IO.Directory]::GetFiles((Join-Path $RepositoryRoot $pageFolder), '*.md') |

@@ -41,6 +41,18 @@ function Resolve-ConfigEntry {
                 $script:configIndex[$configName].Add(@{ Name = $configName; Module = $moduleName; Path = $file })
             }
         }
+        # A registered type with no shipped file is a config too: its type's namespace names the module, and it builds from {} plus the
+        # repository's fragment, so every key takes the default the type declares.
+        $registry = Get-ConfigRegistry
+        foreach ($configName in @($registry.Keys)) {
+            if ($script:configIndex.ContainsKey($configName)) {
+                continue
+            }
+            $typeName = [string] $registry[$configName]['type']
+            $owner = $typeName.Substring(0, [Math]::Max(0, $typeName.LastIndexOf('.')))
+            $script:configIndex[$configName] = [System.Collections.Generic.List[hashtable]]::new()
+            $script:configIndex[$configName].Add(@{ Name = $configName; Module = $owner; Path = $null })
+        }
     }
 
     if ($All) {

@@ -50,7 +50,8 @@ function Assert-CatzcOverlay {
                 }
             }
             'AssetOverride' {
-                $relative = $item.RelativePath.Substring(".catzc/automation/$($item.Module)/".Length)
+                $marker = "/$($item.Module)/"
+                $relative = $item.RelativePath.Substring($item.RelativePath.IndexOf($marker, [System.StringComparison]::Ordinal) + $marker.Length)
                 $bundled = [System.IO.Path]::Combine((Get-CatzcModulesRoot), $item.Module, $relative)
                 if (-not [System.IO.File]::Exists($bundled)) {
                     $violations.Add("$($item.RelativePath): $($item.Module) ships no asset $relative to replace; a new asset belongs in a local module")
