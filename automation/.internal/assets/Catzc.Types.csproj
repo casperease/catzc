@@ -19,7 +19,7 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "8b51a39eb4b2"
+    with_body_sha: "3edf424a2b1d"
     repo_status: locked
     path: automation/.internal/assets/Catzc.Types.csproj
     source: automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
@@ -155,9 +155,9 @@
             if (tracked.Count != 1 || tracked[0] != expected)
             {
                 var found = tracked.Count == 0 ? "none" : string.Join(", ", tracked);
-                Log.LogWarning("Catzc.Types: the git index's automation/.compiled holds " + found + ", but a commit of "
+                Log.LogWarning("Catzc.Types: the git index's .compiled holds " + found + ", but a commit of "
                     + "these sources needs exactly " + expected + ". Dot-source ./importer.ps1, then stage "
-                    + "automation/.compiled (the editor build itself is unaffected).");
+                    + ".compiled in the modules folder (the editor build itself is unaffected).");
             }
         }
       ]]></Code>

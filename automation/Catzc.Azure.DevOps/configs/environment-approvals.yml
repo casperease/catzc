@@ -1,5 +1,4 @@
-# The ADO environments a run may deploy to only after a person approves, synced by Sync-AdoEnvironmentApprovals.
-# approver_group (default 'Prod Approvers', a group inside the ado.yml project) and timeout_hours (default 24) are optional.
+# ADO environments that deploy only after approval (Sync-AdoEnvironmentApprovals); approver_group and timeout_hours default on the type.
 environments:
   - shared-psub
   - apex-psub
