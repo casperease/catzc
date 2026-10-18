@@ -42,12 +42,26 @@ REPO = Path(__file__).resolve().parents[3]
 # The minimap tokens (.claude/drawio/STYLE.md, "Colours (minimaps only)"): the minimap page, a dark green-grey nuance of
 # its own so a minimap reads as a map inset and never as a band of the slide; idle cell, cell border, label, ink; HALO is
 # the minimap page colour, used for the label halo, the lit ADR tile's rim and the lens badge's digits on the light badge.
-BG, IDLE, BORDER, LABEL, INK, HALO, BADGE = "#1C2A24", "#243229", "#3B4D43", "#949FAE", "#CDD3DC", "#1C2A24", "#E6EAF0"
+BG, IDLE, BORDER, LABEL, INK, HALO, BADGE = (
+    "#1C2A24",
+    "#243229",
+    "#3B4D43",
+    "#949FAE",
+    "#CDD3DC",
+    "#1C2A24",
+    "#E6EAF0",
+)
 FONT_R = "C:/Windows/Fonts/segoeui.ttf"
 FONT_B = "C:/Windows/Fonts/segoeuib.ttf"
 FONT_SB = "C:/Windows/Fonts/seguisb.ttf"
-LENS_BADGE = {"meta": "META", "architecture": "ARCH", "implementation": "IMPL", "operations": "OPS", "governance": "GOV",
-              "source": "SRC"}
+LENS_BADGE = {
+    "meta": "META",
+    "architecture": "ARCH",
+    "implementation": "IMPL",
+    "operations": "OPS",
+    "governance": "GOV",
+    "source": "SRC",
+}
 VIEWS = ("grid", "tree", "chain")
 
 # Set by configure() from the data folder: the maps.yml palette and the bucket labels.
@@ -96,7 +110,9 @@ def fit(draw, s, f, width):
 
 
 def mix(hue, alpha, base):
-    a, b = [tuple(int(h.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4)) for h in (hue, base)]
+    a, b = [
+        tuple(int(h.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4)) for h in (hue, base)
+    ]
     return tuple(round(b[i] + (a[i] - b[i]) * alpha) for i in range(3))
 
 
@@ -146,11 +162,17 @@ def draw_codes(d, items, f, top, low, high, lines=2):
     lines (two by default; one when they all fit) so neighbours never touch; a tick under each lit column marks its
     exact place."""
     for line in range(lines):
-        row = [(x, text, fill) for i, (x, text, fill) in enumerate(items) if i % lines == line]
+        row = [
+            (x, text, fill)
+            for i, (x, text, fill) in enumerate(items)
+            if i % lines == line
+        ]
         if not row:
             continue
         pitch = max(text_w(d, text, f) for _, text, _ in row) + 8
-        for (_, text, fill), x in zip(row, spread([x for x, _, _ in row], pitch, low, high)):
+        for (_, text, fill), x in zip(
+            row, spread([x for x, _, _ in row], pitch, low, high)
+        ):
             d.text((x, top + line * 22), text, font=f, fill=fill, anchor="mt")
 
 
@@ -159,13 +181,19 @@ def draw_badge(d, text, box, size):
     d.rounded_rectangle(box, radius=6, fill=BADGE)
     f = font(size, "b")
     tw = text_w(d, text, f)
-    d.text(((x0 + x1) / 2 - tw / 2, (y0 + y1) / 2), text, font=f, fill=HALO, anchor="lm")
+    d.text(
+        ((x0 + x1) / 2 - tw / 2, (y0 + y1) / 2), text, font=f, fill=HALO, anchor="lm"
+    )
 
 
 # ---------------------------------------------------------------- grid minimap (tracks x file languages)
 
 GRID_W, GRID_H = 480, 300
-GRID_LEFT, GRID_TOP, GRID_PAD = 124, 58, 3  # the top holds two lines of short column codes at 18 px
+GRID_LEFT, GRID_TOP, GRID_PAD = (
+    124,
+    58,
+    3,
+)  # the top holds two lines of short column codes at 18 px
 
 
 def render_grid(world, highlight, extensions, badge, path):
@@ -190,11 +218,19 @@ def render_grid(world, highlight, extensions, badge, path):
     lit_rows = {t for t, _ in cells}
     lit_cols = {lang for _, lang in cells}
     named = [(r, track) for r, track in enumerate(rows) if track in lit_rows]
-    for (r, track), y in zip(named, spread([GRID_TOP + (r + 0.5) * ch for r, _ in named], 18, GRID_TOP, GRID_H)):
+    for (r, track), y in zip(
+        named,
+        spread([GRID_TOP + (r + 0.5) * ch for r, _ in named], 18, GRID_TOP, GRID_H),
+    ):
         name = fit(d, printed(track), f, GRID_LEFT - 14)
-        d.text((GRID_LEFT - 8 - text_w(d, name, f), y), name, font=f, fill=INK, anchor="lm")
+        d.text(
+            (GRID_LEFT - 8 - text_w(d, name, f), y), name, font=f, fill=INK, anchor="lm"
+        )
         yc = GRID_TOP + (r + 0.5) * ch
-        d.rectangle((GRID_LEFT - 5, yc - ch / 2 + gap, GRID_LEFT - 2, yc + ch / 2 - gap), fill=lit())
+        d.rectangle(
+            (GRID_LEFT - 5, yc - ch / 2 + gap, GRID_LEFT - 2, yc + ch / 2 - gap),
+            fill=lit(),
+        )
     codes = []
     for c, language in enumerate(cols):
         if language not in lit_cols:
@@ -202,7 +238,9 @@ def render_grid(world, highlight, extensions, badge, path):
         x = GRID_LEFT + (c + 0.5) * cw
         code = "other" if language not in extensions else extensions[language][0]
         codes.append((x, code, INK))
-        d.rectangle((x - cw / 2 + gap, GRID_TOP - 5, x + cw / 2 - gap, GRID_TOP - 2), fill=lit())
+        d.rectangle(
+            (x - cw / 2 + gap, GRID_TOP - 5, x + cw / 2 - gap, GRID_TOP - 2), fill=lit()
+        )
     draw_codes(d, codes, f, 4, GRID_LEFT + 4, GRID_W - 2)
     draw_badge(d, badge, (3, 4, 92, 38), 17)
     im.save(path, optimize=True)
@@ -211,7 +249,11 @@ def render_grid(world, highlight, extensions, badge, path):
 # ---------------------------------------------------------------- value-chain minimap (stack x concern)
 
 CHAIN_W, CHAIN_H = 480, 300
-CHAIN_LEFT, CHAIN_TOP, CHAIN_PAD = 76, 36, 3  # the top holds one line of capital column codes at 18 px
+CHAIN_LEFT, CHAIN_TOP, CHAIN_PAD = (
+    76,
+    36,
+    3,
+)  # the top holds one line of capital column codes at 18 px
 
 
 def render_chain(chain, highlight, path):
@@ -229,23 +271,39 @@ def render_chain(chain, highlight, path):
     for r, stack in enumerate(rows):
         for c, concern in enumerate(cols):
             x0, y0 = CHAIN_LEFT + c * cw, CHAIN_TOP + r * ch
-            draw_cell(d, (x0 + gap, y0 + gap, x0 + cw - gap, y0 + ch - gap), "lit" if (stack, concern) in cells else "idle")
+            draw_cell(
+                d,
+                (x0 + gap, y0 + gap, x0 + cw - gap, y0 + ch - gap),
+                "lit" if (stack, concern) in cells else "idle",
+            )
     f = font(18, "sb")
     lit_rows = {s for s, _ in cells}
     lit_cols = {c for _, c in cells}
     for r, stack in enumerate(rows):
         y = CHAIN_TOP + (r + 0.5) * ch
         on = stack in lit_rows
-        d.text((CHAIN_LEFT - 8 - text_w(d, stack, f), y), stack, font=f, fill=INK if on else LABEL, anchor="lm")
+        d.text(
+            (CHAIN_LEFT - 8 - text_w(d, stack, f), y),
+            stack,
+            font=f,
+            fill=INK if on else LABEL,
+            anchor="lm",
+        )
         if on:
-            d.rectangle((CHAIN_LEFT - 5, y - ch / 2 + gap, CHAIN_LEFT - 2, y + ch / 2 - gap), fill=lit())
+            d.rectangle(
+                (CHAIN_LEFT - 5, y - ch / 2 + gap, CHAIN_LEFT - 2, y + ch / 2 - gap),
+                fill=lit(),
+            )
     codes = []
     for c, concern in enumerate(cols):
         x = CHAIN_LEFT + (c + 0.5) * cw
         on = concern in lit_cols
         codes.append((x, describe.concern_code(concern), INK if on else LABEL))
         if on:
-            d.rectangle((x - cw / 2 + gap, CHAIN_TOP - 5, x + cw / 2 - gap, CHAIN_TOP - 2), fill=lit())
+            d.rectangle(
+                (x - cw / 2 + gap, CHAIN_TOP - 5, x + cw / 2 - gap, CHAIN_TOP - 2),
+                fill=lit(),
+            )
     draw_codes(d, codes, f, 4, CHAIN_LEFT + 4, CHAIN_W - 2, lines=1)
     im.save(path, optimize=True)
 
@@ -256,7 +314,11 @@ def render_chain(chain, highlight, path):
 def short_module(m):
     if m == "Catzc.Azure":
         return "Azure"
-    for pre, rep in (("Catzc.Base.", ""), ("Catzc.Tooling.", "Tool."), ("Catzc.Azure.", "Az.")):
+    for pre, rep in (
+        ("Catzc.Base.", ""),
+        ("Catzc.Tooling.", "Tool."),
+        ("Catzc.Azure.", "Az."),
+    ):
         if m.startswith(pre):
             return rep + m[len(pre) :]
     return m
@@ -268,10 +330,18 @@ def group_of(f, track):
         return (track, track)
     parts = f.split("/")
     if parts[0] == "automation":
-        return ("automation", "automation/" + parts[1]) if len(parts) > 2 else ("automation", "automation")
+        return (
+            ("automation", "automation/" + parts[1])
+            if len(parts) > 2
+            else ("automation", "automation")
+        )
     if parts[0] == "docs":
         if len(parts) > 2 and parts[1] == "adr":
-            return ("docs", "docs/adr/" + parts[2]) if len(parts) > 3 else ("docs", "docs/adr")
+            return (
+                ("docs", "docs/adr/" + parts[2])
+                if len(parts) > 3
+                else ("docs", "docs/adr")
+            )
         return ("docs", "docs/other")
     return (parts[0], parts[0])
 
@@ -334,8 +404,12 @@ def build_tree(tracks, width=240.0, height=180.0):
     for f in sorted(tracks):
         t, g = group_of(f, tracks[f])
         tops.setdefault(t, {}).setdefault(g, []).append(f)
-    top_items = sorted(tops.items(), key=lambda kv: (-sum(len(v) for v in kv[1].values()), kv[0]))
-    top_rects = squarify([sum(len(v) for v in g.values()) for _, g in top_items], 0, 0, width, height)
+    top_items = sorted(
+        tops.items(), key=lambda kv: (-sum(len(v) for v in kv[1].values()), kv[0])
+    )
+    top_rects = squarify(
+        [sum(len(v) for v in g.values()) for _, g in top_items], 0, 0, width, height
+    )
     layout = {"tops": [], "groups": [], "files": {}}
     for (tname, groups), tr in zip(top_items, top_rects):
         layout["tops"].append((tname, tr))
@@ -379,7 +453,10 @@ def mini_label(g):
 
 def group_folder(g):
     """The folder a tree group covers, as a reader finds it."""
-    return {"docs/other": "docs/ outside docs/adr/", "docs/adr": "the files directly in docs/adr/"}.get(g, printed(g))
+    return {
+        "docs/other": "docs/ outside docs/adr/",
+        "docs/adr": "the files directly in docs/adr/",
+    }.get(g, printed(g))
 
 
 def sc(r, s):
@@ -393,15 +470,21 @@ def draw_tree_base(d, layout, s):
     for _, gr, _ in layout["groups"]:
         x0, y0, x1, y1 = sc(inset(gr, 0.3), s)
         if x1 - x0 >= 1 and y1 - y0 >= 1:
-            d.rectangle((x0, y0, x1, y1), fill=IDLE, outline=BORDER, width=max(1, round(s / 2)))
+            d.rectangle(
+                (x0, y0, x1, y1), fill=IDLE, outline=BORDER, width=max(1, round(s / 2))
+            )
     for _, tr in layout["tops"]:
-        d.rectangle(sc(tr, s), outline=LABEL if s > 4 else BORDER, width=max(2, round(s * 0.6)))
+        d.rectangle(
+            sc(tr, s), outline=LABEL if s > 4 else BORDER, width=max(2, round(s * 0.6))
+        )
 
 
 def draw_label(d, text, x, y, f, maxw, fill=INK):
     t = fit(d, text, f, maxw)
     if t:
-        d.text((x, y), t, font=f, fill=fill, anchor="lt", stroke_width=3, stroke_fill=HALO)
+        d.text(
+            (x, y), t, font=f, fill=fill, anchor="lt", stroke_width=3, stroke_fill=HALO
+        )
 
 
 def lit_groups(layout, files):
@@ -411,7 +494,10 @@ def lit_groups(layout, files):
     for f in sorted(files):
         by_group.setdefault(layout["files"][f][0], []).append(f)
     ordered = sorted(by_group.items(), key=lambda kv: (-len(kv[1]), kv[0]))
-    return [{"group": g, "label": mini_label(g), "folder": group_folder(g), "files": fs} for g, fs in ordered]
+    return [
+        {"group": g, "label": mini_label(g), "folder": group_folder(g), "files": fs}
+        for g, fs in ordered
+    ]
 
 
 def render_tree(layout, files, mentions, adr_files, path):
@@ -428,7 +514,12 @@ def render_tree(layout, files, mentions, adr_files, path):
         d.rectangle(sc(inset(gmap[group["group"]], 0.3), s), outline=lit(), width=3)
     for f in sorted(files):
         x0, y0, x1, y1 = sc(layout["files"][f][1], s)
-        x0, y0, x1, y1 = x0 + 0.5, y0 + 0.5, max(x1 - 0.5, x0 + 3), max(y1 - 0.5, y0 + 3)
+        x0, y0, x1, y1 = (
+            x0 + 0.5,
+            y0 + 0.5,
+            max(x1 - 0.5, x0 + 3),
+            max(y1 - 0.5, y0 + 3),
+        )
         d.rectangle((x0, y0, x1, y1), fill=touched() if f in mentions else lit())
         if f in adr_files:
             d.rectangle((x0, y0, x1, y1), outline=HALO, width=1)
@@ -441,7 +532,10 @@ def render_tree(layout, files, mentions, adr_files, path):
         lw = text_w(d, label, f)
         lx = max(min(x * s + 4, im.width - 4 - lw), 2)
         rect = (lx - 2, y * s + 1, lx + lw + 2, y * s + 26)
-        if any(rect[0] < t[2] and t[0] < rect[2] and rect[1] < t[3] and t[1] < rect[3] for t in taken):
+        if any(
+            rect[0] < t[2] and t[0] < rect[2] and rect[1] < t[3] and t[1] < rect[3]
+            for t in taken
+        ):
             continue
         taken.append(rect)
         draw_label(d, label, lx, y * s + 3, f, im.width - 4)
@@ -465,13 +559,34 @@ def render_overview(layout, path):
         x, y, w, h = gr
         if w * s >= 80 and h * s >= 34:
             lab = group_label(gname)
-            ff = next((font(z, "b") for z in (26, 22, 19) if text_w(d, lab, font(z, "b")) <= w * s - 16), font(19, "b"))
+            ff = next(
+                (
+                    font(z, "b")
+                    for z in (26, 22, 19)
+                    if text_w(d, lab, font(z, "b")) <= w * s - 16
+                ),
+                font(19, "b"),
+            )
             draw_label(d, lab, x * s + 8, y * s + 6, ff, w * s - 16)
             if h * s >= 64:
-                draw_label(d, f"{counts[gname]} files", x * s + 8, y * s + 36, font(20), w * s - 16, fill=LABEL)
+                draw_label(
+                    d,
+                    f"{counts[gname]} files",
+                    x * s + 8,
+                    y * s + 36,
+                    font(20),
+                    w * s - 16,
+                    fill=LABEL,
+                )
     im.paste(canvas, (0, head))
     hd = ImageDraw.Draw(im)
-    hd.text((16, 40), "World map: repository tree", font=font(44, "b"), fill=INK, anchor="lm")
+    hd.text(
+        (16, 40),
+        "World map: repository tree",
+        font=font(44, "b"),
+        fill=INK,
+        anchor="lm",
+    )
     in_top = {}
     for g, _, t in layout["groups"]:
         in_top[t] = in_top.get(t, 0) + counts[g]
@@ -489,11 +604,26 @@ def render_overview(layout, path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
-    parser.add_argument("--slides", required=True, help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)")
-    parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote")
-    parser.add_argument("--target", default="docs/explanation/.assets", help="the folder the minimaps and .md files go to")
-    parser.add_argument("--overview", help="also write the full-size tree world map to this PNG")
-    parser.add_argument("--facts", help="also write each slide's sidebar facts (lit cells, lit groups, file names) to this JSON")
+    parser.add_argument(
+        "--slides",
+        required=True,
+        help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)",
+    )
+    parser.add_argument(
+        "--data", default="out/minimaps", help="the folder highlights.ps1 wrote"
+    )
+    parser.add_argument(
+        "--target",
+        default="docs/explanation/.assets",
+        help="the folder the minimaps and .md files go to",
+    )
+    parser.add_argument(
+        "--overview", help="also write the full-size tree world map to this PNG"
+    )
+    parser.add_argument(
+        "--facts",
+        help="also write each slide's sidebar facts (lit cells, lit groups, file names) to this JSON",
+    )
     args = parser.parse_args()
     data, target = REPO / args.data, REPO / args.target
     for view in VIEWS:
@@ -501,33 +631,82 @@ def main():
     labels = configure(data)
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"]
     world = json.loads((data / "world-map.json").read_text(encoding="utf-8"))
-    chain = describe.shown_chain(json.loads((data / "value-chain-map.json").read_text(encoding="utf-8")))
+    chain = describe.shown_chain(
+        json.loads((data / "value-chain-map.json").read_text(encoding="utf-8"))
+    )
     highlights = json.loads((data / "highlights.json").read_text(encoding="utf-8"))
     missing = [s["id"] for s in slides if s["id"] not in highlights]
     if missing:
-        raise SystemExit(f"render.py: no highlight for {missing}: run highlights.ps1 with the same slide list")
+        raise SystemExit(
+            f"render.py: no highlight for {missing}: run highlights.ps1 with the same slide list"
+        )
     adr_files = {f["path"] for f in world["files"] if f["basis"] == "adr-file"}
     layout = build_tree({f["path"]: f["track"] for f in world["files"]})
     if args.overview:
         render_overview(layout, REPO / args.overview)
     extensions = json.loads((data / "file-languages.json").read_text(encoding="utf-8"))
-    ctx = describe.Context(world, chain, labels, json.loads((data / "references.json").read_text(encoding="utf-8")), extensions)
+    ctx = describe.Context(
+        world,
+        chain,
+        labels,
+        json.loads((data / "references.json").read_text(encoding="utf-8")),
+        extensions,
+    )
     facts = {}
     for slide in slides:
-        world_lit, chain_lit = highlights[slide["id"]]["world"], describe.shown_chain(highlights[slide["id"]]["chain"])
+        world_lit, chain_raw = (
+            highlights[slide["id"]]["world"],
+            highlights[slide["id"]]["chain"],
+        )
+        chain_lit = describe.shown_chain(chain_raw)
+        hidden = [
+            c for c in chain_raw["cells"] if c["concern"] in describe.HIDDEN_CONCERNS
+        ]
         stem = slide["stem"]
         files = lit_files(world_lit)
         groups = lit_groups(layout, files)
-        render_grid(world, world_lit, extensions, LENS_BADGE[slide["lens"]], target / "grid" / f"{stem}.grid.png")
-        render_tree(layout, files, mentions_only(world_lit), adr_files, target / "tree" / f"{stem}.tree.png")
+        render_grid(
+            world,
+            world_lit,
+            extensions,
+            LENS_BADGE[slide["lens"]],
+            target / "grid" / f"{stem}.grid.png",
+        )
+        render_tree(
+            layout,
+            files,
+            mentions_only(world_lit),
+            adr_files,
+            target / "tree" / f"{stem}.tree.png",
+        )
         render_chain(chain, chain_lit, target / "chain" / f"{stem}.chain.png")
-        describe.write(ctx, target / "grid" / f"{stem}.grid.md", slide, "grid", world_lit, {})
-        describe.write(ctx, target / "tree" / f"{stem}.tree.md", slide, "tree", world_lit, {"groups": groups})
-        describe.write(ctx, target / "chain" / f"{stem}.chain.md", slide, "chain", chain_lit, {})
+        describe.write(
+            ctx, target / "grid" / f"{stem}.grid.md", slide, "grid", world_lit, {}
+        )
+        describe.write(
+            ctx,
+            target / "tree" / f"{stem}.tree.md",
+            slide,
+            "tree",
+            world_lit,
+            {"groups": groups},
+        )
+        describe.write(
+            ctx,
+            target / "chain" / f"{stem}.chain.md",
+            slide,
+            "chain",
+            chain_lit,
+            {"hidden": hidden},
+        )
         facts[stem] = describe.facts(ctx, slide, world_lit, chain_lit, groups)
     if args.facts:
-        (REPO / args.facts).write_text(json.dumps(facts, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"render.py: {len(slides)} slides, {len(slides) * len(VIEWS)} minimaps and sister .md files -> {target}")
+        (REPO / args.facts).write_text(
+            json.dumps(facts, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+    print(
+        f"render.py: {len(slides)} slides, {len(slides) * len(VIEWS)} minimaps and sister .md files -> {target}"
+    )
 
 
 if __name__ == "__main__":

@@ -104,16 +104,25 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 ### Phase 2: remove the read-backs, one file at a time
 
+- [ ] Decide each of the 113 held codes that no text spells out (`out/held-nowhere.txt`, such as `ADR-AUTO-TYPES#8` in
+      `ContractCommand.cs`): an author either writes the real link into the file's help or comment page, or the code goes, recorded on a
+      page first (never dropped silently). Decided 2026-10-18 by the user: a file's citations are the real links inferred from its own text
+      and its page. Measured over the 448 files dropping the merge rewrites: 942 held codes, 226 already in the body or the page, 603 only
+      in the help text inside the head (mostly links, such as `[ADR-AZ-CLI#1](...)` in `Assert-AzCliBicep.ps1`, which the kind does not scan
+      because it reads the text below the head), 113 nowhere. The help move (Phase 5) brings the 603 onto the page, where the kind reads
+      them. (check: `out/held-nowhere.txt` is empty after a fresh measurement)
 - [ ] `automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1`: drop the `held_classes` merge of the head's `cites` edge,
-      so codes come from the body and the comment page only; drop `held_classes` from the `adr-codes` comment in `file-meta.yml`. (check:
-      `tests/Get-AdrCodesFileMetaFact.Tests.ps1`)
+      so codes come from the body and the comment page only; drop `held_classes` from the `adr-codes` comment in `file-meta.yml`; lands in
+      the one tree-wide pass, after the help move and the 113 decisions. (check: `tests/Get-AdrCodesFileMetaFact.Tests.ps1`, and a dry run
+      loses no code)
 - [ ] `automation/Catzc.Base.QualityGates/private/Get-AdrUsageRow.ps1`: compute `cites` and `links` from the body (the same processors the
       imprint calls) instead of `EdgeLists`. (check: its Pester file, and `Get-AdrUsage` gives the same rows on a stripped copy)
 - [ ] The generated-or-authored decision: tell a generated file by the writer registry (`configs/generated-files.yml`) and the
       `linguist-generated` attribute, not by the `generator` key; name the one reader that decides it today before editing. (check: that
       reader's Pester file)
-- [ ] `automation/Catzc.Base.Slides/private/Read-SlideFile.ps1`: decide with the user whether slide config is authored front matter the
-      policy allows for the slide class, or moves out. (check: `Build-SlideDeck` tests)
+- [x] `automation/Catzc.Base.Slides/private/Read-SlideFile.ps1`: decide with the user whether slide config is authored front matter the
+      policy allows for the slide class, or moves out. (check: `Build-SlideDeck` tests) — 2026-10-18: the user decided slides stay
+      `required` (already in `file-meta.yml`); their `config` part is authored data the slide tooling alone reads, so no code changes.
 
 ### Phase 3: the policy
 

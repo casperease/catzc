@@ -20,8 +20,9 @@ catzc:
     moduletype: settings
   edges:
     cites:
-      - ADR-AUTO-CACHE#{5,6}
+      - ADR-AUTO-CACHE#5
       - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-MATERIAL#3
 ---
 
 # Materialization: when a knowledge resource comes into being and how long it holds
@@ -62,6 +63,7 @@ generated heads. One word and one default prevent each of them from inventing it
 - Scope (F7): generated tracked files and the analyzer cache become commit resources keyed by their globset; body_sha is that key's visible
   form; on-demand stays the default for everything else.
 - D16 (2026-10-18): the three choices stand, nothing reopens; task-adr-auto-material writes ADR-AUTO-MATERIAL as drafted.
+- A sha marker, if one is ever opened, is a commit resource keyed by its globset (ADR-AUTO-MATERIAL#3); the repository holds none.
 
 ## Needed docs
 
@@ -77,72 +79,14 @@ generated heads. One word and one default prevent each of them from inventing it
 
 ## Open steps
 
-- [ ] Write the ADR and the glossary entry from the decided section (check: the three gates clean).
-- [ ] Check the sha-marker companion plan for overlap (check: its text names materialization).
+- [x] Write the ADR and the glossary entry from the decided section (check: the three gates clean). Done 2026-10-18
+      (task-adr-auto-material): ADR-AUTO-MATERIAL with seven rules, registered, a dora-explains entry, the glossary term; `ADRREG issues=0`,
+      `GLOSSARY issues=0`, `LINKS issues=0`.
+- [x] Check the sha-marker companion plan for overlap (check: its text names materialization). 2026-10-18: no sha-marker exists in the tree
+      and no companion plan is open, so there is no overlap to check; the ADR's persistence sentence names no companion.
 
 ## Refs
 
-- the ADR draft is carried below in full (formerly out/adr-draft-materialization.md)
+- docs/adr/automation/materialization.md (ADR-AUTO-MATERIAL)
 - docs/adr/automation/caching.md (ADR-AUTO-CACHE)
 - memory: materialization-of-knowledge-resources.md, sha-marker-companion-and-pipeline-types.md
-
-## Carried: out/adr-draft-materialization.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
-
-## Draft: materialization of knowledge resources
-
-Status: draft for review, not yet an ADR. Promote to an ADR next to `ADR-AUTO-CACHE` (suggested code `ADR-AUTO-MATERIAL`) after the three
-open choices at the bottom are confirmed. The glossary term and the registry entry follow with it.
-
-## The idea
-
-Most information in catzc exists only when someone asks for it: a repo scan, a derived listing, a resolved config. Tools cache some of it.
-Some information can instead be frozen with a commit and never change. **Materialization** names when a knowledge resource comes into being
-and how long it holds. It tells a reader whether the resource is probably already there (warm) or has to be made (cold).
-
-The word was chosen over "existence" (it says _whether_, not _when and how long_), "residency" (suggests location, not time), and
-"persistence" (already used by the sha-marker plan for its opt-out). It is the database term: a plain view is computed per query, a
-materialized view is stored.
-
-## The axis
-
-Two real values and a default that resolves to one of them.
-
-| value         | comes into being                                 | holds until                               | cache expectation               |
-| ------------- | ------------------------------------------------ | ----------------------------------------- | ------------------------------- |
-| **on-demand** | when asked (a scan, a computation)               | the call ends, or the session cache entry | cold; a tool may have cached it |
-| **commit**    | at commit, keyed by the scoped sha of its inputs | never changes: the key is its identity    | warm; invalidation is free      |
-| _(default)_   | resolved from context into on-demand or commit   | n/a                                       | n/a                             |
-
-`auto` is not a third peer. It means "not pinned, so resolve", the same shape as the one resolution order (`ADR-AUTO-DEFAULT#6`) and the
-assert-guard idea (determine from ambient context, pin with an explicit override). It is never a stored value. Displays hide it for the same
-reason they hide any default: only a pinned value is shown.
-
-## How the default resolves
-
-- A clean tree at a known scoped sha, with a commit copy present: use the commit copy.
-- A dirty tree, or no copy: compute on-demand, and say so (see the open choices).
-- A resource that is cheap to compute (milliseconds) never earns a commit copy.
-
-## Fit with existing rules
-
-- `ADR-AUTO-CACHE#6` and `#9`: the importer is the only invalidation, and git state that changes inside a session is keyed on its own
-  content. The commit value is that same idea made durable: the key is the content, so nothing ever invalidates it.
-- `ADR-AUTO-CACHE#5`: a materialized value is read-only to callers.
-- `ADR-PRIN-ONELIVE`: one version of each resource per key; no parallel on-demand and commit shapes of the same data.
-- Mono repo, not monolith: the commit key is the scoped sha of the resource's own inputs, so an unrelated commit does not invalidate it.
-- Guards are controls (devbox is also a regulated opsbox): a guard's verdict is never cached across a session. Materialization is therefore
-  partly a property of the resource kind: a guard is pinned on-demand and the default must never pick commit for it.
-- Configure, don't program: the materialization of a kind is a config entry with its default declared once, not per-call code.
-
-## Open choices (recommendations taken, confirm before the ADR)
-
-1. **Commit key:** the scoped sha of the resource's inputs, not the whole-repo commit sha.
-2. **Where declared:** per resource kind in a config entry with one default; instances do not override it, except through an explicit pin.
-3. **Dirty tree:** a commit-materialized resource falls back to on-demand loudly (one announced line), never silently.
-
-## Next steps
-
-- Confirm the three choices, then write the ADR (rules for the axis, the default, the guard exception, the loud fallback).
-- Add the glossary entry in the owning module's `configs/glossary.yml` (never the generated page), contrasting with "cache" and
-  "persistence".
-- Check the sha-marker companion plan for overlap: its marker is a commit-materialized resource.

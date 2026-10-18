@@ -13,7 +13,7 @@ catzc:
   edges:
     cites:
       - ADR-FLOW-CD-RUNNER
-      - ADR-PIPE-NAME#4
+      - ADR-PIPE-NAME#{1,4}
     links:
       - docs/adr/flow/pipeline-runner-pattern.md
       - docs/adr/pipelines/pipeline-naming-and-placement.md
@@ -62,9 +62,9 @@ The diagram is described element by element in [its asset description](no-gate-c
    both.
 4. **Same RunCommand.** Rule 4 says whatever string appears in `RunCommand` can be pasted into a local terminal after the importer. No code
    replays a `RunCommand` outside the runner, so only the ADR keeps it, and no gate stands below it.
-5. **Test-Pipelines.** The pipeline-layout check runs over `pipelines/` and checks ADR-PIPE-NAME rules 1, 2, 3, 4 and 6. The one that
-   touches this stage is ADR-PIPE-NAME rule 4, that templates are referenced by absolute path. It checks no runner rule. Its L1 test
-   requires zero violations over the real tree.
+5. **Test-Pipelines.** The pipeline-layout check runs over `pipelines/` and checks ADR-PIPE-NAME#1, #2, #3, #4 and #6. The one that touches
+   this stage is ADR-PIPE-NAME#4, that templates are referenced by absolute path. It checks no runner rule. Its L1 test requires zero
+   violations over the real tree.
 6. **Expected-failures 1b.** Step 1b of `ci-automation-expected-failures.yaml` proves that a multiline command without a display name
    throws, but it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception to
    rule 1: it inlines PowerShell on purpose.

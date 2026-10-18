@@ -77,12 +77,16 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 - [x] Q58 TryParse regression test; Q59 the five gates on the usage code (check: the test passes; the gates clean). Done 2026-10-17
       (task-adr-link-cleanup steps 2 and 3, session catzc-6c): the test is in Get-AdrCodesFileMetaFact.Tests.ps1, the gates are clean;
       verdicts in task-adr-link-cleanup.
-- [ ] F8: every rule statement in the principles ADRs becomes bold, uniform with the other domains (check: Test-Glossary finds every
-      defining rule); the sampled review fixes patterns, not rows (Q57, Q60 measured thresholds).
-- [ ] Rebuild the ledger without .unordered rows (check: row count about 4,900).
+- [x] F8: every rule statement in the principles ADRs becomes bold, uniform with the other domains (check: Test-Glossary finds every
+      defining rule); the sampled review fixes patterns, not rows (Q57, Q60 measured thresholds). 2026-10-18 (task-adr-link-cleanup step 5):
+      the uniform form is the defined term bolded in the normative summary, which the principles already follow; no domain bolds whole
+      statements; `GLOSSARY issues=0`.
+- [x] Rebuild the ledger without .unordered rows (check: row count about 4,900). Done 2026-10-18: 6,449 rows after the builder skips the
+      generated diagram text of all three `.assets` trees; the pilot's 97 verdicts re-attached (95 keep, 2 narrow).
 - [x] Add the TryParse regression test (check: its Pester file). Done 2026-10-17, the same step as Q58 above.
 - [x] Run the five gates on the usage code (check: each clean). Done 2026-10-17, the same step as Q59 above.
-- [ ] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean).
+- [ ] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean). First slice done 2026-10-18: the two narrow fixes in
+      `docs/explanation/flow/no-gate-checks-rules-one-and-four.md`, `LINKS issues=0`; usage 7,473 to 7,474 rows, no unregistered code.
 - [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean).
 
 ## Done, and why (session report of 2026-10-16 15:23)

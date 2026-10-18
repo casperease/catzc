@@ -103,10 +103,11 @@ Open, in execution order:
 - lazy-types-load -> task-lazy-types-load.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both): lazy types
   Phases 3 to 5: the hash memo, the ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no second eager path, the
   janitors behind the console prompt hook.
-- adr-auto-material -> task-adr-auto-material.md (open; D16 confirmed 2026-10-18, ready): ADR-AUTO-MATERIAL with seven rules, registry,
-  dora-explains, glossary term.
-- adr-link-cleanup -> task-adr-link-cleanup.md (open; ready): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules,
-  Phase 1 applied slice by slice with verification, Phase 2 per D1 to D5.
+- adr-auto-material -> task-adr-auto-material.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both):
+  ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
+- adr-link-cleanup -> task-adr-link-cleanup.md (open; steps 1 to 7 done by 2026-10-18 with the first slice; the remaining slices and Phase 2
+  next): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied slice by slice with verification, Phase 2
+  per D1 to D5.
 - out-artifacts -> task-out-artifacts.md (open; done 2026-10-17 apart from the two probe batches, which the user confirms since their lists
   are gone): the areas were registered and the prune in the tree, the safeguard log never ages out, Clear-Output has its tests, out.md names
   the retention, the five tool candidates placed.

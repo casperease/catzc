@@ -18,15 +18,16 @@
 # cspell:ignore minimaps
 """The sister .md of every minimap PNG, written by render.py from the same data the PNG is drawn from.
 
-A sister file sits next to its PNG with the same stem (<stem>.grid.png -> <stem>.grid.md). It opens with its path as the
-H1 (ADR-REPO-FORMAT#6), names the slide and the view, says what the minimap shows, and gives every lit cell or lit group
-its reason: what lit it (the file, or the ADR code), the steps that placed it on the map, and how the slide's ADR codes
+A sister file sits next to its PNG with the same stem (<stem>.grid.png -> <stem>.grid.md). Its H1 is the title of the
+slide's article (the explanation page that embeds the slide) and the view (ADR-REPO-FORMAT#6); a text block says in two
+lines what the minimap answers and how much is lit, and an opening paragraph links the article and the cited ADRs. It
+then says what the minimap shows, and gives every lit cell or lit group its reason: what lit it (the file, or the ADR code), the steps that placed it on the map, and how the slide's ADR codes
 selected it, following the highlight's own order (Get-WorldMapHighlight, Get-ValueChainHighlight). A cell lit only by
 passing mentions is marked touched. Nothing is lit without a reason and no reason stands without a lit cell: write()
 checks both per minimap and fails the run on a mismatch. Links are reference-style, relative to the .md's folder, and
 checked for existence on write; keywords link to the glossary.
 
-VIEWS maps each view to its title, its sections (what it shows, why it is lit), its keywords, its reason check and the
+VIEWS maps each view to its name, its summary, its sections (what it shows, why it is lit), its keywords, its reason check and the
 key to its short labels; the title, the selection, the terms the cited ADRs define and the link definitions are shared.
 """
 
@@ -37,20 +38,30 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
 GLOSSARY = "docs/adr/glossary.md"
+EXPLANATION = "docs/explanation"
 WRAP = 140
 # The defined terms the world map is built on (ADR-DSGN-TRACK#1, #6, #9, #10, #12).
 WORLD_TERMS = ["world map", "track", "file language", "cell", "lit cell"]
 # The defined terms the value-chain map is built on (ADR-DSGN-TRACK#10, #12, #14-#16).
-CHAIN_TERMS = ["value-chain map", "value-chain stack", "value-chain concern", "cell", "lit cell"]
+CHAIN_TERMS = [
+    "value-chain map",
+    "value-chain stack",
+    "value-chain concern",
+    "cell",
+    "lit cell",
+]
 KIND_WORDS = {"help": "header", "comment": "body comment", "text": "text"}
-# The value-chain concerns the minimap prints no column for: the stack's AUTO row already names `automation`.
-HIDDEN_CONCERNS = {"automation"}
+# The value-chain concerns the minimap prints no column for, each with the stack row that already names it.
+HIDDEN_CONCERNS = {"automation": "AUTO"}
 
 
 def shown_chain(chain):
     """A value-chain map or highlight without the hidden concerns: its concern list and its cells, so the picture, its sister
     .md and the map key all describe the same columns."""
-    shown = {**chain, "cells": [c for c in chain["cells"] if c["concern"] not in HIDDEN_CONCERNS]}
+    shown = {
+        **chain,
+        "cells": [c for c in chain["cells"] if c["concern"] not in HIDDEN_CONCERNS],
+    }
     if "concerns" in chain:
         shown["concerns"] = [c for c in chain["concerns"] if c not in HIDDEN_CONCERNS]
     return shown
@@ -67,26 +78,58 @@ class Context:
         self.chain_labels = labels["value_chain"]
         self.adr_files = references["adr_files"]
         self.glossary = references["glossary"]
-        self.cell_count = {(c["track"], c["file_language"]): c["file_count"] for c in world["cells"]}
-        self.chain_count = {(c["stack"], c["concern"]): c["adr_count"] for c in chain["cells"]}
-        headings = re.findall(r"^### (.+)$", (REPO / GLOSSARY).read_text(encoding="utf-8"), flags=re.MULTILINE)
-        self.anchors = {h.strip(): re.sub(r"[^a-z0-9 -]", "", h.strip().lower()).replace(" ", "-") for h in headings}
-        self.declarations = {name: self._declaration(name) for name in ("variants", "languages")}
+        self.cell_count = {
+            (c["track"], c["file_language"]): c["file_count"] for c in world["cells"]
+        }
+        self.chain_count = {
+            (c["stack"], c["concern"]): c["adr_count"] for c in chain["cells"]
+        }
+        headings = re.findall(
+            r"^### (.+)$",
+            (REPO / GLOSSARY).read_text(encoding="utf-8"),
+            flags=re.MULTILINE,
+        )
+        self.anchors = {
+            h.strip(): re.sub(r"[^a-z0-9 -]", "", h.strip().lower()).replace(" ", "-")
+            for h in headings
+        }
+        self.declarations = {
+            name: self._declaration(name) for name in ("variants", "languages")
+        }
         no_track, no_language = list(self.buckets)
         self.no_track, self.no_language = no_track, no_language
-        self.bucket_terms = {key: self._bucket_term(label) for key, label in self.buckets.items()}
+        self.bucket_terms = {
+            key: self._bucket_term(label) for key, label in self.buckets.items()
+        }
+        self.articles = articles()
+
+    def article(self, stem):
+        """The slide's article: (path, title) of the explanation page that embeds <stem>.drawio.png."""
+        if stem not in self.articles:
+            raise SystemExit(
+                f"describe: no page under {EXPLANATION}/ embeds {stem}.drawio.png, so the minimaps have no title"
+            )
+        return self.articles[stem]
 
     def _declaration(self, config):
-        found = [f["path"] for f in self.world["files"] if f["path"].endswith(f"/configs/{config}.yml")]
+        found = [
+            f["path"]
+            for f in self.world["files"]
+            if f["path"].endswith(f"/configs/{config}.yml")
+        ]
         if len(found) != 1:
-            raise SystemExit(f"describe: expected one configs/{config}.yml on the world map, found {found}")
+            raise SystemExit(
+                f"describe: expected one configs/{config}.yml on the world map, found {found}"
+            )
         return found[0]
 
     def _bucket_term(self, label):
         """The glossary term a bucket label names: its singular, e.g. 'Root files' -> 'root file'."""
         singular = label.lower().removesuffix("s")
         if singular not in self.anchors:
-            raise SystemExit(f"describe: the bucket label '{label}' names no glossary term ('{singular}')")
+            raise SystemExit(
+                f"describe: the bucket label '{label}' names no glossary term ('{singular}')"
+            )
         return singular
 
     def printed(self, name):
@@ -98,6 +141,29 @@ class Context:
     def column_code(self, language):
         """The grid's short column label: the file language's first extension; 'other' for the unlisted files."""
         return "other" if language == self.no_language else self.extensions[language][0]
+
+
+def articles():
+    """Every explanation article by the slide it embeds: stem -> (path, H1). The asset descriptions and indexes embed no slide
+    of their own, so they are skipped; a slide embedded by two articles has no one title and fails the run."""
+    found = {}
+    for page in sorted((REPO / EXPLANATION).glob("*/*.md")):
+        if page.name.endswith(".drawio.md") or page.name == "index.md":
+            continue
+        text = page.read_text(encoding="utf-8")
+        title = re.search(r"^# (.+)$", text, flags=re.MULTILINE)
+        for stem in re.findall(r"\]\(\.\./\.assets/([^/)]+)\.drawio\.png\)", text):
+            path = page.relative_to(REPO).as_posix()
+            if stem in found and found[stem][0] != path:
+                raise SystemExit(
+                    f"describe: {stem}.drawio.png is embedded by both {found[stem][0]} and {path}"
+                )
+            if not title:
+                raise SystemExit(
+                    f"describe: {path} embeds {stem}.drawio.png but has no H1 to title its minimaps"
+                )
+            found[stem] = (path, title.group(1).strip())
+    return found
 
 
 def concern_code(concern):
@@ -120,7 +186,9 @@ class Links:
         path = REPO / target.lstrip("/")
         if not path.exists():
             raise SystemExit(f"describe: link target does not exist: {target}")
-        rel = os.path.relpath(path, self.md_dir).replace("\\", "/") + (f"#{anchor}" if anchor else "")
+        rel = os.path.relpath(path, self.md_dir).replace("\\", "/") + (
+            f"#{anchor}" if anchor else ""
+        )
         label = self.labels.setdefault(rel, str(len(self.labels) + 1))
         return f"[{text}][{label}]"
 
@@ -128,8 +196,14 @@ class Links:
         """A citation (ADR-<CODE> or ADR-<CODE>#n) linked to its ADR file, or to the rule's anchor."""
         code, _, rule = citation.partition("#")
         if code not in self.ctx.adr_files:
-            raise SystemExit(f"describe: {code} is not an ADR code of docs/adr/index.md")
-        return self.to(citation, self.ctx.adr_files[code], f"rule-{code.lower()}{rule}" if rule else None)
+            raise SystemExit(
+                f"describe: {code} is not an ADR code of docs/adr/index.md"
+            )
+        return self.to(
+            citation,
+            self.ctx.adr_files[code],
+            f"rule-{code.lower()}{rule}" if rule else None,
+        )
 
     def term(self, term):
         return self.to(term, GLOSSARY, self.ctx.anchors[term])
@@ -147,7 +221,14 @@ def para(text):
 
 
 def item(text):
-    return textwrap.wrap(text, WRAP, initial_indent="- ", subsequent_indent="  ", break_long_words=False, break_on_hyphens=False)
+    return textwrap.wrap(
+        text,
+        WRAP,
+        initial_indent="- ",
+        subsequent_indent="  ",
+        break_long_words=False,
+        break_on_hyphens=False,
+    )
 
 
 def listing(parts):
@@ -159,7 +240,17 @@ def listing(parts):
 
 def site_words(sites, own=None):
     """Citation sites as `path` line n (kind), one per site; a site in the lit file itself (own) as line n (kind)."""
-    return listing([(f"line {s['line']}" if s["path"] == own else f"`{s['path']}` line {s['line']}") + f" ({KIND_WORDS[s['kind']]})" for s in sites])
+    return listing(
+        [
+            (
+                f"line {s['line']}"
+                if s["path"] == own
+                else f"`{s['path']}` line {s['line']}"
+            )
+            + f" ({KIND_WORDS[s['kind']]})"
+            for s in sites
+        ]
+    )
 
 
 def file_reason(links, reason):
@@ -169,7 +260,9 @@ def file_reason(links, reason):
     if basis == "adr-file":
         own = links.ctx.adr_files.get(reason["requested"].partition("#")[0])
         if reason["path"] != own:
-            raise SystemExit(f"describe: {reason['path']} is lit as the ADR file of {reason['requested']}, whose file is {own}")
+            raise SystemExit(
+                f"describe: {reason['path']} is lit as the ADR file of {reason['requested']}, whose file is {own}"
+            )
         text = f"selected by {request}: the ADR's own file"
     elif basis == "citations":
         text = f"selected by {request}: the file cites it at {site_words(reason['sites'], reason['path'])}"
@@ -204,7 +297,9 @@ def placement(ctx, links, cell):
         row = f"the root folder {listing([f'`{r}/`' for r in roots])} names the track {cell['track']} ({links.adr('ADR-DSGN-TRACK#1')})"
     extensions = sorted({os.path.splitext(f)[1].lower() for f in files})
     named = [f"`{e}`" for e in extensions if e]
-    shown = (f"the extension {listing(named)}" if named else "") + (" or " if named and "" in extensions else "")
+    shown = (f"the extension {listing(named)}" if named else "") + (
+        " or " if named and "" in extensions else ""
+    )
     shown += "no extension" if "" in extensions else ""
     if cell["file_language"] == ctx.no_language:
         column = f"{shown} names no file language, so each is an unlisted file ({links.adr('ADR-DSGN-TRACK#8')})"
@@ -227,10 +322,14 @@ def check_world(stem, highlight):
         if not cell["reasons"]:
             raise SystemExit(f"describe: {stem}: the lit cell {name} has no reason")
         if reasoned != set(cell["files"]):
-            raise SystemExit(f"describe: {stem}: in {name}, lit files {sorted(set(cell['files']) - reasoned)} have no reason and "
-                             f"reasons {sorted(reasoned - set(cell['files']))} have no lit file")
+            raise SystemExit(
+                f"describe: {stem}: in {name}, lit files {sorted(set(cell['files']) - reasoned)} have no reason and "
+                f"reasons {sorted(reasoned - set(cell['files']))} have no lit file"
+            )
         if any(r["path"] is None and r["basis"] != "pin" for r in cell["reasons"]):
-            raise SystemExit(f"describe: {stem}: in {name}, a reason names no file and is no pin")
+            raise SystemExit(
+                f"describe: {stem}: in {name}, a reason names no file and is no pin"
+            )
 
 
 def grid_shows(ctx, links, highlight, extras):
@@ -248,24 +347,36 @@ def grid_shows(ctx, links, highlight, extras):
     for c in cells:
         total = ctx.cell_count[(c["track"], c["file_language"])]
         touched = ", touched" if c["touched"] else ""
-        lines.append(f"- {ctx.cell_name(c['track'], c['file_language'])}: {c['file_count']} lit of {plural(total, 'file')}{touched}")
+        lines.append(
+            f"- {ctx.cell_name(c['track'], c['file_language'])}: {c['file_count']} lit of {plural(total, 'file')}{touched}"
+        )
     return lines
 
 
 def grid_key(ctx, links, highlight):
     """The grid names a lit row by its track and a lit column by a short code: the file language's first extension."""
-    lines = para("A lit row prints its track's name; a lit column prints a short code, the first extension of its file language:")
+    lines = para(
+        "A lit row prints its track's name; a lit column prints a short code, the first extension of its file language:"
+    )
     lines.append("")
-    for language in sorted({c["file_language"] for c in highlight["cells"]}, key=ctx.world["file_languages"].index):
+    for language in sorted(
+        {c["file_language"] for c in highlight["cells"]},
+        key=ctx.world["file_languages"].index,
+    ):
         lines.append(f"- `{ctx.column_code(language)}`: {ctx.printed(language)}")
     return lines
 
 
 def chain_key(ctx, links, highlight):
     """The value-chain map prints every row and column as a capital code."""
-    lines = para("Rows are the value-chain stack and columns the value-chain concerns, each printed as a capital code:")
+    lines = para(
+        "Rows are the value-chain stack and columns the value-chain concerns, each printed as a capital code:"
+    )
     lines.append("")
-    lines += [f"- `{code}`: the {code} row of the value-chain stack" for code in ctx.chain["stacks"]]
+    lines += [
+        f"- `{code}`: the {code} row of the value-chain stack"
+        for code in ctx.chain["stacks"]
+    ]
     lines += [f"- `{concern_code(c)}`: {c}" for c in ctx.chain["concerns"]]
     return lines
 
@@ -278,12 +389,20 @@ def grid_why(ctx, links, highlight, extras):
     lines = ["## Why each cell is lit"]
     for cell in highlight["cells"]:
         touched = ", touched" if cell["touched"] else ""
-        lines += ["", f"### {ctx.cell_name(cell['track'], cell['file_language'])} ({plural(cell['file_count'], 'lit file')}{touched})", ""]
-        lines += para(f"{placement(ctx, links, cell)} Lit ({links.adr('ADR-DSGN-TRACK#12')}) by:")
+        lines += [
+            "",
+            f"### {ctx.cell_name(cell['track'], cell['file_language'])} ({plural(cell['file_count'], 'lit file')}{touched})",
+            "",
+        ]
+        lines += para(
+            f"{placement(ctx, links, cell)} Lit ({links.adr('ADR-DSGN-TRACK#12')}) by:"
+        )
         lines.append("")
         for path, reasons in reasons_by_file(cell).items():
             what = links.to(path, path) if path else "the cell"
-            lines += item(f"{what}: " + "; ".join(file_reason(links, r) for r in reasons) + ".")
+            lines += item(
+                f"{what}: " + "; ".join(file_reason(links, r) for r in reasons) + "."
+            )
     return lines
 
 
@@ -298,7 +417,9 @@ def tree_shows(ctx, links, highlight, extras):
     )
     lines.append("")
     for g in groups:
-        name = g["label"] if g["label"] == g["folder"] else f"{g['label']} ({g['folder']})"
+        name = (
+            g["label"] if g["label"] == g["folder"] else f"{g['label']} ({g['folder']})"
+        )
         lines.append(f"- {name}: {plural(len(g['files']), 'lit file')}")
     return lines
 
@@ -313,15 +434,23 @@ def tree_why(ctx, links, highlight, extras):
     for g in extras["groups"]:
         # The folder keeps the heading unique: two groups may print the same label (Docs, the module; docs, the folder).
         where = "" if g["label"] == g["folder"] else f"{g['folder']}, "
-        lines += ["", f"### {g['label']} ({where}{plural(len(g['files']), 'lit file')})", ""]
-        lines += para(f"The group holds the files of {g['folder']}; each sits in its world-map cell and is lit by:")
+        lines += [
+            "",
+            f"### {g['label']} ({where}{plural(len(g['files']), 'lit file')})",
+            "",
+        ]
+        lines += para(
+            f"The group holds the files of {g['folder']}; each sits in its world-map cell and is lit by:"
+        )
         lines.append("")
         for path in g["files"]:
             if path not in by_path:
                 raise SystemExit(f"describe: the lit tree file {path} has no reason")
             cell, reasons = by_path[path]
             text = "; ".join(file_reason(links, r) for r in reasons)
-            lines += item(f"{links.to(path, path)}, in the cell {ctx.cell_name(cell['track'], cell['file_language'])}: {text}.")
+            lines += item(
+                f"{links.to(path, path)}, in the cell {ctx.cell_name(cell['track'], cell['file_language'])}: {text}."
+            )
     return lines
 
 
@@ -335,7 +464,9 @@ def world_keywords(ctx, links, highlight):
     for track in sorted({c["track"] for c in cells} - set(ctx.buckets)):
         lines.append(f"- {links.to(track, ctx.declarations['variants'])}: a track")
     for language in sorted({c["file_language"] for c in cells} - set(ctx.buckets)):
-        lines.append(f"- {links.to(language, ctx.declarations['languages'])}: a file language")
+        lines.append(
+            f"- {links.to(language, ctx.declarations['languages'])}: a file language"
+        )
     return lines
 
 
@@ -346,8 +477,10 @@ def check_chain(stem, highlight):
     for cell in highlight["cells"]:
         reasoned = {r["adr"] for r in cell["reasons"]}
         if not cell["reasons"] or reasoned != set(cell["adrs"]):
-            raise SystemExit(f"describe: {stem}: the lit value-chain cell {cell['stack']} x {cell['concern']} has ADRs {cell['adrs']} "
-                             f"but reasons for {sorted(reasoned)}")
+            raise SystemExit(
+                f"describe: {stem}: the lit value-chain cell {cell['stack']} x {cell['concern']} has ADRs {cell['adrs']} "
+                f"but reasons for {sorted(reasoned)}"
+            )
 
 
 def chain_shows(ctx, links, highlight, extras):
@@ -364,7 +497,9 @@ def chain_shows(ctx, links, highlight, extras):
     lines.append("")
     for c in cells:
         total = ctx.chain_count[(c["stack"], c["concern"])]
-        lines.append(f"- {c['stack']} × {c['concern']}: {c['adr_count']} lit of {plural(total, 'ADR')}")
+        lines.append(
+            f"- {c['stack']} × {c['concern']}: {c['adr_count']} lit of {plural(total, 'ADR')}"
+        )
     return lines
 
 
@@ -381,9 +516,15 @@ def chain_reason(links, r):
 
 
 def chain_why(ctx, links, highlight, extras):
+    if not highlight["cells"]:
+        return []
     lines = ["## Why each cell is lit"]
     for cell in highlight["cells"]:
-        lines += ["", f"### {cell['stack']} × {cell['concern']} ({plural(cell['adr_count'], 'ADR')})", ""]
+        lines += [
+            "",
+            f"### {cell['stack']} × {cell['concern']} ({plural(cell['adr_count'], 'ADR')})",
+            "",
+        ]
         lines += para(f"Lit ({links.adr('ADR-DSGN-TRACK#12')}) by:")
         lines.append("")
         for r in cell["reasons"]:
@@ -395,44 +536,138 @@ def chain_keywords(ctx, links, highlight):
     return [f"- {links.term(term)}" for term in CHAIN_TERMS]
 
 
-# The views: title, what the minimap shows, why each cell or group is lit, the keywords, and the reason check.
+# ---------------------------------------------------------------- the opening: what each view answers and how much is lit
+
+
+def grid_summary(ctx, highlight, extras, codes):
+    cells = highlight["cells"]
+    total = len(ctx.world["tracks"]) * len(ctx.world["file_languages"])
+    files = len({path for c in cells for path in c["files"]})
+    return [
+        f"Where the files that cite {codes} sit in the repository: tracks down, file languages across.",
+        f"{len(cells)} of {total} cells lit, holding {plural(files, 'file')}.",
+    ]
+
+
+def tree_summary(ctx, highlight, extras, codes):
+    groups = extras["groups"]
+    lit = sum(len(g["files"]) for g in groups)
+    return [
+        f"Which files cite {codes}: every file of the world map is a tile, grouped by top-level folder.",
+        f"{plural(lit, 'file')} lit in {plural(len(groups), 'group')}.",
+    ]
+
+
+def chain_summary(ctx, highlight, extras, codes):
+    cells = highlight["cells"]
+    lines = [
+        f"Where {codes} sit in the value chain: value-chain stack down, value-chain concerns across."
+    ]
+    if cells:
+        return lines + [
+            f"{len(cells)} of {len(ctx.chain['stacks']) * len(ctx.chain['concerns'])} cells lit."
+        ]
+    hidden = sorted({c["concern"] for c in extras["hidden"]})
+    if hidden:
+        rows = listing([HIDDEN_CONCERNS[c] for c in hidden])
+        return lines + [
+            f"No cell is lit: the cited ADRs land only in {listing(hidden)}, which the {rows} row already names."
+        ]
+    return lines + [
+        "No cell is lit: no value-chain concern of the cited ADRs lands on this map."
+    ]
+
+
+# What each view lights, said once in the opening paragraph after the article it belongs to.
+PURPOSES = {
+    "grid": "It lights every cell of the world map that holds a file citing those codes, so it shows where the decision lives in "
+    "the repository.",
+    "tree": "It lights every file that cites those codes, grouped by folder, so it shows which files carry the decision.",
+    "chain": "It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so it shows the part of "
+    "the value chain the decision governs.",
+}
+
+# The views: name, summary, what the minimap shows, why each cell or group is lit, the keywords, the reason check and the key.
 VIEWS = {
-    "grid": ("Grid", grid_shows, grid_why, world_keywords, check_world, grid_key),
-    "tree": ("Tree", tree_shows, tree_why, world_keywords, check_world, no_key),
-    "chain": ("Value-chain", chain_shows, chain_why, chain_keywords, check_chain, chain_key),
+    "grid": (
+        "world-map",
+        grid_summary,
+        grid_shows,
+        grid_why,
+        world_keywords,
+        check_world,
+        grid_key,
+    ),
+    "tree": (
+        "tree",
+        tree_summary,
+        tree_shows,
+        tree_why,
+        world_keywords,
+        check_world,
+        no_key,
+    ),
+    "chain": (
+        "value-chain",
+        chain_summary,
+        chain_shows,
+        chain_why,
+        chain_keywords,
+        check_chain,
+        chain_key,
+    ),
 }
 
 
 def write(ctx, md_path, slide, view, highlight, extras):
     """Write one sister .md; a lit cell without a reason, or a reason without a lit cell, fails the run."""
     md_path = Path(md_path)
-    title, shows, why, keywords, check, key = VIEWS[view]
+    name, summary, shows, why, keywords, check, key = VIEWS[view]
     stem = slide["stem"]
     check(stem, highlight)
     links = Links(ctx, md_path.parent)
-    rel = md_path.resolve().relative_to(REPO).as_posix()
-    out = [f"# {rel}", "", f"`{title} minimap: {stem}`", ""]
-    out += [f"![{title} minimap of {stem}]({md_path.stem}.png)", ""]
+    article, title = ctx.article(stem)
+    out = [f"# {title}: the {name} minimap", "", "```text"]
+    out += summary(ctx, highlight, extras, listing(highlight["requested"]))
+    out += ["```", "", f"![The {name} minimap of {title}]({md_path.stem}.png)", ""]
     codes = [links.adr(code) for code in highlight["requested"]]
+    reasons = why(ctx, links, highlight, extras)
+    unit = "group" if view == "tree" else "cell"
     out += para(
-        f"The {title.lower()} minimap of the slide `{stem}` ({slide['lens']} lens). The slide supports {listing(codes)}; the highlight "
-        "of those ADR codes selects what is lit, and each reason below names the code that selects it."
+        f"This is the {name} minimap in the sidebar of the {slide['lens']} diagram of {links.to(title, article)}, which explains "
+        f"{listing(codes)}. {PURPOSES[view]} "
+        + (
+            f"Each lit {unit} has its reason below, naming the code that selects it."
+            if reasons
+            else "Nothing is lit, so no reason follows."
+        )
     )
     out += ["", "## What the minimap shows", ""]
     out += shows(ctx, links, highlight, extras)
     labels = key(ctx, links, highlight)
     if labels:
         out += ["", "## Key", ""] + labels
-    out += [""] + why(ctx, links, highlight, extras)
+    if reasons:
+        out += [""] + reasons
     out += ["", "## Keywords", ""]
     out += keywords(ctx, links, highlight)
     defined = sorted(
-        (g for g in ctx.glossary if any(g["defined_by"] == c or g["defined_by"].split("#")[0] == c for c in highlight["requested"])),
+        (
+            g
+            for g in ctx.glossary
+            if any(
+                g["defined_by"] == c or g["defined_by"].split("#")[0] == c
+                for c in highlight["requested"]
+            )
+        ),
         key=lambda g: g["term"],
     )
     if defined:
         out += ["", "Terms the cited ADRs define:", ""]
-        out += [f"- {links.term(g['term'])}, defined by {links.adr(g['defined_by'])}" for g in defined]
+        out += [
+            f"- {links.term(g['term'])}, defined by {links.adr(g['defined_by'])}"
+            for g in defined
+        ]
     out += [""] + links.definitions()
     md_path.write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
 
@@ -445,7 +680,9 @@ def file_facts(reasons):
             "basis": r["basis"],
             "note": r["note"],
             "mention": r["mention"],
-            "sites": [f"{s['path']}:{s['line']} ({KIND_WORDS[s['kind']]})" for s in r["sites"]],
+            "sites": [
+                f"{s['path']}:{s['line']} ({KIND_WORDS[s['kind']]})" for s in r["sites"]
+            ],
         }
         for r in reasons
     ]
@@ -462,7 +699,10 @@ def facts(ctx, slide, world_lit, chain_lit, groups):
             if path:
                 cell_of[path] = (ctx.cell_name(c["track"], c["file_language"]), reasons)
     return {
-        "files": {view: {"png": f"{stem}.{view}.png", "md": f"{stem}.{view}.md"} for view in VIEWS},
+        "files": {
+            view: {"png": f"{stem}.{view}.png", "md": f"{stem}.{view}.md"}
+            for view in VIEWS
+        },
         "adrs": world_lit["requested"],
         "grid": [
             {
@@ -470,14 +710,26 @@ def facts(ctx, slide, world_lit, chain_lit, groups):
                 "column_code": ctx.column_code(c["file_language"]),
                 "lit_files": c["file_count"],
                 "touched": c["touched"],
-                "placed": {"track": c["track"], "file_language": c["file_language"],
-                           "extensions": sorted({os.path.splitext(f)[1].lower() for f in c["files"]})},
-                "files": [{"path": p, "reasons": file_facts(rs)} for p, rs in reasons_by_file(c).items()],
+                "placed": {
+                    "track": c["track"],
+                    "file_language": c["file_language"],
+                    "extensions": sorted(
+                        {os.path.splitext(f)[1].lower() for f in c["files"]}
+                    ),
+                },
+                "files": [
+                    {"path": p, "reasons": file_facts(rs)}
+                    for p, rs in reasons_by_file(c).items()
+                ],
             }
             for c in world_lit["cells"]
         ],
         "tree": [
-            {"group": g["label"], "folder": g["folder"], "files": [{"path": p, "cell": cell_of[p][0]} for p in g["files"]]}
+            {
+                "group": g["label"],
+                "folder": g["folder"],
+                "files": [{"path": p, "cell": cell_of[p][0]} for p in g["files"]],
+            }
             for g in groups
         ],
         "chain": [
@@ -485,7 +737,18 @@ def facts(ctx, slide, world_lit, chain_lit, groups):
                 "cell": f"{c['stack']} × {c['concern']}",
                 "column_code": concern_code(c["concern"]),
                 "adrs": [
-                    {k: r[k] for k in ("adr", "requested", "domain", "stack", "concerns", "domain_concerns", "override")}
+                    {
+                        k: r[k]
+                        for k in (
+                            "adr",
+                            "requested",
+                            "domain",
+                            "stack",
+                            "concerns",
+                            "domain_concerns",
+                            "override",
+                        )
+                    }
                     for r in c["reasons"]
                 ],
             }
