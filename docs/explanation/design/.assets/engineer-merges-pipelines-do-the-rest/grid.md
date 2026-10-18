@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "2b63239a50e4"
+    repo_status: locked
+    path: docs/explanation/design/.assets/engineer-merges-pipelines-do-the-rest/grid.md
+    source: docs/explanation/design/.assets/engineer-merges-pipelines-do-the-rest/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An engineer runs the tests and merges; pipelines do the rest: the world-map minimap
 
 ```text

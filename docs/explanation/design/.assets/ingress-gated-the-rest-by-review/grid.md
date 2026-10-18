@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "571dc9bb9077"
+    with_body_sha: "31dc4b558389"
     repo_status: locked
     path: docs/explanation/design/.assets/ingress-gated-the-rest-by-review/grid.md
     source: docs/explanation/design/.assets/ingress-gated-the-rest-by-review/diagram.drawio.png
@@ -33,10 +33,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 8 lit of 89 files
-- docs × markdown: 13 lit of 2767 files
+- .claude × markdown: 2 lit of 57 files
+- docs × markdown: 19 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
-- pwsh × powershell: 1 lit of 1651 files
+- pwsh × powershell: 1 lit of 1653 files
 - pwsh × yaml: 3 lit of 115 files
 
 ## Key
@@ -50,39 +50,51 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ## Why each cell is lit
 
-### .claude × markdown (8 lit files)
+### .claude × markdown (2 lit files)
 
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][4]); the extension `.md` names the file
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][4]) by:
 
-- [.claude/plans/plan-explanation-drift-gaps.md][5]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 125 (text).
-- [.claude/plans/plan-fast-push-followups.md][6]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 12 (text) and line 37 (text).
-- [.claude/plans/plan-promotion-ladder.md][7]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 12 (text), line 34 (text) and line
-  94 (text).
-- [.claude/plans/prompt-drift-gaps-1-aspect-move.md][8]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 13 (text).
-- [.claude/plans/prompt-promotion-ladder-1-build.md][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 20 (text).
-- [.claude/plans/task-explanation-drift-gaps.md][10]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 35 (text).
-- [.claude/plans/task-loose-ends.md][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 57 (text).
-- [.claude/plans/value-of-plan.md][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 35 (text), line 42 (text) and line 42
-  (text).
+- [.claude/plans/plan-promotion-ladder.md][5]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 11 (text) and line 38 (text).
+- [.claude/plans/value-of-plan.md][6]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 33 (text).
 
-### docs × markdown (13 lit files)
+### docs × markdown (19 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][4]); the extension `.md` names the file language
 markdown ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][4]) by:
 
+- [docs/adr/design/.assets/commit-lifecycle-states/chain.md][7]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line
+  25 (text), line 61 (text), line 61 (text), line 69 (text), line 69 (text), line 77 (text) and line 77 (text).
+- [docs/adr/design/.assets/commit-lifecycle-states/grid.md][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25
+  (text), line 55 (text), line 56 (text), line 63 (text), line 65 (text), line 69 (text), line 73 (text), line 75 (text), line 79 (text),
+  line 83 (text), line 84 (text), line 85 (text), line 86 (text), line 87 (text), line 94 (text), line 103 (text), line 104 (text) and line
+  105 (text).
+- [docs/adr/design/.assets/commit-lifecycle-states/tree.md][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25
+  (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 64 (text), line 68 (text), line 69 (text),
+  line 75 (text), line 77 (text), line 83 (text), line 85 (text), line 91 (text), line 92 (text), line 99 (text), line 106 (text) and line
+  114 (text).
+- [docs/adr/design/.assets/sync-point/chain.md][10]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25 (text),
+  line 61 (text), line 61 (text), line 69 (text), line 69 (text), line 77 (text) and line 77 (text).
+- [docs/adr/design/.assets/sync-point/grid.md][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25 (text),
+  line 55 (text), line 56 (text), line 63 (text), line 65 (text), line 69 (text), line 73 (text), line 75 (text), line 79 (text), line 83
+  (text), line 84 (text), line 85 (text), line 86 (text), line 87 (text), line 94 (text), line 103 (text), line 104 (text) and line 105
+  (text).
+- [docs/adr/design/.assets/sync-point/tree.md][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25 (text),
+  line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 64 (text), line 68 (text), line 69 (text), line 75
+  (text), line 77 (text), line 83 (text), line 85 (text), line 91 (text), line 92 (text), line 99 (text), line 106 (text) and line 114
+  (text).
 - [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
 - [docs/adr/design/dora-explains.md][13]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text); selected by
   [ADR-DSGN-REMOTE][2]: the file cites it at line 103 (text).
 - [docs/adr/design/server-remote-integration.md][2]: selected by [ADR-DSGN-REMOTE][2]: the ADR's own file.
-- [docs/adr/glossary.md][14]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 272 (text) and line 346 (text).
+- [docs/adr/glossary.md][14]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 273 (text) and line 347 (text).
 - [docs/adr/index.md][15]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by [ADR-DSGN-REMOTE][2]: the file
   cites it at line 113 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 327 (text).
 - [docs/adr/repository/dora-explains.md][16]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 165 (text).
 - [docs/adr/repository/repo-variants.md][3]: selected by [ADR-REPO-VARIANT][3]: the ADR's own file.
 - [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][17]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
 - [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][18]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line
-  39 (text).
+  40 (text).
 - [docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md][19]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line
   16 (text).
 - [docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md][20]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line
@@ -141,14 +153,14 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [2]: ../../../../adr/design/server-remote-integration.md
 [3]: ../../../../adr/repository/repo-variants.md
 [4]: ../../../../adr/design/tracks.md
-[5]: ../../../../../.claude/plans/plan-explanation-drift-gaps.md
-[6]: ../../../../../.claude/plans/plan-fast-push-followups.md
-[7]: ../../../../../.claude/plans/plan-promotion-ladder.md
-[8]: ../../../../../.claude/plans/prompt-drift-gaps-1-aspect-move.md
-[9]: ../../../../../.claude/plans/prompt-promotion-ladder-1-build.md
-[10]: ../../../../../.claude/plans/task-explanation-drift-gaps.md
-[11]: ../../../../../.claude/plans/task-loose-ends.md
-[12]: ../../../../../.claude/plans/value-of-plan.md
+[5]: ../../../../../.claude/plans/plan-promotion-ladder.md
+[6]: ../../../../../.claude/plans/value-of-plan.md
+[7]: ../../../../adr/design/.assets/commit-lifecycle-states/chain.md
+[8]: ../../../../adr/design/.assets/commit-lifecycle-states/grid.md
+[9]: ../../../../adr/design/.assets/commit-lifecycle-states/tree.md
+[10]: ../../../../adr/design/.assets/sync-point/chain.md
+[11]: ../../../../adr/design/.assets/sync-point/grid.md
+[12]: ../../../../adr/design/.assets/sync-point/tree.md
 [13]: ../../../../adr/design/dora-explains.md
 [14]: ../../../../adr/glossary.md
 [15]: ../../../../adr/index.md

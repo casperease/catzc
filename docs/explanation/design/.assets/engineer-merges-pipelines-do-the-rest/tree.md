@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "69fcebb6358d"
+    repo_status: locked
+    path: docs/explanation/design/.assets/engineer-merges-pipelines-do-the-rest/tree.md
+    source: docs/explanation/design/.assets/engineer-merges-pipelines-do-the-rest/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # An engineer runs the tests and merges; pipelines do the rest: the tree minimap
 
 ```text

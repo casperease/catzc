@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a5f712af8dd"
+    with_body_sha: "48d3a97173a2"
     repo_status: locked
     path: docs/explanation/design/.assets/integrators-depend-on-an-occupant/tree.md
     source: docs/explanation/design/.assets/integrators-depend-on-an-occupant/diagram.drawio.png
@@ -16,25 +16,25 @@ catzc:
 
 ```text
 Which files cite ADR-DSGN-LIFE and ADR-FLOW-CD: every file of the world map is a tile, grouped by top-level folder.
-114 files lit in 11 groups.
+113 files lit in 11 groups.
 ```
 
 ![The tree minimap of Upstream integrators depend on the main-UAT occupant, never on the tip of main](tree.png)
 
 This is the tree minimap in the sidebar of the architecture diagram of [Upstream integrators depend on the main-UAT occupant, never on the
-tip of main][115], which explains [ADR-DSGN-LIFE][1] and [ADR-FLOW-CD][2]. It lights every file that cites those codes, grouped by folder,
+tip of main][114], which explains [ADR-DSGN-LIFE][1] and [ADR-FLOW-CD][2]. It lights every file that cites those codes, grouped by folder,
 so it shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 114 files in 11 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 113 files in 11 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 79 lit files
 - adr/dsgn (docs/adr/design): 8 lit files
 - Globs (pwsh/Catzc.Base.Globs): 8 lit files
-- .claude: 5 lit files
+- .claude: 4 lit files
 - pipelines: 3 lit files
 - QualityGates (pwsh/Catzc.Base.QualityGates): 3 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
@@ -80,11 +80,11 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pipelines/steps/invoke-automation.yaml.md][17], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites
   it at line 28 (text).
 - [docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md][18], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD][2]: the file cites it at line 26 (text), line 33 (text), line 108 (text), line 108 (text) and line 109 (text).
+  [ADR-FLOW-CD][2]: the file cites it at line 25 (text), line 33 (text), line 108 (text), line 108 (text) and line 109 (text).
 - [docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.verify.md][19], in the cell docs × markdown: selected by
   [ADR-FLOW-CD][2]: the file cites it at line 55 (text), line 55 (text) and line 55 (text).
 - [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][20], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD][2]: the file cites it at line 15 (text) and line 17 (text).
+  [ADR-FLOW-CD][2]: the file cites it at line 16 (text) and line 18 (text).
 - [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][21], in the cell docs × markdown: selected by
   [ADR-FLOW-CD][2]: the file cites it at line 14 (text), line 16 (text) and line 74 (text).
 - [docs/references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md][22], in the cell docs × markdown: selected
@@ -110,25 +110,25 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][32], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
   file cites it at line 34 (text).
 - [docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md][33], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
-  file cites it at line 14 (text).
+  file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][34], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites
   it at line 14 (text).
-- [docs/references/pwsh/catzc-base-globs.md][35], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 27
+- [docs/references/pwsh/catzc-base-globs.md][35], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 28
   (text).
 - [docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md][36], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
   cites it at line 15 (text) and line 27 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md][37], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites
-  it at line 14 (text).
+  it at line 15 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][38], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
   file cites it at line 15 (text) and line 26 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md][39], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
-  cites it at line 14 (text) and line 16 (text).
+  cites it at line 15 (text) and line 17 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md][40], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
   cites it at line 20 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md][41], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
-  cites it at line 15 (text), line 29 (text) and line 30 (text).
+  cites it at line 15 (text), line 30 (text) and line 31 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md][42], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
-  file cites it at line 14 (text).
+  file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][43], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
   cites it at line 58 (text), line 61 (text) and line 109 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md][44], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
@@ -142,13 +142,13 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md][48], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
   the file cites it at line 18 (text), line 56 (text) and line 66 (text).
 - [docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md][49], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
-  the file cites it at line 15 (text).
+  the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-globs/configs/globs.yml.md][50], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
   cites it at line 12 (text), line 17 (text), line 25 (text), line 27 (text), line 41 (text), line 71 (text) and line 85 (text).
 - [docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md][51], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
-  file cites it at line 14 (text).
+  file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md][52], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
-  the file cites it at line 14 (text).
+  the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md][53], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
   the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md][54], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
@@ -201,9 +201,9 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][77], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
   file cites it at line 54 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md][78], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
-  file cites it at line 97 (text).
+  file cites it at line 98 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md][79], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD][2]: the file cites it at line 15 (text).
+  [ADR-FLOW-CD][2]: the file cites it at line 17 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][80], in the cell docs × markdown: selected by
   [ADR-FLOW-CD][2]: the file cites it at line 80 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][81], in the cell docs × markdown: selected by
@@ -217,21 +217,23 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
   cites it at line 18 (text), line 25 (text), line 61 (text), line 61 (text), line 69 (text), line 69 (text), line 77 (text) and line 77
   (text).
 - [docs/adr/design/.assets/commit-lifecycle-states/grid.md][83], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites
-  it at line 18 (text), line 25 (text), line 55 (text), line 56 (text), line 57 (text), line 64 (text), line 66 (text), line 70 (text), line
-  74 (text), line 76 (text), line 79 (text), line 82 (text), line 83 (text), line 84 (text), line 85 (text), line 86 (text), line 93 (text),
-  line 102 (text), line 103 (text) and line 104 (text).
+  it at line 18 (text), line 25 (text), line 55 (text), line 56 (text), line 63 (text), line 65 (text), line 69 (text), line 73 (text), line
+  75 (text), line 79 (text), line 83 (text), line 84 (text), line 85 (text), line 86 (text), line 87 (text), line 94 (text), line 103
+  (text), line 104 (text) and line 105 (text).
 - [docs/adr/design/.assets/commit-lifecycle-states/tree.md][84], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites
-  it at line 18 (text), line 25 (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 63 (text), line
-  66 (text), line 67 (text), line 73 (text), line 75 (text), line 77 (text), line 83 (text), line 85 (text), line 91 (text), line 92 (text),
-  line 99 (text), line 106 (text) and line 114 (text).
+  it at line 18 (text), line 25 (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 64 (text), line
+  68 (text), line 69 (text), line 75 (text), line 77 (text), line 83 (text), line 85 (text), line 91 (text), line 92 (text), line 99 (text),
+  line 106 (text) and line 114 (text).
 - [docs/adr/design/.assets/sync-point/chain.md][85], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
   18 (text), line 25 (text), line 61 (text), line 61 (text), line 69 (text), line 69 (text), line 77 (text) and line 77 (text).
 - [docs/adr/design/.assets/sync-point/grid.md][86], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  18 (text), line 25 (text), line 55 (text), line 56 (text), line 57 (text), line 64 (text), line 66 (text), line 69 (text), line 72 (text),
-  line 73 (text), line 74 (text), line 75 (text), line 76 (text), line 83 (text), line 92 (text), line 93 (text) and line 94 (text).
+  18 (text), line 25 (text), line 55 (text), line 56 (text), line 63 (text), line 65 (text), line 69 (text), line 73 (text), line 75 (text),
+  line 79 (text), line 83 (text), line 84 (text), line 85 (text), line 86 (text), line 87 (text), line 94 (text), line 103 (text), line 104
+  (text) and line 105 (text).
 - [docs/adr/design/.assets/sync-point/tree.md][87], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  18 (text), line 25 (text), line 48 (text), line 50 (text), line 53 (text), line 56 (text), line 57 (text), line 63 (text), line 65 (text),
-  line 67 (text), line 73 (text), line 75 (text), line 81 (text), line 82 (text), line 89 (text), line 96 (text) and line 104 (text).
+  18 (text), line 25 (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 64 (text), line 68 (text),
+  line 69 (text), line 75 (text), line 77 (text), line 83 (text), line 85 (text), line 91 (text), line 92 (text), line 99 (text), line 106
+  (text) and line 114 (text).
 - [docs/adr/design/commit-lifecycle.md][1], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
 - [docs/adr/design/dora-explains.md][88], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text).
 
@@ -256,28 +258,26 @@ The group holds the files of pwsh/Catzc.Base.Globs; each sits in its world-map c
 - [pwsh/Catzc.Base.Globs/types/GlobsConfig.cs][96], in the cell pwsh × csharp: selected by [ADR-FLOW-CD][2]: the file cites it at line 73
   (text), line 136 (text), line 140 (text) and line 154 (text).
 
-### .claude (5 lit files)
+### .claude (4 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/CLAUDE.md][97], in the cell .claude × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 55 (text) and line 56
   (text).
 - [.claude/plans/plan-explanation-drift-gaps.md][98], in the cell .claude × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at
-  line 17 (text) and line 18 (text).
-- [.claude/plans/plan-fast-push-followups.md][99], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  13 (text) and line 18 (text).
-- [.claude/plans/plan-promotion-ladder.md][100], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  11 (text) and line 38 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 11 (text), line 13 (text) and line 38 (text).
-- [.claude/plans/value-of-plan.md][101], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 33
+  line 17 (text) and line 17 (text).
+- [.claude/plans/plan-promotion-ladder.md][99], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 11
+  (text) and line 38 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 11 (text), line 13 (text) and line 38 (text).
+- [.claude/plans/value-of-plan.md][100], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 33
   (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 33 (text).
 
 ### pipelines (3 lit files)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/cd-shared.yaml][102], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line 45 (body
+- [pipelines/cd-shared.yaml][101], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line 45 (body
   comment) (a passing mention only).
-- [pipelines/ci-automation.yaml][103], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
+- [pipelines/ci-automation.yaml][102], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text),
   `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 484 (text) and `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text);
   selected by [ADR-FLOW-CD][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
@@ -298,27 +298,27 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18
   (text), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
   line 58 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1078 (text).
-- [pipelines/extends/cd-customer.yaml][104], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line
+- [pipelines/extends/cd-customer.yaml][103], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line
   21 (body comment) (a passing mention only).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 3 lit files)
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][105], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][104], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it
   at line 11 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][106], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line
+- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][105], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line
   58 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][107], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it at
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][106], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it at
   line 1078 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][108], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 272 (text) and line
-  346 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 506 (text) and line 519 (text).
-- [docs/adr/index.md][109], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by
+- [docs/adr/glossary.md][107], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 273 (text) and line
+  347 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 507 (text) and line 520 (text).
+- [docs/adr/index.md][108], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by
   [ADR-FLOW-CD][2]: the file cites it at line 129 (text), line 130 (text), line 131 (text), line 132 (text) and line 133 (text).
 
 ### adr/flow (docs/adr/flow, 2 lit files)
@@ -326,49 +326,49 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
 
 - [docs/adr/flow/cd-discipline-and-promotion-flow.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the ADR's own file.
-- [docs/adr/flow/dora-explains.md][110], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 11 (text),
+- [docs/adr/flow/dora-explains.md][109], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 11 (text),
   line 31 (text), line 49 (text), line 67 (text) and line 92 (text).
 
 ### Docs (pwsh/Catzc.Base.Docs, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][111], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][110], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78
   (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 97 (text), line 98 (text), line 99 (text), line 100 (text) and line 101
   (text).
-- [pwsh/Catzc.Base.Docs/configs/glossary.yml][112], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 484
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][111], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 484
   (text).
 
 ### Maps (pwsh/Catzc.Base.Maps, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][113], in the cell pwsh × powershell: selected by [ADR-FLOW-CD][2]: the file
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][112], in the cell pwsh × powershell: selected by [ADR-FLOW-CD][2]: the file
   cites it at line 70 (text) and line 71 (text).
 
 ### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][114], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][113], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at
   line 49 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 18 (text).
 
 ## Keywords
 
-- [world map][116]
-- [track][117]
-- [file language][118]
-- [cell][119]
-- [lit cell][120]
-- [.claude][121]: a track
-- [docs][121]: a track
-- [pipelines][121]: a track
-- [pwsh][121]: a track
-- [csharp][122]: a file language
-- [markdown][122]: a file language
-- [pipeline-yaml][122]: a file language
-- [powershell][122]: a file language
-- [yaml][122]: a file language
+- [world map][115]
+- [track][116]
+- [file language][117]
+- [cell][118]
+- [lit cell][119]
+- [.claude][120]: a track
+- [docs][120]: a track
+- [pipelines][120]: a track
+- [pwsh][120]: a track
+- [csharp][121]: a file language
+- [markdown][121]: a file language
+- [pipeline-yaml][121]: a file language
+- [powershell][121]: a file language
+- [yaml][121]: a file language
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
@@ -468,27 +468,26 @@ The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its worl
 [96]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
 [97]: ../../../../../.claude/CLAUDE.md
 [98]: ../../../../../.claude/plans/plan-explanation-drift-gaps.md
-[99]: ../../../../../.claude/plans/plan-fast-push-followups.md
-[100]: ../../../../../.claude/plans/plan-promotion-ladder.md
-[101]: ../../../../../.claude/plans/value-of-plan.md
-[102]: ../../../../../pipelines/cd-shared.yaml
-[103]: ../../../../../pipelines/ci-automation.yaml
-[104]: ../../../../../pipelines/extends/cd-customer.yaml
-[105]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[106]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-[107]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[108]: ../../../../adr/glossary.md
-[109]: ../../../../adr/index.md
-[110]: ../../../../adr/flow/dora-explains.md
-[111]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[112]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
-[113]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[114]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[115]: ../../integrators-depend-on-an-occupant.md
-[116]: ../../../../adr/glossary.md#world-map
-[117]: ../../../../adr/glossary.md#track
-[118]: ../../../../adr/glossary.md#file-language
-[119]: ../../../../adr/glossary.md#cell
-[120]: ../../../../adr/glossary.md#lit-cell
-[121]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[122]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[99]: ../../../../../.claude/plans/plan-promotion-ladder.md
+[100]: ../../../../../.claude/plans/value-of-plan.md
+[101]: ../../../../../pipelines/cd-shared.yaml
+[102]: ../../../../../pipelines/ci-automation.yaml
+[103]: ../../../../../pipelines/extends/cd-customer.yaml
+[104]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[105]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+[106]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[107]: ../../../../adr/glossary.md
+[108]: ../../../../adr/index.md
+[109]: ../../../../adr/flow/dora-explains.md
+[110]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[111]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
+[112]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[113]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[114]: ../../integrators-depend-on-an-occupant.md
+[115]: ../../../../adr/glossary.md#world-map
+[116]: ../../../../adr/glossary.md#track
+[117]: ../../../../adr/glossary.md#file-language
+[118]: ../../../../adr/glossary.md#cell
+[119]: ../../../../adr/glossary.md#lit-cell
+[120]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[121]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
