@@ -60,11 +60,9 @@ The diagram is described element by element in [its asset description](gates-che
 
 ## Where the code and the ADR differ
 
-- The ADR calls `Test-GlobSetAffected` "the in-pipeline check", but no pipeline or workflow invokes it; `cd-shared.yaml` names it only in a
-  comment.
-- The ADR says the filters are generated into the YAML and that an ADO projection that cannot reproduce exact membership is caught at
-  generation time. No generator writes the YAML, `Get-GlobSetTrigger` defers that case to the superset integrity test, and `cd-shared.yaml`
-  documents exactly such a case, which `Test-GlobSetTriggerCoverage`, checking ADO includes only, passes.
+The ADR says the filters are generated into the YAML and that an ADO projection that cannot reproduce exact membership is caught at
+generation time. No generator writes the YAML, `Get-GlobSetTrigger` defers that case to the superset integrity test, and `cd-shared.yaml`
+documents exactly such a case, which `Test-GlobSetTriggerCoverage`, checking ADO includes only, passes.
 
 ## See also
 

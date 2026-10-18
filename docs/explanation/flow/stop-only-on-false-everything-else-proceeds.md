@@ -24,8 +24,9 @@ The diagram is described element by element in [its asset description](stop-only
 ## Walkthrough
 
 1. **A unit's pipeline stage.** The decision describes the operator: a stage that runs the check first and returns early when its
-   area-of-control is untouched. No pipeline or workflow in the repository makes that call; the shared CD pipeline names the check in a
-   comment as its exact backstop. On a developer's machine the same command answers against the working tree.
+   area-of-control is untouched. The CD pipelines make that call once, in their CI stage: a `Changes` step publishes the answer as
+   `AFFECTED`, and the first `Deploy_*` stage runs only when it is true, so every deploy stage of an untouched unit skips. On a developer's
+   machine the same command answers against the working tree.
 2. **Test-GlobSetAffected apex.** The command takes the unit's globset name as its one mandatory, positional parameter, tab-completed from
    the registry. `apex` is a declared deployable unit bound to the `cd-apex` pipeline.
 3. **$false, return.** The unit is confirmed untouched over a range git could diff. The stage returns without doing any work.
@@ -42,12 +43,6 @@ The diagram is described element by element in [its asset description](stop-only
 - The check fails open on any doubt so a wrong skip can never drop a deploy, returns false only when it has positively confirmed the unit is
   untouched, and throws on an undeclared unit name so a typo never silently skips (ADR-FLOW-CD-GLOBS#9).
 - A pipeline must check out with sufficient depth (`fetchDepth: 0`) so the base ref is reachable (ADR-FLOW-CD-GLOBS#9).
-
-## Where the code and the ADR differ
-
-The decision describes a pipeline stage that runs the check first; no pipeline or workflow in the repository calls `Test-GlobSetAffected`.
-The decision requires a checkout with `fetchDepth: 0`; the GitHub workflows set `fetch-depth: 0`, and no Azure DevOps pipeline sets
-`fetchDepth`, so a post-commit diff on a shallow Azure DevOps clone proceeds with the message rather than skipping.
 
 ## See also
 

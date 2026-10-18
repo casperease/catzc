@@ -4,7 +4,7 @@
 Three tasks share one guard, and one runner imports, traps, sanitizes and invokes.
 
 1  ci-automation.yaml      a root pipeline names the template and passes a RunCommand
-2  invoke-automation.yaml  six parameters; Mode picks one of three tasks
+2  invoke-automation.yaml  seven parameters; Mode picks one of three tasks
 3  inline guard            Set-StrictMode, then a multiline RunCommand needs a DisplayName
 4  throw                   stops the step before the runner starts
 5  importer.ps1            dot-sourced once by the runner
@@ -28,10 +28,10 @@ The diagram is described element by element in [its asset description](three-tas
 
 1. **ci-automation.yaml.** A root pipeline names the template and passes a command, for example
    `RunCommand: "Test-Automation -Level 2 -EnforceTimings"`.
-2. **invoke-automation.yaml.** The template takes six parameters: `RunCommand`, `Mode` (`none`, `azcli` or `azps`, default `none`),
-   `ExposeAccessToken`, `ServiceConnection`, `AllowWarnings` and `DisplayName`. `Mode` picks one of three tasks, `PowerShell@2`,
-   `AzureCLI@2` or `AzurePowerShell@5`; each task's `displayName` is `coalesce(DisplayName, RunCommand)`, and `ExposeAccessToken` maps
-   `SYSTEM_ACCESSTOKEN` on any of them.
+2. **invoke-automation.yaml.** The template takes seven parameters: `RunCommand`, `Mode` (`none`, `azcli` or `azps`, default `none`),
+   `ExposeAccessToken`, `ServiceConnection`, `AllowWarnings`, `DisplayName` and `StepName`. `Mode` picks one of three tasks,
+   `PowerShell@2`, `AzureCLI@2` or `AzurePowerShell@5`; each task's `displayName` is `coalesce(DisplayName, RunCommand)`, a set `StepName`
+   names the task so a later stage can read its output variables, and `ExposeAccessToken` maps `SYSTEM_ACCESSTOKEN` on any of them.
 3. **Inline guard.** All three tasks run `Set-StrictMode -Version Latest`, then check that a multiline `RunCommand` has a `DisplayName`.
    When it passes, the task dot-sources the runner with `-Command`, `-Mode`, `-ExposeAccessToken`, `-ServiceConnection` and
    `-AllowWarnings`.
@@ -57,7 +57,7 @@ trap, and no code runs it, so it is not drawn.
 
 ## Where the code and the ADR differ
 
-- The ADR lists four template parameters; the template has six, adding `AllowWarnings` and `DisplayName`.
+- The ADR lists four template parameters; the template has seven, adding `AllowWarnings`, `DisplayName` and `StepName`.
 - The ADR's runner listing leaves out the `SYSTEM_DEBUG` verbose switch, the logging and the diagnostics between sanitizing and invoking.
 - The ADR says the step template holds no logic; the inline guard in each task is logic.
 

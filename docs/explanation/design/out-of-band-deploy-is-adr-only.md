@@ -8,7 +8,7 @@ ADR-DSGN-LIFE#9 is ADR-only, and the one gate on deploys in code allows main alo
 3  environment          a neutral container; its occupant keeps its own colour
 4  main                 landing on main is the integration
 5  main only            the gate in code: every Deploy_* stage needs refs/heads/main
-6  BVT                  checked in part: Test-Automation runs, Test-BuildArtifact does not
+6  BVT                  checked on main: Test-Automation and Test-BuildArtifact run
 
 Supports ADR-DSGN-LIFE#1 and #9, and ADR-DSGN-VISUAL#2, #4 and #13 (governance lens).
 ```
@@ -33,8 +33,8 @@ The diagram is described element by element in [its asset description](out-of-ba
 4. **Main.** Landing on main is the integration, and from here a commit climbs one rung at a time.
 5. **Main only.** The gate in code: every `Deploy_*` stage carries the condition that the source branch is `refs/heads/main`. A run from any
    other ref skips the deploy stages, so no topic commit is deployed today.
-6. **BVT.** The BVT turns a landed commit into a BVT-verified one, yellow. It is checked in part: the CI pipelines run `Test-Automation`,
-   and the pipeline guide names the CI type's post-commit run on main the BVT, but no pipeline runs `Test-BuildArtifact`.
+6. **BVT.** The BVT turns a landed commit into a BVT-verified one, yellow. The pipeline guide names the CI type's post-commit run on main
+   the BVT; there the CI pipelines run `Test-Automation`, and `ci-automation` also runs `Test-BuildArtifact`.
 
 ## Why it holds
 
@@ -50,8 +50,6 @@ The diagram is described element by element in [its asset description](out-of-ba
 
 - ADR-DSGN-LIFE#9 allows a workflow or pipeline to deploy a topic commit; no pipeline or workflow does, and every `Deploy_*` stage is
   main-only.
-- ADR-AUTO-TEST#24 makes the BVT include the built-artifact checks of `Test-BuildArtifact`; no pipeline runs them, so the BVT in code is
-  narrower.
 - The pipeline guide says the CI type produces no artifact, while ADR-DSGN-VISUAL#4 makes yellow carry an immutable versioned artifact.
 
 ## See also

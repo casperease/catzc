@@ -5,7 +5,7 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 
 1  PR build validation       the inner CI gate before a topic commit merges
 2  landed                    the merged commit; an out-of-band topic deploy is not an integration
-3  BVT                       discards automatically; checked in part
+3  BVT                       discards automatically; checked on main, the built artifact included
 4  L3-vertical-AT            automated acceptance testing in an on-demand environment; ADR-only
 5  RC on main-AT             the manual gate at main-uat; ADR-only
 6  RBC on release-AT         the manual gate at release-uat; ADR-only
@@ -31,9 +31,8 @@ The diagram is described element by element in [its asset description](which-run
    `main`, blocking by default.
 2. **Landed.** The merged commit is grey. Its rule says an out-of-band deploy of a topic commit is not an integration; the CD deploys in
    code run only on `refs/heads/main`, so no out-of-band topic deploy path exists to check.
-3. **BVT.** The BVT discards automatically. It is checked in part: `ci-automation` runs `Test-Automation -Level 2 -EnforceTimings` and
-   `ci-infrastructure` runs `Test-Automation -Suite infrastructure`, but no pipeline runs `Test-BuildArtifact`, which the ADR makes part of
-   the BVT.
+3. **BVT.** The BVT discards automatically. `ci-automation` runs `Test-Automation -Level 2 -EnforceTimings` and, on main, `Test-BuildArtifact`,
+   the built-artifact check the ADR makes part of the BVT; `ci-infrastructure` runs `Test-Automation -Suite infrastructure`.
 4. **L3-vertical-AT.** The automated acceptance testing in an on-demand environment discards automatically when it fails. No pipeline runs
    it.
 5. **RC on main-AT.** The manual gate at `main-uat` certifies its occupant, the stable point upstream integrators sync from.
@@ -61,7 +60,6 @@ The diagram is described element by element in [its asset description](which-run
 
 ## Where the code and the ADR differ
 
-- No pipeline runs `Test-BuildArtifact`, so the BVT in code is narrower than the ADR's.
 - No pipeline runs L3, and no RC or RBC gate, no inactive staging in `pre-prod`, and no out-of-band topic deploy path exists.
 - The failure stop holds only between template stages, and no code records a discard.
 

@@ -56,9 +56,9 @@ Open, in execution order:
 
 - import-landing-zone -> task-import-landing-zone.md (done 2026-10-18; the task file goes with the user's `git rm`, its plan keeps the
   user's Phase 2 steps): tracks.md rule 17 rewritten, four glossary terms, Import-RepositoryWithHistory with tests, the sorting how-to.
-- module-model-closeout -> task-module-model-closeout.md (open; every step done by 2026-10-18 apart from step 9, the user's run of all
-  tests): module model close-out, the rule 6 funnel (the tests entries in languages.yml), infrastructure track (a design step in
-  plan-module-kinds-tracks), waits_on cleared.
+- module-model-closeout -> task-module-model-closeout.md (open; every step done by 2026-10-18 apart from step 9, which closes when the
+  user's Test-Automation run is green on its files, D25; the infrastructure track's design step landed 2026-10-18, the track declares its
+  two places): module model close-out, the rule 6 funnel (the tests entries in languages.yml), infrastructure track, waits_on cleared.
 - kind-becomes-role -> task-kind-becomes-role.md (done 2026-10-18: steps 1 to 8 on the user's go, D24, and step 9 by D29, the namespace is
   the track name; task-closing-sweep deletes it): kind becomes role through the registry and generators; tracks.md rule 18 one primary
   language; WorldMapBuilder links; Test-ShippedTypes.
@@ -106,6 +106,8 @@ Open, in execution order:
   and D18 no sentence, 2026-10-18): unboxing closed: three leftover checks, two gate findings, P4 and P5 closed.
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md (open; the level-2 rerun is green 2026-10-17; the user's run of all
   tests, then the plan and prompt deleted): bounded enumeration closed.
+- diagram-folders -> plan-diagram-folders.md (open; no task file yet, decided 2026-10-18): every diagram one folder beside its article under
+  role names, rebuilt by `Build-Diagrams -Path <folder>`; kit first, then the configuration/ pilot for the user's review.
 - closing-sweep -> task-closing-sweep.md (open; runs after every batch and last): done plans deleted with one line each, the master and task
   files deleted when every chunk is done.
 

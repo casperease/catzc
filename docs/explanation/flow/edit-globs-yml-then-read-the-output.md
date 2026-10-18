@@ -46,10 +46,6 @@ The diagram is described element by element in [its asset description](edit-glob
   equals it (ADR-FLOW-CD-GLOBS#6).
 - Whether a change touches a set is computed from git at real refs and fails open on doubt (ADR-FLOW-CD-GLOBS#9).
 
-## Where the code and the ADR differ
-
-The ADR calls `Test-GlobSetAffected` "the in-pipeline check", but no pipeline or workflow invokes it.
-
 ## See also
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.

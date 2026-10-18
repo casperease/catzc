@@ -33,14 +33,16 @@ The diagram is described element by element in [its asset description](code-wire
    `cd-shared`, each followed by `publish` of the artifact. The published artifact is the yellow commit's build, and every deploy stage
    takes it with `download: current`, so nothing is rebuilt.
 4. **ci-automation.** Runs `Test-Automation -Level 2 -EnforceTimings`. The GitHub CI runs `Test-Automation -Level 2` on three operating
-   systems, and `ci-automation-expected-failures` runs on the same triggers. None of them calls `Test-BuildArtifact`.
+   systems, and `ci-automation-expected-failures` runs on the same triggers. On main, the `BuildArtifact` job also runs
+   `Test-BuildArtifact`, the BVT's built-artifact check.
 5. **ci-infrastructure.** Runs `Assert-BicepTemplate`, then `Build-Bicep`, for foundation, discovery and expedition, then
    `Test-Automation -Suite infrastructure`.
 6. **L3 run.** No pipeline step exists. `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 3), but
    no pipeline passes it.
 7. **Deploy_Foundation.** The first deploy stage depends on `CI`, and each later stage depends on the one before: `Deploy_Foundation`,
    `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when the
-   previous stage succeeded and the source branch is `refs/heads/main`, and every deploy calls `Deploy-Bicep` with
+   previous stage succeeded and the source branch is `refs/heads/main`; `Deploy_Foundation` also needs the CI stage's
+   `Test-GlobSetAffected` answer to be true, so an untouched unit skips every deploy. Every deploy calls `Deploy-Bicep` with
    `-SubscriptionIdAssertIs`.
 8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, `nsub` and `psub` side by side as
    parallel jobs. Counted as foundation, discovery and expedition jobs, apex has 2, 2 and 3 (expedition `dev`, `dev-blu` and `prod`),
@@ -58,7 +60,6 @@ stage: a failed CI stage skips every deploy, and a failed deploy stage skips the
 - No pipeline runs the L3 tier.
 - No environment is named `main-uat` or `release-uat`, and no RC or RBC approval exists.
 - No CD pipeline has a pre-prod target that stays inactive until it is activated.
-- The BVT in code lacks `Test-BuildArtifact`.
 
 ## See also
 
