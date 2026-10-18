@@ -1,11 +1,11 @@
 BeforeAll {
     $sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "bootstrap-test-$([guid]::NewGuid().ToString('N'))"
-    $sandboxAuto = Join-Path $sandbox 'automation'
+    $sandboxAuto = Join-Path $sandbox (Get-CatzcModulesFolder)
     New-Item -Path $sandboxAuto -ItemType Directory -Force | Out-Null
 
     Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $sandbox
-    Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal') (Join-Path $sandboxAuto '.internal')
-    Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.vendor') (Join-Path $sandboxAuto '.vendor')
+    Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $sandboxAuto '.internal')
+    Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $sandboxAuto '.vendor')
 
     $script:moduleListExpr =
     "@(Get-Module | Where-Object { `$_.Path -like '$sandboxAuto*' -and `$_.Name -ne 'Bootstrap' -and `$_.Path -notlike '*/.vendor/*' -and `$_.Path -notlike '*\.vendor\*' -and `$_.Path -notlike '*/.internal/*' -and `$_.Path -notlike '*\.internal\*' } | " +
@@ -186,11 +186,11 @@ Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
         function New-EvictionRoot {
             param([string] $Label, [string] $OnlyModule, [string] $OnlyFunction, [string] $OnlyBody)
             $root = Join-Path ([System.IO.Path]::GetTempPath()) "eviction-$Label-$([guid]::NewGuid().ToString('N'))"
-            $automation = Join-Path $root 'automation'
+            $automation = Join-Path $root (Get-CatzcModulesFolder)
             [System.IO.Directory]::CreateDirectory($automation) | Out-Null
             Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $root
-            Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal') (Join-Path $automation '.internal')
-            Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.vendor') (Join-Path $automation '.vendor')
+            Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $automation '.internal')
+            Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $automation '.vendor')
             foreach ($entry in @(@($OnlyModule, $OnlyFunction, $OnlyBody), @('Catzc.Shared', 'Get-SharedOrigin', "'$Label'"))) {
                 $folder = Join-Path $automation $entry[0]
                 [System.IO.Directory]::CreateDirectory($folder) | Out-Null
@@ -226,8 +226,8 @@ Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
             throw "Child import sequence failed: $raw"
         }
         $script:observed = (@($raw)[-1]).ToString() | ConvertFrom-Json
-        $script:fullA = [System.IO.Path]::GetFullPath((Join-Path $rootA 'automation'))
-        $script:fullB = [System.IO.Path]::GetFullPath((Join-Path $rootB 'automation'))
+        $script:fullA = [System.IO.Path]::GetFullPath((Join-Path $rootA (Get-CatzcModulesFolder)))
+        $script:fullB = [System.IO.Path]::GetFullPath((Join-Path $rootB (Get-CatzcModulesFolder)))
     }
 
     AfterAll {

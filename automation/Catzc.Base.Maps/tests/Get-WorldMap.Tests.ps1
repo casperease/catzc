@@ -22,6 +22,7 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         Mock Get-FileLanguage -ModuleName Catzc.Base.Maps { [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null) }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'importer.ps1', 'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/widget.json', 'widgets/Alpha/gone.ps1' }
         Mock Get-Aspect -ModuleName Catzc.Base.Maps { $script:variants.aspects[$Track] }
+        Mock Test-AspectDeclaration -ModuleName Catzc.Base.Maps { $script:variants.aspects.ContainsKey($Track) }
         Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps { [pscustomobject]@{ External = 'ADR-WIDGET-GADGET'; Domain = 'widgetry' } }
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.Maps {
             [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name PathOf -Value { param($Code) "docs/adr/widgetry/$($Code.ToLowerInvariant()).md" } -PassThru
@@ -29,7 +30,6 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         Mock Get-GlobSet -ModuleName Catzc.Base.Maps { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Maps { $script:root }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Maps { Join-Path $script:root 'widgets' }
-        Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'variants' } { $script:variants }
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'files' } { $script:files }
     }
 

@@ -1,4 +1,4 @@
-function Get-FileKindFileMetaFact {
+function Get-FileRoleFileMetaFact {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind classifies by path alone')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -14,7 +14,7 @@ function Get-FileKindFileMetaFact {
     )
 
     $match = Get-FileKind $Path
-    $fact = [ordered]@{ $Kind.keys[0] = $match.kind }
+    $fact = [ordered]@{ $Kind.keys[0] = $match.role }
     if ($Kind.keys.Count -gt 1) {
         $fact[$Kind.keys[1]] = $(if ($match.subkind) {
                 $match.subkind

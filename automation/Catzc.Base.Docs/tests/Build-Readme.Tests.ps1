@@ -15,7 +15,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
-        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'generated-head' } { [Catzc.Base.Languages.GeneratedHeadConfig]::new(@{ keys = @('path', 'kind') }) }
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'generated-head' } { [Catzc.Base.Languages.GeneratedHeadConfig]::new(@{ keys = @('path', 'role') }) }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -ne 'generated-head' } {
             [pscustomobject]@{
                 patterns = @()
@@ -41,7 +41,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
                 '---'
                 'catzc:'
                 '  immutable:'
-                '    kind: readme'
+                '    role: readme'
                 '---'
                 ''
                 '# Fixture Title'
@@ -58,7 +58,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Build-Readme | Out-Null
         $plain = [System.IO.File]::ReadAllText($script:readme)
         try {
-            $framed = "---`ncatzc:`n  immutable:`n    kind: reference`n---`n`n" + $original
+            $framed = "---`ncatzc:`n  immutable:`n    role: reference`n---`n`n" + $original
             [System.IO.File]::WriteAllText($script:source, $framed)
             Build-Readme | Out-Null
             [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly $plain

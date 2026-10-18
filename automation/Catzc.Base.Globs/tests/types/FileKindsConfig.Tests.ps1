@@ -22,19 +22,19 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     Context 'Resolve' {
         It 'names the first kind whose globs match, in the order declared' {
             $match = $script:config.Resolve('widgets/part.wdg')
-            $match.kind | Should -BeExactly 'widget'
+            $match.role | Should -BeExactly 'widget'
             $match.subkind | Should -BeNullOrEmpty
             $match.definition | Should -BeExactly 'A widget file.'
             $match.Class | Should -BeExactly 'widget'
         }
 
         It 'lets a later kind take what no earlier kind matches' {
-            $script:config.Resolve('elsewhere/part.wdg').kind | Should -BeExactly 'sprocket'
+            $script:config.Resolve('elsewhere/part.wdg').role | Should -BeExactly 'sprocket'
         }
 
         It 'names a subkind before the kind''s own globs, and in the order the subkinds are written' {
             $cog = $script:config.Resolve('gadgets/cog-gear.gdg')
-            $cog.kind | Should -BeExactly 'gadget'
+            $cog.role | Should -BeExactly 'gadget'
             $cog.subkind | Should -BeExactly 'cog'
             $cog.Class | Should -BeExactly 'gadget/cog'
             $script:config.Resolve('gadgets/deep/gear-one.gdg').subkind | Should -BeNullOrEmpty
@@ -43,20 +43,20 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
 
         It 'names the kind alone for a file only its own globs match' {
             $match = $script:config.Resolve('gadgets/deep/plain.gdg')
-            $match.kind | Should -BeExactly 'gadget'
+            $match.role | Should -BeExactly 'gadget'
             $match.subkind | Should -BeNullOrEmpty
             $match.Class | Should -BeExactly 'gadget'
         }
 
         It 'names a file no entry selects other, with no definition' {
             $match = $script:config.Resolve('elsewhere/notes.txt')
-            $match.kind | Should -BeExactly 'other'
+            $match.role | Should -BeExactly 'other'
             $match.subkind | Should -BeNullOrEmpty
             $match.definition | Should -BeNullOrEmpty
         }
 
         It 'names every file other when no kind is declared' {
-            (New-Config $null).Resolve('widgets/part.wdg').kind | Should -BeExactly 'other'
+            (New-Config $null).Resolve('widgets/part.wdg').role | Should -BeExactly 'other'
         }
     }
 
@@ -70,10 +70,10 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
                         files      = @('c/**')
                     }
                 })
-            $widget = $config.kinds | Where-Object kind -eq 'widget'
+            $widget = $config.kinds | Where-Object role -eq 'widget'
             $widget.gitAttributes | Should -Be @('catzc-widget', 'eol=lf')
             $widget.gitWhy | Should -BeExactly 'Widgets are data.'
-            $gadget = $config.kinds | Where-Object kind -eq 'gadget'
+            $gadget = $config.kinds | Where-Object role -eq 'gadget'
             @($gadget.gitAttributes).Count | Should -Be 0
             $gadget.gitWhy | Should -BeNullOrEmpty
             $gadget.subkinds[0].gitAttributes | Should -Be @('catzc-cog')
@@ -100,7 +100,7 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
                     gadget = [ordered]@{ definition = 'A gadget.'; subkinds = [ordered]@{ cog = [ordered]@{ definition = 'A cog.'; files = @('a/**') } } }
                 })
             $config.Resolve('a/b.txt').Class | Should -BeExactly 'gadget/cog'
-            $config.Resolve('z/b.txt').kind | Should -BeExactly 'other'
+            $config.Resolve('z/b.txt').role | Should -BeExactly 'other'
         }
 
         It 'rejects <Name>' -ForEach @(

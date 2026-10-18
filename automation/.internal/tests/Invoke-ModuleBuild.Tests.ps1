@@ -36,26 +36,26 @@ BeforeAll {
             }
         }
     } -Files @{
-        'automation/.internal/Catzc.Internal.Bootstrap.psm1'             = '# bootstrap'
-        'automation/.internal/Catzc.Internal.Importer.psm1'              = '# importer'
-        'automation/.internal/Catzc.Internal.Loader.psm1'                = '# loader'
-        'automation/.internal/Catzc.Internal.Types.psm1'                 = '# types'
-        'automation/.internal/Catzc.Internal.Vendor.psm1'                = '# vendor'
-        'automation/.internal/Catzc.Internal.Builder.psm1'               = '# builder (never ships)'
-        'automation/.internal/Catzc.Internal.TestKit.psm1'               = '# testkit (ships under full only)'
-        'automation/.internal/tests/Get-Loader.Tests.ps1'                = '# test (never ships)'
-        'automation/.internal/assets/ErrorView.format.ps1xml'            = '<Configuration />'
-        'automation/.internal/assets/types-load.yml'                     = 'cells: {}'
-        'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'      = '@{ }'
-        'automation/.internal/assets/Import-Catzc.ps1'                   = "# initializer`r`n"
-        'automation/.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1' = '@{ }'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Bootstrap.psm1"             = '# bootstrap'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Importer.psm1"              = '# importer'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Loader.psm1"                = '# loader'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"                 = '# types'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Vendor.psm1"                = '# vendor'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Builder.psm1"               = '# builder (never ships)'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.TestKit.psm1"               = '# testkit (ships under full only)'
+        "$(Get-CatzcModulesFolder)/.internal/tests/Get-Loader.Tests.ps1"                = '# test (never ships)'
+        "$(Get-CatzcModulesFolder)/.internal/assets/ErrorView.format.ps1xml"            = '<Configuration />'
+        "$(Get-CatzcModulesFolder)/.internal/assets/types-load.yml"                     = 'cells: {}'
+        "$(Get-CatzcModulesFolder)/.internal/assets/PSScriptAnalyzerSettings.psd1"      = '@{ }'
+        "$(Get-CatzcModulesFolder)/.internal/assets/Import-Catzc.ps1"                   = "# initializer`r`n"
+        "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1" = '@{ }'
         # A file git stores with CRLF (kept as-is by -text, the way a signed vendored script must be).
-        'automation/.vendor/powershell-yaml/0.4.12/Signed.ps1'           = "# signed`r`n"
-        '.gitattributes'                                                 = "automation/.vendor/powershell-yaml/0.4.12/Signed.ps1 -text`n"
-        '.gitignore'                                                     = "*.log`n"
-        'automation/.vendor/Pester/5.7.1/Pester.psd1'                    = '@{ }'
-        'automation/.scriptanalyzer/WidgetRule.psm1'                     = '# rule'
-        'automation/.scriptanalyzer/tests/WidgetRule.Tests.ps1'          = '# rule test (never ships)'
+        "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/Signed.ps1"           = "# signed`r`n"
+        '.gitattributes'                                                                = "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/Signed.ps1 -text`n"
+        '.gitignore'                                                                    = "*.log`n"
+        "$(Get-CatzcModulesFolder)/.vendor/Pester/5.7.1/Pester.psd1"                    = '@{ }'
+        "$(Get-CatzcModulesFolder)/.scriptanalyzer/WidgetRule.psm1"                     = '# rule'
+        "$(Get-CatzcModulesFolder)/.scriptanalyzer/tests/WidgetRule.Tests.ps1"          = '# rule test (never ships)'
     }
     $script:source = $fake.Automation
 
@@ -105,7 +105,7 @@ BeforeAll {
         }
     }
     Mock Get-InternalAssetDependency -ModuleName Catzc.Internal.Builder {
-        [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Get-Widget'; ChildPath = 'assets/widget.txt'; File = 'automation/Catzc.Base.Widget/Get-Widget.ps1'; Line = 5 }
+        [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Get-Widget'; ChildPath = 'assets/widget.txt'; File = (Get-CatzcModulesFolder) + '/Catzc.Base.Widget/Get-Widget.ps1'; Line = 5 }
     }
 
     function script:Get-FileSnapshot {
@@ -191,9 +191,9 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $text = [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'))
             $markers = @([regex]::Matches($text, '(?m)^# source: (.+)$') | ForEach-Object { $_.Groups[1].Value })
             $markers | Should -Be @(
-                'automation/Catzc.Base.Widget/private/Get-WidgetCore.ps1'
-                'automation/Catzc.Base.Widget/Get-Widget.ps1'
-                'automation/Catzc.Base.Widget/Set-Widget.ps1'
+                "$(Get-CatzcModulesFolder)/Catzc.Base.Widget/private/Get-WidgetCore.ps1"
+                "$(Get-CatzcModulesFolder)/Catzc.Base.Widget/Get-Widget.ps1"
+                "$(Get-CatzcModulesFolder)/Catzc.Base.Widget/Set-Widget.ps1"
             )
         }
 
@@ -365,9 +365,9 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
 
         It 'fails the presence check listing every internal asset dependency the output would miss' {
             Mock Get-InternalAssetDependency -ModuleName Catzc.Internal.Builder {
-                [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Get-Widget'; ChildPath = 'assets/missing.txt'; File = 'automation/Catzc.Base.Widget/Get-Widget.ps1'; Line = 5 }
-                [pscustomobject]@{ Module = 'Catzc.Base.Gizmo'; Function = 'Get-Widget'; ChildPath = 'configs/gizmo.yml'; File = 'automation/Catzc.Base.Widget/Get-Widget.ps1'; Line = 6 }
-                [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Set-Widget'; ChildPath = 'configs'; File = 'automation/Catzc.Base.Widget/Set-Widget.ps1'; Line = 2 }
+                [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Get-Widget'; ChildPath = 'assets/missing.txt'; File = (Get-CatzcModulesFolder) + '/Catzc.Base.Widget/Get-Widget.ps1'; Line = 5 }
+                [pscustomobject]@{ Module = 'Catzc.Base.Gizmo'; Function = 'Get-Widget'; ChildPath = 'configs/gizmo.yml'; File = (Get-CatzcModulesFolder) + '/Catzc.Base.Widget/Get-Widget.ps1'; Line = 6 }
+                [pscustomobject]@{ Module = 'Catzc.Base.Widget'; Function = 'Set-Widget'; ChildPath = 'configs'; File = (Get-CatzcModulesFolder) + '/Catzc.Base.Widget/Set-Widget.ps1'; Line = 2 }
             }
             $destination = Join-Path $TestDrive 'gate'
             $failure = { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination } | Should -Throw -PassThru

@@ -71,10 +71,11 @@ Describe 'Get-AdoAuthorizationHeader' -Tag 'L0', 'logic' {
 
         It 'asserts the session is in ado.yml''s tenant, then returns a Bearer token' {
             Mock Assert-AzCliConnected { } -ModuleName Catzc.Azure.DevOps
-            Mock Invoke-Executable { [pscustomobject]@{ Output = 'tok-123' } } -ModuleName Catzc.Azure.DevOps
+            Mock Invoke-AzCli { [pscustomobject]@{ Output = 'tok-123' } } -ModuleName Catzc.Azure.DevOps
 
             $header = Get-AdoAuthorizationHeader
             $header.Authorization | Should -Be 'Bearer tok-123'
+            Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Arguments -like 'account get-access-token *' }
             Should -Invoke Assert-AzCliConnected -ModuleName Catzc.Azure.DevOps -ParameterFilter {
                 $TenantId -eq 'fa0e0000-7e0a-0700-1d00-000000000000'
             }

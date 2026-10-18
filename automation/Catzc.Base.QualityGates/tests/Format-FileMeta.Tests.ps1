@@ -18,7 +18,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
                 head_policy = @{ default = 'required' }
                 kinds       = [ordered]@{
                     'body-sha'  = @{ keys = @('with_body_sha') }
-                    'file-kind' = @{ keys = @('kind') }
+                    'file-role' = @{ keys = @('role') }
                     'adr-codes' = @{ keys = @('cites'); section = 'edges' }
                 }
             })
@@ -38,13 +38,13 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $bytes = [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot 'docs/widget.md'))
         $bytes[0] | Should -Be ([byte] [char] '-')
         $text = [System.Text.Encoding]::UTF8.GetString($bytes)
-        $text | Should -BeLike "---`r`ncatzc:`r`n  immutable:`r`n    with_body_sha: *`r`n    kind: gadget`r`n  edges:`r`n    cites:`r`n      - ADR-GADGET#2`r`n---`r`n`r`n# docs/widget.md*"
+        $text | Should -BeLike "---`r`ncatzc:`r`n  immutable:`r`n    with_body_sha: *`r`n    role: gadget`r`n  edges:`r`n    cites:`r`n      - ADR-GADGET#2`r`n---`r`n`r`n# docs/widget.md*"
     }
 
     It 'keeps the authored config part and the other front matter keys' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) -replace 'with_body_sha: "?[0-9a-f]{12}"?', 'with_body_sha: HASH'
-        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  immutable:`n    with_body_sha: HASH`n    kind: gadget`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  immutable:`n    with_body_sha: HASH`n    role: gadget`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'changes nothing on a second run' {

@@ -2,7 +2,7 @@
 Describe 'Get-CombinedTypeHash module selection' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture automation root: two modules with one type each, plus a module with no types/ folder.
-        $script:root = Join-Path $TestDrive 'automation'
+        $script:root = Join-Path $TestDrive 'widget-modules'
         foreach ($entry in @(@('Widget', 'Sprocket'), @('Gadget', 'Lever'))) {
             $typesDirectory = Join-Path $root "$($entry[0])/types"
             [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null
@@ -37,7 +37,7 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
         $script:widget = "CatzcBuildWidget$runId"
         $script:gadget = "CatzcBuildGadget$runId"
-        $script:root = Join-Path $TestDrive 'automation'
+        $script:root = Join-Path $TestDrive 'widget-modules'
         foreach ($entry in @(@($widget, 'Sprocket'), @($gadget, 'Lever'))) {
             $typesDirectory = Join-Path $root "$($entry[0])/types"
             [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null

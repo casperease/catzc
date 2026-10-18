@@ -61,7 +61,7 @@ public sealed class FileKindsConfig
         {
             throw new ArgumentException("file-kinds config: overlaps must be a list of [earlier, later] kind pairs");
         }
-        var order = kinds.Select(kind => kind.kind).ToList();
+        var order = kinds.Select(kind => kind.role).ToList();
         foreach (object item in items)
         {
             var pair = new List<string>();
@@ -110,7 +110,7 @@ public sealed class FileKindsConfig
 
     void Shadow(FileKindEntry entry, List<KeyValuePair<string, string>> resolved, List<FileKindShadow> findings)
     {
-        string own = entry.subkind == null ? entry.kind : entry.kind + "/" + entry.subkind;
+        string own = entry.subkind == null ? entry.role : entry.role + "/" + entry.subkind;
         var takers = new Dictionary<string, int>(StringComparer.Ordinal);
         int matched = 0;
         int taken = 0;
@@ -127,7 +127,7 @@ public sealed class FileKindsConfig
         if (matched == 0 || taken * 100 <= matched * ShadowedPercent) { return; }
         foreach (KeyValuePair<string, int> taker in takers.OrderByDescending(pair => pair.Value).ThenBy(pair => pair.Key, StringComparer.Ordinal))
         {
-            if (!overlaps.Any(pair => pair.Earlier == taker.Key && pair.Later == entry.kind))
+            if (!overlaps.Any(pair => pair.Earlier == taker.Key && pair.Later == entry.role))
             {
                 findings.Add(new FileKindShadow(own, taker.Key, taker.Value, matched));
             }
@@ -221,16 +221,16 @@ public sealed class FileKindsConfig
         return globs;
     }
 
-    // The kind and subkind of a repository-relative path, or the default kind with no subkind.
+    // The role and subkind of a repository-relative path, or the default kind's role with no subkind.
     public FileKindMatch Resolve(string path)
     {
         foreach (FileKindEntry kind in kinds)
         {
             foreach (FileKindEntry sub in kind.subkinds)
             {
-                if (sub.Matches(path)) { return new FileKindMatch(sub.kind, sub.subkind, sub.definition); }
+                if (sub.Matches(path)) { return new FileKindMatch(sub.role, sub.subkind, sub.definition); }
             }
-            if (kind.Matches(path)) { return new FileKindMatch(kind.kind, null, kind.definition); }
+            if (kind.Matches(path)) { return new FileKindMatch(kind.role, null, kind.definition); }
         }
         return new FileKindMatch(DefaultKind, null, null);
     }

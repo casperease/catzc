@@ -1,6 +1,6 @@
 Describe 'Clear-CompiledType' -Tag 'L0', 'logic' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
     }
 
     AfterAll {

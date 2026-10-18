@@ -16,7 +16,7 @@ function Get-ReadmeContent {
     $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source;"
 
     # The copy's own meta block says what it is, in the shape every meta block has, so a tool can tell it from an authored file.
-    $meta = "---`ncatzc:`n  immutable:`n    kind: $((Get-FileKind "$($Mapping.folder)/README.md").kind)`n---`n`n"
+    $meta = "---`ncatzc:`n  immutable:`n    role: $((Get-FileKind "$($Mapping.folder)/README.md").role)`n---`n`n"
 
     $lines = @($body -split "`n", 2)
     if (-not $lines[0].StartsWith('# ')) {

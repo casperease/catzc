@@ -3,7 +3,7 @@ param()
 
 Describe 'Import-CSharpTypes' -Tag 'L0' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
 
         $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "importcs-$([guid]::NewGuid().ToString('N'))"
 
@@ -433,7 +433,7 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
 
 Describe 'combined types assembly is committed and current' -Tag 'integrity' {
     BeforeAll {
-        $script:currentHash = (Get-CombinedTypeHash (Join-Path $env:RepositoryRoot 'automation')).CombinedHash
+        $script:currentHash = (Get-CombinedTypeHash (Get-CatzcModulesRoot)).CombinedHash
     }
 
     It 'is exactly one committed assembly whose hash matches the current sources (Test-BuildArtifact)' -Tag 'L2', 'source-only' {
@@ -448,7 +448,7 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
         if (-not (Test-Tool 'dotnet')) {
             Set-ItResult -Skipped -Because 'tool_dotnet_missing'; return
         }
-        $csproj = Join-Path $env:RepositoryRoot 'automation/.internal/assets/Catzc.Types.csproj'
+        $csproj = Join-Path (Get-CatzcModulesRoot) '.internal/assets/Catzc.Types.csproj'
         # Build to an isolated output dir so we read THIS run's deps.json and never race the default bin/.
         $outputDirectory = Join-Path $TestDrive 'stamp-build'
         $log = & dotnet build $csproj -c Debug --output $outputDirectory -v minimal 2>&1

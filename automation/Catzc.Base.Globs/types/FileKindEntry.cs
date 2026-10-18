@@ -8,7 +8,8 @@ public sealed class FileKindEntry
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public string kind { get; }
+    // The kind's name, which is the role its files play; a head writes it as role.
+    public string role { get; }
 
     // Null for the kind's own entry.
     public string subkind { get; }
@@ -25,10 +26,10 @@ public sealed class FileKindEntry
 
     readonly List<GlobPattern> patterns;
 
-    public FileKindEntry(string kind, string subkind, string definition, IReadOnlyList<string> files, IReadOnlyList<FileKindEntry> subkinds,
+    public FileKindEntry(string role, string subkind, string definition, IReadOnlyList<string> files, IReadOnlyList<FileKindEntry> subkinds,
         IReadOnlyList<string> gitAttributes, string gitWhy)
     {
-        this.kind = kind;
+        this.role = role;
         this.subkind = subkind;
         this.definition = definition;
         this.files = files;

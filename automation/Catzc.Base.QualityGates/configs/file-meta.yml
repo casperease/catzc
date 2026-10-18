@@ -31,9 +31,9 @@ kinds:
   file-type:
     keys: [filetype]
 
-  # The kind of the file by its role, and its subkind when it has one, from the file-kinds registry.
-  file-kind:
-    keys: [kind, subkind]
+  # The role of the file, the name of the file-kinds registry entry that selects it, and its subkind when it has one.
+  file-role:
+    keys: [role, subkind]
 
   # The file language of the file, from the languages registry by its extension; a file no language lists carries none.
   file-language:

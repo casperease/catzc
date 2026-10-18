@@ -1,7 +1,7 @@
 BeforeAll {
     # The transient importer modules are removed after every import, so this test file loads its own copies.
-    Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
-    Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Importer.psm1') -Force
+    Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
+    Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Importer.psm1') -Force
 
     # Imports a one-function fixture module <Name>.psm1 from <Folder> (its ModuleBase) into the global session.
     function Import-FixtureModule {
@@ -23,8 +23,8 @@ AfterAll {
 Describe 'Get-ForeignCatzcModule' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:packageRoot = Join-Path $TestDrive 'package'
-        $script:activeRoot = Join-Path $packageRoot 'automation'
-        $script:otherRoot = Join-Path $TestDrive 'other/automation'
+        $script:activeRoot = Join-Path $packageRoot 'widget-modules'
+        $script:otherRoot = Join-Path $TestDrive 'other/widget-modules'
         $script:widget = "Catzc.Widget$runId"
         $script:gadget = "Catzc.Gadget$runId"
         $script:internalGadget = "Catzc.Internal.Gadget$runId"
@@ -115,7 +115,7 @@ Describe 'Assert-CatzcRunModeExclusive' -Tag 'L0', 'logic' {
     It 'throws on a real catzc module loaded from outside the active root (no mock)' {
         $stray = Import-FixtureModule -Folder (Join-Path $TestDrive "stray/Catzc.Stray$runId") -Name "Catzc.Stray$runId"
         try {
-            { InModuleScope Catzc.Internal.Importer -Parameters @{ R = (Join-Path $env:RepositoryRoot 'automation') } { param($R) Assert-CatzcRunModeExclusive -ModulesRoot $R } } |
+            { InModuleScope Catzc.Internal.Importer -Parameters @{ R = (Get-CatzcModulesRoot) } { param($R) Assert-CatzcRunModeExclusive -ModulesRoot $R } } |
                 Should -Throw "*Catzc.Stray$runId*"
         }
         finally {

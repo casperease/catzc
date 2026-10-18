@@ -1,11 +1,12 @@
 namespace Catzc.Base.Globs;
 
-// What the file-kinds registry names for one path: its kind, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2)).
+// What the file-kinds registry names for one path: the role its kind gives it, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2)).
 public sealed class FileKindMatch
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public string kind { get; }
+    // The name of the kind that selects the file, which is the role the file plays.
+    public string role { get; }
 
     // Null when the file has none.
     public string subkind { get; }
@@ -13,12 +14,12 @@ public sealed class FileKindMatch
     // Null for the default kind, which no entry defines.
     public string definition { get; }
 
-    // What a selector matches: the kind alone, or kind/subkind.
-    public string Class => subkind == null ? kind : kind + "/" + subkind;
+    // What a selector matches: the role alone, or role/subkind.
+    public string Class => subkind == null ? role : role + "/" + subkind;
 
-    public FileKindMatch(string kind, string subkind, string definition)
+    public FileKindMatch(string role, string subkind, string definition)
     {
-        this.kind = kind;
+        this.role = role;
         this.subkind = subkind;
         this.definition = definition;
     }

@@ -5,7 +5,7 @@
 #     repo_status: locked
 #     path: ".cspell/.gitkeep"
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
-#     kind: other
+#     role: other
 #     track: ".cspell"
 #     tracktype: vendor-settings
 #     vendor: cspell

@@ -45,7 +45,7 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Path = '.gitignore' }
         @{ Path = 'elsewhere/notes.txt' }
     ) {
-        (Get-FileKind $Path).kind | Should -BeExactly 'other'
+        (Get-FileKind $Path).role | Should -BeExactly 'other'
     }
 
     It 'reads a backslash path' {
@@ -54,9 +54,9 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
 
     It 'gives every shipped kind and subkind a definition' {
         foreach ($entry in (Get-Config -Config file-kinds).kinds) {
-            $entry.definition | Should -Not -BeNullOrEmpty -Because "kind '$($entry.kind)'"
+            $entry.definition | Should -Not -BeNullOrEmpty -Because "kind '$($entry.role)'"
             foreach ($sub in $entry.subkinds) {
-                $sub.definition | Should -Not -BeNullOrEmpty -Because "subkind '$($entry.kind)/$($sub.subkind)'"
+                $sub.definition | Should -Not -BeNullOrEmpty -Because "subkind '$($entry.role)/$($sub.subkind)'"
             }
         }
     }

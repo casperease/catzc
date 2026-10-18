@@ -69,17 +69,18 @@ The git workspace (responsibility 3) gates automation that commits, and the aspe
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                                   | Function               |
-| ------------------------------------------------ | ---------------------- |
-| responsibility:1 — Resource-name order variant   | `Get-AdoNaming`        |
-|                                                  | `Test-AdoNaming`       |
-|                                                  | `Assert-AdoNaming`     |
-| responsibility:2 — Enabled-customer set variant  | `Get-EnabledCustomers` |
-|                                                  | `Test-HaveCustomers`   |
-|                                                  | `Assert-HaveCustomers` |
-|                                                  | `Test-HaveCustomer`    |
-|                                                  | `Assert-HaveCustomer`  |
-| responsibility:3 — Git workspace variant         | `Get-GitWorkspace`     |
-|                                                  | `Test-GitWorkspace`    |
-| responsibility:4 — Aspect classification variant | `Get-Aspect`           |
-| config                                           | `variants.yml`         |
+| Responsibility                                   | Function                 |
+| ------------------------------------------------ | ------------------------ |
+| responsibility:1 — Resource-name order variant   | `Get-AdoNaming`          |
+|                                                  | `Test-AdoNaming`         |
+|                                                  | `Assert-AdoNaming`       |
+| responsibility:2 — Enabled-customer set variant  | `Get-EnabledCustomers`   |
+|                                                  | `Test-HaveCustomers`     |
+|                                                  | `Assert-HaveCustomers`   |
+|                                                  | `Test-HaveCustomer`      |
+|                                                  | `Assert-HaveCustomer`    |
+| responsibility:3 — Git workspace variant         | `Get-GitWorkspace`       |
+|                                                  | `Test-GitWorkspace`      |
+| responsibility:4 — Aspect classification variant | `Get-Aspect`             |
+|                                                  | `Test-AspectDeclaration` |
+| config                                           | `variants.yml`           |

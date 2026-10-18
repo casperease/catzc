@@ -4,7 +4,7 @@ keys:
   - repo_status
   - path
   - source
-  - kind
+  - role
   - subkind
   - language
   - filetype

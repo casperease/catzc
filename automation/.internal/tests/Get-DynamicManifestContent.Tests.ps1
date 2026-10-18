@@ -1,6 +1,6 @@
 Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
     }
 
     AfterAll {
@@ -47,7 +47,7 @@ Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
 
 Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
 
         # A fixture module folder on disk: two public files and one private file.
         function New-WidgetModule {
@@ -132,7 +132,7 @@ Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
 
 Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'logic' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
         $script:moduleName = 'GadgetMerged' + [guid]::NewGuid().ToString('N').Substring(0, 8)
         $script:path = Join-Path $TestDrive $moduleName
         [System.IO.Directory]::CreateDirectory($path) | Out-Null
@@ -159,10 +159,10 @@ Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'l
 
 Describe 'New-DynamicManifest derived manifests load through the shared loader' -Tag 'L1', 'logic' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
-        $script:modulesRoot = Join-Path $TestDrive 'automation'
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        $script:modulesRoot = Join-Path $TestDrive 'widget-modules'
         [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot '.internal/assets')) | Out-Null
-        [System.IO.File]::Copy((Join-Path $env:RepositoryRoot 'automation/.internal/assets/Import-ModuleFiles.ps1'), (Join-Path $modulesRoot '.internal/assets/Import-ModuleFiles.ps1'))
+        [System.IO.File]::Copy((Join-Path (Get-CatzcModulesRoot) '.internal/assets/Import-ModuleFiles.ps1'), (Join-Path $modulesRoot '.internal/assets/Import-ModuleFiles.ps1'))
 
         function New-SprocketModule {
             param([string] $Name, [hashtable] $File)
@@ -219,7 +219,7 @@ Describe 'New-DynamicManifest derived manifests load through the shared loader' 
 # source-only: Test-BuildArtifact builds from the source tree, then checks the manifests the build wrote.
 Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
     }
 
     AfterAll {

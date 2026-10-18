@@ -1,6 +1,6 @@
 Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Types.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
 
         function script:New-TypesRoot {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

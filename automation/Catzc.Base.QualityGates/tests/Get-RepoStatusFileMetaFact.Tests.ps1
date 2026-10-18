@@ -33,7 +33,7 @@ Describe 'The repo-status kind of the shipped registry' -Tag 'L0', 'integrity' {
     It 'locks only classes the file-kinds registry declares' {
         $kind = (Get-Config -Config file-meta).kinds | Where-Object { $_.id -eq 'repo-status' }
         $kind | Should -Not -BeNullOrEmpty
-        $declared = @((Get-Config -Config file-kinds).kinds | ForEach-Object { $_.kind })
+        $declared = @((Get-Config -Config file-kinds).kinds | ForEach-Object { $_.role })
         $locked = @($kind.settings['locked_classes'])
         $locked | Should -Not -BeNullOrEmpty
         foreach ($class in $locked) {

@@ -1,9 +1,9 @@
 Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic', 'ADR-REPO-FILEMETA#2' {
     # Read at discovery: -ForEach needs the declared classes before any BeforeAll runs.
     $declared = foreach ($entry in (Get-Config -Config file-kinds).kinds) {
-        @{ Class = $entry.kind }
+        @{ Class = $entry.role }
         foreach ($subkind in $entry.subkinds) {
-            @{ Class = "$($entry.kind)/$($subkind.subkind)" }
+            @{ Class = "$($entry.role)/$($subkind.subkind)" }
         }
     }
 

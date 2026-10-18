@@ -22,7 +22,7 @@ function Get-AdoAuthorizationHeader {
 
     Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant
 
-    $result = Invoke-Executable "az account get-access-token --resource $ResourceUrl --query accessToken -o tsv" -PassThru -NoAssert -Silent
+    $result = Invoke-AzCli "account get-access-token --resource $ResourceUrl --query accessToken -o tsv" -PassThru -NoAssert -Silent
     Assert-NotNullOrWhitespace $result.Output -ErrorText (
         'No ADO token available. Set $env:AZURE_DEVOPS_PAT, or run Connect-AzCli with an Entra ID account.'
     )

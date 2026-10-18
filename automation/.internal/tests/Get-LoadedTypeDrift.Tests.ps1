@@ -1,5 +1,5 @@
 BeforeAll {
-    Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Types.psm1') -Force
+    Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
 }
 
 Describe 'Get-LoadedTypeDrift' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#15' {
