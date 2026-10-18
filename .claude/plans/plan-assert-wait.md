@@ -3,7 +3,7 @@ plan:
   status: active
   value: medium
   reviewed: 2026-10-18
-  blocked_on: the user's git mv of FileKindReachability.Tests (task-user-runs-and-commits step 2), the one open step
+  blocked_on: the neutral fixture codes in Test-AdrRegistry.Tests.ps1, the one finding left in the open step
   targets: [pwsh/Catzc.Base.Timeouts, pwsh/.internal/Catzc.Internal.Importer.psm1, pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1]
 ---
 
@@ -21,8 +21,9 @@ there. Its lasting value is the limits it leads to, so the last step only proves
 ## Open steps
 
 - [ ] Run `pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1` green. Its one failing check is the source-conventions check,
-      whose only finding is the file name `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1`; the `git mv` to
-      `Test-FileKindReachability.Tests.ps1` is the user's (check: the file passes under `Invoke-TestFile` after that move).
+      whose six findings are L0 fixture lines in `pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1` (147, 177-180, 197) that use
+      real `ADR-REPO-ADRCODE-*` codes; each takes a neutral widget code (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES) (check: the file passes
+      under `Invoke-TestFile`).
 
 ## Refs
 

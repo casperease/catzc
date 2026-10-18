@@ -34,14 +34,14 @@ The head is the carrier every other plan writes into; this plan settled its shap
 - Q45 identifiers use pwsh (engine, folder) or powershell (language id), prose may say PowerShell (ADR-REPO-VOCAB-SAYPOWERSHELL); the one
   literal Powershell is in the vendored dotnet-install.ps1 and stays.
 - Q52 this stays one plan for the whole head.
+- Glossary entries for individual kinds are not written (only the concepts kind and subkind are terms), and contracts/.gitkeep resolves to
+  `other` and is left alone.
 
 ## Open steps
 
 - [ ] The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; no earlier step runs it or
       Test-FileMeta over the tree) (check: that run's report in out/ shows no finding from the head shape, the class selectors or the path
       split).
-- Context, not a step: glossary entries for individual kinds are not written (only the concepts kind and subkind are terms), and
-  contracts/.gitkeep resolves to `other` and is left alone.
 
 ## Refs
 

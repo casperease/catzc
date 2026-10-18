@@ -3,7 +3,7 @@ plan:
   status: blocked
   value: medium-high
   reviewed: 2026-10-18
-  blocked_on: the user's `git mv` of the references asset folder (task-user-runs-and-commits step 8a)
+  blocked_on: the user's `git mv` of the references asset folder (task-user-runs-and-commits step 5, its references asset bullet)
   targets: [docs/references/.assets/automation, docs]
 ---
 
@@ -27,7 +27,7 @@ links into it must move with it (ADR-PRIN-ONELIVE).
 ## Open steps
 
 - [ ] The user runs `git mv docs/references/.assets/automation docs/references/.assets/pwsh` (a mutating git command; it belongs in
-      task-user-runs-and-commits step 8a). (check: `ls docs/references/.assets/automation` fails)
+      task-user-runs-and-commits step 5, its references asset bullet). (check: `ls docs/references/.assets/automation` fails)
 - [ ] Every page that links into the moved folder is re-pointed by `link-fixer`, after the move. (check: `Test-Links` clean over `docs/`)
 
 ## Refs

@@ -4,13 +4,14 @@
 
 ### Rule ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
 
-A module of a deployable track ([ADR-DSGN-TRACKTYPE-ONEROLE](../design/track-types.md#rule-adr-dsgn-tracktype-onerole)) is resolved through the track
-that holds it, by one resolver, `Get-CatzcModule`. The track is the one the longest place names
-([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](../design/track-types.md#rule-adr-dsgn-tracktype-longestplacewins)); the module's root is a place of that track plus the module's
-name; its module type is one the track type admits ([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](../design/module-types.md#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)). The resolver
+A module of a deployable track ([ADR-DSGN-TRACKTYPE-ONEROLE](../design/track-types.md#rule-adr-dsgn-tracktype-onerole)) is resolved through
+the track that holds it, by one resolver, `Get-CatzcModule`. The track is the one the longest place names
+([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](../design/track-types.md#rule-adr-dsgn-tracktype-longestplacewins)); the module's root is a place of
+that track plus the module's name; its module type is one the track type admits
+([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](../design/module-types.md#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)). The resolver
 returns, for each module, its name, track, root, shape (a folder or one file), files, languages and engines, as one native type
-([ADR-AUTO-TYPES-NATIVETYPEDMODEL](BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)). No other command derives a module's name, root, languages or engines
-from a path or a folder listing, and no command spells a track's root: it reads the track.
+([ADR-AUTO-TYPES-NATIVETYPEDMODEL](BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)). No other command derives a module's
+name, root, languages or engines from a path or a folder listing, and no command spells a track's root: it reads the track.
 
 - [One resolver through the track](#one-resolver-through-the-track)
 
@@ -19,11 +20,12 @@ from a path or a folder listing, and no command spells a track's root: it reads 
 A module exists when its files stand in its **layout**; nothing registers it, and no descriptor file declares it. The layout is the one
 table of folders inside a module and what each holds (public functions at the root, `private/`, `types/`, `configs/`, `assets/`, `tests/`),
 declared once under each file language in `languages.yml`, with its default on the config type
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A module's name, track, root, shape, files, languages and order are
-derived from placement; its needs (`dependencies.yml`), packages (`files.yml`) and an engine override are the only facts declared, and a
-module's existence is never declared. A file inside a module folder that the layout does not place is a finding. The aspects
-([ADR-DSGN-ASPECT-ASPECTSAREDERIVED](../design/module-aspects.md#rule-adr-dsgn-aspect-aspectsarederived)) read their live patterns from the layout and every command that
-reads a module's folders reads the layout, except the loader that runs before the types load, which a test holds to the layout.
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A module's name, track, root, shape,
+files, languages and order are derived from placement; its needs (`dependencies.yml`), packages (`files.yml`) and an engine override are the
+only facts declared, and a module's existence is never declared. A file inside a module folder that the layout does not place is a finding.
+The aspects ([ADR-DSGN-ASPECT-ASPECTSAREDERIVED](../design/module-aspects.md#rule-adr-dsgn-aspect-aspectsarederived)) read their live
+patterns from the layout and every command that reads a module's folders reads the layout, except the loader that runs before the types
+load, which a test holds to the layout.
 
 - [Registration is placement](#registration-is-placement)
 
@@ -31,20 +33,21 @@ reads a module's folders reads the layout, except the loader that runs before th
 
 A module's languages are the file languages of its live files, and each must be one the track declares
 ([ADR-DSGN-TRACK-FILELANGUAGE](../design/tracks.md#rule-adr-dsgn-track-filelanguage)); a file in another language is a stack violation
-([ADR-DSGN-TRACK-STACKVIOLATION](../design/tracks.md#rule-adr-dsgn-track-stackviolation)). Languages are modelled in general, whatever they are: a track admits a
-language by declaring it, and the Go, Python and Bash rules keep those languages to the test artifacts of the verification tracks. The
-formatter, the checks and the test handler of a file language are declared once per language in `languages.yml`, and a command that needs
-them reads them there ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)).
+([ADR-DSGN-TRACK-STACKVIOLATION](../design/tracks.md#rule-adr-dsgn-track-stackviolation)). Languages are modelled in general, whatever they
+are: a track admits a language by declaring it, and the Go, Python and Bash rules keep those languages to the test artifacts of the
+verification tracks. The formatter, the checks and the test handler of a file language are declared once per language in `languages.yml`,
+and a command that needs them reads them there ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)).
 
 - [Languages](#languages)
 
 ### Rule ADR-AUTO-MODULE-ENGINESUBSET
 
-A module's execution engines are a subset of the closed set ([ADR-AUTO-ENGINE-THREEENGINES](execution-engines.md#rule-adr-auto-engine-threeengines)). A track
-declares the engines its modules run under, and a module overrides the track's list only when it differs from it; a module that names none
-takes the track's, and a track that names none leaves the choice open as `auto`
-([ADR-AUTO-ENGINE-AUTONAMESNOENGINE](execution-engines.md#rule-adr-auto-engine-autonamesnoengine)). A black-box test of the module runs once per engine the module names
-([ADR-AUTO-ENGINE-STARTENVIRONMENT](execution-engines.md#rule-adr-auto-engine-startenvironment)).
+A module's execution engines are a subset of the closed set
+([ADR-AUTO-ENGINE-THREEENGINES](execution-engines.md#rule-adr-auto-engine-threeengines)). A track declares the engines its modules run
+under, and a module overrides the track's list only when it differs from it; a module that names none takes the track's, and a track that
+names none leaves the choice open as `auto`
+([ADR-AUTO-ENGINE-AUTONAMESNOENGINE](execution-engines.md#rule-adr-auto-engine-autonamesnoengine)). A black-box test of the module runs once
+per engine the module names ([ADR-AUTO-ENGINE-STARTENVIRONMENT](execution-engines.md#rule-adr-auto-engine-startenvironment)).
 
 - [Engines](#engines)
 
@@ -52,9 +55,9 @@ takes the track's, and a track that names none leaves the choice open as `auto`
 
 The order of modules is the topological order of the declared graph
 ([ADR-AUTO-DEPM-UNIFIEDGRAPH](controlling-module-dependencies.md#rule-adr-auto-depm-unifiedgraph),
-[ADR-AUTO-DEPM-GROUPAWAREINTEGRITY](controlling-module-dependencies.md#rule-adr-auto-depm-groupawareintegrity)): foundation first, ties broken ordinally. One function sorts the
-graph, over module names, and every command that needs modules in dependency order calls it and never sorts again. A load order is no
-dependency order, because a module declares its needs and never imports another.
+[ADR-AUTO-DEPM-GROUPAWAREINTEGRITY](controlling-module-dependencies.md#rule-adr-auto-depm-groupawareintegrity)): foundation first, ties
+broken ordinally. One function sorts the graph, over module names, and every command that needs modules in dependency order calls it and
+never sorts again. A load order is no dependency order, because a module declares its needs and never imports another.
 
 - [One order](#one-order)
 
@@ -63,19 +66,28 @@ dependency order, because a module declares its needs and never imports another.
 A check and a test of a module are resolved by the file language, from the language registry, and never by a branch on a language in a
 command: a new language adds a registry entry and its handlers ([ADR-AUTO-EXTEND](open-closed-architecture.md),
 [ADR-PRIN-CONFIG](../principles/configure-not-program.md)). The build of a module into a bundle is the bundle's
-([ADR-AUTO-BUNDLE-BUNDLEISBUILD](platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)): it is code in the closed builder, not a handler, and this rule does not
-cover it.
+([ADR-AUTO-BUNDLE-BUNDLEISBUILD](platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)): it is code in the closed builder, not a handler,
+and this rule does not cover it.
 
 - [Handlers by language](#handlers-by-language)
+
+### Rule ADR-AUTO-MODULE-NAMESPACEISTRACK
+
+A module's namespace is the name of the track that holds it, derived from placement like the track itself, and never written into the
+module's name. The modules of the `pwsh` track keep their `Catzc.Base.*`, `Catzc.Azure.*` and `Catzc.Tooling.*` names, and their namespace
+is `pwsh`. This is the namespace of the module as an object; the C# namespace of its types is the module's name
+([ADR-AUTO-TYPES-NAMESPACEISMODULE](BCL/native-csharp-types.md#rule-adr-auto-types-namespaceismodule)).
+
+- [Namespace](#namespace)
 
 ## Context
 
 `ADR-AUTO-MODULE` sits under [ADR-DSGN-TRACK](../design/tracks.md): it cites `ADR-DSGN-TRACK`,
 [ADR-DSGN-TRACKTYPE](../design/track-types.md) and [ADR-DSGN-MODTYPE](../design/module-types.md) as the rules it specialises. A track is the
-repository's root entity, a deployable track ([ADR-DSGN-TRACKTYPE-ONEROLE](../design/track-types.md#rule-adr-dsgn-tracktype-onerole)) holds modules, and
-the module types say what each sort of module is. Those three decide what a track, a module and a module type are; this ADR decides how the
-modules of a deployable track are found and what a reader can ask of one. It restates none of the three. It sits in the `automation` domain
-because the domain order lets `automation` cite `design` and not the other way round.
+repository's root entity, a deployable track ([ADR-DSGN-TRACKTYPE-ONEROLE](../design/track-types.md#rule-adr-dsgn-tracktype-onerole)) holds
+modules, and the module types say what each sort of module is. Those three decide what a track, a module and a module type are; this ADR
+decides how the modules of a deployable track are found and what a reader can ask of one. It restates none of the three. It sits in the
+`automation` domain because the domain order lets `automation` cite `design` and not the other way round.
 
 A module that several commands each find for themselves, with a folder walk and a copy of the folder rules in each, is found differently by
 each of them, and the copies drift apart. One resolver, built on the track and the layout, is the single place that answers what a module
@@ -93,15 +105,16 @@ resolver owns, so the needs, the closure and the order are functions over module
 
 A person adds a module by putting correctly named files in the layout's folders, and removes it by deleting them. There is nothing else to
 update, so there is nothing to forget. The layout is config with a sensible default, resolved in the one order of
-[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder): the caller's value, the owning module's configuration, then the default
-declared on the type. A consumer repository overlays only a difference ([ADR-AUTO-OVERLAY](consumer-overlay.md)). A file the layout does not
-place is reported, so a misplaced file is never silently not part of a module. The existence of a module is the one fact no config states.
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder): the caller's value, the owning
+module's configuration, then the default declared on the type. A consumer repository overlays only a difference
+([ADR-AUTO-OVERLAY](consumer-overlay.md)). A file the layout does not place is reported, so a misplaced file is never silently not part of a
+module. The existence of a module is the one fact no config states.
 
 ### Languages
 
-The file languages are a registry keyed by extension ([ADR-DSGN-TRACK-FILELANGUAGE](../design/tracks.md#rule-adr-dsgn-track-filelanguage)); a module's languages
-are read from its files through it, so no module lists its own. Keeping the language axis general lets a track admit a language by a line of
-config; the track's declared languages are what stops a stray one.
+The file languages are a registry keyed by extension ([ADR-DSGN-TRACK-FILELANGUAGE](../design/tracks.md#rule-adr-dsgn-track-filelanguage));
+a module's languages are read from its files through it, so no module lists its own. Keeping the language axis general lets a track admit a
+language by a line of config; the track's declared languages are what stops a stray one.
 
 ### Engines
 
@@ -118,13 +131,21 @@ keeps a change to the graph a single change.
 Checks are declared per file language. A test handler per file language extends the same mechanism, so that the next language is an entry,
 not a branch.
 
+### Namespace
+
+The track is already a fact the resolver returns for every module, so the namespace adds no declaration: it is the track, read the same way.
+A name that also spelled the track would state one fact twice, and the copy in the name would go stale whenever a module's track changes.
+
 ## Decision
 
-Resolve every module of a deployable track through its track with one resolver ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](#rule-adr-auto-module-deployabletrackmodule)); let placement
-in the layout register a module and report what the layout does not place ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](#rule-adr-auto-module-existsbylayout)); read languages from
-the files and keep them within the track's declared languages ([ADR-AUTO-MODULE-LANGUAGESFROMFILES](#rule-adr-auto-module-languagesfromfiles)); declare engines on the track
-with a per-module override ([ADR-AUTO-MODULE-ENGINESUBSET](#rule-adr-auto-module-enginesubset)); sort the graph once ([ADR-AUTO-MODULE-TOPOLOGICALORDER](#rule-adr-auto-module-topologicalorder));
-and resolve checks and tests by language ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)).
+Resolve every module of a deployable track through its track with one resolver
+([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](#rule-adr-auto-module-deployabletrackmodule)); let placement in the layout register a module and
+report what the layout does not place ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](#rule-adr-auto-module-existsbylayout)); read languages from the
+files and keep them within the track's declared languages ([ADR-AUTO-MODULE-LANGUAGESFROMFILES](#rule-adr-auto-module-languagesfromfiles));
+declare engines on the track with a per-module override ([ADR-AUTO-MODULE-ENGINESUBSET](#rule-adr-auto-module-enginesubset)); sort the graph
+once ([ADR-AUTO-MODULE-TOPOLOGICALORDER](#rule-adr-auto-module-topologicalorder)); resolve checks and tests by language
+([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)); and take a module's namespace from its track
+([ADR-AUTO-MODULE-NAMESPACEISTRACK](#rule-adr-auto-module-namespaceistrack)).
 
 ### How this is enforced
 
@@ -140,7 +161,8 @@ and resolve checks and tests by language ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#ru
   ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)).
 - **`Get-LanguageTestOutcomes`** runs a test-artifact language's tests through the runner its `tests` entry in `languages.yml` names, and
   `Get-LanguageTestExecutable` resolves the tools that entry lists, so a new test language is a registry entry and its runner; the config
-  type fails the load on an entry that names both tools and an engine, or neither ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)).
+  type fails the load on an entry that names both tools and an engine, or neither
+  ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)).
 
 ## Consequences
 

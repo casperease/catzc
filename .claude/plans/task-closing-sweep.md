@@ -19,6 +19,9 @@ as needed, and last of all. `git rm` is the user's (the permission layer blocks 
 2. For each candidate: its row removed from the value table, and its `git rm` line (with its prompt and task companions) added to
    `out/delete-done-plans.ps1`. Check: Test-Links clean on value-of-plan.md.
 3. `out/delete-done-plans.ps1`: the `git rm` lines, nothing else; the user runs it. Check: the files are gone.
+   After the six questionnaire and decisions files are removed: `Build-Diagrams -Path` over each folder in
+   `out/minimap-rebuild-after-rm.txt`, since their generated grid/tree/chain pages link to those files. Check: Test-Links over
+   docs/explanation clean.
 4. `plan-master.md`: each pointer line whose task is complete is marked (done); when every chunk is done, the master itself has no open
    chunk and is deleted with the task files, leaving the plans folder with only live plans and value-of-plan.md. Check: Test-Plans and
    Test-Links clean on the folder.
