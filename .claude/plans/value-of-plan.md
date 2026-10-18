@@ -101,6 +101,9 @@ cleaner shortens a plan only after its data is in the tree, never by dropping a 
   prompt-diagram-folders-2-adrs and prompt-diagram-folders-3-migration.
 - plan-plans-body-sha-landing-zone: Phase 0 closed once the gitattributes template rename was committed (Test-GeneratedFiles 0 tree-wide, so
   Unstamped 0). Its row in the meta table goes with it.
+- plan-adr-code-language: every step landed (named-rule codes across the tree, the parsers on the named form only, `code_language` in
+  gate mode, all 149 subtitles at ADR level, the chip legends on slide-local keys, 0 numbered citations in the 149 slide models), and its
+  decisions live in ADR-REPO-ADRCODE, which also absorbed the page on the removed `terminology` key. No open step.
 - At the round-up, the task files decision-round, command-contracts and loose-ends (every step landed) and the continuation prompts whose
   work landed (assert-wait-1, automation-word-residue-1, closeout-1-decisions, command-contracts-1-freeze, drift-gaps-1 and -2,
   loose-ends-1, promotion-ladder-1-build).

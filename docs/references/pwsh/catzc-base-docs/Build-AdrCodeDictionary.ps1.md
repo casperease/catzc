@@ -15,9 +15,9 @@ Reads the ADR registry (configs/adrs.yml, via Get-Config -Config adrs) and the r
 every segment of every ADR code and rule heading, lower-cased, de-duplicated and ordinal-sorted, to `.cspell/adr-codes.txt` at the
 repository root, the word list cspell.yml loads as `catzc-adr-codes`. A rule is named by a segment of spelled-out words joined, so the spell
 checker takes the names from the registry rather than from one hand-written terminology entry per rule
-([adr-code-language](../../../adr/repository/adr-code-language.md), and the page on the removed
-[terminology key](../../adr-terminology-key.md)). The list carries the generated-file head, is gitignored like the terminology lists, and is
-regenerated at the importer tail; Test-GeneratedFiles fails when it is stale.
+([ADR-REPO-ADRCODE-SEGMENTSAREWORDS](../../../adr/repository/adr-code-language.md#rule-adr-repo-adrcode-segmentsarewords)). The list
+carries the generated-file head, is gitignored like the terminology lists, and is regenerated at the importer tail; Test-GeneratedFiles
+fails when it is stale.
 
 ### parameter `DryRun`
 
