@@ -11,8 +11,8 @@ Quality gate: every member of a pipeline-bound globset matches one of its ADO tr
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the native-trigger projection of
-the real tree ([ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6)). Its safety property: every member of
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the native-trigger projection of
+the real tree ([ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)). Its safety property: every member of
 a pipeline-bound set matches at least one ADO include pattern (Get-GlobSetTrigger), so an ADO include-only trigger is always a SUPERSET of
 exact membership and can never under-trigger (miss a deploy); the in-pipeline Test-GlobSetAffected check supplies exactness on top. Each
 uncovered member is an issue. (GitHub is exact by construction: its ordered '!'-negation paths are the scan program itself.)

@@ -10,5 +10,5 @@ Above `Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-ManualTestPlan over a fixture repository in $TestDrive: the repository root is mocked, and each test writes the
 test files and the plan rows it needs. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -18,6 +18,6 @@ A rule that maps to no ADR is simply absent. Every custom analyzer rule MUST app
 so a new custom rule cannot ship unmapped; a built-in appears only when it genuinely enforces an ADR and is
 enabled in PSScriptAnalyzerSettings.psd1. Shape is validated at load (the AnalyzerAdrMapConfig type); id
 existence is checked by an integrity test, not at load (so config load stays hermetic — the
-[ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
+[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
 pattern).
 ```

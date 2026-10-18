@@ -9,5 +9,5 @@ Above `Describe 'Test-ModuleCycles' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ModuleCycles over a mocked call graph (Get-ModuleDependency). Neutral fixture module names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

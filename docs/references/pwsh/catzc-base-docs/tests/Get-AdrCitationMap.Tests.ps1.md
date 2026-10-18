@@ -9,8 +9,8 @@ Above `Describe 'Get-AdrCitationMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-AdrCitationMap builds the citation registry the link engine derives every code link from
-([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)).
+([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
 A fixture repository in $TestDrive carries a two-ADR index (neutral widget/gadget codes,
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and two
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and two
 code-less documents that share a file name, so the slug lookup's ambiguity is exercised too.
 ```

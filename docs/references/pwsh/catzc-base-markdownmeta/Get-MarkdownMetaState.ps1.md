@@ -13,9 +13,9 @@ Reads what a Markdown text says about its own meta block, without changing it.
 
 Pure: it takes the text, reads no file and no config. The body is what follows the front matter, and its hash drops the blank line that
 separates written front matter from it, so imprinting never changes the hash it records
-([ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
+([ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts)).
 
-It rests on [ADR-REPO-FILEMETA#1](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta1).
+It rests on [ADR-REPO-FILEMETA-HEADPOLICY](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy).
 
 ### parameter `Text`
 

@@ -22,8 +22,8 @@ Above `Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity'
 The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file
 listing), so this is L2; the answer is the same in both run modes, so the build run skips it. Test-Glossary runs
 once over the real sources and every It reads its part of that one result
-([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19),
-[ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)): it prefixes each check's issues
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce),
+[ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)): it prefixes each check's issues
 with the check's code (pinned at L0 above), so each check's It reads its own issues from that run rather than
 running the check a second time.
 ```

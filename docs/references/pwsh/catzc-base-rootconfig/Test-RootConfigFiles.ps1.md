@@ -11,7 +11,7 @@ Quality gate: every managed root config file agrees with rootconfig.yml on git t
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the opted-in entries of
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the opted-in entries of
 rootconfig.yml ([ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)), resolved exactly as Build-RootConfig resolves them
 (Get-RootConfigTargets). A wildcard entry (e.g. `go/tests/*/go.mod`) is checked per file its generator renders (Get-RootConfigRenderedFile).
 Per file, the entry's `committed` decides git membership, and the registry, .gitignore, and git's tracked set must agree. It collects an

@@ -12,11 +12,11 @@ Comment-page settings for Export-Comments / Build-CommentView / Test-Comments.
 
 A file carries no long comment — the prose lives in the file's comment page under docs/references, and the file's
 head names the page, so each comment has exactly one living copy
-([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)). Every key is optional:
+([ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion)). Every key is optional:
 an omitted key takes the sensible default declared once on Catzc.Base.QualityGates.CommentsConfig
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). The comment syntax of
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). The comment syntax of
 each language is CommentLexer's, the one place that knows it; this file decides what moves and where it goes
-([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
 ```
 
 ## comment:2
@@ -45,7 +45,7 @@ Above `keep_run:`, written with `#`.
 
 ```text
 A head listed here keeps the whole run of comment lines it opens, which is how the meta head stays in the file.
-[ADR-REPO-CODEMETA#5](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta5)
+[ADR-REPO-CODEMETA-COMMENTSLEAVEHEAD](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta-commentsleavehead)
 ```
 
 ## comment:5
@@ -78,5 +78,5 @@ Above `view: out/annotated`, written with `#`.
 
 ```text
 The gitignored folder, under out/, Build-CommentView writes the annotated view to
-([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)).
+([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)).
 ```

@@ -9,7 +9,7 @@ Above `Describe 'Get-CatsModules' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per
-[ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
 ```
 
 ## comment:2
@@ -28,5 +28,5 @@ Above `Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity
 ```text
 Reads the REAL loaded session (nothing mocked), so it runs in both the source run and the build run and
 proves Show-Cats lists the modules of whichever tree is loaded
-([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
+([ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)).
 ```

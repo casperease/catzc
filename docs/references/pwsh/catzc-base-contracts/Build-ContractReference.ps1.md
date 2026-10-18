@@ -13,12 +13,12 @@ folder with its note.
 ### description
 
 Projects Get-Contract over every version folder of every unit
-([ADR-REPO-CONTRACT#2](../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)) into one markdown page per unit. The page has a
+([ADR-REPO-CONTRACT-LAYOUT](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)) into one markdown page per unit. The page has a
 section per version folder, the draft 0.0.0 first and then the released folders, newest first; each section is one table with a row per
 asset (its owning module, its path under the module, the repository-relative file it constrains — its target, under the module's target
 root; a sample payload has none — its direction, marked when the version's contract.yml sets it, its kind, and its signature: the call
 interface a command contract states, read by Get-CommandContract
-([ADR-REPO-CMDCONTRACT#5](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract5)); every other kind has none), then a list
+([ADR-REPO-CMDCONTRACT-ONEREADER](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)); every other kind has none), then a list
 of the notes, one item per asset that carries one.
 
 The note is the asset's header comment (Get-ContractAssetNote), so what an asset is for is written once, in the asset, and contracts/ holds
@@ -27,11 +27,11 @@ carries no comment has no list item.
 
 The pages are derived artifacts like the [glossary](../../../adr/glossary.md): committed so GitHub has them and rebuilt by this writer,
 while their inputs (the assets) are what is reviewed and checked
-([ADR-REPO-README#7](../../../adr/repository/generated-readmes.md#rule-adr-repo-readme7)). A page whose unit has no assets left is removed,
+([ADR-REPO-README-AUTHOREDSOURCES](../../../adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)). A page whose unit has no assets left is removed,
 but only when it carries this writer's own marker line: a page someone wrote by hand in docs/references/contracts/ is never touched. Each
 page is written only when its content changes (Write-FileIfChanged), and is emitted already formatted — prose and list items filled at the
 140-column width (Format-MarkdownParagraph) and every table aligned — so Format-Code leaves it as written
-([ADR-REPO-FORMAT#5](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format5)). A contracts/ tree that does not list throws, as
+([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). A contracts/ tree that does not list throws, as
 Get-Contract does.
 
 ### parameter `RepositoryRoot`

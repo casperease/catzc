@@ -10,13 +10,13 @@ Above `using System;`, written with `//`.
 ```text
 The map settings (configs/maps.yml): the palette, the limits, the printed labels of the world map and the value-chain
 map, the reviewed highlight pins and exceptions, and the output folder the PDFs land in under Get-OutputRoot
-([ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)). Registered in
+([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Maps.MapsConfig), so Get-Config -Config maps returns this
 typed record. Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Every key has a sensible default, declared once on the type that holds it
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): MapsPalette, MapsLimits,
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): MapsPalette, MapsLimits,
 MapsLabels, and here the output folder. An empty file means the defaults; a file sets a key only to change it.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:

@@ -10,10 +10,10 @@ Above `Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {`, written wi
 ```text
 Logic tests for Get-BicepParameterViolations (with its per-entry and Key Vault reference checks): each violation kind
 against a fixture main.json (tests/assets/parameter-model/main.json, widget/gadget parameters —
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and a rendered parameters file each
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and a rendered parameters file each
 test writes, plus a clean case. No az: main.json is written as a current build, so the model is read without
 building. Discovery binds to the fixture templates ('sample', configs alpha/beta) and the output to this file's
-$TestDrive through the seams ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
+$TestDrive through the seams ([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
 ```
 
 ## comment:2

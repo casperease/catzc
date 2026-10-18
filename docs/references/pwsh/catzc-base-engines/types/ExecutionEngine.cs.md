@@ -16,7 +16,7 @@ command, its strict mode, its time safeguard, the line endings and executable bi
 entry. The three instances live in ExecutionEngines; this type has no public constructor, so no caller invents a fourth.
 
 A model type, so its properties are PascalCase
-([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2
@@ -34,7 +34,7 @@ Above `public string TimeSafeguard { get; }`, written with `//`.
 
 ```text
 How a call is bounded in time in this engine
-([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 ```
 
 ## comment:4

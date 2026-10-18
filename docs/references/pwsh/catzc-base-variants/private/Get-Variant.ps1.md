@@ -15,7 +15,7 @@ The one place variants.yml is read. Variants are fixed for the importer session 
 importer to pick up an edit — see [ADR-AUTO-CACHE](../../../../adr/automation/caching.md)). The typed primitives (Get-AdoNaming,
 Test-HaveCustomers, …) are thin wrappers over this reader so the growing variant dictionary has a single access point. Private — callers use
 the named primitives. A key the file omits holds the default VariantsConfig declares once, so this reader names no default of its own
-([ADR-AUTO-DEFAULT#6](../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 ### parameter `Name`
 

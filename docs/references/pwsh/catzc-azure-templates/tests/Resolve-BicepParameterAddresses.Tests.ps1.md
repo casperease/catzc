@@ -9,5 +9,5 @@ Above `$script:resolve = {`, written with `#`.
 
 ```text
 Invoke the private function in the module's scope; the config reader is mocked at its boundary with neutral
-widget/gadget addresses ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+widget/gadget addresses ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

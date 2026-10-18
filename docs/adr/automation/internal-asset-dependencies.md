@@ -8,8 +8,8 @@ An **internal asset dependency** is any read, by a module's own code, of content
 and `assets/`, another module's (a cross-module edge declared in `dependencies.yml`), `.internal/assets/`, `.vendor/`, and `.compiled/`. It
 is located only through the code-root helper — `Get-CatzcModuleRoot` with a literal child path, or `Get-CatzcModulesRoot` for the
 dot-prefixed infrastructure — never through the folder of the executing file, the working root (`Get-RepositoryRoot`), or a hand-built
-`automation/...` path. It is the code-root anchor of [ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths) applied to shipped
-content.
+`automation/...` path. It is the code-root anchor of
+[ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths) applied to shipped content.
 
 - [One helper](#one-helper)
 
@@ -24,16 +24,17 @@ is no separate list to keep in step.
 ### Rule ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
 
 Every function with an internal asset dependency is covered by at least one test that reads the real asset (the read is not mocked away),
-carries the citation tag `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST`, and is not tagged `source-only`, so it runs in both the source run and the build run.
-Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST-ONECATEGORY); the function's logic tests keep using fixtures.
+carries the citation tag `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST`, and is not tagged `source-only`, so it runs in both the source run and the
+build run. Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST-ONECATEGORY); the function's logic tests keep using
+fixtures.
 
 - [A real-asset test in both runs](#a-real-asset-test-in-both-runs)
 
 ### Rule ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY
 
 The rule is enforced mechanically. A coverage check fails the run when a function listed by `Get-InternalAssetDependency` has no test that
-satisfies ADR-AUTO-ASSETDEP-COVEREDBYREALTEST, naming the function and its uncovered child paths. A presence check fails `Build-Modules` when any listed
-(module, child path) is absent from the built output.
+satisfies ADR-AUTO-ASSETDEP-COVEREDBYREALTEST, naming the function and its uncovered child paths. A presence check fails `Build-Modules`
+when any listed (module, child path) is absent from the built output.
 
 - [Two checks: coverage and presence](#two-checks-coverage-and-presence)
 
@@ -58,7 +59,7 @@ Three anchors give a wrong answer outside the source tree, each in its own way:
   in the build.
 - **`Get-RepositoryRoot`** is the working root. In source mode the code lives under it; in an install it is the user's working folder, which
   holds no automation at all; and in a build loaded inside the repository it silently reads the source tree instead of the build.
-- **A hand-built `automation/<Module>/…` path** bakes the source layout into the code; a build has no `automation/` folder.
+- **A hand-built `pwsh/<Module>/…` path** bakes the source layout into the code; a build has no `pwsh/` folder.
 
 Each of these passes every source-mode test and fails in a user's installed session. The defect is invisible exactly where the code is
 written and tested, so review and source-mode tests cannot be what catches it.
@@ -73,16 +74,16 @@ mechanically, not by review.
 
 `One helper, one answer in both modes`
 
-`Get-CatzcModuleRoot` returns the calling module's folder under the active code root (`CatzcModulesRoot`) —
-`<RepositoryRoot>/pwsh/<Module>` in source mode, `<build>/<Module>` in build mode — joined with `-ChildPath` when given. The layout
-below a module folder (`configs/`, `assets/`, `types/`) is the same in both modes, so one call names the same file in both. The module
-defaults to the caller's own; an explicit `-Module` reads another module's content, which is a cross-module dependency and therefore an edge
-in `dependencies.yml` ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a
-module — the `.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. The analyzer
-rule `Measure-NoScriptRootAnchor` bans `$PSScriptRoot` in module function files
-([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), which leaves the helper as the only way a
-function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT, and the literal child path the inventory reads
-is ADR-PWSH-PWD-LITERALCHILDPATH.
+`Get-CatzcModuleRoot` returns the calling module's folder under the active code root (`CatzcModulesRoot`) — `<RepositoryRoot>/pwsh/<Module>`
+in source mode, `<build>/<Module>` in build mode — joined with `-ChildPath` when given. The layout below a module folder (`configs/`,
+`assets/`, `types/`) is the same in both modes, so one call names the same file in both. The module defaults to the caller's own; an
+explicit `-Module` reads another module's content, which is a cross-module dependency and therefore an edge in `dependencies.yml`
+([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a module — the
+`.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. The analyzer rule
+`Measure-NoScriptRootAnchor` bans `$PSScriptRoot` in module function files
+([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), which leaves the helper as
+the only way a function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT, and the
+literal child path the inventory reads is ADR-PWSH-PWD-LITERALCHILDPATH.
 
 ### The code is the inventory
 
@@ -99,17 +100,17 @@ list would drift from the code it describes, and the code says everything the ch
 A function that reads a shipped asset is covered by a test that lets the read happen: it loads the module, calls the function, and asserts
 on what the real asset produced. Mocking the read away would test the mock, which is the one thing that does not change between the modes.
 The test reads the shipped file, so it is an `integrity` test, and it is never `source-only`, so the build run executes it against the built
-module ([test-automation](test-automation.md#rule-adr-auto-test-sourceonlytag)). The citation tag `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` is what lets the coverage check
-find it. The function's other behaviour stays in its logic tests, on fixtures, as usual — the real-asset test exists to prove the lookup,
-not to re-test the logic.
+module ([test-automation](test-automation.md#rule-adr-auto-test-sourceonlytag)). The citation tag `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` is
+what lets the coverage check find it. The function's other behaviour stays in its logic tests, on fixtures, as usual — the real-asset test
+exists to prove the lookup, not to re-test the logic.
 
 ### Two checks: coverage and presence
 
 The **coverage check** is an integrity test that runs in both test runs: for every function in the inventory it looks in that function's
-`Verb-Noun.Tests.ps1` for a test that cites `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` and is not `source-only`, and fails with the function and its uncovered
-child paths when there is none. The **presence check** is part of `Build-Modules`' self-check
-([platform-bundle](platform-bundle.md#rule-adr-auto-bundle-immutablebuild)): every inventoried (module, child path) must exist in the built output, so a
-side folder the build forgot to copy fails the build, not a user's session.
+`Verb-Noun.Tests.ps1` for a test that cites `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` and is not `source-only`, and fails with the function and
+its uncovered child paths when there is none. The **presence check** is part of `Build-Modules`' self-check
+([platform-bundle](platform-bundle.md#rule-adr-auto-bundle-immutablebuild)): every inventoried (module, child path) must exist in the built
+output, so a side folder the build forgot to copy fails the build, not a user's session.
 
 Together they make the rule self-maintaining. A new asset read appears in the inventory the moment it is written; without its covering test
 the coverage check is red, so the change cannot merge ([poka-yoke](../principles/poka-yoke.md)).
@@ -120,7 +121,8 @@ the coverage check is red, so the change cannot merge ([poka-yoke](../principles
 - **`Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
 - **The coverage check** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY).
-- **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY).
+- **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output
+  (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY).
 - **`Test-CatzcBuild`** — runs every `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` test against the build.
 
 ## Consequences

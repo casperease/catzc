@@ -9,7 +9,7 @@ Above `{}`, written with `#`.
 
 ```text
 reports.yml — where a quality gate writes its report (Write-QualityGateReport,
-[ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). Every key has a sensible default
+[ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Every key has a sensible default
 (Catzc.Base.Reports.ReportsConfig); set a key only to change it. `{subject}` is the gate's subject, e.g. 'spelling'.
 
   folder: test-{subject}          # the report base folder under the output root (out/ locally)

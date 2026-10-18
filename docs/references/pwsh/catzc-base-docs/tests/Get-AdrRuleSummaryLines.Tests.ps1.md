@@ -9,5 +9,5 @@ Above `Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {`, written with `#
 
 ```text
 Get-AdrRuleSummaryLines — the normative lines of every `### Rule` entry in one ADR file, numbered, with the rule in its citation
-form. Neutral fixture codes ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+form. Neutral fixture codes ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

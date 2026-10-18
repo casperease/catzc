@@ -35,5 +35,5 @@ Above `max_age: none`, written with `#`.
 
 ```text
 a plan cannot be regenerated
-([ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)), so a person retires it
+([ADR-REPO-OUTDIR-PLANNOTES](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)), so a person retires it
 ```

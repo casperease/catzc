@@ -77,5 +77,5 @@ Above `$names = [string[]]$constituents`, written with `#`.
 
 ```text
 ---- fold: name|hash lines, ordinal by name — the
-[ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5) recipe over set hashes ----
+[ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity) recipe over set hashes ----
 ```

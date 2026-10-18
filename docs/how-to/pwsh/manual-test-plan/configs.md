@@ -23,17 +23,17 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 14  | L0   | pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1               | integrity (shipped languages.yml)                                      | The shipped languages.yml loads through `LanguagesConfig`.                                                                                                       |
 | 15  | L0   | pwsh/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1                  | integrity (shipped python.yml)                                         | The shipped python.yml loads through `PythonConfig`, pinning pytest and ruff.                                                                                    |
 | 16  | L0   | pwsh/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1                    | integrity (shipped bash.yml)                                           | The shipped bash.yml loads through `BashConfig`, pinning the vendored bats-core release and its archive digest.                                                  |
-| 17  | L1   | pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1               | ContractsConfig (shipped contracts.yml)                                | The shipped contracts.yml loads through `ContractsConfig` on an addressing mode that is built (ADR-REPO-CONTRACT#8).                                             |
+| 17  | L1   | pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1               | ContractsConfig (shipped contracts.yml)                                | The shipped contracts.yml loads through `ContractsConfig` on an addressing mode that is built (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING).                                             |
 | 18  | L1   | pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1                         | integrity (shipped maps.yml)                                           | The shipped maps.yml loads through `MapsConfig`.                                                                                                                 |
 | 19  | L0   | pwsh/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1 | integrity (shipped parameter-consistency.yml)                          | The shipped parameter-consistency.yml loads through `ParameterConsistencyConfig`, and every exempt parameter name carries its reason.                            |
 | 20  | L0   | pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1                             | the shipped registry seals the engine-intrinsic configs                | The shipped configs.yml registry (`ConfigsConfig`) seals the engine-intrinsic configs: configs, dependencies, profiles, exporter, and glossary.                  |
 | 21  | L1   | pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1    | integrity (shipped source-conventions.yml)                             | The shipped source-conventions.yml loads through `SourceConventionsConfig`.                                                                                      |
 | 22  | L1   | pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1             | CommentsConfig (shipped comments.yml)                                  | The shipped comments.yml loads through Get-Config as a valid `CommentsConfig` (the comment-page languages, keep lists, pages map and excludes).                  |
-| 23  | L0   | pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1            | integrity (shipped file-carriers.yml)                                  | The shipped file-carriers.yml loads through `FileCarriersConfig`, and every file language of languages.yml has a carrier entry (ADR-REPO-FILEMETA#1).            |
-| 24  | L0   | pwsh/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1        | resolves with the shipped registries, every language file to its entry | `FileCarrierResolver`, built from the shipped file-carriers.yml and languages.yml, resolves a real file of each kind to its carrier entry (ADR-REPO-FILEMETA#5). |
-| 25  | L0   | pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1               | names the steps it may list, each with an adapter in Format-Code       | `LanguagesConfig.ImprintSteps` lists exactly the imprint steps `Format-Code` has an adapter for (ADR-REPO-FORMAT#8).                                             |
+| 23  | L0   | pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1            | integrity (shipped file-carriers.yml)                                  | The shipped file-carriers.yml loads through `FileCarriersConfig`, and every file language of languages.yml has a carrier entry (ADR-REPO-FILEMETA-HEADPOLICY).            |
+| 24  | L0   | pwsh/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1        | resolves with the shipped registries, every language file to its entry | `FileCarrierResolver`, built from the shipped file-carriers.yml and languages.yml, resolves a real file of each kind to its carrier entry (ADR-REPO-FILEMETA-KINDSCOPE). |
+| 25  | L0   | pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1               | names the steps it may list, each with an adapter in Format-Code       | `LanguagesConfig.ImprintSteps` lists exactly the imprint steps `Format-Code` has an adapter for (ADR-REPO-FORMAT-CONFIGUREDFORMATTERS).                                             |
 | 26  | L1   | pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1                | FolderWalkConfig (shipped folder-walk.yml)                             | The shipped folder-walk.yml loads through `FolderWalkConfig` and is readable at the global address `global.folder-walk.prune_vendor_in_searches`.                |
-| 27  | L0   | pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1               | integrity (shipped languages.yml layout)                               | The shipped languages.yml layout places the five live folders the aspects were written with, and the shared tests folder is not live (ADR-AUTO-MODULE#2).        |
+| 27  | L0   | pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1               | integrity (shipped languages.yml layout)                               | The shipped languages.yml layout places the five live folders the aspects were written with, and the shared tests folder is not live (ADR-AUTO-MODULE-EXISTSBYLAYOUT).        |
 | 28  | L1   | pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1                     | SlidesConfig (shipped slides.yml)                                      | The shipped slides.yml loads through `SlidesConfig` and points at the kit.                                                                                       |
 
 ## Checks
@@ -41,7 +41,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 ### 1. Config conventions
 
 **Guards:** every shipped config has a C# config type
-([ADR-CONF-LOADING#4](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)) and loads through it.
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)) and loads through it.
 
 **Checks:**
 
@@ -60,7 +60,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 ### 3. Config validator coverage
 
 **Guards:** every PowerShell config validator — the extension point for a config that cannot ship a C# type
-([ADR-CONF-LOADING#5](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading5)) — belongs to a real config.
+([ADR-CONF-LOADING-POWERSHELLVALIDATOR](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-powershellvalidator)) — belongs to a real config.
 
 **Checks:**
 

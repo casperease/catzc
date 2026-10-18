@@ -57,12 +57,12 @@ are relative to `pwsh/Catzc.Azure.Cli/` unless they start with `automation/` or 
 
 | #   | Claim                                        | Source (`file:line`)                                                                                                                       | Status    |
 | --- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
-| C1  | ADR-AZ-CLI#1 is cited by the drawn code      | `Test-AzCliSubscriptionAccessible.ps1:6`, `Get-AzCliSubscriptionAccessState.ps1:6`, `Test-AzCliBicep.ps1:6`, `Assert-AzCliCanAccess.ps1:7` | confirmed |
-| C2  | ADR-AZ-DATAMOD#4 is cited by the drawn code  | `pwsh/Catzc.Azure/Get-AzureSubscription.ps1:6` (bare ADR-AZ-DATAMOD at `Assert-AzCliIsConnected.ps1:6`, `Test-AzCliCanAccess.ps1:6`)       | confirmed |
+| C1  | ADR-AZ-CLI-AZBYDEFAULT is cited by the drawn code      | `Test-AzCliSubscriptionAccessible.ps1:6`, `Get-AzCliSubscriptionAccessState.ps1:6`, `Test-AzCliBicep.ps1:6`, `Assert-AzCliCanAccess.ps1:7` | confirmed |
+| C2  | ADR-AZ-DATAMOD-CUSTOMERAXIS is cited by the drawn code  | `pwsh/Catzc.Azure/Get-AzureSubscription.ps1:6` (bare ADR-AZ-DATAMOD at `Assert-AzCliIsConnected.ps1:6`, `Test-AzCliCanAccess.ps1:6`)       | confirmed |
 | C3  | ADR-AZ-CUSTOMER is cited by the drawn code   | `pwsh/Catzc.Azure/Get-AzureSubscription.ps1:7,34`                                                                                          | confirmed |
 | C4  | ADR-AUTO-FAILFAST is cited by the drawn code | `Assert-AzCliSubscriptionAccessible.ps1:7`                                                                                                 | confirmed |
 | C5  | ADR-AUTO-ENTERP is cited by the drawn code   | `Test-AzCliBicep.ps1:7`, `Assert-AzCliBicep.ps1:7`                                                                                         | confirmed |
-| C6  | ADR-AUTO-PRELOG#5 is cited by the drawn code | `private/Get-AzCliBicepState.ps1:16`                                                                                                       | confirmed |
+| C6  | ADR-AUTO-PRELOG-SILENTSWITCH is cited by the drawn code | `private/Get-AzCliBicepState.ps1:16`                                                                                                       | confirmed |
 
 Counts: 37 claims, 37 confirmed, 0 contradicted, 0 ADR-only. One code comment is contradicted by the code (Drift below); the slide draws the
 code.

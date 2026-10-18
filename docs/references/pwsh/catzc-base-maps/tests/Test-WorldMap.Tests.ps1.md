@@ -9,12 +9,12 @@ Above `Describe 'Test-WorldMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations
-([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)), its undeclared root folders
-([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)) and the printed labels that name no glossary
+([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)), its undeclared root folders
+([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)) and the printed labels that name no glossary
 term, through Write-QualityGateReport
-([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The logic tests mock the map, the
+([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The logic tests mock the map, the
 glossary and the labels with widget/gadget fixtures
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the placement itself is pinned by
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the placement itself is pinned by
 Get-WorldMap.Tests.ps1.
 ```
 

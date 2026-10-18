@@ -21,5 +21,5 @@ Above `$isCommand = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```

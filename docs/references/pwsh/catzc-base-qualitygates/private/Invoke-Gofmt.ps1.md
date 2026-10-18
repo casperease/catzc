@@ -11,7 +11,7 @@ The gofmt formatter engine: formats the given Go files with the managed go's gof
 
 ### description
 
-One Format-Code engine adapter ([ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2)). gofmt is
+One Format-Code engine adapter ([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)). gofmt is
 the gofmt beside the managed go at the tools.yml pin ([ADR-AUTO-GO](../../../../adr/automation/go/go-test-artifacts.md)), never whichever
 gofmt is first on PATH; a missing or off-pin go throws, naming Install-Go. `gofmt -l` names the files that differ; without -DryRun,
 `gofmt -w` rewrites exactly those. go.mod and go.work are not Go files: New-GoWorkspace and go itself write them.

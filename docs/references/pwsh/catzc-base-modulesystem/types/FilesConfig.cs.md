@@ -13,7 +13,7 @@ repository-root-relative file artifacts it owns beyond its own folder. Construct
 VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.ModuleSystem.FilesConfig), so
 Get-Config -Config files returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level key 'modules', a required, non-empty map;

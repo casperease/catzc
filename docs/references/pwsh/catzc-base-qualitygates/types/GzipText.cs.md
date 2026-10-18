@@ -10,7 +10,7 @@ Above `public static class GzipText`, written with `///`.
 ```text
 <summary>
 Gzip compress/decompress for UTF-8 text payloads, using only the BCL
-([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)). Shared by
+([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)). Shared by
 Build-EnglishDictionary (writes the committed english.txt.gz) and SpellingOracle (reads it). Kept in one
 place so the container handling cannot drift between the writer and the reader.
 </summary>

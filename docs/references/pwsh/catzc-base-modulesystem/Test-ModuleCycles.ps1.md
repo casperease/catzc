@@ -11,7 +11,7 @@ Quality gate: the real module-to-module call graph has no cycle.
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the actual cross-module function
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the actual cross-module function
 calls (Get-ModuleDependency). It sorts the graph topologically (Kahn's algorithm) and reports every module the sort cannot place — each sits
 on a dependency cycle or is called from one.
 

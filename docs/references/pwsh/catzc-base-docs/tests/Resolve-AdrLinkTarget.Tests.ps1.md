@@ -5,10 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {`, written with `#`.
+Above `Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELATIVE' {`, written with `#`.
 
 ```text
 Resolve-AdrLinkTarget — a markdown link in a file under docs/adr/, resolved relative to its file
-([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)) to its path under docs/adr/. Pure path logic: the
-fixture root need not exist. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)) to its path under docs/adr/. Pure path logic: the
+fixture root need not exist. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

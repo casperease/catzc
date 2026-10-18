@@ -20,7 +20,7 @@ The work-list stage of a test run (Invoke-TestRun), in order:
 - tier and category scope: only the files holding a test in the run's scope (Select-InScopeTestFiles), so no worker loads a file only to
   skip every test in it. The dropped files' tests come back as the NotRun rows a worker would have returned
   (ConvertTo-TestAutomationRowSet), for the caller to report;
-- the opt-out tag (the build run's 'source-only', [ADR-AUTO-TEST#31](../../../../adr/automation/test-automation.md#rule-adr-auto-test31)):
+- the opt-out tag (the build run's 'source-only', [ADR-AUTO-TEST-SOURCEONLYTAG](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sourceonlytag)):
   its tests are excluded, files left with nothing to run are dropped, and every excluded test is counted and listed — never silently
   (Get-TestOptOutExclusion, Write-TestOptOutExclusion).
 

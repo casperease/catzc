@@ -11,10 +11,10 @@ Quality gate: the rule summaries of the configured ADR domains carry no engine-s
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the rule summaries (the
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the rule summaries (the
 `### Rule <code>:<n>` entries, Get-AdrRuleSummaryLines) of every rule set in the domains listed under engine_neutrality.domains in
 adr-checks.yml. The engine-agnostic rules hold for every execution engine
-([ADR-AUTO-ENGINE#1](../../../adr/automation/execution-engines.md#rule-adr-auto-engine1)), so their summaries state a rule, never one
+([ADR-AUTO-ENGINE-THREEENGINES](../../../adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)), so their summaries state a rule, never one
 engine's syntax: each token under engine_neutrality.tokens is a regular expression for such syntax, and every match is a finding, reported
 with its file and line. Naming a catzc command is allowed, so the tokens list engine built-ins only.
 

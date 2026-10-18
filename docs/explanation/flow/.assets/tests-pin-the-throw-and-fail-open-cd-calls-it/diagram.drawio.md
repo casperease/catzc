@@ -7,7 +7,7 @@ Sidebar: three minimaps and the map key, generated from the current maps (see Si
 ```
 
 This describes what the [diagram](diagram.drawio.png) draws,
-in the vocabulary of the diagram glyphs; what it means is in [the article](../../tests-pin-the-throw-and-fail-open-no-caller.md).
+in the vocabulary of the diagram glyphs; what it means is in [the article](../../tests-pin-the-throw-and-fail-open-cd-calls-it.md).
 
 ## At a glance
 

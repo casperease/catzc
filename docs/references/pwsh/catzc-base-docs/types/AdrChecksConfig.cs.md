@@ -9,17 +9,17 @@ Above `using System;`, written with `//`.
 
 ```text
 adr-checks.yml — the settings of the ADR checks over the rule registries, and the single declaration of their sensible defaults
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Every key is optional: an omitted key
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Every key is optional: an omitted key
 behaves exactly like its default, so the file states only what deviates
-([ADR-PRIN-CONFIG#3](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config3)). Registered in
+([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrChecksConfig), so Get-Config -Config adr-checks returns this typed
-record ([ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4)). Mirrors the YAML mapping
-(snake_case, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+record ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). Mirrors the YAML mapping
+(snake_case, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
   engine_neutrality — AdrNeutralityCheck, read by Test-AdrEngineNeutrality
   citation_graph    — AdrCheck, read by Test-AdrRegistry
   dora_coverage     — AdrDoraCheck, read by Test-AdrRegistry
 Each check's mode is one setting, never a branch per check in code
-([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)); its default is CheckMode's, Gate,
-because every repository check is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)); its default is CheckMode's, Gate,
+because every repository check is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 Constructing an instance validates the file, collecting every violation into one ArgumentException.
 ```

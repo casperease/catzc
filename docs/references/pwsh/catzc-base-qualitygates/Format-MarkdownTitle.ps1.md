@@ -20,8 +20,8 @@ except those .gitattributes marks vendored or generated and the test fixture tre
 BOM, with their own line endings kept; a file already in form is not touched, so a second run changes nothing. Test-MarkdownTitle is the
 gate. A source-tree tool: it throws in build mode (Assert-SourceTree).
 
-It rests on [ADR-REPO-FORMAT#6](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6) and
-[ADR-REPO-FORMAT#7](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format7).
+It rests on [ADR-REPO-FORMAT-MARKDOWNTITLE](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle) and
+[ADR-REPO-FORMAT-PLAINHEADINGS](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-plainheadings).
 
 ### parameter `Path`
 
@@ -67,5 +67,5 @@ Above `function Format-MarkdownTitle {`, written with `#`.
 
 ```text
 Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
+[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
 ```

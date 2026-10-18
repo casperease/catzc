@@ -9,6 +9,6 @@ Above `Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 FolderWalkConfig maps folder-walk.yml and is the one declaration of its sensible defaults
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key behaves exactly like the
 default, and a malformed value fails at construction with every violation named.
 ```

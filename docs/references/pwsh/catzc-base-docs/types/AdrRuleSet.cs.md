@@ -14,6 +14,6 @@ folder-owning Domain and its Role, the optional Terminology token, the domain's 
 (Stack), and the effective value-chain Concerns (a ruleset override, else the domain default DomainConcerns).
 A processed record built and validated by AdrsConfig — not a raw YAML mirror, so PascalCase
 ([ADR-AUTO-TYPES](/docs/adr/automation/BCL/native-csharp-types.md),
-[ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
-[ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)).
+[ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel),
+[ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)).
 ```

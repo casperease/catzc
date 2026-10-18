@@ -15,7 +15,7 @@ The single living copy of "how this repository invokes Pester" (see one-living-v
 exclude tags, optionally the NUnit result file (shard workers) and a full-name filter (the manual single-check path). Both the generated
 shard scripts (New-TestAutomationShardScript, via module scope inside the worker) and Invoke-TestFile consume this, so the two invocation
 paths cannot drift apart. The strict-mode discipline itself (Set-StrictMode -Version Latest before Invoke-Pester — tests run strict, see
-[ADR-AUTO-TEST#25](../../../../adr/automation/test-automation.md#rule-adr-auto-test25)) stays with the CALLER: strict mode is scope-dynamic,
+[ADR-AUTO-TEST-FILEPARALLELISM](../../../../adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) stays with the CALLER: strict mode is scope-dynamic,
 so only the scope that invokes Pester can set it for the tests.
 
 ### parameter `Path`

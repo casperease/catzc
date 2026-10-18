@@ -13,7 +13,7 @@ Computes the meta block of every in-scope file — the one place Format-FileMeta
 
 Each file's `immutable` and `edges` parts are rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as
 written. A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
-([ADR-REPO-FILEMETA#5](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
+([ADR-REPO-FILEMETA-KINDSCOPE](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-kindscope)).
 
 ### parameter `RepositoryRoot`
 

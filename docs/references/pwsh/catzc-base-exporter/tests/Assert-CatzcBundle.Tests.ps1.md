@@ -11,7 +11,7 @@ Above `$script:newFixtureBuild = {`, written with `#`.
 
 ```text
 A hand-made, well-formed build of two neutral modules
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): widget is selected (its type
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): widget is selected (its type
 source
 ships under Catzc.Base.Widget/types/), gadget's type source rides along under .compiled/types/ (every build
 ships the full type set). typesHash comes from the one implementation, over the same two sources.

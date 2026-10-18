@@ -54,7 +54,7 @@ Above `function Initialize-GitClone {`, written with `#`.
 
 ```text
 Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
+[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
 ```
 
 ## comment:2

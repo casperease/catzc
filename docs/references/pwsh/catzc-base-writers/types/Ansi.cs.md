@@ -12,7 +12,7 @@ Single source of the ConsoleColor -> ANSI SGR foreground-escape map, shared by e
 color. Write-InformationColored (the writer chokepoint) resolves a colour's escape here instead of an
 inline switch, and RainbowColor builds its per-character gradient from the same table — so the mapping
 lives once. Codes are the normal/bright SGR foregrounds matching the 16 [System.ConsoleColor] values.
-See [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7).
+See [ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour).
 ```
 
 ## comment:2

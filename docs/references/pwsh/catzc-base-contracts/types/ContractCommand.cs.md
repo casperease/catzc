@@ -9,7 +9,7 @@ Above `public static IReadOnlyList<string> Compare(ContractCommand contract,...`
 
 ```text
 The findings of a contract against the signature read from the command's file: every disagreement, each as one message
-(ADR-REPO-CMDCONTRACT#4). A computed default on the command's side is not compared.
+(ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE). A computed default on the command's side is not compared.
 ```
 
 ## comment:2
@@ -18,5 +18,5 @@ Above `public ContractCommand(ContractAsset asset, IDictionary raw) : this(raw)`
 
 ```text
 The contract of one command asset: the asset names the command
-([ADR-REPO-CMDCONTRACT#3](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)), raw is its parsed document.
+([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)), raw is its parsed document.
 ```

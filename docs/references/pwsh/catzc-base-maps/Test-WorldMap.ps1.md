@@ -11,22 +11,22 @@ Quality gate: every tracked file sits in a declared track and its tech-stack, an
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the world map that Get-WorldMap
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the world map that Get-WorldMap
 returns; it reads the map's placements and never places a file itself. It checks three things, and every finding is one issue:
 
 - Stack violations. A cell that holds a live file whose file language its track does not declare is a second tech-stack inside the track
-  ([ADR-DSGN-TRACK#3](../../../adr/design/tracks.md#rule-adr-dsgn-track3)): one issue per cell, with its file count and its first file in
+  ([ADR-DSGN-TRACK-ONETECHSTACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)): one issue per cell, with its file count and its first file in
   ordinal order.
 - Undeclared root folders. A root folder that holds a tracked file names a track, except out/, which holds gitignored output
-  ([ADR-DSGN-TRACK#1](../../../adr/design/tracks.md#rule-adr-dsgn-track1),
+  ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](../../../adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster),
   [ADR-REPO-OUTDIR](../../../adr/repository/dedicated-output-directory.md)). The map places the files of any other root folder no track
   names among the root files: one issue per such folder, with its file count.
 - Printed labels. Every label the world map prints names a defined term
-  ([ADR-DSGN-TRACK#13](../../../adr/design/tracks.md#rule-adr-dsgn-track13)): each world-map label of maps.yml (Get-Config -Config maps; the
+  ([ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS](../../../adr/design/tracks.md#rule-adr-dsgn-track-labelsnamedefinedterms)): each world-map label of maps.yml (Get-Config -Config maps; the
   value_chain_ labels are Test-ValueChainMap's) names a glossary term (Get-Glossary) in its head, the text before its first ':'
   (Resolve-MapLabelTerm). A row prints a track's name and a column a file language's name, so the names resolve through their axis's term:
-  the glossary holds 'track' ([ADR-DSGN-TRACK#1](../../../adr/design/tracks.md#rule-adr-dsgn-track1)) and 'file language'
-  ([ADR-DSGN-TRACK#6](../../../adr/design/tracks.md#rule-adr-dsgn-track6)). The two catch-all lines print their labels, root_files and
+  the glossary holds 'track' ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](../../../adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)) and 'file language'
+  ([ADR-DSGN-TRACK-FILELANGUAGE](../../../adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)). The two catch-all lines print their labels, root_files and
   unlisted_files, which the maps.yml check covers.
 
 It ends through Write-QualityGateReport: the report goes to out/test-world-map/, every issue is printed, and the quality gate throws once

@@ -9,9 +9,9 @@ Above `Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ConfigRegistry is private, so it is exercised through the module (InModuleScope, per
-[ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
 Each test resets the session's cache entry before and after
-([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)), so a fixture
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)), so a fixture
 registry never
 leaks into the rest of the run.
 ```
@@ -23,5 +23,5 @@ Above `Describe 'Get-ConfigRegistry — shipped configs.yml' -Tag 'L1', 'integri
 ```text
 Reads the SHIPPED configs.yml through the real lookup (nothing mocked), so it runs in both the source run
 and the build run and proves the registry resolves inside the loaded module
-([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)).
+([ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)).
 ```

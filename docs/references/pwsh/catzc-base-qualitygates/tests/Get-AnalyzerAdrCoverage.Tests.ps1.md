@@ -10,5 +10,5 @@ Above `Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-onl
 ```text
 source-only: it cross-checks the map against the repository's ADR tree and .scriptanalyzer rule files, which
 gives the same answer in both run modes. The check is the quality gate Test-AnalyzerAdrMap
-([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 ```

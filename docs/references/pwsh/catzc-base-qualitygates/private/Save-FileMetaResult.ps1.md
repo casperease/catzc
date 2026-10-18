@@ -13,7 +13,7 @@ Writes the files an engine run found drifted, and names the findings no tool can
 
 The one writer behind Format-FileMeta and the file-meta imprint step, so the two cannot disagree. Files are UTF-8 without a BOM.
 
-It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 
 ### parameter `Result`
 

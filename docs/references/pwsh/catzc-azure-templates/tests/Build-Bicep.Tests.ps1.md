@@ -12,7 +12,7 @@ Above `BeforeAll {`, written with `#`.
 ```text
 Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
 build output folder is wiped per test, since the build tests write into it
-([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 ```
 
 ## comment:2
@@ -22,7 +22,7 @@ Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...`, written with `#`
 ```text
 Own output root through the seam: any other file building the 'sample' fixture from a sibling
 worker can race the shared out/template/sample
-([ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26) — remove the sharing).
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool) — remove the sharing).
 ```
 
 ## comment:3
@@ -32,7 +32,7 @@ Above `Get-BicepTemplates | Out-Null`, written with `#`.
 ```text
 Warm the discovery and config caches once, here — the cold re-derive the reset above forces is
 one-time setup cost, not the first test's duration
-([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19); it kept tipping that test
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce); it kept tipping that test
 just
 over the L0 limit).
 ```

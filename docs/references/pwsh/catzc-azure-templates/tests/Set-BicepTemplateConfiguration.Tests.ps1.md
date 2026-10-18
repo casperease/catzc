@@ -40,7 +40,7 @@ FRESH, UNIQUE root under $TestDrive (Pester auto-cleans it): a unique dir is nev
 mid-run, so it can't race a concurrent file scanner (on-access AV / the search indexer) holding
 a just-copied file open and intermittently throwing "used by another process". Scratch lives in
 temp, not out/
-([ADR-REPO-OUTDIR#3](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir3)).
+([ADR-REPO-OUTDIR-TEMPFORSCRATCH](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-tempforscratch)).
 Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per tree here.
 ```
 
@@ -54,7 +54,7 @@ BeforeAll — not on the first test. The -Template [ValidateScript] runs Get-Bic
 (-> Get-BicepTemplates) at parameter binding, so an unwarmed cache makes the first It pay a
 full cold discovery (~6x inflated under Mock interception); warming here keeps that off the L0
 gate. These tests never mutate the tree, so the cache stays valid for all of them
-([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
 
 ## comment:5
@@ -78,6 +78,6 @@ Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }` (occurre
 Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the
 first It in this context does not pay the cold parameter-binding discovery (see the read-only
 context's BeforeAll). Writes target distinct config paths and never invalidate the templates
-cache (session-scoped, [ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6)), so one
+cache (session-scoped, [ADR-AUTO-CACHE-IMPORTERINVALIDATES](/docs/adr/automation/caching.md#rule-adr-auto-cache-importerinvalidates)), so one
 warm-up serves every test.
 ```

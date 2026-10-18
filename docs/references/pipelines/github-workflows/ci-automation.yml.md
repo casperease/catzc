@@ -39,7 +39,7 @@ Above `bundle-hash:`, written with `#`.
 
 ```text
 The same commit builds the same bundle on every OS
-([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)). A Windows runner checks
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). A Windows runner checks
 out with core.autocrlf=true and the others with LF, so equal content hashes prove that the build ships the
 bytes git stores, not the bytes a checkout wrote.
 ```

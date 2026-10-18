@@ -9,8 +9,8 @@ Above `using System;`, written with `//`.
 
 ```text
 The meta-kind registry (file-meta.yml): which kinds of derived fact and of config contribution exist is data, never a list in an engine.
-[ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
-[ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4)
+[ADR-REPO-FILEMETA-METAKIND](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
+[ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)
 ```
 
 ## comment:2

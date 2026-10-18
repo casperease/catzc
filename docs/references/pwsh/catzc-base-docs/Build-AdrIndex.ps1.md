@@ -62,7 +62,7 @@ Above `$reflow = {`, written with `#`.
 ```text
 The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item
 through Format-MarkdownParagraph (Prettier's fill), so the generated page is formatter-stable
-([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)). A heading and a blank
+([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). A heading and a blank
 line pass through; a '- ' line opens a list item, and an indented or plain line continues the open block.
 ```
 

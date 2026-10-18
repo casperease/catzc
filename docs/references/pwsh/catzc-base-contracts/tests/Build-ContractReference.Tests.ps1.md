@@ -9,9 +9,9 @@ Above `Describe 'Build-ContractReference' -Tag 'L0', 'logic' {`, written with `#
 
 ```text
 Build-ContractReference writes one page per unit, docs/references/contracts/<unit>.md, listing each version folder's
-assets with their notes ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)), as a
-committed generated page ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)).
-Fixtures are a widget repository in TestDrive ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+assets with their notes ([ADR-REPO-CONTRACT-LAYOUT](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-layout)), as a
+committed generated page ([ADR-REPO-README-AUTHOREDSOURCES](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)).
+Fixtures are a widget repository in TestDrive ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

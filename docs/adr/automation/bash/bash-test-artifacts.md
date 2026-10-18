@@ -5,8 +5,8 @@
 ### Rule ADR-AUTO-BASH-TESTARTIFACTSONLY
 
 Bash code in the repository's test tracks is test artifacts and nothing else: `.bats` files that verify the engine from outside, the way a
-Bash user reaches it. No module or function of the engine is written in Bash, and no Bash test file ships — the Bash root lies outside
-`automation/`, so `Build-Modules` never sees it. The repository's other shell scripts (`importer.sh`, the vendored installers under
+Bash user reaches it. No module or function of the engine is written in Bash, and no Bash test file ships — the Bash root lies outside the
+code root, so `Build-Modules` never sees it. The repository's other shell scripts (`importer.sh`, the vendored installers under
 `assets/scripts/`) are not tests, and this rule does not cover them; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
 - [Test artifacts only](#test-artifacts-only)
@@ -24,9 +24,9 @@ language's root takes: `bash` when the repository has a `bash/` folder (the `bas
 
 A Bash test is a black-box test that calls catzc the way a Bash user does: its `setup` loads `CATZC_ENGINE_ENTRY` — the repository's
 `importer.sh` — and the test runs catzc commands through the `cats` dispatcher, asserting on output and exit codes, never on the engine's
-internals. `CATZC_IMPORTER` names the entry `cats` loads into pwsh (ADR-AUTO-ENGINE-IMPORTERENTRY) — the repository's in a source run, the build's in a
-build run — and `CATZC_REPOSITORY_ROOT` the repository root. `Invoke-BashTest` sets them for its bats run only and restores them afterwards
-(ADR-AUTO-ENGINE-STARTENVIRONMENT). A Bash test runs under the bash engine only.
+internals. `CATZC_IMPORTER` names the entry `cats` loads into pwsh (ADR-AUTO-ENGINE-IMPORTERENTRY) — the repository's in a source run, the
+build's in a build run — and `CATZC_REPOSITORY_ROOT` the repository root. `Invoke-BashTest` sets them for its bats run only and restores
+them afterwards (ADR-AUTO-ENGINE-STARTENVIRONMENT). A Bash test runs under the bash engine only.
 
 - [The engine start environment](#the-engine-start-environment)
 
@@ -40,10 +40,11 @@ runner; `Update-BatsVendor` rebuilds the copy from the pin. The vendored files a
 
 ### Rule ADR-AUTO-BASH-LANGUAGEBRIDGE
 
-`Test-Automation` runs the Bash tests through the language bridge the Go and Python tests run through (ADR-AUTO-GO-LANGUAGEBRIDGE, ADR-AUTO-PY-LANGUAGEBRIDGE):
-discovery maps each Bash test folder to its catzc module, and the bridge turns every `@test` into one test of the run (ADR-AUTO-TEST-TEST),
-tagged `L2` (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) plus its category from its name. The bash engine is the Bash tests' tool: the run's source session locates it
-once and hands its path to the bridge; without it, the bridge skips with `tool_bash_missing` (ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
+`Test-Automation` runs the Bash tests through the language bridge the Go and Python tests run through (ADR-AUTO-GO-LANGUAGEBRIDGE,
+ADR-AUTO-PY-LANGUAGEBRIDGE): discovery maps each Bash test folder to its catzc module, and the bridge turns every `@test` into one test of
+the run (ADR-AUTO-TEST-TEST), tagged `L2` (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) plus its category from its name. The bash engine is the Bash
+tests' tool: the run's source session locates it once and hands its path to the bridge; without it, the bridge skips with
+`tool_bash_missing` (ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
 
 - [The bridge](#the-bridge)
 
@@ -66,17 +67,18 @@ written the way the user writes commands: in Bash.
 
 ### Test artifacts only
 
-Bash code in a test track exists only as tests. The engine is PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a
-Bash test verifies it from outside. Because the Bash root lies outside `automation/`, no Bash test reaches a bundle
-([platform-bundle](../platform-bundle.md)).
+Bash code in a test track exists only as tests. The engine is PowerShell and C#
+([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Bash test verifies it from outside. Because the Bash root lies
+outside the code root, no Bash test reaches a bundle ([platform-bundle](../platform-bundle.md)).
 
 ### The layout
 
 The Bash root follows the one convention every test language's root follows
-([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-literalnames)): `bash/` when present — the `bash` track, of the
-verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is declared once, on the
-`BashConfig` type, and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test
-folder per catzc module, named in kebab case, the convention shared with the Go and Python test folders.
+([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-literalnames)): `bash/` when present — the `bash`
+track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is
+declared once, on the `BashConfig` type, and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root,
+`tests/<module>/` holds one Bash test folder per catzc module, named in kebab case, the convention shared with the Go and Python test
+folders.
 
 A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free text,
 so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).
@@ -104,9 +106,10 @@ pinned to LF by `.gitattributes` and carry `100755` in git.
 A Bash test runs where every other test runs: in a `Test-Automation` test run, in both run modes, under the same selection, ordering,
 protection, tiers, categories, and report ([test-automation](../test-automation.md)). The bridge runs `Invoke-BashTest` once per mapped
 module — the vendored bats with a JUnit report, from the Bash root — and turns each `@test` into one test of the run, in pwsh a Pester `It`
-([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Every Bash test starts a real engine through a real shell, so every
-one is `L2`. The bash engine is located by its `tools.yml` entry ([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)) in the
-run's source session and handed down, so a build run tests the build without carrying the tools config.
+([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Every Bash test starts a real engine through a real
+shell, so every one is `L2`. The bash engine is located by its `tools.yml` entry
+([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)) in the run's source session and handed down, so a build
+run tests the build without carrying the tools config.
 
 ### The checks
 
@@ -117,17 +120,18 @@ but not analysed: it is shipped as Microsoft writes it.
 
 ShellCheck reads sh, bash, dash, and ksh, but not zsh, so a `*.zsh` script takes zsh's own check instead: `zsh -f -n` parses the file
 without running it and without reading any startup file, and each error it reports is one issue. The check runs the zsh that its `tools.yml`
-entry locates ([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)): the system's on Linux and macOS, and on Windows the
-MSYS2 zsh package that `Install-Zsh` adds, user-space, to the Git Bash tree `Install-Git` provides. A parse check finds less than
-ShellCheck's analysis, but it is the one zsh offers; bats runs Bash only, so zsh's behaviour is verified by the per-engine black-box runs
-([execution-engines](../execution-engines.md#rule-adr-auto-engine-startenvironment)), not here.
+entry locates ([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)): the system's on Linux and macOS, and on
+Windows the MSYS2 zsh package that `Install-Zsh` adds, user-space, to the Git Bash tree `Install-Git` provides. A parse check finds less
+than ShellCheck's analysis, but it is the one zsh offers; bats runs Bash only, so zsh's behaviour is verified by the per-engine black-box
+runs ([execution-engines](../execution-engines.md#rule-adr-auto-engine-startenvironment)), not here.
 
 ## Decision
 
-Bash is a black-box test language for the path a Bash user takes and nothing else (ADR-AUTO-BASH-TESTARTIFACTSONLY). Its tests live in one Bash test folder
-per catzc module under the Bash root (ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the entry the run names
-(ADR-AUTO-BASH-BLACKBOXTESTS), run on a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through `Test-Automation` as `L2` tests through the language bridge
-(ADR-AUTO-BASH-LANGUAGEBRIDGE), and every shell script takes the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
+Bash is a black-box test language for the path a Bash user takes and nothing else (ADR-AUTO-BASH-TESTARTIFACTSONLY). Its tests live in one
+Bash test folder per catzc module under the Bash root (ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the
+entry the run names (ADR-AUTO-BASH-BLACKBOXTESTS), run on a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through
+`Test-Automation` as `L2` tests through the language bridge (ADR-AUTO-BASH-LANGUAGEBRIDGE), and every shell script takes the shell-script
+checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
 ### How this is enforced
 

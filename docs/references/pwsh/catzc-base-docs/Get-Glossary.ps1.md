@@ -12,7 +12,7 @@ Returns the controlled vocabulary: every concept of every glossary source, merge
 ### description
 
 Merges the opting-in modules' configs/glossary.yml sources (Get-GlossarySources,
-[ADR-REPO-VOCAB#2](../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)) into one list of Catzc.Base.Docs.GlossaryEntry:
+[ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)) into one list of Catzc.Base.Docs.GlossaryEntry:
 each concept with the module that declares it, that source's repo-relative path, and the source's defaulted options. Sorted by term
 (ordinal), so the result reads like a glossary and is stable across runs.
 
@@ -39,5 +39,5 @@ Above `$script:glossaryCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```

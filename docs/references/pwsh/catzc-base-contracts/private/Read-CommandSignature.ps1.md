@@ -12,7 +12,7 @@ Reads a PowerShell command's signature from its file, without loading it, as a C
 ### description
 
 The PowerShell checker's reading side
-([ADR-REPO-CMDCONTRACT#4](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract4)): the file is parsed, never run or
+([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)): the file is parsed, never run or
 imported, and the named function's parameter block becomes one ContractParameter per parameter, in the same shape a contract parses to, so
 ContractCommand.Compare can hold the two against each other.
 

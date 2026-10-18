@@ -15,7 +15,7 @@ The pure decision core of Import-PSReadLineKeyHandlerSet, separated so it is det
 (see [ADR-AUTO-TEST](../../../../adr/automation/test-automation.md) push-left). Given the captured bindings and the allow-list of supported
 function names, returns one record per binding carrying its Key, Function, and a Supported flag — the caller applies the supported ones and
 logs the rest. Reads the inputs only; never mutates the cached config objects
-([ADR-AUTO-CACHE#5](../../../../adr/automation/caching.md#rule-adr-auto-cache5)).
+([ADR-AUTO-CACHE-READONLYVALUES](../../../../adr/automation/caching.md#rule-adr-auto-cache-readonlyvalues)).
 
 ### parameter `Binding`
 

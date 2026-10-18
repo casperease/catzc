@@ -17,7 +17,7 @@ A function's own time limit, declared beside its code on the param block:
 
 Get-TimeoutSeconds -Command reads it when no config entry overrides it, so a long-running function carries its
 limit with its code and config only states what was tuned
-([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). The values are
+([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). The values are
 checked when the attribute is created: whole seconds above zero, the pipeline limit at least the devbox one.
 ```
 

@@ -35,5 +35,5 @@ Above `foreach ($scope in 'Machine', 'User') {`, written with `#`.
 
 ```text
 Remove Chocolatey from PATH — through the PATH seams, which announce the change
-([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33))
+([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree))
 ```

@@ -44,7 +44,7 @@ Above `$excludeSet = [System.Collections.Generic.HashSet[string]]::new(`, writte
 Recurse with [System.IO], PRUNING excluded directories during the walk rather than enumerating the whole
 tree (including .git / node_modules / .terraform) and filtering after — Get-ChildItem -Recurse walks every
 directory before the -Exclude post-filter ran, which dominated the scan. Raw .NET enumeration also avoids
-~20ms/call cmdlet overhead ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
+~20ms/call cmdlet overhead ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 
 ## comment:2

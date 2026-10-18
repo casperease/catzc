@@ -11,7 +11,7 @@ Above `Describe 'Build-Glossary' -Tag 'L0', 'logic' {`, written with `#`.
 Build-Glossary renders the merged glossary into one markdown page. The logic tests mock the three inputs — the
 glossary (real GlossaryEntry/GlossaryConcept/GlossaryOptions types), the ADR citation map (a real AdrCitationMap
 over a fixture ADR), and the adrs.yml domains — and write into $TestDrive. Fixture terms and codes are neutral
-(widget/gadget, tst — [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+(widget/gadget, tst — [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

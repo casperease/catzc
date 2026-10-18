@@ -2,7 +2,7 @@
 
 The one resolver of a module: for every deployable track it finds the modules the track's places hold, and returns each as one
 `Catzc.Base.Modules.Module` with its name, track, module type, place, root, shape, files, languages, engines and the files its layout does
-not place ([module-model](../../adr/automation/module-model.md), ADR-AUTO-MODULE#1 and #2). It also owns the aspect convention of a track,
+not place ([module-model](../../adr/automation/module-model.md), ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE and ADR-AUTO-MODULE-EXISTSBYLAYOUT). It also owns the aspect convention of a track,
 the ordered first-match classification that says which of a unit's files are live and which are not
 ([module-aspects](../../adr/design/module-aspects.md)). It does not hold the dependency graph, the module order or the integrity tests;
 those read its module list and live in [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md). It does not declare the tracks, the layout or
@@ -38,7 +38,7 @@ catch-all, so everything under a template ships and only an explicit tests folde
 The module turns the registries into a list of modules and a classification of their files, and nothing else. Responsibility 1 is the
 resolver every other module-aware command calls: the module system's graph and order, the exporter's bundle, the quality gates' scopes all
 start from `Get-CatzcModule` instead of walking folders of their own, so a track's root is read from the track and nowhere spelled
-(ADR-AUTO-MODULE#1). Responsibility 2 gives the globs engine the patterns it compiles into a scan, so the same table that lays a module out
+(ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE). Responsibility 2 gives the globs engine the patterns it compiles into a scan, so the same table that lays a module out
 also decides what of it ships.
 
 The module sits low in the dependency graph: it needs the tracks and track types of `Catzc.Base.Variants`, the layout and languages of

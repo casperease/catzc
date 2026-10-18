@@ -9,5 +9,5 @@ Above `BeforeEach {`, written with `#`.
 
 ```text
 git status is the mocked boundary: the -z porcelain it would print, NUL-separated. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -10,9 +10,9 @@ Above `using System;`, written with `//`.
 ```text
 One track of the `tracks` variant (configs/variants.yml, [ADR-DSGN-TRACK](/docs/adr/design/tracks.md)): a named
 repository root concern, its root folder, its class from the taxonomy, and the file languages its tech-stack is
-declared as ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). The entry's fields mirror the
+declared as ([ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)). The entry's fields mirror the
 YAML keys, so the properties are snake_case
-([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); `name` is the entry's
+([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); `name` is the entry's
 YAML key. VariantsConfig validates the entry and builds one; Get-Track returns them.
 ```
 

@@ -19,7 +19,7 @@ hard-to-debug mismatches between the name you set and the name you reference. Us
 When running locally (Test-IsRunningInPipeline returns false), the function logs the variable but does not emit the ##vso command.
 
 The ##vso command is written like every other console line, through the writer chokepoint (Write-Message -NoHeader,
-[ADR-PWSH-ANNOUNCE#1](../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)): the host renders an information record to
+[ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)): the host renders an information record to
 stdout exactly as it renders Write-Host, which is where the agent reads logging commands. Being an ordinary record, it honours 6>
 redirection, and a Pester run silences it — so a test run in a pipeline never sets a real pipeline variable.
 

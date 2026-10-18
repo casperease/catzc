@@ -40,7 +40,7 @@ copies the source index so staged-versus-unstaged state matches, and copies the 
 never through a checkout, which re-applies line-ending conversion. It then requires the snapshot's `git status` to equal the source's line
 for line, and throws (removing the half-built copy) on any difference. Ignored content is never copied. A provenance marker inside the
 snapshot's `.git` folder lets `Remove-RepositorySnapshot` refuse anything that is not a snapshot. The test harness runs a concurrent run in
-one (see [test-automation](../../adr/automation/test-automation.md#rule-adr-auto-test32)).
+one (see [test-automation](../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)).
 
 ### responsibility:4 — Reading git
 

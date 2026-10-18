@@ -11,7 +11,7 @@ Lands the working tree on the server with one fast push: stage everything, commi
 
 ### description
 
-The fast push of [ADR-DSGN-LIFE#11](../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life11). Stages every change when the tree is
+The fast push of [ADR-DSGN-LIFE-FASTPUSHLANDS](../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-fastpushlands). Stages every change when the tree is
 dirty, commits it with -Message (the editor's commit field; `...` when none is given), and pushes the current branch to origin. A tree with
 nothing to commit still pushes the commits that are waiting locally.
 
@@ -19,7 +19,7 @@ It stops, changing nothing, in `main-via-pr` while standing on main/master (the 
 forces: a push the server rejects because main moved is reported and left for you to integrate by hand, since rebasing would build the
 commit on a tip that may be a dirty HEAD.
 
-It rests on [ADR-AUTO-DRYRUN#2](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun2).
+It rests on [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
 
 ### parameter `Message`
 

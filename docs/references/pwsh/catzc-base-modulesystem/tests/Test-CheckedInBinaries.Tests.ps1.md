@@ -10,7 +10,7 @@ Above `Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {`, written with `#`
 ```text
 Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and
 `check-attr binary` answer from each test's listing, so each test pins one storage rule. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -19,7 +19,7 @@ Above `Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2',.
 
 ```text
 The real repository through the quality gate (Test-CheckedInBinaries —
-[ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+[ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 ```
 
 ## comment:3

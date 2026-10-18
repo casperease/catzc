@@ -19,9 +19,9 @@ Load-time rules are self-contained — this one file only, no filesystem, git, o
   - every concept is well-formed (GlossaryConcept) and its machine key is unique within the source;
   - no avoided phrase equals a term the source defines (a term cannot be both canonical and avoided);
   - no value anywhere in the source is a URL — every source and every reference it makes stays in the
-    repository ([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)).
+    repository ([ADR-REPO-VOCAB-SOURCESINREPOSITORY](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)).
 Cross-source and cross-file facts — term/key uniqueness across all sources, reciprocal contrasts, a defined_by
 that names a real rule, a domain that adrs.yml declares, a tracked source file — are the glossary gates' job
 (Test-Glossary), not load's, so loading stays hermetic (the
-[ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3) pattern).
+[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern).
 ```

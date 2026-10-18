@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e66ed1468399
-    with_inputs_sha: ade226a36f668471c4f7f02e2d1df12da027e83341fa6f36646dd7108fcde051
+    with_body_sha: "6bbc182f7e3c"
+    with_inputs_sha: "2244be4273e69d5bd93a07f20df2647e8f62a86c4ec537e75df4d42bd8cbad61"
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -29,7 +29,7 @@ phrasings to avoid. `Test-Glossary` checks the sources.
 The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
 trunk's pipelines and never edited beside it.
 
-- **Defined by:** `ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD`
+- **Defined by:** [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -41,7 +41,7 @@ trunk's pipelines and never edited beside it.
 An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an immutable
 artifact at build time.
 
-- **Defined by:** `ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY`
+- **Defined by:** [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-productmonorepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -54,7 +54,7 @@ artifact at build time.
 
 One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is one.
 
-- **Defined by:** `ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY`
+- **Defined by:** [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-productmonorepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -66,7 +66,7 @@ One repository that several teams contribute to for one product, bounded into tr
 The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state is
 answered.
 
-- **Defined by:** `ADR-THES-ONETRUTH-TRUTHISQUERYABLE`
+- **Defined by:** [ADR-THES-ONETRUTH-TRUTHISQUERYABLE](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -74,7 +74,7 @@ answered.
 
 The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change process.
 
-- **Defined by:** `ADR-THES-ONETRUTH-ONESTOREDECIDES`
+- **Defined by:** [ADR-THES-ONETRUTH-ONESTOREDECIDES](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-onestoredecides)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -88,7 +88,7 @@ The one store whose content decides what is true about the delivered system — 
 The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one commit
 with all its consumers.
 
-- **Defined by:** `ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY`
+- **Defined by:** [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-productmonorepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -102,7 +102,7 @@ with all its consumers.
 
 The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
 
-- **Defined by:** `ADR-PRIN-CATS-CATSISPERSONNAME`
+- **Defined by:** [ADR-PRIN-CATS-CATSISPERSONNAME](principles/cats-and-catzc.md#rule-adr-prin-cats-catsispersonname)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -114,7 +114,7 @@ The product's name to a person — the executor outside pwsh, and the word in pr
 The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token in
 code and precise references.
 
-- **Defined by:** `ADR-PRIN-CATS-CATZCISSOURCENAME`
+- **Defined by:** [ADR-PRIN-CATS-CATZCISSOURCENAME](principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -131,7 +131,7 @@ code and precise references.
 One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's ADRs of
 one row of the value-chain stack in one value-chain concern.
 
-- **Defined by:** `ADR-DSGN-TRACK-CELL`
+- **Defined by:** [ADR-DSGN-TRACK-CELL](design/tracks.md#rule-adr-dsgn-track-cell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -147,7 +147,7 @@ one row of the value-chain stack in one value-chain concern.
 
 A track whose type owns deployable-units — collections of its modules that the repository delivers through CI/CD.
 
-- **Defined by:** `ADR-DSGN-TRACKTYPE-ONEROLE`
+- **Defined by:** [ADR-DSGN-TRACKTYPE-ONEROLE](design/track-types.md#rule-adr-dsgn-tracktype-onerole)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -158,7 +158,7 @@ A track whose type owns deployable-units — collections of its modules that the
 
 What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
 
-- **Defined by:** `ADR-DSGN-TRACK-DEPLOYABLEUNIT`
+- **Defined by:** [ADR-DSGN-TRACK-DEPLOYABLEUNIT](design/tracks.md#rule-adr-dsgn-track-deployableunit)
 - **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -175,7 +175,7 @@ What ships — a whole track or a reduced composition — bound one-to-one to it
 The language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python; a track's tech-stack is a
 set of them.
 
-- **Defined by:** `ADR-DSGN-TRACK-FILELANGUAGE`
+- **Defined by:** [ADR-DSGN-TRACK-FILELANGUAGE](design/tracks.md#rule-adr-dsgn-track-filelanguage)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -196,7 +196,7 @@ set of them.
 
 A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its own.
 
-- **Defined by:** `ADR-DSGN-TRACKTYPE-ONEROLE`
+- **Defined by:** [ADR-DSGN-TRACKTYPE-ONEROLE](design/track-types.md#rule-adr-dsgn-tracktype-onerole)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -207,7 +207,7 @@ A track that is itself a module more than it owns modules — one vendor's, one 
 
 Bringing an outside repository into this one with its full history, at one landing address.
 
-- **Defined by:** `ADR-DSGN-TRACK-UNORDEREDTRACK`
+- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
 - **Realized by:** function `Import-RepositoryWithHistory`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -218,7 +218,7 @@ Bringing an outside repository into this one with its full history, at one landi
 
 The folder `.unordered/<name>` an import lands at, named by a short kebab word unique among the addresses.
 
-- **Defined by:** `ADR-DSGN-TRACK-UNORDEREDTRACK`
+- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -230,7 +230,7 @@ The folder `.unordered/<name>` an import lands at, named by a short kebab word u
 A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells an
 ADR sits in.
 
-- **Defined by:** `ADR-DSGN-TRACK-LITCELL`
+- **Defined by:** [ADR-DSGN-TRACK-LITCELL](design/tracks.md#rule-adr-dsgn-track-litcell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -242,7 +242,7 @@ ADR sits in.
 
 A named unit placed in a track — a folder or one file, found by where its files stand — resolved through its track.
 
-- **Defined by:** `ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT`
+- **Defined by:** [ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT](design/module-types.md#rule-adr-dsgn-modtype-moduleisplacedunit)
 - **Realized by:** type `Catzc.Base.Modules.Module`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -254,7 +254,7 @@ A named unit placed in a track — a folder or one file, found by where its file
 The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place names
 its module.
 
-- **Defined by:** `ADR-DSGN-MODTYPE-MODULETYPEISSORT`
+- **Defined by:** [ADR-DSGN-MODTYPE-MODULETYPEISSORT](design/module-types.md#rule-adr-dsgn-modtype-moduletypeissort)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -269,7 +269,7 @@ its module.
 
 The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
 
-- **Defined by:** `ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT`
+- **Defined by:** [ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT](design/commit-lifecycle.md#rule-adr-dsgn-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -287,7 +287,7 @@ The one commit an always-on environment holds, deployed there as its release can
 A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file names
 its track.
 
-- **Defined by:** `ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER`
+- **Defined by:** [ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -297,7 +297,7 @@ its track.
 
 A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
 
-- **Defined by:** `ADR-DSGN-TRACK-ROOTFILE`
+- **Defined by:** [ADR-DSGN-TRACK-ROOTFILE](design/tracks.md#rule-adr-dsgn-track-rootfile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -309,7 +309,7 @@ A tracked file no track holds — at the repository root itself, or under out/ �
 
 How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
 
-- **Defined by:** `ADR-DSGN-RUNMODE-TWORUNMODES`
+- **Defined by:** [ADR-DSGN-RUNMODE-TWORUNMODES](design/run-modes.md#rule-adr-dsgn-runmode-tworunmodes)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -320,7 +320,7 @@ How the toolset is loaded, source mode from a repository root or build mode from
 
 Moving a file from its landing address to its module or track with `git mv`, so its history follows.
 
-- **Defined by:** `ADR-DSGN-TRACK-UNORDEREDTRACK`
+- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
@@ -329,7 +329,7 @@ Moving a file from its landing address to its module or track with `git mv`, so 
 A world-map cell holding a live file whose file language its track does not declare — the second tech-stack ADR-DSGN-TRACK-ONETECHSTACK
 forbids.
 
-- **Defined by:** `ADR-DSGN-TRACK-STACKVIOLATION`
+- **Defined by:** [ADR-DSGN-TRACK-STACKVIOLATION](design/tracks.md#rule-adr-dsgn-track-stackviolation)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -343,7 +343,7 @@ forbids.
 
 System.Collections.Specialized.OrderedDictionary
 
-- **Defined by:** `ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT`
+- **Defined by:** [ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT](design/commit-lifecycle.md#rule-adr-dsgn-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -352,7 +352,7 @@ System.Collections.Specialized.OrderedDictionary
 A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one track
 type.
 
-- **Defined by:** `ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER`
+- **Defined by:** [ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -378,7 +378,7 @@ type.
 The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
 documentation, verification, or unordered.
 
-- **Defined by:** `ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES`
+- **Defined by:** [ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](design/track-types.md#rule-adr-dsgn-tracktype-closedsetoftypes)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -392,7 +392,7 @@ documentation, verification, or unordered.
 
 A tracked file no file language names — no extension, or one no entry lists — the world map's own column.
 
-- **Defined by:** `ADR-DSGN-TRACK-UNLISTEDFILE`
+- **Defined by:** [ADR-DSGN-TRACK-UNLISTEDFILE](design/tracks.md#rule-adr-dsgn-track-unlistedfile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -406,7 +406,7 @@ A tracked file no file language names — no extension, or one no entry lists �
 The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads or falls
 back to it.
 
-- **Defined by:** `ADR-DSGN-TRACK-UNORDEREDTRACK`
+- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
 - **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/variants.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
@@ -415,7 +415,7 @@ back to it.
 Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an override
 per ADR.
 
-- **Defined by:** `ADR-DSGN-TRACK-VALUECHAINCONCERN`
+- **Defined by:** [ADR-DSGN-TRACK-VALUECHAINCONCERN](design/tracks.md#rule-adr-dsgn-track-valuechainconcern)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -429,7 +429,7 @@ per ADR.
 The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the value
 chain.
 
-- **Defined by:** `ADR-DSGN-TRACK-VALUECHAINMAP`
+- **Defined by:** [ADR-DSGN-TRACK-VALUECHAINMAP](design/tracks.md#rule-adr-dsgn-track-valuechainmap)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -442,7 +442,7 @@ chain.
 
 The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares one.
 
-- **Defined by:** `ADR-DSGN-TRACK-VALUECHAINSTACK`
+- **Defined by:** [ADR-DSGN-TRACK-VALUECHAINSTACK](design/tracks.md#rule-adr-dsgn-track-valuechainstack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -455,7 +455,7 @@ The ordered rows a decision sits on, from the axioms down to the vendor — PRIN
 
 The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
 
-- **Defined by:** `ADR-DSGN-TRACKTYPE-OPTIONALVENDOR`
+- **Defined by:** [ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](design/track-types.md#rule-adr-dsgn-tracktype-optionalvendor)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -466,7 +466,7 @@ The platform or tool that reads a track's files, from a closed set declared once
 
 Code written by a third party that the repository does not author, held in a track of its own nested under another track's root.
 
-- **Defined by:** `ADR-DSGN-TRACKTYPE-VENDOREDCODE`
+- **Defined by:** [ADR-DSGN-TRACKTYPE-VENDOREDCODE](design/track-types.md#rule-adr-dsgn-tracktype-vendoredcode)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -476,7 +476,7 @@ Code written by a third party that the repository does not author, held in a tra
 
 A test-only track — it verifies the core from outside, ships nothing, and is out of every bundle by construction; go is the first.
 
-- **Defined by:** `ADR-DSGN-TRACK-ONETRACKTYPE`
+- **Defined by:** [ADR-DSGN-TRACK-ONETRACKTYPE](design/tracks.md#rule-adr-dsgn-track-onetracktype)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
 - **Kind of:** [track](#track)
@@ -488,7 +488,7 @@ A test-only track — it verifies the core from outside, ships nothing, and is o
 The repository drawn as tracks crossed with file languages, plus a row for the root files and a column for the unlisted files — every
 tracked file in exactly one cell.
 
-- **Defined by:** `ADR-DSGN-TRACK-WORLDMAP`
+- **Defined by:** [ADR-DSGN-TRACK-WORLDMAP](design/tracks.md#rule-adr-dsgn-track-worldmap)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -503,7 +503,7 @@ tracked file in exactly one cell.
 
 A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
 
-- **Defined by:** `ADR-FLOW-CD-GATEDEFINED`
+- **Defined by:** [ADR-FLOW-CD-GATEDEFINED](flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-gatedefined)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `BVT gate`, `release gate`, `manual gate`, `PR gate`,
@@ -516,7 +516,7 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 
 The immutable, tagged artifact a CI component builds from one commit — versioned, never rebuilt, promotable toward production.
 
-- **Defined by:** `ADR-FLOW-CD-RELEASECANDIDATE`
+- **Defined by:** [ADR-FLOW-CD-RELEASECANDIDATE](flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-releasecandidate)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -540,7 +540,7 @@ The immutable, tagged artifact a CI component builds from one commit — version
 
 Every test in the repository — every test file of every module, at every tier and category; what a test run selects at its defaults.
 
-- **Defined by:** `ADR-AUTO-TEST-ALLTESTS`
+- **Defined by:** [ADR-AUTO-TEST-ALLTESTS](automation/test-automation.md#rule-adr-auto-test-alltests)
 - **Realized by:** function `Test-Automation`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -558,7 +558,7 @@ Every test in the repository — every test file of every module, at every tier 
 
 System.Collections.Specialized.OrderedDictionary
 
-- **Defined by:** `ADR-AUTO-ENGINE-AUTONAMESNOENGINE`
+- **Defined by:** [ADR-AUTO-ENGINE-AUTONAMESNOENGINE](automation/execution-engines.md#rule-adr-auto-engine-autonamesnoengine)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Engines/configs/glossary.yml`
 - **Contrasts:**
@@ -570,7 +570,7 @@ System.Collections.Specialized.OrderedDictionary
 The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
 folder; the ADR domain, the value-chain row and the concern carry the name.
 
-- **Defined by:** `ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT`
+- **Defined by:** [ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT](automation/layers.md#rule-adr-auto-layers-automationisabstract)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -590,7 +590,7 @@ folder; the ADR domain, the value-chain row and the concern carry the name.
 The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats`
 tests, which call catzc through `importer.sh` and `cats`.
 
-- **Defined by:** `ADR-AUTO-BASH-ONEBASHROOT`
+- **Defined by:** [ADR-AUTO-BASH-ONEBASHROOT](automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
 
@@ -598,7 +598,7 @@ tests, which call catzc through `importer.sh` and `cats`.
 
 The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
 
-- **Defined by:** `ADR-AUTO-TEST-BUILDVERIFICATIONTEST`
+- **Defined by:** [ADR-AUTO-TEST-BUILDVERIFICATIONTEST](automation/test-automation.md#rule-adr-auto-test-buildverificationtest)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -609,7 +609,7 @@ The BVT — the verification that precedes every promotion and every creation of
 
 The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
 
-- **Defined by:** `ADR-AUTO-BUNDLE-BUNDLEISBUILD`
+- **Defined by:** [ADR-AUTO-BUNDLE-BUNDLEISBUILD](automation/platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -620,7 +620,7 @@ The toolset's build, one installable, versioned Catzc package of one named bundl
 
 A test's kind, logic or integrity — one mandatory tag saying whether it runs on fixtures or reads the shipped assets.
 
-- **Defined by:** `ADR-AUTO-TEST-ONECATEGORY`
+- **Defined by:** [ADR-AUTO-TEST-ONECATEGORY](automation/test-automation.md#rule-adr-auto-test-onecategory)
 - **Realized by:** tag `logic|integrity`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -634,7 +634,7 @@ A test's kind, logic or integrity — one mandatory tag saying whether it runs o
 
 One public function of the module system, the unit a contract describes, written in one implementation language.
 
-- **Defined by:** `ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION`
+- **Defined by:** [ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION](automation/layers.md#rule-adr-auto-layers-commandispublicfunction)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -646,7 +646,7 @@ One public function of the module system, the unit a contract describes, written
 A file in an overlay that states only the keys of one config that differ, merged onto the bundled config before its type validates the
 result.
 
-- **Defined by:** `ADR-AUTO-OVERLAY-CONFIGFRAGMENT`
+- **Defined by:** [ADR-AUTO-OVERLAY-CONFIGFRAGMENT](automation/consumer-overlay.md#rule-adr-auto-overlay-configfragment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Config/configs/glossary.yml`
 - **Contrasts:**
@@ -658,7 +658,7 @@ result.
 The CATZC_ENGINE variables a test runner sets so a black-box test starts the engine from them and never from a hardcoded command, the
 engine's name, its executable, its importer entry and its start arguments.
 
-- **Defined by:** `ADR-AUTO-ENGINE-STARTENVIRONMENT`
+- **Defined by:** [ADR-AUTO-ENGINE-STARTENVIRONMENT](automation/execution-engines.md#rule-adr-auto-engine-startenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Engines/configs/glossary.yml`
 
@@ -670,7 +670,7 @@ engine's name, its executable, its importer entry and its start arguments.
 
 System.Collections.Specialized.OrderedDictionary
 
-- **Defined by:** `ADR-AUTO-ENGINE-THREEENGINES`
+- **Defined by:** [ADR-AUTO-ENGINE-THREEENGINES](automation/execution-engines.md#rule-adr-auto-engine-threeengines)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Engines/configs/glossary.yml`
 - **Contrasts:**
@@ -685,7 +685,7 @@ System.Collections.Specialized.OrderedDictionary
 The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go
 tests.
 
-- **Defined by:** `ADR-AUTO-GO-ONEGOROOT`
+- **Defined by:** [ADR-AUTO-GO-ONEGOROOT](automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
 
@@ -694,7 +694,7 @@ tests.
 The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its hosted C#,
 Bash, Python and Go.
 
-- **Defined by:** `ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION`
+- **Defined by:** [ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION](automation/layers.md#rule-adr-auto-layers-commandispublicfunction)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -712,7 +712,7 @@ Bash, Python and Go.
 The one way catzc enters a session, one entry per execution engine at the repository root, which decides the mix of languages, engines and
 modules the session loads.
 
-- **Defined by:** `ADR-AUTO-IMPORTER-ONEENTRY`
+- **Defined by:** [ADR-AUTO-IMPORTER-ONEENTRY](automation/importer.md#rule-adr-auto-importer-oneentry)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -728,7 +728,7 @@ modules the session loads.
 The one table of folders inside a module and what each holds, declared once under each file language and read by every command that reads a
 module's folders.
 
-- **Defined by:** `ADR-AUTO-MODULE-EXISTSBYLAYOUT`
+- **Defined by:** [ADR-AUTO-MODULE-EXISTSBYLAYOUT](automation/module-model.md#rule-adr-auto-module-existsbylayout)
 - **Realized by:** config-key `pwsh/Catzc.Base.Languages/configs/languages.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -739,7 +739,7 @@ module's folders.
 When a knowledge resource comes into being and how long it holds, on-demand (made when asked, held for the call or the session) or commit
 (made at commit, keyed by the scoped sha of its inputs, never changing).
 
-- **Defined by:** `ADR-AUTO-MATERIAL-MATERIALIZATION`
+- **Defined by:** [ADR-AUTO-MATERIAL-MATERIALIZATION](automation/materialization.md#rule-adr-auto-material-materialization)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -755,7 +755,7 @@ When a knowledge resource comes into being and how long it holds, on-demand (mad
 
 A test run's scheduling stage — parallel and greedy files share one pool, serial runs last — chosen per file by the serial/greedy tags.
 
-- **Defined by:** `ADR-AUTO-TEST-ONESCHEDULINGPOOL`
+- **Defined by:** [ADR-AUTO-TEST-ONESCHEDULINGPOOL](automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)
 - **Realized by:** tag `serial|greedy`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Forms:** `parallel phase`, `serial phase`, `greedy phase`, `worker phase`, `execution phase`, `run phase`, `test phase`, and the bare
@@ -767,7 +767,7 @@ A test run's scheduling stage — parallel and greedy files share one pool, seri
 
 System.Collections.Specialized.OrderedDictionary
 
-- **Defined by:** `ADR-AUTO-ENGINE-IMPORTERENTRY`
+- **Defined by:** [ADR-AUTO-ENGINE-IMPORTERENTRY](automation/execution-engines.md#rule-adr-auto-engine-importerentry)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Engines/configs/glossary.yml`
 - **Contrasts:**
@@ -779,7 +779,7 @@ System.Collections.Specialized.OrderedDictionary
 What a config key does when its file states nothing, one of three, defaulted to the type's constant, empty and still valid, or required, so
 the type's constructor throws naming the key and where to add it.
 
-- **Defined by:** `ADR-AUTO-DEFAULT-ONERESOLUTIONORDER`
+- **Defined by:** [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Config/configs/glossary.yml`
 - **Contrasts:**
@@ -790,7 +790,7 @@ the type's constructor throws naming the key and where to add it.
 
 A file one stage produces and a later stage downloads and consumes — carried by ArtifactRef, anchored on its artifact root.
 
-- **Defined by:** `ADR-AUTO-PATH-PUBLISHEDARTIFACT`
+- **Defined by:** [ADR-AUTO-PATH-PUBLISHEDARTIFACT](automation/path-representation.md#rule-adr-auto-path-publishedartifact)
 - **Realized by:** type `Catzc.Base.Objects.ArtifactRef`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -803,7 +803,7 @@ A file one stage produces and a later stage downloads and consumes — carried b
 
 The name of the PowerShell track and of the engine that runs it; the PowerShell product itself is called PowerShell in prose.
 
-- **Defined by:** `ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE`
+- **Defined by:** [ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE](automation/layers.md#rule-adr-auto-layers-toolsrunthroughengine)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -814,7 +814,7 @@ The name of the PowerShell track and of the engine that runs it; the PowerShell 
 The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box Python
 tests; each is a member of the one generated uv workspace.
 
-- **Defined by:** `ADR-AUTO-PY-ONEPYTHONROOT`
+- **Defined by:** [ADR-AUTO-PY-ONEPYTHONROOT](automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
 
@@ -823,7 +823,7 @@ tests; each is a member of the one generated uv workspace.
 A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
 Write-QualityGateReport and throws once with every issue.
 
-- **Defined by:** `ADR-AUTO-TEST-QUALITYGATE`
+- **Defined by:** [ADR-AUTO-TEST-QUALITYGATE](automation/test-automation.md#rule-adr-auto-test-qualitygate)
 - **Realized by:** function `Write-QualityGateReport`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Kind of:** [gate](#gate)
@@ -841,7 +841,7 @@ Write-QualityGateReport and throws once with every issue.
 The smallest unit of verification that passes or fails on its own — counted by every report row, rule citation, skip, and timing; in pwsh
 one Pester It.
 
-- **Defined by:** `ADR-AUTO-TEST-TEST`
+- **Defined by:** [ADR-AUTO-TEST-TEST](automation/test-automation.md#rule-adr-auto-test-test)
 - **Realized by:** function `It`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Part of:** [test block](#test-block)
@@ -853,7 +853,7 @@ one Pester It.
 One file of tests that discovery maps to one catzc module — the unit a test run schedules, never split; in pwsh a Verb-Noun.Tests.ps1 under
 tests/.
 
-- **Defined by:** `ADR-AUTO-TEST-TESTFILE`
+- **Defined by:** [ADR-AUTO-TEST-TESTFILE](automation/test-automation.md#rule-adr-auto-test-testfile)
 - **Realized by:** file-pattern `pwsh/*/tests/**/*.Tests.ps1`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -867,7 +867,7 @@ tests/.
 
 One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a selection of test files, in one location, with one report.
 
-- **Defined by:** `ADR-AUTO-TEST-TESTRUN`
+- **Defined by:** [ADR-AUTO-TEST-TESTRUN](automation/test-automation.md#rule-adr-auto-test-testrun)
 - **Realized by:** artifact `out/test-*/*/run.json`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -889,7 +889,7 @@ One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a se
 A named, declared selection of tests that runs as one unit — a globset's verify scope in globs.yml (modules up to a tier), run with
 Test-Automation -Suite.
 
-- **Defined by:** `ADR-AUTO-TEST-TESTSUITE`
+- **Defined by:** [ADR-AUTO-TEST-TESTSUITE](automation/test-automation.md#rule-adr-auto-test-testsuite)
 - **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs.yml`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -903,7 +903,7 @@ Test-Automation -Suite.
 
 The L4 tier — tests of the released system itself, after final approval, that observe it and create nothing of their own.
 
-- **Defined by:** `ADR-AUTO-TEST-TESTINGINPRODUCTION`
+- **Defined by:** [ADR-AUTO-TEST-TESTINGINPRODUCTION](automation/test-automation.md#rule-adr-auto-test-testinginproduction)
 - **Realized by:** tag `L4`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -914,7 +914,7 @@ The L4 tier — tests of the released system itself, after final approval, that 
 
 A test's level, L0 to L4 — one mandatory tag that sets what the test may touch and when it runs.
 
-- **Defined by:** `ADR-AUTO-TEST-TWOMANDATORYTAGS`
+- **Defined by:** [ADR-AUTO-TEST-TWOMANDATORYTAGS](automation/test-automation.md#rule-adr-auto-test-twomandatorytags)
 - **Realized by:** tag `L0|L1|L2|L3|L4`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -934,7 +934,7 @@ A test's level, L0 to L4 — one mandatory tag that sets what the test may touch
 
 An L2 or L3 test that cuts from an outer ring of the test onion (local tools; outside state) through to the core, the code alone.
 
-- **Defined by:** `ADR-AUTO-TEST-ONIONOFRINGS`
+- **Defined by:** [ADR-AUTO-TEST-ONIONOFRINGS](automation/test-automation.md#rule-adr-auto-test-onionofrings)
 - **Realized by:** tag `L2|L3`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -949,7 +949,7 @@ An L2 or L3 test that cuts from an outer ring of the test onion (local tools; ou
 
 A Describe or Context in a test file — a named group of tests whose tags and setup apply to everything inside it.
 
-- **Defined by:** `ADR-PWSH-PESTER-TESTISIT`
+- **Defined by:** [ADR-PWSH-PESTER-TESTISIT](pwsh/pester-testing.md#rule-adr-pwsh-pester-testisit)
 - **Realized by:** function `Describe|Context`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Part of:** [test file](#test-file)
@@ -964,7 +964,7 @@ A Describe or Context in a test file — a named group of tests whose tags and s
 One config value, a key path and its value, that an author states in the config part of a tracked Markdown file's meta block and that the
 config reader gathers into the config that opted in to it.
 
-- **Defined by:** `ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION`
+- **Defined by:** [ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION](configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -974,7 +974,7 @@ config reader gathers into the config that opted in to it.
 
 The one SQL login beside a server's Entra ID admin group, its password a Key Vault reference to foundation's vault.
 
-- **Defined by:** `ADR-AZ-LZ-SQLENTRAADMINS`
+- **Defined by:** [ADR-AZ-LZ-SQLENTRAADMINS](azure/landing-zones.md#rule-adr-az-lz-sqlentraadmins)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -983,7 +983,7 @@ The one SQL login beside a server's Entra ID admin group, its password a Key Vau
 The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
 required by policy.
 
-- **Defined by:** `ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS`
+- **Defined by:** [ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS](azure/caf/naming-and-tagging.md#rule-adr-az-caf-name-definetaggingrequirements)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -992,7 +992,7 @@ required by policy.
 Microsoft's guidance for preparing an Azure estate; its landing-zone design principles and design areas are recorded as vendor
 recommendation in docs/adr/azure/caf/, one rule per recommendation.
 
-- **Defined by:** `ADR-AZ-LZ-LANDINGZONE`
+- **Defined by:** [ADR-AZ-LZ-LANDINGZONE](azure/landing-zones.md#rule-adr-az-lz-landingzone)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
@@ -1003,7 +1003,7 @@ recommendation in docs/adr/azure/caf/, one rule per recommendation.
 
 Production or non-production — the split that policy enforcement, database SKUs, backups, and budgets are set by.
 
-- **Defined by:** `ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE`
+- **Defined by:** [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1011,7 +1011,7 @@ Production or non-production — the split that policy enforcement, database SKU
 
 The landing zone of a shared subscription — the network every spoke of its tier peers to, holding the private DNS zones.
 
-- **Defined by:** `ADR-AZ-LZ-HUBANDSPOKE`
+- **Defined by:** [ADR-AZ-LZ-HUBANDSPOKE](azure/landing-zones.md#rule-adr-az-lz-hubandspoke)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
@@ -1023,7 +1023,7 @@ The landing zone of a shared subscription — the network every spoke of its tie
 The network, guardrails, and cost control a workload lands in — the CAF application landing zone, deployed once per subscription at
 subscription scope by the discovery template.
 
-- **Defined by:** `ADR-AZ-LZ-LANDINGZONE`
+- **Defined by:** [ADR-AZ-LZ-LANDINGZONE](azure/landing-zones.md#rule-adr-az-lz-landingzone)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
@@ -1034,7 +1034,7 @@ subscription scope by the discovery template.
 
 An Azure container above subscriptions for policy and access; this repository deploys no management group and nothing at that level.
 
-- **Defined by:** `ADR-AZ-LZ-LANDINGZONE`
+- **Defined by:** [ADR-AZ-LZ-LANDINGZONE](azure/landing-zones.md#rule-adr-az-lz-landingzone)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1043,7 +1043,7 @@ An Azure container above subscriptions for policy and access; this repository de
 One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
 efficiency — each one ADR in docs/adr/azure/waf/.
 
-- **Defined by:** `ADR-AZ-LZ-EVERYPILLAR`
+- **Defined by:** [ADR-AZ-LZ-EVERYPILLAR](azure/landing-zones.md#rule-adr-az-lz-everypillar)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1051,7 +1051,7 @@ efficiency — each one ADR in docs/adr/azure/waf/.
 
 A Bicep configuration slot — one config file of a template (`<env>[-<slot>].yml`), deploying one subscription's resource group.
 
-- **Defined by:** `ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION`
+- **Defined by:** [ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Forms:** `Bicep slot`, `base slot`, `configuration slot`, `root slot`, `template slot`, `indexed slot`, `special slot`, `optional slot`,
@@ -1061,7 +1061,7 @@ A Bicep configuration slot — one config file of a template (`<env>[-<slot>].ym
 
 The landing zone of a customer subscription — peered to the hub of its tier, holding the subnet its workloads' private endpoints use.
 
-- **Defined by:** `ADR-AZ-LZ-HUBANDSPOKE`
+- **Defined by:** [ADR-AZ-LZ-HUBANDSPOKE](azure/landing-zones.md#rule-adr-az-lz-hubandspoke)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
@@ -1072,7 +1072,7 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the subscription
 itself is created outside the repository.
 
-- **Defined by:** `ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS`
+- **Defined by:** [ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](azure/caf/resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1081,7 +1081,7 @@ itself is created outside the repository.
 Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as Microsoft
 numbers it.
 
-- **Defined by:** `ADR-AZ-LZ-EVERYPILLAR`
+- **Defined by:** [ADR-AZ-LZ-EVERYPILLAR](azure/landing-zones.md#rule-adr-az-lz-everypillar)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
@@ -1095,7 +1095,7 @@ numbers it.
 One `.claude/skills/<domain>-<job>/SKILL.md` file a robot preloads through its `skills` list — at most the roof's lines, with a model floor
 declared once in its metadata.
 
-- **Defined by:** `ADR-REPO-AGENTS-CAPABILITYFILE`
+- **Defined by:** [ADR-REPO-AGENTS-CAPABILITYFILE](repository/agent-definitions.md#rule-adr-repo-agents-capabilityfile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -1103,7 +1103,7 @@ declared once in its metadata.
 
 An ADR citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
 
-- **Defined by:** `ADR-REPO-LINK-KINDBYFILE`
+- **Defined by:** [ADR-REPO-LINK-KINDBYFILE](repository/markdown-links.md#rule-adr-repo-link-kindbyfile)
 - **Realized by:** function `Format-Links`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -1115,7 +1115,7 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
 contract language; a command is public exactly when one names it.
 
-- **Defined by:** `ADR-REPO-CMDCONTRACT-COMMANDCONTRACT`
+- **Defined by:** [ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1128,7 +1128,7 @@ contract language; a command is public exactly when one names it.
 
 The Markdown page under docs/references that holds a file's long comments verbatim, one numbered section per comment.
 
-- **Defined by:** `ADR-REPO-COMMENTS-ONELINEOFINSIGHT`
+- **Defined by:** [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)
 - **Realized by:** function `Export-Comments`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 
@@ -1137,7 +1137,7 @@ The Markdown page under docs/references that holds a file's long comments verbat
 A binding interface at the repository boundary, held under contracts/ in either direction — provided or depended-on — and proven by its
 owning module's tests.
 
-- **Defined by:** `ADR-REPO-CONTRACT-BINDINGINTERFACE`
+- **Defined by:** [ADR-REPO-CONTRACT-BINDINGINTERFACE](repository/api-contracts.md#rule-adr-repo-contract-bindinginterface)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1149,7 +1149,7 @@ owning module's tests.
 One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose name
 picks its kind — a fragment, a schema, a sample payload, or a command contract.
 
-- **Defined by:** `ADR-REPO-CONTRACT-CONTRACTASSET`
+- **Defined by:** [ADR-REPO-CONTRACT-CONTRACTASSET](repository/api-contracts.md#rule-adr-repo-contract-contractasset)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1165,7 +1165,7 @@ picks its kind — a fragment, a schema, a sample payload, or a command contract
 The notation a command contract is written in — YAML with one string per parameter (type, mandatory, default, pipeline) and an output type,
 over a closed type set whose defaults are declared once on the ContractCommand type.
 
-- **Defined by:** `ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE`
+- **Defined by:** [ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)
 - **Realized by:** type `Catzc.Base.Contracts.ContractCommand`
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1178,7 +1178,7 @@ over a closed type set whose defaults are declared once on the ContractCommand t
 
 The `deck.md` of a deck folder — the deck's title and its sections, beside the slide files it gathers.
 
-- **Defined by:** `ADR-REPO-SLIDES-SLIDEFILE`
+- **Defined by:** [ADR-REPO-SLIDES-SLIDEFILE](repository/slides-as-markdown.md#rule-adr-repo-slides-slidefile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
 - **Contrasts:**
@@ -1189,7 +1189,7 @@ The `deck.md` of a deck folder — the deck's title and its sections, beside the
 A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a
 platform change is a new draft.
 
-- **Defined by:** `ADR-REPO-CONTRACT-BINDINGINTERFACE`
+- **Defined by:** [ADR-REPO-CONTRACT-BINDINGINTERFACE](repository/api-contracts.md#rule-adr-repo-contract-bindinginterface)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1200,7 +1200,7 @@ platform change is a new draft.
 
 A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
 
-- **Defined by:** `ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY`
+- **Defined by:** [ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-documentationmarkdownonly)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `ADR domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
@@ -1214,7 +1214,7 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
 
 The repository's conventions and decision records — its ADRs and the rules they state.
 
-- **Defined by:** `ADR-REPO-VOCAB-DOMAINRULES`
+- **Defined by:** [ADR-REPO-VOCAB-DOMAINRULES](repository/controlled-vocabulary.md#rule-adr-repo-vocab-domainrules)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -1227,7 +1227,7 @@ The repository's conventions and decision records — its ADRs and the rules the
 One named relation under the edges part of a meta block, from the file to a rule code, a file or a URL, such as defines, cites, links, page
 or test, written on its source only.
 
-- **Defined by:** `ADR-REPO-FILEMETA-FILEISNODE`
+- **Defined by:** [ADR-REPO-FILEMETA-FILEISNODE](repository/file-meta.md#rule-adr-repo-filemeta-fileisnode)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1239,7 +1239,7 @@ or test, written on its source only.
 One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or a
 module facet (disk, session).
 
-- **Defined by:** `ADR-REPO-VOCAB-FAMILYFORMS`
+- **Defined by:** [ADR-REPO-VOCAB-FAMILYFORMS](repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `build facet`, `types facet`, `load facet`, `parity facet`, `manifest facet`, `module facet`, `disk facet`, `session facet`,
@@ -1251,7 +1251,7 @@ module facet (disk, session).
 
 One level-two heading of a slide file and the text under it, filled into the placeholder of the same name in the slide's pattern.
 
-- **Defined by:** `ADR-REPO-SLIDES-SLIDEFILE`
+- **Defined by:** [ADR-REPO-SLIDES-SLIDEFILE](repository/slides-as-markdown.md#rule-adr-repo-slides-slidefile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
 
@@ -1263,7 +1263,7 @@ One level-two heading of a slide file and the text under it, filled into the pla
 
 The extension of a file's name, which tells the sorts of file inside one language apart, such as ps1 from psm1 and psd1.
 
-- **Defined by:** `ADR-REPO-FILEMETA-ROLE`
+- **Defined by:** [ADR-REPO-FILEMETA-ROLE](repository/file-meta.md#rule-adr-repo-filemeta-role)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1277,7 +1277,7 @@ The extension of a file's name, which tells the sorts of file inside one languag
 A step the file-language registry lists under imprint, global or for one language, which Format-Code runs after the formatter to write one
 derived fact into the file.
 
-- **Defined by:** `ADR-REPO-FORMAT-CONFIGUREDFORMATTERS`
+- **Defined by:** [ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -1285,7 +1285,7 @@ derived fact into the file.
 
 A sibling repository declared in inspiration.yml and read for ideas, never as a reference implementation.
 
-- **Defined by:** `ADR-REPO-INSPIRE-DECLAREDINSPIRATION`
+- **Defined by:** [ADR-REPO-INSPIRE-DECLAREDINSPIRATION](repository/inspiration.md#rule-adr-repo-inspire-declaredinspiration)
 - **Realized by:** type `Catzc.Tooling.Inspiration.InspirationEntry`
 - **Source:** `pwsh/Catzc.Tooling.Inspiration/configs/glossary.yml`
 
@@ -1297,7 +1297,7 @@ A sibling repository declared in inspiration.yml and read for ideas, never as a 
 
 One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
 
-- **Defined by:** `ADR-REPO-LANG-THREEREGISTERS`
+- **Defined by:** [ADR-REPO-LANG-THREEREGISTERS](repository/domain-language-separation.md#rule-adr-repo-lang-threeregisters)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, `landing zone`, `dns zone`, `availability zone`, and the bare `zone`
@@ -1311,7 +1311,7 @@ One of the three registers — design, test, live — each with its own terminol
 One stratum of a structure, always qualified — one of the five layers of the automation (automation, contract, language, engine, importer;
 ADR-AUTO-LAYERS-REALISENEVERREDEFINE), or a globset layer (module, fileset).
 
-- **Defined by:** `ADR-REPO-VOCAB-FAMILYFORMS`
+- **Defined by:** [ADR-REPO-VOCAB-FAMILYFORMS](repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `automation layer`, `contract layer`, `language layer`, `engine layer`, `importer layer`, `installer layer`, `config layer`,
@@ -1326,7 +1326,7 @@ ADR-AUTO-LAYERS-REALISENEVERREDEFINE), or a globset layer (module, fileset).
 
 A link inside a rendered .md file, written relative to that file so it resolves the same on GitHub and in VS Code.
 
-- **Defined by:** `ADR-REPO-LINK-KINDBYFILE`
+- **Defined by:** [ADR-REPO-LINK-KINDBYFILE](repository/markdown-links.md#rule-adr-repo-link-kindbyfile)
 - **Realized by:** function `Test-Links`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -1338,7 +1338,7 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 The facts the tooling owns about one tracked file, written into the file's carrier, which is the reserved front-matter key catzc of a
 Markdown file, at the top level or nested at the key path its carrier declares, or the meta head of a code file.
 
-- **Defined by:** `ADR-REPO-FILEMETA-HEADPOLICY`
+- **Defined by:** [ADR-REPO-FILEMETA-HEADPOLICY](repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1351,7 +1351,7 @@ Markdown file, at the top level or nested at the key path its carrier declares, 
 The leading comment of a code file, whose text is a front matter document with the catzc block, that holds the file's derived facts, so it
 is the form a meta block takes in a C# or PowerShell file.
 
-- **Defined by:** `ADR-REPO-CODEMETA-CODEFILEHEAD`
+- **Defined by:** [ADR-REPO-CODEMETA-CODEFILEHEAD](repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1364,7 +1364,7 @@ is the form a meta block takes in a C# or PowerShell file.
 One entry of the meta-kind registry, naming a kind of derived fact imprinted into files, or of config contribution gathered out of Markdown
 files, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
 
-- **Defined by:** `ADR-REPO-FILEMETA-METAKIND`
+- **Defined by:** [ADR-REPO-FILEMETA-METAKIND](repository/file-meta.md#rule-adr-repo-filemeta-metakind)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1376,7 +1376,7 @@ files, with the files it applies to, the keys it owns and, for a gather kind, th
 
 The lowest model that performs a capability's steps reliably; no robot that preloads the capability runs below it.
 
-- **Defined by:** `ADR-REPO-AGENTS-NAMEDMODEL`
+- **Defined by:** [ADR-REPO-AGENTS-NAMEDMODEL](repository/agent-definitions.md#rule-adr-repo-agents-namedmodel)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -1385,7 +1385,7 @@ The lowest model that performs a capability's steps reliably; no robot that prel
 One `.claude/slides/patterns/<name>.html` file — a section in the slide format whose placeholders name the fields it takes and which are
 required; the layout of one kind of slide.
 
-- **Defined by:** `ADR-REPO-SLIDES-PATTERN`
+- **Defined by:** [ADR-REPO-SLIDES-PATTERN](repository/slides-as-markdown.md#rule-adr-repo-slides-pattern)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
 
@@ -1394,7 +1394,7 @@ required; the layout of one kind of slide.
 The facts under the immutable part of a meta block, which are what the repository's own configuration makes of a file's location, such as
 its path, kind, language, track and module, each read from a registry and never from the file's text.
 
-- **Defined by:** `ADR-REPO-FILEMETA-FILEISNODE`
+- **Defined by:** [ADR-REPO-FILEMETA-FILEISNODE](repository/file-meta.md#rule-adr-repo-filemeta-fileisnode)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1405,7 +1405,7 @@ its path, kind, language, track and module, each read from a registry and never 
 
 A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins that version of its unit.
 
-- **Defined by:** `ADR-REPO-CONTRACT-BINDINGINTERFACE`
+- **Defined by:** [ADR-REPO-CONTRACT-BINDINGINTERFACE](repository/api-contracts.md#rule-adr-repo-contract-bindinginterface)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1419,7 +1419,7 @@ A contract an outside consumer may rely on — the repository's only public API,
 A sub-agent in its minimal form — a body of at most the roof's lines on a named model, loading shared know-how from capabilities instead of
 carrying it.
 
-- **Defined by:** `ADR-REPO-AGENTS-ROBOTBODYLIMIT`
+- **Defined by:** [ADR-REPO-AGENTS-ROBOTBODYLIMIT](repository/agent-definitions.md#rule-adr-repo-agents-robotbodylimit)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -1428,7 +1428,7 @@ carrying it.
 The part a file plays, such as a test, a function, a config or a decision record, named by the file-kinds registry and never by the file's
 language, track or module.
 
-- **Defined by:** `ADR-REPO-FILEMETA-ROLE`
+- **Defined by:** [ADR-REPO-FILEMETA-ROLE](repository/file-meta.md#rule-adr-repo-filemeta-role)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1446,7 +1446,7 @@ language, track or module.
 What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a selection
 scope (verify, scan, content).
 
-- **Defined by:** `ADR-REPO-VOCAB-FAMILYFORMS`
+- **Defined by:** [ADR-REPO-VOCAB-FAMILYFORMS](repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `PowerShell scope`, `selection scope`, `module scope`, `user scope`, `machine scope`, `content scope`, `script scope`,
@@ -1461,7 +1461,7 @@ scope (verify, scan, content).
 One markdown file per slide, `<stem>.slide.md`, in a deck folder under docs/explanation; its level-one heading is the title, each level-two
 heading a field, and its head names the pattern, the deck and the order.
 
-- **Defined by:** `ADR-REPO-SLIDES-SLIDEFILE`
+- **Defined by:** [ADR-REPO-SLIDES-SLIDEFILE](repository/slides-as-markdown.md#rule-adr-repo-slides-slidefile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
 - **Contrasts:**
@@ -1471,7 +1471,7 @@ heading a field, and its head names the pattern, the deck and the order.
 
 Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot source.
 
-- **Defined by:** `ADR-REPO-VOCAB-FAMILYFORMS`
+- **Defined by:** [ADR-REPO-VOCAB-FAMILYFORMS](repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `glossary source`, `type source`, `authored source`, `dot source`, `function source`, `vendor source`, `catzc source`,
@@ -1487,7 +1487,7 @@ Where something comes from, always qualified — a source mode, run, or tree; a 
 
 The narrowing of a role, such as a gate among the functions, written under its role in the file-kinds registry.
 
-- **Defined by:** `ADR-REPO-FILEMETA-ROLE`
+- **Defined by:** [ADR-REPO-FILEMETA-ROLE](repository/file-meta.md#rule-adr-repo-filemeta-role)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -1498,6 +1498,6 @@ The narrowing of a role, such as a gate among the functions, written under its r
 
 One labeled section of a plan's work breakdown (`out/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one change.
 
-- **Defined by:** `ADR-REPO-OUTDIR-PLANNOTES`
+- **Defined by:** [ADR-REPO-OUTDIR-PLANNOTES](repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`

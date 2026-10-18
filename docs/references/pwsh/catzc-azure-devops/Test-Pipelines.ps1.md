@@ -13,31 +13,31 @@ Quality gate: checks the pipelines/ tree against the naming-and-placement contra
 
 Classifies every YAML under pipelines/ with Get-AdoYamlFiles (offline — structure heuristics, no ADO call), applies the deterministic
 [ADR-PIPE-NAME](../../../adr/pipelines/pipeline-naming-and-placement.md) rules, collects every violation, and ends with
-Write-QualityGateReport ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
+Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): the report lands in
 out/test-pipelines/, and the gate throws once listing every violation (or returns the result with -PassThru).
 
 Rules enforced (each violation names its rule code, as '`[<rule>]` `pipelines/<file>`: `<message>`'):
 
 ```text
-[ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)  Executable YAML is
+[ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-executableyamlextension)  Executable YAML is
 `.yaml`; there is no `.yml` under pipelines/ (config is `.yml`, but
                 it lives outside pipelines/).
-[ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2)  Pipelines live FLAT
+[ADR-PIPE-NAME-FLATPIPELINESFOLDER](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-flatpipelinesfolder)  Pipelines live FLAT
 in pipelines/. Every `.yaml` is either at the root or directly in a
                 per-kind template folder — never deeper, never in another subfolder. A file whose
                 STRUCTURE is a pipeline (trigger/pr/…) must be at the root, not inside a template folder.
-[ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3)  Template folders are
+[ADR-PIPE-NAME-TEMPLATEKINDFOLDER](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-templatekindfolder)  Template folders are
 the closed set steps/ jobs/ stages/ variables/ extends/, and a
                 fragment's structural kind matches its folder (a steps template lives in steps/, …).
-[ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1)  A root pipeline's
+[ADR-PIPE-NAME-TYPEPREFIX](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-typeprefix)  A root pipeline's
 filename starts with its type — cron | ci | cd | cde | deploy | input.
-[ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4)  Templates are
+[ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-absolutetemplatepath)  Templates are
 referenced by absolute path (`/pipelines/<kind>/<name>.yaml`), never a
                 relative path.
 ```
 
 Invoke-AdoScript.ps1 is a `.ps1`, not YAML, so it never enters the scan
-([ADR-PIPE-NAME#7](../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name7)). A file that fails to parse is reported as
+([ADR-PIPE-NAME-RUNNERLOCATION](../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-runnerlocation)). A file that fails to parse is reported as
 a violation so a broken pipeline cannot slip through silently.
 
 ### parameter `Path`
@@ -73,7 +73,7 @@ Test-Pipelines
 Above `if ($extension -eq '.yml') {`, written with `#`.
 
 ```text
-[ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6) — executable YAML
+[ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-executableyamlextension) — executable YAML
 under pipelines/ is `.yaml`, never `.yml`.
 ```
 
@@ -83,7 +83,7 @@ Above `$prefix = ($name -split '-', 2)[0]`, written with `#`.
 
 ```text
 --- Root of pipelines/ : this is a pipeline entry point. ---
-[ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1) — filename
+[ADR-PIPE-NAME-TYPEPREFIX](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-typeprefix) — filename
 starts with a valid type token.
 ```
 
@@ -93,7 +93,7 @@ Above `if ($topFolder -notin $templateFolders) {`, written with `#`.
 
 ```text
 --- Inside a subfolder : must be a per-kind template folder, one level deep. ---
-[ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3) — the folder
+[ADR-PIPE-NAME-TEMPLATEKINDFOLDER](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-templatekindfolder) — the folder
 is in the closed set, and no deeper nesting.
 ```
 
@@ -102,7 +102,7 @@ is in the closed set, and no deeper nesting.
 Above `if ($record.Classification -eq 'Pipeline') {`, written with `#`.
 
 ```text
-[ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2) — a
+[ADR-PIPE-NAME-FLATPIPELINESFOLDER](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-flatpipelinesfolder) — a
 structural pipeline has no business inside a template folder.
 ```
 
@@ -111,7 +111,7 @@ structural pipeline has no business inside a template folder.
 Above `elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and...`, written with `#`.
 
 ```text
-[ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3) — a
+[ADR-PIPE-NAME-TEMPLATEKINDFOLDER](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-templatekindfolder) — a
 fragment's structural kind matches its folder (extends/ exempt).
 ```
 
@@ -120,6 +120,6 @@ fragment's structural kind matches its folder (extends/ exempt).
 Above `foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {`, written with `#`.
 
 ```text
-[ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4) — template
+[ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-absolutetemplatepath) — template
 references are absolute (/pipelines/<kind>/<name>.yaml).
 ```

@@ -9,10 +9,10 @@ Above `Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {`, wr
 
 ```text
 The coverage quality gate's engine
-([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)) over a TestKit
+([ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)) over a TestKit
 fixture tree: which functions with an internal
 asset dependency lack a test that cites
-[ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3) and is not
+[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) and is not
 source-only. The fixture test files are
-parsed, never run. Neutral names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+parsed, never run. Neutral names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

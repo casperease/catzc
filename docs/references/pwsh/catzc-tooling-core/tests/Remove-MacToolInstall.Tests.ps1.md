@@ -9,5 +9,5 @@ Above `$script:config = [pscustomobject]@{ command = 'widget'; pip_package =...`
 
 ```text
 A neutral fixture tool
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — never a real tool identity.
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — never a real tool identity.
 ```

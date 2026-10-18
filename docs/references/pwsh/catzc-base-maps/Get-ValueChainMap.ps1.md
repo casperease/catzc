@@ -11,16 +11,16 @@ Returns the value-chain map: the rows of the value-chain stack crossed with the 
 
 ### description
 
-Builds the value-chain map ([ADR-DSGN-TRACK#16](../../../adr/design/tracks.md#rule-adr-dsgn-track16)) with Catzc.Base.Maps.ValueChainMap
+Builds the value-chain map ([ADR-DSGN-TRACK-VALUECHAINMAP](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)) with Catzc.Base.Maps.ValueChainMap
 from adrs.yml: the rows are the value-chain stack the registry type declares (Catzc.Base.Docs.AdrsConfig Stacks,
-[ADR-DSGN-TRACK#14](../../../adr/design/tracks.md#rule-adr-dsgn-track14)), the columns its value-chain concerns (AdrsConfig Concerns,
-[ADR-DSGN-TRACK#15](../../../adr/design/tracks.md#rule-adr-dsgn-track15)), and each ADR (Get-AdrRuleSet) sits on its ADR domain's row in the
+[ADR-DSGN-TRACK-VALUECHAINSTACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)), the columns its value-chain concerns (AdrsConfig Concerns,
+[ADR-DSGN-TRACK-VALUECHAINCONCERN](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)), and each ADR (Get-AdrRuleSet) sits on its ADR domain's row in the
 column of each of its value-chain concerns. Every row meets every column, so the map holds every cell, empty ones included, row by row.
 
 ### parameter `AsJson`
 
 Return the map as JSON (the rows, the columns, and every cell with its ADRs) instead of the object
-([ADR-THES-ONETRUTH#3](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).
+([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
 
 ### outputs
 

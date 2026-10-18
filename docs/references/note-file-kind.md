@@ -17,7 +17,7 @@ note:
 
 It did two jobs. It named the file kind of everything under `.unordered/`, and its `git` block gave those files the `catzc-notes` attribute,
 which `Get-ContentExemptPath` and the source-conventions engine-set exemption read so the content tools left them as written.
-ADR-DSGN-TRACK#17 bolded **note** as the term, and the ModuleSystem glossary defined it.
+ADR-DSGN-TRACK-UNORDEREDTRACK bolded **note** as the term, and the ModuleSystem glossary defined it.
 
 ## Why it goes
 
@@ -31,7 +31,7 @@ PowerShell file, so a separate kind for "a file in this folder" says nothing the
 - The exemption moved to the track: the `unordered` entry of `pwsh/Catzc.Base.Variants/configs/track-types.yml` declares
   `git: { attributes: [catzc-unordered], why: ... }`, and `New-GitAttributes` writes `.unordered/** catzc-unordered` for every place of
   every track of that type. `Get-ContentExemptPath` and `source-conventions.yml` name the `catzc-unordered` class.
-- The track and its terms (unordered track, import, landing address, sorting) are ADR-DSGN-TRACK#17 and the ModuleSystem glossary.
+- The track and its terms (unordered track, import, landing address, sorting) are ADR-DSGN-TRACK-UNORDEREDTRACK and the ModuleSystem glossary.
 - A file under `.unordered/` takes the kind its own name and language give it, as it will after sorting.
 
 When ADR-REPO-FILEMETA or ADR-DSGN-TRACK absorbs this account, this page is deleted (ADR-PRIN-ONELIVE).

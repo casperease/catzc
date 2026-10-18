@@ -11,8 +11,8 @@ Picks a contract asset's kind from its file name alone.
 
 ### description
 
-The name rule of [ADR-REPO-CONTRACT#6](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract6): `<Verb-Noun>.command.yml` is a
-Command ([ADR-REPO-CMDCONTRACT#1](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract1)), `<path>.schema.json` is a
+The name rule of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset): `<Verb-Noun>.command.yml` is a
+Command ([ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)), `<path>.schema.json` is a
 Schema, `<name>.sample.<ext>` is a Sample, and any other name is a Fragment, or a Presence when the asset is empty (an empty fragment
 requires presence only). The command suffix needs a Verb-Noun stem, and the suffixes are checked before emptiness, so an empty command
 contract is still a command contract and a schema is never read as a sample.

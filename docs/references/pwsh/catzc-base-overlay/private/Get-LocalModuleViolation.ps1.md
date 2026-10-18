@@ -35,6 +35,6 @@ The folder as the messages show it.
 Above `$files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a
 violation anywhere in the module must show, so nothing is pruned.
 ```

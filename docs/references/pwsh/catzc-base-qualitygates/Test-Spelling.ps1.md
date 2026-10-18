@@ -14,10 +14,10 @@ Spell-checks the repository's known file types with cspell and writes a report u
 Runs the Code Spell Checker CLI (cspell) over the repository's known text file types — Markdown, PowerShell, YAML, JSON, C#, and Bicep —
 applying the single repo dictionary at /cspell.yml.
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): every cspell issue line
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every cspell issue line
 ('`<path>:<line>:<col>` - Unknown word (`<word>`) …') is an issue, and the gate ends through Write-QualityGateReport, which writes
 out/test-spelling/, prints every issue, and throws once listing them all — so the misspelled words are named in the failure itself
-([ADR-AUTO-CONSOLE#6](../../../adr/automation/console-output-matters.md#rule-adr-auto-console6)). -PassThru returns the result object
+([ADR-AUTO-CONSOLE-SELFCONTAINEDERRORS](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-selfcontainederrors)). -PassThru returns the result object
 instead. A cspell tool error (exit > 1) or a scan that matched no files throws before the report: there is no verdict to report.
 
 cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
@@ -64,7 +64,7 @@ Above `'**/README.md'`, written with `#`.
 Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
 and their authored source under docs/ is what is spell-checked (mirrors Test-Markdownlint's
 '!**/README.md'). Their banner embeds the source's kebab filename, which is not a word. See
-[ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7).
+[ADR-REPO-README-AUTHOREDSOURCES](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources).
 ```
 
 ## comment:2

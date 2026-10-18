@@ -63,5 +63,5 @@ The diagram is described element by element in [its asset description](.assets/r
 - [Pipeline detection](../../adr/flow/pipeline-detection.md) — the one detection function the resolver asks.
 - The other lenses on the same check: [meta](every-doubt-fails-open-to-proceed.md),
   [architecture](globs-asks-loader-for-context-and-git-for-diff.md), [operations](stop-only-on-false-everything-else-proceeds.md) and
-  [governance](tests-pin-the-throw-and-fail-open-no-caller.md).
+  [governance](tests-pin-the-throw-and-fail-open-cd-calls-it.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

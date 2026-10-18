@@ -94,8 +94,8 @@ Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, 
 
 ```text
 How the tests start the engine (Get-EngineContract) is an external contract with the go test processes
-([ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1)): set for these
+([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)): set for these
 commands only, then restored. GOTOOLCHAIN=local keeps go on the managed binary just checked: without it, go
 reads go.work's go directive and silently downloads that toolchain instead
-([ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)).
+([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
 ```

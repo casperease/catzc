@@ -10,7 +10,7 @@ Above `trigger:`, written with `#`.
 ```text
 Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
 [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-[ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)
+[ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)
 ```
 
 ## comment:2
@@ -91,5 +91,5 @@ Above `- job: BuildArtifact`, written with `#`.
 
 ```text
 --- BVT: the post-merge run on main checks the built artifact
-([ADR-AUTO-TEST#24](/docs/adr/automation/test-automation.md#rule-adr-auto-test24)); PR runs skip it -------------------
+([ADR-AUTO-TEST-BUILDVERIFICATIONTEST](/docs/adr/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)); PR runs skip it -------------------
 ```

@@ -12,7 +12,7 @@ Quality gate over what changed: runs the tests and the checks of the changed fil
 ### description
 
 The check a person (or an agent) runs before handing work over: instead of the whole suite and every repository-wide quality gate, only what
-the change touches ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35): a quality gate over its declared
+the change touches ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate): a quality gate over its declared
 scope — here, the changed files).
 
 ```text

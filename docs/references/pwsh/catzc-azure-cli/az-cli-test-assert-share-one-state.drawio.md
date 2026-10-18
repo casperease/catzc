@@ -98,8 +98,8 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-CLI#1, ADR-AZ-DATAMOD#4, ADR-AZ-CUSTOMER,
-ADR-AUTO-FAILFAST, ADR-AUTO-ENTERP and ADR-AUTO-PRELOG#5: the rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-CUSTOMER,
+ADR-AUTO-FAILFAST, ADR-AUTO-ENTERP and ADR-AUTO-PRELOG-SILENTSWITCH: the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

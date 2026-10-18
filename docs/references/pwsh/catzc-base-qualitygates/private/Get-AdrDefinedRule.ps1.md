@@ -14,7 +14,7 @@ The rules a Markdown text defines in its own rule headings, spelled as citations
 A rule heading is `### Rule ADR-<CODE>:<n>`; the colon form is the rule's own heading and the result spells it `ADR-<CODE>#<n>`, in document
 order.
 
-It rests on [ADR-REPO-LINK#5](../../../../adr/repository/markdown-links.md#rule-adr-repo-link5).
+It rests on [ADR-REPO-LINK-ONECITATIONSPELLING](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling).
 
 ### parameter `Text`
 

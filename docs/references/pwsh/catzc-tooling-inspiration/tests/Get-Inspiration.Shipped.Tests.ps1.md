@@ -10,5 +10,5 @@ Above `Describe 'Get-Inspiration over the shipped inspiration.yml' -Tag 'L1',...
 ```text
 The shipped inspiration.yml through the real Get-Config and the real repository root. It asserts consistency, never
 presence: on a machine without eac the default inspiration is reported unavailable, and the test still passes
-([ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1)).
+([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)).
 ```

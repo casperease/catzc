@@ -15,7 +15,7 @@ An aspect convention is an ordered first-match (fallthrough) classification of V
 unit root; the LAST aspect is the '`**`' catch-all remainder ([ADR-DSGN-ASPECT](../../../adr/design/module-aspects.md)).
 
 A code track (a track of the modules track type) derives its convention from the layout
-([ADR-AUTO-MODULE#2](../../../adr/automation/module-model.md#rule-adr-auto-module2)): 'live' is the patterns of the layout's live rows, kept
+([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../../adr/automation/module-model.md#rule-adr-auto-module-existsbylayout)): 'live' is the patterns of the layout's live rows, kept
 closed so a stray file falls to the 'tests' catch-all and never ships. Any other track takes the convention its `aspects` entry in
 configs/variants.yml declares, else the built-in one: 'infrastructure' (a deployment) makes 'live' the catch-all, so everything under a
 template ships and only an explicit tests/ folder is non-live. A track with neither falls back to the code convention. The `aspects` shape

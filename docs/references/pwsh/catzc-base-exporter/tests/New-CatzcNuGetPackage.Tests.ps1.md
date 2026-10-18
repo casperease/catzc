@@ -11,8 +11,8 @@ Above `$script:source = Join-Path $TestDrive...`, written with `#`.
 
 ```text
 A minimal fixture build (neutral names,
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)), packed ONCE: every
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), packed ONCE: every
 assertion below is a facet
-of the one pack ([ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)) —
+of the one pack ([ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)) —
 Compress-PSResource costs real time.
 ```

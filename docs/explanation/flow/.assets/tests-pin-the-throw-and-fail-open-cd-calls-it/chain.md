@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "370b86774836"
+    with_body_sha: d49bc2425033
     repo_status: locked
-    path: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-no-caller/chain.md
-    source: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.png
+    path: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/chain.md
+    source: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -59,7 +59,7 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 [1]: ../../../../adr/automation/fail-fast-with-asserts.md
 [2]: ../../../../adr/flow/pipeline-detection.md
 [3]: ../../../../adr/flow/durable-sha-globs.md
-[4]: ../../tests-pin-the-throw-and-fail-open-no-caller.md
+[4]: ../../tests-pin-the-throw-and-fail-open-cd-calls-it.md
 [5]: ../../../../adr/glossary.md#value-chain-map
 [6]: ../../../../adr/glossary.md#value-chain-stack
 [7]: ../../../../adr/glossary.md#value-chain-concern

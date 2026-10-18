@@ -13,7 +13,7 @@ Quality gate: checks that the actual module dependencies conform to the declared
 
 Compares the real module-to-module edges — PowerShell function calls and cross-module C# type references — against the allow-list declared
 in configs/dependencies.yml (see Get-ModuleDependencyViolations for the rules), collects every violation, and ends with
-Write-QualityGateReport ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
+Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): the report lands in
 out/test-module-dependency/, and the gate throws once listing every violation (or returns the result with -PassThru).
 
 A structurally invalid config throws at load time (via Get-ModuleDependencyConfig) before any conformance check runs — a malformed config is

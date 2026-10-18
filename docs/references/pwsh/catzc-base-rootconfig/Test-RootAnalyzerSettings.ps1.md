@@ -11,7 +11,7 @@ Quality gate: the root PSScriptAnalyzerSettings.psd1 parses as a settings hashta
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the consumer contract of the root
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the consumer contract of the root
 PSScriptAnalyzerSettings.psd1 ([ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)): PSScriptAnalyzer requires a
 literal-hashtable settings file at the path it is given. The target is a copyAsLink entry of rootconfig.yml, so content equality with its
 source holds by construction (Test-RootConfigFiles checks the link); what remains is that a consumer opening the ROOT path can follow the

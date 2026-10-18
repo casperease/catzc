@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 One entry of configs/output-formats.yml: a declared kind of file a producer writes under the output root
-([ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1)). Constructing one MAPS and
+([ADR-REPO-OUTFMT-OUTPUTFORMAT](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt-outputformat)). Constructing one MAPS and
 VALIDATES the entry, collecting every violation into one throw:
   - the id (its map key) is kebab-case;
   - only the keys patterns, target, producer, audience, validator, limits;
@@ -18,9 +18,9 @@ VALIDATES the entry, collecting every violation into one throw:
   - `target` is 'file' (the default) or 'folder' (the pattern names a folder, checked as one unit);
   - `producer` (the function or script that writes it) and `audience` (who opens it, with what) are required;
   - `validator` is a map with a known `kind` and only that kind's parameters, its required ones present
-    ([ADR-REPO-OUTFMT#3](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt3));
+    ([ADR-REPO-OUTFMT-VALIDATORISCODE](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt-validatoriscode));
   - `limits` holds only known limit names, each a positive whole number
-    ([ADR-REPO-OUTFMT#5](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt5)).
+    ([ADR-REPO-OUTFMT-LIMITSINCATALOGUE](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt-limitsincatalogue)).
 That no two formats' patterns overlap spans entries, so OutputFormatsConfig checks it. Mirrors the YAML mapping
-(snake_case keys, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+(snake_case keys, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 ```

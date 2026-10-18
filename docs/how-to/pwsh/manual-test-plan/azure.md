@@ -11,8 +11,8 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 | 3   | L0   | pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1           | Shipped template integrity       | Every shipped template is discoverable, well-formed, and structurally valid.                                                                                                    |
 | 4   | L0   | pwsh/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1            | Shipped asset integrity          | Templates reference only defined environments and customers.                                                                                                                    |
 | 5   | L0   | pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1                      | integrity (shipped customer.yml) | The shipped customer.yml loads through `CustomerConfig` — customer keys/shortcodes are well-formed, unique, and non-colliding.                                                  |
-| 6   | L0   | pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1                     | Azure network plan sync          | `Test-AzureNetworkPlan` reports 0 issues: the shipped `network.yml` and the `azure.yml` environments are in sync (ADR-AZ-NETWORK#2).                                            |
-| 7   | L2   | pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1 | Shipped template parameter model | Every shipped template's rendered parameters files satisfy its compiled parameter model (ADR-AZ-DATAMOD#9); `Test-Automation -Suite infrastructure` runs it (ADR-AUTO-TEST#37). |
+| 6   | L0   | pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1                     | Azure network plan sync          | `Test-AzureNetworkPlan` reports 0 issues: the shipped `network.yml` and the `azure.yml` environments are in sync (ADR-AZ-NETWORK-KEYEDBYENVIRONMENT).                                            |
+| 7   | L2   | pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1 | Shipped template parameter model | Every shipped template's rendered parameters files satisfy its compiled parameter model (ADR-AZ-DATAMOD-PARAMETERCONTRACT); `Test-Automation -Suite infrastructure` runs it (ADR-AUTO-TEST-TESTSUITE). |
 
 ## Checks
 
@@ -55,7 +55,7 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ### 7. Shipped template parameter model
 
-**Guards:** every shipped template's parameters files keep the contract its compiled `main.json` declares (ADR-AZ-DATAMOD#9).
+**Guards:** every shipped template's parameters files keep the contract its compiled `main.json` declares (ADR-AZ-DATAMOD-PARAMETERCONTRACT).
 
 **Checks:**
 
@@ -64,4 +64,4 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 - `Get-BicepParameterViolations` reports nothing for the rendered parameters files: every value has the declared type, lies within its
   `@allowed` values and bounds, and names a declared parameter; every parameter without a default is supplied; a secure parameter carries a
   well-formed Key Vault reference, never a literal.
-- It runs with `Test-Automation -Suite infrastructure`, the `infrastructure` globset's verify scope (ADR-AUTO-TEST#37).
+- It runs with `Test-Automation -Suite infrastructure`, the `infrastructure` globset's verify scope (ADR-AUTO-TEST-TESTSUITE).

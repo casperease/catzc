@@ -10,7 +10,7 @@ Above `$script:content | Should -Match 'New-PesterRunConfiguration'`, written wi
 ```text
 The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the
 invocation config) and the worker sets strict mode before Pester, so tests run strict
-([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)).
+([ADR-AUTO-TEST-FILEPARALLELISM](/docs/adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)).
 ```
 
 ## comment:2
@@ -29,7 +29,7 @@ Above `Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2',...
 ```text
 greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that
 oversubscribes the box (see the test-automation ADR's greedy tag).
-integrity + [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3):
+integrity + [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest):
 the real worker imports the shipped, vendored Pester from its code root,
 nothing mocked — the real-asset test, not source-only, so it runs in the source and the build run.
 ```

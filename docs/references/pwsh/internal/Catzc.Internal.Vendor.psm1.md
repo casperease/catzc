@@ -57,7 +57,7 @@ Above `$vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories(
 
 ```text
 One level, inline: this module loads before the walker exists
-([ADR-PWSH-ENUM#6](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum6)).
+([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
 ```
 
 ## comment:5
@@ -85,7 +85,7 @@ Above `if ($existing) {` (occurrence 2), written with `#`.
 ```text
 The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
 the session, announced on one line
-([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)) on
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on
 the importer's verbose record
-([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 ```

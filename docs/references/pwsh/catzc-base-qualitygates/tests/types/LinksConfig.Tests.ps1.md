@@ -9,6 +9,6 @@ Above `Describe 'LinksConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 LinksConfig maps links.yml and is the one declaration of its sensible defaults
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key
 behaves exactly like the default, and a malformed value fails at construction with the allowed set.
 ```

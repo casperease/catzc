@@ -18,5 +18,5 @@ Above `& $isControlled 'out/plan-widget.md' | Should -BeFalse`, written with `#`
 
 ```text
 the authored plan files are working notes, not output
-([ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10))
+([ADR-REPO-OUTDIR-PLANNOTES](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes))
 ```

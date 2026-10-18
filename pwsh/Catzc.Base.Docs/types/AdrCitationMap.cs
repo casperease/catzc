@@ -17,6 +17,8 @@ public sealed class AdrCitationMap
     readonly HashSet<string> ambiguousSlugs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
     readonly HashSet<string> domainCodes = new HashSet<string>(StringComparer.Ordinal);
     readonly HashSet<string> allDocuments = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    // The named rules: each is a citation code of its own, at its ADR's path, linked to its heading's anchor.
+    readonly HashSet<string> namedRules = new HashSet<string>(StringComparer.Ordinal);
 
     // Every registered citation code, ordinally sorted.
     public IReadOnlyList<string> Codes { get; }
@@ -45,6 +47,17 @@ public sealed class AdrCitationMap
                 }
             }
             rulesByCode[code] = rules;
+
+            if (value.Contains("named") && value["named"] is IEnumerable nameList && !(value["named"] is string))
+            {
+                foreach (object named in nameList)
+                {
+                    string name = Convert.ToString(named, CultureInfo.InvariantCulture);
+                    namedRules.Add(name);
+                    pathByCode[name] = path;
+                    rulesByCode[name] = new HashSet<int>();
+                }
+            }
 
             int dash = code.IndexOf('-', 4);
             while (dash > 0)
@@ -83,6 +96,9 @@ public sealed class AdrCitationMap
 
     public bool HasCode(string code) => code != null && pathByCode.ContainsKey(code);
 
+    // True when the code names one rule by its name rather than a whole ADR.
+    public bool IsNamedRule(string code) => code != null && namedRules.Contains(code);
+
     // The rule numbers the code's ADR declares, ascending; empty for an unknown code.
     public IReadOnlyList<int> RulesOf(string code)
     {
@@ -120,6 +136,7 @@ public sealed class AdrCitationMap
     {
         string path = PathOf(code);
         if (path == null) { return null; }
+        if (namedRules.Contains(code)) { return "/" + path + "#rule-" + code.ToLowerInvariant(); }
         return rule.HasValue
             ? "/" + path + "#rule-" + code.ToLowerInvariant() + rule.Value.ToString(CultureInfo.InvariantCulture)
             : "/" + path;

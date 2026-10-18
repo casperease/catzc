@@ -9,5 +9,5 @@ Above `private static readonly Regex SpecRe = new Regex(`, written with `//`.
 
 ```text
 spec = type [ "!" ] [ "=" literal ] [ "pipeline" ]; type = base [ "[]" ]
-([ADR-REPO-CMDCONTRACT#2](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract2)).
+([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)).
 ```

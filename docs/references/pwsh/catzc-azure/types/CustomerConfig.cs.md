@@ -12,7 +12,7 @@ The customer catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/adr/azure/
 customers this repo can deploy for; WHICH of them are enabled is the have_customers variant, not this file.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.CustomerConfig), so
 Get-Config -Config customer returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - the top-level key 'customers' is required (an empty map is allowed) and is the only key;
@@ -20,9 +20,9 @@ Constructing an instance validates the file, collecting every violation into one
   - shortcodes are unique;
   - no key equals any shortcode — a subscription's `customer` field may name a customer by its key OR its
     shortcode, so a collision would make that reference ambiguous
-    ([ADR-AZ-CUSTOMER#2](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer2)).
+    ([ADR-AZ-CUSTOMER-TWOBINDINGS](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-twobindings)).
 Self-contained — it does NOT read azure.yml (a subscription references a customer here, so azure.yml depends
-on customer.yml, never the reverse; [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)).
+on customer.yml, never the reverse; [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
 ```
 
 ## comment:2

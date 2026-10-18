@@ -12,8 +12,8 @@ Whether a test run outlasted its whole-run budget in a way that fails it: a devb
 ### description
 
 The whole-run budget fails a devbox run that outlasts it
-([ADR-AUTO-TEST#44](../../../../adr/automation/test-automation.md#rule-adr-auto-test44)) — the time safeguard's fail-fast stance applied to
-the run itself ([ADR-AUTO-FAILFAST#7](../../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)): a slow run is a defect
+([ADR-AUTO-TEST-DEVBOXRUNBUDGET](../../../../adr/automation/test-automation.md#rule-adr-auto-test-devboxrunbudget)) — the time safeguard's fail-fast stance applied to
+the run itself ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)): a slow run is a defect
 to fix, not a wait to absorb, and the budget is a roof that is never raised to make a run pass. A pipeline run is bounded by its stage's own
 limit instead, so it never fails here. A failing run says so on the console, with its time and the budget.
 

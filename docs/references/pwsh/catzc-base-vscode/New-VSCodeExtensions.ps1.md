@@ -25,7 +25,7 @@ This is a pure renderer: it returns the content and writes nothing — it is the
 
 The extensions that run the repository's formatter engines in the editor, appended after the authored recommendations when not already
 listed. Supplied by the generator dispatch from the file-language registry, so an engine's extension is recommended wherever a language uses
-it ([ADR-REPO-FORMAT#8](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
+it ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 
 ### outputs
 

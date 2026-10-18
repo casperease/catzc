@@ -42,7 +42,7 @@ Above `version: "5"` (occurrence 2), written with `#`.
 ```text
 zsh 5 — the third execution engine ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)) and the checker of
 the repository's *.zsh scripts (Test-ShellScripts runs `zsh -n`,
-[ADR-AUTO-BASH#6](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6)).
+[ADR-AUTO-BASH-SHELLSCRIPTSCHECKED](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-shellscriptschecked)).
 ```
 
 ## comment:5

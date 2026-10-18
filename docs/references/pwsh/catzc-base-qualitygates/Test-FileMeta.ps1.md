@@ -13,7 +13,7 @@ The file meta quality gate: fails on any in-scope file whose meta block differs 
 
 A key no meta kind owns is reported too: the author decides whether it belongs in `config` or goes.
 
-It rests on [ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35).
+It rests on [ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate).
 
 ### parameter `Path`
 

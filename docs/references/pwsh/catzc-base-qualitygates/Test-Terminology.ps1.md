@@ -13,18 +13,18 @@ Checks the terminology registry: no drift, no orphans, no unjustified entries. W
 
 The read-only verifier over configs/terminology.yml and its generated dictionary — the counterpart to Build-TerminologyDictionary. It
 enforces the three things code review cannot mechanically catch ([ADR-AUTO-SPELL](../../../adr/automation/spell-out-names.md),
-[ADR-AUTO-SPELL#5](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell8)):
+[ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)):
 
 1. No drift — the generated per-category dictionaries (`.cspell/<category>.txt`) match what Build-TerminologyDictionary would produce from
-   the registry ([ADR-AUTO-SPELL#5](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell5)). They are gitignored and regenerated
+   the registry ([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)). They are gitignored and regenerated
    on import, so this catches a hand-edited word list.
 2. No orphans — every registry entry is referenced somewhere in the spell-scanned tree; an entry no code uses is dead vocabulary and must be
-   removed ([ADR-AUTO-SPELL#8](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell8)).
+   removed ([ADR-AUTO-SPELL-LIVEVOCABULARYONLY](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
 3. No unjustified entry — every entry declares a category and a meaning, and every abbreviation carries its expansion
-   ([ADR-AUTO-SPELL#6](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell6)). This is enforced by the TerminologyConfig type at
+   ([ADR-AUTO-SPELL-CATEGORYANDMEANING](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). This is enforced by the TerminologyConfig type at
    load, so a malformed registry fails to load and is reported here.
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-terminology/, prints every issue, and throws once listing them all; -PassThru returns the
 result object instead.
 
@@ -78,7 +78,7 @@ Above `$generated = Build-TerminologyDictionary -DryRun -PassThru`, written with
 
 ```text
 ---- Check 1 (no drift): every generated dictionary must match the registry
-([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)) ----
+([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)) ----
 ```
 
 ## comment:4
@@ -87,7 +87,7 @@ Above `$cspellDir = Join-Path $root '.cspell'`, written with `#`.
 
 ```text
 ---- Check 2 (no orphans): every term must be referenced somewhere else in the tree
-([ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)) ----
+([ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)) ----
 One bulk scan of the spell-checked corpus (minus the registry and its generated lists, where every
 term trivially appears), then look each term up against it — not one grep per term. The generated
 per-category dictionaries live at the repository root's .cspell/ (see .cspell/README.md).

@@ -29,7 +29,7 @@ the per-tool winget list call — pass the result of Get-WingetListCache.
 
 For a script-installed tool, or an MSYS2-package tool on Windows: judge this install folder (or a file in it) instead of the one the command
 resolves to on PATH. A removal names the folder it is about to delete, so the managed install's position on PATH never decides whether a
-different folder is managed ([ADR-AUTO-REMOVE#3](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)). The install
+different folder is managed ([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)). The install
 folder to judge, for a script-installed or an MSYS2-package tool. Default: the folder the command resolves to on PATH — which, in a catzc
 session, is always the managed install, so a removal of another folder names it.
 

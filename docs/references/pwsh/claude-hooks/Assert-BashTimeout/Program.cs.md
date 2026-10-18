@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 Claude Code PreToolUse hook: denies a Bash call that does not run inside the time safeguard
-([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 
 The decision is Catzc.Base.Timeouts.BashSafeguard and the limits are Catzc.Base.Timeouts.TimeoutsConfig — the
 module's own source files, compiled into this program (see the .csproj), so the hook, Get-TimeoutSeconds and the
@@ -36,5 +36,5 @@ Above `Console.Out.Write(BashSafeguard.DenyOutput("Bash time safeguard hook fail
 
 ```text
 The safeguard is a control: when it cannot decide, it denies, and the reason names why
-([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 ```

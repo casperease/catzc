@@ -9,5 +9,5 @@ Above `Describe 'Repository Markdown titles' -Tag 'L1', 'integrity', 'source-onl
 
 ```text
 The real repository titles every in-scope Markdown file with its path
-([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)). An integrity check over the tracked tree.
+([ADR-REPO-FORMAT-MARKDOWNTITLE](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle)). An integrity check over the tracked tree.
 ```

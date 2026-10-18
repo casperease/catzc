@@ -62,7 +62,7 @@ Above `$ret = [System.Text.StringBuilder]::new()`, written with `#`.
 
 ```text
 Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree
-scan is markedly faster ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
+scan is markedly faster ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 Directory/name filtering is done inline on the raw path string.
 ```
 

@@ -21,12 +21,12 @@ elevated shell means the target is a machine-scope .NET (C:\Program Files\dotnet
 
 For a .NET installed OUTSIDE the tooling system (a system SDK, an apt package), escalate with -Remove -Force: the managed uninstall runs
 best-effort and then falls through to Remove-Dotnet, which evicts whatever the configured manager did not own
-([ADR-AUTO-REMOVE#5](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+([ADR-AUTO-REMOVE-ONECALLESCALATION](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
 
 ### parameter `Remove`
 
 After the managed uninstall, escalate to Remove-Dotnet to evict an off-config install. Pair with -Force to actually remove; -Remove alone
-reports the plan ([ADR-AUTO-REMOVE#4](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
+reports the plan ([ADR-AUTO-REMOVE-DOUBLYGUARDED](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)).
 
 ### parameter `Force`
 
@@ -56,6 +56,6 @@ Above `try {`, written with `#`.
 
 ```text
 Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
--Remove it propagates ([ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
-[ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+-Remove it propagates ([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
+[ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
 ```

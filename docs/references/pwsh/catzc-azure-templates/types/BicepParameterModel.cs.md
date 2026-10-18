@@ -13,7 +13,7 @@ name. Parsed from the `parameters` section (and the `definitions` a user-defined
 `az bicep build` writes; Get-BicepParameterModel returns it and Get-BicepParameterViolations checks every rendered
 parameters.<config>.json against it.
 
-A result type, so PascalCase ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+A result type, so PascalCase ([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 The keys compare case-insensitively, as ARM matches parameter names.
 ```
 

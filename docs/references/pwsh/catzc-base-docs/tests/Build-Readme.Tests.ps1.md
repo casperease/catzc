@@ -9,7 +9,7 @@ Above `$sourceText = @(`, written with `#`.
 
 ```text
 Isolate through the seams
-([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): mock the
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): mock the
 config seam (Get-Config) and redirect the repository
 root to a fixture tree (TestKit) so Resolve-RepoPath binds inside it.
 ```

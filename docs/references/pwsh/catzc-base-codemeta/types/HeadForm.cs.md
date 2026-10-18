@@ -9,5 +9,5 @@ Above `using System;`, written with `//`.
 
 ```text
 The comment syntax of one file class's meta head, handed in as parameters because this module reads no config.
-[ADR-REPO-CODEMETA#1](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1)
+[ADR-REPO-CODEMETA-CODEFILEHEAD](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead)
 ```

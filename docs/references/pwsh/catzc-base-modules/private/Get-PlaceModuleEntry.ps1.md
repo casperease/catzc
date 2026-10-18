@@ -15,7 +15,7 @@ A folder place yields each non-dot folder under it, a file place each file of it
 name is the one the place gives the path (ModulePlace.NameOf), so the prefix and the dot rule live in that one type. The folder is where the
 module's files are listed: the folder itself, or nothing for a file module. Private: Get-CatzcModule is the one caller.
 
-It rests on [ADR-AUTO-MODULE#1](../../../../adr/automation/module-model.md#rule-adr-auto-module1).
+It rests on [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../../../adr/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule).
 
 ### parameter `Place`
 

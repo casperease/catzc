@@ -10,5 +10,5 @@ Above `BeforeEach {`, written with `#`.
 ```text
 The probed branch: a tool with candidate paths is asserted from the probe record, never by its bare name on
 PATH. The probe is mocked whole. Fixture tokens are neutral
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

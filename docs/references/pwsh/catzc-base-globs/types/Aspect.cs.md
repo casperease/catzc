@@ -16,7 +16,7 @@ catch-all remainder and by rule is non-live, so anything 'live' does not explici
 verification side and can never silently ship.
 
 Compilation onto a unit root reuses the leaf scan program
-([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): aspect k becomes a GlobSet with
+([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): aspect k becomes a GlobSet with
 Include = k's own patterns and Exclude = every EARLIER aspect's patterns (all prefixed by the unit root).
 A leaf program is '+ includes' then '- excludes', last-match-wins — which is exactly first-match slicing:
 a file is in aspect k iff it matches k's patterns and no earlier aspect's. Disjoint + exhaustive hold by
@@ -49,7 +49,7 @@ earlier aspect" — the remainder.
 Above `public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet>...`, written with `//`.
 
 ```text
-Partition check ([ADR-DSGN-ASPECT#5](/docs/adr/design/module-aspects.md#rule-adr-dsgn-aspect5)) over a file universe: every file
+Partition check ([ADR-DSGN-ASPECT-PARTITIONISCHECKED](/docs/adr/design/module-aspects.md#rule-adr-dsgn-aspect-partitionischecked)) over a file universe: every file
 selected by exactly one aspect. Returns
 human-readable violations (empty => a valid partition): a file claimed by two aspects breaks disjoint,
 a file claimed by none breaks exhaustive.

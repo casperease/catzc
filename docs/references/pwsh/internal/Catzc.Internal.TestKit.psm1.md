@@ -55,7 +55,7 @@ Above `$saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot =...`,
 
 ```text
 Both roots move together, so the fake tree reads as source mode (Get-CatzcRunMode compares them,
-[ADR-DSGN-RUNMODE#4](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode4)): the code root is the fake
+[ADR-DSGN-RUNMODE-MODEISDERIVED](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode-modeisderived)): the code root is the fake
 repository's own pwsh/ folder.
 ```
 

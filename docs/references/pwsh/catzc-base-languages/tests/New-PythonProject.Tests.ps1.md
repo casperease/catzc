@@ -10,5 +10,5 @@ Above `Describe 'New-PythonProject' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 New-PythonProject over a fixture repository in $TestDrive, with its two declared configs mocked: python.yml (Get-Config)
 and the python pin in tools.yml (Get-ConfigValue). Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

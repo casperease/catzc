@@ -13,8 +13,8 @@ commands.
 ### description
 
 A Go or Python test starts the engine as a process and asserts on its output
-([ADR-AUTO-GO#3](../../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go3),
-[ADR-AUTO-PY#3](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3)). How to start it comes from the execution
+([ADR-AUTO-GO-BLACKBOXTESTS](../../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-blackboxtests),
+[ADR-AUTO-PY-BLACKBOXTESTS](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-blackboxtests)). How to start it comes from the execution
 engine model, never from the test ([ADR-AUTO-ENGINE](../../../../adr/automation/execution-engines.md)), so the same test runs under every
 engine:
 

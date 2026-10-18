@@ -12,7 +12,7 @@ Lists every generator Test-GeneratedFiles can check: the registered writers, the
 ### description
 
 A root-file generator is named by an opted-in entry of the root-config registry, so it is listed once, in registry order
-([ADR-AUTO-TEST#35](../../../../adr/automation/test-automation.md#rule-adr-auto-test35)).
+([ADR-AUTO-TEST-QUALITYGATE](../../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 
 ### outputs
 

@@ -27,7 +27,7 @@ used.
 
 Backs Test-LogicTestIdentity ([ADR-REPO-LANG](../../../../adr/repository/domain-language-separation.md)): a logic test whose AST contains a
 string literal equal to one of these tokens (or a delimited segment of one) is using a live identity where a fixture belongs
-([ADR-AUTO-TEST#3](../../../../adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 ### outputs
 

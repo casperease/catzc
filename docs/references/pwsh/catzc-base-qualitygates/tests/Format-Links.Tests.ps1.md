@@ -9,8 +9,8 @@ Above `Describe 'Format-Links' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Format-Links is the link aligner and the repository-wide migration
-([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)), tested in isolation: every test
+([ADR-REPO-LINK-ALIGNEDBYTOOL](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)), tested in isolation: every test
 builds its own fixture repository in $TestDrive — a two-ADR index with neutral widget/gadget codes
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)),
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)),
 an .editorconfig, and the source files under test — and aligns only that tree (-RepositoryRoot, -Path).
 ```

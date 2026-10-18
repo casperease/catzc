@@ -9,7 +9,7 @@ Above `Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {`, written with
 
 ```text
 Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per
-[ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4))
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule))
 over a fixture ADR index and two ADRs in $TestDrive. Fixture rule codes are neutral (tst —
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -11,7 +11,7 @@ Returns the text of a generated file with the meta head that says which generato
 
 ### description
 
-The head is the one unified form of ADR-REPO-FILEMETA#7: the kind of the file by its role, and its subkind when it has one, as the caller
+The head is the one unified form of ADR-REPO-FILEMETA-COMPOSEDFILES: the kind of the file by its role, and its subkind when it has one, as the caller
 read them from the file-kinds registry; the file language, the file type (extension), the track and the module when the file has them; and
 the generator and the source when the file has them. The generator is written as the path of the file its command is defined in. The head
 opens with the hash of the body below it, read through the carrier so a head already in the text never moves it, and a tracked generated

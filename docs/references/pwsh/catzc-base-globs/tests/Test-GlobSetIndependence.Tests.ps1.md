@@ -9,8 +9,8 @@ Above `Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {`, written with `
 
 ```text
 Test-GlobSetIndependence is a quality gate
-([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over per-layer independence
-([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)). The registry, the derived
+([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over per-layer independence
+([ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nooverlapwithinlayer)). The registry, the derived
 module sets and the tracked-file universe are mocked with neutral fixtures (widget/gadget,
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the report goes to $TestDrive.
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the report goes to $TestDrive.
 ```

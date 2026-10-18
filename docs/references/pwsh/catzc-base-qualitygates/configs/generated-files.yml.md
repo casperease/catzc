@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `writers:`, written with `#`.
 
 ```text
-The writers Test-GeneratedFiles runs report-only (ADR-AUTO-TEST#35); a file result names its stale file in the property result_path
+The writers Test-GeneratedFiles runs report-only (ADR-AUTO-TEST-QUALITYGATE); a file result names its stale file in the property result_path
 (default Path). The generators of the managed root files are the generator keys of rootconfig.yml, so they are never listed here.
 ```

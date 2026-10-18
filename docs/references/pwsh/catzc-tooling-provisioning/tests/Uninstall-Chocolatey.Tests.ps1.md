@@ -11,5 +11,5 @@ Above `BeforeEach {`, written with `#`.
 Hermetic: every boundary outside the repository is mocked — the admin check, the directory delete, the
 persistent variable (Set-PermanentEnvironmentVariable) and the persistent PATH (Get-/Set-EnvironmentPath).
 The seams' real registry round trips are their own L3 system tests
-([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
 ```

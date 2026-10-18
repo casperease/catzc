@@ -9,8 +9,8 @@ Above `Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Uninstall-Zsh on a fixture Git tree in $TestDrive with the layout mocked, so nothing outside $TestDrive changes
-([ADR-AUTO-TEST#9](/docs/adr/automation/test-automation.md#rule-adr-auto-test9)). Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-NOCLOUDBELOWLTHREE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-nocloudbelowlthree)). Neutral fixture names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

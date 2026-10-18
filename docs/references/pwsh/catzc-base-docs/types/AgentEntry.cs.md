@@ -10,8 +10,8 @@ Above `using System;`, written with `//`.
 ```text
 One entry of configs/agents.yml's `agents` list: a sub-agent definition (.claude/agents/<name>.md) with the ADR
 rules that support it and the gate and check functions it runs or guards
-([ADR-REPO-AGENTS#2](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents2)). Mirrors the YAML mapping
-(snake_case keys, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+([ADR-REPO-AGENTS-BACKEDBYRULE](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule)). Mirrors the YAML mapping
+(snake_case keys, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 AgentsConfig builds one per entry and prefixes every violation with the entry's index.
 
 Constructing an instance validates the entry, collecting every violation into one ArgumentException:
@@ -30,7 +30,7 @@ Above `public string model_reason { get; }`, written with `//`.
 
 ```text
 Why the agent runs above the default model, when it does; null when it runs on the default
-([ADR-REPO-AGENTS#7](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents7)).
+([ADR-REPO-AGENTS-NAMEDMODEL](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-namedmodel)).
 ```
 
 ## comment:3

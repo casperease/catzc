@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 The engine-set check's settings (source-conventions.yml's engine_set) and its prose and C# matchers: the execution
 engines are declared once, in the ExecutionEngines model, and never restated
-([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)). Beside the mode and the
+([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). Beside the mode and the
 exempt globs every source check has (SourceCheck), it reads two lists of phrase patterns, each a .NET regular
 expression with a placeholder the matcher fills from the model, so no engine name or count is a literal here:
   count_phrases — '{count}' stands for a number word or digits; a match restates the engine count when its number is
@@ -19,9 +19,9 @@ expression with a placeholder the matcher fills from the model, so no engine nam
                   when they name two or more engines but not all of them (a pair joined by 'and', or bracketed test
                   titles that leave one engine out)
 The defaults are empty lists, declared once here
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): the phrases themselves live
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the phrases themselves live
 in the config. Matching ignores case. Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

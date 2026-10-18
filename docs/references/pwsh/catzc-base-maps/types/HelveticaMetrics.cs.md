@@ -13,5 +13,5 @@ metrics, in thousandths of the font size. A viewer draws those fonts with these 
 label with them to shrink or shorten it before it overflows its box. The table covers printable ASCII; any other
 WinAnsi character is measured at its own width where the table lists it, else at the widest Latin letter (1000), so a
 measured label is never narrower than the drawn one. BCL only
-([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
+([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)).
 ```

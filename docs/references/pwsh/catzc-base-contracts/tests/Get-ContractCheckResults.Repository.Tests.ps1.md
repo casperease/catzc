@@ -9,6 +9,6 @@ Above `Describe 'Get-ContractCheckResults on the repository' -Tag 'L1', 'integri
 
 ```text
 Get-ContractCheckResults runs on the repository's own contracts/ tree
-([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4)): checking every asset of every
+([ADR-REPO-CONTRACT-PROVENBYTESTS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)): checking every asset of every
 unit's draft returns one result per asset, without error. That every asset passes is the contracts quality gate's work.
 ```

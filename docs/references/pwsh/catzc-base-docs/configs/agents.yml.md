@@ -14,7 +14,7 @@ The sub-agent registry: one entry per sub-agent definition .claude/agents/<name>
   supported_by  the rule citations (ADR-<CODE>#<n>) that justify the agent's existence;
   checks        the gate and check functions the agent runs or guards; `[]` when it has none.
 `standard` names the standard sub-agent for delegated work
-([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)).
+([ADR-REPO-AGENTS-STANDARDWORKER](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-standardworker)).
 
 Loaded via Get-Config -Config agents (shape-validated by the AgentsConfig type). The quality gate
 Test-AgentDefinitions checks it against the agent files, the ADR rule ids, the loaded commands, and the

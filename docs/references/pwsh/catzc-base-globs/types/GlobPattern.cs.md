@@ -15,8 +15,8 @@ System.Management.Automation.WildcardPattern, matched case-sensitively. The cons
 it rejects '\', a leading '/', empty segments, '.'/'..' segments, a backtick (the dialect has no escape
 character), and '**' embedded inside a segment — a malformed pattern never produces an instance.
 See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
-([ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2),
-[ADR-FLOW-CD-GLOBS#3](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs3)).
+([ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-repositoryrelativepatterns),
+[ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-malformedpatternrejected)).
 ```
 
 ## comment:2

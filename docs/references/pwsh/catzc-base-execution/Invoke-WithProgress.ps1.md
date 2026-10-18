@@ -15,7 +15,7 @@ Wraps a long-running call with a visual heartbeat so the user knows the process 
 preserving module scope and all imported functions, so the dots come from a background ThreadJob that streams to this host (-StreamingHost).
 
 The dots go through the writer chokepoint like every other console write
-([ADR-PWSH-ANNOUNCE#1](../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)): the job imports the loaded Catzc.Base.Writers
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)): the job imports the loaded Catzc.Base.Writers
 module and writes Write-Message '.' -NoHeader -NoNewline — an inline information-stream record, so the scriptblock's return value passes
 through uncontaminated. The job inherits this session's Pester-run guard, so a test run stays silent there as everywhere else.
 

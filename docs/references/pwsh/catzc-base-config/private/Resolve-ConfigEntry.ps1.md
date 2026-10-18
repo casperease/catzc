@@ -37,7 +37,7 @@ Above `$script:configIndex = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2

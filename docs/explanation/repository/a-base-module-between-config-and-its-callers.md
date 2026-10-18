@@ -7,7 +7,7 @@ Catzc.Base.Variants sits in Base, over Config, under every real caller.
 2  Catzc.Base.Config            loads, validates and caches the file for the session
 3  Catzc.Base.Objects           the DictionaryRecord base of the module's config type
 4  Catzc.Base.Asserts           the Assert-True the Assert- guards throw through
-5  Catzc.Base.Variants          the module: one private reader, twelve exported primitives
+5  Catzc.Base.Variants          the module: one private reader, fifteen exported primitives
 6  AzureExt                     the Azure extension group; Catzc.Azure.Templates is its caller
 7  Globs · ModuleSystem · Maps  the three upper-Base modules that declare and call it
 8  Tooling                      may call through its Base pin; no Tooling module calls today

@@ -14,7 +14,7 @@ as pointers. The plan for that ADR (`.claude/plans/plan-adr-ai.md`) intended the
 
 ## Why it is not a per-file key
 
-ADR-REPO-AGENTS#6 makes a robot's front matter a closed key set (`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`,
+ADR-REPO-AGENTS-ROBOTBODYLIMIT makes a robot's front matter a closed key set (`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`,
 `maxTurns`, `skills`, then the catzc head); the harness ignores any other key, and the gate rejects it. A value that is identical on every
 file is a constant, not per-file data, so declaring it once is the rule (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). The user decided
 (questionnaire Q140, decisions-2026-10-16.md): ADR-REPO-AI is named once, and the per-file key goes.

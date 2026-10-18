@@ -23,7 +23,7 @@ tool's entry. `Install-DevBoxTools` walks the keys in that order and turns each 
 1. **`tools.yml`** in `Catzc.Base.Execution` locks every managed tool: 18 snake_case keys, each with its version, its manager metadata and
    an optional `depends_on`.
 2. **`ToolsConfig`** is the type `Get-Config -Config tools` builds: the keys in file order, each a validated `ToolConfig`, and every
-   `depends_on` must name a declared tool (ADR-AUTO-DEPS#4).
+   `depends_on` must name a declared tool (ADR-AUTO-DEPS-INSTALLORDERINCONFIG).
 3. **`Get-ToolsStatus`** probes every tool and returns one `ToolStatus` each. `Install-DevBoxTools` calls it first and leaves every `Usable`
    tool alone, with a message: it works but no cats manager owns it.
 4. **`Get-ToolInstallOrder`** sorts the keys topologically by `depends_on` (Kahn's algorithm) and throws on a cycle. `uv` comes before
@@ -107,8 +107,8 @@ The catzc module frames name themselves and have no legend row.
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DEPS#4 and ADR-AUTO-PKGMGR, then ADR-AUTO-ENGINE and
-ADR-AUTO-BASH#6: the rules the drawn code and config cite. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DEPS-INSTALLORDERINCONFIG and ADR-AUTO-PKGMGR, then ADR-AUTO-ENGINE and
+ADR-AUTO-BASH-SHELLSCRIPTSCHECKED: the rules the drawn code and config cite. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

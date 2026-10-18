@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `$script:root = Join-Path $TestDrive 'repo'`, written with `#`.
 
 ```text
-Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a
+Isolate through the seams ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-noovermocking)): a
 fixture repository root in $TestDrive with a stub vendored runner and its importer.sh, a mocked engine probe
 (Resolve-EngineExecutable), and a mocked bash (Invoke-Executable) whose bats writes a canned JUnit report from
 tests/assets into the output folder the command names.

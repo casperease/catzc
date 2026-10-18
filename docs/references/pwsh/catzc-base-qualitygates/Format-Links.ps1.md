@@ -12,7 +12,7 @@ Aligns the repository's links in place: code links repository-rooted, markdown l
 ### description
 
 The link aligner and the repository-wide migration in one command
-([ADR-REPO-LINK#8](../../../adr/repository/markdown-links.md#rule-adr-repo-link8)). Every ADR reference in a comment of a code file becomes
+([ADR-REPO-LINK-ALIGNEDBYTOOL](../../../adr/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)). Every ADR reference in a comment of a code file becomes
 a canonical code link — `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)`, or `[ADR-<CODE>](/docs/adr/<path>.md)` for a whole ADR —
 whatever spelling it had: a bare, ../, or rooted docs/adr path, an ADR file name, a bare citation (`ADR-X`, `ADR-X:n`, `ADR-X#n`), a path
 followed by its citation, or a link in another shape. The citation code is the source of truth, so a path to a moved ADR is re-pointed. In

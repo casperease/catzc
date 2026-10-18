@@ -38,7 +38,7 @@ Above `- folder: docs/adr`, written with `#`.
 
 ```text
 The ADR folder's README is generated from its index — same folder, so index.md's relative links need no
-rebasing ([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)).
+rebasing ([ADR-REPO-README-WORKINGLINKS](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
 ```
 
 ## comment:3

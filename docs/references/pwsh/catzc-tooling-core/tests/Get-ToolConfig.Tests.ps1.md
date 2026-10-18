@@ -18,7 +18,7 @@ Above `$script:toolsFixture = [Catzc.Base.Execution.ToolsConfig]::new(@{ faketoo
 
 ```text
 Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the
-shipped tools.yml ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). The
+shipped tools.yml ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The
 mock returns a STABLE typed ToolsConfig (Get-ToolConfig inherits its
 same-reference caching from Get-Config's cached read), so both calls see one ToolConfig.
 ```

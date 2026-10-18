@@ -13,7 +13,7 @@ group it is listed under in the registry (terms: <category>: [...]), passed in b
 the entry itself carries no category key. An abbreviation carries its full-word expansion; the other
 categories do not. Mirrors a terminology.yml entry (snake_case keys). See
 [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
-([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)).
+([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
 
 Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
 over its own properties and its constructor uses the base's Req/OptStr extraction helpers.

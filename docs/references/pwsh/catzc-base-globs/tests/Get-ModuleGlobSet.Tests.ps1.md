@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
-The derived globsets ([ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)): folder
+The derived globsets ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)): folder
 = module = set (readme-kebab name), one single-file set per
 internal .psm1 module, reserved infra scopes, one shared name space with the declared registry. Derived
 sets never enter GlobsConfig but scope protection and blast radius through the same Matches() machinery.
@@ -20,7 +20,7 @@ Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#
 
 ```text
 Neutral fixture globset name (widget), not the real 'automation' set
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); this declared
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); this declared
 set only needs to exist so the shadow-check has a registry to compare the derived names against.
 ```
 
@@ -30,5 +30,5 @@ Above `Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {`, written with
 
 ```text
 The reserved-name guard lives in the registry type itself
-([ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)).
+([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).
 ```

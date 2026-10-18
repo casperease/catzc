@@ -25,7 +25,7 @@ Above `if...`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2
@@ -34,5 +34,5 @@ Above `$fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryR
 
 ```text
 Source mode reads only this repository's own config fragments, under .catzc/<the modules folder>
-([ADR-PRIN-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats5)).
+([ADR-PRIN-CATS-FOLDERSUSECATZC](/docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats-foldersusecatzc)).
 ```

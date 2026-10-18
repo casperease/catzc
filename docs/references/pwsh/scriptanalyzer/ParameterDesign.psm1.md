@@ -22,7 +22,7 @@ Above `$isFunction = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:3
@@ -40,5 +40,5 @@ Above `if ($parameter.DefaultValue -and $parameter.DefaultValue.Extent.Text -mat
 
 ```text
 A [bool] whose default reads the configuration is a configurable setting
-([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)), not opt-in behaviour.
+([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)), not opt-in behaviour.
 ```

@@ -13,7 +13,7 @@ Returns a JSON text or an MSBuild project with its meta property imprinted from 
 
 The block is the text of one property, in either carrier: in a JSON file an ignored top-level member, in an XML file whose root is an
 MSBuild project a CDATA property named for the block inside the first PropertyGroup labelled catzc. The same facts always give the same
-bytes, so a second run changes no file (ADR-REPO-FILEMETA#8). A text that is neither, or whose property holds something else, comes back as
+bytes, so a second run changes no file (ADR-REPO-FILEMETA-JSONCARRIER). A text that is neither, or whose property holds something else, comes back as
 it was.
 
 ### parameter `Text`

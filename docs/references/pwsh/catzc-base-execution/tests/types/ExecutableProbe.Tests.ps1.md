@@ -9,5 +9,5 @@ Above `It 'reads a found executable as Found with its path' {`, written with `#`
 
 ```text
 The existence-check record. Fixture tokens are neutral
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

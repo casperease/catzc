@@ -37,5 +37,5 @@ Above `$result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent`, writ
 ```text
 -Silent: a plumbing probe whose output we capture via -PassThru and parse below, so the
 "Bicep CLI version X" line should not echo to the console on every build. See log ADR rule
-[ADR-AUTO-PRELOG#5](/docs/adr/automation/log-before-invoke.md#rule-adr-auto-prelog5).
+[ADR-AUTO-PRELOG-SILENTSWITCH](/docs/adr/automation/log-before-invoke.md#rule-adr-auto-prelog-silentswitch).
 ```

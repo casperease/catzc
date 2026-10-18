@@ -12,9 +12,9 @@ Contracts settings for Get-Contract ([ADR-REPO-CONTRACT](/docs/adr/repository/ap
 
 Every key is optional: an omitted key takes the sensible default declared once on
 Catzc.Base.Contracts.ContractsConfig
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and a Get-Contract parameter
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a Get-Contract parameter
 overrides the resolved value per call
-([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
+([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```
 
 ## comment:2
@@ -23,7 +23,7 @@ Above `addressing: full-path`, written with `#`.
 
 ```text
 How one contract asset addresses many files
-([ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)):
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)):
   full-path      an asset addresses the one real file at its own path (built; the default)
   manifest-glob  a glob in a manifest names the files (declared, not built: selecting it throws NotImplemented)
   per-folder     one asset applies to each file of its folder (declared, not built: selecting it throws NotImplemented)
@@ -35,8 +35,8 @@ Above `target_roots:`, written with `#`.
 
 ```text
 Each owning module's target root: the repository-relative folder its assets' paths are relative to
-([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)). A module not named here takes
+([ADR-REPO-CONTRACT-LAYOUT](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-layout)). A module not named here takes
 the default, the repository root. contracts/ holds no dot-prefixed folder
-([ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10)), so a module whose files sit
+([ADR-REPO-CONTRACT-NODOTFOLDERS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders)), so a module whose files sit
 under a dot-prefixed root names that root here.
 ```

@@ -12,7 +12,7 @@ The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE
 repository-relative path and declared rule numbers, plus the reverse path -> code map and a unique-slug
 -> path map. Built from the ADR index (Get-AdrCitationMap) and read by the link engine, which derives every
 code link's destination from the citation code
-([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)): the code is the source of truth, so a
+([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)): the code is the source of truth, so a
 moved ADR re-points every link to it.
 ```
 

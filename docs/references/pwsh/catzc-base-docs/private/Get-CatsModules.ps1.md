@@ -12,10 +12,10 @@ Lists the loaded catzc modules and the public functions each exports, for Show-C
 ### description
 
 Reads the loaded session: every module whose folder sits directly under the code root (Get-CatzcModulesRoot) and is not dot-prefixed (a
-dot-prefix means infrastructure, [ADR-REPO-FOLDERS#4](../../../../adr/repository/conventional-folders.md#rule-adr-repo-folders4)), with the
+dot-prefix means infrastructure, [ADR-REPO-FOLDERS-DOTMEANSTOOLING](../../../../adr/repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), with the
 functions it exports. Because it reads what is loaded rather than the per-function files, the answer is the same in source mode and in build
 mode, where each module's functions are merged into one file
-([ADR-DSGN-RUNMODE#2](../../../../adr/design/run-modes.md#rule-adr-dsgn-runmode2)). Private functions are never exported, so they never
+([ADR-DSGN-RUNMODE-SAMEMODULEINBOTH](../../../../adr/design/run-modes.md#rule-adr-dsgn-runmode-samemoduleinboth)). Private functions are never exported, so they never
 appear.
 
 Private helper for Show-Cats; not exported.

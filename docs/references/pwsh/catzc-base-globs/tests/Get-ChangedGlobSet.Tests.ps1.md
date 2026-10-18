@@ -9,7 +9,7 @@ Above `Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ChangedGlobSet: the computed area-of-control of a diff
-([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)) — the declared sets whose scan
+([ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-namedglobsets)) — the declared sets whose scan
 program selects a changed path, reflected from git at real refs instead of from a committed marker hash.
 ```
 
@@ -19,7 +19,7 @@ Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#
 
 ```text
 Neutral fixture globset names (widget/gadget/report), not the shipped set names, so this logic test
-owns its inputs ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). 'report'
+owns its inputs ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). 'report'
 overlaps 'widget' on src/** (both loose-filesets, the
 layer exempt from independence) to prove multi-set matches come back in registry order.
 ```

@@ -11,7 +11,7 @@ Above `$script:fake = New-FakeRepositoryRoot -Files @{`, written with `#`.
 
 ```text
 Isolate through the seams
-([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): mock the
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): mock the
 config seam (Get-Config) and the generator
 dispatch, and redirect the repository root to a fixture tree (TestKit) so Resolve-RepoPath binds
 inside it.
@@ -42,7 +42,7 @@ Above `$script:fake = New-FakeRepositoryRoot -Files @{` (occurrence 2), written 
 ```text
 A wildcard entry whose generator renders one { Target; Content } record per file; every file is written
 on its own and reported in its own row. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:5
@@ -53,5 +53,5 @@ Above `$script:goRoot = $_`, written with `#`.
 The wiring the L0 tests mock away on both sides: a fixture registry names New-GoWorkspace, the real dispatch
 calls it, and Build-RootConfig writes what it renders. Only the registry, the run mode, and the go pin are
 mocked, so the result is independent of the shipped config
-([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)).
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
 ```

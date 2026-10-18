@@ -14,7 +14,7 @@ The adr-defines meta kind's fact: the rules an ADR defines itself, spelled as ci
 The rules come from the file's own rule headings, so the list is what the file declares and not what it cites. They are written in the
 minimal form, `ADR-<CODE>#{1,3-5}` (Catzc.Base.Docs.AdrCodeForm), without globs.
 
-It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 
 ### parameter `State`
 

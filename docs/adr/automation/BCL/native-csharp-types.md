@@ -84,8 +84,8 @@ deletion.
 ### Rule ADR-AUTO-TYPES-STALETYPESGUARD
 
 The stale-types guard — the source changed since it was loaded, so restart — is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree
-as a parameter, and one session may load more than one tree (the real `automation/` plus the test-fixture trees), so the per-session record
-of loaded hash and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely
+as a parameter, and one session may load more than one tree (the real code root plus the test-fixture trees), so the per-session record of
+loaded hash and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely
 report a change — without this, a test run (which loads fixture trees) would poison the next real import's guard. The thrown message names
 the drifted files and both hashes so the cause is diagnosable from the error text alone.
 
@@ -123,8 +123,9 @@ text and its default display at the prompt. `Test-ShippedTypes` fails a type tha
 
 Whether the C# types loaded in a process are current is measured in one place, `Get-LoadedTypeDrift` (`Catzc.Internal.Types`), and asked
 through one test/assert pair, `Test-LoadedTypesCurrent` and `Assert-LoadedTypesCurrent` (`Catzc.Base.TypesSystem`). When they are stale, the
-importer never starts a nested shell and never waits: the loader's warn-or-throw (ADR-AUTO-TYPES-CHANGEDAFTERLOAD) applies to every session. On a devbox
-that is one yellow line naming the changed types by simple name, and the import goes on with the loaded types; a pipeline throws.
+importer never starts a nested shell and never waits: the loader's warn-or-throw (ADR-AUTO-TYPES-CHANGEDAFTERLOAD) applies to every session.
+On a devbox that is one yellow line naming the changed types by simple name, and the import goes on with the loaded types; a pipeline
+throws.
 
 - [The cache-state contract](#the-cache-state-contract)
 - [Stale types in a running process](#stale-types-in-a-running-process)
@@ -134,11 +135,12 @@ that is one yellow line naming the changed types by simple name, and the import 
 In a console session the importer verifies the types assembly and loads nothing: `Import-CSharpTypes` registers the assembly as deferred,
 and the first lookup of a catzc command loads it (`Enable-DeferredTypesLoad`, `Initialize-Types`), so an import that runs no command pays no
 load. A headless session loads at import, so a pipeline or a test worker fails on stale or missing types where it starts
-(ADR-AUTO-TYPES-ONEDRIFTMEASURE). Which cell loads how is the `types-load.yml` table, host by operating system by run mode, with its default row declared
-once in the `TypesLoadDefault` variable of `Catzc.Internal.Types`: the policy is read while the types assembly is unloaded, so it cannot sit
-on a config type, the one exception to [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder). The combined hash of the
-sources is memoised per machine beside the shadow copies, by each file's length and last write (`Get-CombinedTypeHash -StampPath`); only the
-importer reads the memo, and the builder, the janitor and the gates hash every byte.
+(ADR-AUTO-TYPES-ONEDRIFTMEASURE). Which cell loads how is the `types-load.yml` table, host by operating system by run mode, with its default
+row declared once in the `TypesLoadDefault` variable of `Catzc.Internal.Types`: the policy is read while the types assembly is unloaded, so
+it cannot sit on a config type, the one exception to
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder). The combined hash of the sources is
+memoised per machine beside the shadow copies, by each file's length and last write (`Get-CombinedTypeHash -StampPath`); only the importer
+reads the memo, and the builder, the janitor and the gates hash every byte.
 
 - [Loaded by the first use](#loaded-by-the-first-use)
 - [How this is enforced](#how-this-is-enforced)
@@ -148,8 +150,8 @@ importer reads the memo, and the builder, the janitor and the gates hash every b
 Some logic is better expressed as a native .NET type than as script code: a process runner with background reader threads
 (`Catzc.Base.Execution.CliRunner`), or a constrained, validated data record that replaces a loose dictionary. The platform autoloads such
 types from each module's `types/` folder (see [conventional-folders](../../repository/conventional-folders.md) for where `types/` sits) and
-commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild)
-for why committed prebuilds are the one sanctioned cross-session cache).
+commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see
+[caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) for why committed prebuilds are the one sanctioned cross-session cache).
 
 Compilation produces **one assembly for the whole repository**, so any module's types can reference any other's: a single shared base (a
 dictionary-compatible data-record base) and layered records (a record in one module building on a record in another) — the thing static data
@@ -173,8 +175,9 @@ One combined assembly dissolves the problem entirely rather than working around 
   compiler therefore stays the compiler, with no separate build step, no topological compile order, and no transitive references.
 
 The cost is that the compiler does not structurally forbid a layer inversion (a base-module type referencing a leaf-module type) — in one
-compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-AUTO-TYPES-REFERENCESFOLLOWDEPENDENCIES): `Get-CSharpTypeDependency` reports
-the cross-module C# edges and the acyclic allow-list in `configs/dependencies.yml` governs them, failing L1 on an undeclared edge.
+compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-AUTO-TYPES-REFERENCESFOLLOWDEPENDENCIES):
+`Get-CSharpTypeDependency` reports the cross-module C# edges and the acyclic allow-list in `configs/dependencies.yml` governs them, failing
+L1 on an undeclared edge.
 
 ## Decision
 
@@ -211,43 +214,43 @@ compiles. The repo ships an **IDE-only** `Catzc.Types.csproj` (under `pwsh/.inte
 source) and a classic root `catzc.sln` (Dev Kit loads a `.sln`, not a `.slnx`; kept at the repo root so the editor auto-loads it, and it
 references the project by relative path) that mirror the runtime compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the editor's
 feedback equals the runtime's: real namespaces (no `CA1050`), with two deliberate opt-outs stated in `.editorconfig` — `IDE1006` (snake_case
-config-mirroring props, Rule ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML) and `IDE0130` (the namespace mirrors the module, not the project's physical folder path, Rule
-ADR-AUTO-TYPES-NAMESPACEISMODULE). The runtime never builds the project, and `Invoke-BuildForVSCode` builds the IDE project on demand for the editor (see
-below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is folder-derived by `Format-Types` and checked by
-`Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
+config-mirroring props, Rule ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML) and `IDE0130` (the namespace mirrors the module, not the project's
+physical folder path, Rule ADR-AUTO-TYPES-NAMESPACEISMODULE). The runtime never builds the project, and `Invoke-BuildForVSCode` builds the
+IDE project on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
+folder-derived by `Format-Types` and checked by `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
-own identity ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — so its build metadata (the `deps.json` project entry) reads
-`Catzc.Types/1.0.0-<hash>`, not the accidental default `1.0.0`. It is trust-but-verify: the build recomputes the combined source hash with
-the loader's algorithm and **fails when the committed DLL is stale, missing, or ambiguous**, so the editor's project can never present a
-version that outruns the sources it claims to describe. That makes the hashing a fourth mirror of the same algorithm (loader,
-`Clear-ModuleTypeCache`, the drift-guard tests) that must stay in step.
+own identity ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — so its build metadata (the
+`deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the accidental default `1.0.0`. It is trust-but-verify: the build
+recomputes the combined source hash with the loader's algorithm and **fails when the committed DLL is stale, missing, or ambiguous**, so the
+editor's project can never present a version that outruns the sources it claims to describe. That makes the hashing a fourth mirror of the
+same algorithm (loader, `Clear-ModuleTypeCache`, the drift-guard tests) that must stay in step.
 
 That editor build is the second of two pathways over the same sources: the host's compiler builds the runtime assembly (Rule
 ADR-AUTO-TYPES-ONEASSEMBLY), and `dotnet build` compiles for the editor, which makes every `types/*.cs` a navigable Go-to-Symbol target.
 `Invoke-BuildForVSCode` drives the editor half — a `dotnet build` of `Catzc.Types.csproj` — and it doubles as a gate: the project's stamp
-task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD), so a green build also proves the IDE
-project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`, not the Tooling layer's `Invoke-Dotnet`, which a `Base`
-module must not depend on.
+task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD), so a green build
+also proves the IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`, not the Tooling layer's
+`Invoke-Dotnet`, which a `Base` module must not depend on.
 
 ### The cache-state contract
 
-The assembly is the one committed, cross-session cache of [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild): it is named for the combined hash
-of every module's sources and committed to `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load it without Roslyn. The
-hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules (new
-namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository root. Every process
-loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
+The assembly is the one committed, cross-session cache of [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild): it is named for
+the combined hash of every module's sources and committed to `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load it
+without Roslyn. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move
+between modules (new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository
+root. Every process loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
 `~/.local/share/catzc/types` on Unix), never in place, so no session ever locks `pwsh/.compiled` ([why](#why-a-shadow-copy)).
 
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
 filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
 
-| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                                                                                                 |
-| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                                                                                                    |
-| present                                | yes                       | **No-op.** Types already loaded in the process.                                                                                                                                                                                                                                                                                                         |
-| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                  |
-| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                            |
+| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                                                                                                              |
+| -------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                                                                                                                 |
+| present                                | yes                       | **No-op.** Types already loaded in the process.                                                                                                                                                                                                                                                                                                                      |
+| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                               |
+| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                                         |
 | absent because the source CHANGED      | yes                       | **Devbox, whoever runs: warn (yellow, the changed types by simple name) + keep the old types and go on** this session (ADR-AUTO-TYPES-ONEDRIFTMEASURE) (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
@@ -261,8 +264,8 @@ and, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager)
 load completes. `-StopLockingProcesses` on `Clear-ModuleTypeCache` stops each holder, announcing each stop, then retries the delete over a
 short window (Windows releases an exited process's mapped image a moment after the exit). It never stops the session asking or any of its
 parents. A hand-run `Clear-ModuleTypeCache` stops nothing unless asked, because a stopped process loses its unsaved work; the importer
-decides by who is running it (ADR-AUTO-TYPES-JANITORSBYCALLER) — a person's import stops the holders, an agent's import and a pipeline never do. The
-invariant is guarded at three points:
+decides by who is running it (ADR-AUTO-TYPES-JANITORSBYCALLER) — a person's import stops the holders, an agent's import and a pipeline never
+do. The invariant is guarded at three points:
 
 - **Devbox auto-commit:** `Sync-GeneratedFile` holds `pwsh/.compiled` back, with one red line naming the surplus DLLs, while
   `Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving build never rides along as the +1 without its −1. It
@@ -284,8 +287,8 @@ sources on disk and names each drifted type; the loader reads it to warn or thro
 `Assert-LoadedTypesCurrent` give the same answer to any code that needs current types, such as a test of a type just edited.
 
 Whether a stale load warns or throws depends on where the process runs, and the loader asks `Test-IsRunningInPipeline`, the one reader of
-the pipeline variables ([pipeline-detection](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)), like every other caller (Rule
-ADR-AUTO-TYPES-CHANGEDAFTERLOAD). The detection function is therefore loaded before the types pre-pass runs.
+the pipeline variables ([pipeline-detection](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)), like every
+other caller (Rule ADR-AUTO-TYPES-CHANGEDAFTERLOAD). The detection function is therefore loaded before the types pre-pass runs.
 
 A person who edits a type and imports again keeps the loaded types and gets one yellow line naming the changed types by simple name; the
 import goes on and never waits. The importer starts no nested shell: a process cannot replace itself on every platform, and an agent or a
@@ -352,10 +355,11 @@ own config type, `LanguagesConfig` or `VariantsConfig`, which validates it at lo
 
 `A catzc object reads as one line`
 
-How an object reads at the console is part of its design ([console-output-matters](../console-output-matters.md#rule-adr-auto-console-everylineearnsplace)). A
-class that keeps `object.ToString()` renders as its fully-qualified name: a message about a subscription context prints
-`Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The host's string
-conversion reads the type's own `ToString()`, so the fix is in C#.
+How an object reads at the console is part of its design
+([console-output-matters](../console-output-matters.md#rule-adr-auto-console-everylineearnsplace)). A class that keeps `object.ToString()`
+renders as its fully-qualified name: a message about a subscription context prints `Catzc.Azure.Cli.SubscriptionContext`, and a collection
+property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The host's string conversion reads the type's own `ToString()`, so the fix is
+in C#.
 
 So the rendering is one shared extension method, `ConsoleText.ToConsoleString()`, and each type opts in with a one-line override. The format
 is the C# `record` convention a .NET reader already knows, `TypeName { A = 1, B = x }`, on one line: the bare type name, a null property
@@ -374,14 +378,14 @@ of every property.
 
 An interactive session imports catzc to have its commands at hand, and most sessions then run a few of them or none. Loading the types
 assembly costs a shadow copy and an `Add-Type` on every import, and the import already proves the assembly current by its metadata
-(ADR-AUTO-TYPES-ONEDRIFTMEASURE), so the load is deferred to the moment a command needs a type: a name-filtered command-lookup hook, installed once every
-command name is known, loads the assembly on the first lookup of one of them and removes itself. A literal type name typed at the console
-before any command stays unresolved until then, which a console user sees and a script never does: a headless session is eager, so a
-pipeline, a test worker or `cats` fails at import on a stale or missing assembly rather than later in a cast. The table that says which cell
-is lazy and which eager is data, one row per host, operating system and run mode, flipped by editing a row and never by code. The
-import-time janitors are catzc commands, so a console import would load the assembly through them before the prompt appeared; a console
-session therefore runs them once the first prompt has shown, through a prompt hook the loader installs and removes after that one run, and a
-headless session runs them at import as before.
+(ADR-AUTO-TYPES-ONEDRIFTMEASURE), so the load is deferred to the moment a command needs a type: a name-filtered command-lookup hook,
+installed once every command name is known, loads the assembly on the first lookup of one of them and removes itself. A literal type name
+typed at the console before any command stays unresolved until then, which a console user sees and a script never does: a headless session
+is eager, so a pipeline, a test worker or `cats` fails at import on a stale or missing assembly rather than later in a cast. The table that
+says which cell is lazy and which eager is data, one row per host, operating system and run mode, flipped by editing a row and never by
+code. The import-time janitors are catzc commands, so a console import would load the assembly through them before the prompt appeared; a
+console session therefore runs them once the first prompt has shown, through a prompt hook the loader installs and removes after that one
+run, and a headless session runs them at import as before.
 
 The hash that names the assembly is the costliest step of a warm import: every `types/*.cs` read and hashed. A machine-local memo keyed by
 each file's length and last write skips the read for a file that shows the same pair, and rewrites itself when any file was read; it lives
@@ -409,8 +413,8 @@ session but never decide what ships.
   `Assert-LoadedTypesCurrent` pair read it (Rule ADR-AUTO-TYPES-ONEDRIFTMEASURE).
 
 - **`Test-ShippedTypes`** (in `Catzc.Base.TypesSystem`) fails a concrete shipped class that keeps the inherited `ToString()`, naming the
-  file and the line to add (Rule ADR-AUTO-TYPES-CONSOLEREADYTOSTRING); enums, interfaces, abstract and static classes, attributes, and exceptions are exempt.
-  `ConsoleText.Tests.ps1` pins the rendering rules.
+  file and the line to add (Rule ADR-AUTO-TYPES-CONSOLEREADYTOSTRING); enums, interfaces, abstract and static classes, attributes, and
+  exceptions are exempt. `ConsoleText.Tests.ps1` pins the rendering rules.
 
 - **`Invoke-BuildForVSCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through
   `Invoke-Executable`, so a dev or CI builds and verifies the IDE project on demand; the project's stamp task fails the build on a stale

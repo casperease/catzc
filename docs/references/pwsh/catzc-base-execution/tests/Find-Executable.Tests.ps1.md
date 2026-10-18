@@ -11,7 +11,7 @@ Above `Describe 'Find-Executable' -Tag 'L1', 'logic' {`, written with `#`.
 Hermetic logic (L1): the candidate executables are fixture files under $TestDrive, reached through a fixture
 environment variable so the %VAR% expansion is exercised; the session actor, the PATH lookup and the version run
 (Get-ExecutableVersion, the probe's only process start) are mocked. Fixture tokens are neutral
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -20,5 +20,5 @@ Above `InModuleScope Catzc.Base.Execution { $script:executableVersionCache = $nu
 
 ```text
 Every test here exercises the version cache entry, so each starts cold
-([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)).
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
 ```

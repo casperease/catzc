@@ -10,7 +10,7 @@ Above `Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integri
 ```text
 Drives Install-Dotnet to the point where it resolves the vendored install script, then reads the REAL script
 shipped in the loaded module (the lookup is not mocked), so it runs in both the source run and the build run
-([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)). The environment
+([ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)). The environment
 boundaries are mocked so nothing is downloaded or installed, and the
 script's presence check is the stop point: it records the resolved path and halts before the script runs.
 ```

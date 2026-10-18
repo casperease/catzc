@@ -9,5 +9,5 @@ Above `public sealed class FileHeadPolicy`, written with `//`.
 
 ```text
 The head policy of the meta-kind registry: whether a file of a class must, may or must not carry a meta block
-([ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)).
+([ADR-REPO-FILEMETA-HEADPOLICY](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
 ```

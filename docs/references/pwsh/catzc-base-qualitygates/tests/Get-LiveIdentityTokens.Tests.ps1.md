@@ -11,6 +11,6 @@ Above `$script:declarations = @{`, written with `#`.
 Fixture configs through the Get-Config seam — the derivation must reflect exactly what the shipped
 config declares, never a hand-kept list. The 'live' identities here are the fixture identities the
 mocked config declares; the derivation logic is identical against the real config
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 Two declaring modules (identity-tokens.yml), each naming only configs it owns.
 ```

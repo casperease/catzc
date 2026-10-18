@@ -9,10 +9,10 @@ Above `using System;`, written with `//`.
 
 ```text
 One cell of the value-chain map: a row of the value-chain stack crossed with a value-chain concern, and the ADRs
-that sit in it ([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
-[ADR-DSGN-TRACK#10](/docs/adr/design/tracks.md#rule-adr-dsgn-track10)). On the map, Adrs holds every ADR of the cell;
+that sit in it ([ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap),
+[ADR-DSGN-TRACK-CELL](/docs/adr/design/tracks.md#rule-adr-dsgn-track-cell)). On the map, Adrs holds every ADR of the cell;
 on a highlight, the requested ADRs that light it. A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

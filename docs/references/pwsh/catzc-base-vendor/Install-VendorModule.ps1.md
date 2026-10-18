@@ -46,5 +46,5 @@ Above `$moduleDir = Join-Path $vendorRoot $Name`, written with `#`.
 Prune folders the toolset never loads: legacy .NET Framework builds (we only target PS 7+ / .NET 6+) and
 PSScriptAnalyzer's ~280 MB compatibility_profiles, read only by the PSUseCompatible* rules that
 PSScriptAnalyzerSettings.psd1 keeps off
-([ADR-PWSH-VENDOR#7](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor7)).
+([ADR-PWSH-VENDOR-ONLYWHATLOADS](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads)).
 ```

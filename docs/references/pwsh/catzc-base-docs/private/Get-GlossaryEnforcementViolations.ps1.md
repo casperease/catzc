@@ -13,7 +13,7 @@ Lists the realized glossary concepts whose defining rule nothing enforces (check
 
 A concept realized in code is only as reliable as the check behind it
 ([ADR-REPO-VOCAB](../../../../adr/repository/controlled-vocabulary.md),
-[ADR-REPO-VOCAB#6](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab6)). For every concept whose source takes part in
+[ADR-REPO-VOCAB-REALIZEDBY](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-realizedby)). For every concept whose source takes part in
 the `enforced` check and whose `realized_by.kind` is not `prose-only`, this reports a defining rule (`defined_by`) with no enforcer: no
 analyzer rule mapped to it and no test citing it in a `-Tag` — the same rule-citation link Show-Cats reports (Get-CatsRuleEnforcers). A
 `prose-only` concept has nothing in code to enforce and is exempt.

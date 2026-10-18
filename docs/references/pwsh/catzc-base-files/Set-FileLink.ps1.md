@@ -66,7 +66,7 @@ Above `$current = if ($IsWindows) {`, written with `#`.
 
 ```text
 Path equality is case-insensitive on Windows, case-sensitive elsewhere
-([ADR-AUTO-XPLAT#7](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat7)).
+([ADR-AUTO-XPLAT-CASESENSITIVEFILES](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat-casesensitivefiles)).
 ```
 
 ## comment:3

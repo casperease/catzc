@@ -9,6 +9,6 @@ Above `Describe 'ValueChainMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 ValueChainMap places each ADR on its ADR domain's row in the column of each of its value-chain concerns
-([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)), with widget/gadget fixtures
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)), with widget/gadget fixtures
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

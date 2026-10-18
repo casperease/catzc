@@ -10,5 +10,5 @@ Above `Describe 'Format-MarkdownParagraph' -Tag 'L0', 'logic' {`, written with `
 ```text
 Format-MarkdownParagraph must fill text the way Prettier's proseWrap: always does, so the generated ADR index, glossary,
 and contract reference are formatter-stable
-([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)).
+([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
 ```

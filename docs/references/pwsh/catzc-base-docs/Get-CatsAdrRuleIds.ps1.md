@@ -7,16 +7,16 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR#3').
+The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR-THROWNOTWRITEERROR').
 
 ### description
 
 Unions the rule ids of every ADR the index ([index](../../../adr/index.md)) lists: for each index row (Get-CatsAdrIndex) it reads that ADR
 file (Get-CatsAdrRules) and collects the `### Rule <CODE>:<n>` ids, returning them distinct and ordinally sorted in registry form (colon,
-e.g. 'ADR-AUTO-NOPWD#1'). This is the authoritative set a rule citation is validated against — a test tag or an analyzer mapping that names
+e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'). This is the authoritative set a rule citation is validated against — a test tag or an analyzer mapping that names
 a rule absent from this set is a dead reference.
 
-Ids are returned in registry (`:`) form; a caller comparing a citation, which is spelled in `#` form (e.g. 'ADR-AUTO-NOPWD#1', the
+Ids are returned in registry (`:`) form; a caller comparing a citation, which is spelled in `#` form (e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS', the
 [index](../../../adr/index.md) citation grammar), canonicalizes the separator before lookup.
 
 A pure function of the files on disk, memoized per resolved index path for the session (re-run the importer to refresh — see
@@ -31,7 +31,7 @@ path, so a fixture path and the real path never collide.
 
 ### outputs
 
-`[string[]]` the distinct rule ids in registry form (e.g. 'ADR-PWSH-ERROR#3'), ordinally sorted.
+`[string[]]` the distinct rule ids in registry form (e.g. 'ADR-PWSH-ERROR-THROWNOTWRITEERROR'), ordinally sorted.
 
 ## comment:1
 
@@ -39,7 +39,7 @@ Above `$script:catsAdrRuleIdsCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2

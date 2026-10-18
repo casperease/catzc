@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 The Bash time safeguard's verdict on one Claude Code Bash call
-([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). The PreToolUse hook
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). The PreToolUse hook
 (.claude/hooks/Assert-BashTimeout/) compiles this same file, so the hook's decision and its L0 tests in
 Catzc.Base.Timeouts are one implementation.
 

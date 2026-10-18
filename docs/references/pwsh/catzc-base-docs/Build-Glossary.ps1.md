@@ -19,7 +19,7 @@ output is deterministic.
 
 The page is a derived artifact like the ADR index: committed so GitHub has it (linguist-generated, so its diff collapses) and rebuilt on
 import, its sources (the glossary files and this generator) are what is reviewed and checked
-([ADR-REPO-README#7](../../../adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its content changes, and
+([ADR-REPO-README-AUTHOREDSOURCES](../../../adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)). It is written only when its content changes, and
 emitted already formatted (Format-MarkdownParagraph), so Format-Code is a no-op on it.
 
 ### parameter `Path`

@@ -11,7 +11,7 @@ Checks that one released contract version folder still holds exactly what its re
 
 ### description
 
-A released version folder is immutable ([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
+A released version folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 Publish-ContractRelease freezes it with a .frozen record, one line per file, '`<sha256>` `<path>`', after '#' comment lines; this compares
 the record with the folder's files as Get-ContractFileHashes hashes them now, and returns one finding per defect: a missing record, a
 malformed or repeated record line, and every file changed, added or removed since the freeze. No finding means the folder is intact. The

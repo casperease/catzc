@@ -12,12 +12,12 @@ adrs.yml — the ADR domain-structure registry (RULES ↔ domains wiring). Const
 VALIDATES the parsed YAML (throwing with every violation collected) and exposes the typed Domains, the
 flattened RuleSets, and the domain dependency Edges (AdrDomainEdge, one per depends_on link). Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrsConfig)
 so Get-Config -Config adrs returns this typed model rather than a slippery ordered dictionary
-([ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),
-[ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype),
+[ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)).
 
 Load-time rules (self-contained — no filesystem or other-config reads; folder↔domain and terminology-token
 cross-checks are the quality gate Test-AdrRegistry and shipped-asset integrity tests, mirroring the one-directional coupling of the customer
-model, [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)):
+model, [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)):
   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
     like FLOW-CD), a non-empty role, a non-empty description, a depends_on list, and a non-empty rulesets map;
   - every depends_on target resolves to a declared domain, no self-edge, and the domain graph is acyclic;
@@ -29,12 +29,12 @@ model, [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-c
 [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
     external is unique;
   - each domain declares its row of the value-chain stack (stack: one of Stacks,
-    [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)) and its default value-chain concerns
+    [ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)) and its default value-chain concerns
     (concern: a list of one or more of Concerns); a ruleset may override the default with its own concern list, so
     every ADR resolves to at least one value-chain concern
-    ([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)). The allowed rows and concerns are
+    ([ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)). The allowed rows and concerns are
     declared once, here, in value-chain order
-    ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6));
+    ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder));
   - a domain or ruleset key outside the declared keys is rejected, so a misspelled key never falls back to a default.
 ```
 
@@ -44,7 +44,7 @@ Above `public static readonly IReadOnlyList<string> Concerns =...`, written with
 
 ```text
 The value-chain concerns, in value-chain order, left to right
-([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)).
+([ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)).
 ```
 
 ## comment:3

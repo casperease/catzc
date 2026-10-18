@@ -13,7 +13,7 @@ The links meta kind's fact: every link the file points at, in one spelling, sort
 
 A link into the file itself, to an anchor in it, or to its own comment page stays internal and is not listed.
 
-It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 
 ### parameter `State`
 

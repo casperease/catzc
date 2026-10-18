@@ -14,7 +14,7 @@ Parses a config / resource-group identity name into its (environment, slot) part
 The inverse of Get-BicepConfigName. A config-name is `<environment>[-<slot>]`; env names contain no hyphen, so splitting on the FIRST `-`
 cleanly separates them: the part before is the environment (must be defined in azure.yml), the remainder is the optional slot (1-3 lowercase
 alphanumeric, empty for the base slot). Used at discovery to map config filenames back to envs. See
-[ADR-AZ-DATAMOD#2](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod2).
+[ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription).
 
 ### parameter `ConfigName`
 

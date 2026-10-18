@@ -11,6 +11,6 @@ Above `Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {`, written with 
 Get-FixtureIdentityTokens over a fixture pwsh/ tree in $TestDrive (Get-RepositoryRoot mocked): the fixture
 azure.yml / customer.yml are constructed as their registered C# config types, so the YAML below is a valid instance
 of each. L1: it reads files and constructs the registered types. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the disjointness from the live
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the disjointness from the live
 identities is the quality gate Test-ConfigIdentityHygiene.
 ```

@@ -17,8 +17,8 @@ exists on disk becomes the edge's value. A path takes the tokens `{module}` (the
 `{name}` (the file name without its last extension), `{stem}` (the name without a trailing `.Tests`) and `{page}` (the file's comment page
 from comments.yml). An edge no rule fills is empty, so it is left out of the block and a file with no relatives carries none.
 
-It rests on [ADR-PRIN-CONFIG#1](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config1) and
-[ADR-REPO-FILEMETA#10](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta10).
+It rests on [ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig) and
+[ADR-REPO-FILEMETA-FEWLINKS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-fewlinks).
 
 ### parameter `State`
 

@@ -9,7 +9,7 @@ Above `public string WithFacts(IDictionary immutable, IDictionary edges)`, writt
 
 ```text
 The whole text again with the property written from the place facts and the edges in the order given and the authored config kept; nothing to write removes it
-(ADR-REPO-FILEMETA#8). A text that is no object, or whose property holds something foreign, comes back as it was.
+(ADR-REPO-FILEMETA-JSONCARRIER). A text that is no object, or whose property holds something foreign, comes back as it was.
 ```
 
 ## comment:2

@@ -9,11 +9,11 @@ Above `BeforeDiscovery {`, written with `#`.
 
 ```text
 One test per binding contract asset, generated at discovery, so Test-Automation proves every contract with no
-hand-written test ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4)). The set is
+hand-written test ([ADR-REPO-CONTRACT-PROVENBYTESTS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)). The set is
 the one Test-Contracts checks on a devbox: every asset of each unit's draft, 0.0.0, and the provided assets of every
 released version folder still in the tree, since released folders are the pin record; the depended-on assets of a
 released folder follow their platform and are not checked
-([ADR-REPO-CONTRACT#3](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract3)). Each test checks its asset by
+([ADR-REPO-CONTRACT-KEPTWHILEPINNED](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)). Each test checks its asset by
 its kind and fails with the asset's findings. A tree with no assets discovers no test here. It reads only the
 repository's files, so its answer cannot differ between the run modes (source-only).
 ```

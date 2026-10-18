@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 Rewrites the ADR references in one comment into canonical code links
-([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)):
+([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)):
   `[ADR-<CODE>](/docs/adr/<path>.md)`                       a whole ADR
   `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)` one rule
 Every legacy spelling is recognised — a bare, ./, ../ or rooted docs/adr path, an ADR file name alone, a bare

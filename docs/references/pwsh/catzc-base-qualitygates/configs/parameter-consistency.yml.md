@@ -15,6 +15,6 @@ same thing everywhere takes one type instead ([ADR-PWSH-PARAM](/docs/adr/pwsh/pa
   exempt  parameter name (no dash) -> why the same name means different things; omitted = none exempt
 
 The default is declared once on Catzc.Base.QualityGates.ParameterConsistencyConfig
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Test-ParameterConsistency
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Test-ParameterConsistency
 reports an entry whose name no longer conflicts, so the list only shrinks to what is real.
 ```

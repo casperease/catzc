@@ -9,7 +9,7 @@ Above `Describe 'SourceCheck' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 SourceCheck maps the settings every source check shares — its mode and exempt globs — and is the one declaration of
-their sensible defaults ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)); an
+their sensible defaults ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); an
 exempt file is a declared entry with its reason
-([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)).
+([ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-exceptionisconfigentry)).
 ```

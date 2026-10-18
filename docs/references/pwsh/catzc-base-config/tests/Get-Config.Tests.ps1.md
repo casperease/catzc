@@ -9,7 +9,7 @@ Above `It 'discovers and loads a shipped config from its owning module' {`, writ
 
 ```text
 Reads the shipped tools.yml — guards that a real config is discovered in its owning module and loads
-([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). The raw default itself
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The raw default itself
 is pinned hermetically below, on a fixture config with no registry entry.
 ```
 
@@ -20,10 +20,10 @@ Above `It 'returns the same cached object reference on repeat calls' {`, written
 ```text
 Function behaviour, independent of which configs are shipped: memoization, the not-found error
 path, and parameter-binding validation
-([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). The caching test owns a
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The caching test owns a
 fixture config
 through the Resolve-ConfigEntry seam, so it never reads a shipped config
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:3
@@ -41,5 +41,5 @@ Above `It 'accepts a valid registry (one type per entry)' {`, written with `#`.
 
 ```text
 Validator logic on inline (synthetic) registries — independent of any shipped configs.yml
-([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)).
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
 ```

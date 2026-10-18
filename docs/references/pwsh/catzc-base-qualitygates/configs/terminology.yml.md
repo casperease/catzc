@@ -15,7 +15,7 @@ those lists. Two roots: `categories:` defines the vocabulary classes, and `terms
 them — `terms: <category>: [ { term, meaning }, ... ]`. A term's category is the group it sits in (no
 per-entry category field); an abbreviation entry also carries `expands_to`. See
 [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
-([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)).
+([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
 
 Loaded via Get-Config -Config terminology; validated by Catzc.Base.QualityGates.TerminologyConfig, which
 requires every term's category to be one defined here.

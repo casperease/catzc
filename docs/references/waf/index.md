@@ -23,7 +23,7 @@ and records the trade-offs between pillars.
 ## How the repository answers it
 
 Each pillar is one ADR in the `azure` domain, under [docs/adr/azure/waf/](../../adr/azure/waf/), and each checklist item is one numbered
-rule whose number is Microsoft's: RE:04 is `ADR-AZ-WAF-RE#4`. A rule says what this repository does about the item; its section cites
+rule whose number is Microsoft's: RE:04 is `ADR-AZ-WAF-RE-RE04`. A rule says what this repository does about the item; its section cites
 Microsoft's guide page, summarises the recommendation in our words, says what it means for the templates `foundation`, `discovery`, and
 `expedition`, and ends with a status: realised, partly realised, planned (follow-up), or not adopted, with the reason.
 

@@ -9,7 +9,7 @@ Above `branch: main`, written with `#`.
 
 ```text
 Build-validation branch policies tied to globsets — the server-side pre-commit half of a unit's CI
-binding ([ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4)): each entry binds one DECLARED globset's native
+binding ([ADR-FLOW-CD-TYPE-PRECOMMITBUDGET](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)): each entry binds one DECLARED globset's native
 path projection
 (Get-GlobSetTrigger,
 [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)) as the policy's path filter and runs the entry's pipeline as an
@@ -21,5 +21,5 @@ true), `display_name` (defaults to 'Build validation - <globset>').
 Loaded via Get-Config -Config build-validation (shape-validated by the BuildValidationConfig type); applied
 to the server with Sync-AdoBuildValidations / Register-AdoBuildValidation. Globset existence is checked
 at runtime (Get-GlobSet throws on an unknown name) and by an integrity test — never at load, so reading
-this config stays hermetic (the [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3) pattern).
+this config stays hermetic (the [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern).
 ```

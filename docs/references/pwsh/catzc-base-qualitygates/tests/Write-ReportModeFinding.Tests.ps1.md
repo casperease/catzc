@@ -9,5 +9,5 @@ Above `Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {`, written with `#
 
 ```text
 Write-ReportModeFinding prints a report-mode check's work list and never fails the run
-([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)).
+([ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-exceptionisconfigentry)).
 ```

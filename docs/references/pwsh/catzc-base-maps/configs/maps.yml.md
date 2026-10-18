@@ -10,9 +10,9 @@ Above `{}`, written with `#`.
 ```text
 maps.yml — the map settings: the palette, the limits, the printed labels of the world map and the value-chain map,
 the reviewed highlight pins and exceptions, and the folder under the output root the PDFs are written to
-([ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)). Every key has a
+([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)). Every key has a
 sensible default, declared once on Catzc.Base.Maps.MapsConfig and the section types it holds
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)); set a key only to change
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); set a key only to change
 it. Loaded via Get-Config -Config maps.
 
   palette:                        # colours, each '#' and six hex digits
@@ -33,20 +33,20 @@ it. Loaded via Get-Config -Config maps.
     max_column_label: 16          #   characters a file-language name prints (whole number)
   labels:                         # WinAnsi text only: the base-14 PDF fonts show nothing else; each names a defined
                                   #   term in its head, the text before its first ':'
-                                  #   ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13))
+                                  #   ([ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS](/docs/adr/design/tracks.md#rule-adr-dsgn-track-labelsnamedefinedterms))
     grid_title: 'World map: tracks × file languages'
     tree_title: 'World map: repository tree'
     row_axis: Track               #   at most max_row_label characters
     column_axis: File language    #   at most max_column_label characters
     root_files: Root files        #   the row of the root files; at most max_row_label
-                                  #   ([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7))
+                                  #   ([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile))
     unlisted_files: Unlisted files #  the column of the unlisted files; at most max_column_label
-                                  #   ([ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8))
+                                  #   ([ADR-DSGN-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-unlistedfile))
     legend_files: 'Cell: files'
     legend_violation: Stack violation
     legend_highlight: Lit cell
     # the value-chain map's labels, checked by Test-ValueChainMap; no length limit
-    #   ([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16))
+    #   ([ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap))
     value_chain_title: 'Value-chain map: value-chain stack × value-chain concerns'
     value_chain_row_axis: Value-chain stack
     value_chain_column_axis: Value-chain concern

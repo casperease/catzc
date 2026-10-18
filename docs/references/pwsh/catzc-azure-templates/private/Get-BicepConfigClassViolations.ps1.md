@@ -19,7 +19,7 @@ Checks one config against the template's env-class bit and returns a (possibly e
 The slot is a per-config dimension, not a template-level bit — a template may freely mix slotted (`<env>-<slot>.yml`) and non-slotted
 (`<env>.yml`) configs — so there is no slot rule here. Empty result means the config conforms.
 
-It rests on [ADR-AZ-DATAMOD#8](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod8).
+It rests on [ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod-schemaandintegrity).
 
 ### parameter `Environment`
 

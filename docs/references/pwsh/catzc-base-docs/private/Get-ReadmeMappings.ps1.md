@@ -41,6 +41,6 @@ Above `foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath
 ```text
 [System.IO] (sorted) rather than Get-ChildItem — the cmdlet carries ~20ms of per-call provider
 overhead the raw .NET enumeration avoids
-([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)). '*' excludes dot-prefixed
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). '*' excludes dot-prefixed
 infrastructure folders.
 ```

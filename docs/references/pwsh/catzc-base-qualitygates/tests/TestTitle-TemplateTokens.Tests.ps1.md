@@ -9,11 +9,11 @@ Above `Describe 'Test titles use angle-bracket templates only on data-driven tes
 
 ```text
 Poka-yoke backstop: no <token>-shaped text in a non-data-driven test title, over the real tree through its quality
-gate (Test-TestTitles — [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+gate (Test-TestTitles — [ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 
 Pester treats <word> in an It/Describe/Context title as its name-template syntax; WITHOUT -ForEach/-TestCases data
 the token is almost always prose and THROWS under the strict tests
-([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)) at name expansion, far from the
+([ADR-AUTO-TEST-FILEPARALLELISM](/docs/adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) at name expansion, far from the
 cause. The gate bans the pattern outright: a title with a <token> must carry -ForEach data.
 (These titles themselves spell out "angle-bracket token" — a literal one here would fire the very trap.)
 source-only: it parses the repository's test files, which give the same answer in both run modes.

@@ -9,5 +9,5 @@ Above `Describe 'Get-PackageTreePlan' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-PackageTreePlan over two fixture trees in $TestDrive. It reads the filesystem only. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

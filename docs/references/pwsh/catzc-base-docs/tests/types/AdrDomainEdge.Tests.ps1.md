@@ -5,9 +5,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {`, written with `#`.
+Above `Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
 
 ```text
 AdrDomainEdge — one From/To edge of the ADR domain graph; the constructor holds both ends non-empty and distinct.
-Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -8,10 +8,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-Test-ShellScripts is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
+Test-ShellScripts is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)):
 the L0 cases run over a fixture repository in $TestDrive with the index, the tool probe, and ShellCheck mocked, and
 read the collected issues; the report goes to $TestDrive. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -20,6 +20,6 @@ Above `Describe 'Repository shell script integrity' -Tag 'L2', 'integrity',...`,
 
 ```text
 Integrity: every shell script the repository holds is LF and passes the pinned ShellCheck. L2 because it drives the
-ShellCheck CLI; self-skips without it ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)).
+ShellCheck CLI; self-skips without it ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 source-only: it reads the repository's own files.
 ```

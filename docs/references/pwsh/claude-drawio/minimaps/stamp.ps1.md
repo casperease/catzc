@@ -13,7 +13,7 @@ The minimap head step: writes the generated meta head on every sister .md render
 
 render.py (describe.py) writes each minimap's sister page as a body only; this step, run after it, gives every `<view>/<stem>.<view>.md`
 under -Target (views chain, grid and tree) the generated head through the one head function, Format-GeneratedFileHead, so the head opens
-with the hash of the body below it (ADR-REPO-FILEMETA#7). The page's source is the slide it describes, `<Target>/<stem>.drawio.png`, when
+with the hash of the body below it (ADR-REPO-FILEMETA-COMPOSEDFILES). The page's source is the slide it describes, `<Target>/<stem>.drawio.png`, when
 that slide exists. A page whose text is already current is left as it is, so a second run writes nothing.
 
 ### parameter `Target`

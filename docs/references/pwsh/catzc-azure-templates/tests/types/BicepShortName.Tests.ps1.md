@@ -11,7 +11,7 @@ Above `Context 'Derive (folder name -> short_name)' {`, written with `#`.
 
 ```text
 The C# type that owns short_name derivation + validation
-([ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)).
+([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)).
 Loaded by the Import-CSharpTypes pre-pass; referenced by FQN here. Neutral fixture template names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

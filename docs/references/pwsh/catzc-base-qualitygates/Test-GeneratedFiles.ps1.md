@@ -11,7 +11,7 @@ Quality gate: checks that every generated file equals what its generator would w
 
 ### description
 
-One gate for every generator's drift ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)). Each writer runs
+One gate for every generator's drift ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Each writer runs
 in its report-only mode — -DryRun -PassThru, which composes the content and writes nothing — and every file it reports as changed is one
 issue naming the file, the generator, and the command that regenerates it:
 
@@ -32,7 +32,7 @@ Build-RootConfig             every opted-in managed root file (rootconfig.yml); 
                              multi-file generator, e.g. each go/tests/<folder>/go.mod)
 ```
 
-Then the stamp check ([ADR-REPO-FILEMETA#7](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta7)): every tracked file
+Then the stamp check ([ADR-REPO-FILEMETA-COMPOSEDFILES](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles)): every tracked file
 .gitattributes marks linguist-generated opens with with_body_sha, the hash of the content below its head, and a stamp that is not the hash
 of the body is one issue (Get-GeneratedStampDrift). A generated file whose writer writes no head yet is counted as unstamped in the report's
 facts, never failed.

@@ -5,10 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {`, written with `#`.
+Above `Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {`, written with `#`.
 
 ```text
 Test-AdrRegistry over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig (Get-Config and
 Resolve-RepoPath mocked), so each test pins one rule. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

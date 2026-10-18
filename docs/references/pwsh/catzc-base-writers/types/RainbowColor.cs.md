@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 A "<base>-rainbow" colour profile
-([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)): a header/footer rule rendered
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)): a header/footer rule rendered
 as a gradient anchored on
 a base [System.ConsoleColor] — char 0 IS the base, and each subsequent char steps forward along a fixed
 CHROMATIC ring of the console colours (dark/neutral colours never appear in the walk, so the gradient stays

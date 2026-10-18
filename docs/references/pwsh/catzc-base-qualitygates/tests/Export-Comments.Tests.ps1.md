@@ -11,8 +11,8 @@ Above `Describe 'Export-Comments' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Export-Comments moves a file's long comments into its comment page, one-way and losslessly
-([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)), tested in isolation:
+([ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion)), tested in isolation:
 every test builds its own fixture repository in $TestDrive with widget/gadget files and exports only that tree
 (-RepositoryRoot, -Path). The page location comes from the shipped comments.yml
-([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
 ```

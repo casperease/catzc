@@ -12,9 +12,9 @@ The file-path meta kind's fact: the file's repository-relative path.
 ### description
 
 The path is a derived fact, so a moved file drifts and the formatter rewrites it; the H1 is the file's title, never its path
-([ADR-REPO-FORMAT#6](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6)).
+([ADR-REPO-FORMAT-MARKDOWNTITLE](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle)).
 
-It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 
 ### parameter `State`
 

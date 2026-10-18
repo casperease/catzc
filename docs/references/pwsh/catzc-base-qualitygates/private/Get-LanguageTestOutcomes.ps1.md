@@ -17,7 +17,7 @@ reports its own outcome:
 - tool missing: when -Executable is empty (the run's source session found no managed tool at the tools.yml pin, Get-LanguageTestExecutable),
   nothing runs and every case is skipped with the constrained skip key tool_go_missing, tool_uv_missing or tool_bash_missing; when
   -EngineExecutable is empty for an engine other than pwsh, that engine's run skips every case with `tool_<engine>_missing`
-  ([ADR-AUTO-TEST#8](../../../../adr/automation/test-automation.md#rule-adr-auto-test8));
+  ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../../adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring));
 - otherwise the language's runner runs the module's tests (against -EntryScript in a build run): Invoke-GoTest for go, Invoke-PythonTest for
   python, Invoke-BashTest for bash (under the bash engine only: a Bash test is Bash). Each case takes the outcome of its result — the result
   types share the shape Package/Name/Outcome/Output — pass; fail, with the test output; or skip, with the skip key go_test_skipped,
@@ -76,5 +76,5 @@ Above `$entry = @((Get-Config -Config languages).languages | Where-Object { $_.n
 
 ```text
 The language registry names the runner; a language without a tests entry has no test artifacts to run
-([ADR-AUTO-MODULE#6](/docs/adr/automation/module-model.md#rule-adr-auto-module6)).
+([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](/docs/adr/automation/module-model.md#rule-adr-auto-module-checksbylanguage)).
 ```

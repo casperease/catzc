@@ -10,9 +10,9 @@ Above `using System;`, written with `//`.
 ```text
 The one parser of a check's mode setting (CheckMode), shared by every check config: adr-checks.yml in Catzc.Base.Docs, and
 links.yml and source-conventions.yml in Catzc.Base.QualityGates. One parser keeps one accepted spelling and one error text
-([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)). An omitted mode is
+([ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion)). An omitted mode is
 default(CheckMode), Gate, the default CheckMode declares once
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 ```
 
 ## comment:2

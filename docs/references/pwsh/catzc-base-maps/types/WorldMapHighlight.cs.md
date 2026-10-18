@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 A world-map highlight: the cells a request lights. A request is either ADR references or a drawing's files
-([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) places each file in one cell).
+([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster) places each file in one cell).
 
 ADR references (ForAdr) light, through the placements WorldMapBuilder derived in its fixed order per artifact kind:
 each requested ADR's own file (an ADR-<CODE>#n request lights its ADR's file), and every file whose citations a request
@@ -20,7 +20,7 @@ lit file, and every pin, carries its reason (HighlightReason): the basis, the co
 sites with their lines and kinds, so a lit file cited only in passing comments reads as a mention.
 
 The cells keep the map's order (rows, then columns), so the result is deterministic; ToJson is its data form
-([ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).
+([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
 ```
 
 ## comment:2

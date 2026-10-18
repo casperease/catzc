@@ -11,7 +11,7 @@ Quality gate: every shipped C# type resolves in the session as `<module>.<basena
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the shipped C# types: each
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the shipped C# types: each
 `<module>/types/<Name>.cs` under the loaded code root (Get-CatzcModulesRoot — the source tree or a built package) declares the type
 `<module>.<Name>`, so after import that full name must resolve. A file that compiles to a differently named type, or a module whose types
 never loaded, is an issue. So is a concrete class that still renders as its full name in pwsh ("$x", `[string]$x`): it must override

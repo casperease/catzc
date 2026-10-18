@@ -10,10 +10,10 @@ Above `engine_neutrality:`, written with `#`.
 ```text
 adr-checks.yml — the settings of the ADR checks over the rule registries under docs/adr/. Every key is optional: an omitted key takes
 the sensible default declared once on Catzc.Base.Docs.AdrChecksConfig
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), so this file states only what deviates.
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so this file states only what deviates.
 
 Each check has one mode (default: gate). In report mode a check prints every finding and their count and never fails the run; in gate
-mode it fails the run like any quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). A check
+mode it fails the run like any quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). A check
 ships in report mode while its findings are worked off, and its mode line is removed once their count is 0.
 
   engine_neutrality:   # Test-AdrEngineNeutrality — the rule summaries of the listed domains carry no engine-specific syntax

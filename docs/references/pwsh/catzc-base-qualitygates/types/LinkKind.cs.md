@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The two kinds of link ([ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)), fixed by the file a link lives in:
+The two kinds of link ([ADR-REPO-LINK-KINDBYFILE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)), fixed by the file a link lives in:
 a markdown link lives in a rendered
 .md file, a code link in a comment of any other tracked text file. [Flags], so Both is Code | Markdown and the
 engine tests HasFlag instead of special-casing Both; a parameter typed as this enum binds -Kind Code,

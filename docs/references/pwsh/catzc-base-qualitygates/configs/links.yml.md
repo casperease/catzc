@@ -8,12 +8,12 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `wrap: break`, written with `#`.
 
 ```text
-Link alignment settings for Format-Links / Test-Links ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)).
+Link alignment settings for Format-Links / Test-Links ([ADR-REPO-LINK-ALIGNEDBYTOOL](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)).
 
 Every key is optional: an omitted key takes the sensible default declared once on
 Catzc.Base.QualityGates.LinksConfig
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and a Format-Links parameter overrides the
-resolved value per call ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a Format-Links parameter overrides the
+resolved value per call ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```
 
 ## comment:2
@@ -40,7 +40,7 @@ Above `string_citations:`, written with `#`.
 
 ```text
 The string-citation check: a rule citation in a code string literal is spelled ADR-<CODE>#<n>, never with a ':'
-outside a '### Rule' heading ([ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)).
+outside a '### Rule' heading ([ADR-REPO-LINK-ONECITATIONSPELLING](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)).
   mode    gate (default: every finding fails Test-Links) or report (findings are listed and never fail it)
   exempt  glob -> why its files may spell the ':' form on purpose; default none
 ```

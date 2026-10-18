@@ -49,7 +49,7 @@ function Get-TestTagViolations {
             $block = $block.Parent
         }
         foreach ($tag in $candidates) {
-            if ($tag -cnotmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {
+            if ($tag -cnotmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$|^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
                 $reasons += "malformed ADR citation '$tag' (want ADR-<CODE>#<n>, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)"
                 continue
             }

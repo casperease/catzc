@@ -9,5 +9,5 @@ Above `Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {`, written with `#
 
 ```text
 ConvertFrom-PytestJunit over a canned pytest JUnit report in tests/assets: one result per top-level test function,
-parametrised cases folded in. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+parametrised cases folded in. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -10,5 +10,5 @@ Above `BeforeAll {`, written with `#`.
 ```text
 Redirect the 'customer' config to the fixture catalogue (acme/ac, globex/gx). Read-only resolver, so
 the mock + cache reset run once
-([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```

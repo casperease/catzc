@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {`, written with `#`.
+Above `Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE-STRICTSAFEPROBE' {`, written with `#`.
 
 ```text
 The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,

@@ -10,7 +10,7 @@ Above `$probeSource = Join-Path $TestDrive 'probe-source.txt'`, written with `#`
 ```text
 Capability probe: symbolic links need a privilege on Windows (Developer Mode / admin); hard links do
 not. The assertions branch on the probe — deterministic per machine, never a retry
-([ADR-AUTO-RETRY#1](/docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry1)).
+([ADR-AUTO-RETRY-NEVERINTESTS](/docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry-neverintests)).
 ```
 
 ## comment:2

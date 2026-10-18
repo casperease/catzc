@@ -18,7 +18,7 @@ Above `Get-Config -Config azure | Out-Null`, written with `#`.
 
 ```text
 Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
 
 ## comment:3
@@ -27,7 +27,7 @@ Above `$script:configRoot = Join-Path (Get-CatzcModulesRoot)...`, written with `
 
 ```text
 ONE build of ALL environments is the single observation every assertion below is a facet of
-([ADR-AUTO-TEST#20](/docs/adr/automation/test-automation.md#rule-adr-auto-test20)) — not a rebuild per test.
+([ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)) — not a rebuild per test.
 Building all envs yields alpha AND beta, so every
 per-env range/vnet/reference check reads the captured output rather than re-invoking Build-Bicep.
 Under the sharded/greedy run a Build-Bicep call (PrePost import + file I/O) costs ~5-6x its warm

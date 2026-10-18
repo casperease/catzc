@@ -53,7 +53,7 @@ policy_enforcement — the enforcementMode of the policy assignments the templat
 Default (enforce) or DoNotEnforce (audit only). Optional; omitted keys take the default declared on
 AzureConfig, { production: Default, nonproduction: DoNotEnforce }. A stricter repository sets
 nonproduction: Default. Templates read it by config address (global.azure.policy_enforcement.<key>),
-[ADR-AZ-DATAMOD#11](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11).
+[ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
 policy_enforcement: { production: Default, nonproduction: Default }
 ```
 
@@ -80,7 +80,7 @@ as the env-segment of the restricted (tight-budget) patterns only — `kv`/`stor
 readable name never costs a tight name a byte; its 2nd char lets same-first-letter envs coexist
 (e.g. preprod `pp` vs prod `pr`). `region` is the Azure deployment location; `region_code`
 is its 3-letter name component (`weu`). `staging_for` marks an environment as another's staging slot,
-inactive until activated (preprod stages prod, [ADR-AZ-DATAMOD#12](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod12)).
+inactive until activated (preprod stages prod, [ADR-AZ-DATAMOD-STAGINGSLOT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)).
 ```
 
 ## comment:8

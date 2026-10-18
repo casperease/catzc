@@ -5,11 +5,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {`, written with `#`.
+Above `Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {`, written with `#`.
 
 ```text
 A contract asset's note is the header comment its file can carry without changing what its check compares
-([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): a YAML asset's leading '#' lines,
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a YAML asset's leading '#' lines,
 a schema's "$comment", and nothing for every other asset. Fixtures are a widget repository in TestDrive
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

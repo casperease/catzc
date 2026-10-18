@@ -12,7 +12,7 @@ The single export config (configs/exporter.yml): how this repository exports its
 versioned Catzc build ([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Exporter.ExporterConfig), so Get-Config -Config exporter
 returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException. Every key
 is required, and an unknown key throws (a typo fails fast at load):

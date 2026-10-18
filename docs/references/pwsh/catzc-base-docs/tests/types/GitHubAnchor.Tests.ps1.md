@@ -9,6 +9,6 @@ Above `Describe 'GitHubAnchor' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The GitHub slug and anchor set a markdown link's #fragment must name
-([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). The slug cases are the
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). The slug cases are the
 shapes the repository's headings take: rule headings, responsibility headings with an em dash, code spans, and duplicates.
 ```

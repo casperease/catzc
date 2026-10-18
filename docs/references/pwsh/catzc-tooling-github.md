@@ -2,7 +2,7 @@
 
 The repository's GitHub integration: everything that faces GitHub, as a platform that reads our files and as a remote that stores our
 history. Two jobs make it up. It holds the GitHub-facing contracts — what GitHub requires of the files it reads, kept under
-`contracts/catzc/<version>/Catzc.Tooling.Github/` ([ADR-REPO-CONTRACT#2](../../adr/repository/api-contracts.md#rule-adr-repo-contract2)).
+`contracts/catzc/<version>/Catzc.Tooling.Github/` ([ADR-REPO-CONTRACT-LAYOUT](../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)).
 And it erases a token — a leaked secret, or a name being scrubbed — from a GitHub repository's entire history and its remote object store,
 then proves it is gone. Erasure needs a module of its own because an ordinary force-push erases nothing: the old commits become unreachable
 but stay stored on the server until GitHub garbage-collects them, so a fetch of a known old SHA keeps resolving. Deleting and recreating the
@@ -61,14 +61,14 @@ it against a ref whose upstream still tracks un-purged history, which would fals
 
 Owning the depended-on contracts GitHub holds the repository to: the files GitHub reads, pinned under
 `contracts/catzc/<version>/Catzc.Tooling.Github/` at the path of the real file each one constrains under the module's target root, `.github`
-([ADR-REPO-CONTRACT#2](../../adr/repository/api-contracts.md#rule-adr-repo-contract2)), so `workflows/release-automation.yml` pins
-`.github/workflows/release-automation.yml` ([ADR-REPO-CONTRACT#1](../../adr/repository/api-contracts.md#rule-adr-repo-contract1)). Each
+([ADR-REPO-CONTRACT-LAYOUT](../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)), so `workflows/release-automation.yml` pins
+`.github/workflows/release-automation.yml` ([ADR-REPO-CONTRACT-BINDINGINTERFACE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-bindinginterface)). Each
 asset pins only what GitHub reads, never an internal value
-([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): a workflow's `on` and each job's `runs-on` and
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a workflow's `on` and each job's `runs-on` and
 `steps` under `.github/workflows/`, and the presence of `.github/README.md`, the page GitHub renders first. The contract mechanism in
 `Catzc.Base.Contracts` generates one test per asset, so a change GitHub would reject fails CI here first. A platform change is a new draft
 in `contracts/catzc/0.0.0/`, never an old shape kept beside the new one
-([ADR-REPO-CONTRACT#3](../../adr/repository/api-contracts.md#rule-adr-repo-contract3)).
+([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../adr/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)).
 
 ## What the module does
 

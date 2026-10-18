@@ -9,8 +9,8 @@ Above `Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {`, written with `
 
 ```text
 Get-ContractCheckResults checks each contract asset against the real tree by its kind
-([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
-[ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)) and returns one result per asset; a
+([ADR-REPO-CONTRACT-PROVENBYTESTS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests),
+[ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)) and returns one result per asset; a
 failed check is a result, never an exception. Every kind has a passing and a failing case. Fixtures are a widget
 repository in TestDrive, its assets under contracts/widget/0.0.0/Catzc.Widget/.
 ```

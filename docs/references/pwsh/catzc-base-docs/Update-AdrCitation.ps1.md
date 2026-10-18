@@ -24,7 +24,7 @@ It rewrites:
 - rule anchors `rule-<code><n>`, standalone and inside links;
 - link destinations into docs/adr/: one with a rule anchor follows the rule, possibly to another file, and any other follows the file. A
   relative link is resolved at the file's folder and written back relative to it; a repository-rooted code link stays rooted
-  ([ADR-REPO-LINK#2](../../../adr/repository/markdown-links.md#rule-adr-repo-link2));
+  ([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative));
 - plain path mentions of a mapped ADR file or folder: `docs/adr/<path>`, `/docs/adr/<path>`, a relative path, or a path relative to
   docs/adr/.
 

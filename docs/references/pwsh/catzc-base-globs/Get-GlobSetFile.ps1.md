@@ -11,9 +11,9 @@ Returns the tracked files a globset matches — the deployable unit's actual mem
 
 ### description
 
-Intersects the matching universe (`git ls-files`, [ADR-FLOW-CD-GLOBS#4](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4))
+Intersects the matching universe (`git ls-files`, [ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly))
 with the named globset's membership (include minus exclude), ordinally sorted — the exact file list the durable SHA is computed over
-([ADR-FLOW-CD-GLOBS#5](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)). A member may be missing on disk (an unstaged
+([ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)). A member may be missing on disk (an unstaged
 deletion); it is still a member here.
 
 ### parameter `Name`

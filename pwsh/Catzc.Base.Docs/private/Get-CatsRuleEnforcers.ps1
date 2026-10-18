@@ -67,7 +67,7 @@ function Get-CatsRuleEnforcers {
                 continue
             }
             foreach ($string in $tagValue.FindAll($isString, $true)) {
-                if ($string.Value -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {
+                if ($string.Value -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$|^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
                     & $ensure $string.Value
                     [void]$enforcers[$string.Value].Tests.Add($relative)
                 }

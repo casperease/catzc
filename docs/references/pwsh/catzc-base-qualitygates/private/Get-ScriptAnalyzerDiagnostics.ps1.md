@@ -16,7 +16,7 @@ but the spelling one, and `Measure-CatzcSpelling` runs the spelling check, which
 runs as two passes, `rules` (every rule but `Measure-CatzcSpelling`) and `spelling` (that rule alone), each with its own result cache under
 out/cache/ (`script-analyzer.json`, `script-analyzer-spelling.json`). A pass skips every file it last found clean whose bytes and the pass's
 inputs (Get-ScriptAnalyzerInputs `-Pass`) are unchanged since
-([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)); only clean files are recorded, so a cached run reports
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)); only clean files are recorded, so a cached run reports
 exactly the diagnostics a full run would. A dictionary edit changes only the spelling pass's inputs, so it re-runs that pass alone. A
 pipeline starts without the cache.
 
@@ -44,7 +44,7 @@ The PSScriptAnalyzer diagnostic records of both passes (empty when there are no 
 Above `$batch = [System.Collections.Generic.List[object]]::new()`, written with `#`.
 
 ```text
-The result cache ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)): a file the analyzer
+The result cache ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)): a file the analyzer
 last found clean, whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs) are unchanged since, is not analyzed
 again — it has no diagnostics by construction. Only files with no diagnostics are ever recorded.
 ```
@@ -55,5 +55,5 @@ Above `$spellingRule = 'Measure-CatzcSpelling'`, written with `#`.
 
 ```text
 Two passes, each cached on its own inputs: the spelling entry rule reads the dictionaries, every other rule does not, so a dictionary
-edit re-runs the spelling pass alone ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)).
+edit re-runs the spelling pass alone ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
 ```

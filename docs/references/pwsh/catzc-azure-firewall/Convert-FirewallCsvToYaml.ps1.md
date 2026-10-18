@@ -79,7 +79,7 @@ Above `if (-not $SourceName) {`, written with `#`.
 
 ```text
 A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are
-evaluated ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
+evaluated ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```
 
 ## comment:2

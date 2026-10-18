@@ -13,7 +13,7 @@ The Go test workspace — the one declared source that New-GoWorkspace renders t
 under <root>/tests/<module-in-kebab>/, and nothing Go-specific is committed but the *_test.go files.
 
 Every key is optional: an omitted key takes the sensible default declared once on
-Catzc.Base.Languages.GoConfig ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+Catzc.Base.Languages.GoConfig ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 Loaded via Get-Config -Config go; the shape is validated by the GoConfig type.
 
 The go directive of go.work and every go.mod is not declared here: it is the go tool's pin in tools.yml

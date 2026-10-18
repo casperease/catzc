@@ -18,11 +18,11 @@ on.pull_request.paths. GitHub paths are ordered (last-match-wins), so the compar
 workflow is not named in globs.yml, so the globset-to-workflow pairing is passed explicitly.
 
 A drifted workflow is one issue naming the filters that differ, and a missing workflow file is one issue. The gate ends with
-Write-QualityGateReport ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
+Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): the report lands in
 out/test-github-workflow-trigger-glob/, and the gate throws once listing every issue (or returns the result with -PassThru).
 
-It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
-[ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
+It rests on [ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-namedglobsets) and
+[ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter).
 
 ### parameter `Name`
 

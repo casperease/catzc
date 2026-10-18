@@ -94,10 +94,10 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-OVERLAY, ADR-PWSH-CACHE#4 and ADR-AUTO-ASSETDEP#1:
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-OVERLAY, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY:
 the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
 `Get-Config` and `Assert-CatzcOverlay` both read the seal from `ConfigsConfig.sealedConfigs`, built from the one declaration in
-`configs.yml` that ADR-AUTO-OVERLAY#7 requires, so the code and the ADR agree. The sealed throw cites no rule code.
+`configs.yml` that ADR-AUTO-OVERLAY-SEALEDENGINECONFIGS requires, so the code and the ADR agree. The sealed throw cites no rule code.

@@ -9,5 +9,5 @@ Above `Describe 'ContractAsset' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 ContractAsset holds every derived fact of one contract asset, with its paths in communication form
-([ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2)).
+([ADR-AUTO-PATH-COMMUNICATIONFORM](/docs/adr/automation/path-representation.md#rule-adr-auto-path-communicationform)).
 ```

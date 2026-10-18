@@ -11,14 +11,14 @@ Resolves the version a Catzc build carries — the devbox placeholder, a calcula
 
 ### description
 
-The one place a build version is decided ([ADR-AUTO-BUNDLE#7](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle7)); every
+The one place a build version is decided ([ADR-AUTO-BUNDLE-AUTOVERSION](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)); every
 value comes from configs/exporter.yml (Get-Config -Config exporter):
 
 ```text
 -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow
                               Write-Message notice — never Write-Warning, which terminates under the catzc
                               session's preferences
-                              ([ADR-PWSH-ERROR#2](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error2)). A rebuild overwrites it in place.
+                              ([ADR-PWSH-ERROR-STOPONWARNING](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-stoponwarning)). A rebuild overwrites it in place.
 -Version auto, in a pipeline  <the bundle's MAJOR.MINOR (exporter.yml bundles.<name>.version)>.<first-parent
                               commit count of HEAD>, so the same commit always gets the same version and
                               versions rise along main. Each bundle has its own MAJOR.MINOR line. Needs the full

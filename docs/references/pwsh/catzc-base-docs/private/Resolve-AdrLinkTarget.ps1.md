@@ -11,7 +11,7 @@ Resolves a markdown link's target, written in a file under docs/adr/, to its pat
 
 ### description
 
-A markdown link is relative to its own file ([ADR-REPO-LINK#2](../../../../adr/repository/markdown-links.md#rule-adr-repo-link2)). This
+A markdown link is relative to its own file ([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). This
 drops the target's #fragment, resolves the rest against the linking file's folder, and returns the result relative to docs/adr/
 ('/'-separated). It returns nothing for a link that names no file under docs/adr/: an in-page anchor, an absolute URL, a repository-rooted
 path, or a relative path that leaves docs/adr/.

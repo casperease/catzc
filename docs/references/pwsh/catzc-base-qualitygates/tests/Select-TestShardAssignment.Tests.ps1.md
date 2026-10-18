@@ -9,7 +9,7 @@ Above `Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {`, written with
 
 ```text
 Longest-first scheduling of the parallel test files over the worker shards. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

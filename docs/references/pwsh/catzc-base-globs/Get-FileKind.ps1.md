@@ -14,7 +14,7 @@ Returns the kind of a file by its role, and its subkind when it has one, from th
 The kind is the role of the file and never its language, track or module, which are keys of their own. The first kind of the file-kinds
 registry whose globs, or whose subkinds' globs, match the path names it, and a path no entry selects is `other`. The registry is local to
 catzc and global to every file, and a consumer extends it with a config fragment
-([ADR-REPO-FILEMETA#2](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta2)).
+([ADR-REPO-FILEMETA-METAKIND](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind)).
 
 ### parameter `Path`
 

@@ -13,7 +13,7 @@ single source of truth for vnet / subnet ranges: the per-environment ranges, key
 and the per-subscription hub or spoke networks, keyed by azure.yml subscription name. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.NetworkConfig), so Get-Config -Config network returns this
 typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - the top-level key 'environments' is required and is a non-empty map of well-formed NetworkEnvironment entries;
@@ -21,10 +21,10 @@ Constructing an instance validates the file, collecting every violation into one
     NetworkSubscription entries;
   - no other top-level key;
   - no two virtual networks overlap — every environment's and every subscription's vnet_address_space is disjoint from every
-    other ([ADR-AZ-NETWORK#6](/docs/adr/azure/azure-network-model.md#rule-adr-az-network6)).
+    other ([ADR-AZ-NETWORK-NOOVERLAP](/docs/adr/azure/azure-network-model.md#rule-adr-az-network-nooverlap)).
 The type checks this file alone. The cross-asset sync with azure.yml
-([ADR-AZ-NETWORK#2](/docs/adr/azure/azure-network-model.md#rule-adr-az-network2),
-[ADR-AZ-NETWORK#5](/docs/adr/azure/azure-network-model.md#rule-adr-az-network5)) joins two configs, so it is the
+([ADR-AZ-NETWORK-KEYEDBYENVIRONMENT](/docs/adr/azure/azure-network-model.md#rule-adr-az-network-keyedbyenvironment),
+[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](/docs/adr/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription)) joins two configs, so it is the
 quality gate Test-AzureNetworkPlan, not a constructor that reads another config.
 ```
 

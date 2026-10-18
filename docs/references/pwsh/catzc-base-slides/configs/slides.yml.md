@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `kit: .claude/slides`, written with `#`.
 
 ```text
-Where the slides kit lives, as a repository-relative folder (ADR-REPO-SLIDES#6). The kit's own defaults, its patterns and its style
+Where the slides kit lives, as a repository-relative folder (ADR-REPO-SLIDES-SLIDEFILEKIND). The kit's own defaults, its patterns and its style
 guide are read from there; the default is declared once on SlidesConfig, so this file states only a deviation from it.
 ```

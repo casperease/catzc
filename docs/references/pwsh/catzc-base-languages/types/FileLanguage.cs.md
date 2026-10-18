@@ -9,9 +9,9 @@ Above `using System;`, written with `//`.
 
 ```text
 One file language of the registry (configs/languages.yml): the language a tracked file is written in, named by its
-extension ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). The entry's fields mirror the YAML
+extension ([ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)). The entry's fields mirror the YAML
 keys, so the properties are snake_case
-([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); `name` is the entry's
+([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); `name` is the entry's
 YAML key. LanguagesConfig validates the entry and builds one; Get-FileLanguage returns them.
 ```
 

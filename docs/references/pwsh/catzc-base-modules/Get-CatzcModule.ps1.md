@@ -11,11 +11,11 @@ Returns the modules of the deployable tracks, resolved through their track.
 
 ### description
 
-The one resolver of a module ([ADR-AUTO-MODULE#1](../../../adr/automation/module-model.md#rule-adr-auto-module1)). For each deployable track
+The one resolver of a module ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../../adr/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule)). For each deployable track
 (Get-Track, by its track type) it takes the module types the track type admits, finds the modules those types place under the track's
 places, and returns each as a Catzc.Base.Modules.Module: name, track, module type, place, root, shape, files, languages, engines and the
 files the layout does not place. A module exists when its files stand in the layout, so nothing registers it
-([ADR-AUTO-MODULE#2](../../../adr/automation/module-model.md#rule-adr-auto-module2)). No track root is spelled here: the places come from
+([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../../adr/automation/module-model.md#rule-adr-auto-module-existsbylayout)). No track root is spelled here: the places come from
 the track, and the code track is anchored on the loaded code root (Get-CatzcModulesRoot) unless -RepositoryRoot names a tree.
 
 A folder under a place is a module unless its name starts with a dot. The modules a nested place holds (the internal modules under the code
@@ -23,7 +23,7 @@ track) are left out unless -IncludeInternal asks for them. Modules come in the t
 A module's languages are those of its live files (the layout marks tests and READMEs not live). A module is laid out, and its unplaced files
 are reported, only when its track's primary language (the first it declares) owns layout rows in languages.yml.
 
-It rests on [ADR-PWSH-ENUM#3](../../../adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3).
+It rests on [ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded).
 
 ### parameter `Name`
 

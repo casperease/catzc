@@ -42,7 +42,7 @@ Get-CatzcOverlay | Format-Table Kind, Module, Target
 Above `$files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every
 file of a consumer module is classified, so nothing is pruned.
 ```
 
@@ -51,6 +51,6 @@ file of a consumer module is classified, so nothing is pruned.
 Above `$prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\',...`, written with `#`.
 
 ```text
-The overlay root is .catzc/<track folder> ([ADR-PRIN-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats5))
+The overlay root is .catzc/<track folder> ([ADR-PRIN-CATS-FOLDERSUSECATZC](/docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats-foldersusecatzc))
 and names its own folder, so the records spell no track folder of their own.
 ```

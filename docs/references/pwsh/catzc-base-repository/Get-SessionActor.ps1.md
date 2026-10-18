@@ -12,7 +12,7 @@ Returns who is running this session: Pipeline, Agent, or Person.
 ### description
 
 The one answer every actor-dependent behaviour reads, so the policy lives in one place
-([ADR-AUTO-TYPES#13](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)). A CI/CD pipeline (Test-IsRunningInPipeline)
+([ADR-AUTO-TYPES-JANITORSBYCALLER](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-janitorsbycaller)). A CI/CD pipeline (Test-IsRunningInPipeline)
 wins over an agent, because an agent's run inside a pipeline is still a pipeline run; otherwise an AI coding agent (Test-IsRunningAsAgent);
 otherwise a person at a devbox. A person may change the machine and the repository on their own behalf — stop their stale sessions, commit
 generated files — while an agent leaves both to the person, and a pipeline only asserts.

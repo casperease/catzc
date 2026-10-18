@@ -10,7 +10,7 @@ Above `Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are mocked,
 and the repository root is redirected to the fixture, so each test pins one rule. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

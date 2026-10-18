@@ -9,7 +9,7 @@ Above `Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic',...`,
 
 ```text
 A markdown link must resolve on GitHub, which has only what git tracks
-([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). A fixture repository in $TestDrive stands
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). A fixture repository in $TestDrive stands
 in for the loaded repository; its tracked set is mocked (neutral widget/gadget names,
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

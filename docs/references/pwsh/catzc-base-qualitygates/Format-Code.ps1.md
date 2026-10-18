@@ -20,7 +20,7 @@ The files are every file git tracks, fixtures included, or the given -Path; vend
 byte-frozen) are never formatted (Get-FormatScope). Each file belongs to the language its extension names (Get-FileLanguage); a language
 without a formatter (`no_formatter:`) is left as it is. Each engine reads the repository's layout settings — .editorconfig, .prettierrc.yml,
 the analyzer settings, the pinned ruff configuration
-([ADR-REPO-FORMAT#4](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format4)).
+([ADR-REPO-FORMAT-BASELINEISFLOOR](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-baselineisfloor)).
 
 Each engine runs once over the files of every selected language it formats, so a tool that starts slowly starts once. A result cache under
 out/ remembers, per file, that the engine last found it formatted, keyed on the file's SHA-256 and a stamp of the engine's settings files
@@ -82,7 +82,7 @@ Above `Write-Message "$verb $($pending.Count) $(@($engineGroup.Group |...`, writ
 
 ```text
 Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends
-([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 ```
 
 ## comment:2

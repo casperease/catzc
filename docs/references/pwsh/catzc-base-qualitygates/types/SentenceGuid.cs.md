@@ -16,7 +16,7 @@ instead advances to the next GUID dash group, so each word lands in its own segm
 ("sample test data" → 5a001e00-7e57-da7a-…). The mint behind ConvertTo-Guid: run by a human or an LLM to
 produce readable placeholder GUIDs for the managed-GUID registry (guids.yml) — never called by
 production code. Validity is structural: any 32 hex digits form a parseable GUID, so every input yields
-one. BCL-only ([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
+one. BCL-only ([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)).
 </summary>
 ```
 

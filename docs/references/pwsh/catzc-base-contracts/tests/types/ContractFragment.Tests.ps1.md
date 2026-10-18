@@ -5,10 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ContractFragment' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {`, written with `#`.
+Above `Describe 'ContractFragment' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {`, written with `#`.
 
 ```text
 ContractFragment checks that a real file contains a fragment
-([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): JSON and YAML by key subset, any
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): JSON and YAML by key subset, any
 other text by its non-blank lines in order. Each rule has a passing and a failing target.
 ```

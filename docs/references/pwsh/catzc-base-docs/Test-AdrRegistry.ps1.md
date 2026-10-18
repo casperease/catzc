@@ -11,7 +11,7 @@ Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the ADR registry (Get-Config
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the ADR registry (Get-Config
 -Config adrs, an AdrsConfig) and the ADR files it registers. An ADR rule file is a `docs/adr/**/*.md` that declares a `## Rules: <code>`
 registry; the other files there (the generated index and glossary, each domain's dora-explains.md, a folder's index.md or README.md) carry
 none and are out of scope. It collects an issue when:
@@ -60,5 +60,5 @@ Above `$configured = @(`, written with `#`.
 
 ```text
 The configured checks: one mode setting each, the same handling for both
-([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
 ```

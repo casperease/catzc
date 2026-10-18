@@ -39,7 +39,7 @@ Above `$isCandidate = {`, written with `#`.
 
 ```text
 Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:5

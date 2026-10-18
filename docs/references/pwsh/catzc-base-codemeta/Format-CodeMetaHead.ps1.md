@@ -13,7 +13,7 @@ Returns a code text with its meta head imprinted from the given facts.
 
 The same facts always give the same bytes, so a second run changes no file and a formatter never undoes the head.
 
-It rests on [ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 
 ### parameter `Text`
 

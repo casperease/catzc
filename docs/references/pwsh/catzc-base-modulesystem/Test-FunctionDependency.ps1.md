@@ -18,7 +18,7 @@ An issue is an unresolved call ('`<caller>` -> `<missing>` (`<module>/<file>:<li
 (module-root) function name — exported names must be globally unique, mirroring the importer's Assert-UniqueModuleFunctionName. Duplicate
 private names across modules are allowed (privates are module-scoped and not exported).
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-function-dependency/, prints every issue, and throws once listing them all; -PassThru returns
 the result instead.
 
@@ -59,7 +59,7 @@ Above `$parsed = [System.Collections.Generic.List[object]]::new()`, written with
 
 ```text
 Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
-overhead, [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)); the definition map
+overhead, [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)); the definition map
 and the call-resolution walk reuse these ASTs, so each file is read and parsed a single time. The walk itself is
 [Catzc.Base.ModuleSystem.FunctionCallCollector] — one C# pass per function, not scriptblock-predicate FindAll calls.
 ```

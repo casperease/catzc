@@ -23,7 +23,7 @@ tell an expired token or a revoked role from a working one.
 
 The generic, azure.yml-free primitive — the single source of the check shared by Test-AzCliSubscriptionAccessible (returns a bool) and
 Assert-AzCliSubscriptionAccessible (throws), so the two cannot drift. See
-[ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
+[ADR-AZ-CLI-AZBYDEFAULT](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault).
 
 Returns an ordered dictionary:
 

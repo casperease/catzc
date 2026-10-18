@@ -10,5 +10,5 @@ Above `BeforeEach {`, written with `#`.
 ```text
 The probe's only process start, with Invoke-Executable mocked: the located path is run (quoted), never a
 bare name, and the version is the pattern's named group. Fixture tokens are neutral
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

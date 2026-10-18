@@ -12,7 +12,7 @@ Generates the per-category spell-checker dictionaries from the terminology regis
 ### description
 
 Reads the approved-vocabulary registry (configs/terminology.yml, via Get-Config -Config terminology) and writes one plain cspell word list
-per category ([ADR-AUTO-SPELL#6](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell6)) to the repository root's
+per category ([ADR-AUTO-SPELL-CATEGORYANDMEANING](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)) to the repository root's
 `.cspell/<category>.txt` — one file per category defined in the registry (see .cspell/README.md) — the lists cspell.yml references as
 separate dictionaries. Each carries the generated-file head as a comment (cspell treats '#' lines as comments) naming its generator and
 source. Each list is lower-cased, de-duplicated, and ordinal-sorted, so the output is deterministic — the same registry always produces
@@ -21,12 +21,12 @@ file set — and cspell.yml — stay stable.
 
 terminology.yml is the single source of truth; these lists are generated, never hand-edited. Like the .psd1 manifests they are gitignored
 and regenerated at the importer tail (see importer.ps1), so cspell resolves them at fixed paths without a committed second copy of the
-vocabulary ([ADR-REPO-OUTDIR#8](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).
+vocabulary ([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)).
 
 See [ADR-AUTO-SPELL](../../../adr/automation/spell-out-names.md)
-([ADR-AUTO-SPELL#5](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell5),
-[ADR-AUTO-SPELL#6](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell6)) and
-[ADR-REPO-OUTDIR#8](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8).
+([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource),
+[ADR-AUTO-SPELL-CATEGORYANDMEANING](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)) and
+[ADR-REPO-OUTDIR-DICTIONARIESGENERATED](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated).
 
 ### parameter `DryRun`
 
@@ -66,7 +66,7 @@ Above `$categories = @($config.categories)`, written with `#`.
 
 ```text
 One dictionary per category
-([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)): each category's
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)): each category's
 terms generate their own cspell word list, so
 cspell.yml can reference — and scope — them independently. The category set is the registry's own
 'categories' map (the single source, validated by TerminologyConfig); every category's file is always
@@ -108,7 +108,7 @@ Above `$dictPath = Join-Path $cspellDir "$category.txt"`, written with `#`.
 
 ```text
 Gitignored, generated artifact at the repository root's .cspell/
-([ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)), at the fixed
+([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)), at the fixed
 path
 cspell.yml references.
 ```

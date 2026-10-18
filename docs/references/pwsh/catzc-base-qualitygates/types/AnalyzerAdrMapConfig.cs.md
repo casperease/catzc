@@ -14,7 +14,7 @@ the 'pssa-rule' enforcer kind in the rule-coverage report (Get-AnalyzerAdrCovera
 Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig), so
 Get-Config -Config analyzer-adr-map returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Load-time rules are SHAPE and citation GRAMMAR only:
   - only the top-level key 'analyzers', a required, non-empty map;
@@ -22,5 +22,5 @@ Load-time rules are SHAPE and citation GRAMMAR only:
   - each id is a well-formed 'ADR-<CODE>#<n>'.
 That each id names a real rule, and that every custom analyzer is mapped, are cross-asset facts the
 'analyzer-adr-map integrity' test checks — config load never reads the ADR tree or the .scriptanalyzer folder
-(the [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3) pattern — load stays hermetic).
+(the [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern — load stays hermetic).
 ```

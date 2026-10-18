@@ -10,7 +10,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Get-ChangedFile' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-The diff universe ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): changed paths
+The diff universe ([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): changed paths
 from `git diff --name-only --no-renames`, repo-relative,
 quotepath off, renames split so both the old and new path count.
 ```

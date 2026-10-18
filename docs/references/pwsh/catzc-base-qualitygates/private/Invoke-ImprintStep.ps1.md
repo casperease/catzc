@@ -13,8 +13,8 @@ Runs one imprint step over the given files and returns what it changed and what 
 
 A language is never named here: which language runs which step is configuration, not code.
 
-It rests on [ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2) and
-[ADR-REPO-FORMAT#8](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8).
+It rests on [ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange) and
+[ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters).
 
 ### parameter `Step`
 

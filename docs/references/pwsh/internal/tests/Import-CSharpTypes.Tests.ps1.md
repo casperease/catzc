@@ -35,7 +35,7 @@ requires — so New-FixtureRoot auto-prepends "namespace <module>;" UNLESS the c
 namespace line (the negative tests ship a wrong/block-scoped one to exercise the gate). Returns the root
 to pass as -ModulesRoot. Import-CSharpTypes writes the combined assembly to <root>/.compiled/.
 [System.IO] rather than New-Item/Set-Content — ~0.1ms vs ~20ms/call
-([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)). WriteAllText writes the
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). WriteAllText writes the
 string verbatim (no trailing newline appended); the auto-prepend uses LF, so a fixture's line endings
 are exactly the source's bar that one leading line — the CRLF/LF-flip regression below relies on that.
 ```

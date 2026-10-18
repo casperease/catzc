@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 One output-format pattern: an output-root-relative glob, parsed once
-([ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1)). It answers two questions:
+([ADR-REPO-OUTFMT-OUTPUTFORMAT](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt-outputformat)). It answers two questions:
 does a path match it (Matches), and can any path match both it and another pattern (Overlaps). The catalogue
 rejects two formats whose patterns overlap, so a file's format never depends on order or specificity.
 

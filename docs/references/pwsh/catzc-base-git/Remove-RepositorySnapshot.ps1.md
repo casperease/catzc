@@ -34,6 +34,6 @@ Remove-RepositorySnapshot $snapshot.Path
 Above `foreach ($file in Get-ChildPath $Path -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
 read-only files are mostly git objects under .git, so nothing is pruned.
 ```

@@ -10,5 +10,5 @@ Above `Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {`, written wit
 ```text
 Get-TestAutomationTestPaths over a fixture pwsh/ tree in $TestDrive (Get-RepositoryRoot and
 Get-ModuleOrder mocked): two modules with tests, one without, and one dot-prefixed infrastructure folder.
-Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

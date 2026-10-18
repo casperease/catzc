@@ -14,8 +14,8 @@ Imprints the place facts and the edges into the meta block of every in-scope Mar
 The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a file whose
 block holds a key no meta kind owns is reported and left unchanged.
 
-It rests on [ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3) and
-[ADR-REPO-FORMAT#9](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format9).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts) and
+[ADR-REPO-FORMAT-METAIMPRINT](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-metaimprint).
 
 ### parameter `Path`
 
@@ -61,5 +61,5 @@ Above `function Format-FileMeta {`, written with `#`.
 
 ```text
 The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
-[ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
+[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)
 ```

@@ -12,7 +12,7 @@ Publishes the Claude Code Bash time-safeguard hook (a small C# program) when its
 ### description
 
 The hook (.claude/hooks/Assert-BashTimeout/) runs before every Bash call an agent makes and denies a call that does not run inside the
-safeguard ([ADR-AUTO-FAILFAST#7](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). It is a compiled program
+safeguard ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). It is a compiled program
 rather than a script because it runs that often: it starts in about a third of the time pwsh does. This publishes it, framework-dependent,
 to .claude/hooks/bin/ (gitignored), and records a hash of the sources beside it; while the hash matches and the program is present, it does
 nothing, so the importer can run it on every import.

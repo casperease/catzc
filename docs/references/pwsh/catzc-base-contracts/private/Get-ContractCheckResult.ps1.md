@@ -11,7 +11,7 @@ Checks one contract asset against the repository by its kind, and returns the re
 
 ### description
 
-Runs the check of the asset's kind ([ADR-REPO-CONTRACT#6](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract6)):
+Runs the check of the asset's kind ([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)):
 
 - Presence: the target exists with the exact case of its path (Get-ContractPresenceFindings);
 - Fragment: the target exists and contains the fragment (Get-ContractFragmentFindings);
@@ -20,7 +20,7 @@ Runs the check of the asset's kind ([ADR-REPO-CONTRACT#6](../../../../adr/reposi
   keywords only; the sample is not validated here, since its own check does that, so a defect gives one finding on one result;
 - Sample: the payload parses, and validates against the schema beside it (Get-ContractSampleFindings).
 - Command: the command's file exists and declares the signature the contract states (Get-ContractCommandFindings,
-  [ADR-REPO-CMDCONTRACT#4](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract4)).
+  [ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)).
 
 A failed check is findings on the result, never an exception.
 

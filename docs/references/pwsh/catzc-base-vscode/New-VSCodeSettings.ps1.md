@@ -41,7 +41,7 @@ copy, so a machine path is in place there.
 
 The editor formatter of each language, VS Code language id -> extension id, rendered as that language's `[<id>].editor.defaultFormatter`.
 Supplied by the generator dispatch from the file-language registry, so Format Document runs the engine Format-Code runs
-([ADR-REPO-FORMAT#8](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8)); an authored `[<id>]` block keeps its own
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)); an authored `[<id>]` block keeps its own
 settings, and an authored defaultFormatter in it wins.
 
 ### outputs

@@ -16,5 +16,5 @@ copies with it. Constructing one MAPS and VALIDATES the entry, collecting every 
   - each package is a non-empty list of non-empty paths (not a single string), each repository-root-relative and
     forward-slashed (not rooted, no '\', no '..' segment), as the file's own header declares.
 Global package-name uniqueness spans modules, so FilesConfig checks it. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 ```

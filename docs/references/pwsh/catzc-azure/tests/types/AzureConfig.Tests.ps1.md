@@ -12,8 +12,8 @@ Above `$script:baseConfig = [ordered]@{`, written with `#`.
 ```text
 Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*
 subscriptions) so this logic test owns its inputs and editing the shipped azure.yml can never
-change its outcome ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1),
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). The AzureConfig type
+change its outcome ([ADR-AUTO-TEST-ONECATEGORY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-onecategory),
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The AzureConfig type
 validates the passed dict standalone, so the fixture needs no shipped config.
 ```
 

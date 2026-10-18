@@ -9,13 +9,13 @@ Above `using System;`, written with `//`.
 
 ```text
 One contract asset under contracts/<unit>/<version>/<module>/<path>
-([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)), with every fact Get-Contract
-derives from its name alone ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
-[ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)). A result type, not a config mirror,
-so the properties are PascalCase ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+([ADR-REPO-CONTRACT-LAYOUT](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-layout)), with every fact Get-Contract
+derives from its name alone ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset),
+[ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)). A result type, not a config mirror,
+so the properties are PascalCase ([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
-Every path is in communication form ([ADR-AUTO-PATH#1](/docs/adr/automation/path-representation.md#rule-adr-auto-path1),
-[ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2)): relative, '/'-separated, with no
+Every path is in communication form ([ADR-AUTO-PATH-TWOFORMS](/docs/adr/automation/path-representation.md#rule-adr-auto-path-twoforms),
+[ADR-AUTO-PATH-COMMUNICATIONFORM](/docs/adr/automation/path-representation.md#rule-adr-auto-path-communicationform)): relative, '/'-separated, with no
 '.', '..' or empty segment. Construction rejects any other form.
   Unit       the deployable-unit that carries the contract (e.g. catzc)
   Version    the unit's version folder (0.0.0 is the draft)

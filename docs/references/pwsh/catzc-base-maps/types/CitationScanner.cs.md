@@ -10,10 +10,10 @@ Above `using System;`, written with `//`.
 ```text
 Finds the ADR citations in a file's text and maps each to its domain through the adrs index (the external codes of
 Catzc.Base.Docs' adrs.yml, each with the domain it belongs to). Code cites ADRs in its help and comments
-([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)), so the citations drive the world-map
+([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)), so the citations drive the world-map
 highlight. Three forms are a citation: ADR-<CODE>#n and ADR-<CODE>:n (one rule; both become the canonical
 ADR-<CODE>#n) and the bare ADR-<CODE> (the whole ADR). A look-alike is not: a code the index does not list, a code
-glued to a letter, digit, underscore or hyphen on either side (rule-adr-auto-types8 in a link anchor, a letter
+glued to a letter, digit, underscore or hyphen on either side (rule-adr-auto-types-snakecasemirrorsyaml in a link anchor, a letter
 before the ADR, ADR-...-* as a wildcard), and lowercase text. Only the file kinds that cite are read (CitingExtensions).
 ```
 

@@ -47,7 +47,7 @@ resolver and the asset inventory (both read the real configs/tree), and git.
 Above `foreach ($file in Get-ChildPath $Root -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a snapshot
+A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a snapshot
 compares every file of a build, so nothing is pruned.
 ```
 
@@ -56,6 +56,6 @@ compares every file of a build, so nothing is pruned.
 Above `$script:files = @(foreach ($file in Get-ChildPath $root -File -Depth 64...`, written with `#`.
 
 ```text
-A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
 assertions cover every file of the build, so nothing is pruned.
 ```

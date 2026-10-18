@@ -8,9 +8,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Test-Links' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-Test-Links is the link quality gate ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)):
+Test-Links is the link quality gate ([ADR-REPO-LINK-ALIGNEDBYTOOL](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)):
 the same engine as Format-Links, read-only, ending through Write-QualityGateReport
-([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). A fixture repository in
+([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). A fixture repository in
 $TestDrive (neutral widget/gadget codes,
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) holds the files under test.
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) holds the files under test.
 ```

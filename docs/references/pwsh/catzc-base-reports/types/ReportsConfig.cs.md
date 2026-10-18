@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 The quality-gate report settings (configs/reports.yml): where a gate writes its report and how the files are
 named. Every key has a sensible default, so the file overrides only what differs — an empty file means the
 defaults: out/test-<subject>/<yyyyMMdd-HHmmss>/<subject>.md plus out/test-<subject>/latest.txt
-([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). `{subject}` in a value is the
+([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). `{subject}` in a value is the
 gate's subject (a kebab-case name such as 'spelling'). Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 ```

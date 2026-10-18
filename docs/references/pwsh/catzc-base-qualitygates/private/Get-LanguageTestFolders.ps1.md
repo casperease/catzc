@@ -12,18 +12,18 @@ Lists the repository's test folders in every test language beside PowerShell, ea
 ### description
 
 The test languages are test artifacts only, each in a root verification track of its own
-([ADR-DSGN-TRACK#2](../../../../adr/design/tracks.md#rule-adr-dsgn-track2)):
+([ADR-DSGN-TRACK-ONETRACKTYPE](../../../../adr/design/tracks.md#rule-adr-dsgn-track-onetracktype)):
 
 ```text
 go      <goRoot>/tests/<folder>/ holding at least one .go file (the folders New-GoWorkspace renders a go.mod
         for); the Go root is go.yml's, through GoConfig.ResolveRoot: the declared root, else go/ when the
-        repository has one, else .go/ ([ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2));
+        repository has one, else .go/ ([ADR-AUTO-GO-ONEGOROOT](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot));
 python  <pythonRoot>/tests/<folder>/ holding at least one test_*.py file; the Python root is python.yml's,
         through PythonConfig.ResolveRoot, by the same convention: python/ when present, else .python/
-        ([ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2));
+        ([ADR-AUTO-PY-ONEPYTHONROOT](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot));
 bash    <bashRoot>/tests/<folder>/ holding at least one .bats file; the Bash root is bash.yml's, through
         BashConfig.ResolveRoot: bash/ when present, else .bash/
-        ([ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)).
+        ([ADR-AUTO-BASH-ONEBASHROOT](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)).
 ```
 
 A folder whose name starts with '.' is never a test folder. Each folder is named for its catzc module in kebab case — the module name

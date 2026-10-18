@@ -5,9 +5,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {`, written with `#`.
+Above `Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {`, written with `#`.
 
 ```text
 Invoke-ImprintStep with its seams mocked: the registries (Get-Config) and the C# namespace command (Format-Types), over fixture files
-in $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+in $TestDrive. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

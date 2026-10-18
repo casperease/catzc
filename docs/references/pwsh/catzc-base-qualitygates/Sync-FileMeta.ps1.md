@@ -15,7 +15,7 @@ A one-shot for the file at hand, after an edit, a move or a rename: it formats t
 (Format-Code, cache off), then imprints, replaces or strips its meta block as the head policy of its class says (Format-FileMeta), so a file
 whose language has no formatter is brought up to date too. A file git does not track yet is taken as given; a file git ignores is left
 alone. The facts come from the registries, git, the disk and the file's text, never from its head
-([ADR-REPO-FILEMETA#14](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta14)).
+([ADR-REPO-FILEMETA-NOREADBACK](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)).
 
 It loads the registries on every call, so it is no loop primitive: a loop asks an Assert- or Test- guard the one question it needs. It
 writes and never judges; Test-FileMeta and Test-Formatting give the verdict.

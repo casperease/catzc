@@ -115,7 +115,7 @@ Above `$showStateChanges = $VerbosePreference -ne 'SilentlyContinue'`, written w
 
 ```text
 -Verbose shows the importer's own state-change record
-([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)). The
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)). The
 dot-sourced shim binds it in the caller's scope, so for the import the session-wide preference is quieted,
 restored in the finally below: otherwise every Import-Module would list each function it dot-sources and exports.
 ```
@@ -167,13 +167,13 @@ Above `Write-ImporterMessage ("Session:...`, written with `#`.
 
 ```text
 Every lasting change to the caller's session is announced
-([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)):
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
 the preferences and the
 error view, then the two roots and the internal modules that stay loaded — RepositoryRoot set by the
 importer.ps1 shim and the modules by Import-InternalModule, which both delegate their announcement here.
 This is the first point Write-ImporterMessage (Catzc.Internal.Bootstrap) is loaded. Like every announcement
 of the importer's own load, they go on its verbose record
-([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 ```
 
 ## comment:16
@@ -190,7 +190,7 @@ Optionally wipe compiled type DLLs first so the import below rebuilds them from 
 Above `Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot`, written with `#`.
 
 ```text
-The two run modes never coexist ([ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)):
+The two run modes never coexist ([ADR-DSGN-RUNMODE-NEVERCOEXIST](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode-nevercoexist)):
 Import-AllModules evicted the other mode, and this
 proves it before any janitor touches the tree from a mixed session.
 ```
@@ -407,10 +407,10 @@ Reconcile the session PATH to whatever tools are actually present — including 
 installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
 Session-only, self-skips in CI. The importer is dot-sourced, so its PATH nudges land in the caller's live
 session. The janitor announces each nudge like any function, but at every shell open the same nudges are part
-of the load record ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)):
+of the load record ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)):
 the importer's -Verbose decides whether they are shown, so a plain import prints only the Loaded line. The
 quieting is the session-wide information preference, restored in the finally
-([ADR-PWSH-ANNOUNCE#9](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce9)): a common parameter
+([ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-unannouncedchanges)): a common parameter
 would reach only the janitor's own scope, not the writer chokepoint in Catzc.Base.Writers. Guarded: absent in
 the bootstrap sandbox (Catzc.Tooling.Core).
 ```

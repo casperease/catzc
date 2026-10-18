@@ -9,8 +9,8 @@ Above `kinds:`, written with `#`.
 
 ```text
 The meta-kind registry: each entry is one kind of derived fact imprinted into a file's meta block, with defaults on FileMetaKind.
-[ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
-[ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+[ADR-REPO-FILEMETA-METAKIND](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)
 ```
 
 ## comment:3

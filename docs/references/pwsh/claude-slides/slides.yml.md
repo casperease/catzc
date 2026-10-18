@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `token:`, written with `#`.
 
 ```text
-The slides kit's sensible defaults, declared once ([ADR-REPO-SLIDES#2](/docs/adr/repository/slides-as-markdown.md#rule-adr-repo-slides2));
+The slides kit's sensible defaults, declared once ([ADR-REPO-SLIDES-PATTERN](/docs/adr/repository/slides-as-markdown.md#rule-adr-repo-slides-pattern));
 a pattern reads them as {{@token.*}}, {{@face.*}}, {{@scale.*}}
 and {{@layout.*}} placeholders, and a slide file never repeats them. Two-level mapping only: a section, then key: value.
 ```

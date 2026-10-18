@@ -20,7 +20,7 @@ remediation message that distinguishes not-installed from too-old). Both share G
 Why this exists: `az bicep build` auto-installs the Bicep CLI on first use, and on a machine where that install is missing, blocked
 (enterprise proxy/firewall), or stale, the first build can exit zero while writing no main.json. Probing `az bicep version` first surfaces —
 and warms — the Bicep CLI, and enforces a known-good minimum, before a build depends on it. See
-[ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1) and
+[ADR-AZ-CLI-AZBYDEFAULT](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault) and
 [ADR-AUTO-ENTERP](../../../adr/automation/effective-in-enterprises.md).
 
 ### example 1

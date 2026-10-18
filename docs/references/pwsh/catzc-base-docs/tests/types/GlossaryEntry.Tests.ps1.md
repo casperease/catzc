@@ -10,5 +10,5 @@ Above `Describe 'GlossaryEntry' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Validates the compiled GlossaryEntry result type — one merged concept with its owning module, source path, and
 options. Fixture terms are neutral (widget/gadget,
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

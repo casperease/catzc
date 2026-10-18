@@ -69,7 +69,7 @@ unconstrained; once you list it, it is policed — so list it.
 
 If the module needs its own settings, drop `pwsh/<Module>/configs/<name>.yml` and read it anywhere with `Get-Config -Config <name>` —
 one reader, cached per session, validated on load. Every shipped config has a C# config type
-([ADR-CONF-LOADING#4](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)): add one to the module's `types/` (see
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)): add one to the module's `types/` (see
 [add-a-dotnet-type](BCL/add-a-dotnet-type.md)) and register it in `Catzc.Base.Config/configs/configs.yml` as `<name>: { type: <FQN> }`;
 `Get-Config` constructs it on load, and its constructor validates the file. Keep keys `snake_case`.
 

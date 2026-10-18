@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 Rebases the relative links of a markdown article for a copy of it in another folder: every relative link target is
 resolved at the article's own folder and rewritten relative to the copy's folder, so each link works where the copy is
-opened ([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)). Left as written: fenced
+opened ([ADR-REPO-README-WORKINGLINKS](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)). Left as written: fenced
 code blocks and inline code spans, URLs (a scheme), in-file #anchors, repository-rooted /targets, and a target that
 climbs above the repository root. The link grammar is the one the Test-Links quality gate reads (MarkdownLinkScanner).
 Pure: paths are repository-relative and '/'-separated, so the result does not depend on the OS or the disk.

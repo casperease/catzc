@@ -18,14 +18,14 @@ pure-logic file is scanned for live-identity string literals; an integrity or `*
 reported as needing a split.
 
 This is itself an INTEGRITY check (it reads the shipped config and the whole test tree), so it is tagged `integrity` where a Pester test
-wraps it. A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
+wraps it. A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-logic-test-identity/, prints every finding as '`<file>:<line>`: `<message>`', and throws once
 listing them all; -PassThru returns the result instead.
 
 Stage 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable units, ADO project); environment
 names (dev/test/preprod/prod) are a later, position-aware stage.
 
-It rests on [ADR-AUTO-TEST#3](../../../adr/automation/test-automation.md#rule-adr-auto-test3) and
+It rests on [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and
 [ADR-REPO-LANG](../../../adr/repository/domain-language-separation.md).
 
 ### parameter `Path`

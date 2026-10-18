@@ -11,5 +11,5 @@ Above `concepts:`, written with `#`.
 glossary.yml — the Catzc.Azure.Templates glossary source: the vocabulary of the Bicep template configuration this module
 builds and deploys ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five
 checks, the whole repository, every text surface
-([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
 ```

@@ -11,7 +11,7 @@ The tracked files a globset finally selects — the single source of a set's inc
 
 ### description
 
-The one definition of "what is IN the package" ([ADR-FLOW-CD-GLOBS#4](../../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)):
+The one definition of "what is IN the package" ([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)):
 the matching universe (`git ls-files`) intersected with the set's final membership (GlobSet.Matches, last-match-wins), ordinal-sorted. Every
 consumer of the member list routes through here — the durable content SHA (Get-GlobSetHash), the public Get-GlobSetFile — so the scoped list
 can never drift between the hash and the public file list. A member may be missing on disk (an unstaged deletion); it is still a member.

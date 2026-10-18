@@ -14,7 +14,7 @@ Lists the Windows-registered products (Apps & features entries) that own an inst
 Reads the machine-wide uninstall registry (64- and 32-bit views) and returns the entries whose DisplayName matches -NamePattern — an
 MSI/bundle install such as the .NET SDK registers its products there, and often without an InstallLocation, so the name is the reliable key.
 An install those products own must be removed by the mechanism that placed it; deleting its folder by hand orphans every entry
-([ADR-AUTO-REMOVE#7](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7)).
+([ADR-AUTO-REMOVE-THREEPLATFORMCORES](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-threeplatformcores)).
 
 Each entry says what kind of installer placed it and carries the command that removes it by that mechanism:
 

@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-One writer Test-GeneratedFiles runs report-only; every default is declared here once (ADR-AUTO-DEFAULT#6).
+One writer Test-GeneratedFiles runs report-only; every default is declared here once (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 The check says which report shape the writer's -PassThru result has.
 ```
 

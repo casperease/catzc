@@ -18,7 +18,7 @@ Above `$englishPath = Get-CatzcModuleRoot 'assets/english.txt.gz' -Module...`, w
 
 ```text
 Binds to the shipped English list + the generated term lists — an integrity test by construction
-([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)): it verifies the real oracle,
+([ADR-AUTO-TEST-ONECATEGORY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-onecategory)): it verifies the real oracle,
 not a fixture. The static load is idempotent, so this is safe
 to run alongside any other consumer in the same process.
 ```

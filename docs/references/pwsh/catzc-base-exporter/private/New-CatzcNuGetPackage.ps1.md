@@ -11,7 +11,7 @@ Packs a Catzc build into a NuGet package (.nupkg) for a local-path Install-PSRes
 
 ### description
 
-The package delivery shape ([ADR-AUTO-BUNDLE#6](../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle6)). The build folder is
+The package delivery shape ([ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL](../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-twoartifactinstall)). The build folder is
 already an installable module — its Catzc.psd1 carries the version, GUID and package metadata, its Catzc.psm1 loads the platform, and the
 vendored dependencies ride inside its .vendor/ — so the build folder itself is compressed, as is, with Compress-PSResource into
 `<DestinationPath>/Catzc.<version>.nupkg` (pack only, no publish). A client registers the destination folder as a PSResource repository and

@@ -12,7 +12,7 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 | 3   | L1   | pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1    | Test-ConfigIdentityHygiene                        | The real shipped config stays identity-clean against the fixture-derived token set (no fixture-identity leak into shipped data).   |
 | 4   | L1   | pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1               | Test-Automation (vendored Pester)                 | Test-Automation lazy-loads the vendored Pester from the active code root, and it is the version the session runs.                  |
 | 5   | L1   | pwsh/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1              | Test-InIsolation (vendored Pester)                | Test-InIsolation lazy-loads the vendored Pester from the active code root, and it is the version the session runs.                 |
-| 6   | L2   | pwsh/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1               | Invoke-TestFile (real worker)                     | The manual single-check entry point runs a strict-hostile file green through the worker chain — harness parity (ADR-AUTO-TEST#25). |
+| 6   | L2   | pwsh/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1               | Invoke-TestFile (real worker)                     | The manual single-check entry point runs a strict-hostile file green through the worker chain — harness parity (ADR-AUTO-TEST-FILEPARALLELISM). |
 | 7   | L2   | pwsh/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1 | worker execution (real pwsh through PesterRunner) | A generated shard worker runs in a real pwsh and loads Pester from the active code root's `.vendor/Pester`.                        |
 
 ## Checks

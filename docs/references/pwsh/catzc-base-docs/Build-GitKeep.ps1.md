@@ -22,7 +22,7 @@ Idempotent and fast by construction, so the importer runs it on every load besid
 (canonical output, EOL-insensitive compare, write only on drift). .gitkeep files are committed — tracking the folder is their whole job — so
 a source change lands as a reviewable diff across every location. See [ADR-REPO-README](../../../adr/repository/generated-readmes.md).
 
-It rests on [ADR-PWSH-PESTER#9](../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9).
+It rests on [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths).
 
 ### parameter `DryRun`
 

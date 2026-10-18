@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 The value model the contract checks compare: a parsed JSON or YAML document as PowerShell hands it over
 (ConvertFrom-Json -AsHashtable, the vendored ConvertFrom-Yaml -Ordered), read as one of seven JSON kinds
-([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)).
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)).
   object   any IDictionary (Hashtable, OrderedHashtable, OrderedDictionary); keys compare as invariant strings, ordinally
   array    any IList (object[], List<object>)
   string   a string (the YAML parser leaves a timestamp a string)

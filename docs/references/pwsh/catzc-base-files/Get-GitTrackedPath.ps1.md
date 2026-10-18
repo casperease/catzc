@@ -63,7 +63,7 @@ Above `$script:gitIndexCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2
@@ -73,5 +73,5 @@ Above `$content = [System.IO.File]::ReadAllBytes($indexPath)`, written with `#`.
 ```text
 The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`),
 so a cached listing is reused only while the bytes on disk are identical
-([ADR-AUTO-CACHE#9](/docs/adr/automation/caching.md#rule-adr-auto-cache9)).
+([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](/docs/adr/automation/caching.md#rule-adr-auto-cache-sessionchangedgitstate)).
 ```

@@ -9,14 +9,14 @@ Above `using System;`, written with `//`.
 
 ```text
 Finds the comment spans of a source file — the only places a code link lives
-([ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)) — per language
+([ADR-REPO-LINK-KINDBYFILE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)) — per language
 family, by file extension:
   PowerShell (.ps1 .psm1 .psd1)   the real PowerShell tokenizer's Comment tokens (line comments and <# #> blocks)
   C family   (.cs .bicep)         // and /* */ (/// included), skipping string, verbatim, raw, and char literals
   Hash       (.yml .yaml)         # at line start or after whitespace, outside quoted scalars and block scalars
   XML        (.csproj .props .targets)  <!-- -->
 It also returns the string-literal spans, which hold docs paths and citations as data
-([ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)): PowerShell's string tokens, C#'s
+([ADR-REPO-LINK-STRINGSAREDATA](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-stringsaredata)): PowerShell's string tokens, C#'s
 and Bicep's string literals (regular, verbatim, interpolated, raw), and a YAML line's text outside its comment.
 Spans are (Start, Length) offsets into the text, in document order.
 ```

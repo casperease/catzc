@@ -10,5 +10,5 @@ Above `Describe 'Get-AdrFileIndex' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Get-AdrFileIndex — every docs/adr/**/*.md keyed by "<domain folder>/<slug>", and each rule set mapped to its one file. A fixture
 tree in $TestDrive and a fixture registry; neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -4,6 +4,12 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
         [void][System.IO.Directory]::CreateDirectory($rules)
         [System.IO.File]::WriteAllText((Join-Path $rules 'WidgetRules.psm1'), (@('function Measure-Widget { }', 'function Get-Helper { }') -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $rules 'CatzcRules.psm1'), 'function Measure-Dispatch { }')
+        [System.IO.File]::WriteAllText((Join-Path $rules 'GizmoEntry.psm1'), 'function Measure-GizmoEntry { }')
+        # The entry rules are what the settings' CustomRulePath lists; the fixture names two.
+        $assets = Join-Path $TestDrive '.internal/assets'
+        [void][System.IO.Directory]::CreateDirectory($assets)
+        [System.IO.File]::WriteAllText((Join-Path $assets 'PSScriptAnalyzerSettings.psd1'),
+            "@{ CustomRulePath = @('pwsh/.scriptanalyzer/CatzcRules.psm1', 'pwsh/.scriptanalyzer/GizmoEntry.psm1') }")
         $script:out = Join-Path $TestDrive 'out'
     }
 
@@ -20,7 +26,13 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'passes when every cited id is real and every custom rule is mapped (the entry rule excluded)' {
+    It 'leaves every entry rule the settings list out of the map, and still counts a check that is not one' {
+        $result = Test-AnalyzerAdrMap -OutputFolder $out -PassThru
+        $result.Issues | Should -Not -Match 'Measure-Dispatch|Measure-GizmoEntry'
+        $result.Facts['CustomRules'] | Should -Be 1
+    }
+
+    It 'passes when every cited id is real and every custom rule is mapped (the entry rules excluded)' {
         $result = Test-AnalyzerAdrMap -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
         $result.Facts['Analyzers'] | Should -Be 2

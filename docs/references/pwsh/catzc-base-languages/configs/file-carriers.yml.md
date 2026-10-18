@@ -9,9 +9,9 @@ Above `carriers:`, written with `#`.
 
 ```text
 Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.
-[ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1),
-[ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-[ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+[ADR-REPO-FILEMETA-HEADPOLICY](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy),
+[ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig),
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)
 ```
 
 ## comment:2

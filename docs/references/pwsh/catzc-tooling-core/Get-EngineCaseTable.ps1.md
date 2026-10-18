@@ -44,6 +44,6 @@ Above `if ($Engine) {`, written with `#`.
 
 ```text
 The engines are declared once
-([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)): Get throws, naming them,
+([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)): Get throws, naming them,
 for any other name.
 ```

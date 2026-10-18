@@ -20,7 +20,7 @@ The "relative-where-possible" normalization for paths kept in records, configs, 
    no repo-relative form (it lives outside the repo) is captured here.
 2. Under the REPOSITORY root (Get-RepositoryRoot) -> a plain repo-relative path (forward slashes).
 3. Under neither -> returned absolute (normalized). No repo/out-relative form exists; degrade honestly
-   ([ADR-AUTO-PATH#5](../../../adr/automation/path-representation.md#rule-adr-auto-path5)) rather than emit a hybrid.
+   ([ADR-AUTO-PATH-FOREIGNPATHS](../../../adr/automation/path-representation.md#rule-adr-auto-path-foreignpaths)) rather than emit a hybrid.
 
 Pairs with Resolve-RepoPath, which turns the result back into an absolute path against the matching root.
 

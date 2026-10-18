@@ -12,7 +12,7 @@ One named bundle of configs/exporter.yml (`bundles.<name>`): a release identity 
 carries, its own version line, and which vendored modules travel with it
 ([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)). The repository is a mono repo, so every bundle
 versions on its own; no bundle's version moves another's. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the block, collecting every violation into one ArgumentException:
   profile        required; the module set (a profiles.yml key; not cross-checked here, so loading stays

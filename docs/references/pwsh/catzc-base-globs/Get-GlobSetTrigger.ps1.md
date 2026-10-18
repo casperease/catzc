@@ -12,7 +12,7 @@ Projects a globset's scan program into vendor-native pipeline path filters — t
 ### description
 
 The pipeline trigger: project the set's flattened scan program
-([ADR-FLOW-CD-GLOBS#4](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)/8) straight into the vendor's own `paths` filter, so
+([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)/8) straight into the vendor's own `paths` filter, so
 the trigger fires — or does not start at all — on the real files, with no committed hash to go stale across a squash or concurrent merge.
 
 Two dialects, from the one program:
@@ -26,8 +26,8 @@ Two dialects, from the one program:
   membership (a root-glob re-added over an equal-depth exclude) is caught by the superset integrity test, not here; this function only
   performs the mechanical projection.
 
-It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
-[ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
+It rests on [ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-namedglobsets) and
+[ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter).
 
 ### parameter `Name`
 

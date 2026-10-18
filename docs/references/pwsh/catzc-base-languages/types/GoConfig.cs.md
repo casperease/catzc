@@ -10,11 +10,11 @@ Above `using System;`, written with `//`.
 ```text
 The Go test-workspace settings (configs/go.yml), and the single declaration of their sensible defaults: every
 key is optional, and an omitted key behaves exactly like its default, so no function restates a value
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). New-GoWorkspace renders
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). New-GoWorkspace renders
 the repository-root go.work and each <root>/tests/<folder>/go.mod from it, and Invoke-GoTest runs the tests in
 <root>/tests/<folder>/. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Languages.GoConfig),
 so Get-Config -Config go returns this typed record. Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The go directive is not
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)). The go directive is not
 a setting here: it is the go tool's pin in tools.yml, the one Go version.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
@@ -22,7 +22,7 @@ Constructing an instance validates the file, collecting every violation into one
   - 'root' is the Go root folder, repository-relative: slash-separated segments of letters, digits, '.', '_' and
     '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
     'go' when the repository has a go/ folder (a Go root track), else '.go', the dot-prefixed tooling folder
-    ([ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4));
+    ([ADR-REPO-FOLDERS-DOTMEANSTOOLING](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling));
   - 'module_root' is the module-path prefix: lowercase slash-separated segments, no leading or trailing slash
     (default catzc/go/tests);
   - 'dependencies' maps a module path (with a dot in its first segment) to a semantic version vX.Y.Z; empty by

@@ -19,7 +19,7 @@ the top of a function to fail fast before it calls az against that subscription 
 This is to access what Assert-AzCliIsConnected is to active-context: same name resolution, different question. "IsConnected" asks whether
 the session is `*set` `to*` the subscription; "CanAccess" asks whether the current login can _reach_ it, independent of which subscription
 is active. See [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and
-[ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
+[ADR-AZ-CLI-AZBYDEFAULT](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault).
 
 ### parameter `Subscription`
 

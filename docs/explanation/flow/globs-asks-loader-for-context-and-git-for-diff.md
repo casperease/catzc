@@ -63,5 +63,5 @@ The decision describes a pipeline stage that runs `Test-GlobSetAffected` first; 
 - [Pipeline detection](../../adr/flow/pipeline-detection.md) — the one detection function the resolver asks.
 - The other lenses on the same check: [meta](every-doubt-fails-open-to-proceed.md),
   [implementation](range-per-context-then-diff-and-match.md), [operations](stop-only-on-false-everything-else-proceeds.md) and
-  [governance](tests-pin-the-throw-and-fail-open-no-caller.md).
+  [governance](tests-pin-the-throw-and-fail-open-cd-calls-it.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

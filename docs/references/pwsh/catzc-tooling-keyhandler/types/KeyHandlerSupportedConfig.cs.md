@@ -13,7 +13,7 @@ Import-PSReadLineKeyHandlerSet filters the captured bindings against, so a Windo
 than throwing. Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one
 throw. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig),
 so Get-Config -Config key-handler-supported returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - a mapping whose only key is 'functions';

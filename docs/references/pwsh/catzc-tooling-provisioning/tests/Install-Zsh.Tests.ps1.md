@@ -10,8 +10,8 @@ Above `Describe 'Install-Zsh' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Install-Zsh on a fixture Git tree in $TestDrive: the layout, the tool config, the verified download, and the tar
 extraction are mocked, so nothing downloads, no process starts, and nothing outside $TestDrive changes
-([ADR-AUTO-TEST#9](/docs/adr/automation/test-automation.md#rule-adr-auto-test9)). The extraction mock writes a
-fixture package with neutral names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-NOCLOUDBELOWLTHREE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-nocloudbelowlthree)). The extraction mock writes a
+fixture package with neutral names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

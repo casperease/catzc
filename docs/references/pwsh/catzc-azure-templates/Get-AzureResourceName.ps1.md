@@ -105,7 +105,7 @@ Above `$envValue = if ($specification.pattern -eq 'long') {`, written with `#`.
 ```text
 The env-segment is the readable name for the generous `long` pattern, the 2-char shortcode for
 the restricted patterns (kv/storage/vm) — see
-[ADR-AZ-NAMING#4](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4).
+[ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype).
 ```
 
 ## comment:3
@@ -124,5 +124,5 @@ Above `$checks = [ordered]@{`, written with `#`.
 
 ```text
 Component format checks (case-sensitive, lowercase) — see
-[ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6).
+[ADR-AZ-NAMING-LOWERCASECOMPONENTS](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).
 ```

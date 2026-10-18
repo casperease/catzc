@@ -17,13 +17,13 @@ value or a subtree).
 
 Each segment resolves as a dictionary key when the current node is an IDictionary, otherwise as a property on the node (so a typed C# config
 object and a raw dictionary traverse the same way,
-[ADR-CONF-ADDRESSING#2](../../../../adr/configuration/config-value-addressing.md#rule-adr-conf-addressing2)). Any segment that resolves at
+[ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG](../../../../adr/configuration/config-value-addressing.md#rule-adr-conf-addressing-firstsegmentisconfig)). Any segment that resolves at
 neither throws, naming the full address and the failing segment
-([ADR-CONF-ADDRESSING#4](../../../../adr/configuration/config-value-addressing.md#rule-adr-conf-addressing4)) — there is no silent $null. An
+([ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST](../../../../adr/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolutionfailsfast)) — there is no silent $null. An
 empty segment list returns the node unchanged (addressing the whole config).
 
 The returned node may be a live reference into the config cache and must be treated as read-only
-([ADR-CONF-ADDRESSING#5](../../../../adr/configuration/config-value-addressing.md#rule-adr-conf-addressing5)).
+([ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD](../../../../adr/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolvednodeisread)).
 
 ### parameter `Node`
 

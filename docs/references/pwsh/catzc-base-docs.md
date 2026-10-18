@@ -29,7 +29,7 @@ through `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)): a curre
 delete-then-write, so a README that is still a filesystem link is severed, never written through into its source. That idempotence is what
 lets the importer regenerate every README on each load at no steady-state cost (see
 [generated-readmes](../../adr/repository/generated-readmes.md)). A quality gate
-([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)), `Test-GeneratedReadmes`, checks the result: every
+([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)), `Test-GeneratedReadmes`, checks the result: every
 generated README is gitignored, untracked, and current with its source.
 
 ### responsibility:2 — README map
@@ -88,7 +88,7 @@ check to an existing command.
 
 The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
 page a generator writes is the page the formatter leaves alone (see
-[uniform-formatting](../../adr/repository/uniform-formatting.md#rule-adr-repo-format5)). Every generator that writes markdown wraps through
+[uniform-formatting](../../adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that writes markdown wraps through
 it, in this module or another.
 
 ## What the module does

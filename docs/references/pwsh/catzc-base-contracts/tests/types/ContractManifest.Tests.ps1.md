@@ -5,9 +5,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#7' {`, written with `#`.
+Above `Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION' {`, written with `#`.
 
 ```text
 ContractManifest maps a version folder's contract.yml, the direction overrides of single assets
-([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)).
+([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)).
 ```

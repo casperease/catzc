@@ -12,11 +12,11 @@ The time-safeguard exemptions (configs/timeout-exemptions.yml) — work, identif
 may run past its normal limit while it is being tuned. Registered in Catzc.Base.Config/configs/configs.yml (type:
 Catzc.Base.Timeouts.TimeoutExemptionsConfig), so Get-Config -Config timeout-exemptions returns this typed record;
 Get-TimeoutExemption resolves a budget against it. Mirrors the YAML keys verbatim
-([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 An exemption never removes the limit ("ceil all"): an exempt budget runs up to its scope's ceiling instead —
 ceiling.<devbox|pipeline>.<pwsh|bash|zsh>, whose sensible defaults are declared here, once
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 Each `exempt` entry names its budgets as exactly one of
   single: <guid>                         one budget, or
   range: { from: <guid>, to: <guid> }    every GUID from..to inclusive — a block of minted GUIDs that share a
@@ -40,7 +40,7 @@ Above `private static readonly string[] Shells = new...`, written with `//`.
 
 ```text
 The shells a ceiling is keyed by: the execution engines, declared once
-([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)).
+([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)).
 ```
 
 ## comment:3

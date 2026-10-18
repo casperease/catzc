@@ -48,7 +48,7 @@ Above `$printed = [ordered]@{`, written with `#`.
 
 ```text
 The printed labels: a bucket key prints as its defined term
-([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), #8, #13), the value-chain map as its
+([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile), #8, #13), the value-chain map as its
 value_chain_* labels.
 ```
 

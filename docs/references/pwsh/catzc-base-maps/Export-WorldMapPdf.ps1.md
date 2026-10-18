@@ -12,15 +12,15 @@ Writes the world map as PDFs: the grid view, the tree view, or both, optionally 
 ### description
 
 Builds the world map (Get-WorldMap) and draws it with Catzc.Base.Maps.WorldMapPdf, one file per view under the world-map output folder
-(Get-WorldMapOutputRoot, [ADR-REPO-OUTDIR#2](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)):
+(Get-WorldMapOutputRoot, [ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)):
 
 ```text
 world-map.grid.pdf   rows are the tracks, columns the file languages, each cell shaded by its file count; the
                      catch-all row holds the root files and the catch-all column the unlisted files
-                     ([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7),
-                     [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8)), and a cell that
+                     ([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile),
+                     [ADR-DSGN-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-unlistedfile)), and a cell that
                      breaks its track's tech-stack is marked
-                     ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3));
+                     ([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack));
 world-map.tree.pdf   the tracks as a treemap by file count, each holding its non-empty cells.
 ```
 
@@ -57,7 +57,7 @@ Export-WorldMapPdf
 ### example 2
 
 ```powershell
-Export-WorldMapPdf -View Grid -Adr 'ADR-DSGN-TRACK#3'
+Export-WorldMapPdf -View Grid -Adr 'ADR-DSGN-TRACK-ONETECHSTACK'
 ```
 
 ### example 3

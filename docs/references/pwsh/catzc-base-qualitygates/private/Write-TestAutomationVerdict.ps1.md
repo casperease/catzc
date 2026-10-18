@@ -13,7 +13,7 @@ opens with.
 ### description
 
 Renders one end-of-run banner and nothing else: a Write-Header whose rule lines carry a per-character gradient (green-rainbow on a passing
-run, red-rainbow on a failing one, [ADR-AUTO-CONSOLE#7](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console7)) while
+run, red-rainbow on a failing one, [ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) while
 its titled line keeps the anchor's solid base colour, a default-coloured counts detail line (the banner rule carries the signal; the counts
 are data), and a Write-Footer closing the same gradient. It is the symmetric close to Write-TestAutomationHeader's cyan opener, printed on
 every exit path so a run is always visually bracketed. Every line routes through the shared Write-InformationColored chokepoint, so it stays
@@ -58,7 +58,7 @@ Above `$anchor = if ($Result -eq 'Passed') {`, written with `#`.
 ```text
 Green-rainbow celebrates a pass, red-rainbow marks a fail — the gradient lives in this one end-of-run
 verdict and nowhere else
-([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)
 "sparingly"). The rule lines take the per-character walk; the
 title keeps the anchor's solid base colour (the profile side-grades to Base on the titled line).
 ```
@@ -69,7 +69,7 @@ Above `$detail = [string]::Format([System.Globalization.CultureInfo]::InvariantC
 
 ```text
 Invariant so the duration reads the same on any devbox culture
-([ADR-AUTO-XPLAT#6](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6)), matching the title's summary.
+([ADR-AUTO-XPLAT-INVARIANTCULTURE](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)), matching the title's summary.
 ```
 
 ## comment:3

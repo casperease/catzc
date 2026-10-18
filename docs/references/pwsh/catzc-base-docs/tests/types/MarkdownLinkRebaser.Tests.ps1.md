@@ -5,9 +5,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README#6' {`, written with `#`.
+Above `Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS' {`, written with `#`.
 
 ```text
 A generated README copies an article into another folder; its relative links are rebased so they resolve there
-([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)).
+([ADR-REPO-README-WORKINGLINKS](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
 ```

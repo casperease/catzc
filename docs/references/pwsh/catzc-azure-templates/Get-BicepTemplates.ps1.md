@@ -84,7 +84,7 @@ Above `$script:bicepTemplatesCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:3
@@ -139,7 +139,7 @@ short_name is the Azure id segment every resource name is built from. It is DERI
 name by default; an options.yml `short_name` overrides it. BicepShortName owns the derivation +
 format validation (a malformed override, or a folder that cannot yield a valid short_name without an
 override, throws here — naming the template). See
-[ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2).
+[ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers).
 ```
 
 ## comment:8

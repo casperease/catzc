@@ -41,8 +41,8 @@ from `Invoke-Executable.ps1:58` to `:57-58`, the kill from `CliRunner.cs:189-196
 | C4  | `CliRunner` refuses a non-positive limit: every streamed run has one                                   | `types/CliRunner.cs:35-38,56-59`                                                       | confirmed                    |
 | C5  | The code's own comment calls `-Direct` unbounded by design ("a person at the prompt is its safeguard") | `docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md:37-40` (comment:1) | confirmed                    |
 | C6  | No in-tree caller passes `-Direct` (only the help example)                                             | grep `-Direct` over `pwsh/**/*.ps1` outside tests: `Invoke-Executable.ps1:36` only     | confirmed                    |
-| C7  | Supports: ADR-AUTO-DRYRUN#2, ADR-AUTO-TEST and ADR-PWSH-ASSERT#1, cited by the drawn code              | `Invoke-Executable.ps1:47,77`; `Get-TimeoutSeconds.ps1:6`; `timeouts.yml:2`            | confirmed                    |
-| C8  | ADR-AUTO-FAILFAST#7 says `Invoke-Executable` kills a child process tree at its executable's limit      | `docs/adr/automation/fail-fast-with-asserts.md:59`; `.claude/CLAUDE.md:110`            | contradicted (for `-Direct`) |
+| C7  | Supports: ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-AUTO-TEST and ADR-PWSH-ASSERT-DECLAREDTIMELIMIT, cited by the drawn code              | `Invoke-Executable.ps1:47,77`; `Get-TimeoutSeconds.ps1:6`; `timeouts.yml:2`            | confirmed                    |
+| C8  | ADR-AUTO-FAILFAST-BOUNDEVERYWAIT says `Invoke-Executable` kills a child process tree at its executable's limit      | `docs/adr/automation/fail-fast-with-asserts.md:59`; `.claude/CLAUDE.md:110`            | contradicted (for `-Direct`) |
 
 Counts: 22 claims, 21 confirmed, 1 contradicted, 0 ADR-only.
 
@@ -55,11 +55,11 @@ Counts: 22 claims, 21 confirmed, 1 contradicted, 0 ADR-only.
 
 ## Drift
 
-- ADR-AUTO-FAILFAST#7 (`docs/adr/automation/fail-fast-with-asserts.md:59`) and `.claude/CLAUDE.md:110` say `Invoke-Executable` kills a child
+- ADR-AUTO-FAILFAST-BOUNDEVERYWAIT (`docs/adr/automation/fail-fast-with-asserts.md:59`) and `.claude/CLAUDE.md:110` say `Invoke-Executable` kills a child
   process tree at its executable's limit. The code does so only on the default `Stream` path; `-Direct` runs `Invoke-Expression` with no
   bound and cannot take `-TimeoutSeconds`. The code's comment says this is deliberate (interactive mode), so the ADR sentence is the side
-  that is out of step; ADR-AUTO-FAILFAST#7 also says "Bound every wait", which `-Direct` does not.
-- The drawn code cites no ADR-AUTO-FAILFAST rule, although the streamed path implements ADR-AUTO-FAILFAST#7. A citation in
+  that is out of step; ADR-AUTO-FAILFAST-BOUNDEVERYWAIT also says "Bound every wait", which `-Direct` does not.
+- The drawn code cites no ADR-AUTO-FAILFAST rule, although the streamed path implements ADR-AUTO-FAILFAST-BOUNDEVERYWAIT. A citation in
   `Invoke-Executable.ps1` or `CliRunner.cs` would make the Supports chips name it.
 - Naming hazard: `CliRunner`'s private method `RunDirect` (`types/CliRunner.cs:100`) is the bounded streamed run, not the `-Direct` path.
 

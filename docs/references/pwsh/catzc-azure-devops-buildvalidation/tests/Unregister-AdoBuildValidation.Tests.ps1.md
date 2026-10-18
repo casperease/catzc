@@ -9,6 +9,6 @@ Above `Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {`, written w
 
 ```text
 Removal by the globset tie (the native path-filter projection): deletes the matched policy, no-ops when
-absent ([ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)), and -DryRun
+absent ([ADR-AUTO-IDEM-ALREADYDONEISFINE](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem-alreadydoneisfine)), and -DryRun
 returns the plan ([ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)).
 ```

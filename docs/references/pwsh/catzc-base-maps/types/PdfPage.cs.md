@@ -13,7 +13,7 @@ coordinates are PDF user space: the origin at the bottom-left corner, one unit p
 one line of operators; PdfDocument writes the lines as the page's content stream. Text goes through WinAnsi, the
 only encoding the base-14 fonts show, and a character outside it throws instead of printing a wrong glyph. Numbers
 go through PdfNumber, so the bytes do not depend on the culture
-([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
+([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)).
 ```
 
 ## comment:2

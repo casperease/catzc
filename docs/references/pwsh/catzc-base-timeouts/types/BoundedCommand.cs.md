@@ -68,6 +68,6 @@ Above `private static bool IsPosix(string engine)`, written with `//`.
 ```text
 True when the engine bounds a call with a GNU `timeout` prefix (the POSIX engines), false when with a pwsh wrapper call.
 The engine and its time safeguard come from the model, declared once
-([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)); Get throws, naming the
+([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)); Get throws, naming the
 engines, for any other name.
 ```

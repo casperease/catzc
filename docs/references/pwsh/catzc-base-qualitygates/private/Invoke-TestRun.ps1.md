@@ -11,7 +11,7 @@ Performs one test run through the parallel harness — the shared core of Test-A
 
 ### description
 
-The harness both runs share ([ADR-AUTO-TEST#30](../../../../adr/automation/test-automation.md#rule-adr-auto-test30)): lazy-load Pester from
+The harness both runs share ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)): lazy-load Pester from
 the code root, scan the selected modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category filter,
 open a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial phases, apply per-module
 protection, run the workers, and write the timing check, reports, verdict, and -PassThru summary. The two test runs differ only in what they
@@ -20,7 +20,7 @@ pass in:
 - the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source importer; the build's Import-Catzc.ps1
   for the build run) — the one seam;
 - an opt-out tag (-OptOutTag 'source-only' for the build run): its tests are excluded from the run and counted and listed on the console and
-  in excluded-tests.csv in the run directory ([ADR-AUTO-TEST#31](../../../../adr/automation/test-automation.md#rule-adr-auto-test31));
+  in excluded-tests.csv in the run directory ([ADR-AUTO-TEST-SOURCEONLYTAG](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sourceonlytag));
 - the entry point's name (-EntryPoint), which names the default report folder under out/, the protection key, and the failure message; and
   the banner title (-Title).
 
@@ -115,7 +115,7 @@ where a block is suspected and removed once it is bounded). No watchpoint stands
 Above `Write-Message '.' -NoHeader -NoNewline`, written with `#`.
 
 ```text
-Liveness dots ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)): discovery
+Liveness dots ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)): discovery
 runs before the banner and takes a while, so each stage shows a dot.
 ```
 
@@ -219,7 +219,7 @@ Above `$phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $tes
 
 ```text
 Three execution phases — parallel shards, greedy single-file shards, strict serial (see
-Split-TestAutomationFiles / [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)).
+Split-TestAutomationFiles / [ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 ```
 
 ## comment:13
@@ -228,7 +228,7 @@ Above `$protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule.
 
 ```text
 Per-module protection
-([ADR-REPO-PROTGLOB#9](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob9)): units whose
+([ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob-orchestratordecides)): units whose
 composite identity is unchanged since their last
 green run this session are dropped from the work-list here in the orchestrator (workers never see
 the map; in a pipeline the selection is a pass-through). The key carries the entry point and the run
@@ -299,7 +299,7 @@ Above `$budgetFailure = Test-TestRunOverBudget -DurationSeconds...`, written wit
 
 ```text
 A devbox run that outlasts its whole-run budget fails
-([ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)).
+([ADR-AUTO-TEST-DEVBOXRUNBUDGET](/docs/adr/automation/test-automation.md#rule-adr-auto-test-devboxrunbudget)).
 ```
 
 ## comment:21

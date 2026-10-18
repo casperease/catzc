@@ -21,7 +21,7 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   is silently ignored — which is one of the mechanical enforcements of [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md).
   `Get-DynamicManifestContent` renders the manifest text: the `=` column is computed from the longest key rather than hand-padded, endings
   are LF, and the output is formatter-stable — running the formatter over it is a no-op — so the bytes are identical on every platform and
-  every build of a commit ([ADR-REPO-FORMAT#1](../../../adr/repository/uniform-formatting.md)).
+  every build of a commit ([ADR-REPO-FORMAT-TOOLSFORMAT](../../../adr/repository/uniform-formatting.md)).
 - **C# type compile and load** — `Import-CSharpTypes` compiles every module's `types/*.cs` into one hash-keyed assembly,
   `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the combined
   source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never drift),
@@ -44,7 +44,7 @@ The exported surface the importer calls:
 
 - `Import-AllModules` — discover, guard, and import every `pwsh/*` module, compiling the combined C# type assembly first.
 - `Write-ImporterMessage` — the `[Importer.ps1]`-prefixed console writer the whole importer uses before `Write-Message` is available;
-  `-StateChange` puts a line on the importer's verbose load record (ADR-PWSH-ANNOUNCE#6).
+  `-StateChange` puts a line on the importer's verbose load record (ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE).
 - `Set-ImporterVerbosity` — hands the importer's `-Verbose` to `Write-ImporterMessage -StateChange`, for the life of the bootstrap.
 - `Clear-CompiledType` — delete the compiled type DLLs before import so the types rebuild from source (`-ClearCompiledTypes`).
 

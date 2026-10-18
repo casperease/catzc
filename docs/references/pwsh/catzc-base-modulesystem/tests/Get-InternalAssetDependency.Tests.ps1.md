@@ -9,8 +9,8 @@ Above `Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {`, written wit
 
 ```text
 The inventory of internal asset dependencies
-([ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2)) — one record per
+([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)) — one record per
 Get-CatzcModuleRoot call
 site, derived from the code by AST. Logic over a TestKit fixture tree with neutral names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

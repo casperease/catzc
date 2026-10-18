@@ -11,6 +11,6 @@ Above `$script:baseConfig = [ordered]@{`, written with `#`.
 Fixture network plan — deliberately-distinct Greek env names (alpha/beta/gamma/delta) and neutral
 subscription names (widget_core, a hub; gadget_edge, a spoke), NOT the shipped ones, so this logic test owns
 its identity inputs and editing azure.yml can never change its outcome
-([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1),
-[ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-ONECATEGORY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-onecategory),
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -9,7 +9,7 @@ Above `public const string ImmutableKey = "immutable";`, written with `//`.
 
 ```text
 The three parts of the block, each a two-space-indented key under `catzc:`
-([ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)). The facts come as an
+([ADR-REPO-FILEMETA-HEADPOLICY](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)). The facts come as an
 ordered dictionary, so their order is the order written.
 ```
 

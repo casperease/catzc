@@ -17,37 +17,37 @@ The GlossaryConfig type checks each source on its own when it loads; this checks
 - a term defined by two sources, or a machine key used by two
 
 ```text
-([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1));
+([ADR-REPO-VOCAB-DEFINEDTERM](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm));
 ```
 
 - a domain that adrs.yml does not declare
 
 ```text
-([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1));
+([ADR-REPO-VOCAB-DEFINEDTERM](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm));
 ```
 
 - an avoided phrase that is another source's term
 
 ```text
-([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5));
+([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced));
 ```
 
 - a contrast or relation target that no source defines
 
 ```text
-([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3));
+([ADR-REPO-VOCAB-SOURCESINREPOSITORY](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository));
 ```
 
 - a contrast that is not reciprocal — A contrasts B, but B does not contrast A
 
 ```text
-([ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4));
+([ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted));
 ```
 
 - a source that git does not track
 
 ```text
-([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)).
+([ADR-REPO-VOCAB-SOURCESINREPOSITORY](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)).
 ```
 
 The first source in owner order keeps a duplicated term or key; every later one is reported. Each message starts with the repo-relative path

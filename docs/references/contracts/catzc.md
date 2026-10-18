@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: de4d4e8ac65d
-    with_inputs_sha: b8e060035d40d4e4be4522c46003eb41dc4a68e3f0ca594ac90dd5f259034969
+    with_inputs_sha: fa69ffce82621373323d807801a7963772671d02e1800e18c3501d94e2eab617
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
@@ -34,7 +34,7 @@ Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contract
 
 ## 0.0.0
 
-The draft: the one mutable version folder ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
+The draft: the one mutable version folder ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 
 | Module                               | Asset                                            | Target                                                                    | Direction               | Kind             | Signature                                                                                                                                                           |
 | ------------------------------------ | ------------------------------------------------ | ------------------------------------------------------------------------- | ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

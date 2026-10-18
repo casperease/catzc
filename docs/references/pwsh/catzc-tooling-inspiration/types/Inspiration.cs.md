@@ -10,10 +10,10 @@ Above `using System;`, written with `//`.
 ```text
 One inspiration as Get-Inspiration reports it on this machine: its id, where its root resolves here, whether that
 root exists, what it is, and the folders inside it worth reading
-([ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1)). An inspiration that is absent is
+([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)). An inspiration that is absent is
 reported with Available false, never thrown on: the work carries on without it.
 
 Root is absolute. An inspiration lives outside the repository, so no repository-relative form exists and the path
-degrades to a normalized absolute ([ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5));
+degrades to a normalized absolute ([ADR-AUTO-PATH-FOREIGNPATHS](/docs/adr/automation/path-representation.md#rule-adr-auto-path-foreignpaths));
 the stored, portable form stays in inspiration.yml.
 ```

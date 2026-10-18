@@ -12,10 +12,10 @@ The vendor meta kind's fact: the vendor that reads the files of the track that h
 ### description
 
 The track is the one Get-Track names for the path, and its vendor is the one the `tracks` registry declares for it
-([ADR-DSGN-TRACKTYPE#3](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype3)). A root file, and a file of a track with no vendor,
+([ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-optionalvendor)). A root file, and a file of a track with no vendor,
 gets an empty value, so the key is left out of its head.
 
-It rests on [ADR-DSGN-TRACKTYPE#6](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype6).
+It rests on [ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-headreadsdeclaration).
 
 ### parameter `State`
 

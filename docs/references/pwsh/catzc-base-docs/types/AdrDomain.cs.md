@@ -12,7 +12,7 @@ One ADR domain (a docs/adr/<area>/ folder) from adrs.yml: its Name, 2-4 letter C
 Description rendered under the domain's heading in the generated index, the DependsOn links that form the
 domain DAG, its row of the value-chain stack (Stack), its default value-chain concerns (Concerns, in value-chain
 order), and the RuleSets it owns. Built and validated by AdrsConfig
-([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
-[ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
-[ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)).
+([ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel),
+[ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack),
+[ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)).
 ```

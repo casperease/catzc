@@ -27,7 +27,7 @@ The scope's name in the protection key: a declared globset, or (with a prior -Ha
 
 A precomputed durable identity to record when no pending value exists for the key — for callers that protect directly without a prior
 Test-GlobSetProtection query. A pending pre-scan value always wins over this (hash-before-scan,
-[ADR-REPO-PROTGLOB#4](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob4)).
+[ADR-REPO-PROTGLOB-PROTECTIONKEY](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey)).
 
 ### example 1
 
@@ -42,7 +42,7 @@ Above `$script:protectedGlobSets = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entries
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2

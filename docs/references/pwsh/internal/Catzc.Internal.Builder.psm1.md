@@ -183,7 +183,7 @@ Above `[CmdletBinding()]` (occurrence 8), written with `#`.
 Above `foreach ($file in Get-ChildPath $sourceFull -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the build
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the build
 copies every shippable file, so nothing is pruned here.
 ```
 
@@ -262,7 +262,7 @@ Above `[CmdletBinding()]` (occurrence 12), written with `#`.
 Above `foreach ($file in @(Get-ChildPath $BuildRoot -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a stale
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a stale
 file anywhere under the build root must go, so nothing is pruned.
 ```
 
@@ -346,6 +346,6 @@ Above `$plannedPaths =...`, written with `#`.
 
 ```text
 The presence check
-([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)), checked
+([ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)), checked
 against the plan so a missing asset fails before any write.
 ```

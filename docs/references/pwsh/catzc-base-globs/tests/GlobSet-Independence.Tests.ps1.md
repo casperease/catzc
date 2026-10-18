@@ -9,7 +9,7 @@ Above `Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {`,
 
 ```text
 Integrity: per-layer independence
-([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) holds in the REAL repository —
+([ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nooverlapwithinlayer)) holds in the REAL repository —
 within every non-loose
 layer, no two globsets (declared or derived) select a common file on their OWN contribution. The
 'loose-fileset' layer is exempt: its sets are cross-cutting check surfaces (a track's root concern, a scan

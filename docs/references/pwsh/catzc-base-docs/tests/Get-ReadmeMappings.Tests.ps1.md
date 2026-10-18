@@ -9,7 +9,7 @@ Above `Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ReadmeMappings is private, so it is exercised through the module (InModuleScope, per
-[ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
 ```
 
 ## comment:2

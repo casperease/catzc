@@ -16,7 +16,7 @@ keeps them as an ordered passthrough map (`settings`) rather than typing each ke
 and VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.VSCode.VscodeSettingsConfig), so
 Get-Config -Config vscode-settings returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level key 'settings', a required, non-empty map;

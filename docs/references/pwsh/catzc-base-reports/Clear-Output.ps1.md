@@ -13,8 +13,8 @@ Removes the output that output-formats.yml no longer keeps: old run stamps, stal
 
 Each format's area sets how many stamps or files stay and how old they may grow; a file no format covers is reported, never removed.
 
-It rests on [ADR-AUTO-DRYRUN#1](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun1) and
-[ADR-REPO-OUTDIR#7](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir7).
+It rests on [ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun-sideeffectstakedryrun) and
+[ADR-REPO-OUTDIR-ONECLEANCOMMAND](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-onecleancommand).
 
 ### parameter `All`
 

@@ -20,7 +20,7 @@ from cspell's own dictionaries by Build-EnglishDictionary) plus every generated 
 and the per-fragment lookup are here in C# rather than PowerShell on purpose: a PowerShell method call
 costs ~10 microseconds, so tokenizing and looking up thousands of fragments per file in PowerShell would
 dominate the analyzer's runtime, whereas the same work in C# is microseconds
-([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9) — a concept the
+([ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel) — a concept the
 platform's own logic operates on becomes a native type).
 
 The rule decides WHICH identifiers to feed and applies AST-level exemptions (automatic variables, drive
@@ -34,7 +34,7 @@ Above `public const int MinFragmentLength = 2;`, written with `//`.
 
 ```text
 Fragments shorter than this are never flagged: single letters are loop indices / type variables
-([ADR-AUTO-SPELL#2](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2)), which the ADR exempts.
+([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)), which the ADR exempts.
 ```
 
 ## comment:3
@@ -45,7 +45,7 @@ Above `public static void Initialize(string englishGzPath, IEnumerable<string>..
 <summary>
 Load the oracle once: the gzip-compressed English list plus every plain-text term list. Idempotent — a
 second call is a no-op, so each analyzer shard pays the load once. Fixture terms are kept SEPARATE
-([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)): they are accepted only when
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)): they are accepted only when
 CoinedFragments is called with includeFixtures — i.e. for a test
 file — so a fixture token cannot bless a real identifier in production code. Term-list lines starting
 with '#' (the generated-file header) and blank lines are skipped; every other token is added lower-cased.
@@ -62,7 +62,7 @@ Split an identifier into word fragments and return those (length >= MinFragmentL
 the dictionary — the invented abbreviations to spell out. Returns an empty array for a fully
 spelled-out identifier. Fixture terms count as known only when <paramref name="includeFixtures"/> is set
 (the caller passes true only for a test file), so a fixture token never blesses a production identifier
-([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)).
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)).
 </summary>
 ```
 
@@ -72,7 +72,7 @@ Above `public static string[] CoinedFragments(string identifier)`, written with 
 
 ```text
 <summary>Production-scope overload: fixture terms are not accepted
-([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)).</summary>
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)).</summary>
 ```
 
 ## comment:6

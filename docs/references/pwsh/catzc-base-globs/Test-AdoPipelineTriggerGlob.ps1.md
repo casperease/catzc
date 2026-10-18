@@ -18,11 +18,11 @@ are order-independent). The pipeline is resolved from the globset's `pipeline:` 
 
 Each drifted pipeline is one issue naming the filters that differ, and a missing pipeline file is one issue; the fix for either is
 "regenerate the pipeline trigger from globs.yml". The gate ends with Write-QualityGateReport
-([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
+([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): the report lands in
 out/test-ado-pipeline-trigger-glob/, and the gate throws once listing every issue (or returns the result with -PassThru).
 
-It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
-[ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
+It rests on [ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-namedglobsets) and
+[ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter).
 
 ### parameter `Name`
 

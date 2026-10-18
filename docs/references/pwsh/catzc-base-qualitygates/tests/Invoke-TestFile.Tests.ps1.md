@@ -18,13 +18,13 @@ oversubscribes the box (see the test-automation ADR's greedy tag).
 Above `$script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'`, written with `#`.
 
 ```text
-The strict contract ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)): the
+The strict contract ([ADR-AUTO-TEST-FILEPARALLELISM](/docs/adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)): the
 worker runs every test strict, and a test that genuinely
 needs non-strict semantics opts out locally, in its own It body. The fixture holds the same strict-hostile
 read (.Count on a scalar) twice — bare, and behind the opt-out — plus a plain passing test. The bare read
 fails, so the same spawn also proves a failing file reports Failed (exit 1) without throwing; how
 -FullNameFilter reaches the worker is proven at L0 (here and in New-TestAutomationShardScript.Tests.ps1),
-one spawn per distinct concern ([ADR-AUTO-TEST#23](/docs/adr/automation/test-automation.md#rule-adr-auto-test23)).
+one spawn per distinct concern ([ADR-AUTO-TEST-FEWINTEGRATIONTESTS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-fewintegrationtests)).
 ```
 
 ## comment:3
@@ -33,10 +33,10 @@ Above `It 'runs in a snapshot: the worker loads the snapshot, the report and the
 
 ```text
 The walking skeleton of the snapshot path
-([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)): a real snapshot, primed, a
+([ADR-AUTO-TEST-RUNSNEVERWAIT](/docs/adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): a real snapshot, primed, a
 real worker
 loading it. -Isolated takes the path deterministically; when it is taken because another run holds the
 working folder is Enter-TestRunLocation's L1 concern.
 The fixture also carries an L3 block, so the same worker spawn proves a snapshot skips the vertical system
-tests (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+tests (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
 ```

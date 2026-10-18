@@ -21,11 +21,11 @@ branches.
 
 1. **`Invoke-<Tool>`** is the set of tool wrappers, one per wrapped tool. The count chip says ten wrappers exist, and every one calls
    `Assert-Tool` before it calls `Invoke-Executable`. A `-DryRun` call skips the assert, because nothing runs.
-2. **`Assert-Tool`** looks the tool up and branches on whether its entry declares candidate paths (ADR-AUTO-DEPS#3).
+2. **`Assert-Tool`** looks the tool up and branches on whether its entry declares candidate paths (ADR-AUTO-DEPS-ASSERTBEFOREINVOKE).
 3. **`Resolve-ToolExecutable`** is the probe in `Catzc.Base.Execution`. It reads the tool's entry once and returns where the tool is and
-   whether its version is accepted (ADR-CONF-LOADING#6). Of the ten wrapped tools, only `go` takes this branch.
+   whether its version is accepted (ADR-CONF-LOADING-READINGISGLOBAL). Of the ten wrapped tools, only `go` takes this branch.
 4. **`Assert-ToolVersion`** runs once `Assert-Command` has found the command on `PATH`. It throws on a version mismatch and remembers a pass
-   for the rest of the session (ADR-PWSH-CACHE#4).
+   for the rest of the session (ADR-PWSH-CACHE-STRICTSAFEPROBE).
 5. **`Get-ToolVersion`** runs the entry's `version_command` and extracts the version with its `version_pattern`.
 6. **`tools.yml`** locks each tool's `version`, its `version_command` and its candidate paths. Every box above reads it through its entry;
    no single call site reads the file, so no edge enters it.
@@ -90,11 +90,11 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN#2, ADR-PWSH-CACHE#4 and ADR-CONF-LOADING#6:
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-CONF-LOADING-READINGISGLOBAL:
 the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-They don't differ on what this slide draws: ADR-AUTO-DEPS#3 names both branches of `Assert-Tool`. The rule for which installed versions pass
+They don't differ on what this slide draws: ADR-AUTO-DEPS-ASSERTBEFOREINVOKE names both branches of `Assert-Tool`. The rule for which installed versions pass
 (the locked version, and outside a pipeline the optional `devbox_version`) is written out three times in the code, in `Assert-ToolVersion`,
 `Test-Tool` and `Resolve-ToolExecutable`; the ADR does not say where it lives.

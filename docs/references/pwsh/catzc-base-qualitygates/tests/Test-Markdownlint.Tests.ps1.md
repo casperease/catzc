@@ -10,9 +10,9 @@ Above `Describe 'Repository markdown integrity' -Tag 'L2', 'integrity', 'source-
 ```text
 Integrity: the ACTUAL repository markdown is lint-clean. Unlike the logic test above (real markdownlint over
 a fixture file), this binds to the real repo — Test-Markdownlint with no -Path scans its default content
-scope ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). L2 because it drives the
+scope ([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). L2 because it drives the
 markdownlint-cli2 CLI; self-skips when absent
-([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9).
+([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)/9).
 Behind a protected glob ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): a repeat local run over an
 unchanged 'markdown-scope' globset (the
 scan's inputs — in-scope markdown plus the markdownlint config) is skipped; in a pipeline the protection

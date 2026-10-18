@@ -13,7 +13,7 @@ settings fixed for the importer session. Registered in Catzc.Base.Config/configs
 (type: Catzc.Base.Variants.VariantsConfig), so Get-Config -Config variants returns this typed record; the
 private Get-Variant reads one key off it and the named primitives (Get-AdoNaming, Get-EnabledCustomers,
 Get-Aspect, …) default an absent key. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); an absent key is null,
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); an absent key is null,
 so the record's Contains(key) answers "is it set".
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException. Every key is
@@ -32,9 +32,9 @@ optional, and an unknown key throws (a typo fails fast at load):
   tracks          a non-empty map of track -> { root, class, languages } ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)),
                   in declared order: a kebab-case or dot-prefixed track name; 'root' required, one folder segment
                   (no '/', '\', '.' or '..'), never 'out' (gitignored output,
-                  [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)), and unique across tracks;
+                  [ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)), and unique across tracks;
                   'class' required, one of VariantTrack.Classes
-                  ([ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)); 'languages' optional
+                  ([ADR-DSGN-TRACK-ONETRACKTYPE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetracktype)); 'languages' optional
                   (default: none), a list of unique kebab-case file-language names. This file is validated alone:
                   that each name is a registered file language is an integrity test in Catzc.Base.Languages.
 ```
@@ -54,6 +54,6 @@ Above `public const string DefaultAdoNaming = "standard";`, written with `//`.
 
 ```text
 The defaults, declared once here and nowhere else
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): a getter reads the typed property and never
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): a getter reads the typed property and never
 restates them.
 ```

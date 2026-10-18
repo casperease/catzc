@@ -11,7 +11,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParamet
 Test-Change wiring: the plan's two halves (Get-ChangeTestFile, Get-ChangeCheckPlan) are their own units and are mocked
 here; Invoke-TestFile is the mocked test-run boundary; the gates are fixture functions, so the real Get-Command lookup
 and the [string[]] -Path test decide how each is called. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

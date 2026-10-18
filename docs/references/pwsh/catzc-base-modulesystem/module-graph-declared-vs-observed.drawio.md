@@ -30,15 +30,15 @@ every function. The observed graph is checked twice: for cycles on its own, and 
    depend on. `Get-ModuleProfile` calls it to close a profile, and `Copy-Automation` and `Test-InIsolation` take their module sets from
    `Get-ModuleProfile`; those three are cut from the drawing.
 6. **`Get-FunctionDependency`** parses every `.ps1` file of every module under the modules root (dot folders, tests and `assets` excluded)
-   into an AST and lists each call from one function to another that the repository defines. Its result is cached (ADR-AUTO-CACHE#2, #4, #5,
-   #6).
+   into an AST and lists each call from one function to another that the repository defines. Its result is cached (ADR-AUTO-CACHE-FILESYSTEMDERIVED, ADR-AUTO-CACHE-KEYEDBYINPUTS, ADR-AUTO-CACHE-READONLYVALUES,
+   ADR-AUTO-CACHE-IMPORTERINVALIDATES).
 7. **`Get-ModuleDependency`** collapses those calls into unique cross-module edges, `From` → `To`, with a call count.
 8. **`Get-ModuleDependencyViolations`** checks every observed edge from a constrained module against its allow-list, which it resolves
    itself straight from `Get-ModuleDependencyConfig` and the groups, not through the shared map. It also checks that every declared module
    exists on disk, and applies the same allow-list to cross-module C# type references. The `Test-ModuleDependency` gate reports what it
-   finds (ADR-AUTO-TEST#35).
+   finds (ADR-AUTO-TEST-QUALITYGATE).
 9. **`Test-ModuleCycles`** is a quality gate over the observed edges alone: a topological pass that reports every module on, or called from,
-   a cycle (ADR-AUTO-TEST#35).
+   a cycle (ADR-AUTO-TEST-QUALITYGATE).
 
 ## Reading path
 
@@ -101,13 +101,13 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST#4 and #35, ADR-AUTO-CACHE#2, #4, #5 and #6,
-ADR-PWSH-CACHE#4, ADR-PWSH-PESTER#9 and ADR-DSGN-RUNMODE: the rules the drawn code cites, almost all from `Get-FunctionDependency`.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST-SAFESEAMSWAPS and ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-CACHE-FILESYSTEMDERIVED, ADR-AUTO-CACHE-KEYEDBYINPUTS, ADR-AUTO-CACHE-READONLYVALUES and ADR-AUTO-CACHE-IMPORTERINVALIDATES,
+ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS and ADR-DSGN-RUNMODE: the rules the drawn code cites, almost all from `Get-FunctionDependency`.
 Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-- **The test-order fallback swallows a fail-fast error.** ADR-AUTO-DEPM#4 says the integrity of the declared graph fails fast.
+- **The test-order fallback swallows a fail-fast error.** ADR-AUTO-DEPM-GROUPAWAREINTEGRITY says the integrity of the declared graph fails fast.
   `Get-TestAutomationTestPaths` catches any throw from `Get-ModuleOrder`, a cycle or a `dependencies.yml` that does not load, and carries on
   in ordinal module order with only a verbose line. The ADR's load-time validation should stop a cyclic declaration first; that part is
   ADR-only on this slide.

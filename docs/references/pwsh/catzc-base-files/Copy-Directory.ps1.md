@@ -39,6 +39,6 @@ Above `foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @().
 Recreate the directory structure first (so empty directories survive), then copy the files.
 Each enumerated path starts with $source, so substring-after-prefix rebases it under $target
 (safer than String.Replace, which would rewrite any other occurrence of the prefix).
-A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a copy
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy
 takes everything, so no name is pruned and no depth drops a file.
 ```

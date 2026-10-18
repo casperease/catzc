@@ -12,8 +12,8 @@ Returns the world map: every tracked file placed in one cell of tracks by file l
 ### description
 
 Gathers the repository's own registries and builds the map with Catzc.Base.Maps.WorldMapBuilder: the tracks (Get-Track,
-[ADR-DSGN-TRACK#1](../../../adr/design/tracks.md#rule-adr-dsgn-track1)), the file languages (Get-FileLanguage,
-[ADR-DSGN-TRACK#6](../../../adr/design/tracks.md#rule-adr-dsgn-track6)), the tracked files from the git index (Get-GitTrackedPath,
+[ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](../../../adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)), the file languages (Get-FileLanguage,
+[ADR-DSGN-TRACK-FILELANGUAGE](../../../adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)), the tracked files from the git index (Get-GitTrackedPath,
 [ADR-AUTO-TRACKED](../../../adr/automation/tracked-files-from-the-index.md)), each configured track's aspects (Get-Aspect), the adrs index
 (Get-AdrRuleSet: ADR code to domain), each ADR code's own file (Get-AdrCitationMap, the map the link engine uses; an ADR lights its own
 file, never its domain's), the owners of the repository-root files (files.yml, read through Get-Config), the globsets (Get-GlobSet), and the
@@ -23,15 +23,15 @@ the repository's citations of its ADRs, never the slide's own words).
 
 The root folder gives a file's track and its extension gives its file language; a file under no track or in no file language lands in a
 bucket row or column, so every file has exactly one cell. A live file whose file language its track does not declare is a stack violation
-([ADR-DSGN-TRACK#3](../../../adr/design/tracks.md#rule-adr-dsgn-track3)); test, vendored and verification-track files are never one.
+([ADR-DSGN-TRACK-ONETECHSTACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)); test, vendored and verification-track files are never one.
 
 The text of a file is read only when its kind cites ADRs (.ps1, .cs, .yml, .yaml, .md), once per session: the texts stay in a module cache
-until the importer runs again ([ADR-AUTO-CACHE#6](../../../adr/automation/caching.md#rule-adr-auto-cache6)).
+until the importer runs again ([ADR-AUTO-CACHE-IMPORTERINVALIDATES](../../../adr/automation/caching.md#rule-adr-auto-cache-importerinvalidates)).
 
 ### parameter `AsJson`
 
 Return the map as JSON (axes, cells and per-file placements) instead of the object, so a tool reads it without PowerShell
-([ADR-THES-ONETRUTH#3](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).
+([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
 
 ### outputs
 
@@ -61,5 +61,5 @@ Above `$script:worldMapTextCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```

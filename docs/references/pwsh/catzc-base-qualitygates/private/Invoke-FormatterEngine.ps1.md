@@ -13,7 +13,7 @@ Runs one formatter engine over the given files and returns the files it changed.
 
 The one place an engine name from languages.yml becomes code: each engine LanguagesConfig.FormatterEngines declares has exactly one adapter
 here, and every adapter takes the same -File and -DryRun and returns the changed files
-([ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2)). A language is never named here — which
+([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)). A language is never named here — which
 language uses which engine is configuration.
 
 ### parameter `Engine`

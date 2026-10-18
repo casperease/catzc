@@ -12,7 +12,7 @@ Lists the glossary terms that are not anchored on their defining rule (check G2)
 ### description
 
 A defined term has one home: the ADR rule its concept names in `defined_by`, whose normative summary bolds it
-([ADR-REPO-VOCAB#1](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)). For every concept whose source takes part in
+([ADR-REPO-VOCAB-DEFINEDTERM](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)). For every concept whose source takes part in
 the `anchored` check, this reports:
 
 - a `defined_by` citation that names no rule of any indexed ADR;

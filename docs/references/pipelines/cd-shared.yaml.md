@@ -9,7 +9,7 @@ Above `trigger:`, written with `#`.
 
 ```text
 Stage order is the safety property: foundation owns the Key Vault the others use, and expedition lands in discovery's network.
-[ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md), [ADR-AZ-LZ#7](/docs/adr/azure/landing-zones.md#rule-adr-az-lz7),
+[ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md), [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](/docs/adr/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks),
 [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md) [comment:1](/docs/references/pipelines/cd-shared.yaml.md#comment1)
 ```
 

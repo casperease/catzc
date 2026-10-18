@@ -20,7 +20,7 @@ Kept         the files the destination already has: they belong to whoever place
 ```
 
 Reads the filesystem only and changes nothing, so the plan can be recorded before the copy starts and an interrupted copy is still covered
-by it ([ADR-AUTO-REMOVE#2](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)).
+by it ([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)).
 
 ### parameter `Source`
 
@@ -45,7 +45,7 @@ Get-PackageTreePlan -Source $staging -Destination $gitHome
 Above `$sourceDirectories = [System.Collections.Generic.List[string]]::new()`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a copy
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy
 plan must see every file, so no folder name is pruned and the depth is the
 config's ceiling. A real package tree reaches ten levels, and a shallower bound would silently drop files from the copy.
 ```

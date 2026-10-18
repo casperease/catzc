@@ -5,10 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {`, written with `#`.
+Above `Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {`, written with `#`.
 
 ```text
 The name rule of a contract asset's kind
-([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): the suffix picks schema or sample,
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the suffix picks schema or sample,
 and any other name is a fragment, or a presence when empty.
 ```

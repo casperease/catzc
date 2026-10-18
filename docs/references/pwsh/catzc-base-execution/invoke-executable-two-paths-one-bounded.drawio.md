@@ -29,7 +29,7 @@ in the tree passes `-Direct` today.
 4. **`CliRunner`** starts the process with its output redirected and waits for it within the limit. It refuses to run without a positive
    limit.
 5. **`Kill · TimeoutException`**: when the process outlives its limit, `CliRunner` kills it with its whole process tree and throws a
-   `TimeoutException` that names the limit and where to tune it (ADR-AUTO-FAILFAST#7).
+   `TimeoutException` that names the limit and where to tune it (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 6. **`Invoke-ExecutableDirect`** runs the command in the working directory with its output going straight to the console, then asserts the
    exit code.
 7. **`Invoke-Expression`** runs the command with no time limit, which the chip after it states. The bottom band has no failure glyph on
@@ -92,10 +92,10 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN#2, ADR-AUTO-TEST and ADR-PWSH-ASSERT#1: the
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-AUTO-TEST and ADR-PWSH-ASSERT-DECLAREDTIMELIMIT: the
 rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-ADR-AUTO-FAILFAST#7 states that `Invoke-Executable` kills a child process tree at its executable's limit. The code does that only on the
+ADR-AUTO-FAILFAST-BOUNDEVERYWAIT states that `Invoke-Executable` kills a child process tree at its executable's limit. The code does that only on the
 default `Stream` path. The `-Direct` path runs `Invoke-Expression` with no limit and cannot be given one, by the code's own design.

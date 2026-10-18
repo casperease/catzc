@@ -11,7 +11,7 @@ Exports catzc — builds it (Build-Modules), then installs it beside a working r
 
 ### description
 
-The top-level export ([ADR-AUTO-BUNDLE#6](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle6)). It builds with Build-Modules
+The top-level export ([ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-twoartifactinstall)). It builds with Build-Modules
 (exporter.yml defaults; the build parameters pass through) and delivers the build:
 
 - disk (default): the two-part install to -Root (Install-Catzc) — the build under `<Root>/.vendor/Catzc/<version>/` and a root importer.ps1

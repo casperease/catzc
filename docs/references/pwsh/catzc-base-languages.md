@@ -34,7 +34,7 @@ restored afterwards.
 
 The event stream becomes one result per top-level Go test: its package, name, outcome (`pass`, `fail`, or `skip`), duration, everything it
 printed, and its category. Subtests fold into their parent. The category comes from the name, in one place, the result type: a
-`TestIntegrity*` test is `integrity`, every other test is `logic` ([ADR-AUTO-TEST#1](../../adr/automation/test-automation.md)). A failing Go
+`TestIntegrity*` test is `integrity`, every other test is `logic` ([ADR-AUTO-TEST-ONECATEGORY](../../adr/automation/test-automation.md)). A failing Go
 test is a result, not an error; a run throws, with the go output, only when `go vet` fails, when a test package does not build, or when a
 package fails outside any test.
 

@@ -5,9 +5,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {`, written with `#`.
+Above `Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {`, written with `#`.
 
 ```text
 ContractValue reads a parsed JSON or YAML value as one of the JSON kinds and compares two values by JSON equality
-([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)), whatever CLR type each parser chose.
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), whatever CLR type each parser chose.
 ```

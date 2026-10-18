@@ -5,11 +5,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {`, written with `#`.
+Above `Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
 
 ```text
 ConsoleText — the shared console rendering behind every catzc type's ToString(), so an object held in pwsh reads
 as one line in "$x", [string]$x and a table cell. Exercised through probe types compiled by Add-Type against the
 loaded combined assembly. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

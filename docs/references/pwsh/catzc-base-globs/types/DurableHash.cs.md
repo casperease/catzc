@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The durable-SHA digest primitives ([ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)), in native code: a
+The durable-SHA digest primitives ([ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)), in native code: a
 globset may include large binaries
 (the committed type assembly is a tracked file), where a per-byte PowerShell pipeline takes minutes and
 this takes milliseconds. HashFile is SHA-256 over the file's bytes with every CR (0x0D) stripped —

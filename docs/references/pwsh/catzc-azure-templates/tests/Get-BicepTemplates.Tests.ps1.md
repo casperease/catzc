@@ -14,7 +14,7 @@ Read-only discovery tests: boundary mocks + config-cache reset run ONCE, not per
 (bicepTemplatesCache) already caches on the fixture root across tests, and no test mutates the fixture
 tree or config, so the warm caches are correct to share; a per-test configCache reset only forced a
 needless cold re-parse
-([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)). The cache-behavior tests below invalidate bicepTemplatesCache
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)). The cache-behavior tests below invalidate bicepTemplatesCache
 inside their own It, independent of this setup.
 ```
 

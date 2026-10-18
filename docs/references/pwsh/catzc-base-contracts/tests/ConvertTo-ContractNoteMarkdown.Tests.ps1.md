@@ -9,8 +9,8 @@ Above `Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {`, written 
 
 ```text
 A note is written as a comment, where a citation is a repository-rooted code link
-([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)); in a list item of a generated page it
+([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)); in a list item of a generated page it
 is markdown, so a rooted link turns relative to the page
-([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). Fixtures are neutral
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). Fixtures are neutral
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

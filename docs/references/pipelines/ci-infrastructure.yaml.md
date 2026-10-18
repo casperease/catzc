@@ -19,7 +19,7 @@ Above `- template: /pipelines/steps/invoke-automation.yaml` (occurrence 7), writ
 
 ```text
 The infrastructure globset's test suite: its verify scope (Catzc.Azure.Templates up to L2,
-[ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37)), including the L2 test that
+[ADR-AUTO-TEST-TESTSUITE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-testsuite)), including the L2 test that
 builds every shipped template and checks its rendered parameters files against the compiled parameter model
-([ADR-AZ-DATAMOD#9](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9)).
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 ```

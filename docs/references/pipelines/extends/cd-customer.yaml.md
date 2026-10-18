@@ -39,7 +39,7 @@ required to actually deploy.
 
 One customer pipeline deploys one customer's spokes; the shared hubs deploy from cd-shared.yaml. The
 rollout order across them when a spoke is added (hub, then spoke, then hub again —
-[ADR-AZ-LZ#7](/docs/adr/azure/landing-zones.md#rule-adr-az-lz7)) is run by hand across the two pipelines, not encoded here.
+[ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](/docs/adr/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)) is run by hand across the two pipelines, not encoded here.
 
 Triggers live in the thin root pipelines that extend this template — `trigger:` / `pr:` are honored
 only at the pipeline root, not inside an extends template.
@@ -61,15 +61,4 @@ Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:`, written with `#`.
 ```text
 A customer without an expedition config passes an empty Expeditions list: Build-Bicep
 throws when no slot matches, so the build, its artifact, and its deploy stage are skipped.
-```
-
-## comment:4
-
-Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:` (occurrence 2), written with `#`.
-
-```text
---- Deploy expedition (slotted; lands in the discovery spoke) — after discovery, main only -----
-An entry with a slot deploys the special slot <env>-<slot>; an entry without one the env's base
-slot <env>. The ADO environment and the job name follow the config name. An empty Expeditions
-list inserts no stage (a stage needs at least one job).
 ```

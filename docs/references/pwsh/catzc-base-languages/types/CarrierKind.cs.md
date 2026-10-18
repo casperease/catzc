@@ -9,5 +9,5 @@ Above `namespace Catzc.Base.Languages;`, written with `//`.
 
 ```text
 Where a file keeps its meta block: in its own text (front matter, comment head, ignored property), beside it (sidecar), or nowhere.
-[ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)
+[ADR-REPO-FILEMETA-HEADPOLICY](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)
 ```

@@ -10,7 +10,7 @@ Above `Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-ConfigValidators over a fixture code root in $TestDrive and two in-memory fixture modules whose private
 validators the gate lists from their own scope. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

@@ -15,7 +15,7 @@ file or folder. The rule map decides first (a rule that moves or collapses into 
 (a code renamed whole keeps its rule numbers). A link that carries a rule anchor follows the rule, possibly to
 another file; any other link follows the file. A relative link is resolved at the file's own folder and written
 back relative to it, so it stays correct at any depth
-([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). Matching is exact, with a token
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)). Matching is exact, with a token
 boundary on both sides, and runs everywhere in the text, fenced code blocks included. Pure: paths are
 repository-relative and '/'-separated, so the result depends only on the text, the file's path, and the maps.
 ```

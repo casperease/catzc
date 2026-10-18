@@ -131,7 +131,7 @@ Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)).
+([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 ```
 
 ## comment:6

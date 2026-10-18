@@ -31,12 +31,12 @@ this on every load and a janitor never breaks the load.
 ```
 
 - Skips, silently, in a test-run snapshot (Test-RepositorySnapshot): the disposable clone a test run executes in is never committed to.
-- Who is running decides (Get-SessionActor, [ADR-AUTO-TYPES#13](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)):
+- Who is running decides (Get-SessionActor, [ADR-AUTO-TYPES-JANITORSBYCALLER](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-janitorsbycaller)):
   a pipeline skips — the gates there must fail loudly, not be auto-repaired — and an agent never commits: it announces which generated paths
   changed and leaves the commit to the person, whose repository it is. Only a person's session commits.
 - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.
 - Skips on main/master when the repo's git_workspace variant is 'main-via-pr' (Test-GitWorkspace,
-  [ADR-REPO-VARIANT#6](../../../adr/repository/repo-variants.md#rule-adr-repo-variant6)): in that mode work always happens on a branch, so
+  [ADR-REPO-VARIANT-GITWORKSPACE](../../../adr/repository/repo-variants.md#rule-adr-repo-variant-gitworkspace)): in that mode work always happens on a branch, so
   standing on main locally is the one place a direct commit is forbidden. In 'main-direct' (the default, a solo-author trunk) any named
   branch commits — including main, which IS the integration path (one-living-version).
 - Holds back pwsh/.compiled while it holds anything but the current build (Clear-ModuleTypeCache -DryRun lists the surplus): a superseded
@@ -87,7 +87,7 @@ Above `if ($changed -contains $compiled) {`, written with `#`.
 
 ```text
 .compiled must hold exactly the current build
-([ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8)). A superseded DLL that
+([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/adr/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)). A superseded DLL that
 survived the
 janitor (a session still holds it) would otherwise be committed next to the new one — the +1 without
 the -1. Hold the .compiled commit back until it is tidy; any other changed generated path still commits.

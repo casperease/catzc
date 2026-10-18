@@ -9,5 +9,5 @@ Above `Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-AnalyzerAdrMap over a mocked map, a mocked ADR rule-id set, and fixture rule files in $TestDrive. Neutral
-fixture names and rule codes ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+fixture names and rule codes ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

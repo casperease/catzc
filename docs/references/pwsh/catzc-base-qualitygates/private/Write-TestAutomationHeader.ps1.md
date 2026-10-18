@@ -34,4 +34,4 @@ The modules the run was scoped to; named in the scope only when non-empty.
 ### parameter `Title`
 
 The run's name on the banner: "Test Automation" (the source run, the default) or the build run's "Catzc Build Run"
-([ADR-AUTO-TEST#30](../../../../adr/automation/test-automation.md#rule-adr-auto-test30)).
+([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)).

@@ -12,8 +12,8 @@ Counts the lines of a robot or capability file the roofs apply to.
 ### description
 
 Reads one `.claude/agents/<name>.md` or `.claude/skills/<name>/SKILL.md` and returns two counts
-([ADR-REPO-AGENTS#6](../../../../adr/repository/agent-definitions.md#rule-adr-repo-agents6),
-[ADR-REPO-AGENTS#8](../../../../adr/repository/agent-definitions.md#rule-adr-repo-agents8)): Body, the lines after the front matter's
+([ADR-REPO-AGENTS-ROBOTBODYLIMIT](../../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-robotbodylimit),
+[ADR-REPO-AGENTS-CAPABILITYFILE](../../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityfile)): Body, the lines after the front matter's
 closing `---`; and Capability, the front-matter lines outside the catzc head (the two `---` delimiters excluded) plus the body lines. A line
 counts when it starts something of its own (a key, a heading, a step, a paragraph); a line that starts with whitespace continues the line
 before it, the formatter's wrap at the repository width or a folded YAML value, and counts with it; a blank line and a comment line count as

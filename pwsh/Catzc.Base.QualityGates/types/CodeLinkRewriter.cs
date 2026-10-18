@@ -244,7 +244,11 @@ public sealed class CodeLinkRewriter
             return fixedLink;
         }
 
-        if (!rule.HasValue && fragment.Length > 0)
+        if (map.IsNamedRule(code) && string.Equals(fragment, "#rule-" + code.ToLowerInvariant(), StringComparison.Ordinal))
+        {
+            fragment = string.Empty;
+        }
+        else if (!rule.HasValue && fragment.Length > 0)
         {
             Match ruleFragment = RuleFragment.Match(fragment);
             if (ruleFragment.Success && ruleFragment.Groups["code"].Value == code.ToLowerInvariant())

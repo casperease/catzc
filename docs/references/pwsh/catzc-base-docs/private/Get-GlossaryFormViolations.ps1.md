@@ -12,7 +12,7 @@ Lists the uses of a term outside its declared forms within each glossary source'
 ### description
 
 A term that names a family declares the words allowed to qualify its head word (`forms:`), and any other qualified use is a defect
-([ADR-REPO-VOCAB#8](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab8)): for `gate`, "quality gate" and "CI gate" are
+([ADR-REPO-VOCAB-FAMILYFORMS](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)): for `gate`, "quality gate" and "CI gate" are
 forms, "spelling gate" is not. For every concept with forms whose source takes part in the `forms` check, this reads the same tracked files
 and text surfaces as the avoided-phrasing check (G4, Get-GlossaryPhrasingViolations) and reports:
 

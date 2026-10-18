@@ -38,7 +38,7 @@ The copy is of the source tree (per-function files, tests/, root packages), so i
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
 See [ADR-CONF-LOADING](../../../adr/configuration/module-config-loading.md) (files.yml),
-[ADR-AUTO-TYPES#9](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9), and
+[ADR-AUTO-TYPES-NATIVETYPEDMODEL](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel), and
 [ADR-AUTO-PATH](../../../adr/automation/path-representation.md).
 
 ### parameter `Destination`
@@ -92,7 +92,7 @@ Above `if ([System.IO.Directory]::Exists($destinationRoot) -and...`, written wit
 
 ```text
 An emptiness probe stops at the first entry of any kind, hidden and pruned names included
-([ADR-PWSH-ENUM#1](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum1)).
+([ADR-PWSH-ENUM-RAWDOTNETENUMERATION](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-rawdotnetenumeration)).
 ```
 
 ## comment:2
@@ -101,7 +101,7 @@ Above `foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @()
 
 ```text
 A named whole-tree walk
-([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every file the
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every file the
 copy would write is checked for a conflict.
 ```
 

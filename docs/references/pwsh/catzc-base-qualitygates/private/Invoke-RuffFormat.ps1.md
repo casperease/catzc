@@ -11,10 +11,10 @@ The ruff formatter engine: formats the given Python files with the pinned ruff a
 
 ### description
 
-One Format-Code engine adapter ([ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2)). ruff is
+One Format-Code engine adapter ([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)). ruff is
 pinned in python.yml and runs from the Python test workspace's environment with the workspace's settings (the 140-column line, the pinned
 Python) for every file, wherever it lives (Invoke-PythonWorkspaceTool;
-[ADR-AUTO-PY#8](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)). `ruff format --check` names the files whose
+[ADR-AUTO-PY-EVERYFILELINTED](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfilelinted)). `ruff format --check` names the files whose
 formatting differs; without -DryRun, `ruff format` rewrites exactly those. Throws with "Run Install-Uv" when no uv at the pin is found, and
 with ruff's message for a file it cannot parse.
 

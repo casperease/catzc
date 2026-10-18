@@ -5,9 +5,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {`, written with `#`.
+Above `Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
 
 ```text
 AdrChecksConfig — the ADR checks' settings (adr-checks.yml): every key optional with its default declared once on the type, and
-every violation collected into one throw. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+every violation collected into one throw. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

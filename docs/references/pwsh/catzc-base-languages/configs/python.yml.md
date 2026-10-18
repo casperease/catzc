@@ -15,7 +15,7 @@ committed but the test_*.py files. The workspace is generated and virtual (it bu
 (<root>/.venv) and one lock (<root>/uv.lock) are made by uv in the test bridge and gitignored.
 
 Every key but the dependencies is optional: an omitted key takes the sensible default declared once on
-Catzc.Base.Languages.PythonConfig ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+Catzc.Base.Languages.PythonConfig ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 Loaded via Get-Config -Config python; the shape is validated by the PythonConfig type.
 
 The Python version is not declared here: it is the python tool's pin in tools.yml (global.tools.python.version), the

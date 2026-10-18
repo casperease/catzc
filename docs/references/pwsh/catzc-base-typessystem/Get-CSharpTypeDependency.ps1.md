@@ -53,7 +53,7 @@ Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs')
 ```text
 [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
 .NET enumeration + read avoid
-([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 
 ## comment:2

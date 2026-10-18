@@ -12,12 +12,12 @@ Reads the registry text of one ADR rule, by its citation code.
 ### description
 
 Resolves the code through the ADR citation map, opens the ADR, and returns the paragraph under the rule's heading as plain text, links
-reduced to their text and whitespace collapsed, so a slide that quotes the rule can be compared to it (ADR-REPO-SLIDES#4). Null when the
+reduced to their text and whitespace collapsed, so a slide that quotes the rule can be compared to it (ADR-REPO-SLIDES-CHECKABLECLAIMS). Null when the
 code is not of the form ADR-NAME#n or the index knows no such rule.
 
 ### parameter `Code`
 
-One rule citation, such as ADR-PRIN-EAC#2.
+One rule citation, such as ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL.
 
 ### parameter `RepositoryRoot`
 

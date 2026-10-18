@@ -24,7 +24,7 @@ Above `- name: Freeze the contracts for this version`, written with `#`.
 ```text
 The release freezes the bundle's contracts: the draft must hold, its copy becomes the released version folder
 with a .frozen record, and that folder must hold too
-([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)).
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 ```
 
 ## comment:3

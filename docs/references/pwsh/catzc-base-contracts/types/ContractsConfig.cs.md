@@ -10,24 +10,24 @@ Above `using System;`, written with `//`.
 ```text
 The contracts settings (configs/contracts.yml), and the single declaration of their sensible defaults: every key is
 optional, and an omitted key, or a fresh checkout with no file, behaves exactly like the default, so no function
-restates a value ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). A Get-Contract
+restates a value ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A Get-Contract
 parameter overrides the resolved value per call
-([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
+([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
   addressing    how one contract asset addresses many files
-                ([ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)), one of
+                ([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)), one of
                 AddressingModes; default full-path (an asset addresses the one real file at its own path). A mode in
                 AddressingModes but not in BuiltAddressingModes is declared and valid here, and Get-Contract throws
                 NotImplementedException when it is selected.
   target_roots  each owning module's target root
-                ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)): a map of module
+                ([ADR-REPO-CONTRACT-LAYOUT](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-layout)): a map of module
                 name to the repository-relative folder its assets' paths are relative to, in ordinal module order. A
                 module the map does not name takes DefaultTargetRoot, the repository root (ResolveTargetRoot). A root
                 is '/'-separated segments of letters, digits, '.', '_' and '-', with no leading or trailing slash and
                 no '.' or '..' segment; a dot-prefixed root such as '.github' is how an asset reaches a file under a
                 dot-prefixed root, since contracts/ holds no dot-prefixed folder
-                ([ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10)).
+                ([ADR-REPO-CONTRACT-NODOTFOLDERS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders)).
 Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

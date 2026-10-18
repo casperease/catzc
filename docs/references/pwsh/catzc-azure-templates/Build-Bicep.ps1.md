@@ -108,7 +108,7 @@ Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)).
+([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 ```
 
 ## comment:5
@@ -126,7 +126,7 @@ Above `if ($configurationDescriptor.Contains('ParametersFile') -and...`, written
 
 ```text
 A config-addressed parameter `{ address: global.<config>.<key>… }` renders as the value it addresses
-([ADR-AZ-DATAMOD#10](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10)), before the PrePost hook,
+([ADR-AZ-DATAMOD-VALUEBYADDRESS](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress)), before the PrePost hook,
 so the hook and the parameters file see only ARM entries.
 ```
 

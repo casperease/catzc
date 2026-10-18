@@ -15,7 +15,7 @@ The extension's package.json is rendered from its entry under `extensions:` in v
 module's `assets/extensions/<name>.js` to `extension.js`. The folder is generated output: it is replaced on every render, so nothing in it
 is edited by hand.
 
-It rests on [ADR-AUTO-ASSETDEP#1](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1).
+It rests on [ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency).
 
 ### parameter `Extension`
 

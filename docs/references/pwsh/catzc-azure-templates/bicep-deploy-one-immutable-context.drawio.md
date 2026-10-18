@@ -27,7 +27,7 @@ the context.
 3. **`Get-AzCliSessionSubscription`** (module `Catzc.Azure.Cli`) reads the az session's subscription and reverse-resolves it against
    `azure.yml`. An undeclared or doubly declared subscription throws (ADR-AZ-SESSION). `-SubscriptionIdAssertIs`, when given, must match it.
 4. **`Get-AzureEnvironment`** (module `Catzc.Azure`) composes the environment the session's subscription serves from `azure.yml`
-   (ADR-AZ-DATAMOD#4).
+   (ADR-AZ-DATAMOD-CUSTOMERAXIS).
 5. **`Build-Bicep`** runs only on a devbox without `-DoNotRebuild`. A pipeline takes the files from `-ArtifactsFolder`, and `-DoNotRebuild`
    reuses the template's existing output folder.
 6. **`BicepDeploymentContext`** holds the `BicepDeploymentPlan` (template, deployment name, mode, target, resource group), the
@@ -98,8 +98,8 @@ The legend panel spans the bottom of the drawing area in three columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD#4 and #10, ADR-AZ-SESSION, ADR-AUTO-DRYRUN,
-ADR-PWSH-DRYRUN#1 and ADR-PWSH-PREPOST: the rules the drawn code cites. The drawn code also cites ADR-PWSH-ERROR#8 (the PrePost hooks and
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD-CUSTOMERAXIS and ADR-AZ-DATAMOD-VALUEBYADDRESS, ADR-AZ-SESSION, ADR-AUTO-DRYRUN,
+ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS and ADR-PWSH-PREPOST: the rules the drawn code cites. The drawn code also cites ADR-PWSH-ERROR-STRICTCLEAN (the PrePost hooks and
 template builds run strict). Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ

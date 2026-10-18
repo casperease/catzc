@@ -5,10 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {`, written with `#`.
+Above `Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {`, written with `#`.
 
 ```text
 FileMetaConfig maps file-meta.yml and is the one declaration of its defaults
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the default,
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key behaves exactly like the default,
 and a malformed value fails at construction with the allowed set.
 ```

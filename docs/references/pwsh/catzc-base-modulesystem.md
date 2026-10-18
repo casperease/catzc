@@ -31,7 +31,7 @@ sites.
 
 Computing the actual dependency edges — module-to-module through PowerShell call-site analysis and function-to-function through call-graph
 traversal from a named root — rendering them, ordering the modules foundation-first, and checking them with quality gates
-([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)). The actual edges, together with the cross-module C# type
+([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The actual edges, together with the cross-module C# type
 edges that [Catzc.Base.TypesSystem](catzc-base-typessystem.md) computes, are checked against the declared graph in `dependencies.yml`; the
 whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The declared graph is
 group-aware: its `groups:` section names sets of on-disk modules each with an internal member-to-member DAG; its `modules:` section lists,

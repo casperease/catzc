@@ -10,5 +10,5 @@ Above `using System;`, written with `//`.
 ```text
 What CommentEngine.Export decided for one file: the file's new text and its page's new text (each null when
 nothing changes), and the blocks it moved. The engine never writes; the caller does
-([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+([ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)).
 ```

@@ -9,17 +9,17 @@ Above `formatters:`, written with `#`.
 
 ```text
 The file-language registry — every file language the repository's tracked files are written in, each named by its
-extensions ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). A track's tech-stack is the set of
+extensions ([ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)). A track's tech-stack is the set of
 file languages it declares in variants.yml (`tracks:`); this registry makes that set checkable. Every extension
 belongs to exactly one file language; an extension no entry lists has no file language.
 
 Formatting is configured here, not programmed
-([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)): an entry names the
+([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)): an entry names the
 formatter engine for its files, and Format-Code (Catzc.Base.QualityGates) runs it; Test-Formatting checks the same
 entries. Supporting a language on an existing engine is one line here. A language with nothing to format says why.
 The editor reads the same entries: the root-config generator sets each language's VS Code default formatter to its
 engine's extension and recommends that extension, so Format Document and Format-Code run the same engine
-([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 
 Per formatter (formatters:):
   vscode_extension  the VS Code extension that runs the engine in the editor; omitted = the editor has none
@@ -38,11 +38,11 @@ Per language (languages:):
                    when they name a changed file; omitted = none
 
 The defaults and the engine list are declared once on Catzc.Base.Languages.LanguagesConfig
-([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Loaded via
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Loaded via
 Get-Config -Config languages and read through Get-FileLanguage.
 
 YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
-([ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)).
+([ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-executableyamlextension)).
 ```
 
 ## comment:2

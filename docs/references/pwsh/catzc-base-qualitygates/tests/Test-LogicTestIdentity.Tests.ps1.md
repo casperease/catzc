@@ -10,9 +10,9 @@ Above `Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {
 ```text
 The integrity block binds the REAL shipped config (the live-identity set is derived from it), so it also names
 live identities (e.g. 'apex') as fixture data; the integrity tag is both correct
-([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1))
+([ADR-AUTO-TEST-ONECATEGORY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-onecategory))
 and what exempts that block from the gate's own self-scan. source-only: it scans the repository's test files,
 which give the same answer in both run modes. The logic block mocks the live set with neutral tokens
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and pins the gate's uniform
-shape ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and pins the gate's uniform
+shape ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 ```

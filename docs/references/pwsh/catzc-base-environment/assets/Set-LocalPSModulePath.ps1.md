@@ -21,7 +21,7 @@ scanning, not reading a config file.
 No admin required. Idempotent — safe to run repeatedly.
 
 It runs before catzc is loaded, so it writes through Write-Information directly rather than the writer chokepoint — the same information
-stream ([ADR-PWSH-ANNOUNCE#1](../../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)), always shown, colour as embedded
+stream ([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)), always shown, colour as embedded
 ANSI.
 
 ### example 1

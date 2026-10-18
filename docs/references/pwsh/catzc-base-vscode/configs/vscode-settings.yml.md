@@ -30,7 +30,7 @@ Above `markdown.validate.enabled: true`, written with `#`.
 
 ```text
 Markdown link validation while editing — early feedback for what Test-Links gates
-([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)): dangling files and bad
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)): dangling files and bad
 heading fragments are flagged as warnings in the Problems pane. http(s) links are never checked.
 ```
 
@@ -101,7 +101,7 @@ Above `"[markdown]":`, written with `#`.
 
 ```text
 The formatter of [markdown] — and of every language languages.yml gives a formatter engine — is injected by the
-generator from that registry ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)),
+generator from that registry ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)),
 so Format Document runs the engine Format-Code runs. Format-on-save stays off: formatting is on demand and enforced
 by Test-Formatting.
 ```
@@ -164,7 +164,7 @@ Above `regexrobin.rules:`, written with `#`.
 
 ```text
 Code links in comments — `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-…)`
-([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)) — are repository-rooted
+([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)) — are repository-rooted
 markdown links, which core VS Code does not link outside .md files. This Regex Robin rule (the extension is
 recommended in vscode-extensions.yml) makes the whole link Ctrl+clickable in every language by opening the
 ADR file in the workspace. The #fragment is not passed on: the editor opens files by line, not by heading.
@@ -179,7 +179,7 @@ Above `go.toolsEnvVars:`, written with `#`.
 ```text
 Go (the golang.go extension and gopls): the tools run with GOTOOLCHAIN=local, so the editor never downloads
 the toolchain go.work asks for; it runs the managed go, which the generator injects as go.goroot on a
-machine where Install-Go has run ([ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)).
+machine where Install-Go has run ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
 ```
 
 ## comment:16
@@ -188,7 +188,7 @@ Above `python.terminal.activateEnvironment: false`, written with `#`.
 
 ```text
 Python (the ms-python extension): the generator injects python.defaultInterpreterPath, the Python test
-project's environment ([ADR-AUTO-PY#4](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py4)),
+project's environment ([ADR-AUTO-PY-GENERATEDWORKSPACE](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)),
 so the editor resolves and runs the tests in it. A terminal is never activated into it: the integrated
 terminal stays the catzc pwsh session, and the tests run through Test-Automation, not an activated venv.
 Both keys: the Python extension reads the first, the Python Environments extension the second.

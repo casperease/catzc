@@ -9,5 +9,5 @@ Above `using System;`, written with `//`.
 
 ```text
 One imprint step of the file-language registry: its name, and the files whose bytes change what it writes.
-[ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
+[ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)
 ```

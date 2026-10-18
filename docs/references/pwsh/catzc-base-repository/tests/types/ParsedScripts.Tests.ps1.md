@@ -9,5 +9,5 @@ Above `Describe 'ParsedScripts' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 One holder parses a file once. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -13,7 +13,7 @@ Lists the files one imprint step may write, in its own scope.
 
 A step is never named by a language: which languages it covers is configuration, so this only answers which files the step reads.
 
-It rests on [ADR-REPO-FORMAT#8](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8).
+It rests on [ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters).
 
 ### parameter `Step`
 

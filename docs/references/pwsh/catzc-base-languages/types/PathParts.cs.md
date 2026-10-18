@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `public sealed class PathParts`, written with `//`.
 
 ```text
-[ADR-REPO-FILEMETA#11](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta11): a path under its module is an optional folder, a
+[ADR-REPO-FILEMETA-ROLE](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-role): a path under its module is an optional folder, a
 kebab-case name and a file type, and only that.
 ```
 

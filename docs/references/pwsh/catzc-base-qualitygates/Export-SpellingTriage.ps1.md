@@ -15,10 +15,10 @@ automatic acceptance.
 Runs the same cspell scan as Test-Spelling with --words-only, collecting every token the gate flags, and writes them as UNCATEGORIZED STUBS
 to a triage queue under out/ (terminology-triage.yml). Nothing here is accepted vocabulary: a flagged token joins the dictionary only when a
 human moves it into the terminology registry (configs/terminology.yml) with a real meaning and category, or spells the token out in the code
-([ADR-AUTO-SPELL#7](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell7)). The queue is a to-do list, not a dictionary — cspell
+([ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)). The queue is a to-do list, not a dictionary — cspell
 never reads it, so a token sitting in the queue is still flagged until promoted. It changes no repository file, so it is an export, not a
 formatter. The accepted-word list is generated from the registry (Build-TerminologyDictionary) and is never appended to by a tool
-([ADR-AUTO-SPELL#5](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell5)).
+([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)).
 
 Tokens already in the registry are skipped (cspell accepts them, so they are not flagged in the first place); only genuinely new, unaccepted
 tokens reach the queue.
@@ -84,7 +84,7 @@ Above `$lines = [System.Collections.Generic.List[string]]::new()`, written with 
 ```text
 Emit paste-ready stubs. The blank meaning/category are intentional: a stub pasted into
 terminology.yml as-is fails to load and fails Test-Terminology, forcing a human to classify it
-([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6),
-[ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)) before it becomes
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning),
+[ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)) before it becomes
 accepted vocabulary.
 ```

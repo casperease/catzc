@@ -12,7 +12,7 @@ Prints the findings of a source check in report mode: every finding, then its co
 ### description
 
 The one way a gate shows a check whose config sets mode: report (Catzc.Base.QualityGates.SourceCheck,
-[ADR-PRIN-CONFIG#4](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config4)): the check's findings are its work list,
+[ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-exceptionisconfigentry)): the check's findings are its work list,
 printed with the check's name so a reader can tell them from the gate's issues, and they are never passed to Write-QualityGateReport as
 issues. Nothing is printed when the check found nothing.
 

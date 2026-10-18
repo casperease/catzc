@@ -10,5 +10,5 @@ Above `using System;`, written with `//`.
 ```text
 One ADR reference Update-AdrCitation rewrote in a file: where it is (repository-relative path and 1-based line),
 which form it is, and the text before and after. An Unhandled change carries no New text: the reference is left as
-written for a person to resolve ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+written for a person to resolve ([ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)).
 ```

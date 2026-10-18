@@ -16,7 +16,7 @@ it is the executable's own entry under `executables` when it has one, otherwise 
 limit: bash has a foreground and a -Background limit (the ones the Claude Code hook enforces, since the hook governs the Bash tool), and
 every other engine has one. With -Command it is a function's own limit, most specific first: an exemption for its `[TimeLimit]` decoration's
 budget GUID, then its entry under `commands`, then the decoration for this environment, then the environment's pwsh limit
-([ADR-PWSH-ASSERT#1](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). Every consumer of the safeguard (Invoke-Executable,
+([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). Every consumer of the safeguard (Invoke-Executable,
 Invoke-WithTimeout, Assert-CompletesWithin, the hook's parity test) asks here, so tuning a limit is one edit to the config.
 
 ### parameter `Executable`

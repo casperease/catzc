@@ -49,7 +49,7 @@ Above `if (Test-ExpectedPackageManager -Config $config) {`, written with `#`.
 
 ```text
 Gate: managed by our tooling system → refuse, redirect to Uninstall-Java
-([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
+([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)).
 ```
 
 ## comment:2
@@ -59,6 +59,6 @@ Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.
 ```text
 Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
 / stray binary); elevation is scoped to the mechanism
-([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)), so no admin assert
+([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)), so no admin assert
 here.
 ```

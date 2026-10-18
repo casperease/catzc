@@ -11,8 +11,8 @@ Quality gate: every shipped config has a registered C# config type and loads thr
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the config registry
-([ADR-CONF-LOADING#4](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)). It walks the module folders of the
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the config registry
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). It walks the module folders of the
 loaded code root (Get-CatzcModulesRoot) — the source tree or a built package — and lists every issue:
 
 - a shipped `configs/<name>.yml` with no `type:` entry in configs.yml;
@@ -46,5 +46,5 @@ Above `$raw = Get-Content -LiteralPath $file -Raw | ConvertFrom-Yaml -Ordered`, 
 
 ```text
 The shipped file shows the defaults its type declares; a key may differ only with its reason in
-configs.yml ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+configs.yml ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 ```

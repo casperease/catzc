@@ -10,7 +10,7 @@ Above `Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Get-AdrRuleSet over a fixture AdrsConfig (Get-Config mocked): the flattening and effective codes are AdrsConfig
 construction rules (its type test), so this pins only the projection and the -Domain filter. Neutral fixture names
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -19,5 +19,5 @@ Above `Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity',...`, written 
 
 ```text
 Integrity: adrs.yml and the ADR rule files agree, through the quality gate Test-AdrRegistry
-([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 ```

@@ -15,7 +15,7 @@ The comparison behind the trigger-drift quality gates (Test-AdoPipelineTriggerGl
 order-independent (union include minus union exclude), so a set comparison is correct and an ordinal sort makes it deterministic
 ([ADR-AUTO-XPLAT](../../../../adr/automation/cross-platform.md) — Sort-Object is culture-aware). GitHub paths are ordered last-match-wins
 ('!' negation), so -Ordered compares element by element. Matching is case-sensitive (tracked paths are case-sensitive identities,
-[ADR-FLOW-CD-GLOBS#2](../../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2)).
+[ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](../../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-repositoryrelativepatterns)).
 
 ### parameter `Reference`
 

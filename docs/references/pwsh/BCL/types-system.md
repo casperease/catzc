@@ -17,4 +17,4 @@ committed prebuild, and the cache-state behaviour — is the [native-csharp-type
 ## Related
 
 - ADR: [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)
-- ADR: [caching](../../../adr/automation/caching.md#rule-adr-auto-cache8) — the committed compiled-type prebuild.
+- ADR: [caching](../../../adr/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild) — the committed compiled-type prebuild.

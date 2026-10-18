@@ -9,6 +9,6 @@ Above `Mock Get-Config -ModuleName Catzc.Base.VSCode {`, written with `#`.
 
 ```text
 Isolate through the config seam
-([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): a small
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): a small
 fixture schema registry.
 ```

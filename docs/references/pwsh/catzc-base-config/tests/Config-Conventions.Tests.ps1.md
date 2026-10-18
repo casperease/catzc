@@ -19,5 +19,5 @@ Above `$result = Test-ShippedConfigs -PassThru -OutputFolder (Join-Path $TestDri
 ```text
 The quality gate (Test-ShippedConfigs, in Catzc.Base.QualityGates: Catzc.Base.Reports depends on
 Catzc.Base.Config, so the gate cannot live here) lists every issue over the loaded code root
-([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
+([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 ```

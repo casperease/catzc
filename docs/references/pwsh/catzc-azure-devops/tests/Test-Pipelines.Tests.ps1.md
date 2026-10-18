@@ -9,5 +9,5 @@ Above `Mock Get-AdoYamlFiles -ModuleName Catzc.Azure.DevOps { $script:records }`
 
 ```text
 Isolate through the classifier + reference-scan seams
-([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
 ```

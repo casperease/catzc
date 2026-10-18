@@ -10,5 +10,5 @@ Above `BeforeAll {`, written with `#`.
 ```text
 The typed record over one tools.yml entry. It rejects keys it does not map (a dropped key would be invisible
 to every caller), and these pin the optional flags the provisioning loops branch on. Fixture tokens are
-neutral ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+neutral ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

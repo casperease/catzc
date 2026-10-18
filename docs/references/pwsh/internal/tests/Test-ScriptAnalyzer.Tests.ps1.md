@@ -20,7 +20,7 @@ Above `$script:targetFiles = [System.Collections.Generic.List[string]]::new()`, 
 ```text
 Draw the exact files from the one shared selector (Get-ModuleSourceFile), so this gate cannot
 drift from Test-ScriptAnalyzer
-([ADR-PWSH-FORMAT#5](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format5)). The
+([ADR-PWSH-FORMAT-EVERYFILECOVERED](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-everyfilecovered)). The
 selector covers module *.ps1
 (root, private/), tests/**/*.Tests.ps1 recursively (so tests/types/ is included), the
 .internal/.scriptanalyzer infrastructure folders (bootstrap, TestKit, custom analyzer rules, and
@@ -36,6 +36,6 @@ Above `$allDiagnostics = & (Get-Module Catzc.Base.QualityGates) {`, written with
 The one analysis engine Test-ScriptAnalyzer runs (Get-ScriptAnalyzerDiagnostics): the file list sharded
 across background processes, each importing the vendored analyzer once, and its result cache, which skips
 every file the analyzer last found clean whose bytes and analyzer inputs are unchanged since
-([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)) — a pipeline, without the
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)) — a pipeline, without the
 cache, analyzes every file. A shard error fails the run loudly inside the engine.
 ```

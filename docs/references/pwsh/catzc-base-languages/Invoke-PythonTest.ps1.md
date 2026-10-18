@@ -106,9 +106,9 @@ Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, 
 
 ```text
 How the tests start the engine (Get-EngineContract) is an external contract with the test processes
-([ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1)): set for these
+([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)): set for these
 commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin
-([ADR-AUTO-PY#6](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py6)).
+([ADR-AUTO-PY-MANAGEDTOOLS](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-managedtools)).
 ```
 
 ## comment:4

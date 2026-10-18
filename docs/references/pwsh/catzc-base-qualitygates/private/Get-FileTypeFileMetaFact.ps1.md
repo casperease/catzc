@@ -11,7 +11,7 @@ The file-type meta kind's fact: the file type of the file, the extension of its 
 
 ### description
 
-The file type is the one Get-PathFileType names for the path ([ADR-DSGN-TRACK#6](../../../../adr/design/tracks.md#rule-adr-dsgn-track6));
+The file type is the one Get-PathFileType names for the path ([ADR-DSGN-TRACK-FILELANGUAGE](../../../../adr/design/tracks.md#rule-adr-dsgn-track-filelanguage));
 the kind's `keys` name the head key it is written under. A file with no extension gets an empty value, so the key is left out of its head.
 
 ### parameter `State`

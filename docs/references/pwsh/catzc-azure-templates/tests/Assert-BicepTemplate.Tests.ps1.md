@@ -23,7 +23,7 @@ Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 These never mutate the tree, so they validate the COMMITTED fixtures directly — no per-test
-Copy-Directory (~41ms each, [ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)).
+Copy-Directory (~41ms each, [ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 Assert-BicepTemplate only reads; it cannot corrupt them.
 ```
 
@@ -39,7 +39,7 @@ test under $TestDrive (Pester auto-cleans it) is required. A unique dir is also 
 mid-run, so it cannot race a concurrent file scanner (on-access AV / search indexer) holding the
 just-copied PrePost.psm1 open and intermittently throwing "used by another process". Scratch
 lives in temp, not out/
-([ADR-REPO-OUTDIR#3](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir3)).
+([ADR-REPO-OUTDIR-TEMPFORSCRATCH](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-tempforscratch)).
 Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per tree here.
 ```
 

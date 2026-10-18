@@ -25,11 +25,11 @@ compiles `main.bicep` once.
    `deployment_mode`, `deployment_target`, `environment_kind` and `customer_deployment`. It collects every unknown key and invalid value and
    throws them together. A missing or empty file means no overrides.
 3. **`BicepShortName`** resolves the template's `short_name`: the override when `options.yml` gives one, otherwise the folder name
-   lower-cased, kept to letters and digits, and cut to the maximum length (ADR-AZ-NAMING#2, #6).
+   lower-cased, kept to letters and digits, and cut to the maximum length (ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-LOWERCASECOMPONENTS).
 4. **`BicepTemplate`** is the descriptor built once per folder: the slots found under `configuration/`, the defaults, and the remaining
    `options.yml` overrides laid over them.
 5. **`Resolve-BicepParameterAddresses`** runs for each slot `Build-Bicep` targets. It renders every config-addressed parameter as the value
-   it addresses (ADR-AZ-DATAMOD#10, ADR-CONF-ADDRESSING#1, #3).
+   it addresses (ADR-AZ-DATAMOD-VALUEBYADDRESS, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY).
 6. **`parameters.<config>.json`** is the one parameters file written per slot into the template's output folder; a customer slot's file is
    `parameters.<customer>.<config>.json`.
 7. **`Invoke-AzCli`** runs `bicep build` once, after every slot's parameters file is written, and the build must leave a `main.json`.
@@ -91,9 +91,9 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD#10, ADR-AZ-NAMING#2 and #6, ADR-AZ-CUSTOMER,
-ADR-CONF-ADDRESSING#1 and #3, and ADR-AUTO-TYPES#9: the rules the drawn code cites. The drawn code also cites ADR-AUTO-CACHE,
-ADR-PWSH-CACHE#4, ADR-PWSH-ERROR#8 and ADR-PWSH-PREPOST, which govern parts the slide leaves out. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD-VALUEBYADDRESS, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS and ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-CUSTOMER,
+ADR-CONF-ADDRESSING-GLOBALADDRESSFORM and ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, and ADR-AUTO-TYPES-NATIVETYPEDMODEL: the rules the drawn code cites. The drawn code also cites ADR-AUTO-CACHE,
+ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-PWSH-ERROR-STRICTCLEAN and ADR-PWSH-PREPOST, which govern parts the slide leaves out. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

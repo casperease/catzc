@@ -14,7 +14,7 @@ consumes it. The stable identity across the boundary is ARTIFACT-RELATIVE (e.g. 
 out/-anchored: ADO publishes out/template/<name> as artifact '<name>' and strips the out/template/ prefix,
 so the producer's output root does not survive the rename. The anchor that DOES survive is the artifact
 root itself (the producer's output_folder, the consumer's $(Pipeline.Workspace)/<name>). See
-[ADR-AUTO-PATH#10](/docs/adr/automation/path-representation.md#rule-adr-auto-path10) and out/plan-consolidated-remnants.md (the
+[ADR-AUTO-PATH-PUBLISHEDARTIFACT](/docs/adr/automation/path-representation.md#rule-adr-auto-path-publishedartifact) and out/plan-consolidated-remnants.md (the
 serialized-artifact plan).
 
 `relative` is the artifact-internal, forward-slash path (portable identity); `absolute` is resolved in the

@@ -10,11 +10,11 @@ Above `using System;`, written with `//`.
 ```text
 The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
 kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
-rejected here, [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), [include: [...]], [exclude: [...]],
+rejected here, [ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)), [include: [...]], [exclude: [...]],
 [compose: [...]],
 [verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
 (strict-config discipline), and compose references resolving to declared sets acyclically
-([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)).
+([ADR-FLOW-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-composesets)).
 The config itself is an ordinary tracked file and may be a member. Constructing an instance validates the
 whole registry (collecting all errors) and exposes the sets in registry order.
 See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
@@ -36,7 +36,7 @@ shadow a reserved name — the declared registry and the derived sets share one 
 Above `foreach (GlobSet set in sets)`, written with `//`.
 
 ```text
----- compose resolution ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)): every reference
+---- compose resolution ([ADR-FLOW-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-composesets)): every reference
 names a declared set, never itself, and
      the reference graph is acyclic; effective membership is the union through the references. ----
 ```

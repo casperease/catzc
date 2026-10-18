@@ -39,14 +39,14 @@ with `automation/` or `docs/`.
 | --- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------- |
 | C1  | EACH FOLDER: the gate, the short name and the descriptor run per folder | `Get-BicepTemplates.ps1:43-190`                                        | confirmed |
 | C2  | EACH SLOT: address resolution and the parameters file run per slot      | `Build-Bicep.ps1:89-141`                                               | confirmed |
-| C3  | Supports ADR-AZ-DATAMOD#10                                              | `Build-Bicep.ps1:103`; `private/Resolve-BicepParameterAddresses.ps1:6` | confirmed |
-| C4  | Supports ADR-AZ-NAMING#2, #6                                            | `Get-BicepTemplates.ps1:83`; `types/BicepShortName.cs:2,82`            | confirmed |
+| C3  | Supports ADR-AZ-DATAMOD-VALUEBYADDRESS                                              | `Build-Bicep.ps1:103`; `private/Resolve-BicepParameterAddresses.ps1:6` | confirmed |
+| C4  | Supports ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-LOWERCASECOMPONENTS                                            | `Get-BicepTemplates.ps1:83`; `types/BicepShortName.cs:2,82`            | confirmed |
 | C5  | Supports ADR-AZ-CUSTOMER                                                | `Get-BicepTemplates.ps1:64`; `types/BicepTemplate.cs:55`               | confirmed |
-| C6  | Supports ADR-CONF-ADDRESSING#1, #3                                      | `private/Resolve-BicepParameterAddresses.ps1:7-8`                      | confirmed |
-| C7  | Supports ADR-AUTO-TYPES#9                                               | `types/BicepShortName.cs:3`                                            | confirmed |
+| C6  | Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY                                      | `private/Resolve-BicepParameterAddresses.ps1:7-8`                      | confirmed |
+| C7  | Supports ADR-AUTO-TYPES-NATIVETYPEDMODEL                                               | `types/BicepShortName.cs:3`                                            | confirmed |
 
 Not on the chips (cited by the drawn code, left to the `.md`): ADR-AZ-DATAMOD (bare, `Get-BicepTemplates.ps1:7,54`), ADR-AUTO-CACHE (`:19`),
-ADR-PWSH-CACHE#4 (`:23`), ADR-PWSH-ERROR#8 and ADR-PWSH-PREPOST (`Build-Bicep.ps1:81,117`). `Invoke-AzCli.ps1` and
+ADR-PWSH-CACHE-STRICTSAFEPROBE (`:23`), ADR-PWSH-ERROR-STRICTCLEAN and ADR-PWSH-PREPOST (`Build-Bicep.ps1:81,117`). `Invoke-AzCli.ps1` and
 `Read-BicepTemplateOptions.ps1` cite no ADR.
 
 Counts: 25 claims, 25 confirmed, 0 contradicted, 0 ADR-only.

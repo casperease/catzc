@@ -23,11 +23,11 @@ as the tier/category axes):
 - untagged — the parallel phase (the round-robin shards).
 
 A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and only the run that owns the
-working folder runs L3 (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST#33](../../../../adr/automation/test-automation.md#rule-adr-auto-test33)).
+working folder runs L3 (Resolve-TestRunMaxLevel, [ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../../adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
 
 A file carrying both serial and greedy is serial: strict isolation wins. Granularity is deliberately the file — a file is the unit a shard
 schedules, so one tagged test moves its whole file. See the test-automation ADR
-([ADR-AUTO-TEST#26](../../../../adr/automation/test-automation.md#rule-adr-auto-test26)).
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 
 ### parameter `Discovery`
 

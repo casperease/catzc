@@ -58,7 +58,7 @@ Above `$modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $root...`, writte
 
 ```text
 [System.IO] enumeration: each cmdlet call on this path adds about 20ms.
-[ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
+[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)
 ```
 
 ## comment:2

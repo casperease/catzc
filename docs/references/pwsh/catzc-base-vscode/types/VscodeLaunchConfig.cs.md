@@ -13,7 +13,7 @@ renders to the managed .vscode/launch.json ([ADR-REPO-ROOTCFG](/docs/adr/reposit
 Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.VSCode.VscodeLaunchConfig), so
 Get-Config -Config vscode-launch returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level keys 'version' and 'configurations';

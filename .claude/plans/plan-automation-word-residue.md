@@ -356,7 +356,9 @@ now matches its own examples; pipeline-runner-pattern needed no change, line 35 
 
 ### Close
 
-- [ ] The residue scan is empty. (check:
+- [x] Done 2026-10-18 by session catzc-fb: the exact grep prints nothing (both spacings). A looser grep found ten backticked code-folder
+      lines in docs/adr (native-csharp-types, bash/go/python test-artifacts, internal-asset-dependencies, test-automation), being fixed by
+      the same session. The residue scan is empty. (check:
       `git grep -n -i -E "\\\$automation\b|AutomationRoot|automationRoot|<RepositoryRoot>/automation|     under automation/" -- pwsh docs .claude/drawio`
       prints nothing; the final full `Test-Automation` of task-user-runs-and-commits is the tree-wide proof)
 

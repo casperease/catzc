@@ -13,7 +13,7 @@ The declared (ALLOWED) module dependency graph, configs/dependencies.yml
 VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.ModuleSystem.DependenciesConfig), so
 Get-Config -Config dependencies returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Load-time rules are self-contained — this one file only, no filesystem reads (a declared module that is missing
 on disk is a Test-ModuleDependency finding, not load's):

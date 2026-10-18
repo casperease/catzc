@@ -34,7 +34,7 @@ Limits are keyed by environment (devbox | pipeline) and shell, one of the execut
 
 A function whose work is long by nature declares its limit beside its code, as a [Catzc.Base.Timeouts.TimeLimit]
 attribute; Get-TimeoutSeconds -Command resolves an exemption, then `commands`, then the decoration, then the
-environment's pwsh limit ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)).
+environment's pwsh limit ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
 
 Every key is optional: the sensible defaults are declared once, on TimeoutsConfig, so this file states only what
 has been tuned. The devbox defaults are deliberately tight while the blockers are tuned: a call that

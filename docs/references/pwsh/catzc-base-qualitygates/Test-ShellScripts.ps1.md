@@ -13,8 +13,8 @@ the repository's own.
 ### description
 
 The POSIX engines read a carriage return as part of the command, so a shell script with CRLF line endings does not run
-([ADR-AUTO-ENGINE#2](../../../adr/automation/execution-engines.md#rule-adr-auto-engine2): the POSIX engines require LF;
-[ADR-AUTO-BASH#6](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6): every shell script takes these checks). The
+([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](../../../adr/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce): the POSIX engines require LF;
+[ADR-AUTO-BASH-SHELLSCRIPTSCHECKED](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-shellscriptschecked): every shell script takes these checks). The
 scope is every tracked `*.sh`, `*.bats` and `*.zsh` file plus the root importer.sh (a committed root-config copy that is regenerated on
 import). The vendored bats-core runner (`<Bash root>/.vendor/bats-core/`, BashConfig.BatsFolder) is mostly Bash scripts without an
 extension; every tracked file in it takes the LF check only, since it is third-party code the repository runs but does not own (upstream

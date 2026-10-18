@@ -10,12 +10,12 @@ Above `using System;`, written with `//`.
 ```text
 The sub-agent registry (configs/agents.yml): one entry per sub-agent definition under .claude/agents/, with the
 ADR rules that support it and the checks it runs or guards, plus the one standard agent
-([ADR-REPO-AGENTS#2](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents2),
-[ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)). Registered in
+([ADR-REPO-AGENTS-BACKEDBYRULE](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule),
+[ADR-REPO-AGENTS-STANDARDWORKER](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-standardworker)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AgentsConfig), so Get-Config -Config agents returns
-this typed record ([ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4)).
+this typed record ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
 Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - only the top-level keys standard and agents, both required;
@@ -31,7 +31,7 @@ Above `public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" }
 
 ```text
 The contracts every robot and capability names in its front matter under `contracts`, the default declared once here
-([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6)).
+([ADR-REPO-AGENTS-ROBOTBODYLIMIT](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-robotbodylimit)).
 ```
 
 ## comment:3
@@ -40,7 +40,7 @@ Above `public int agent_body_lines { get; } = 20;`, written with `//`.
 
 ```text
 The most body lines an agent file may have, the default declared once here and overridable in roofs
-([ADR-REPO-AGENTS#6](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents6)).
+([ADR-REPO-AGENTS-ROBOTBODYLIMIT](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-robotbodylimit)).
 ```
 
 ## comment:4
@@ -49,5 +49,5 @@ Above `public int capability_lines { get; } = 10;`, written with `//`.
 
 ```text
 The most lines a capability file may have outside its catzc head, delimiters excluded
-([ADR-REPO-AGENTS#8](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents8)).
+([ADR-REPO-AGENTS-CAPABILITYFILE](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityfile)).
 ```

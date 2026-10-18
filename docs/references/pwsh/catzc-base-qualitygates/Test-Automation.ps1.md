@@ -17,7 +17,7 @@ driven by the PesterRunner type), each of which imports the repository, runs its
 replay in submission order, so the console reads sequentially while the wall clock runs in parallel. Files containing a 'greedy'-tagged test
 (tests that fan out heavy machine load of their own but share no state) follow as single-file shards through the pool, one file per worker;
 files containing a 'serial'-tagged test (tests that mutate state shared across processes) run last in a one-worker phase, alone — see
-[ADR-AUTO-TEST#26](../../../adr/automation/test-automation.md#rule-adr-auto-test26). Pester executes tests sequentially within a worker; a
+[ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool). Pester executes tests sequentially within a worker; a
 single file never splits across workers.
 
 ### parameter `MinLevel`
@@ -29,8 +29,8 @@ Must not exceed MaxLevel.
 
 Maximum test level to run (alias: -Level). Defaults to 3: every tier the run's location allows. A run that owns the working folder runs
 L0-L3; a run in a snapshot (another run holds the working folder, or -Isolated) skips L3 and says so
-([ADR-AUTO-TEST#33](../../../adr/automation/test-automation.md#rule-adr-auto-test33)). 4 adds the opt-in L4 tier, the tests of the released
-system after final approval ([ADR-AUTO-TEST#41](../../../adr/automation/test-automation.md#rule-adr-auto-test41)); run from a console it is
+([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)). 4 adds the opt-in L4 tier, the tests of the released
+system after final approval ([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../adr/automation/test-automation.md#rule-adr-auto-test-testinginproduction)); run from a console it is
 a run of that gate outside its pipeline, never a gate verdict. Tests self-skip when their tool or access is absent, so the default stays
 green on a machine that is missing one. Tiers are defined by what a test integrates with (not by speed): L0/L1 = unit tests — pure logic
 with every external boundary mocked. L2 = integrates with a local CLI tool for real (e.g. `az bicep build`, python, dotnet), inside the
@@ -66,7 +66,7 @@ Greedy files run side by side in groups of this size, one group after another; 0
 
 Hard ceiling on each execution phase (the parallel pool, then the serial phase). On expiry every worker is killed and the run throws.
 Defaults to this function's `[TimeLimit]` (360 s on a devbox, where a full run takes about 250 s; 3600 s in a pipeline), unless timeouts.yml
-overrides it ([ADR-PWSH-ASSERT#1](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)).
+overrides it ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
 
 ### parameter `Output`
 
@@ -85,7 +85,7 @@ over-limit tests (with their durations) and stays green. Pass this (e.g. in a co
 
 ### parameter `Rule`
 
-Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-PWSH-ERROR#3`. Each value is a citation in
+Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`. Each value is a citation in
 `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test and, within them, to the cited tests (Pester tag include).
 Composes with -Level/-Category/-Modules. It is the executable companion of the rule-coverage report: find a rule's tests, then run just
 them.
@@ -93,8 +93,8 @@ them.
 ### parameter `Suite`
 
 Run a test suite: the named globset's declared `verify:` scope in globs.yml, resolved to the module list and tier to run
-([ADR-AUTO-TEST#37](../../../adr/automation/test-automation.md#rule-adr-auto-test37); the blast-radius marker role,
-[ADR-FLOW-CD-GLOBS#7](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)) — "which tests do I need to run to verify a change in
+([ADR-AUTO-TEST-TESTSUITE](../../../adr/automation/test-automation.md#rule-adr-auto-test-testsuite); the blast-radius marker role,
+[ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)) — "which tests do I need to run to verify a change in
 that area-of-control". Mutually exclusive with -Modules; a globset without a verify scope is not a test suite and throws with the remedy.
 Find the suites a change touches with Get-MarkerBlastRadius.
 
@@ -107,7 +107,7 @@ Base directory for the run report. Every run writes a timestamped subfolder (`<O
 ### parameter `Isolated`
 
 Run in an isolated snapshot of the working folder even when it is free. A run never waits for another
-([ADR-AUTO-TEST#32](../../../adr/automation/test-automation.md#rule-adr-auto-test32)): when another run holds the working folder this one
+([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): when another run holds the working folder this one
 runs in a snapshot anyway; this switch asks for a snapshot up front — a deterministic run, immune to edits made in the working folder while
 it runs. The report lands in the working folder's out/ either way, and run.json records where the run executed.
 
@@ -192,7 +192,7 @@ Test-Automation -EnforceTimings   # fail if any test is over its level's limit
 ### example 12
 
 ```powershell
-Test-Automation -Rule ADR-PWSH-ERROR#3   # run only the tests that cite ADR-PWSH-ERROR#3
+Test-Automation -Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR   # run only the tests that cite ADR-PWSH-ERROR-THROWNOTWRITEERROR
 ```
 
 ### example 13
@@ -213,7 +213,7 @@ Above `if ($Suite) {`, written with `#`.
 
 ```text
 -Suite: run a test suite — the named globset's declared verify scope resolves to the module list and tier
-(Resolve-TestSuite, [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37)).
+(Resolve-TestSuite, [ADR-AUTO-TEST-TESTSUITE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-testsuite)).
 ```
 
 ## comment:2
@@ -223,7 +223,7 @@ Above `Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation'...`
 ```text
 The harness itself — discovery, tag checks, sharding, workers, rows, reports — is the core both runs
 share (Invoke-TestRun,
-[ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). The source run loads each
+[ADR-AUTO-TEST-SAMETESTSBOTHRUNS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). The source run loads each
 worker through the
 repository importer, the core's default.
 ```

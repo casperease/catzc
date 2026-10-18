@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 One inspiration of configs/inspiration.yml, as stored: an id, the root it lives at, what it is, and the folders
 inside it worth reading. Constructing one MAPS and VALIDATES the entry, and every violation is reported in one
 throw, prefixed with the entry's position. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - a mapping whose keys are id, root, description and paths;

@@ -47,5 +47,5 @@ The diagram is described element by element in [its asset description](.assets/e
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same check: [architecture](globs-asks-loader-for-context-and-git-for-diff.md),
   [implementation](range-per-context-then-diff-and-match.md), [operations](stop-only-on-false-everything-else-proceeds.md) and
-  [governance](tests-pin-the-throw-and-fail-open-no-caller.md).
+  [governance](tests-pin-the-throw-and-fail-open-cd-calls-it.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

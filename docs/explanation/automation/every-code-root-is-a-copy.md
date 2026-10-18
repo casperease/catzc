@@ -12,7 +12,7 @@ One engine builds the bundle, and every code root is a copy of its output.
 7  Catzc.Base.Exporter      the exporter module that drives the engine and owns the lifecycle
 8  Checked again            Install-Catzc runs the guard before it copies
 
-Supports ADR-AUTO-BUNDLE#1, #2, #3 and #6, and ADR-DSGN-RUNMODE#7 (architecture lens).
+Supports ADR-AUTO-BUNDLE#1, #2, #3 and #6 (architecture lens).
 ```
 
 Cats runs from a code root: the folder its modules load from. In the repository that root is the source tree itself, but a bundle carries

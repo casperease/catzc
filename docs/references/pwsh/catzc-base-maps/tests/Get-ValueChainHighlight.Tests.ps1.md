@@ -9,7 +9,7 @@ Above `Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {`, written with `#
 
 ```text
 Get-ValueChainHighlight lights the value-chain map cells of ADR codes
-([ADR-DSGN-TRACK#12](/docs/adr/design/tracks.md#rule-adr-dsgn-track12),
-[ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)). The logic tests mock the map with
-widget/gadget fixtures ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-DSGN-TRACK-LITCELL](/docs/adr/design/tracks.md#rule-adr-dsgn-track-litcell),
+[ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)). The logic tests mock the map with
+widget/gadget fixtures ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

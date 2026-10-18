@@ -11,7 +11,7 @@ Claims where a test run executes — its location: in place in the working folde
 
 ### description
 
-A test run never waits for another ([ADR-AUTO-TEST#32](../../../../adr/automation/test-automation.md#rule-adr-auto-test32)). Concurrent runs
+A test run never waits for another ([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)). Concurrent runs
 share real state in a checkout — the out/ build folders, the .compiled assembly, the git index and working tree — so only one run at a time
 may use the working folder itself. This is the one claim path both entry points use:
 
@@ -72,7 +72,7 @@ Above `$sourceCache = Join-Path (Get-OutputRoot) 'cache'`, written with `#`.
 ```text
 The snapshot starts with the working folder's quality-check result caches (out/cache), which it would not
 otherwise carry: each entry is keyed on a file's content and the stamps of the check's inputs
-([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)), so it holds in a copy of the same
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)), so it holds in a copy of the same
 tree and a file the snapshot changed is simply a new key. Without them every snapshot run would format and
 analyse every file from cold. The snapshot's own updates stay in the snapshot.
 ```
@@ -88,7 +88,7 @@ cspell dictionaries), once, before any worker starts — workers import with -Sk
 otherwise find them missing, or race each other generating manifests. The snapshot is never committed to:
 Sync-GeneratedFile recognises it by its provenance marker (Test-RepositorySnapshot).
 Non-interactive, from the engine model
-([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)): no person can answer a
+([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)): no person can answer a
 prompt here, so one fails at
 once instead of waiting out the time limit.
 ```

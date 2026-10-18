@@ -15,7 +15,7 @@ Each kind's processor is the function the registry names, found in this module's
 the function it expected. A processor must return exactly the keys its kind declares, so a kind can never write a key another kind owns.
 Each key goes into the part its kind names, `immutable` or `edges`, and comes back in registry order, which is the order it is written.
 
-It rests on [ADR-REPO-FILEMETA#4](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta4).
+It rests on [ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction).
 
 ### parameter `State`
 

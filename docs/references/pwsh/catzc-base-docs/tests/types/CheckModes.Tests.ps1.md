@@ -5,10 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE#1' {`, written with `#`.
+Above `Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE-ONEVERSION' {`, written with `#`.
 
 ```text
 CheckModes — the one parser of a check's mode setting, shared by every check config: an omitted mode is the default declared
 once on CheckMode, and an unknown one gets the one error text. Neutral fixture values
-([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

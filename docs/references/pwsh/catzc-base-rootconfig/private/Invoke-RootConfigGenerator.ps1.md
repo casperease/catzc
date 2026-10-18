@@ -70,7 +70,7 @@ Above `$machineSetting = @{}`, written with `#`.
 ```text
 The managed Go toolchain, when found at the pin: the Go extension and gopls otherwise run whichever go
 comes first on PATH, and on Windows a machine-wide Go precedes the user-scope managed one
-([ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)).
+([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
 ```
 
 ## comment:5
@@ -79,7 +79,7 @@ Above `$python = Get-Config -Config python`, written with `#`.
 
 ```text
 The Python test workspace's one environment
-([ADR-AUTO-PY#4](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py4)), under the
+([ADR-AUTO-PY-GENERATEDWORKSPACE](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)), under the
 resolved Python root and in this
 platform's layout: the Python extension resolves the tests' imports and runs them in it.
 ```
@@ -90,7 +90,7 @@ Above `$languageFormatter = [ordered]@{}`, written with `#`.
 
 ```text
 Each language's editor formatter, from the file-language registry: Format Document runs the engine
-Format-Code runs ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
+Format-Code runs ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 ```
 
 ## comment:7
