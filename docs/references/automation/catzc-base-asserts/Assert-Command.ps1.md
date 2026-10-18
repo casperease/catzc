@@ -9,11 +9,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Asserts that a command exists on the system.
 
-### parameter Command
+### parameter `Command`
 
 The command name to look up via Get-Command.
 
-### parameter ErrorText
+### parameter `ErrorText`
 
 Custom error message. Defaults to '`<Command>` is not installed'.
 

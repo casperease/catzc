@@ -17,11 +17,11 @@ Neither step here needs elevation ([ADR-AUTO-REMOVE#6](../../../../adr/automatio
 removal is the uv-scoped 'uv pip uninstall --system' (never a foreign system pip), and the stray delete removes only the resolved binary.
 Private to Catzc.Tooling.Core.
 
-### parameter Config
+### parameter `Config`
 
 The tool's parsed tools.yml entry (from Get-ToolConfig).
 
-### parameter Source
+### parameter `Source`
 
 The resolved path of the tool's on-PATH binary (from Get-Command) — the caller resolves it once and passes it in.
 

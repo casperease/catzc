@@ -16,7 +16,7 @@ the subscription belongs to a customer (and the customer renders into the resour
 subscriptions have none. This is the single accessor for that field, shared by Get-AzureSubscription (naming resolution) and
 Get-BicepConfigSubscriptionCandidates (config-coordinate resolution) so the two cannot drift.
 
-### parameter Subscription
+### parameter `Subscription`
 
 A subscription entry (an AzureSubscriptionRecord) from azure.yml's `subscriptions` map.
 

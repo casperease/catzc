@@ -37,16 +37,16 @@ Ends with Write-QualityGateReport: the report lands in out/test-shell-scripts/, 
 result with -PassThru). Throws with "Run Install-Shellcheck" when ShellCheck at the pin is missing and there is a script for it, and with
 "Run Install-Zsh" when zsh at the pin is missing and there is a `*.zsh` file. Needs the source tree (Assert-SourceTree).
 
-### parameter ShellCheckExclude
+### parameter `ShellCheckExclude`
 
 Repository-relative wildcard paths ShellCheck skips: vendored third-party scripts, which are LF-checked but not analysed. Default: the
 vendored dotnet-install.sh. A `*.zsh` file never goes to ShellCheck.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-shell-scripts).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Scripts } instead of throwing on issues.
 

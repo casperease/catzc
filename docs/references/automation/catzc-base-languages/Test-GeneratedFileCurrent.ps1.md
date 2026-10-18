@@ -20,11 +20,11 @@ matter, a comment head, a property).
 
 It rests on [ADR-PRIN-ONELIVE](../../../adr/principles/one-living-version.md).
 
-### parameter Path
+### parameter `Path`
 
 The generated file to check.
 
-### parameter InputsSha
+### parameter `InputsSha`
 
 The stamp of the inputs as they are now, from Get-InputStamp.
 

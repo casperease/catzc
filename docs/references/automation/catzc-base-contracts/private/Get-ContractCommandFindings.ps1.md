@@ -19,11 +19,11 @@ Then the asset parses as the contract language (ContractCommand,
 loading it (Read-CommandSignature), and ContractCommand.Compare gives one finding per disagreement. A contract or a file that does not parse
 is the finding.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the asset and its target are relative to.
 
-### parameter Asset
+### parameter `Asset`
 
 The command contract asset.
 

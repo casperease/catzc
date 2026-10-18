@@ -22,12 +22,12 @@ instead. A cspell tool error (exit > 1) or a scan that matched no files throws b
 
 cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
 
-### parameter Path
+### parameter `Path`
 
 Repository-relative paths or globs to check (cspell expands a glob). Defaults to the repository's known file types. cspell still applies the
 ignorePaths from cspell.yml.
 
-### parameter Exclude
+### parameter `Exclude`
 
 Globs the spelling QUALITY GATE skips, passed to cspell as --exclude. Defaults to the authored/generated trees that are out of scope to
 spell-check (out/, docs/notes, the machine-derived `configuration/**` trees). Non-authored noise (vendor, install scripts, compiled output,
@@ -35,11 +35,11 @@ binaries) lives in cspell.yml ignorePaths instead — this parameter is for cont
 gate does NOT check (authored/generated text, not third-party noise — that lives in cspell.yml ignorePaths). Passed to cspell as --exclude
 globs.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-spelling`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, ExitCode }) instead of throwing.
 

@@ -20,7 +20,7 @@ Each case carries the import path of its package — the module path `<module_ro
 package — so it pairs with the GoTestResult Invoke-GoTest returns, and the category by the GoTestResult rule: `TestIntegrity*` is integrity,
 everything else logic.
 
-### parameter Folder
+### parameter `Folder`
 
 The absolute path of the Go test folder (a Get-LanguageTestFolders Folder of language go).
 

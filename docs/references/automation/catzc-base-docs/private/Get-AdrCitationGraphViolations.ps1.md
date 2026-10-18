@@ -25,11 +25,11 @@ Each line reports the domain it cites once, naming the first reference to it.
 
 Private helper for Test-AdrRegistry; not exported.
 
-### parameter Adrs
+### parameter `Adrs`
 
 The ADR registry (Get-Config -Config adrs).
 
-### parameter Index
+### parameter `Index`
 
 The docs/adr/ file index (Get-AdrFileIndex).
 

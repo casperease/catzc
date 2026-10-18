@@ -16,7 +16,7 @@ either; this resolves both to the same record so downstream code always works wi
 customer). The key/shortcode name-spaces are kept distinct by the CustomerConfig type, so the match is unambiguous: keys first, then
 shortcodes. Throws when the token is neither.
 
-### parameter Name
+### parameter `Name`
 
 A customer key or shortcode.
 

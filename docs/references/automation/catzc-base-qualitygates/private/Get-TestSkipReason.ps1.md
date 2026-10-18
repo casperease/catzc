@@ -16,7 +16,7 @@ A test skipped with `Set-ItResult -Skipped -Because '<reason>'` carries an error
 error at all) has no reason, so the function returns 'no reason given'. Any other recorded message (e.g. Run.SkipRemainingOnFailure's
 "Skipped due to previous failure at …") is returned verbatim. Feeds Write-TestAutomationSkipReport.
 
-### parameter Test
+### parameter `Test`
 
 A Pester test-result object (an item of $result.Tests). Its .ErrorRecord carries the skip message.
 

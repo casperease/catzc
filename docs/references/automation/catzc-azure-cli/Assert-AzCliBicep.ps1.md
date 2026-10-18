@@ -18,7 +18,7 @@ early error at the source. It first asserts the az CLI itself is installed at th
 Bicep CLI. Both share Get-AzCliBicepState. See [ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1) and
 [ADR-AUTO-ENTERP](../../../adr/automation/effective-in-enterprises.md).
 
-### parameter ErrorText
+### parameter `ErrorText`
 
 Custom error message. Defaults to one naming the specific cause and the matching az bicep fix.
 

@@ -17,15 +17,15 @@ is edited by hand.
 
 It rests on [ADR-AUTO-ASSETDEP#1](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1).
 
-### parameter Extension
+### parameter `Extension`
 
 The registry entry to render.
 
-### parameter OutputDirectory
+### parameter `OutputDirectory`
 
 The folder the extension folder is written under, as `<OutputDirectory>/<name>/`.
 
-### parameter AssetDirectory
+### parameter `AssetDirectory`
 
 The folder that holds the extension scripts. Default: the module's assets/extensions/.
 

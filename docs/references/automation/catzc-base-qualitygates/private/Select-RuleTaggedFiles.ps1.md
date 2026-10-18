@@ -16,15 +16,15 @@ any tier) and the wanted citations, this returns the files in which at least one
 same union used for coverage). The worker additionally filters within a file by include tag, so a file mixing matched and other tests runs
 only the matched ones; this just keeps whole non-matching files off the work-list.
 
-### parameter TestFile
+### parameter `TestFile`
 
 The candidate test files (absolute `*.Tests.ps1` paths), in run order.
 
-### parameter Discovery
+### parameter `Discovery`
 
 The discovery-only Pester run object whose tests carry the citation tags.
 
-### parameter Rule
+### parameter `Rule`
 
 The wanted citations in '`ADR-<CODE>#<n>`' form. A file is kept when one of its tests cites any of them.
 

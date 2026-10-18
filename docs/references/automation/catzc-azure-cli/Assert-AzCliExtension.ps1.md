@@ -22,7 +22,7 @@ Assert-AzCliExtension 'ip-group'
 Invoke-AzCli "network ip-group list --resource-group $rg -o json" -PassThru
 ```
 
-### parameter Name
+### parameter `Name`
 
 The required extension name (e.g. 'ip-group').
 

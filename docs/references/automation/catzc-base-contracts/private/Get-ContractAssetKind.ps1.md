@@ -17,11 +17,11 @@ Schema, `<name>.sample.<ext>` is a Sample, and any other name is a Fragment, or 
 requires presence only). The command suffix needs a Verb-Noun stem, and the suffixes are checked before emptiness, so an empty command
 contract is still a command contract and a schema is never read as a sample.
 
-### parameter Name
+### parameter `Name`
 
 The asset's file name (its last path segment).
 
-### parameter IsEmpty
+### parameter `IsEmpty`
 
 The asset holds nothing but whitespace.
 

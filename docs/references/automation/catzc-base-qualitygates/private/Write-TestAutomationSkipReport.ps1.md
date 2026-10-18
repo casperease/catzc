@@ -25,19 +25,19 @@ Consumes the run's row set — not a live Pester object — because parallel wor
 the process boundary. Silent when nothing was skipped or excluded (a full run reports nothing here). Best-effort presentation: the caller
 wraps it so a rendering error never masks the run outcome.
 
-### parameter Rows
+### parameter `Rows`
 
 The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The -MinLevel the run was invoked with — names the scope that excluded a test in the "not run" header.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The -MaxLevel (-Level) the run was invoked with — names the scope that excluded a test in the "not run" header.
 
-### parameter Category
+### parameter `Category`
 
 The -Category the run was invoked with (Logic/Integrity/Both) — named in the scope when not Both.
 

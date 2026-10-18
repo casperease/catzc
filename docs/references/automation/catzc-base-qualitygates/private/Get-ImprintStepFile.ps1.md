@@ -15,15 +15,15 @@ A step is never named by a language: which languages it covers is configuration,
 
 It rests on [ADR-REPO-FORMAT#8](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8).
 
-### parameter Step
+### parameter `Step`
 
 The step name, as languages.yml spells it.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders to limit the scope to.
 

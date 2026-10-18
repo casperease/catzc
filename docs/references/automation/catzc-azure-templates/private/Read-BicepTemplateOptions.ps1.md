@@ -34,7 +34,7 @@ silently doing nothing.
 
 Returns an ordered dictionary containing ONLY the keys present in the file (empty when the file is absent or carries no recognised keys).
 
-### parameter TemplateFolder
+### parameter `TemplateFolder`
 
 Absolute path to the template folder (the one containing `main.bicep`).
 

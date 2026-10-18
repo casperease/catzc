@@ -15,7 +15,7 @@ The one reader of the snapshot provenance marker (.git/catzc-snapshot.json) that
 clone a test run executes in: Remove-RepositorySnapshot deletes only a snapshot, and the importer's generated-file commit never commits
 inside one.
 
-### parameter Path
+### parameter `Path`
 
 The repository root to check. Default: the loaded repository root.
 

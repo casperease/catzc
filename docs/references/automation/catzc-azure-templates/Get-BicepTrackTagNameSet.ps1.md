@@ -23,7 +23,7 @@ Returned shape:
 { commit, build_id, branch }
 ```
 
-### parameter Template
+### parameter `Template`
 
 Template name.
 

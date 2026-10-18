@@ -19,11 +19,11 @@ gate and the editor agree.
 
 Dot-sourced into each check module, so it runs in that module's scope and changes no session state.
 
-### parameter ScriptBlockAst
+### parameter `ScriptBlockAst`
 
 Any block of the code under analysis; the whole buffer is searched from its root.
 
-### parameter IncludeTestsFolder
+### parameter `IncludeTestsFolder`
 
 Also count a file under a tests/ folder (a fixture or helper beside the tests).
 

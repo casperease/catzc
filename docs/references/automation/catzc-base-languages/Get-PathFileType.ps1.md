@@ -16,7 +16,7 @@ different file types of the YAML family. It is the last extension of the file na
 `.gitkeep`, and a name that ends in a dot have none: nothing is returned
 ([ADR-DSGN-TRACK#6](../../../adr/design/tracks.md#rule-adr-dsgn-track6)).
 
-### parameter Path
+### parameter `Path`
 
 A repository-relative or absolute path ('/' or '\' separated).
 

@@ -21,11 +21,11 @@ commit on a tip that may be a dirty HEAD.
 
 It rests on [ADR-AUTO-DRYRUN#2](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun2).
 
-### parameter Message
+### parameter `Message`
 
 The commit message. Empty or omitted: `...`.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would be committed and pushed, and change nothing.
 

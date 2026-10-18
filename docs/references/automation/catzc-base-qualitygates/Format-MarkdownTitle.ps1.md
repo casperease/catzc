@@ -23,19 +23,19 @@ gate. A source-tree tool: it throws in build mode (Assert-SourceTree).
 It rests on [ADR-REPO-FORMAT#6](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6) and
 [ADR-REPO-FORMAT#7](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format7).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to title. Default: every in-scope file.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root titles are relative to. Default: the loaded repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without writing any file.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ ChangedCount; ChangedFiles; FileCount; DryRun }) instead of only the changed paths.
 

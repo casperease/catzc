@@ -22,11 +22,11 @@ exempt name is not reported, and an exempt name that no longer conflicts is repo
 Write-QualityGateReport: the report lands in out/test-parameter-consistency/, and the gate throws once listing every issue (or returns the
 result with -PassThru). Needs the source tree (Assert-SourceTree).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-parameter-consistency).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Functions; Exempt } instead of throwing on issues.
 

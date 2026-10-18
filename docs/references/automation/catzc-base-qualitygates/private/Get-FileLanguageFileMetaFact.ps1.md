@@ -17,15 +17,15 @@ lists, such as a dotfile, gets an empty value, so the key is left out of its hea
 
 It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

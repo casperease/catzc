@@ -13,7 +13,7 @@ Sets the active Azure CLI subscription.
 
 Skips if the requested subscription is already active.
 
-### parameter Subscription
+### parameter `Subscription`
 
 Subscription name or ID.
 

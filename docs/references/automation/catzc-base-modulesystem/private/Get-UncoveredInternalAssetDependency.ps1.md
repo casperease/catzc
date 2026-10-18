@@ -25,11 +25,11 @@ repository-relative test files that were inspected (empty when none exists). Ret
 
 It rests on [ADR-AUTO-ASSETDEP#4](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4).
 
-### parameter AutomationRoot
+### parameter `AutomationRoot`
 
 Path to the automation directory. Defaults to `<RepositoryRoot>/automation`.
 
-### parameter Dependency
+### parameter `Dependency`
 
 The inventory to check. Defaults to Get-InternalAssetDependency over -AutomationRoot.
 

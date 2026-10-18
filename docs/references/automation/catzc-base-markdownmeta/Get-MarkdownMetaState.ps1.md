@@ -17,11 +17,11 @@ separates written front matter from it, so imprinting never changes the hash it 
 
 It rests on [ADR-REPO-FILEMETA#1](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta1).
 
-### parameter Text
+### parameter `Text`
 
 The whole Markdown file as text.
 
-### parameter Key
+### parameter `Key`
 
 The front-matter key path of the block: catzc at the top level (the default), or a dotted path such as metadata.catzc where the carrier
 nests it under another tool's keys.

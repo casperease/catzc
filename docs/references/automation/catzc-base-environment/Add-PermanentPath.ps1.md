@@ -19,19 +19,19 @@ Cross-platform PATH persistence:
 
 Idempotent — skips if the path is already present.
 
-### parameter Path
+### parameter `Path`
 
 The directory to add. Must exist.
 
-### parameter Prepend
+### parameter `Prepend`
 
 Place the path at the beginning instead of the end.
 
-### parameter Label
+### parameter `Label`
 
 Identity marker for Unix profile blocks. Defaults to the leaf folder name. Must match when calling Remove-PermanentPath.
 
-### parameter Sync
+### parameter `Sync`
 
 After adding, call Sync-SessionPath to merge any other new registry entries into the current session (Windows only).
 

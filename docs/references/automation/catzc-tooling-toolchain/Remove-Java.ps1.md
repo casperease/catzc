@@ -17,11 +17,11 @@ Auto-detects the install directory from Get-Command if not specified.
 This is for JDK installations (Oracle, AdoptOpenJDK, etc.) that are not managed by winget/brew/apt. If Java is managed by the tooling
 system, use Uninstall-Java instead.
 
-### parameter InstallDir
+### parameter `InstallDir`
 
 Path to the JDK installation folder. Auto-detected from PATH if omitted.
 
-### parameter Force
+### parameter `Force`
 
 Actually perform the removal. Without this, shows what would be removed.
 

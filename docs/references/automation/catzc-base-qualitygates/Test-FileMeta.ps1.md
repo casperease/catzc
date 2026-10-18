@@ -15,19 +15,19 @@ A key no meta kind owns is reported too: the author decides whether it belongs i
 
 It rests on [ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to check. Default: every in-scope file.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root paths are relative to. Default: the loaded repository root.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-file-meta`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
 

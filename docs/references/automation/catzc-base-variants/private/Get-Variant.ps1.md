@@ -17,7 +17,7 @@ Test-HaveCustomers, …) are thin wrappers over this reader so the growing varia
 the named primitives. A key the file omits holds the default VariantsConfig declares once, so this reader names no default of its own
 ([ADR-AUTO-DEFAULT#6](../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
 
-### parameter Name
+### parameter `Name`
 
 The variant key (a top-level key of variants.yml, e.g. 'ado_naming').
 

@@ -17,7 +17,7 @@ and a type is resolved through .NET where it is loaded, so an accelerator and it
 an untyped parameter and one typed `[object]` or `[psobject]` accept anything, so they never conflict. A name whose typed declarations have
 more than one element type is one conflict.
 
-### parameter Path
+### parameter `Path`
 
 The .ps1 files to read (absolute paths).
 

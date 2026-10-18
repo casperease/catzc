@@ -17,31 +17,31 @@ a config change to a branch, this opens a PR so the change goes through the norm
 Resolves the repository by name, normalizes branch names to `refs/heads/<branch>`, and POSTs the PR. Authentication is the dual-auth pattern
 via Invoke-AdoRestMethod / Get-AdoAuthorizationHeader (pipeline SYSTEM_ACCESSTOKEN, PAT, or az login).
 
-### parameter Title
+### parameter `Title`
 
 PR title.
 
-### parameter SourceBranch
+### parameter `SourceBranch`
 
 The branch with the change (e.g. 'input/discovery-dev-1234'). Accepts a bare branch name or a full 'refs/heads/...' ref.
 
-### parameter TargetBranch
+### parameter `TargetBranch`
 
 The branch to merge into. Defaults to 'main'. Bare name or full ref.
 
-### parameter Description
+### parameter `Description`
 
 Optional PR description.
 
-### parameter RepositoryName
+### parameter `RepositoryName`
 
 Azure Repos Git repository name. Defaults to this checkout's repository (Get-AdoRepositoryName).
 
-### parameter Project
+### parameter `Project`
 
 Azure DevOps project. Defaults to ado.yml.
 
-### parameter Organization
+### parameter `Organization`
 
 Azure DevOps organization URL. Defaults to ado.yml.
 

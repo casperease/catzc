@@ -15,11 +15,11 @@ The map's first line must be exactly the expected header, and every row must hav
 the file and line, before a single reference is rewritten ([ADR-AUTO-FAILFAST](../../../../adr/automation/fail-fast-with-asserts.md)). Blank
 lines are skipped. The cells are validated by `[Catzc.Base.Docs.AdrCitationRewriter]`, which reads the rows.
 
-### parameter Path
+### parameter `Path`
 
 The absolute path of the map file.
 
-### parameter Header
+### parameter `Header`
 
 The expected column names, in order.
 

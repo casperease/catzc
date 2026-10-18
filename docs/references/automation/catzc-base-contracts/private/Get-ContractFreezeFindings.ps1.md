@@ -17,11 +17,11 @@ the record with the folder's files as Get-ContractFileHashes hashes them now, an
 malformed or repeated record line, and every file changed, added or removed since the freeze. No finding means the folder is intact. The
 draft, 0.0.0, is never frozen, so it is never given here.
 
-### parameter Folder
+### parameter `Folder`
 
 The released version folder's absolute path.
 
-### parameter Name
+### parameter `Name`
 
 The folder in communication form, `contracts/<unit>/<version>`, used in every finding.
 

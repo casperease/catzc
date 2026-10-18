@@ -17,31 +17,31 @@ resource IDs trimmed to their simple name (unless -DoNotCutIpgNames), sorted wit
 for the 'protoport' column. A cell Markdown would mangle (emphasis at a whitespace boundary, or a bare URL/FQDN) is wrapped in a code span.
 Returns the table block as a string.
 
-### parameter Rows
+### parameter `Rows`
 
 The rule rows, already sorted into evaluation order; each a CSV record (PSObject).
 
-### parameter Columns
+### parameter `Columns`
 
 The ordered column descriptors from Get-FirewallMarkdownColumns (Name, Candidates, Sort, Render).
 
-### parameter MultiValueFields
+### parameter `MultiValueFields`
 
 CSV fields split into multiple values on -SplitPattern.
 
-### parameter IpGroupColumns
+### parameter `IpGroupColumns`
 
 Fields whose values are IP-group resource IDs, trimmed to the simple name (unless -DoNotCutIpgNames).
 
-### parameter SplitPattern
+### parameter `SplitPattern`
 
 Regex splitting multi-value fields. Default comma/semicolon with surrounding whitespace.
 
-### parameter CellListSeparator
+### parameter `CellListSeparator`
 
 Separator joining multiple values within a cell. Default ', '.
 
-### parameter DoNotCutIpgNames
+### parameter `DoNotCutIpgNames`
 
 Keep full IP-group resource IDs instead of trimming to the simple name.
 

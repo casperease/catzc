@@ -27,7 +27,7 @@ and stray-binary paths are user-space ([ADR-AUTO-REMOVE#6](../../../adr/automati
 This is invoked from the Linux branch of a `Remove-<Tool>`, which owns the -Force dry-run guard and the managed-install refusal
 (Test-ExpectedPackageManager) — so this core is only ever reached for an off-config install, and just evicts it.
 
-### parameter Config
+### parameter `Config`
 
 The tool's parsed tools.yml entry (from Get-ToolConfig).
 

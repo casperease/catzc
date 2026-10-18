@@ -28,17 +28,17 @@ See [ADR-AUTO-SPELL](../../../adr/automation/spell-out-names.md)
 [ADR-AUTO-SPELL#6](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell6)) and
 [ADR-REPO-OUTDIR#8](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report whether any generated list would change without writing the files. The returned content is the same in either mode; -DryRun simply
 skips the write. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
-### parameter Silent
+### parameter `Silent`
 
 The per-category status lines are verbose-level — shown only when this function is run with -Verbose. -Silent suppresses them entirely, even
 under -Verbose (used by the importer tail so a session with -Verbose on does not chatter during import).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return one result object per category ({ Category, Path, WordCount, Changed, DryRun }) instead of the path strings.
 

@@ -30,12 +30,12 @@ SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every `.cspe
 spelled-out words (rule, collection, group); the term lists carry the product vocabulary and the conventional-abbreviation allow-list. See
 [ADR-AUTO-SPELL](../../../adr/automation/spell-out-names.md).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report whether the committed list would change without writing it. The returned content is the same in either mode; -DryRun skips the write.
 See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Path, WordCount, Changed, DryRun }) instead of the path string.
 

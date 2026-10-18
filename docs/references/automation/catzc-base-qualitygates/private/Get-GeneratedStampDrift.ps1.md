@@ -19,15 +19,15 @@ skipped; a file with a head carrier but no stamp is listed as unstamped and is n
 
 Private helper of Test-GeneratedFiles; not exported.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 The repository-relative files to check. Default: every tracked file .gitattributes marks linguist-generated.
 
-### parameter Resolver
+### parameter `Resolver`
 
 The carrier resolver. Default: built from the shipped file-carriers and languages registries.
 

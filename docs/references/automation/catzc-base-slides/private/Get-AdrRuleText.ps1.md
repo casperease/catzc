@@ -15,11 +15,11 @@ Resolves the code through the ADR citation map, opens the ADR, and returns the p
 reduced to their text and whitespace collapsed, so a slide that quotes the rule can be compared to it (ADR-REPO-SLIDES#4). Null when the
 code is not of the form ADR-NAME#n or the index knows no such rule.
 
-### parameter Code
+### parameter `Code`
 
 One rule citation, such as ADR-PRIN-EAC#2.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root whose ADR index is read.
 

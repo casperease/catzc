@@ -22,23 +22,23 @@ names the holder.
 Taken (or abandoned — the previous holder died mid-run), the holder writes its lock record (Write-TestRunLockRecord) to a per-user file, so
 a run from any checkout can say who holds the lock. The caller releases the lock through Exit-TestRunLocation.
 
-### parameter EntryPoint
+### parameter `EntryPoint`
 
 The entry point taking the lock — written to the lock record.
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run's report folder — written to the lock record.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The run's working folder — written to the lock record, so the holder's checkout can be named.
 
-### parameter Name
+### parameter `Name`
 
 The mutex name. Defaults to the current user's: `Global\catzc-system-tests-<hash of domain\user>`.
 
-### parameter LockPath
+### parameter `LockPath`
 
 The lock record. Defaults to the per-user catzc folder (%LOCALAPPDATA%\catzc\test-runs on Windows, ~/.local/share/catzc/test-runs on Unix).
 

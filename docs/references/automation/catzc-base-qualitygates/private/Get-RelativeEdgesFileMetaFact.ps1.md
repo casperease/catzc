@@ -20,15 +20,15 @@ from comments.yml). An edge no rule fills is empty, so it is left out of the blo
 It rests on [ADR-PRIN-CONFIG#1](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config1) and
 [ADR-REPO-FILEMETA#10](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta10).
 
-### parameter State
+### parameter `State`
 
 What the file's carrier reader returned.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

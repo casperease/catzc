@@ -21,7 +21,7 @@ mismatch. Use Assert-AzCliCanAccess for the throwing companion.
 independent of which subscription is active. See [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and
 [ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
 
-### parameter Subscription
+### parameter `Subscription`
 
 Subscription name (a key in azure.yml's subscriptions).
 

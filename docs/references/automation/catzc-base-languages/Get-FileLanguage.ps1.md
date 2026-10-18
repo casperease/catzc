@@ -18,11 +18,11 @@ why it has none) and its ADR folder. Each result is a FileLanguage, in declared 
 -Path answers "which file language is this file?" by its extension, case-insensitively. A file whose extension no language lists, a file
 with no extension, and a dotfile such as .gitkeep return nothing; -Path never throws.
 
-### parameter Name
+### parameter `Name`
 
 The file-language name(s) to return. An unknown name throws, naming the config file.
 
-### parameter Path
+### parameter `Path`
 
 A file path (repository-relative or absolute); returns the file language its extension names.
 

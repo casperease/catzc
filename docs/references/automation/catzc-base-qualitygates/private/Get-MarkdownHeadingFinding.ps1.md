@@ -22,15 +22,15 @@ anchor used twice — the author rewords; no fix). Headings inside fenced code b
 title and belongs to Get-MarkdownTitleFinding. Fixed is the corrected file text, keeping the file's own line endings; it equals the input
 when there is nothing to fix.
 
-### parameter RelativePath
+### parameter `RelativePath`
 
 The file's repository-relative, '/'-separated path.
 
-### parameter Text
+### parameter `Text`
 
 The file's content.
 
-### parameter Citation
+### parameter `Citation`
 
 Citation code -> repository-relative ADR path, for the links a moved citation becomes. A code not in it stays a code span.
 

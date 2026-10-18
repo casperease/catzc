@@ -16,15 +16,15 @@ Each format's area sets how many stamps or files stay and how old they may grow;
 It rests on [ADR-AUTO-DRYRUN#1](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun1) and
 [ADR-REPO-OUTDIR#7](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir7).
 
-### parameter All
+### parameter `All`
 
 Remove everything under the output root but its .gitkeep and the plan files, which cannot be regenerated, whatever the formats keep.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would be removed without removing anything.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return { Removed; Uncovered; UnitCount; DryRun } instead of only the removed paths.
 

@@ -17,7 +17,7 @@ stale version. Idempotent — skips when the Bicep CLI already meets Get-AzureBi
 when absent, upgrades it when too old. Asserts the az CLI itself first (Assert-Tool 'az_cli'), and confirms the result meets the minimum
 before returning. See [ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
 
-### parameter Force
+### parameter `Force`
 
 Upgrade to the latest Bicep CLI even when the installed one already meets the minimum.
 

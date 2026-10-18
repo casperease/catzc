@@ -28,15 +28,15 @@ value comes from configs/exporter.yml (Get-Config -Config exporter):
                               devbox.
 ```
 
-### parameter Version
+### parameter `Version`
 
 'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH.
 
-### parameter Bundle
+### parameter `Bundle`
 
 The bundle whose version line a pipeline build follows (an exporter.yml bundles key). Defaults to default_bundle.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the local-build notice.
 

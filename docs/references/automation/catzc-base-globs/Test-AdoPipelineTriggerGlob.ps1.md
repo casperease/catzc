@@ -24,15 +24,15 @@ out/test-ado-pipeline-trigger-glob/, and the gate throws once listing every issu
 It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
 [ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
 
-### parameter Name
+### parameter `Name`
 
 The globset(s) to check — a declared, pipeline-bound name. Omit for every pipeline-bound globset.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-ado-pipeline-trigger-glob).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Pipelines } instead of throwing.
 

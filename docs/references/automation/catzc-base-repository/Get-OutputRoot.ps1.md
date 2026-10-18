@@ -15,7 +15,7 @@ In an Azure DevOps pipeline, returns $env:BUILD_ARTIFACTSTAGINGDIRECTORY. Locall
 
 With -EnsureExists, creates the directory if it does not exist.
 
-### parameter EnsureExists
+### parameter `EnsureExists`
 
 Create the output directory if it does not exist.
 

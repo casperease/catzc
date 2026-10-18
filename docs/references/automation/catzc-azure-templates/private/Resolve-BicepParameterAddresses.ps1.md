@@ -25,11 +25,11 @@ Fails fast, with every violation in one throw that names the config file and eac
 `value` or `reference` (or any other key), an address that is not a string, and an address that does not resolve (an unknown config, a
 missing key, or a malformed address).
 
-### parameter Parameters
+### parameter `Parameters`
 
 The `ParametersFile.parameters` map of one template config, as parsed from its YAML.
 
-### parameter ConfigFile
+### parameter `ConfigFile`
 
 The config file the parameters come from, named in every violation.
 

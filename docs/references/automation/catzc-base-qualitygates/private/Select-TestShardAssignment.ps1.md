@@ -16,19 +16,19 @@ A phase lasts as long as its slowest shard, so the files are dealt longest first
 counts as the median of the known durations, or 1 s when nothing is known yet, so a first run is a fair even split. Ties keep the files'
 given order, so the result is deterministic.
 
-### parameter File
+### parameter `File`
 
 The parallel test files, absolute paths.
 
-### parameter WorkerCount
+### parameter `WorkerCount`
 
 How many shards to fill.
 
-### parameter DurationMs
+### parameter `DurationMs`
 
 The known durations, repository-relative '/'-separated file path -> milliseconds.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The root the history's paths are relative to.
 

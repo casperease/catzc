@@ -22,43 +22,43 @@ what ran without inferring it:
 - tools — whether git, az, and dotnet are on the PATH (found with Get-Command; no process is started);
 - selection — all tests, a test suite, the modules, the category, and the -Rule filter.
 
-### parameter EntryPoint
+### parameter `EntryPoint`
 
 The entry point's command name.
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The script the workers dot-source; empty is the source importer.
 
-### parameter Location
+### parameter `Location`
 
 The location Enter-TestRunLocation returned.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The run's lowest tier.
 
-### parameter RequestedMaxLevel
+### parameter `RequestedMaxLevel`
 
 The highest tier the caller asked for.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The highest tier the run executes (after Resolve-TestRunMaxLevel).
 
-### parameter Category
+### parameter `Category`
 
 The category filter.
 
-### parameter Modules
+### parameter `Modules`
 
 The modules in scope; empty is every module.
 
-### parameter Suite
+### parameter `Suite`
 
 A test suite's name, when the modules were resolved from one; otherwise empty.
 
-### parameter Rule
+### parameter `Rule`
 
 The -Rule filter.
 

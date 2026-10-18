@@ -20,11 +20,11 @@ every load), does not parse as a data file, or holds no settings.
 
 When the entry is not opted in, the root file is not managed and the gate checks nothing (Checked = $false).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-root-analyzer-settings/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Checked }) instead of throwing on issues.
 

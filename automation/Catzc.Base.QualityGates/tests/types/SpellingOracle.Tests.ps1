@@ -29,7 +29,7 @@ Describe 'SpellingOracle.Tokenize' -Tag 'L0', 'logic' {
 
 Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
-        $englishPath = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets/english.txt.gz'
+        $englishPath = Get-CatzcModuleRoot 'assets/english.txt.gz' -Module Catzc.Base.QualityGates
         $allTermPaths = @(Get-ChildPath (Join-Path (Get-RepositoryRoot) '.cspell') -File -Filter '*.txt' -Depth 1)
         $fixturePaths = @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
         $termPaths = @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -ne 'fixture.txt' })

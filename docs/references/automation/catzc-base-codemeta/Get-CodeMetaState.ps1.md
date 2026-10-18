@@ -15,11 +15,11 @@ Pure: it takes the text and the head's comment syntax, reads no file and no conf
 
 It rests on [ADR-REPO-CODEMETA#1](../../../adr/repository/code-file-meta.md#rule-adr-repo-codemeta1).
 
-### parameter Text
+### parameter `Text`
 
 The whole code file as text.
 
-### parameter Form
+### parameter `Form`
 
 The head's comment syntax: a Catzc.Base.CodeMeta.HeadForm.
 

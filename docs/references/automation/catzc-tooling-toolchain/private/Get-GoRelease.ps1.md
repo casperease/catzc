@@ -16,15 +16,15 @@ go1.27 and every go1.27.N), takes the newest, and returns its archive file for t
 `version`, `os`, `arch`, `kind` and the published `sha256` that Install-Go verifies the download against. Throws when no stable release or
 no archive matches.
 
-### parameter Version
+### parameter `Version`
 
 The locked Go version (major.minor, or an exact major.minor.patch).
 
-### parameter Os
+### parameter `Os`
 
 The feed's os name: windows, linux, or darwin. Defaults to the running platform.
 
-### parameter Arch
+### parameter `Arch`
 
 The feed's architecture name: amd64 or arm64. Defaults to the running process's OS architecture.
 

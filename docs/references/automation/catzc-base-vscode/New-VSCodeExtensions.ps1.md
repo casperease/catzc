@@ -21,7 +21,7 @@ This is a pure renderer: it returns the content and writes nothing — it is the
 .vscode/extensions.json target, and Build-RootConfig owns the write. See
 [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md).
 
-### parameter EngineExtension
+### parameter `EngineExtension`
 
 The extensions that run the repository's formatter engines in the editor, appended after the authored recommendations when not already
 listed. Supplied by the generator dispatch from the file-language registry, so an engine's extension is recommended wherever a language uses

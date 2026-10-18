@@ -23,45 +23,45 @@ and the backup bundle are always intact.
 Pushing a whole history takes longer than an ordinary call, so the function declares its own time limit (`[TimeLimit]`; tune it under
 `commands` in timeouts.yml) and bounds the push and the remote read with it.
 
-### parameter Repo
+### parameter `Repo`
 
 The GitHub repository to delete, as owner/name.
 
-### parameter NewName
+### parameter `NewName`
 
 The owner/name to recreate under. Defaults to -Repo (recreate in place). Pass a different value to delete-and-rename in one step.
 
-### parameter Branch
+### parameter `Branch`
 
 The local branch to push as the new default. Defaults to main.
 
-### parameter Token
+### parameter `Token`
 
 The token that must be absent from the pushed history. When set, the pushed branch is scanned locally, and the new remote must hold only
 that branch's commit — the commit names its whole history, so this proves what the server stored without a mirror clone. A hit or a foreign
 ref aborts with a "do not make public" warning.
 
-### parameter BackupBundle
+### parameter `BackupBundle`
 
 A verified `git bundle create --all` backup. The purge refuses to run without one (checked by Assert-GitHubPurgeReady).
 
-### parameter RepositoryPath
+### parameter `RepositoryPath`
 
 The local clone to push from. Defaults to the repository root.
 
-### parameter Visibility
+### parameter `Visibility`
 
 Visibility of the recreated repo: 'private' (default) or 'public'.
 
-### parameter AllowForks
+### parameter `AllowForks`
 
 Proceed even if the repo has forks (they defeat the purge). Off by default.
 
-### parameter ConfirmRepo
+### parameter `ConfirmRepo`
 
 Must equal -Repo to arm the destructive path. Any other value (or absence) keeps the run a dry run.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Force a dry run even when -ConfirmRepo matches.
 

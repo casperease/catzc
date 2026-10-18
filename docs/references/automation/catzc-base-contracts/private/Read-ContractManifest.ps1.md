@@ -15,7 +15,7 @@ The per-version manifest of [ADR-REPO-CONTRACT#7](../../../../adr/repository/api
 `contracts/<unit>/<version>/contract.yml`. Most version folders carry none, so an absent file is an empty manifest. The ContractManifest
 type validates what it reads and throws on a malformed file.
 
-### parameter Folder
+### parameter `Folder`
 
 The version folder's absolute path.
 

@@ -21,7 +21,7 @@ records, so Build-RootConfig writes every generated file the same way and Test-R
 A wildcard target (`go/tests/*/go.mod`) needs records and may render none (no folder yet); a literal target must render exactly one file.
 Any other shape throws, naming the entry and the generator. See [ADR-REPO-ROOTCFG](../../../../adr/repository/generated-root-configs.md).
 
-### parameter Entry
+### parameter `Entry`
 
 An opted-in generator entry of rootconfig.yml (a RootConfigFile, or any object with target and generator).
 

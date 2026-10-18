@@ -15,51 +15,51 @@ The record Invoke-TestRun stamps in its finally, on every exit path (Write-TestR
 category, and modules it ran, the failure counts, the run's context (Get-TestRunContext, when the run got far enough to have one), what only
 the worker run knows (ConvertTo-TestRunManifestEntry), and — for a run with an opt-out tag — the tag and how many tests it excluded.
 
-### parameter Status
+### parameter `Status`
 
 The terminal status: passed, failed, or crashed.
 
-### parameter StartedAt
+### parameter `StartedAt`
 
 The run's start, as an ISO 8601 string.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The run's lowest tier.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The highest tier the run executed.
 
-### parameter Category
+### parameter `Category`
 
 The category filter.
 
-### parameter Modules
+### parameter `Modules`
 
 The modules in scope.
 
-### parameter FailedCount
+### parameter `FailedCount`
 
 The number of failed tests.
 
-### parameter FailedShardLabels
+### parameter `FailedShardLabels`
 
 The shards that reported failure.
 
-### parameter Context
+### parameter `Context`
 
 The run's context record, or $null when the run failed before it had one.
 
-### parameter WorkerRun
+### parameter `WorkerRun`
 
 Invoke-TestAutomationWorkers' result, or $null.
 
-### parameter OptOutTag
+### parameter `OptOutTag`
 
 The run's opt-out tags; empty for none.
 
-### parameter OptOutExcludedCount
+### parameter `OptOutExcludedCount`
 
 How many tests the opt-out tags excluded.
 

@@ -35,21 +35,21 @@ repo still guards that the live build is never planned. A devbox janitor only: i
 assembly the build produced and is never a cache to tidy, so the call is a no-op that reports why. An explicit -AutomationRoot other than
 the loaded code root is still cleaned in either mode.
 
-### parameter AutomationRoot
+### parameter `AutomationRoot`
 
 Path to the automation directory (the parent of .compiled/). Defaults to the loaded code root (Get-CatzcModulesRoot).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the list of cache files that would be deleted, without deleting anything.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the per-file and end-state 'type cache: …' messages. The importer passes this on its automatic janitor call so a normal load stays
 quiet (importer.ps1 -Verbose turns it back on); a manual Clear-ModuleTypeCache omits it, so a hand-run always reports the state it left. A
 failed delete still throws.
 
-### parameter StopLockingProcesses
+### parameter `StopLockingProcesses`
 
 The kill switch. When a superseded build will not delete, stop every process holding it (Stop-FileLockingProcess: never this session or an
 ancestor of it, each stop announced even under -Silent), then retry the delete over a short bounded window (Windows releases an exited

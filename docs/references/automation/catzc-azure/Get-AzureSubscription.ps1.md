@@ -18,7 +18,7 @@ customer) join here. The matching tenant is looked up by name and embedded. A su
 anything deployed there). See [ADR-AZ-DATAMOD#4](../../../adr/azure/azure-data-model.md#rule-adr-az-datamod4) and
 [ADR-AZ-CUSTOMER](../../../adr/azure/azure-customer-model.md).
 
-### parameter Subscription
+### parameter `Subscription`
 
 Subscription name — a key in azure.yml's `subscriptions`.
 

@@ -18,7 +18,7 @@ one issue per unreadable file.
 
 Private helper for Test-AgentDefinitions; not exported.
 
-### parameter Path
+### parameter `Path`
 
 Absolute path to the agent definition file.
 

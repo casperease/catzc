@@ -23,15 +23,15 @@ works the function throws — it never degrades to a content copy, which would s
 A pure primitive like Write-FileIfChanged: no console output — callers own their reporting. See
 [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md).
 
-### parameter Path
+### parameter `Path`
 
 Path of the link file to create or verify.
 
-### parameter Target
+### parameter `Target`
 
 Path of the source file, which must exist, that the link must resolve to.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report whether the link would change without touching the filesystem. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 

@@ -17,11 +17,11 @@ carries the worker's file and test tallies, its start offset on the run's single
 sums the tallies and names the run's total wall clock — the parallel phases mean the workers' durations add up to more than the run took, so
 the summation is printed as its own row rather than implied.
 
-### parameter WorkerSummaries
+### parameter `WorkerSummaries`
 
 The per-worker summary objects from Invoke-TestAutomationWorkers (QueueNumber, Label, Files, Tests, Passed, Failed, Skipped, StartSeconds,
 DurationSeconds).
 
-### parameter DurationSeconds
+### parameter `DurationSeconds`
 
 The run's total wall clock across both phases, for the summation row.

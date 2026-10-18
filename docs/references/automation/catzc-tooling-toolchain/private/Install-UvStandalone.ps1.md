@@ -17,7 +17,7 @@ Install-Git discipline, see [ADR-AUTO-PKGMGR](../../../../adr/automation/use-pro
 uv tool-bin (~/.local/bin, [ADR-AUTO-UVPY](../../../../adr/automation/uv-python-handler.md)). Entirely user-space: no package manager, no
 elevation. The standalone build is also the one `uv self update` serves, so later upgrades stay in place.
 
-### parameter Version
+### parameter `Version`
 
 The locked uv version prefix from tools.yml (e.g. '0.11').
 

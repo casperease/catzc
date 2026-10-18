@@ -24,11 +24,11 @@ Runs the check of the asset's kind ([ADR-REPO-CONTRACT#6](../../../../adr/reposi
 
 A failed check is findings on the result, never an exception.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the asset and its target are relative to.
 
-### parameter Asset
+### parameter `Asset`
 
 The asset to check.
 

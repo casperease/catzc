@@ -32,15 +32,15 @@ With -Adr or -Path the lit cells (Get-WorldMapHighlight) are outlined on every p
 size come from configs/maps.yml (Get-Config -Config maps). The bytes depend only on the map, the config and the highlight, so an unchanged
 repository writes identical files.
 
-### parameter View
+### parameter `View`
 
 The views to write: Grid, Tree, or both (the default).
 
-### parameter Adr
+### parameter `Adr`
 
 Outline the cells these ADR codes light (each optionally narrowed to one rule, #n or :n).
 
-### parameter Path
+### parameter `Path`
 
 Outline the cells these tracked files sit in.
 

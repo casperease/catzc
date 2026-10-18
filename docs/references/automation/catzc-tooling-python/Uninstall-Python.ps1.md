@@ -13,7 +13,7 @@ Uninstalls the uv-provisioned Python.
 
 Removes the uv-managed CPython (`uv python uninstall <version>`). Idempotent — skips if not installed.
 
-### parameter Version
+### parameter `Version`
 
 Python version to uninstall. Defaults to the locked version in Get-ToolConfig.
 

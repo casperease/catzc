@@ -28,12 +28,12 @@ version-controlled config, so nothing addressable is a secret
 `[SecureString]` (see ADR environment-variables,
 [ADR-AUTO-ENVVAR#7](../../../adr/automation/environment-variables.md#rule-adr-auto-envvar7)).
 
-### parameter Address
+### parameter `Address`
 
 The global config address: `global.<config>.<key>[.<key>...]` — e.g. 'global.myproperty.name'. The key path is optional; '`global.<config>`'
 addresses the whole config as a subtree.
 
-### parameter Module
+### parameter `Module`
 
 Passthrough to Get-Config to disambiguate the rare config name present in more than one module.
 

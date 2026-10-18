@@ -14,15 +14,15 @@ Installs a tool using the platform package manager.
 Uses winget on Windows, brew on macOS, and apt-get on Linux. Idempotent — skips if already installed at the correct version. If the wrong
 version is found, -Force uninstalls and reinstalls. Without -Force, throws with instructions.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml.
 
-### parameter Version
+### parameter `Version`
 
 Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
 
-### parameter Force
+### parameter `Force`
 
 Automatically uninstall the wrong version before installing the correct one.
 

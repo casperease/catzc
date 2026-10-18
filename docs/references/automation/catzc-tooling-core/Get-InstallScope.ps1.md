@@ -13,10 +13,10 @@ Returns the install scope of a tool based on its binary location.
 
 Determines whether a tool is installed in user-space or machine-wide by inspecting the binary path. Returns 'user', 'machine', or 'unknown'.
 
-### parameter Config
+### parameter `Config`
 
 Tool configuration hashtable from Get-ToolConfig / tools.yml.
 
-### parameter Location
+### parameter `Location`
 
 Full path to the tool binary (from Get-Command .Source).

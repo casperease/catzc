@@ -15,7 +15,7 @@ Windows: Downloads the official installer from dl.pstmn.io and runs it silently.
 default). macOS: brew install --cask postman. Linux: Downloads the tar.gz from dl.pstmn.io and extracts to HOME/.local/Postman. Idempotent —
 skips if already installed.
 
-### parameter Force
+### parameter `Force`
 
 Remove an existing installation before reinstalling.
 

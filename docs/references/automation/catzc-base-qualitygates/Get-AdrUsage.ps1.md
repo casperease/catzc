@@ -20,23 +20,23 @@ listed.
 GroupBy Rule answers "who cites this rule": one row per code and rule, with the documents that cite it. GroupBy Document answers "what does
 this file cite": one row per citing file, with its citations.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root. Defaults to the loaded repository root.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders to limit the scan to.
 
-### parameter Code
+### parameter `Code`
 
 Keep only rows for these citation codes, such as ADR-PWSH-ERROR.
 
-### parameter Source
+### parameter `Source`
 
 Keep only rows from `cites` (cited in the file or its comment page) or from a `link` (linked from the file).
 
-### parameter GroupBy
+### parameter `GroupBy`
 
 `Rule` for one row per cited rule, `Document` for one row per citing file. Default: the ungrouped rows.
 

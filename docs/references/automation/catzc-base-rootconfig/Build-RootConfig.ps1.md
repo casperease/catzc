@@ -29,23 +29,23 @@ The managed root files are materialised from the source tree, so in build mode (
 is a no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls it on every load and a
 janitor never breaks the load.
 
-### parameter Target
+### parameter `Target`
 
 Materialise only this repo-relative path: the entry whose target equals it (e.g. 'PSScriptAnalyzerSettings.psd1', or a wildcard entry's own
 pattern for all its files), or the one file of a wildcard entry it matches (e.g. 'go/tests/widget/go.mod'). Throws when it selects no
 opted-in entry, or no file of the wildcard entry it matches. Default: every opted-in entry.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without writing any file. The composed content is the same either way; -DryRun only skips the write. See
 [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
-### parameter Silent
+### parameter `Silent`
 
 The per-file status lines are verbose-level — shown only when this function is run with -Verbose. -Silent suppresses them entirely, even
 under -Verbose (used by the importer tail so a session with -Verbose on does not chatter during import).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return one result object per managed file ({ Target, Source, Generator, Committed, Path, Changed, DryRun }) instead of the paths. A wildcard
 entry reports one object per rendered file, each with that file's Target.

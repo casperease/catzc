@@ -20,19 +20,19 @@ Designed for the ADO REST API conventions:
 - JSON request/response bodies
 - List responses wrapped in { "count": N, "value": `[...]` }
 
-### parameter Uri
+### parameter `Uri`
 
 The full API URL including api-version query parameter.
 
-### parameter Method
+### parameter `Method`
 
 HTTP method. Defaults to Get.
 
-### parameter Body
+### parameter `Body`
 
 Request body for POST/PUT/PATCH. Accepts a hashtable or array — serialized to JSON automatically.
 
-### parameter UnwrapValue
+### parameter `UnwrapValue`
 
 For list endpoints, extract the .value array from the response instead of returning the wrapper. Defaults to true for GET requests.
 

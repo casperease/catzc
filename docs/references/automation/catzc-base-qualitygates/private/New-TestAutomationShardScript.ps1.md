@@ -28,36 +28,36 @@ ErrorMessage (the error of a file that failed while Pester discovered or set it 
 loaded), and exits 0 (green) or 1 (the run did not pass — failed tests, or a container/discovery error that fails the run with zero failed
 tests). Any other exit code — or a missing rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
 
-### parameter ShardIndex
+### parameter `ShardIndex`
 
 The shard's zero-based index — names the script, results, and rows files.
 
-### parameter TestPath
+### parameter `TestPath`
 
 The shard's test files (absolute `*.Tests.ps1` paths).
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run directory the script and its artifacts are written into (must exist).
 
-### parameter ExcludeTag
+### parameter `ExcludeTag`
 
 Tags excluded from the worker's run (from Get-TestExcludeTag). Empty means no tag filter.
 
-### parameter IncludeTag
+### parameter `IncludeTag`
 
 Tags a test must carry to run (the -Rule provenance filter). Empty means no include filter.
 
-### parameter Verbosity
+### parameter `Verbosity`
 
 Pester output verbosity inside the worker (the run's -Output value).
 
-### parameter FullNameFilter
+### parameter `FullNameFilter`
 
 Filter the worker's run to tests whose full name contains this text — the manual single-check path (Invoke-TestFile). Empty means no name
 filter (the harness never sets one).
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The run seam ([ADR-AUTO-TEST#30](../../../../adr/automation/test-automation.md#rule-adr-auto-test30)): the script the worker dot-sources to
 load the modules. Empty (the default) is the source run's `<repo>/importer.ps1 -SkipJanitors`; the build run passes the build's
@@ -65,12 +65,12 @@ load the modules. Empty (the default) is the source run's `<repo>/importer.ps1 -
 for both runs, except that the configuration hands the entry script to the Go bridge, so the Go tests start the same engine the worker
 loaded.
 
-### parameter EntryParameter
+### parameter `EntryParameter`
 
 Named arguments for -EntryScript, rendered into the dot-source line as `-Name 'value'` (a $true value renders as a bare switch). Ignored
 without -EntryScript. The build run passes @{ RepositoryRoot = `<repo>` } so out/ and repo-relative paths keep resolving in the repository.
 
-### parameter LanguageExecutable
+### parameter `LanguageExecutable`
 
 The managed tool per test language and the executable per engine other than pwsh the run's source session located
 (Get-LanguageTestExecutable: @{ go = `<path>`; python = `<uv path>`; `<engine>` = `<path>` }), rendered into the worker as a hashtable

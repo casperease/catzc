@@ -18,23 +18,23 @@ de-duplicated case-insensitively. Each descriptor carries its candidate CSV fiel
 When the CSV's present headers are known (non-empty), each column's candidates are trimmed to fields the CSV actually has; a requested
 column left with no backing field is a schema mismatch and throws — rather than silently dropping the column from the output.
 
-### parameter RuleNameColumn
+### parameter `RuleNameColumn`
 
 CSV column used as the rule name / first table column.
 
-### parameter CompositeColumns
+### parameter `CompositeColumns`
 
 Ordered map of output column -> candidate CSV fields.
 
-### parameter ProtocolPortColumnName
+### parameter `ProtocolPortColumnName`
 
 The composite column rendered as protocol:port pairs (and left unsorted).
 
-### parameter AdditionalColumns
+### parameter `AdditionalColumns`
 
 Extra single-field columns appended after the composites.
 
-### parameter Present
+### parameter `Present`
 
 The CSV's present header names. Empty means headers are unknown (no rows) — trimming/validation is skipped.
 

@@ -20,11 +20,11 @@ analyzer rule mapped to it and no test citing it in a `-Tag` — the same rule-c
 
 Private helper for the glossary checks; not exported.
 
-### parameter Entry
+### parameter `Entry`
 
 The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 
-### parameter Enforcer
+### parameter `Enforcer`
 
 Rule citation ('#' form) -> { Analyzers; Tests }, as Get-CatsRuleEnforcers returns it. Defaults to the repository's enforcers (source tree
 only).

@@ -18,37 +18,37 @@ paths cannot drift apart. The strict-mode discipline itself (Set-StrictMode -Ver
 [ADR-AUTO-TEST#25](../../../../adr/automation/test-automation.md#rule-adr-auto-test25)) stays with the CALLER: strict mode is scope-dynamic,
 so only the scope that invokes Pester can set it for the tests.
 
-### parameter Path
+### parameter `Path`
 
 The test file(s) or folder(s) to run. A Go test folder runs through the Go bridge (ConvertTo-PesterRunTarget).
 
-### parameter ExcludeTag
+### parameter `ExcludeTag`
 
 Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
 
-### parameter IncludeTag
+### parameter `IncludeTag`
 
 Tags a test must carry to run (Pester Filter.Tag) — the -Rule provenance filter. Empty means no include filter (the default); a test still
 also has to clear ExcludeTag.
 
-### parameter Verbosity
+### parameter `Verbosity`
 
 Pester output verbosity.
 
-### parameter ResultsPath
+### parameter `ResultsPath`
 
 When given, enables the NUnit result file at this path (the shard workers' `results-shard-<N>.xml`).
 
-### parameter FullNameFilter
+### parameter `FullNameFilter`
 
 When given, filters the run to tests whose full name matches (the manual single-check path).
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The engine entry of a build run (the build's Import-Catzc.ps1), handed to the language bridge so the Go and Python tests start the build;
 empty for the source run.
 
-### parameter LanguageExecutable
+### parameter `LanguageExecutable`
 
 The managed tool per test language and the executable per engine other than pwsh the run's source session located
 (Get-LanguageTestExecutable: @{ go = `<path>`; python = `<uv path>`; `<engine>` = `<path>` }), handed to the language bridge; an empty entry

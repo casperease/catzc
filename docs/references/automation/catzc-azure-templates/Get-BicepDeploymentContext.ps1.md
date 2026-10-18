@@ -35,33 +35,33 @@ pipeline: the service connection's), resolved against azure.yml by Get-AzCliSess
 env, slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See
 [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md).
 
-### parameter Environment
+### parameter `Environment`
 
 Environment shortname (must be in azure.yml and in the template's environment list).
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot (config file + parameters artifact +
 resource group). Omitted -> the env's base / index-0 slot.
 
-### parameter SubscriptionIdAssertIs
+### parameter `SubscriptionIdAssertIs`
 
 Optional guard — the subscription GUID the az session is expected to target. Throws when the session's subscription differs (in a pipeline
 that means a mis-wired service connection). Never a selector: the session always determines the target.
 
-### parameter ArtifactsFolder
+### parameter `ArtifactsFolder`
 
 Required on a build agent. Points at the downloaded build output.
 
-### parameter DoNotRebuild
+### parameter `DoNotRebuild`
 
 Devbox-only. Reuse an existing build in the template's output_folder instead of rebuilding.
 
-### parameter OverrideDoNotRunAndRun
+### parameter `OverrideDoNotRunAndRun`
 
 Devbox-only. Bypass the DoNotRun guard (returns context instead of $null).
 

@@ -20,7 +20,7 @@ loaded yet), $false when a source was added, changed,
 or removed since the load, or the types were loaded on behalf of another code root and differ. It throws on nothing;
 Assert-LoadedTypesCurrent is the throwing form.
 
-### parameter ModulesRoot
+### parameter `ModulesRoot`
 
 The code root whose type sources to compare. Default: the loaded code root (Get-CatzcModulesRoot).
 

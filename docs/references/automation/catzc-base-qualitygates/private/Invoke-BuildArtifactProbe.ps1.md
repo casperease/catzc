@@ -19,15 +19,15 @@ module its base folder, exported and defined function names, and instance count;
 accelerator; every shipped config read through Get-Config; a few calls into the modules; and whether Pester's InModuleScope enters a built
 module. Test-BuildArtifact judges it.
 
-### parameter BuildRoot
+### parameter `BuildRoot`
 
 The build root (`Catzc/<version>/`).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The working root the child passes to Import-Catzc.ps1.
 
-### parameter ScopeModule
+### parameter `ScopeModule`
 
 A built module to enter with InModuleScope (the build ships Pester under the full vendor policy).
 

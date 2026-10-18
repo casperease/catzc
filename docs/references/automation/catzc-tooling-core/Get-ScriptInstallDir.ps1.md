@@ -20,6 +20,6 @@ Windows: LOCALAPPDATA\<windows_install_dir or command>
 Unix:    HOME/<unix_install_dir or .command>
 ```
 
-### parameter Config
+### parameter `Config`
 
 Tool configuration hashtable from Get-ToolConfig / tools.yml.

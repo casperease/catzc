@@ -29,11 +29,11 @@ is returned instead of the bundled one ([ADR-AUTO-OVERLAY](../../../adr/automati
 configs merge through Get-Config, and the registry and other module files are never replaced wholesale. A consumer's local module — an
 overlay folder that names no bundled module — resolves to its overlay folder.
 
-### parameter ChildPath
+### parameter `ChildPath`
 
 A path below the module folder, '/'-separated (e.g. 'assets/gitkeep', 'configs/configs.yml'). Omit for the module folder itself.
 
-### parameter Module
+### parameter `Module`
 
 The module whose folder to resolve. Defaults to the module of the calling function; required when called from outside a module (a script or
 the console).

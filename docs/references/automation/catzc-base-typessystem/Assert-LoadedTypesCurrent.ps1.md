@@ -17,7 +17,7 @@ the types as written, such as a test of a type just edited. A loaded assembly ca
 ([ADR-AUTO-TYPES#7](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types7)), so the one remedy is a new process; the
 message names it, with every drifted type and both hashes or code roots.
 
-### parameter ModulesRoot
+### parameter `ModulesRoot`
 
 The code root whose type sources to compare. Default: the loaded code root (Get-CatzcModulesRoot).
 

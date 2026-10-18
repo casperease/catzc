@@ -17,15 +17,15 @@ at the configuration/ ROOT (empty -Customer) is served by the NON-customer subsc
 — is normalized against the folder's customer key). A conforming azure.yml yields exactly one candidate; callers assert that
 (Get-BicepSubscriptionConfigViolations for the violation text, discovery for the resolved name) so the rule cannot drift between them.
 
-### parameter Customer
+### parameter `Customer`
 
 The configuration subfolder name (a customer key), or '' for a configuration-root config.
 
-### parameter Environment
+### parameter `Environment`
 
 The config's resolved environment name.
 
-### parameter AzureConfig
+### parameter `AzureConfig`
 
 The loaded azure config (Get-Config -Config azure).
 

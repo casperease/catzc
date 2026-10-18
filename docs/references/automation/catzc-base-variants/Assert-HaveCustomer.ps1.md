@@ -14,7 +14,7 @@ Asserts one named customer is enabled for the repo, else throws (singular cover 
 The single-customer form of Assert-HaveCustomers. A thin cover: Assert-HaveCustomers -Name $Name. Throws when the named customer is not
 enabled by the `have_customers` variant.
 
-### parameter Name
+### parameter `Name`
 
 The customer name to require.
 

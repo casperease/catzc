@@ -14,6 +14,6 @@ Recursively converts dictionaries to ordered form for stable output.
 OrderedDictionaries keep their original key order. Plain Hashtables get their keys sorted alphabetically. Nested dictionaries are processed
 recursively.
 
-### parameter Dictionary
+### parameter `Dictionary`
 
 The dictionary to process.

@@ -14,11 +14,11 @@ Validates that all property keys in a parsed YAML object use snake_case.
 Recursively walks a parsed YAML structure and asserts that every property key matches snake_case (lowercase letters, digits, underscores,
 starting with a letter). List items and values are not checked.
 
-### parameter Yaml
+### parameter `Yaml`
 
 The parsed YAML object (from ConvertFrom-Yaml -Ordered).
 
-### parameter PropertyPath
+### parameter `PropertyPath`
 
 Optional root prefix for error messages. Useful when validating a subtree, e.g. Assert-YmlNaming $config.customers 'customers' will report
 paths as 'customers.blue.details' instead of 'blue.details'.

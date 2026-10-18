@@ -17,6 +17,10 @@ public sealed class ConfigsConfig
     // The configs a consumer overlay may not change (registered with overridable: false), in file order.
     public IReadOnlyList<string> sealedConfigs { get; } = Array.Empty<string>();
 
+    // Per config, the top-level keys whose shipped value may differ from the type's default, each with its one-sentence reason.
+    public IReadOnlyDictionary<string, IReadOnlyDictionary<string, string>> differs { get; } =
+        new ReadOnlyDictionary<string, IReadOnlyDictionary<string, string>>(new Dictionary<string, IReadOnlyDictionary<string, string>>());
+
     public ConfigsConfig(IDictionary registry)
     {
         if (registry == null) { return; }
@@ -34,6 +38,7 @@ public sealed class ConfigsConfig
         var entries = registry.Contains("configs") ? registry["configs"] as IDictionary : null;
         var types = new Dictionary<string, string>(StringComparer.Ordinal);
         var sealedNames = new List<string>();
+        var reasons = new Dictionary<string, IReadOnlyDictionary<string, string>>(StringComparer.Ordinal);
         if (entries == null)
         {
             if (registry.Contains("configs") && registry["configs"] != null)
@@ -56,10 +61,33 @@ public sealed class ConfigsConfig
             foreach (var entryKey in entry.Keys)
             {
                 var keyName = entryKey == null ? string.Empty : entryKey.ToString();
-                if (keyName != "type" && keyName != "overridable")
+                if (keyName != "type" && keyName != "overridable" && keyName != "differs")
                 {
-                    errors.Add(string.Format("config '{0}': unknown key '{1}' (allowed: type, overridable)", name, keyName));
+                    errors.Add(string.Format("config '{0}': unknown key '{1}' (allowed: type, overridable, differs)", name, keyName));
                 }
+            }
+            if (entry.Contains("differs") && entry["differs"] != null)
+            {
+                var map = entry["differs"] as IDictionary;
+                var keyReasons = new Dictionary<string, string>(StringComparer.Ordinal);
+                if (map == null)
+                {
+                    errors.Add(string.Format("config '{0}': differs must be a map of key -> the reason its shipped value differs from the type's default", name));
+                }
+                else
+                {
+                    foreach (DictionaryEntry reason in map)
+                    {
+                        var differing = reason.Key == null ? string.Empty : reason.Key.ToString();
+                        if (IsBlank(reason.Value))
+                        {
+                            errors.Add(string.Format("config '{0}': differs '{1}' needs its reason, one sentence", name, differing));
+                            continue;
+                        }
+                        keyReasons[differing] = reason.Value.ToString().Trim();
+                    }
+                }
+                reasons[name] = new ReadOnlyDictionary<string, string>(keyReasons);
             }
             types[name] = entry["type"].ToString().Trim();
             if (entry.Contains("overridable"))
@@ -82,6 +110,7 @@ public sealed class ConfigsConfig
 
         configs = new ReadOnlyDictionary<string, string>(types);
         sealedConfigs = sealedNames;
+        differs = new ReadOnlyDictionary<string, IReadOnlyDictionary<string, string>>(reasons);
     }
 
     private static bool IsBlank(object value)

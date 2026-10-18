@@ -19,11 +19,11 @@ This is the whole graph, every module included: Test-ModuleDependency checks the
 configs/dependencies.yml, and an unconstrained module is outside that list, so a cycle through one is caught only here. It analyses the
 per-function source files (Get-ModuleDependency).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-module-cycles/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Modules; Edges }) instead of throwing on issues.
 

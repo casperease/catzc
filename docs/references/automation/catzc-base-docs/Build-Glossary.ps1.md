@@ -22,19 +22,19 @@ import, its sources (the glossary files and this generator) are what is reviewed
 ([ADR-REPO-README#7](../../../adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its content changes, and
 emitted already formatted (Format-MarkdownParagraph), so Format-Code is a no-op on it.
 
-### parameter Path
+### parameter `Path`
 
 The page to write. Defaults to the [glossary](../../../adr/glossary.md); a test points it at a fixture path.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report whether the page would change without writing it.
 
-### parameter Silent
+### parameter `Silent`
 
 Write no message.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return { Path; Changed; DryRun; ConceptCount } instead of the path.
 

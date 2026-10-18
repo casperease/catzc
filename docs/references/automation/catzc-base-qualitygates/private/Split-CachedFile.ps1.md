@@ -16,19 +16,19 @@ repository gets the key '`<SHA-256 of its bytes>:<stamp>`'; a file whose cache e
 A file outside the repository, or one that does not exist, is always pending and never keyed (it is never recorded). Update-ResultCache is
 the write half.
 
-### parameter File
+### parameter `File`
 
 The check's files.
 
-### parameter Cache
+### parameter `Cache`
 
 The result cache (Get-ResultCache).
 
-### parameter Stamp
+### parameter `Stamp`
 
 The check's input stamp (Get-ContentStamp).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 

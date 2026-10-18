@@ -23,11 +23,11 @@ Removes an Azure CLI installed OUTSIDE the tooling system — the destructive `R
 ([ADR-AUTO-REMOVE#4](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)). Usually reached through the escalation
 `Uninstall-AzCli -Remove -Force` ([ADR-AUTO-REMOVE#5](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
 
-### parameter InstallDir
+### parameter `InstallDir`
 
 Path to the Azure CLI installation folder. Auto-detected from PATH if omitted.
 
-### parameter Force
+### parameter `Force`
 
 Actually perform the removal. Without this, shows what would be removed.
 

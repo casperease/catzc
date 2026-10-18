@@ -22,11 +22,11 @@ rewritten to its markdown form:
 
 Code spans keep their text; every other link and autolink is left as written.
 
-### parameter Note
+### parameter `Note`
 
 The note, one line.
 
-### parameter PageFolder
+### parameter `PageFolder`
 
 The repository-relative folder of the page the note is written to, '/'-separated.
 

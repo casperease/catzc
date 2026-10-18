@@ -16,7 +16,7 @@ PATH, so tests can Mock the registry boundary (`Mock Get-EnvironmentPath -Module
 with Set-EnvironmentPath for writes. User/Machine scopes are a Windows concept; callers guard Windows-only use with $IsWindows. This is the
 deliberately thin, un-mockable I/O boundary, so it has no unit test of its own.
 
-### parameter Scope
+### parameter `Scope`
 
 Which environment scope to read: User (default), Machine, or Process.
 

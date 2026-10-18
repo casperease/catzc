@@ -16,11 +16,11 @@ logic test can Mock the registry boundary (`Mock Get-PermanentEnvironmentVariabl
 environment. User/Machine scopes are a Windows concept; callers guard Windows-only use with $IsWindows. The real registry round trip is
 proven by the L3 system test in tests/Set-PermanentEnvironmentVariable.Tests.ps1.
 
-### parameter Name
+### parameter `Name`
 
 The variable's name.
 
-### parameter Scope
+### parameter `Scope`
 
 Which persistent scope to read: User (default) or Machine.
 

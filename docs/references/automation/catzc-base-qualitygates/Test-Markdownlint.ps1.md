@@ -24,16 +24,16 @@ out/test-markdownlint/, prints every issue, and throws once listing them all; -P
 
 markdownlint-cli2 must be on PATH — install it once with Install-Markdownlint (or: npm install -g markdownlint-cli2).
 
-### parameter Path
+### parameter `Path`
 
 Repository-relative paths or globs to lint (markdownlint-cli2 expands a glob). Defaults to the repository's in-scope Markdown, with the
 out-of-scope trees excluded via '!'-negation globs.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-markdownlint`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, ExitCode }) instead of throwing.
 

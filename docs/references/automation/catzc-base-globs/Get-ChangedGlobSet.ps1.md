@@ -26,15 +26,15 @@ returned list and stops early when it is not. The reference commit that range is
 
 It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1).
 
-### parameter ChangedFile
+### parameter `ChangedFile`
 
 The changed repo-relative, '/'-separated paths to reflect (e.g. a diff's file list). May be empty.
 
-### parameter Range
+### parameter `Range`
 
 A git diff range to resolve the changed paths from, e.g. 'HEAD^1..HEAD'.
 
-### parameter IncludeModules
+### parameter `IncludeModules`
 
 Also match the derived module globsets, not only the declared registry.
 

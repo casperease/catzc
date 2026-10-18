@@ -13,7 +13,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
-            & $script:writeFile $root 'automation/Catzc.Widget/Get-Widget.ps1' ((@(
+            & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" ((@(
                         'function Get-Widget {'
                         '    # Sorted first, so the gadget order is stable'
                         '    # across runs and the cache key never changes.'
@@ -23,11 +23,11 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
                     ) -join "`n"))
             $root
         }
-        $script:file = 'automation/Catzc.Widget/Get-Widget.ps1'
+        $script:file = "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1"
         $script:pageRelative = 'docs/references/automation/catzc-widget/Get-Widget.ps1.md'
         $script:check = {
             param([string] $Root)
-            Test-Comments -RepositoryRoot $Root -Path (Join-Path $Root 'automation') -OutputFolder (Join-Path $Root 'out/report') -PassThru
+            Test-Comments -RepositoryRoot $Root -Path (Join-Path $Root (Get-CatzcModulesFolder)) -OutputFolder (Join-Path $Root 'out/report') -PassThru
         }
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
@@ -38,7 +38,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         $before = & $check $root
         $before.IssueCount | Should -Be 1
         $before.Issues[0] | Should -BeLike "$($file):2: a 2-line comment is still in the file*Export-Comments"
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         $after = & $check $root
         $after.IssueCount | Should -Be 0
         $after.PageCount | Should -Be 1
@@ -46,7 +46,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
 
     It 'reports a section whose code line the file no longer has' -Tag 'ADR-REPO-COMMENTS#5' {
         $root = & $newRepository
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         $text = & $readFile $root $file
         & $writeFile $root $file ($text.Replace('Sort-Object', 'Sort-Object -Unique'))
         $report = & $check $root

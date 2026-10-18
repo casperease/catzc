@@ -16,23 +16,23 @@ MSBuild project a CDATA property named for the block inside the first PropertyGr
 bytes, so a second run changes no file (ADR-REPO-FILEMETA#8). A text that is neither, or whose property holds something else, comes back as
 it was.
 
-### parameter Text
+### parameter `Text`
 
 The whole JSON file or MSBuild project as text.
 
-### parameter Property
+### parameter `Property`
 
 The name of the property that holds the block (e.g. // or $comment in JSON, CatzcMeta in a project).
 
-### parameter Strip
+### parameter `Strip`
 
 Beginnings of old values of the property that are replaced.
 
-### parameter Immutable
+### parameter `Immutable`
 
 The place facts, an ordered dictionary of key to value.
 
-### parameter Edges
+### parameter `Edges`
 
 The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the property.
 

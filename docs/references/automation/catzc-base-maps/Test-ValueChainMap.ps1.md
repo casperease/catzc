@@ -30,11 +30,11 @@ gate checks one property, and the value-chain map is read from adrs.yml alone, w
 It ends through Write-QualityGateReport: the report goes to out/test-value-chain-map/, every issue is printed, and the quality gate throws
 once listing them all; -PassThru returns the result instead.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-value-chain-map/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Adrs; Rows; Columns; NonEmptyCells; Labels }) instead of throwing on issues.
 NonEmptyCells counts the cells that hold at least one ADR, and Labels the printed labels checked.

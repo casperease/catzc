@@ -19,15 +19,15 @@ data in the exporter registry, never a list in this function
 ([ADR-PRIN-CONFIG#1](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)). The member lists are kept for as long as
 the exporter registry object is the same one.
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

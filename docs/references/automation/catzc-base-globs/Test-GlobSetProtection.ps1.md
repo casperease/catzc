@@ -20,16 +20,16 @@ A $false answer also records the just-computed hash as PENDING for that key; Pro
 therefore always the one computed BEFORE the scan — an edit that lands mid-scan makes the recorded identity stale and forces the next run to
 scan again.
 
-### parameter Test
+### parameter `Test`
 
 The scan's name — the caller's identity in the protection key (e.g. 'spelling', 'markdown', or a Test-Automation run key).
 
-### parameter Name
+### parameter `Name`
 
 The scope's name in the protection key: a declared globset (whose hash is computed here) or, with -Hash, any identifier the caller keys by
 (e.g. a module name whose composite identity the caller computed).
 
-### parameter Hash
+### parameter `Hash`
 
 A precomputed durable identity to compare instead of hashing a declared globset — the path composite identities (per-module protection)
 take. The pending-promote handshake is unchanged: this value is what Protect-GlobSet later promotes.

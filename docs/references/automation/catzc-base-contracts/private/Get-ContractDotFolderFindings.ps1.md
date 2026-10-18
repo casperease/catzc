@@ -20,7 +20,7 @@ outermost dot-prefixed folder of a branch is a finding, since moving it moves wh
 released folder's .frozen record and an asset that pins a dotfile by its own name are files, and a target root relocates a folder but never
 renames a file. Findings come in ordinal path order; a missing contracts/ gives none.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/.
 

@@ -26,37 +26,37 @@ Object : -InputObject (a Get-FirewallCsv result, pipeline-bindable) + optional -
          comes from the object and the file is written as <original-name>.yaml.
 ```
 
-### parameter CsvPath
+### parameter `CsvPath`
 
 Path to the source CSV (Path set).
 
-### parameter YamlPath
+### parameter `YamlPath`
 
 Output YAML path (Path set).
 
-### parameter SourceName
+### parameter `SourceName`
 
 The filename of the source, recorded in the header comment. Defaults to the CSV's own filename.
 
-### parameter GeneratedAt
+### parameter `GeneratedAt`
 
 CSV generation time in UTC, recorded in the header comment. When omitted, that line is dropped.
 
-### parameter InputObject
+### parameter `InputObject`
 
 A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 Where the .yaml goes in Object mode; the file is named `<original-name>.yaml`. Destination directory in Object mode; the file is named
 `<original-name>.yaml`. Defaults to the yaml folder under the output root (Get-OutputRoot: `<repo>/out` locally, the artifact staging
 directory in a pipeline).
 
-### parameter MultiValueFields
+### parameter `MultiValueFields`
 
 Fields split into YAML arrays on -SplitPattern.
 
-### parameter SplitPattern
+### parameter `SplitPattern`
 
 Regex splitting multi-value fields. Default comma/semicolon with surrounding whitespace.
 

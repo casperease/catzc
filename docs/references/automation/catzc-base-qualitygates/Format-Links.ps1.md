@@ -29,27 +29,27 @@ unfixable; Test-Links reports it. The engine is compiled C# (Catzc.Base.QualityG
 whole-repository run is fast. Files are written as UTF-8 without a BOM, with their own line endings kept. A source-tree tool: it throws in
 build mode (Assert-SourceTree).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to align. Default: every git-tracked file.
 
-### parameter Kind
+### parameter `Kind`
 
 Which link kinds to align: Code, Markdown, or Both (default).
 
-### parameter Wrap
+### parameter `Wrap`
 
 How an aligned comment line that outgrows its limit is wrapped: Break or Off. Default: links.yml's wrap.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root links resolve against. Default: the loaded repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without writing any file.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ ChangedCount, ChangedFiles, Fixed, Unfixable, DryRun, ElapsedMs }) instead of only the changed paths.
 

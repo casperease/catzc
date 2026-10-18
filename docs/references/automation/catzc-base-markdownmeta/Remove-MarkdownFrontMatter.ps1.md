@@ -15,7 +15,7 @@ For a copy that carries the content but not the file's meta: a generated README,
 that separates written front matter from the body goes with it. A text with no front matter comes back unchanged. Pure: it reads no file and
 no config.
 
-### parameter Text
+### parameter `Text`
 
 The whole Markdown file as text.
 

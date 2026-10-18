@@ -17,7 +17,7 @@ silenced). Throws with remediation if the subscription can't be selected (wrong 
 Unlike Assert-AzCliConnected, which only asserts the session is already on an expected subscription, this deliberately switches it. Pairs
 with Get-CurrentAzSubscription for save / switch / restore.
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID (or display name) to make active.
 

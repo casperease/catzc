@@ -1,6 +1,6 @@
 Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
     BeforeAll {
-        $root = Join-Path $TestDrive 'automation'
+        $root = Join-Path $TestDrive 'widget-modules'
         foreach ($path in 'TstWidget/configs/widget.yml', 'TstWidget/configs/widget-parts.yml', 'TstGadget/configs/gadget.yml',
             'TstGadget/README.md', '.internal/configs/hidden.yml') {
             $full = Join-Path $root $path
@@ -20,7 +20,7 @@ Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'widget-modules' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -ne 'configs' } { 'loaded' }
     }

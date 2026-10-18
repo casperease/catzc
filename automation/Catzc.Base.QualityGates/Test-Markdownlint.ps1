@@ -4,7 +4,6 @@ function Test-Markdownlint {
         [string[]] $Path = @(
             '**/*.md'
             '!out'
-            '!automation/.vendor'
             '!**/.vendor'
             '!docs/notes'
             '!.unordered'

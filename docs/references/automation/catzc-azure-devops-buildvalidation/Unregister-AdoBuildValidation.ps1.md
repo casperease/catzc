@@ -16,27 +16,27 @@ Finds the build-validation policy whose path filter is the globset's native proj
 no such policy exists the function reports and returns without error
 ([ADR-AUTO-IDEM#2](../../../adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)).
 
-### parameter GlobSet
+### parameter `GlobSet`
 
 The declared globset whose policy to remove (a name in globs.yml).
 
-### parameter Branch
+### parameter `Branch`
 
 The branch the policy guards. Defaults from build-validation.yml 'branch'.
 
-### parameter Project
+### parameter `Project`
 
 Azure DevOps project name. Defaults to the value in ado.yml.
 
-### parameter Organization
+### parameter `Organization`
 
 Azure DevOps organization URL. Defaults to the value in ado.yml.
 
-### parameter RepositoryName
+### parameter `RepositoryName`
 
 Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the planned removal (the matched policy id) without touching the server.
 

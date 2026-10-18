@@ -24,15 +24,15 @@ added, deleted or untracked; Get-GitChangedPath) light the cells they sit in, as
 changed file it does not hold (an untracked file, or one whose removal is staged) lights nothing and is named in the verbose stream. With no
 change, no cell is lit.
 
-### parameter Adr
+### parameter `Adr`
 
 The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code throws.
 
-### parameter Path
+### parameter `Path`
 
 The repository-relative paths of tracked files. A path the map does not hold throws.
 
-### parameter AsJson
+### parameter `AsJson`
 
 Return the highlight as JSON (the request, and the lit cells with their files and each file's reason: the basis, the covering request and
 the citation sites with their lines and kinds) instead of the object

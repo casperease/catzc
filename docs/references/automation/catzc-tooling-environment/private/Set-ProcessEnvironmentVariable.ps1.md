@@ -18,11 +18,11 @@ scoped restore returns a previously-unset variable to unset). Tests mock this bo
 (`Mock Set-ProcessEnvironmentVariable -ModuleName Catzc.Tooling.Environment`) instead of mutating the real process environment. This is the
 deliberately thin, un-mockable I/O boundary, so it has no unit test of its own (mirrors Set-EnvironmentPath).
 
-### parameter Name
+### parameter `Name`
 
 The environment variable name to write.
 
-### parameter Value
+### parameter `Value`
 
 The value to set. $null removes the variable.
 

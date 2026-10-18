@@ -1,6 +1,6 @@
 Describe 'Repository code links (automation comments)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
-        $script:result = Test-Links -Path (Join-Path (Get-RepositoryRoot) 'automation') -Kind Code -PassThru `
+        $script:result = Test-Links -Path (Get-CatzcModulesRoot) -Kind Code -PassThru `
             -OutputFolder (Join-Path $TestDrive 'links-code')
     }
 

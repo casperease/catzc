@@ -24,15 +24,15 @@ cannot fix: it is left untouched and reported in BlockScopedFiles (Test-Formatti
 
 A source-tree tool: it rewrites the repository's type sources, so it throws in build mode (Assert-SourceTree).
 
-### parameter Path
+### parameter `Path`
 
 One or more files or directories to process. Defaults to every `automation/<Module>/types/*.cs` file.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report which files would change without writing them (the returned list is the same either way).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ ChangedCount, ChangedFiles, BlockScopedFiles, DryRun }) instead of only logging.
 

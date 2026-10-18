@@ -18,11 +18,11 @@ section (Write-Header / Write-Footer, red) with one 'FAIL `<ExpandedPath>`' line
 'FAIL `<file>` (failed before its tests ran)' line per file the files sidecar marks Failed with an error of its own — a file that throws
 while Pester discovers it, or in its BeforeAll, yields no row, so its error is only there. Writes nothing when there is no failure.
 
-### parameter Rows
+### parameter `Rows`
 
 The run's test rows (ConvertTo-TestAutomationRowSet's shape: Result, ExpandedPath, ErrorMessage).
 
-### parameter Files
+### parameter `Files`
 
 The run's per-file entries from the files sidecars (New-TestAutomationShardScript: File, Result, ErrorMessage).
 

@@ -59,12 +59,12 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
     It 'lets the first matching pages entry win and takes a plain folder map as given' -Tag 'ADR-PRIN-CONFIG#1' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{
                 pages = @(
-                    [ordered]@{ source = 'automation/Catzc.Widget.Gadgets'; docs = 'docs/references/gadgets' },
-                    [ordered]@{ source = 'automation/*'; docs = 'docs/references/automation/{kebab}' }
+                    [ordered]@{ source = 'widgets/Catzc.Widget.Gadgets'; docs = 'docs/references/gadgets' },
+                    [ordered]@{ source = 'widgets/*'; docs = 'docs/references/widgets/{kebab}' }
                 )
             })
-        $config.PageFor('automation/Catzc.Widget.Gadgets/Get-Gadget.ps1') | Should -Be 'docs/references/gadgets/Get-Gadget.ps1.md'
-        $config.PageFor('automation/Catzc.Widget.Other/Get-Gadget.ps1') | Should -Be 'docs/references/automation/catzc-widget-other/Get-Gadget.ps1.md'
+        $config.PageFor('widgets/Catzc.Widget.Gadgets/Get-Gadget.ps1') | Should -Be 'docs/references/gadgets/Get-Gadget.ps1.md'
+        $config.PageFor('widgets/Catzc.Widget.Other/Get-Gadget.ps1') | Should -Be 'docs/references/widgets/catzc-widget-other/Get-Gadget.ps1.md'
     }
 
     It 'maps every key it is given, replacing a language''s keep list but not the others' -Tag 'ADR-PRIN-CONFIG#1' {

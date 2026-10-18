@@ -19,15 +19,15 @@ configs are found like any module's. Throws when the name is unknown or ambiguou
 owning module sorted by module name (ordinal), and nothing when no module has it — the listing for a config several modules opt into by
 shipping it. Mock this to redirect a config to a fixture in logic tests (see ADR test-automation).
 
-### parameter Config
+### parameter `Config`
 
 The config name (without the .yml extension).
 
-### parameter Module
+### parameter `Module`
 
 Disambiguates a name present in multiple modules.
 
-### parameter All
+### parameter `All`
 
 Returns every module's entry for the name instead of resolving a single one.
 

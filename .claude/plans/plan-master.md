@@ -15,8 +15,8 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Process (the planner's own rules)
 
-- Sources: `plan-*.md`, `value-of-plan.md`, `decisions-2026-10-16.md`. Never a signal lost: a step leaves a plan only when its task file
-  carries it, and the plan keeps the checkbox until the work lands in the tree.
+- Sources: `plan-*.md`, `value-of-plan.md`, `decisions-2026-10-16.md`, `decisions-2026-10-18.md`. Never a signal lost: a step leaves a plan
+  only when its task file carries it, and the plan keeps the checkbox until the work lands in the tree.
 - A task file is `task-<topic>.md`, at most 50 in the folder, one chunk each: head (`task:` with status, plans, value, blocked_on, targets),
   then numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
 - The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS#8, ADR-REPO-FOLDERS#12). A task
@@ -59,23 +59,24 @@ Open, in execution order:
 - module-model-closeout -> task-module-model-closeout.md (open; every step done by 2026-10-18 apart from step 9, the user's run of all
   tests): module model close-out, the rule 6 funnel (the tests entries in languages.yml), infrastructure track (a design step in
   plan-module-kinds-tracks), waits_on cleared.
-- kind-becomes-role -> task-kind-becomes-role.md (open; steps 1, 7 and 8 done 2026-10-18; steps 2 to 6, the rename itself, wait for session
-  catzc-e5's file-meta work and a quiet window for the tree-wide head pass; the namespace line is a question for the user): kind becomes
-  role through the registry and generators; tracks.md rule 19 one primary language; WorldMapBuilder links; Test-ShippedTypes.
-- config-defaults-variants -> task-config-defaults-variants.md (done 2026-10-18; every step ticked; the aspects default follows the tree and
-  Q2 is reopened for the user in plan-config-defaults): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
-- config-defaults-fragment -> task-config-defaults-fragment.md (open; steps 1 and 2 done 2026-10-18; steps 3 and 4 wait for the user's
-  choice of the .catzc track's type and vendor; steps 5 and 6 wait for three design answers): the .catzc fragment, config without a shipped
-  file, Build-ConfigDefaultsContract.
+- kind-becomes-role -> task-kind-becomes-role.md (open; steps 1 to 8 done 2026-10-18 on the user's go, D24; step 9, the namespace, is a
+  question for the user): kind becomes role through the registry and generators; tracks.md rule 18 one primary language; WorldMapBuilder
+  links; Test-ShippedTypes.
+- config-defaults-variants -> task-config-defaults-variants.md (done 2026-10-18; every step ticked; Q2 closed by D22): config defaults Phase
+  1, VariantsConfig constants, getters lose -Default.
+- config-defaults-fragment -> task-config-defaults-fragment.md (open; steps 1 and 2 done 2026-10-18; D22 rewrote steps 4 to 6: the shipped
+  file stays and shows the defaults, a defaults check replaces the generated contract; step 5 is ready; steps 3 and 4 wait for the user's
+  choice of the .catzc track's type and vendor): the .catzc fragment, config without a shipped file, the defaults check.
 - config-defaults-postures -> task-config-defaults-postures.md (open; after config-defaults-fragment): every typed config into a posture,
   the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
 - layers-funnel -> task-layers-funnel.md (open; ready): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4
   identifiers, the NoTrackRootLiteral guard.
-- layers-classification-flip -> task-layers-classification-flip.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR
-  wording drafts; P4 the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
+- layers-classification-flip -> task-layers-classification-flip.md (open; the user gave the go for P4 and P6, D24; P4 runs once
+  layers-funnel lands, D10's order, and layers-funnel is mid-way in session catzc-0a): P3 classification table and ADR wording drafts; P4
+  the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
 - command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets, C5 the cats lookup and the C6
-  widening done 2026-10-18; the F6 narrowing waits for the user's reading of "internal", never inside the P4 window): ADR-REPO-CMDCONTRACT,
-  the Command asset kind and checker, pilot contracts, reader, cats validation, public functions made internal.
+  widening and F6 under D21 done 2026-10-18; open: the user's call on twelve uncalled exports and the 139 docs-only functions):
+  ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats validation, public functions made internal.
 - file-head-leftovers -> task-file-head-leftovers.md (done 2026-10-18; the task file goes with the user's `git rm`, its plan keeps the
   user's Test-FileMeta and Test-Automation runs): the binary class skips .compiled, the four tool candidates recorded as not needed, the
   note kind gone with its exemption moved to the unordered track type.
@@ -89,9 +90,9 @@ Open, in execution order:
   console prompt hook.
 - adr-auto-material -> task-adr-auto-material.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both):
   ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
-- adr-link-cleanup -> task-adr-link-cleanup.md (open; steps 1 to 7 done by 2026-10-18 with the first slice; the remaining slices and Phase 2
-  next): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied slice by slice with verification, Phase 2
-  per D1 to D5.
+- adr-link-cleanup -> task-adr-link-cleanup.md (open; steps 1 to 9 done by 2026-10-18, Phase 2 applied per D23; the 2 held files wait for
+  their sessions): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied slice by slice with
+  verification, Phase 2 per D1 to D5.
 - out-artifacts -> task-out-artifacts.md (open; done 2026-10-17 apart from the two probe batches, which the user confirms since their lists
   are gone): the areas were registered and the prune in the tree, the safeguard log never ages out, Clear-Output has its tests, out.md names
   the retention, the five tool candidates placed.

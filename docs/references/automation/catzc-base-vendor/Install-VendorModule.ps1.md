@@ -18,11 +18,11 @@ compatibility_profiles). The only supported way to add a vendor module
 may lock its files. Writes into the source tree's .vendor, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter Name
+### parameter `Name`
 
 The module name to install from the vendor source.
 
-### parameter RequiredVersion
+### parameter `RequiredVersion`
 
 An optional specific version to install. Installs the latest if omitted.
 

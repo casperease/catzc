@@ -15,15 +15,15 @@ Looks the budget up in timeout-exemptions.yml for the run environment (Get-RunEn
 to its scope's ceiling while the work is tuned; it never removes the limit. The result is the normalized entry: kind (single | range), from,
 to, environments, shells, reason.
 
-### parameter Budget
+### parameter `Budget`
 
 The budget's immutable GUID — registered in the managed-GUID registry and passed by the call site.
 
-### parameter Shell
+### parameter `Shell`
 
 The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default. Any other name throws, naming the shells.
 
-### parameter EnvironmentAssertIs
+### parameter `EnvironmentAssertIs`
 
 Pins the expected run environment (Pipeline or Devbox); a different one throws. The guard verifies, it never selects.
 

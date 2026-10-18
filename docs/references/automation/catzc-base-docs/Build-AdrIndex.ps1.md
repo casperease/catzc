@@ -25,15 +25,15 @@ registry is edited — a hand-edit to index.md is overwritten on the next load. 
 Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare, write only on drift), so a clean
 tree costs one file read.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report whether index.md would change without writing it. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
-### parameter Silent
+### parameter `Silent`
 
 The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Path; Changed; DryRun }) instead of the repo-relative path.
 

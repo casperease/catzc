@@ -24,26 +24,26 @@ stays silent in tests without per-function plumbing.
 
 It rests on [ADR-AUTO-CONSOLE#8](../../../adr/automation/console-output-matters.md#rule-adr-auto-console8).
 
-### parameter Message
+### parameter `Message`
 
 The message text to write.
 
-### parameter NoHeader
+### parameter `NoHeader`
 
 Omits the `[caller]` prefix.
 
-### parameter NoNewline
+### parameter `NoNewline`
 
 Render the text without a trailing line break, so the next write continues the same line — the inline liveness dot of (Write-Message '.'
 -NoHeader -NoNewline). Stays on the information stream. Does not apply on the verbose stream.
 
-### parameter ForegroundColor
+### parameter `ForegroundColor`
 
 Text color. When a header is shown, the color applies to the whole line (header included). Accepts a `[System.ConsoleColor]` (or its name),
 a 'rainbow' / '`<base>-rainbow`' bareword, or a `[Catzc.Base.Writers.RainbowColor]` profile — a status line is solid, so a rainbow input
 side-grades to its base colour rather than drawing a gradient (a gradient rule is a header/footer concern).
 
-### parameter Warning
+### parameter `Warning`
 
 Render the line yellow on the information stream
 ([ADR-AUTO-CONSOLE#7](../../../adr/automation/console-output-matters.md#rule-adr-auto-console7) yellow = warning) — a non-fatal,

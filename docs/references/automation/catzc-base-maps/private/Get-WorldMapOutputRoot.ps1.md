@@ -16,7 +16,7 @@ The world map writes recurring files, so they land in their own folder under the
 output_folder of configs/maps.yml (read through Get-Config, typed as Catzc.Base.Maps.MapsConfig; default world-map). It is also the seam a
 test mocks to a folder of its own ([ADR-PWSH-PESTER#2](../../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
 
-### parameter EnsureExists
+### parameter `EnsureExists`
 
 Create the folder (and the output root) when it does not exist.
 

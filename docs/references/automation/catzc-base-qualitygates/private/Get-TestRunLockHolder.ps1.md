@@ -19,7 +19,7 @@ record and says plainly what it can and cannot tell, never guessing:
 - a stale record: the process it names is no longer running (or the pid now belongs to another process, detected by its start time), so the
   record does not describe the current holder.
 
-### parameter Path
+### parameter `Path`
 
 The lock record's path (out/.test-run-lock.json).
 

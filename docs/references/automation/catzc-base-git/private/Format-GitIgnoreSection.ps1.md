@@ -16,15 +16,15 @@ lines, then each pattern verbatim — with any `note` rendered as its own commen
 comments: a '#' after a pattern becomes part of the pattern, so a noted pattern written on one line would match nothing. Pure formatting;
 the pattern text is never rewritten.
 
-### parameter Title
+### parameter `Title`
 
 The section's heading.
 
-### parameter Why
+### parameter `Why`
 
 The section's explanation (wrapped to the comment width).
 
-### parameter Pattern
+### parameter `Pattern`
 
 The section's resolved pattern entries ({ pattern; note } objects, in order).
 

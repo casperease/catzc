@@ -15,7 +15,7 @@ A binding helper (see [ADR-AUTO-PATH#7](../../../adr/automation/path-representat
 and returns the normalized absolute path to bind against — '.\', '..', and mixed separators collapse, so a leading './' never leaks into the
 result. Resolution is against the repository root, not $PWD. Delegates to Resolve-RepoPath so the normalization lives in one place.
 
-### parameter Path
+### parameter `Path`
 
 Relative path from the repository root.
 

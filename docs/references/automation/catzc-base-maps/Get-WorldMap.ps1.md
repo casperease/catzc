@@ -28,7 +28,7 @@ bucket row or column, so every file has exactly one cell. A live file whose file
 The text of a file is read only when its kind cites ADRs (.ps1, .cs, .yml, .yaml, .md), once per session: the texts stay in a module cache
 until the importer runs again ([ADR-AUTO-CACHE#6](../../../adr/automation/caching.md#rule-adr-auto-cache6)).
 
-### parameter AsJson
+### parameter `AsJson`
 
 Return the map as JSON (axes, cells and per-file placements) instead of the object, so a tool reads it without PowerShell
 ([ADR-THES-ONETRUTH#3](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).

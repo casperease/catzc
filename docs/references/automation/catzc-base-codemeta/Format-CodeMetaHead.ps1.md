@@ -15,19 +15,19 @@ The same facts always give the same bytes, so a second run changes no file and a
 
 It rests on [ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
 
-### parameter Text
+### parameter `Text`
 
 The whole code file as text.
 
-### parameter Form
+### parameter `Form`
 
 The head's comment syntax: a Catzc.Base.CodeMeta.HeadForm.
 
-### parameter Immutable
+### parameter `Immutable`
 
 The place facts, an ordered dictionary of key to value.
 
-### parameter Edges
+### parameter `Edges`
 
 The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the head.
 

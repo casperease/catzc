@@ -17,11 +17,11 @@ the run itself ([ADR-AUTO-FAILFAST#7](../../../../adr/automation/fail-fast-with-
 to fix, not a wait to absorb, and the budget is a roof that is never raised to make a run pass. A pipeline run is bounded by its stage's own
 limit instead, so it never fails here. A failing run says so on the console, with its time and the budget.
 
-### parameter DurationSeconds
+### parameter `DurationSeconds`
 
 The run's wall clock — its workers' run, as the run reports it.
 
-### parameter BudgetSeconds
+### parameter `BudgetSeconds`
 
 The whole-run budget (Get-TestTimeLimits RunSeconds, tests.run_seconds in timeouts.yml).
 

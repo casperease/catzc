@@ -21,19 +21,19 @@ A pure function of its inputs (no config or ADR reads of its own), so the caller
 Report-only: it never throws on an uncovered rule — many rules are enforced structurally or by review, so absence of a mechanical enforcer
 is information, not a defect. The 'by test' figures reflect the tests in THIS run's scope (a -Modules/-Level filter narrows the rows).
 
-### parameter Rows
+### parameter `Rows`
 
 The aggregated per-test rows (ConvertTo-TestAutomationRowSet), each carrying ExpandedPath and the ';'-joined Rules citations.
 
-### parameter AnalyzerCoverage
+### parameter `AnalyzerCoverage`
 
 The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerAdrCoverage. AdrId is '#' citation form.
 
-### parameter AllRuleIds
+### parameter `AllRuleIds`
 
 Every declared ADR rule id in '#' citation form (Get-CatsAdrRuleIds, ':'->'#') — the coverage universe.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The run directory the two files are written into (created if missing).
 

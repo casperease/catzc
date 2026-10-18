@@ -19,11 +19,11 @@ uncovered member is an issue. (GitHub is exact by construction: its ordered '!'-
 
 Whether a pipeline file declares the projected trigger is a separate quality gate (Test-AdoPipelineTriggerGlob).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-glob-set-trigger-coverage/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; GlobSets }) instead of throwing on issues.
 

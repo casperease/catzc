@@ -8,15 +8,16 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
         }
         $script:planFolder = 'docs/how-to/automation/manual-test-plan'
         $script:planPath = "$planFolder/widgets.md"
-        $script:widgetRow = '| 1 | automation/Widget/tests/Get-Widget.Tests.ps1 | Widget integrity |'
-        $script:gadgetRow = '| 2 | automation/Widget/tests/Get-Widget.Tests.ps1 | Gadget check |'
+        $script:widgetRow = '| 1 | widget-modules/Widget/tests/Get-Widget.Tests.ps1 | Widget integrity |'
+        $script:gadgetRow = '| 2 | widget-modules/Widget/tests/Get-Widget.Tests.ps1 | Gadget check |'
     }
 
     BeforeEach {
         Remove-Item (Join-Path $TestDrive 'repo') -Recurse -Force -ErrorAction Ignore
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
-        Set-FixtureFile 'automation/Widget/tests/Get-Widget.Tests.ps1' (@(
+        Set-FixtureFile 'widget-modules/Widget/tests/Get-Widget.Tests.ps1' (@(
                 "Describe 'Widget integrity' -Tag 'L1', 'integrity' {"
                 "    It 'Gadget check' -Tag:@('integrity') { }"
                 "    It 'plain logic' -Tag 'L0', 'logic' { }"
@@ -63,7 +64,7 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
     }
 
     It 'reports a stale row as a count mismatch' {
-        Set-FixtureFile $planPath "$widgetRow`n$gadgetRow`n| 3 | automation/Widget/tests/Get-Gone.Tests.ps1 | Gone |`n"
+        Set-FixtureFile $planPath "$widgetRow`n$gadgetRow`n| 3 | widget-modules/Widget/tests/Get-Gone.Tests.ps1 | Gone |`n"
         $result = Test-ManualTestPlan -OutputFolder $out -PassThru
         $result.Issues | Should -HaveCount 1
         $result.Issues[0] | Should -Match '3 index rows for 2 integrity blocks'

@@ -21,15 +21,15 @@ never decides a verdict, and comments in rule files change often (an ADR citatio
 file back through the check. Every change to the code itself still changes the stamp. A PowerShell file that does not parse, and every other
 input, is fingerprinted by its bytes.
 
-### parameter Label
+### parameter `Label`
 
 What the stamp is for (an engine or check name); two checks never share a stamp.
 
-### parameter File
+### parameter `File`
 
 The input files, absolute paths.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The root the paths are recorded relative to.
 

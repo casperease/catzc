@@ -28,27 +28,27 @@ Dots are written through the writer chokepoint (Write-Message '.' -NoHeader -NoN
 [ADR-PWSH-ANNOUNCE#1](../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)): an inline information-stream record, so nothing
 pollutes the pipeline and a Pester run silences them with every other message.
 
-### parameter Mutex
+### parameter `Mutex`
 
 The mutex to await. On return the current thread owns it.
 
-### parameter Name
+### parameter `Name`
 
 Short noun for the messages (e.g. 'test-run mutex'). Defaults to 'mutex'.
 
-### parameter AnnounceText
+### parameter `AnnounceText`
 
 The announcement written when the wait crosses -AnnounceAfterSeconds. Defaults to 'Waiting for the `<Name>` — another process holds it'.
 
-### parameter AnnounceAfterSeconds
+### parameter `AnnounceAfterSeconds`
 
 How long a wait may take before it is announced (and dots begin). Defaults to 2.
 
-### parameter DotIntervalSeconds
+### parameter `DotIntervalSeconds`
 
 Seconds between liveness dots once the wait is announced. Defaults to 5.
 
-### parameter TimeoutSeconds
+### parameter `TimeoutSeconds`
 
 Optional hard ceiling on the whole wait; the function throws when it expires. Defaults to 0 — wait indefinitely.
 

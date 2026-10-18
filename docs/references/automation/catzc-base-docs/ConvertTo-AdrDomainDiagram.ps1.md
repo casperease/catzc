@@ -21,11 +21,11 @@ so the domain DAG (which the ASM/flow reasoning depends on) is drawn the same wa
 Each domain's `role` (from Get-Config -Config adrs) annotates its node, so a reader sees which domains are axioms / architecture /
 implementation / reference at a glance.
 
-### parameter Edge
+### parameter `Edge`
 
 The edges to render (pipeline), as Catzc.Base.Docs.AdrDomainEdge. Produced by Get-AdrDomainEdges.
 
-### parameter As
+### parameter `As`
 
 Output format: Puml | Mermaid | Markdown. Defaults to Puml.
 

@@ -28,11 +28,11 @@ Ignore rules are evaluated with `git check-ignore --no-index`, the rules alone: 
 tracked file "not ignored", masking the tracking check. Re-running the importer (Build-RootConfig) repairs the link issues. It drives the
 git CLI, so it needs a git work tree.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-root-config-files/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Files }) instead of throwing on issues.
 

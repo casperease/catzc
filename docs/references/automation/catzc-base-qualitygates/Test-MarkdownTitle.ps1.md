@@ -21,19 +21,19 @@ out/test-markdown-title/, prints every issue, and throws once listing them all. 
 It rests on [ADR-REPO-FORMAT#6](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6) and
 [ADR-REPO-FORMAT#7](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format7).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to check. Default: every in-scope file.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root titles are relative to. Default: the loaded repository root.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-markdown-title`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
 

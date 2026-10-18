@@ -19,15 +19,15 @@ Cross-platform PATH removal:
 
 Idempotent — no error if the path is not present.
 
-### parameter Path
+### parameter `Path`
 
 The directory to remove.
 
-### parameter Label
+### parameter `Label`
 
 Identity marker for Unix profile blocks. Must match the label used when Add-PermanentPath was called. Defaults to the leaf folder name.
 
-### parameter Sync
+### parameter `Sync`
 
 After removing, call Sync-SessionPath to refresh the session PATH from the registry (Windows only).
 

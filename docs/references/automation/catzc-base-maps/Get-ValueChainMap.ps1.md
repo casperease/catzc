@@ -17,7 +17,7 @@ from adrs.yml: the rows are the value-chain stack the registry type declares (Ca
 [ADR-DSGN-TRACK#15](../../../adr/design/tracks.md#rule-adr-dsgn-track15)), and each ADR (Get-AdrRuleSet) sits on its ADR domain's row in the
 column of each of its value-chain concerns. Every row meets every column, so the map holds every cell, empty ones included, row by row.
 
-### parameter AsJson
+### parameter `AsJson`
 
 Return the map as JSON (the rows, the columns, and every cell with its ADRs) instead of the object
 ([ADR-THES-ONETRUTH#3](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).

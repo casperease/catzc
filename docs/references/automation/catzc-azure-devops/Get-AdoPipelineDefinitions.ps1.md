@@ -16,11 +16,11 @@ ADO folder placement.
 
 YamlPath is normalized (leading '/' stripped) to match the RelativePath output of Get-AdoYamlFiles for easy cross-referencing.
 
-### parameter Project
+### parameter `Project`
 
 Azure DevOps project name. Defaults to the value in ado.yml.
 
-### parameter Organization
+### parameter `Organization`
 
 Azure DevOps organization URL. Defaults to the value in ado.yml.
 

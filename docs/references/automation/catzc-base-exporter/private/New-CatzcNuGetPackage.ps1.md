@@ -18,11 +18,11 @@ vendored dependencies ride inside its .vendor/ — so the build folder itself is
 runs Install-PSResource Catzc. Publishing beyond the local disk is the release workflow's act
 ([ADR-GH-RELEASE](../../../../adr/github/github-release.md)).
 
-### parameter Source
+### parameter `Source`
 
 The build root (Build-Modules' BuildRoot — the `Catzc/<version>/` folder).
 
-### parameter DestinationPath
+### parameter `DestinationPath`
 
 The directory the .nupkg is written into.
 

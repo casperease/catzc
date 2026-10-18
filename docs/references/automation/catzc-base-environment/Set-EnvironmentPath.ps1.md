@@ -20,11 +20,11 @@ Because every persistent PATH write passes through here, this is also where it i
 ([ADR-AUTO-CONSOLE#11](../../../adr/automation/console-output-matters.md#rule-adr-auto-console11)): one line names the scope and the entries
 added and removed. Writing the value the scope already holds is a no-op, so it neither writes nor announces.
 
-### parameter Value
+### parameter `Value`
 
 The full PATH string to persist.
 
-### parameter Scope
+### parameter `Scope`
 
 Which environment scope to write: User (default) or Machine.
 

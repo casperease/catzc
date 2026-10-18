@@ -22,11 +22,11 @@ Subscriptions: every network subscription is a defined azure.yml subscription (n
 of the right kind — a hub when it has no customer, a spoke when it has one. A spoke has exactly one workload subnet per standard environment
 its subscription serves, named for that environment.
 
-### parameter Network
+### parameter `Network`
 
 The network plan (Get-Config -Config network).
 
-### parameter Azure
+### parameter `Azure`
 
 The azure config (Get-Config -Config azure).
 

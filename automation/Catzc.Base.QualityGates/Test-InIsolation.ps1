@@ -80,7 +80,7 @@ function Test-InIsolation {
             $runnerContent = @"
 `$ErrorActionPreference = 'Stop'
 . '$sandbox/importer.ps1' -SkipJanitors
-Import-Module '$sandbox/automation/.vendor/Pester' -Force
+Import-Module '$sandbox/$(Get-CatzcModulesFolder)/.vendor/Pester' -Force
 `$config = New-PesterConfiguration
 `$config.Run.Path = @($pathLiteral)
 `$config.Run.PassThru = `$true

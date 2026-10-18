@@ -18,11 +18,11 @@ Python) for every file, wherever it lives (Invoke-PythonWorkspaceTool;
 formatting differs; without -DryRun, `ruff format` rewrites exactly those. Throws with "Run Install-Uv" when no uv at the pin is found, and
 with ruff's message for a file it cannot parse.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the .py files to format.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files ruff would change without writing them.
 

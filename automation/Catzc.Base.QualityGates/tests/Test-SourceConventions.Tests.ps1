@@ -2,7 +2,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {
             param([string] $Path, [string] $Content = '')
-            $full = Join-Path $TestDrive "repo/automation/$Path"
+            $full = Join-Path $TestDrive "repo/widget-modules/$Path"
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, $Content)
         }
@@ -22,6 +22,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
     BeforeEach {
         Remove-Item (Join-Path $TestDrive 'repo') -Recurse -Force -ErrorAction Ignore
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates {
@@ -89,9 +90,9 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         & $writeCheckFixtures
         $result = Test-SourceConventions -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 3
-        $result.Issues | Should -Contain "automation/Widget/README.md:1: 'widget and gadget' names 2 of the 3 engines (widget, gadget, sprocket); say 'every engine' or name them all"
-        @($result.Issues | Where-Object { $_ -like 'automation/Widget/Set-Widget.ps1:1: a ValidateSet lists engine names*' }) | Should -HaveCount 1
-        @($result.Issues | Where-Object { $_ -like "automation/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET'*" }) | Should -HaveCount 1
+        $result.Issues | Should -Contain "widget-modules/Widget/README.md:1: 'widget and gadget' names 2 of the 3 engines (widget, gadget, sprocket); say 'every engine' or name them all"
+        @($result.Issues | Where-Object { $_ -like 'widget-modules/Widget/Set-Widget.ps1:1: a ValidateSet lists engine names*' }) | Should -HaveCount 1
+        @($result.Issues | Where-Object { $_ -like "widget-modules/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET'*" }) | Should -HaveCount 1
         $result.EngineSetCount | Should -Be 2
         $result.NeutralCodeCount | Should -Be 1
     }
@@ -104,12 +105,12 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 0
         $result.EngineSet | Should -HaveCount 2
         $result.NeutralCodes | Should -HaveCount 1
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like '`[engine_set`] automation/Widget/README.md:1:*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like '`[engine_set`] widget-modules/Widget/README.md:1:*' }
     }
 
     It 'leaves out a file a check exempts' -Tag 'ADR-PRIN-CONFIG#4' {
         & $writeCheckFixtures
-        & $useMode 'gate' ([ordered]@{ 'automation/Widget/*.md' = 'widget notes' })
+        & $useMode 'gate' ([ordered]@{ 'widget-modules/Widget/*.md' = 'widget notes' })
         $result = Test-SourceConventions -OutputFolder $out -PassThru
         $result.EngineSetCount | Should -Be 1
     }

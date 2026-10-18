@@ -19,15 +19,15 @@ lies in a folder the settings exempt (exempt_folders): a vendor-checklist ADR is
 
 Private helper for Test-AdrRegistry; not exported.
 
-### parameter Adrs
+### parameter `Adrs`
 
 The ADR registry (Get-Config -Config adrs).
 
-### parameter Index
+### parameter `Index`
 
 The docs/adr/ file index (Get-AdrFileIndex).
 
-### parameter Settings
+### parameter `Settings`
 
 The check's settings (AdrChecksConfig.dora_coverage).
 

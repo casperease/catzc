@@ -16,7 +16,7 @@ cleanly separates them: the part before is the environment (must be defined in a
 alphanumeric, empty for the base slot). Used at discovery to map config filenames back to envs. See
 [ADR-AZ-DATAMOD#2](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod2).
 
-### parameter ConfigName
+### parameter `ConfigName`
 
 The config-name (a config filename without extension), e.g. `dev` or `dev-001`.
 

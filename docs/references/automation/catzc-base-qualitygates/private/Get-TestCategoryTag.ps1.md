@@ -17,6 +17,6 @@ Get-TestTagViolations. A logic test verifies a function's logic on mocks/own fix
 verifies the actual repository contents (shipped configs, templates, binaries, conventions, dependency graphs). The category tag is
 mandatory — there is no default (see the test-automation ADR). Shares the block walk with Get-TestLevelTag via Get-TestBlockTag.
 
-### parameter Test
+### parameter `Test`
 
 A Pester test-result object (an item of $result.Tests). Its .Block chain carries the category tags.

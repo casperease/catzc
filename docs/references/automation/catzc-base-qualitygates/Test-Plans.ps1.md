@@ -30,23 +30,23 @@ The folder, the sets and the patterns are the plans registry (configs/plans.yml)
 ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through Write-QualityGateReport, which writes
 out/test-plans/, prints every issue, and throws once listing them all. The plans live only in the source tree.
 
-### parameter Path
+### parameter `Path`
 
 The plans folder to check. Default: the registry's folder under the repository root.
 
-### parameter Config
+### parameter `Config`
 
 The plans registry. Default: the shipped plans.yml.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root target paths resolve against. Default: the loaded repository root.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-plans`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject; IssueCount; Issues; ReportPath; Files; Plans; Tasks }) instead of throwing.
 

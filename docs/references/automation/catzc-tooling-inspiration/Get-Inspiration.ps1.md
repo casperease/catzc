@@ -25,19 +25,19 @@ reported with Available false, never thrown on.
 - -Count: that many distinct inspirations at random, from the available ones (every one with -IncludeUnavailable), clamped to how many there
   are. -Seed makes the pick deterministic.
 
-### parameter Id
+### parameter `Id`
 
 The id of one inspiration (its inspiration.yml entry).
 
-### parameter Count
+### parameter `Count`
 
 How many inspirations to pick at random. 0 picks none; more than there are picks them all, shuffled.
 
-### parameter Seed
+### parameter `Seed`
 
 Seeds the random pick, so the same seed over the same inspirations picks the same ones in the same order.
 
-### parameter IncludeUnavailable
+### parameter `IncludeUnavailable`
 
 Lists, or picks from, the inspirations that are not available here too.
 

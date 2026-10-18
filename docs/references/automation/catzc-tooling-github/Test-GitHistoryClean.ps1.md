@@ -25,21 +25,21 @@ un-updated `origin/*`) — a stale tracking ref false-alarms.
 
 Read-only: it never mutates the repository.
 
-### parameter Token
+### parameter `Token`
 
 The token to hunt for (e.g. a secret, or a project name being erased). Matched as a literal substring, ignoring ASCII case, across every
 surface. A binary file (a NUL byte in its first 8000 bytes) is skipped, as `git grep -I` skips it.
 
-### parameter Ref
+### parameter `Ref`
 
 The ref whose reachable history is scanned. Defaults to HEAD. Pass a branch name, a SHA, or --all to sweep every ref (only meaningful in a
 clone with no stale tracking ref to false-alarm).
 
-### parameter RepositoryPath
+### parameter `RepositoryPath`
 
 The git repository to scan. Defaults to the current repository root.
 
-### parameter ExcludePath
+### parameter `ExcludePath`
 
 Repo-relative path prefixes to ignore on every surface — vendored, third-party trees that legitimately contain the token. Defaults to the
 vendor directory. A file content is ignored only when every path it appears under is excluded.

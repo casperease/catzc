@@ -18,7 +18,7 @@ honour — and anchors each pattern with a leading '/', mapping '!p' to '!/p'. T
 policy is the server-side pre-commit half of that binding
 ([ADR-FLOW-CD-TYPE#4](../../../../adr/flow/pipeline-types.md#rule-adr-flow-cd-type4)), never a committed marker.
 
-### parameter GlobSet
+### parameter `GlobSet`
 
 The globset to project.
 

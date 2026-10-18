@@ -25,11 +25,11 @@ on -ForegroundColor. This resolves the argument once:
 
 Returns a hashtable { HasColor; IsRainbow; Rainbow; Base }.
 
-### parameter ForegroundColor
+### parameter `ForegroundColor`
 
 The raw argument (a ConsoleColor, its string name, or a RainbowColor). Ignored when -Bound is not set.
 
-### parameter Bound
+### parameter `Bound`
 
 Whether the caller bound -ForegroundColor at all — an unbound call renders with no colour.
 

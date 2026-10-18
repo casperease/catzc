@@ -16,11 +16,11 @@ the gofmt beside the managed go at the tools.yml pin ([ADR-AUTO-GO](../../../../
 gofmt is first on PATH; a missing or off-pin go throws, naming Install-Go. `gofmt -l` names the files that differ; without -DryRun,
 `gofmt -w` rewrites exactly those. go.mod and go.work are not Go files: New-GoWorkspace and go itself write them.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the .go files to format.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files gofmt would change without writing them.
 

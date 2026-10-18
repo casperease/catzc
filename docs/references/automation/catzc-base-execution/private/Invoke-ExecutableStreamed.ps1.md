@@ -20,40 +20,40 @@ Limitation: ANSI color codes are NOT preserved. When stdout is redirected to a p
 this via isatty() and disable colored output. This is a fundamental OS-level constraint — the child process never emits the escape
 sequences. Solving this would require ConPTY (pseudo-terminal). Use -Direct when colors are important and pipeline leaks are acceptable.
 
-### parameter Command
+### parameter `Command`
 
 The command string to execute.
 
-### parameter WorkingDirectory
+### parameter `WorkingDirectory`
 
 The directory to run the command in.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a Catzc.Base.Execution.CliResult object with Output, Errors, Full, ExitCode, and Raw.
 
-### parameter NoAssert
+### parameter `NoAssert`
 
 Skip the exit code assertion.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress all console output. Output is still captured for -PassThru.
 
-### parameter TimeoutSeconds
+### parameter `TimeoutSeconds`
 
 The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
 
-### parameter AsBytes
+### parameter `AsBytes`
 
 Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary stream. Returns the CliResult as
 -PassThru does.
 
-### parameter InputText
+### parameter `InputText`
 
 Written to the child's stdin, which is then closed; absent, stdin is left as before.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the command string without executing.
 

@@ -23,14 +23,14 @@ Empty result means the config conforms.
 
 It rests on [ADR-AZ-CUSTOMER](../../../../adr/azure/azure-customer-model.md).
 
-### parameter Customer
+### parameter `Customer`
 
 The configuration subfolder name (a customer key), or '' for a configuration-root config.
 
-### parameter CustomerDeployment
+### parameter `CustomerDeployment`
 
 The template's effective customer_deployment bit.
 
-### parameter Location
+### parameter `Location`
 
 A human-readable label for the config (e.g. 'configuration/acme/alpha.yml') used in messages.

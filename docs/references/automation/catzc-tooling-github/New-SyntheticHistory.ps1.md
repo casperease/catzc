@@ -23,7 +23,7 @@ nothing is pushed.
 Pruning the old objects repacks the whole repository, which takes longer than an ordinary call, so the function declares its own time limit
 (`[TimeLimit]`; tune it under `commands` in timeouts.yml) and bounds the garbage collection with it.
 
-### parameter Layer
+### parameter `Layer`
 
 Ordered commit specs, foundational first. Each is a hashtable:
 
@@ -33,35 +33,35 @@ Ordered commit specs, foundational first. Each is a hashtable:
 
 Include entries are paths (or '.') added with `git add -A`; Exclude entries are git pathspecs. A layer that stages no change is skipped.
 
-### parameter RepositoryPath
+### parameter `RepositoryPath`
 
 The repository to rebuild. Defaults to the repository root.
 
-### parameter AuthorName
+### parameter `AuthorName`
 
 Author (and committer) name stamped on every synthetic commit.
 
-### parameter AuthorEmail
+### parameter `AuthorEmail`
 
 Author (and committer) email stamped on every synthetic commit.
 
-### parameter SpanEnd
+### parameter `SpanEnd`
 
 End of the backdating window. Defaults to the current date. Declared before -SpanStart, so the start's default can count back from it.
 
-### parameter SpanStart
+### parameter `SpanStart`
 
 Start of the backdating window. Defaults to 90 days before SpanEnd.
 
-### parameter Branch
+### parameter `Branch`
 
 The branch the synthetic history becomes. Defaults to main.
 
-### parameter WorkingBranch
+### parameter `WorkingBranch`
 
 The temporary orphan branch name used while building. Defaults to 'synthetic-build'.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the plan (layer and timestamp count) without touching git.
 

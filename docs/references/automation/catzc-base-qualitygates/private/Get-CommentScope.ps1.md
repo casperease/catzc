@@ -17,11 +17,11 @@ keeps a file when its file language is one comments.yml names, comments.yml maps
 excludes (tests, their fixtures and assets by default)
 ([ADR-PRIN-CONFIG#1](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders to limit the scope to.
 

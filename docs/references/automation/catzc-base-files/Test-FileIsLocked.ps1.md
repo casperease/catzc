@@ -18,7 +18,7 @@ File locking is mandatory on Windows but advisory on Linux/macOS, where a file h
 there. Callers that must not stall on a locked file (e.g. cache cleanup) should still prefer a guarded delete; this predicate is for
 asserting and reporting state.
 
-### parameter Path
+### parameter `Path`
 
 Path to the file to test.
 

@@ -19,12 +19,12 @@ sandboxes) fast.
 Idempotent and safe to re-run. The temp folders themselves are kept; only their contents are removed. Returns a summary object (Removed /
 Skipped / Folders).
 
-### parameter Path
+### parameter `Path`
 
 The temp folder(s) to clear. Defaults to the current user's temp location(s) (`$env:TEMP`, `$env:TMP`, and `[IO.Path]::GetTempPath()`,
 de-duplicated). Pass an explicit path to target a specific folder.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would be removed without deleting anything. The returned summary's Removed count is the number of top-level entries that would
 be deleted; nothing is touched. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).

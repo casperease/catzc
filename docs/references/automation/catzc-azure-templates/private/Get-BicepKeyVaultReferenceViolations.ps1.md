@@ -16,7 +16,7 @@ A parameters-file entry may carry, instead of a value, an ARM Key Vault referenc
 This checks that shape only — never the secret, which the repository does not hold. Returns zero or more messages, each the text that
 follows "parameter '`<name>`' " in the caller's message. Used by Get-BicepParameterEntryViolations.
 
-### parameter Reference
+### parameter `Reference`
 
 The `reference` object of a parameters-file entry.
 

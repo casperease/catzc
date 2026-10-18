@@ -111,7 +111,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
             Set-ItResult -Skipped -Because 'tool_cspell_missing'
             return
         }
-        $fixture = 'automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md'
+        $fixture = "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/tests/assets/spelling/clean.md"
         $result = Test-Spelling -Path $fixture -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
         $result.IssueCount | Should -Be 0
         (Join-Path $result.ReportPath 'spelling.md') | Should -Exist
@@ -122,7 +122,7 @@ Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB#6' {
         $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep', '.go', '.py')
         $spelled = foreach ($file in (Get-GitTrackedPath '.')) {
-            if ($file.StartsWith('automation/.vendor/')) {
+            if ($file.StartsWith("$(Get-CatzcModulesFolder)/.vendor/")) {
                 continue
             }
             if ([System.IO.Path]::GetExtension($file).ToLowerInvariant() -in $spelledExtensions) {

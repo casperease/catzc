@@ -13,7 +13,7 @@ Tests whether a file is free to open (not locked by another handle).
 
 The inverse of Test-FileIsLocked. See its notes on Windows (mandatory) vs Linux/macOS (advisory) locking.
 
-### parameter Path
+### parameter `Path`
 
 Path to the file to test.
 

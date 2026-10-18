@@ -35,7 +35,7 @@ Idempotent ([ADR-AUTO-IDEM#1](../../../adr/automation/idempotent-state-functions
 already installed, and on Linux when zsh is already present at the pinned version, with no root asked for. A zsh from another package
 (Windows) or at another version (Linux) stops the install unless -Force is passed.
 
-### parameter Force
+### parameter `Force`
 
 Windows: uninstall the zsh Install-Zsh placed (Uninstall-Zsh) and install the pinned package again. Linux: replace a zsh at another version
 through Install-Tool -Force. No effect on macOS.

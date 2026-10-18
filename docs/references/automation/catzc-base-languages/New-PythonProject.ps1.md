@@ -32,7 +32,7 @@ gitignored, as these files are. A repository without Python test folders renders
 This is a pure renderer: it returns the content and writes nothing. It is the `generator` the root-config registry names for the workspace
 targets, and Build-RootConfig owns the write; the entry's target selects which files.
 
-### parameter Target
+### parameter `Target`
 
 The files to render, as a repository-relative wildcard over their paths. Default: every file.
 

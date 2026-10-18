@@ -18,19 +18,19 @@ the RG is always created in the SAME subscription the deployment targets (includ
 Returns an ordered dictionary `{ name, provisioning_state }` where provisioning_state is 'Succeeded' (just created), 'Skipped' (already
 existed), or 'DryRun'.
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription the resource group must live in (from the resolved deployment context).
 
-### parameter Region
+### parameter `Region`
 
 The Azure region to create the resource group in.
 
-### parameter ResourceGroup
+### parameter `ResourceGroup`
 
 The resource group name to ensure.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Preview only — report the resource group that would be created and make no change.
 

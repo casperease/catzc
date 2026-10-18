@@ -18,7 +18,7 @@ of two porcelain parses.
 
 Runs through Invoke-Executable -Silent: read-only, no console output, throws on a git failure.
 
-### parameter Path
+### parameter `Path`
 
 The repository-relative, '/'-separated paths (files or folders) to check.
 

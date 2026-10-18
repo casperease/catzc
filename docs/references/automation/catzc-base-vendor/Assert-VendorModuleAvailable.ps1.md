@@ -14,11 +14,11 @@ Asserts a module (optionally at a specific version) is available from the config
 The throwing half of the restorability check (Test-VendorModuleAvailable is the query). Throws an actionable error when the source cannot
 offer the module, so a caller — chiefly Remove-VendorModules — never deletes a committed binary that the network cannot restore.
 
-### parameter Name
+### parameter `Name`
 
 The module name that must be available on the source.
 
-### parameter Version
+### parameter `Version`
 
 An optional exact version that must be available.
 

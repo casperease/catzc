@@ -20,19 +20,19 @@ the same name is replaced; the editor loads it on its next window reload.
 A link from the editor's extensions folder into the repository is not the install: the editor would write the extension's files through the
 link into the working tree. Remove such a link first.
 
-### parameter Name
+### parameter `Name`
 
 The extension names to install. Default: every entry under extensions in vscode-extensions.yml.
 
-### parameter Root
+### parameter `Root`
 
 The folder the extensions are rendered under. Default: the vscode-extensions folder under the output root.
 
-### parameter ExtensionsDirectory
+### parameter `ExtensionsDirectory`
 
 The editor's extensions folder, where an installed copy is compared. Default: ~/.vscode/extensions.
 
-### parameter Force
+### parameter `Force`
 
 Installs even an extension whose installed copy is current.
 

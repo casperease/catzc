@@ -22,7 +22,7 @@ command, or $null
 when the tool declares no probes or no home satisfies any of them (PATH is then left exactly as it was). Filesystem checks only — no process
 is started.
 
-### parameter Config
+### parameter `Config`
 
 The tool's ToolConfig (from Get-ToolConfig).
 

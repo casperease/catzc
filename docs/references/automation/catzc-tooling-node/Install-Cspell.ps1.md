@@ -14,11 +14,11 @@ Installs cspell (the Code Spell Checker CLI) globally via npm.
 cspell is the spell-checker behind Test-Spelling. It is installed globally with npm at the version locked in tools.yml. Requires Node.js
 (npm). Idempotent — skips if already installed at the locked version; -Force replaces a wrong version.
 
-### parameter Version
+### parameter `Version`
 
 cspell version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an existing installation at the wrong version.
 

@@ -16,7 +16,7 @@ per-function files, test discovery, and authoring steps that write back into aut
 ([ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)) those files are not where the loaded code lives, so the tool stops with a named error
 instead of silently reading or writing the wrong tree. Silent in source mode.
 
-### parameter Command
+### parameter `Command`
 
 The name of the guarded tool, used in the error message. Defaults to the calling command's name.
 

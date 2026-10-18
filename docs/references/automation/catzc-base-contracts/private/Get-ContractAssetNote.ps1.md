@@ -26,11 +26,11 @@ the asset's format (Get-ContractDataFormat):
 The comment marks and the line breaks are dropped, so the note is one line with single spaces. An asset that does not read or parse gives
 nothing: Test-Contracts reports it, and a note is never the place to fail.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the asset is relative to.
 
-### parameter Asset
+### parameter `Asset`
 
 The contract asset.
 

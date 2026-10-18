@@ -21,11 +21,11 @@ Only a trailing `/*` glob is supported: `<prefix>/*` matches the immediate, non-
 over the catzc source tree, so it runs in source mode only (Assert-SourceTree). See
 [ADR-REPO-README](../../../../adr/repository/generated-readmes.md).
 
-### parameter Config
+### parameter `Config`
 
 The parsed readme config (Get-Config -Config readme): a `{ patterns; mappings }` object.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 Repository root the globs and source paths resolve against. Defaults to Get-RepositoryRoot.
 

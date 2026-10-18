@@ -32,38 +32,38 @@ Flow:
 Pass -DryRun to preview: it runs `az deployment ... create --what-if` (Azure's server-side preview) and skips the real deploy, the
 post-deploy hook, and tag-setting. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
-### parameter Environment
+### parameter `Environment`
 
 Environment shortname.
 
-### parameter Template
+### parameter `Template`
 
 Template name.
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot to deploy; omitted -> the env's base /
 index-0 slot.
 
-### parameter SubscriptionIdAssertIs
+### parameter `SubscriptionIdAssertIs`
 
 Guard — the subscription GUID the az session is expected to target; throws on a mismatch (a mis-wired service connection). MANDATORY in a
 pipeline: a pipeline deploy must pin its target explicitly, so a session change can never silently retarget it. Optional on a devbox. Never
 a selector — the session always determines the target.
 
-### parameter ArtifactsFolder
+### parameter `ArtifactsFolder`
 
 Required in a pipeline. Devbox callers can pass it with -DoNotRebuild to skip the local build.
 
-### parameter DoNotRebuild
+### parameter `DoNotRebuild`
 
 Devbox-only. Reuse the existing build instead of rebuilding.
 
-### parameter OverrideDoNotRunAndRun
+### parameter `OverrideDoNotRunAndRun`
 
 Devbox-only. Bypass the template's DoNotRun mode.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Preview only — runs the Azure `--what-if` deployment and skips the real deploy, post-deploy hook, and tag-setting.
 

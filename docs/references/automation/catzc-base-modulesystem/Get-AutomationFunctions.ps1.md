@@ -19,11 +19,11 @@ With -NotUsedInternally, filters to functions that are never called by another a
 The listing describes the loaded modules, so it works in both run modes ([ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 -NotUsedInternally reads the per-function source files, so it stops with a named error in build mode (Assert-SourceTree).
 
-### parameter NotUsedInternally
+### parameter `NotUsedInternally`
 
 Only return functions that have no incoming calls from other automation functions.
 
-### parameter AutomationRoot
+### parameter `AutomationRoot`
 
 Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 

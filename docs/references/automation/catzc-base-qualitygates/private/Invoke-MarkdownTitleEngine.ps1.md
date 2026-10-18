@@ -16,11 +16,11 @@ text (Get-MarkdownHeadingFinding), so the formatter and the gate can never disag
 the whole scope, even when Path narrows the check — has its links to that anchor re-pointed (Get-RepointedMarkdownText) and carries an
 Anchor finding.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root titles are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders to limit the scope to.
 

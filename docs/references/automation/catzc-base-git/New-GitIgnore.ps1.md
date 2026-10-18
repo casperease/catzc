@@ -23,7 +23,7 @@ target, and Build-RootConfig owns the write (through the same idempotent Write-F
 own registry, never rootconfig.yml, so Catzc.Base.Git carries no dependency on Catzc.Base.RootConfig (the composition edge runs the other
 way; see [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)).
 
-### parameter Inject
+### parameter `Inject`
 
 Render-time patterns per provider name (e.g. @{ 'rootconfig-committed-false' = '/.editorconfig', … }). Every `inject` provider the registry
 names must be supplied — an unknown provider throws; an empty list renders the section titled but empty.

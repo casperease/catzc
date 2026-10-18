@@ -1,8 +1,8 @@
 Describe 'Invoke-DotnetFormat' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))
-        $script:widget = Join-Path $script:repo 'automation/Catzc.Widget/types/Widget.cs'
-        $script:gadget = Join-Path $script:repo 'automation/Catzc.Widget/types/Gadget.cs'
+        $script:widget = Join-Path $script:repo 'widgets/Catzc.Widget/types/Widget.cs'
+        $script:gadget = Join-Path $script:repo 'widgets/Catzc.Widget/types/Gadget.cs'
     }
 
     BeforeEach {
@@ -28,10 +28,10 @@ Describe 'Invoke-DotnetFormat' -Tag 'L0', 'logic' {
         }
         $changed | Should -Be @($script:widget)
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Command -like "dotnet format whitespace `"$script:repo`" --folder --verify-no-changes --report * --include `"automation/Catzc.Widget/types/Widget.cs`" `"automation/Catzc.Widget/types/Gadget.cs`""
+            $Command -like "dotnet format whitespace `"$script:repo`" --folder --verify-no-changes --report * --include `"widgets/Catzc.Widget/types/Widget.cs`" `"widgets/Catzc.Widget/types/Gadget.cs`""
         }
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Command -eq "dotnet format whitespace `"$script:repo`" --folder --include `"automation/Catzc.Widget/types/Widget.cs`""
+            $Command -eq "dotnet format whitespace `"$script:repo`" --folder --include `"widgets/Catzc.Widget/types/Widget.cs`""
         }
     }
 

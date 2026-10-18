@@ -21,15 +21,15 @@ carries a tier tag carries L0 — or, outside every tier-tagged block, when L0 i
 argument are citations, not data, and are never checked; the title of a Describe, Context, or It (its -Name, given by name or by position)
 is a name, not data, so it is never checked either; comments (code links included) are not part of the syntax tree, so they never are.
 
-### parameter Path
+### parameter `Path`
 
 The test file's repository-relative, '/'-separated path, which leads each finding.
 
-### parameter Ast
+### parameter `Ast`
 
 The test file's syntax tree (parsed once by the caller).
 
-### parameter Code
+### parameter `Code`
 
 The real ADR codes, from the ADR registry (Get-AdrCitationMap).
 

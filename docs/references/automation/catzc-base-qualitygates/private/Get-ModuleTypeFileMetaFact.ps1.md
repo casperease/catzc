@@ -15,15 +15,15 @@ The module type is the one Get-PathModule names for the path ([ADR-DSGN-TRACK#3]
 pwsh-folder, a settings, a pipeline and so on, as the module-types registry declares them. A file placed in no module gets an empty value,
 so the key is left out of its head.
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

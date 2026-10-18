@@ -14,11 +14,11 @@ Asserts that a budget GUID runs under its normal time limit here, not an exempti
 For work that must never run exempt — for example a quality gate in a pipeline, where an exemption would hide a regression. Throws naming
 the exemption's reason when the budget is exempt; Get-TimeoutExemption defines the lookup.
 
-### parameter Budget
+### parameter `Budget`
 
 The budget's immutable GUID.
 
-### parameter Shell
+### parameter `Shell`
 
 The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
 

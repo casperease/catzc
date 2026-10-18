@@ -21,15 +21,15 @@ through uncontaminated. The job inherits this session's Pester-run guard, so a t
 
 Dots stop and a trailing newline is written when the scriptblock completes — including when it throws.
 
-### parameter ScriptBlock
+### parameter `ScriptBlock`
 
 The work to execute. Runs on the current thread (module scope preserved).
 
-### parameter Message
+### parameter `Message`
 
 Optional prefix written before the dots (e.g., 'Checking tools'). Appears on the same line as the dots.
 
-### parameter IntervalMs
+### parameter `IntervalMs`
 
 Milliseconds between dots. Defaults to 1000.
 

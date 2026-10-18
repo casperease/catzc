@@ -16,7 +16,7 @@ language bridge test (tests/Language.Bridge.ps1, run once per Go or Python test 
 belongs to its test folder instead, read from the container data's TestFolder, so a module's Go and Python tests count as that module's, not
 the bridge file's.
 
-### parameter Test
+### parameter `Test`
 
 A Pester test object (an item of a run's .Tests).
 

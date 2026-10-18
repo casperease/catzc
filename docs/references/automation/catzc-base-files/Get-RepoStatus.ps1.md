@@ -23,7 +23,7 @@ a caller that wants both reads the head too; the two never share a value.
 Read-only: one `git status`, and for an unchanged tracked file one `git branch --show-current`, one `git for-each-ref` and one `git log`,
 each from the repository root.
 
-### parameter Path
+### parameter `Path`
 
 The repository-relative, '/'-separated path of the file.
 

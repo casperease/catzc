@@ -23,15 +23,15 @@ here.
 
 Asserts the result is 11..64 chars (ARM's 64-char deployment-name limit).
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 
-### parameter Environment
+### parameter `Environment`
 
 Environment name (selects the slot — its base slot when no -Slot).
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Omitted selects the env's base / index-0 slot.
 

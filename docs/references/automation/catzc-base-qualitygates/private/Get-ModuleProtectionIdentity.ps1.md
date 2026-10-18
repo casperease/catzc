@@ -20,15 +20,15 @@ dependency set is unknown), and a module whose tests include the 'integrity' cat
 the module). The dot-prefixed infra test units ('.internal', '.scriptanalyzer') key on the scope reserved for them and are always widened.
 Per-set hashes are memoized in the caller-owned -HashCache, so one run hashes each named set at most once.
 
-### parameter Module
+### parameter `Module`
 
 The unit's folder name under automation/ — a module ('Catzc.Base.Globs') or the infra test units '.internal' / '.scriptanalyzer'.
 
-### parameter HasIntegrityTests
+### parameter `HasIntegrityTests`
 
 Whether the unit's test files contain any 'integrity'-tagged test (from the run's discovery pass) — folds in the repository-wide set.
 
-### parameter HashCache
+### parameter `HashCache`
 
 A caller-owned hashtable memoizing set-name -> durable SHA across one Test-Automation run.
 

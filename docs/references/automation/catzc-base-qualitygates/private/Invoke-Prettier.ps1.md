@@ -21,11 +21,11 @@ Prettier in batches that keep each command line short. Exit codes: 0 = clean, 1 
 
 Prettier must be on PATH — install it once with Install-Prettier.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the files to format.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files Prettier would change without writing them.
 

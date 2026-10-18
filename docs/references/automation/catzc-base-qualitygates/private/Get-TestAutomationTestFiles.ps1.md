@@ -16,7 +16,7 @@ paths' foundation-first order (Get-TestAutomationTestPaths) and, within a folder
 Go or Python test folder (Get-LanguageTestFolders) is one run file itself: the language bridge runs it as one unit
 (ConvertTo-PesterRunTarget). Throws when the paths hold no test file — a run with nothing to run is a scoping mistake, never a green.
 
-### parameter TestPath
+### parameter `TestPath`
 
 The run's tests/ folders and language test folders, in run order.
 

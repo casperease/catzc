@@ -25,12 +25,12 @@ is left. Only an unregistered folder is deleted, with its machine PATH entry and
 
 Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip / stray binary).
 
-### parameter InstallDir
+### parameter `InstallDir`
 
 The .NET installation folder to evict (Windows). Default: the `dotnet` on PATH, or the machine-wide C:\Program Files\dotnet when the one on
 PATH is the managed install.
 
-### parameter Force
+### parameter `Force`
 
 Actually perform the removal. Without this, shows what would be removed.
 

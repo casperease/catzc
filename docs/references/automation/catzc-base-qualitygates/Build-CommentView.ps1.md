@@ -21,15 +21,15 @@ left out (Test-Comments reports it).
 Idempotent: a view whose content is current is not rewritten (Write-FileIfChanged), so a second run is a fast no-op. A source-tree tool: it
 throws in build mode (Assert-SourceTree).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to build the view of. Default: every file in scope.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root paths, pages and the view folder resolve against. Default: the loaded repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report which views would change without writing them.
 

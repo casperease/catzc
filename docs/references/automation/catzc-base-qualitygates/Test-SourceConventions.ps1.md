@@ -41,11 +41,11 @@ list (Write-ReportModeFinding) and never fail the run.
 
 Both leave out the files the content tools leave as written (Get-ContentExemptPath: vendored, generated, fixture, contract).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-source-conventions/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; SourceFiles; TestFiles; SkipReasons; EngineSetCount; NeutralCodeCount;
 EngineSet; NeutralCodes }) instead of throwing on issues. EngineSet and NeutralCodes list each check's findings whatever its mode.

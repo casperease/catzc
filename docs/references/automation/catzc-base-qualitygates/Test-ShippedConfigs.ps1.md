@@ -22,11 +22,11 @@ loaded code root (Get-CatzcModulesRoot) â€” the source tree or a built package â
 
 A config several modules ship (glossary) is loaded once per owner, with -Module.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-shipped-configs/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Configs; Types }) instead of throwing on issues.
 

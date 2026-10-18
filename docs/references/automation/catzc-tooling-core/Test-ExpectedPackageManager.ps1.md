@@ -16,16 +16,16 @@ UserInstallDir (script-installed, and an MSYS2-package tool's tree on Windows), 
 (cross-platform fallbacks), then an MSYS2-package tool that declares no manager for this platform, which is the system's. So an
 MSYS2-package tool that also declares an apt_package is judged by apt on Linux. Returns $false if the manager is not available.
 
-### parameter Config
+### parameter `Config`
 
 Tool configuration hashtable from Get-ToolConfig / tools.yml.
 
-### parameter WingetListCache
+### parameter `WingetListCache`
 
 Pre-fetched winget list output (Get-WingetListCache), so a batch of checks lists once. Pre-fetched winget list output. When provided, skips
 the per-tool winget list call — pass the result of Get-WingetListCache.
 
-### parameter Path
+### parameter `Path`
 
 For a script-installed tool, or an MSYS2-package tool on Windows: judge this install folder (or a file in it) instead of the one the command
 resolves to on PATH. A removal names the folder it is about to delete, so the managed install's position on PATH never decides whether a

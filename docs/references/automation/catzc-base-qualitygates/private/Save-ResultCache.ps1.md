@@ -22,10 +22,10 @@ The file is replaced in one step (written beside it, then moved over it), so a r
 another process holding the file at that moment — is reported and skipped: the cache only saves time, and losing one save costs one more
 check of those files.
 
-### parameter Path
+### parameter `Path`
 
 The cache file.
 
-### parameter Cache
+### parameter `Cache`
 
 Path -> '`<file SHA-256>:<stamp>`'.

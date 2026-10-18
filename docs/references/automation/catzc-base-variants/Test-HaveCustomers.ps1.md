@@ -17,7 +17,7 @@ each name is in the list). A guard callable anywhere above the Config layer; use
 
 Enabled here means enabled by repo policy (the variant). Whether a name is a _defined_ customer is a customer.yml (Azure-layer) concern.
 
-### parameter Name
+### parameter `Name`
 
 Zero or more customer names to test for enablement. Omit to test the repo-wide capability.
 

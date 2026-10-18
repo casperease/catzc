@@ -16,47 +16,47 @@ end-of-run skip report (Write-TestAutomationSkipReport), and writes the ADR rule
 rule-coverage.md/.csv). Each part is try/catch-guarded independently: a rendering error is reported as a yellow line and swallowed, so a
 failing run still throws for its own reason, not a reporting one.
 
-### parameter Rows
+### parameter `Rows`
 
 The run's aggregated per-test rows.
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run's timestamped artifact directory.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base directory (latest.txt lands here).
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The run's maximum tier (report metadata).
 
-### parameter Limits
+### parameter `Limits`
 
 The per-level duration limits (report metadata).
 
-### parameter RunResult
+### parameter `RunResult`
 
 The aggregate verdict ('Passed'/'Failed').
 
-### parameter DurationSeconds
+### parameter `DurationSeconds`
 
 The run's wall-clock duration.
 
-### parameter EnforceTimings
+### parameter `EnforceTimings`
 
 Whether timing violations fail the run (report metadata).
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The run's minimum tier (skip-report scope).
 
-### parameter Category
+### parameter `Category`
 
 The run's category (skip-report scope).
 
-### parameter Location
+### parameter `Location`
 
 Where the run executed (report metadata) — 'in-place', or the snapshot's provenance.
 

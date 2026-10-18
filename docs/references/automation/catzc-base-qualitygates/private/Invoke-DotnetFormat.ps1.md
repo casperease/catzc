@@ -20,11 +20,11 @@ a tool error, which throws with the output.
 The workspace is the repository root, so a file outside it is not formatted. A changed C# type source changes the compiled-type cache key,
 so the next import rebuilds the combined types assembly.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the .cs files to format.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files dotnet format would change without writing them.
 

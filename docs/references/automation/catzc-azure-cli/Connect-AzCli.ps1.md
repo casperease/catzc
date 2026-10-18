@@ -13,31 +13,31 @@ Logs in to Azure CLI.
 
 Skips login if already authenticated. Use -Force to re-authenticate.
 
-### parameter ServicePrincipal
+### parameter `ServicePrincipal`
 
 Login as a service principal. Requires Tenant, ClientId, and ClientSecret.
 
-### parameter ManagedIdentity
+### parameter `ManagedIdentity`
 
 Login using managed identity.
 
-### parameter DeviceCode
+### parameter `DeviceCode`
 
 Login using device code flow (for environments without a browser).
 
-### parameter Tenant
+### parameter `Tenant`
 
 Azure AD tenant ID. Required for service principal login.
 
-### parameter ClientId
+### parameter `ClientId`
 
 Service principal app/client ID. Required for service principal login.
 
-### parameter ClientSecret
+### parameter `ClientSecret`
 
 Service principal secret. Required for service principal login.
 
-### parameter Force
+### parameter `Force`
 
 Force re-authentication even if already logged in.
 

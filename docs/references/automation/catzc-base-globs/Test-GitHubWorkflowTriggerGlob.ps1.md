@@ -24,19 +24,19 @@ out/test-github-workflow-trigger-glob/, and the gate throws once listing every i
 It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
 [ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
 
-### parameter Name
+### parameter `Name`
 
 The globset the workflow should trigger on.
 
-### parameter WorkflowPath
+### parameter `WorkflowPath`
 
 The workflow file, repo-relative (e.g. '.github/workflows/ci-automation.yml') or absolute.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-github-workflow-trigger-glob).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSet; Workflow } instead of throwing.
 

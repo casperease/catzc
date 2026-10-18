@@ -21,11 +21,11 @@ dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper li
 depend on, so dotnet must be on PATH. The hook's C# code lives in the source tree, so it stops with a named error in build mode
 (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter OutputDirectory
+### parameter `OutputDirectory`
 
 Where to publish the hook. Defaults to .claude/hooks/bin/ — the path .claude/settings.json runs it from.
 
-### parameter Force
+### parameter `Force`
 
 Publish even when the source hash recorded at the last publish matches.
 

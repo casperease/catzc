@@ -24,11 +24,11 @@ issue for:
 
 It scans the per-function source files and tests, which exist only in the source tree.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-internal-asset-dependency/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath }) instead of throwing on issues.
 

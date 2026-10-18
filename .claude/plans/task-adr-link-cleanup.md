@@ -89,9 +89,16 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
    index's introduction and its authoring conventions (27 and 62 lines) as here-strings, so authored documentation lives in a generator, and
    moving it to a docs source the generator reads is the user's design decision. The 2,151 single-line comments: a 100-row sample (seed
    20261018, `out/sample-comments.txt`) found no clear restatement of the next line, only near-duplicates, which D4 keeps, so
-   sample-then-stop closes them as stay. Ledger: 6,082 stay, 15 rule, 2 hold, none without a verdict. Nothing is applied: no delete or move
-   verdict exists, so the user's 5% read has nothing to read, and Phase 2 waits on the two decisions (the page map for `.github` and the
-   `.claude` kits; the ADR index text in the generator) and on the two held files.
+   sample-then-stop closes them as stay. Ledger: 6,082 stay, 15 rule, 2 hold, none without a verdict. D23 (2026-10-18, delegated to the
+   domain rules) decided the 15 rule rows, applied one file at a time: `.claude/slides` and `.github/workflows` joined the comments page
+   map, and Export-Comments moved their 8 comment runs to `docs/references/automation/claude-slides` and
+   `docs/references/pipelines/github-workflows` (the user's commit c6acf75ad); the 3 runs under `.claude/drawio`, already mapped, stay
+   because the exporter keeps them, and Test-Comments is clean on all three folders. The ADR index text moved from Build-AdrIndex's two
+   here-strings to `configs/adr-index.yml`, read through the new `AdrIndexConfig` type (registered in configs.yml, as adrs.yml already holds
+   the domains' prose), and the regenerated index is the same body. Verdicts: `[Invoke-TestFile] Passed` for AdrIndexConfig.Tests and
+   Build-AdrIndex.Tests; Test-ShippedConfigs, Test-ConfigValidators, Test-GeneratedFiles, Test-FileMeta, Test-Comments, Test-Links,
+   Test-AdrRegistry, Test-Spelling and Test-Markdownlint clean on the touched files. Open: the 2 held rows (FileHeadPolicy.cs,
+   FunctionHelp.cs), once their sessions release them.
 9. [x] The `tests-comments-rollout.ps1` tool candidate (from plan-out-artifacts) becomes a module function with tests if Phase 2 needs the
        before-and-after citation-map proof; else recorded as not needed. Check: the function's Pester file, or the line. Recorded 2026-10-18
        as not needed: Phase 2 applies no edit to a source file, so there is no before and after to prove; the two decisions, if they move

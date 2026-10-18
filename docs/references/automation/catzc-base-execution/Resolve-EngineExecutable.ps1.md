@@ -23,7 +23,7 @@ tool     the POSIX engines, through their tools.yml entries and the existence ch
 
 Throws, naming the engine and the remedy, when the executable is missing or a tool-located one misses its pin.
 
-### parameter Engine
+### parameter `Engine`
 
 The engine's name (pwsh, bash or zsh).
 

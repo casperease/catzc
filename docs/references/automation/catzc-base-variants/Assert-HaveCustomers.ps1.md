@@ -15,7 +15,7 @@ The throwing companion to Test-HaveCustomers. With no -Name it requires the repo
 named customer to be enabled. Throws naming the disabled or not-enabled customer(s) and pointing at the `have_customers` variant. Guards a
 customer-only code path.
 
-### parameter Name
+### parameter `Name`
 
 Zero or more customer names to require. Omit to require the repo-wide capability.
 

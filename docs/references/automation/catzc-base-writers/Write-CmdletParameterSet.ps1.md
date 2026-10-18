@@ -14,15 +14,15 @@ Writes all bound parameters of the calling function to the console.
 Pass $MyInvocation as the first argument at the top of a function to display all parameters that were actually bound. Sensitive parameters
 can be masked by listing their names in -HiddenKeys.
 
-### parameter Invocation
+### parameter `Invocation`
 
 The $MyInvocation from the calling function.
 
-### parameter HiddenKeys
+### parameter `HiddenKeys`
 
 Parameter names whose values should be masked as 'Hidden'.
 
-### parameter ForegroundColor
+### parameter `ForegroundColor`
 
 Color for the output. Defaults to Green.
 

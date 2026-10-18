@@ -14,19 +14,19 @@ Asserts the number of objects in the pipeline.
 Counts pipeline objects and validates against -Equals, -Minimum, or -Maximum. Objects are passed through. Fails early when the count exceeds
 -Equals or -Maximum.
 
-### parameter InputObject
+### parameter `InputObject`
 
 Pipeline input (do not pass directly).
 
-### parameter Equals
+### parameter `Equals`
 
 Exact expected count.
 
-### parameter Minimum
+### parameter `Minimum`
 
 Minimum acceptable count (inclusive).
 
-### parameter Maximum
+### parameter `Maximum`
 
 Maximum acceptable count (inclusive).
 

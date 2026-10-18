@@ -17,11 +17,11 @@ no node tooling is needed, and the editor writes its own registry entry when it 
 
 The package is written to `<output>/vsix/<name>-<version>.vsix` and replaces an older file of that name.
 
-### parameter Path
+### parameter `Path`
 
 The extension folder, absolute or relative to the repository root. It must hold a package.json with name, version and publisher.
 
-### parameter OutputDirectory
+### parameter `OutputDirectory`
 
 The folder the .vsix is written to. Default: the vsix folder under the output root.
 

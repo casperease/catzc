@@ -15,15 +15,15 @@ The record half of the protected-glob skip ([ADR-REPO-PROTGLOB](../../../adr/rep
 passes, so a red scan is never cached away. It promotes the pending hash Test-GlobSetProtection captured before the scan (falling back to
 computing one when the query was never asked). Session memory only; in a pipeline this is a no-op, so CI never records protection.
 
-### parameter Test
+### parameter `Test`
 
 The scan's name — the caller's identity in the protection key (e.g. 'spelling', 'markdown', or a Test-Automation run key).
 
-### parameter Name
+### parameter `Name`
 
 The scope's name in the protection key: a declared globset, or (with a prior -Hash query or -Hash here) any identifier the caller keys by.
 
-### parameter Hash
+### parameter `Hash`
 
 A precomputed durable identity to record when no pending value exists for the key — for callers that protect directly without a prior
 Test-GlobSetProtection query. A pending pre-scan value always wins over this (hash-before-scan,

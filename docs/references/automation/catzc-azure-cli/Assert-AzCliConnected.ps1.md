@@ -22,11 +22,11 @@ Subscription : -SubscriptionId (required) [-TenantId]
 Tenant       : -TenantId (required)
 ```
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID the session must be set to.
 
-### parameter TenantId
+### parameter `TenantId`
 
 The tenant GUID the session must be in. Optional alongside a subscription; required on its own.
 

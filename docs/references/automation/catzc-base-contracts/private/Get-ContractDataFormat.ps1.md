@@ -16,7 +16,7 @@ The one place the contract checks decide how a file is read
 other extension is text, and gives nothing. A fragment of a Json or Yaml file is compared as a key subset, of any other file as lines; a
 schema or a sample payload must be Json or Yaml. The extension compares ordinally.
 
-### parameter Path
+### parameter `Path`
 
 The file's path; only its extension is read.
 

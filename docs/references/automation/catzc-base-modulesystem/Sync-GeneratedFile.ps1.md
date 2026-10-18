@@ -51,7 +51,7 @@ Invoke-GitCommit stages and commits by PATHSPEC (`git add -A --`/`git commit --`
 generated files land in the stamp commit whatever else is modified or staged: unrelated staged work stays staged, and a generated file
 someone staged earlier is re-staged at its current content and carried along. CI verifies the pushed HEAD by recomputing the hashes.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Propagated to Invoke-GitCommit: the changed generated paths are still probed (a read), but instead of committing, the planned git commands
 for those paths are returned.

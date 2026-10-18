@@ -22,11 +22,11 @@ hermetic; this gate cross-checks it against the repository and collects an issue
 
 It reads the ADR tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-analyzer-adr-map/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Analyzers; CustomRules }) instead of throwing on issues.
 

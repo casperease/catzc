@@ -17,26 +17,26 @@ checked again every run until it is fixed. Unkeyed files (outside the repository
 computed before the check; with it, the key is recomputed from the file's bytes now — for a check that rewrote the file (a formatter writing
 in place).
 
-### parameter Cache
+### parameter `Cache`
 
 The result cache, updated in place.
 
-### parameter Key
+### parameter `Key`
 
 The Key map Split-CachedFile returned.
 
-### parameter Checked
+### parameter `Checked`
 
 The files the check ran on.
 
-### parameter Flagged
+### parameter `Flagged`
 
 The checked files the check would change or reported a finding for.
 
-### parameter Stamp
+### parameter `Stamp`
 
 The check's input stamp; needed with -RekeyFromDisk.
 
-### parameter RekeyFromDisk
+### parameter `RekeyFromDisk`
 
 Recompute each clean file's key from its current bytes.

@@ -31,15 +31,15 @@ The build uses git for the history and plain file copies for the content:
 A marker file inside the snapshot's .git folder records its provenance; Remove-RepositorySnapshot refuses any folder without it. The
 snapshot is announced once it is ready ([ADR-AUTO-CONSOLE#10](../../../adr/automation/console-output-matters.md#rule-adr-auto-console10)).
 
-### parameter SourceRoot
+### parameter `SourceRoot`
 
 The repository to snapshot. Defaults to the repository root (Get-RepositoryRoot).
 
-### parameter Destination
+### parameter `Destination`
 
 The folder to create the snapshot in; it must not exist yet. Defaults to a fresh `<temp>/catzc-snapshot-<guid>` folder.
 
-### parameter Attempts
+### parameter `Attempts`
 
 How many times to build the snapshot when verification finds it differs from its source. Default 3.
 

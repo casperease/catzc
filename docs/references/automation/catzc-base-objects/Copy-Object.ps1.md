@@ -18,11 +18,11 @@ PSCustomObject cloning only copies NoteProperties. Use -AcceptWarnings to suppre
 
 Does not use BinaryFormatter or any serialization-based approach.
 
-### parameter InputObject
+### parameter `InputObject`
 
 The object to deep clone.
 
-### parameter AcceptWarnings
+### parameter `AcceptWarnings`
 
 Suppresses warnings about PSCustomObject cloning limitations.
 

@@ -17,14 +17,14 @@ tests.csv. Nothing to exclude still prints its one-line count, so a reader sees 
 
 It rests on [ADR-AUTO-TEST#31](../../../../adr/automation/test-automation.md#rule-adr-auto-test31).
 
-### parameter Tests
+### parameter `Tests`
 
 The excluded test rows from Get-TestOptOutExclusion.
 
-### parameter Tag
+### parameter `Tag`
 
 The opt-out tag(s), named in the message.
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run directory excluded-tests.csv is written into.

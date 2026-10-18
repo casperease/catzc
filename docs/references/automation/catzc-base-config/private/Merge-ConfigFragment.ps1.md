@@ -20,10 +20,10 @@ A fragment states only the keys that differ ([ADR-AUTO-OVERLAY](../../../../adr/
 A key the fragment does not name keeps the bundled value. Neither input is changed; the result is a new ordered dictionary, which the
 config's own type then validates like any parsed config.
 
-### parameter Base
+### parameter `Base`
 
 The parsed bundled config.
 
-### parameter Fragment
+### parameter `Fragment`
 
 The parsed overlay fragment.

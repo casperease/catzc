@@ -19,11 +19,11 @@ NOT for CI pipelines. In Azure DevOps, use the native UseNode task which activat
 
 - task: UseNode@1 inputs: version: '22.x'
 
-### parameter Version
+### parameter `Version`
 
 Node.js major version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an existing installation at the wrong version.
 

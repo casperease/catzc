@@ -19,7 +19,7 @@ bounded walker ([ADR-PWSH-ENUM#1](../../../../adr/pwsh/bounded-enumeration.md#ru
 that would gain a file changes it; a link entry salts it with whether its link exists. Tests and READMEs under the modules are left out:
 they change nothing that is rendered.
 
-### parameter Entries
+### parameter `Entries`
 
 The opted-in root-config entries (Get-RootConfigTargets).
 

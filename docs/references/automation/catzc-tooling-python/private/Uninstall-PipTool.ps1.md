@@ -14,6 +14,6 @@ Uninstalls a Python-library tool from the uv-managed Python via `uv pip`.
 Private helper for Uninstall-PySpark. Mirrors Uninstall-Tool's contract but removes the package from the uv-managed Python with
 `uv pip uninstall --system`. Idempotent — skips if the tool or Python is not installed.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml.

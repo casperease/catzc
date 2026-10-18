@@ -17,7 +17,7 @@ Breadth-first over the declared dependency map (Get-ModuleDependencyMap). The de
 (Get-ModuleProfile → Copy-Automation) yields a loadable subset. A group dependency was already expanded to its members when the map was
 built. Result is ordinal-sorted for determinism. Seeds that are not on-disk modules contribute themselves but no edges.
 
-### parameter Module
+### parameter `Module`
 
 The seed module names to close over.
 

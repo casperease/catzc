@@ -21,15 +21,15 @@ dot-sources to load the modules: empty for the source importer, the build's Impo
 - snapshot, a run's own entry script: kept (it lives outside the repository), with every repository path among its arguments (the build
   run's RepositoryRoot) mapped into the snapshot.
 
-### parameter Location
+### parameter `Location`
 
 The location Enter-TestRunLocation returned.
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The test run's entry script; empty for the source importer.
 
-### parameter EntryParameter
+### parameter `EntryParameter`
 
 Named arguments for -EntryScript.
 

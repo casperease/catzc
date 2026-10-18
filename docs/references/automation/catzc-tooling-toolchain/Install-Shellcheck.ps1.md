@@ -16,11 +16,11 @@ ShellCheck is the analyzer the Test-ShellScripts quality gate runs over every tr
 a user-scope portable (no admin), or brew. Linux installs the distribution's shellcheck package with apt-get, which needs root. Idempotent:
 a ShellCheck already at the pinned version is left alone; another version throws unless -Force.
 
-### parameter Version
+### parameter `Version`
 
 The version prefix to install. Default: the tools.yml pin.
 
-### parameter Force
+### parameter `Force`
 
 Replace an installed ShellCheck at another version.
 

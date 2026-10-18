@@ -9,11 +9,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Asserts that an object has a named property, or a nested chain of properties.
 
-### parameter Object
+### parameter `Object`
 
 The object to inspect.
 
-### parameter PropertyName
+### parameter `PropertyName`
 
 The property name that must exist on the object. Dotted paths (e.g. 'parent.child.etc.value') are walked level by level; the failure message
 names the deepest segment that was reached before the chain broke.

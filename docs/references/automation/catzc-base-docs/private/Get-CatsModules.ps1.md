@@ -20,7 +20,7 @@ appear.
 
 Private helper for Show-Cats; not exported.
 
-### parameter ModulesRoot
+### parameter `ModulesRoot`
 
 The code root whose loaded modules to list. Defaults to Get-CatzcModulesRoot. A test points this at a fixture root from which it loaded
 fixture modules.

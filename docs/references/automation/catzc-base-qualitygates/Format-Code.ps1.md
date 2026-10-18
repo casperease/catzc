@@ -34,23 +34,23 @@ FormatResult per language; Test-Formatting runs it with -DryRun -PassThru.
 Without -Path it formats the source tree, so it throws in build mode (Assert-SourceTree); with -Path it formats the given files wherever
 they are (a built module manifest, for one; files outside the repository are never cached).
 
-### parameter Language
+### parameter `Language`
 
 The file languages to format. Defaults to every language with a formatter. A language that is not declared, or has no formatter, throws.
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to format (a folder: its tracked files). Defaults to every tracked file.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report which files would change without writing them.
 
-### parameter NoCache
+### parameter `NoCache`
 
 Check every file, ignoring the result cache (which is still refreshed).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return one Catzc.Base.QualityGates.FormatResult per language.
 

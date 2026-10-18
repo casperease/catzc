@@ -24,7 +24,7 @@ The "relative-where-possible" normalization for paths kept in records, configs, 
 
 Pairs with Resolve-RepoPath, which turns the result back into an absolute path against the matching root.
 
-### parameter Path
+### parameter `Path`
 
 The path to normalize. Need not exist.
 

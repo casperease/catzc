@@ -24,7 +24,7 @@ output    the failure, error or skip text (bats folds the test's output into it)
 Results come in report order. A case outside any .bats file (a classname that is no .bats path) is not a test result: the call throws with
 its text, as Invoke-GoTest throws when a package fails outside any test.
 
-### parameter Text
+### parameter `Text`
 
 The JUnit XML report bats wrote.
 

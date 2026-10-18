@@ -16,23 +16,23 @@ the head names a pattern the kit holds and a whole-number order; every field fit
 the index knows; a quoted rule is the registry's text verbatim; and every text is in the rendered slide. It writes no deck; the render is
 Build-SlideDeck's.
 
-### parameter Path
+### parameter `Path`
 
 Slide files or deck folders, repository-relative or absolute. The default is every slide file under docs/.
 
-### parameter Kit
+### parameter `Kit`
 
 The slides kit folder, repository-relative. The default is the slides config's kit.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the slides and the kit are under.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 Where the gate report lands. The default is the quality-gate report's own.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the report object as well.
 

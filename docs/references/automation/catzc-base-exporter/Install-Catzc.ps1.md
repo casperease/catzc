@@ -29,31 +29,31 @@ Idempotent: when the target already holds the same content hash the copy is skip
 -Force copies anyway. On Linux and macOS a copy makes every shipped shell script with a shebang executable again, since the copy drops the
 bit bash needs.
 
-### parameter Root
+### parameter `Root`
 
 The destination working root for a two-part install. Not the mono repo.
 
-### parameter Scope
+### parameter `Scope`
 
 CurrentUser — install into the user's PowerShell module path instead of beside a working root.
 
-### parameter Bundle
+### parameter `Bundle`
 
 Whose devbox build to install when -Source is not given (an exporter.yml bundles key). Defaults to default_bundle.
 
-### parameter Source
+### parameter `Source`
 
 The build to install (default: the bundle's devbox build, `<Get-OutputRoot>/automation/built/<bundle>/Catzc/<direct_install_version>`).
 
-### parameter Force
+### parameter `Force`
 
 Copy the build even when the target already holds the same content hash.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report the plan without copying or writing.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the summary line.
 

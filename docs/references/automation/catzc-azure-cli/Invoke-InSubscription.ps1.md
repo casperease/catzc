@@ -22,11 +22,11 @@ Restore semantics: a failure to restore is only downgraded to a warning when the
 by a cleanup failure. If the block succeeded and only the restore failed, that restore error is thrown (fail-early — it's the only failure
 in flight).
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID (or display name) to run the block against.
 
-### parameter ScriptBlock
+### parameter `ScriptBlock`
 
 The work to run while the target subscription is active.
 

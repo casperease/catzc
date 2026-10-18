@@ -16,15 +16,15 @@ no module gets an empty value, so the key is left out of its head.
 
 It rests on [ADR-REPO-CODEMETA#2](../../../../adr/repository/code-file-meta.md#rule-adr-repo-codemeta2).
 
-### parameter State
+### parameter `State`
 
 What the file's carrier reader returned.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

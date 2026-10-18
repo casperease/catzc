@@ -18,23 +18,23 @@ a pipeline this returns the input unchanged without computing a single identity 
 
 It rests on [ADR-REPO-PROTGLOB#9](../../../../adr/repository/protected-globs.md#rule-adr-repo-protglob9).
 
-### parameter ParallelFiles
+### parameter `ParallelFiles`
 
 The parallel-phase test files.
 
-### parameter GreedyFiles
+### parameter `GreedyFiles`
 
 The greedy-phase test files.
 
-### parameter SerialFiles
+### parameter `SerialFiles`
 
 The serial-phase test files.
 
-### parameter Discovery
+### parameter `Discovery`
 
 The run's discovery-only Pester result — used to find which units carry integrity-tagged tests.
 
-### parameter ProtectionKey
+### parameter `ProtectionKey`
 
 The run-parameter key ('`test-automation|L<min>-L<max>|<category>`').
 

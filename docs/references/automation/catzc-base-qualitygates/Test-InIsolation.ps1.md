@@ -32,39 +32,39 @@ InProcess (fast) — point $env:RepositoryRoot at the sandbox and Invoke-Pester 
 Integrity tests bind to the whole real repo and are meaningless in a subset sandbox, so -Category defaults to Logic (hermetic). Tiers
 default to L0+L1 (the unit tiers). Excluded tags are computed by Get-TestExcludeTag.
 
-### parameter ModuleProfile
+### parameter `ModuleProfile`
 
 A profile from configs/profiles.yml (minimal, base, azure, tooling, full). Default: minimal.
 
-### parameter Modules
+### parameter `Modules`
 
 An explicit seed list instead of a named profile — resolved through the same closure logic.
 
-### parameter Isolation
+### parameter `Isolation`
 
 Process (child pwsh, true isolation — default) or InProcess (current session, fast).
 
-### parameter Category
+### parameter `Category`
 
 Logic (default), Integrity, or Both. Integrity assumes the full real repo — use only with the full profile.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 Highest tier to run (0-4). Default 1 (L0+L1 — the hermetic unit tiers). Alias -Level.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 Lowest tier to run (0-4). Default 0.
 
-### parameter Destination
+### parameter `Destination`
 
 Sandbox directory. Default: a fresh tmp dir (removed after, unless -KeepSandbox). A given -Destination is never auto-removed.
 
-### parameter KeepSandbox
+### parameter `KeepSandbox`
 
 Keep the sandbox (and its results.xml) after the run instead of deleting it.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the run summary object instead of throwing on failure.
 

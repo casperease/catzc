@@ -16,11 +16,11 @@ A bundle is a small engine carried to other environments, so how big it is is a 
 (ExporterBundle); a limit the bundle does not state is not checked. Every exceeded limit is reported in one throw, with the build's
 top-level folders by size, so the message says where the weight is.
 
-### parameter Path
+### parameter `Path`
 
 The build root (the `Catzc/<version>/` folder).
 
-### parameter Bundle
+### parameter `Bundle`
 
 The bundle's exporter.yml entry (an ExporterBundle).
 

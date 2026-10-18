@@ -29,11 +29,11 @@ Two dialects, from the one program:
 It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
 [ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
 
-### parameter Name
+### parameter `Name`
 
 The declared globset to project.
 
-### parameter GlobSet
+### parameter `GlobSet`
 
 A `[Catzc.Base.Globs.GlobSet]` to project instead (the path a derived set takes).
 

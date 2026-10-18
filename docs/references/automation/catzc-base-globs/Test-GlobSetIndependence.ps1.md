@@ -23,11 +23,11 @@ issue per violating pair ('`<layer>`: `<A>` `<->` `<B>` share N file(s), e.g. ..
 ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in out/test-globset-independence/,
 and the gate throws once listing every pair (or returns the result with -PassThru).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSets; Files } instead of throwing.
 

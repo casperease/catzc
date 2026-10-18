@@ -15,19 +15,19 @@ Convenience over Get-BicepResourceName for the resource-group type — the singl
 (the deploy target) and Set-BicepTrackingTagSet (the tag scope), so the two never drift. The resource-group name is derived from the naming
 standard, never hand-typed in config (one config file ⟷ one resource group).
 
-### parameter Template
+### parameter `Template`
 
 Template name.
 
-### parameter Environment
+### parameter `Environment`
 
 Environment shortname.
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
 
-### parameter Customer
+### parameter `Customer`
 
 Optional customer; renders into the RG name and is required to disambiguate a per-customer RG.
 

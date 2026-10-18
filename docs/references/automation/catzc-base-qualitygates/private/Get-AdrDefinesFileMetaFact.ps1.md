@@ -16,15 +16,15 @@ minimal form, `ADR-<CODE>#{1,3-5}` (Catzc.Base.Docs.AdrCodeForm), without globs.
 
 It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

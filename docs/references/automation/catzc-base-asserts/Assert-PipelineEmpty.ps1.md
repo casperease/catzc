@@ -13,7 +13,7 @@ Asserts that the pipeline contains no objects.
 
 Throws on the first object received. Must be used as a pipeline consumer; passing -InputObject directly is an error.
 
-### parameter InputObject
+### parameter `InputObject`
 
 Pipeline input (do not pass directly).
 

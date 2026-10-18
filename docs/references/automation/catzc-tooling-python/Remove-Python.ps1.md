@@ -17,11 +17,11 @@ Auto-detects the install directory from Get-Command if not specified.
 This is for Python installations that do not appear in Apps & Features or winget. If Python is managed by winget, use Uninstall-Python
 instead.
 
-### parameter InstallDir
+### parameter `InstallDir`
 
 Path to the Python installation folder. Auto-detected from PATH if omitted.
 
-### parameter Force
+### parameter `Force`
 
 Actually perform the removal. Without this, shows what would be removed.
 

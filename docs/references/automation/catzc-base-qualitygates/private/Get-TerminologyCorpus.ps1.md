@@ -21,11 +21,11 @@ Excludes the registry and its generated dictionaries — where every term trivia
 referenced elsewhere. Returned as one string; the caller tests membership with a case-insensitive substring check (ordinal, on
 already-lower-cased text), deliberately lenient: a term embedded in a larger identifier still counts as referenced.
 
-### parameter Root
+### parameter `Root`
 
 The repository root to scan under.
 
-### parameter Exclude
+### parameter `Exclude`
 
 Full paths to omit from the corpus (the registry file and the generated dictionaries).
 

@@ -19,15 +19,15 @@ The expected hash comes from the caller. For a sanctioned 'latest' base tool (e.
 resolved version — the GitHub release asset `digest`. (Tools whose publisher provides no checksum, e.g. Postman, are TLS-only and do not use
 this helper.) See ADR controlling-systemwide-deps.
 
-### parameter Uri
+### parameter `Uri`
 
 The download URL.
 
-### parameter OutFile
+### parameter `OutFile`
 
 Destination path.
 
-### parameter Sha256
+### parameter `Sha256`
 
 Expected SHA-256, hex (a leading 'sha256:' is stripped).
 

@@ -15,23 +15,23 @@ Delegates to Invoke-Uv, so `Invoke-Pip 'install --system requests'` runs `uv pip
 uv is the standard Python handler; installs that target the global interpreter pass `--system` (see Install-PipTool). uv presence is
 asserted by Invoke-Uv.
 
-### parameter Arguments
+### parameter `Arguments`
 
 Arguments to pass to `uv pip`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a CliResult object with Output, Errors, Full, and ExitCode.
 
-### parameter NoAssert
+### parameter `NoAssert`
 
 Skip exit code assertion.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the command log line and all console output.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the command string without executing. Used for testing.
 

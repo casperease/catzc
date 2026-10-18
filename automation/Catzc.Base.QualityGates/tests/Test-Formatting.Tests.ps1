@@ -11,8 +11,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $script:root = Get-RepositoryRoot
         $script:widgetFile = Join-Path $script:root 'docs/widget.wdg'
         $script:gadgetFile = Join-Path $script:root 'gadgets/catzc-widget/gadget.gdg'
-        $script:typeFile = Join-Path $script:root 'automation/Widget/types/Gadget.cs'
-        $script:blockFile = Join-Path $script:root 'automation/Widget/types/Gizmo.cs'
+        $script:typeFile = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/types/Gadget.cs"
+        $script:blockFile = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/types/Gizmo.cs"
     }
 
     BeforeEach {
@@ -43,8 +43,8 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $result.Issues | Should -Be @(
             'docs/widget.wdg: not formatted — run Format-Code -Language widget'
             'gadgets/catzc-widget/gadget.gdg: not formatted — run Format-Code -Language gadget'
-            'automation/Widget/types/Gadget.cs: not formatted — run Format-Code -Language gadget'
-            "automation/Widget/types/Gizmo.cs: block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
+            "$(Get-CatzcModulesFolder)/Widget/types/Gadget.cs: not formatted — run Format-Code -Language gadget"
+            "$(Get-CatzcModulesFolder)/Widget/types/Gizmo.cs: block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
         )
     }
 

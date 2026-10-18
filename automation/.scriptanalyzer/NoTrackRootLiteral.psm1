@@ -73,7 +73,7 @@ function Measure-NoTrackRootLiteral {
             $parent = $parent.Parent
         }
         $inPath = ($parent -is [System.Management.Automation.Language.CommandAst] -and $parent.GetCommandName() -in 'Join-Path', 'Resolve-RepoPath', 'Get-ChildPath') -or
-            ($parent -is [System.Management.Automation.Language.InvokeMemberExpressionAst] -and "$($parent.Member)" -eq 'Combine')
+        ($parent -is [System.Management.Automation.Language.InvokeMemberExpressionAst] -and "$($parent.Member)" -eq 'Combine')
         foreach ($root in $script:roots) {
             if (($value -ceq $root -and $inPath) -or $value.StartsWith("$root/", [System.StringComparison]::Ordinal)) {
                 $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{

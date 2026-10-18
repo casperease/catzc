@@ -15,7 +15,7 @@ Looks one tool's locked definition up in configs/tools.yml, read through Get-Con
 Catzc.Base.Execution.ToolsConfig once per session (validating every entry) and caches it, so repeated calls return the same ToolConfig
 instance.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
 

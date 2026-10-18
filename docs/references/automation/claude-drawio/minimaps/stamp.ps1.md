@@ -16,7 +16,7 @@ under -Target (views chain, grid and tree) the generated head through the one he
 with the hash of the body below it (ADR-REPO-FILEMETA#7). The page's source is the slide it describes, `<Target>/<stem>.drawio.png`, when
 that slide exists. A page whose text is already current is left as it is, so a second run writes nothing.
 
-### parameter Target
+### parameter `Target`
 
 The slides folder the minimaps were rendered into, repository-relative or absolute.
 

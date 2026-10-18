@@ -17,19 +17,19 @@ repository's web URL (Get-RepositoryWebUrl), the string-citation check's exempt 
 tracks, so a markdown link to a file GitHub does not have is reported. Any other root (a test's scratch root) has no tracked set to compare
 against, so the tracked check is skipped there. Reads only — the result carries each changed file's new text for the caller to write.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders to limit the run to (Get-LinkScope); default the git-tracked repository.
 
-### parameter Kind
+### parameter `Kind`
 
 Which link kinds to process.
 
-### parameter Wrap
+### parameter `Wrap`
 
 How an aligned comment line that outgrows its limit is wrapped.
 

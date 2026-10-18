@@ -20,7 +20,7 @@ abandoned too. A live owner's run, and every terminal status, is left untouched.
 
 Best-effort per run: an unreadable or unparseable run.json is skipped, never fails the run that sweeps.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder whose run directories (`<OutputFolder>/<stamp>/run.json`) are swept.
 

@@ -14,7 +14,7 @@ Asserts that $LASTEXITCODE is 0.
 Checks the global $LASTEXITCODE variable and throws if it is non-zero.
 Resets $LASTEXITCODE after checking unless -DoNotReset is specified.
 
-### parameter DoNotReset
+### parameter `DoNotReset`
 
 Keep $LASTEXITCODE intact after the assertion.
 

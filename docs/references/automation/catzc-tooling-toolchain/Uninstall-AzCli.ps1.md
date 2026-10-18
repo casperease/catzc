@@ -16,13 +16,13 @@ installed OUTSIDE the tooling system (a lingering machine-scope MSI, an apt 'azu
 managed uninstall runs best-effort and then falls through to Remove-AzCli, which destructively evicts whatever the configured manager did
 not own ([ADR-AUTO-REMOVE#5](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
 
-### parameter Remove
+### parameter `Remove`
 
 After the managed uninstall, escalate to Remove-AzCli to evict an off-config install the managed path cannot touch. Pair with -Force to
 actually remove; -Remove alone reports the plan
 ([ADR-AUTO-REMOVE#4](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
 
-### parameter Force
+### parameter `Force`
 
 Confirm the destructive Remove-AzCli step of the escalation. Ignored without -Remove.
 

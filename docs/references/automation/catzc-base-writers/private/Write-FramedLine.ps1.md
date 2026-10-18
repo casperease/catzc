@@ -17,11 +17,11 @@ a star row) that takes the per-character gradient of a rainbow plan; a non-Rule 
 solid (non-rainbow) plan colours every line the one colour, and no colour renders the text as-is — both the pre-rainbow behaviour. The whole
 set is emitted as a single Write-InformationColored call, so it is one information record as before.
 
-### parameter Segment
+### parameter `Segment`
 
 Ordered line segments: @( @{ Text = '...'; Rule = $true|$false }, ... ), in render order.
 
-### parameter Color
+### parameter `Color`
 
 The colour plan from Resolve-WriterColor: { HasColor; IsRainbow; Rainbow; Base }.
 

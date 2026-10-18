@@ -16,11 +16,11 @@ length. The binding limit is cmd.exe's 8 191 characters: npm installs tools such
 node path prepended, so the default leaves room for that. Each item is counted with the quotes and the separating space it is written with.
 An item longer than the limit is a batch of its own.
 
-### parameter Item
+### parameter `Item`
 
 The arguments, in order.
 
-### parameter MaxLength
+### parameter `MaxLength`
 
 The longest joined batch, in characters.
 

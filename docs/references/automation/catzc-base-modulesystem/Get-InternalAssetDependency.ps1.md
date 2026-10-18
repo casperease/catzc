@@ -35,20 +35,20 @@ partial. -Violation returns the violating sites instead of the inventory, withou
 Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter AutomationRoot
+### parameter `AutomationRoot`
 
 Path to the automation directory to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
 
-### parameter Module
+### parameter `Module`
 
 Scan only these module folders. Default: every module folder (non-dot) under the automation root.
 
-### parameter Violation
+### parameter `Violation`
 
 Return the call sites whose -ChildPath or -Module is not a string literal ({ Module; Function; File; Line; Expression; Reason }) instead of
 the inventory, and do not throw.
 
-### parameter ParsedScripts
+### parameter `ParsedScripts`
 
 The call's shared parse of each script; a caller running several checks over the same files passes one so a file is parsed once.
 

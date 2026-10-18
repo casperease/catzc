@@ -14,11 +14,11 @@ Installs Poetry as an isolated uv tool.
 Installs Poetry user-space via uv (`uv tool install poetry`) in its own environment. Requires uv. Idempotent — skips if the correct version
 is already on PATH.
 
-### parameter Version
+### parameter `Version`
 
 Poetry version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an existing installation at the wrong version.
 

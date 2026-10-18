@@ -14,19 +14,19 @@ Lists the tracked files that carry a meta block, each with the carrier entry tha
 A file is in scope when its class has a front-matter or comment-head carrier, the class does not leave it out, an imprint kind's globs match
 it, and `.gitattributes` does not exempt it or opt it out.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the returned paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders (absolute or relative to the current location) to limit the scope to.
 
-### parameter Config
+### parameter `Config`
 
 The meta-kind registry.
 
-### parameter Resolver
+### parameter `Resolver`
 
 The carrier resolver. Default: built from the shipped file-carriers and languages registries.
 

@@ -22,7 +22,7 @@ skipped (its target is not statically known), and a value that does not end in `
 
 It rests on [ADR-PIPE-NAME#4](../../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4).
 
-### parameter Path
+### parameter `Path`
 
 The pipeline YAML file to scan.
 

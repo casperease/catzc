@@ -16,10 +16,10 @@ default L0 < 400ms, L1 < 2s, L2 < 30s, L3 < 120s). Only passed tests are checked
 resolved tier is skipped (the tag check already reported it). Test-Automation reports the lines and fails the run only under
 -EnforceTimings.
 
-### parameter Rows
+### parameter `Rows`
 
 The run's aggregated per-test rows.
 
-### parameter Limits
+### parameter `Limits`
 
 The per-level duration limits (level tag -> milliseconds).

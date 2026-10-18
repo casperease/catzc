@@ -16,15 +16,15 @@ so every scope reads the same classes the same way. Runs `git check-attr` in bat
 tracked. Only attributes git reports as set, unset, or a value are returned — `unspecified` is left out. A root that is not a git work tree
 has no .gitattributes, so nothing is returned for it.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Repository-relative, '/'-separated paths.
 
-### parameter Attribute
+### parameter `Attribute`
 
 The attribute names to read.
 

@@ -5,11 +5,12 @@ Describe 'New-PesterRunConfiguration' -Tag 'L0', 'logic' {
 
     It 'runs a language test folder through the bridge container, with the entry script and the tool, and the rest by path' {
         $repo = Join-Path $TestDrive 'repo'
-        $bridge = Join-Path $repo 'automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1'
+        $bridge = Join-Path $repo 'widget-modules/Catzc.Base.QualityGates/tests/Language.Bridge.ps1'
         [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($bridge))
         [System.IO.File]::WriteAllText($bridge, '# fixture bridge')
         $script:widgetGo = [System.IO.Path]::GetFullPath((Join-Path $repo 'go/tests/catzc-widget'))
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo/widget-modules' }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
         }

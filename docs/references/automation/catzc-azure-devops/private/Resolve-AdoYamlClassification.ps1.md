@@ -17,7 +17,7 @@ template (stages/jobs/steps/variables), or unknown.
 Returns a PSCustomObject with Classification and TemplateType properties. TemplateType is set for templates (Stages, Jobs, Steps, Variables)
 and $null for non-templates.
 
-### parameter Yaml
+### parameter `Yaml`
 
 The parsed YAML object from ConvertFrom-Yaml. Accepts $null for files that failed to parse — returns Unknown classification.
 

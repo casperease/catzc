@@ -26,7 +26,7 @@ tail (Remove-UvPipOrStrayInstall), identical to Linux.
 This is invoked from the Unix branch of a `Remove-<Tool>`, which owns the -Force dry-run guard and the managed-install refusal
 (Test-ExpectedPackageManager) — so this core is only ever reached for an off-config install, and just evicts it.
 
-### parameter Config
+### parameter `Config`
 
 The tool's parsed tools.yml entry (from Get-ToolConfig).
 

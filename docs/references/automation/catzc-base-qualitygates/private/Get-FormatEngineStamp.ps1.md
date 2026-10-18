@@ -17,15 +17,15 @@ listed by the keys of the tools the engine runs, so that tool's new pin is a new
 ([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)). A missing file or key hashes as missing, so adding or
 removing an input changes the stamp. No input is known here that languages.yml does not declare.
 
-### parameter Engine
+### parameter `Engine`
 
 The engine name, as languages.yml spells it.
 
-### parameter Settings
+### parameter `Settings`
 
 The engine's settings entries, repository-relative: a file, or `<file>#<key>` for one top-level key of a YAML file.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 

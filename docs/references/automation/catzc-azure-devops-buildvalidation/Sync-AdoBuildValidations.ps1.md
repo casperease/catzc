@@ -15,23 +15,23 @@ The config-driven reconcile: for each entry under 'validations' in build-validat
 policies, updating drifted ones, and leaving current ones alone — and emits each result. This is the everything-as-code path for the
 server-side policies: the local config is the source of truth, and this function converges the ADO project to it.
 
-### parameter Branch
+### parameter `Branch`
 
 Override the branch for every policy. Defaults from build-validation.yml 'branch'.
 
-### parameter Project
+### parameter `Project`
 
 Azure DevOps project name. Defaults to the value in ado.yml.
 
-### parameter Organization
+### parameter `Organization`
 
 Azure DevOps organization URL. Defaults to the value in ado.yml.
 
-### parameter RepositoryName
+### parameter `RepositoryName`
 
 Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return every entry's planned action (Create/Update/Unchanged) without touching the server.
 

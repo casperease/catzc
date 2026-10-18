@@ -35,11 +35,11 @@ returns records rather than a boolean, so it is a Get- and not a Test-
 ([ADR-PWSH-VERBS#2](../../../adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs2)), and the noun is plural for the collection it
 returns ([ADR-PWSH-VERBS#6](../../../adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6)).
 
-### parameter Asset
+### parameter `Asset`
 
 The assets to check. Default: Get-Contract's assets, every unit's draft.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/ and the target files. Default: the loaded repository root.
 

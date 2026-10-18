@@ -9,11 +9,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Formats a tier range the way a test run names it: 'L2' for one tier, 'L0-L2' for a range.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The lowest tier.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The highest tier.
 

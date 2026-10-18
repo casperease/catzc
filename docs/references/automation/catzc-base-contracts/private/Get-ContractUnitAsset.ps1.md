@@ -17,25 +17,25 @@ A unit folder, `contracts/<unit>/`, holds only version folders named `<major>.<m
 or not, so a misnamed folder throws on any listing; a file directly in the unit folder throws too. A selection that matches no version
 folder gives nothing. Versions come in ordinal order.
 
-### parameter Unit
+### parameter `Unit`
 
 The deployable-unit folder name.
 
-### parameter Folder
+### parameter `Folder`
 
 The unit folder's absolute path.
 
-### parameter Version
+### parameter `Version`
 
 The version folder names to list; wildcards allowed.
 
-### parameter TargetRoot
+### parameter `TargetRoot`
 
 The target roots, module name to repository-relative folder
 ([ADR-REPO-CONTRACT#2](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)). A module it does not name takes the repository
 root.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the target roots resolve against.
 

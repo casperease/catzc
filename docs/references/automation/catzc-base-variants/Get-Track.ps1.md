@@ -21,11 +21,11 @@ with the longest place that contains the path ([ADR-DSGN-TRACKTYPE#5](../../../a
 narrower place wins over a wider one (a bare place, e.g. 'docs', is its own track's path). A file at the repository root, a path under out/
 (gitignored output, never a track), and a path no place contains return nothing.
 
-### parameter Name
+### parameter `Name`
 
 The track name(s) to return. An unknown name throws, naming the config file.
 
-### parameter Path
+### parameter `Path`
 
 A repository-relative path ('/' or '\' separated); returns the track that owns it.
 

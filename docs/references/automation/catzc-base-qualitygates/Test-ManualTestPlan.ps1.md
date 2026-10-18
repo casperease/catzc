@@ -27,11 +27,11 @@ The plan's index rows are the category files' markdown table rows that name a .T
 
 It reads the repository's test files and the plan, which exist only in the source tree (Assert-SourceTree).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-manual-test-plan/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; IntegrityBlocks; PlanRows; CategoryFiles }) instead of throwing on issues.
 

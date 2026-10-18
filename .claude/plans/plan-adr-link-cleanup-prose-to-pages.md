@@ -10,7 +10,8 @@ plan:
 # Every edge to an ADR says exactly what it means; then source prose moves into sister pages
 
 Phase 1 reads every declared edge to an ADR and narrows, widens or retargets it. Phase 2 moves larger text out of source files into their
-comment pages and explanation articles, leaving one-liners and algorithmic insight. Phase 1 is paused; Phase 2 has not started.
+comment pages and explanation articles, leaving one-liners and algorithmic insight. Phase 1 is done; Phase 2 is applied apart from two held
+files.
 
 ## Why its value is medium
 
@@ -57,10 +58,10 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
       for session catzc-e5's file.
 - [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean). 2026-10-18 (task-adr-link-cleanup step 8): the
       inventory, `out/inventory-source-text.ps1`, finds 6,099 pieces of text in 1,173 source files; every piece has a verdict, 6,082 stay, 2
-      hold (files in use), 15 for the user: whether `.github/workflows` and the `.claude` drawio and slides kits join the comment page map
-      (13 comment runs), and whether the ADR index's introduction and authoring conventions leave `Build-AdrIndex.ps1` for a docs source it
-      reads (2 here-strings). The threshold is 3 lines or 200 characters (D5), a `CommentsConfig` setting once a function reads it. Nothing
-      else is left to apply.
+      hold (files in use), 15 decided by D23 (2026-10-18, delegated to the domain rules) and applied: `.claude/slides` and
+      `.github/workflows` joined the comment page map and their 8 runs moved to pages, the `.claude/drawio` runs stay, and the ADR index's
+      text moved from Build-AdrIndex into `configs/adr-index.yml` (verdicts in task-adr-link-cleanup step 8). The threshold is 3 lines or
+      200 characters (D5), a `CommentsConfig` setting once a function reads it. Open: the 2 held files once their sessions release them.
 
 ## Done, and why (session report of 2026-10-16 15:23)
 
@@ -75,13 +76,10 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
   editing and was not re-run; the remaining about 4,800 ledger rows (rest of Step 1.2, all of 1.3 and 1.4) wait on the three decisions.
 - The two draft plans were not trimmed to the new plan rules (short, present tense, no history); that is the cleaner's job and the cleaner
   does not exist yet. Decisions and plan locations saved to memory as adr-link-and-plan-program.md.
-- Paste-after-clear line from that session, re-pointed: read .claude/CLAUDE.md and docs/adr/index.md, then
-  prompt-adr-links-and-plans-continue.md beside this file, and follow it.
 
 ## Refs
 
-- the full draft is carried below (formerly out/plan-adr-link-cleanup.md; status at its top); the shared continuation prompt is
-  prompt-adr-links-and-plans-continue.md beside this file
+- the full draft is carried below (formerly out/plan-adr-link-cleanup.md; status at its top); the work runs from task-adr-link-cleanup
 - out/build-adr-link-ledger.ps1, out/prepass-adr-link-ledger.ps1, out/refresh-ledger.ps1, out/apply-verdicts.ps1
 - out/analysis-adr-link-ledger.txt
 - docs/adr/repository/markdown-links.md

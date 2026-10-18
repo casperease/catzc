@@ -6,7 +6,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $script:page = 'docs/references/automation/catzc-widget/Get-Widget.ps1.md'
         $script:export = {
             param([string] $Text, [string] $Extension = '.ps1', [string] $Language = 'powershell', [string] $PageText = $null)
-            [Catzc.Base.QualityGates.CommentEngine]::Export($Text, $Extension, $Language, 'automation/Catzc.Widget/Get-Widget.ps1',
+            [Catzc.Base.QualityGates.CommentEngine]::Export($Text, $Extension, $Language, 'widgets/Catzc.Widget/Get-Widget.ps1',
                 $script:page, $PageText, $script:config)
         }
         $script:source = @(
@@ -181,7 +181,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $blocks = [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $head)
         $blocks.Count | Should -Be 1
         $blocks[0].StartLine | Should -Be 4
-        $moved = [Catzc.Base.QualityGates.CommentEngine]::Export($yaml, '.yml', 'yaml', 'automation/Catzc.Widget/widget.yml', $script:page, $null, $head)
+        $moved = [Catzc.Base.QualityGates.CommentEngine]::Export($yaml, '.yml', 'yaml', 'widgets/Catzc.Widget/widget.yml', $script:page, $null, $head)
         $moved.MovedCount | Should -Be 1
         $moved.Text.StartsWith("# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`n") | Should -BeTrue
     }

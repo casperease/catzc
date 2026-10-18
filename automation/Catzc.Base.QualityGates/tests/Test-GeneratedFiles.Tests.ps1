@@ -124,7 +124,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
         $result = Test-GeneratedFiles -Generator Build-EnglishDictionary -PassThru -OutputFolder $script:reportFolder
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike "automation/Catzc.Base.QualityGates/assets/english.txt.gz: stale — flattened from cspell '9.1.0' but tools.yml pins '10'; regenerate with: Build-EnglishDictionary*"
+        $result.Issues[0] | Should -BeLike "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/assets/english.txt.gz: stale — flattened from cspell '9.1.0' but tools.yml pins '10'; regenerate with: Build-EnglishDictionary*"
         Should -Invoke Get-ConfigValue -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Address -eq 'global.tools.cspell.version' }
     }
 }

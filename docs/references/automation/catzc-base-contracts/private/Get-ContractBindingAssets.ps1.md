@@ -24,11 +24,11 @@ version's expectation binds ([ADR-REPO-CONTRACT#3](../../../../adr/repository/ap
 
 When -Version names a release, the draft 0.0.0 is not listed. A contracts/ tree that does not list throws, as Get-Contract does.
 
-### parameter Version
+### parameter `Version`
 
 The current version folder of every unit, `<major>.<minor>.<patch>`.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/.
 

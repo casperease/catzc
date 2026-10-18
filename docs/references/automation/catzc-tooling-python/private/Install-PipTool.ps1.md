@@ -15,15 +15,15 @@ Private helper for Install-PySpark. Mirrors Install-Tool's contract but installs
 `uv pip install --system` (so it stays importable, unlike an isolated `uv tool`). Handles idempotency, -Force, and version verification. uv
 presence is asserted by Invoke-Pip.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml (must declare pip_package).
 
-### parameter Version
+### parameter `Version`
 
 Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
 
-### parameter Force
+### parameter `Force`
 
 Uninstall a wrong version before installing the correct one.
 

@@ -9,11 +9,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Tests whether an object has a specific property, or a nested chain of properties.
 
-### parameter Object
+### parameter `Object`
 
 The object to inspect.
 
-### parameter PropertyName
+### parameter `PropertyName`
 
 The property name to look for. Dotted paths (e.g. 'parent.child.value') walk each level in turn; a missing or null-valued intermediate
 short-circuits to $false rather than throwing.

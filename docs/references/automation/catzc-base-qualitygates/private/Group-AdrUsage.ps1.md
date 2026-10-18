@@ -15,11 +15,11 @@ Pure: it takes the rows Get-AdrUsageRow returns and reads nothing else. Grouping
 whole ADR), sorted by code and rule with the whole ADR first, listing the documents that cite it. Grouping by Document gives one row per
 citing file, sorted by path, listing the citations it holds. Count is the number of documents or citations in the list.
 
-### parameter Row
+### parameter `Row`
 
 The usage rows, each @{ Path; Code; Rule; Source }.
 
-### parameter By
+### parameter `By`
 
 `Rule` or `Document`.
 

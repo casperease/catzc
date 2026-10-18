@@ -20,7 +20,7 @@ Each case carries its package: the file's path inside the folder, '/'-separated 
 with the BashTestResult Invoke-BashTest returns. The category follows the BashTestResult rule: a name starting with "integrity:" is
 integrity, everything else logic.
 
-### parameter Folder
+### parameter `Folder`
 
 The absolute path of the Bash test folder (a Get-LanguageTestFolders Folder).
 

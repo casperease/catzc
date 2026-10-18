@@ -9,7 +9,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Throws if the current session is not running as Administrator.
 
-### parameter ErrorText
+### parameter `ErrorText`
 
 Custom error message.
 

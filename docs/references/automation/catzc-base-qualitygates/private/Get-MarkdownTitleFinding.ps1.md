@@ -18,11 +18,11 @@ nothing titles it), or Missing (the first line is not an H1). A PathTitle is rep
 backticks and the line goes, so no authored wording is lost. Untitled and Missing have no repair, since nothing can invent a title: a person
 writes it. Fixed is the corrected file text, keeping the file's own line endings; it equals the input for every Kind but PathTitle.
 
-### parameter RelativePath
+### parameter `RelativePath`
 
 The file's repository-relative, '/'-separated path — the H1 that is no title.
 
-### parameter Text
+### parameter `Text`
 
 The file's content.
 

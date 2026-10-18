@@ -9,7 +9,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Uninstalls Terraform via the platform package manager.
 
-### parameter Version
+### parameter `Version`
 
 Terraform version to uninstall. Defaults to the locked version in Get-ToolConfig.
 

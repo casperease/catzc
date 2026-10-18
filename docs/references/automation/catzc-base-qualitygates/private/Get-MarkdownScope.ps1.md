@@ -19,15 +19,15 @@ declared in the .gitattributes source like every other file class.
 It rests on [ADR-REPO-FILEMETA#5](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta5) and
 [ADR-REPO-FORMAT#6](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the returned paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders (absolute or relative to the current location) to limit the scope to.
 
-### parameter OptOut
+### parameter `OptOut`
 
 A `.gitattributes` attribute whose `unset` value takes one file out of this scope. Default: none, every file of the class is in.
 

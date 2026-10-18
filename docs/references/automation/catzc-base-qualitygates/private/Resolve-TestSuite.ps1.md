@@ -18,7 +18,7 @@ tests verify a change in that area-of-control and the tier to run them through (
 (an unknown name throws there, naming the config) and returns that scope. A globset without a verify scope is not a test suite; it throws
 with the remedy: declare one in globs.yml.
 
-### parameter Name
+### parameter `Name`
 
 The name of a test suite — its globset's name (globs.yml).
 

@@ -18,23 +18,23 @@ the one grammar of the contract language, and comes back with its asset, the com
 signature. The selectors take wildcards and narrow the assets the way Get-Contract's do; -Name matches the command. A contract that does not
 parse throws, naming the asset: this is the reader, and Test-Contracts is where a defect is reported as a finding.
 
-### parameter Name
+### parameter `Name`
 
 The command name(s), Verb-Noun, wildcards allowed. Default: every command.
 
-### parameter Module
+### parameter `Module`
 
 The owning module name(s), wildcards allowed. Default: every module.
 
-### parameter Unit
+### parameter `Unit`
 
 The deployable-unit folder name(s), wildcards allowed. Default: every unit.
 
-### parameter Version
+### parameter `Version`
 
 The version folder name(s), wildcards allowed. Default: 0.0.0, each unit's draft.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/. Default: the loaded repository root.
 

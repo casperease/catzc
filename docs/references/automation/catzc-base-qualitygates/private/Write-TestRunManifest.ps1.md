@@ -21,11 +21,11 @@ whose owning process died never reaches that finally; the next run in the same r
 The write is atomic: the JSON lands in a temp file first and is moved over run.json in one filesystem operation (the compiled-DLL pattern),
 so a concurrent reader never sees a half-written manifest.
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run directory the manifest belongs to.
 
-### parameter Manifest
+### parameter `Manifest`
 
 The manifest content (`[ordered]` hashtable — serialized as-is; the caller owns the shape).
 

@@ -20,11 +20,11 @@ Idempotent — converges to the desired state on every run: when the home alread
 is still converged, so a lost PATH entry is repaired by re-running. A Go at the locked version found elsewhere (a pipeline's hosted tool
 cache, activated by the native Go task) satisfies the contract and is left untouched.
 
-### parameter Version
+### parameter `Version`
 
 Go version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an installation in the managed home at the wrong version.
 

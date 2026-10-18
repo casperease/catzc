@@ -25,14 +25,14 @@ empty segment list returns the node unchanged (addressing the whole config).
 The returned node may be a live reference into the config cache and must be treated as read-only
 ([ADR-CONF-ADDRESSING#5](../../../../adr/configuration/config-value-addressing.md#rule-adr-conf-addressing5)).
 
-### parameter Node
+### parameter `Node`
 
 The config node to walk into — the object Get-Config returned for the config name.
 
-### parameter Segment
+### parameter `Segment`
 
 The ordered key segments to walk (may be empty to address the node itself).
 
-### parameter Address
+### parameter `Address`
 
 The full global config address, used only to make traversal errors self-locating.

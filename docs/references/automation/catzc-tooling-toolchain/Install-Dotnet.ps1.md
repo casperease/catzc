@@ -22,11 +22,11 @@ NOT for CI pipelines. In Azure DevOps, use the native UseDotNet task which activ
 
 - task: UseDotNet@2 inputs: version: '10.x'
 
-### parameter Version
+### parameter `Version`
 
 .NET SDK version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an existing installation at the wrong version.
 

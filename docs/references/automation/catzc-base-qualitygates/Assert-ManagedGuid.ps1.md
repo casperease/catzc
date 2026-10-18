@@ -14,7 +14,7 @@ Asserts a GUID is registered in the managed-GUID registry (configs/guids.yml); t
 The throwing counterpart of Test-ManagedGuid; both share one lookup (Resolve-ManagedGuid), so they can never disagree. Comparison is
 case-insensitive by `[guid]` value. Succeeds silently — the absence of an error is the output.
 
-### parameter Guid
+### parameter `Guid`
 
 The GUID to assert.
 

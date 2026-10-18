@@ -23,15 +23,15 @@ announces.
 
 This is the thin I/O boundary itself, so its test is the vertical system test (L3): a real round trip through the user environment.
 
-### parameter Name
+### parameter `Name`
 
 The variable's name.
 
-### parameter Value
+### parameter `Value`
 
 The value to persist. $null or empty removes the variable from the scope.
 
-### parameter Scope
+### parameter `Scope`
 
 Which persistent scope to write: User (default) or Machine.
 

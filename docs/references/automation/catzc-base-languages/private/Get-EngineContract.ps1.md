@@ -36,16 +36,16 @@ The PowerShell entry is the repository's importer.ps1 for a source run, or -Entr
 loads it directly. The POSIX engines load the repository's importer.sh, whose cats dispatcher loads it through CATZC_IMPORTER, so a POSIX
 engine's session drives the build too.
 
-### parameter Engine
+### parameter `Engine`
 
 The execution engine: pwsh (default), or any other of ExecutionEngines.Names.
 
-### parameter EngineExecutable
+### parameter `EngineExecutable`
 
 The engine's executable, already located by the caller (a test run's source session hands it down, since a build run's engine does not carry
 the tools.yml entry a POSIX engine is located through). Default: Resolve-EngineExecutable.
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The PowerShell entry for a build run. Default: the repository's importer.ps1 (the source run).
 

@@ -19,15 +19,15 @@ exactly one function, named for the file, and nothing else at the top level (no 
 it carries no `using` statement and no `#requires`; and it never reads $PSScriptRoot, which names another folder once the file is loaded
 elsewhere ([ADR-AUTO-ASSETDEP#1](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)).
 
-### parameter Path
+### parameter `Path`
 
 The file to check.
 
-### parameter RelativePath
+### parameter `RelativePath`
 
 The file's name as the messages should show it (a repository- or overlay-relative path).
 
-### parameter ParsedScripts
+### parameter `ParsedScripts`
 
 The call's shared parse of each script; a caller checking many files passes one so a file is parsed once.
 

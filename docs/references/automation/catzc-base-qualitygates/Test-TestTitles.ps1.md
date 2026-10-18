@@ -21,11 +21,11 @@ from the cause. Each such title is an issue: rephrase it, or add -ForEach data.
 The title is a block's first string argument (single- or double-quoted). A file that does not parse is another gate's problem and is
 skipped. It parses the repository's test files, which exist only in the source tree (Assert-SourceTree).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-test-titles/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; TestFiles }) instead of throwing on issues.
 

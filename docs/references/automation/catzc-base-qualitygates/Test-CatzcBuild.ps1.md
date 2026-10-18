@@ -28,37 +28,37 @@ but its tests run only when the selection includes it.
 
 Test-CatzcBuild operates on the source tree — it builds from it and reads its tests — so it runs in source mode only (Assert-SourceTree).
 
-### parameter Module
+### parameter `Module`
 
 Modules to build and test (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither -> the default bundle's profile
 (exporter.yml default_bundle).
 
-### parameter ModuleProfile
+### parameter `ModuleProfile`
 
 A module profile (profiles.yml) to build and test.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 Minimum test tier. Defaults to 0.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 Maximum test tier (alias: -Level). Defaults to 3, as in Test-Automation: L0-L3 when the run owns the working folder, L0-L2 in a snapshot,
 which skips L3 and says so ([ADR-AUTO-TEST#33](../../../adr/automation/test-automation.md#rule-adr-auto-test33)). 4 adds the opt-in L4 tier.
 
-### parameter Category
+### parameter `Category`
 
 Logic, Integrity, or Both (the default) — as in Test-Automation.
 
-### parameter Workers
+### parameter `Workers`
 
 Worker pool size; 0 (the default) sizes it automatically — as in Test-Automation.
 
-### parameter Output
+### parameter `Output`
 
 Pester output verbosity inside each worker. Defaults to 'Detailed'.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Returns the run summary object (as Test-Automation's, plus ExcludedTests — the 'source-only' rows — and Build — the Build-Modules result).
 

@@ -30,32 +30,32 @@ The addressing mode decides how an asset addresses files
 ([ADR-REPO-CONTRACT#8](../../../adr/repository/api-contracts.md#rule-adr-repo-contract8)); only full-path is built, and selecting a declared
 mode that is not built throws NotImplementedException before anything is enumerated.
 
-### parameter Unit
+### parameter `Unit`
 
 The deployable-units to list, by folder name; wildcards allowed. Default: every unit.
 
-### parameter Version
+### parameter `Version`
 
 The unit versions to list, by folder name; wildcards allowed. Default: 0.0.0, each unit's draft.
 
-### parameter Module
+### parameter `Module`
 
 The owning modules to list; wildcards allowed. Default: every module.
 
-### parameter Path
+### parameter `Path`
 
 Keeps the assets whose path under the module, or whose target, matches; wildcards allowed. Default: every asset.
 
-### parameter Addressing
+### parameter `Addressing`
 
 How an asset addresses many files. Default: contracts.yml's addressing.
 
-### parameter TargetRoot
+### parameter `TargetRoot`
 
 Each owning module's target root, module name to repository-relative folder; a module it does not name takes the repository root. Default:
 contracts.yml's target_roots.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/. Default: the loaded repository root.
 

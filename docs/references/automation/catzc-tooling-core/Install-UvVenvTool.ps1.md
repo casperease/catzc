@@ -17,15 +17,15 @@ by placing the launcher next to uv's --default python instead. This creates a de
 works. Pre-release resolution (for packages that pin a beta dependency) is threaded through Invoke-Uv's -Prerelease switch, which warns.
 Handles idempotency and -Force.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key (must declare uv_venv).
 
-### parameter Version
+### parameter `Version`
 
 Version override. Defaults to the tool's locked version in tools.yml (Get-ToolConfig).
 
-### parameter Force
+### parameter `Force`
 
 Rebuild the venv from scratch even when the tool is already present.
 

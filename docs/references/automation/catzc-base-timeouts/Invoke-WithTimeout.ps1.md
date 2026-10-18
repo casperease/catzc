@@ -16,21 +16,21 @@ returns its output. A PipelineWatchdog stops it once it outlives the limit, incl
 throws a TimeoutException that names the limit and where it comes from. A terminating error inside the block is rethrown as itself;
 non-terminating errors are passed on as errors of this call.
 
-### parameter ScriptBlock
+### parameter `ScriptBlock`
 
 The work to run.
 
-### parameter Budget
+### parameter `Budget`
 
 The work's immutable budget GUID (registered in the managed-GUID registry). While timeout-exemptions.yml exempts it, the default limit is
 the exemption ceiling instead.
 
-### parameter Seconds
+### parameter `Seconds`
 
 The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption ceiling (Get-TimeoutSeconds
 -Budget).
 
-### parameter Activity
+### parameter `Activity`
 
 What the work is, for the timeout message. Defaults to the script block's text.
 

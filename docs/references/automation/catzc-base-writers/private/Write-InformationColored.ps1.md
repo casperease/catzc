@@ -41,15 +41,15 @@ record Write-Host emits internally, so the host renders it without a line break 
 information-stream record: it obeys $InformationPreference
 and 6> redirection, and never enters the pipeline.
 
-### parameter MessageData
+### parameter `MessageData`
 
 The message to write.
 
-### parameter ForegroundColor
+### parameter `ForegroundColor`
 
 Text color. Defaults to the host's current foreground color.
 
-### parameter NoNewline
+### parameter `NoNewline`
 
 Render the text without a trailing line break, so the next write continues the same line.
 

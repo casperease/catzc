@@ -22,7 +22,7 @@ only a module run Build-Bicep yourself. The build is the only call to `az`; read
 
 Get-BicepParameterViolations checks every rendered parameters file against this model.
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 

@@ -16,15 +16,15 @@ Excludes every tier tag outside [MinLevel, MaxLevel] and, when -Category is Logi
 are lowercase to match the test files' actual tags ('logic'/'integrity'); tier tags are `[Catzc.Base.Timeouts.TestTiers]::Names`
 ('L0'..'L4'). A mixed file's per-Context category tags filter correctly because ExcludeTag matches an item's own tag.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 Lowest tier to keep (0-4). Tiers below it are excluded.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 Highest tier to keep (0-4). Tiers above it are excluded.
 
-### parameter Category
+### parameter `Category`
 
 Logic (exclude integrity), Integrity (exclude logic), or Both (exclude neither).
 

@@ -28,7 +28,7 @@ Each entry says what kind of installer placed it and carries the command that re
 A bundle and the MSI it installs often share a DisplayName, so entries are distinct by ProductCode, never by name. Windows only; elsewhere
 it returns nothing.
 
-### parameter NamePattern
+### parameter `NamePattern`
 
 A regular expression the product's DisplayName must match.
 

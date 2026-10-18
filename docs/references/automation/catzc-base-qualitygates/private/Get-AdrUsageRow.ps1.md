@@ -17,19 +17,19 @@ per citation, a group such as `ADR-X#{1,3}` expanded to its rules and a bare cod
 links give a row for every link into a registered ADR, with the rule its anchor names (Rule is null for a link to the ADR itself). A link to
 a document under docs/adr/ that no code owns, such as the index, gives no row.
 
-### parameter Text
+### parameter `Text`
 
 The whole file as text.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Map
+### parameter `Map`
 
 The ADR citation map.
 
-### parameter Form
+### parameter `Form`
 
 The comment syntax of a code file (a Catzc.Base.CodeMeta.HeadForm), so a head it may carry is set apart from its text. Omitted for a
 Markdown file.

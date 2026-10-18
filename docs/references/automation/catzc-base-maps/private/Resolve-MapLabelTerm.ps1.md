@@ -18,11 +18,11 @@ term in its head ([ADR-DSGN-TRACK#13](../../../../adr/design/tracks.md#rule-adr-
 [ADR-DSGN-TRACK#16](../../../../adr/design/tracks.md#rule-adr-dsgn-track16)), so Test-WorldMap and Test-ValueChainMap report a label this
 returns nothing for.
 
-### parameter Label
+### parameter `Label`
 
 The printed label.
 
-### parameter Term
+### parameter `Term`
 
 The glossary terms (Get-Glossary), lower-case as the glossary declares them.
 

@@ -16,7 +16,7 @@ registry whose globs, or whose subkinds' globs, match the path names it, and a p
 catzc and global to every file, and a consumer extends it with a config fragment
 ([ADR-REPO-FILEMETA#2](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta2)).
 
-### parameter Path
+### parameter `Path`
 
 A repository-relative path ('/' or '\' separated).
 

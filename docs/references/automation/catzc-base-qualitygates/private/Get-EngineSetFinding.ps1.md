@@ -22,23 +22,23 @@ or name_phrases that miscounts the engines or names some but not all of them (En
   engines;
 - C#: two or more engine names as string literals on one line (EngineSetCheck.FindCSharpLists).
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative, '/'-separated path, which leads each finding.
 
-### parameter Text
+### parameter `Text`
 
 The file's text.
 
-### parameter Ast
+### parameter `Ast`
 
 The file's PowerShell syntax tree, when it is a PowerShell file (parsed once by the caller).
 
-### parameter EngineName
+### parameter `EngineName`
 
 The model's engine names (`[Catzc.Base.Engines.ExecutionEngines]::Names`).
 
-### parameter Check
+### parameter `Check`
 
 The engine-set check's settings (source-conventions.yml engine_set).
 

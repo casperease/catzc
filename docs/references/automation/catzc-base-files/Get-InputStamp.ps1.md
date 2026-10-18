@@ -22,24 +22,24 @@ The work is done by the compiled Catzc.Base.Files.InputStamp, which hashes the f
 
 It rests on [ADR-PRIN-ONELIVE](../../../adr/principles/one-living-version.md).
 
-### parameter Path
+### parameter `Path`
 
 The input files and folders to fingerprint.
 
-### parameter Filter
+### parameter `Filter`
 
 A file-name filter applied inside folders (for example `*.md`). Defaults to every file.
 
-### parameter Exclude
+### parameter `Exclude`
 
 Wildcard patterns for files left out of the stamp, matched against the full path with '/' separators (for example `*/README.md`). A
 generator names its own output, and the generated pages beside its inputs, so writing them does not change the stamp.
 
-### parameter Root
+### parameter `Root`
 
 The folder paths are named relative to. Default: the repository root. A path outside it is named in full.
 
-### parameter Salt
+### parameter `Salt`
 
 Extra text folded into the stamp, for an input that is not a file (a setting, a version).
 

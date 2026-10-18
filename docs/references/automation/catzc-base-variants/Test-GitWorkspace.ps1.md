@@ -16,11 +16,11 @@ when the repo's mode matches. The canonical consumer shape is the stop condition
 `(Test-GitWorkspace -MainViaPr) -and <on main locally>` — in main-via-pr mode local work always happens on a branch, so standing on main is
 the only place a direct commit is forbidden.
 
-### parameter MainDirect
+### parameter `MainDirect`
 
 Test for the 'main-direct' mode (solo-author trunk; direct commits to main allowed).
 
-### parameter MainViaPr
+### parameter `MainViaPr`
 
 Test for the 'main-via-pr' mode (changes reach main only through a PR).
 

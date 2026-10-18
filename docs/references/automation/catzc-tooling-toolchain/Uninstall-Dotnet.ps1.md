@@ -23,12 +23,12 @@ For a .NET installed OUTSIDE the tooling system (a system SDK, an apt package), 
 best-effort and then falls through to Remove-Dotnet, which evicts whatever the configured manager did not own
 ([ADR-AUTO-REMOVE#5](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
 
-### parameter Remove
+### parameter `Remove`
 
 After the managed uninstall, escalate to Remove-Dotnet to evict an off-config install. Pair with -Force to actually remove; -Remove alone
 reports the plan ([ADR-AUTO-REMOVE#4](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
 
-### parameter Force
+### parameter `Force`
 
 Confirm the destructive steps: stop the processes named as holding the install open, and — with -Remove — the Remove-Dotnet eviction.
 

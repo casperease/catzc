@@ -24,11 +24,11 @@ the registry (configs/guids.yml) and collects an issue for:
 The value checks over one guid stay Test-ManagedGuid / Assert-ManagedGuid; this gate is the repository-wide check. It reads the tracked
 files, which exist only in the source tree (Get-GuidScanFiles).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-managed-guids/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Registered; Occurrences }) instead of throwing on issues.
 

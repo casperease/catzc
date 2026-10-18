@@ -126,7 +126,7 @@ Describe 'SystemProbe' -Tag 'L3', 'logic' {
 }
 "@)
         $repositoryTest = [System.IO.Path]::GetFullPath(
-            (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1'))
+            (Get-CatzcModuleRoot 'tests/Convert-TestRunLocationPath.Tests.ps1' -Module Catzc.Base.QualityGates))
 
         $run = Invoke-TestFile $fixture, $repositoryTest -Isolated -Output Minimal -PassThru
 

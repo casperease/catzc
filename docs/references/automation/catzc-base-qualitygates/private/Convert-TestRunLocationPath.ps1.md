@@ -16,15 +16,15 @@ same relative path under the location's Root, and with -ToSource back again — 
 home so reports and module protection read working-folder paths. A path outside the root (a fixture in a temp folder), an empty value, and
 every path of an in-place location pass through unchanged.
 
-### parameter Location
+### parameter `Location`
 
 The location Enter-TestRunLocation returned.
 
-### parameter Path
+### parameter `Path`
 
 The paths to map.
 
-### parameter ToSource
+### parameter `ToSource`
 
 Map from the location's Root back to the working folder.
 

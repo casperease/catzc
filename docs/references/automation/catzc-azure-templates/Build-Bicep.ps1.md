@@ -30,20 +30,20 @@ Then runs `az bicep build --file <main.bicep> --outdir <out>` once for the templ
 
 The output folder is wiped and recreated on every call.
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 
-### parameter Environments
+### parameter `Environments`
 
 Optional filter — build only slots whose environment is named here. Defaults to all slots configured for the template (one parameters file
 per `configuration/*.yml`, excluding default).
 
-### parameter Customers
+### parameter `Customers`
 
 Optional filter — build only the named customers' slots (their configuration subfolders).
 
-### parameter Shared
+### parameter `Shared`
 
 Optional filter — build the configuration-root (shared-platform, non-customer) slots. Combines with -Customers as a union; with neither
 filter every slot builds.

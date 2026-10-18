@@ -16,15 +16,15 @@ folder; when `<resolved path>#<fragment>` is a key of Rename, the fragment is re
 and every other byte are kept, so the text is returned unchanged when no link matches. Used by the heading normal form, which renames
 anchors ([ADR-REPO-FORMAT#7](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
 
-### parameter RelativePath
+### parameter `RelativePath`
 
 The file's repository-relative, '/'-separated path.
 
-### parameter Text
+### parameter `Text`
 
 The file's content.
 
-### parameter Rename
+### parameter `Rename`
 
 '`<repository-relative path>#<old anchor>`' -> new anchor.
 

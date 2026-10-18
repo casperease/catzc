@@ -30,15 +30,15 @@ Returns one BashTestResult per @test, with its category from its name: a name st
 logic. A failing test is a result, not an error. The call throws, with the bats output, when the vendored runner is missing, and when bats
 fails without a failing test (a syntax error in a .bats file, or no tests).
 
-### parameter Module
+### parameter `Module`
 
 The catzc module whose Bash tests to run (e.g. Catzc.Base.Repository).
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The PowerShell entry for a build run: the build's Import-Catzc.ps1. Default: the repository's importer.ps1 (the source run).
 
-### parameter EngineExecutable
+### parameter `EngineExecutable`
 
 The bash to run, already located by the caller: a test run passes the bash its source session resolved, because a build run's engine does
 not carry the tools.yml entry. Default: located here by Resolve-EngineExecutable.

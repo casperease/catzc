@@ -27,35 +27,35 @@ reinstall, an upgrade or a removal is seen on the next call. The locate step run
 The caller chooses the candidates for its platform and run environment; Resolve-ToolExecutable does that for a tools.yml entry. The record
 carries the session actor (Get-SessionActor), for the report.
 
-### parameter Name
+### parameter `Name`
 
 The name the record carries (a tools.yml key, for a tool).
 
-### parameter Command
+### parameter `Command`
 
 The command name looked up on PATH when no candidate exists. Defaults to -Name.
 
-### parameter Candidate
+### parameter `Candidate`
 
 The candidate executable paths, in order. Empty for a PATH-only lookup.
 
-### parameter Exclude
+### parameter `Exclude`
 
 Executable paths that never count, as a candidate or on PATH.
 
-### parameter VersionArguments
+### parameter `VersionArguments`
 
 The arguments that make the executable print its version (e.g. '--version').
 
-### parameter VersionPattern
+### parameter `VersionPattern`
 
 The regex that captures the version as the named group (`?<ver>`...).
 
-### parameter RequiredVersion
+### parameter `RequiredVersion`
 
 The version prefix the reported version must start with. Empty accepts any parsed version.
 
-### parameter AcceptVersion
+### parameter `AcceptVersion`
 
 Further version prefixes that also satisfy the check (for a tool, the devbox_version lever outside a pipeline).
 

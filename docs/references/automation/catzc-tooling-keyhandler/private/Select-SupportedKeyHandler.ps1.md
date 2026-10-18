@@ -17,11 +17,11 @@ function names, returns one record per binding carrying its Key, Function, and a
 logs the rest. Reads the inputs only; never mutates the cached config objects
 ([ADR-AUTO-CACHE#5](../../../../adr/automation/caching.md#rule-adr-auto-cache5)).
 
-### parameter Binding
+### parameter `Binding`
 
 The captured bindings — a sequence of { key, function } mappings (from key-handler-bindings.yml).
 
-### parameter SupportedFunction
+### parameter `SupportedFunction`
 
 The allow-list of supported function names (from key-handler-supported.yml `functions`).
 

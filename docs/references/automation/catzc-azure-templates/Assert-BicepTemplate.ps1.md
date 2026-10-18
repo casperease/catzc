@@ -31,11 +31,11 @@ Checks (all collected, then thrown together):
   output folder), then Get-BicepParameterViolations checks every rendered parameters file against the compiled parameter model — types,
   @allowed values, bounds, required parameters, and Key Vault references for secure parameters.
 
-### parameter Template
+### parameter `Template`
 
 Template name to validate. Omit to validate every template under infrastructure/templates/.
 
-### parameter Build
+### parameter `Build`
 
 Also build the template (requires az CLI) and check its rendered parameters files against the compiled parameter model. Off by default.
 

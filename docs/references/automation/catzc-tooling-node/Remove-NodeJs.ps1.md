@@ -17,11 +17,11 @@ directory from Get-Command if not specified.
 This is for Node.js installations that do not appear in Apps & Features or winget. If Node.js is managed by winget, use Uninstall-NodeJs
 instead.
 
-### parameter InstallDir
+### parameter `InstallDir`
 
 Path to the Node.js installation folder. Auto-detected from PATH if omitted.
 
-### parameter Force
+### parameter `Force`
 
 Actually perform the removal. Without this, shows what would be removed.
 

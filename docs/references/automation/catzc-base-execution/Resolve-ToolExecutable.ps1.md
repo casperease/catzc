@@ -25,7 +25,7 @@ plain inputs:
   file) with version_pattern;
 - version as the required prefix and, outside a pipeline, devbox_version as a further accepted one.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml.
 

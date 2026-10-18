@@ -20,18 +20,18 @@ error — nothing is attributable) and a failed row with no file. The identity p
 ([ADR-REPO-PROTGLOB#4](../../../../adr/repository/protected-globs.md#rule-adr-repo-protglob4)); in a pipeline Protect-GlobSet is a no-op
 anyway.
 
-### parameter Candidates
+### parameter `Candidates`
 
 The units Select-ProtectedTestFile queried and found unprotected — the only ones with a pending identity.
 
-### parameter Rows
+### parameter `Rows`
 
 The run's aggregated per-test rows.
 
-### parameter FailedShardLabels
+### parameter `FailedShardLabels`
 
 Labels of worker shards that exited 1.
 
-### parameter ProtectionKey
+### parameter `ProtectionKey`
 
 The run-parameter key the candidates were queried under.

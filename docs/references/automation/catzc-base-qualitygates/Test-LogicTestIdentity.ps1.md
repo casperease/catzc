@@ -28,16 +28,16 @@ names (dev/test/preprod/prod) are a later, position-aware stage.
 It rests on [ADR-AUTO-TEST#3](../../../adr/automation/test-automation.md#rule-adr-auto-test3) and
 [ADR-REPO-LANG](../../../adr/repository/domain-language-separation.md).
 
-### parameter Path
+### parameter `Path`
 
 Test files to check. Defaults to every `*.Tests.ps1` under automation/ (excluding vendored modules) — the catzc source tree, so the default
 needs the source mode (Assert-SourceTree); an explicit -Path works in either.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-logic-test-identity`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
 

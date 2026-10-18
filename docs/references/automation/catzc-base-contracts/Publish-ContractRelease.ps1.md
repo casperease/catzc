@@ -26,15 +26,15 @@ runs this, runs Test-Contracts -Version `<version>`, and commits the folder in i
 resource available to others ([ADR-PWSH-VERBS#1](../../../adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs1)): the frozen folder is
 what a consumer pins.
 
-### parameter Unit
+### parameter `Unit`
 
 The deployable-unit whose draft to freeze, by folder name: today catzc, the bundle.
 
-### parameter Version
+### parameter `Version`
 
 The released version, `<major>.<minor>.<patch>`: the version the release build resolved.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/. Default: the loaded repository root.
 

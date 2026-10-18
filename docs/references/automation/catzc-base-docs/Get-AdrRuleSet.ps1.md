@@ -16,7 +16,7 @@ strong properties, not a slippery ordered dictionary). Each record (Catzc.Base.D
 External citation code, the domain Code in effect (a leaf override or the domain default), the folder-owning Domain and its Role, and the
 optional Terminology token.
 
-### parameter Domain
+### parameter `Domain`
 
 Restrict to one folder-owning domain (e.g. 'automation'), by name.
 

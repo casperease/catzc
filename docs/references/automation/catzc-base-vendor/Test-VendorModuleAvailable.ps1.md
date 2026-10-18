@@ -15,11 +15,11 @@ Queries the vendor source (configs/vendor.yml — PSGallery by default) with Fin
 restorable from the network" check; Remove-VendorModules uses it before deleting a vendored module, and it stands alone to validate a
 vendored set is reproducible.
 
-### parameter Name
+### parameter `Name`
 
 The module name to look for on the source.
 
-### parameter Version
+### parameter `Version`
 
 An optional exact version. Omit to test whether any version is available.
 

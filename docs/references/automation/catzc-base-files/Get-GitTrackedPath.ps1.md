@@ -20,11 +20,11 @@ No git process runs: plain `git ls-files` is exactly the index's entry list, so 
 (`[Catzc.Base.Git.GitIndex]`). The parsed index is cached per index path, keyed on the SHA-256 of its bytes — the key is recomputed from the
 file on every call, so a `git add`/commit/checkout mid-session re-keys it and the answer always matches the index on disk.
 
-### parameter Path
+### parameter `Path`
 
 The literal repository-relative, '/'-separated paths (files or folders) to look up; '.' for all.
 
-### parameter ExecutableOnly
+### parameter `ExecutableOnly`
 
 Return only the tracked files stored executable (git mode 100755) — the bit bash needs to run a script directly. Read from the same index,
 in the same order and form.

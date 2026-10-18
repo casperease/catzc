@@ -24,18 +24,18 @@ Empty result means the config conforms.
 
 It rests on [ADR-AZ-DATAMOD#8](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod8).
 
-### parameter Customer
+### parameter `Customer`
 
 The configuration subfolder name, or '' for a configuration-root config.
 
-### parameter Environment
+### parameter `Environment`
 
 The config's resolved environment name.
 
-### parameter AzureConfig
+### parameter `AzureConfig`
 
 The loaded azure config (Get-Config -Config azure) — used to read subscriptions.
 
-### parameter Location
+### parameter `Location`
 
 A human-readable label for the config (e.g. 'configuration/acme/alpha.yml') used in messages.

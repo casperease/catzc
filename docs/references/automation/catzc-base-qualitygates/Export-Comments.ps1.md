@@ -26,19 +26,19 @@ A page that exists already keeps its sections as written; new comments are appen
 A second run over an exported file changes nothing. Source files keep their own line endings; pages are written canonical. A source-tree
 tool: it throws in build mode (Assert-SourceTree).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to export. Default: every file in scope.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root paths and pages resolve against. Default: the loaded repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would move without writing any file.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return one Catzc.Base.QualityGates.CommentFileResult per file that changes.
 

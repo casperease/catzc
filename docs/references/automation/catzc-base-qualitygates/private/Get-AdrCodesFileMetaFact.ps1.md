@@ -18,15 +18,15 @@ never from the head ([ADR-REPO-FILEMETA#14](../../../../adr/repository/file-meta
 [ADR-REPO-LINK#5](../../../../adr/repository/markdown-links.md#rule-adr-repo-link5), and the order is ordinal, so a rerun never moves a
 code.
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

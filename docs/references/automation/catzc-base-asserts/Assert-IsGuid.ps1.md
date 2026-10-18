@@ -9,7 +9,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Asserts that a string is a valid GUID.
 
-### parameter ObjectGuid
+### parameter `ObjectGuid`
 
 The string to validate as a GUID.
 

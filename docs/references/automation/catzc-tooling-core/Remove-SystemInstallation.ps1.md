@@ -18,15 +18,15 @@ Every persistent write goes through its seam — Set-EnvironmentPath for the PAT
 announces the change; Windows broadcasts WM_SETTINGCHANGE on each persistent write, so running shells pick it up
 ([ADR-AUTO-TEST#33](../../../adr/automation/test-automation.md#rule-adr-auto-test33)).
 
-### parameter InstallDir
+### parameter `InstallDir`
 
 Resolved absolute path to the installation directory.
 
-### parameter ExtraPathDirs
+### parameter `ExtraPathDirs`
 
 Subdirectory names under InstallDir that are also on PATH (e.g. 'Scripts' for Python, 'wbin' for AzCli).
 
-### parameter EnvironmentVariables
+### parameter `EnvironmentVariables`
 
 System-level environment variable names to clear.
 

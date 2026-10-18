@@ -16,7 +16,7 @@ with the named globset's membership (include minus exclude), ordinally sorted â€
 ([ADR-FLOW-CD-GLOBS#5](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)). A member may be missing on disk (an unstaged
 deletion); it is still a member here.
 
-### parameter Name
+### parameter `Name`
 
 The globset whose members to list.
 

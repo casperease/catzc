@@ -18,7 +18,7 @@ the source as the one place to edit ([ADR-REPO-README#6](../../../../adr/reposit
 goes after the source's '# ' title when it opens with one, else at the top. The copy opens with its own meta block, whose `kind` is the one
 the file-kinds registry names for the README, above both.
 
-### parameter Mapping
+### parameter `Mapping`
 
 One readme.yml mapping as Get-ReadmeMappings returns it ({ folder; source }, repository-relative).
 

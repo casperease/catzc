@@ -15,15 +15,15 @@ The boolean form of Assert-CompletesWithin: $true when the block finished in tim
 block's output is discarded. An error the block raises on its own is not a timeout, so it still throws — this answers "was it fast enough",
 never "did it succeed".
 
-### parameter ScriptBlock
+### parameter `ScriptBlock`
 
 The work to time.
 
-### parameter Budget
+### parameter `Budget`
 
 The work's immutable budget GUID. While timeout-exemptions.yml exempts it, the default limit is the exemption ceiling instead.
 
-### parameter Seconds
+### parameter `Seconds`
 
 The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption ceiling (Get-TimeoutSeconds
 -Budget).

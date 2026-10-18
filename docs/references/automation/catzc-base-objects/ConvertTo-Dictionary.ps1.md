@@ -22,15 +22,15 @@ ParametersFile, or to YAML/JSON). Read-only navigation needs no conversion — r
 Keys are the object's property names (snake_case for the config-mirroring data-model types, so a round-trip back to YAML stays
 byte-compatible with the original config).
 
-### parameter InputObject
+### parameter `InputObject`
 
 The object to convert.
 
-### parameter AsPSObject
+### parameter `AsPSObject`
 
 Emit nested `[PSCustomObject]` instead of `[ordered]` dictionaries.
 
-### parameter MaxDepth
+### parameter `MaxDepth`
 
 Maximum recursion depth (default 10).
 

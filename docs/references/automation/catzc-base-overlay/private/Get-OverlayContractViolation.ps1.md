@@ -16,15 +16,15 @@ The bundle's own code keeps calling a function the way it always has, so an over
 it adds no mandatory parameter the original does not have as mandatory; and it declares the same `[OutputType]`. Read from the override's
 syntax tree, against the loaded original.
 
-### parameter Original
+### parameter `Original`
 
 The loaded function the override replaces.
 
-### parameter Path
+### parameter `Path`
 
 The override file.
 
-### parameter RelativePath
+### parameter `RelativePath`
 
 The override file as the messages show it.
 

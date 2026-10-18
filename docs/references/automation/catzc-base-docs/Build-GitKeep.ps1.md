@@ -24,15 +24,15 @@ a source change lands as a reviewable diff across every location. See [ADR-REPO-
 
 It rests on [ADR-PWSH-PESTER#9](../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without writing any file. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
-### parameter Silent
+### parameter `Silent`
 
 The per-file status lines are verbose-level — -Silent suppresses them entirely, even under -Verbose (used by the importer tail).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return one result object per .gitkeep ({ Path, Changed, DryRun }) instead of the paths.
 

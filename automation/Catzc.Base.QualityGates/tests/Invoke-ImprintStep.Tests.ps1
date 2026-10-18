@@ -52,8 +52,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
 
     Context 'the csharp-namespace step' {
         It 'hands the files to Format-Types, and returns its block-scoped files as ones a person must repair' {
-            $typeFile = Join-Path $script:root 'automation/Widget/types/Gadget.cs'
-            $block = Join-Path $script:root 'automation/Widget/types/Gizmo.cs'
+            $typeFile = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/types/Gadget.cs"
+            $block = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/types/Gizmo.cs"
             Mock Format-Types -ModuleName Catzc.Base.QualityGates {
                 [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @($script:typeFile); BlockScopedFiles = @($script:block); DryRun = $true }
             }
@@ -71,14 +71,14 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
 
     Context 'the ps-help step' {
         BeforeEach {
-            $script:helpFile = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
+            $script:helpFile = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1"
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpFile) -Force
             $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}')
             $script:helpText = ($function -join "`n") + "`n"
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
-            $script:helpPage = Join-Path $script:root ((Get-Config -Config comments).PageFor('automation/Widget/Get-Gadget.ps1'))
+            $script:helpPage = Join-Path $script:root ((Get-Config -Config comments).PageFor("$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1"))
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpPage) -Force
-            $script:pageText = "# automation/Widget/Get-Gadget.ps1`n`n## help`n`n### synopsis`n`nGets a gadget.`n`n### parameter ``Widget```n`nThe widget.`n`n### outputs`n`n``[string]`` The gadget.`n"
+            $script:pageText = "# $(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1`n`n## help`n`n### synopsis`n`nGets a gadget.`n`n### parameter ``Widget```n`nThe widget.`n`n### outputs`n`n``[string]`` The gadget.`n"
             [System.IO.File]::WriteAllText($script:helpPage, $script:pageText)
         }
 
@@ -125,9 +125,9 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
 
     Context 'the comments step' {
         It 'hands the files to Export-Comments as absolute paths, and returns what it moved as absolute paths' {
-            $gadget = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
+            $gadget = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1"
             $script:gadgetFile = $gadget
-            Mock Export-Comments -ModuleName Catzc.Base.QualityGates { [string[]] @('automation/Widget/Get-Gadget.ps1') }
+            Mock Export-Comments -ModuleName Catzc.Base.QualityGates { [string[]] @("$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1") }
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $gadget } {
                 param($Root, $File)
                 Invoke-ImprintStep -Step comments -File $File -RepositoryRoot $Root -DryRun

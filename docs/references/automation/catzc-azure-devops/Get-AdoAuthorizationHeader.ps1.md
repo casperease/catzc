@@ -23,7 +23,7 @@ a credential alone never establishes "the right thing".
 
 Returns a hashtable suitable for splatting into Invoke-RestMethod -Headers.
 
-### parameter ResourceUrl
+### parameter `ResourceUrl`
 
 The Azure AD resource URL for az CLI token requests. Defaults to the Azure DevOps resource ID (499b84ac-1321-427f-aa17-267ca6975798).
 

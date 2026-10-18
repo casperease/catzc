@@ -17,7 +17,7 @@ parameter of `contracts/catzc/0.0.0`, as Get-CommandContract reads it, giving th
 mandatory or bound from the pipeline (1 or 0), and the contract asset. A command with no parameter has one line with an empty parameter. The
 lines sit inside the one variable `_catzc_commands`, ordered by command name.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/. Default: the loaded repository root.
 

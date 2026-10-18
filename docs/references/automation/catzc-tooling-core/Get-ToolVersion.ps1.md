@@ -14,7 +14,7 @@ Runs a tool's version command and extracts the installed version string.
 Executes the version_command from tools.yml, matches against version_pattern, and returns the captured version string. Returns $null if the
 command fails or the pattern does not match. Uses .Full (stdout + stderr merged) to catch tools like java that write version info to stderr.
 
-### parameter Config
+### parameter `Config`
 
 The tool configuration hashtable from Get-ToolConfig.
 

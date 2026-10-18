@@ -18,11 +18,11 @@ both "which pipelines/units this fires" (Pipeline) and "which tests verify it" (
 -Modules; a declared row's VerifyModules/VerifyLevel carry its configured verify scope — its test suite, run by name with Test-Automation
 -Suite).
 
-### parameter ChangedFile
+### parameter `ChangedFile`
 
 The changed files, repo-relative and '/'-separated (backslashes are normalized).
 
-### parameter Ref
+### parameter `Ref`
 
 A git ref to diff the working tree against (`git diff --name-only <ref>`) instead of naming files — e.g. 'main' answers "what does my branch
 touch".

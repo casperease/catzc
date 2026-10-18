@@ -23,11 +23,11 @@ they are, so no text formatter rewrites them. The classes are declared once, in 
 ([ADR-PRIN-CONFIG#4](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config4)). A tracked file deleted from the working
 tree is left out.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to narrow the scope to. Omitted: every tracked file.
 

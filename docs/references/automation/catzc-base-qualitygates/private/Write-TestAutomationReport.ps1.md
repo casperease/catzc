@@ -21,46 +21,46 @@ Rows — not a live Pester object — are the input because parallel workers red
 process boundary; counts are derived from the rows. The canonical machine artifacts (`results-shard-*.xml`) are written by Pester in the
 workers; this adds the at-a-glance view. The limit map is passed in so there is a single source of truth.
 
-### parameter Rows
+### parameter `Rows`
 
 The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The run directory the files are written into (created if missing).
 
-### parameter Level
+### parameter `Level`
 
 The -Level the run was invoked with (recorded in the header).
 
-### parameter RunResult
+### parameter `RunResult`
 
 The run's aggregate verdict ('Passed'/'Failed'), recorded in the header.
 
-### parameter DurationSeconds
+### parameter `DurationSeconds`
 
 The run's wall-clock duration in seconds, recorded in the header.
 
-### parameter Limits
+### parameter `Limits`
 
 Per-level millisecond limits keyed by tag (L0/L1/L2/L3) — the over-limit threshold per test level. Defaults to the `tests.level_ms` limits
 in timeouts.yml (Get-TestTimeLimits).
 
-### parameter RunBudgetSeconds
+### parameter `RunBudgetSeconds`
 
 The budget for the whole run, in seconds; the header records the run against it (a devbox run over it fails,
 [ADR-AUTO-TEST#44](../../../../adr/automation/test-automation.md#rule-adr-auto-test44)). Defaults to `tests.run_seconds` in timeouts.yml
 (Get-TestTimeLimits).
 
-### parameter SlowestCount
+### parameter `SlowestCount`
 
 How many slowest passed tests to list. Defaults to 20.
 
-### parameter TimingsEnforced
+### parameter `TimingsEnforced`
 
 Whether -EnforceTimings was set (annotates the over-limit section).
 
-### parameter Location
+### parameter `Location`
 
 Where the run executed — 'in-place', or the snapshot's provenance — recorded in the header when given.
 

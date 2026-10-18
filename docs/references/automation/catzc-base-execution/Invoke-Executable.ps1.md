@@ -37,49 +37,49 @@ The default (Stream) mode runs inside a time safeguard: a process that outlives 
 a TimeoutException. The limit is the executable's entry in timeouts.yml, or the run environment's pwsh limit (Get-TimeoutSeconds);
 -TimeoutSeconds sets it for one call. -Direct is the interactive mode — a person at the prompt is its safeguard — so it has no limit.
 
-### parameter Command
+### parameter `Command`
 
 The command string to execute.
 
-### parameter Direct
+### parameter `Direct`
 
 Raw execution with full color support. Output leaks to the pipeline. Use when colors matter or for interactive commands.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a Catzc.Base.Execution.CliResult object with Output, Errors, Full, ExitCode, and Raw. Not compatible with -Direct.
 
-### parameter AsBytes
+### parameter `AsBytes`
 
 Capture stdout as its exact bytes, for a binary stream such as `git cat-file --batch`: returns the CliResult with stdout in .Bytes (and an
 empty .Output), never echoed to the console. Not compatible with -Direct.
 
-### parameter TimeoutSeconds
+### parameter `TimeoutSeconds`
 
 The time limit for this call, in seconds. Defaults to the executable's limit from timeouts.yml (Get-TimeoutSeconds). Not compatible with
 -Direct.
 
-### parameter InputText
+### parameter `InputText`
 
 Written to the child's stdin, which is then closed: how one process reads a list that would overflow the command line.
 
-### parameter NoAssert
+### parameter `NoAssert`
 
 Skip the exit code assertion. The ExitCode is still available on the result object when combined with -PassThru.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the command log line and all console output. A silent run is non-interactive: the child gets an empty, closed stdin, so a prompt
 fails instead of waiting invisibly. A visible run gets the same when this session's stdin is not a terminal (a worker, an agent, a pipe),
 since no one could answer a prompt there.
 
-### parameter WorkingDirectory
+### parameter `WorkingDirectory`
 
 The directory to run the command in. Defaults to the repository root
 ($env:RepositoryRoot). Callers that need a specific directory should
 pass it explicitly rather than relying on $PWD.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the command string without executing. Used for testing.
 

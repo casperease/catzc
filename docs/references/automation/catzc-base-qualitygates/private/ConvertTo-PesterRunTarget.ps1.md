@@ -22,15 +22,15 @@ container, so the folder stays the run file of its tests.
 The bridge is read from the repository, not the code root: tests never ship, and the build run runs the repository's tests against the
 build.
 
-### parameter Path
+### parameter `Path`
 
 The run's paths, in run order.
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The engine entry of a build run (the build's Import-Catzc.ps1), handed to the bridge; empty for the source run.
 
-### parameter LanguageExecutable
+### parameter `LanguageExecutable`
 
 The managed tool per language the run's source session located (Get-LanguageTestExecutable: @{ go = `<path>`; python = `<uv path>`;
 `<engine>` = `<path>` per engine other than pwsh }), handed to the bridge; a missing or empty entry means there is none.

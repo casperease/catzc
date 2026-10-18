@@ -17,11 +17,11 @@ CLR values, an empty document as null), and an array is returned whole, never en
 not parse, throw a message naming the file, which a contract check reports as its finding
 ([ADR-REPO-CONTRACT#6](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract6)).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the path is relative to.
 
-### parameter Path
+### parameter `Path`
 
 The file, repository-relative and '/'-separated.
 

@@ -14,20 +14,20 @@ Asserts that a script block finishes within a time limit; past it the work is st
 The assertion form of Invoke-WithTimeout: the block's output is discarded, and the only outcome is pass (it finished in time) or throw (it
 was stopped at the limit, or it failed on its own).
 
-### parameter ScriptBlock
+### parameter `ScriptBlock`
 
 The work to time.
 
-### parameter Budget
+### parameter `Budget`
 
 The work's immutable budget GUID. While timeout-exemptions.yml exempts it, the default limit is the exemption ceiling instead.
 
-### parameter Seconds
+### parameter `Seconds`
 
 The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption ceiling (Get-TimeoutSeconds
 -Budget).
 
-### parameter Activity
+### parameter `Activity`
 
 What the work is, for the timeout message. Defaults to the script block's text.
 

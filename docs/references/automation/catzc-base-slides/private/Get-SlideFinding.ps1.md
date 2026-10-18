@@ -16,19 +16,19 @@ the kit holds and a whole-number order; the pattern's fields are filled within t
 knows; a body that quotes a rule carries the registry's text verbatim; and every text of every field is found in the rendered section.
 Nothing is fixed and nothing shrinks; each fault names the file and the field.
 
-### parameter Slide
+### parameter `Slide`
 
 A slide as Read-SlideFile returns it.
 
-### parameter Kit
+### parameter `Kit`
 
 The kit as Get-SlidesKit returns it.
 
-### parameter Page
+### parameter `Page`
 
 The slide's position in the deck, written where the pattern shows a page number.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root, for the ADR index and for the paths the faults name.
 

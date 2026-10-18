@@ -45,19 +45,19 @@ build.
 It ends through Write-QualityGateReport: the report goes to out/test-contracts/, every issue is printed, and the quality gate throws once
 listing them all; -PassThru returns the result instead.
 
-### parameter Version
+### parameter `Version`
 
 The current version folder of every unit, `<major>.<minor>.<patch>`. Default: 0.0.0, each unit's draft.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/ and the files the assets constrain. Default: the loaded repository root.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-contracts/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Version; Assets; PinnedAssets; FailedAssets; ReleasedFolders }) instead of
 throwing on issues. Assets counts every checked asset, PinnedAssets those of older releases among them.

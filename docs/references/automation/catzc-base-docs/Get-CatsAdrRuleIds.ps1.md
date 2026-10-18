@@ -23,7 +23,7 @@ A pure function of the files on disk, memoized per resolved index path for the s
 [ADR-AUTO-CACHE](../../../adr/automation/caching.md)). Built on the two existing ADR parsers rather than re-scanning the tree
 ([ADR-PRIN-REDUCEVAR](../../../adr/principles/reduce-variability.md)).
 
-### parameter IndexPath
+### parameter `IndexPath`
 
 Absolute path to the ADR index. Defaults to [index](../../../adr/index.md) under the repository root. ADR file paths in the index are
 resolved relative to the index's own folder, so a test can point this at a fixture index beside fixture ADR files; the cache keys on the

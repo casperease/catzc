@@ -15,10 +15,10 @@ Stops each holder Get-DotnetInstallHolder named — by process id, nothing else 
 released. A process that already exited is skipped. Refuses to stop the calling session itself. Throws when the install is still held
 afterwards (a process restarted, or a new holder appeared).
 
-### parameter InstallDir
+### parameter `InstallDir`
 
 The .NET install directory.
 
-### parameter Holder
+### parameter `Holder`
 
 The holders to stop, as Get-DotnetInstallHolder returned them.

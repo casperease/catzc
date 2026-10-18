@@ -18,11 +18,11 @@ never loaded, is an issue. So is a concrete class that still renders as its full
 ToString(), normally by delegating to Catzc.Base.Objects.ConsoleText (Test-ConsoleReadyType). The formatting of the files (file-scoped
 namespaces) is Test-Formatting's.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-shipped-types/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Types }) instead of throwing on issues.
 

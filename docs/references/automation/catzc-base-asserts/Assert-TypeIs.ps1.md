@@ -9,11 +9,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Asserts that an object is a specific .NET type.
 
-### parameter Object
+### parameter `Object`
 
 The object whose type to check.
 
-### parameter TypeFullName
+### parameter `TypeFullName`
 
 The expected full type name (e.g. 'System.String').
 

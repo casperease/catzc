@@ -15,7 +15,7 @@ Returns $true if the named extension is installed, $false otherwise. Uses `az ex
 so it never throws on a missing extension and never triggers a dynamic install. Companion to Assert-AzCliExtension, mirroring the
 Test-/Assert-AzCliConnected pair.
 
-### parameter Name
+### parameter `Name`
 
 The extension name (e.g. 'ip-group').
 

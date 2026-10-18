@@ -25,23 +25,23 @@ A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#ru
 Write-QualityGateReport, which writes out/test-links/, prints every issue, and throws once listing them all. Each issue reads
 '`<file>:<line>:<column>` `[<type>]` `<message>`'. It needs the source tree: it throws in build mode.
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to check. Default: every git-tracked file.
 
-### parameter Kind
+### parameter `Kind`
 
 Which link kinds to check: Code, Markdown, or Both (default).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root links resolve against. Default: the loaded repository root.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-links`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, FixableCount, InformationCount, ReportedCount, Reported })
 instead of throwing.

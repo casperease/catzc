@@ -19,19 +19,19 @@ and the raw configuration.
 
 Read-only — registering and removing policies is Register-AdoBuildValidation / Unregister-AdoBuildValidation.
 
-### parameter Branch
+### parameter `Branch`
 
 Return only the policies guarding this branch (e.g. 'main'). Omit for every branch.
 
-### parameter Project
+### parameter `Project`
 
 Azure DevOps project name. Defaults to the value in ado.yml.
 
-### parameter Organization
+### parameter `Organization`
 
 Azure DevOps organization URL. Defaults to the value in ado.yml.
 
-### parameter RepositoryName
+### parameter `RepositoryName`
 
 Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 

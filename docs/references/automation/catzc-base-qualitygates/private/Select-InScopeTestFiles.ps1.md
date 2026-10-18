@@ -20,15 +20,15 @@ failed to load — stays, so its worker still reports the failure instead of the
 for the caller to report as NotRun, as a worker would have: the skip report, tests.csv, and the rule coverage then read the same rows
 whether a file was loaded or not.
 
-### parameter Discovery
+### parameter `Discovery`
 
 The run's discovery-only Pester result (Get-TestDiscovery).
 
-### parameter ExcludeTag
+### parameter `ExcludeTag`
 
 The run's tier/category exclude tags (Get-TestExcludeTag).
 
-### parameter TestFiles
+### parameter `TestFiles`
 
 The run's candidate test files (absolute `*.Tests.ps1` paths), in run order; tests outside them are ignored.
 

@@ -17,19 +17,19 @@ history, so a remote ref at the same commit as the local branch carries the same
 token scan runs on the local branch instead of a mirror clone. A ref at any other commit is history the local scan never covered, so it
 fails the check.
 
-### parameter Url
+### parameter `Url`
 
 The remote to read, as a clone URL.
 
-### parameter Branch
+### parameter `Branch`
 
 The local branch that was pushed.
 
-### parameter RepositoryPath
+### parameter `RepositoryPath`
 
 The local clone the branch lives in.
 
-### parameter TimeoutSeconds
+### parameter `TimeoutSeconds`
 
 How long the network read may run; the caller passes its own limit.
 

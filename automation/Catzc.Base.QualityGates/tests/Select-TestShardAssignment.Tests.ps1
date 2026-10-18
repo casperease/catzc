@@ -1,7 +1,7 @@
 Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))
-        $script:path = { param($name) Join-Path $script:root "automation/Catzc.Widget/tests/$name.Tests.ps1" }
+        $script:path = { param($name) Join-Path $script:root "widgets/Catzc.Widget/tests/$name.Tests.ps1" }
         $script:assign = {
             param([string[]] $Files, [int] $Workers, [hashtable] $Durations)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = $Files; Workers = $Workers; Durations = $Durations; Root = $script:root } {
@@ -14,11 +14,11 @@ Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
     It 'deals the longest files first, each to the least-loaded shard, so the shards finish together' {
         $files = 'gadget', 'widget', 'sprocket', 'gizmo', 'cog' | ForEach-Object { & $script:path $_ }
         $durations = @{
-            'automation/Catzc.Widget/tests/gadget.Tests.ps1'   = 1000
-            'automation/Catzc.Widget/tests/widget.Tests.ps1'   = 9000
-            'automation/Catzc.Widget/tests/sprocket.Tests.ps1' = 5000
-            'automation/Catzc.Widget/tests/gizmo.Tests.ps1'    = 4000
-            'automation/Catzc.Widget/tests/cog.Tests.ps1'      = 1000
+            'widgets/Catzc.Widget/tests/gadget.Tests.ps1'   = 1000
+            'widgets/Catzc.Widget/tests/widget.Tests.ps1'   = 9000
+            'widgets/Catzc.Widget/tests/sprocket.Tests.ps1' = 5000
+            'widgets/Catzc.Widget/tests/gizmo.Tests.ps1'    = 4000
+            'widgets/Catzc.Widget/tests/cog.Tests.ps1'      = 1000
         }
         $shards = & $script:assign $files 2 $durations
         $shards | Should -HaveCount 2
@@ -29,8 +29,8 @@ Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {
     It 'weighs a file without history as the median of the known durations' {
         $files = 'widget', 'gadget', 'sprocket' | ForEach-Object { & $script:path $_ }
         $durations = @{
-            'automation/Catzc.Widget/tests/widget.Tests.ps1' = 9000
-            'automation/Catzc.Widget/tests/gadget.Tests.ps1' = 1000
+            'widgets/Catzc.Widget/tests/widget.Tests.ps1' = 9000
+            'widgets/Catzc.Widget/tests/gadget.Tests.ps1' = 1000
         }
         # The median of 1 s and 9 s is 9 s (the upper middle), so sprocket ties widget and keeps its given order after it.
         $shards = & $script:assign $files 3 $durations

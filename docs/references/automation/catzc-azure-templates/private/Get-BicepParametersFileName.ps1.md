@@ -19,15 +19,15 @@ where `<config>` is `<env>[-<slot>]` (Get-BicepConfigName). The artifact names m
 slots render into one build folder, and keying on the customer keeps them structurally collision-free ((customer?, env, slot) is unique)
 with no guard to remember. See [ADR-AZ-DATAMOD](../../../../adr/azure/azure-data-model.md).
 
-### parameter Environment
+### parameter `Environment`
 
 Environment name.
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator; omitted ⇒ the base slot.
 
-### parameter Customer
+### parameter `Customer`
 
 The customer (configuration subfolder) the slot belongs to; omitted/'' ⇒ a configuration-root slot.
 

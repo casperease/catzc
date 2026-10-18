@@ -27,28 +27,28 @@ The caller supplies only what is genuinely per-call: the resource Type and optio
 injected into the built parameter files (the PrePost seam); a name is derived, never typed into a config, so there is nothing to compare it
 against.
 
-### parameter Template
+### parameter `Template`
 
 Template name.
 
-### parameter Environment
+### parameter `Environment`
 
 Environment shortname.
 
-### parameter Type
+### parameter `Type`
 
 Resource-type abbreviation — a key of Get-AzureResourceTypeSet (`rg`, `st`, `kv`, ...).
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
 
-### parameter Customer
+### parameter `Customer`
 
 Optional customer, named by its key OR its 2-char shortcode (customer.yml). Its readable key renders in generous names and its 2-char
 shortcode in restricted ones — both resolved here (Get-AzureCustomer) and passed to the namer.
 
-### parameter Role
+### parameter `Role`
 
 Optional 2-3 char sibling discriminator among same-type resources (per resource).
 

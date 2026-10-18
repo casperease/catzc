@@ -9,11 +9,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Asserts that a value is not null, empty, or whitespace.
 
-### parameter Value
+### parameter `Value`
 
 The value to test. Evaluated via `[string]::IsNullOrWhiteSpace(`).
 
-### parameter ErrorText
+### parameter `ErrorText`
 
 Custom error message. Defaults to file and line info.
 

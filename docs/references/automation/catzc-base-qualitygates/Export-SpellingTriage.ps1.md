@@ -25,18 +25,18 @@ tokens reach the queue.
 
 cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
 
-### parameter Path
+### parameter `Path`
 
 Repository-relative paths or globs to scan (cspell expands a glob). Defaults to the repository's known text file types — the same scope
 Test-Spelling checks. cspell still applies the ignorePaths from cspell.yml.
 
-### parameter Exclude
+### parameter `Exclude`
 
 Globs to skip, passed to cspell as --exclude. Defaults to the authored/generated trees that are out of scope to spell-check, matching
 Test-Spelling so the tokens queued are exactly the tokens the gate flags. Mirror Test-Spelling's content-scope exclusions, so the tokens
 queued are exactly the tokens the gate flags. Third-party noise lives in cspell.yml ignorePaths, not here.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report which tokens would be queued without writing the triage file. The returned list is the same in either mode; -DryRun simply skips the
 write. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).

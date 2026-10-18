@@ -29,15 +29,15 @@ resets a key to its declared default), so a setting resolves caller → overlay 
 nothing when none does. A config several modules opt into by shipping it (glossary) is read by listing its owners and then reading each with
 -Module.
 
-### parameter Config
+### parameter `Config`
 
 The config's global lowercase name (kebab-case), without the .yml extension — e.g. 'ado', 'pipeline-env'.
 
-### parameter Module
+### parameter `Module`
 
 Disambiguates when the same config name exists in more than one module.
 
-### parameter ListOwners
+### parameter `ListOwners`
 
 Lists the owning modules' entries instead of loading the config.
 

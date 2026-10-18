@@ -32,23 +32,23 @@ Gates run from the repository root with repo-relative, '/'-separated paths. Ends
 out/test-change/, and the gate throws once listing every issue (or returns the result with -PassThru). -DryRun only plans: it returns the
 changed paths, the test files, and the checks, and runs nothing.
 
-### parameter Path
+### parameter `Path`
 
 The changed repo-relative, '/'-separated paths. Default: the working tree's changes (Get-GitChangedPath).
 
-### parameter WholeModule
+### parameter `WholeModule`
 
 Run every test file of each module a change touches (`automation/<Module>/tests/`), not only the test files that cover the changed files.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Plan only: return { Path; Tests; Checks } and run nothing.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-change).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Changed; Tests; Checks; Unattributed } instead of throwing on issues.
 

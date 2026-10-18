@@ -15,23 +15,23 @@ Renders a single Write-Header (a self-contained curved box) naming the run's sco
 when either is narrowed from the defaults. Test-Automation calls this before it sets the writers' suppression flag, so the banner renders
 and everything the run then emits — Pester's own lines, and the timing / report / skip sections below — sits under it.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The run's minimum tier (0-3), as Test-Automation resolved it.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The run's maximum tier (0-3).
 
-### parameter Category
+### parameter `Category`
 
 The run's category filter (Logic / Integrity / Both); named in the scope only when it is not Both.
 
-### parameter Modules
+### parameter `Modules`
 
 The modules the run was scoped to; named in the scope only when non-empty.
 
-### parameter Title
+### parameter `Title`
 
 The run's name on the banner: "Test Automation" (the source run, the default) or the build run's "Catzc Build Run"
 ([ADR-AUTO-TEST#30](../../../../adr/automation/test-automation.md#rule-adr-auto-test30)).

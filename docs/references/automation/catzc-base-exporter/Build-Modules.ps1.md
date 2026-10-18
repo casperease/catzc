@@ -33,38 +33,38 @@ package       exporter.yml module_guid + package.* -> the engine's PackageMetada
 -DryRun returns the engine's plan and writes nothing (so there is nothing to verify). Returns the engine's result (BuildRoot, Version,
 Modules, TypesHash, ContentHash, FileCount, Dirty, DryRun).
 
-### parameter Module
+### parameter `Module`
 
 Module names to build (closure-expanded by the engine), in place of the bundle's profile.
 
-### parameter Bundle
+### parameter `Bundle`
 
 The bundle to build (an exporter.yml bundles key). Defaults to default_bundle.
 
-### parameter ModuleProfile
+### parameter `ModuleProfile`
 
 A profiles.yml key whose modules to build (combinable with -Module). Defaults to the bundle's profile when -Module is not given. The
 bundle's profile, unless -Module names the selection. Read only when the bundle exists; an unknown bundle is rejected in the body with the
 list of bundles.
 
-### parameter VendorPolicy
+### parameter `VendorPolicy`
 
 The bundle's vendor policy. runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which
 runs the tests against the build). Defaults to the bundle's vendor_policy.
 
-### parameter Version
+### parameter `Version`
 
 'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
 
-### parameter Destination
+### parameter `Destination`
 
 The parent folder the `Catzc/<version>/` build is written under. Defaults to `<Get-OutputRoot>/automation/built/<bundle>`.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the build plan without writing anything.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the local-version notice and the summary line.
 

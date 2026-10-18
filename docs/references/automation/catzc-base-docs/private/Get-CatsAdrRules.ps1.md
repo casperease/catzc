@@ -19,7 +19,7 @@ the rule ([ADR-REPO-VOCAB#1](../../../../adr/repository/controlled-vocabulary.md
 
 Private helper for Show-Cats and the glossary checks; not exported.
 
-### parameter AdrPath
+### parameter `AdrPath`
 
 Absolute path to the ADR markdown file.
 

@@ -13,11 +13,11 @@ Asserts that a file is free to open (not locked by another handle); throws other
 
 Throws when the file is locked. See Test-FileIsLocked for how lock state is determined and the Windows-vs-Unix locking caveat.
 
-### parameter Path
+### parameter `Path`
 
 Path to the file to assert is not locked.
 
-### parameter ErrorText
+### parameter `ErrorText`
 
 Optional message to throw instead of the default.
 

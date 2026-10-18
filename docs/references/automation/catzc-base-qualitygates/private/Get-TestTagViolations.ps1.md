@@ -24,7 +24,7 @@ they never read the shipped ADR tree.
 Returns one object per violating test: @{ Test; File; Reason }. Test-Automation calls this to enforce that every test carries exactly one
 tier and one category tag, and that any rule citation it carries is real. See the test-automation ADR.
 
-### parameter Discovery
+### parameter `Discovery`
 
 The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.
 

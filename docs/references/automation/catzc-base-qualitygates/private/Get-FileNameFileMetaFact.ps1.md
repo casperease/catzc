@@ -16,15 +16,15 @@ type, which the file-type kind writes ([ADR-REPO-FILEMETA#11](../../../../adr/re
 asserts that the three build the path back, so a path that is not made of them stops the run. A file directly in its module has no folder,
 so that key is left out of its head.
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

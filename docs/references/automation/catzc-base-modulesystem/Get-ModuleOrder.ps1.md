@@ -25,7 +25,7 @@ DependenciesConfig type already prevents at load).
 Test-Automation uses this to run module tests foundation-first, so a broken base module's failures surface before the dependents that
 cascade from it.
 
-### parameter Module
+### parameter `Module`
 
 The module names to order. Defaults to the modules of the code track (Get-CatzcModule).
 

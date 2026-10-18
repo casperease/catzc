@@ -15,7 +15,7 @@ The part of a run's terminal manifest (Write-TestRunManifest) that only the work
 duration, and where the run executed — `location` plus, for a snapshot, its provenance (Get-TestRunLocationSummary). A run that crashed
 before its workers returned has no worker run; it records no exit codes, a zero duration, and no location.
 
-### parameter WorkerRun
+### parameter `WorkerRun`
 
 Invoke-TestAutomationWorkers' result, or $null.
 

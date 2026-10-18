@@ -25,11 +25,11 @@ returns nothing. Live bicep templates are out of scope here — use Get-BicepTem
 private getters ([ADR-AUTO-CACHE](../../../adr/automation/caching.md)); the module and verb areas read the loaded modules' exports, so they
 answer the same in source mode and build mode.
 
-### parameter Area
+### parameter `Area`
 
 What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.
 
-### parameter Query
+### parameter `Query`
 
 Narrows the area: an ADR code/title substring for 'adr', a module-name substring for 'module'. Ignored by 'verbs' and the overview.
 

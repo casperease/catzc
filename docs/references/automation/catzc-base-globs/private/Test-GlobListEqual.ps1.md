@@ -17,15 +17,15 @@ order-independent (union include minus union exclude), so a set comparison is co
 ('!' negation), so -Ordered compares element by element. Matching is case-sensitive (tracked paths are case-sensitive identities,
 [ADR-FLOW-CD-GLOBS#2](../../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2)).
 
-### parameter Reference
+### parameter `Reference`
 
 The expected pattern list.
 
-### parameter Difference
+### parameter `Difference`
 
 The actual pattern list.
 
-### parameter Ordered
+### parameter `Ordered`
 
 Compare element by element (GitHub); omit for a set comparison (ADO).
 

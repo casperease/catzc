@@ -20,7 +20,7 @@ the dependents that cascade from it; dot-prefixed infrastructure (.internal, .sc
 if the graph cannot be sorted (a malformed or cyclic dependencies.yml, which its OWN tests then report), it falls back to the ordinal order
 so the test run still proceeds rather than the runner crashing on the config it is testing.
 
-### parameter Modules
+### parameter `Modules`
 
 Narrow to the named automation modules' tests folders and language test folders. Dot-prefixed infrastructure is never a named module, so it
 is included only in the unfiltered case. Empty (the default) includes everything.

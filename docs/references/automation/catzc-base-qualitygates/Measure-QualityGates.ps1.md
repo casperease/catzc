@@ -20,15 +20,15 @@ With -AnalyzerRules it times the analyzer instead: each PSScriptAnalyzer rule th
 -Every'th file of the analyzed files (Get-AutomationSourceFiles). The repository's custom checks run through one entry rule
 (Measure-CatzcRules) and are timed as that one row.
 
-### parameter Name
+### parameter `Name`
 
 The quality gates to time. Default: every gate a language's `checks` names in languages.yml.
 
-### parameter AnalyzerRules
+### parameter `AnalyzerRules`
 
 Time each analyzer rule instead of the gates.
 
-### parameter Every
+### parameter `Every`
 
 With -AnalyzerRules: analyze every Nth file (1 = all of them). Default 8, a sample that keeps the run short.
 

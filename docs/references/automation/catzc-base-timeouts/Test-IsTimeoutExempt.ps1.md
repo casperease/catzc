@@ -13,11 +13,11 @@ Tests whether a budget GUID is exempt from its normal time limit in this run env
 
 The boolean form of Get-TimeoutExemption, which defines the lookup.
 
-### parameter Budget
+### parameter `Budget`
 
 The budget's immutable GUID.
 
-### parameter Shell
+### parameter `Shell`
 
 The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
 

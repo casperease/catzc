@@ -22,23 +22,23 @@ First line always shows the type name and size where relevant.
 
 Suppressed during Pester test runs (like Write-Message) to keep test output clean.
 
-### parameter Object
+### parameter `Object`
 
 The object to display. Accepts pipeline input.
 
-### parameter Name
+### parameter `Name`
 
 Optional label displayed above the output.
 
-### parameter NoHeader
+### parameter `NoHeader`
 
 Suppress the type info line and name label. Only the rendered value is shown.
 
-### parameter Depth
+### parameter `Depth`
 
 Maximum recursion depth for nested objects. Defaults to 10.
 
-### parameter ForegroundColor
+### parameter `ForegroundColor`
 
 Color for the output. Defaults to DarkGray.
 

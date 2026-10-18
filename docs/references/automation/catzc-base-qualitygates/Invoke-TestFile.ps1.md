@@ -39,37 +39,37 @@ outside the repository, and says so (Resolve-TestRunMaxLevel,
 [ADR-AUTO-TEST#33](../../../adr/automation/test-automation.md#rule-adr-auto-test33)). The opt-in L4 tests run only with -MaxLevel 4
 ([ADR-AUTO-TEST#41](../../../adr/automation/test-automation.md#rule-adr-auto-test41)).
 
-### parameter Path
+### parameter `Path`
 
 The test file(s) to run — absolute, or repository-root-relative (never resolved against $PWD; see
 [ADR-AUTO-NOPWD](../../../adr/automation/never-depend-on-pwd.md)).
 
-### parameter FullNameFilter
+### parameter `FullNameFilter`
 
 Filter to tests whose full name contains this text (wrapped in wildcards) — the manual-test-plan row's FullNameFilter column, verbatim.
 
-### parameter Output
+### parameter `Output`
 
 Pester output verbosity inside the worker. Defaults to 'Detailed' — a hand-run wants one line per test.
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The highest tier to run (alias: -Level): 3 by default, every tier but the opt-in L4; 4 runs the file's L4 tests too.
 
-### parameter TimeoutSeconds
+### parameter `TimeoutSeconds`
 
 Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to this function's `[TimeLimit]` (360 s on a devbox, 600 s in
 a pipeline), unless timeouts.yml overrides it ([ADR-PWSH-ASSERT#1](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)).
 
-### parameter Isolated
+### parameter `Isolated`
 
 Run in a snapshot of the working folder even when it is free — immune to edits made while it runs.
 
-### parameter KeepSandbox
+### parameter `KeepSandbox`
 
 Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Result, ExitCode, Rows, RunDirectory, Location }) instead of nothing. Rows are the worker's per-test rows (the
 same shape Test-Automation aggregates; File paths are working-folder paths even for a snapshot run) — the live Pester object cannot cross

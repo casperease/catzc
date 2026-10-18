@@ -17,11 +17,11 @@ declare, the parameter subsections out of the `param` order, and an `outputs` te
 comment-based help block in the file and a help line made of nothing but a citation are reported too. The file is read with the PowerShell
 parser, so a comment inside a string is never mistaken for help; a file that does not parse is no help fault and yields nothing.
 
-### parameter Text
+### parameter `Text`
 
 The text of one PowerShell function file or script.
 
-### parameter PageText
+### parameter `PageText`
 
 The text of the file's comment page, or nothing when the file has none.
 

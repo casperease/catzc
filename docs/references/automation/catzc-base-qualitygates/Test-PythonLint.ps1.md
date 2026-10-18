@@ -20,11 +20,11 @@ workspace's settings (Invoke-PythonWorkspaceTool). Every finding is one issue, a
 Ends with Write-QualityGateReport: the report lands in out/test-python-lint/, and the gate throws once listing every issue (or returns the
 result with -PassThru). Needs the managed uv only when the repository holds Python, and the source tree (Assert-SourceTree).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-python-lint).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Files } instead of throwing on issues.
 

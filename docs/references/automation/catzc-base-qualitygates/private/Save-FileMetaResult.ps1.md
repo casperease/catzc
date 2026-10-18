@@ -15,15 +15,15 @@ The one writer behind Format-FileMeta and the file-meta imprint step, so the two
 
 It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
 
-### parameter Result
+### parameter `Result`
 
 What Invoke-FileMetaEngine returned.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the result's paths are relative to.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without writing any file.
 

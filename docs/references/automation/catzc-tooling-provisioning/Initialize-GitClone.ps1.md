@@ -23,12 +23,12 @@ changes. Idempotent: a setting that already holds the desired value is left unto
 git identity (user.name / user.email) resolves to nothing, with the exact commands to set it — commits (including the janitor's automatic
 ones) fail without an identity.
 
-### parameter Repository
+### parameter `Repository`
 
 Path to the cloned repository to configure. Defaults to this repository's root, so the zero-argument call configures the clone the session
 runs from.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the `git config` commands that would run, without executing them.
 

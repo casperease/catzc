@@ -25,7 +25,7 @@ positively confirmed, over a resolvable range, that the set is untouched. An und
 ambiguity, so it throws (fail-fast, [ADR-AUTO-FAILFAST](../../../adr/automation/fail-fast-with-asserts.md)) rather than silently reporting
 "not affected" and skipping.
 
-### parameter Name
+### parameter `Name`
 
 The globset — typically a deployable unit — to test.
 

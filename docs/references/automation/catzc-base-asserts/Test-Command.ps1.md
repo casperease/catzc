@@ -9,7 +9,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Tests whether a command exists in the current session.
 
-### parameter Command
+### parameter `Command`
 
 The command name to check.
 

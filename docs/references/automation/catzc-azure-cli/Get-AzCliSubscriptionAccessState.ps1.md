@@ -34,7 +34,7 @@ Returns an ordered dictionary:
 `accessible` is true only when the scoped ARM probe exits zero. On failure, `logged_in` distinguishes "not logged in at all" from "logged in
 but no access to this subscription" (a local `az account show`, run only on the error path) so callers can name the right remediation.
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID the current login must be able to reach.
 

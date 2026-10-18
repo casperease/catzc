@@ -25,19 +25,19 @@ This is a pure renderer: it returns the content and writes nothing — it is the
 .vscode/settings.json target, and Build-RootConfig owns the write. It reads only its own registry, never rootconfig.yml, so the dependency
 edge stays one-way (RootConfig -> VSCode; see [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)).
 
-### parameter ManagedTarget
+### parameter `ManagedTarget`
 
 The managed root-config target paths to complete `search.exclude` with (repo-root-relative). Supplied by the generator dispatch; empty
 renders the authored settings alone.
 
-### parameter MachineSetting
+### parameter `MachineSetting`
 
 Settings resolved on this machine at render time, added after the authored ones (an authored key wins). Supplied by the generator dispatch:
 `go.goroot`, the managed Go toolchain, so the Go extension and gopls run the pinned go rather than whichever go comes first on PATH; and
 `python.defaultInterpreterPath`, the Python test project's environment in this platform's layout. settings.json is a gitignored, per-machine
 copy, so a machine path is in place there.
 
-### parameter LanguageFormatter
+### parameter `LanguageFormatter`
 
 The editor formatter of each language, VS Code language id -> extension id, rendered as that language's `[<id>].editor.defaultFormatter`.
 Supplied by the generator dispatch from the file-language registry, so Format Document runs the engine Format-Code runs

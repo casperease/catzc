@@ -18,7 +18,7 @@ function only deals with the resulting plain string, not YAML syntax.
 
 This function normalizes the string for safe use with `[ScriptBlock]::Create(`).
 
-### parameter Command
+### parameter `Command`
 
 The raw command string as received from ADO pipeline arguments.
 

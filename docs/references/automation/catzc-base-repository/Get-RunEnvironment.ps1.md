@@ -15,7 +15,7 @@ The environment axis of devbox/pipeline parity ([ADR-AUTO-PARITY](../../../adr/a
 seam, Test-IsRunningInPipeline. It answers where the run happens; who drives it (a person or an agent) is Get-SessionActor's question.
 Environment-dependent settings, such as the time-safeguard limits, key on this.
 
-### parameter EnvironmentAssertIs
+### parameter `EnvironmentAssertIs`
 
 Pins the expected environment: the detected one is still returned, and a different one throws. The guard verifies, it never selects.
 

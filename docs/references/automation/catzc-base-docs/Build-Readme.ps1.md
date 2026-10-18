@@ -25,21 +25,21 @@ source tree, so it runs in source mode only (Assert-SourceTree); a session runni
 See [ADR-REPO-README](../../../adr/repository/generated-readmes.md) and
 [ADR-CONF-LOADING](../../../adr/configuration/module-config-loading.md).
 
-### parameter Folder
+### parameter `Folder`
 
 Generate only the mapping whose target folder equals this repo-relative path (e.g. 'automation/Catzc.Azure.DevOps'). Throws when it matches
 no mapping. Default: every mapping.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without touching the filesystem. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
-### parameter Silent
+### parameter `Silent`
 
 The per-README status lines are verbose-level — shown only when this function is run with -Verbose. -Silent suppresses them entirely, even
 under -Verbose (used by the importer tail so a session with -Verbose on does not chatter during import).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return one result object per README ({ Folder, Source, Readme, Changed, DryRun }) instead of the paths.
 

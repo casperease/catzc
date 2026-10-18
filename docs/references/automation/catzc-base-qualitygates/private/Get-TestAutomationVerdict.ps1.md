@@ -17,47 +17,47 @@ reads Failed even though the test verdict passed — and a Summary reason: the c
 a failed shard with no failed test row, a devbox run over its whole-run budget, or an -EnforceTimings over-limit). Extracted from
 Test-Automation so the reason wording lives once and the orchestrator stays a single, readable responsibility.
 
-### parameter Rows
+### parameter `Rows`
 
 The run's aggregated per-test rows — the over-limit count is recomputed from these on the timing path.
 
-### parameter Limits
+### parameter `Limits`
 
 The per-level millisecond limits, for the over-limit count.
 
-### parameter RunResult
+### parameter `RunResult`
 
 The test verdict ('Passed'/'Failed') from the rows, before folding in the timing verdict.
 
-### parameter FailedCount
+### parameter `FailedCount`
 
 The failed-test-row count.
 
-### parameter FailedShardLabels
+### parameter `FailedShardLabels`
 
 Labels of shards that reported a failed run with no failed test row (a container/discovery error).
 
-### parameter TimingFailure
+### parameter `TimingFailure`
 
 Whether -EnforceTimings failed the run on an over-limit test.
 
-### parameter BudgetFailure
+### parameter `BudgetFailure`
 
 Whether a devbox run outlasted its whole-run budget (tests.run_seconds), which fails it.
 
-### parameter RunBudgetSeconds
+### parameter `RunBudgetSeconds`
 
 The whole-run budget, for the budget-failure wording.
 
-### parameter PassedCount
+### parameter `PassedCount`
 
 Passed-test count, for the pass summary wording.
 
-### parameter SkippedCount
+### parameter `SkippedCount`
 
 Skipped-test count, for the pass summary wording.
 
-### parameter DurationSeconds
+### parameter `DurationSeconds`
 
 Wall-clock duration, for the pass summary wording.
 

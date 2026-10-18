@@ -22,23 +22,23 @@ ContractsConfig.ResolveTargetRoot picks from -TargetRoot
 ([ADR-REPO-CONTRACT#2](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)). Assets come in ordinal order of module, then
 path.
 
-### parameter Unit
+### parameter `Unit`
 
 The deployable-unit folder name.
 
-### parameter Version
+### parameter `Version`
 
 The unit's version folder name.
 
-### parameter Folder
+### parameter `Folder`
 
 The version folder's absolute path.
 
-### parameter TargetRoot
+### parameter `TargetRoot`
 
 The target roots, module name to repository-relative folder. A module it does not name takes the repository root.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root, in which a module that holds a command contract is resolved to its root (Get-ContractCommandRoot), once per module and
 only when the module folder holds one.

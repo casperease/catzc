@@ -32,11 +32,11 @@ Returns an ordered dictionary:
 `logged_in` is false when `az account show` exits non-zero; `connected` additionally requires every supplied component (subscription and/or
 tenant) to match.
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID the session must be set to.
 
-### parameter TenantId
+### parameter `TenantId`
 
 The tenant GUID the session must be in. Optional alongside a subscription; required on its own.
 

@@ -27,23 +27,23 @@ records both parents, so `git log` reaches every source commit.
 
 It rests on [ADR-AUTO-DRYRUN#2](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun2).
 
-### parameter Source
+### parameter `Source`
 
 The repository to import, a local path or a URL.
 
-### parameter Name
+### parameter `Name`
 
 The landing name, a short kebab word. Default: the source's folder or repository name in kebab case.
 
-### parameter Ref
+### parameter `Ref`
 
 The source ref to import. Default: the source's default branch (its HEAD).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository the import lands in. Default: the loaded repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Resolve and check everything, report the landing address, and write nothing.
 

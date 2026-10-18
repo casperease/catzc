@@ -19,11 +19,11 @@ inside an inline code span never does.
 
 Private helper for the glossary checks; not exported.
 
-### parameter Entry
+### parameter `Entry`
 
 The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 
-### parameter IndexPath
+### parameter `IndexPath`
 
 Absolute path to the ADR index whose ADRs hold the rules. Defaults to [index](../../../../adr/index.md); a test points it at a fixture index
 beside fixture ADR files.

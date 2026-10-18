@@ -16,11 +16,11 @@ formatting — then applies links.yml's line_limit overrides on top. An extensio
 ([ADR-AUTO-DEFAULT#6](../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default6)), which the caller passes to the engine
 separately.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root whose .editorconfig is read; a missing file yields only the overrides.
 
-### parameter Override
+### parameter `Override`
 
 links.yml's line_limit map (extension -> limit).
 

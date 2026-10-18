@@ -31,15 +31,15 @@ clean whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs: the settings, t
 oracle's word lists) are unchanged since ([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)); only clean
 files are recorded, so a cached run reports exactly the diagnostics a full run would. A pipeline starts without the cache.
 
-### parameter Path
+### parameter `Path`
 
 The files to analyze.
 
-### parameter SettingsPath
+### parameter `SettingsPath`
 
 Path to the PSScriptAnalyzerSettings.psd1 to apply.
 
-### parameter NoCache
+### parameter `NoCache`
 
 Analyze every file, ignoring the result cache (which is still refreshed).
 

@@ -25,11 +25,11 @@ vendored analyzer and its settings ship in the code tree, so both resolve from t
 ([ADR-AUTO-ASSETDEP#1](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)); the first use in a session
 imports the analyzer, which takes seconds and is announced.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the PowerShell files to format.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files that would change without writing them.
 

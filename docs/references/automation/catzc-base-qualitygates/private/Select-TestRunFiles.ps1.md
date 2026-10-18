@@ -27,31 +27,31 @@ The work-list stage of a test run (Invoke-TestRun), in order:
 Throws when -Rule or the opt-out tag leaves nothing to run. Tier and category scope may leave nothing; the run is then vacuously green, with
 every test reported as NotRun.
 
-### parameter TestPath
+### parameter `TestPath`
 
 The run's 'tests' folders.
 
-### parameter Discovery
+### parameter `Discovery`
 
 The run's discovery-only Pester result (Get-TestDiscovery).
 
-### parameter Rule
+### parameter `Rule`
 
 The wanted ADR rule citations ('`ADR-<CODE>#<n>`'); empty for no rule filter.
 
-### parameter ExcludeTag
+### parameter `ExcludeTag`
 
 The run's tier/category exclude tags (Get-TestExcludeTag).
 
-### parameter OptOutTag
+### parameter `OptOutTag`
 
 The run's opt-out tag(s); empty for none.
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run's folder, where the opt-out exclusion list is written.
 
-### parameter EntryPoint
+### parameter `EntryPoint`
 
 The entry point's name, for the error when the opt-out tag leaves nothing to run.
 

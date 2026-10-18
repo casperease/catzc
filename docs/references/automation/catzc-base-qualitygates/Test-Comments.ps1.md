@@ -22,19 +22,19 @@ What the configured thresholds are is comments.yml's
 ([ADR-PRIN-CONFIG#1](../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)). A source-tree tool: it throws in build mode
 (Assert-SourceTree).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to check. Default: every file in scope.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root paths and pages resolve against. Default: the loaded repository root.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Default: the reports.yml folder for this gate.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the report object instead of throwing on issues.
 

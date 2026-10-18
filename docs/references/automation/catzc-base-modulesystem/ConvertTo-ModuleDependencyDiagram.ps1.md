@@ -21,11 +21,11 @@ Serializes ModuleDependencyEdge objects (from Get-ModuleDependencyEdges) to the 
 
 The format is a typed parameter (ModuleDependencyFormat), so `-As <TAB>` validates and tab-completes.
 
-### parameter Edge
+### parameter `Edge`
 
 The edges to render (pipeline). Produced by Get-ModuleDependencyEdges.
 
-### parameter As
+### parameter `As`
 
 Output format: Json | Yaml | Markdown | Puml. Defaults to Puml.
 

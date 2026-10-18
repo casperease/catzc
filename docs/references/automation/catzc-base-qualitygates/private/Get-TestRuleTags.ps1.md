@@ -18,7 +18,7 @@ every well-formed citation across the test's own It-tags and every ancestor bloc
 strictly well-formed '`ADR-<CODE>#<n>`' citations contribute; a malformed one is left for Get-TestTagViolations to reject rather than
 silently entering a coverage row. See the test-automation ADR.
 
-### parameter Test
+### parameter `Test`
 
 A Pester test object (a discovery-pass test, or an item of $result.Tests). Its .Tag and .Block chain carry the tags.
 

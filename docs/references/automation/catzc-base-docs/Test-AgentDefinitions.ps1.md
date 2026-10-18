@@ -42,11 +42,11 @@ Get-Config -Config capabilities, a CapabilitiesConfig), and the `## Sub-agents` 
 The registries' own shape (citation and command spelling, distinct names, a standard that names an entry, the roofs) is an AgentsConfig or
 CapabilitiesConfig construction rule, not this gate's.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-agent-definitions/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Agents; Files; Capabilities }) instead of throwing on issues.
 

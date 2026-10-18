@@ -20,7 +20,7 @@ Unlike Test-AzCliConnected (which asks "is this subscription the active one?"), 
 independent of the active context — the question to ask before a call that supplies `--subscription <id>`. See
 [ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID the current login must be able to reach.
 

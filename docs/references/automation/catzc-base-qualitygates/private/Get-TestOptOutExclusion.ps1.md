@@ -19,19 +19,19 @@ category is already excluded by the run's level/category filter is out of scope 
 returns the files left with nothing to run (every in-scope test carries the tag), which the caller drops from the work-list so no worker
 loads the modules for an empty file.
 
-### parameter Discovery
+### parameter `Discovery`
 
 The run's discovery-only Pester result (Get-TestDiscovery).
 
-### parameter Tag
+### parameter `Tag`
 
 The opt-out tag(s) — 'source-only' for the build run.
 
-### parameter ExcludeTag
+### parameter `ExcludeTag`
 
 The run's tier/category exclude tags (Get-TestExcludeTag); tests resolving to one of them are out of scope.
 
-### parameter TestFiles
+### parameter `TestFiles`
 
 The run's test files; tests outside them are ignored.
 

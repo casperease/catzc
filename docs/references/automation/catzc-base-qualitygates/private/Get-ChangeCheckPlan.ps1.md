@@ -17,11 +17,11 @@ registry (Get-FileLanguage -Path), and its language's `checks` list (languages.y
 order a gate first appears, each with the changed files it applies to. A file with no file language, or whose language names no check,
 contributes nothing; a deleted file is skipped.
 
-### parameter Path
+### parameter `Path`
 
 The changed repo-relative, '/'-separated paths.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the paths are relative to.
 

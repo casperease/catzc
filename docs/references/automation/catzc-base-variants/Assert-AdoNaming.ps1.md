@@ -14,11 +14,11 @@ Asserts the repo's Azure resource-name order (the `ado_naming` variant) is the o
 The throwing companion to Test-AdoNaming. Pass exactly one of -Standard or -Classic; throws (naming the actual order and where to change it)
 when the repo's order does not match. Guards a code path that only holds under one naming convention.
 
-### parameter Standard
+### parameter `Standard`
 
 Require the 'standard' order.
 
-### parameter Classic
+### parameter `Classic`
 
 Require the 'classic' order.
 

@@ -19,7 +19,7 @@ neither anchors nor defines a term. This is the one text the anchoring (G2) and 
 
 Private helper for the glossary checks; not exported.
 
-### parameter IndexPath
+### parameter `IndexPath`
 
 Absolute path to the ADR index. ADR paths in it resolve against the index's own folder, so a test can point this at a fixture index beside
 fixture ADR files.

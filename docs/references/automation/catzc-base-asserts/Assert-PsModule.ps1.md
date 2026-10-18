@@ -9,11 +9,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Asserts that a PowerShell module is available.
 
-### parameter Module
+### parameter `Module`
 
 The module name to look up via Get-Module -ListAvailable.
 
-### parameter ErrorText
+### parameter `ErrorText`
 
 Optional message to throw instead of the default.
 

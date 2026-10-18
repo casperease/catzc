@@ -16,11 +16,11 @@ stamp instead: the gz and its stamp both exist, the stamp's cspell version match
 matches the gz's line count. Each failure is one reason; none means the list is current. Test-GeneratedFiles turns each reason into one
 issue.
 
-### parameter AssetsFolder
+### parameter `AssetsFolder`
 
 The folder holding english.txt.gz and english.stamp (the QualityGates module's assets/ in the repository).
 
-### parameter PinnedCspell
+### parameter `PinnedCspell`
 
 The cspell version tools.yml pins (a prefix: '10' matches a stamp of '10.0.1').
 

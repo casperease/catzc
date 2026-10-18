@@ -30,15 +30,15 @@ identities live in the repository's tests/, so the source-tree guard (Assert-Sou
 
 It rests on [ADR-REPO-LANG](../../../adr/repository/domain-language-separation.md).
 
-### parameter Path
+### parameter `Path`
 
 Config files to check. Defaults to every module `configs/*.yml` (except the terminology registry) and every `infrastructure/**` yml.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-config-identity-hygiene`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount; LiveTokens }) instead of throwing.
 

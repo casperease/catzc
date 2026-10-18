@@ -17,11 +17,11 @@ module's files are listed: the folder itself, or nothing for a file module. Priv
 
 It rests on [ADR-AUTO-MODULE#1](../../../../adr/automation/module-model.md#rule-adr-auto-module1).
 
-### parameter Place
+### parameter `Place`
 
 The ModulePlace of the module type.
 
-### parameter Directory
+### parameter `Directory`
 
 The directory on disk that holds the place's root.
 

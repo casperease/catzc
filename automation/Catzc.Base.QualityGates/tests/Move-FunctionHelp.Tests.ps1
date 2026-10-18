@@ -1,9 +1,9 @@
 Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'help-repository'
-        $script:codePath = 'automation/Catzc.Widget/Get-Widget.ps1'
+        $script:codePath = 'widgets/Catzc.Widget/Get-Widget.ps1'
         $script:pagePath = "docs/references/$($script:codePath).md"
-        $script:headed = "<#`n---`ncatzc:`n  immutable:`n    path: automation/Catzc.Widget/Get-Widget.ps1`n  config:`n    synopsis: Gets a widget.`n    parameters:`n      Name: The widget name.`n---`n#>`n`nfunction Get-Widget {`n    param([string] `$Name)`n}`n"
+        $script:headed = "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Widget.ps1`n  config:`n    synopsis: Gets a widget.`n    parameters:`n      Name: The widget name.`n---`n#>`n`nfunction Get-Widget {`n    param([string] `$Name)`n}`n"
         $script:move = {
             param([switch] $DryRun)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Path = $script:codePath; DryRun = [bool] $DryRun } {
@@ -15,7 +15,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
 
     BeforeEach {
         Remove-Item -LiteralPath $script:widgetRoot -Recurse -Force -ErrorAction Ignore
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'automation/Catzc.Widget')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'widgets/Catzc.Widget')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath), $script:headed)
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comments' } {
             $comments = [pscustomobject]@{}
@@ -28,9 +28,10 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $result = & $script:move
         $result.Moved | Should -BeTrue
         $page = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:pagePath))
-        $page | Should -BeLike "# automation/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file*`n`n## help`n`n### synopsis`n`nGets a widget.`n`n### parameter ``Name```n`nThe widget name.`n"
+        $page.StartsWith("# widgets/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file") | Should -BeTrue
+        $page.EndsWith("`n`n## help`n`n### synopsis`n`nGets a widget.`n`n### parameter ``Name```n`nThe widget name.`n") | Should -BeTrue
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $script:codePath)) |
-            Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: automation/Catzc.Widget/Get-Widget.ps1`n---`n#>`n`nfunction Get-Widget {`n    param([string] `$Name)`n}`n"
+            Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Widget.ps1`n---`n#>`n`nfunction Get-Widget {`n    param([string] `$Name)`n}`n"
     }
 
     It 'puts the help before the comment sections of an existing page and keeps them as they are' -Tag 'ADR-REPO-COMMENTS#6' {

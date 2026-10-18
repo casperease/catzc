@@ -20,7 +20,7 @@ its file name). The link engine derives every code link's destination from it
 A pure function of the files on disk, memoized per resolved repository root for the session (re-run the importer to refresh — see
 [ADR-AUTO-CACHE](../../../adr/automation/caching.md)); a test passes a fixture root, so the fixture map and the real one never collide.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root whose [index](../../../adr/index.md) is read. Defaults to the loaded repository root.
 

@@ -30,7 +30,7 @@ The build's integrity guard ([ADR-AUTO-BUNDLE#5](../../../adr/automation/platfor
 Collects every violation and throws once. Build-Modules runs it on its own output; Install-Catzc runs it on the build before touching a
 destination.
 
-### parameter Path
+### parameter `Path`
 
 The build root to verify (the `Catzc/<version>/` folder).
 

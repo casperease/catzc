@@ -15,7 +15,7 @@ The head's config gives the pattern, the deck, the order and, when the body quot
 codes the slide cites; the body is parsed by SlideSource into the title and the fields (ADR-REPO-SLIDES#1). A file that does not exist fails
 at once; a head key that is missing is left empty for the checks to report.
 
-### parameter Path
+### parameter `Path`
 
 The slide file, as an absolute path.
 

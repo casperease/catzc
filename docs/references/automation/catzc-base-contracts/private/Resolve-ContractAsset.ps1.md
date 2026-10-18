@@ -25,36 +25,36 @@ Zero ceremony ([ADR-AUTO-ZERO](../../../../adr/automation/zero-ceremony-poka-yok
   constrains a real repository file is DependedOn; a sample payload, the schema that applies to it, and a command contract are Provided. An
   entry for `<module>/<path>` in -Override replaces the convention.
 
-### parameter Unit
+### parameter `Unit`
 
 The deployable-unit folder name.
 
-### parameter Version
+### parameter `Version`
 
 The unit's version folder name.
 
-### parameter Module
+### parameter `Module`
 
 The owning module folder name.
 
-### parameter Path
+### parameter `Path`
 
 The asset's path under its module folder, '/'-separated.
 
-### parameter File
+### parameter `File`
 
 The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
 
-### parameter TargetRoot
+### parameter `TargetRoot`
 
 The module's target root, repository-relative; the empty path is the repository root. Default: ContractsConfig's DefaultTargetRoot, the
 repository root.
 
-### parameter Override
+### parameter `Override`
 
 The version's contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.
 
-### parameter CommandRoot
+### parameter `CommandRoot`
 
 The module's root, repository-relative, where a command contract's command file sits as `<Verb-Noun>.ps1`
 ([ADR-REPO-CMDCONTRACT#3](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)); a command contract is Provided and

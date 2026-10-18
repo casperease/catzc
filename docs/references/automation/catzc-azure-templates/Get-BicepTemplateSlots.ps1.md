@@ -21,15 +21,15 @@ Returns an empty array when -Template is omitted/unknown or the template has onl
 Centralising it (like Get-BicepTemplateNames does for -Template) keeps the completer scriptblocks one-liners and avoids the `[ordered]-dict`
 / comma-wrapped Get-BicepTemplates enumeration traps.
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 
-### parameter Environment
+### parameter `Environment`
 
 Optional filter — return only slots configured for this environment name.
 
-### parameter Customer
+### parameter `Customer`
 
 Customer filter — only the slots of this customer's configuration subfolder (omitted/empty = the configuration-root, shared-platform slots).
 

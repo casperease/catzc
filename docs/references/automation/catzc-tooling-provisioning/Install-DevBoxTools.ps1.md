@@ -15,7 +15,7 @@ Installs all locked tool versions in dependency order (derived from DependsOn in
 tools that are already installed at the correct version. Tools at the correct version but installed outside the expected manager are left
 untouched with a message.
 
-### parameter Force
+### parameter `Force`
 
 Replace existing installations that are at the wrong version.
 

@@ -27,34 +27,34 @@ Throws when the runner reports a test the discovery did not list (a declaration 
 unreported; a listed case with no result fails with that message. A failure of the runner itself (go vet or ruff check, a package that does
 not build) propagates, which fails every test of the module with the tool output.
 
-### parameter Language
+### parameter `Language`
 
 The test language: go, python or bash.
 
-### parameter Module
+### parameter `Module`
 
 The catzc module whose tests run.
 
-### parameter Case
+### parameter `Case`
 
 The module's discovered cases (Get-GoTestCases, Get-PythonTestCases, Get-BashTestCases).
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The engine entry of a build run (the build's Import-Catzc.ps1); empty for the source run.
 
-### parameter Executable
+### parameter `Executable`
 
 The managed tool the run's source session located and checked against the pin (go, uv for python, the bash engine for bash), handed down
 through the shard and the bridge container; empty when there is none. The worker never locates the tool itself: a build run's engine does
 not carry the tools.yml entry.
 
-### parameter Engine
+### parameter `Engine`
 
 The execution engine the tests start ([ADR-AUTO-ENGINE](../../../../adr/automation/execution-engines.md)): one of the model's engines, pwsh
 by default. Every test runs once per engine.
 
-### parameter EngineExecutable
+### parameter `EngineExecutable`
 
 The engine's executable the run's source session located; empty for an engine it did not find, whose run of the tests then skips with
 `tool_<engine>_missing`. pwsh, the engine running the harness, needs none.

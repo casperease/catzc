@@ -18,23 +18,23 @@ pattern, a gap or a duplicate in the orders, an over-capacity field, a code the 
 registry are each reported with the file and the field; nothing shrinks and nothing is guessed. It never publishes: publishing the project
 tree to the artifact is a step a person takes after reading the render.
 
-### parameter Deck
+### parameter `Deck`
 
 The deck folder, repository-relative, such as docs/explanation/thesis/product-thesis.
 
-### parameter Kit
+### parameter `Kit`
 
 The slides kit folder, repository-relative. The default is the slides config's kit.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 Where the render lands. The default is the kit's render.out followed by the deck folder's name.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the deck and the kit are under.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result, with the faults, instead of only the files and the summary line.
 

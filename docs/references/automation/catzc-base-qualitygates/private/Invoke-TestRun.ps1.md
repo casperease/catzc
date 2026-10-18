@@ -24,88 +24,88 @@ pass in:
 - the entry point's name (-EntryPoint), which names the default report folder under out/, the protection key, and the failure message; and
   the banner title (-Title).
 
-### parameter EntryPoint
+### parameter `EntryPoint`
 
 The entry point's command name: 'Test-Automation' or 'Test-CatzcBuild'. Its key names the default report folder (out/test-automation,
 out/test-catzc-build) and prefixes the protection key.
 
-### parameter Title
+### parameter `Title`
 
 The banner title (Write-TestAutomationHeader).
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The lowest tier asked for; it must not exceed MaxLevel (Test-Automation's -MinLevel).
 
-### parameter MaxLevel
+### parameter `MaxLevel`
 
 The highest tier asked for; the run's location caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
 
-### parameter Modules
+### parameter `Modules`
 
 The modules whose tests/ folders run; empty runs every module plus the dot-prefixed infrastructure.
 
-### parameter Category
+### parameter `Category`
 
 Logic, Integrity or Both: which category of tests runs (Test-Automation's -Category).
 
-### parameter Workers
+### parameter `Workers`
 
 Explicit pool size; 0 sizes automatically (Test-Automation's -Workers).
 
-### parameter GreedyGroupSize
+### parameter `GreedyGroupSize`
 
 Greedy files run side by side in groups of this size; 0 reads greedy_group_size from test-policy.yml.
 
-### parameter TimeoutSeconds
+### parameter `TimeoutSeconds`
 
 The entry point's own limit (its `[TimeLimit]` through Get-TimeoutSeconds -Command); no default here.
 
-### parameter Output
+### parameter `Output`
 
 Pester output verbosity: Detailed, Normal, Minimal or Diagnostic (Test-Automation's -Output).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the aggregated per-test rows and the shard descriptors (Test-Automation's -PassThru).
 
-### parameter EnforceTimings
+### parameter `EnforceTimings`
 
 Fail the run when a test is over its time limit; by default over-limit tests are only reported (Test-Automation's -EnforceTimings).
 
-### parameter Rule
+### parameter `Rule`
 
 Narrows the run to the tests that cite these ADR rules (Test-Automation's -Rule).
 
-### parameter Suite
+### parameter `Suite`
 
 A test suite's name, when -Modules was resolved from one (Test-Automation -Suite); the context block names it.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 Report base; empty resolves to `<out>/<entry point in lowercase>`.
 
-### parameter OptOutTag
+### parameter `OptOutTag`
 
 Opt-out tags of this test run: tests carrying one are excluded, counted, and listed — never silently.
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The script each worker dot-sources to load the modules; empty is the source importer.
 
-### parameter EntryParameter
+### parameter `EntryParameter`
 
 Named arguments for -EntryScript.
 
-### parameter Isolated
+### parameter `Isolated`
 
 Run in a snapshot of the working folder even when it is free (Enter-TestRunLocation).
 
-### parameter KeepSandbox
+### parameter `KeepSandbox`
 
 Keep the snapshot (when the run used one) after the run, for a post-mortem.
 
-### parameter DiagnoseBlocking
+### parameter `DiagnoseBlocking`
 
 Stand a watchpoint (Assert-Wait) at four places in the startup, before the workers launch, to show where the thread or process stalls
 (Test-Automation's -DiagnoseBlocking). Each costs its full duration, so it is off by default.

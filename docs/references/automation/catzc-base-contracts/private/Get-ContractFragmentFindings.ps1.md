@@ -21,11 +21,11 @@ compare. Then, by the target's format (Get-ContractDataFormat):
 - any other text: every non-blank fragment line appears in the target in order, not necessarily adjacent, with trailing whitespace trimmed
   (ContractFragment.MatchLines).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the asset and its target are relative to.
 
-### parameter Asset
+### parameter `Asset`
 
 The fragment asset.
 

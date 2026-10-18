@@ -26,61 +26,61 @@ In a snapshot run the test files map to the same repository-relative paths insid
 importer (or the test run's entry script with its repository root mapped to the snapshot), and the run directory stays in the working
 folder's out/ — the shard results land home by construction, and the rows' File paths map back to working-folder paths before aggregation.
 
-### parameter ParallelFiles
+### parameter `ParallelFiles`
 
 The test files to shard across the pool (may be empty when only tagged files are in scope).
 
-### parameter GreedyFiles
+### parameter `GreedyFiles`
 
 The greedy-tagged test files — one single-file shard each, pooled after the parallel phase (may be empty).
 
-### parameter SerialFiles
+### parameter `SerialFiles`
 
 The serial-tagged test files for the final one-worker phase (may be empty).
 
-### parameter Location
+### parameter `Location`
 
 The location the test run claimed (Enter-TestRunLocation) — where the run executes. The caller releases it.
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run directory the shard scripts and their artifacts are written into.
 
-### parameter ExcludeTag
+### parameter `ExcludeTag`
 
 Tags excluded from every worker's run (from Get-TestExcludeTag).
 
-### parameter IncludeTag
+### parameter `IncludeTag`
 
 Tags every worker's run is limited to; empty runs every test the other filters keep.
 
-### parameter Verbosity
+### parameter `Verbosity`
 
 Pester output verbosity inside each worker.
 
-### parameter Workers
+### parameter `Workers`
 
 Explicit pool size; 0 sizes automatically — max(1, ProcessorCount / 4), never more than the file count.
 
-### parameter GreedyGroupSize
+### parameter `GreedyGroupSize`
 
 Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 
-### parameter TimeoutSeconds
+### parameter `TimeoutSeconds`
 
 Hard ceiling per execution phase; on expiry the pool is killed and the run throws. The entry point's own limit, passed down by
 Invoke-TestRun, with no default here.
 
-### parameter WorkerEnvironment
+### parameter `WorkerEnvironment`
 
 Extra environment variables for each worker's process (the L0/L1 tripwire) — never the parent's $env:.
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The run seam passed to every shard script (New-TestAutomationShardScript): empty loads the source importer; the build run passes the build's
 Import-Catzc.ps1.
 
-### parameter EntryParameter
+### parameter `EntryParameter`
 
 Named arguments for -EntryScript (the build run's @{ RepositoryRoot = `<repo>` }).
 

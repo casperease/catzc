@@ -17,7 +17,7 @@ wins over an agent, because an agent's run inside a pipeline is still a pipeline
 otherwise a person at a devbox. A person may change the machine and the repository on their own behalf — stop their stale sessions, commit
 generated files — while an agent leaves both to the person, and a pipeline only asserts.
 
-### parameter ActorAssertIs
+### parameter `ActorAssertIs`
 
 Pins the expected actor: the detected actor is still returned, and a different one throws. The guard verifies, it never selects.
 

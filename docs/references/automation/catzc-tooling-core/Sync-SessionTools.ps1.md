@@ -29,7 +29,7 @@ Get-ToolsStatus stays the authoritative, subprocess-backed classifier. Its outco
 under the key of the tool registry and the PATH it started from: a session that starts from the same PATH gets the PATH the pass left and
 the same advisory without probing a tool again, and a changed registry or PATH runs the pass anew.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress both advisory lines outright (even under -Verbose).
 

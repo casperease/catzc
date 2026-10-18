@@ -25,29 +25,29 @@ version control.
 
 It rests on [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and [ADR-FLOW-CD-TYPE](../../../adr/flow/pipeline-types.md).
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 
-### parameter Environment
+### parameter `Environment`
 
 Environment name — must be a defined environment in azure.yml (it may be one the template does not yet have a config for; that is the point
 of creating the slot).
 
-### parameter Parameters
+### parameter `Parameters`
 
 Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base / index-0 slot.
 
-### parameter Customer
+### parameter `Customer`
 
 Optional customer key (customer.yml) — the config subfolder to write under (`configuration/<customer>/`). Omitted writes the
 configuration-root (shared-platform) config. The coordinate must resolve to exactly one subscription (the same rule discovery enforces).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Preview only — returns the planned path and content without writing. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 

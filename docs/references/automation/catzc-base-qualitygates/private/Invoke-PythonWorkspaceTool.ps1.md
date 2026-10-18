@@ -21,11 +21,11 @@ uv is the managed uv (Resolve-ToolExecutable, the tools.yml `uv` entry), run wit
 interpreter; the variable is restored afterwards. Throws with "Run Install-Uv" when no uv at the pin is found, and with uv's output when the
 sync fails (a missing interpreter names Install-Python).
 
-### parameter Tool
+### parameter `Tool`
 
 The tool and its subcommand words, e.g. 'ruff format --check' or 'ruff check'.
 
-### parameter File
+### parameter `File`
 
 The files and folders to run it on, as full paths.
 

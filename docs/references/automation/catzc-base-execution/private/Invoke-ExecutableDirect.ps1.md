@@ -18,27 +18,27 @@ LASTEXITCODE lifecycle (reset, execute, assert, reset).
 
 -PassThru is accepted but ignored — there is nothing to return. Use the default (Stream) mode when you need structured output.
 
-### parameter Command
+### parameter `Command`
 
 The command string to execute.
 
-### parameter WorkingDirectory
+### parameter `WorkingDirectory`
 
 The directory to run the command in.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Accepted for signature compatibility. Ignored — Direct mode does not capture output.
 
-### parameter NoAssert
+### parameter `NoAssert`
 
 Skip the exit code assertion.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the command log line.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the command string without executing.
 

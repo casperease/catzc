@@ -17,11 +17,11 @@ default, and outer blocks are ignored once a nearer one contributes. Normally on
 axis (ambiguous), which callers treat as a tagging violation. Always returns an array (empty when nothing matches). Shared by
 Get-TestLevelTag (tier) and Get-TestCategoryTag (category) so the resolution logic has one home.
 
-### parameter Test
+### parameter `Test`
 
 A Pester test object (an item of $result.Tests). Its .Tag and .Block chain carry the tags.
 
-### parameter Valid
+### parameter `Valid`
 
 The axis's valid tags in canonical casing (e.g. 'L0','L1','L2','L3' or 'logic','integrity').
 

@@ -22,15 +22,15 @@ nothing absolute is baked in.
 Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root to generate importer.ps1 into (and whose overlay is read). Defaults to this repository.
 
-### parameter Force
+### parameter `Force`
 
 Overwrite an existing importer.ps1. Without it, an existing importer.ps1 is left untouched (throws).
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the generated shim content as a string without writing anything.
 

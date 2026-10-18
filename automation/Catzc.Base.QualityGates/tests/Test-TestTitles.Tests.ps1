@@ -2,7 +2,7 @@ Describe 'Test-TestTitles' -Tag 'L0', 'logic' {
     BeforeAll {
         function Set-FixtureFile {
             param([string] $Path, [string[]] $Line)
-            $full = Join-Path $TestDrive "repo/automation/$Path"
+            $full = Join-Path $TestDrive "repo/widget-modules/$Path"
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, ($Line -join "`n"))
         }
@@ -12,6 +12,7 @@ Describe 'Test-TestTitles' -Tag 'L0', 'logic' {
     BeforeEach {
         Remove-Item (Join-Path $TestDrive 'repo') -Recurse -Force -ErrorAction Ignore
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Set-FixtureFile 'Widget/tests/Get-Widget.Tests.ps1' @(
             "Describe 'Get-Widget' {"
@@ -39,7 +40,7 @@ Describe 'Test-TestTitles' -Tag 'L0', 'logic' {
         $thrown = { Test-TestTitles -OutputFolder $out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-TestTitles failed: 2 issue(s)*'
-        $message | Should -Match ([regex]::Escape("automation/Widget/tests/Get-Gadget.Tests.ps1: Context 'configs/$token.yml' has a template token"))
+        $message | Should -Match ([regex]::Escape("widget-modules/Widget/tests/Get-Gadget.Tests.ps1: Context 'configs/$token.yml' has a template token"))
         $message | Should -Match ([regex]::Escape("It 'expands $token' has a template token"))
     }
 

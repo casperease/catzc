@@ -17,19 +17,19 @@ lines the block is removed. Pure: it reads no file and no config, and it returns
 
 It rests on [ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
 
-### parameter Text
+### parameter `Text`
 
 The whole Markdown file as text.
 
-### parameter Immutable
+### parameter `Immutable`
 
 The place facts, an ordered dictionary of key to value; a value is a scalar.
 
-### parameter Edges
+### parameter `Edges`
 
 The outgoing edges, an ordered dictionary of edge name to value; a value is a scalar or a list of scalars.
 
-### parameter Key
+### parameter `Key`
 
 The front-matter key path of the block: catzc at the top level (the default), or a dotted path such as metadata.catzc where the carrier
 nests it under another tool's keys; a parent key the text lacks is written, a parent that holds a flow or scalar value is an error.

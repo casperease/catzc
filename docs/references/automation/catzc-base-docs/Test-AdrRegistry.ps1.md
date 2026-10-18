@@ -33,12 +33,12 @@ Write-QualityGateReport), prints its findings and their count, and never fails t
 The registry's own invariants (unique external codes, domain links that are declared and acyclic) are AdrsConfig construction rules, not
 this gate's.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-adr-registry/ (Write-QualityGateReport); a check in report mode writes under
 `<OutputFolder>/adr-<check>/` when it is given, else under its own default folder.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result instead of throwing on issues: { Subject; IssueCount; Issues; ReportPath; RuleSets; Files; CitationGraphMode;
 CitationGraphFindings; DoraCoverageMode; DoraCoverageFindings; CitationGraph; DoraCoverage }, where CitationGraph and DoraCoverage list each

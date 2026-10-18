@@ -17,7 +17,7 @@ shard. The row set is the one shape the run reports consume: tests.csv/summary.m
 and the skip report (Write-TestAutomationSkipReport) all read rows, never a Pester object across a boundary. Emits one row per discovered
 test, in Pester's order, including Skipped and NotRun tests.
 
-### parameter Result
+### parameter `Result`
 
 The live Pester run object (Invoke-Pester -Configuration `<with Run.PassThru>`), in the process that ran it.
 

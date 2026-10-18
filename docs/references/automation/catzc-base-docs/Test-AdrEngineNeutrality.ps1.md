@@ -24,11 +24,11 @@ and is skipped.
 The check's mode is engine_neutrality.mode (Catzc.Base.Docs.AdrChecksConfig): in gate mode the gate throws once listing every finding; in
 report mode it prints the findings and their count, writes the same report, and never throws.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-adr-engine-neutrality/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Mode; Domains; RuleSets; Lines }) instead of throwing on issues.
 

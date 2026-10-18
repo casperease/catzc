@@ -97,23 +97,23 @@ It generalises to every typed config in configs.yml.
       `WorldMapBuilder` counts a file live only when its aspect is named `live`, so the universal catch-all would make every file of a
       non-code track non-live and change what the world map's stack checks read. `DefaultAspects` is therefore the built-in `infrastructure`
       convention moved onto the type, and the code fallback stays in `Get-Aspect`.
-- [ ] Q2 reopened for the user (2026-10-18): keep the tree's aspects default (the infrastructure built-in on the type, the code convention
-      for any other track without an entry), or apply the universal catch-all knowing it makes non-code tracks non-live on the world map
-      (check: a Decided line here with the user's answer).
-- [ ] Phase 2 repo fragment and source-mode overlay, after the module model is implemented (check: overlay root tests pass; shipped file
-      gone). 2026-10-18 (task-config-defaults-fragment steps 1 and 2): source mode reads `.catzc/<modules folder>` through
-      `Get-ConfigOverlayRoot`, and a registered type with no shipped file builds from `{}` plus the fragment; tests pass. Open: the user
-      chooses the `.catzc` track's type and vendor (the world map fails a tracked file in no track), then the fragment is written and the
-      shipped file deleted.
-- [ ] Phase 3 generated defaults contract (check: Test-Contracts, Test-GeneratedFiles clean). Three design questions first
-      (task-config-defaults-fragment step 5): a `<name>.defaults.yml` suffix for the new asset kind, since the plain name is a fragment's;
-      postures before the generator, since it must know the required keys; and how a typed default is written back in the file's shape.
+- [x] Q2 reopened for the user (2026-10-18): closed by D22 (decisions-2026-10-18.md, the user: sensible defaults live in the config assets
+      and at code level, and most of the time they match): the tree's aspects default stands, the infrastructure built-in on the type and
+      the code convention for any other track without an entry, and the shipped file shows it.
+- [ ] Phase 2 repo fragment and source-mode overlay (check: overlay root tests pass; the shipped file shows the type's defaults and this
+      repository's own values sit in its fragment). 2026-10-18 (task-config-defaults-fragment steps 1 and 2): source mode reads
+      `.catzc/<modules folder>` through `Get-ConfigOverlayRoot`, and a registered type with no shipped file builds from `{}` plus the
+      fragment; tests pass. D22 keeps the shipped file (Q3's deletion is dropped). Open: the user chooses the `.catzc` track's type and
+      vendor (the world map fails a tracked file in no track), then the fragment is written and the shipped file reduced to the defaults.
+- [ ] Phase 3 the defaults check (check: its Pester file passes; Test-ShippedConfigs lists each difference with its reason). D22 replaces
+      the generated defaults contract and its three design questions: the shipped config asset is the published default, and a case of
+      Test-ShippedConfigs compares each key a shipped file states with the type's `Default<Key>` constant, a difference passing only with a
+      one-sentence reason under `differs` in its `configs.yml` entry (task-config-defaults-fragment steps 5 and 6).
 - [ ] Phase 4 one config per change (check: each config's own tests).
 - [ ] Phase 5 ADRs and re-citation (check: Test-Links, Test-AdrRegistry clean).
 
 ## Refs
 
-- prompt-config-defaults-continue.md (beside this file)
 - the full draft is carried below (formerly out/plan-config-defaults.md; section 6 decisions, section 7 cross-plan interactions)
 - docs/adr/automation/sensible-defaults.md, docs/adr/automation/consumer-overlay.md
 - docs/adr/configuration/module-config-loading.md, docs/adr/repository/api-contracts.md
@@ -124,7 +124,7 @@ It generalises to every typed config in configs.yml.
 ## Plan: config defaults — coded, overridable by a repo fragment, pinned by a contract
 
 Status: **decisions recorded 2026-10-16**, nothing built. Pilot: `variants` (`Catzc.Base.Variants.VariantsConfig`). Generalises to every
-typed config in `configs.yml`. Continuation prompt: [prompt-config-defaults-continue.md](prompt-config-defaults-continue.md).
+typed config in `configs.yml`.
 
 **Provenance of the decisions.** The user asked to "update the plan files with the decisions" after the Q1–Q7 round without restating
 answers, so each decision below is the recommendation of the first draft, taken as accepted. Anything the user later overrides is a one-line

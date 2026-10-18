@@ -19,34 +19,34 @@ are data), and a Write-Footer closing the same gradient. It is the symmetric clo
 every exit path so a run is always visually bracketed. Every line routes through the shared Write-InformationColored chokepoint, so it stays
 silent under the Pester harness ($global:__PesterRunning) with no per-function plumbing.
 
-### parameter Result
+### parameter `Result`
 
 The aggregate run verdict — the primary argument (Position 0). A ValidateSet, so a value other than 'Passed' or 'Failed' is rejected at
 binding (fail-fast, [ADR-AUTO-FAILFAST](../../../../adr/automation/fail-fast-with-asserts.md)). It selects the gradient anchor: green for a
 pass, red for a fail.
 
-### parameter Summary
+### parameter `Summary`
 
 The one-line reason shown in the banner title (e.g. '812 passed, 14 skipped in 42.3s', or '3 test(s) failed') — the caller builds it, so the
 run's existing pass/failure wording is preserved verbatim.
 
-### parameter PassedCount
+### parameter `PassedCount`
 
 Passed-test count, rendered on the default-coloured detail line under the title.
 
-### parameter FailedCount
+### parameter `FailedCount`
 
 Failed-test count, rendered on the detail line.
 
-### parameter SkippedCount
+### parameter `SkippedCount`
 
 Skipped-test count, rendered on the detail line.
 
-### parameter DurationSeconds
+### parameter `DurationSeconds`
 
 Wall-clock duration, rendered on the detail line.
 
-### parameter ReportPath
+### parameter `ReportPath`
 
 The run's report directory. Rendered on its own line inside the closing bracket so the "where do I look" pointer travels with the verdict
 itself rather than adrift in earlier output. Omitted (empty) prints no line.

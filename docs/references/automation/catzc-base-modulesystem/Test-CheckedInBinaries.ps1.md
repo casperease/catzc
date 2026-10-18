@@ -24,11 +24,11 @@ each binary it collects an issue when:
 
 It drives the git CLI over the repository's index and .gitattributes, which exist only in a git work tree.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-checked-in-binaries/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Binaries }) instead of throwing on issues.
 

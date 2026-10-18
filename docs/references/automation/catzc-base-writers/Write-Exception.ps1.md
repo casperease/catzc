@@ -13,11 +13,11 @@ Displays exception details for use in catch blocks.
 
 Prints exception type, message, script stack trace, and any inner exceptions. Falls back to $global:Error if no ErrorRecord is provided.
 
-### parameter ErrorRecord
+### parameter `ErrorRecord`
 
 The ErrorRecord to display. If omitted, uses $global:Error.
 
-### parameter GlobalErrorIndex
+### parameter `GlobalErrorIndex`
 
 Index into $global:Error when no ErrorRecord is given. Defaults to 0 (most recent).
 

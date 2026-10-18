@@ -13,6 +13,6 @@ Uninstalls a uv-managed tool.
 
 Removes a CLI installed via Install-UvTool (`uv tool uninstall <uv_tool>`). Idempotent — skips if the tool is not installed.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml (must declare uv_tool).

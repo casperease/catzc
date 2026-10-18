@@ -20,11 +20,11 @@ A generator returns either one string (the content of the entry's single target)
 multi-file generator, e.g. New-GoWorkspace with its Catzc.Base.Languages.GoWorkspaceFile records). The entry's target is passed on, so a
 multi-file generator renders only the files the entry names; a wildcard target (e.g. `go/tests/*/go.mod`) selects a set of files.
 
-### parameter Name
+### parameter `Name`
 
 The generator function name from the registry entry (e.g. 'New-Importer').
 
-### parameter Target
+### parameter `Target`
 
 The entry's target: a repository-relative path, or a wildcard pattern over a multi-file generator's files.
 

@@ -16,7 +16,7 @@ logged into the wrong tenant / subscription. A connection is subscription-scoped
 subscription + tenant from azure.yml (Get-AzureSubscription) and delegates the check to the generic Get-AzCliConnectionState. See
 [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md).
 
-### parameter Subscription
+### parameter `Subscription`
 
 Subscription name (a key in azure.yml's subscriptions).
 

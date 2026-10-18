@@ -59,7 +59,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
     }
 
     It 'throws once listing every issue, each prefixed with its facet' -Tag 'ADR-AUTO-TEST#35' {
-        Mock Get-CommittedTypesDrift -ModuleName Catzc.Base.QualityGates { 'automation/.compiled has pending git changes — commit it' }
+        Mock Get-CommittedTypesDrift -ModuleName Catzc.Base.QualityGates { 'widget-modules/.compiled has pending git changes — commit it' }
         $script:observation.RunMode = 'source'
         Mock Format-Code -ModuleName Catzc.Base.QualityGates {
             $manifest = Join-Path $script:buildRoot 'Catzc.Gadget/Catzc.Gadget.psd1'
@@ -68,7 +68,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
 
         $thrown = { Test-BuildArtifact -OutputFolder $script:reportFolder } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-BuildArtifact failed: 3 issue(s)*'
-        $thrown.Exception.Message | Should -BeLike '*`[types`] automation/.compiled has pending git changes*'
+        $thrown.Exception.Message | Should -BeLike '*`[types`] widget-modules/.compiled has pending git changes*'
         $thrown.Exception.Message | Should -BeLike "*``[load``] the session runs in 'source' mode, not build mode*"
         $thrown.Exception.Message | Should -BeLike '*`[manifest`] Catzc.Gadget/Catzc.Gadget.psd1 is not formatter-stable*'
     }
@@ -156,60 +156,61 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
 Describe 'Get-CommittedTypesDrift' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'automation/.compiled')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'widget-modules/.compiled')) | Out-Null
         Mock Import-InternalModule -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Get-CombinedTypeHash -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ CombinedHash = 'abcd1234' } }
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $false }
     }
 
     It 'reports nothing for exactly the current, committed assembly and its manifest' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.abcd1234.json'), '{}')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'), '{}')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             @(Get-CommittedTypesDrift -RepositoryRoot $Root) | Should -BeNullOrEmpty
         }
     }
 
     It 'reports a missing manifest' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
-            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'automation/.compiled holds 0 Catzc.Types.*.json*expected exactly Catzc.Types.abcd1234.json*'
+            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'widget-modules/.compiled holds 0 Catzc.Types.*.json*expected exactly Catzc.Types.abcd1234.json*'
         }
     }
 
     It 'reports a manifest that is not the current one' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.0000ffff.json'), '{}')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.json'), '{}')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
-            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'automation/.compiled holds 1 Catzc.Types.*.json (Catzc.Types.0000ffff.json)*'
+            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'widget-modules/.compiled holds 1 Catzc.Types.*.json (Catzc.Types.0000ffff.json)*'
         }
     }
 
     It 'reports a stale assembly and pending git changes' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.0000ffff.dll'), 'widget')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.abcd1234.json'), '{}')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.dll'), 'widget')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'), '{}')
         Mock Test-GitPathChanged -ModuleName Catzc.Base.QualityGates { $true }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             $reasons = @(Get-CommittedTypesDrift -RepositoryRoot $Root)
             $reasons | Should -HaveCount 2
-            $reasons[0] | Should -BeLike 'automation/.compiled/Catzc.Types.0000ffff.dll is not the current assembly Catzc.Types.abcd1234.dll*'
-            $reasons[1] | Should -BeLike 'automation/.compiled has pending git changes*'
+            $reasons[0] | Should -BeLike 'widget-modules/.compiled/Catzc.Types.0000ffff.dll is not the current assembly Catzc.Types.abcd1234.dll*'
+            $reasons[1] | Should -BeLike 'widget-modules/.compiled has pending git changes*'
         }
     }
 
     It 'reports more than one assembly' {
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.0000ffff.dll'), 'gadget')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'automation/.compiled/Catzc.Types.abcd1234.json'), '{}')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.dll'), 'widget')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.0000ffff.dll'), 'gadget')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget-modules/.compiled/Catzc.Types.abcd1234.json'), '{}')
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
-            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'automation/.compiled holds 2 Catzc.Types.*.dll*'
+            Get-CommittedTypesDrift -RepositoryRoot $Root | Should -BeLike 'widget-modules/.compiled holds 2 Catzc.Types.*.dll*'
         }
     }
 }
 
 Describe 'Get-ModuleSourceFunctions' -Tag 'L0', 'logic' {
     It 'reads the public and private function names from the module folder' {
-        $automation = Join-Path $TestDrive 'automation'
+        $automation = Join-Path $TestDrive 'widget-modules'
         foreach ($file in 'Catzc.Gadget/Set-Gadget.ps1', 'Catzc.Gadget/Get-Gadget.ps1', 'Catzc.Gadget/private/Resolve-Gadget.ps1') {
             $path = Join-Path $automation $file
             [System.IO.Directory]::CreateDirectory((Split-Path $path -Parent)) | Out-Null

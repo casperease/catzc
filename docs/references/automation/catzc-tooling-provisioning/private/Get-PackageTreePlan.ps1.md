@@ -22,11 +22,11 @@ Kept         the files the destination already has: they belong to whoever place
 Reads the filesystem only and changes nothing, so the plan can be recorded before the copy starts and an interrupted copy is still covered
 by it ([ADR-AUTO-REMOVE#2](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)).
 
-### parameter Source
+### parameter `Source`
 
 The extracted package tree.
 
-### parameter Destination
+### parameter `Destination`
 
 The tree the package is copied into.
 

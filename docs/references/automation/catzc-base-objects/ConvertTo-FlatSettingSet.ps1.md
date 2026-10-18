@@ -18,11 +18,11 @@ Non-leaf nodes (objects, dictionaries, arrays) are expanded, not included. Null 
 
 Supports pipeline input for batch processing.
 
-### parameter InputObject
+### parameter `InputObject`
 
 One or more objects to flatten.
 
-### parameter MaxDepth
+### parameter `MaxDepth`
 
 Maximum recursion depth. Defaults to 10.
 

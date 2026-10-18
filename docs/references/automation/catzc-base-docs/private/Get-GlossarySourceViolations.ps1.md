@@ -55,7 +55,7 @@ of the source it reports and names the term, so it points at the line to fix.
 
 Private helper for the glossary checks; not exported.
 
-### parameter Source
+### parameter `Source`
 
 The glossary sources, as Get-GlossarySources returns them ({ Owner; Path; Config; Tracked }). Defaults to every source in the repository.
 

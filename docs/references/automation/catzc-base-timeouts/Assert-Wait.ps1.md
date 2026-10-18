@@ -23,11 +23,11 @@ found is bounded (Invoke-WithTimeout, a timeouts.yml entry).
 It rests on [ADR-AUTO-FAILFAST#5](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast5) and
 [ADR-AUTO-FAILFAST#7](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7).
 
-### parameter Seconds
+### parameter `Seconds`
 
 Whole seconds to stand. Default: the timeouts registry's wait.seconds, one second declared once on TimeoutsConfig.
 
-### parameter Milliseconds
+### parameter `Milliseconds`
 
 Milliseconds added to Seconds. Default: the registry's wait.milliseconds, one millisecond declared once on TimeoutsConfig.
 

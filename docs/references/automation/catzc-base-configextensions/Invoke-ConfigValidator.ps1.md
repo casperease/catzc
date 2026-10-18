@@ -20,19 +20,19 @@ The validator is found by convention, `Assert-<TitleCase(name)>Config` (so 'widg
 the same whichever module calls. With the conventional name and no such function, nothing runs and nothing is returned; a -Validator that
 does not exist throws.
 
-### parameter Config
+### parameter `Config`
 
 The parsed config (e.g. ConvertFrom-Yaml -Ordered output).
 
-### parameter Name
+### parameter `Name`
 
 The config's kebab-case name, without the .yml extension.
 
-### parameter Module
+### parameter `Module`
 
 The module that owns the config and its validator.
 
-### parameter Validator
+### parameter `Validator`
 
 A validator function name to use instead of the conventional one.
 

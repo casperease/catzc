@@ -15,15 +15,15 @@ Pure: it takes the text and the property's name, reads no file and no config
 ([ADR-REPO-FILEMETA#8](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta8)). The property is an ignored top-level member of a JSON
 file, or the CDATA property inside the first PropertyGroup labelled catzc of an MSBuild project.
 
-### parameter Text
+### parameter `Text`
 
 The whole JSON file or MSBuild project as text.
 
-### parameter Property
+### parameter `Property`
 
 The name of the property that holds the block (e.g. // or $comment in JSON, CatzcMeta in a project).
 
-### parameter Strip
+### parameter `Strip`
 
 Beginnings of old values of the property that Format-PropertyMetaHead replaces instead of leaving as foreign.
 

@@ -21,11 +21,11 @@ the authored .gitattributes that Build-RootConfig renders to the root
 ([ADR-REPO-ROOTCFG#1](../../../../adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg1)), never in a list of a tool's own; this
 function only names which classes mean "leave as written".
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Repository-relative, '/'-separated paths.
 

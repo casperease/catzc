@@ -37,19 +37,19 @@ The location is the one record of where the run executes: the run's context (Get
 (Invoke-TestAutomationWorkers), and its report and run.json entries (Get-TestRunLocationSummary) all read this object. The caller MUST pass
 it to Exit-TestRunLocation in a finally.
 
-### parameter EntryPoint
+### parameter `EntryPoint`
 
 The entry point claiming the location ('Test-Automation', 'Invoke-TestFile', …) — written to the lock record and named in the announcements.
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The run's report folder — written to the lock record so a concurrent run can name it.
 
-### parameter Isolated
+### parameter `Isolated`
 
 Run in a snapshot even when the working folder is free.
 
-### parameter KeepSandbox
+### parameter `KeepSandbox`
 
 Keep a snapshot after the run instead of deleting it — recorded on the location as KeepSandbox, which Exit-TestRunLocation honours and the
 run's report states.

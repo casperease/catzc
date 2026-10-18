@@ -20,7 +20,7 @@ against. Unlike a tracked-file member, a changed path may be a deletion; it is s
 A range that spans a commit absent from a shallow CI clone fails in git — a caller in a pipeline must ensure sufficient fetch depth
 (fetchDepth: 0); the reference-commit resolver owns that contract.
 
-### parameter Range
+### parameter `Range`
 
 The git diff range: a merge-base range 'origin/main...HEAD' (a PR's net change since it diverged) or a commit range 'HEAD^1..HEAD' (what a
 post-commit push added to main, first-parent of the squash commit).

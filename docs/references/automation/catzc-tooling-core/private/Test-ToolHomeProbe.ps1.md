@@ -15,14 +15,14 @@ A probe is a home-relative path whose last segment is `{version}` (validated by 
 folder holds a directory named exactly the version, or starting with "`<version>`." — so `sdk/{version}` at version 10.0 matches
 sdk/10.0.201 but not sdk/10.01 or sdk/6.0.428. A pure filesystem check: no process is started, so it is safe on the importer's hot path.
 
-### parameter ToolHome
+### parameter `ToolHome`
 
 The install home to probe (the directory holding the tool's executable).
 
-### parameter Probe
+### parameter `Probe`
 
 One session_host_probes entry, for example 'sdk/{version}'.
 
-### parameter Version
+### parameter `Version`
 
 The tool's locked version (ToolConfig.version).

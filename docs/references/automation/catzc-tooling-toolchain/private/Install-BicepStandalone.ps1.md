@@ -17,7 +17,7 @@ is downloaded through Save-VerifiedDownload against the SHA-256 GitHub publishes
 never run unverified ([ADR-AUTO-PKGMGR](../../../../adr/automation/use-proper-package-managers.md)). It lands in the user's ~/.local/bin
 (the same user-space bin as the standalone uv), marked executable; no root is needed.
 
-### parameter Version
+### parameter `Version`
 
 The version prefix to install (e.g. 0.48).
 

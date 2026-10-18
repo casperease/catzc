@@ -31,7 +31,7 @@ LocalModule       follows catzc's module conventions (Get-LocalModuleViolation):
 
 A consumer's CI runs it on its own to fail early; Import-CatzcOverlay runs it before it applies anything.
 
-### parameter Entry
+### parameter `Entry`
 
 The overlay entries to check (Get-CatzcOverlay). Defaults to the current overlay.
 

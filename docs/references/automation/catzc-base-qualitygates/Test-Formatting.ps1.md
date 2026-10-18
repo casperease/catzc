@@ -24,15 +24,15 @@ Collects every issue and ends with Write-QualityGateReport: the report lands in 
 issue (or returns the result with -PassThru). An engine whose tool is missing throws with the command that installs it. The scope is the
 source tree, so the gate needs the source mode (Assert-SourceTree).
 
-### parameter Language
+### parameter `Language`
 
 Check only these file languages (default: every one).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-formatting).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Languages } instead of throwing on issues.
 

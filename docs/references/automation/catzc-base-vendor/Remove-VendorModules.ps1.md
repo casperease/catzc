@@ -24,11 +24,11 @@ A PR that strips vendored binaries (to slim the repo, leaning on the source) run
 Deletes from the source tree's .vendor, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)) — an installed package's vendored modules are never removed by it.
 
-### parameter Name
+### parameter `Name`
 
 Vendored module names to target. Defaults to every vendored module.
 
-### parameter Force
+### parameter `Force`
 
 Actually delete. Without it the command is a dry run (report + recreate recipe).
 

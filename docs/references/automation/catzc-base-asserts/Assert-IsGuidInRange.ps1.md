@@ -13,15 +13,15 @@ Asserts that a GUID lies inside an inclusive GUID range.
 
 The throwing form of Test-IsGuidInRange, which defines the ordering.
 
-### parameter ObjectGuid
+### parameter `ObjectGuid`
 
 The GUID to check.
 
-### parameter From
+### parameter `From`
 
 The first GUID of the range (inclusive).
 
-### parameter To
+### parameter `To`
 
 The last GUID of the range (inclusive).
 

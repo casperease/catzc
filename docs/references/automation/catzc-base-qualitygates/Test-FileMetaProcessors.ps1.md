@@ -17,15 +17,15 @@ both orphans. A function is a processor candidate when it is named `Get-<Kind>Fi
 It rests on [ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35) and
 [ADR-REPO-FILEMETA#4](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta4).
 
-### parameter Config
+### parameter `Config`
 
 The meta-kind registry. Default: the shipped one.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-file-meta-processors/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; KindCount; ProcessorCount }) instead of throwing on issues.
 

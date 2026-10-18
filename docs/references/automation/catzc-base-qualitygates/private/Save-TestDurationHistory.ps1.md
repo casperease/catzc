@@ -16,14 +16,14 @@ the run measured replaces its entry; files the run did not run keep theirs, so a
 The file is written sorted by path, so it diffs cleanly, and written only after the run's own results are safe, so a crash cannot corrupt
 it. See Get-TestDurationHistory.
 
-### parameter Path
+### parameter `Path`
 
 The history file.
 
-### parameter DurationMs
+### parameter `DurationMs`
 
 This run's measurements, repository-relative '/'-separated file path -> milliseconds.
 
-### parameter Decay
+### parameter `Decay`
 
 The share of the stored duration a faster run keeps (0 up to, not including, 1); omitted reads duration_decay from test-policy.yml.

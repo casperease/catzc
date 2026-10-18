@@ -26,7 +26,7 @@ A file that is not a JSON object with a `parameters` object is one violation.
 Each message reads `<template>/<parameters file>: parameter '<name>' …` and never includes a secure parameter's value. Assert-BicepTemplate
 -Build reports these, and the L2 integrity test Get-BicepParameterModel.Shipped.Tests.ps1 asserts that no shipped template has any.
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 

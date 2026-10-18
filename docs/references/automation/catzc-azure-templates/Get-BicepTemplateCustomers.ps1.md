@@ -21,7 +21,7 @@ Returns an empty array when -Template is omitted/unknown or the template is core
 Centralising it (like Get-BicepTemplateNames / Get-BicepTemplateSlots) keeps the completer scriptblocks one-liners and avoids the
 `[ordered]-dict` / comma-wrapped Get-BicepTemplates traps.
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 

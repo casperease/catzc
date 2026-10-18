@@ -17,15 +17,15 @@ Each key goes into the part its kind names, `immutable` or `edges`, and comes ba
 
 It rests on [ADR-REPO-FILEMETA#4](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta4).
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Config
+### parameter `Config`
 
 The meta-kind registry.
 

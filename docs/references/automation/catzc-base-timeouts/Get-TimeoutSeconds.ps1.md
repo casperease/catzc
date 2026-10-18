@@ -19,30 +19,30 @@ budget GUID, then its entry under `commands`, then the decoration for this envir
 ([ADR-PWSH-ASSERT#1](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). Every consumer of the safeguard (Invoke-Executable,
 Invoke-WithTimeout, Assert-CompletesWithin, the hook's parity test) asks here, so tuning a limit is one edit to the config.
 
-### parameter Executable
+### parameter `Executable`
 
 The executable the call runs. A directory and an extension are ignored (`C:\tools\dotnet.exe` resolves as `dotnet`).
 
-### parameter Command
+### parameter `Command`
 
 The function whose own limit to return — its `[Catzc.Base.Timeouts.TimeLimit]` decoration, unless config overrides it. The function must be
 loaded.
 
-### parameter Shell
+### parameter `Shell`
 
 The shell whose limit to return, one of the execution engines (pwsh, bash or zsh); pwsh is the default. Any other name throws, naming the
 shells.
 
-### parameter Background
+### parameter `Background`
 
 Return the bash background limit instead of the foreground one. Bash only.
 
-### parameter Budget
+### parameter `Budget`
 
 The work's immutable budget GUID. When timeout-exemptions.yml exempts it here, the limit is raised to the exemption ceiling (never lowered).
 Omitted (the empty GUID) means no budget.
 
-### parameter EnvironmentAssertIs
+### parameter `EnvironmentAssertIs`
 
 Pins the expected run environment (Pipeline or Devbox); a different one throws. The guard verifies, it never selects.
 

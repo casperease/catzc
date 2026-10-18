@@ -17,11 +17,11 @@ on any machine), folded as `<relative-path>|<digest>` lines in ordinal path orde
 hex chars. The relative path is forward-slashed and taken from -Path, so the hash is stable wherever the tree is copied. This is the
 reproducibility proof an exported bundle carries (build twice from one commit -> identical hash).
 
-### parameter Path
+### parameter `Path`
 
 The root directory whose file tree to hash (recursively).
 
-### parameter Exclude
+### parameter `Exclude`
 
 Path-relative, forward-slashed file paths to omit from the hash — e.g. a build.json sidecar that itself carries the hash, so it cannot be
 part of the content it identifies.

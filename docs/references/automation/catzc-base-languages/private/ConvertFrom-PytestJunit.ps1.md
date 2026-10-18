@@ -24,7 +24,7 @@ output    every case's failure, error and skip message and text, and its capture
 Results come in report order of each function's first case. A case outside any function (a module-level collection error, whose name is not
 a test name) is not a test result: the call throws with its message, as Invoke-GoTest throws when a package fails outside any test.
 
-### parameter Text
+### parameter `Text`
 
 The JUnit XML report pytest wrote with --junitxml.
 

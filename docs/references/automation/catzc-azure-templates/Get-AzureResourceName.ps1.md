@@ -27,49 +27,49 @@ separate segments; segments are joined by the pattern's render separator (a hyph
 Get-AzureNamePatternSet). Every component is format-validated (case-sensitive, lowercase). The assembled name is asserted against the type's
 limit; on overflow it throws, naming the components to shorten. Names are deterministic — no random suffixes.
 
-### parameter Env
+### parameter `Env`
 
 Environment name (azure.yml env key, e.g. `develop`). The env-segment of generous (`long`) types.
 
-### parameter Shortcode
+### parameter `Shortcode`
 
 2-letter environment shortcode (azure.yml env `shortcode`, e.g. `de`). The env-segment of the restricted patterns; required when Type is
 restricted.
 
-### parameter RegionCode
+### parameter `RegionCode`
 
 3-letter region code (azure.yml env `region_code`, e.g. `weu`).
 
-### parameter Org
+### parameter `Org`
 
 Vertical/organization shortcode (azure.yml top-level `org`, 2-3 alnum).
 
-### parameter ShortName
+### parameter `ShortName`
 
 Template id segment (options.yml `short_name`, 2-5 alnum, globally unique).
 
-### parameter Type
+### parameter `Type`
 
 Resource-type abbreviation — a key of Get-AzureResourceTypeSet (`rg`, `st`, `kv`, …).
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator — 1-3 lowercase alphanumeric chars (`001`, `blu`, …).
 
-### parameter Customer
+### parameter `Customer`
 
 Optional customer / sub-tenant. The readable key (the customer-segment of generous `long` types).
 
-### parameter CustomerShortcode
+### parameter `CustomerShortcode`
 
 2-letter customer shortcode (azure.yml customer `shortcode`). The customer-segment of the restricted patterns; required when both -Customer
 is set and Type is restricted.
 
-### parameter Role
+### parameter `Role`
 
 Optional 2-3 char sibling discriminator among same-type resources (per resource).
 
-### parameter Order
+### parameter `Order`
 
 Name component order — a key of Get-AzureNameOrderSet (default `standard`).
 

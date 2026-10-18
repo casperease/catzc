@@ -16,15 +16,15 @@ here, and every adapter takes the same -File and -DryRun and returns the changed
 ([ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2)). A language is never named here — which
 language uses which engine is configuration.
 
-### parameter Engine
+### parameter `Engine`
 
 The engine name, as languages.yml spells it.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the files to format.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files the engine would change without writing them.
 

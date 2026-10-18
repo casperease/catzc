@@ -23,19 +23,19 @@ conditions all hold. This checks them up front so the destructive step never run
 
 Throws a specific, actionable error for whichever check fails first.
 
-### parameter Repo
+### parameter `Repo`
 
 The GitHub repository as owner/name (e.g. 'contoso/hello-world').
 
-### parameter BackupBundle
+### parameter `BackupBundle`
 
 Path to a `git bundle create --all` backup of the current history. The purge refuses to proceed without one that verifies.
 
-### parameter RepositoryPath
+### parameter `RepositoryPath`
 
 The local clone whose origin is checked. Defaults to the repository root.
 
-### parameter AllowForks
+### parameter `AllowForks`
 
 Proceed even if the repo has forks. Off by default because a fork defeats the purge (the old objects survive in the fork).
 

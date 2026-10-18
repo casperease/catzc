@@ -18,19 +18,19 @@ existing page keeps every other byte, its comment sections included. A help sect
 changes nothing once the head holds no help. A config part that holds a key that is no help key, or does not parse, is reported and the file
 is left alone, so no authored key is lost.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative, '/'-separated path.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the path is relative to.
 
-### parameter RestsOn
+### parameter `RestsOn`
 
 Code links ('[ADR-X#n](../../../../adr/)') the description gains as the sentence 'It rests on ...', in the order given.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Compute the new texts without writing either file.
 

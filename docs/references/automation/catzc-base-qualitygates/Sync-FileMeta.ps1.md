@@ -20,15 +20,15 @@ alone. The facts come from the registries, git, the disk and the file's text, ne
 It loads the registries on every call, so it is no loop primitive: a loop asks an Assert- or Test- guard the one question it needs. It
 writes and never judges; Test-FileMeta and Test-Formatting give the verdict.
 
-### parameter Path
+### parameter `Path`
 
 The one file to bring up to date, absolute or relative to the current folder, inside the repository.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without writing the file.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Path; Changed; Unfixable; DryRun }) instead of only the changed path.
 

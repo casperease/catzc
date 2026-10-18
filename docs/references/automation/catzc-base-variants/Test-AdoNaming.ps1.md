@@ -14,11 +14,11 @@ Tests whether the repo's Azure resource-name order (the `ado_naming` variant) is
 A predicate over the `ado_naming` repo-wide variant (see Get-AdoNaming). Pass exactly one of -Standard or -Classic; returns $true when the
 repo's order matches. A guard callable anywhere above the Config layer; use Assert-AdoNaming to fail instead of branch.
 
-### parameter Standard
+### parameter `Standard`
 
 Test for the 'standard' order (env/slot first, type last).
 
-### parameter Classic
+### parameter `Classic`
 
 Test for the 'classic' order (type first, CAF-style).
 

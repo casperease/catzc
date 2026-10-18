@@ -15,11 +15,11 @@ Installs az into its own uv venv (`uv venv` + `uv pip install azure-cli`) on eve
 python beside it, so it needs a venv with its own interpreter rather than a uv-tool shim. Requires uv. Idempotent — skips if the correct
 version is already on PATH.
 
-### parameter Version
+### parameter `Version`
 
 Azure CLI version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an existing installation at the wrong version.
 

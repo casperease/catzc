@@ -16,19 +16,19 @@ A language is never named here: which language runs which step is configuration,
 It rests on [ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2) and
 [ADR-REPO-FORMAT#8](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8).
 
-### parameter Step
+### parameter `Step`
 
 The step name, as languages.yml spells it.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the files to imprint.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files the step would change without writing them.
 

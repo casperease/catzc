@@ -18,11 +18,11 @@ winget Microsoft.Bicep as a user-scope portable (no admin), or brew from Microso
 binary, verified against its published SHA-256, into ~/.local/bin (Install-BicepStandalone). Idempotent: a Bicep CLI already at the pinned
 version is left alone; another version throws unless -Force.
 
-### parameter Version
+### parameter `Version`
 
 The version prefix to install. Default: the tools.yml pin.
 
-### parameter Force
+### parameter `Force`
 
 Replace an installed Bicep CLI at another version.
 

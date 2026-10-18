@@ -19,39 +19,39 @@ The top-level export ([ADR-AUTO-BUNDLE#6](../../../adr/automation/platform-bundl
 - nuget: the build folder packed with Compress-PSResource into `<Get-OutputRoot>/automation/packages/`, for a client to register as a local
   PSResource repository and Install-PSResource Catzc. Publishing beyond the local disk is the release workflow's act, never this function's.
 
-### parameter Root
+### parameter `Root`
 
 The destination working root of a disk export (where the root importer.ps1 goes).
 
-### parameter To
+### parameter `To`
 
 disk (default) or nuget.
 
-### parameter Bundle
+### parameter `Bundle`
 
 The bundle to build (an exporter.yml bundles key; see Build-Modules). Defaults to default_bundle.
 
-### parameter Module
+### parameter `Module`
 
 Module names to build (see Build-Modules).
 
-### parameter ModuleProfile
+### parameter `ModuleProfile`
 
 A profiles.yml key to build (see Build-Modules).
 
-### parameter VendorPolicy
+### parameter `VendorPolicy`
 
 runtime | full (see Build-Modules).
 
-### parameter Version
+### parameter `Version`
 
 'auto' (default) or an explicit MAJOR.MINOR.PATCH (see Resolve-CatzcBuildVersion).
 
-### parameter Force
+### parameter `Force`
 
 Re-copy the build on a disk install even when the target is already current.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the build, install and pack summaries.
 

@@ -15,6 +15,6 @@ A `uv_venv` tool (e.g. the Azure CLI) lives in its own venv so the package's lau
 user-space root — %LOCALAPPDATA%\catzc\venvs on Windows, ~/.local/share/catzc/venvs on Unix — one subdirectory per tool. The venv's script
 directory (Scripts on Windows, bin on Unix) is what goes on PATH.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key.

@@ -26,11 +26,11 @@ messages, each the text that follows "parameter '`<name>`' " in the caller's mes
 
 A reference is resolved only at deploy time, so it is checked for its shape alone, whatever the declared type.
 
-### parameter Parameter
+### parameter `Parameter`
 
 The parameter's declaration, from Get-BicepParameterModel.
 
-### parameter Entry
+### parameter `Entry`
 
 The parameters-file entry for that parameter.
 

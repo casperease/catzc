@@ -41,32 +41,32 @@ See [ADR-CONF-LOADING](../../../adr/configuration/module-config-loading.md) (fil
 [ADR-AUTO-TYPES#9](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9), and
 [ADR-AUTO-PATH](../../../adr/automation/path-representation.md).
 
-### parameter Destination
+### parameter `Destination`
 
 The target root the selected paths are mirrored into (created if missing).
 
-### parameter ModuleNames
+### parameter `ModuleNames`
 
 Module names to copy (modules + infrastructure folders). Default: all (Get-ModuleProfile -Name full).
 
-### parameter ModuleProfile
+### parameter `ModuleProfile`
 
 A named module profile from configs/profiles.yml (minimal, azure, …), resolved to its dependency closure + infrastructure via
 Get-ModuleProfile. Alternative to -ModuleNames.
 
-### parameter ExcludePackages
+### parameter `ExcludePackages`
 
 Package names to drop (keys under any module's packages in files.yml). Default: none.
 
-### parameter EmptyDestination
+### parameter `EmptyDestination`
 
 Require the destination to be empty; throw if it contains anything. Skips the per-file conflict scan.
 
-### parameter Force
+### parameter `Force`
 
 Skip the conflict pre-scan and overwrite existing files.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would be copied (and any conflicts) without writing anything.
 

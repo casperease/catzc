@@ -28,11 +28,11 @@ highlights.json       per slide id: the world-map and the value-chain highlight 
 
 A slide whose ADR codes the maps do not know fails the run, listing every such slide.
 
-### parameter Slides
+### parameter `Slides`
 
 The slide list: a JSON file { "slides": [ { "id", "stem", "lens", "adrs": `[...]`, "xml" } ] }.
 
-### parameter Data
+### parameter `Data`
 
 The folder the data files go to; created when missing. Default: out/minimaps under the repository root.
 

@@ -18,11 +18,11 @@ NOT for CI pipelines. In Azure DevOps, use the native UsePythonVersion task whic
 
 - task: UsePythonVersion@0 inputs: versionSpec: '3.11'
 
-### parameter Version
+### parameter `Version`
 
 Python version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Reinstall even when a build is already present (uv --reinstall).
 

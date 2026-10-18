@@ -41,16 +41,16 @@ Collects every stale file and ends with Write-QualityGateReport: the report land
 listing every issue (or returns the result with -PassThru). The generators read and write the source tree, so the gate needs the source mode
 (Assert-SourceTree).
 
-### parameter Generator
+### parameter `Generator`
 
 Check only these generators (default: every one). Build-RootConfig selects every managed root file; a generator it renders (New-Importer, …)
 selects only that generator's files.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-generated-files).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Generators } instead of throwing on issues.
 

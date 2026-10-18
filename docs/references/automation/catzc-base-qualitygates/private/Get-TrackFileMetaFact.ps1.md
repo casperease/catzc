@@ -15,15 +15,15 @@ The track is the one Get-Track names for the path, from the `tracks` registry
 ([ADR-DSGN-TRACK#1](../../../../adr/design/tracks.md#rule-adr-dsgn-track1)). A root file, which no track holds, gets an empty value, so the
 key is left out of its head.
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

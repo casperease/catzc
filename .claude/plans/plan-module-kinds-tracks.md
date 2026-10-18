@@ -122,8 +122,6 @@ the user's own and changes what every head's track key means. The config default
 
 - carried below in order: the module model (sequencing note at the top, questions in section 7), the k8s kinds (decisions in section 6), the
   track type (Q1 to Q5 open), the track-structure analysis, the tracks-modules-types ADR draft (all formerly out/)
-- prompt-module-model-1-prepare.md, prompt-module-model-2-implement.md (beside this file)
-- prompt-k8s-kinds-1-prepare.md, prompt-k8s-kinds-2-implement.md (beside this file)
 
 ## Carried: out/plan-module-model.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 

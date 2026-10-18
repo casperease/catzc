@@ -18,7 +18,7 @@ otherwise (including not-logged-in). A pure query — it never throws on a misma
 (with a remediation message). A connection is subscription-scoped, so the input is the subscription name; delegates to the generic
 Test-AzCliConnected.
 
-### parameter Subscription
+### parameter `Subscription`
 
 Subscription name (a key in azure.yml's subscriptions).
 

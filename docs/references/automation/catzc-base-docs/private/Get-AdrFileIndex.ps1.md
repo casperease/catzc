@@ -19,11 +19,11 @@ rule files skip it.
 
 Private helper for Test-AdrRegistry and Test-AdrEngineNeutrality; not exported.
 
-### parameter RuleSets
+### parameter `RuleSets`
 
 The rule sets of the ADR registry (AdrsConfig.RuleSets).
 
-### parameter AdrRoot
+### parameter `AdrRoot`
 
 The absolute docs/adr/ folder.
 

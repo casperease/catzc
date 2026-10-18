@@ -20,7 +20,7 @@ Each case carries its package: the file's module path inside the folder, dotted 
 pytest reports with the folder as its rootdir, so it pairs with the PythonTestResult Invoke-PythonTest returns. The category follows the
 PythonTestResult rule: `test_integrity*` is integrity, everything else logic.
 
-### parameter Folder
+### parameter `Folder`
 
 The absolute path of the Python test folder (a Get-LanguageTestFolders Folder).
 

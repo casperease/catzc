@@ -21,15 +21,15 @@ commit is a quiet no-op.
 Both git invocations run through Invoke-Executable, so the exact commands are logged before they run
 ([ADR-AUTO-PRELOG](../../../adr/automation/log-before-invoke.md)) and a non-zero exit throws.
 
-### parameter Path
+### parameter `Path`
 
 The repository-relative, '/'-separated paths (files or folders) whose changes make up the commit.
 
-### parameter Message
+### parameter `Message`
 
 The commit message. Double quotes are rejected — the message is embedded in a quoted command string.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the planned command strings without touching git at all (not even the status check) — see
 [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).

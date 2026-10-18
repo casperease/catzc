@@ -17,15 +17,15 @@ gets an empty value, so the key is left out of its head.
 
 It rests on [ADR-DSGN-TRACKTYPE#6](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype6).
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

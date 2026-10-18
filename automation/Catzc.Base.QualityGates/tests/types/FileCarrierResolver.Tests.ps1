@@ -18,7 +18,7 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
     }
 
     It 'resolves a path by its file language when no class selects it' {
-        $script:resolver.For('automation/Widget/get.wdg').id | Should -BeExactly 'widget'
+        $script:resolver.For('widgets/Widget/get.wdg').id | Should -BeExactly 'widget'
         $script:resolver.For('docs/read.gdg').id | Should -BeExactly 'gadget'
     }
 
@@ -38,21 +38,22 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
     }
 
     It 'says which paths an entry leaves out' {
-        $widget = $script:resolver.For('automation/Widget/get.wdg')
-        $script:resolver.IsExcluded($widget, 'automation/Widget/tests/get.wdg') | Should -BeTrue
-        $script:resolver.IsExcluded($widget, 'automation/Widget/get.wdg') | Should -BeFalse
+        $widget = $script:resolver.For('widgets/Widget/get.wdg')
+        $script:resolver.IsExcluded($widget, 'widgets/Widget/tests/get.wdg') | Should -BeTrue
+        $script:resolver.IsExcluded($widget, 'widgets/Widget/get.wdg') | Should -BeFalse
         $script:resolver.IsExcluded($script:resolver.For('docs/read.gdg'), 'docs/tests/read.gdg') | Should -BeFalse -Because 'only the widget entry lists an exclude'
     }
 
     It 'resolves with the shipped registries, every language file to its entry' -Tag 'integrity' {
         $shipped = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
-        $shipped.For('automation/Catzc.Base.QualityGates/Format-Code.ps1').id | Should -BeExactly 'powershell'
-        $shipped.For('automation/Catzc.Base.Languages/types/FileLanguage.cs').id | Should -BeExactly 'csharp'
+        $modulesFolder = Get-CatzcModulesFolder
+        $shipped.For("$modulesFolder/Catzc.Base.QualityGates/Format-Code.ps1").id | Should -BeExactly 'powershell'
+        $shipped.For("$modulesFolder/Catzc.Base.Languages/types/FileLanguage.cs").id | Should -BeExactly 'csharp'
         $shipped.For('docs/adr/index.md').id | Should -BeExactly 'markdown'
         $shipped.For('docs/.assets/explanation/x.drawio.png').id | Should -BeExactly 'diagram'
         $shipped.For('docs/explanation/.assets/adr-widget-flow--gadget-spins--meta.drawio.png').id | Should -BeExactly 'diagram'
         $shipped.For('docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.png').id | Should -BeExactly 'reference-diagram'
         $shipped.For('.gitignore').id | Should -BeExactly 'dotfile'
-        $shipped.IsExcluded($shipped.For('automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1'), 'automation/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1') | Should -BeFalse -Because 'a test file carries a head like any other source file'
+        $shipped.IsExcluded($shipped.For("$modulesFolder/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1"), "$modulesFolder/Catzc.Base.Widget/tests/Get-Gadget.Tests.ps1") | Should -BeFalse -Because 'a test file carries a head like any other source file'
     }
 }

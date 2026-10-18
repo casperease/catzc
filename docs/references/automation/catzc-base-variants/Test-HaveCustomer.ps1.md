@@ -14,7 +14,7 @@ Tests whether one named customer is enabled for the repo (singular cover over Te
 The single-customer form of Test-HaveCustomers, for the common "is this one customer enabled" check. A thin cover: Test-HaveCustomers -Name
 $Name. Returns $true when the `have_customers` variant is 'all' or includes the name.
 
-### parameter Name
+### parameter `Name`
 
 The customer name to test.
 

@@ -17,7 +17,7 @@ Run.SkipRun makes it inspect every test regardless of tag filters — nothing ex
 (ConvertTo-PesterRunTarget), which reads its Go tests from the source without running go. Pester must already be loaded (Test-Automation
 lazy-loads it before calling this).
 
-### parameter TestPath
+### parameter `TestPath`
 
 One or more 'tests' folders, or Go test folders, to discover.
 

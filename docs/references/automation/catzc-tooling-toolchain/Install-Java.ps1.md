@@ -14,11 +14,11 @@ Installs Microsoft OpenJDK via the platform package manager.
 After installation, sets JAVA_HOME for the current session and persists it for future sessions (User registry on Windows, $PROFILE on Unix).
 Modeled on Install-Dotnet / DOTNET_ROOT. Idempotent — skips if already installed at the correct version.
 
-### parameter Version
+### parameter `Version`
 
 Java version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an existing installation at the wrong version.
 

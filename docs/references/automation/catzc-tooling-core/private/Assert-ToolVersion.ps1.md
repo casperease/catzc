@@ -18,7 +18,7 @@ installed version matching EITHER the locked `version` or the `devbox_version` p
 tool for local pre-commit tooling. A pipeline session ignores the lever and enforces the locked `version` alone, keeping main/master builds
 deterministically locked.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml.
 

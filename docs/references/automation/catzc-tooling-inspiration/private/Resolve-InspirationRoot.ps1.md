@@ -24,7 +24,7 @@ Both pwsh's and Git Bash's view of a path resolve the same: the repository root,
 is read as 'C:/projects/...' (InspirationRoot.ToNative). The result is normalized with `[IO.Path]::GetFullPath`, so it is in the platform's
 own form.
 
-### parameter Root
+### parameter `Root`
 
 The stored root: '`{workspace}/<folder>`', a repository-relative path, or an absolute path in either shell's view.
 

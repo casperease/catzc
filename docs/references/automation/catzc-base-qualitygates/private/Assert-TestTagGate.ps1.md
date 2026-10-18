@@ -16,6 +16,6 @@ Enforces the two mandatory tag axes (tier L0-L4 + category logic|integrity,
 discovery sees all tests regardless of -Level, so a missing or ambiguous tag fails the run even when its tier would be excluded. Each
 violation is listed in red before the throw (Get-TestTagViolations owns the rules, including the optional-tag and citation checks).
 
-### parameter Discovery
+### parameter `Discovery`
 
 The run's discovery-only Pester result (Get-TestDiscovery).

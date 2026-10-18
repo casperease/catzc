@@ -37,19 +37,19 @@ the profile's base colour. The gradient is also reachable as a bareword: 'rainbo
 '`<base>-rainbow`' (e.g. 'green-rainbow', the RainbowColor.ToString form). A profile passed to any plain `[ConsoleColor]` sink side-grades
 to its base, so the same value works everywhere.
 
-### parameter Message
+### parameter `Message`
 
 The text to display. If omitted, writes a single separator line.
 
-### parameter Style
+### parameter `Style`
 
 Visual style: Curved, Stars, or Heavy. Defaults to Curved.
 
-### parameter Width
+### parameter `Width`
 
 Total width of the separator lines. Defaults to 78.
 
-### parameter ForegroundColor
+### parameter `ForegroundColor`
 
 Colour for the output: a `[System.ConsoleColor]` (or its name), a 'rainbow' / '`<base>-rainbow`' bareword, or a
 `[Catzc.Base.Writers.RainbowColor]` profile — the last three give a gradient rule. No colour by default (renders as terminal default).

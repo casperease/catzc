@@ -23,11 +23,11 @@ whole text as body.
 
 Private helper for Test-AgentDefinitions; not exported.
 
-### parameter Path
+### parameter `Path`
 
 Absolute path to the agent or capability file.
 
-### parameter Key
+### parameter `Key`
 
 The front-matter key path of the catzc head, from the file's carrier: catzc (the default) or a path such as metadata.catzc.
 

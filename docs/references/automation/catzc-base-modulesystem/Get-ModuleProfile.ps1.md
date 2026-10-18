@@ -19,15 +19,15 @@ unless -NoInfrastructure. An empty seed (the `full` profile, or an empty -Module
 The result is the module-name set to feed Copy-Automation -ModuleNames (Copy-Automation -ModuleProfile does this for you) or
 Test-InIsolation.
 
-### parameter Name
+### parameter `Name`
 
 A profile name from profiles.yml (minimal, base, azure, tooling, full, …).
 
-### parameter Modules
+### parameter `Modules`
 
 An explicit seed list instead of a named profile — resolved through the same closure logic.
 
-### parameter NoInfrastructure
+### parameter `NoInfrastructure`
 
 Omit the fixed infrastructure modules (.internal, .compiled, .vendor); return only named modules.
 

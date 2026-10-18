@@ -32,11 +32,11 @@ returns; it reads the map's placements and never places a file itself. It checks
 It ends through Write-QualityGateReport: the report goes to out/test-world-map/, every issue is printed, and the quality gate throws once
 listing them all; -PassThru returns the result instead.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-world-map/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Files; Tracks; FileLanguages; StackViolations; Labels }) instead of throwing
 on issues. StackViolations counts the files that break their track's tech-stack, and Labels the printed labels checked.

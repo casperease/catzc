@@ -34,19 +34,19 @@ page is written only when its content changes (Write-FileIfChanged), and is emit
 ([ADR-REPO-FORMAT#5](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format5)). A contracts/ tree that does not list throws, as
 Get-Contract does.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root that holds contracts/ and docs/references/contracts/. Default: the loaded repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report which pages would change without writing or removing any.
 
-### parameter Silent
+### parameter `Silent`
 
 Write no message.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return one { Unit; Path; Changed; Removed; DryRun; AssetCount } per page instead of the page paths.
 

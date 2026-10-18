@@ -17,23 +17,23 @@ Dynamic extension install is disabled for the duration of the call (AZURE_EXTENS
 uninstalled extension fails with a non-zero exit code instead of blocking on an interactive "(Y/n)" install prompt that captured stdin would
 hide. That failure surfaces through the usual exit-code assertion as a throw.
 
-### parameter Arguments
+### parameter `Arguments`
 
 Arguments to pass to az.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a CliResult object with Output, Errors, Full, and ExitCode.
 
-### parameter NoAssert
+### parameter `NoAssert`
 
 Skip exit code assertion.
 
-### parameter Silent
+### parameter `Silent`
 
 Suppress the command log line.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the command string without executing. Used for testing.
 

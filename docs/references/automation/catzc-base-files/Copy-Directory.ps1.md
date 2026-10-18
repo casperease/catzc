@@ -17,11 +17,11 @@ Windows (~15x slower per file/dir here), which dominates when copying a tree of 
 Mirrors the tree under -Path into -Destination — the equivalent of `Copy-Item (Join-Path $Path '*') $Destination -Recurse`. The destination
 is created if it does not exist, files are overwritten, and empty subdirectories are preserved.
 
-### parameter Path
+### parameter `Path`
 
 The source directory whose contents are copied. Must exist.
 
-### parameter Destination
+### parameter `Destination`
 
 The target directory the contents are copied into (created if missing).
 

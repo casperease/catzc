@@ -17,7 +17,7 @@ every ancestor of it — the terminal, the editor host, or the shell that launch
 session asking. Such a holder is reported instead, for the caller's error to name. A process that cannot be stopped (another user's, or an
 elevated one) is reported and left. On a host without mandatory file locking there are no holders, and this does nothing.
 
-### parameter Path
+### parameter `Path`
 
 The file whose holders to stop.
 

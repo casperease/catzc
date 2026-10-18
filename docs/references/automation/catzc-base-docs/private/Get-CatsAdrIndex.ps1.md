@@ -18,7 +18,7 @@ table rows and are ignored.
 
 Private helper for Show-Cats; not exported.
 
-### parameter IndexPath
+### parameter `IndexPath`
 
 Absolute path to the ADR index. Defaults to [index](../../../../adr/index.md) under the repository root. A test points this at a fixture
 index; the cache keys on the path, so a fixture path and the real path never collide.

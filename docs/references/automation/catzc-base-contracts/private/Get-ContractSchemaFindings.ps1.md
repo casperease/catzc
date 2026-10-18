@@ -18,15 +18,15 @@ outside the subset as unsupported. A file that does not parse, or is neither JSO
 schema is parsed and checked to be well-formed in the subset (ContractSchema.Inspect): a schema aimed at a sample payload is checked that
 way, since the sample's own check validates the sample, and a defect gives one finding, not two.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the paths are relative to.
 
-### parameter SchemaPath
+### parameter `SchemaPath`
 
 The schema file, repository-relative.
 
-### parameter InstancePath
+### parameter `InstancePath`
 
 The file that validates against it, repository-relative. Default: none, and the schema is checked alone.
 

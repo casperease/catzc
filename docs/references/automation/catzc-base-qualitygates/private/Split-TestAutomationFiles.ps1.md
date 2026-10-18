@@ -29,11 +29,11 @@ A file carrying both serial and greedy is serial: strict isolation wins. Granula
 schedules, so one tagged test moves its whole file. See the test-automation ADR
 ([ADR-AUTO-TEST#26](../../../../adr/automation/test-automation.md#rule-adr-auto-test26)).
 
-### parameter Discovery
+### parameter `Discovery`
 
 The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.
 
-### parameter TestFiles
+### parameter `TestFiles`
 
 The run's test files (absolute paths), already filtered to the run's scope.
 

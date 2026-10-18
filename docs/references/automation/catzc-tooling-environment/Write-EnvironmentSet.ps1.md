@@ -42,19 +42,19 @@ encrypted. The value of the contract here is don't-log / don't-internalize / dec
 plaintext necessarily lands in $env: for the instant the external tool reads it
 ([ADR-AUTO-ENVVAR#7](../../../adr/automation/environment-variables.md#rule-adr-auto-envvar7)).
 
-### parameter Set
+### parameter `Set`
 
 Map of env name (or subtree prefix) to a `[SecureString]` secret or a '`global.<config>`...' config address.
 
-### parameter Value
+### parameter `Value`
 
 Map of env name to an explicit non-secret literal string.
 
-### parameter ScriptBlock
+### parameter `ScriptBlock`
 
 Scoped lifetime: the variables are set only for the duration of this block, then restored.
 
-### parameter Persist
+### parameter `Persist`
 
 Persist lifetime: the variables are set and left in place for the session/child process.
 

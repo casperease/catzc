@@ -25,35 +25,35 @@ first via Assert-AzCliConnected, which fails fast with remediation if az is not 
 
 Each emitted object — Type, Path, Generated (UTC), Blob, Modified — pipes straight into Convert-FirewallCsvToMarkdown.
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID the az session must be set to. Asserted, not switched.
 
-### parameter StorageAccountName
+### parameter `StorageAccountName`
 
 The storage account holding the exports.
 
-### parameter ContainerName
+### parameter `ContainerName`
 
 The blob container within the account to search.
 
-### parameter DownloadPath
+### parameter `DownloadPath`
 
 Destination directory. Defaults to the download folder under the output root (Get-OutputRoot: `<repo>/out` locally, the artifact staging
 directory in a pipeline). Created if absent.
 
-### parameter Type
+### parameter `Type`
 
 One or both rule types. Empty/omitted = both. The type word also serves as the name filter ('application' matches ...ApplicationRules...,
 'network' matches ...NetworkRules...). Which rule type(s) to fetch: 'application', 'network', or both (the default when omitted). The type
 word is also used as the case-insensitive name filter for selecting the blob.
 
-### parameter TimestampPattern
+### parameter `TimestampPattern`
 
 Regex capturing the timestamp substring in the filename (UTC), the source of truth for generation time. Default
 '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
 
-### parameter TimestampFormat
+### parameter `TimestampFormat`
 
 .NET ParseExact format for the captured timestamp, interpreted as UTC. Default 'dd-MM-yyyy-HH-mm'.
 

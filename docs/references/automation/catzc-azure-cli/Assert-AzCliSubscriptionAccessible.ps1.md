@@ -21,7 +21,7 @@ merely that the subscription is in the local profile. The generic, azure.yml-fre
 Get-AzCliSubscriptionAccessState. See [ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1) and
 [ADR-AUTO-FAILFAST](../../../adr/automation/fail-fast-with-asserts.md).
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 The subscription GUID the current login must be able to reach.
 

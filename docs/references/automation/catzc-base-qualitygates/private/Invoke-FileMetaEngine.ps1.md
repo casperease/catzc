@@ -15,19 +15,19 @@ Each file's `immutable` and `edges` parts are rebuilt from the imprint kinds of 
 written. A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
 ([ADR-REPO-FILEMETA#5](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders to limit the scope to.
 
-### parameter Config
+### parameter `Config`
 
 The meta-kind registry. Default: the shipped one.
 
-### parameter Entry
+### parameter `Entry`
 
 The files to check, each { Path; Carrier }, instead of the scope git and the registries give.
 

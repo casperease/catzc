@@ -19,20 +19,20 @@ The config address is literal ([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-mo
 `configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file `configuration/<customer>/<env>[-<slot>].yml` when
 -Customer is given. No resolution machinery — the coordinate IS the file.
 
-### parameter Template
+### parameter `Template`
 
 Template name (folder under infrastructure/templates/).
 
-### parameter Environment
+### parameter `Environment`
 
 Environment shortname. Must be configured for the template.
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator — 1-3 lowercase alphanumeric chars (`001`, `blu`, …). Selects `<env>-<slot>.yml`; omitted selects the
 env's base slot `<env>.yml`. The selected config must exist.
 
-### parameter Customer
+### parameter `Customer`
 
 Optional customer key (a configuration subfolder). Selects the config under `configuration/<customer>/`; omitted selects the
 configuration-root (shared-platform) config.

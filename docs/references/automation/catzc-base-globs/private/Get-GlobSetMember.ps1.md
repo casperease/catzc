@@ -16,11 +16,11 @@ the matching universe (`git ls-files`) intersected with the set's final membersh
 consumer of the member list routes through here — the durable content SHA (Get-GlobSetHash), the public Get-GlobSetFile — so the scoped list
 can never drift between the hash and the public file list. A member may be missing on disk (an unstaged deletion); it is still a member.
 
-### parameter GlobSet
+### parameter `GlobSet`
 
 The globset instance to resolve (declared or derived).
 
-### parameter TrackedFile
+### parameter `TrackedFile`
 
 The tracked-file universe (Get-TrackedFile), fetched once by a caller resolving many sets and passed in. Omitted, it is fetched for this
 call.

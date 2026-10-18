@@ -18,15 +18,15 @@ path, or a relative path that leaves docs/adr/.
 
 Private helper for the citation-graph and DORA-coverage checks of Test-AdrRegistry; not exported.
 
-### parameter AdrRoot
+### parameter `AdrRoot`
 
 The absolute docs/adr/ folder.
 
-### parameter From
+### parameter `From`
 
 The linking file's path under docs/adr/ ('/'-separated).
 
-### parameter Target
+### parameter `Target`
 
 The link's target, as written between the parentheses.
 

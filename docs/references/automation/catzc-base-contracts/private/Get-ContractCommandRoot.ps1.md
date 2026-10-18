@@ -18,11 +18,11 @@ Get-CatzcModule ([ADR-AUTO-MODULE#1](../../../../adr/automation/module-model.md#
 track; no module of that name throws, naming the module. A module whose languages do not include PowerShell throws NotImplemented: only the
 PowerShell checker exists ([ADR-REPO-CMDCONTRACT#4](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract4)).
 
-### parameter Module
+### parameter `Module`
 
 The owning module's name, the asset's module folder.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The tree the module is resolved in.
 

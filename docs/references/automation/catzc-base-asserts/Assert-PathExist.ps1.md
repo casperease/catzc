@@ -9,15 +9,15 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Asserts that a filesystem path exists.
 
-### parameter Path
+### parameter `Path`
 
 The path to test.
 
-### parameter PathType
+### parameter `PathType`
 
 The kind of path to require: Any (default), Container, or Leaf.
 
-### parameter ErrorText
+### parameter `ErrorText`
 
 Optional message to throw instead of the default.
 

@@ -21,11 +21,11 @@ quality gate can compare the two (Test-AdoPipelineTriggerGlob / Test-GitHubWorkf
 
 A missing section comes back as an empty array, never $null, so a caller compares without null guards.
 
-### parameter Path
+### parameter `Path`
 
 The pipeline/workflow YAML file to read (absolute path).
 
-### parameter Vendor
+### parameter `Vendor`
 
 Ado or GitHub — which dialect's trigger keys to extract.
 

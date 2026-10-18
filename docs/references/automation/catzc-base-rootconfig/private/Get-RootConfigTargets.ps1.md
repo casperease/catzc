@@ -15,7 +15,7 @@ Filters the validated registry (Get-Config -Config rootconfig) down to the entri
 manages. Opted-out entries are inert: validated for shape when the config loads, but neither written nor treated as owned. The full registry
 semantics live in configs/rootconfig.yml; see [ADR-REPO-ROOTCFG](../../../../adr/repository/generated-root-configs.md).
 
-### parameter Config
+### parameter `Config`
 
 The parsed rootconfig config (Get-Config -Config rootconfig): a `{ files }` object.
 

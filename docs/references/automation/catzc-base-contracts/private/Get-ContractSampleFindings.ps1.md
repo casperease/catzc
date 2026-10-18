@@ -16,11 +16,11 @@ The sample check of [ADR-REPO-CONTRACT#6](../../../../adr/repository/api-contrac
 case (the rule Get-Contract uses to aim that schema at the sample), the sample also validates against it (Get-ContractSchemaFindings). That
 the owning module produces or parses the sample is the module's own tests' work, not this check's.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the asset is relative to.
 
-### parameter Asset
+### parameter `Asset`
 
 The sample payload asset.
 

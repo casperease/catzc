@@ -19,7 +19,7 @@ keeps only the Restart Manager's facts (id, app name, start time).
 File locking is mandatory on Windows but advisory on Linux/macOS, where an open file blocks neither a delete nor a rename — so there is no
 holder to report and this returns nothing there (matching Test-FileIsLocked, which reports $false).
 
-### parameter Path
+### parameter `Path`
 
 Path to the file whose holders to list.
 

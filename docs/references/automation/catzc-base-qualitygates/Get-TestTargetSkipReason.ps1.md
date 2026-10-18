@@ -23,15 +23,15 @@ limit is the security context of the console running it. So each L4 test asks he
 The answer is a constrained skip key: the environment name is lowercased with every character but a letter or digit dropped (pre-prod ->
 preprod). A console run of L4 tests is a run of that gate outside its pipeline: information, never a gate verdict.
 
-### parameter Environment
+### parameter `Environment`
 
 The target environment the test reaches, e.g. pre-prod or production.
 
-### parameter Mode
+### parameter `Mode`
 
 How far the test changes the target: ReadOnly (probes and observations) or Synthetic (transactions the system accepts and cleans up).
 
-### parameter Probe
+### parameter `Probe`
 
 Answers whether this console's identity can reach the environment: a script block returning $true when it can. A probe that throws counts as
 unreachable.

@@ -17,7 +17,7 @@ A per-machine file under out/cache/ (gitignored, never committed): repository-re
 longer matches its entry and is checked again. A missing or unreadable cache is an empty one, so the only cost of losing it is one full
 check; a pipeline starts with none. Format-Code and Get-ScriptAnalyzerDiagnostics keep one each.
 
-### parameter Path
+### parameter `Path`
 
 The cache file.
 

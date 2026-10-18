@@ -13,11 +13,11 @@ Uninstalls a tool using the platform package manager.
 
 Uses winget on Windows, brew on macOS, and apt-get on Linux. Skips if the tool is not installed.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key as defined in tools.yml.
 
-### parameter Version
+### parameter `Version`
 
 Version override. Defaults to the locked version.
 

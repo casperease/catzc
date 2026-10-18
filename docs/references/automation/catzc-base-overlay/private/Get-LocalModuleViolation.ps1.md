@@ -18,11 +18,11 @@ function file passes the shape check every function file loaded away from its fo
 function; and none of its public functions takes the name of a command already loaded, which would silently replace a bundled one —
 replacing a bundled function is an override, not a local module.
 
-### parameter Path
+### parameter `Path`
 
 The local module's folder.
 
-### parameter RelativePath
+### parameter `RelativePath`
 
 The folder as the messages show it.
 

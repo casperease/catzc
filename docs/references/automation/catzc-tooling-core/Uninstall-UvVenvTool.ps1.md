@@ -13,6 +13,6 @@ Uninstalls a CLI installed into a dedicated uv venv.
 
 Removes the tool's dedicated venv (see Install-UvVenvTool). Idempotent — skips if the venv is absent.
 
-### parameter Tool
+### parameter `Tool`
 
 The snake_case tool key (must declare uv_venv).

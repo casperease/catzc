@@ -29,19 +29,19 @@ within one paragraph — is exempt, so the vocabulary can talk about itself. Glo
 
 Private helper for the glossary checks; not exported.
 
-### parameter Entry
+### parameter `Entry`
 
 The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 
-### parameter TrackedFile
+### parameter `TrackedFile`
 
 The repo-relative, '/'-separated tracked files to consider. Defaults to every file git tracks.
 
-### parameter Root
+### parameter `Root`
 
 The directory the tracked files are relative to. Defaults to the repository root.
 
-### parameter SurfaceCache
+### parameter `SurfaceCache`
 
 The text surfaces already read, keyed by tracked file, each value the file's Catzc.Base.Docs.GlossarySegment array
 (Catzc.Base.Docs.GlossaryProse): a file read once is not read again. Test-Glossary hands the same table to this check and to the forms check

@@ -20,11 +20,11 @@ copies in one process, and each copy is compared byte for byte with its file, so
 copy replaces it. The copies sit outside the repository, so the formatter sees no bicepconfig.json there; the repository has none, and one
 that sets formatting options would be listed in the engine's `settings:` in languages.yml and passed here first.
 
-### parameter File
+### parameter `File`
 
 Absolute paths of the .bicep files to format.
 
-### parameter DryRun
+### parameter `DryRun`
 
 List the files the Bicep CLI would change without writing them.
 

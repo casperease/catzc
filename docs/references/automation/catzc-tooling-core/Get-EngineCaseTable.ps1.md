@@ -16,15 +16,15 @@ not apply ("n/a: `<reason>`"), so the parity of a behaviour across every engine 
 engine, shaped for Pester's -ForEach (Case, Engine, Fields, NotApplicable): Fields is the column's map, NotApplicable the reason when it
 does not apply.
 
-### parameter Path
+### parameter `Path`
 
 The table file: absolute, or relative to the repository root (never to the current directory).
 
-### parameter Engine
+### parameter `Engine`
 
 Return only this engine's rows.
 
-### parameter Applicable
+### parameter `Applicable`
 
 Return only the rows that apply (skip the "n/a" cells).
 

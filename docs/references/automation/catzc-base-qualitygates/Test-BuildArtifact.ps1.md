@@ -40,24 +40,24 @@ deletes it. Every issue is prefixed with its facet:
 Collects every issue and ends with Write-QualityGateReport: the report lands in out/test-build-artifact/, and the gate throws once listing
 every issue (or returns the result with -PassThru). It builds from the source tree, so it needs the source mode (Assert-SourceTree).
 
-### parameter Module
+### parameter `Module`
 
 Modules to build (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither -> the default bundle's profile (exporter.yml
 default_bundle).
 
-### parameter ModuleProfile
+### parameter `ModuleProfile`
 
 A module profile (profiles.yml) to build.
 
-### parameter Facet
+### parameter `Facet`
 
 Check only these facets (default: every one). 'types' alone builds nothing; any other facet builds once and also checks `[build]`.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-build-artifact).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Modules; TypesHash } instead of throwing on issues.
 

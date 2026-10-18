@@ -19,16 +19,16 @@ re-keys the set. Because the path is part of the fold, a rename re-keys even on 
 
 It rests on [ADR-FLOW-CD-GLOBS#5](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5).
 
-### parameter Name
+### parameter `Name`
 
 The declared globset (from globs.yml) whose identity to compute.
 
-### parameter GlobSet
+### parameter `GlobSet`
 
 A `[Catzc.Base.Globs.GlobSet]` instance to compute the identity for instead — the path a DERIVED set (Get-ModuleGlobSet) takes, since
 derived sets are not in the declared registry.
 
-### parameter TrackedFile
+### parameter `TrackedFile`
 
 The tracked-file universe (Get-TrackedFile), fetched once by a caller hashing many sets and passed in. Omitted, it is fetched for this call.
 

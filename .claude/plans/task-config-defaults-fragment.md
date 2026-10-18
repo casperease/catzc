@@ -3,8 +3,7 @@ task:
   status: open
   plans: [plan-config-defaults]
   value: high
-  blocked_on:
-    steps 3 and 4 wait for the user's choice of the .catzc track's type and vendor; steps 5 and 6 wait for three design answers (see step 5)
+  blocked_on: steps 3 and 4 wait for the user's choice of the .catzc track's type and vendor; step 5 can start
   targets:
     [
       automation/Catzc.Base.Config,
@@ -16,12 +15,14 @@ task:
     ]
 ---
 
-# Task: config defaults Phases 2 and 3, the repo fragment and the generated defaults contract
+# Task: config defaults Phases 2 and 3, the repo fragment and the defaults check
 
-Decided: Q3 the shipped variants.yml is deleted and a typed config with no file is built from an empty map plus the fragment; Q5 source mode
-reads this repository's own config fragments only; the folder is `.catzc/` with no alias (ADR-CATS#5 supersedes Q6); Q4 a new contract asset
-kind `defaults`; Q7 a required key is named in a header comment of the generated file, never given a value. The track folder is resolved
-through the one resolver (Get-Track or Get-CatzcModulesRoot), never an `automation` literal, so the later pwsh rename is a data edit.
+Decided: D22 (2026-10-18) defaults live in the shipped config assets and on the config types, matching unless a reason says why, which keeps
+the shipped variants.yml and replaces Q3's deletion and Q4's defaults asset; a typed config with no file is built from an empty map plus the
+fragment; Q5 source mode reads this repository's own config fragments only; the folder is `.catzc/` with no alias (ADR-CATS#5 supersedes
+Q6); Q4 a new contract asset kind `defaults`; Q7 a required key is named in a header comment of the generated file, never given a value. The
+track folder is resolved through the one resolver (Get-Track or Get-CatzcModulesRoot), never an `automation` literal, so the later pwsh
+rename is a data edit.
 
 ## Steps
 
@@ -45,29 +46,28 @@ through the one resolver (Get-Track or Get-CatzcModulesRoot), never an `automati
        builds it from an empty map, merges the fragment and refuses one for a sealed config through the existing check. Two new cases;
        `[Invoke-TestFile] Passed` for Get-Config.Tests (`out/test-file/20261018-124212-7c7ab1`); `SHIPPED issues=0`, `VALIDATORS issues=0`,
        `ANALYZER issues=0`.
-3. Waits for the user (2026-10-18): the world map fails a tracked file in no track, and `.catzc` is a new root folder no track declares.
-   Declaring it means choosing its track type and vendor; `vendor-settings` with catzc as its vendor is the nearest fit, which makes catzc
-   the vendor of its own settings. Create `.catzc/<track>/Catzc.Base.Variants/configs/variants.yml` with this repository's `tracks`,
-   `aspects` and `have_customers: all` (copied from the shipped file). Check: `Get-Config -Config variants` in source mode returns the same
+3. Waits for the user: the world map fails a tracked file in no track, and `.catzc` is a new root folder no track declares. Declaring it
+   means choosing its track type and vendor; `vendor-settings` with catzc as its vendor is the nearest fit, which makes catzc the vendor of
+   its own settings (D22 answered the defaults, not this). Create `.catzc/<track>/Catzc.Base.Variants/configs/variants.yml` with this
+   repository's own `tracks`, `aspects` and `have_customers: all`. Check: `Get-Config -Config variants` in source mode returns the same
    object as before (compare the two serialisations in a test or a background script).
-4. Delete `automation/Catzc.Base.Variants/configs/variants.yml` and its reference page; regenerate heads, READMEs and links
-   (Format-FileMeta, Build-Readme in the background). Check: Test-GeneratedFiles, Test-Links clean; the five getters' tests still pass.
-5. Waits for three design answers (2026-10-18), read from the tree: (a) a contract asset's name alone picks its kind (ADR-REPO-CONTRACT#6),
-   and `<Module>/configs/<name>.yml` is already a fragment asset's name (`Catzc.Base.Globs/configs/file-kinds.yml`), so a defaults asset
-   needs a suffix of its own, recommended `<name>.defaults.yml`, which amends rule 6 and the kind's direction in rule 7; (b) the generator
-   must name required keys in the header and omit them (Q7), but no type says which of its keys are required: that is the postures task's
-   work, so the recommendation is to run task-config-defaults-postures before steps 5 and 6; (c) a typed default such as `DefaultAspects` (a
-   map of `VariantAspect` lists) has no generic way back to the file's YAML shape, so each type would expose its defaults in the file's own
-   shape, or the generator writes only scalar defaults and names the rest.
-   `automation/Catzc.Base.Contracts/Build-ConfigDefaultsContract.ps1`, new: for a registered overridable config type, writes
-   `contracts/catzc/0.0.0/<Module>/configs/<name>.yml` from the type's defaults: defaulted keys with literals, empty-valid keys empty,
-   required keys named in the header comment and omitted; header note per ADR-REPO-CONTRACT#9; asset kind `defaults` (direction provided)
-   added to the contract asset kinds config with its default declared once on the type. Test with a fixture type. Check: its Pester file
-   passes.
-6. Run it for variants; `Test-Contracts` and `Test-GeneratedFiles` compare the regenerated defaults to the file; `Build-ContractReference`
-   lists it; `.gitattributes` and the `contract-asset` kind already cover the folder (verify by `git check-attr`). Check: both gates clean;
-   the reference page lists the asset.
-7. `plan-config-defaults.md`: tick Phases 2 and 3. Check: grep `- [ ]` counts Phases 4 and 5 only.
+4. `automation/Catzc.Base.Variants/configs/variants.yml` stays and shows the sensible defaults (D22): the values the `VariantsConfig` type
+   declares (`ado_naming: standard`, `git_workspace: main-direct`, `have_customers: false`, the infrastructure aspect), with this
+   repository's own values moved to its fragment in step 3; `tracks` is required and has no default, so the shipped file names it in a
+   comment and the fragment gives it. Check: the five getters' tests pass; Test-ShippedConfigs clean.
+5. The defaults check (D22: defaults live in both the shipped config assets and the config types, and most of the time they match): for
+   every registered config type with a shipped file, compare each key the file states with the default the type declares for it, and report
+   a key whose two values differ unless the config's entry in `configs.yml` lists it under `differs` with a one-sentence reason (configure,
+   don't program; the reason is the data). The type declares a key's default as its `Default<Key>` constant, the key in Pascal case
+   (`DefaultAdoNaming` for `ado_naming`), the convention the types follow today; a key with no such constant compares nothing, and a typed
+   default (a list or map, such as `DefaultAspects`) compares through its own serialisation or is named as not compared. Built as a case of
+   Test-ShippedConfigs with L0 tests over a widget fixture type, never a second gate. Check: its Pester file passes; Test-ShippedConfigs on
+   the tree lists the real differences, each then given its reason or its value matched, one config per step.
+6. No generated defaults contract: the shipped config asset is the published default (D22 drops Q4's `defaults` asset kind and
+   Build-ConfigDefaultsContract). ADR-AUTO-DEFAULT's "declared once on the type" becomes "declared on the type and shown in the shipped
+   asset, which agree unless a reason says why"; the ADR edit and its re-citation join Phase 5. Check: Test-AdrRegistry, Test-Links clean on
+   the ADR.
+7. `plan-config-defaults.md`: tick Phases 2 and 3 when steps 3 to 6 are in the tree. Check: grep `- [ ]` counts Phases 4 and 5 only.
 
 ## Report
 

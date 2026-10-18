@@ -21,7 +21,7 @@ Returns a hashtable: module name -> `[HashSet[string]]` of the modules it is dec
 
 Only modules in -Module are kept as keys/targets, so the map is closed over the requested set.
 
-### parameter Module
+### parameter `Module`
 
 The module set to build the map over. Defaults to the modules of the code track (Get-CatzcModule).
 

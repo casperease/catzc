@@ -18,7 +18,7 @@ continuation lines) are skipped. It returns nothing when the file has no such se
 
 Private helper for Test-AgentDefinitions; not exported.
 
-### parameter Path
+### parameter `Path`
 
 Absolute path to the CLAUDE.md file.
 

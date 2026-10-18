@@ -29,20 +29,20 @@ Azure Policy colliding with the tags API, or a dropped connection) is diagnosabl
 console stream. The target scope's subscription is the az session's (Get-AzCliSessionSubscription) — the same session-determined target
 Deploy-Bicep just deployed into, so the tags land where the deploy did.
 
-### parameter Environment
+### parameter `Environment`
 
 The environment the template was deployed to, as azure.yml names it.
 
-### parameter Template
+### parameter `Template`
 
 The Bicep template that was deployed, by name.
 
-### parameter Slot
+### parameter `Slot`
 
 Optional special-slot discriminator (1-3 lowercase alphanumeric chars). Selects the same slot (and therefore the same RG) that was deployed;
 omitted -> the env's base / index-0 slot.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Preview only — log the tag command that would run and make no change.
 

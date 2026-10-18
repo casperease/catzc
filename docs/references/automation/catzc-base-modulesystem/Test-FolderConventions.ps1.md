@@ -26,11 +26,11 @@ every issue ([ADR-REPO-FOLDERS](../../../adr/repository/conventional-folders.md)
 The folder convention is the module system's own contract (folder = module, location = visibility), so the gate lives with the module system
 rather than in .internal, which is the loader and not a module.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-folder-conventions/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Modules }) instead of throwing on issues.
 

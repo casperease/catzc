@@ -28,22 +28,22 @@ result object instead.
 
 PSScriptAnalyzer is vendored under the code root's .vendor/ — no install step is needed.
 
-### parameter Path
+### parameter `Path`
 
 One or more files or directories to analyze — absolute, or repository-root-relative (never resolved against $PWD). Defaults to the canonical
 checked set (Get-AutomationSourceFiles): module root `*.ps1`, private/, tests/, the .internal and .scriptanalyzer infrastructure folders
 (bootstrap, TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The default set is the catzc
 source tree, so it needs the source mode; an explicit -Path works in either run mode.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-script-analyzer`.
 
-### parameter NoCache
+### parameter `NoCache`
 
 Analyze every file, ignoring the result cache (which is still refreshed).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount }) instead of throwing.
 

@@ -19,11 +19,12 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $script:stemSidecar = $carriers.Find('chart')
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
                 kinds = [ordered]@{
-                    'widget-function' = [ordered]@{ definition = 'A widget function.'; files = @('automation/**/*.ps1') }
-                    'widget-code'     = [ordered]@{ definition = 'Any other widget code.'; files = @('automation/**') }
+                    'widget-function' = [ordered]@{ definition = 'A widget function.'; files = @('widgets/**/*.ps1') }
+                    'widget-code'     = [ordered]@{ definition = 'Any other widget code.'; files = @('widgets/**') }
                 }
             })
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widgets' }
         $script:widgetKinds = [ordered]@{
             'file-path'   = @{ keys = @('path') }
             'module-name' = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
@@ -42,14 +43,14 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
     }
 
     BeforeEach {
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'automation/Catzc.Widget/private')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/private')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), "function Get-Gadget { }`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/private/Get-Sprocket.ps1'), "function Get-Sprocket { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), "function Get-Gadget { }`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/private/Get-Sprocket.ps1'), "function Get-Sprocket { }`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# Widget`n")
         $script:entries = @(
-            [pscustomobject]@{ Path = 'automation/Catzc.Widget/Get-Gadget.ps1'; Carrier = $script:head }
-            [pscustomobject]@{ Path = 'automation/Catzc.Widget/private/Get-Sprocket.ps1'; Carrier = $script:head }
+            [pscustomobject]@{ Path = 'widgets/Catzc.Widget/Get-Gadget.ps1'; Carrier = $script:head }
+            [pscustomobject]@{ Path = 'widgets/Catzc.Widget/private/Get-Sprocket.ps1'; Carrier = $script:head }
         )
     }
 
@@ -58,13 +59,13 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result.FileCount | Should -Be 2
         $result.Files.Count | Should -Be 2
         $result.Files[0].Findings[0].Kind | Should -Be 'Drift'
-        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n    module: Catzc.Widget`n    visibility: public`n---`n#>`n`nfunction Get-Gadget { }`n"
+        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1`n    module: Catzc.Widget`n    visibility: public`n---`n#>`n`nfunction Get-Gadget { }`n"
         $result.Files[1].Fixed | Should -BeLike "*    visibility: private`n---`n#>`n`nfunction Get-Sprocket { }`n"
     }
 
     It 'reports a key under edges that no kind owns, and a key a kind writes under the other part' {
-        $text = "<#`n---`ncatzc:`n  edges:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
+        $text = "<#`n---`ncatzc:`n  edges:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
         $result = & $script:run $script:entries[0]
         $result.Files[0].Findings.Kind | Should -Be @('UnownedHead')
         $result.Files[0].Findings[0].Actual | Should -Be 'catzc.edges.path'
@@ -72,11 +73,11 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
     }
 
     It 'skips an entry whose file the working tree no longer has, and still counts it in the scope' {
-        $gone = [pscustomobject]@{ Path = 'automation/Catzc.Widget/Get-Gone.ps1'; Carrier = $script:head }
+        $gone = [pscustomobject]@{ Path = 'widgets/Catzc.Widget/Get-Gone.ps1'; Carrier = $script:head }
         $result = & $script:run (@($gone) + $script:entries)
         $result.FileCount | Should -Be 3
         $result.Files.Count | Should -Be 2
-        $result.Files.Path | Should -Not -Contain 'automation/Catzc.Widget/Get-Gone.ps1'
+        $result.Files.Path | Should -Not -Contain 'widgets/Catzc.Widget/Get-Gone.ps1'
     }
 
     It 'finds nothing to change once the head is written' {
@@ -91,7 +92,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
 
     It 'reports a head key no kind owns, and leaves that file''s text as written' {
         $text = "<#`n---`ncatzc:`n  immutable:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
         $result = & $script:run $script:entries[0]
         $result.Files[0].Findings.Kind | Should -Be @('UnownedHead')
         $result.Files[0].Findings[0].Actual | Should -Be 'catzc.immutable.colour'
@@ -104,7 +105,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result.FileCount | Should -Be 3
         $markdown = $result.Files | Where-Object Path -EQ 'docs/widget.md'
         $markdown.Fixed | Should -BeLike "---`ncatzc:`n  immutable:`n    path: docs/widget.md*---*# Widget*"
-        $markdown.Fixed | Should -Not -BeLike '*module:*' -Because 'the module kind lists automation/** only'
+        $markdown.Fixed | Should -Not -BeLike '*module:*' -Because 'the module kind lists widgets/** only'
     }
 
     It 'nests a block at the key path its carrier names, keeps the authored config there, and reports a parent it cannot nest under' -Tag 'ADR-REPO-FILEMETA#1' {
@@ -203,7 +204,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
             Invoke-FileMetaEngine -RepositoryRoot $Root -Config $Config -Entry $Entries
         }
         $result.FileCount | Should -Be 1
-        $result.Files[0].Path | Should -Be 'automation/Catzc.Widget/Get-Gadget.ps1'
+        $result.Files[0].Path | Should -Be 'widgets/Catzc.Widget/Get-Gadget.ps1'
         Should -Invoke Get-FileMetaScope -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
@@ -215,8 +216,8 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
 
     Context 'the head policy' -Tag 'ADR-REPO-FILEMETA#1' {
         It 'strips the block of a file whose class the policy forbids one, and leaves the code as it was' {
-            $text = "<#`n---`ncatzc:`n  immutable:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
+            $text = "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
             $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
             $result = & $script:run $script:entries[0] $forbidden
             $result.Files[0].Findings.Kind | Should -Be @('Drift')
@@ -233,7 +234,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
 
         It 'reports a forbidden block that holds an authored config part, and changes nothing' {
             $text = "<#`n---`ncatzc:`n  config:`n    synopsis: Gets a gadget.`n---`n#>`n`nfunction Get-Gadget { }`n"
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
             $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
             $result = & $script:run $script:entries[0] $forbidden
             $result.Files[0].Findings.Kind | Should -Be @('ForbiddenConfig')
@@ -242,10 +243,10 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
 
         It 'writes no block for an optional file that has none, and keeps one up to date that has one' {
             $optional = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'optional' }; kinds = $script:widgetKinds })
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/private/Get-Sprocket.ps1'), "<#`n---`ncatzc:`n  immutable:`n    path: stale.ps1`n---`n#>`n`nfunction Get-Sprocket { }`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/private/Get-Sprocket.ps1'), "<#`n---`ncatzc:`n  immutable:`n    path: stale.ps1`n---`n#>`n`nfunction Get-Sprocket { }`n")
             $result = & $script:run $script:entries $optional
-            $result.Files.Path | Should -Be @('automation/Catzc.Widget/private/Get-Sprocket.ps1')
-            $result.Files[0].Fixed | Should -BeLike "*    path: automation/Catzc.Widget/private/Get-Sprocket.ps1`n*"
+            $result.Files.Path | Should -Be @('widgets/Catzc.Widget/private/Get-Sprocket.ps1')
+            $result.Files[0].Fixed | Should -BeLike "*    path: widgets/Catzc.Widget/private/Get-Sprocket.ps1`n*"
         }
 
         It 'lets a class entry require a block where the default forbids one' {

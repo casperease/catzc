@@ -25,11 +25,11 @@ ContractCommand.Compare can hold the two against each other.
 
 A file that does not parse, or defines no function of the name, throws a message naming the file.
 
-### parameter Path
+### parameter `Path`
 
 The absolute path of the command's file.
 
-### parameter Name
+### parameter `Name`
 
 The function's name, Verb-Noun.
 

@@ -15,11 +15,11 @@ Prettier is the engine Format-Code runs for every file language languages.yml gi
 installed globally with npm at the version locked in tools.yml. Requires Node.js (npm). Idempotent — skips if already installed at the
 locked version; -Force replaces a wrong version.
 
-### parameter Version
+### parameter `Version`
 
 Prettier version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Replace an existing installation at the wrong version.
 

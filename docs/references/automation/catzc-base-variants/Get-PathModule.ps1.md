@@ -18,7 +18,7 @@ or Bash module is its track folder. The first module type to place a path names 
 `automation/.internal/tests/Get-Foo.Tests.ps1` is in the module `Catzc.Internal.Tests`. A path no module type places, such as a file
 directly in the root or a documentation page, is in no module: nothing is returned.
 
-### parameter Path
+### parameter `Path`
 
 A repository-relative path ('/' or '\' separated).
 

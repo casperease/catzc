@@ -15,15 +15,15 @@ The stored status is the part of a file's repository status that the file itself
 `locked_classes` setting lists, a generated file whose source is the truth, and `clean` for every other file. The states that only git knows
 (edited, staged, committed, pushed) are never written into the file, since the write would change them.
 
-### parameter State
+### parameter `State`
 
 What Get-MarkdownMetaState read from the file.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

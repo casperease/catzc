@@ -20,7 +20,7 @@ yields a valid `[guid]`, down to the all-zeros GUID for an input with no mappabl
 Run by a human or an LLM to mint entries for the managed-GUID registry (Catzc.Base.QualityGates/configs/guids.yml) — never called by
 production code. The engine is the native type Catzc.Base.QualityGates.SentenceGuid.
 
-### parameter Sentence
+### parameter `Sentence`
 
 The sentence to convert. Case-insensitive; must be non-empty and non-whitespace.
 

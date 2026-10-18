@@ -17,7 +17,7 @@ when it overrides `ToString()`, normally by delegating to `Catzc.Base.Objects.Co
 value needs no override and passes: an enum (it renders its name), an interface, a delegate, an abstract or static class, an Attribute, and
 an Exception (it renders its message).
 
-### parameter Type
+### parameter `Type`
 
 The loaded type to check.
 

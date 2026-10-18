@@ -16,11 +16,11 @@ With -Path, the given files and the files under the given folders, from the file
 (Get-ContentExemptPath: vendored, generated, fixture, or contract asset) is never aligned. No list of its own: a new class is declared in
 the .gitattributes source.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the returned paths are relative to.
 
-### parameter Path
+### parameter `Path`
 
 Optional files or folders (absolute or relative to the current location) to limit the scope to.
 

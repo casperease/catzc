@@ -18,11 +18,11 @@ concerns ([ADR-DSGN-TRACK#12](../../../adr/design/tracks.md#rule-adr-dsgn-track1
 the same cells as its ADR. Each lit cell lists the requested ADRs that light it. It is the value-chain counterpart of Get-WorldMapHighlight
 -Adr, which lights where the ADR's files sit.
 
-### parameter Adr
+### parameter `Adr`
 
 The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code throws.
 
-### parameter AsJson
+### parameter `AsJson`
 
 Return the highlight as JSON (the request and the lit cells with their ADRs) instead of the object
 ([ADR-THES-ONETRUTH#3](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)).

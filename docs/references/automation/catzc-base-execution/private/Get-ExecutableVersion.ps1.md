@@ -15,15 +15,15 @@ Runs the executable at -Path (never whatever its bare name resolves to on PATH) 
 matches the merged output against -Pattern. Returns the captured named group (`?<ver>`...), or $null when the output does not match.
 Find-Executable calls it at most once per executable file per session.
 
-### parameter Path
+### parameter `Path`
 
 The located executable's full path.
 
-### parameter Arguments
+### parameter `Arguments`
 
 The arguments that make the executable print its version (e.g. '--version'). Empty for none.
 
-### parameter Pattern
+### parameter `Pattern`
 
 The regex that captures the version as the named group (`?<ver>`...).
 

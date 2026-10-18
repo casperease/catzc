@@ -2,8 +2,9 @@ Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { 'C:\widget-repo' }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates {
-            'automation/Catzc.Widget/Get-Widget.ps1', 'automation/Catzc.Widget/private/Set-Widget.ps1', 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1', 'automation/.internal/Get-Gadget.ps1'
+            'widget-modules/Catzc.Widget/Get-Widget.ps1', 'widget-modules/Catzc.Widget/private/Set-Widget.ps1', 'widget-modules/Catzc.Widget/tests/Get-Widget.Tests.ps1', 'widget-modules/.internal/Get-Gadget.ps1'
         }
         Mock Get-ParameterTypeConflict -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Name = 'Count'; Types = @([pscustomobject]@{ Type = 'int'; Functions = @('Get-Widget') }, [pscustomobject]@{ Type = 'string'; Functions = @('Set-Gadget') }) }
@@ -26,7 +27,7 @@ Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {
         $result = Test-ParameterConsistency -PassThru -OutputFolder $script:report
         $result.Issues | Should -Be @(
             '-Count: one name, more than one type — [int] in Get-Widget; [string] in Set-Gadget. Give it one type, or exempt it in parameter-consistency.yml with the reason'
-            'automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml: -Gone is exempt but no longer conflicts — remove the entry'
+            "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/configs/parameter-consistency.yml: -Gone is exempt but no longer conflicts — remove the entry"
         )
         $result.Exempt | Should -Be 2
     }

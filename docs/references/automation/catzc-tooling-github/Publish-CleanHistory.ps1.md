@@ -23,32 +23,32 @@ Pushing a whole history takes longer than an ordinary call, so the function decl
 Safe by default: unless armed with -ConfirmRepo equal to -NewRepo (and not -DryRun), it validates and returns a plan without creating or
 pushing anything.
 
-### parameter NewRepo
+### parameter `NewRepo`
 
 The new GitHub repository to create and push to, as owner/name. Must not already exist.
 
-### parameter Branch
+### parameter `Branch`
 
 The local branch to push as the default. Defaults to main.
 
-### parameter Token
+### parameter `Token`
 
 The token that must be absent from the pushed history. When set, the local branch is scanned before the push, and after it the new remote
 must hold only that branch's commit; anything else aborts with a warning.
 
-### parameter RepositoryPath
+### parameter `RepositoryPath`
 
 The local clone to push from. Defaults to the repository root.
 
-### parameter Visibility
+### parameter `Visibility`
 
 Visibility of the new repo: 'private' (default) or 'public'.
 
-### parameter ConfirmRepo
+### parameter `ConfirmRepo`
 
 Must equal -NewRepo to arm. Any other value (or absence) keeps the run a dry run.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Force a dry run even when -ConfirmRepo matches.
 

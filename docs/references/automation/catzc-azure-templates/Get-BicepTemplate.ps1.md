@@ -9,7 +9,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 Returns the descriptor for a single bicep template by name.
 
-### parameter Name
+### parameter `Name`
 
 Template name (the folder name under infrastructure/templates/).
 

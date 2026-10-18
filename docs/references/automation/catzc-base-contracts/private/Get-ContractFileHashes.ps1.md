@@ -19,7 +19,7 @@ Each hash is the SHA-256 of the file's bytes with every CRLF read as LF. Contrac
 materialises them with CRLF while another checkout of the same commit has LF; reading line endings as LF gives every checkout of one commit
 the same hashes.
 
-### parameter Folder
+### parameter `Folder`
 
 The version folder's absolute path.
 

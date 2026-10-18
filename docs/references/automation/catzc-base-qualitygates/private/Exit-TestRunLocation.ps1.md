@@ -16,7 +16,7 @@ lock record this run wrote (only while it is still ours), then releases and disp
 is never deleted. Snapshot: removes the snapshot (Remove-RepositorySnapshot), unless the location's KeepSandbox keeps it for a post-mortem,
 in which case its path is announced. A worker's lock-free in-place location releases nothing.
 
-### parameter Location
+### parameter `Location`
 
 The location Enter-TestRunLocation returned.
 

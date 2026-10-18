@@ -15,7 +15,7 @@ Removes the snapshot folder in one `[System.IO.Directory]::Delete` call, not ite
 New-RepositorySnapshot's provenance marker (.git/catzc-snapshot.json), so a wrong path can never delete a real checkout. Read-only files
 (git writes some) are made writable and the delete is retried once. A path that no longer exists is a no-op.
 
-### parameter Path
+### parameter `Path`
 
 The snapshot folder (the Path of New-RepositorySnapshot's result).
 

@@ -30,7 +30,7 @@ name; the collision throws here, naming both sides.
 The derived sets are repository-relative globs over the source tree's module folders (git-tracked paths), so it stops with a named error in
 build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter Name
+### parameter `Name`
 
 A module folder name ('Catzc.Base.Globs'), an internal module name ('Catzc.Internal.Bootstrap'), the kebab form of either
 ('catzc-base-globs', 'catzc-internal-bootstrap'), or a reserved infra name ('internal', 'vendor', 'compiled', 'scriptanalyzer'). Omit for

@@ -18,11 +18,11 @@ extracted tarball carries no `uv self update` receipt), macOS re-runs brew and a
 only a Windows uv installed by Astral's own script (receipt-backed) upgrades with `uv self update`. Idempotent — skips if the correct
 version is already on PATH.
 
-### parameter Version
+### parameter `Version`
 
 uv version to install. Defaults to the locked version in Get-ToolConfig.
 
-### parameter Force
+### parameter `Force`
 
 Upgrade even when a build is already present.
 

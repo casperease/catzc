@@ -16,19 +16,19 @@ record beside it says by whom, so a run that finds the lock held can name the ho
 carries the holder's pid and process start time (a reused pid is told apart), the entry point, when it started, its run folder and its
 working folder. The write is atomic — a temp file moved over the record — so a reader never sees half of it.
 
-### parameter Path
+### parameter `Path`
 
 The record file. Its folder is created when missing.
 
-### parameter EntryPoint
+### parameter `EntryPoint`
 
 The entry point holding the lock ('Test-Automation', 'Invoke-TestFile', …).
 
-### parameter RunDirectory
+### parameter `RunDirectory`
 
 The holder's run folder.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The holder's working folder — what tells two checkouts apart for a user-wide lock.
 

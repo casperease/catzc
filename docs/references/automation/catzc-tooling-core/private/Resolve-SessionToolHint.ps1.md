@@ -17,7 +17,7 @@ $env:PATH for THIS session only, then returns the resolved command. Session-only
 never persistent — the installer layer owns the registry PATH. Returns $null
 when the tool has no hints or none resolve.
 
-### parameter Config
+### parameter `Config`
 
 The tool's ToolConfig (from Get-ToolConfig).
 

@@ -27,11 +27,11 @@ segment inside 'apex/…' or a path), so false positives stay near zero (Phase 1
 
 It rests on [ADR-REPO-LANG](../../../../adr/repository/domain-language-separation.md).
 
-### parameter Path
+### parameter `Path`
 
 The test file to scan.
 
-### parameter LiveToken
+### parameter `LiveToken`
 
 A hashtable token -> record (@{ Token; Kind; Source; Suggest }) from Get-LiveIdentityTokens.
 

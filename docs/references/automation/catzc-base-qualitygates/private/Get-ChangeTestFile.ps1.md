@@ -18,15 +18,15 @@ The tests half of Test-Change's plan, by convention alone (one function per file
 repo-relative, '/'-separated paths, sorted ordinally, each once; a change no convention covers contributes nothing. With -Module, a change
 anywhere under `automation/<Module>/` (dot folders excepted) brings in every test file under that module's tests/ instead.
 
-### parameter Path
+### parameter `Path`
 
 The changed repo-relative, '/'-separated paths.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the paths are relative to.
 
-### parameter Module
+### parameter `Module`
 
 Widen to every test file of each module a change touches.
 

@@ -19,11 +19,11 @@ It walks the module folders of the loaded code root (Get-CatzcModulesRoot), so i
 were loaded from — the source tree or a built package ([ADR-DSGN-RUNMODE#2](../../../adr/design/run-modes.md#rule-adr-dsgn-runmode2)) — and
 reads each loaded module's own validators from its scope (private functions are scope-isolated, so a module lists only its own).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-config-validators/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Validators }) instead of throwing on issues.
 

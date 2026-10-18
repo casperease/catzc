@@ -17,11 +17,11 @@ volume) would find a file whose case differs, so the path is walked one segment 
 compares ordinally. A segment that exists only in another case, a missing segment, a folder where the file belongs, and a file where a
 folder belongs are each one finding naming the path; a present file gives none.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the path is relative to.
 
-### parameter Path
+### parameter `Path`
 
 The target, repository-relative and '/'-separated.
 

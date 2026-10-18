@@ -16,7 +16,7 @@ order.
 
 It rests on [ADR-REPO-LINK#5](../../../../adr/repository/markdown-links.md#rule-adr-repo-link5).
 
-### parameter Text
+### parameter `Text`
 
 The Markdown body to read.
 

@@ -16,7 +16,7 @@ Renders the probe records from Test-Tool -PassThru as one plain-text table throu
 path | none), Version against Required, VersionOk, ProbeMs and VersionMs, then the path. The header line names the session actor the checks
 ran as. Writes nothing for no records. With no -Probe it checks every tool in tools.yml.
 
-### parameter Probe
+### parameter `Probe`
 
 The probe records to render (Catzc.Base.Execution.ExecutableProbe, from Test-Tool -PassThru or Resolve-ToolExecutable). Accepts pipeline
 input. Defaults to every tool in tools.yml.

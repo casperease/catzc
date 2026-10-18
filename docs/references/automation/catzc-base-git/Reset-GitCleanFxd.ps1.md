@@ -23,7 +23,7 @@ Everything deleted is rematerialised by the next import (dot-source importer.ps1
 (dedicated-output-directory) — gone means gone, by design. The authored plan files (`out/plan-*.md`,
 [ADR-REPO-OUTDIR#10](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)) are the exception: kept and reported.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Classify without deleting: return the plan as an object with the Remove and Keep lists.
 

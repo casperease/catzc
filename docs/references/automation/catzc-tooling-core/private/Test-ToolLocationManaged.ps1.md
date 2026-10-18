@@ -20,11 +20,11 @@ the tree it installs into (Get-ScriptInstallDir over its windows_install_dir), a
 Program Files installs, and npm/pip tools whose global bin sits outside the platform root, read as unmanaged here — an acceptable false
 "foreign" for an advisory message, never a gate.
 
-### parameter Config
+### parameter `Config`
 
 The tool's ToolConfig (from Get-ToolConfig).
 
-### parameter Location
+### parameter `Location`
 
 The resolved on-disk path of the tool's command — (Get-Command `<command>).Source`.
 

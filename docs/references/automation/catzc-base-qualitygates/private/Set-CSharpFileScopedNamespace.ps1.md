@@ -21,11 +21,11 @@ The string engine behind Format-Types. Pure (text in, text out), so it is unit-t
 
 Line endings are normalised to LF and a single trailing newline is preserved (repo convention).
 
-### parameter Content
+### parameter `Content`
 
 The C# source text.
 
-### parameter Namespace
+### parameter `Namespace`
 
 The module namespace the file must declare (its `<Module>` folder).
 

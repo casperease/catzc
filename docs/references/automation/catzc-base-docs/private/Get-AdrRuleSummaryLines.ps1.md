@@ -18,7 +18,7 @@ the prose that justifies the rule) are left out: what remains is the normative t
 
 Private helper for Test-AdrEngineNeutrality and the citation-graph check of Test-AdrRegistry; not exported.
 
-### parameter Path
+### parameter `Path`
 
 The absolute path of the ADR markdown file.
 

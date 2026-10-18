@@ -19,19 +19,19 @@ marker such as '- '), every later line ContinuationPrefix (the marker's indent).
 Prettier never breaks inside an inline code span or a link, so a `code span` and a `[text](target)` link each count as part of one
 unbreakable word, spaces included. A word longer than the width stays whole on its own line.
 
-### parameter Text
+### parameter `Text`
 
 The paragraph text; runs of whitespace outside code spans and links collapse to one space.
 
-### parameter FirstPrefix
+### parameter `FirstPrefix`
 
 The prefix of the first line (e.g. '- ' or ' - '). Empty for a plain paragraph.
 
-### parameter ContinuationPrefix
+### parameter `ContinuationPrefix`
 
 The prefix of every following line (e.g. ' ' or ' '). Empty for a plain paragraph.
 
-### parameter Width
+### parameter `Width`
 
 The maximum line width, prefix included. Defaults to 140, the repository's markdown width.
 

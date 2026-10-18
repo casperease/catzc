@@ -25,7 +25,7 @@ Use this in PowerShell consumers (Import-Module, Test-Path, Get-Content, …) be
 repo or anchored at out/. Code that hands the path to an external tool via Invoke-Executable does NOT need this for repo-relative paths —
 that runs from the repo root — but DOES need it for out/-anchored paths, whose root is not the repo root.
 
-### parameter Path
+### parameter `Path`
 
 The path to resolve. Absolute -> returned as-is. 'out/...' -> joined onto Get-OutputRoot. Other relative -> joined onto Get-RepositoryRoot.
 All results are normalized to a full path.

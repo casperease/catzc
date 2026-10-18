@@ -8,7 +8,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($path, $Text)
         }
         Set-FixtureFile 'widget/run.sh' "#!/usr/bin/env bash`necho widget`n"
-        Set-FixtureFile 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh' "#!/usr/bin/env bash`r`necho vendored`r`n"
+        Set-FixtureFile 'widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh' "#!/usr/bin/env bash`r`necho vendored`r`n"
         Set-FixtureFile 'importer.sh' "cats() { :; }`n"
     }
 
@@ -17,8 +17,9 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         $script:checkExit = 0
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget/run.sh'; 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh'; 'docs/widget.md' }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget/run.sh'; 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh' }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget/run.sh'; 'widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh'; 'docs/widget.md' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget/run.sh'; 'widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh' }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'shellcheck' } {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\widget\shellcheck.exe'; Version = '0.11.0'; Required = '0.11' }
         }
@@ -57,11 +58,11 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
 
     It 'reports CRLF line endings in any script, vendored ones included' {
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Be @('automation/Catzc.Widget/assets/scripts/dotnet-install.sh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
+        $result.Issues | Should -Be @('widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)')
     }
 
     It 'reports a tracked script with a shebang that is not executable in git, but not a sourced one' {
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'automation/Catzc.Widget/assets/scripts/dotnet-install.sh' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh' }
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Contain 'widget/run.sh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x widget/run.sh'
         @($result.Issues | Where-Object { $_ -like 'importer.sh:*executable*' }) | Should -HaveCount 0

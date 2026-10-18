@@ -15,7 +15,7 @@ Joins the holders into "pwsh.exe (PID 10276, started 2026-10-13 14:10) — the V
 current process is labelled "this session"; a VS Code PowerShell Editor Services host is named as such, since its pwsh.exe is otherwise
 indistinguishable from a console. Returns $null when there are no holders, so the caller can fall back to holder-free wording.
 
-### parameter Holder
+### parameter `Holder`
 
 The holders, as returned by Get-FileLockingProcess.
 

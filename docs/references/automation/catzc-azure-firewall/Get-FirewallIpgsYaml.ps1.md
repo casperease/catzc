@@ -38,15 +38,15 @@ name; addresses are sorted numerically by their first IP, falling back to a lexi
 The file opens with a comment header (counts, retrieval time in UTC); being YAML comments they're ignored by parsers. The single combined
 file's path is emitted.
 
-### parameter SubscriptionId
+### parameter `SubscriptionId`
 
 A target subscription GUID. Passed explicitly to az, never switched. Bound from the pipeline by property name.
 
-### parameter ResourceGroupName
+### parameter `ResourceGroupName`
 
 A target resource group whose IP Groups are enumerated; also used as the source name. Bound from the pipeline by property name.
 
-### parameter YamlPath
+### parameter `YamlPath`
 
 Output YAML path for the combined document. Defaults to `<repo-root>/out/yaml/ipgs.yaml`.
 

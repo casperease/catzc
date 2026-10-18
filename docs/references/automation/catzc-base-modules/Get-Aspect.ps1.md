@@ -21,7 +21,7 @@ configs/variants.yml declares, else the built-in one: 'infrastructure' (a deploy
 template ships and only an explicit tests/ folder is non-live. A track with neither falls back to the code convention. The `aspects` shape
 is validated by the VariantsConfig type; the Globs aspect engine compiles each aspect into a scan program.
 
-### parameter Track
+### parameter `Track`
 
 The track/container whose convention to return ('automation', 'infrastructure', …).
 

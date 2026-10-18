@@ -19,11 +19,11 @@ standard azure.yml environment has a network entry (per-subscription environment
 azure.yml subscription, every azure.yml subscription has a hub (no customer) or a spoke (a customer), and a spoke has a workload subnet for
 each standard environment its subscription serves, and no other. It lists every violation.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-azure-network-plan/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Environments; Subscriptions }) instead of throwing on issues.
 

@@ -25,11 +25,11 @@ collects an issue when the README is:
 Hand-authored READMEs are the folders not in readme.yml and are out of scope. It reads the repository's files, .gitignore, and git index,
 which exist only in a git work tree of the source tree (Get-ReadmeMappings).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-generated-readmes/ (Write-QualityGateReport).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the result ({ Subject; IssueCount; Issues; ReportPath; Readmes }) instead of throwing on issues.
 

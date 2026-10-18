@@ -21,18 +21,18 @@ The slot is a per-config dimension, not a template-level bit — a template may 
 
 It rests on [ADR-AZ-DATAMOD#8](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod8).
 
-### parameter Environment
+### parameter `Environment`
 
 The config's resolved environment name.
 
-### parameter EnvironmentKind
+### parameter `EnvironmentKind`
 
 The template's env-class bit ('standard' or 'subscription').
 
-### parameter AzureConfig
+### parameter `AzureConfig`
 
 The loaded azure config (Get-Config -Config azure) — used to read the env's per_subscription flag.
 
-### parameter Location
+### parameter `Location`
 
 A human-readable label for the config (e.g. 'configuration/apex/dev.yml') used in messages.

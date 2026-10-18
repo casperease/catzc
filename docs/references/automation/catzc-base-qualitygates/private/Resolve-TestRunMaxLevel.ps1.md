@@ -24,15 +24,15 @@ cap is announced: the run says it skips L3 and who holds the working folder or t
 released system after final approval ([ADR-AUTO-TEST#41](../../../../adr/automation/test-automation.md#rule-adr-auto-test41)), runs only
 when asked for, and where L3 runs: a run capped at L2 skips L4 too, and says so.
 
-### parameter Location
+### parameter `Location`
 
 The location Enter-TestRunLocation returned.
 
-### parameter Requested
+### parameter `Requested`
 
 The highest tier the caller asks for. Default 3 (TestTiers.DefaultTop): every tier the location allows, L4 excluded; 4 includes L4.
 
-### parameter MinLevel
+### parameter `MinLevel`
 
 The lowest tier the caller asks for. A run that asks only for tiers its location skips (L3 in a snapshot, or without the system-test lock)
 has nothing to run, so it throws, naming why.

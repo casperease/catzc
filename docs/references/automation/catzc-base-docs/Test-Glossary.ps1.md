@@ -27,11 +27,11 @@ Write-QualityGateReport, which writes out/test-glossary/, prints every issue, an
 ([ADR-AUTO-FAILFAST](../../../adr/automation/fail-fast-with-asserts.md)). The checks read the source tree's ADRs, tests, and tracked files,
 so it runs in source mode only.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to out/test-glossary under the repository output root.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Returns { Subject; IssueCount; Issues; ReportPath; ConceptCount; SourceCount } instead of throwing on issues.
 

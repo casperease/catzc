@@ -15,15 +15,15 @@ Validates the run's rows against the per-level time limits (Get-TestTimingViolat
 writes the framed report — red and run-failing under -EnforceTimings, yellow and report-only otherwise (timings are machine-dependent, so
 enforcement is the caller's opt-in). Silent when nothing is over.
 
-### parameter Rows
+### parameter `Rows`
 
 The run's aggregated per-test rows.
 
-### parameter Limits
+### parameter `Limits`
 
 The per-level millisecond limits (level tag -> limit).
 
-### parameter EnforceTimings
+### parameter `EnforceTimings`
 
 Turn the report into a run failure (the returned value).
 

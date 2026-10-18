@@ -16,15 +16,15 @@ kind's `root` and `private_folder` settings, `automation` and `private` unless t
 
 It rests on [ADR-REPO-CODEMETA#2](../../../../adr/repository/code-file-meta.md#rule-adr-repo-codemeta2).
 
-### parameter State
+### parameter `State`
 
 What the file's carrier reader returned.
 
-### parameter Path
+### parameter `Path`
 
 The file's repository-relative path.
 
-### parameter Kind
+### parameter `Kind`
 
 The registry entry that subscribed this function.
 

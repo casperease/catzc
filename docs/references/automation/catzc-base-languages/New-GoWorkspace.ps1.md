@@ -32,7 +32,7 @@ This is a pure renderer: it returns the content and writes nothing. It is the `g
 go.mod targets, and Build-RootConfig owns the write ([ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)). One call
 renders every file, so a registry entry selects its files with -Target.
 
-### parameter Target
+### parameter `Target`
 
 Return only the files whose repository-relative path matches this case-sensitive wildcard pattern (e.g. 'go.work' or '`*/tests/*/go.mod`').
 Default: every file.

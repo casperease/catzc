@@ -17,7 +17,7 @@ PSReadLine on Linux defaults to bash-style editing; this replicates the Windows 
 bindings on a Windows session would clobber its native handlers, so the real apply path asserts $IsLinux. Use -DryRun to see the plan (which
 bindings apply, which are skipped) on any platform without changing the session.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the classified plan (one record per binding with Key, Function, Supported) and change nothing.
 

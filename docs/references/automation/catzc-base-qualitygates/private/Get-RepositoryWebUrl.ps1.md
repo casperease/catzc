@@ -16,7 +16,7 @@ uses it to recognise an absolute URL into this repository, which belongs only un
 ([ADR-REPO-LINK#7](../../../../adr/repository/markdown-links.md#rule-adr-repo-link7)). A root with no .git/config (a test fixture, an
 exported build) or a non-GitHub remote yields $null, and that check is skipped.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 

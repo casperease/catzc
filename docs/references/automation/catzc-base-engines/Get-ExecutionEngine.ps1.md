@@ -17,7 +17,7 @@ starts non-interactively, how it loads an entry script and runs a command (Start
 endings and executable bit its scripts need, and its importer entry. A caller reads what differs between the engines here instead of
 restating it.
 
-### parameter Name
+### parameter `Name`
 
 The engine's name (pwsh, bash or zsh). Omit for every engine, pwsh first.
 

@@ -17,19 +17,19 @@ block holds a key no meta kind owns is reported and left unchanged.
 It rests on [ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3) and
 [ADR-REPO-FORMAT#9](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format9).
 
-### parameter Path
+### parameter `Path`
 
 Files or folders to format. Default: every in-scope file.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root paths are relative to. Default: the loaded repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report what would change without writing any file.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ ChangedCount; ChangedFiles; FileCount; DryRun }) instead of only the changed paths.
 

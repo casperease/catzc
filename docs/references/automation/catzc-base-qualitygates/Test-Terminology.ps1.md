@@ -30,11 +30,11 @@ result object instead.
 
 It needs the source tree: it scans the catzc repository, so it throws in build mode (Assert-SourceTree).
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<out>/test-terminology`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return a result object ({ Subject, IssueCount, Issues, ReportPath, TermCount }) instead of throwing.
 

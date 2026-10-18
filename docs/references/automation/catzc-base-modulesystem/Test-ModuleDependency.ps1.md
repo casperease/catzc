@@ -21,11 +21,11 @@ a bug to fix, not a conformance result.
 
 Must run post-import so the actual call graph covers all loaded modules.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-module-dependency).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath } instead of throwing on violations.
 

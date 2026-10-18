@@ -16,7 +16,7 @@ among the loaded functions, and one that is not loaded is an error: a head never
 
 It rests on [ADR-REPO-FILEMETA#7](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta7).
 
-### parameter Name
+### parameter `Name`
 
 The generator command, such as Build-AdrIndex.
 

@@ -9,7 +9,7 @@ Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         # Copy-Automation is mocked to fabricate a tests/ folder in the sandbox so there is something to run.
         Mock Copy-Automation -ModuleName Catzc.Base.QualityGates {
-            [System.IO.Directory]::CreateDirectory((Join-Path $Destination 'automation/Catzc.Base.Asserts/tests')) | Out-Null
+            [System.IO.Directory]::CreateDirectory((Join-Path $Destination "$(Get-CatzcModulesFolder)/Catzc.Base.Asserts/tests")) | Out-Null
         }
     }
 

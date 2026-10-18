@@ -24,27 +24,27 @@ Folder and file names come from configs/reports.yml (Catzc.Base.Reports.ReportsC
 `out/test-<subject>/<yyyyMMdd-HHmmss>/<subject>.md` and `out/test-<subject>/latest.txt`. A gate calls this last, with the issues it
 collected; it never writes its own report.
 
-### parameter Subject
+### parameter `Subject`
 
 The gate's subject, kebab-case ('spelling', 'shipped-configs'); names the report folder and file.
 
-### parameter Title
+### parameter `Title`
 
 The gate's display name ('Test-Spelling'); heads the report and starts the failure message.
 
-### parameter Issues
+### parameter `Issues`
 
 Every issue the gate found, one message each; empty when the repository passes.
 
-### parameter Facts
+### parameter `Facts`
 
 Optional ordered facts about the run (e.g. @{ Terms = 412 }), listed in the report and added to the -PassThru object.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to `<output root>/<folder from reports.yml>`.
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return { Subject; IssueCount; Issues; ReportPath; `<facts>` } instead of throwing on issues.
 

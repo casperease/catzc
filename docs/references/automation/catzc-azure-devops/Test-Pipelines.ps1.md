@@ -40,15 +40,15 @@ Invoke-AdoScript.ps1 is a `.ps1`, not YAML, so it never enters the scan
 ([ADR-PIPE-NAME#7](../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name7)). A file that fails to parse is reported as
 a violation so a broken pipeline cannot slip through silently.
 
-### parameter Path
+### parameter `Path`
 
 The pipelines/ directory to check. Defaults to `<repo>/pipelines`.
 
-### parameter OutputFolder
+### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-pipelines).
 
-### parameter PassThru
+### parameter `PassThru`
 
 Return the gate result { Subject; IssueCount; Issues; ReportPath; Files } instead of throwing on violations.
 

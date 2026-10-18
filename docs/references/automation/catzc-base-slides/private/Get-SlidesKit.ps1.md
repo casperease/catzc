@@ -14,11 +14,11 @@ Loads the slides kit, its defaults and every pattern, from the kit folder.
 Reads `<kit>/slides.yml` into a SlidesKit and each `<kit>/patterns/<name>.html` into a SlidePattern, so a render or a check reads the kit
 once (ADR-REPO-SLIDES#2). A kit folder, a defaults file or a patterns folder that does not exist fails at once.
 
-### parameter Kit
+### parameter `Kit`
 
 The kit folder, repository-relative, such as .claude/slides.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root the kit folder is under.
 

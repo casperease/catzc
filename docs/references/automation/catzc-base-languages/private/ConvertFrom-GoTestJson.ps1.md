@@ -27,7 +27,7 @@ order the tests first ran.
 Throws, with the collected output, when a package failed to build (a build-fail event, or a package result naming FailedBuild) or failed
 outside any test (a failing package with no failing test: TestMain, an init, or a setup failure), and on a line that is not a JSON event.
 
-### parameter Text
+### parameter `Text`
 
 The stdout of `go test -json`.
 

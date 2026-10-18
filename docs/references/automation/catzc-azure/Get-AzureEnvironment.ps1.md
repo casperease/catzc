@@ -17,11 +17,11 @@ the az session and passes it in — so it is an explicit input here. Asserts the
 subscription's optional `customer` is what renders into resource names. See
 [ADR-AZ-DATAMOD#4](../../../adr/azure/azure-data-model.md#rule-adr-az-datamod4).
 
-### parameter Environment
+### parameter `Environment`
 
 Environment name. Must be a key in azure.yml's `environments` map.
 
-### parameter Subscription
+### parameter `Subscription`
 
 Subscription name — a key in azure.yml's `subscriptions`. Must serve the environment.
 

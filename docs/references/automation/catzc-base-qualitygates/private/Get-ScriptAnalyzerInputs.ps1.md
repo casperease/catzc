@@ -17,11 +17,11 @@ the settings file; every file of the custom rules (automation/.scriptanalyzer, t
 manifests, which name its version; and what the spelling rule's oracle reads — the English word list, the generated terminology dictionaries
 (`.cspell/*.txt`) and the oracle's own source. A rule that starts reading another file adds it here in the same change.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The repository root.
 
-### parameter SettingsPath
+### parameter `SettingsPath`
 
 The analyzer settings file.
 

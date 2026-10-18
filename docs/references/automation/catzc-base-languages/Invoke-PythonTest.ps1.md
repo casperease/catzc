@@ -44,25 +44,25 @@ Returns one PythonTestResult per top-level test function (parametrised cases fol
 `test_integrity*` is integrity, everything else is logic. A failing test is a result, not an error. The call throws, with the uv output,
 when uv sync or ruff check fails, and when pytest fails without a failing test (a collection error, or no tests).
 
-### parameter Module
+### parameter `Module`
 
 The catzc module whose Python tests to run (e.g. Catzc.Base.Repository).
 
-### parameter EntryScript
+### parameter `EntryScript`
 
 The engine entry for a build run: the build's Import-Catzc.ps1. Default: the repository's importer.ps1 (the source run).
 
-### parameter UvExecutable
+### parameter `UvExecutable`
 
 The uv to run, already located and checked against the pin by the caller: a test run passes the uv its source session resolved, because a
 build run's engine does not carry the tools.yml entry. Default: located here by Resolve-ToolExecutable.
 
-### parameter Engine
+### parameter `Engine`
 
 The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats dispatcher
 ([ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)). The tests are the same; only the contract they read changes.
 
-### parameter EngineExecutable
+### parameter `EngineExecutable`
 
 The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 

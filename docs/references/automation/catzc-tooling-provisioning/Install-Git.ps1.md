@@ -14,7 +14,7 @@ Installs Git (user-space on Windows, package manager elsewhere).
 Windows: Downloads the latest PortableGit from git-scm.com (GitHub releases) and extracts to LOCALAPPDATA\Git. No admin required. Persists
 PATH for future sessions. macOS: brew install git. Linux: apt-get install git (requires root). Idempotent — skips if already installed.
 
-### parameter Force
+### parameter `Force`
 
 Remove an existing installation before reinstalling.
 

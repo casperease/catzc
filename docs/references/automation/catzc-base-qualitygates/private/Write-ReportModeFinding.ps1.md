@@ -16,11 +16,11 @@ The one way a gate shows a check whose config sets mode: report (Catzc.Base.Qual
 printed with the check's name so a reader can tell them from the gate's issues, and they are never passed to Write-QualityGateReport as
 issues. Nothing is printed when the check found nothing.
 
-### parameter Check
+### parameter `Check`
 
 The check's name as its config spells it ('string_citations', 'engine_set').
 
-### parameter Finding
+### parameter `Finding`
 
 The check's findings, one '`<file>:<line>…`' line each.
 

@@ -16,11 +16,11 @@ reachable from the root, with the depth at which it was first encountered and th
 
 Accepts pipeline input from Get-FunctionDependency. If no pipeline input is provided, calls Get-FunctionDependency automatically.
 
-### parameter Function
+### parameter `Function`
 
 The name of the root function to trace dependencies from.
 
-### parameter Dependency
+### parameter `Dependency`
 
 Function dependency objects from Get-FunctionDependency. Accepts pipeline input.
 

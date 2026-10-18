@@ -21,11 +21,11 @@ set, else the current location (the working root, where out/ and repo-relative p
 -Bundle mode: preferences, the error view, vendored modules, the prebuilt types assembly and its accelerators, then every module's prebuilt
 manifest.
 
-### parameter RepositoryRoot
+### parameter `RepositoryRoot`
 
 The working root. Defaults to the RepositoryRoot already set, else the current location.
 
-### parameter AllowWarnings
+### parameter `AllowWarnings`
 
 Set $global:WarningPreference to Continue instead of Stop (warnings do not fail the load).
 

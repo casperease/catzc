@@ -13,7 +13,7 @@ Uninstalls ShellCheck installed by Install-Shellcheck.
 
 Delegates to Uninstall-Tool, which removes the winget or brew package the tools.yml `shellcheck` entry names.
 
-### parameter Version
+### parameter `Version`
 
 The installed version to remove. Default: whatever is installed.
 

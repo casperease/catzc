@@ -23,23 +23,23 @@ could not reach.
 Rewriting a whole history takes longer than an ordinary call, so the function declares its own time limit (`[TimeLimit]`; tune it under
 `commands` in timeouts.yml) and bounds the filter-repo run with it.
 
-### parameter Token
+### parameter `Token`
 
 The literal token to replace across the history.
 
-### parameter ReplaceWith
+### parameter `ReplaceWith`
 
 The placeholder to substitute. Defaults to '`***REMOVED***`'.
 
-### parameter SkipMessages
+### parameter `SkipMessages`
 
 Only scrub blob content, leaving commit messages untouched.
 
-### parameter RepositoryPath
+### parameter `RepositoryPath`
 
 The repository to rewrite. Defaults to the repository root.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Return the planned command and replacement expression without rewriting.
 

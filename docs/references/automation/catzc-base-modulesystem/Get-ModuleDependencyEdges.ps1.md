@@ -17,7 +17,7 @@ the calling functions. With -Declared, returns the ALLOWED edges from configs/de
 
 Pipe the result to ConvertTo-ModuleDependencyDiagram to render JSON / YAML / Markdown / PlantUML.
 
-### parameter Declared
+### parameter `Declared`
 
 Return the declared (allowed) graph from dependencies.yml instead of the actual code-derived graph.
 

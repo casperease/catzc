@@ -26,15 +26,15 @@ This is the write tail every generated-artifact builder shares (Build-RootConfig
 canonicalise/compare/write logic instead of one per builder (see [ADR-PRIN-ONELIVE](../../../adr/principles/one-living-version.md)). It is a
 pure primitive: no console output — callers own their reporting.
 
-### parameter Path
+### parameter `Path`
 
 Path of the target file to write.
 
-### parameter Content
+### parameter `Content`
 
 The full intended content. Canonicalised before compare and write: CR stripped, trailing newlines collapsed to exactly one.
 
-### parameter DryRun
+### parameter `DryRun`
 
 Report whether the file would change without writing it. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 

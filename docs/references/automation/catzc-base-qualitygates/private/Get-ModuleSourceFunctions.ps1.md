@@ -15,11 +15,11 @@ A module is its folder: `<Module>/*.ps1` are its public functions and `<Module>/
 for the file. This reads the names from the file names, so a build can be compared with the source folder it was built from
 (Test-BuildArtifact's parity facet).
 
-### parameter AutomationRoot
+### parameter `AutomationRoot`
 
 The automation folder of the source tree.
 
-### parameter Name
+### parameter `Name`
 
 The module folder name.
 
