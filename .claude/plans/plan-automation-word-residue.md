@@ -82,30 +82,35 @@ Every step edits one file and proves it before the next (CLAUDE.md, editing rule
 - [x] Landed 2026-10-18 by session catzc-59: "catzc modules" and "module function"; grep leaves only the kept `Test-Automation` hit on
       line 4; Import-AllModules.Tests passed under Invoke-TestFile. Original step: `pwsh/.internal/Catzc.Internal.Bootstrap.psm1:465,495`: "automation modules" and "automation function" become "catzc modules" and
       "module function". (check: grep clean; `Invoke-TestFile pwsh/.internal/tests/Import-AllModules.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.Variants/types/VariantTrack.cs:10,13`: the examples `e.g. automation` become `e.g. pwsh`. (check: grep clean;
+  Landed 2026-10-18 by session catzc-59, the twelve steps ticked below, each with grep -i automation 0 (or only the kept
+  `System.Management.Automation` hits) and its own test file passing under Invoke-TestFile: VariantTrack.cs and VariantsConfig.cs
+  (VariantsConfig.Tests, fresh pwsh; no test asserts the error text), MapsPin.cs (MapsConfig.Tests), Get-CatsRuleEnforcers.ps1,
+  Format-GeneratedFileHead.ps1, Format-Types.ps1 (snapshot), Test-ConfigIdentityHygiene.ps1, Test-LogicTestIdentity.ps1,
+  Test-ManualTestPlan.ps1, Test-ScriptAnalyzer.ps1, Test-SourceConventions.ps1, Test-TestTitles.ps1 (each its `.Tests.ps1`).
+- [x] `pwsh/Catzc.Base.Variants/types/VariantTrack.cs:10,13`: the examples `e.g. automation` become `e.g. pwsh`. (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs:261`: the error-text example `e.g. automation` becomes `e.g. pwsh`, and every
+- [x] `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs:261`: the error-text example `e.g. automation` becomes `e.g. pwsh`, and every
       test that asserts that text follows in the same step. (check: grep clean; `Invoke-TestFile
       pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.Maps/types/MapsPin.cs:9`: the track example `automation` becomes `pwsh`. (check: grep clean; `Invoke-TestFile
+- [x] `pwsh/Catzc.Base.Maps/types/MapsPin.cs:9`: the track example `automation` becomes `pwsh`. (check: grep clean; `Invoke-TestFile
       pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1:37`: "levels below automation" becomes "levels below pwsh/"; the depth
+- [x] `pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1:37`: "levels below automation" becomes "levels below pwsh/"; the depth
       number stays. (check: grep clean; `Invoke-TestFile pwsh/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1:53`: "outside automation" becomes "outside pwsh/". (check: grep clean;
+- [x] `pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1:53`: "outside automation" becomes "outside pwsh/". (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.QualityGates/Format-Types.ps1:23`: "as wide as automation" becomes "as wide as pwsh/". (check: grep clean;
+- [x] `pwsh/Catzc.Base.QualityGates/Format-Types.ps1:23`: "as wide as automation" becomes "as wide as pwsh/". (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1:20`: depth comment to "below pwsh/". (check: grep clean;
+- [x] `pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1:20`: depth comment to "below pwsh/". (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1:21`: depth comment to "below pwsh/". (check: grep clean;
+- [x] `pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1:21`: depth comment to "below pwsh/". (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1:20`: depth comment to "below pwsh/". (check: grep clean;
+- [x] `pwsh/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1:20`: depth comment to "below pwsh/". (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-ManualTestPlan.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1:28`: depth comment to "below pwsh/". (check: grep clean; `Invoke-TestFile
+- [x] `pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1:28`: depth comment to "below pwsh/". (check: grep clean; `Invoke-TestFile
       pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1:117`: depth comment to "below pwsh/". (check: grep clean;
+- [x] `pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1:117`: depth comment to "below pwsh/". (check: grep clean;
       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1`)
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-TestTitles.ps1:12`: depth comment to "below pwsh/". (check: grep clean; `Invoke-TestFile
+- [x] `pwsh/Catzc.Base.QualityGates/Test-TestTitles.ps1:12`: depth comment to "below pwsh/". (check: grep clean; `Invoke-TestFile
       pwsh/Catzc.Base.QualityGates/tests/Test-TestTitles.Tests.ps1`)
 - [ ] `pwsh/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1:18`: "fixtures under automation" to "under pwsh/". (check:
       grep clean; `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1`)

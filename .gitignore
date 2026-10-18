@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "13c88a891ace"
+#     with_body_sha: c3023f436023
 #     repo_status: locked
 #     path: ".gitignore"
 #     source:
@@ -91,8 +91,8 @@ pwsh/.compiled/*.tmp
 # ── IDE-only C# project build output ────────────────────────────────────────────────────────────────────────────────
 # The root catzc.sln references pwsh/.internal/assets/Catzc.Types.csproj for editor tooling, and MSBuild emits obj/bin
 # next to that project. The runtime never builds it (Add-Type compiles the type sources at import), so its MSBuild
-# artifacts are transient and vscode consumed only. The automation types system builds via the internal builder, no
-# csproj or sln involved.
+# artifacts are transient and vscode consumed only. The types system builds via the internal builder, no csproj or sln
+# involved.
 pwsh/.internal/assets/obj/
 pwsh/.internal/assets/bin/
 

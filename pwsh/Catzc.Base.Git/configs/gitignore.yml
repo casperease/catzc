@@ -79,7 +79,7 @@ sections:
     why: >
       The root catzc.sln references pwsh/.internal/assets/Catzc.Types.csproj for editor tooling, and MSBuild emits obj/bin next to
       that project. The runtime never builds it (Add-Type compiles the type sources at import), so its MSBuild artifacts are transient and
-      vscode consumed only. The automation types system builds via the internal builder, no csproj or sln involved.
+      vscode consumed only. The types system builds via the internal builder, no csproj or sln involved.
     patterns:
       - pwsh/.internal/assets/obj/
       - pwsh/.internal/assets/bin/
