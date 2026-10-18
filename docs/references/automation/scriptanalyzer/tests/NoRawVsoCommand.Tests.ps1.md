@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand',...`, written with `#`.
 
 ```text
-This file is covered by Test-ScriptAnalyzer like all authored PowerShell (Get-AutomationSourceFiles). Its
+This file is covered by Test-ScriptAnalyzer like all authored PowerShell (Get-ModuleSourceFile). Its
 fixtures deliberately embed raw ##vso[task.*] strings so the rule can prove it flags them, which the rule
 itself would then report against this file — suppress it here for the whole file rather than mangle the
 fixtures.

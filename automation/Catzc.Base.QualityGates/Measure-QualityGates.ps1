@@ -20,7 +20,7 @@ function Measure-QualityGates {
                 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
             }
             $settings = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
-            $all = @(Get-AutomationSourceFiles)
+            $all = @(Get-ModuleSourceFile)
             $files = @(for ($index = 0; $index -lt $all.Count; $index += $Every) {
                     $all[$index]
                 })

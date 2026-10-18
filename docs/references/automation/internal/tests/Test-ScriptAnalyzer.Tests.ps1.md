@@ -18,7 +18,7 @@ tests' wall clock against the level time limits); the greedy phase runs it after
 Above `$script:targetFiles = [System.Collections.Generic.List[string]]::new()`, written with `#`.
 
 ```text
-Draw the exact files from the one shared selector (Get-AutomationSourceFiles), so this gate cannot
+Draw the exact files from the one shared selector (Get-ModuleSourceFile), so this gate cannot
 drift from Test-ScriptAnalyzer
 ([ADR-PWSH-FORMAT#5](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format5)). The
 selector covers module *.ps1

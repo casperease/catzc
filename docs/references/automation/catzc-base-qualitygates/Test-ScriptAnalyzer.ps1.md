@@ -31,7 +31,7 @@ PSScriptAnalyzer is vendored under the code root's .vendor/ — no install step 
 ### parameter `Path`
 
 One or more files or directories to analyze — absolute, or repository-root-relative (never resolved against $PWD). Defaults to the canonical
-checked set (Get-AutomationSourceFiles): module root `*.ps1`, private/, tests/, the .internal and .scriptanalyzer infrastructure folders
+checked set (Get-ModuleSourceFile): module root `*.ps1`, private/, tests/, the .internal and .scriptanalyzer infrastructure folders
 (bootstrap, TestKit, custom analyzer rules, and their tests), the root importer.ps1, and authored .psd1 config. The default set is the catzc
 source tree, so it needs the source mode; an explicit -Path works in either run mode.
 
@@ -96,7 +96,7 @@ A relative path is repository-relative, never $PWD-relative
 
 ## comment:4
 
-Above `foreach ($f in (Get-AutomationSourceFiles)) {`, written with `#`.
+Above `foreach ($f in (Get-ModuleSourceFile)) {`, written with `#`.
 
 ```text
 The canonical checked set — shared with the L2 analyzer test so they cannot

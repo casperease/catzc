@@ -37,7 +37,7 @@ function Test-ScriptAnalyzer {
         }
     }
     else {
-        foreach ($f in (Get-AutomationSourceFiles)) {
+        foreach ($f in (Get-ModuleSourceFile)) {
             $files.Add($f)
         }
     }

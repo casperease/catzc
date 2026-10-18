@@ -101,10 +101,19 @@ contracts plan).
    unexported, its tests and the module's callers' tests pass, Test-Links, Test-Comments, Test-GeneratedFiles, Test-FileMeta and
    Test-ManagedGuids clean. Left exported, by the pair convention or as a module's own responsibility: Test-VendorModuleAvailable,
    Get-PermanentEnvironmentVariable, the Asserts and Files Test/Assert pairs, Assert-GitHubPurgeReady, New-SyntheticHistory,
-   Set-CurrentAzSubscription and Save-PSReadLineKeyHandlerSet. Open, a question for the user: twelve exported functions nothing calls at all
-   (Assert-IsGuidInRange, Assert-Null, Assert-PipelineEmpty, Get-LastExitCode, Wait-Mutex, Assert-FileIsLocked, Get-FunctionDependencyTree,
-   ConvertTo-Dictionary, Test-IsTimeoutExempt, Write-CallStack, Write-CmdletParameterSet, Remove-TokenFromHistory): delete them as dead
-   code, or keep them as the library's vocabulary; and whether the 139 functions only docs name are console commands to contract.
+   Set-CurrentAzSubscription and Save-PSReadLineKeyHandlerSet. The two questions the user delegated (2026-10-18, D26 and D27): of the
+   twelve exported functions nothing calls, five were dead code and left the tree with their tests, pages and article rows (Assert-Null,
+   Assert-PipelineEmpty, Get-LastExitCode, Wait-Mutex, ConvertTo-Dictionary); Assert-IsGuidInRange, Assert-FileIsLocked and
+   Test-IsTimeoutExempt stay as halves of a Test/Assert pair, Write-CallStack and Write-CmdletParameterSet as debug writers,
+   Get-FunctionDependencyTree with no contract (a `PSObject[]` parameter), and Remove-TokenFromHistory got its contract. Of the 139
+   functions only docs name, 38 are named by a how-to; the 12 of them the closed language expresses got hand-written contracts
+   (Clear-GlobSetProtection, Test-GlobSetAffected, Build-EnglishDictionary, Export-SpellingTriage, Format-MarkdownTitle,
+   Install-DevBoxTools, Assert-DevBoxToolsStatus, Register-AdoBuildValidation, Invoke-Poetry, Get-RepositoryFile, Get-BicepTemplateNames,
+   Get-BicepParameterModel); the rest stay exported with no promise: the gates return a `pscustomobject` under `-PassThru`, and
+   Get-Inspiration and Export-WorldMapPdf use parameter sets, which the grammar cannot state. Verdicts: `CONTRACTS issues=0`, 65 contracted
+   commands, `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests and New-CatsCommandLookup.Tests
+   (`out/test-file/20261018-135212-cc0b32`, `-135236-24560e`). Open, for a later language step: a type for gate results and a way to state
+   parameter sets, which together would let the gates and the two set-based commands be contracted.
 8. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
    in task-closing-sweep. Check: grep `- [ ]` counts zero.
 

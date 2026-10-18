@@ -3,7 +3,7 @@ Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
         $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
 
         $script:targetFiles = [System.Collections.Generic.List[string]]::new()
-        foreach ($file in (& (Get-Module Catzc.Base.QualityGates) { Get-AutomationSourceFiles } | Sort-Object)) {
+        foreach ($file in (& (Get-Module Catzc.Base.QualityGates) { Get-ModuleSourceFile } | Sort-Object)) {
             $script:targetFiles.Add($file)
         }
 

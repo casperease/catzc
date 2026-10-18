@@ -216,7 +216,7 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
   `automation/.scriptanalyzer/`, one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every
   check once per file (the engine otherwise calls a script rule once per script block); a new check module is added to its list. Each check
   keeps its own rule name, so diagnostics and `SuppressMessageAttribute` name the check.
-- **The source set, shared** — `Get-AutomationSourceFiles` names the canonical set the analysis quality gates cover: every module `*.ps1`
+- **The source set, shared** — `Get-ModuleSourceFile` names the canonical set the analysis quality gates cover: every module `*.ps1`
   (module root, `private/`, `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal
   module, the custom analyzer rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config
   (`PSScriptAnalyzerSettings.psd1`). `Test-ScriptAnalyzer` and the L2 `Test-ScriptAnalyzer.Tests.ps1` both draw from it — the L2 test shards
