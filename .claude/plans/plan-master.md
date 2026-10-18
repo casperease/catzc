@@ -78,16 +78,16 @@ Open, in execution order:
 - module-model-closeout -> task-module-model-closeout.md (open; every step done by 2026-10-18 apart from step 9, the user's run of all
   tests): module model close-out, the rule 6 funnel (the tests entries in languages.yml), infrastructure track (a design step in
   plan-module-kinds-tracks), waits_on cleared.
-- kind-becomes-role -> task-kind-becomes-role.md (open; ready, the closeout's steps 1 to 4 are done): kind becomes role through the registry and generators;
-  tracks.md rule 19 one primary language; WorldMapBuilder links; Test-ShippedTypes; the namespace line.
-- config-defaults-variants -> task-config-defaults-variants.md (open; ready): config defaults Phase 1, VariantsConfig
-  constants, getters lose -Default.
+- kind-becomes-role -> task-kind-becomes-role.md (open; ready, the closeout's steps 1 to 4 are done): kind becomes role through the registry
+  and generators; tracks.md rule 19 one primary language; WorldMapBuilder links; Test-ShippedTypes; the namespace line.
+- config-defaults-variants -> task-config-defaults-variants.md (open; ready): config defaults Phase 1, VariantsConfig constants, getters
+  lose -Default.
 - config-defaults-fragment -> task-config-defaults-fragment.md (open; after config-defaults-variants): the .catzc fragment, config without a
   shipped file, Build-ConfigDefaultsContract.
 - config-defaults-postures -> task-config-defaults-postures.md (open; after config-defaults-fragment): every typed config into a posture,
   the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
-- layers-funnel -> task-layers-funnel.md (open; ready): layers P2 funnel: one bootstrap constant, about 45 sites onto
-  the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
+- layers-funnel -> task-layers-funnel.md (open; ready): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4
+  identifiers, the NoTrackRootLiteral guard.
 - layers-classification-flip -> task-layers-classification-flip.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR
   wording drafts; P4 the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
 - command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets done 2026-10-18; C5 and C6

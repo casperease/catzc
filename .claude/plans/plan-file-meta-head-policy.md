@@ -185,9 +185,11 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       Test-Comments pass, no head changes, their tests pass); the 53 files with help get the sentence through `Move-FunctionHelp -RestsOn`
       in the pass (tested). `CodeLinkRewriter.cs` holds `ADR-REPO-LINK#9`, which is no rule of its ADR, so it is dropped in the pass and
       named in `out/one-pass.log`.
-- [ ] `automation/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` and its three tests (`Build-VSCodeExtension`, `Install-VSCodeExtension`,
+- [x] `automation/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` and its three tests (`Build-VSCodeExtension`, `Install-VSCodeExtension`,
       `New-VSCodeTasks`): the same comment line, once catzc-ff, which works in the module, is clear of them. (check: Test-Links and
-      Test-Comments on the four files)
+      Test-Comments on the four files) — 2026-10-18: done with catzc-ff's go-ahead, plus `VscodeOwnExtension.cs` and
+      `New-VSCodeExtensionFolder.Tests.ps1` it added today; Test-Links and Test-Comments pass, no head changes, the tests pass.
+      `New-VSCodeExtensionFolder.ps1` has help, so the pass's `-RestsOn` carries its `ADR-AUTO-ASSETDEP#1` once the measurement runs again.
 - [ ] The user reviews `out/one-pass.ps1` before it runs (drafted, never run: lists the five edits that land first, moves the help with
       `-RestsOn` from `out/held-links.tsv` and `-Go` only, formats the pages, runs `Format-FileMeta` and six gates, logging to
       `out/one-pass.log`). (check: the user's go-ahead)

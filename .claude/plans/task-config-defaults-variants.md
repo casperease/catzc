@@ -3,7 +3,8 @@ task:
   status: open
   plans: [plan-config-defaults]
   value: high
-  blocked_on: nothing; task-module-model-closeout no longer edits VariantsConfig.cs or VariantTrack.cs (2026-10-18), only the user's run is left there
+  blocked_on:
+    nothing; task-module-model-closeout no longer edits VariantsConfig.cs or VariantTrack.cs (2026-10-18), only the user's run is left there
   targets: [automation/Catzc.Base.Variants, automation/Catzc.Base.Modules]
 catzc:
   immutable:
