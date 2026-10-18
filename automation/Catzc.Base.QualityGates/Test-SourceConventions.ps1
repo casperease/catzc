@@ -9,7 +9,7 @@ function Test-SourceConventions {
 
     Assert-SourceTree
     $repositoryRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
-    $automationRoot = Join-Path $repositoryRoot 'automation'
+    $automationRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
     $settings = Get-Config -Config source-conventions
     # Every file is parsed once; the source checks below reuse the trees the naming checks parsed.
     $parsed = [System.Collections.Generic.Dictionary[string, System.Management.Automation.Language.Ast]]::new([System.StringComparer]::OrdinalIgnoreCase)

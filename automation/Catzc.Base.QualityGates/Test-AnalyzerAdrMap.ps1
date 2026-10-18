@@ -24,7 +24,7 @@ function Test-AnalyzerAdrMap {
     }
 
     $customRules = [System.Collections.Generic.List[string]]::new()
-    $ruleFiles = [System.IO.Directory]::EnumerateFiles((Resolve-RepoPath 'automation/.scriptanalyzer'), '*.psm1') |
+    $ruleFiles = [System.IO.Directory]::EnumerateFiles((Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer'), '*.psm1') |
         Where-Object { [System.IO.Path]::GetFileName($_) -ne 'CatzcRules.psm1' } |
         Sort-Object
     foreach ($file in $ruleFiles) {

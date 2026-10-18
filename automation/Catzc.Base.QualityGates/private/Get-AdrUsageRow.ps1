@@ -15,25 +15,23 @@ function Get-AdrUsageRow {
         [Catzc.Base.CodeMeta.HeadForm] $Form
     )
 
-    if ($PSBoundParameters.ContainsKey('Form')) {
-        $lists = (Get-CodeMetaState -Text $Text -Form $Form).EdgeLists
-        $adrs = if ($lists.Contains('cites')) {
-            $lists['cites']
-        }
-        else {
-            @()
-        }
-        $links = if ($lists.Contains('links')) {
-            $lists['links']
-        }
-        else {
-            @()
-        }
+    # The rows come from the file's text through the processors the imprint uses, never from its head.
+    $kinds = (Get-Config -Config file-meta).kinds
+    $citesKind = $kinds | Where-Object { $_.id -eq 'adr-codes' }
+    $linksKind = $kinds | Where-Object { $_.id -eq 'links' }
+    $isCode = $PSBoundParameters.ContainsKey('Form')
+    $state = if ($isCode) {
+        Get-CodeMetaState -Text $Text -Form $Form
     }
     else {
-        $block = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text).MetaBlock
-        $adrs = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::EdgeList($block, 'cites')
-        $links = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::EdgeList($block, 'links')
+        Get-MarkdownMetaState -Text $Text
+    }
+    $adrs = @((Get-AdrCodesFileMetaFact -State $state -Path $Path -Kind $citesKind)[$citesKind.keys[0]])
+    $links = if ($isCode) {
+        @()
+    }
+    else {
+        @((Get-LinksFileMetaFact -State $state -Path $Path -Kind $linksKind)[$linksKind.keys[0]])
     }
 
     foreach ($token in $adrs) {
@@ -58,7 +56,7 @@ function Get-AdrUsageRow {
                 else {
                     $null
                 }
-                Source = 'head'
+                Source = 'cites'
             }
         }
     }

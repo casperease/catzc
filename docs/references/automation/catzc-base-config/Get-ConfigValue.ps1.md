@@ -11,8 +11,8 @@ Resolves a global config address to the value at that node (a leaf or a subtree)
 
 ### description
 
-A global config address is a by-reference handle into a named config: `global.<config>.<key>[.<key>...]` (see ADR config-value-addressing,
-code addr). Get-ConfigValue strips the 'global.' marker, reads the named config through Get-Config (the one reader and one cache,
+A global config address is a by-reference handle into a named config: `global.<config>.<key>[.<key>...]` (see ADR-CONF-ADDRESSING).
+Get-ConfigValue strips the 'global.' marker, reads the named config through Get-Config (the one reader and one cache,
 [ADR-CONF-LOADING#1](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading1)), and walks the remaining key segments with
 Resolve-ConfigKeyPath. It never opens a file or caches anything of its own — it is a view over what Get-Config already loaded and validated.
 

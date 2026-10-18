@@ -6,7 +6,7 @@ function Get-TestFileModule {
         [string] $Path
     )
 
-    $automationRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), 'automation')
+    $automationRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), (Get-CatzcModulesFolder))
     if (-not $Path.StartsWith($automationRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
         $folder = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
         foreach ($testFolder in @(Get-LanguageTestFolders)) {

@@ -66,7 +66,7 @@ function Build-EnglishDictionary {
     $content = ($words -join "`n") + "`n"
 
     # The source module's assets/ in the repository — the committed copy the build later ships.
-    $assetsDir = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets'
+    $assetsDir = Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.QualityGates/assets'
     $outPath = Join-Path $assetsDir 'english.txt.gz'
     $stampPath = Join-Path $assetsDir 'english.stamp'
 

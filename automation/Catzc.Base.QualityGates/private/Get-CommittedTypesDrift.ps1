@@ -7,9 +7,11 @@ function Get-CommittedTypesDrift {
     )
 
     Import-InternalModule Types
-    $currentHash = (Get-CombinedTypeHash (Join-Path $RepositoryRoot 'automation')).CombinedHash
+    $modulesFolder = Get-CatzcModulesFolder
+    $compiled = "$modulesFolder/.compiled"
+    $currentHash = (Get-CombinedTypeHash (Join-Path $RepositoryRoot $modulesFolder)).CombinedHash
 
-    $compiledRoot = Join-Path $RepositoryRoot 'automation/.compiled'
+    $compiledRoot = Join-Path $RepositoryRoot $compiled
     # @() around the whole if: a single match must stay an array (.Count under strict mode).
     $dlls = @(if ([System.IO.Directory]::Exists($compiledRoot)) {
             foreach ($dll in [System.IO.Directory]::EnumerateFiles($compiledRoot, 'Catzc.Types.*.dll')) {
@@ -20,10 +22,10 @@ function Get-CommittedTypesDrift {
     $reasons = [System.Collections.Generic.List[string]]::new()
     $expected = "Catzc.Types.$currentHash.dll"
     if ($dlls.Count -ne 1) {
-        $reasons.Add("automation/.compiled holds $($dlls.Count) Catzc.Types.*.dll ($($dlls -join ', ')); expected exactly $expected — run the importer")
+        $reasons.Add("$compiled holds $($dlls.Count) Catzc.Types.*.dll ($($dlls -join ', ')); expected exactly $expected — run the importer")
     }
     elseif ($dlls[0] -ne $expected) {
-        $reasons.Add("automation/.compiled/$($dlls[0]) is not the current assembly $expected — run the importer")
+        $reasons.Add("$compiled/$($dlls[0]) is not the current assembly $expected — run the importer")
     }
     $expectedManifest = "Catzc.Types.$currentHash.json"
     $manifests = @(if ([System.IO.Directory]::Exists($compiledRoot)) {
@@ -32,10 +34,10 @@ function Get-CommittedTypesDrift {
             }
         })
     if ($manifests.Count -ne 1 -or $manifests[0] -ne $expectedManifest) {
-        $reasons.Add("automation/.compiled holds $($manifests.Count) Catzc.Types.*.json ($($manifests -join ', ')); expected exactly $expectedManifest beside the assembly — run the importer")
+        $reasons.Add("$compiled holds $($manifests.Count) Catzc.Types.*.json ($($manifests -join ', ')); expected exactly $expectedManifest beside the assembly — run the importer")
     }
-    if (Test-GitPathChanged 'automation/.compiled') {
-        $reasons.Add('automation/.compiled has pending git changes — commit the rebuilt Catzc.Types.<hash>.dll')
+    if (Test-GitPathChanged $compiled) {
+        $reasons.Add("$compiled has pending git changes — commit the rebuilt Catzc.Types.<hash>.dll")
     }
 
     [string[]] $reasons.ToArray()

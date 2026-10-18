@@ -9,7 +9,7 @@ function Test-ManualTestPlan {
 
     Assert-SourceTree
     $repositoryRoot = Get-RepositoryRoot
-    $automationRoot = Join-Path $repositoryRoot 'automation'
+    $automationRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
     $planRelative = 'docs/how-to/automation/manual-test-plan'
     $planPath = Join-Path $repositoryRoot $planRelative
     $maxCategories = 13

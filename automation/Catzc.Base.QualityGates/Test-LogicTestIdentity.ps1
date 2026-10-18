@@ -17,7 +17,7 @@ function Test-LogicTestIdentity {
     if (-not $Path) {
         # The default set is every test file of the catzc source tree — tests never ship in a build.
         Assert-SourceTree
-        $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
+        $automationRoot = Get-CatzcModulesRoot
         # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
         $Path = Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
             Sort-Object

@@ -6,7 +6,7 @@ function Get-AutomationSourceFiles {
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
-    $automationRoot = Join-Path $root 'automation'
+    $automationRoot = Join-Path $root (Get-CatzcModulesFolder)
     $files = [System.Collections.Generic.List[string]]::new()
 
     $modules = Get-ChildPath $automationRoot -Directory -Depth 1 |
@@ -63,7 +63,7 @@ function Get-AutomationSourceFiles {
     if (Test-Path $importerPath) {
         $files.Add($importerPath)
     }
-    $settingsPath = Join-Path $root 'automation/.internal/assets/PSScriptAnalyzerSettings.psd1'
+    $settingsPath = Join-Path $automationRoot '.internal/assets/PSScriptAnalyzerSettings.psd1'
     if (Test-Path $settingsPath) {
         $files.Add($settingsPath)
     }

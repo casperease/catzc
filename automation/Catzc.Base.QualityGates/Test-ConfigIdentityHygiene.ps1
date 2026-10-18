@@ -18,7 +18,7 @@ function Test-ConfigIdentityHygiene {
     if (-not $Path) {
         $terminology = 'configs/terminology.yml'
         # A module's configs sit three levels below automation (module, configs, file); infrastructure ymls reach five.
-        $moduleConfigs = Get-ChildPath (Join-Path $root 'automation') -File -Filter '*.yml' -Depth 3 -PruneVendor $true |
+        $moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder)) -File -Filter '*.yml' -Depth 3 -PruneVendor $true |
             Where-Object { $_ -match '[\\/]configs[\\/][^\\/]+\.yml$' -and ($_ -replace '\\', '/') -notlike "*$terminology" }
         $infrastructureRoot = Join-Path $root 'infrastructure'
         $infrastructureConfigs = if ([System.IO.Directory]::Exists($infrastructureRoot)) {

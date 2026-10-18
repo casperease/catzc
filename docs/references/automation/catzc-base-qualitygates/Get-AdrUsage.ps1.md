@@ -7,12 +7,13 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Lists every ADR citation and ADR link the tracked files hold in their meta heads.
+Lists every ADR citation and ADR link the tracked files make.
 
 ### description
 
-Reads the `adrs` and `links` lists that Format-FileMeta imprints, so it scans no body and runs no regular expression over the repository: a
-file whose head is stale shows its stale head, which Test-FileMeta reports. One row per citation, in the order git lists the files. A code
+Derives each file's citations and links from its text and its comment page with the processors the imprint uses, never from a head
+([ADR-REPO-FILEMETA#14](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta14)), so a file with no head or a stale one lists the
+same rows. One row per citation, in the order git lists the files. A code
 or rule the ADR index does not register, such as a placeholder named in a comment, gives no row. A bare code is the whole ADR (Rule is
 null). A file whose carrier is a JSON property or a sidecar is not listed.
 
@@ -33,7 +34,7 @@ Keep only rows for these citation codes, such as ADR-PWSH-ERROR.
 
 ### parameter Source
 
-Keep only rows from the `head` (cited in the file) or from a `link` (linked from the file).
+Keep only rows from `cites` (cited in the file or its comment page) or from a `link` (linked from the file).
 
 ### parameter GroupBy
 

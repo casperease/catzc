@@ -48,11 +48,6 @@ The diagram is described element by element in [its asset description](globs-mod
   (ADR-FLOW-CD-GLOBS#6).
 - Whether a change touches a set is computed from git at real refs (ADR-FLOW-CD-GLOBS#9).
 
-## Where the code and the ADR differ
-
-The ADR says the identity is never committed and there is no marker. The help text of `Get-GlobSetHash` still calls the hash "the marker
-file's sha256" and cites rule 9.
-
 ## See also
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.

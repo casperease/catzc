@@ -17,7 +17,7 @@ function Get-VisibilityFileMetaFact {
         "$($Kind.settings['root'])"
     }
     else {
-        'automation'
+        Get-CatzcModulesFolder
     }
     $folder = if ($Kind.settings.ContainsKey('private_folder')) {
         "$($Kind.settings['private_folder'])"

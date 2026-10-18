@@ -28,7 +28,7 @@ function Get-TestRunContext {
     )
 
     $codeRoot = if ($EntryScript) {
-        Join-Path ([System.IO.Path]::GetDirectoryName($EntryScript)) 'automation'
+        Join-Path ([System.IO.Path]::GetDirectoryName($EntryScript)) (Get-CatzcModulesFolder)
     }
     else {
         Get-CatzcModulesRoot

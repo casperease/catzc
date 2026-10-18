@@ -28,8 +28,8 @@ function Get-ScriptAnalyzerInputs {
             }
         }
     }
-    $inputs.Add((Join-Path $RepositoryRoot 'automation/Catzc.Base.QualityGates/assets/english.txt.gz'))
-    $inputs.Add((Join-Path $RepositoryRoot 'automation/Catzc.Base.QualityGates/types/SpellingOracle.cs'))
+    $inputs.Add((Join-Path $RepositoryRoot "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/assets/english.txt.gz"))
+    $inputs.Add((Join-Path $RepositoryRoot "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/types/SpellingOracle.cs"))
     $cspell = Join-Path $RepositoryRoot '.cspell'
     if ([System.IO.Directory]::Exists($cspell)) {
         foreach ($file in @([System.IO.Directory]::EnumerateFiles($cspell, '*.txt') | Sort-Object)) {

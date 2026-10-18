@@ -10,7 +10,9 @@ function Test-ParameterConsistency {
     Assert-SourceTree
     $repositoryRoot = Get-RepositoryRoot
     $config = Get-Config -Config parameter-consistency
-    $files = @(Get-GitTrackedPath 'automation' | Where-Object { $_ -match '^automation/[^/.][^/]*/[^/]+\.ps1$' } |
+    $modulesFolder = Get-CatzcModulesFolder
+    $publicFile = '^' + [regex]::Escape($modulesFolder) + '/[^/.][^/]*/[^/]+\.ps1$'
+    $files = @(Get-GitTrackedPath $modulesFolder | Where-Object { $_ -match $publicFile } |
             ForEach-Object { Join-Path $repositoryRoot $_ })
 
     $issues = [System.Collections.Generic.List[string]]::new()
@@ -25,7 +27,7 @@ function Test-ParameterConsistency {
     }
     foreach ($name in @($config.exempt.Keys | Sort-Object)) {
         if (-not $conflicting.Contains($name)) {
-            $issues.Add("automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml: -$name is exempt but no longer conflicts — remove the entry")
+            $issues.Add("$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/parameter-consistency.yml')): -$name is exempt but no longer conflicts — remove the entry")
         }
     }
 

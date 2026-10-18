@@ -24,7 +24,7 @@ function Get-CatzcBundleFileMetaFact {
         $script:bundleMembersFor = $exporter
     }
 
-    $root = (Get-Track -Name automation).places[0]
+    $root = Get-CatzcModulesFolder
     $value = ''
     $folder = [regex]::Match(($Path -replace '\\', '/'), '^' + [regex]::Escape($root) + '/(?<folder>[^/]+)/')
     if ($folder.Success) {

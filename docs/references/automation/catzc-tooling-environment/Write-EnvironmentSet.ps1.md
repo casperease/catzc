@@ -17,7 +17,7 @@ Writes environment variables for an external/child/test process from three disti
 
 ```text
 -Set   a map whose value is either a [SecureString] (a SECRET) or a 'global.<config>...' config address
-       (a non-secret value or subtree, resolved by Get-ConfigValue — ADR config-value-addressing). The
+       (a non-secret value or subtree, resolved by Get-ConfigValue — ADR-CONF-ADDRESSING). The
        map KEY is the environment variable name (for a secret or a scalar address) or the prefix (for a
        subtree address). A bare literal string in -Set is REJECTED — pass it through -Value instead, so a
        literal can never be mistaken for a secret or an address.

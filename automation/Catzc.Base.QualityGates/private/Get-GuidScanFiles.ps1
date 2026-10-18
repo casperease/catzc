@@ -7,13 +7,14 @@ function Get-GuidScanFiles {
     $tracked = Get-GitTrackedPath '.'
 
     $binaryExtensions = @('.dll', '.exe', '.png', '.jpg', '.jpeg', '.gif', '.ico', '.gz', '.zip', '.pdf', '.woff', '.woff2', '.ttf')
-    $registryFile = 'automation/Catzc.Base.QualityGates/configs/guids.yml'
+    $registryFile = ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/guids.yml')
+    $modulesFolder = Get-CatzcModulesFolder
 
     foreach ($file in $tracked) {
-        if ($file.StartsWith('automation/.vendor/')) {
+        if ($file.StartsWith("$modulesFolder/.vendor/")) {
             continue
         }
-        if ($file.StartsWith('automation/.compiled/')) {
+        if ($file.StartsWith("$modulesFolder/.compiled/")) {
             continue
         }
         if ($file -eq $registryFile) {

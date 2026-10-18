@@ -29,10 +29,10 @@ Build-folder resolution:
 DoNotRun handling: when the template's deployment_mode is 'DoNotRun', this function returns $null (signal to skip) unless
 -OverrideDoNotRunAndRun is set.
 
-Subscription-target templates leave `deployment.resource_group` unset and assert that `configuration/<slot>.yml` does NOT carry a
-`ResourceGroup` key. The target SUBSCRIPTION is the az session's (in a pipeline: the service connection's), resolved against azure.yml by
-Get-AzCliSessionSubscription; the slot addressed is (session customer?, env, slot). The optional -SubscriptionIdAssertIs guard pins the
-target explicitly. See [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md).
+Subscription-target templates leave `deployment.resource_group` unset and assert that the slot's config,
+`configuration/[<customer>/]<env>[-<slot>].yml`, does NOT carry a `ResourceGroup` key. The target SUBSCRIPTION is the az session's (in a
+pipeline: the service connection's), resolved against azure.yml by Get-AzCliSessionSubscription; the slot addressed is (session customer?,
+env, slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md).
 
 ### parameter Environment
 

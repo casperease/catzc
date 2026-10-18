@@ -54,9 +54,7 @@ The diagram is described element by element in [its asset description](one-scan-
 
 ## Where the code and the ADR differ
 
-- The help text of `Get-GlobSetHash` still calls the hash "the marker file's sha256" and cites rule 9; the ADR says the identity is never
-  committed (ADR-FLOW-CD-GLOBS#5).
-- `Test-GlobSetAffected` cites fail-open as ADR-REPO-PROTGLOB#5; for the change check the ADR states it in ADR-FLOW-CD-GLOBS#9.
+`Test-GlobSetAffected` cites fail-open as ADR-REPO-PROTGLOB#5; for the change check the ADR states it in ADR-FLOW-CD-GLOBS#9.
 
 ## See also
 

@@ -56,10 +56,10 @@ function Test-GeneratedFiles {
             'english-dictionary' {
                 # The committed English list, from its stamp: the pin is tools.yml's, read by address (no Tooling edge).
                 if ($writerName -in $selected) {
-                    $assetsFolder = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets'
+                    $assetsFolder = Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.QualityGates/assets'
                     $pinned = "$(Get-ConfigValue -Address 'global.tools.cspell.version')"
                     foreach ($reason in @(Get-EnglishDictionaryDrift -AssetsFolder $assetsFolder -PinnedCspell $pinned)) {
-                        $issues.Add("automation/Catzc.Base.QualityGates/assets/english.txt.gz: stale — $reason; regenerate with: $writerName (commit the gz and its stamp)")
+                        $issues.Add("$(ConvertTo-RepoRelativePath $assetsFolder)/english.txt.gz: stale — $reason; regenerate with: $writerName (commit the gz and its stamp)")
                     }
                 }
             }

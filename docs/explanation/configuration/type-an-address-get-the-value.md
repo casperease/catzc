@@ -62,10 +62,6 @@ The diagram is described element by element in [its asset description](type-an-a
 - A secret crosses to a child process only through `Write-EnvironmentSet`, taken as a protected value, masked as `***`, decrypted only at
   the assignment, and restored when the scoped block ends (ADR-AUTO-ENVVAR#7).
 
-## Where the code and the ADR differ
-
-The help text of `Write-EnvironmentSet` cites the addressing ADR by its file name, not by `ADR-CONF-ADDRESSING`.
-
 ## See also
 
 - [Config value addressing](../../adr/configuration/config-value-addressing.md) — the decision this article explains, and

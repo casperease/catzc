@@ -13,8 +13,8 @@ function Build-TerminologyDictionary {
 
     # The registry and this file are the whole input: when every list already carries their stamp, nothing is parsed or written.
     $inputsSha = Get-InputStamp -Path (
-        (Resolve-RepoPath 'automation/Catzc.Base.QualityGates/configs/terminology.yml'),
-        (Resolve-RepoPath 'automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1')
+        (Get-CatzcModuleRoot 'configs/terminology.yml'),
+        (Get-CatzcModuleRoot 'Build-TerminologyDictionary.ps1')
     )
     if (-not $PassThru -and (Test-Path -LiteralPath $cspellDir)) {
         $lists = @(Get-ChildPath $cspellDir -Depth 1 -File -Filter '*.txt')
@@ -49,7 +49,7 @@ function Build-TerminologyDictionary {
         else {
             ''
         }
-        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source 'automation/Catzc.Base.QualityGates/configs/terminology.yml' -FileKind (Get-FileKind ".cspell/$category.txt") -InputsSha $inputsSha
+        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/terminology.yml')) -FileKind (Get-FileKind ".cspell/$category.txt") -InputsSha $inputsSha
 
         $dictPath = Join-Path $cspellDir "$category.txt"
 

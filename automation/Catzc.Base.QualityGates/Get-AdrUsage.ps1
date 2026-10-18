@@ -8,7 +8,7 @@ function Get-AdrUsage {
 
         [string[]] $Code,
 
-        [ValidateSet('head', 'link')]
+        [ValidateSet('cites', 'link')]
         [string] $Source,
 
         [ValidateSet('Rule', 'Document')]

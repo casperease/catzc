@@ -36,11 +36,6 @@ The diagram is described element by element in [its asset description](three-vie
 - The identity is computed live and never committed (ADR-FLOW-CD-GLOBS#5).
 - Whether a change touches a set is computed from git at the real refs, never from a stored hash (ADR-FLOW-CD-GLOBS#9).
 
-## Where the code and the ADR differ
-
-The ADR says nothing is committed per set, and the code commits nothing. The help text of the hash function, `Get-GlobSetHash`, still speaks
-of a per-set "marker" and its SHA.
-
 ## See also
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.

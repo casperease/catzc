@@ -10,7 +10,7 @@ function Test-Terminology {
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
-    $registryPath = Join-Path $root 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
+    $registryPath = Join-Path $root "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/configs/terminology.yml"
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $config = $null

@@ -2,7 +2,7 @@ function Test-ShellScripts {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string[]] $ShellCheckExclude = @('automation/*/assets/scripts/dotnet-install.sh'),
+        [string[]] $ShellCheckExclude = @("$(Get-CatzcModulesFolder)/*/assets/scripts/dotnet-install.sh"),
 
         [string] $OutputFolder,
 

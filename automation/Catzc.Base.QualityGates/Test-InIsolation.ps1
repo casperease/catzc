@@ -60,7 +60,7 @@ function Test-InIsolation {
             if ($module -in '.vendor', '.compiled') {
                 continue
             }
-            $candidate = Join-Path $sandbox "automation/$module/tests"
+            $candidate = Join-Path $sandbox "$(Get-CatzcModulesFolder)/$module/tests"
             if (Test-Path $candidate) {
                 $candidate
             }

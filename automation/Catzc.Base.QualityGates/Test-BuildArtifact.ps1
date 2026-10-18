@@ -25,7 +25,7 @@ function Test-BuildArtifact {
             'Types', 'Load', 'Parity', 'Manifest'
         })
     $repositoryRoot = Get-RepositoryRoot
-    $automationRoot = Join-Path $repositoryRoot 'automation'
+    $automationRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
     $issues = [System.Collections.Generic.List[string]]::new()
     $facts = [ordered]@{ Modules = 0; TypesHash = '' }
 
