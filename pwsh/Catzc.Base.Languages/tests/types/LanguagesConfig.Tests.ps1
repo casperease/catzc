@@ -101,28 +101,30 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'reads a test runner with tools or with an engine, and none for a language without one' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
-            $tools = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo', 'sprocket'); executable = 'GizmoExecutable' } })).languages[0].tests
+            $tools = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo', 'sprocket'); executable_parameter = 'GizmoExecutable' } })).languages[0].tests
             $tools.runner | Should -Be 'Invoke-WidgetTest'
             $tools.tools | Should -Be @('gizmo', 'sprocket')
-            $tools.executable | Should -Be 'GizmoExecutable'
+            $tools.executable_parameter | Should -Be 'GizmoExecutable'
             $tools.engine | Should -BeNullOrEmpty
             $tools.ExecutableName | Should -Be 'gizmo'
-            $engine = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; engine = 'bash'; executable = 'EngineExecutable' } })).languages[0].tests
+            $engine = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; engine = 'bash'; executable_parameter = 'EngineExecutable' } })).languages[0].tests
             $engine.tools.Count | Should -Be 0
             $engine.ExecutableName | Should -Be 'bash'
             (& $script:one ([ordered]@{ extensions = @('.wdg') })).languages[0].tests | Should -BeNullOrEmpty
         }
 
         It 'throws on a test runner that is not a command, a bad executable, an unknown key, or tools and an engine together or neither' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'widget'; tools = @('gizmo'); executable = 'GizmoExecutable' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'widget'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable' } }) } |
                 Should -Throw "*runner 'widget' is not a command name*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = '-gizmo' } }) } |
-                Should -Throw "*executable '-gizmo' is not a parameter name*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = 'GizmoExecutable'; colour = 'red' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable_parameter = '-gizmo' } }) } |
+                Should -Throw "*executable_parameter '-gizmo' is not a parameter name*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable'; colour = 'red' } }) } |
                 Should -Throw "*unknown key 'colour'*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); engine = 'bash'; executable = 'GizmoExecutable' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = 'GizmoExecutable' } }) } |
+                Should -Throw "*unknown key 'colour'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); engine = 'bash'; executable_parameter = 'GizmoExecutable' } }) } |
                 Should -Throw '*never both and never neither*'
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; executable = 'GizmoExecutable' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; executable_parameter = 'GizmoExecutable' } }) } |
                 Should -Throw '*never both and never neither*'
         }
 

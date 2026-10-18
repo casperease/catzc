@@ -13,18 +13,18 @@ public sealed class LanguageTestRunner
     public IReadOnlyList<string> tools { get; }
 
     // The runner's parameter that takes the executable's path (e.g. GoExecutable).
-    public string executable { get; }
+    public string executable_parameter { get; }
 
     public string engine { get; }
 
     // The name a missing-executable skip reason carries: the engine, else the first tool.
     public string ExecutableName => engine ?? tools[0];
 
-    public LanguageTestRunner(string runner, string[] tools, string executable, string engine)
+    public LanguageTestRunner(string runner, string[] tools, string executableParameter, string engine)
     {
         this.runner = runner;
         this.tools = tools == null ? Array.Empty<string>() : (string[])tools.Clone();
-        this.executable = executable;
+        executable_parameter = executableParameter;
         this.engine = engine;
     }
 }

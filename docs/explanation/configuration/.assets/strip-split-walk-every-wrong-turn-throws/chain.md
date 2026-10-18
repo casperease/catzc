@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f41d48d89734
-    repo_status: locked
-    path: docs/explanation/configuration/.assets/strip-split-walk-every-wrong-turn-throws/chain.md
-    source: docs/explanation/configuration/.assets/strip-split-walk-every-wrong-turn-throws/diagram.drawio.png
-    role: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Strip, split, read once, walk one segment at a time; every wrong turn throws: the value-chain minimap
 
 ```text

@@ -61,7 +61,8 @@ Order: the commits and git operations first, the remote runs next, the final ful
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push. 8a.
    `git mv docs/references/.assets/automation docs/references/.assets/pwsh` (plan-automation-word-residue; its four follow-up steps,
    STYLE.md, conventional-folders.md, the link re-point and the eleven verify notes, wait on it). Check:
-   `git ls-files    docs/references/.assets/automation` lists nothing. 8b. Record the plain moves of 2026-10-18 as renames with `git add` on
+   `git ls-files    docs/references/.assets/automation` lists nothing. 8b. Done 2026-10-18: both are committed (Test-AspectDeclaration in 5becc8385, Watch-Blocking in 8bbe52ab1); the tree is clean there.
+   Record the plain moves of 2026-10-18 as renames with `git add` on
    both paths: Catzc.Base.Modules/Test-AspectDeclaration.ps1 and its test into Catzc.Base.Variants (catzc-fb), and Catzc.Base.Timeouts'
    Assert-Wait.ps1, its test and their two pages into Watch-Blocking (catzc-93). Check: `git status` shows them as renames.
 9. The final full run, last of all, after every other task has landed: a new `pwsh` session, `. ./importer.ps1`, then `Test-Automation` once

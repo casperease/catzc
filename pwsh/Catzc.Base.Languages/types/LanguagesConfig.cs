@@ -13,7 +13,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "languages" };
     private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests", "executable" };
-    private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable", "engine" };
+    private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable_parameter", "engine" };
     private static readonly Regex CommandName = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
     private static readonly Regex ParameterName = new Regex("^[A-Z][A-Za-z0-9]*$");
     private static readonly string[] AllowedLayoutKeys = { "folder", "role", "extensions", "live", "shipped" };
@@ -560,7 +560,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         string where = string.Format(CultureInfo.InvariantCulture, "languages['{0}'].tests", name);
         if (map == null)
         {
-            errors.Add(where + ": must be a map of runner, tools, executable and engine");
+            errors.Add(where + ": must be a map of runner, tools, executable_parameter and engine");
             return null;
         }
         int before = errors.Count;
@@ -576,10 +576,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         {
             errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: runner '{1}' is not a command name (Verb-Noun)", where, runner));
         }
-        string executable = map.Contains("executable") ? Text(map["executable"]) : "";
-        if (!ParameterName.IsMatch(executable))
+        string executableParameter = map.Contains("executable_parameter") ? Text(map["executable_parameter"]) : "";
+        if (!ParameterName.IsMatch(executableParameter))
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: executable '{1}' is not a parameter name (e.g. GoExecutable)", where, executable));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: executable_parameter '{1}' is not a parameter name (e.g. GoExecutable)", where, executableParameter));
         }
         List<string> tools = new List<string>();
         if (map.Contains("tools") && map["tools"] != null)
@@ -619,7 +619,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             errors.Add(where + ": names either the tools that must resolve or the one engine the tests run under, never both and never neither");
         }
         if (errors.Count > before) { return null; }
-        return new LanguageTestRunner(runner, tools.ToArray(), executable, engine);
+        return new LanguageTestRunner(runner, tools.ToArray(), executableParameter, engine);
     }
 
     private static List<string> ReadChecks(string name, object value, List<string> errors)

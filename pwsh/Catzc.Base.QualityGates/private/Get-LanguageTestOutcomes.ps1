@@ -57,7 +57,7 @@ function Get-LanguageTestOutcomes {
         # A language that is an engine runs its tests under that engine only, with the executable the source session located.
         $run.Remove('Engine')
     }
-    $run[$tests.executable] = $Executable
+    $run[$tests.executable_parameter] = $Executable
     $produced = & $tests.runner @run
     $results = @{}
     foreach ($result in @($produced)) {
