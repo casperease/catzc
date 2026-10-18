@@ -9,7 +9,7 @@ function Test-ManualTestPlan {
 
     Assert-SourceTree
     $repositoryRoot = Get-RepositoryRoot
-    $automationRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
+    $modulesRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
     $planRelative = 'docs/how-to/automation/manual-test-plan'
     $planPath = Join-Path $repositoryRoot $planRelative
     $maxCategories = 13
@@ -18,7 +18,7 @@ function Test-ManualTestPlan {
 
     $blocks = [System.Collections.Generic.List[object]]::new()
     # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
-    $testFiles = Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
+    $testFiles = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
         Sort-Object
     foreach ($file in $testFiles) {
         $tokens = $null; $parseErrors = $null

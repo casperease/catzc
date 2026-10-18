@@ -2,15 +2,15 @@ function Get-UncoveredInternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string] $AutomationRoot = (Get-CatzcModulesRoot),
+        [string] $ModulesRoot = (Get-CatzcModulesRoot),
 
         [object[]] $Dependency
     )
 
-    $modulesFolder = [System.IO.Path]::GetFileName($AutomationRoot.TrimEnd('\', '/'))
+    $modulesFolder = [System.IO.Path]::GetFileName($ModulesRoot.TrimEnd('\', '/'))
 
     if (-not $PSBoundParameters.ContainsKey('Dependency')) {
-        $Dependency = @(Get-InternalAssetDependency -AutomationRoot $AutomationRoot)
+        $Dependency = @(Get-InternalAssetDependency -ModulesRoot $ModulesRoot)
     }
 
     $citation = 'ADR-AUTO-ASSETDEP#3'
@@ -71,7 +71,7 @@ function Get-UncoveredInternalAssetDependency {
 
     $ret = foreach ($group in ($byFunction | Sort-Object Name)) {
         $definingModule, $functionName = $group.Name -split '\|', 2
-        $testsDirectory = Join-Path $AutomationRoot "$definingModule/tests"
+        $testsDirectory = Join-Path $ModulesRoot "$definingModule/tests"
         $pattern = '^' + [regex]::Escape($functionName) + '(\.[^.]+)?\.Tests\.ps1$'
         $testFiles = @(
             if ([System.IO.Directory]::Exists($testsDirectory)) {

@@ -101,7 +101,7 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
 
     It 'throws on a backslash-separated scope glob' {
         { [Catzc.Base.QualityGates.TerminologyConfig]::new(
-                @{ categories = @{ product = @{ description = 'd'; scope = @('automation\tests\**') } }; terms = @{ product = @(@{ term = 'a'; meaning = 'b' }) } }) } |
+                @{ categories = @{ product = @{ description = 'd'; scope = @('widgets\tests\**') } }; terms = @{ product = @(@{ term = 'a'; meaning = 'b' }) } }) } |
             Should -Throw '*must be*separated*'
     }
 

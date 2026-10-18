@@ -19,15 +19,15 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'constructs from patterns alone (no mappings)' {
-        $c = & $script:make @{ patterns = @(@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' }) }
+        $c = & $script:make @{ patterns = @(@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' }) }
         $c.patterns.Count | Should -Be 1
-        $c.patterns[0].glob | Should -Be 'automation/*'
+        $c.patterns[0].glob | Should -Be 'widgets/*'
         $c.mappings.Count | Should -Be 0
     }
 
     It 'constructs from patterns and mappings together' {
         $c = & $script:make @{
-            patterns = @(@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' })
+            patterns = @(@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
             mappings = @(@{ folder = 'pipelines'; source = 'docs/references/pipelines.md' })
         }
         $c.patterns.Count | Should -Be 1
@@ -55,7 +55,7 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws when a pattern is missing a required key' {
-        { & $script:make @{ patterns = @(@{ glob = 'automation/*' }) } } | Should -Throw '*source is required*'
+        { & $script:make @{ patterns = @(@{ glob = 'widgets/*' }) } } | Should -Throw '*source is required*'
     }
 
     It 'rejects an unknown top-level key' {

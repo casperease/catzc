@@ -27,7 +27,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             [System.IO.File]::Copy((Join-Path $root 'Catzc.Base.Widget/types/Widget.cs'), "$staging/Catzc.Base.Widget/types/Widget.cs")
             [System.IO.File]::Copy((Join-Path $root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'), "$staging/Catzc.Base.Gadget/types/Gadget.cs")
             Import-InternalModule Types
-            $typesHash = (Get-CombinedTypeHash -AutomationRoot $staging).CombinedHash
+            $typesHash = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash
             & $write ".compiled/Catzc.Types.$typesHash.dll" 'MZ'
             & $write ".compiled/Catzc.Types.$typesHash.json" '{}'
 

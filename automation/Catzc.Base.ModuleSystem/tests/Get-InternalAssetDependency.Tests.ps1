@@ -24,7 +24,7 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
         Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
 
-        $script:records = @(Get-InternalAssetDependency -AutomationRoot $script:fake.Automation)
+        $script:records = @(Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot)
         $script:find = { param([string] $ChildPath) @($script:records | Where-Object { $_.ChildPath -eq $ChildPath }) }
     }
 
@@ -74,19 +74,19 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
 
     It 'parses each file once when two scans share one holder' {
         $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
-        $null = Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -ParsedScripts $parsed
+        $null = Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -ParsedScripts $parsed
         $first = $parsed.ParseCount
-        $null = Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -ParsedScripts $parsed
+        $null = Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -ParsedScripts $parsed
         $first | Should -Be 7
         $parsed.ParseCount | Should -Be $first
     }
 
     It '-Module limits the scan to the named module folders' {
-        @(Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -Module Catzc.Base.Sprocket) | Should -HaveCount 0
+        @(Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -Module Catzc.Base.Sprocket) | Should -HaveCount 0
     }
 
     It 'returns nothing with -Violation when every call site is literal' {
-        @(Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -Violation) | Should -HaveCount 0
+        @(Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -Violation) | Should -HaveCount 0
     }
 }
 
@@ -112,12 +112,12 @@ Describe 'Get-InternalAssetDependency — non-literal call sites (ADR-AUTO-ASSET
     }
 
     It 'throws by default, naming every violating call site, so the inventory is never silently partial' {
-        { Get-InternalAssetDependency -AutomationRoot $script:fake.Automation } |
+        { Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot } |
             Should -Throw '*4 Get-CatzcModuleRoot call site(s) cannot be inventoried*Get-Gadget.ps1:3*'
     }
 
     It '-Violation lists each non-literal site with its reason instead of throwing' {
-        $violations = @(Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -Violation)
+        $violations = @(Get-InternalAssetDependency -ModulesRoot $script:fake.ModulesRoot -Violation)
         ($violations.Function | Sort-Object) | Should -Be @('Find-Gadget', 'Get-Gadget', 'Get-GadgetPeer', 'Set-Gadget')
         ($violations | Where-Object Function -EQ 'Get-Gadget').Reason | Should -BeLike '*-ChildPath is not a string literal*'
         ($violations | Where-Object Function -EQ 'Set-Gadget').Line | Should -Be 2
@@ -129,6 +129,6 @@ Describe 'Get-InternalAssetDependency — non-literal call sites (ADR-AUTO-ASSET
 Describe 'Get-InternalAssetDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Get-InternalAssetDependency -AutomationRoot $TestDrive } | Should -Throw '*Get-InternalAssetDependency operates on the catzc source tree*'
+        { Get-InternalAssetDependency -ModulesRoot $TestDrive } | Should -Throw '*Get-InternalAssetDependency operates on the catzc source tree*'
     }
 }

@@ -25,7 +25,7 @@ Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
         New-TypeModule 'Catzc.Base' @{ Rec = 'public abstract class Rec { }' }
         New-TypeModule 'Catzc.Consumer' @{ Thing = 'public class Thing : Catzc.Base.Rec { }' }
 
-        $edges = @(Get-CSharpTypeDependency -AutomationRoot $root)
+        $edges = @(Get-CSharpTypeDependency -ModulesRoot $root)
         $e = $edges | Where-Object { $_.From -eq 'Catzc.Consumer' }
         $e.To | Should -Be 'Catzc.Base'
     }
@@ -35,7 +35,7 @@ Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
         New-TypeModule 'Catzc.Azure.Templates' @{ Template = 'public class Template { }' }
         New-TypeModule 'Catzc.OnlyTemplates' @{ Use = 'public class Use { public Catzc.Azure.Templates.Template T; }' }
 
-        $edges = @(Get-CSharpTypeDependency -AutomationRoot $root)
+        $edges = @(Get-CSharpTypeDependency -ModulesRoot $root)
         $from = @($edges | Where-Object { $_.From -eq 'Catzc.OnlyTemplates' })
         @($from.To) | Should -Be @('Catzc.Azure.Templates')   # exactly one edge — NOT also Catzc.Azure
     }
@@ -52,7 +52,7 @@ public class Thing : Catzc.Base.Rec {
 '@
         }
 
-        $edges = @(Get-CSharpTypeDependency -AutomationRoot $root)
+        $edges = @(Get-CSharpTypeDependency -ModulesRoot $root)
         @($edges | Where-Object { $_.To -eq 'Catzc.Commented' }) | Should -BeNullOrEmpty
         ($edges | Where-Object { $_.From -eq 'Catzc.Consumer' }).To | Should -Be 'Catzc.Base'
     }
@@ -62,7 +62,7 @@ public class Thing : Catzc.Base.Rec {
             Thing = 'public class Thing { public Catzc.Solo.Thing Self; public System.Collections.Generic.List<int> L; }'
         }
 
-        $edges = @(Get-CSharpTypeDependency -AutomationRoot $root)
+        $edges = @(Get-CSharpTypeDependency -ModulesRoot $root)
         $edges | Should -BeNullOrEmpty   # own-module ref and System.* produce no cross-module edges
     }
 
@@ -72,7 +72,7 @@ public class Thing : Catzc.Base.Rec {
             Thing = 'public class Thing { public Catzc.Base.Rec A; public Catzc.Base.Rec B; }'
         }
 
-        $edges = @(Get-CSharpTypeDependency -AutomationRoot $root)
+        $edges = @(Get-CSharpTypeDependency -ModulesRoot $root)
         $e = $edges | Where-Object { $_.From -eq 'Catzc.Consumer' }
         @($e.References).Count | Should -Be 1   # Catzc.Base.Rec referenced twice, listed once
     }
@@ -88,6 +88,6 @@ public class Thing : Catzc.Base.Rec {
 Describe 'Get-CSharpTypeDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Get-CSharpTypeDependency -AutomationRoot $TestDrive } | Should -Throw '*Get-CSharpTypeDependency operates on the catzc source tree*'
+        { Get-CSharpTypeDependency -ModulesRoot $TestDrive } | Should -Throw '*Get-CSharpTypeDependency operates on the catzc source tree*'
     }
 }

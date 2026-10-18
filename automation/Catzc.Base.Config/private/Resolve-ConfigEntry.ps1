@@ -14,12 +14,12 @@ function Resolve-ConfigEntry {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
         $script:configIndex = @{}
-        $automationRoot = Get-CatzcModulesRoot
-        $moduleDirs = [System.Collections.Generic.List[string]]::new([string[]] @([System.IO.Directory]::EnumerateDirectories($automationRoot)))
+        $modulesRoot = Get-CatzcModulesRoot
+        $moduleDirs = [System.Collections.Generic.List[string]]::new([string[]] @([System.IO.Directory]::EnumerateDirectories($modulesRoot)))
         $overlayRoot = Get-ConfigOverlayRoot
         if ($overlayRoot) {
             foreach ($overlayDir in [System.IO.Directory]::EnumerateDirectories($overlayRoot)) {
-                if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($automationRoot, [System.IO.Path]::GetFileName($overlayDir)))) {
+                if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($modulesRoot, [System.IO.Path]::GetFileName($overlayDir)))) {
                     $moduleDirs.Add($overlayDir)   # a local module; a bundled module's folder holds fragments, not configs
                 }
             }

@@ -54,7 +54,7 @@ Format-Types -DryRun
 
 ## comment:1
 
-Above `$automationRoot = [System.IO.Path]::GetFullPath((Join-Path $root...`, written with `#`.
+Above `$modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $root...`, written with `#`.
 
 ```text
 [System.IO] enumeration: each cmdlet call on this path adds about 20ms.

@@ -158,7 +158,7 @@ well over the L0 limit), while the hash check is pure filesystem (L0). Tier is t
 
 ## comment:16
 
-Above `$script:currentHash = (Get-CombinedTypeHash (Join-Path $env:RepositoryRoot...`, written with `#`.
+Above `$script:currentHash = (Get-CombinedTypeHash (Get-CatzcModulesRoot)).CombinedHash`, written with `#`.
 
 ```text
 The current combined hash comes from the ONE shared implementation (Get-CombinedTypeHash, loaded by the

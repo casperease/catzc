@@ -10,20 +10,20 @@ function Initialize-SpellingOracle {
         return
     }
     # The rule sits in the modules root, so the root is its parent folder and no literal names it.
-    $automationRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-    $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $automationRoot '..'))
+    $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+    $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $modulesRoot '..'))
 
     if (-not ('Catzc.Base.QualityGates.SpellingOracle' -as [type])) {
-        Import-Module (Join-Path $automationRoot '.internal/Catzc.Internal.Types.psm1')
-        $combinedHash = (Get-CombinedTypeHash $automationRoot).CombinedHash
-        $typesDll = Join-Path $automationRoot ".compiled/Catzc.Types.$combinedHash.dll"
+        Import-Module (Join-Path $modulesRoot '.internal/Catzc.Internal.Types.psm1')
+        $combinedHash = (Get-CombinedTypeHash $modulesRoot).CombinedHash
+        $typesDll = Join-Path $modulesRoot ".compiled/Catzc.Types.$combinedHash.dll"
         if (-not [System.IO.File]::Exists($typesDll)) {
             throw "Measure-SpellOutIdentifiers: the compiled types assembly for the current sources ($typesDll) was not found — run the importer to build it."
         }
         Import-TypesAssembly -Path $typesDll | Out-Null
     }
 
-    $englishPath = Join-Path $automationRoot 'Catzc.Base.QualityGates/assets/english.txt.gz'
+    $englishPath = Join-Path $modulesRoot 'Catzc.Base.QualityGates/assets/english.txt.gz'
     $cspellDir = Join-Path $repoRoot '.cspell'
     $allTermPaths = if ([System.IO.Directory]::Exists($cspellDir)) {
         [string[]] @([System.IO.Directory]::EnumerateFiles($cspellDir, '*.txt'))

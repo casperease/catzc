@@ -4,6 +4,21 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
         ([Catzc.Base.Slides.SlidesConfig]::new($null)).kit | Should -Be '.claude/slides'
     }
 
+    It 'takes the declared defaults for the draw.io kit and the diagram batch' -Tag 'ADR-AUTO-DEFAULT#6' {
+        $config = [Catzc.Base.Slides.SlidesConfig]::new(@{})
+        $config.drawio_kit | Should -Be '.claude/drawio'
+        $config.diagram_batch | Should -Be 25
+    }
+
+    It 'maps a draw.io kit and a batch it is given, and rejects a batch below one or a kit not in communication form' {
+        $config = [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = 'widget/kit/'; diagram_batch = 7 })
+        $config.drawio_kit | Should -Be 'widget/kit'
+        $config.diagram_batch | Should -Be 7
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 0 }) } | Should -Throw '*diagram_batch*at least 1*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 'many' }) } | Should -Throw '*diagram_batch*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = '../kit' }) } | Should -Throw '*drawio_kit*communication form*'
+    }
+
     It 'maps the kit folder it is given, without a trailing slash' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{ kit = 'widget/gadget/' })).kit | Should -Be 'widget/gadget'
     }

@@ -59,12 +59,12 @@ through the generators, never by sweep: change the source once, regenerate, veri
 8. [x] `Test-ShippedTypes` in a fresh process: `TrackTypeEntry` and `VendorEntry` resolve after import, or the reason is fixed in the type
        (Q88). Check: the gate is clean on Catzc.Base.Variants. 2026-10-18: `SHIPPEDTYPES issues=0`
        (`out/test-shipped-types/20261018-122129`).
-9. [x] Namespace follow-up (Q36): one Decided line in the plan stating what the namespace of a module is once kinds land and whether a
-       step follows. Check: the line exists. Done 2026-10-18: D29, the track name, so `Catzc.Base.*` stays, and no step follows; the Decided
-       line is in plan-module-kinds-tracks.
+9. [x] Namespace follow-up (Q36): one Decided line in the plan stating what the namespace of a module is once kinds land and whether a step
+       follows. Check: the line exists. Done 2026-10-18: D29, the track name, so `Catzc.Base.*` stays, and no step follows; the Decided line
+       is in plan-module-kinds-tracks.
 10. [x] Tick the plan's five open steps. Done 2026-10-18 apart from the plan's step 10, the infrastructure track, which is a design step of
-    its own and stays open there. Check: grep `- [ ]` in `plan-module-kinds-tracks.md` counts zero; the plan then holds only its carried
-    drafts and is trimmed by plan-clear (Q11: carried text goes when its data is in the tree).
+        its own and stays open there. Check: grep `- [ ]` in `plan-module-kinds-tracks.md` counts zero; the plan then holds only its carried
+        drafts and is trimmed by plan-clear (Q11: carried text goes when its data is in the tree).
 
 ## Report
 

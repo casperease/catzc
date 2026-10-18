@@ -1,17 +1,18 @@
 # Catzc.Base.Slides
 
-The slides module. It owns the render of a deck from its slide files through the patterns of the slides kit, and the gate that checks every
-slide file against the rules it quotes ([ADR-REPO-SLIDES](../../adr/repository/slides-as-markdown.md)). It deliberately does **not** own the
-kit's content, which is authored under `.claude/slides/`, or the publishing of a rendered deck, which a person does after reading the
-render.
+The slides module. It owns the render of a deck from its slide files through the patterns of the slides kit, the gate that checks every
+slide file against the rules it quotes ([ADR-REPO-SLIDES](../../adr/repository/slides-as-markdown.md)), and the one command that renders
+every draw.io slide of the repository from its source. It deliberately does **not** own the kit's content, which is authored under
+`.claude/slides/`, or the publishing of a rendered deck, which a person does after reading the render.
 
 ## Responsibilities
 
-| Responsibility   | Area   | Name                                                                   |
-| ---------------- | ------ | ---------------------------------------------------------------------- |
-| responsibility:1 | render | [Fail-forward deck render](#responsibility1--fail-forward-deck-render) |
-| responsibility:2 | gate   | [The slides quality gate](#responsibility2--the-slides-quality-gate)   |
-| responsibility:3 | kit    | [Reading the kit](#responsibility3--reading-the-kit)                   |
+| Responsibility   | Area     | Name                                                                       |
+| ---------------- | -------- | -------------------------------------------------------------------------- |
+| responsibility:1 | render   | [Fail-forward deck render](#responsibility1--fail-forward-deck-render)     |
+| responsibility:2 | gate     | [The slides quality gate](#responsibility2--the-slides-quality-gate)       |
+| responsibility:3 | kit      | [Reading the kit](#responsibility3--reading-the-kit)                       |
+| responsibility:4 | diagrams | [Diagram render from source](#responsibility4--diagram-render-from-source) |
 
 ### responsibility:1 — Fail-forward deck render
 
@@ -32,6 +33,13 @@ The module reads the kit from one configured folder, `slides` in the config regi
 becomes a `SlidesKit` of tokens, faces, scale and layout, and each `patterns/<name>.html` a `SlidePattern` that knows its fields, which are
 required and how much each holds. A pattern's placeholders decide what a slide may say; the module changes for no pattern.
 
+### responsibility:4 — Diagram render from source
+
+`Build-Diagrams` renders every draw.io slide from what the tree holds: the model embedded in each tracked `.drawio.png` and the repository's
+maps. It runs the draw.io kit's renderer (`drawio_forward.py`, `drawio_kit` in `slides.yml`, `.claude/drawio` by default) over every folder
+that holds a slide, stage by stage and in slices of `diagram_batch` slides, so no session decides anything and a rebuild from a clean
+checkout gives the same slides.
+
 ## What the module does
 
 A deck kept in a presentation tool is prose nobody can diff, cite or check. Kept as one markdown file per slide, with the layout as a named
@@ -42,8 +50,9 @@ the published page is a projection that can be rebuilt from the tree at any time
 
 The functions the module exports, indexed by the responsibility each serves, and the config the module owns.
 
-| Responsibility                              | Function          |
-| ------------------------------------------- | ----------------- |
-| responsibility:1 — Fail-forward deck render | `Build-SlideDeck` |
-| responsibility:2 — The slides quality gate  | `Test-Slides`     |
-| responsibility:3 — Reading the kit          | `slides.yml`      |
+| Responsibility                                | Function          |
+| --------------------------------------------- | ----------------- |
+| responsibility:1 — Fail-forward deck render   | `Build-SlideDeck` |
+| responsibility:2 — The slides quality gate    | `Test-Slides`     |
+| responsibility:3 — Reading the kit            | `slides.yml`      |
+| responsibility:4 — Diagram render from source | `Build-Diagrams`  |

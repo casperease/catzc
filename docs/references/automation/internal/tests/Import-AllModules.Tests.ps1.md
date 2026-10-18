@@ -17,7 +17,7 @@ needs from a single import, then asserts the facets in separate It blocks.
 
 ## comment:2
 
-Above `Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal')...`, written with `#`.
+Above `Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path...`, written with `#`.
 
 ```text
 Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: .vendor (Pester + powershell-yaml, ~88

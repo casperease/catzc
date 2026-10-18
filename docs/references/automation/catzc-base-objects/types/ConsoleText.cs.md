@@ -28,21 +28,3 @@ convention, `TypeName { A = 1, B = x }`, on one line:
 
 A rendering never throws for a value: a getter that throws renders as !<ExceptionName>. BCL only.
 ```
-
-## comment:2
-
-Above `private static bool IsDataProperty(PropertyInfo property)`, written with `//`.
-
-```text
-A public readable non-indexer property the type declares — not DictionaryRecord's own view members
-(Keys), and not one marked [Hidden] from PowerShell.
-```
-
-## comment:3
-
-Above `private static bool IsHidden(PropertyInfo property)`, written with `//`.
-
-```text
-PowerShell's [Hidden], matched by name so this file stays BCL-only: the Bash time-safeguard hook compiles
-it (through DictionaryRecord) into a program that does not reference System.Management.Automation.
-```

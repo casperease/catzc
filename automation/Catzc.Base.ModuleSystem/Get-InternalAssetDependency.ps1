@@ -2,7 +2,7 @@ function Get-InternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string] $AutomationRoot = (Get-CatzcModulesRoot),
+        [string] $ModulesRoot = (Get-CatzcModulesRoot),
 
         [string[]] $Module,
 
@@ -12,9 +12,9 @@ function Get-InternalAssetDependency {
     )
 
     Assert-SourceTree
-    Assert-PathExist $AutomationRoot -PathType Container
+    Assert-PathExist $ModulesRoot -PathType Container
     # The repository-relative labels name the modules folder by the root's own name, never a literal.
-    $modulesFolder = [System.IO.Path]::GetFileName($AutomationRoot.TrimEnd('\', '/'))
+    $modulesFolder = [System.IO.Path]::GetFileName($ModulesRoot.TrimEnd('\', '/'))
 
     $helperName = 'Get-CatzcModuleRoot'
     $helperParameters = (Get-Command $helperName -CommandType Function).Parameters
@@ -31,7 +31,7 @@ function Get-InternalAssetDependency {
     }
 
     $moduleNames = [string[]] @(
-        [System.IO.Directory]::EnumerateDirectories($AutomationRoot) |
+        [System.IO.Directory]::EnumerateDirectories($ModulesRoot) |
             ForEach-Object { [System.IO.Path]::GetFileName($_) } |
             Where-Object { -not $_.StartsWith('.') -and (-not $Module -or $_ -in $Module) }
     )
@@ -41,7 +41,7 @@ function Get-InternalAssetDependency {
     $violations = [System.Collections.Generic.List[object]]::new()
 
     foreach ($moduleName in $moduleNames) {
-        $moduleDirectory = Join-Path $AutomationRoot $moduleName
+        $moduleDirectory = Join-Path $ModulesRoot $moduleName
         $files = [System.Collections.Generic.List[object]]::new()
         foreach ($path in [System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1')) {
             $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$([System.IO.Path]::GetFileName($path))" })

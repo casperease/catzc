@@ -253,7 +253,7 @@ function Import-CSharpTypes {
 
     Import-InternalModule Types
     # The hash memo lives beside the shadow copies, machine-local like them; a bundle is read-only and hashes every file.
-    $hashArguments = @{ AutomationRoot = $ModulesRoot }
+    $hashArguments = @{ ModulesRoot = $ModulesRoot }
     if (-not $PrebuiltOnly) {
         $hashArguments['StampPath'] = Get-TypesStampPath -ModulesRoot $ModulesRoot
     }
@@ -329,7 +329,7 @@ function Import-CSharpTypes {
         if ($PrebuiltOnly) {
             throw "Bundle is missing its prebuilt combined-types assembly ($dll). The bundle is incomplete or corrupt — rebuild it (Build-Modules ships the DLL); a bundle never compiles types."
         }
-        $built = Build-CombinedTypeAssembly -AutomationRoot $ModulesRoot -OutputDirectory $compiledDir
+        $built = Build-CombinedTypeAssembly -ModulesRoot $ModulesRoot -OutputDirectory $compiledDir
         if ($built.Hash -ne $combinedHash) {
             throw "C# type sources changed during the import ($combinedHash -> $($built.Hash)). Re-run the importer."
         }

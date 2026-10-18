@@ -101,8 +101,8 @@ contracts plan).
    unexported, its tests and the module's callers' tests pass, Test-Links, Test-Comments, Test-GeneratedFiles, Test-FileMeta and
    Test-ManagedGuids clean. Left exported, by the pair convention or as a module's own responsibility: Test-VendorModuleAvailable,
    Get-PermanentEnvironmentVariable, the Asserts and Files Test/Assert pairs, Assert-GitHubPurgeReady, New-SyntheticHistory,
-   Set-CurrentAzSubscription and Save-PSReadLineKeyHandlerSet. The two questions the user delegated (2026-10-18, D26 and D27): of the
-   twelve exported functions nothing calls, five were dead code and left the tree with their tests, pages and article rows (Assert-Null,
+   Set-CurrentAzSubscription and Save-PSReadLineKeyHandlerSet. The two questions the user delegated (2026-10-18, D26 and D27): of the twelve
+   exported functions nothing calls, five were dead code and left the tree with their tests, pages and article rows (Assert-Null,
    Assert-PipelineEmpty, Get-LastExitCode, Wait-Mutex, ConvertTo-Dictionary); Assert-IsGuidInRange, Assert-FileIsLocked and
    Test-IsTimeoutExempt stay as halves of a Test/Assert pair, Write-CallStack and Write-CmdletParameterSet as debug writers,
    Get-FunctionDependencyTree with no contract (a `PSObject[]` parameter), and Remove-TokenFromHistory got its contract. Of the 139

@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The named module sets of configs/profiles.yml, for Copy-Automation -ModuleProfile, Test-InIsolation and the
+The named module sets of configs/profiles.yml, for Copy-CatzcModule -ModuleProfile, Test-InIsolation and the
 exporter: each profile is a SEED list of module names that Get-ModuleProfile expands to its declared-dependency
 closure plus the fixed infrastructure; an EMPTY seed means the full repository. Constructing an instance MAPS
 and VALIDATES the parsed YAML, collecting every violation into one throw. Registered in

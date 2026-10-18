@@ -35,7 +35,7 @@ partial. -Violation returns the violating sites instead of the inventory, withou
 Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter `AutomationRoot`
+### parameter `ModulesRoot`
 
 Path to the automation directory to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
 

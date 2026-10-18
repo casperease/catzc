@@ -177,7 +177,7 @@ terms:
     - term: dryrun
       meaning: "the -DryRun switch (dryrun)"
     - term: entrypoint
-      meaning: "entry-point script or function (entrypoint); a Copy-Automation package name in files.yml"
+      meaning: "entry-point script or function (entrypoint); a Copy-CatzcModule package name in files.yml"
     - term: headerless
       meaning: "headerless"
     - term: idempotency

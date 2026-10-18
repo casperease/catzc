@@ -21,12 +21,3 @@ it gives a record three capabilities a loose dictionary lacks or had for free:
   3. protected static extraction helpers (Req / OptStr / StrArr / Flag) a derived constructor uses to read
      its source IDictionary, so the read-and-validate logic is defined once here, not per record.
 ```
-
-## comment:2
-
-Above `private static bool IsDataProp(PropertyInfo p)`, written with `//`.
-
-```text
-A "data" property is one the DERIVED record declares — not this base's own view members (Keys, the
-indexer). Excluding them is also what stops Keys/ToHashtable from recursing into get_Keys() forever.
-```

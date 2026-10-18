@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The module -> packages bindings of configs/files.yml, for Copy-Automation: per module, the named packages of
+The module -> packages bindings of configs/files.yml, for Copy-CatzcModule: per module, the named packages of
 repository-root-relative file artifacts it owns beyond its own folder. Constructing an instance MAPS and
 VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.ModuleSystem.FilesConfig), so

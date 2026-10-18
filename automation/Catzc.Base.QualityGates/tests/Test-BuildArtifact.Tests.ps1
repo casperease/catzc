@@ -217,7 +217,7 @@ Describe 'Get-ModuleSourceFunctions' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($path, '')
         }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Automation = $automation } {
-            $source = Get-ModuleSourceFunctions -AutomationRoot $Automation -Name 'Catzc.Gadget'
+            $source = Get-ModuleSourceFunctions -ModulesRoot $Automation -Name 'Catzc.Gadget'
             $source.Public | Should -Be @('Get-Gadget', 'Set-Gadget')
             $source.Private | Should -Be @('Resolve-Gadget')
         }
@@ -227,7 +227,7 @@ Describe 'Get-ModuleSourceFunctions' -Tag 'L0', 'logic' {
         $automation = Join-Path $TestDrive 'bare'
         [System.IO.Directory]::CreateDirectory((Join-Path $automation 'Catzc.Widget')) | Out-Null
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Automation = $automation } {
-            $source = Get-ModuleSourceFunctions -AutomationRoot $Automation -Name 'Catzc.Widget'
+            $source = Get-ModuleSourceFunctions -ModulesRoot $Automation -Name 'Catzc.Widget'
             @($source.Public).Count | Should -Be 0
             @($source.Private).Count | Should -Be 0
         }

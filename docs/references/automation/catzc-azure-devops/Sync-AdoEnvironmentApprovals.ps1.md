@@ -7,15 +7,17 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Puts an approval check on every prod-tier Azure DevOps environment that environment-approvals.yml lists.
+Applies environment-approvals.yml to Azure DevOps: the approver group, its members, and one Approval check per prod-tier environment.
 
 ### description
 
 A deploy to a prod-tier environment waits for a person to approve it, so CD never reaches production unattended
-([ADR-FLOW-CD](../../../adr/flow/cd-discipline-and-promotion-flow.md)). For each environment the config lists, this finds the environment
-and the approver group (`[<project>]\<approver_group>`), reads the environment's checks, and creates the Approval check when it has none,
-updates it when its approver or timeout drifted from the config, and leaves it alone otherwise. A missing group or environment throws,
-naming it. The approver group and the timeout default on the config type (`Prod Approvers`, 24 hours); the file may override both.
+([ADR-FLOW-CD](../../../adr/flow/cd-discipline-and-promotion-flow.md)). The config is the truth and this apply makes the organization match
+it, in a fixed order: the group `[<project>]\<approver_group.name>` is created when missing; its members are made exactly the configured
+principal names, adding the missing and removing the unlisted; and each listed environment gets one Approval check by that group with the
+configured timeout, created, updated or left alone. An empty member list is refused before any call, and a missing environment or an unknown
+member throws, naming it. The group name and the timeout default on the config type (`Prod Approvers`, 24 hours). The procedure is
+[Apply the prod-tier approvals](../../../how-to/automation/apply-environment-approvals.md).
 
 ### parameter `Project`
 
@@ -27,11 +29,12 @@ Azure DevOps organization URL (`https://dev.azure.com/<org>`). Defaults to the v
 
 ### parameter `DryRun`
 
-Read and report what would change, writing nothing.
+Read and report what the apply would change, writing nothing.
 
 ### outputs
 
-`[pscustomobject]` One per environment: { Environment; Action = Create | Update | Unchanged; ApproverGroup; TimeoutHours; DryRun }.
+`[pscustomobject]` One for the group, then one per environment: { Kind = Group | Check; Target; Action = Create | Update | Unchanged;
+Details; DryRun }.
 
 ### example 1
 

@@ -9,7 +9,7 @@ function Test-SourceConventions {
 
     Assert-SourceTree
     $repositoryRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
-    $automationRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
+    $modulesRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
     $settings = Get-Config -Config source-conventions
     # Every file is parsed once; the source checks below reuse the trees the naming checks parsed.
     $parsed = [System.Collections.Generic.Dictionary[string, System.Management.Automation.Language.Ast]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -36,7 +36,7 @@ function Test-SourceConventions {
     $testCount = 0
     $skipReasonCount = 0
 
-    foreach ($moduleDirectory in ([System.IO.Directory]::EnumerateDirectories($automationRoot) | Sort-Object)) {
+    foreach ($moduleDirectory in ([System.IO.Directory]::EnumerateDirectories($modulesRoot) | Sort-Object)) {
         $module = [System.IO.Path]::GetFileName($moduleDirectory)
 
         if ($module -notmatch '^\.') {
@@ -115,10 +115,10 @@ function Test-SourceConventions {
     }
 
     # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
-    $allTestFiles = Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
+    $allTestFiles = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
         Sort-Object
     foreach ($testFile in $allTestFiles) {
-        $relative = $testFile.Substring($automationRoot.Length + 1) -replace '\\', '/'
+        $relative = $testFile.Substring($modulesRoot.Length + 1) -replace '\\', '/'
         $ast = & $parse $testFile
         foreach ($call in $ast.FindAll($isSetItResult, $true)) {
             $elements = $call.CommandElements

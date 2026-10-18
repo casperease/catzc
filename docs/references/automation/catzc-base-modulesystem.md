@@ -118,7 +118,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                   | `Get-InternalAssetDependency`       |
 |                                                   | `Test-InternalAssetDependency`      |
 | responsibility:4 — Toolset model and copy         | `Get-ModuleProfile`                 |
-|                                                   | `Copy-Automation`                   |
+|                                                   | `Copy-CatzcModule`                  |
 | config                                            | `files.yml`                         |
 |                                                   | `profiles.yml`                      |
 |                                                   | `artifacts.yml`                     |

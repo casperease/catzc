@@ -67,8 +67,14 @@ first; C# edits need a fresh pwsh.
    config, or the resolved path (a message must not call `Get-CatzcModulesFolder`, which throws outside the source tree); Variants, VSCode
    and Get-CatzcOverlayRoot's test wait for their holding sessions. Original step: Test fixtures that bake `<root>/automation`: a root from
    the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.
-5. S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment page regenerated. Check: Test-Links,
-   Test-Comments on the touched files.
+5. [x] Done 2026-10-18. `Get-AutomationFunctions` is `Get-ModuleFunction`, `Get-AutomationSourceFiles` is `Get-ModuleSourceFile`,
+       `Copy-Automation` is `Copy-CatzcModule` (beside `Get-CatzcModule`); `-AutomationRoot` is `-ModulesRoot` on all nine functions
+       that took it, the `$automationRoot` locals are `$modulesRoot`, and the TestKit fake repository's `Automation` key is `ModulesRoot`.
+       `Get-AutomationModules` was already gone with the module model. Each file's tests pass, analyzer 0; the comment pages, the help
+       sections and their anchors follow. Left for the diagram owner: the module-graph `.drawio.md` and `.drawio.verify.md` still name
+       Copy-Automation, and the generated explanation grids and trees (from describe.py) link the old Get-AutomationFunctions page until
+       the next minimap run. Original step: S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment
+       page regenerated. Check: Test-Links, Test-Comments on the touched files.
 6. [x] Guard, built first (the user's choice 2026-10-18, so its report is step 3's exact worklist):
        `automation/.scriptanalyzer/NoTrackRootLiteral.psm1` reports, at severity Information, a string literal or expandable string equal to
        the place of a `modules` track or starting with it plus `/` (help and comments are not strings, so they never count); the places come

@@ -57,5 +57,5 @@ Get-ChildPath $modulePath -File -Filter '*.ps1'
 ### example 2
 
 ```powershell
-Get-ChildPath $automationRoot -Depth 3 -File -Filter '*.yml' -PruneVendor $true
+Get-ChildPath $modulesRoot -Depth 3 -File -Filter '*.yml' -PruneVendor $true
 ```

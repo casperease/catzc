@@ -5,7 +5,7 @@ function Get-CombinedTypeHash {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string] $AutomationRoot,
+        [string] $ModulesRoot,
 
         [string[]] $Module,
 
@@ -18,7 +18,7 @@ function Get-CombinedTypeHash {
     }
 
     $files = [System.Collections.Generic.List[object]]::new()
-    foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {
+    foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($ModulesRoot)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDir)
         if ($moduleName.StartsWith('.') -or ($null -ne $selected -and -not $selected.Contains($moduleName))) {
             continue
@@ -38,7 +38,7 @@ function Get-CombinedTypeHash {
         }
     }
 
-    $compiledTypesDir = [System.IO.Path]::Combine($AutomationRoot, '.compiled', 'types')
+    $compiledTypesDir = [System.IO.Path]::Combine($ModulesRoot, '.compiled', 'types')
     if ($null -eq $selected -and [System.IO.Directory]::Exists($compiledTypesDir)) {
         foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($compiledTypesDir)) {
             $moduleName = [System.IO.Path]::GetFileName($moduleDir)
@@ -242,7 +242,7 @@ function Build-CombinedTypeAssembly {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory)]
-        [string] $AutomationRoot,
+        [string] $ModulesRoot,
 
         [string[]] $Module,
 
@@ -250,7 +250,7 @@ function Build-CombinedTypeAssembly {
         [string] $OutputDirectory
     )
 
-    $hashArguments = @{ AutomationRoot = $AutomationRoot }
+    $hashArguments = @{ ModulesRoot = $ModulesRoot }
     if ($PSBoundParameters.ContainsKey('Module')) {
         $hashArguments.Module = $Module
     }
@@ -284,7 +284,7 @@ function Build-CombinedTypeAssembly {
                 throw "C# type source '$($file.Path)' was removed while the types were being built. Re-run the build."
             }
         }
-        $frozenArguments = @{ AutomationRoot = $frozenRoot }
+        $frozenArguments = @{ ModulesRoot = $frozenRoot }
         if ($PSBoundParameters.ContainsKey('Module')) {
             $frozenArguments.Module = $Module
         }

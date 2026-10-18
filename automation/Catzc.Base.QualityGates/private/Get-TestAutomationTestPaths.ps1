@@ -7,8 +7,8 @@ function Get-TestAutomationTestPaths {
     )
 
     $codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]
-    $automationRoot = Join-Path (Get-RepositoryRoot) $codePlace
-    $allDirs = [System.IO.Directory]::GetDirectories($automationRoot)
+    $modulesRoot = Join-Path (Get-RepositoryRoot) $codePlace
+    $allDirs = [System.IO.Directory]::GetDirectories($modulesRoot)
     [Array]::Sort($allDirs)
 
     $moduleTestsByName = [ordered]@{}

@@ -34,6 +34,8 @@ neutral_codes:
 track_root_literal:
   exempt:
     automation/.internal/Catzc.Internal.Importer.psm1: the one bootstrap constant, read before any registry loads (ADR-AUTO-LAYERS)
+    importer.ps1:
+      the root shim New-Importer renders from the modules folder; it loads the loader before anything can resolve a place
     automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1: the resolver, whose fallback outside an import is the same constant
     automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1:
       it compares the loaded modules against the source modules folder, which is that constant

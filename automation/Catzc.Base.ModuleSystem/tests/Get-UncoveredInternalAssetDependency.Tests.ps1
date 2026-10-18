@@ -31,9 +31,9 @@ Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
         Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
 
-        $script:uncovered = @(InModuleScope Catzc.Base.ModuleSystem -Parameters @{ Root = $script:fake.Automation } {
+        $script:uncovered = @(InModuleScope Catzc.Base.ModuleSystem -Parameters @{ Root = $script:fake.ModulesRoot } {
                 param($Root)
-                Get-UncoveredInternalAssetDependency -AutomationRoot $Root
+                Get-UncoveredInternalAssetDependency -ModulesRoot $Root
             })
     }
 
@@ -69,9 +69,9 @@ Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
     }
 
     It 'returns nothing when the inventory is empty' {
-        $none = @(InModuleScope Catzc.Base.ModuleSystem -Parameters @{ Root = $script:fake.Automation } {
+        $none = @(InModuleScope Catzc.Base.ModuleSystem -Parameters @{ Root = $script:fake.ModulesRoot } {
                 param($Root)
-                Get-UncoveredInternalAssetDependency -AutomationRoot $Root -Dependency @()
+                Get-UncoveredInternalAssetDependency -ModulesRoot $Root -Dependency @()
             })
         $none | Should -HaveCount 0
     }

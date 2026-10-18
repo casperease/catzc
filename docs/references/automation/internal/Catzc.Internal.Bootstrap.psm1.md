@@ -249,7 +249,7 @@ when the types are already in the AppDomain (idempotent, self-healing re-import)
 
 ## comment:20
 
-Above `$built = Build-CombinedTypeAssembly -AutomationRoot $ModulesRoot...`, written with `#`.
+Above `$built = Build-CombinedTypeAssembly -ModulesRoot $ModulesRoot...`, written with `#`.
 
 ```text
 The ONE compile path (Build-CombinedTypeAssembly in Catzc.Internal.Types, shared with a build): it

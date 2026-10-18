@@ -85,12 +85,12 @@ function New-FakeRepositoryRoot {
     }
 
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
-    $automation = Join-Path $root $modulesFolder
+    $modulesRoot = Join-Path $root $modulesFolder
     $env:RepositoryRoot = $root
     if (-not $WorkingRootOnly) {
-        $env:CatzcModulesRoot = $automation
+        $env:CatzcModulesRoot = $modulesRoot
     }
-    @{ Root = $root; Automation = $automation; Saved = $saved }
+    @{ Root = $root; ModulesRoot = $modulesRoot; Saved = $saved }
 }
 
 function Remove-FakeRepositoryRoot {

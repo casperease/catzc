@@ -36,7 +36,7 @@ from `git clean` matches too.
 
 ## comment:1
 
-Above `$ret.Add('automation/*/*.psd1')`, written with `#`.
+Above `$ret.Add("$modulesFolder/*/*.psd1")`, written with `#`.
 
 ```text
 Generated module manifests (dynamic-module-manifests; the vendored .psd1 are committed, so they

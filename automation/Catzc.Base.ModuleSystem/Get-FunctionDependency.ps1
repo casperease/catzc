@@ -1,6 +1,6 @@
 function Get-FunctionDependency {
     param(
-        [string] $AutomationRoot = (Get-CatzcModulesRoot),
+        [string] $ModulesRoot = (Get-CatzcModulesRoot),
 
         [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
@@ -10,14 +10,14 @@ function Get-FunctionDependency {
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
         $script:functionDependencyCache = @{}
     }
-    if ($script:functionDependencyCache.ContainsKey($AutomationRoot)) {
-        return $script:functionDependencyCache[$AutomationRoot]
+    if ($script:functionDependencyCache.ContainsKey($ModulesRoot)) {
+        return $script:functionDependencyCache[$ModulesRoot]
     }
 
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
 
-    foreach ($moduleDir in ([System.IO.Directory]::EnumerateDirectories($AutomationRoot) | Sort-Object)) {
+    foreach ($moduleDir in ([System.IO.Directory]::EnumerateDirectories($ModulesRoot) | Sort-Object)) {
         $module = [System.IO.Path]::GetFileName($moduleDir)
         if ($module -match '^\.') {
             continue
@@ -65,6 +65,6 @@ function Get-FunctionDependency {
         }
     }
 
-    $script:functionDependencyCache[$AutomationRoot] = $ret
+    $script:functionDependencyCache[$ModulesRoot] = $ret
     $ret
 }

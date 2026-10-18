@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `public string BodyHash()`, written with `//`.
+Above `public string BodyHash() => HashOf(Body);`, written with `//`.
 
 ```text
 The first 12 hex characters of the SHA-256 of the body, its line endings read as LF and its leading blank lines dropped. The blank

@@ -17,7 +17,7 @@ for CommandAst nodes and cross-references them against the map.
 Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter `AutomationRoot`
+### parameter `ModulesRoot`
 
 Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 

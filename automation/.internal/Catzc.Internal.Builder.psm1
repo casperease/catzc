@@ -149,7 +149,7 @@ function Get-BuildClosureViolation {
     $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
     $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::Ordinal)
 
-    foreach ($call in @(Get-FunctionDependency -AutomationRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
+    foreach ($call in @(Get-FunctionDependency -ModulesRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
         if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and -not $selected.Contains($call.TargetModule)) {
             "$sourceFolder/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
         }
@@ -442,7 +442,7 @@ function Get-ModuleBuildPlan {
 
     $typeHash = $null
     $typeSources = [string[]] @()
-    $hashResult = Get-CombinedTypeHash -AutomationRoot $SourceRoot
+    $hashResult = Get-CombinedTypeHash -ModulesRoot $SourceRoot
     if ($hashResult.CombinedHash) {
         $typeHash = $hashResult.CombinedHash
         $selectedModules = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::OrdinalIgnoreCase)
@@ -688,7 +688,7 @@ function Write-ModuleBuildOutput {
     }
 
     if (@($Entries | Where-Object { $_.Kind -eq 'Types' }).Count -gt 0) {
-        Build-CombinedTypeAssembly -AutomationRoot $SourceRoot -OutputDirectory ([System.IO.Path]::Combine($BuildRoot, '.compiled'))
+        Build-CombinedTypeAssembly -ModulesRoot $SourceRoot -OutputDirectory ([System.IO.Path]::Combine($BuildRoot, '.compiled'))
     }
 }
 
@@ -767,7 +767,7 @@ function Invoke-ModuleBuild {
     }
     $missing = [System.Collections.Generic.List[string]]::new()
     $dependencies = @(if ($modules.Count -gt 0) {
-            Get-InternalAssetDependency -AutomationRoot $sourceRoot -Module $modules -ParsedScripts $parsedScripts
+            Get-InternalAssetDependency -ModulesRoot $sourceRoot -Module $modules -ParsedScripts $parsedScripts
         })
     foreach ($dependency in $dependencies) {
         $childPath = ([string] $dependency.ChildPath).Replace('\', '/').TrimEnd('/')

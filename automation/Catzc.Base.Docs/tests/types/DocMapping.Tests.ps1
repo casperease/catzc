@@ -1,7 +1,7 @@
 Describe 'DocMapping' -Tag 'L0', 'logic' {
     It 'constructs and exposes folder + source' {
-        $m = [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'automation/Catzc.Fixture'; source = 'docs/readme/foo.md' })
-        $m.folder | Should -Be 'automation/Catzc.Fixture'
+        $m = [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'widgets/Catzc.Fixture'; source = 'docs/readme/foo.md' })
+        $m.folder | Should -Be 'widgets/Catzc.Fixture'
         $m.source | Should -Be 'docs/readme/foo.md'
     }
 
@@ -16,6 +16,6 @@ Describe 'DocMapping' -Tag 'L0', 'logic' {
     }
 
     It 'throws when source is missing' {
-        { [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'automation/Catzc.Fixture' }) } | Should -Throw '*source is required*'
+        { [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'widgets/Catzc.Fixture' }) } | Should -Throw '*source is required*'
     }
 }

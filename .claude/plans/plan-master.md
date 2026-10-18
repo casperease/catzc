@@ -59,24 +59,25 @@ Open, in execution order:
 - module-model-closeout -> task-module-model-closeout.md (open; every step done by 2026-10-18 apart from step 9, the user's run of all
   tests): module model close-out, the rule 6 funnel (the tests entries in languages.yml), infrastructure track (a design step in
   plan-module-kinds-tracks), waits_on cleared.
-- kind-becomes-role -> task-kind-becomes-role.md (open; steps 1 to 8 done 2026-10-18 on the user's go, D24; step 9, the namespace, is a
-  question for the user): kind becomes role through the registry and generators; tracks.md rule 18 one primary language; WorldMapBuilder
-  links; Test-ShippedTypes.
+- kind-becomes-role -> task-kind-becomes-role.md (done 2026-10-18: steps 1 to 8 on the user's go, D24, and step 9 by D29, the namespace is
+  the track name; task-closing-sweep deletes it): kind becomes role through the registry and generators; tracks.md rule 18 one primary
+  language; WorldMapBuilder links; Test-ShippedTypes.
 - config-defaults-variants -> task-config-defaults-variants.md (done 2026-10-18; every step ticked; Q2 closed by D22): config defaults Phase
   1, VariantsConfig constants, getters lose -Default.
-- config-defaults-fragment -> task-config-defaults-fragment.md (open; steps 1 and 2 done 2026-10-18; D22 rewrote steps 4 to 6: the shipped
-  file stays and shows the defaults, a defaults check replaces the generated contract; steps 5 and 6 done; steps 3 and 4 wait for the user's
-  choice of the .catzc track's type and vendor): the .catzc fragment, config without a shipped file, the defaults check.
-- config-defaults-postures -> task-config-defaults-postures.md (open; after config-defaults-fragment): every typed config into a posture,
-  the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
+- config-defaults-fragment -> task-config-defaults-fragment.md (done 2026-10-18: D22 kept the shipped file and replaced the generated
+  contract with the defaults check, D28 declared the .catzc track; task-closing-sweep deletes it): the .catzc fragment, config without a
+  shipped file, the defaults check.
+- config-defaults-postures -> task-config-defaults-postures.md (open; ready, config-defaults-fragment is done): every typed config into a
+  posture, the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
 - layers-funnel -> task-layers-funnel.md (open; ready): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4
   identifiers, the NoTrackRootLiteral guard.
 - layers-classification-flip -> task-layers-classification-flip.md (open; the user gave the go for P4 and P6, D24; P4 runs once
   layers-funnel lands, D10's order, and layers-funnel is mid-way in session catzc-0a): P3 classification table and ADR wording drafts; P4
   the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
 - command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets, C5 the cats lookup and the C6
-  widening and F6 under D21 done 2026-10-18; open: the user's call on twelve uncalled exports and the 139 docs-only functions):
-  ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats validation, public functions made internal.
+  widening, F6 under D21 and the D26 and D27 calls done 2026-10-18, 65 contracted commands; open: a later language step for gate results and
+  parameter sets): ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats validation, public functions made
+  internal.
 - file-head-leftovers -> task-file-head-leftovers.md (done 2026-10-18; the task file goes with the user's `git rm`, its plan keeps the
   user's Test-FileMeta and Test-Automation runs): the binary class skips .compiled, the four tool candidates recorded as not needed, the
   note kind gone with its exemption moved to the unordered track type.

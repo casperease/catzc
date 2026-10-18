@@ -30,7 +30,7 @@ These edges are folded into Get-ModuleDependencyViolations beside the function-c
 Reads each module's C# type files (`types/*.cs`), which exist only in the source tree, so it stops with a named error in build mode
 (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-### parameter `AutomationRoot`
+### parameter `ModulesRoot`
 
 Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 

@@ -10,7 +10,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
                 domain      = 'automation'
                 defined_by  = 'ADR-COG-GADGET#30'
                 short       = 'A named folder of widget files.'
-                realized_by = [ordered]@{ kind = 'folder'; pattern = 'automation/*/tests/suites/<name>/' }
+                realized_by = [ordered]@{ kind = 'folder'; pattern = 'widgets/*/tests/suites/<name>/' }
             }
         }
         $script:single = {
@@ -32,7 +32,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
         $c.options.scope | Should -Be @('**')
-        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', 'automation/.vendor/**', '.claude/plans/**')
+        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**')
     }
 
     It 'keeps concepts in source order' {
@@ -50,7 +50,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('avoid')
         $c.options.scope | Should -Be @('docs/**')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
-        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', 'automation/.vendor/**', '.claude/plans/**', 'docs/widget/**')
+        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**', 'docs/widget/**')
     }
 
     It 'accepts an explicit empty checks list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB#2' {

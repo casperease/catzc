@@ -30,7 +30,7 @@ assembly here. Idempotent: guarded by a module-scope flag, and the load is skipp
 
 ## comment:3
 
-Above `Import-Module (Join-Path $repoRoot...`, written with `#`.
+Above `Import-Module (Join-Path $modulesRoot '.internal/Catzc.Internal.Types.psm1')`, written with `#`.
 
 ```text
 The build for the CURRENT sources — keyed by the one shared hash (Get-CombinedTypeHash), never picked by

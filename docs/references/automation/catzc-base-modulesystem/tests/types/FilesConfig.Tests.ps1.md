@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-The files.yml type (module -> packages, for Copy-Automation): constructing it maps and validates the parsed
+The files.yml type (module -> packages, for Copy-CatzcModule): constructing it maps and validates the parsed
 YAML, so a malformed module->packages manifest never loads through Get-Config -Config files.
 ```

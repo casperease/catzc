@@ -23,7 +23,7 @@ function Get-ModuleFunction {
     }
 
     if ($NotUsedInternally) {
-        $called = Get-FunctionDependency -AutomationRoot $ModulesRoot |
+        $called = Get-FunctionDependency -ModulesRoot $ModulesRoot |
             ForEach-Object { $_.TargetFunction } |
             Sort-Object -Unique
         $functions = $functions | Where-Object { $_.Function -notin $called }

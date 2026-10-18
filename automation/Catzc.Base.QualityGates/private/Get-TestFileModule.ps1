@@ -6,16 +6,16 @@ function Get-TestFileModule {
         [string] $Path
     )
 
-    $automationRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), (Get-CatzcModulesFolder))
-    if (-not $Path.StartsWith($automationRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+    $modulesRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), (Get-CatzcModulesFolder))
+    if (-not $Path.StartsWith($modulesRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
         $folder = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
         foreach ($testFolder in @(Get-LanguageTestFolders)) {
             if ($testFolder.Folder -eq $folder) {
                 return $testFolder.Module
             }
         }
-        throw "'$Path' is neither under $automationRoot nor a language test folder (Get-LanguageTestFolders)."
+        throw "'$Path' is neither under $modulesRoot nor a language test folder (Get-LanguageTestFolders)."
     }
-    $relative = $Path.Substring($automationRoot.Length).TrimStart('\', '/')
+    $relative = $Path.Substring($modulesRoot.Length).TrimStart('\', '/')
     ($relative -split '[\\/]')[0]
 }

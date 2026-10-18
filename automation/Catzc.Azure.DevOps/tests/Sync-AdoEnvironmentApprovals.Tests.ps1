@@ -1,70 +1,48 @@
 Describe 'Sync-AdoEnvironmentApprovals' -Tag 'L0', 'logic' {
     BeforeEach {
-        $script:approvalTypeId = '8c6f20a7-a545-4486-9777-f762fafe0d4d'
-        $script:existingChecks = @{}
+        $script:members = @('a@widget.test')
         Mock Get-Config -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Config -eq 'ado' } {
             @{ organization = 'https://dev.azure.com/widgetorg'; project = 'Gadget' }
         }
         Mock Get-Config -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Config -eq 'environment-approvals' } {
-            [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{ environments = @('widget-psub', 'widget-prod') })
+            [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{
+                    approver_group = [ordered]@{ name = 'Widget Approvers'; members = $script:members }
+                    timeout_hours  = 8
+                    environments   = @('widget-psub', 'widget-prod')
+                })
         }
-        Mock Write-Message -ModuleName Catzc.Azure.DevOps { }
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/_apis/identities?*' } {
-            [pscustomobject]@{ id = 'group-1'; providerDisplayName = '[Gadget]\Prod Approvers' }
+        Mock Get-AdoGraphContext -ModuleName Catzc.Azure.DevOps { [pscustomobject]@{ Project = $Project; Organization = $Organization } }
+        Mock Sync-AdoGraphGroup -ModuleName Catzc.Azure.DevOps {
+            [pscustomobject]@{ Action = 'Create'; Name = $Name; Descriptor = 'vssgp.g1'; IdentityId = 'group-1' }
         }
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/distributedtask/environments?*' } {
-            $name = [uri]::UnescapeDataString(($Uri -split 'name=')[1].Split('&')[0])
-            [pscustomobject]@{ id = "env-$name"; name = $name }
-        }
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/checks/configurations?resourceType=*' } {
-            $id = ($Uri -split 'resourceId=')[1].Split('&')[0]
-            $script:existingChecks[$id]
-        }
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Method -in 'Post', 'Patch' } { }
+        Mock Sync-AdoGraphGroupMembers -ModuleName Catzc.Azure.DevOps { [pscustomobject]@{ Added = @($Member); Removed = @() } }
+        Mock Sync-AdoEnvironmentCheck -ModuleName Catzc.Azure.DevOps { 'Create' }
     }
 
-    It 'creates an approval check on every configured environment that has none' {
+    It 'applies the group, its members and one check per environment, in that order, and reports each' {
         $result = @(Sync-AdoEnvironmentApprovals)
-        $result.Environment | Should -Be @('widget-psub', 'widget-prod')
-        $result.Action | Should -Be @('Create', 'Create')
-        Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -Times 2 -Exactly -ParameterFilter {
-            $Method -eq 'Post' -and $Body.settings.approvers[0].id -eq 'group-1' -and $Body.timeout -eq 1440 -and $Body.resource.type -eq 'environment'
+        $result.Kind | Should -Be @('Group', 'Check', 'Check')
+        $result.Target | Should -Be @('[Gadget]\Widget Approvers', 'widget-psub', 'widget-prod')
+        $result[0].Details | Should -BeLike 'added: a@widget.test; removed: 0'
+        Should -Invoke Sync-AdoGraphGroupMembers -ModuleName Catzc.Azure.DevOps -Times 1 -Exactly -ParameterFilter {
+            $Group.Descriptor -eq 'vssgp.g1' -and ($Member -join ',') -eq 'a@widget.test'
+        }
+        Should -Invoke Sync-AdoEnvironmentCheck -ModuleName Catzc.Azure.DevOps -Times 2 -Exactly -ParameterFilter {
+            $ApproverId -eq 'group-1' -and $TimeoutMinutes -eq 480
         }
     }
 
-    It 'leaves a matching check unchanged and updates one whose approver or timeout drifted' {
-        $script:existingChecks['env-widget-psub'] = [pscustomobject]@{
-            id = 7; type = @{ id = $script:approvalTypeId }; timeout = 1440; settings = @{ approvers = @(@{ id = 'group-1' }) }
-        }
-        $script:existingChecks['env-widget-prod'] = [pscustomobject]@{
-            id = 8; type = @{ id = $script:approvalTypeId }; timeout = 60; settings = @{ approvers = @(@{ id = 'group-1' }) }
-        }
-        $result = @(Sync-AdoEnvironmentApprovals)
-        $result.Action | Should -Be @('Unchanged', 'Update')
-        Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -Times 1 -Exactly -ParameterFilter {
-            $Method -eq 'Patch' -and $Uri -like '*/checks/configurations/8?*'
-        }
-        Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -Times 0 -Exactly -ParameterFilter { $Method -eq 'Post' }
-    }
-
-    It 'reads but writes nothing with -DryRun' {
+    It 'passes -DryRun to every step' {
         $result = @(Sync-AdoEnvironmentApprovals -DryRun)
-        $result.Action | Should -Be @('Create', 'Create')
-        $result.DryRun | Should -Be @($true, $true)
-        Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -Times 0 -Exactly -ParameterFilter { $Method -in 'Post', 'Patch' }
+        $result.DryRun | Should -Be @($true, $true, $true)
+        Should -Invoke Sync-AdoGraphGroup -ModuleName Catzc.Azure.DevOps -ParameterFilter { $DryRun }
+        Should -Invoke Sync-AdoGraphGroupMembers -ModuleName Catzc.Azure.DevOps -ParameterFilter { $DryRun }
+        Should -Invoke Sync-AdoEnvironmentCheck -ModuleName Catzc.Azure.DevOps -Times 2 -Exactly -ParameterFilter { $DryRun }
     }
 
-    It 'throws, naming the group, when the approver group does not exist' {
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/_apis/identities?*' } { }
-        { Sync-AdoEnvironmentApprovals } | Should -Throw "*Approver group '``[Gadget``]\Prod Approvers' does not exist*"
-    }
-
-    It 'throws, naming the environment, when an environment does not exist' {
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/distributedtask/environments?*' } { }
-        { Sync-AdoEnvironmentApprovals } | Should -Throw "*Environment 'widget-psub' does not exist*"
-    }
-
-    It 'throws when the organization is not a dev.azure.com URL' {
-        { Sync-AdoEnvironmentApprovals -Organization 'https://widgetorg.visualstudio.com' } | Should -Throw '*is not a https://dev.azure.com/<org> URL*'
+    It 'refuses to apply an empty member list before calling Azure DevOps' {
+        $script:members = @()
+        { Sync-AdoEnvironmentApprovals } | Should -Throw '*approver_group.members is empty*'
+        Should -Invoke Get-AdoGraphContext -ModuleName Catzc.Azure.DevOps -Times 0 -Exactly
     }
 }

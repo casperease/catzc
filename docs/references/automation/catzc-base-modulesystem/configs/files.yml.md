@@ -8,10 +8,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `modules:`, written with `#`.
 
 ```text
-files.yml — module -> packages, for Copy-Automation (Catzc.Base.ModuleSystem).
+files.yml — module -> packages, for Copy-CatzcModule (Catzc.Base.ModuleSystem).
 
 Each automation module may declare packages. A package is a named group of repository-root-relative file
-artifacts the module owns beyond its own folder. Copy-Automation copies a selected module's folder plus its
+artifacts the module owns beyond its own folder. Copy-CatzcModule copies a selected module's folder plus its
 packages, minus any named in -ExcludePackages; package names are globally unique (the exclude unit). Only
 modules that own extra artifacts appear here. Paths are repository-root-relative and forward-slashed.
 

@@ -25,7 +25,7 @@ function Test-BuildArtifact {
             'Types', 'Load', 'Parity', 'Manifest'
         })
     $repositoryRoot = Get-RepositoryRoot
-    $automationRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
+    $modulesRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
     $issues = [System.Collections.Generic.List[string]]::new()
     $facts = [ordered]@{ Modules = 0; TypesHash = '' }
 
@@ -64,7 +64,7 @@ function Test-BuildArtifact {
                 $facts.TypesHash = "$($build.TypesHash)"
 
                 Import-InternalModule Types
-                $sourceHash = (Get-CombinedTypeHash $automationRoot).CombinedHash
+                $sourceHash = (Get-CombinedTypeHash $modulesRoot).CombinedHash
                 if ("$($build.TypesHash)" -ne "$sourceHash") {
                     $issues.Add("[build] the build's typesHash $($build.TypesHash) is not the source tree's $sourceHash — a build ships the full type set")
                 }
@@ -152,7 +152,7 @@ function Test-BuildArtifact {
                                 if (-not $loaded.ContainsKey($name)) {
                                     continue
                                 }
-                                $source = Get-ModuleSourceFunctions -AutomationRoot $automationRoot -Name $name
+                                $source = Get-ModuleSourceFunctions -ModulesRoot $modulesRoot -Name $name
                                 $exported = [string[]] @($loaded[$name].Exported)
                                 $private = [string[]] @($loaded[$name].Defined | Where-Object { $_ -notin $exported })
                                 foreach ($pair in @(

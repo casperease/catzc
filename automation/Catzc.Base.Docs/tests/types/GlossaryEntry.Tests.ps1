@@ -12,7 +12,7 @@ Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
                 }
             })
         $script:make = {
-            param([string] $owner = 'Catzc.Widget', [string] $path = 'automation/Catzc.Widget/configs/glossary.yml')
+            param([string] $owner = 'Catzc.Widget', [string] $path = 'widgets/Catzc.Widget/configs/glossary.yml')
             [Catzc.Base.Docs.GlossaryEntry]::new($script:source.concepts[0], $owner, $path, $script:source.options)
         }
     }
@@ -21,19 +21,19 @@ Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
         $entry = & $script:make
         $entry.Concept.term | Should -Be 'widget suite'
         $entry.Owner | Should -Be 'Catzc.Widget'
-        $entry.SourcePath | Should -Be 'automation/Catzc.Widget/configs/glossary.yml'
+        $entry.SourcePath | Should -Be 'widgets/Catzc.Widget/configs/glossary.yml'
         $entry.Options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
     }
 
     It 'rejects a source path that is not repo-relative' -Tag 'ADR-REPO-VOCAB#3' {
-        foreach ($path in '/automation/glossary.yml', 'C:/repo/glossary.yml', 'automation\glossary.yml', '../glossary.yml', ' ') {
+        foreach ($path in '/widgets/glossary.yml', 'C:/repo/glossary.yml', 'widgets\glossary.yml', '../glossary.yml', ' ') {
             { & $script:make -path $path } | Should -Throw '*must be repo-relative*' -Because "'$path' is not a repo-relative '/'-separated path"
         }
     }
 
     It 'requires an owner, a concept, and options' {
         { & $script:make -owner '' } | Should -Throw '*owning module*'
-        { [Catzc.Base.Docs.GlossaryEntry]::new($null, 'Catzc.Widget', 'automation/glossary.yml', $script:source.options) } | Should -Throw '*concept*'
-        { [Catzc.Base.Docs.GlossaryEntry]::new($script:source.concepts[0], 'Catzc.Widget', 'automation/glossary.yml', $null) } | Should -Throw '*options*'
+        { [Catzc.Base.Docs.GlossaryEntry]::new($null, 'Catzc.Widget', 'widgets/glossary.yml', $script:source.options) } | Should -Throw '*concept*'
+        { [Catzc.Base.Docs.GlossaryEntry]::new($script:source.concepts[0], 'Catzc.Widget', 'widgets/glossary.yml', $null) } | Should -Throw '*options*'
     }
 }

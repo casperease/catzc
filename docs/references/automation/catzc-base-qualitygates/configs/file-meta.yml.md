@@ -33,7 +33,7 @@ select it applies to every file that carries a head.
 
 ## comment:5
 
-Above `relatives:`, written with `#`.
+Above `relative-edges:`, written with `#`.
 
 ```text
 The two files a code file is bound to by a relation that costs to derive and defines it: the page its comments live on, and the test

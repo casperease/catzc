@@ -342,7 +342,7 @@ rest is fine as a dictionary or a plain object. **Model data** — a first-class
 different: the moment code selects on it, branches on its kind, or pins it as a parameter/return type at a call site, its shape is part of
 the design and must be fixed, discoverable, and enforced. That is a native C# type.
 
-`Module` is the example: `Get-CatzcModule` returns `[Module]`, `Copy-Automation`, the globset derivation and the folder checks read their
+`Module` is the example: `Get-CatzcModule` returns `[Module]`, `Copy-CatzcModule`, the globset derivation and the folder checks read their
 module list off it, and callers type against it — so it is a C# type, not a bag of hashtables that every call site re-interprets. A loose
 dictionary here would push the shape into scattered string-keys with no single definition and no construction-time check — the opposite of a
 fixed model. Config that _feeds_ the model (the layout in `languages.yml`, the tracks in `variants.yml`) crosses the boundary through its

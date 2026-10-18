@@ -15,7 +15,7 @@ A module is its folder: `<Module>/*.ps1` are its public functions and `<Module>/
 for the file. This reads the names from the file names, so a build can be compared with the source folder it was built from
 (Test-BuildArtifact's parity facet).
 
-### parameter `AutomationRoot`
+### parameter `ModulesRoot`
 
 The automation folder of the source tree.
 
@@ -30,5 +30,5 @@ The module folder name.
 ### example 1
 
 ```powershell
-Get-ModuleSourceFunctions -AutomationRoot (Join-Path (Get-RepositoryRoot) 'automation') -Name Catzc.Base.Config
+Get-ModuleSourceFunctions -ModulesRoot (Get-CatzcModulesRoot) -Name Catzc.Base.Config
 ```

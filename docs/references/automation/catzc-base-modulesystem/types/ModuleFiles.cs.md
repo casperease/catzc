@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 One module's entry in configs/files.yml (`modules: <module>: { packages: { <package>: [paths] } }`): the named
-packages of repository-root-relative file artifacts the module owns beyond its own folder, which Copy-Automation
+packages of repository-root-relative file artifacts the module owns beyond its own folder, which Copy-CatzcModule
 copies with it. Constructing one MAPS and VALIDATES the entry, collecting every violation into one throw:
   - the entry is a map whose only key is a non-empty 'packages' map;
   - each package name is snake_case;

@@ -3,13 +3,13 @@ function Get-ModuleSourceFunctions {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory)]
-        [string] $AutomationRoot,
+        [string] $ModulesRoot,
 
         [Parameter(Mandatory)]
         [string] $Name
     )
 
-    $folder = Join-Path $AutomationRoot $Name
+    $folder = Join-Path $ModulesRoot $Name
     $privateFolder = Join-Path $folder 'private'
     $names = {
         param([string] $Directory)

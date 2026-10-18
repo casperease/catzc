@@ -8,11 +8,15 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
 {
     private const string Failed = "environment-approvals configuration validation failed:\n";
     private static readonly string[] AllowedKeys = { "approver_group", "timeout_hours", "environments" };
+    private static readonly string[] GroupKeys = { "name", "description", "members" };
 
-    // The ADO group that approves, named inside the project; the file may override it.
+    // The approver group's name inside the project when the file names none.
     public const string DefaultApproverGroup = "Prod Approvers";
 
-    // How long a pending approval waits before the run times out; the file may override it.
+    // The approver group's description when the file gives none.
+    public const string DefaultApproverDescription = "Approves deploys to the prod-tier environments; synced from environment-approvals.yml.";
+
+    // How long a pending approval waits before the run times out, when the file sets no timeout_hours.
     public const int DefaultTimeoutHours = 24;
 
     // ADO's own ceiling for an approval check: 30 days.
@@ -20,6 +24,12 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
 
     // The approver group's name inside the project, e.g. 'Prod Approvers' for '[<project>]\Prod Approvers'.
     public string approver_group { get; }
+
+    // The approver group's description, set when the apply creates or updates the group.
+    public string approver_description { get; }
+
+    // The group's members by principal name (e.g. 'person@example.com'), in file order; the apply makes the group hold exactly these.
+    public string[] approver_members { get; }
 
     // How long a pending approval waits, in hours.
     public int timeout_hours { get; }
@@ -44,8 +54,45 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
             }
         }
 
-        approver_group = d.Contains("approver_group") ? OptStr(d, "approver_group") : DefaultApproverGroup;
-        if (approver_group == null) { errors.Add("approver_group is empty"); }
+        approver_group = DefaultApproverGroup;
+        approver_description = DefaultApproverDescription;
+        approver_members = new string[0];
+        if (d.Contains("approver_group"))
+        {
+            IDictionary group = d["approver_group"] as IDictionary;
+            if (group == null)
+            {
+                errors.Add("approver_group must be a mapping of name, description, members");
+            }
+            else
+            {
+                foreach (object k in group.Keys)
+                {
+                    string key = k == null ? null : k.ToString();
+                    if (Array.IndexOf(GroupKeys, key) < 0)
+                    {
+                        errors.Add(string.Format("Unknown approver_group key: '{0}' (allowed: {1})", key, string.Join(", ", GroupKeys)));
+                    }
+                }
+                if (group.Contains("name"))
+                {
+                    approver_group = OptStr(group, "name");
+                    if (approver_group == null) { errors.Add("approver_group.name is empty"); }
+                }
+                if (group.Contains("description"))
+                {
+                    approver_description = OptStr(group, "description");
+                    if (approver_description == null) { errors.Add("approver_group.description is empty"); }
+                }
+                approver_members = StrArr(group, "members");
+                HashSet<string> members = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (string member in approver_members)
+                {
+                    if (string.IsNullOrWhiteSpace(member)) { errors.Add("approver_group.members holds an empty name"); continue; }
+                    if (!members.Add(member)) { errors.Add(string.Format("approver_group.members lists '{0}' twice", member)); }
+                }
+            }
+        }
 
         timeout_hours = DefaultTimeoutHours;
         if (d.Contains("timeout_hours"))

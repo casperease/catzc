@@ -57,10 +57,10 @@ BeforeAll {
         "$(Get-CatzcModulesFolder)/.scriptanalyzer/WidgetRule.psm1"                     = '# rule'
         "$(Get-CatzcModulesFolder)/.scriptanalyzer/tests/WidgetRule.Tests.ps1"          = '# rule test (never ships)'
     }
-    $script:source = $fake.Automation
+    $script:source = $fake.ModulesRoot
 
     # The committed full-set DLL stand-in: the build reuses it by copy, named by the hash of EVERY module's types.
-    $script:fullHash = (Get-CombinedTypeHash -AutomationRoot $source).CombinedHash
+    $script:fullHash = (Get-CombinedTypeHash -ModulesRoot $source).CombinedHash
     $compiled = Join-Path $source '.compiled'
     [System.IO.Directory]::CreateDirectory($compiled) | Out-Null
     [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
@@ -216,7 +216,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         It 'copies side folders and the initializer as git stores them: LF-stored text LF, the rest byte for byte' {
             [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/assets/widget.txt')) | Should -BeExactly 'widget asset'
             # CRLF on disk, LF in git: the bundle carries git's LF, whatever the checkout wrote.
-            [System.IO.File]::ReadAllText((Join-Path $fake.Automation '.internal/assets/Import-Catzc.ps1')) | Should -BeExactly "# initializer`r`n"
+            [System.IO.File]::ReadAllText((Join-Path $fake.ModulesRoot '.internal/assets/Import-Catzc.ps1')) | Should -BeExactly "# initializer`r`n"
             [System.IO.File]::ReadAllText((Join-Path $root 'Import-Catzc.ps1')) | Should -BeExactly "# initializer`n"
             # CRLF in git (-text): kept byte for byte.
             [System.IO.File]::ReadAllText((Join-Path $root '.vendor/powershell-yaml/0.4.12/Signed.ps1')) | Should -BeExactly "# signed`r`n"
@@ -228,7 +228,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         }
 
         It 'yields the same content hash whatever line endings the checkout wrote' {
-            $initializer = Join-Path $fake.Automation '.internal/assets/Import-Catzc.ps1'
+            $initializer = Join-Path $fake.ModulesRoot '.internal/assets/Import-Catzc.ps1'
             try {
                 [System.IO.File]::WriteAllText($initializer, "# initializer`n")
                 $lfCheckout = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Module 'Catzc.Base.Gadget' -Destination (Join-Path $TestDrive 'lf-checkout')
@@ -311,8 +311,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
     Context 'a source tree that differs from its commit' {
         BeforeAll {
             # New work on a devbox, and scratch git ignores (*.log).
-            $script:untracked = Join-Path $fake.Automation 'Catzc.Base.Widget/assets/untracked.txt'
-            $script:ignored = Join-Path $fake.Automation 'Catzc.Base.Widget/assets/scratch.log'
+            $script:untracked = Join-Path $fake.ModulesRoot 'Catzc.Base.Widget/assets/untracked.txt'
+            $script:ignored = Join-Path $fake.ModulesRoot 'Catzc.Base.Widget/assets/scratch.log'
             [System.IO.File]::WriteAllText($untracked, 'not in git yet')
             [System.IO.File]::WriteAllText($ignored, 'ignored by git')
         }

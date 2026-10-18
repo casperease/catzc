@@ -16,7 +16,7 @@ A profile (configs/profiles.yml) is a seed list of module names. This expands th
 (Get-ModuleDependencyClosure) so the result is loadable, then appends the fixed infrastructure modules (.internal, .compiled, .vendor)
 unless -NoInfrastructure. An empty seed (the `full` profile, or an empty -Modules) resolves to every on-disk named module.
 
-The result is the module-name set to feed Copy-Automation -ModuleNames (Copy-Automation -ModuleProfile does this for you) or
+The result is the module-name set to feed Copy-CatzcModule -ModuleNames (Copy-CatzcModule -ModuleProfile does this for you) or
 Test-InIsolation.
 
 ### parameter `Name`

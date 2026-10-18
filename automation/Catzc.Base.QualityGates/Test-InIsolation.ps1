@@ -53,7 +53,7 @@ function Test-InIsolation {
 
     try {
         # 3) Copy the subset into the sandbox.
-        Copy-Automation -ModuleNames $set -Destination $sandbox -EmptyDestination | Out-Null
+        Copy-CatzcModule -ModuleNames $set -Destination $sandbox -EmptyDestination | Out-Null
 
         # 4) The sandbox test folders (named modules only — never .vendor/.compiled).
         $testPaths = foreach ($module in $set) {

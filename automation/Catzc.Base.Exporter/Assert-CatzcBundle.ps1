@@ -99,7 +99,7 @@ function Assert-CatzcBundle {
                 }
                 if ($sourcesComplete) {
                     Import-InternalModule Types
-                    $actualTypesHash = (Get-CombinedTypeHash -AutomationRoot $staging).CombinedHash
+                    $actualTypesHash = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash
                     if ($actualTypesHash -ne $typesHash) {
                         $violations.Add("type sources hash to $actualTypesHash but build.json typesHash is $typesHash (the DLL was not built from the shipped sources)")
                     }

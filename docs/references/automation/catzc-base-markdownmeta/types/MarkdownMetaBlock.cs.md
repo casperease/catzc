@@ -5,19 +5,20 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `public const string DerivedKey = "derived";`, written with `//`.
+Above `public const string ImmutableKey = "immutable";`, written with `//`.
 
 ```text
-The two parts of the block, each a two-space-indented key under `catzc:`
+The three parts of the block, each a two-space-indented key under `catzc:`
 ([ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)). The facts come as an
 ordered dictionary, so their order is the order written.
 ```
 
 ## comment:2
 
-Above `public static IReadOnlyList<string> Render(IDictionary derived,...`, written with `//`.
+Above `public static IReadOnlyList<string> Render(IDictionary immutable, IDictionary...`, written with `//`.
 
 ```text
-Renders the block in its one canonical form: the derived facts in the order given, then the authored config lines as written.
+Renders the block in its one canonical form: the place facts and then the edges in the order given, then the authored config lines as
+written.
 A value is a scalar or a list of scalars. No facts and no config lines render no block at all.
 ```

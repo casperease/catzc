@@ -67,10 +67,15 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
     articles lost those claims. Refined against the decision: `TimeoutExemptionsConfig` keeps its shell axis, since it is the engine list
     (`ExecutionEngines.Names`) for budgeted code, one mechanism per kind; cutting `bash` from it would special-case one engine, and no agent
     call can match an exemption anyway.
-  - Q3: `Sync-AdoEnvironmentApprovals` (Catzc.Azure.DevOps) keeps one Approval check on every environment `environment-approvals.yml` lists
-    (`shared-psub`, `apex-psub`, `apex-prod`), approved by `[<project>]\Prod Approvers` with a 24-hour timeout, both defaults declared once
-    on `EnvironmentApprovalsConfig` (the user's choices: a dedicated group, 24 h, a new config). Its L0 file and the config type's L0 file
-    passed; the analyzer, title, link and markdownlint gates report 0. The ladder itself is `plan-promotion-ladder`.
+  - Q3: everything is config plus one deterministic apply (the user: "fully controlled via config values"). `environment-approvals.yml`
+    declares the approver group (name, description, members by principal name), the timeout and the prod-tier environments (`shared-psub`,
+    `apex-psub`, `apex-prod`); `EnvironmentApprovalsConfig` declares the defaults once (`Prod Approvers`, 24 h).
+    `Sync-AdoEnvironmentApprovals` applies it in a fixed order through four private ADO API callers (`Get-AdoGraphContext`,
+    `Sync-AdoGraphGroup`, `Sync-AdoGraphGroupMembers`, `Sync-AdoEnvironmentCheck`): create the group when missing, make its members exactly
+    the config's, then create, update or keep one Approval check per environment; `-DryRun` reports every step and writes nothing, and an
+    empty member list is refused. Documented in `docs/how-to/automation/apply-environment-approvals.md`. Six L0 files passed, the analyzer
+    reports 0 over the 11 files, and the manual-test-plan row and coverage test passed. The group's description is written at creation only,
+    since a Graph group patch needs a JSON-patch content type the REST caller does not send. The ladder itself is `plan-promotion-ladder`.
 
 ## Decided (2026-10-18, the user took every recommendation)
 
@@ -109,9 +114,9 @@ When a step lands, remove its claim from every article that states it (search `d
       gates on pipeline triggers pass, and a CD run log shows the check line).
 - [ ] Q2 `pipelines/cd-shared.yaml` and the other CD pipelines: the post-merge BVT runs `Test-BuildArtifact` on the CI artifact (check: a
       post-merge run on main shows it passing).
-- [ ] Q3 the Azure DevOps project: the user creates the `Prod Approvers` group, runs `Sync-AdoEnvironmentApprovals -DryRun`, then the sync
-      itself; once it reports each environment Unchanged, the lifecycle articles drop the "prod with no gate" claims (check: a second run
-      reports Unchanged for all three, and a CD run to `shared-psub` waits for approval).
+- [ ] Q3 `automation/Catzc.Azure.DevOps/configs/environment-approvals.yml`: the user lists the approvers under `approver_group.members` and
+      runs the apply (`Sync-AdoEnvironmentApprovals -DryRun`, then without); then the lifecycle articles drop the "prod with no gate" claims
+      (check: a second apply reports Unchanged for the group and all three checks, and a CD run to `shared-psub` waits for approval).
 - [ ] Q4 the three slides that draw what the run-modes ADR no longer names: `rule-and-gate-per-load-stage` (`build-catzc.ps1` and
       `Write-CatzcLoadBanner` as markers 7 and 8), `what-gates-each-bundle-stage` (the cached root, marker 6) and
       `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Each needs those elements removed or relabelled, with its article,

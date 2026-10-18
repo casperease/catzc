@@ -33,9 +33,9 @@ function Get-CatsRuleEnforcers {
 
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
-    $automationRoot = Get-CatzcModulesRoot
+    $modulesRoot = Get-CatzcModulesRoot
     # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
-    foreach ($file in Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true) {
+    foreach ($file in Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true) {
         $tokens = $null
         $parseErrors = $null
         $ast = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref]$tokens, [ref]$parseErrors)

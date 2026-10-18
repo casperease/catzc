@@ -13,7 +13,7 @@ Copies a module profile into a tmp sandbox and runs its tests in isolation — a
 ### description
 
 Front half (both modes): resolve the module set with Get-ModuleProfile (a named profile from configs/profiles.yml, or an explicit -Modules
-seed → dependency closure + infrastructure), then Copy-Automation it into a fresh sandbox (-EmptyDestination). Back half depends on
+seed → dependency closure + infrastructure), then Copy-CatzcModule it into a fresh sandbox (-EmptyDestination). Back half depends on
 -Isolation:
 
 ```text

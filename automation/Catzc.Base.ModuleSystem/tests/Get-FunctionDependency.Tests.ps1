@@ -29,7 +29,7 @@ Describe 'Get-FunctionDependency — shared parse' -Tag 'L0', 'logic' {
 
     It 'parses each file once into the holder it is given' {
         $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
-        $edges = @(Get-FunctionDependency -AutomationRoot $script:fake.Automation -ParsedScripts $parsed)
+        $edges = @(Get-FunctionDependency -ModulesRoot $script:fake.ModulesRoot -ParsedScripts $parsed)
         $parsed.ParseCount | Should -Be 2
         $edges | Should -HaveCount 1
         $edges[0].CallerFunction | Should -Be 'Get-Widget'
@@ -39,6 +39,6 @@ Describe 'Get-FunctionDependency — shared parse' -Tag 'L0', 'logic' {
 Describe 'Get-FunctionDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Get-FunctionDependency -AutomationRoot $TestDrive } | Should -Throw '*Get-FunctionDependency operates on the catzc source tree*'
+        { Get-FunctionDependency -ModulesRoot $TestDrive } | Should -Throw '*Get-FunctionDependency operates on the catzc source tree*'
     }
 }

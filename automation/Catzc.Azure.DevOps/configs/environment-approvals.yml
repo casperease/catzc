@@ -1,4 +1,8 @@
-# ADO environments that deploy only after approval (Sync-AdoEnvironmentApprovals); approver_group and timeout_hours default on the type.
+# Prod-tier approvals, applied by Sync-AdoEnvironmentApprovals (docs/how-to/automation/apply-environment-approvals.md).
+approver_group:
+  name: Prod Approvers
+  members: []
+timeout_hours: 24
 environments:
   - shared-psub
   - apex-psub

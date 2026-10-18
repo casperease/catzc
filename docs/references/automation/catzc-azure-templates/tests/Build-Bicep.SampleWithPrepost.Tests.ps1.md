@@ -23,7 +23,7 @@ Warm the path-keyed session caches once, not per test
 
 ## comment:3
 
-Above `$script:configRoot = Join-Path (Get-RepositoryRoot)...`, written with `#`.
+Above `$script:configRoot = Join-Path (Get-CatzcModulesRoot)...`, written with `#`.
 
 ```text
 ONE build of ALL environments is the single observation every assertion below is a facet of

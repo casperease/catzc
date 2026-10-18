@@ -44,7 +44,7 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
             [System.IO.File]::WriteAllText((Join-Path $typesDirectory "$($entry[1]).cs"), "namespace $($entry[0]);`npublic class $($entry[1]) { }")
         }
         $script:output = Join-Path $TestDrive 'build/.compiled'
-        $script:built = Build-CombinedTypeAssembly -AutomationRoot $root -OutputDirectory $output
+        $script:built = Build-CombinedTypeAssembly -ModulesRoot $root -OutputDirectory $output
     }
 
     It 'writes the Catzc.Types DLL named by the combined hash of the compiled sources' {
@@ -65,7 +65,7 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
     }
 
     It 'keeps an existing DLL of the same hash without recompiling' {
-        $again = Build-CombinedTypeAssembly -AutomationRoot $root -OutputDirectory $output
+        $again = Build-CombinedTypeAssembly -ModulesRoot $root -OutputDirectory $output
         $again.Compiled | Should -BeFalse
         $again.Path | Should -Be $built.Path
     }
@@ -79,14 +79,14 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
 
     It 'restores a missing manifest when the DLL of the same hash already exists' {
         [System.IO.File]::Delete($built.Manifest)
-        $again = Build-CombinedTypeAssembly -AutomationRoot $root -OutputDirectory $output
+        $again = Build-CombinedTypeAssembly -ModulesRoot $root -OutputDirectory $output
         $again.Compiled | Should -BeFalse
         [System.IO.File]::Exists($again.Manifest) | Should -BeTrue
     }
 
     It 'compiles only the selected modules, under the subset hash' {
         $subsetOutput = Join-Path $TestDrive 'subset'
-        $subset = Build-CombinedTypeAssembly -AutomationRoot $root -Module $widget -OutputDirectory $subsetOutput
+        $subset = Build-CombinedTypeAssembly -ModulesRoot $root -Module $widget -OutputDirectory $subsetOutput
         $subset.Hash | Should -Be (Get-CombinedTypeHash $root -Module $widget).CombinedHash
         $subset.Hash | Should -Not -Be $built.Hash
         @([System.IO.Directory]::EnumerateFiles($subsetOutput, 'Catzc.Types.*.dll')).Count | Should -Be 1
@@ -98,7 +98,7 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         [System.IO.Directory]::CreateDirectory($brokenTypes) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $brokenTypes 'Sprocket.cs'), "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
         $brokenOutput = Join-Path $TestDrive 'broken-output'
-        { Build-CombinedTypeAssembly -AutomationRoot $brokenRoot -OutputDirectory $brokenOutput } | Should -Throw
+        { Build-CombinedTypeAssembly -ModulesRoot $brokenRoot -OutputDirectory $brokenOutput } | Should -Throw
         @([System.IO.Directory]::EnumerateFiles($brokenOutput)).Count | Should -Be 0
     }
 
@@ -109,7 +109,7 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $namedSource = Join-Path $namedTypes 'Sprocket.cs'
         [System.IO.File]::WriteAllText($namedSource, "namespace $widget;`npublic class Sprocket { int X => Missing(); }")
         $message = try {
-            Build-CombinedTypeAssembly -AutomationRoot $namedRoot -OutputDirectory (Join-Path $TestDrive 'named-output')
+            Build-CombinedTypeAssembly -ModulesRoot $namedRoot -OutputDirectory (Join-Path $TestDrive 'named-output')
             ''
         }
         catch {
@@ -131,7 +131,7 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
             Microsoft.PowerShell.Utility\Add-Type @PesterBoundParameters
         }
 
-        $raced = Build-CombinedTypeAssembly -AutomationRoot $raceRoot -OutputDirectory (Join-Path $TestDrive 'race-output')
+        $raced = Build-CombinedTypeAssembly -ModulesRoot $raceRoot -OutputDirectory (Join-Path $TestDrive 'race-output')
 
         Should -Invoke Add-Type -ModuleName Catzc.Internal.Types -Times 1 -Exactly -Because 'the save must land while the compiler runs'
         $raced.Hash | Should -Be $hashedBefore
@@ -142,7 +142,7 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
 
     It 'returns nothing and writes nothing when the selection ships no C# source' {
         $emptyOutput = Join-Path $TestDrive 'empty'
-        Build-CombinedTypeAssembly -AutomationRoot $root -Module 'Gizmo' -OutputDirectory $emptyOutput | Should -BeNullOrEmpty
+        Build-CombinedTypeAssembly -ModulesRoot $root -Module 'Gizmo' -OutputDirectory $emptyOutput | Should -BeNullOrEmpty
         [System.IO.Directory]::Exists($emptyOutput) | Should -BeFalse
     }
 }

@@ -24,7 +24,7 @@ Above `[CmdletBinding()]`, written with `#`.
 .SYNOPSIS
     Returns the combined 8-char hash of every module's C# type sources, with the per-file snapshot and the
     source list, in order, that the loader compiles.
-.PARAMETER AutomationRoot
+.PARAMETER ModulesRoot
     The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
 .PARAMETER Module
     Omitted, every non-dot module is hashed; a named module without a types folder contributes nothing.
@@ -60,7 +60,7 @@ namespace / dotted-name validation here (the loader's job). [System.IO] over Get
 
 ## comment:5
 
-Above `$compiledTypesDir = [System.IO.Path]::Combine($AutomationRoot, '.compiled',...`, written with `#`.
+Above `$compiledTypesDir = [System.IO.Path]::Combine($ModulesRoot, '.compiled',...`, written with `#`.
 
 ```text
 A build ships the full type set but only the selected modules' folders; the other modules' sources sit
@@ -131,7 +131,7 @@ Above `[CmdletBinding()]` (occurrence 3), written with `#`.
 .DESCRIPTION
     Compiles a frozen copy of the sources, so a save mid-compile cannot make the DLL name differ from its bytes.
     [comment:10](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment10)
-.PARAMETER AutomationRoot
+.PARAMETER ModulesRoot
     The automation directory whose non-dot module folders hold the types/*.cs sources.
 .PARAMETER Module
     Restricts the compile (and its hash) to these module folders. Omitted, every module's types compile.
@@ -143,7 +143,7 @@ Above `[CmdletBinding()]` (occurrence 3), written with `#`.
     from Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
     $null when the selection ships no C# type source.
 .EXAMPLE
-    Build-CombinedTypeAssembly -AutomationRoot $root -Module 'Catzc.Base.Objects' -OutputDirectory "$build/.compiled"
+    Build-CombinedTypeAssembly -ModulesRoot $root -Module 'Catzc.Base.Objects' -OutputDirectory "$build/.compiled"
 ```
 
 ## comment:11

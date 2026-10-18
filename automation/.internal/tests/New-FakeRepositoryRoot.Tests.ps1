@@ -16,9 +16,9 @@ Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE#4' {
         $fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Widget' = @{ Public = 'Get-Widget' } }
         try {
             $env:RepositoryRoot | Should -Be $fake.Root
-            $env:CatzcModulesRoot | Should -Be $fake.Automation
+            $env:CatzcModulesRoot | Should -Be $fake.ModulesRoot
             Get-CatzcRunMode | Should -Be 'source'
-            Join-Path $fake.Automation 'Catzc.Widget/Get-Widget.ps1' | Should -Exist
+            Join-Path $fake.ModulesRoot 'Catzc.Widget/Get-Widget.ps1' | Should -Exist
         }
         finally {
             Remove-FakeRepositoryRoot $fake
@@ -50,7 +50,7 @@ Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE#4' {
     It 'restores an unset code root as unset' {
         $env:CatzcModulesRoot = $null
         $fake = New-FakeRepositoryRoot
-        $env:CatzcModulesRoot | Should -Be $fake.Automation
+        $env:CatzcModulesRoot | Should -Be $fake.ModulesRoot
         Remove-FakeRepositoryRoot $fake
 
         $env:CatzcModulesRoot | Should -BeNullOrEmpty

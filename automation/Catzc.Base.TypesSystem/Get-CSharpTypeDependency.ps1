@@ -1,10 +1,10 @@
 function Get-CSharpTypeDependency {
     param(
-        [string] $AutomationRoot = (Get-CatzcModulesRoot)
+        [string] $ModulesRoot = (Get-CatzcModulesRoot)
     )
 
     Assert-SourceTree
-    Assert-PathExist $AutomationRoot -PathType Container
+    Assert-PathExist $ModulesRoot -PathType Container
 
     $modules = @((Get-CatzcModule -TrackType modules).name)
     # Longest module name first, so 'Catzc.Azure.Templates.Foo' maps to Catzc.Azure.Templates, not Catzc.Azure.
@@ -16,7 +16,7 @@ function Get-CSharpTypeDependency {
     $target = $null
 
     foreach ($module in $modules) {
-        $typesDir = Join-Path $AutomationRoot "$module/types"
+        $typesDir = Join-Path $ModulesRoot "$module/types"
         if (-not (Test-Path $typesDir -PathType Container)) {
             continue
         }

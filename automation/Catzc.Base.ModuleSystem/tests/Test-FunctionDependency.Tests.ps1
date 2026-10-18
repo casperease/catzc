@@ -27,13 +27,13 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-o
     It 'passes when every call resolves' -Tag 'ADR-AUTO-TEST#35' {
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing' -Body 'Get-BThing; Write-Output 1'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-BThing'
-        { Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase } | Should -Not -Throw
+        { Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase } | Should -Not -Throw
     }
 
     It 'throws once listing every unresolved call and duplicate public function' -Tag 'ADR-AUTO-TEST#35' {
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-Dupe' -Body 'Get-NoSuchWidget'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-Dupe'
-        $thrown = { Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase } | Should -Throw -PassThru
+        $thrown = { Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-FunctionDependency failed: 2 issue(s)*'
         $message | Should -BeLike "*Duplicate public function 'Get-Dupe'*"
@@ -42,7 +42,7 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-o
 
     It 'returns the result with the function count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing' -Body 'Get-NoSuchGadget'
-        $result = Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase -PassThru
+        $result = Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase -PassThru
         $result.Subject | Should -Be 'function-dependency'
         $result.IssueCount | Should -Be 1
         $result.FunctionCount | Should -Be 1
@@ -54,13 +54,13 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-o
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-Shared' -Private
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-BThing'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-Shared' -Private
-        { Test-FunctionDependency -AutomationRoot $root -OutputFolder $reportBase } | Should -Not -Throw
+        { Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase } | Should -Not -Throw
     }
 }
 
 Describe 'Test-FunctionDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Test-FunctionDependency -AutomationRoot $TestDrive } | Should -Throw '*Test-FunctionDependency operates on the catzc source tree*'
+        { Test-FunctionDependency -ModulesRoot $TestDrive } | Should -Throw '*Test-FunctionDependency operates on the catzc source tree*'
     }
 }

@@ -2,11 +2,11 @@
 
 The object-shaping and serialization module. It owns the conversions between the typed object model and the mutable, flat, sorted, or
 YAML-serializable forms the rest of the platform needs — the object-shaping helpers that flatten nested settings to dotted keys, sort a
-dictionary's keys, and deep-clone a structure, together with the recursive reflector the output writers rely on for
-clean YAML emission. It also owns `DictionaryRecord` (`Catzc.Base.Objects.DictionaryRecord`), the shared C# base class that typed records
-across the codebase derive from, giving each record a dictionary view and constructor-level extraction helpers without per-module
-boilerplate. The module belongs to the `Base` group and depends on [Catzc.Base.Asserts](catzc-base-asserts.md); the vendored
-`powershell-yaml` is used by the serialization layer.
+dictionary's keys, and deep-clone a structure, together with the recursive reflector the output writers rely on for clean YAML emission. It
+also owns `DictionaryRecord` (`Catzc.Base.Objects.DictionaryRecord`), the shared C# base class that typed records across the codebase derive
+from, giving each record a dictionary view and constructor-level extraction helpers without per-module boilerplate. The module belongs to
+the `Base` group and depends on [Catzc.Base.Asserts](catzc-base-asserts.md); the vendored `powershell-yaml` is used by the serialization
+layer.
 
 ## Responsibilities
 
@@ -18,10 +18,10 @@ boilerplate. The module belongs to the `Base` group and depends on [Catzc.Base.A
 ### responsibility:1 — Object shaping and cloning
 
 The conversions that take a typed object, PSCustomObject, or dictionary and produce a flat, sorted, or cloned structural form. The
-responsibility covers what a consumer needs after leaving the typed model: flattening a nested configuration to a flat ordered dictionary of dot-notation keys so every
-leaf value is directly addressable; normalising key order across dictionary types so serialized and compared output is stable and easy to
-diff regardless of whether the source was an `[ordered]@{}` or a plain hashtable; and deep-cloning a mixed tree without serialization,
-leaving the source unchanged.
+responsibility covers what a consumer needs after leaving the typed model: flattening a nested configuration to a flat ordered dictionary of
+dot-notation keys so every leaf value is directly addressable; normalising key order across dictionary types so serialized and compared
+output is stable and easy to diff regardless of whether the source was an `[ordered]@{}` or a plain hashtable; and deep-cloning a mixed tree
+without serialization, leaving the source unchanged.
 
 ### responsibility:2 — YAML-safe serialization
 
@@ -38,11 +38,11 @@ responsibilities are stratified: responsibility 2 is the recursive reflector at 
 to the ordered-dict/array/scalar form a YAML serializer can consume; responsibility 1 sits beside it with the flat, sorted, and clone forms
 for different consumer needs.
 
-The three shaping functions in responsibility 1 each serve a distinct downstream use. The flat
-key/value form is the assertion helper — a flat dictionary makes it easy to walk every leaf and assert no value is missing or undefined. The
-sorted form is the stability helper — plain hashtable key order is non-deterministic, so sorting before writing a file or comparing in a
-test makes output consistent. The clone form is the mutation helper — deep-clone before modifying so the original record is never changed by
-side-effect, even through a complex tree of nested dictionaries and arrays.
+The three shaping functions in responsibility 1 each serve a distinct downstream use. The flat key/value form is the assertion helper — a
+flat dictionary makes it easy to walk every leaf and assert no value is missing or undefined. The sorted form is the stability helper —
+plain hashtable key order is non-deterministic, so sorting before writing a file or comparing in a test makes output consistent. The clone
+form is the mutation helper — deep-clone before modifying so the original record is never changed by side-effect, even through a complex
+tree of nested dictionaries and arrays.
 
 The module also owns `DictionaryRecord` (full name `Catzc.Base.Objects.DictionaryRecord`), the shared C# base class typed records across the
 codebase derive from (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). Every module's types compile into one

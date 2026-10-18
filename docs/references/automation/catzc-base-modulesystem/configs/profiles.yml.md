@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `profiles:`, written with `#`.
 
 ```text
-profiles.yml — named module sets for Copy-Automation -Profile and Test-InIsolation (Catzc.Base.ModuleSystem).
+profiles.yml — named module sets for Copy-CatzcModule -Profile and Test-InIsolation (Catzc.Base.ModuleSystem).
 
 Each profile is a SEED list of module names. Get-ModuleProfile expands a seed to its declared-dependency
 closure (dependencies.yml) and adds the fixed infrastructure (.internal, .compiled, .vendor) needed to load

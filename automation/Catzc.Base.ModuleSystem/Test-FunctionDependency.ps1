@@ -2,7 +2,7 @@ function Test-FunctionDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string] $AutomationRoot = (Get-CatzcModulesRoot),
+        [string] $ModulesRoot = (Get-CatzcModulesRoot),
 
         [string] $OutputFolder,
 
@@ -15,7 +15,7 @@ function Test-FunctionDependency {
     $definitions = @{}
     $issues = [System.Collections.Generic.List[string]]::new()
 
-    foreach ($moduleDir in ([System.IO.Directory]::EnumerateDirectories($AutomationRoot) | Sort-Object)) {
+    foreach ($moduleDir in ([System.IO.Directory]::EnumerateDirectories($ModulesRoot) | Sort-Object)) {
         $module = [System.IO.Path]::GetFileName($moduleDir)
         if ($module -match '^\.') {
             continue

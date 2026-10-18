@@ -31,8 +31,8 @@ function Format-Types {
         }
     }
     else {
-        $automationRoot = [System.IO.Path]::GetFullPath((Join-Path $root (Get-CatzcModulesFolder)))
-        foreach ($moduleDirectory in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
+        $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $root (Get-CatzcModulesFolder)))
+        foreach ($moduleDirectory in [System.IO.Directory]::EnumerateDirectories($modulesRoot)) {
             if ([System.IO.Path]::GetFileName($moduleDirectory).StartsWith('.', [System.StringComparison]::Ordinal)) {
                 continue
             }

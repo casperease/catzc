@@ -1,6 +1,6 @@
 function Clear-ModuleTypeCache {
     param(
-        [string] $AutomationRoot = (Get-CatzcModulesRoot),
+        [string] $ModulesRoot = (Get-CatzcModulesRoot),
 
         [switch] $DryRun,
 
@@ -11,7 +11,7 @@ function Clear-ModuleTypeCache {
 
     # Build mode: the loaded code root is an installed package, not a devbox cache — never delete inside it.
     if ((Get-CatzcRunMode) -eq 'build') {
-        $targetRoot = [System.IO.Path]::GetFullPath($AutomationRoot).TrimEnd('\', '/')
+        $targetRoot = [System.IO.Path]::GetFullPath($ModulesRoot).TrimEnd('\', '/')
         $packageRoot = [System.IO.Path]::GetFullPath((Get-CatzcModulesRoot)).TrimEnd('\', '/')
         if ($targetRoot -ieq $packageRoot) {
             if (-not $Silent) {
@@ -21,7 +21,7 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    $compiledDir = Join-Path $AutomationRoot '.compiled'
+    $compiledDir = Join-Path $ModulesRoot '.compiled'
 
     if (Test-IsRunningInPipeline) {
         # @(): an if-expression unrolls a 0/1-item list.
@@ -38,7 +38,7 @@ function Clear-ModuleTypeCache {
         return
     }
 
-    Assert-PathExist $AutomationRoot -PathType Container
+    Assert-PathExist $ModulesRoot -PathType Container
 
     $ret = [System.Collections.Generic.List[string]]::new()
     if (-not (Test-Path $compiledDir -PathType Container)) {
@@ -52,7 +52,7 @@ function Clear-ModuleTypeCache {
     }
 
     Import-InternalModule Types
-    $combinedHash = (Get-CombinedTypeHash $AutomationRoot).CombinedHash
+    $combinedHash = (Get-CombinedTypeHash $ModulesRoot).CombinedHash
     $keep = if ($combinedHash) {
         "Catzc.Types.$combinedHash.dll"
     }

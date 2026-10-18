@@ -32,10 +32,10 @@ The combined hash comes from the ONE shared implementation (Get-CombinedTypeHash
 (Import-CSharpTypes) also calls, so the janitor cannot drift from the loader and plan the live build for deletion. A test against the real
 repo still guards that the live build is never planned. A devbox janitor only: in build mode
 ([ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)) the default code root is an installed Catzc package, whose .compiled holds the one
-assembly the build produced and is never a cache to tidy, so the call is a no-op that reports why. An explicit -AutomationRoot other than
+assembly the build produced and is never a cache to tidy, so the call is a no-op that reports why. An explicit -ModulesRoot other than
 the loaded code root is still cleaned in either mode.
 
-### parameter `AutomationRoot`
+### parameter `ModulesRoot`
 
 Path to the automation directory (the parent of .compiled/). Defaults to the loaded code root (Get-CatzcModulesRoot).
 

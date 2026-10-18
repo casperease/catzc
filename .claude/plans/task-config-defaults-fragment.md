@@ -48,15 +48,15 @@ rename is a data edit.
        `ANALYZER issues=0`.
 3. [x] Declare `.catzc` and write this repository's fragment. Done 2026-10-18 on D28 (delegated by the user): `.catzc` is a
        `vendor-settings` track with vendor `catzc`, a new entry in the vendor registry (track-types.yml), and
-       `.catzc/automation/Catzc.Base.Variants/configs/variants.yml` holds `have_customers: all`. Correction from the tree: the fragment holds
-       only that key. `tracks` stays in the shipped file, because it has no default, build mode reads no `.catzc` fragment (so a bundle
-       import would find no tracks), and the NoTrackRootLiteral analyzer reads the shipped tracks. `aspects` stays too, since its shipped value
-       is the type's default. Check: in source mode `Get-Config -Config variants` reads `have_customers` as all and Get-EnabledCustomers as
-       all, as before.
+       `.catzc/automation/Catzc.Base.Variants/configs/variants.yml` holds `have_customers: all`. Correction from the tree: the fragment
+       holds only that key. `tracks` stays in the shipped file, because it has no default, build mode reads no `.catzc` fragment (so a
+       bundle import would find no tracks), and the NoTrackRootLiteral analyzer reads the shipped tracks. `aspects` stays too, since its
+       shipped value is the type's default. Check: in source mode `Get-Config -Config variants` reads `have_customers` as all and
+       Get-EnabledCustomers as all, as before.
 4. [x] The shipped `variants.yml` shows the defaults (D22): `have_customers: false`, the type's `DefaultHaveCustomers`, and the `differs`
-       reason in configs.yml is gone with the difference. Check: `[Invoke-TestFile] Passed` for VariantsConfig.Tests, Get-EnabledCustomers.Tests,
-       Get-Track.Tests, Get-ConfigOverlayRoot.Tests and TrackTypesConfig.Tests (`out/test-file/20261018-135401` to `-135425`);
-       `SHIPPED issues=0`, `WORLDMAP issues=0`, `FILEMETA issues=0`.
+       reason in configs.yml is gone with the difference. Check: `[Invoke-TestFile] Passed` for VariantsConfig.Tests,
+       Get-EnabledCustomers.Tests, Get-Track.Tests, Get-ConfigOverlayRoot.Tests and TrackTypesConfig.Tests (`out/test-file/20261018-135401`
+       to `-135425`); `SHIPPED issues=0`, `WORLDMAP issues=0`, `FILEMETA issues=0`.
 5. [x] The defaults check (D22: defaults live in both the shipped config assets and the config types, and most of the time they match): for
        every registered config type with a shipped file, compare each key the file states with the default the type declares for it, and
        report a key whose two values differ unless the config's entry in `configs.yml` lists it under `differs` with a one-sentence reason
