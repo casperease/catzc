@@ -107,7 +107,7 @@ Describe 'Assert-CatzcRunModeExclusive' -Tag 'L0', 'logic' {
         catch {
             $message = $_.Exception.Message
         }
-        $message | Should -BeLike "*active CatzcModulesRoot is 'C:/active/automation'*2 loaded catzc module(s) come from another root ('C:?other?automation')*"
+        $message | Should -BeLike "*active CatzcModulesRoot is 'C:/active/automation'*2 loaded catzc module(s) come from another root ('C:?other?pwsh')*"
         $message | Should -BeLike '*Catzc.Widget (C:/other/pwsh/Catzc.Widget)*'
         $message | Should -BeLike '*Catzc.Gadget (C:/other/pwsh/Catzc.Gadget)*'
     }

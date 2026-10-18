@@ -66,7 +66,7 @@ languages:
   csharp:
     extensions: [.cs]
     formatter: dotnet-format
-    adr_folder: pwsh/BCL
+    adr_folder: automation/BCL
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
     imprint: [csharp-namespace]
     layout:
@@ -96,7 +96,7 @@ languages:
   python:
     extensions: [.py]
     formatter: ruff
-    adr_folder: pwsh/python
+    adr_folder: automation/python
     checks: [Test-PythonLint, Test-Formatting, Test-Spelling]
     tests: { runner: Invoke-PythonTest, tools: [uv, python], executable: UvExecutable }
   json:
@@ -109,13 +109,13 @@ languages:
   go:
     extensions: [.go]
     formatter: gofmt
-    adr_folder: pwsh/go
+    adr_folder: automation/go
     checks: [Test-Formatting, Test-Spelling]
     tests: { runner: Invoke-GoTest, tools: [go], executable: GoExecutable }
   bash:
     extensions: [.sh, .bats]
     no_formatter: no engine is configured for Bash yet
-    adr_folder: pwsh/bash
+    adr_folder: automation/bash
     checks: [Test-ShellScripts]
     tests: { runner: Invoke-BashTest, engine: bash, executable: EngineExecutable }
   xml:

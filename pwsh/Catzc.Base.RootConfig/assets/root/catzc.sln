@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # MANAGED ROOT FILE — single source of truth:
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catzc.Types", "automation\.internal\assets\Catzc.Types.csproj", "{CA72C000-700E-5000-0000-EC7000000000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catzc.Types", "pwsh\.internal\assets\Catzc.Types.csproj", "{CA72C000-700E-5000-0000-EC7000000000}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".claude", ".claude", "{C1A0DE00-F01D-E000-0000-000000000000}"
 EndProject

@@ -65,6 +65,9 @@ Open, in execution order:
   avoid-phrasings for the retired layer forms and the rewording of the 68 pages that still say "automation layer", "implementation layer"
   or "PowerShell layer"; P6 the pipeline rename `ci-automation` to `ci-pwsh` as one atomic set, scheduled on a day the user re-points the
   external definitions (task-user-runs-and-commits step 8).
+- automation-word-residue -> plan-automation-word-residue.md (open; no task file yet, the plan's steps are one file each; nothing blocks
+  it but the asset-folder `git mv`, which is the user's): the old folder meaning of "automation" retired from code, comment pages, the
+  minimap generator, docs prose and the plans; the sln step landed 2026-10-18.
 - command-contracts -> task-command-contracts.md (open; 65 commands contracted; after the decision round's freeze call): the frozen set
   contracted, made internal or deleted as decided, Test-Contracts clean; the later language step for gate results and parameter sets.
 - assert-wait -> task-assert-wait.md (open; steps 1 to 6 done; steps 7 and 8 after the user's cheap importer watchpoint run): the ADR pair
