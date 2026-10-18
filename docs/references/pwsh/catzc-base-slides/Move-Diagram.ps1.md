@@ -1,0 +1,48 @@
+# pwsh/Catzc.Base.Slides/Move-Diagram.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Moves a diagram folder, or one of its files, with git mv and re-points every relative link in it and into it.
+
+### description
+
+A diagram is one folder, `<article-folder>/.assets/<name>/`, so moving a diagram moves the folder. The command stages the move with
+`git mv` and keeps every relative link right ([ADR-REPO-LINK#2](../../../adr/repository/link-checking.md#rule-adr-repo-link2)): each link
+in a moved `.md` file and in every page that links into the moved path is resolved to its repository path and recomputed from where the
+file now sits. A page that stays in place keeps every other link as it wrote it. The source must hold a tracked file, and the destination
+must not exist, so a move never merges into another diagram. It commits nothing.
+
+### parameter `Path`
+
+The repository-relative diagram folder, or single file, to move.
+
+### parameter `Destination`
+
+The repository-relative path it moves to; its parent folders are created.
+
+### parameter `RepositoryRoot`
+
+The repository root both paths are relative to. Default: the loaded repository root.
+
+### parameter `DryRun`
+
+List the moves and the pages whose links would be re-pointed, and change nothing.
+
+### parameter `PassThru`
+
+Return the move: `From`, `To`, `Moves` (one `From`/`To` per file), `Pages` (the pages whose links were re-pointed) and `DryRun`.
+
+### outputs
+
+`[pscustomobject]` the move, with `-PassThru` only.
+
+### example 1
+
+```powershell
+Move-Diagram docs/explanation/configuration/.assets/an-address-is-a-read-only-walk docs/explanation/design/.assets/an-address-is-a-read-only-walk -DryRun
+```

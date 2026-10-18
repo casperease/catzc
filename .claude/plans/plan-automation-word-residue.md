@@ -124,27 +124,28 @@ only lines the decided list above keeps. A test check runs under `Invoke-TestFil
 
 ### Tests that mock the old folder
 
-Reported 2026-10-18 by session catzc-93 (outside the master plan, clearing the last run's failing tests): the `Get-TestAutomationTestPaths`,
-`Get-FixtureIdentityTokens` and `Test-FolderConventions` test steps below are edited in its working copy, verdict "the files pass 16/16";
-the grep half of each check is unverified, so the three stay open until it is.
+Landed 2026-10-18 by session catzc-93, all nine below, each "grep clean (only TestAutomation / Test-Automation /
+System.Management.Automation remain); Invoke-TestFile Result=Passed ExitCode=0". The first Invoke-TestFile of the last two crashed after
+3 s with empty stderr before any test ran; the shard script run directly and a second Invoke-TestFile passed (an import race, not these
+edits; noted in plan-test-run-budget's watch).
 
-- [ ] `pwsh/.internal/tests/Import-AllModules.Tests.ps1:63,189-195`: the context title and the `$automation` local become "modules folder"
+- [x] `pwsh/.internal/tests/Import-AllModules.Tests.ps1:63,189-195`: the context title and the `$automation` local become "modules folder"
       and `$modulesRoot`. (check: grep clean; the file passes under `Invoke-TestFile`)
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1:213-230`: `$automation` and the `Automation` parameter key become
+- [x] `pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1:213-230`: `$automation` and the `Automation` parameter key become
       `$modulesRoot` / `ModulesRoot`. (check: grep clean; the file passes)
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1:3,5,9`: the mocked root `<repo>/automation` becomes
+- [x] `pwsh/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1:3,5,9`: the mocked root `<repo>/automation` becomes
       `<repo>/pwsh`. (check: only `TestAutomation` names remain; the file passes)
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1:18,27`: mocked and expected root to `pwsh`. (check: grep clean; the
+- [x] `pwsh/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1:18,27`: mocked and expected root to `pwsh`. (check: grep clean; the
       file passes)
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1:48`: mocked root to `pwsh`. (check: grep clean; the file
+- [x] `pwsh/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1:48`: mocked root to `pwsh`. (check: grep clean; the file
       passes)
-- [ ] `pwsh/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1:5`: fake repo path to `repo/pwsh`. (check: grep clean; the file
+- [x] `pwsh/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1:5`: fake repo path to `repo/pwsh`. (check: grep clean; the file
       passes)
-- [ ] `pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1:57`: test title "under automation" to "under pwsh/". (check: grep
+- [x] `pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1:57`: test title "under automation" to "under pwsh/". (check: grep
       clean; the file passes)
-- [ ] `pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1:5`: depth comment to "below pwsh/". (check: grep clean; the
+- [x] `pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1:5`: depth comment to "below pwsh/". (check: grep clean; the
       file passes)
-- [ ] `pwsh/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1:58`: depth comment to "below pwsh/". (check: grep clean; the file passes)
+- [x] `pwsh/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1:58`: depth comment to "below pwsh/". (check: grep clean; the file passes)
 
 ### The generator that prints the old folder into 421 pages
 
@@ -257,12 +258,14 @@ Each page: reword `automation/` to `pwsh/` where the modules folder is meant; le
 and the layer wording alone. Check for each: grep shows no folder-meaning line, `Test-Links` clean on the page. A `.drawio.md` page changes
 its prose only, never the generated sidebar.
 
-- [ ] `docs/adr/azure/caf/platform-automation-and-devops.md` (check: no folder-meaning line; Test-Links clean) (line 326)
-- [ ] `docs/adr/azure/waf/operational-excellence.md` (check: no folder-meaning line; Test-Links clean) (line 522)
-- [ ] `docs/adr/configuration/module-config-loading.md` (check: no folder-meaning line; Test-Links clean) (lines 82, 114)
-- [ ] `docs/adr/flow/durable-sha-globs.md` (check: no folder-meaning line; Test-Links clean) (the glob table at 171 to 174 uses
+  Landed 2026-10-18 by session catzc-59, ADR batch 1, the five ticked below, each Test-Links ok (durable-sha-globs: the `pwsh/**`
+  pattern row now matches its own examples; pipeline-runner-pattern needed no change, line 35 already says pwsh/).
+- [x] `docs/adr/azure/caf/platform-automation-and-devops.md` (check: no folder-meaning line; Test-Links clean) (line 326)
+- [x] `docs/adr/azure/waf/operational-excellence.md` (check: no folder-meaning line; Test-Links clean) (line 522)
+- [x] `docs/adr/configuration/module-config-loading.md` (check: no folder-meaning line; Test-Links clean) (lines 82, 114)
+- [x] `docs/adr/flow/durable-sha-globs.md` (check: no folder-meaning line; Test-Links clean) (the glob table at 171 to 174 uses
       `automation/` as sample paths: switch them to `pwsh/`; line 281)
-- [ ] `docs/adr/flow/pipeline-runner-pattern.md` (check: no folder-meaning line; Test-Links clean) (line 35)
+- [x] `docs/adr/flow/pipeline-runner-pattern.md` (check: no folder-meaning line; Test-Links clean) (line 35)
 - [ ] `docs/adr/flow/pipeline-types.md` (check: no folder-meaning line; Test-Links clean) (lines 14, 180)
 - [ ] `docs/adr/pwsh/bounded-enumeration.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/adr/pwsh/dynamic-module-manifests.md` (check: no folder-meaning line; Test-Links clean)

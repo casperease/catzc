@@ -40,7 +40,7 @@ The diagram is described element by element in [its asset description](get-aspec
    two-track convention as its default, and returns the requested track's list in declared order. A track with no entry gets the automation
    convention.
 5. **Get-ModuleGlobSet.** The derived-globset function of `Catzc.Base.Globs`. It calls `Get-Aspect -Track automation` once, turns each
-   `VariantAspect` into an `Aspect`, and then visits every non-dot folder under `automation/`.
+   `VariantAspect` into an `Aspect`, and then visits every non-dot folder under `pwsh/`.
 6. **AspectPartition.Compile.** For one unit root such as `pwsh/Catzc.Base.Globs`, aspect _k_ becomes a `CompiledAspect` whose include
    patterns are its own, prefixed by the root, and whose exclude patterns are every earlier aspect's. A leaf scan program runs the includes
    as `+` and the excludes as `-`, last match wins, which is exactly first-match slicing.

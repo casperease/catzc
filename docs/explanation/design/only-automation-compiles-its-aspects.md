@@ -31,7 +31,7 @@ The diagram is described element by element in [its asset description](only-auto
    the session caches, and `Get-Aspect -Track <track>` returns that track's list in declared order, so a change to the file takes effect
    when the importer runs again.
 3. **Catzc.Base.Globs.** The aspect engine. `Get-ModuleGlobSet` asks for the automation convention and compiles it onto every module folder
-   under `automation/` with `AspectPartition`, so each aspect becomes a scan program over that one unit root.
+   under `pwsh/` with `AspectPartition`, so each aspect becomes a scan program over that one unit root.
 4. **The module's live set.** One derived globset per module, named `<module>-live` in kebab form. It is the module's shippable surface, and
    it carries an identity of its own.
 5. **The module's tests set.** The second derived globset, `<module>-tests`: everything under the module that `live` did not claim, plus the
@@ -57,7 +57,7 @@ The diagram is described element by element in [its asset description](only-auto
 ## Where the code and the ADR differ
 
 - The ADR partitions every delivery package at track granularity by the same convention, and says a track's `-live` and `-tests` packages
-  use it when derived. No code derives them: the compiler runs only for `automation/<Module>` roots, and Maps classifies without deriving.
+  use it when derived. No code derives them: the compiler runs only for `pwsh/<Module>` roots, and Maps classifies without deriving.
 - The reference page of the aspect type (`Aspect.cs.md`) names `Get-ModuleAspect` as the PowerShell side that builds the sets; that function
   does not exist, and `Get-ModuleGlobSet` builds them.
 - The ADR prefixes every aspect pattern with the unit root; the derived `tests` set also reaches the language test folders outside it.

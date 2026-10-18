@@ -28,7 +28,7 @@ The diagram is described element by element in [its asset description](manifest-
 ## Walkthrough
 
 1. **automation/&lt;Module&gt;/.** The unit root both paths read. The import walks every module folder, and the aspects compile per folder
-   with `automation/<Module>` as the root.
+   with `pwsh/<Module>` as the root.
 2. **Assert-UniqueModuleFunctionName.** Shown shortened as `Assert-Unique…FunctionName`. `Import-AllModules` calls it before any module or
    C# type loads, reached from `importer.ps1` through `Invoke-Importer`. A duplicate name throws "Function name collision(s) detected before
    import".
@@ -39,7 +39,7 @@ The diagram is described element by element in [its asset description](manifest-
 5. **variants.yml.** The `aspects.automation` entry: `live` is `*.ps1`, `private/**`, `types/**` and `configs/**`; `tests` is `**`.
 6. **Get-Aspect.** `Get-ModuleGlobSet` calls `Get-Aspect -Track automation`. The `VariantsConfig` type has already required the last aspect
    to be the bare `**` and no earlier aspect to use it.
-7. **AspectPartition.Compile.** Called per module with the root `automation/<Module>`: aspect _k_ gets its own patterns, prefixed by the
+7. **AspectPartition.Compile.** Called per module with the root `pwsh/<Module>`: aspect _k_ gets its own patterns, prefixed by the
    root, and excludes every earlier aspect's patterns.
 8. **&lt;kebab&gt;-live.** The live set, named for the folder lower-cased with dots turned to dashes, plus `-live`.
 9. **&lt;kebab&gt;-tests.** The tests set. It also takes `<go|python|bash root>/tests/<kebab>/**`. `assets/`, `tests/` and `README.md` match

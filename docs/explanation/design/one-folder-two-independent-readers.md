@@ -15,7 +15,7 @@ One module folder has two independent readers: the loader and the globs engine.
 Supports ADR-DSGN-ASPECT#1, #2 and #4 (architecture lens).
 ```
 
-A cats module is a folder under `automation/`, and nothing else declares what it contains. Two components read that folder, and neither
+A cats module is a folder under `pwsh/`, and nothing else declares what it contains. Two components read that folder, and neither
 reads the other: the loader decides what a module exports, and the globs engine decides which of its files ship. Both decisions come from
 where a file sits, so a module author shapes visibility and shipping identity with the same act, placing a file.
 

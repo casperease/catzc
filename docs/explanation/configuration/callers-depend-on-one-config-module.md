@@ -50,7 +50,7 @@ The diagram is described element by element in [its asset description](callers-d
 ## Where the code and the ADR differ
 
 The ADR says discovery scans `pwsh/*/configs/`. The code scans the loaded code root, `Get-CatzcModulesRoot`, which is the source
-`automation/` folder or a built package, and skips dot-folders.
+`pwsh/` folder or a built package, and skips dot-folders.
 
 The ADR says only `Get-Config` is public. `Catzc.Base.Config` also exports `Get-ConfigValue`, which the addressing ADR sanctions and which
 reads no file itself.
