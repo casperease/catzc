@@ -85,9 +85,9 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][14]: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49
+  (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
 
 ## Keywords
 

@@ -30,8 +30,8 @@ catzc:
 
 # build-inspiration-module
 
-Build or extend `pwsh/Catzc.Tooling.Inspiration` to the decisions in `.claude/plans/` (the inspiration plan); stop and ask when the
-plan is missing or a decision there is open.
+Build or extend `pwsh/Catzc.Tooling.Inspiration` to the decisions in `.claude/plans/` (the inspiration plan); stop and ask when the plan is
+missing or a decision there is open.
 
 1. Read the plan, then the ADRs catzc-module names, in full.
 2. The config `configs/inspiration.yml` and its `InspirationConfig` type: entries of `id`, `root`, `description`, optional `paths`; the

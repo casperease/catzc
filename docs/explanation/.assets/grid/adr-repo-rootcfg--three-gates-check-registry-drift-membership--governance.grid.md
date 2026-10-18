@@ -53,8 +53,8 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.cs` names the file language csharp
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][5]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 8 (body
-  comment) (a passing mention only).
+- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][5]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 8 (body comment) (a
+  passing mention only).
 
 ### automation × yaml (2 lit files)
 
@@ -72,71 +72,69 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][8]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 325 (text).
 - [docs/adr/repository/dora-explains.md][9]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 131 (text).
 - [docs/adr/repository/generated-root-configs.md][1]: selected by [ADR-REPO-ROOTCFG][1]: the ADR's own file.
-- [docs/references/pwsh/catzc-base-files/Set-FileLink.ps1.md][10]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 24
-  (text).
-- [docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md][11]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 24
-  (text).
+- [docs/references/pwsh/catzc-base-files/Set-FileLink.ps1.md][10]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md][11]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 24 (text).
 - [docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md][12]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 13
   (text).
-- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][13]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
-  16 (text).
+- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][13]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 16
+  (text).
 - [docs/references/pwsh/catzc-base-languages.md][14]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 8 (text).
-- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][15]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
-  32 (text).
-- [docs/references/pwsh/catzc-base-languages/types/GoWorkspaceFile.cs.md][16]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][15]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 32
+  (text).
+- [docs/references/pwsh/catzc-base-languages/types/GoWorkspaceFile.cs.md][16]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  14 (text).
+- [docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md][17]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
   line 14 (text).
-- [docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md][17]: selected by [ADR-REPO-ROOTCFG][1]: the file cites
-  it at line 14 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md][18]: selected by [ADR-REPO-ROOTCFG][1]: the file
-  cites it at line 21 (text).
-- [docs/references/pwsh/catzc-base-rootconfig.md][19]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 41 (text) and line
-  50 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md][20]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
-  line 26 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/New-GitAttributes.ps1.md][21]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
-  line 23 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/Test-RootAnalyzerSettings.ps1.md][22]: selected by [ADR-REPO-ROOTCFG][1]: the file cites
-  it at line 15 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/Test-RootConfigFiles.ps1.md][23]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
-  at line 15 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md][24]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
-  line 30 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigRenderedFile.ps1.md][25]: selected by [ADR-REPO-ROOTCFG][1]: the
-  file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigTargets.ps1.md][26]: selected by [ADR-REPO-ROOTCFG][1]: the file
-  cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md][27]: selected by [ADR-REPO-ROOTCFG][1]: the
-  file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md][28]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
-  at line 16 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodeExtensions.ps1.md][29]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
-  line 22 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodeLaunch.ps1.md][30]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
-  20 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md][31]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
-  at line 25 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md][32]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
-  26 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md][18]: selected by [ADR-REPO-ROOTCFG][1]: the file cites
+  it at line 21 (text).
+- [docs/references/pwsh/catzc-base-rootconfig.md][19]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 41 (text) and line 50
+  (text).
+- [docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md][20]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 26
+  (text).
+- [docs/references/pwsh/catzc-base-rootconfig/New-GitAttributes.ps1.md][21]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 23
+  (text).
+- [docs/references/pwsh/catzc-base-rootconfig/Test-RootAnalyzerSettings.ps1.md][22]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
+  line 15 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/Test-RootConfigFiles.ps1.md][23]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  15 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md][24]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  30 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigRenderedFile.ps1.md][25]: selected by [ADR-REPO-ROOTCFG][1]: the file
+  cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigTargets.ps1.md][26]: selected by [ADR-REPO-ROOTCFG][1]: the file cites
+  it at line 16 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md][27]: selected by [ADR-REPO-ROOTCFG][1]: the file
+  cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md][28]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  16 (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodeExtensions.ps1.md][29]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 22
+  (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodeLaunch.ps1.md][30]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 20
+  (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md][31]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  25 (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md][32]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 26
+  (text).
 - [docs/references/pwsh/catzc-base-vscode/New-VSCodeTasks.ps1.md][33]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 20
   (text).
-- [docs/references/pwsh/catzc-base-vscode/configs/vscode-extensions.yml.md][34]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
-  at line 16 (text).
-- [docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md][35]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-vscode/configs/vscode-extensions.yml.md][34]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
+  line 16 (text).
+- [docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md][35]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 13
+  (text).
+- [docs/references/pwsh/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md][36]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
+  at line 15 (text).
+- [docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md][37]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  13 (text).
+- [docs/references/pwsh/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md][38]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
   line 13 (text).
-- [docs/references/pwsh/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md][36]: selected by [ADR-REPO-ROOTCFG][1]: the file
-  cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md][37]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
-  line 13 (text).
-- [docs/references/pwsh/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md][38]: selected by [ADR-REPO-ROOTCFG][1]: the file cites
-  it at line 13 (text).
-- [docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchConfig.cs.md][39]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
-  line 12 (text).
-- [docs/references/pwsh/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md][40]: selected by [ADR-REPO-ROOTCFG][1]: the file
-  cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-vscode/types/VscodeSettingsConfig.cs.md][41]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
+- [docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchConfig.cs.md][39]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  12 (text).
+- [docs/references/pwsh/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md][40]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
   at line 13 (text).
-- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][42]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
-  398 (text).
+- [docs/references/pwsh/catzc-base-vscode/types/VscodeSettingsConfig.cs.md][41]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
+  line 13 (text).
+- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][42]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 398
+  (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -145,8 +143,8 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][43]: selected by [ADR-REPO-ROOTCFG][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 301 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 603 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs`
-  line 8 (body comment).
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 603 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8
+  (body comment).
 
 ## Keywords
 

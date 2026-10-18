@@ -48,8 +48,8 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/how-to/pwsh/manual-test-plan/azure.md][3], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the file cites it at
-  line 15 (text) and line 58 (text).
+- [docs/how-to/pwsh/manual-test-plan/azure.md][3], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line
+  15 (text) and line 58 (text).
 - [docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md][4], in the cell docs × markdown:
   selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 62 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 61
   (text) and line 61 (text).
@@ -61,107 +61,107 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][7], in the cell docs × markdown:
   selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 50 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 50
   (text) and line 72 (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][8], in the cell docs × markdown: selected by
-  [ADR-AZ-DATAMOD][2]: the file cites it at line 21 (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md][9], in the cell docs × markdown: selected by
-  [ADR-AZ-DATAMOD][2]: the file cites it at line 17 (text).
-- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][10], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
-  the file cites it at line 21 (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][8], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the
+  file cites it at line 21 (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md][9], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
+  the file cites it at line 17 (text).
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][10], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the
+  file cites it at line 21 (text).
 - [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][11], in the cell docs × markdown: selected by
   [ADR-AZ-CUSTOMER][1]: the file cites it at line 101 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 101 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][12], in the cell docs × markdown: selected
-  by [ADR-AZ-CUSTOMER][1]: the file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md][13], in the cell docs ×
-  markdown: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][14], in the cell docs × markdown:
-  selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 20 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][12], in the cell docs × markdown: selected by
+  [ADR-AZ-CUSTOMER][1]: the file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md][13], in the cell docs × markdown:
+  selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][14], in the cell docs × markdown: selected by
+  [ADR-AZ-CUSTOMER][1]: the file cites it at line 20 (text).
 - [docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md][15], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 94 (text).
-- [docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md][16], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
-  the file cites it at line 129 (text).
-- [docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md][17], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
-  the file cites it at line 17 (text) and line 105 (text).
+- [docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md][16], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the
+  file cites it at line 129 (text).
+- [docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md][17], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the
+  file cites it at line 17 (text) and line 105 (text).
 - [docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md][18], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 24 (text).
 - [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md][19], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 36 (text).
 - [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md][20], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][21], in the cell docs × markdown: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 128 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 20 (text), line 46
-  (text) and line 117 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][21], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]:
+  the file cites it at line 128 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 20 (text), line 46 (text) and line 117
+  (text).
 - [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][22], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md][23], in the cell docs × markdown: selected
-  by [ADR-AZ-DATAMOD][2]: the file cites it at line 24 (text), line 30 (text), line 101 (text) and line 108 (text).
+- [docs/references/pwsh/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md][23], in the cell docs × markdown: selected by
+  [ADR-AZ-DATAMOD][2]: the file cites it at line 24 (text), line 30 (text), line 101 (text) and line 108 (text).
 - [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][24], in the cell docs × markdown: selected by
   [ADR-AZ-CUSTOMER][1]: the file cites it at line 94 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 32 (text), line 94
   (text) and line 100 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md][25], in the cell docs × markdown:
-  selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md][25], in the cell docs × markdown: selected by
+  [ADR-AZ-DATAMOD][2]: the file cites it at line 22 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md][26], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md][27], in the cell docs × markdown:
   selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md][28], in the cell docs × markdown:
-  selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md][29], in the cell docs × markdown: selected
-  by [ADR-AZ-DATAMOD][2]: the file cites it at line 20 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md][28], in the cell docs × markdown: selected by
+  [ADR-AZ-CUSTOMER][1]: the file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md][29], in the cell docs × markdown: selected by
+  [ADR-AZ-DATAMOD][2]: the file cites it at line 20 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md][30], in the cell docs × markdown:
   selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 25 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md][31], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 17 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][32], in the cell docs × markdown:
-  selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][33], in the cell docs × markdown:
-  selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md][34], in the cell docs × markdown: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 27 (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md][35], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
-  file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md][36], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
-  the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md][37], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]:
-  the file cites it at line 19 (text) and line 46 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][32], in the cell docs × markdown: selected by
+  [ADR-AZ-DATAMOD][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][33], in the cell docs × markdown: selected
+  by [ADR-AZ-DATAMOD][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md][34], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]:
+  the file cites it at line 27 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md][35], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file
+  cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md][36], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the file
+  cites it at line 18 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md][37], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
+  file cites it at line 19 (text) and line 46 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 18 (text).
 - [docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md][38], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 14 (text).
 - [docs/references/pwsh/catzc-azure/azure-identity-resolves-from-config.drawio.md][39], in the cell docs × markdown: selected by
   [ADR-AZ-CUSTOMER][1]: the file cites it at line 103 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 102 (text).
-- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][40], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file
-  cites it at line 66 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 56 (text) and line 101 (text).
-- [docs/references/pwsh/catzc-azure/configs/customer.yml.md][41], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
-  file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][40], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file cites
+  it at line 66 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 56 (text) and line 101 (text).
+- [docs/references/pwsh/catzc-azure/configs/customer.yml.md][41], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file
+  cites it at line 12 (text).
 - [docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md][42], in the cell docs × markdown: selected by
   [ADR-AZ-CUSTOMER][1]: the file cites it at line 26 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 30 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][43], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
-  file cites it at line 40 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 11 (text), line 26 (text), line 36 (text) and
-  line 42 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureCustomer.cs.md][44], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
-  file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][45], in the cell docs × markdown: selected by
-  [ADR-AZ-DATAMOD][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md][46], in the cell docs × markdown: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 22 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md][47], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
+- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][43], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file
+  cites it at line 40 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 11 (text), line 26 (text), line 36 (text) and line
+  42 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureCustomer.cs.md][44], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file
+  cites it at line 11 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][45], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
   the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md][48], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]:
-  the file cites it at line 11 (text), line 23 (text) and line 25 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][49], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]:
-  the file cites it at line 20 (text).
-- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][50], in the cell docs × markdown: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md][51], in the cell docs × markdown: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md][46], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]:
+  the file cites it at line 22 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md][47], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the
+  file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md][48], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file
+  cites it at line 11 (text), line 23 (text) and line 25 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][49], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the file
+  cites it at line 20 (text).
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][50], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
+  file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md][51], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
+  file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md][52], in the cell docs × markdown: selected by
   [ADR-AZ-CUSTOMER][1]: the file cites it at line 21 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md][53], in the cell docs × markdown: selected
-  by [ADR-AZ-DATAMOD][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md][53], in the cell docs × markdown: selected by
+  [ADR-AZ-DATAMOD][2]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md][54], in the cell docs × markdown: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 53 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md][55], in the cell docs × markdown: selected by
   [ADR-AZ-CUSTOMER][1]: the file cites it at line 25 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][56], in the cell docs × markdown: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 51 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][56], in the cell docs × markdown: selected by [ADR-AZ-CUSTOMER][1]: the
+  file cites it at line 51 (text).
 - [docs/references/infrastructure/templates/discovery/options.yml.md][57], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]: the
   file cites it at line 14 (text).
 - [docs/references/infrastructure/templates/expedition/options.yml.md][58], in the cell docs × markdown: selected by [ADR-AZ-DATAMOD][2]:
@@ -179,8 +179,8 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 
 The group holds the files of pwsh/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Azure.Templates/configs/glossary.yml][63], in the cell automation × yaml: selected by [ADR-AZ-DATAMOD][2]: the file
-  cites it at line 5 (text) and line 101 (text).
+- [pwsh/Catzc.Azure.Templates/configs/glossary.yml][63], in the cell automation × yaml: selected by [ADR-AZ-DATAMOD][2]: the file cites it
+  at line 5 (text) and line 101 (text).
 - [pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][64], in the cell automation × powershell: selected by
   [ADR-AZ-DATAMOD][2]: the file cites it at line 5 (text).
 - [pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1][65], in the cell automation × powershell: selected by
@@ -209,19 +209,19 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 
 The group holds the files of pwsh/Catzc.Azure; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1][69], in the cell automation × powershell: selected by [ADR-AZ-DATAMOD][2]: the
-  file cites it at line 225 (text), line 260 (text), line 266 (text), line 274 (text), line 282 (text), line 288 (text) and line 296 (text).
-- [pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1][70], in the cell automation × powershell: selected by [ADR-AZ-CUSTOMER][1]:
-  the file cites it at line 57 (text).
+- [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1][69], in the cell automation × powershell: selected by [ADR-AZ-DATAMOD][2]: the file
+  cites it at line 225 (text), line 260 (text), line 266 (text), line 274 (text), line 282 (text), line 288 (text) and line 296 (text).
+- [pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1][70], in the cell automation × powershell: selected by [ADR-AZ-CUSTOMER][1]: the
+  file cites it at line 57 (text).
 
 ### Docs (pwsh/Catzc.Base.Docs, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1][71], in the cell automation × powershell: selected by [ADR-AZ-DATAMOD][2]: the file cites
-  it at line 69 (text).
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][72], in the cell automation × yaml: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at
-  line 260 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 255 (text).
+- [pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1][71], in the cell automation × powershell: selected by [ADR-AZ-DATAMOD][2]: the file cites it at
+  line 69 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][72], in the cell automation × yaml: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line
+  260 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 255 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
@@ -236,15 +236,15 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][75], in the cell automation × yaml: selected by [ADR-AZ-DATAMOD][2]: the file
-  cites it at line 613 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][75], in the cell automation × yaml: selected by [ADR-AZ-DATAMOD][2]: the file cites
+  it at line 613 (text).
 
 ### RootConfig (pwsh/Catzc.Base.RootConfig, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.RootConfig; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml][76], in the cell automation × yaml: selected by [ADR-AZ-DATAMOD][2]: the file
-  cites it at line 21 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml][76], in the cell automation × yaml: selected by [ADR-AZ-DATAMOD][2]: the file cites it
+  at line 21 (body comment) (a passing mention only).
 
 ### pipelines (1 lit file)
 
@@ -252,8 +252,8 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][77], in the cell pipelines × pipeline-yaml: selected by [ADR-AZ-CUSTOMER][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1` line 57 (text) and
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 260 (text); selected by [ADR-AZ-DATAMOD][2]: a pipeline that cites nothing itself
-  carries its globset's citations, which cite it at `pwsh/Catzc.Azure.Templates/configs/glossary.yml` line 5 (text),
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 260 (text); selected by [ADR-AZ-DATAMOD][2]: a pipeline that cites nothing itself carries its
+  globset's citations, which cite it at `pwsh/Catzc.Azure.Templates/configs/glossary.yml` line 5 (text),
   `pwsh/Catzc.Azure.Templates/configs/glossary.yml` line 101 (text),
   `pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1` line 5 (text),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 25 (text),
@@ -267,13 +267,12 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 106 (body comment),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 111 (text),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 115 (text),
-  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 225 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1`
-  line 260 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 266 (text),
-  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 274 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1`
-  line 282 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 288 (text),
-  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 296 (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 69
-  (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 255 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line
-  613 (text) and `pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml` line 21 (body comment).
+  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 225 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 260
+  (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 266 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line
+  274 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 282 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1`
+  line 288 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 296 (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 69
+  (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 255 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 613 (text)
+  and `pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml` line 21 (body comment).
 
 ## Keywords
 

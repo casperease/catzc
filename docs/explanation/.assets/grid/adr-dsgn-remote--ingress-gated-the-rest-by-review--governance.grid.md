@@ -91,12 +91,12 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
 - [docs/adr/repository/dora-explains.md][16]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 165 (text).
 - [docs/adr/repository/repo-variants.md][3]: selected by [ADR-REPO-VARIANT][3]: the ADR's own file.
 - [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][17]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][18]: selected by [ADR-REPO-VARIANT][3]: the file cites it
-  at line 39 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][19]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line
-  11 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][20]: selected by [ADR-REPO-VARIANT][3]: the file cites it at
-  line 11 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][18]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line
+  39 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][19]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 11
+  (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][20]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 11
+  (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -104,12 +104,11 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
 - [pipelines/ci-automation.yaml][21]: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text); selected by
-  [ADR-REPO-VARIANT][3]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and `pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44
-  (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49
+  (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text); selected by [ADR-REPO-VARIANT][3]: a pipeline that cites nothing itself carries
+  its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44 (text).
 
 ## Keywords
 

@@ -63,8 +63,8 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 70 (text)
-  and line 71 (text).
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 70 (text) and
+  line 71 (text).
 
 ### automation × yaml (3 lit files)
 
@@ -88,29 +88,28 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/glossary.md][13]: selected by [ADR-FLOW-CD][1]: the file cites it at line 497 (text) and line 510 (text).
 - [docs/adr/index.md][14]: selected by [ADR-FLOW-CD][1]: the file cites it at line 129 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file
   cites it at line 132 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][15]: selected by [ADR-FLOW-CD-TYPE][2]: the
-  file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][16]: selected by [ADR-FLOW-CD-TYPE][2]:
-  the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][17]: selected by [ADR-FLOW-CD-TYPE][2]:
-  the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][15]: selected by [ADR-FLOW-CD-TYPE][2]: the file
+  cites it at line 15 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][16]: selected by [ADR-FLOW-CD-TYPE][2]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][17]: selected by [ADR-FLOW-CD-TYPE][2]: the file
+  cites it at line 12 (text).
 - [docs/references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][18]: selected by
   [ADR-FLOW-CD-TYPE][2]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][19]: selected by [ADR-FLOW-CD-TYPE][2]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][20]: selected by [ADR-FLOW-CD-TYPE][2]:
-  the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md][21]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at
-  line 14 (text).
-- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][22]: selected by [ADR-FLOW-CD-TYPE][2]: the file
-  cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][23]: selected by [ADR-FLOW-CD][1]: the file cites it at line 40 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][24]: selected by [ADR-FLOW-CD][1]: the file cites it at line 28
-  (text), line 29 (text), line 57 (text) and line 58 (text).
-- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][25]: selected by [ADR-FLOW-CD][1]: the file cites it at line 34
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][19]: selected by [ADR-FLOW-CD-TYPE][2]: the
+  file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][20]: selected by [ADR-FLOW-CD-TYPE][2]: the
+  file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md][21]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 14
   (text).
-- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][26]: selected by [ADR-FLOW-CD][1]: the file cites it at line
-  37 (text).
+- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][22]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites
+  it at line 26 (text).
+- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][23]: selected by [ADR-FLOW-CD][1]: the file cites it at line 40 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][24]: selected by [ADR-FLOW-CD][1]: the file cites it at line 28 (text), line
+  29 (text), line 57 (text) and line 58 (text).
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][25]: selected by [ADR-FLOW-CD][1]: the file cites it at line 34 (text).
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][26]: selected by [ADR-FLOW-CD][1]: the file cites it at line 37
+  (text).
 - [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][27]: selected by [ADR-FLOW-CD][1]: the file cites it at line 54
   (text).
 - [docs/references/pipelines/cd-shared.yaml.md][28]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
@@ -122,11 +121,10 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][30]: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
-  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
-  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 58 (text); selected by [ADR-FLOW-CD-TYPE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line
+  70 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 58 (text);
+  selected by [ADR-FLOW-CD-TYPE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 100 (text).
 
 ## Keywords

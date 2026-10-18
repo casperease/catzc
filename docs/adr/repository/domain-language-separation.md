@@ -56,11 +56,11 @@ tests. The terminology registry's per-category `scope` is the machine-readable *
 ### Rule ADR-REPO-LANG:7
 
 Matching is **exact and conservative**. A distinctive live identity (customer, subscription, org, template, project) is flagged as a bare
-string literal that IS the token, not a substring or path segment (`'pwsh/Catzc.X'` never trips the deployable-unit name
-`automation`); an ambiguous one — an environment name like `test`/`dev` — is flagged only where it is bound to an identity parameter
-(`-Environment`/`-Env`/ `-Shortcode`), never as prose. Structural names that collide with folder literals (deployable-unit/pipeline names)
-are out of scope. The reverse boundary — a **fixture** identity in a shipped config **value** — is enforced the mirror way, by walking the
-parsed config's keys and values (comment-blind) rather than its raw text.
+string literal that IS the token, not a substring or path segment (`'pwsh/Catzc.X'` never trips the deployable-unit name `automation`); an
+ambiguous one — an environment name like `test`/`dev` — is flagged only where it is bound to an identity parameter (`-Environment`/`-Env`/
+`-Shortcode`), never as prose. Structural names that collide with folder literals (deployable-unit/pipeline names) are out of scope. The
+reverse boundary — a **fixture** identity in a shipped config **value** — is enforced the mirror way, by walking the parsed config's keys
+and values (comment-blind) rather than its raw text.
 
 - [Exact, conservative, staged](#exact-conservative-staged)
 

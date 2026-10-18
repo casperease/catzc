@@ -17,7 +17,7 @@ function Test-ConfigIdentityHygiene {
     $root = Get-RepositoryRoot
     if (-not $Path) {
         $terminology = 'configs/terminology.yml'
-        # A module's configs sit three levels below automation (module, configs, file); infrastructure ymls reach five.
+        # A module's configs sit three levels below pwsh/ (module, configs, file); infrastructure ymls reach five.
         $moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder)) -File -Filter '*.yml' -Depth 3 -PruneVendor $true |
             Where-Object { $_ -match '[\\/]configs[\\/][^\\/]+\.yml$' -and ($_ -replace '\\', '/') -notlike "*$terminology" }
         $infrastructureRoot = Join-Path $root 'infrastructure'

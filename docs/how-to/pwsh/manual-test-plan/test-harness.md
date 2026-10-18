@@ -5,8 +5,8 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 
 ## Index
 
-| #   | Tier | Test file                                                                        | FullNameFilter                                    | Guards                                                                                                                             |
-| --- | ---- | -------------------------------------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| #   | Tier | Test file                                                                  | FullNameFilter                                    | Guards                                                                                                                             |
+| --- | ---- | -------------------------------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | L1   | pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1       | Manual test plan covers every integrity check     | The plan's category files list every integrity check, with no stale rows.                                                          |
 | 2   | L1   | pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1        | Test-LogicTestIdentity                            | The automation logic tests use neutral fixtures, not live identities (ADR-REPO-LANG) — no live-identity leaks in the tree.         |
 | 3   | L1   | pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1    | Test-ConfigIdentityHygiene                        | The real shipped config stays identity-clean against the fixture-derived token set (no fixture-identity leak into shipped data).   |

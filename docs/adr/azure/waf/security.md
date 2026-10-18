@@ -129,9 +129,8 @@ The baseline is written in three places, each the owner of one part. The Securit
 names what a workload gets: no public network access, private endpoints only, TLS 1.2 at minimum, a managed identity, and Entra ID
 authentication. The shared modules in `infrastructure/modules/` carry those settings as secure defaults, so a caller gets them without
 asking. The guardrails of [ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3) — allowed locations, a required tag, and no public IP address
-on a network interface — turn part of the baseline into policy as code, and `policy_enforcement` in
-`pwsh/Catzc.Azure/configs/azure.yml` decides whether they deny or only audit
-([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
+on a network interface — turn part of the baseline into policy as code, and `policy_enforcement` in `pwsh/Catzc.Azure/configs/azure.yml`
+decides whether they deny or only audit ([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
 
 No external benchmark is assigned: the Microsoft cloud security benchmark initiative is not part of any landing zone, and nothing measures a
 deployed subscription against a benchmark continuously.

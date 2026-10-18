@@ -11,8 +11,8 @@ directly or keeps its own `$script:` config cache.
 
 ### Rule ADR-CONF-LOADING:2
 
-Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`) scans `pwsh/*/configs/` for `<name>.yml` and resolves
-it to its owning module. A name is global; `-Module` is only for disambiguating the same name in several modules, and
+Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`) scans `pwsh/*/configs/` for `<name>.yml` and resolves it to
+its owning module. A name is global; `-Module` is only for disambiguating the same name in several modules, and
 `Get-Config -Config <name> -ListOwners` lists those modules — for a config that modules opt into by shipping it.
 
 - [Discovery](#discovery)

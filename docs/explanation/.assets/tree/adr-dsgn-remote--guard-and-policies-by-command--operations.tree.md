@@ -50,8 +50,8 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
-  line 79 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 79
+  (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 

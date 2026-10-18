@@ -102,4 +102,6 @@ agents:
   - name: implementation-orchestrator
     supported_by: [ADR-REPO-PLANS#8, ADR-PROC-PULLWORK#1, ADR-PROC-PULLWORK#4, ADR-AI#10]
     checks: [Test-Plans]
-    model_reason: maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions hold
+    model_reason:
+      maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions
+      hold

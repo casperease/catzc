@@ -62,8 +62,8 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-AZ-CLI][1]: the file cites it at line 258 (text); selected by
   [ADR-DSGN-THINPLAT][2]: the file cites it at line 75 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][8]: selected by [ADR-AZ-CLI][1]: the file cites it at line 7 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][9]: selected by [ADR-AZ-CLI][1]: the file cites it at line 565 (text);
-  selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 657 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][9]: selected by [ADR-AZ-CLI][1]: the file cites it at line 565 (text); selected by
+  [ADR-DSGN-THINPLAT][2]: the file cites it at line 657 (text).
 
 ### docs × markdown (15 lit files)
 
@@ -78,23 +78,19 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
   cites it at line 109 (text).
 - [docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md][13]: selected by [ADR-AZ-CLI][1]:
   the file cites it at line 60 (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md][14]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18
-  (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][15]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22
-  (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][16]: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 21 (text).
-- [docs/references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md][17]: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 26 (text).
-- [docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md][18]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18
-  (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md][14]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][15]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][16]: selected by [ADR-AZ-CLI][1]: the file cites it at
+  line 21 (text).
+- [docs/references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md][17]: selected by [ADR-AZ-CLI][1]: the file cites it at line
+  26 (text).
+- [docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md][18]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18 (text).
 - [docs/references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md][19]: selected by [ADR-AZ-CLI][1]: the file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][20]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22
-  (text).
-- [docs/references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md][21]: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 21 (text).
-- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][22]: selected by [ADR-AZ-CLI][1]: the file cites
-  it at line 101 (text).
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][20]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md][21]: selected by [ADR-AZ-CLI][1]: the file cites it at line
+  21 (text).
+- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][22]: selected by [ADR-AZ-CLI][1]: the file cites it at
+  line 101 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -102,10 +98,9 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][23]: selected by [ADR-AZ-CLI][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 258 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 7 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 258 (text), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line
+  7 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that
+  cites nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
   `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
 
 ## Keywords

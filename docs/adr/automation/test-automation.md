@@ -457,8 +457,8 @@ template _name_ dimension: production identities flow into the generic check as 
 `Isolation comes from seams, not from editing production`
 
 The codebase isolates the _template tree_ behind a mockable private function, `Get-BicepTemplatesRoot`, so discovery can be redirected to a
-fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `pwsh/*/configs/`
-through the private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
+fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `pwsh/*/configs/` through the
+private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
 `@{ Name; Module; Path }` pointing at a fixture file (or by mocking `Get-Config` outright). **A seam is a single function that names _where_
 an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md) way to isolate
 without touching production data.

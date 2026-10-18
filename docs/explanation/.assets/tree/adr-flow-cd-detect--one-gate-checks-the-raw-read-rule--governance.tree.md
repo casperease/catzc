@@ -67,15 +67,15 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at
-  line 99 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line
+  99 (text).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][9], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]:
-  the file cites it at line 11 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][9], in the cell automation × yaml: selected by [ADR-FLOW-CD-DETECT][1]: the
+  file cites it at line 11 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 

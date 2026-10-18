@@ -1,16 +1,16 @@
 # Catzc.Internal.Vendor
 
-The shared vendored-module loader. It imports the third-party modules under `pwsh/.vendor/<Name>/<Version>/` into the session, and it
-lives in `.internal` for the same reason the other shared libraries do: vendored modules are loaded **before** any `Catzc` module exists
-(the importer loads dependencies first), so the loader cannot live in a `Catzc` module — yet it must also be callable **after** import, by
-the [Catzc.Base.Vendor](../catzc-base-vendor.md) cover functions that delegate to it. One implementation, two callers (see
+The shared vendored-module loader. It imports the third-party modules under `pwsh/.vendor/<Name>/<Version>/` into the session, and it lives
+in `.internal` for the same reason the other shared libraries do: vendored modules are loaded **before** any `Catzc` module exists (the
+importer loads dependencies first), so the loader cannot live in a `Catzc` module — yet it must also be callable **after** import, by the
+[Catzc.Base.Vendor](../catzc-base-vendor.md) cover functions that delegate to it. One implementation, two callers (see
 [one-living-version](../../../adr/principles/one-living-version.md)). Like Types and the Loader, it is **resident** — kept in the session,
 not removed with the transient bootstrap — and is loaded on demand through `Import-InternalModule Vendor`.
 
 ## What it does
 
-`Import-VendorModules` imports every `pwsh/.vendor/<Name>/<Version>/` module into the global session so the vendored version wins over
-any system-installed copy. For each module it:
+`Import-VendorModules` imports every `pwsh/.vendor/<Name>/<Version>/` module into the global session so the vendored version wins over any
+system-installed copy. For each module it:
 
 - **removes any already-loaded system copy** and strips that module's system paths from `$env:PSModulePath`, so auto-loading cannot
   resurrect the system version after the vendored one imports;

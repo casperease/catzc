@@ -63,13 +63,11 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1][7]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 27 (body
-  comment) (a passing mention only).
-- [pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1][8]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 13
-  (text).
+- [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1][7]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 27 (body comment)
+  (a passing mention only).
+- [pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1][8]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 13 (text).
 - [pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1][9]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][10]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 22
-  (text).
+- [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][10]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 22 (text).
 
 ### automation × yaml (2 lit files)
 
@@ -88,54 +86,50 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/automation/path-representation.md][1]: selected by [ADR-AUTO-PATH][1]: the ADR's own file.
 - [docs/adr/glossary.md][14]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 752 (text).
 - [docs/adr/index.md][15]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 171 (text).
-- [docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md][16]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 21
+- [docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md][16]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 21 (text).
+- [docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md][17]: selected by [ADR-AUTO-PATH][1]: the file cites it at line
+  44 (text).
+- [docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md][18]: selected by [ADR-AUTO-PATH][1]: the file cites it
+  at line 29 (text).
+- [docs/references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md][19]: selected by [ADR-AUTO-PATH][1]: the file cites it
+  at line 12 (text).
+- [docs/references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md][20]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 17
+  (text) and line 18 (text).
+- [docs/references/pwsh/catzc-base-docs/configs/readme.yml.md][21]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 30 (text).
+- [docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md][22]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md][23]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][24]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 42
   (text).
-- [docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md][17]: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 44 (text).
-- [docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md][18]: selected by [ADR-AUTO-PATH][1]: the file
-  cites it at line 29 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md][19]: selected by [ADR-AUTO-PATH][1]: the file
-  cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md][20]: selected by [ADR-AUTO-PATH][1]: the file cites it at line
-  17 (text) and line 18 (text).
-- [docs/references/pwsh/catzc-base-docs/configs/readme.yml.md][21]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 30
-  (text).
-- [docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md][22]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 13
-  (text).
-- [docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md][23]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 14
-  (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][24]: selected by [ADR-AUTO-PATH][1]: the file cites it at line
-  42 (text).
 - [docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md][25]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 17
   (text).
-- [docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md][26]: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 11 (text), line 16 (text), line 17 (text), line 21 (text) and line 40 (text).
-- [docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md][27]: selected by [ADR-AUTO-PATH][1]: the file cites
-  it at line 15 (text) and line 23 (text).
-- [docs/references/pwsh/catzc-base-repository/Get-RepositoryFile.ps1.md][28]: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 14 (text).
-- [docs/references/pwsh/catzc-base-repository/Get-RepositoryFolder.ps1.md][29]: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 14 (text).
-- [docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md][30]: selected by [ADR-AUTO-PATH][1]: the file cites it at line
-  15 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md][31]: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 28 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFile.cs.md][32]: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 23 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md][33]: selected by [ADR-AUTO-PATH][1]: the file cites it
-  at line 24 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md][34]: selected by [ADR-AUTO-PATH][1]: the
-  file cites it at line 15 (text), line 16 (text) and line 19 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md][35]: selected by [ADR-AUTO-PATH][1]: the
-  file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md][36]: selected by [ADR-AUTO-PATH][1]: the
-  file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md][37]: selected by [ADR-AUTO-PATH][1]: the
-  file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md][38]: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 17 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md][39]: selected by [ADR-AUTO-PATH][1]: the file cites it
-  at line 12 (text), line 14 (text) and line 15 (text).
+- [docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md][26]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 11
+  (text), line 16 (text), line 17 (text), line 21 (text) and line 40 (text).
+- [docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md][27]: selected by [ADR-AUTO-PATH][1]: the file cites it at
+  line 15 (text) and line 23 (text).
+- [docs/references/pwsh/catzc-base-repository/Get-RepositoryFile.ps1.md][28]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 14
+  (text).
+- [docs/references/pwsh/catzc-base-repository/Get-RepositoryFolder.ps1.md][29]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 14
+  (text).
+- [docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md][30]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 15
+  (text).
+- [docs/references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md][31]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 28
+  (text).
+- [docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFile.cs.md][32]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 23
+  (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md][33]: selected by [ADR-AUTO-PATH][1]: the file cites it at line
+  24 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md][34]: selected by [ADR-AUTO-PATH][1]: the file
+  cites it at line 15 (text), line 16 (text) and line 19 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md][35]: selected by [ADR-AUTO-PATH][1]: the file
+  cites it at line 14 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md][36]: selected by [ADR-AUTO-PATH][1]: the file
+  cites it at line 14 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md][37]: selected by [ADR-AUTO-PATH][1]: the file
+  cites it at line 13 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md][38]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 17
+  (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md][39]: selected by [ADR-AUTO-PATH][1]: the file cites it at
+  line 12 (text), line 14 (text) and line 15 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -144,10 +138,9 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][40]: selected by [ADR-AUTO-PATH][1]: a pipeline that cites nothing itself carries its globset's citations,
   which cite it at `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 27 (body comment),
-  `pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1` line 13 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line
-  140 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 37 (text),
-  `pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1` line 1 (text) and
-  `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 22 (text).
+  `pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1` line 13 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 140 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 37 (text), `pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1` line 1
+  (text) and `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 22 (text).
 
 ## Keywords
 

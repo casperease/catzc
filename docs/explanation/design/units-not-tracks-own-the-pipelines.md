@@ -25,8 +25,8 @@ The diagram is described element by element in [its asset description](units-not
 ## Walkthrough
 
 1. **automation.** The core track: it defines the internal ports every other track rests on. In `globs.yml` it is a globset of the
-   `loose-fileset` layer that selects `pwsh/**`. Of the eleven tracks cats declares, only `automation` and `infrastructure` have a
-   globset of their own.
+   `loose-fileset` layer that selects `pwsh/**`. Of the eleven tracks cats declares, only `automation` and `infrastructure` have a globset
+   of their own.
 2. **infrastructure rests on automation.** `infrastructure` is an adapter track: it rests on `automation` for context and execution, never
    the reverse, and `ci-infrastructure` runs automation commands such as `Assert-BicepTemplate` and `Build-Bicep`. No gate checks this
    direction between tracks; the gates on module dependencies check edges between modules only.

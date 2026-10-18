@@ -46,38 +46,38 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/how-to/pwsh/manual-test-plan/configs.md][2], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the file cites it
-  at line 44 (text) and line 63 (text).
-- [docs/how-to/getting-started/pwsh/add-a-module.md][3], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the file
-  cites it at line 72 (text).
+- [docs/how-to/pwsh/manual-test-plan/configs.md][2], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the file cites it at
+  line 44 (text) and line 63 (text).
+- [docs/how-to/getting-started/pwsh/add-a-module.md][3], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the file cites it
+  at line 72 (text).
 - [docs/references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md][4], in the cell docs ×
   markdown: selected by [ADR-CONF-LOADING][1]: the file cites it at line 45 (text).
-- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][5], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]:
-  the file cites it at line 16 (text) and line 20 (text).
+- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][5], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the
+  file cites it at line 16 (text) and line 20 (text).
 - [docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md][6], in the cell docs × markdown: selected by
   [ADR-CONF-LOADING][1]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md][7], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the
-  file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md][7], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the file
+  cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md][8], in the cell docs × markdown: selected by
   [ADR-CONF-LOADING][1]: the file cites it at line 21 (text).
 - [docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md][9], in the cell docs × markdown: selected by
   [ADR-CONF-LOADING][1]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][10], in the cell docs × markdown: selected by
-  [ADR-CONF-LOADING][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][11], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]:
-  the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md][12], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]:
+- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][10], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]:
   the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md][13], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]:
-  the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][11], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the
+  file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md][12], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md][13], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the
+  file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md][14], in the cell docs × markdown: selected by
   [ADR-CONF-LOADING][1]: the file cites it at line 18 (text).
 - [docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md][15], in the cell docs × markdown: selected by
   [ADR-CONF-LOADING][1]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][16], in the cell docs × markdown: selected by
-  [ADR-CONF-LOADING][1]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][17], in the cell docs × markdown: selected by
-  [ADR-CONF-LOADING][1]: the file cites it at line 40 (text).
+- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][16], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]: the
+  file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][17], in the cell docs × markdown: selected by [ADR-CONF-LOADING][1]:
+  the file cites it at line 40 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md][18], in the cell docs × markdown: selected by
   [ADR-CONF-LOADING][1]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md][19], in the cell docs × markdown: selected by
@@ -106,14 +106,14 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][27], in the cell automation × yaml: selected by [ADR-CONF-LOADING][1]: the file cites it at
-  line 208 (text).
-- [pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1][28], in the cell automation × powershell: selected by [ADR-CONF-LOADING][1]:
-  the file cites it at line 38 (text).
-- [pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs][29], in the cell automation × csharp: selected by [ADR-CONF-LOADING][1]: the file
-  cites it at line 7 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs][30], in the cell automation × csharp: selected by [ADR-CONF-LOADING][1]: the file
-  cites it at line 8 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][27], in the cell automation × yaml: selected by [ADR-CONF-LOADING][1]: the file cites it at line
+  208 (text).
+- [pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1][28], in the cell automation × powershell: selected by [ADR-CONF-LOADING][1]: the
+  file cites it at line 38 (text).
+- [pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs][29], in the cell automation × csharp: selected by [ADR-CONF-LOADING][1]: the file cites
+  it at line 7 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs][30], in the cell automation × csharp: selected by [ADR-CONF-LOADING][1]: the file cites it
+  at line 8 (body comment) (a passing mention only).
 
 ### adr/conf (docs/adr/configuration, 2 lit files)
 
@@ -127,8 +127,8 @@ The group holds the files of docs/adr/configuration; each sits in its world-map 
 
 The group holds the files of pwsh/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs][32], in the cell automation × csharp: selected by [ADR-CONF-LOADING][1]: the file
-  cites it at line 10 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs][32], in the cell automation × csharp: selected by [ADR-CONF-LOADING][1]: the file cites
+  it at line 10 (body comment) (a passing mention only).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
 
@@ -149,10 +149,9 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][35], in the cell pipelines × pipeline-yaml: selected by [ADR-CONF-LOADING][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 208 (text),
-  `pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1` line 38 (text), `pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs` line
-  7 (body comment), `pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs` line 8 (body comment),
-  `pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs` line 10 (body comment) and
-  `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 132 (text).
+  `pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1` line 38 (text), `pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs` line 7 (body
+  comment), `pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs` line 8 (body comment), `pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs` line 10
+  (body comment) and `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 132 (text).
 
 ## Keywords
 

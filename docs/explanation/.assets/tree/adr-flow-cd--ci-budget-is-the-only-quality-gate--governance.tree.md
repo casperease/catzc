@@ -47,32 +47,32 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][3], in the cell docs × markdown: selected
-  by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][4], in the cell docs × markdown:
-  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][5], in the cell docs × markdown: selected
-  by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][6], in the cell docs ×
-  markdown: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][7], in the cell docs × markdown:
-  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][8], in the cell docs × markdown: selected
-  by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md][9], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][3], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][4], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][5], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][6], in the cell docs × markdown:
+  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][7], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][8], in the cell docs × markdown: selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md][9], in the cell docs × markdown: selected by [ADR-FLOW-CD-TYPE][2]:
+  the file cites it at line 14 (text).
 - [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][10], in the cell docs × markdown: selected by
   [ADR-FLOW-CD-TYPE][2]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][11], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file
-  cites it at line 40 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][12], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the
-  file cites it at line 28 (text), line 29 (text), line 57 (text) and line 58 (text).
-- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][13], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]:
-  the file cites it at line 34 (text).
-- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][14], in the cell docs × markdown: selected by
-  [ADR-FLOW-CD][1]: the file cites it at line 37 (text).
-- [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][15], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]:
-  the file cites it at line 54 (text).
+- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][11], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file cites
+  it at line 40 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][12], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the file
+  cites it at line 28 (text), line 29 (text), line 57 (text) and line 58 (text).
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][13], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the
+  file cites it at line 34 (text).
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][14], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the
+  file cites it at line 37 (text).
+- [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][15], in the cell docs × markdown: selected by [ADR-FLOW-CD][1]: the
+  file cites it at line 54 (text).
 - [docs/references/pipelines/cd-shared.yaml.md][16], in the cell docs × markdown: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at
   line 12 (text).
 - [docs/references/pipelines/ci-infrastructure.yaml.md][17], in the cell docs × markdown: selected by [ADR-FLOW-CD-TYPE][2]: the file cites
@@ -108,29 +108,29 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][23], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites it at line
-  97 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 100 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][23], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites it at line 97
+  (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 100 (text).
 
 ### Maps (pwsh/Catzc.Base.Maps, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][24], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]:
-  the file cites it at line 70 (text) and line 71 (text).
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][24], in the cell automation × powershell: selected by [ADR-FLOW-CD][1]: the
+  file cites it at line 70 (text) and line 71 (text).
 
 ### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][25], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites
-  it at line 18 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][25], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites it at
+  line 18 (text).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][26], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites
-  it at line 58 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][26], in the cell automation × yaml: selected by [ADR-FLOW-CD][1]: the file cites it at
+  line 58 (text).
 
 ### pipelines (1 lit file)
 
@@ -138,9 +138,8 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][27], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
-  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
-  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1`
+  line 71 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
   line 58 (text); selected by [ADR-FLOW-CD-TYPE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 100 (text).
 

@@ -72,9 +72,9 @@ Because that is a cross-module reference, the owning module must declare `Catzc.
 
 `How compilation and caching work`
 
-- Every module's `types/*.cs` compile into **one** assembly for the whole repository, committed at
-  `pwsh/.compiled/Catzc.Types.<hash>.dll`. The hash is derived from every type's source, so a fresh checkout and CI load the committed
-  DLL **without** invoking the Roslyn compiler — only an author who edits a source pays the sub-second recompile, once.
+- Every module's `types/*.cs` compile into **one** assembly for the whole repository, committed at `pwsh/.compiled/Catzc.Types.<hash>.dll`.
+  The hash is derived from every type's source, so a fresh checkout and CI load the committed DLL **without** invoking the Roslyn compiler —
+  only an author who edits a source pays the sub-second recompile, once.
 - Because types share one assembly, a type in any module may reference a type in any other — but the reference is governed by the module
   dependency graph, checked by `Get-CSharpTypeDependency` + the `Test-ModuleDependency` quality gate in an L1 integrity test.
 - Editing a `.cs` re-keys the assembly. If you edit a type in a live session, the loader detects the drift on the next import and throws

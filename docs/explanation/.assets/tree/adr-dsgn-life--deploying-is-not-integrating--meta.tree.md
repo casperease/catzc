@@ -45,12 +45,12 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  78 (text); selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 77 (text).
-- [pwsh/Catzc.Base.Docs/configs/agents.yml][4], in the cell automation × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites it at
-  line 28 (text), line 28 (body comment), line 34 (text) and line 39 (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][5], in the cell automation × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites
-  it at line 67 (text), line 72 (text), line 77 (text), line 77 (body comment) and line 82 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78
+  (text); selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 77 (text).
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][4], in the cell automation × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line
+  28 (text), line 28 (body comment), line 34 (text) and line 39 (text).
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][5], in the cell automation × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites it at
+  line 67 (text), line 72 (text), line 77 (text), line 77 (body comment) and line 82 (text).
 
 ### adr/dsgn (docs/adr/design, 3 lit files)
 
@@ -81,15 +81,15 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 
 The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][11], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
-  cites it at line 49 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][11], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it
+  at line 49 (text).
 
 ### docs (docs/ outside docs/adr/, 1 lit file)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][12], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
-  cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][12], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites
+  it at line 14 (text).
 
 ### pipelines (1 lit file)
 
@@ -97,13 +97,13 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][13], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-VISUAL][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 77 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-VISUAL][2]: a pipeline that cites nothing itself
+  carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 77 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (body comment),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 34 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 39 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 67 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 72
-  (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line
-  77 (body comment) and `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 82 (text).
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 67 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 72 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (body comment) and
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 82 (text).
 
 ## Keywords
 

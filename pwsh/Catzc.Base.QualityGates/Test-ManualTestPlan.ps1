@@ -17,7 +17,7 @@ function Test-ManualTestPlan {
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
 
     $blocks = [System.Collections.Generic.List[object]]::new()
-    # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+    # Test files reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned by the walk.
     $testFiles = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
         Sort-Object
     foreach ($file in $testFiles) {

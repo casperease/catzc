@@ -63,8 +63,8 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-AUTO-PATH): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
-with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+[Get-AdrCitationMap](../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
+minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
 highlights, draws the three minimaps and writes their sister descriptions,
 [world map](../.assets/grid/adr-auto-path--two-forms-never-a-third--meta.grid.md),
 [tree](../.assets/tree/adr-auto-path--two-forms-never-a-third--meta.tree.md) and

@@ -63,9 +63,9 @@ environment must get a non-overlapping block, and the same block must be referen
 environment's network. If the ranges lived in each template's per-slot `configuration/[<customer>/]<env>.yml`, the plan would be duplicated
 across templates and drift — the exact failure [the data model](azure-data-model.md) avoids by giving every fact one source of truth.
 
-So the IP plan is a **single source of truth** sitting beside `azure.yml`: `pwsh/Catzc.Azure/configs/network.yml`. A template reads
-the right ranges at build time — through its PrePost prepare hook (see [`prepost-extension-modules`](../pwsh/prepost-extension-modules.md))
-or a config address in its parameter file — so the central plan is read, never copied.
+So the IP plan is a **single source of truth** sitting beside `azure.yml`: `pwsh/Catzc.Azure/configs/network.yml`. A template reads the
+right ranges at build time — through its PrePost prepare hook (see [`prepost-extension-modules`](../pwsh/prepost-extension-modules.md)) or a
+config address in its parameter file — so the central plan is read, never copied.
 
 The subscriptions add a second kind of network: one per subscription, in a hub-and-spoke topology. The shared subscriptions each hold a hub,
 every customer subscription holds a spoke that peers to its hub, and a workload's private endpoints land in its spoke. Those ranges are the

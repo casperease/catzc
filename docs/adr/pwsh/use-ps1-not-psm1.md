@@ -12,9 +12,9 @@ private functions see each other without imports.
 
 ### Rule ADR-PWSH-USEPS:2
 
-Reserve `.psm1` for genuine module or standalone files only — the `pwsh/.internal/*.psm1` shared modules, the
-`pwsh/.scriptanalyzer/*.psm1` analyzer rules, the `PrePost.psm1` starter, and per-template `PrePost.psm1`, the only `.psm1` under
-`infrastructure/` — never for a per-function file inside a module. All other PowerShell code is in `.ps1` files.
+Reserve `.psm1` for genuine module or standalone files only — the `pwsh/.internal/*.psm1` shared modules, the `pwsh/.scriptanalyzer/*.psm1`
+analyzer rules, the `PrePost.psm1` starter, and per-template `PrePost.psm1`, the only `.psm1` under `infrastructure/` — never for a
+per-function file inside a module. All other PowerShell code is in `.ps1` files.
 
 - [Decision](#decision)
 - [How this is enforced](#how-this-is-enforced)
@@ -61,8 +61,8 @@ The sanctioned `.psm1` files are:
   `Import-InternalModule`), `Catzc.Internal.Importer` (the load sequence, `Invoke-Importer`), `Catzc.Internal.Bootstrap` (module discovery
   and loading: `Import-AllModules`, `New-DynamicManifest`, `Import-CSharpTypes`), `Catzc.Internal.Vendor` (`Import-VendorModules`),
   `Catzc.Internal.TestKit` (an on-demand Pester fixture library), and `Catzc.Internal.Types`.
-- The custom PSScriptAnalyzer rule modules under `pwsh/.scriptanalyzer/` (e.g. `FunctionLength.psm1`, `VariableCasing.psm1`) —
-  standalone analyzer rule modules, not module function files.
+- The custom PSScriptAnalyzer rule modules under `pwsh/.scriptanalyzer/` (e.g. `FunctionLength.psm1`, `VariableCasing.psm1`) — standalone
+  analyzer rule modules, not module function files.
 - Per-template `PrePost.psm1` files (the `Catzc.Azure.Templates/assets/PrePost.psm1` starter and any
   `infrastructure/templates/<name>/PrePost.psm1`) — see [`prepost-extension-modules`](prepost-extension-modules.md).
 

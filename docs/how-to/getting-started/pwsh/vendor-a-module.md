@@ -14,9 +14,9 @@ Install-VendorModule powershell-yaml                       # latest
 Install-VendorModule Pester -RequiredVersion 5.7.1         # pinned version
 ```
 
-`Install-VendorModule` downloads from the Gallery into `pwsh/.vendor/<Name>/<Version>/`, trims legacy .NET-Framework target folders
-(keeping the .NET 6+ assemblies), and logs where it landed. Then **commit the result** — the vendored files are part of the repo, and the
-version change shows up as a reviewable diff.
+`Install-VendorModule` downloads from the Gallery into `pwsh/.vendor/<Name>/<Version>/`, trims legacy .NET-Framework target folders (keeping
+the .NET 6+ assemblies), and logs where it landed. Then **commit the result** — the vendored files are part of the repo, and the version
+change shows up as a reviewable diff.
 
 ## Currently vendored
 

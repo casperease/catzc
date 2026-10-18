@@ -24,8 +24,8 @@ The diagram is described element by element in [its asset description](a-push-fi
 
 ## Walkthrough
 
-1. **`pwsh/**`.** A change here fires `ci-automation`, on a pull request to main (`pr:`) and on the merge (`trigger:`). The GitHub
-   workflow `ci-automation.yml` and the pipeline `ci-automation-expected-failures` carry the same path filter and start too.
+1. **`pwsh/**`.** A change here fires `ci-automation`, on a pull request to main (`pr:`) and on the merge (`trigger:`). The GitHub workflow
+   `ci-automation.yml` and the pipeline `ci-automation-expected-failures` carry the same path filter and start too.
 2. **ci-automation.** Runs `Test-Automation -Level 2 -EnforceTimings`, among its other jobs.
 3. **ci-infrastructure.** Any change under `infrastructure/**` fires it. It runs `Assert-BicepTemplate` and then `Build-Bicep` for each of
    the three templates, foundation, discovery and expedition, then `Test-Automation -Suite infrastructure`.

@@ -58,8 +58,8 @@ The diagram is described element by element in [its asset description](three-cac
   `configs.yml`, an exception the ADR does not state.
 - The ADR writes a registry entry as `<name>: { type: <C# FQN> }`. In `configs.yml` the entries sit under a top-level `configs:` key, which
   `ConfigsConfig` enforces.
-- The ADR says discovery scans `pwsh/*/configs/`. The code scans `Get-CatzcModulesRoot`, the source `automation/` folder or a built
-  package, and skips dot-folders.
+- The ADR says discovery scans `pwsh/*/configs/`. The code scans `Get-CatzcModulesRoot`, the source `automation/` folder or a built package,
+  and skips dot-folders.
 
 ## See also
 

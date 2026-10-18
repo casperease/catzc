@@ -46,8 +46,8 @@ The diagram is described element by element in [its asset description](get-aspec
    as `+` and the excludes as `-`, last match wins, which is exactly first-match slicing.
 7. **The live set.** `Get-ModuleGlobSet` builds one `GlobSet` per compiled aspect in the `module` layer, named by the module's kebab form
    plus the aspect: `catzc-base-globs-live` includes the five patterns under `pwsh/Catzc.Base.Globs/` and excludes nothing.
-8. **The tests set.** `catzc-base-globs-tests` includes `pwsh/Catzc.Base.Globs/**` and excludes the live patterns, so it is the
-   remainder. Three more includes reach outside the module root: the module's Go, Python and Bash test folders.
+8. **The tests set.** `catzc-base-globs-tests` includes `pwsh/Catzc.Base.Globs/**` and excludes the live patterns, so it is the remainder.
+   Three more includes reach outside the module root: the module's Go, Python and Bash test folders.
 9. **Get-WorldMap.** The world-map entry point of `Catzc.Base.Maps`. It asks `Test-AspectDeclaration` which tracks have an entry and calls
    `Get-Aspect -Track <track>` for each of them, infrastructure included, then hands the lists to the builder.
 10. **WorldMapBuilder.IsLive.** The builder's classifier. A file of a verification track or under a `.vendor/` folder is not live; a track

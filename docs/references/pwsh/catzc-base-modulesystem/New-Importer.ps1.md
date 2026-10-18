@@ -12,9 +12,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 ### description
 
 importer.ps1 is a thin, generated entry point: it carries the importer's public parameter form and delegates the whole load sequence to
-Invoke-Importer (pwsh/.internal/Catzc.Internal.Importer.psm1), the single living copy. This reads the overlay's parameter block
-straight from that module's source (an AST parse — the overlay is not loaded post-import) and renders the shim around a fixed template, so
-the shim's parameters can never drift from the overlay's. A drift test asserts the committed importer.ps1 equals this output.
+Invoke-Importer (pwsh/.internal/Catzc.Internal.Importer.psm1), the single living copy. This reads the overlay's parameter block straight
+from that module's source (an AST parse — the overlay is not loaded post-import) and renders the shim around a fixed template, so the shim's
+parameters can never drift from the overlay's. A drift test asserts the committed importer.ps1 equals this output.
 
 Scaffolds into ANY repository root that already carries the .internal overlay — the loader path in the shim is repository-root-relative, so
 nothing absolute is baked in.

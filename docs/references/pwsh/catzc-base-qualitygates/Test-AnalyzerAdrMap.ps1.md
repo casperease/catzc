@@ -17,8 +17,8 @@ A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#ru
 hermetic; this gate cross-checks it against the repository and collects an issue for:
 
 - every rule id an analyzer cites that is not a real ADR rule (Get-CatsAdrRuleIds, in '#' citation form);
-- every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which
-  only dispatches — the map does not list, so a new custom rule cannot ship unmapped.
+- every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only
+  dispatches — the map does not list, so a new custom rule cannot ship unmapped.
 
 It reads the ADR tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).
 

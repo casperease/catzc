@@ -86,22 +86,21 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
   [ADR-DSGN-ASPECT][1]: the file cites it at line 55 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][14]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 16
   (text) and line 69 (text).
-- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][15]: selected by [ADR-DSGN-ASPECT][1]: the file
-  cites it at line 109 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][16]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
-  line 11 (text).
-- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][17]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 11
-  (text), line 24 (text) and line 52 (text).
-- [docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md][18]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 15
+- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][15]: selected by [ADR-DSGN-ASPECT][1]: the file cites it
+  at line 109 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][16]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
+  11 (text).
+- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][17]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 11 (text),
+  line 24 (text) and line 52 (text).
+- [docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md][18]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][19]: selected by [ADR-DSGN-ASPECT][1]: the file
+  cites it at line 50 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][20]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 61
   (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][19]: selected by [ADR-DSGN-ASPECT][1]:
-  the file cites it at line 50 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][20]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
-  61 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md][21]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
-  line 12 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][22]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
-  line 28 (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md][21]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 12
+  (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][22]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 28
+  (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -110,8 +109,8 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][23]: selected by [ADR-DSGN-ASPECT][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 83 (text),
-  `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 33 (text) and
-  `pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` line 1 (header).
+  `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 33 (text) and `pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` line 1
+  (header).
 
 ## Keywords
 

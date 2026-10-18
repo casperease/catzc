@@ -7,8 +7,8 @@ template article; when in doubt, match `foundation.md` (the smallest complete ex
 
 Each article is also the **source** that its folder's generated `README.md` links to (module `Catzc.Base.Docs`; see
 [generated-readmes](../../adr/repository/generated-readmes.md)): the README is a filesystem link to the article, not a copy. The mapping
-from folder to source lives in `pwsh/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is
-the reading surface where they resolve; the README is a pointer to the article, not a second rendering.
+from folder to source lives in `pwsh/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is the
+reading surface where they resolve; the README is a pointer to the article, not a second rendering.
 
 > **Time safeguard.** ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard: every foreground
 > Bash call passes `timeout: 3000`; longer work runs with `run_in_background: true` behind a `timeout <seconds>` prefix around one command
@@ -34,8 +34,7 @@ shared modules and how a template references one.
 ## References point one way
 
 An article cites ADRs (`../../adr/...`), sibling articles (`foundation.md`), and the automation reference
-(`../pwsh/catzc-azure-templates.md`); an ADR or the code never links back to these articles. (Same rule as the ADR authoring
-conventions.)
+(`../pwsh/catzc-azure-templates.md`); an ADR or the code never links back to these articles. (Same rule as the ADR authoring conventions.)
 
 ## Formatting & gates
 
@@ -55,6 +54,6 @@ conventions.)
 
 1. Copy `_template.md` to `<template>.md` and fill in the five parts.
 2. Add a row to the table in `index.md` (article link, one-line summary).
-3. Add it to `mappings:` in `pwsh/Catzc.Base.Docs/configs/readme.yml` so its README generates:
-   `folder: infrastructure/templates/<name>` → `source: docs/references/infrastructure/<template>.md`.
+3. Add it to `mappings:` in `pwsh/Catzc.Base.Docs/configs/readme.yml` so its README generates: `folder: infrastructure/templates/<name>` →
+   `source: docs/references/infrastructure/<template>.md`.
 4. Run the three gates above, then `. ./importer.ps1` to generate the README.

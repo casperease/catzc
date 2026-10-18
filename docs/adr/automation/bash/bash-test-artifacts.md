@@ -91,10 +91,10 @@ Bash, so it runs under the bash engine only; the Go and Python tests are the one
 
 ### A vendored runner
 
-bats-core is a set of Bash scripts with no build step. Vendoring it, as the PowerShell modules under `pwsh/.vendor/` are vendored,
-means a test run needs no installer, no network, and no admin on any platform: Git Bash on Windows runs it as it is. The pin and the archive
-digest in `bash.yml` make the copy reproducible, and `Update-BatsVendor` is the one way it changes. Only the runner's own files are kept:
-its tests, docs, and packaging are not the repository's.
+bats-core is a set of Bash scripts with no build step. Vendoring it, as the PowerShell modules under `pwsh/.vendor/` are vendored, means a
+test run needs no installer, no network, and no admin on any platform: Git Bash on Windows runs it as it is. The pin and the archive digest
+in `bash.yml` make the copy reproducible, and `Update-BatsVendor` is the one way it changes. Only the runner's own files are kept: its
+tests, docs, and packaging are not the repository's.
 
 Bash reads a carriage return as part of a command, and a Unix checkout runs a script only with its executable bit, so the vendored files are
 pinned to LF by `.gitattributes` and carry `100755` in git.

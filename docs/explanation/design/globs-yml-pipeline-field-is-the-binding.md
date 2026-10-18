@@ -24,9 +24,9 @@ The diagram is described element by element in [its asset description](globs-yml
 
 ## Walkthrough
 
-1. **globs.yml.** The registry at `pwsh/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects a layer that
-   is not declared, an unknown key, or a `compose:` reference that does not resolve or forms a cycle. Only the bindings and the composition
-   are drawn here.
+1. **globs.yml.** The registry at `pwsh/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects a layer that is not
+   declared, an unknown key, or a `compose:` reference that does not resolve or forms a cycle. Only the bindings and the composition are
+   drawn here.
 2. **`automation:`.** `layer: loose-fileset`, `pipeline: ci-automation`, `include: pwsh/**`. The GitHub workflow
    `.github/workflows/ci-automation.yml` triggers on the same projection, and `Test-GitHubWorkflowTriggerGlob` checks that it does.
 3. **`infrastructure:`.** `layer: loose-fileset`, `pipeline: ci-infrastructure`, a `verify:` scope of `Catzc.Azure.Templates` at level 2,

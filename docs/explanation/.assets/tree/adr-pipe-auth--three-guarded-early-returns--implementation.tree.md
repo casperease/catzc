@@ -50,8 +50,8 @@ The group holds the files of docs/adr/pipelines; each sits in its world-map cell
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-PIPE-AUTH][1]: the file cites it at line
-  223 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 223
+  (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 

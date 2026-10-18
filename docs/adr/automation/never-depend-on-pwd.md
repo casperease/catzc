@@ -32,9 +32,9 @@ Scripts often assume they are run from a specific directory — typically the re
 manually but breaks the moment someone calls the function from a different working directory, a scheduled task, a CI pipeline, or a nested
 script that changed location earlier.
 
-Functions that use relative paths like `./pwsh/Catzc.Azure/configs/azure.yml`, or shell out to tools sensitive to the current
-directory (git, dotnet, poetry), will silently operate on the wrong files or fail with confusing errors when the working directory is not
-what the author expected.
+Functions that use relative paths like `./pwsh/Catzc.Azure/configs/azure.yml`, or shell out to tools sensitive to the current directory
+(git, dotnet, poetry), will silently operate on the wrong files or fail with confusing errors when the working directory is not what the
+author expected.
 
 ### Rejected alternatives
 
@@ -62,8 +62,8 @@ never through the folder its file happens to sit in.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD`
-  dependence. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
+- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD` dependence.
+  Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **The language layer** — the anchor idioms, the code-root and working-root analyzer rules, and the one safe way to change directory
   (`Push-Location`/`Pop-Location` in `try`/`finally`) are [working-directory-mechanics](../pwsh/working-directory-mechanics.md)
   (`ADR-PWSH-PWD`): the anchors of rule 1 in ADR-PWSH-PWD#1 and ADR-PWSH-PWD#4, the test paths of rule 4 in ADR-PWSH-PWD#5, and the

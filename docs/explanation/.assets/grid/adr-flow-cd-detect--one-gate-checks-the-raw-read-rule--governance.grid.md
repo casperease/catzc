@@ -52,8 +52,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 99 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][6]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 11
-  (text).
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][6]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 11 (text).
 
 ### docs × markdown (8 lit files)
 
@@ -65,14 +64,14 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][8]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 131 (text).
 - [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][9]: selected by
   [ADR-FLOW-CD-DETECT][1]: the file cites it at line 55 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md][10]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites
-  it at line 58 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][11]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at
-  line 15 (text).
-- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][12]: selected by [ADR-FLOW-CD-DETECT][1]: the file
-  cites it at line 26 (text) and line 109 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][13]: selected by [ADR-FLOW-CD-DETECT][1]: the file
-  cites it at line 11 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md][10]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at
+  line 58 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][11]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line
+  15 (text).
+- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][12]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites
+  it at line 26 (text) and line 109 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][13]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites
+  it at line 11 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 

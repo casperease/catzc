@@ -45,30 +45,30 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/pwsh/catzc-base-files/Set-FileLink.ps1.md][2], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
-  file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md][3], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
-  file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md][4], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][5], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-languages.md][6], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
-  at line 8 (text).
-- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][7], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 32 (text).
+- [docs/references/pwsh/catzc-base-files/Set-FileLink.ps1.md][2], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file
+  cites it at line 24 (text).
+- [docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md][3], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file
+  cites it at line 24 (text).
+- [docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md][4], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
+  file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][5], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-languages.md][6], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
+  line 8 (text).
+- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][7], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
+  file cites it at line 32 (text).
 - [docs/references/pwsh/catzc-base-languages/types/GoWorkspaceFile.cs.md][8], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 14 (text).
 - [docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md][9], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 14 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md][10], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 21 (text).
-- [docs/references/pwsh/catzc-base-rootconfig.md][11], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file cites
-  it at line 41 (text) and line 50 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md][12], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/New-GitAttributes.ps1.md][13], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-rootconfig.md][11], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
+  line 41 (text) and line 50 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md][12], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
+  the file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/New-GitAttributes.ps1.md][13], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
+  the file cites it at line 23 (text).
 - [docs/references/pwsh/catzc-base-rootconfig/Test-RootAnalyzerSettings.ps1.md][14], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-rootconfig/Test-RootConfigFiles.ps1.md][15], in the cell docs × markdown: selected by
@@ -79,24 +79,24 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 22 (text).
 - [docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigTargets.ps1.md][18], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md][19], in the cell docs × markdown: selected
-  by [ADR-REPO-ROOTCFG][1]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md][19], in the cell docs × markdown: selected by
+  [ADR-REPO-ROOTCFG][1]: the file cites it at line 22 (text).
 - [docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md][20], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodeExtensions.ps1.md][21], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodeLaunch.ps1.md][22], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 20 (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodeExtensions.ps1.md][21], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
+  the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodeLaunch.ps1.md][22], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
+  file cites it at line 20 (text).
 - [docs/references/pwsh/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md][23], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 25 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md][24], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-vscode/New-VSCodeTasks.ps1.md][25], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
-  the file cites it at line 20 (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md][24], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
+  the file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-base-vscode/New-VSCodeTasks.ps1.md][25], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
+  file cites it at line 20 (text).
 - [docs/references/pwsh/catzc-base-vscode/configs/vscode-extensions.yml.md][26], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md][27], in the cell docs × markdown: selected by
-  [ADR-REPO-ROOTCFG][1]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md][27], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
+  the file cites it at line 13 (text).
 - [docs/references/pwsh/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md][28], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md][29], in the cell docs × markdown: selected by
@@ -109,8 +109,8 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 13 (text).
 - [docs/references/pwsh/catzc-base-vscode/types/VscodeSettingsConfig.cs.md][33], in the cell docs × markdown: selected by
   [ADR-REPO-ROOTCFG][1]: the file cites it at line 13 (text).
-- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][34], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]:
-  the file cites it at line 398 (text).
+- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][34], in the cell docs × markdown: selected by [ADR-REPO-ROOTCFG][1]: the
+  file cites it at line 398 (text).
 
 ### adr/repo (docs/adr/repository, 2 lit files)
 
@@ -124,22 +124,22 @@ The group holds the files of docs/adr/repository; each sits in its world-map cel
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][36], in the cell automation × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at
-  line 301 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][36], in the cell automation × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line
+  301 (text).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][37], in the cell automation × yaml: selected by [ADR-REPO-ROOTCFG][1]: the
-  file cites it at line 603 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][37], in the cell automation × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file
+  cites it at line 603 (text).
 
 ### VSCode (pwsh/Catzc.Base.VSCode, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][38], in the cell automation × csharp: selected by [ADR-REPO-ROOTCFG][1]: the
-  file cites it at line 8 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][38], in the cell automation × csharp: selected by [ADR-REPO-ROOTCFG][1]: the file
+  cites it at line 8 (body comment) (a passing mention only).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
@@ -153,8 +153,8 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][40], in the cell pipelines × pipeline-yaml: selected by [ADR-REPO-ROOTCFG][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 301 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 603 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs`
-  line 8 (body comment).
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 603 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8
+  (body comment).
 
 ## Keywords
 

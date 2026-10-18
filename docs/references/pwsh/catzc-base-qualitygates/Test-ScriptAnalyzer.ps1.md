@@ -15,11 +15,10 @@ Runs PSScriptAnalyzer over the same automation file set the analyzer test covers
 .internal/.scriptanalyzer infrastructure folders), applying the single rule set at .internal/assets/PSScriptAnalyzerSettings.psd1 under the
 loaded code root (Get-CatzcModulesRoot) — so the result matches what the editor and CI see.
 
-This is the interactive, report-style sibling of the L2 'PSScriptAnalyzer' Pester test
-(pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1): both shard the analysis across background processes (see
-Get-ScriptAnalyzerDiagnostics) so a full-tree run finishes in ~15-30s with live progress rather than ~90s of silence. It is also the verify
-counterpart to Format-Code -Language powershell — Format-Code FIXES the auto-fixable formatting, Test-ScriptAnalyzer only reports and never
-rewrites files.
+This is the interactive, report-style sibling of the L2 'PSScriptAnalyzer' Pester test (pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1):
+both shard the analysis across background processes (see Get-ScriptAnalyzerDiagnostics) so a full-tree run finishes in ~15-30s with live
+progress rather than ~90s of silence. It is also the verify counterpart to Format-Code -Language powershell — Format-Code FIXES the
+auto-fixable formatting, Test-ScriptAnalyzer only reports and never rewrites files.
 
 A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): every diagnostic
 ('`<path>:<line>:<col>` `<severity>` `<rule>` `<message>`', repository-relative) is an issue, and the gate ends through

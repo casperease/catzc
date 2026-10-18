@@ -79,12 +79,12 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][8]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 327 (text).
 - [docs/adr/repository/dora-explains.md][9]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 165 (text).
 - [docs/adr/repository/repo-variants.md][1]: selected by [ADR-REPO-VARIANT][1]: the ADR's own file.
-- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][10]: selected by [ADR-REPO-VARIANT][1]: the file cites it
-  at line 39 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][11]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line
-  11 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][12]: selected by [ADR-REPO-VARIANT][1]: the file cites it at
-  line 11 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][10]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line
+  39 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][11]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 11
+  (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][12]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 11
+  (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 

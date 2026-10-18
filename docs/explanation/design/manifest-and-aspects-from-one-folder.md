@@ -34,8 +34,8 @@ The diagram is described element by element in [its asset description](manifest-
    import".
 3. **New-DynamicManifest.** Called once per module. Root `*.ps1` files, minus `*.Tests.ps1`, become the exported functions; `private/*.ps1`
    files join the nested modules, private first, each group sorted ordinally.
-4. **&lt;Module&gt;.psd1.** The manifest is written only when its content differs, and `pwsh/**/*.psd1` is gitignored. A module with
-   no `.ps1` left gets no manifest, and `Import-AllModules` deletes a stale one.
+4. **&lt;Module&gt;.psd1.** The manifest is written only when its content differs, and `pwsh/**/*.psd1` is gitignored. A module with no
+   `.ps1` left gets no manifest, and `Import-AllModules` deletes a stale one.
 5. **variants.yml.** The `aspects.automation` entry: `live` is `*.ps1`, `private/**`, `types/**` and `configs/**`; `tests` is `**`.
 6. **Get-Aspect.** `Get-ModuleGlobSet` calls `Get-Aspect -Track automation`. The `VariantsConfig` type has already required the last aspect
    to be the bare `**` and no earlier aspect to use it.

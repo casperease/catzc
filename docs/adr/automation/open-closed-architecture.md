@@ -114,10 +114,10 @@ The platform must remain open for extension and closed for modification. Concret
 
 ### How this is enforced
 
-- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `automation/` as a
-  module and generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any
-  module loads it fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a
-  single meaning per name ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)).
+- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `automation/` as a module
+  and generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any module loads
+  it fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a single meaning
+  per name ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)).
 - **`Test-Automation.Tests.ps1`** and **`Test-FolderConventions.Tests.ps1`** fail the test run on a file, function, or folder that breaks
   the naming and placement conventions, so non-conforming code is caught rather than silently skipped
   ([one-function-per-file](../pwsh/one-function-per-file.md), [conventional-folders](../repository/conventional-folders.md)).

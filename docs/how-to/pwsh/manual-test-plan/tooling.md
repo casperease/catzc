@@ -5,8 +5,8 @@ check.
 
 ## Index
 
-| #   | Tier | Test file                                                                    | FullNameFilter                                        | Guards                                                                                                                                           |
-| --- | ---- | ---------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| #   | Tier | Test file                                                              | FullNameFilter                                        | Guards                                                                                                                                           |
+| --- | ---- | ---------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 1   | L0   | pwsh/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1            | integrity (shipped tools.yml)                         | The shipped `tools.yml` constructs a `ToolsConfig` (snake_case keys).                                                                            |
 | 2   | L0   | pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1           | shipped tools.yml (generic invariant)                 | The `tools.yml` dependency graph is acyclic and install order is valid.                                                                          |
 | 3   | L0   | pwsh/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1                 | asset dependencies                                    | Required tooling asset files are present.                                                                                                        |

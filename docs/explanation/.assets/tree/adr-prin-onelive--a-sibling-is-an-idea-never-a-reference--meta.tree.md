@@ -57,34 +57,34 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   (text).
 - [docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md][6], in the cell docs × markdown: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 8 (text).
-- [docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md][7], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md][8], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]:
-  the file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md][9], in the cell docs × markdown: selected by
-  [ADR-PRIN-ONELIVE][2]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][10], in the cell docs × markdown: selected by [ADR-AUTO-GO][1]: the
-  file cites it at line 20 (text) and line 82 (text).
-- [docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md][11], in the cell docs × markdown: selected by [ADR-AUTO-GO][1]: the
-  file cites it at line 100 (text).
+- [docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md][7], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]: the file
+  cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md][8], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]: the file
+  cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md][9], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]: the
+  file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][10], in the cell docs × markdown: selected by [ADR-AUTO-GO][1]: the file
+  cites it at line 20 (text) and line 82 (text).
+- [docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md][11], in the cell docs × markdown: selected by [ADR-AUTO-GO][1]: the file
+  cites it at line 100 (text).
 - [docs/references/pwsh/catzc-base-languages/Test-GeneratedFileCurrent.ps1.md][12], in the cell docs × markdown: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 21 (text).
 - [docs/references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md][13], in the cell docs × markdown: selected by
   [ADR-AUTO-GO][1]: the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Build-CommentView.ps1.md][14], in the cell docs × markdown: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Export-Comments.ps1.md][15], in the cell docs × markdown: selected by
-  [ADR-PRIN-ONELIVE][2]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md][16], in the cell docs × markdown: selected by
-  [ADR-PRIN-ONELIVE][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Export-Comments.ps1.md][15], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]:
+  the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md][16], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]:
+  the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/configs/comments.yml.md][17], in the cell docs × markdown: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md][18], in the cell docs × markdown: selected
-  by [ADR-AUTO-GO][1]: the file cites it at line 17 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md][18], in the cell docs × markdown: selected by
+  [ADR-AUTO-GO][1]: the file cites it at line 17 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md][19], in the cell docs × markdown: selected by
   [ADR-AUTO-GO][1]: the file cites it at line 20 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md][20], in the cell docs × markdown: selected by
-  [ADR-AUTO-GO][1]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md][20], in the cell docs × markdown: selected by [ADR-AUTO-GO][1]:
+  the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md][21], in the cell docs × markdown: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 14 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md][22], in the cell docs × markdown: selected by
@@ -97,14 +97,14 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md][26], in the cell docs × markdown: selected by
   [ADR-AUTO-GO][1]: the file cites it at line 73 (text).
-- [docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md][27], in the cell docs × markdown: selected by
-  [ADR-AUTO-GO][1]: the file cites it at line 182 (text).
-- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][28], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]:
-  the file cites it at line 16 (text).
-- [docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md][29], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]:
-  the file cites it at line 16 (text).
-- [docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md][30], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]:
-  the file cites it at line 17 (text).
+- [docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md][27], in the cell docs × markdown: selected by [ADR-AUTO-GO][1]:
+  the file cites it at line 182 (text).
+- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][28], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md][29], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]: the
+  file cites it at line 16 (text).
+- [docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md][30], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]: the
+  file cites it at line 17 (text).
 - [docs/references/note-file-kind.md][31], in the cell docs × markdown: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 37
   (text).
 
@@ -151,29 +151,29 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][48], in the cell automation × yaml: selected by [ADR-PRIN-ONELIVE][2]: the
-  file cites it at line 555 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][48], in the cell automation × yaml: selected by [ADR-PRIN-ONELIVE][2]: the file
+  cites it at line 555 (text).
 - [pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1][49], in the cell automation × powershell: selected by
   [ADR-AUTO-GO][1]: the file cites it at line 75 (text).
 - [pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1][50], in the cell automation × powershell: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 1 (header).
-- [pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs][51], in the cell automation × csharp: selected by [ADR-PRIN-ONELIVE][2]:
-  the file cites it at line 5 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs][52], in the cell automation × csharp: selected by [ADR-PRIN-ONELIVE][2]: the
-  file cites it at line 12 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs][51], in the cell automation × csharp: selected by [ADR-PRIN-ONELIVE][2]: the file
+  cites it at line 5 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs][52], in the cell automation × csharp: selected by [ADR-PRIN-ONELIVE][2]: the file
+  cites it at line 12 (body comment) (a passing mention only).
 
 ### Docs (pwsh/Catzc.Base.Docs, 4 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][53], in the cell automation × yaml: selected by [ADR-AUTO-GO][1]: the file cites it at line
-  149 (text); selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 34 (text).
-- [pwsh/Catzc.Base.Docs/configs/agents.yml][54], in the cell automation × yaml: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
-  at line 60 (body comment) and line 66 (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][55], in the cell automation × yaml: selected by [ADR-PRIN-ONELIVE][2]: the file
-  cites it at line 87 (text) and line 92 (text).
-- [pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1][56], in the cell automation × powershell: selected by [ADR-PRIN-ONELIVE][2]:
-  the file cites it at line 1 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][53], in the cell automation × yaml: selected by [ADR-AUTO-GO][1]: the file cites it at line 149
+  (text); selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 34 (text).
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][54], in the cell automation × yaml: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line
+  60 (body comment) and line 66 (text).
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][55], in the cell automation × yaml: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
+  at line 87 (text) and line 92 (text).
+- [pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1][56], in the cell automation × powershell: selected by [ADR-PRIN-ONELIVE][2]: the
+  file cites it at line 1 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
@@ -203,22 +203,22 @@ The group holds the files of docs/adr/principles; each sits in its world-map cel
 
 The group holds the files of pwsh/Catzc.Base.Git; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Git/configs/gitignore.yml][61], in the cell automation × yaml: selected by [ADR-AUTO-GO][1]: the file cites it at
-  line 101 (text).
+- [pwsh/Catzc.Base.Git/configs/gitignore.yml][61], in the cell automation × yaml: selected by [ADR-AUTO-GO][1]: the file cites it at line
+  101 (text).
 
 ### Globs (pwsh/Catzc.Base.Globs, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][62], in the cell automation × powershell: selected by [ADR-AUTO-GO][1]:
-  the file cites it at line 45 (text).
+- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][62], in the cell automation × powershell: selected by [ADR-AUTO-GO][1]: the file
+  cites it at line 45 (text).
 
 ### Languages (pwsh/Catzc.Base.Languages, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Languages; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Languages/configs/glossary.yml][63], in the cell automation × yaml: selected by [ADR-AUTO-GO][1]: the file cites it
-  at line 16 (text).
+- [pwsh/Catzc.Base.Languages/configs/glossary.yml][63], in the cell automation × yaml: selected by [ADR-AUTO-GO][1]: the file cites it at
+  line 16 (text).
 
 ### pipelines (1 lit file)
 
@@ -226,16 +226,14 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][64], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-GO][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 149 (text),
-  `pwsh/Catzc.Base.Git/configs/gitignore.yml` line 101 (text), `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 45
-  (text), `pwsh/Catzc.Base.Languages/configs/glossary.yml` line 16 (text) and
-  `pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1` line 75 (text); selected by [ADR-PRIN-ONELIVE][2]: a pipeline
-  that cites nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 34 (text),
-  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 60 (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 66 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 87 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 92
-  (text), `pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 1 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 555 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1` line 1 (header),
-  `pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs` line 5 (body comment) and
+  `pwsh/Catzc.Base.Git/configs/gitignore.yml` line 101 (text), `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 45 (text),
+  `pwsh/Catzc.Base.Languages/configs/glossary.yml` line 16 (text) and `pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1`
+  line 75 (text); selected by [ADR-PRIN-ONELIVE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 34 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 60 (body comment),
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 66 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 87 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 92 (text), `pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 1 (text),
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 555 (text), `pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1`
+  line 1 (header), `pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs` line 5 (body comment) and
   `pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs` line 12 (body comment).
 
 ## Keywords

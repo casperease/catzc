@@ -13,10 +13,10 @@ Returns the repo-relative tracked files the managed-GUID scan reads — the scan
 
 Tracked files (Get-GitTrackedPath, [ADR-AUTO-TRACKED#1](../../../../adr/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked1) —
 the same matching universe as the globsets, [ADR-FLOW-CD-GLOBS#4](../../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)), minus
-what the scan must not read: vendored third-party code (pwsh/.vendor/), the committed compiled assembly (pwsh/.compiled/), known
-binary extensions, and the registry file itself — configs/guids.yml is the definition of the managed set, not a reference to it, and
-excluding it is what keeps the liveness check honest. The one place this scan reads the tracked set; a logic test mocks this seam (returning
-absolute fixture paths, which Resolve-RepoPath passes through unchanged). Throws in build mode (Assert-SourceTree).
+what the scan must not read: vendored third-party code (pwsh/.vendor/), the committed compiled assembly (pwsh/.compiled/), known binary
+extensions, and the registry file itself — configs/guids.yml is the definition of the managed set, not a reference to it, and excluding it
+is what keeps the liveness check honest. The one place this scan reads the tracked set; a logic test mocks this seam (returning absolute
+fixture paths, which Resolve-RepoPath passes through unchanged). Throws in build mode (Assert-SourceTree).
 
 ## comment:1
 

@@ -47,10 +47,10 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 
 - [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][2], in the cell docs × markdown: selected by
   [ADR-REPO-VARIANT][1]: the file cites it at line 39 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][3], in the cell docs × markdown: selected by
-  [ADR-REPO-VARIANT][1]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][4], in the cell docs × markdown: selected by
-  [ADR-REPO-VARIANT][1]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][3], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][1]: the
+  file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][4], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][1]:
+  the file cites it at line 11 (text).
 
 ### adr/repo (docs/adr/repository, 2 lit files)
 
@@ -71,15 +71,15 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-REPO-VARIANT][1]: the file cites it at
-  line 303 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-REPO-VARIANT][1]: the file cites it at line
+  303 (text).
 
 ### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][8], in the cell automation × powershell: selected by [ADR-REPO-VARIANT][1]:
-  the file cites it at line 44 (text).
+- [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][8], in the cell automation × powershell: selected by [ADR-REPO-VARIANT][1]: the file
+  cites it at line 44 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 

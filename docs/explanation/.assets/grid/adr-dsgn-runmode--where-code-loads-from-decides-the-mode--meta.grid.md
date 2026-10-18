@@ -64,10 +64,10 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1][6]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1][7]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1][7]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 1
+  (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1][8]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
   line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1][8]: selected by [ADR-DSGN-RUNMODE][1]: the file cites
-  it at line 1 (text).
 
 ### automation × yaml (3 lit files)
 
@@ -89,64 +89,63 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][14]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 114 (text).
 - [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][15]: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 53 (text).
-- [docs/references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md][16]: selected by [ADR-DSGN-RUNMODE][1]: the file
-  cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md][17]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 18 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][18]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line
-  31 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][19]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 38 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Get-AutomationFunctions.ps1.md][20]: selected by [ADR-DSGN-RUNMODE][1]: the file cites
-  it at line 19 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md][21]: selected by [ADR-DSGN-RUNMODE][1]: the file cites
-  it at line 18 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md][22]: selected by [ADR-DSGN-RUNMODE][1]: the file
-  cites it at line 36 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md][23]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line
-  23 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][24]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it
-  at line 26 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md][25]: selected by [ADR-DSGN-RUNMODE][1]: the file cites
-  it at line 26 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][26]: selected by [ADR-DSGN-RUNMODE][1]:
-  the file cites it at line 105 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md][27]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it
-  at line 34 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md][28]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md][29]: selected by [ADR-DSGN-RUNMODE][1]: the
-  file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md][30]: selected by
-  [ADR-DSGN-RUNMODE][1]: the file cites it at line 8 (text) and line 11 (text).
-- [docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md][31]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 16 (text).
-- [docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md][32]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 16 (text).
-- [docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md][33]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 14 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md][34]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 28 (text).
-- [docs/references/pwsh/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md][35]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it
-  at line 22 (text).
-- [docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md][36]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it
-  at line 34 (text).
-- [docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md][37]: selected by [ADR-DSGN-RUNMODE][1]: the file cites
-  it at line 31 (text).
-- [docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md][38]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it
-  at line 27 (text).
-- [docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md][39]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md][16]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it
+  at line 19 (text).
+- [docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md][17]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 18
+  (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][18]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 31
+  (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][19]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 38
+  (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Get-AutomationFunctions.ps1.md][20]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
   line 19 (text).
-- [docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md][40]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
-  line 25 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md][21]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+  line 18 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md][22]: selected by [ADR-DSGN-RUNMODE][1]: the file cites
+  it at line 36 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md][23]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 23
+  (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][24]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line
+  26 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md][25]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+  line 26 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][26]: selected by [ADR-DSGN-RUNMODE][1]: the
+  file cites it at line 105 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md][27]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line
+  34 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md][28]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 15
+  (text).
+- [docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md][29]: selected by [ADR-DSGN-RUNMODE][1]: the file
+  cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md][30]: selected by [ADR-DSGN-RUNMODE][1]:
+  the file cites it at line 8 (text) and line 11 (text).
+- [docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md][31]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 16
+  (text).
+- [docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md][32]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line
+  16 (text).
+- [docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md][33]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 14
+  (text).
+- [docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md][34]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 28
+  (text).
+- [docs/references/pwsh/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md][35]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+  line 22 (text).
+- [docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md][36]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+  line 34 (text).
+- [docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md][37]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+  line 31 (text).
+- [docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md][38]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
+  line 27 (text).
+- [docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md][39]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 19
+  (text).
+- [docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md][40]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 25
+  (text).
 - [docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md][41]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 15
   (text).
-- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][42]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line
-  193 (text).
+- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][42]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 193
+  (text).
 - [docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md][43]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 58
   (text).
-- [docs/references/pwsh/internal/assets/Import-Catzc.ps1.md][44]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 14
-  (text).
+- [docs/references/pwsh/internal/assets/Import-Catzc.ps1.md][44]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 14 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -154,10 +153,9 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][45]: selected by [ADR-DSGN-RUNMODE][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text),
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 80 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 611 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 575 (text),
-  `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` line 1 (text) and
+  citations, which cite it at `pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml`
+  line 80 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 611 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line
+  575 (text), `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` line 1 (text) and
   `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1` line 1 (text).
 
 ### Root files × powershell (1 lit file)

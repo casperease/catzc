@@ -107,17 +107,17 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.cs` names the file language csharp
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Contracts/types/ContractCommand.cs][32]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 8 (body
-  comment) (a passing mention only).
-- [pwsh/Catzc.Base.Contracts/types/ContractParameter.cs][33]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 9 (body
-  comment) (a passing mention only).
+- [pwsh/Catzc.Base.Contracts/types/ContractCommand.cs][32]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 8 (body comment) (a
+  passing mention only).
+- [pwsh/Catzc.Base.Contracts/types/ContractParameter.cs][33]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 9 (body comment)
+  (a passing mention only).
 - [pwsh/Catzc.Base.Languages/types/LayoutRow.cs][34]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 6 (body comment) (a
   passing mention only).
 - [pwsh/Catzc.Base.QualityGates/types/PlansConfig.cs][35]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 1 (header).
-- [pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs][36]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 9 (body
-  comment) (a passing mention only).
-- [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs][37]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 20 (body
-  comment) (a passing mention only).
+- [pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs][36]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 9 (body comment) (a
+  passing mention only).
+- [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs][37]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 20 (body comment) (a
+  passing mention only).
 
 ### automation × powershell (28 lit files)
 
@@ -125,54 +125,52 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1][38]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 174 (text).
-- [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1][39]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 93
-  (text), line 261 (text) and line 277 (text).
-- [pwsh/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1][40]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  28 (text).
-- [pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1][41]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  2 (text) and line 26 (text).
-- [pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1][42]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
+- [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1][39]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 93 (text), line
+  261 (text) and line 277 (text).
+- [pwsh/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1][40]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 28
   (text).
+- [pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1][41]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
+  (text) and line 26 (text).
+- [pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1][42]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2 (text).
 - [pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1][43]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2 (text).
-- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][44]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 63 (text)
-  and line 69 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 47 (text).
+- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][44]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 63 (text) and
+  line 69 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 47 (text).
 - [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][45]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
   (text), line 9 (text) and line 50 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][46]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 23
-  (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 64 (text).
-- [pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1][47]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 31 (text).
-- [pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1][48]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  155 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1][49]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 171 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1][50]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 2 (text), line 98 (text) and line 102 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1][51]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 6 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1][52]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 2 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1][53]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 16 (text) and line 66 (text).
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][46]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 23 (text);
+  selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 64 (text).
+- [pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1][47]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 31
+  (text).
+- [pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1][48]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 155
+  (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1][49]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  171 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1][50]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
+  (text), line 98 (text) and line 102 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1][51]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 6
+  (text).
+- [pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1][52]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
+  (text).
+- [pwsh/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1][53]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 16
+  (text) and line 66 (text).
 - [pwsh/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1][54]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
   (text).
 - [pwsh/Catzc.Base.QualityGates/tests/types/PlansConfig.Tests.ps1][55]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 1
   (text).
 - [pwsh/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1][56]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
   (text).
-- [pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1][57]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
-  it at line 3 (text) and line 27 (text).
-- [pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1][58]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 43 (text) and line 65 (text).
-- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][59]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 145
-  (text) and line 153 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1][57]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+  line 3 (text) and line 27 (text).
+- [pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1][58]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 43
+  (text) and line 65 (text).
+- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][59]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 145 (text) and
+  line 153 (text).
 - [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][60]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 44 (text).
-- [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][61]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2
-  (text) and line 32 (text).
-- [pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1][62]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 19
+- [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][61]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2 (text) and
+  line 32 (text).
+- [pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1][62]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 19 (text).
+- [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1][63]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 153
   (text).
-- [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1][63]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  153 (text).
 - [pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1][64]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 65 (text).
 - [pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1][65]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 31
   (text), line 41 (text) and line 50 (text).
@@ -184,12 +182,11 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][66]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 131 (text); selected by
   [ADR-AUTO-FAILFAST][2]: the file cites it at line 132 (text).
-- [pwsh/Catzc.Base.Docs/configs/agents.yml][67]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 55 (body comment) and
-  line 76 (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][68]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 14 (body comment)
-  (a passing mention only); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 4 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][69]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 583
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][67]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 55 (body comment) and line 76
   (text).
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][68]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 14 (body comment) (a
+  passing mention only); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 4 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][69]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 583 (text).
 
 ### docs × markdown (79 lit files)
 
@@ -202,154 +199,146 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/automation/sensible-defaults.md][1]: selected by [ADR-AUTO-DEFAULT][1]: the ADR's own file.
 - [docs/adr/index.md][71]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 162 (text); selected by [ADR-AUTO-FAILFAST][2]: the
   file cites it at line 163 (text).
-- [docs/how-to/pwsh/manual-test-plan/repository-conventions.md][72]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 34
-  (text).
+- [docs/how-to/pwsh/manual-test-plan/repository-conventions.md][72]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 34 (text).
 - [docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md][73]: selected by
   [ADR-AUTO-FAILFAST][2]: the file cites it at line 63 (text).
 - [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][74]: selected by
   [ADR-AUTO-DEFAULT][1]: the file cites it at line 54 (text).
 - [docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md][75]: selected by
   [ADR-AUTO-FAILFAST][2]: the file cites it at line 45 (text), line 58 (text), line 61 (text), line 62 (text) and line 62 (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][76]: selected by [ADR-AUTO-FAILFAST][2]: the file
-  cites it at line 22 (text).
-- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][77]: selected by [ADR-AUTO-FAILFAST][2]: the
-  file cites it at line 102 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][78]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 24
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][76]: selected by [ADR-AUTO-FAILFAST][2]: the file cites
+  it at line 22 (text).
+- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][77]: selected by [ADR-AUTO-FAILFAST][2]: the file
+  cites it at line 102 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][78]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 24 (text).
+- [docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md][79]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15
   (text).
-- [docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md][79]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 15 (text).
-- [docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md][80]: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md][81]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][82]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 27
-  (text).
-- [docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md][83]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  13 (text).
-- [docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md][84]: selected by [ADR-AUTO-FAILFAST][2]: the file
-  cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md][85]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it
-  at line 13 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][86]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  12 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][87]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 37
-  (text).
-- [docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md][88]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 19
-  (text).
-- [docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md][89]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15
-  (text).
-- [docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md][90]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
-  line 37 (text).
-- [docs/references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md][91]: selected by
-  [ADR-AUTO-FAILFAST][2]: the file cites it at line 32 (text) and line 100 (text).
-- [docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md][92]: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md][80]: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][93]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 19 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][94]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
-  line 25 (text).
-- [docs/references/pwsh/catzc-base-languages.md][95]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 49 (text).
-- [docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md][96]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 14 (text).
-- [docs/references/pwsh/catzc-base-languages/configs/go.yml.md][97]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 16
-  (text).
-- [docs/references/pwsh/catzc-base-languages/configs/languages.yml.md][98]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 41 (text).
-- [docs/references/pwsh/catzc-base-languages/configs/python.yml.md][99]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  18 (text).
-- [docs/references/pwsh/catzc-base-languages/types/FileCarrier.cs.md][100]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 13 (text).
-- [docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md][101]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
-  it at line 14 (text).
-- [docs/references/pwsh/catzc-base-languages/types/GoConfig.cs.md][102]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md][81]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
   13 (text).
-- [docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md][103]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 26 (text).
-- [docs/references/pwsh/catzc-base-maps/configs/maps.yml.md][104]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15
+- [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][82]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 27 (text).
+- [docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md][83]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 13
   (text).
+- [docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md][84]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it
+  at line 15 (text).
+- [docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md][85]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line
+  13 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][86]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 12
+  (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][87]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 37 (text).
+- [docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md][88]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md][89]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md][90]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line
+  37 (text).
+- [docs/references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md][91]: selected by [ADR-AUTO-FAILFAST][2]: the
+  file cites it at line 32 (text) and line 100 (text).
+- [docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md][92]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
+  it at line 12 (text).
+- [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][93]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+  line 19 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 22 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][94]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 25
+  (text).
+- [docs/references/pwsh/catzc-base-languages.md][95]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 49 (text).
+- [docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md][96]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  14 (text).
+- [docs/references/pwsh/catzc-base-languages/configs/go.yml.md][97]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-languages/configs/languages.yml.md][98]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 41
+  (text).
+- [docs/references/pwsh/catzc-base-languages/configs/python.yml.md][99]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 18
+  (text).
+- [docs/references/pwsh/catzc-base-languages/types/FileCarrier.cs.md][100]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 13
+  (text).
+- [docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md][101]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+  line 14 (text).
+- [docs/references/pwsh/catzc-base-languages/types/GoConfig.cs.md][102]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 13
+  (text).
+- [docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md][103]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  26 (text).
+- [docs/references/pwsh/catzc-base-maps/configs/maps.yml.md][104]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-maps/types/MapsConfig.cs.md][105]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 19
   (text).
-- [docs/references/pwsh/catzc-base-maps/types/MapsHighlight.cs.md][106]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  17 (text).
+- [docs/references/pwsh/catzc-base-maps/types/MapsHighlight.cs.md][106]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 17
+  (text).
 - [docs/references/pwsh/catzc-base-maps/types/MapsLabels.cs.md][107]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 25
   (text).
 - [docs/references/pwsh/catzc-base-maps/types/MapsLimits.cs.md][108]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15
   (text).
 - [docs/references/pwsh/catzc-base-maps/types/MapsPalette.cs.md][109]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15
   (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/comments.yml.md][110]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 17 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/file-meta.yml.md][111]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 13 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/links.yml.md][112]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/configs/comments.yml.md][110]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  17 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/file-meta.yml.md][111]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  13 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/links.yml.md][112]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 15
+  (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/parameter-consistency.yml.md][113]: selected by [ADR-AUTO-DEFAULT][1]: the file
+  cites it at line 18 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md][114]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
+  it at line 17 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md][115]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
   line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/parameter-consistency.yml.md][113]: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md][114]: selected by [ADR-AUTO-DEFAULT][1]: the file
-  cites it at line 17 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md][115]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md][116]: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md][116]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
+  at line 16 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][117]: selected by [ADR-AUTO-FAILFAST][2]: the file
   cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][117]: selected by [ADR-AUTO-FAILFAST][2]: the
-  file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][118]: selected by [ADR-AUTO-FAILFAST][2]:
-  the file cites it at line 25 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md][119]: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md][120]: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/tests/types/LinksConfig.Tests.ps1.md][121]: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md][122]: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/tests/types/SourceConventionsConfig.Tests.ps1.md][123]: selected by
-  [ADR-AUTO-DEFAULT][1]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/CommentsConfig.cs.md][124]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 13 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/EngineSetCheck.cs.md][125]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 22 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/FileMetaKind.cs.md][126]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
-  at line 13 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/GeneratedWriter.cs.md][127]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
-  it at line 11 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/LinksConfig.cs.md][128]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md][129]: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/SourceCheck.cs.md][130]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][118]: selected by [ADR-AUTO-FAILFAST][2]: the
+  file cites it at line 25 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md][119]: selected by [ADR-AUTO-DEFAULT][1]: the file
+  cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md][120]: selected by [ADR-AUTO-DEFAULT][1]: the file
+  cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/tests/types/LinksConfig.Tests.ps1.md][121]: selected by [ADR-AUTO-DEFAULT][1]: the file
+  cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md][122]: selected by [ADR-AUTO-DEFAULT][1]: the file
+  cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/tests/types/SourceConventionsConfig.Tests.ps1.md][123]: selected by [ADR-AUTO-DEFAULT][1]:
+  the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/CommentsConfig.cs.md][124]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
   line 13 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md][131]: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/types/EngineSetCheck.cs.md][125]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+  line 22 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/FileMetaKind.cs.md][126]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  13 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/GeneratedWriter.cs.md][127]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+  line 11 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/LinksConfig.cs.md][128]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md][129]: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/TestPolicyConfig.cs.md][132]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
+- [docs/references/pwsh/catzc-base-qualitygates/types/SourceCheck.cs.md][130]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  13 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md][131]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
   it at line 13 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/TestPolicyConfig.cs.md][132]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+  line 13 (text).
 - [docs/references/pwsh/catzc-base-timeouts/Assert-Wait.ps1.md][133]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 23
   (text) and line 24 (text).
-- [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][134]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
-  line 16 (text).
-- [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][135]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
-  line 12 (text).
-- [docs/references/pwsh/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md][136]: selected by [ADR-AUTO-DEFAULT][1]: the file
-  cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md][137]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 22 (text).
+- [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][134]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line
+  16 (text).
+- [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][135]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line
+  12 (text).
+- [docs/references/pwsh/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md][136]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
+  at line 19 (text).
+- [docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md][137]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  22 (text).
 - [docs/references/pwsh/catzc-base-typessystem.md][138]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 64 (text).
-- [docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md][139]: selected by [ADR-AUTO-FAILFAST][2]: the file
-  cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md][140]: selected by [ADR-AUTO-FAILFAST][2]: the file cites
-  it at line 15 (text).
-- [docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md][141]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 18 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/Get-Inspiration.ps1.md][142]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
+- [docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md][139]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it
   at line 15 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md][143]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
-  it at line 15 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md][144]: selected by [ADR-AUTO-DEFAULT][1]:
-  the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-tooling-inspiration/types/InspirationConfig.cs.md][145]: selected by [ADR-AUTO-DEFAULT][1]: the file
-  cites it at line 18 (text).
-- [docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md][146]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
-  line 12 (text).
+- [docs/references/pwsh/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md][140]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
+  line 15 (text).
+- [docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md][141]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  18 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/Get-Inspiration.ps1.md][142]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  15 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md][143]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+  line 15 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md][144]: selected by [ADR-AUTO-DEFAULT][1]: the
+  file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-tooling-inspiration/types/InspirationConfig.cs.md][145]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
+  at line 18 (text).
+- [docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md][146]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line
+  12 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -358,26 +347,22 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][147]: selected by [ADR-AUTO-DEFAULT][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1` line 174 (text),
-  `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 93 (text),
-  `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 261 (text),
-  `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 277 (text),
+  `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 93 (text), `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 261
+  (text), `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 277 (text),
   `pwsh/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1` line 28 (text),
   `pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1` line 2 (text),
-  `pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1` line 26 (text),
-  `pwsh/Catzc.Base.Contracts/types/ContractCommand.cs` line 8 (body comment),
-  `pwsh/Catzc.Base.Contracts/types/ContractParameter.cs` line 9 (body comment), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 131
-  (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 14 (body comment),
-  `pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1` line 2 (text),
-  `pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 2 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1`
-  line 63 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 69 (text),
-  `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 2 (text),
+  `pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1` line 26 (text), `pwsh/Catzc.Base.Contracts/types/ContractCommand.cs`
+  line 8 (body comment), `pwsh/Catzc.Base.Contracts/types/ContractParameter.cs` line 9 (body comment),
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 131 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 14 (body comment),
+  `pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1` line 2 (text), `pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 2
+  (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 63 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1`
+  line 69 (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 2 (text),
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 9 (text),
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 50 (text),
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 23 (text),
   `pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1` line 31 (text),
-  `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 155 (text),
-  `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6 (body comment),
-  `pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1` line 171 (text),
+  `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 155 (text), `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6
+  (body comment), `pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1` line 171 (text),
   `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 2 (text),
   `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 98 (text),
   `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 102 (text),
@@ -390,27 +375,22 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
   `pwsh/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1` line 2 (text),
   `pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1` line 3 (text),
   `pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1` line 27 (text),
-  `pwsh/Catzc.Base.QualityGates/types/PlansConfig.cs` line 1 (header),
-  `pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1` line 43 (text),
-  `pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1` line 65 (text),
-  `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 2 (text),
-  `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 32 (text),
-  `pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1` line 19 (text),
-  `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1` line 153 (text),
-  `pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs` line 9 (body comment),
-  `pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1` line 65 (text),
+  `pwsh/Catzc.Base.QualityGates/types/PlansConfig.cs` line 1 (header), `pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1`
+  line 43 (text), `pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1` line 65 (text),
+  `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 2 (text), `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1`
+  line 32 (text), `pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1` line 19 (text),
+  `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1` line 153 (text), `pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs` line
+  9 (body comment), `pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1` line 65 (text),
   `pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1` line 31 (text),
   `pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1` line 41 (text),
-  `pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1` line 50 (text) and
-  `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs` line 20 (body comment); selected by [ADR-AUTO-FAILFAST][2]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 132 (text),
-  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 55 (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 76 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47
-  (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 583 (text),
-  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text),
-  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 153 (text) and
-  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text).
+  `pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1` line 50 (text) and `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs` line
+  20 (body comment); selected by [ADR-AUTO-FAILFAST][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it
+  at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 132 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 55 (body comment),
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 76 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text),
+  `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47 (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line
+  64 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 583 (text),
+  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line
+  153 (text) and `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text).
 
 ## Keywords
 

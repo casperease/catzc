@@ -4,16 +4,16 @@
 
 Every line below was re-read on 2026-10-15 after the comment export. The scout's numbers had all moved (for example the `-Direct` switch
 from `Invoke-Executable.ps1:58` to `:57-58`, the kill from `CliRunner.cs:189-196` to `:170-176`, `Invoke-Expression` from
-`Invoke-ExecutableDirect.ps1:55-57` to `:49`), so none is reused. Paths are relative to `pwsh/Catzc.Base.Execution/` unless they start
-with `automation/`, `docs/` or `.claude/`.
+`Invoke-ExecutableDirect.ps1:55-57` to `:49`), so none is reused. Paths are relative to `pwsh/Catzc.Base.Execution/` unless they start with
+`automation/`, `docs/` or `.claude/`.
 
 ## Boxes
 
 | #   | Claim (box)                                                                                      | Source (`file:line`)                                                                         | Status    |
 | --- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | --------- |
 | B1  | `Invoke-Executable` is a public function (code unit)                                             | `Invoke-Executable.ps1:49`, at the module root                                               | confirmed |
-| B2  | `Get-TimeoutSeconds` is a public function of `Catzc.Base.Timeouts` (frame)                       | `pwsh/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1:36`                                   | confirmed |
-| B3  | `timeouts.yml` is a config of `Catzc.Base.Timeouts`, read by `Get-TimeoutSeconds`                | `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml:7-29`; `Get-TimeoutSeconds.ps1:61,63`   | confirmed |
+| B2  | `Get-TimeoutSeconds` is a public function of `Catzc.Base.Timeouts` (frame)                       | `pwsh/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1:36`                                         | confirmed |
+| B3  | `timeouts.yml` is a config of `Catzc.Base.Timeouts`, read by `Get-TimeoutSeconds`                | `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml:7-29`; `Get-TimeoutSeconds.ps1:61,63`         | confirmed |
 | B4  | `Invoke-ExecutableStreamed` is private                                                           | `private/Invoke-ExecutableStreamed.ps1`                                                      | confirmed |
 | B5  | `CliRunner` is a C# type under `types/`                                                          | `types/CliRunner.cs:33,54`                                                                   | confirmed |
 | B6  | Failure `Kill · TimeoutException`: past the limit the process tree is killed and the call throws | `types/CliRunner.cs:170-179` (`Kill(entireProcessTree: true)`, `throw new TimeoutException`) | confirmed |
@@ -33,16 +33,16 @@ with `automation/`, `docs/` or `.claude/`.
 
 ## Bands, frame and sidebar
 
-| #   | Claim                                                                                                  | Source (`file:line`)                                                                         | Status                       |
-| --- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | ---------------------------- |
-| C1  | The two bands are the two parameter sets: `Stream` (default) and `Direct`                              | `Invoke-Executable.ps1:52,57-58,60-68`                                                       | confirmed                    |
-| C2  | `-TimeoutSeconds` belongs to the `Stream` set only, so `-Direct` cannot take a limit                   | `Invoke-Executable.ps1:66-68`                                                                | confirmed                    |
+| #   | Claim                                                                                                  | Source (`file:line`)                                                                   | Status                       |
+| --- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ---------------------------- |
+| C1  | The two bands are the two parameter sets: `Stream` (default) and `Direct`                              | `Invoke-Executable.ps1:52,57-58,60-68`                                                 | confirmed                    |
+| C2  | `-TimeoutSeconds` belongs to the `Stream` set only, so `-Direct` cannot take a limit                   | `Invoke-Executable.ps1:66-68`                                                          | confirmed                    |
 | C3  | The executable's limit is its `executables:` entry, else the environment's pwsh limit                  | `pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs:278-283`                             | confirmed                    |
-| C4  | `CliRunner` refuses a non-positive limit: every streamed run has one                                   | `types/CliRunner.cs:35-38,56-59`                                                             | confirmed                    |
+| C4  | `CliRunner` refuses a non-positive limit: every streamed run has one                                   | `types/CliRunner.cs:35-38,56-59`                                                       | confirmed                    |
 | C5  | The code's own comment calls `-Direct` unbounded by design ("a person at the prompt is its safeguard") | `docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md:37-40` (comment:1) | confirmed                    |
 | C6  | No in-tree caller passes `-Direct` (only the help example)                                             | grep `-Direct` over `pwsh/**/*.ps1` outside tests: `Invoke-Executable.ps1:36` only     | confirmed                    |
-| C7  | Supports: ADR-AUTO-DRYRUN#2, ADR-AUTO-TEST and ADR-PWSH-ASSERT#1, cited by the drawn code              | `Invoke-Executable.ps1:47,77`; `Get-TimeoutSeconds.ps1:6`; `timeouts.yml:2`                  | confirmed                    |
-| C8  | ADR-AUTO-FAILFAST#7 says `Invoke-Executable` kills a child process tree at its executable's limit      | `docs/adr/automation/fail-fast-with-asserts.md:59`; `.claude/CLAUDE.md:110`                  | contradicted (for `-Direct`) |
+| C7  | Supports: ADR-AUTO-DRYRUN#2, ADR-AUTO-TEST and ADR-PWSH-ASSERT#1, cited by the drawn code              | `Invoke-Executable.ps1:47,77`; `Get-TimeoutSeconds.ps1:6`; `timeouts.yml:2`            | confirmed                    |
+| C8  | ADR-AUTO-FAILFAST#7 says `Invoke-Executable` kills a child process tree at its executable's limit      | `docs/adr/automation/fail-fast-with-asserts.md:59`; `.claude/CLAUDE.md:110`            | contradicted (for `-Direct`) |
 
 Counts: 22 claims, 21 confirmed, 1 contradicted, 0 ADR-only.
 

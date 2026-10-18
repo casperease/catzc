@@ -41,8 +41,8 @@ per consumer, the allowed targets as group names (loose: any member) or specific
 ### responsibility:3 — Module conventions
 
 The quality gates over the shape of the module tree itself: every module folder follows the folder and file conventions, every checked-in
-binary under `pwsh/.vendor` and `pwsh/.compiled` is stored byte-exact, and every internal asset dependency — a module reading a
-file from its own folder — is inventoried from the code and covered by a test that runs in both run modes (see
+binary under `pwsh/.vendor` and `pwsh/.compiled` is stored byte-exact, and every internal asset dependency — a module reading a file from
+its own folder — is inventoried from the code and covered by a test that runs in both run modes (see
 [conventional-folders](../../adr/repository/conventional-folders.md) and
 [internal-asset-dependencies](../../adr/automation/internal-asset-dependencies.md)).
 

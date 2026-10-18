@@ -54,7 +54,9 @@ stages:
     displayName: "Deploy foundation (${{ parameters.Customer }})"
     dependsOn: CI
     # Skipped when the customer's unit is untouched; the later Deploy stages chain on this one, so they skip with it.
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'], 'True'))
+    condition:
+      and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'],
+      'True'))
     jobs:
       - ${{ each f in parameters.Foundations }}:
           - deployment: Foundation_${{ f.env }}

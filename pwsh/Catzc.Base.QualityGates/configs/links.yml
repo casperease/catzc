@@ -11,8 +11,7 @@ string_citations:
     pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1: its fixtures carry the ':' form the gate reports
     pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1: a ':' test tag is the malformed tag it proves is refused
     pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1: a ':' test tag is the malformed tag it proves is reported
-    pwsh/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1:
-      a ':' citation is the malformed mapping it proves is refused
+    pwsh/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1: a ':' citation is the malformed mapping it proves is refused
     pwsh/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1: a ':' citation is the malformed defined_by it proves is refused
     pwsh/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1:
       its fixtures are rule ids in registry form, the '### Rule' heading key Get-CatsAdrRuleIds returns
@@ -20,8 +19,7 @@ string_citations:
       its fixtures are rule ids in registry form, the '### Rule' heading key Get-CatsAdrRules returns
     pwsh/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1:
       its fixtures are rule ids in registry form, the '### Rule' heading key its statements are keyed by
-    pwsh/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1:
-      its Get-CatsAdrRules mocks return rule ids in registry form, the '### Rule' heading key
+    pwsh/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1: its Get-CatsAdrRules mocks return rule ids in registry form, the '### Rule' heading key
     pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1:
       its Get-CatsAdrRuleIds mock returns rule ids in registry form, the '### Rule' heading key
     pwsh/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1:

@@ -71,25 +71,25 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.cs` names the file language csharp
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs][11]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 7 (body
-  comment) (a passing mention only).
-- [pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs][12]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 8 (body comment)
-  (a passing mention only).
-- [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs][13]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 10 (body comment)
-  (a passing mention only).
+- [pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs][11]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 7 (body comment) (a
+  passing mention only).
+- [pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs][12]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 8 (body comment) (a
+  passing mention only).
+- [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs][13]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 10 (body comment) (a
+  passing mention only).
 
 ### automation × powershell (4 lit files)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][14]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 37
-  (text) and line 66 (text).
+- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][14]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 37 (text)
+  and line 66 (text).
 - [pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1][15]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 38 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][16]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at
-  line 54 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1][17]: selected by [ADR-CONF-LOADING][2]: the file cites it at
-  line 132 (text).
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][16]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 54
+  (text).
+- [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1][17]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 132
+  (text).
 
 ### automation × yaml (1 lit file)
 
@@ -110,62 +110,59 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/configuration/module-config-loading.md][2]: selected by [ADR-CONF-LOADING][2]: the ADR's own file.
 - [docs/adr/index.md][20]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 237 (text); selected by [ADR-CONF-LOADING][2]:
   the file cites it at line 236 (text).
-- [docs/how-to/pwsh/manual-test-plan/configs.md][21]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 44 (text) and line
-  63 (text).
+- [docs/how-to/pwsh/manual-test-plan/configs.md][21]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 44 (text) and line 63
+  (text).
 - [docs/how-to/getting-started/pwsh/add-a-module.md][22]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 72 (text).
 - [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][23]: selected by
   [ADR-CONF-ADDRESSING][1]: the file cites it at line 45 (text).
 - [docs/references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md][24]: selected by
   [ADR-CONF-LOADING][2]: the file cites it at line 45 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][25]: selected by [ADR-CONF-ADDRESSING][1]: the
-  file cites it at line 32 (text) and line 95 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][26]: selected by
-  [ADR-CONF-ADDRESSING][1]: the file cites it at line 17 (text) and line 21 (text).
-- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][27]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line
-  14 (text), line 23 (text), line 25 (text) and line 27 (text); selected by [ADR-CONF-LOADING][2]: the file cites it at line 16 (text) and
-  line 20 (text).
-- [docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md][28]: selected by [ADR-CONF-ADDRESSING][1]: the file
-  cites it at line 14 (text), line 20 (text), line 22 (text) and line 26 (text).
-- [docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md][29]: selected by [ADR-CONF-LOADING][2]: the file cites
-  it at line 12 (text).
-- [docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md][30]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 26
+- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][25]: selected by [ADR-CONF-ADDRESSING][1]: the file
+  cites it at line 32 (text) and line 95 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][26]: selected by [ADR-CONF-ADDRESSING][1]: the
+  file cites it at line 17 (text) and line 21 (text).
+- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][27]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 14
+  (text), line 23 (text), line 25 (text) and line 27 (text); selected by [ADR-CONF-LOADING][2]: the file cites it at line 16 (text) and line
+  20 (text).
+- [docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md][28]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it
+  at line 14 (text), line 20 (text), line 22 (text) and line 26 (text).
+- [docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md][29]: selected by [ADR-CONF-LOADING][2]: the file cites it at
+  line 12 (text).
+- [docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md][30]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md][31]: selected by [ADR-CONF-LOADING][2]: the file cites it at
+  line 21 (text).
+- [docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md][32]: selected by [ADR-CONF-LOADING][2]: the file cites it at
+  line 18 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][33]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 16
   (text).
-- [docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md][31]: selected by [ADR-CONF-LOADING][2]: the file cites
-  it at line 21 (text).
-- [docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md][32]: selected by [ADR-CONF-LOADING][2]: the file cites it
-  at line 18 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md][33]: selected by [ADR-CONF-LOADING][2]: the file cites it at line
-  16 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][34]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 15
-  (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][34]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md][35]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 16
   (text).
-- [docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md][36]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 16
+- [docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md][36]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md][37]: selected by [ADR-CONF-LOADING][2]: the file cites it at
+  line 18 (text).
+- [docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md][38]: selected by [ADR-CONF-LOADING][2]: the file cites it at
+  line 19 (text).
+- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][39]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 15
   (text).
-- [docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md][37]: selected by [ADR-CONF-LOADING][2]: the file cites it
-  at line 18 (text).
-- [docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md][38]: selected by [ADR-CONF-LOADING][2]: the file cites
-  it at line 19 (text).
-- [docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md][39]: selected by [ADR-CONF-LOADING][2]: the file cites it at line
-  15 (text).
-- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][40]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at
-  line 63 (text).
-- [docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md][41]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at
-  line 56 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][42]: selected by [ADR-CONF-LOADING][2]: the file cites it at
-  line 40 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md][43]: selected by [ADR-CONF-LOADING][2]: the file cites it
-  at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md][44]: selected by [ADR-CONF-LOADING][2]: the
-  file cites it at line 20 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md][45]: selected by [ADR-CONF-LOADING][2]: the file cites it
-  at line 13 (text).
-- [docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md][46]: selected by [ADR-CONF-LOADING][2]: the file cites it
-  at line 15 (text).
-- [docs/references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md][47]: selected by [ADR-CONF-LOADING][2]: the
-  file cites it at line 26 (text) and line 93 (text).
-- [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][48]: selected by [ADR-CONF-ADDRESSING][1]: the file
+- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][40]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 63
+  (text).
+- [docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md][41]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line
+  56 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md][42]: selected by [ADR-CONF-LOADING][2]: the file cites it at line 40
+  (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md][43]: selected by [ADR-CONF-LOADING][2]: the file cites it at
+  line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md][44]: selected by [ADR-CONF-LOADING][2]: the file
   cites it at line 20 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md][45]: selected by [ADR-CONF-LOADING][2]: the file cites it at
+  line 13 (text).
+- [docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md][46]: selected by [ADR-CONF-LOADING][2]: the file cites it at line
+  15 (text).
+- [docs/references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md][47]: selected by [ADR-CONF-LOADING][2]: the file
+  cites it at line 26 (text) and line 93 (text).
+- [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][48]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it
+  at line 20 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -174,13 +171,12 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][49]: selected by [ADR-CONF-ADDRESSING][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 37 (text),
-  `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 209
-  (text) and `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text); selected by [ADR-CONF-LOADING][2]: a
-  pipeline that cites nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line
-  208 (text), `pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1` line 38 (text),
-  `pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs` line 7 (body comment), `pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs` line
-  8 (body comment), `pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs` line 10 (body comment) and
-  `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 132 (text).
+  `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 209 (text) and
+  `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text); selected by [ADR-CONF-LOADING][2]: a pipeline that cites
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 208 (text),
+  `pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1` line 38 (text), `pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs` line 7 (body
+  comment), `pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs` line 8 (body comment), `pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs` line 10
+  (body comment) and `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 132 (text).
 
 ## Keywords
 

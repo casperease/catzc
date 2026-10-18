@@ -63,8 +63,8 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][9]: selected by [ADR-FLOW-CD][2]: the file cites it at line 70 (text)
-  and line 71 (text).
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][9]: selected by [ADR-FLOW-CD][2]: the file cites it at line 70 (text) and
+  line 71 (text).
 
 ### automation × yaml (3 lit files)
 
@@ -73,8 +73,8 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text); selected by
   [ADR-FLOW-CD][2]: the file cites it at line 97 (text).
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text);
-  selected by [ADR-FLOW-CD][2]: the file cites it at line 18 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text); selected by
+  [ADR-FLOW-CD][2]: the file cites it at line 18 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][12]: selected by [ADR-FLOW-CD][2]: the file cites it at line 58 (text).
 
 ### docs × markdown (12 lit files)
@@ -91,13 +91,12 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/index.md][16]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by [ADR-FLOW-CD][2]: the file
   cites it at line 129 (text).
 - [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][17]: selected by [ADR-FLOW-CD][2]: the file cites it at line 40 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][18]: selected by [ADR-FLOW-CD][2]: the file cites it at line 28
-  (text), line 29 (text), line 57 (text) and line 58 (text).
-- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][19]: selected by [ADR-FLOW-CD][2]: the file cites it at line 34
-  (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][18]: selected by [ADR-FLOW-CD][2]: the file cites it at line 28 (text), line
+  29 (text), line 57 (text) and line 58 (text).
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][19]: selected by [ADR-FLOW-CD][2]: the file cites it at line 34 (text).
 - [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][20]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][21]: selected by [ADR-FLOW-CD][2]: the file cites it at line
-  37 (text).
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][21]: selected by [ADR-FLOW-CD][2]: the file cites it at line 37
+  (text).
 - [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][22]: selected by [ADR-FLOW-CD][2]: the file cites it at line 54
   (text).
 
@@ -107,13 +106,11 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][23]: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-FLOW-CD][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
-  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
-  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 58 (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49
+  (text); selected by [ADR-FLOW-CD][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18
+  (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 58 (text).
 
 ## Keywords
 

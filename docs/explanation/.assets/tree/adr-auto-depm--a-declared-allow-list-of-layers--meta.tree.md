@@ -63,14 +63,14 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][7], in the cell docs ×
   markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 47 (text), line 54 (text), line 54 (text), line 71 (text) and line 73
   (text).
-- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][8], in the cell docs × markdown: selected
-  by [ADR-AUTO-DEPM][1]: the file cites it at line 110 (text) and line 114 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][8], in the cell docs × markdown: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 110 (text) and line 114 (text).
 - [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][9], in the cell docs × markdown: selected by
   [ADR-AUTO-DEPM][1]: the file cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][10], in the cell docs × markdown: selected by
   [ADR-AUTO-DEPM][1]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][11], in the cell docs × markdown: selected by
-  [ADR-AUTO-DEPM][1]: the file cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][11], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]:
+  the file cites it at line 13 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
@@ -85,8 +85,8 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][13], in the cell automation × yaml: selected by [ADR-AUTO-DEPM][1]: the file cites it at
-  line 138 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][13], in the cell automation × yaml: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 138
+  (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 

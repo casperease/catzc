@@ -16,8 +16,8 @@ generated-file paths — pwsh/.compiled/ (the committed compiled type assembly) 
 status rather than this run's reports also picks up a generated file an earlier import wrote but never committed (the .compiled DLL swap
 happens during load, before any switch is consulted).
 
-The commit stages and names only the generated paths that actually changed: a type rebuild commits 'pwsh/.compiled' as "chore(repo):
-sync compiled types". The stamp commit's pathspec and message are the same fact — never a sibling path that happened to be clean.
+The commit stages and names only the generated paths that actually changed: a type rebuild commits 'pwsh/.compiled' as "chore(repo): sync
+compiled types". The stamp commit's pathspec and message are the same fact — never a sibling path that happened to be clean.
 
 Guards, in order — each skip is one explanatory message and leaves the working tree untouched:
 
@@ -39,12 +39,12 @@ this on every load and a janitor never breaks the load.
   [ADR-REPO-VARIANT#6](../../../adr/repository/repo-variants.md#rule-adr-repo-variant6)): in that mode work always happens on a branch, so
   standing on main locally is the one place a direct commit is forbidden. In 'main-direct' (the default, a solo-author trunk) any named
   branch commits — including main, which IS the integration path (one-living-version).
-- Holds back pwsh/.compiled while it holds anything but the current build (Clear-ModuleTypeCache -DryRun lists the surplus): a
-  superseded DLL a live session still locks would otherwise be committed next to the new one. One red line names the surplus; any other
-  changed generated path still commits.
-- Holds back pwsh/.compiled while any type source (`pwsh/*/types/*.cs`) differs from HEAD: the build is named for the hash of
-  the sources in the working tree, so committing it ahead of them would leave HEAD with a build its own sources do not produce. One yellow
-  line asks for the sources to be committed; the next import commits the build.
+- Holds back pwsh/.compiled while it holds anything but the current build (Clear-ModuleTypeCache -DryRun lists the surplus): a superseded
+  DLL a live session still locks would otherwise be committed next to the new one. One red line names the surplus; any other changed
+  generated path still commits.
+- Holds back pwsh/.compiled while any type source (`pwsh/*/types/*.cs`) differs from HEAD: the build is named for the hash of the sources in
+  the working tree, so committing it ahead of them would leave HEAD with a build its own sources do not produce. One yellow line asks for
+  the sources to be committed; the next import commits the build.
 
 Past the guards it commits what changed under the generated paths — other uncommitted or staged work does not hold the stamp commit back.
 Invoke-GitCommit stages and commits by PATHSPEC (`git add -A --`/`git commit --` limited to the changed generated paths), so exactly the

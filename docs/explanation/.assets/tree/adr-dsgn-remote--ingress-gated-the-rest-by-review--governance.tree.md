@@ -47,14 +47,14 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][4], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
-  cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][4], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it
+  at line 14 (text).
 - [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][5], in the cell docs × markdown: selected by
   [ADR-REPO-VARIANT][3]: the file cites it at line 39 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][6], in the cell docs × markdown: selected by
-  [ADR-REPO-VARIANT][3]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][7], in the cell docs × markdown: selected by
-  [ADR-REPO-VARIANT][3]: the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][6], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][3]: the
+  file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][7], in the cell docs × markdown: selected by [ADR-REPO-VARIANT][3]:
+  the file cites it at line 11 (text).
 
 ### .claude (3 lit files)
 
@@ -79,10 +79,10 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][12], in the cell automation × powershell: selected by [ADR-REPO-VARIANT][3]:
-  the file cites it at line 44 (text).
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][13], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
-  cites it at line 49 (text).
+- [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][12], in the cell automation × powershell: selected by [ADR-REPO-VARIANT][3]: the
+  file cites it at line 44 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][13], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it
+  at line 49 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
@@ -104,9 +104,9 @@ The group holds the files of docs/adr/repository; each sits in its world-map cel
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][17], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at
-  line 78 (text); selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 79 (text); selected by [ADR-REPO-VARIANT][3]: the file cites
-  it at line 303 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][17], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78
+  (text); selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 79 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at
+  line 303 (text).
 
 ### pipelines (1 lit file)
 
@@ -114,11 +114,10 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][18], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text); selected by
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing itself
+  carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text); selected by
   [ADR-REPO-VARIANT][3]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and `pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44
-  (text).
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and `pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44 (text).
 
 ## Keywords
 

@@ -2,9 +2,9 @@
 
 The import-time engine. It does the heavy lifting the [Importer overlay](catzc-internal-importer.md) delegates to: discovering the modules
 on disk, generating each module's manifest, compiling and loading every module's native C# types into one assembly, and guarding against
-function-name collisions — all before any `pwsh/*` module's functions exist. It is **transient**: loaded early and removed at the tail
-of `Invoke-Importer`, so its import-time functions do not linger in the session. Its console writer, `Write-ImporterMessage`, is what the
-whole importer routes output through, because the module system's own `Write-Message` is not loaded yet.
+function-name collisions — all before any `pwsh/*` module's functions exist. It is **transient**: loaded early and removed at the tail of
+`Invoke-Importer`, so its import-time functions do not linger in the session. Its console writer, `Write-ImporterMessage`, is what the whole
+importer routes output through, because the module system's own `Write-Message` is not loaded yet.
 
 ## What it does
 
@@ -23,21 +23,21 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   are LF, and the output is formatter-stable — running the formatter over it is a no-op — so the bytes are identical on every platform and
   every build of a commit ([ADR-REPO-FORMAT#1](../../../adr/repository/uniform-formatting.md)).
 - **C# type compile and load** — `Import-CSharpTypes` compiles every module's `types/*.cs` into one hash-keyed assembly,
-  `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the
-  combined source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never
-  drift), enforces the loader's poka-yokes (a dotted filename or a namespace that does not match the module folder is rejected — the same
-  invariant the `Test-Formatting` gate checks through `Format-Types`), loads the committed DLL when its hash matches or compiles fresh
-  through Roslyn once per hash, verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it
-  degrades gracefully when a live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since
-  load; in CI a stale-types load is a hard failure. The full contract is the
-  [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) ADR and the [BCL type-system reference](../BCL/types-system.md).
+  `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the combined
+  source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never drift),
+  enforces the loader's poka-yokes (a dotted filename or a namespace that does not match the module folder is rejected — the same invariant
+  the `Test-Formatting` gate checks through `Format-Types`), loads the committed DLL when its hash matches or compiles fresh through Roslyn
+  once per hash, verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades
+  gracefully when a live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI
+  a stale-types load is a hard failure. The full contract is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)
+  ADR and the [BCL type-system reference](../BCL/types-system.md).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
   failure before anything loads. It catches two cases and reports all of them at once: two automation modules exporting the same name, and
   an automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal`
   module).
-- **Pre-import cache wipe** — `Clear-CompiledType` deletes every `pwsh/.compiled/*.dll` before modules load, so the
-  `-ClearCompiledTypes` switch forces a rebuild from source. It is best-effort (a locked DLL is skipped) and distinct from the post-import
-  `Clear-ModuleTypeCache` janitor, which keeps the current build and self-skips in CI.
+- **Pre-import cache wipe** — `Clear-CompiledType` deletes every `pwsh/.compiled/*.dll` before modules load, so the `-ClearCompiledTypes`
+  switch forces a rebuild from source. It is best-effort (a locked DLL is skipped) and distinct from the post-import `Clear-ModuleTypeCache`
+  janitor, which keeps the current build and self-skips in CI.
 
 ## Functions
 

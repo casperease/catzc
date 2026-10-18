@@ -48,8 +48,8 @@ reconciled to the tools present. Each lasting change is announced
 ### Rule ADR-PWSH-ENGINE:5
 
 The build's entry is `Import-Catzc.ps1`, the pwsh mechanics of [platform-bundle](../automation/platform-bundle.md) (ADR-AUTO-BUNDLE#3,
-ADR-AUTO-BUNDLE#8). It is authored once, at `pwsh/.internal/assets/Import-Catzc.ps1`, and copied verbatim into every build; the
-build's generated `Catzc.psm1` dot-sources it, so `Import-Module Catzc` and `. <build>/Import-Catzc.ps1` set up the same session. It sets
+ADR-AUTO-BUNDLE#8). It is authored once, at `pwsh/.internal/assets/Import-Catzc.ps1`, and copied verbatim into every build; the build's
+generated `Catzc.psm1` dot-sources it, so `Import-Module Catzc` and `. <build>/Import-Catzc.ps1` set up the same session. It sets
 `$env:RepositoryRoot` (its `-RepositoryRoot`, else the value already set, else the current location) and `$env:CatzcModulesRoot` (its own
 folder), then calls `Invoke-Importer -Bundle`, which sets the preferences of ADR-PWSH-ENGINE#3 and registers the prebuilt types and their
 accelerators ([hosting-csharp-types](hosting-csharp-types.md#rule-adr-pwsh-types2)) before it reads any module's prebuilt manifest. The root

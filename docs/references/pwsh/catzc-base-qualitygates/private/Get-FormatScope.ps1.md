@@ -18,8 +18,8 @@ file. Third-party code that .gitattributes marks `linguist-vendored` is never fo
 contract asset, which .gitattributes marks `catzc-contract`: its bytes are what a contract check compares
 ([ADR-REPO-CONTRACT#6](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract6)), and a released contract version stays
 byte-frozen ([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)), so a formatter upgrade must never
-rewrite one. Nor is a file .gitattributes marks `binary`, such as the generated output under pwsh/.compiled: git stores its bytes as
-they are, so no text formatter rewrites them. The classes are declared once, in the .gitattributes source
+rewrite one. Nor is a file .gitattributes marks `binary`, such as the generated output under pwsh/.compiled: git stores its bytes as they
+are, so no text formatter rewrites them. The classes are declared once, in the .gitattributes source
 ([ADR-PRIN-CONFIG#4](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config4)). A tracked file deleted from the working
 tree is left out.
 

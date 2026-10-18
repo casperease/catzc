@@ -25,7 +25,7 @@ function Test-ScriptAnalyzer {
                 Join-Path $root $item
             }
             if (Test-Path -LiteralPath $full -PathType Container) {
-                # Scripts reach four levels below automation (module, tests, types, file); vendored modules are pruned.
+                # Scripts reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned.
                 foreach ($script in Get-ChildPath $full -File -Filter '*.ps1', '*.psm1' -Depth 4) {
                     $files.Add($script)
                 }

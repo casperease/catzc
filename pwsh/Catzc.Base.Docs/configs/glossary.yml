@@ -590,8 +590,8 @@ concepts:
     domain: automation
     defined_by: ADR-AUTO-LAYERS#2
     short:
-      The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its hosted
-      C#, Bash, Python and Go.
+      The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its
+      hosted C#, Bash, Python and Go.
     realized_by: { kind: prose-only }
     contrasts:
       file language:

@@ -48,24 +48,24 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 
 - [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][2], in the cell docs × markdown:
   selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 55 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][3], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]:
-  the file cites it at line 16 (text) and line 69 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][3], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]: the
+  file cites it at line 16 (text) and line 69 (text).
 - [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][4], in the cell docs × markdown: selected by
   [ADR-DSGN-ASPECT][1]: the file cites it at line 109 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][5], in the cell docs × markdown: selected by
-  [ADR-DSGN-ASPECT][1]: the file cites it at line 11 (text).
-- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][6], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]: the
-  file cites it at line 11 (text), line 24 (text) and line 52 (text).
-- [docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md][7], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]: the
-  file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][8], in the cell docs × markdown: selected
-  by [ADR-DSGN-ASPECT][1]: the file cites it at line 50 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][9], in the cell docs × markdown: selected by
-  [ADR-DSGN-ASPECT][1]: the file cites it at line 61 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md][10], in the cell docs × markdown: selected by
-  [ADR-DSGN-ASPECT][1]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][11], in the cell docs × markdown: selected by
-  [ADR-DSGN-ASPECT][1]: the file cites it at line 28 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][5], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]:
+  the file cites it at line 11 (text).
+- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][6], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]: the file
+  cites it at line 11 (text), line 24 (text) and line 52 (text).
+- [docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md][7], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]: the file
+  cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][8], in the cell docs × markdown: selected by
+  [ADR-DSGN-ASPECT][1]: the file cites it at line 50 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][9], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]: the
+  file cites it at line 61 (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md][10], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]:
+  the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][11], in the cell docs × markdown: selected by [ADR-DSGN-ASPECT][1]:
+  the file cites it at line 28 (text).
 
 ### .claude (3 lit files)
 
@@ -90,22 +90,22 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][16], in the cell automation × yaml: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
-  line 83 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][16], in the cell automation × yaml: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 83
+  (text).
 
 ### Globs (pwsh/Catzc.Base.Globs, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][17], in the cell automation × powershell: selected by
-  [ADR-DSGN-ASPECT][1]: the file cites it at line 33 (text).
+- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][17], in the cell automation × powershell: selected by [ADR-DSGN-ASPECT][1]: the
+  file cites it at line 33 (text).
 
 ### Modules (pwsh/Catzc.Base.Modules, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Modules; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1][18], in the cell automation × powershell: selected by [ADR-DSGN-ASPECT][1]: the
-  file cites it at line 1 (header).
+- [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1][18], in the cell automation × powershell: selected by [ADR-DSGN-ASPECT][1]: the file
+  cites it at line 1 (header).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
@@ -119,8 +119,8 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][20], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-ASPECT][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 83 (text),
-  `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 33 (text) and
-  `pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` line 1 (header).
+  `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 33 (text) and `pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` line 1
+  (header).
 
 ## Keywords
 

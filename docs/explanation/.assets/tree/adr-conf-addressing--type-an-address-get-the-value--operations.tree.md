@@ -52,23 +52,23 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 45 (text).
 - [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][4], in the cell docs × markdown: selected by
   [ADR-CONF-ADDRESSING][2]: the file cites it at line 32 (text) and line 95 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][5], in the cell docs × markdown:
-  selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 17 (text) and line 21 (text).
-- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][6], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]:
-  the file cites it at line 29 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 14 (text), line 23 (text), line 25
-  (text) and line 27 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][5], in the cell docs × markdown: selected by
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 17 (text) and line 21 (text).
+- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][6], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the
+  file cites it at line 29 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 14 (text), line 23 (text), line 25 (text)
+  and line 27 (text).
 - [docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md][7], in the cell docs × markdown: selected by
   [ADR-CONF-ADDRESSING][2]: the file cites it at line 14 (text), line 20 (text), line 22 (text) and line 26 (text).
-- [docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md][8], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]:
-  the file cites it at line 97 (text).
-- [docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md][9], in the cell docs × markdown: selected by
-  [ADR-AUTO-ENVVAR][1]: the file cites it at line 109 (text).
-- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][10], in the cell docs × markdown: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 63 (text).
+- [docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md][8], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the
+  file cites it at line 97 (text).
+- [docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md][9], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]:
+  the file cites it at line 109 (text).
+- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][10], in the cell docs × markdown: selected by [ADR-CONF-ADDRESSING][2]:
+  the file cites it at line 63 (text).
 - [docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md][11], in the cell docs × markdown: selected by
   [ADR-CONF-ADDRESSING][2]: the file cites it at line 56 (text).
-- [docs/references/pwsh/catzc-tooling-environment.md][12], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 4 (text), line 30 (text), line 31 (text) and line 31 (text).
+- [docs/references/pwsh/catzc-tooling-environment.md][12], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it
+  at line 4 (text), line 30 (text), line 31 (text) and line 31 (text).
 - [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][13], in the cell docs × markdown: selected by
   [ADR-AUTO-ENVVAR][1]: the file cites it at line 43 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (text).
 
@@ -104,15 +104,15 @@ The group holds the files of docs/adr/configuration; each sits in its world-map 
 
 The group holds the files of pwsh/Catzc.Base.Config; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][19], in the cell automation × powershell: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 37 (text) and line 66 (text).
+- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][19], in the cell automation × powershell: selected by [ADR-CONF-ADDRESSING][2]:
+  the file cites it at line 37 (text) and line 66 (text).
 
 ### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][20], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at
-  line 139 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 209 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][20], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line
+  139 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 209 (text).
 
 ### Folders (pwsh/Catzc.Base.Folders, 1 lit file)
 
@@ -125,8 +125,8 @@ The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][22], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the
-  file cites it at line 589 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][22], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file
+  cites it at line 589 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
@@ -142,9 +142,9 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipelines/ci-automation.yaml][24], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-ENVVAR][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 139 (text) and
   `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 589 (text); selected by [ADR-CONF-ADDRESSING][2]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 37
-  (text), `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line
-  209 (text) and `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text).
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 37 (text),
+  `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 209 (text) and
+  `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text).
 
 ## Keywords
 

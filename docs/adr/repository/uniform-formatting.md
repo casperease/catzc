@@ -121,8 +121,8 @@ save.
 
 The baseline is the floor. Each language adds its own `.editorconfig` section (indent width, line length) and, where it has one, a formatter
 engine and an analyzer. The exact per-language values live in `.editorconfig`, and which engine formats each language lives in the
-file-language registry, `pwsh/Catzc.Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell
-is governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../pwsh/powershell-formatting.md)), Markdown by
+file-language registry, `pwsh/Catzc.Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell is
+governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../pwsh/powershell-formatting.md)), Markdown by
 `.markdownlint.yml`, and pipeline YAML by the naming-and-placement check `Test-Pipelines`
 ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)).
 

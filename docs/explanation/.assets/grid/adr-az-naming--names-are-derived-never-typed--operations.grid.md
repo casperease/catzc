@@ -78,26 +78,26 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
   [ADR-AZ-NAMING][1]: the file cites it at line 43 (text).
 - [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][12]: selected by [ADR-AZ-NAMING][1]:
   the file cites it at line 54 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][13]: selected by [ADR-AZ-NAMING][1]: the file cites it at
-  line 97 (text), line 108 (text) and line 127 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][14]: selected by [ADR-AZ-NAMING][1]: the file cites it
-  at line 29 (text) and line 32 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][15]: selected by [ADR-AZ-NAMING][1]: the file cites it at
-  line 76 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][16]: selected by [ADR-AZ-NAMING][1]: the file cites it at
-  line 142 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][17]: selected by [ADR-AZ-NAMING][1]: the file
-  cites it at line 28 (text) and line 94 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][18]: selected by [ADR-AZ-NAMING][1]: the file
-  cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][19]: selected by [ADR-AZ-NAMING][1]: the file cites it at
-  line 12 (text), line 32 (text) and line 64 (text).
-- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][20]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 32 (text),
-  line 77 (text) and line 110 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][13]: selected by [ADR-AZ-NAMING][1]: the file cites it at line
+  97 (text), line 108 (text) and line 127 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][14]: selected by [ADR-AZ-NAMING][1]: the file cites it at
+  line 29 (text) and line 32 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][15]: selected by [ADR-AZ-NAMING][1]: the file cites it at line
+  76 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][16]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 142
+  (text).
+- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][17]: selected by [ADR-AZ-NAMING][1]: the file cites it
+  at line 28 (text) and line 94 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][18]: selected by [ADR-AZ-NAMING][1]: the file cites
+  it at line 14 (text).
+- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][19]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 12
+  (text), line 32 (text) and line 64 (text).
+- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][20]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 32 (text), line 77
+  (text) and line 110 (text).
 - [docs/references/pwsh/catzc-azure/configs/customer.yml.md][21]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 19 (text).
 - [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][22]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 28 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][23]: selected by [ADR-AZ-NAMING][1]: the file cites it at line
-  12 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][23]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 12
+  (text).
 - [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][24]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 23
   (text).
 

@@ -12,8 +12,8 @@ domain structure.
 
 ### description
 
-index.md is a derived projection of pwsh/Catzc.Base.Docs/configs/adrs.yml: authored preamble and authoring-convention prose wrapped
-around one code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format
+index.md is a derived projection of pwsh/Catzc.Base.Docs/configs/adrs.yml: authored preamble and authoring-convention prose wrapped around
+one code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format
 Get-CatsAdrIndex parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/adr/<domain>/**/<slug>.md`
 file.
 

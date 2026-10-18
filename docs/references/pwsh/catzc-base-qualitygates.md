@@ -56,13 +56,13 @@ processors), the one formatting command (`Format-Code`, which runs the formatter
 Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer, `dotnet format`, the pinned Bicep CLI — with one private
 adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the Python
 lint and type quality gates (`Test-PythonLint`, `ruff check`; `Test-PythonTypes`, `pyright`, the engine Pylance runs in the editor) over
-every `.py` file the repository holds, the shell-script quality gate
-(`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over every shell script it tracks
-([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality gate, which keep code links
-repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)), and the comment
-converters and their quality gate, which move every long comment into its file's comment page, leaving nothing behind in the file, and write
-the annotated view ([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not
-the tool itself or its per-tool configuration.
+every `.py` file the repository holds, the shell-script quality gate (`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over
+every shell script it tracks ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality
+gate, which keep code links repository-rooted and markdown links relative and resolving
+([markdown-links](../../adr/repository/markdown-links.md)), and the comment converters and their quality gate, which move every long comment
+into its file's comment page, leaving nothing behind in the file, and write the annotated view
+([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not the tool itself or
+its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
 

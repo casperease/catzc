@@ -1,12 +1,12 @@
 # Catzc.Base.TypesSystem
 
-The native C# type system's support layer: it keeps the single committed combined type assembly under `pwsh/.compiled/` clean,
-computes the cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds into its dependency
-integrity check. It deliberately does **not** own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes`
-(in `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that
-checks it live in [Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build it does drive is the editor-facing MSBuild of those
-same sources (`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile.
-The full type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
+The native C# type system's support layer: it keeps the single committed combined type assembly under `pwsh/.compiled/` clean, computes the
+cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds into its dependency integrity check.
+It deliberately does **not** own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes` (in
+`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that checks it
+live in [Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build it does drive is the editor-facing MSBuild of those same
+sources (`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The
+full type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 
 ## Responsibilities
 
@@ -20,10 +20,10 @@ The full type-system contract is [native-csharp-types](../../adr/automation/BCL/
 
 ### responsibility:1 — Compiled type-assembly cache
 
-Housekeeping for the single committed combined C# type assembly (`pwsh/.compiled/Catzc.Types.<hash>.dll`). `Clear-ModuleTypeCache` is
-the post-import janitor: it keeps the one assembly whose name matches the current combined source hash and prunes every superseded build, so
-the committed `.compiled` stays a clean −1/+1 diff when a type changes. Its delete pass is devbox-only (CI makes no source-control changes)
-and best-effort about locked files, with an opt-in fail-fast for a stale build the running session still holds. But the one-committed-build
+Housekeeping for the single committed combined C# type assembly (`pwsh/.compiled/Catzc.Types.<hash>.dll`). `Clear-ModuleTypeCache` is the
+post-import janitor: it keeps the one assembly whose name matches the current combined source hash and prunes every superseded build, so the
+committed `.compiled` stays a clean −1/+1 diff when a type changes. Its delete pass is devbox-only (CI makes no source-control changes) and
+best-effort about locked files, with an opt-in fail-fast for a stale build the running session still holds. But the one-committed-build
 invariant is enforced everywhere: when a second `Catzc.Types.*.dll` coexists it always warns (yellow), and in a pipeline it throws — a
 locked stale DLL committed instead of deleted must not reach trunk. Its combined-hash computation mirrors the loader's exactly, so it can
 never plan the live build for deletion.
@@ -45,8 +45,8 @@ reference, stripping comments, string literals, and each file's own namespace so
 ### responsibility:3 — Editor type-project build
 
 The editor-facing build of the native type sources, kept separate from the runtime's `Add-Type` compile. `Invoke-BuildForVSCode` drives
-`dotnet build` over the committed IDE-only `Catzc.Types.csproj` (under `pwsh/.internal/assets/`, auto-loaded in the editor via the
-root `catzc.sln`), so VS Code's C# Dev Kit sees the `types/*.cs` exactly as the runtime does — Go-to-Symbol and F12 resolve to source, the
+`dotnet build` over the committed IDE-only `Catzc.Types.csproj` (under `pwsh/.internal/assets/`, auto-loaded in the editor via the root
+`catzc.sln`), so VS Code's C# Dev Kit sees the `types/*.cs` exactly as the runtime does — Go-to-Symbol and F12 resolve to source, the
 backtrack a bare type accelerator cannot give. The same build runs the Roslyn analyzers `Add-Type` never does and the project's stamp task,
 which fails when the committed `.compiled` assembly is stale versus the sources, so a green build doubles as a check that the IDE project
 matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable` rather than the Tooling layer's `Invoke-Dotnet`, which this

@@ -77,7 +77,9 @@ stages:
     displayName: "Deploy foundation → nsub, psub"
     dependsOn: CI
     # Skipped when the shared unit is untouched; the later Deploy stages chain on this one, so they skip with it.
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'], 'True'))
+    condition:
+      and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'],
+      'True'))
     jobs:
       - deployment: Foundation_nsub
         displayName: "foundation → nsub (nonprod sub)"

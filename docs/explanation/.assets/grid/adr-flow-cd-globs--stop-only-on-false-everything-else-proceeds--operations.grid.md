@@ -56,11 +56,11 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.cs` names the file language csharp
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pwsh/Catzc.Base.Globs/types/GlobPattern.cs][5]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 23 (text), line 27
-  (text), line 31 (text), line 43 (text), line 47 (text) and line 56 (text).
+- [pwsh/Catzc.Base.Globs/types/GlobPattern.cs][5]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 23 (text), line 27 (text),
+  line 31 (text), line 43 (text), line 47 (text) and line 56 (text).
 - [pwsh/Catzc.Base.Globs/types/GlobSet.cs][6]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 54 (text).
-- [pwsh/Catzc.Base.Globs/types/GlobsConfig.cs][7]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 73 (text), line 136
-  (text), line 140 (text) and line 154 (text).
+- [pwsh/Catzc.Base.Globs/types/GlobsConfig.cs][7]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 73 (text), line 136 (text),
+  line 140 (text) and line 154 (text).
 
 ### automation × powershell (5 lit files)
 
@@ -68,13 +68,12 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][8]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 42 (text).
-- [pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1][9]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 2
-  (text) and line 4 (text).
-- [pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1][10]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 58
-  (text).
+- [pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1][9]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 2 (text)
+  and line 4 (text).
+- [pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1][10]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 58 (text).
 - [pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1][11]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 9 (text).
-- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][12]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 53
-  (text), line 66 (text), line 77 (text) and line 89 (text).
+- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][12]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 53 (text),
+  line 66 (text), line 77 (text) and line 89 (text).
 
 ### automation × yaml (2 lit files)
 
@@ -82,8 +81,7 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][13]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 101 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][14]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1216
-  (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][14]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1216 (text).
 
 ### docs × markdown (62 lit files)
 
@@ -93,112 +91,109 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/flow/dora-explains.md][15]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 92 (text).
 - [docs/adr/flow/durable-sha-globs.md][1]: selected by [ADR-FLOW-CD-GLOBS][1]: the ADR's own file.
 - [docs/adr/index.md][16]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 133 (text).
-- [docs/how-to/pwsh/manual-test-plan/pipelines-and-globs.md][17]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 16
-  (text).
+- [docs/how-to/pwsh/manual-test-plan/pipelines-and-globs.md][17]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 16 (text).
 - [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][18]: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 55 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][19]: selected by [ADR-FLOW-CD-GLOBS][1]:
-  the file cites it at line 17 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][20]: selected by
-  [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (text) and line 74 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md][21]: selected by
-  [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][22]: selected by [ADR-FLOW-CD-GLOBS][1]:
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][19]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
+  cites it at line 17 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][20]: selected by [ADR-FLOW-CD-GLOBS][1]: the
+  file cites it at line 14 (text) and line 74 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md][21]: selected by [ADR-FLOW-CD-GLOBS][1]:
   the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][22]: selected by [ADR-FLOW-CD-GLOBS][1]: the
+  file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][23]: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md][24]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
-  line 14 (text).
+- [docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md][24]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
+  14 (text).
 - [docs/references/pwsh/catzc-base-globs.md][25]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 27 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md][26]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
-  15 (text) and line 27 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md][27]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
-  (text).
-- [docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][28]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
-  line 26 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md][26]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15
+  (text) and line 27 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md][27]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][28]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
+  26 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md][29]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
   (text) and line 16 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md][30]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 20
   (text).
-- [docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md][31]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
-  15 (text), line 29 (text) and line 30 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md][32]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
-  line 14 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][33]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
-  58 (text), line 61 (text) and line 109 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md][31]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15
+  (text), line 29 (text) and line 30 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md][32]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
+  (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][33]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 58
+  (text), line 61 (text) and line 109 (text).
 - [docs/references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md][34]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15
   (text).
-- [docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md][35]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 24 (text) and line 25 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md][36]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 24 (text) and line 25 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][37]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
-  line 17 (text) and line 20 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md][38]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
-  at line 18 (text), line 56 (text) and line 66 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md][39]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 15 (text).
-- [docs/references/pwsh/catzc-base-globs/configs/globs.yml.md][40]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 12
-  (text), line 17 (text), line 25 (text), line 27 (text), line 41 (text), line 71 (text) and line 85 (text).
-- [docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md][41]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md][35]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 24 (text) and line 25 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md][36]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 24 (text) and line 25 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][37]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17
+  (text) and line 20 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md][38]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
+  18 (text), line 56 (text) and line 66 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md][39]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 15 (text).
+- [docs/references/pwsh/catzc-base-globs/configs/globs.yml.md][40]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 12 (text),
+  line 17 (text), line 25 (text), line 27 (text), line 41 (text), line 71 (text) and line 85 (text).
+- [docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md][41]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
+  14 (text).
+- [docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md][42]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
   line 14 (text).
-- [docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md][42]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
-  at line 14 (text).
-- [docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md][43]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 16 (text).
-- [docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md][44]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
-  at line 18 (text).
-- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][45]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 33 (text) and line 108 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md][46]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][47]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md][48]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 12 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md][49]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md][50]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
+- [docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md][43]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 16 (text).
+- [docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md][44]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 18 (text).
+- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][45]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 33 (text) and line 108 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md][46]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][47]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 12 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md][48]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 12 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md][49]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md][50]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 12 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md][51]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 12 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md][52]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 12 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md][53]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 11 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md][54]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 12 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][55]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
   it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md][51]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md][52]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md][53]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 11 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md][54]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][55]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md][56]: selected by [ADR-FLOW-CD-GLOBS][1]: the
-  file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][57]: selected by [ADR-FLOW-CD-GLOBS][1]: the
-  file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md][58]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 11 (text) and line 13 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md][59]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
-  at line 12 (text) and line 14 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md][60]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites
-  it at line 14 (text), line 16 (text) and line 25 (text).
-- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][61]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 19
-  (text).
-- [docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md][62]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
-  11 (text) and line 17 (text).
-- [docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md][63]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
-  17 (text), line 18 (text) and line 19 (text).
-- [docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md][64]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 13
-  (text), line 15 (text), line 16 (text), line 22 (text), line 25 (text), line 27 (text), line 30 (text), line 38 (text), line 47 (text),
-  line 65 (text), line 82 (text), line 92 (text), line 116 (text) and line 124 (text).
-- [docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md][65]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
-  13 (text), line 17 (text), line 20 (text) and line 39 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md][66]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
-  line 97 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md][67]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][68]: selected by [ADR-FLOW-CD-GLOBS][1]:
-  the file cites it at line 80 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][69]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
-  cites it at line 17 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md][56]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
+  cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][57]: selected by [ADR-FLOW-CD-GLOBS][1]: the file
+  cites it at line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md][58]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 11 (text) and line 13 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md][59]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 12 (text) and line 14 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md][60]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+  line 14 (text), line 16 (text) and line 25 (text).
+- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][61]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md][62]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 11
+  (text) and line 17 (text).
+- [docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md][63]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17
+  (text), line 18 (text) and line 19 (text).
+- [docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md][64]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 13 (text),
+  line 15 (text), line 16 (text), line 22 (text), line 25 (text), line 27 (text), line 30 (text), line 38 (text), line 47 (text), line 65
+  (text), line 82 (text), line 92 (text), line 116 (text) and line 124 (text).
+- [docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md][65]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 13
+  (text), line 17 (text), line 20 (text) and line 39 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md][66]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line
+  97 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md][67]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][68]: selected by [ADR-FLOW-CD-GLOBS][1]: the
+  file cites it at line 80 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][69]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+  at line 17 (text).
 - [docs/references/pipelines/cd-apex.yaml.md][70]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 31 (text).
 - [docs/references/pipelines/cd-flux.yaml.md][71]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 30 (text).
 - [docs/references/pipelines/cd-nova.yaml.md][72]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 30 (text).
@@ -220,21 +215,18 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][77]: selected by [ADR-FLOW-CD-GLOBS][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 101 (text),
-  `pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 42 (text),
-  `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 2 (text),
-  `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 4 (text),
-  `pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 58 (text),
-  `pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 9 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1`
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 101 (text), `pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1`
+  line 42 (text), `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 2 (text),
+  `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 4 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line
+  58 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 9 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1`
   line 53 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 66 (text),
-  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 77 (text),
-  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 89 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 23
-  (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 27 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 31
-  (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 43 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 47
-  (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text), `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1216 (text).
+  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 77 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line
+  89 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 23 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 27 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 31 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 43 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 47 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1216 (text).
 
 ## Keywords
 

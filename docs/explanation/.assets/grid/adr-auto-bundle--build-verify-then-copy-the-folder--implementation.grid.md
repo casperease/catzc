@@ -84,32 +84,29 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/automation/platform-bundle.md][1]: selected by [ADR-AUTO-BUNDLE][1]: the ADR's own file.
 - [docs/adr/glossary.md][12]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 595 (text).
 - [docs/adr/index.md][13]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 173 (text).
-- [docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md][14]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it
-  at line 20 (text).
-- [docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md][15]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 14 (text).
+- [docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md][14]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
+  line 20 (text).
+- [docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md][15]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 14
+  (text).
 - [docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md][16]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 14
   (text).
-- [docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md][17]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 14
-  (text).
+- [docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md][17]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 14 (text).
 - [docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md][18]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 15
   (text).
-- [docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md][19]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it
+- [docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md][19]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
+  line 14 (text).
+- [docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md][20]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 17
+  (text).
+- [docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md][21]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it
+  at line 15 (text).
+- [docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md][22]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it
   at line 14 (text).
-- [docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md][20]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line
-  17 (text).
-- [docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md][21]: selected by [ADR-AUTO-BUNDLE][1]: the file
-  cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md][22]: selected by [ADR-AUTO-BUNDLE][1]: the file
-  cites it at line 14 (text).
-- [docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md][23]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 13 (text).
-- [docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md][24]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
-  line 12 (text).
-- [docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md][25]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md][23]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 13
   (text).
-- [docs/references/pwsh/internal/assets/Import-Catzc.ps1.md][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 15
+- [docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md][24]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 12
   (text).
+- [docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md][25]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 14 (text).
+- [docs/references/pwsh/internal/assets/Import-Catzc.ps1.md][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 15 (text).
 
 ### github-workflows × yaml (1 lit file, touched)
 
@@ -125,8 +122,8 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][28]: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text),
-  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 501 (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text).
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 501
+  (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text).
 
 ## Keywords
 

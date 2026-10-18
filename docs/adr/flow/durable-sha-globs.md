@@ -168,7 +168,7 @@ identities.
 
 | Pattern               | Matches                              | Does not match              |
 | --------------------- | ------------------------------------ | --------------------------- |
-| `pwsh/**`       | `automation/a.ps1`, `automation/x/y` | `automation2/a.ps1`         |
+| `pwsh/**`             | `automation/a.ps1`, `automation/x/y` | `automation2/a.ps1`         |
 | `**/*.md`             | `README.md`, `docs/adr/index.md`     | `docs/adr` (a folder)       |
 | `pipelines/ci-*.yaml` | `pipelines/ci-automation.yaml`       | `pipelines/steps/ci-x.yaml` |
 | `**/tests/**/*.ps1`   | `automation/M/tests/a.Tests.ps1`     | `automation/M/a.ps1`        |
@@ -273,9 +273,9 @@ pairwise-disjoint — but on their **OWN** contribution, never their effective m
 makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it composes, so on effective membership every
 customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a base" — not a peer collision.
 On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and the base owns the shared
-surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under
-`pwsh/Catzc.Base.Globs/` belongs to the `automation` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a
-deployable-unit — three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
+surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under `pwsh/Catzc.Base.Globs/`
+belongs to the `automation` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a deployable-unit — three layers,
+one file. Cross-layer overlap is never a violation; only same-layer overlap is.
 
 A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
 in a clean tree, a tripwire for a file dropped at `automation/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt

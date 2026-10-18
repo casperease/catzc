@@ -56,38 +56,38 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 22 (text).
 - [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][5], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 102 (text).
-- [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][6], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the
-  file cites it at line 27 (text).
+- [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][6], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file
+  cites it at line 27 (text).
 - [docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md][7], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md][8], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md][9], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 37 (text).
-- [docs/references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md][10], in the cell docs × markdown:
-  selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 32 (text) and line 100 (text).
+- [docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md][9], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
+  the file cites it at line 37 (text).
+- [docs/references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md][10], in the cell docs × markdown: selected
+  by [ADR-AUTO-FAILFAST][1]: the file cites it at line 32 (text) and line 100 (text).
 - [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][11], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][12], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 25 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][12], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
+  the file cites it at line 25 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][13], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][14], in the cell docs × markdown: selected
-  by [ADR-AUTO-FAILFAST][1]: the file cites it at line 25 (text).
-- [docs/references/pwsh/catzc-base-timeouts/Assert-Wait.ps1.md][15], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
-  the file cites it at line 23 (text) and line 24 (text).
-- [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][16], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][17], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-typessystem.md][18], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file
-  cites it at line 64 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][14], in the cell docs × markdown: selected by
+  [ADR-AUTO-FAILFAST][1]: the file cites it at line 25 (text).
+- [docs/references/pwsh/catzc-base-timeouts/Assert-Wait.ps1.md][15], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the
+  file cites it at line 23 (text) and line 24 (text).
+- [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][16], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
+  the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][17], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
+  the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-typessystem.md][18], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it
+  at line 64 (text).
 - [docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md][19], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 15 (text).
 - [docs/references/pwsh/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md][20], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 15 (text).
-- [docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md][21], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 12 (text).
+- [docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md][21], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
+  the file cites it at line 12 (text).
 
 ### .claude (12 lit files)
 
@@ -121,30 +121,30 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][34], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
-  line 132 (text).
-- [pwsh/Catzc.Base.Docs/configs/agents.yml][35], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it
-  at line 55 (body comment) and line 76 (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][36], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file
-  cites it at line 4 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][34], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line
+  132 (text).
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][35], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
+  line 55 (body comment) and line 76 (text).
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][36], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it
+  at line 4 (text).
 
 ### Folders (pwsh/Catzc.Base.Folders, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][37], in the cell automation × powershell: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 47 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][38], in the cell automation × powershell: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 64 (text).
+- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][37], in the cell automation × powershell: selected by [ADR-AUTO-FAILFAST][1]: the
+  file cites it at line 47 (text).
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][38], in the cell automation × powershell: selected by [ADR-AUTO-FAILFAST][1]:
+  the file cites it at line 64 (text).
 
 ### Slides (pwsh/Catzc.Base.Slides, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Slides; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][39], in the cell automation × powershell: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 145 (text) and line 153 (text).
-- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][40], in the cell automation × powershell: selected by [ADR-AUTO-FAILFAST][1]:
-  the file cites it at line 44 (text).
+- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][39], in the cell automation × powershell: selected by [ADR-AUTO-FAILFAST][1]: the
+  file cites it at line 145 (text) and line 153 (text).
+- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][40], in the cell automation × powershell: selected by [ADR-AUTO-FAILFAST][1]: the
+  file cites it at line 44 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
@@ -158,8 +158,8 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][42], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the
-  file cites it at line 583 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][42], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file
+  cites it at line 583 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
@@ -174,12 +174,11 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipelines/ci-automation.yaml][44], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-FAILFAST][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 132 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 55 (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 76 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47
-  (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 583 (text),
-  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text),
-  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 153 (text) and
-  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text).
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47 (text),
+  `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line
+  583 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text),
+  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 153 (text) and `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44
+  (text).
 
 ## Keywords
 

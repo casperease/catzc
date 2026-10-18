@@ -64,13 +64,13 @@ powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1][8]: selected by [ADR-AZ-NAMING][2]: the file cites it at line 46
   (text).
-- [pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][9]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
-  at line 5 (text).
-- [pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1][10]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
-  at line 25 (text), line 31 (text), line 48 (text), line 54 (text), line 59 (text), line 65 (text), line 102 (text), line 106 (text), line
-  106 (body comment), line 111 (text) and line 115 (text).
-- [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1][11]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 225 (text),
-  line 260 (text), line 266 (text), line 274 (text), line 282 (text), line 288 (text) and line 296 (text).
+- [pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][9]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
+  line 5 (text).
+- [pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1][10]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
+  line 25 (text), line 31 (text), line 48 (text), line 54 (text), line 59 (text), line 65 (text), line 102 (text), line 106 (text), line 106
+  (body comment), line 111 (text) and line 115 (text).
+- [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1][11]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 225 (text), line 260
+  (text), line 266 (text), line 274 (text), line 282 (text), line 288 (text) and line 296 (text).
 - [pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1][12]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 69 (text); selected by
   [ADR-AZ-NAMING][2]: the file cites it at line 39 (body comment) (a passing mention only).
 
@@ -79,13 +79,13 @@ powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Azure.Templates/configs/glossary.yml][13]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 5 (text) and line
-  101 (text).
+- [pwsh/Catzc.Azure.Templates/configs/glossary.yml][13]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 5 (text) and line 101
+  (text).
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][14]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 255 (text); selected by
   [ADR-AZ-NAMING][2]: the file cites it at line 257 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][15]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 613 (text).
-- [pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml][16]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 21 (body
-  comment) (a passing mention only).
+- [pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml][16]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 21 (body comment) (a
+  passing mention only).
 
 ### docs × markdown (58 lit files)
 
@@ -99,8 +99,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/glossary.md][18]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 965 (text) and line 1013 (text).
 - [docs/adr/index.md][19]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 280 (text) and line 404 (text); selected by
   [ADR-AZ-NAMING][2]: the file cites it at line 31 (text) and line 282 (text).
-- [docs/how-to/pwsh/manual-test-plan/azure.md][20]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 15 (text) and line 58
-  (text).
+- [docs/how-to/pwsh/manual-test-plan/azure.md][20]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 15 (text) and line 58 (text).
 - [docs/how-to/getting-started/automation/add-a-doc-chapter.md][21]: selected by [ADR-AZ-NAMING][2]: the file cites it at line 67 (text).
 - [docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md][22]: selected by
   [ADR-AZ-DATAMOD][1]: the file cites it at line 61 (text) and line 61 (text).
@@ -112,86 +111,84 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][25]: selected by
   [ADR-AZ-DATAMOD][1]: the file cites it at line 50 (text) and line 72 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 54
   (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][26]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line
-  21 (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md][27]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
-  line 17 (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][26]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 21
+  (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md][27]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 17
+  (text).
 - [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][28]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 21
   (text).
-- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][29]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 101 (text).
-- [docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md][30]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
-  line 94 (text).
+- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][29]: selected by [ADR-AZ-DATAMOD][1]: the file cites
+  it at line 101 (text).
+- [docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md][30]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line
+  94 (text).
 - [docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md][31]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 129
   (text).
-- [docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md][32]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 17
-  (text) and line 105 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md][33]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 24 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][34]: selected by [ADR-AZ-NAMING][2]: the file cites it at
-  line 97 (text), line 108 (text) and line 127 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][35]: selected by [ADR-AZ-NAMING][2]: the file cites it
-  at line 29 (text) and line 32 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md][36]: selected by [ADR-AZ-DATAMOD][1]: the file cites
-  it at line 36 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][37]: selected by [ADR-AZ-NAMING][2]: the file cites it at
-  line 76 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md][38]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 18 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][39]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
-  line 20 (text), line 46 (text) and line 117 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 142 (text).
-- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][40]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 26 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md][41]: selected by [ADR-AZ-DATAMOD][1]: the
-  file cites it at line 24 (text), line 30 (text), line 101 (text) and line 108 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][42]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 32 (text), line 94 (text) and line 100 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 28 (text) and
-  line 94 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md][43]: selected by [ADR-AZ-DATAMOD][1]: the
-  file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md][44]: selected by [ADR-AZ-DATAMOD][1]: the file cites
-  it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md][45]: selected by
-  [ADR-AZ-DATAMOD][1]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md][46]: selected by [ADR-AZ-DATAMOD][1]: the
-  file cites it at line 20 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md][47]: selected by
-  [ADR-AZ-DATAMOD][1]: the file cites it at line 25 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md][48]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 17 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][49]: selected by [ADR-AZ-DATAMOD][1]:
-  the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][50]: selected by
-  [ADR-AZ-DATAMOD][1]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][51]: selected by [ADR-AZ-NAMING][2]: the file
-  cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][52]: selected by [ADR-AZ-NAMING][2]: the file cites it at
-  line 12 (text), line 32 (text) and line 64 (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md][53]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 18
+- [docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md][32]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 17 (text)
+  and line 105 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md][33]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
+  at line 24 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][34]: selected by [ADR-AZ-NAMING][2]: the file cites it at line
+  97 (text), line 108 (text) and line 127 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][35]: selected by [ADR-AZ-NAMING][2]: the file cites it at
+  line 29 (text) and line 32 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md][36]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
+  line 36 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][37]: selected by [ADR-AZ-NAMING][2]: the file cites it at line
+  76 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md][38]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
+  at line 18 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][39]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 20
+  (text), line 46 (text) and line 117 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 142 (text).
+- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][40]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
+  at line 26 (text).
+- [docs/references/pwsh/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md][41]: selected by [ADR-AZ-DATAMOD][1]: the file
+  cites it at line 24 (text), line 30 (text), line 101 (text) and line 108 (text).
+- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][42]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
+  at line 32 (text), line 94 (text) and line 100 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 28 (text) and line 94
   (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md][54]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 18
-  (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md][55]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
-  at line 14 (text).
-- [docs/references/pwsh/catzc-azure/azure-identity-resolves-from-config.drawio.md][56]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 102 (text).
-- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][57]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 56 (text)
-  and line 101 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 32 (text), line 77 (text) and line 110 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md][43]: selected by [ADR-AZ-DATAMOD][1]: the file
+  cites it at line 22 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md][44]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
+  line 16 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md][45]: selected by [ADR-AZ-DATAMOD][1]:
+  the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md][46]: selected by [ADR-AZ-DATAMOD][1]: the file
+  cites it at line 20 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md][47]: selected by [ADR-AZ-DATAMOD][1]:
+  the file cites it at line 25 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md][48]: selected by [ADR-AZ-DATAMOD][1]: the file cites
+  it at line 17 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][49]: selected by [ADR-AZ-DATAMOD][1]: the file
+  cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][50]: selected by [ADR-AZ-DATAMOD][1]: the
+  file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][51]: selected by [ADR-AZ-NAMING][2]: the file cites
+  it at line 14 (text).
+- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][52]: selected by [ADR-AZ-NAMING][2]: the file cites it at line 12
+  (text), line 32 (text) and line 64 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md][53]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md][54]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md][55]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line
+  14 (text).
+- [docs/references/pwsh/catzc-azure/azure-identity-resolves-from-config.drawio.md][56]: selected by [ADR-AZ-DATAMOD][1]: the file cites it
+  at line 102 (text).
+- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][57]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 56 (text) and line
+  101 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 32 (text), line 77 (text) and line 110 (text).
 - [docs/references/pwsh/catzc-azure/configs/customer.yml.md][58]: selected by [ADR-AZ-NAMING][2]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md][59]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
-  line 30 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][60]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 11
-  (text), line 26 (text), line 36 (text) and line 42 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 28 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][61]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
-  line 11 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md][62]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at
-  line 11 (text).
+- [docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md][59]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 30
+  (text).
+- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][60]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 11 (text), line
+  26 (text), line 36 (text) and line 42 (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 28 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][61]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 11
+  (text); selected by [ADR-AZ-NAMING][2]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md][62]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 11
+  (text).
 - [docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md][63]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 11
   (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md][64]: selected by [ADR-AZ-DATAMOD][1]: the
-  file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md][65]: selected by [ADR-AZ-DATAMOD][1]: the file
-  cites it at line 53 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md][64]: selected by [ADR-AZ-DATAMOD][1]: the file
+  cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md][65]: selected by [ADR-AZ-DATAMOD][1]: the file cites
+  it at line 53 (text).
 - [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][66]: selected by [ADR-AZ-NAMING][2]: the file cites it at line 23
   (text).
 - [docs/references/infrastructure/templates/discovery/options.yml.md][67]: selected by [ADR-AZ-DATAMOD][1]: the file cites it at line 14
@@ -210,9 +207,8 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][73]: selected by [ADR-AZ-DATAMOD][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `pwsh/Catzc.Azure.Templates/configs/glossary.yml` line 5 (text),
-  `pwsh/Catzc.Azure.Templates/configs/glossary.yml` line 101 (text),
-  `pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1` line 5 (text),
+  which cite it at `pwsh/Catzc.Azure.Templates/configs/glossary.yml` line 5 (text), `pwsh/Catzc.Azure.Templates/configs/glossary.yml` line
+  101 (text), `pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1` line 5 (text),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 25 (text),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 31 (text),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 48 (text),
@@ -224,16 +220,14 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 106 (body comment),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 111 (text),
   `pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1` line 115 (text),
-  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 225 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1`
-  line 260 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 266 (text),
-  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 274 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1`
-  line 282 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 288 (text),
-  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 296 (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 69
-  (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 255 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line
-  613 (text) and `pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml` line 21 (body comment); selected by [ADR-AZ-NAMING][2]: a
-  pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` line 46 (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1`
-  line 39 (body comment) and `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 257 (text).
+  `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 225 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 260
+  (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 266 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line
+  274 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 282 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1`
+  line 288 (text), `pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1` line 296 (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 69
+  (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 255 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 613 (text)
+  and `pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml` line 21 (body comment); selected by [ADR-AZ-NAMING][2]: a pipeline that cites
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` line
+  46 (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 39 (body comment) and `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 257 (text).
 
 ## Keywords
 

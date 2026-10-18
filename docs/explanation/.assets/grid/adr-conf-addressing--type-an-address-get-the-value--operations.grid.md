@@ -66,10 +66,10 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][9]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 37
-  (text) and line 66 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][10]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at
-  line 54 (text).
+- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][9]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 37 (text) and
+  line 66 (text).
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][10]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 54
+  (text).
 
 ### automation × yaml (2 lit files)
 
@@ -93,26 +93,26 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
   file cites it at line 237 (text).
 - [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][16]: selected by
   [ADR-CONF-ADDRESSING][2]: the file cites it at line 45 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][17]: selected by [ADR-CONF-ADDRESSING][2]: the
-  file cites it at line 32 (text) and line 95 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][18]: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 17 (text) and line 21 (text).
+- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][17]: selected by [ADR-CONF-ADDRESSING][2]: the file
+  cites it at line 32 (text) and line 95 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][18]: selected by [ADR-CONF-ADDRESSING][2]: the
+  file cites it at line 17 (text) and line 21 (text).
 - [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][19]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 29
   (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 14 (text), line 23 (text), line 25 (text) and line 27 (text).
-- [docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md][20]: selected by [ADR-CONF-ADDRESSING][2]: the file
-  cites it at line 14 (text), line 20 (text), line 22 (text) and line 26 (text).
+- [docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md][20]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it
+  at line 14 (text), line 20 (text), line 22 (text) and line 26 (text).
 - [docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md][21]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 97
   (text).
-- [docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md][22]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at
-  line 109 (text).
-- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][23]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at
-  line 63 (text).
-- [docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md][24]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at
-  line 56 (text).
-- [docs/references/pwsh/catzc-tooling-environment.md][25]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 4 (text), line
-  30 (text), line 31 (text) and line 31 (text).
-- [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][26]: selected by [ADR-AUTO-ENVVAR][1]: the file cites
-  it at line 43 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (text).
+- [docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md][22]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 109
+  (text).
+- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][23]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 63
+  (text).
+- [docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md][24]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line
+  56 (text).
+- [docs/references/pwsh/catzc-tooling-environment.md][25]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 4 (text), line 30
+  (text), line 31 (text) and line 31 (text).
+- [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][26]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at
+  line 43 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -122,9 +122,9 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 - [pipelines/ci-automation.yaml][27]: selected by [ADR-AUTO-ENVVAR][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 139 (text) and
   `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 589 (text); selected by [ADR-CONF-ADDRESSING][2]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 37
-  (text), `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line
-  209 (text) and `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text).
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 37 (text),
+  `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 209 (text) and
+  `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text).
 
 ## Keywords
 

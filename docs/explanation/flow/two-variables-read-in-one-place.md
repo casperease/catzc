@@ -40,8 +40,8 @@ The diagram is described element by element in [its asset description](two-varia
 7. **Set-AdoPipelineVariable.** Writes a `##vso` logging command in a pipeline and, on a devbox, only a verbose line saying it skipped it.
    Twenty more call sites follow the same shape, among them `Get-SessionActor`, `Deploy-Bicep`, `Sync-SessionTools`, `Protect-GlobSet` and
    `Install-Python`, plus the bootstrap's types pre-pass and the module builder.
-8. **PSScriptAnalyzerSettings.psd1.** The single analyzer rule set. Its `CustomRulePath` names `pwsh/.scriptanalyzer/CatzcRules.psm1`
-   and nothing else.
+8. **PSScriptAnalyzerSettings.psd1.** The single analyzer rule set. Its `CustomRulePath` names `pwsh/.scriptanalyzer/CatzcRules.psm1` and
+   nothing else.
 9. **CatzcRules.psm1.** The one entry rule: it runs every repository check once per file, and `NoRawPipelineDetection` is on its list.
 10. **Measure-NoRawPipelineDetection.** Walks every variable expression in the file. A `$env:TF_BUILD` or `$env:GITHUB_ACTIONS` whose
     ancestors include no function named `Test-IsRunningInPipeline` is reported as an error that names the variable and the function to call

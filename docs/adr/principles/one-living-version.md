@@ -134,8 +134,8 @@ This principle governs the codebase's own behaviour; it does not forbid _version
 inherently versioned, and pinning or supporting a specific version is the spec, not residue:
 
 - **External dependency versions** — the tool versions pinned in `Catzc.Tooling.Core`'s `tools.yml` (asserted by `Assert-ToolVersion`), and
-  the version-pinned vendored modules under `pwsh/.vendor/<name>/<version>/`. These name exactly which external version we target;
-  carrying more than one is a deliberate choice the external world forces, not legacy.
+  the version-pinned vendored modules under `pwsh/.vendor/<name>/<version>/`. These name exactly which external version we target; carrying
+  more than one is a deliberate choice the external world forces, not legacy.
 - **External API versions** — when an external service (the `az` CLI, the ADO REST API) exposes versioned endpoints, targeting a given
   `api-version` is part of the contract.
 - **An explicit `schema_version` you own and validate** — a declared, checked part of a data contract, not a hidden compatibility fallback.

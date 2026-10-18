@@ -50,39 +50,39 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   selected by [ADR-AZ-NAMING][1]: the file cites it at line 43 (text).
 - [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][4], in the cell docs × markdown:
   selected by [ADR-AZ-NAMING][1]: the file cites it at line 54 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][5], in the cell docs × markdown: selected by
-  [ADR-AZ-NAMING][1]: the file cites it at line 97 (text), line 108 (text) and line 127 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][5], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
+  the file cites it at line 97 (text), line 108 (text) and line 127 (text).
 - [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][6], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 29 (text) and line 32 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][7], in the cell docs × markdown: selected by
-  [ADR-AZ-NAMING][1]: the file cites it at line 76 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][8], in the cell docs × markdown: selected by
-  [ADR-AZ-NAMING][1]: the file cites it at line 142 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][7], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
+  the file cites it at line 76 (text).
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][8], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
+  the file cites it at line 142 (text).
 - [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][9], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 28 (text) and line 94 (text).
 - [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][10], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][11], in the cell docs × markdown: selected by
-  [ADR-AZ-NAMING][1]: the file cites it at line 12 (text), line 32 (text) and line 64 (text).
-- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][12], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file
-  cites it at line 32 (text), line 77 (text) and line 110 (text).
-- [docs/references/pwsh/catzc-azure/configs/customer.yml.md][13], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the
-  file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][14], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the
-  file cites it at line 28 (text).
-- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][15], in the cell docs × markdown: selected by
-  [ADR-AZ-NAMING][1]: the file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][16], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
-  the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][11], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
+  the file cites it at line 12 (text), line 32 (text) and line 64 (text).
+- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][12], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file cites
+  it at line 32 (text), line 77 (text) and line 110 (text).
+- [docs/references/pwsh/catzc-azure/configs/customer.yml.md][13], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file
+  cites it at line 19 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][14], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file
+  cites it at line 28 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][15], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
+  the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][16], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the
+  file cites it at line 23 (text).
 
 ### Docs (pwsh/Catzc.Base.Docs, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1][17], in the cell automation × powershell: selected by [ADR-AZ-NAMING][1]: the file cites
-  it at line 39 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-NAMING][1]: the file cites it at
-  line 257 (text).
+- [pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1][17], in the cell automation × powershell: selected by [ADR-AZ-NAMING][1]: the file cites it at
+  line 39 (body comment) (a passing mention only).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-NAMING][1]: the file cites it at line 257
+  (text).
 
 ### adr/azure (docs/adr/azure, 2 lit files)
 
@@ -111,8 +111,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][22], in the cell pipelines × pipeline-yaml: selected by [ADR-AZ-NAMING][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` line 46
-  (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 39 (body comment) and `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 257
-  (text).
+  (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 39 (body comment) and `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 257 (text).
 
 ## Keywords
 

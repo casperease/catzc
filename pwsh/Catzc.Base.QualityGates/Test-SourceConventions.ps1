@@ -114,7 +114,7 @@ function Test-SourceConventions {
         }
     }
 
-    # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+    # Test files reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned by the walk.
     $allTestFiles = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
         Sort-Object
     foreach ($testFile in $allTestFiles) {

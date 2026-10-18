@@ -1,15 +1,15 @@
 # Internal (.psm1 shared infrastructure) — automation reference
 
-`.internal` is the home of the loader and the shared libraries, under `pwsh/.internal/`. It holds the sanctioned `.psm1` modules that
-run the toolset's import sequence and the code that BOTH the pre-module bootstrap (which runs before any `Catzc` module exists) and the
+`.internal` is the home of the loader and the shared libraries, under `pwsh/.internal/`. It holds the sanctioned `.psm1` modules that run
+the toolset's import sequence and the code that BOTH the pre-module bootstrap (which runs before any `Catzc` module exists) and the
 post-import `Catzc` modules (which run after) must call — the single home for what would otherwise be duplicated across those two layers
 (see [one-living-version](../../../adr/principles/one-living-version.md)). Everything under `pwsh/*` is documented per module in the
 [module reference](../index.md); this area documents the infrastructure those modules are loaded by and never see.
 
 These are `.psm1` files on purpose. The repository's function files are `.ps1` so they share one module scope with no import ceremony; the
-`pwsh/.internal/*.psm1` shared modules are the explicit, sanctioned exception — genuine standalone modules with their own scope,
-listed by name in [use-ps1-not-psm1 rule ADR-PWSH-USEPS#2](../../../adr/pwsh/use-ps1-not-psm1.md). They carry no `types/`, generate no
-`README.md`, and are excluded from the module list because they are not automation modules — they are what loads them.
+`pwsh/.internal/*.psm1` shared modules are the explicit, sanctioned exception — genuine standalone modules with their own scope, listed by
+name in [use-ps1-not-psm1 rule ADR-PWSH-USEPS#2](../../../adr/pwsh/use-ps1-not-psm1.md). They carry no `types/`, generate no `README.md`,
+and are excluded from the module list because they are not automation modules — they are what loads them.
 
 ## The load sequence
 

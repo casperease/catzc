@@ -15,8 +15,8 @@ Doubles as the "committed binaries are available on the network" check. For ever
 (configs/vendor.yml) for its committed version:
 
 - Without -Force it changes nothing: it reports each target, whether the source can restore it, and the exact recreate command — a dry run.
-- With -Force it deletes each target's `pwsh/.vendor/<Name>` folder, but only after confirming every target is restorable. If any is
-  NOT available on the source, it refuses the whole run (deleting would be irreversible) — so a removal is always reversible, whether by
+- With -Force it deletes each target's `pwsh/.vendor/<Name>` folder, but only after confirming every target is restorable. If any is NOT
+  available on the source, it refuses the whole run (deleting would be irreversible) — so a removal is always reversible, whether by
   Install-VendorModule or `git restore`.
 
 A PR that strips vendored binaries (to slim the repo, leaning on the source) runs this to prove the set is reproducible before deleting.

@@ -76,14 +76,14 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][12]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text).
 - [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][13]: selected by
   [ADR-AUTO-DEPM][1]: the file cites it at line 47 (text), line 54 (text), line 54 (text), line 71 (text) and line 73 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][14]: selected by [ADR-AUTO-DEPM][1]: the
-  file cites it at line 110 (text) and line 114 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][15]: selected by [ADR-AUTO-DEPM][1]: the file cites it
-  at line 12 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][16]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
-  line 15 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][17]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
-  line 13 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][14]: selected by [ADR-AUTO-DEPM][1]: the file
+  cites it at line 110 (text) and line 114 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][15]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
+  line 12 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][16]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line
+  15 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][17]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 13
+  (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 

@@ -9,7 +9,7 @@ function Test-TestTitles {
 
     Assert-SourceTree
     $repositoryRoot = Get-RepositoryRoot
-    # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+    # Test files reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned by the walk.
     $testFiles = @(Get-ChildPath (Join-Path $repositoryRoot (Get-CatzcModulesFolder)) -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
             Sort-Object)
     $isBlock = {
