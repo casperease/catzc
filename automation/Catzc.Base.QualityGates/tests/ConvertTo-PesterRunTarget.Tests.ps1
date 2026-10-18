@@ -1,7 +1,7 @@
 Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'
-        $script:bridge = Join-Path $script:repo 'automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1'
+        $script:bridge = Join-Path $script:repo 'widget-modules/Catzc.Base.QualityGates/tests/Language.Bridge.ps1'
         [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($script:bridge))
         [System.IO.File]::WriteAllText($script:bridge, '# fixture bridge')
         $script:widgetGo = [System.IO.Path]::GetFullPath((Join-Path $script:repo 'go/tests/catzc-widget'))
@@ -19,7 +19,7 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:repo 'automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:repo 'widget-modules' }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
             [pscustomobject]@{ Language = 'python'; Module = 'Catzc.Widget'; Folder = $script:widgetPython; Name = 'catzc-widget' }

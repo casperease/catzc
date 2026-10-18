@@ -49,7 +49,7 @@ Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity',
 
     It 'each generated dictionary carries the inputs stamp, and a second call skips the rebuild' {
         Build-TerminologyDictionary -Silent | Out-Null
-        $inputsSha = Get-InputStamp -Path (Resolve-RepoPath 'automation/Catzc.Base.QualityGates/configs/terminology.yml'), (Resolve-RepoPath 'automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1')
+        $inputsSha = Get-InputStamp -Path (Get-CatzcModuleRoot 'configs/terminology.yml' -Module Catzc.Base.QualityGates), (Get-Command Build-TerminologyDictionary).ScriptBlock.File
         foreach ($category in (Get-Config -Config terminology).categories) {
             Test-GeneratedFileCurrent -Path (Join-Path (Get-RepositoryRoot) ".cspell/$category.txt") -InputsSha $inputsSha | Should -BeTrue -Because "$category carries the stamp"
         }
