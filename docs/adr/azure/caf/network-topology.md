@@ -3,412 +3,412 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the hub-and-spoke landing zone these recommendations are weighed against) and
 [`network-model`](../azure-network-model.md) (the IP plan in `network.yml` that answers the addressing recommendations).
 
-## Rules: ADR-AZ-CAFNETTOP
+## Rules: ADR-AZ-CAF-NETTOP
 
-### Rule ADR-AZ-CAFNETTOP:1
+### Rule ADR-AZ-CAF-NETTOP:1
 
 Adopted: the network is hub-and-spoke — one hub per shared subscription, one spoke per customer subscription peered to the hub of its tier
 ([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)).
 
 - [1 — Hub and spoke as the network design](#1--hub-and-spoke-as-the-network-design)
 
-### Rule ADR-AZ-CAFNETTOP:2
+### Rule ADR-AZ-CAF-NETTOP:2
 
 Partly adopted: each tier has one hub in the one region with its spokes peered to it; the gateway and the firewall a hub would carry are
 reserved subnets with nothing deployed, so there is no hybrid link, no spoke-to-spoke transit, and no filtered egress.
 
 - [2 — A regional hub with spokes peered to it](#2--a-regional-hub-with-spokes-peered-to-it)
 
-### Rule ADR-AZ-CAFNETTOP:3
+### Rule ADR-AZ-CAF-NETTOP:3
 
 Adopted: the topology Microsoft's diagram shows is the one of rule 1; the diagram adds no recommendation of its own.
 
 - [3 — The hub-and-spoke diagram](#3--the-hub-and-spoke-diagram)
 
-### Rule ADR-AZ-CAFNETTOP:4
+### Rule ADR-AZ-CAF-NETTOP:4
 
 Not adopted: there is no ExpressRoute circuit; customers are isolated by subscription and spoke, not by circuit.
 
 - [4 — Several networks on several ExpressRoute circuits](#4--several-networks-on-several-expressroute-circuits)
 
-### Rule ADR-AZ-CAFNETTOP:5
+### Rule ADR-AZ-CAF-NETTOP:5
 
 Not adopted: the diagram of rule 4 shows a topology the repository does not use.
 
 - [5 — The multi-circuit diagram](#5--the-multi-circuit-diagram)
 
-### Rule ADR-AZ-CAFNETTOP:6
+### Rule ADR-AZ-CAF-NETTOP:6
 
 Not adopted: there is no ExpressRoute circuit to dual-home.
 
 - [6 — ExpressRoute Metro for dual-homed peering](#6--expressroute-metro-for-dual-homed-peering)
 
-### Rule ADR-AZ-CAFNETTOP:7
+### Rule ADR-AZ-CAF-NETTOP:7
 
 Planned: a firewall in the hub's reserved `AzureFirewallSubnet`, with the spoke route tables sending traffic to it — the egress filtering
-[ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) plans.
+[ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6) plans.
 
 - [7 — A firewall or network appliance in the hub](#7--a-firewall-or-network-appliance-in-the-hub)
 
-### Rule ADR-AZ-CAFNETTOP:8
+### Rule ADR-AZ-CAF-NETTOP:8
 
 Partly adopted: the hub carries only the two reserved subnets, `shared-services`, and the private DNS zones; the shared platform's own
 workload also lands in `shared-services`, which is more than the minimal set.
 
 - [8 — A minimal set of shared services in the hub](#8--a-minimal-set-of-shared-services-in-the-hub)
 
-### Rule ADR-AZ-CAFNETTOP:9
+### Rule ADR-AZ-CAF-NETTOP:9
 
 Not adopted: no workload has a public endpoint, so a DDoS Protection plan has nothing to protect.
 
 - [9 — One DDoS Protection plan in the connectivity subscription](#9--one-ddos-protection-plan-in-the-connectivity-subscription)
 
-### Rule ADR-AZ-CAFNETTOP:10
+### Rule ADR-AZ-CAF-NETTOP:10
 
 Not adopted: there is no on-premises network and no branch to connect.
 
 - [10 — Branches over the existing wide-area network](#10--branches-over-the-existing-wide-area-network)
 
-### Rule ADR-AZ-CAFNETTOP:11
+### Rule ADR-AZ-CAF-NETTOP:11
 
 Planned: the same recommendation as rule 7, which decides it.
 
 - [11 — A firewall or network appliance in the hub, repeated](#11--a-firewall-or-network-appliance-in-the-hub-repeated)
 
-### Rule ADR-AZ-CAFNETTOP:12
+### Rule ADR-AZ-CAF-NETTOP:12
 
 Not adopted: no partner network appliance is deployed.
 
 - [12 — Partner appliances deployed to their vendor guidance](#12--partner-appliances-deployed-to-their-vendor-guidance)
 
-### Rule ADR-AZ-CAFNETTOP:13
+### Rule ADR-AZ-CAF-NETTOP:13
 
 Adopted: the hub holds no Application Gateway or other inbound application proxy; a workload that needs one carries it in its own template.
 
 - [13 — No shared inbound application proxy in the hub](#13--no-shared-inbound-application-proxy-in-the-hub)
 
-### Rule ADR-AZ-CAFNETTOP:14
+### Rule ADR-AZ-CAF-NETTOP:14
 
 Not adopted: the same recommendation as rule 9, which decides it.
 
 - [14 — One DDoS Protection plan, repeated](#14--one-ddos-protection-plan-repeated)
 
-### Rule ADR-AZ-CAFNETTOP:15
+### Rule ADR-AZ-CAF-NETTOP:15
 
 Not adopted: the same recommendation as rule 10, which decides it.
 
 - [15 — Branches over the existing network, repeated](#15--branches-over-the-existing-network-repeated)
 
-### Rule ADR-AZ-CAFNETTOP:16
+### Rule ADR-AZ-CAF-NETTOP:16
 
 Not adopted: there is no ExpressRoute or VPN gateway to carry traffic between.
 
 - [16 — Route Server for transit between ExpressRoute and VPN](#16--route-server-for-transit-between-expressroute-and-vpn)
 
-### Rule ADR-AZ-CAFNETTOP:17
+### Rule ADR-AZ-CAF-NETTOP:17
 
 Not adopted: every environment deploys to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)), so no spoke needs
 a cross-region link.
 
 - [17 — Global peering for a few cross-region spokes](#17--global-peering-for-a-few-cross-region-spokes)
 
-### Rule ADR-AZ-CAFNETTOP:18
+### Rule ADR-AZ-CAF-NETTOP:18
 
 Not adopted: one region, so there is no hub-to-hub routing across regions.
 
 - [18 — Hub-to-hub routing for most cross-region traffic](#18--hub-to-hub-routing-for-most-cross-region-traffic)
 
-### Rule ADR-AZ-CAFNETTOP:19
+### Rule ADR-AZ-CAF-NETTOP:19
 
 Not adopted: one region; its non-production and production hubs are deliberately not peered.
 
 - [19 — Two regions with peered hubs](#19--two-regions-with-peered-hubs)
 
-### Rule ADR-AZ-CAFNETTOP:20
+### Rule ADR-AZ-CAF-NETTOP:20
 
 Not adopted: one region, so Virtual WAN's global transit has nothing to connect.
 
 - [20 — Virtual WAN for global transit](#20--virtual-wan-for-global-transit)
 
-### Rule ADR-AZ-CAFNETTOP:21
+### Rule ADR-AZ-CAF-NETTOP:21
 
 Not adopted: one region and no ExpressRoute circuit.
 
 - [21 — Every regional hub on the same ExpressRoute circuits](#21--every-regional-hub-on-the-same-expressroute-circuits)
 
-### Rule ADR-AZ-CAFNETTOP:22
+### Rule ADR-AZ-CAF-NETTOP:22
 
 Not adopted: no route is learned over BGP; the spoke route tables are empty.
 
 - [22 — Inspection of cross-region traffic learned over BGP](#22--inspection-of-cross-region-traffic-learned-over-bgp)
 
-### Rule ADR-AZ-CAFNETTOP:23
+### Rule ADR-AZ-CAF-NETTOP:23
 
 Not adopted: the same recommendation as rule 20, which decides it.
 
 - [23 — Virtual WAN for global transit, repeated](#23--virtual-wan-for-global-transit-repeated)
 
-### Rule ADR-AZ-CAFNETTOP:24
+### Rule ADR-AZ-CAF-NETTOP:24
 
 Adopted: each hub's resources sit in one resource group of its region, named with the region code (`nsub-weu-zct-disco-rg`).
 
 - [24 — One resource group per region for hub resources](#24--one-resource-group-per-region-for-hub-resources)
 
-### Rule ADR-AZ-CAFNETTOP:25
+### Rule ADR-AZ-CAF-NETTOP:25
 
 Not adopted: peerings and security rules are declared in config and deployed by `discovery`, not managed by Azure Virtual Network Manager
 (rules 59 to 65).
 
 - [25 — Virtual Network Manager for connectivity and security](#25--virtual-network-manager-for-connectivity-and-security)
 
-### Rule ADR-AZ-CAFNETTOP:26
+### Rule ADR-AZ-CAF-NETTOP:26
 
 Planned: network monitoring through Network Watcher arrives with the flow logs of rule 54; the virtual network and its security groups send
 their logs and metrics to `foundation`'s workspace.
 
 - [26 — Network Watcher network insights](#26--network-watcher-network-insights)
 
-### Rule ADR-AZ-CAFNETTOP:27
+### Rule ADR-AZ-CAF-NETTOP:27
 
 Adopted: each hub lists a handful of spokes, far below the peering limit of a virtual network, and there is no ExpressRoute prefix to
 advertise.
 
 - [27 — Peering and route-advertisement limits](#27--peering-and-route-advertisement-limits)
 
-### Rule ADR-AZ-CAFNETTOP:28
+### Rule ADR-AZ-CAF-NETTOP:28
 
 Adopted: `network.yml` is the one IP plan and `NetworkConfig` rejects any overlap between its networks
 ([ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)); there is no on-premises range to avoid.
 
 - [28 — Non-overlapping address spaces](#28--non-overlapping-address-spaces)
 
-### Rule ADR-AZ-CAFNETTOP:29
+### Rule ADR-AZ-CAF-NETTOP:29
 
 Partly adopted: every range in the plan lies inside the private block 10.0.0.0/8, but no check requires a private range.
 
 - [29 — Private address ranges](#29--private-address-ranges)
 
-### Rule ADR-AZ-CAFNETTOP:30
+### Rule ADR-AZ-CAF-NETTOP:30
 
 Partly adopted: no range in the plan touches a reserved block, but no check rejects one; the private-range check of rule 29 would.
 
 - [30 — No reserved address ranges](#30--no-reserved-address-ranges)
 
-### Rule ADR-AZ-CAFNETTOP:31
+### Rule ADR-AZ-CAF-NETTOP:31
 
 Not adopted: the private IPv4 plan has room to spare, and the plan is IPv4 only.
 
 - [31 — IPv6 where private IPv4 is scarce](#31--ipv6-where-private-ipv4-is-scarce)
 
-### Rule ADR-AZ-CAFNETTOP:32
+### Rule ADR-AZ-CAF-NETTOP:32
 
 Not adopted: every network in the plan is a /16, one even step per subscription, and the private block 10.0.0.0/8 holds 256 of them.
 
 - [32 — No oversized virtual networks](#32--no-oversized-virtual-networks)
 
-### Rule ADR-AZ-CAFNETTOP:33
+### Rule ADR-AZ-CAF-NETTOP:33
 
 Adopted: a virtual network takes its address space only from `network.yml` by config address
 ([ADR-AZ-NETWORK#1](../azure-network-model.md#rule-adr-az-network1)), so no network exists without a planned range.
 
 - [33 — Address space planned before the network](#33--address-space-planned-before-the-network)
 
-### Rule ADR-AZ-CAFNETTOP:34
+### Rule ADR-AZ-CAF-NETTOP:34
 
 Partly adopted: no network uses a public range, but no check rejects one; the private-range check of rule 29 would.
 
 - [34 — No public ranges for virtual networks](#34--no-public-ranges-for-virtual-networks)
 
-### Rule ADR-AZ-CAFNETTOP:35
+### Rule ADR-AZ-CAF-NETTOP:35
 
 Adopted: the hub reserves `GatewaySubnet` and `AzureFirewallSubnet` at the sizes those services need, and no template deploys another
 service that reserves addresses.
 
 - [35 — Ranges reserved by services](#35--ranges-reserved-by-services)
 
-### Rule ADR-AZ-CAFNETTOP:36
+### Rule ADR-AZ-CAF-NETTOP:36
 
 Not adopted: the private IPv4 plan is far from exhausted, so every spoke keeps a unique, routable range.
 
 - [36 — Private Link service against IPv4 exhaustion](#36--private-link-service-against-ipv4-exhaustion)
 
-### Rule ADR-AZ-CAFNETTOP:37
+### Rule ADR-AZ-CAF-NETTOP:37
 
 Not adopted: the network is IPv4 only and no workload has IPv6 clients.
 
 - [37 — Dual-stack appliances for IPv6 clients](#37--dual-stack-appliances-for-ipv6-clients)
 
-### Rule ADR-AZ-CAFNETTOP:38
+### Rule ADR-AZ-CAF-NETTOP:38
 
 Not adopted: the network is IPv4 only, and no workload has web clients reaching it through Front Door.
 
 - [38 — Front Door for IPv6 web clients](#38--front-door-for-ipv6-web-clients)
 
-### Rule ADR-AZ-CAFNETTOP:39
+### Rule ADR-AZ-CAF-NETTOP:39
 
 Not adopted: no virtual network carries an IPv6 block.
 
 - [39 — One IPv6 block per virtual network](#39--one-ipv6-block-per-virtual-network)
 
-### Rule ADR-AZ-CAFNETTOP:40
+### Rule ADR-AZ-CAF-NETTOP:40
 
 Not adopted: no network is made dual-stack.
 
 - [40 — Dual stack on an existing IPv4 network](#40--dual-stack-on-an-existing-ipv4-network)
 
-### Rule ADR-AZ-CAFNETTOP:41
+### Rule ADR-AZ-CAF-NETTOP:41
 
 Not adopted: the statement holds by construction, since every network is IPv4 only.
 
 - [41 — IPv4 cannot be turned off](#41--ipv4-cannot-be-turned-off)
 
-### Rule ADR-AZ-CAFNETTOP:42
+### Rule ADR-AZ-CAF-NETTOP:42
 
 Not adopted: no network or subnet takes an IPv6 block.
 
 - [42 — An IPv6 block for network and subnet](#42--an-ipv6-block-for-network-and-subnet)
 
-### Rule ADR-AZ-CAFNETTOP:43
+### Rule ADR-AZ-CAF-NETTOP:43
 
 Not adopted: the route tables carry no IPv6 route, because there is no IPv6 traffic.
 
 - [43 — IPv6 routes in the route tables](#43--ipv6-routes-in-the-route-tables)
 
-### Rule ADR-AZ-CAFNETTOP:44
+### Rule ADR-AZ-CAF-NETTOP:44
 
 Not adopted: the security groups carry no IPv6 rule, because there is no IPv6 traffic.
 
 - [44 — IPv6 rules in the security groups](#44--ipv6-rules-in-the-security-groups)
 
-### Rule ADR-AZ-CAFNETTOP:45
+### Rule ADR-AZ-CAF-NETTOP:45
 
 Not adopted: no resource needs IPv6.
 
 - [45 — Dual stack or translation where IPv6 is missing](#45--dual-stack-or-translation-where-ipv6-is-missing)
 
-### Rule ADR-AZ-CAFNETTOP:46
+### Rule ADR-AZ-CAF-NETTOP:46
 
 Not adopted: every subscription's network takes one /16, so the plan has no sizes to request.
 
 - [46 — Ranges in several sizes](#46--ranges-in-several-sizes)
 
-### Rule ADR-AZ-CAFNETTOP:47
+### Rule ADR-AZ-CAF-NETTOP:47
 
 Partly adopted: `network.yml` is the IP address management — templates read their ranges by config address and a new subscription reserves
 its range by pull request, validated on load — but no API reserves a range automatically.
 
 - [47 — An IPAM API for infrastructure as code](#47--an-ipam-api-for-infrastructure-as-code)
 
-### Rule ADR-AZ-CAFNETTOP:48
+### Rule ADR-AZ-CAF-NETTOP:48
 
 Adopted: the plan is arranged by archetype — hubs in 10.0 and 10.1, spokes from 10.100 upward, the environment networks in 10.10 to 10.40 —
 in its one region.
 
 - [48 — A systematic address plan](#48--a-systematic-address-plan)
 
-### Rule ADR-AZ-CAFNETTOP:49
+### Rule ADR-AZ-CAF-NETTOP:49
 
 Adopted: a subscription removed from `azure.yml` makes `Test-AzureNetworkPlan` fail until its network leaves `network.yml`, which frees its
 range.
 
 - [49 — Ranges returned at decommissioning](#49--ranges-returned-at-decommissioning)
 
-### Rule ADR-AZ-CAFNETTOP:50
+### Rule ADR-AZ-CAF-NETTOP:50
 
 Partly adopted: `discovery` gives every workload subnet a security group that denies inbound internet traffic; the subnets are planned
 centrally in `network.yml`, not by the landing zone's owner, and no policy requires a security group.
 
 - [50 — Subnets designed by the landing zone owner](#50--subnets-designed-by-the-landing-zone-owner)
 
-### Rule ADR-AZ-CAFNETTOP:51
+### Rule ADR-AZ-CAF-NETTOP:51
 
 Partly adopted: every workload subnet has a network security group, but its rules allow all traffic among the peered networks
-([ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4)).
+([ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4)).
 
 - [51 — Security groups between subnets](#51--security-groups-between-subnets)
 
-### Rule ADR-AZ-CAFNETTOP:52
+### Rule ADR-AZ-CAF-NETTOP:52
 
 Not adopted: no template deploys a virtual machine, so an application security group has nothing to group.
 
 - [52 — Application security groups for tiered VMs](#52--application-security-groups-for-tiered-vms)
 
-### Rule ADR-AZ-CAFNETTOP:53
+### Rule ADR-AZ-CAF-NETTOP:53
 
 Partly adopted: segmentation is a security group per subnet with no central appliance between them, but the rules are no finer than the
 virtual network boundary.
 
 - [53 — Micro-segmentation without a central appliance](#53--micro-segmentation-without-a-central-appliance)
 
-### Rule ADR-AZ-CAFNETTOP:54
+### Rule ADR-AZ-CAF-NETTOP:54
 
 Planned: virtual network flow logs with traffic analytics into `foundation`'s workspace, the flow logging
-[ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) and [ADR-AZ-CAFMGMT#4](management.md#rule-adr-az-cafmgmt4) plan.
+[ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6) and [ADR-AZ-CAF-MGMT#4](management.md#rule-adr-az-caf-mgmt4) plan.
 
 - [54 — Virtual network flow logs with traffic analytics](#54--virtual-network-flow-logs-with-traffic-analytics)
 
-### Rule ADR-AZ-CAFNETTOP:55
+### Rule ADR-AZ-CAF-NETTOP:55
 
 Not adopted: there is no security-group flow log to migrate; the flow logs rule 54 plans are virtual network flow logs from the start.
 
 - [55 — Flow logs moved from security groups to virtual networks](#55--flow-logs-moved-from-security-groups-to-virtual-networks)
 
-### Rule ADR-AZ-CAFNETTOP:56
+### Rule ADR-AZ-CAF-NETTOP:56
 
 Partly adopted: a spoke peers only to its hub and no traffic is forwarded, so one spoke cannot reach another; between hub and spoke the
 security groups allow all virtual network traffic rather than selected flows.
 
 - [56 — Selective connectivity between landing zones](#56--selective-connectivity-between-landing-zones)
 
-### Rule ADR-AZ-CAFNETTOP:57
+### Rule ADR-AZ-CAF-NETTOP:57
 
 Not adopted: there is no Virtual WAN.
 
 - [57 — Firewall routing between landing zones in Virtual WAN](#57--firewall-routing-between-landing-zones-in-virtual-wan)
 
-### Rule ADR-AZ-CAFNETTOP:58
+### Rule ADR-AZ-CAF-NETTOP:58
 
 Not adopted: no traffic is force-tunnelled, because no gateway advertises a default route; the security groups carry inbound rules only.
 
 - [58 — Outbound security rules under forced tunnelling](#58--outbound-security-rules-under-forced-tunnelling)
 
-### Rule ADR-AZ-CAFNETTOP:59
+### Rule ADR-AZ-CAF-NETTOP:59
 
 Not adopted: there is no Virtual Network Manager, and no management group or tenant for one to reach.
 
 - [59 — Where Virtual Network Manager applies](#59--where-virtual-network-manager-applies)
 
-### Rule ADR-AZ-CAFNETTOP:60
+### Rule ADR-AZ-CAF-NETTOP:60
 
 Not adopted: there is no Virtual Network Manager instance and no connectivity subscription apart from the shared ones.
 
 - [60 — A Virtual Network Manager instance in the connectivity subscription](#60--a-virtual-network-manager-instance-in-the-connectivity-subscription)
 
-### Rule ADR-AZ-CAFNETTOP:61
+### Rule ADR-AZ-CAF-NETTOP:61
 
 Not adopted: networks are grouped statically by the hub's spoke list in config, not by Virtual Network Manager network groups.
 
 - [61 — Network groups for segmentation](#61--network-groups-for-segmentation)
 
-### Rule ADR-AZ-CAFNETTOP:62
+### Rule ADR-AZ-CAF-NETTOP:62
 
 Not adopted: spokes do not talk to each other, so none needs a direct connection.
 
 - [62 — Direct connectivity between spokes](#62--direct-connectivity-between-spokes)
 
-### Rule ADR-AZ-CAFNETTOP:63
+### Rule ADR-AZ-CAF-NETTOP:63
 
 Not adopted: one region and no need for every network to reach every other.
 
 - [63 — Global mesh](#63--global-mesh)
 
-### Rule ADR-AZ-CAFNETTOP:64
+### Rule ADR-AZ-CAF-NETTOP:64
 
 Not adopted: there are no security admin rules to give a priority.
 
 - [64 — A priority for each security admin rule](#64--a-priority-for-each-security-admin-rule)
 
-### Rule ADR-AZ-CAFNETTOP:65
+### Rule ADR-AZ-CAF-NETTOP:65
 
 Not adopted: the flows that must hold are the security group rules `discovery` deploys, owned by the landing zone, not security admin rules
 above them.
@@ -472,7 +472,7 @@ Every condition holds: one region, no VPN, no ExpressRoute, and no transit betwe
 by design ([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)): the hub of a tier is the landing zone of a shared subscription, each spoke
 the landing zone of a customer subscription, and `network.yml` declares the kind of each (`kind: hub`, `kind: spoke`) so a template reads it
 from the plan alone ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5)). The network is a segmentation boundary as
-[ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4) decides: one spoke per customer and tier.
+[ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4) decides: one spoke per customer and tier.
 
 ##### 1 in `foundation`
 
@@ -617,7 +617,7 @@ and from the internet.
 #### What 7 means here
 
 The hub reserves `AzureFirewallSubnet` in `network.yml` and deploys nothing into it, so egress is not filtered: the spoke route tables carry
-no routes and traffic leaves through Azure's default route. [ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) plans egress through a
+no routes and traffic leaves through Azure's default route. [ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6) plans egress through a
 firewall. Spoke-to-spoke traffic needs no filter, because no spoke reaches another (rule 56).
 
 ##### 7 in `foundation`
@@ -687,7 +687,7 @@ platform virtual network.
 
 No workload has a public endpoint: data services take private endpoints only, and the landing zone's policy denies a public IP address on a
 network interface ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). A DDoS Protection plan protects public addresses, so it has nothing
-to protect ([ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6)). The first public ingress — a gateway, a firewall, or an inbound
+to protect ([ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6)). The first public ingress — a gateway, a firewall, or an inbound
 application proxy — would make it apply, as one plan per hub subscription that the hub and its spokes reference.
 
 ##### 9 status
@@ -872,7 +872,7 @@ Summary (ours): To connect two regions, peer their two hubs with global peering.
 #### What 19 means here
 
 The two hubs of the repository share one region and serve two tiers, not two regions. They are not peered on purpose: production and
-non-production are separated by subscription ([ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4)), and a peering between their hubs
+non-production are separated by subscription ([ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4)), and a peering between their hubs
 would join the two tiers' networks.
 
 ##### 19 status
@@ -1637,7 +1637,7 @@ and live in `network.yml` ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr
 there is no separate owner to delegate to. The guarantee CAF asks of policy, the template gives: `discovery` attaches a security group to
 every subnet named in `networkSecurityGroupNames`, and its rules deny all inbound internet traffic, SSH and RDP among it. No policy requires
 a security group, so a subnet created outside the template would have none; the segmentation
-[ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4) decides holds for what the repository deploys.
+[ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4) decides holds for what the repository deploys.
 
 ##### 50 in `foundation`
 
@@ -1669,7 +1669,7 @@ Summary (ours): Use network security groups to control traffic between subnets a
 
 #### What 51 means here
 
-Every workload subnet has a security group ([ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4)), but its inbound rules allow any
+Every workload subnet has a security group ([ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4)), but its inbound rules allow any
 traffic tagged `VirtualNetwork` — every address of the local network and of the networks peered to it — and deny the internet. Traffic
 between subnets of one spoke, and between a spoke and its hub, is therefore allowed in full. A spoke's `dev` and `test` subnets can reach
 each other, which separates the environments by subnet but not by rule.
@@ -1724,7 +1724,7 @@ than sending it through a central appliance.
 #### What 53 means here
 
 The shape is the recommended one: segmentation inside a spoke is a security group per subnet, and no central appliance filters traffic
-between subnets ([ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4)). The rules are coarse, as rule 51 describes, so the segments are
+between subnets ([ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4)). The rules are coarse, as rule 51 describes, so the segments are
 drawn but not separated by rule.
 
 ##### 53 in `foundation`
@@ -1756,7 +1756,7 @@ into traffic, investigation, and compliance.
 #### What 54 means here
 
 No network logs its flows. The security groups and the virtual network send their resource logs and metrics to `foundation`'s workspace, not
-their flows. [ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) and [ADR-AZ-CAFMGMT#4](management.md#rule-adr-az-cafmgmt4) plan virtual
+their flows. [ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6) and [ADR-AZ-CAF-MGMT#4](management.md#rule-adr-az-caf-mgmt4) plan virtual
 network flow logs with traffic analytics into that workspace; this rule is the same plan, seen from segmentation.
 
 ##### 54 in `foundation`
@@ -2005,7 +2005,7 @@ hub in one resource group of its one region, with the gateway and firewall subne
 `network.yml`, which serves as the repository's IP address management: every range is planned there before its network exists, no two
 overlap, the plan is arranged by hub and spoke, and a range leaves it with its subscription. Segmentation is a security group per workload
 subnet that denies inbound internet traffic, with spokes isolated from each other by the topology
-([ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4), [ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6)).
+([ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4), [ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6)).
 
 The gaps are planned (follow-up): a firewall in the hub with a default route from every spoke, a check that every range is private, security
 group rules per subnet, a policy that requires a security group on every subnet, and virtual network flow logs with traffic analytics on

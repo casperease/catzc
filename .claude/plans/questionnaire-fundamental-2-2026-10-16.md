@@ -21,7 +21,7 @@ below, and kept five that only the user can answer.
 5. The twenty finished plans in .unordered are deleted; the folder becomes the landing zone.
 6. Variants: have_customers false, tracks required, aspects catch-all, shipped file deleted, defaults published as a contract kind.
 7. Source mode reads this repo's own fragments only; a required key is a header comment; the assert ladder is a FAILFAST section.
-8. Config-defaults Phase 1 waits for the module model; the fragment folder name waits for ADR-CATS.
+8. Config-defaults Phase 1 waits for the module model; the fragment folder name waits for ADR-PRIN-CATS.
 9. The user names the pwsh quiet window; no diagrams in the layers plan; the pilot contract list is proposed, not assumed.
 10. Externally bound pipeline names are re-pointed the same day as P6; the prompts' dead paths are already re-pointed.
 11. Languages are modelled generally and forbidden by the track; engines per track with a module override; the resolver is Get-CatzcModule.
@@ -53,7 +53,7 @@ below, and kept five that only the user can answer.
 34. Guards are controls becomes a rule the materialization ADR cites; every sibling-checkout idea is named where it is used.
 35. Per-unit freezes, no repository-wide version; the time-safeguard limits stay tight and are tuned from the denial log.
 36. The head is the generated marker, folders may mix; comment pages hold prose for C# too.
-37. Render nothing unasked is a CLAUDE.md line and ADR-AI rule 13; every open step names its check, as a rule and a gate check.
+37. Render nothing unasked is a CLAUDE.md line and ADR-REPO-AI rule 13; every open step names its check, as a rule and a gate check.
 38. The decision method is kept and encoded in the plan-decide robot; engine names are settled by layers P1.
 39. ADR-REPO-PLANS cites reduce waste, poka-yoke and one living version.
 40. Everything above has an ADR home in decisions-2026-10-16.md; a decision without one is reopened.
@@ -70,7 +70,7 @@ Options: a) keep open until one exists; b) directly on trunk; c) through a PR.
 Two CAF ADRs leave decisions to the user: what the branch tag records on a devbox deploy, and a service connection per environment. Options:
 a) leave both open until a deploy touches them; b) decide now (say which values).
 
-### B3 ADR-CATS domain
+### B3 ADR-PRIN-CATS domain
 
 Options: a) principles (a design axiom); b) thesis (what catzc is for).
 
@@ -86,7 +86,7 @@ delete batch one; b) a smaller first batch (say which families); c) not yet.
 
 ## Answers (2026-10-16)
 
-B1 keep open until an INPUT pipeline exists. B2 leave both Azure leftovers open until a deploy touches them. B3 ADR-CATS lives in the
+B1 keep open until an INPUT pipeline exists. B2 leave both Azure leftovers open until a deploy touches them. B3 ADR-PRIN-CATS lives in the
 principles domain. B4 the stable-locators rule goes to ADR-REPO-FOLDERS, the PowerShell naming rule to ADR-REPO-VOCAB. B5 stays open: a
 probe deletion batch needs a yes each time, and none was given.
 

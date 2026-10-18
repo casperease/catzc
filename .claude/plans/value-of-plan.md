@@ -104,13 +104,13 @@ shortens a plan only after its data is in the tree, never by dropping a signal.
   move in 70 files, CommentsConfig and New-Importer tests pass. No open step.
 - plan-assets-beside-articles: the move landed, the gallery reads the sidecar carrier for its descriptions, the carrier test passes as it
   stands, and the old `docs/.assets/explanation` folder is gone. No open step (the assets leftovers task).
-- plan-adr-ai: ADR-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is folded
+- plan-adr-ai: ADR-REPO-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is folded
   into its Context; D14 kept the one-segment code. No open step.
-- plan-adr-cats: ADR-CATS with five rules in principles, the glossary terms cats and catzc, the decisions told to the two plans that waited.
+- plan-adr-cats: ADR-PRIN-CATS with five rules in principles, the glossary terms cats and catzc, the decisions told to the two plans that waited.
   No open step.
 - prompt-file-kinds-and-formatting-continue, prompt-file-kinds-registry-continue, prompt-head-path-split-continue: continuation prompts of
   plans deleted on 2026-10-16; every item they named is a step of plan-file-head-immutable-edges-classes or done.
-- The done task files of folder hygiene, ADR-AI, ADR-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal robots, layers
+- The done task files of folder hygiene, ADR-REPO-AI, ADR-PRIN-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal robots, layers
   doctrine and class selectors: disposable executables (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in git.
 - plan-minimal-robots, plan-minimal-robots-agents, plan-minimal-robots-capabilities: the program landed (15 robots, 18 capabilities,
   ADR-REPO-AGENTS rules 6 to 10, the gate), and Phase 5 is measured in the program plan's own table (static context per robot from its

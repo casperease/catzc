@@ -3,30 +3,30 @@
 Pairs with [`landing-zones`](../landing-zones.md) (ADR-AZ-LZ#5 names the performance-efficiency line of the workload) and
 [`data-model`](../azure-data-model.md) (the configuration tree that carries every SKU and capacity per environment class).
 
-## Rules: ADR-AZ-WAFPE
+## Rules: ADR-AZ-WAF-PE
 
-### Rule ADR-AZ-WAFPE:1
+### Rule ADR-AZ-WAF-PE:1
 
 Not adopted: the example templates set no numeric performance targets, because they deploy no application with users or flows to measure; a
 workload built on them sets its own targets before it is deployed.
 
 - [PE:01 — Define performance targets](#pe01--define-performance-targets)
 
-### Rule ADR-AZ-WAFPE:2
+### Rule ADR-AZ-WAF-PE:2
 
 Capacity is a config value per environment class — the database SKU, vCore count, and serverless floor in each `expedition` config, the
 budget per subscription in each `discovery` config — and no demand forecast or service-limit check stands behind it.
 
 - [PE:02 — Conduct capacity planning](#pe02--conduct-capacity-planning)
 
-### Rule ADR-AZ-WAFPE:3
+### Rule ADR-AZ-WAF-PE:3
 
 The templates choose platform services over custom builds — Azure SQL Database and StorageV2 behind private endpoints, a Log Analytics
 workspace, a Key Vault — in one region, with zone-redundant storage and the database tier per environment class from the config.
 
 - [PE:03 — Select the right services](#pe03--select-the-right-services)
 
-### Rule ADR-AZ-WAFPE:4
+### Rule ADR-AZ-WAF-PE:4
 
 The workload's data services and the landing zone's network send their logs and metrics through a diagnostic setting to `foundation`'s Log
 Analytics workspace of the same subscription, so production and non-production signals never mix; baselines, alerts, and dashboards are not
@@ -34,7 +34,7 @@ part of the templates.
 
 - [PE:04 — Establish consistent performance measurement](#pe04--establish-consistent-performance-measurement)
 
-### Rule ADR-AZ-WAFPE:5
+### Rule ADR-AZ-WAF-PE:5
 
 Outside production the database scales itself between a serverless floor and ceiling from the config and pauses when idle; in production it
 is provisioned at a fixed capacity. The unit of scale-out is a configuration slot, a whole deployment of the workload in its own resource
@@ -42,49 +42,49 @@ group; no autoscale rule and no data partitioning exist.
 
 - [PE:05 — Optimize scaling and partitioning](#pe05--optimize-scaling-and-partitioning)
 
-### Rule ADR-AZ-WAFPE:6
+### Rule ADR-AZ-WAF-PE:6
 
 Not adopted: no load, stress, or soak test runs against a deployment, because the example workload carries no application or traffic to
 load; the test tiers verify the code and the compiled templates, not a deployment's performance.
 
 - [PE:06 — Optimize your workload's performance by regularly testing in a production-like environment](#pe06--optimize-your-workloads-performance-by-regularly-testing-in-a-production-like-environment)
 
-### Rule ADR-AZ-WAFPE:7
+### Rule ADR-AZ-WAF-PE:7
 
 Not adopted for code, because the templates deploy no application code; on the infrastructure side the templates hand transport security,
 identity, and backups to the platform rather than building them.
 
 - [PE:07 — Optimize code and infrastructure](#pe07--optimize-code-and-infrastructure)
 
-### Rule ADR-AZ-WAFPE:8
+### Rule ADR-AZ-WAF-PE:8
 
 Not adopted: the example database holds no schema, data, or queries to tune; the database's query and wait signals reach the workspace
-through its diagnostic setting (ADR-AZ-WAFPE#4), ready for the workload that owns a schema.
+through its diagnostic setting (ADR-AZ-WAF-PE#4), ready for the workload that owns a schema.
 
 - [PE:08 — Optimize data usage](#pe08--optimize-data-usage)
 
-### Rule ADR-AZ-WAFPE:9
+### Rule ADR-AZ-WAF-PE:9
 
 Not adopted at the level of flows, because the workload has none; each deployment carries a `criticality` tag, and each customer gets its
 own subscription, landing zone, and workload resources, which isolates customers from one another.
 
 - [PE:09 — Prioritize the performance of critical flows](#pe09--prioritize-the-performance-of-critical-flows)
 
-### Rule ADR-AZ-WAFPE:10
+### Rule ADR-AZ-WAF-PE:10
 
 The routine tasks the templates carry run on the platform: deployments are declarative and incremental, backups are the database's automated
 backups and the storage account's soft delete, and the break-glass password lives in Key Vault. No task is scheduled off-peak.
 
 - [PE:10 — Optimize operational tasks](#pe10--optimize-operational-tasks)
 
-### Rule ADR-AZ-WAFPE:11
+### Rule ADR-AZ-WAF-PE:11
 
-Not adopted: no performance alert, triage plan, or on-call rota exists, because there is no baseline to deviate from (ADR-AZ-WAFPE#1,
-ADR-AZ-WAFPE#4); the activity log's service-health and resource-health records reach the workspace through the landing zone.
+Not adopted: no performance alert, triage plan, or on-call rota exists, because there is no baseline to deviate from (ADR-AZ-WAF-PE#1,
+ADR-AZ-WAF-PE#4); the activity log's service-health and resource-health records reach the workspace through the landing zone.
 
 - [PE:11 — Respond to live performance issues](#pe11--respond-to-live-performance-issues)
 
-### Rule ADR-AZ-WAFPE:12
+### Rule ADR-AZ-WAF-PE:12
 
 Not adopted: no continuous performance review runs, because it needs the targets and baselines the templates do not set; changes to the
 templates go through the same build and verification as every other change.
@@ -352,7 +352,7 @@ batching, lean queries, compression, and a CDN for static content.
 
 #### What PE:07 means here
 
-The code half does not apply: no template deploys application code. The infrastructure half follows from ADR-AZ-WAFPE#3: the templates build
+The code half does not apply: no template deploys application code. The infrastructure half follows from ADR-AZ-WAF-PE#3: the templates build
 no service the platform offers. TLS ends at the managed services, identity is a managed identity and Entra ID rather than stored credentials
 (ADR-AZ-LZ#6), and backups are platform features, so no component of ours does that work.
 
@@ -371,7 +371,7 @@ No code. The storage account and database expose only private endpoints, so traf
 
 ##### PE:07 status
 
-Not adopted, because the templates deploy no application code; the infrastructure half is realised through ADR-AZ-WAFPE#3.
+Not adopted, because the templates deploy no application code; the infrastructure half is realised through ADR-AZ-WAF-PE#3.
 
 ### PE:08 — Optimize data usage
 
@@ -387,7 +387,7 @@ replicas, archive and purge, place data near its users, and keep transactional a
 #### What PE:08 means here
 
 Data tuning needs data, and the example database is empty. What the templates provide is the signal a tuning effort reads: the database's
-diagnostic setting sends the `allLogs` category group, which carries its query-store and wait statistics, to the workspace (ADR-AZ-WAFPE#4).
+diagnostic setting sends the `allLogs` category group, which carries its query-store and wait statistics, to the workspace (ADR-AZ-WAF-PE#4).
 Index design, query rewriting, and partitioning belong to the workload that owns the schema.
 
 ##### PE:08 in `foundation`
@@ -492,7 +492,7 @@ alert.
 
 #### What PE:11 means here
 
-The data an investigation would read is collected (ADR-AZ-WAFPE#4), and the activity log's `ServiceHealth` and `ResourceHealth` records
+The data an investigation would read is collected (ADR-AZ-WAF-PE#4), and the activity log's `ServiceHealth` and `ResourceHealth` records
 reach the workspace, so a platform incident is visible beside the workload's own signals. The architecture is documented in the reference
 articles under `docs/references/infrastructure/`. No alert, triage plan, or on-call rota exists, and access to the workspace is whatever
 role the subscription grants.
@@ -526,7 +526,7 @@ the database and tiering its data.
 
 #### What PE:12 means here
 
-Continuous optimisation measures against targets and baselines, which the templates do not set (ADR-AZ-WAFPE#1). What the repository does
+Continuous optimisation measures against targets and baselines, which the templates do not set (ADR-AZ-WAF-PE#1). What the repository does
 continuously is change the templates through the same build and verification as any code: `ci-infrastructure.yaml` compiles and verifies
 every template on every change under `infrastructure/`, and `azure.yml` pins the minimum Bicep version (`bicep_min_version`), so a newer
 platform feature arrives as a reviewed template change.
@@ -566,9 +566,9 @@ These checks exist:
 The follow-up to the CAF and WAF work plans these checks; they are not part of the repository:
 
 - A check over the compiled templates (`main.json`) that every resource kind `diagnostic-setting.bicep` supports carries a diagnostic
-  setting, citing ADR-AZ-WAFPE#4.
+  setting, citing ADR-AZ-WAF-PE#4.
 - An integrity test over the `expedition` configs that a production-class config names a provisioned SKU and an explicit capacity, citing
-  ADR-AZ-WAFPE#2.
+  ADR-AZ-WAF-PE#2.
 
 ## Consequences
 

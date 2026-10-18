@@ -75,12 +75,13 @@ Recorded 2026-10-18 with the user:
       W_SUBTITLE.
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 3). The move command: moves files with `git mv` and re-points relative links in and into them, with L0 tests on neutral fixtures (check:
       its tests pass; Test-Links clean after a fixture move).
-- [ ] On approval, all 150 diagrams move, one folder of articles at a time, through the move command (check: Test-Links clean after each
+- [x] Done 2026-10-18 (catzc-fb, all 149 plus glyphs; verdicts in task-diagram-folders step 6). On approval, all 150 diagrams move, one folder of articles at a time, through the move command (check: Test-Links clean after each
       folder).
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 4). `Build-Diagrams -Path`, the folder discovery; `diagram_folders` replaced in the same change (ADR-PRIN-ONELIVE); each description's
       rebuild step names `Build-Diagrams -Path` (check: its L0 tests pass, dry run lists the call set per folder).
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 5). ADR-REPO-FOLDERS, ADR-REPO-SLIDES#7 and `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability
       test).
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 7). `glyphs.drawio.png`, the shared glyph legend, into `docs/explanation/.assets/glyphs/` (check: every page that links it resolves).
-- [ ] Delete the emptied `docs/explanation/.assets/{grid,tree,chain}/` and this plan (check: `git ls-files docs/explanation/.assets` lists
+- [x] Folders done 2026-10-18 (task-diagram-folders step 8); the plan itself goes in the closing sweep. Delete the emptied
+      `docs/explanation/.assets/{grid,tree,chain}/` and this plan (check: `git ls-files docs/explanation/.assets` lists
       only `glyphs/`; Test-Plans clean).

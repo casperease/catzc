@@ -41,10 +41,10 @@ by naming which of the 439 public functions are contracted. Every later plan spe
   plan (render nothing unasked); the session proposes the command-contract pilot list for approval (the cats entry point's commands the
   likely answer); the externally bound pipeline names are re-pointed the same day as P6; the planner re-points the prompts' out/ paths; P1
   (docs and glossary) runs beside the module model, code phases wait.
-- The cats and catzc names are ruled by a new ADR-CATS (plan-adr-cats); pwsh and automation stay strictly apart from it (F1): the folder
+- The cats and catzc names are ruled by a new ADR-PRIN-CATS (plan-adr-cats); pwsh and automation stay strictly apart from it (F1): the folder
   rename is technical, automation is a subject and the big cross-cutter with design principles and pipelines, so ADR-AUTO-LAYERS rules those
   two names and the glossary terms pwsh and automation come from it.
-- ADR-CATS is written (2026-10-17, docs/adr/principles/cats-and-catzc.md): cats (ADR-CATS#2) and catzc (ADR-CATS#1) are glossary terms from
+- ADR-PRIN-CATS is written (2026-10-17, docs/adr/principles/cats-and-catzc.md): cats (ADR-PRIN-CATS#2) and catzc (ADR-PRIN-CATS#1) are glossary terms from
   it, so the layers glossary list excludes them and ADR-AUTO-LAYERS cites them where it needs the names.
 - Public API (F6, S5): most of the 439 public functions become internal; the pilot contracts are hand-written; generating a contract from
   the ADR that defines it is a direction tried on the second set.

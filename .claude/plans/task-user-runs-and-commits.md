@@ -21,7 +21,7 @@ task:
 
 # Task: the user's commits, git operations, remote runs, and the one final full run
 
-Every step here is one the user does by hand, because agents never run mutating git, never run all tests, and never touch a remote (ADR-AI;
+Every step here is one the user does by hand, because agents never run mutating git, never run all tests, and never touch a remote (ADR-REPO-AI;
 `.claude/CLAUDE.md`, No mutating git operations). No task packs an expensive run into a step: a check is one test file under
 `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one full-repo proof is the last step here, a final new session that
 dot-sources `importer.ps1` and runs `Test-Automation` once over the whole repository; every plan that "closes on green" closes on that run

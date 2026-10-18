@@ -3,30 +3,30 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone and the workload these rules review) and
 [`network-model`](../azure-network-model.md) (the one region per environment that bounds every redundancy rule here).
 
-## Rules: ADR-AZ-WAFRE
+## Rules: ADR-AZ-WAF-RE
 
-### Rule ADR-AZ-WAFRE:1
+### Rule ADR-AZ-WAF-RE:1
 
 Every resource a template deploys is a managed platform service built from a shared module with secure, redundant defaults, and each
 template deploys only what its stated purpose needs; no template runs self-managed compute.
 
 - [RE:01 — Focus your workload design on simplicity and efficiency](#re01--focus-your-workload-design-on-simplicity-and-efficiency)
 
-### Rule ADR-AZ-WAFRE:2
+### Rule ADR-AZ-WAF-RE:2
 
 Every deployment rates its business criticality in the CAF `criticality` tag (`low`, `medium`, `high`) of its config; a catalogue of user
 and system flows belongs to a workload that has users, and the example templates carry none.
 
 - [RE:02 — Identify and rate user and system flows](#re02--identify-and-rate-user-and-system-flows)
 
-### Rule ADR-AZ-WAFRE:3
+### Rule ADR-AZ-WAF-RE:3
 
 This record classes each template's dependencies as strong or weak; a failure mode analysis per user flow is not adopted, because the
 example templates carry no user flows to analyse.
 
 - [RE:03 — Use failure mode analysis (FMA) to identify potential failures in your workload](#re03--use-failure-mode-analysis-fma-to-identify-potential-failures-in-your-workload)
 
-### Rule ADR-AZ-WAFRE:4
+### Rule ADR-AZ-WAF-RE:4
 
 The recovery targets of each environment class — the recovery point objective (RPO) and the recovery time objective (RTO) — are planned as
 stated values beside the `expedition` settings that realise them; availability SLOs are not adopted, because the example deployments serve
@@ -34,7 +34,7 @@ no users to measure.
 
 - [RE:04 — Define reliability and recovery targets](#re04--define-reliability-and-recovery-targets)
 
-### Rule ADR-AZ-WAFRE:5
+### Rule ADR-AZ-WAF-RE:5
 
 Redundancy stays inside one region: storage is zone-redundant in every environment, and a production database is zone-redundant with
 geo-redundant backups. A second region is not adopted ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)); delete locks on
@@ -42,14 +42,14 @@ the resources every spoke depends on are planned.
 
 - [RE:05 — Add redundancy at different levels, especially for critical flows](#re05--add-redundancy-at-different-levels-especially-for-critical-flows)
 
-### Rule ADR-AZ-WAFRE:6
+### Rule ADR-AZ-WAF-RE:6
 
 The templates deploy no compute to scale. A non-production database scales itself inside a serverless range capped by `databaseSkuCapacity`;
 a production database scales by a config change and a deploy.
 
 - [RE:06 — Implement a timely and reliable scaling strategy at the application, data, and infrastructure levels](#re06--implement-a-timely-and-reliable-scaling-strategy-at-the-application-data-and-infrastructure-levels)
 
-### Rule ADR-AZ-WAFRE:7
+### Rule ADR-AZ-WAF-RE:7
 
 A failure stays contained by isolation and platform failover: each customer subscription holds its own `foundation`, landing zone and
 workload, zone-redundant services fail over inside Azure, and soft delete keeps a deleted blob or container recoverable. Automated
@@ -57,14 +57,14 @@ remediation is planned.
 
 - [RE:07 — Strengthen the resiliency of your workload by implementing self-preservation and self-healing measures](#re07--strengthen-the-resiliency-of-your-workload-by-implementing-self-preservation-and-self-healing-measures)
 
-### Rule ADR-AZ-WAFRE:8
+### Rule ADR-AZ-WAF-RE:8
 
 Resiliency testing by fault injection, failover drills and restore tests is not adopted, because the example deployments target placeholder
 subscriptions; the CI pipeline tests what needs no Azure: that every template and config compiles and binds.
 
 - [RE:08 — Test for resiliency and availability scenarios by applying the principles of chaos engineering](#re08--test-for-resiliency-and-availability-scenarios-by-applying-the-principles-of-chaos-engineering)
 
-### Rule ADR-AZ-WAFRE:9
+### Rule ADR-AZ-WAF-RE:9
 
 Recovery is a redeploy and a restore: the templates are idempotent and rebuild a subscription in the order `foundation`, `discovery`,
 `expedition`, and a production database restores from its geo-redundant backups. A written disaster recovery plan is planned; a prepared
@@ -72,7 +72,7 @@ secondary region is not adopted ([ADR-AZ-NETWORK#3](../azure-network-model.md#ru
 
 - [RE:09 — Implement structured, tested, and documented disaster recovery (DR) plans](#re09--implement-structured-tested-and-documented-disaster-recovery-dr-plans)
 
-### Rule ADR-AZ-WAFRE:10
+### Rule ADR-AZ-WAF-RE:10
 
 The landing zone and the workload send their diagnostics to `foundation`'s Log Analytics workspace, and the subscription's activity log, its
 Service Health and Resource Health events included, streams there too. Alerts on those signals, a health model, and diagnostics for
@@ -510,8 +510,8 @@ environment maps to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rul
 - The module defaults (`Standard_ZRS`, `zoneRedundant`, `backupStorageRedundancy: Geo`, blob soft delete) hold for every caller that does
   not override them; a pull request that overrides one shows in review, not in a check.
 - Planned (follow-up): a quality gate that reads the compiled templates and their rendered parameters and fails a production config without
-  zone redundancy or with `Local` backups, citing ADR-AZ-WAFRE#5; and a check that the vault, the virtual network, and every data resource
-  carries a diagnostic setting, citing ADR-AZ-WAFRE#10. Neither exists.
+  zone redundancy or with `Local` backups, citing ADR-AZ-WAF-RE#5; and a check that the vault, the virtual network, and every data resource
+  carries a diagnostic setting, citing ADR-AZ-WAF-RE#10. Neither exists.
 
 ## Consequences
 

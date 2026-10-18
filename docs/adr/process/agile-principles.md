@@ -1,78 +1,78 @@
 # ADR: Agile principles — the twelve principles behind the manifesto
 
-## Rules: ADR-PRIN-PROCESS
+## Rules: ADR-PROC-AGILEPRINCIPLES
 
-### Rule ADR-PRIN-PROCESS:1
+### Rule ADR-PROC-AGILEPRINCIPLES:1
 
 Satisfy the customer through early and continuous delivery of valuable software — the highest priority, and the reason every other principle
 exists.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:2
+### Rule ADR-PROC-AGILEPRINCIPLES:2
 
 Welcome changing requirements, even late — an agile process turns change into the customer's competitive advantage rather than treating it
 as a failure of planning.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:3
+### Rule ADR-PROC-AGILEPRINCIPLES:3
 
 Deliver working software frequently — on a cadence of weeks rather than months, preferring the shorter interval.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:4
+### Rule ADR-PROC-AGILEPRINCIPLES:4
 
 Business people and developers work together daily throughout the project — collaboration is continuous, not a hand-off at the boundaries.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:5
+### Rule ADR-PROC-AGILEPRINCIPLES:5
 
 Build projects around motivated individuals — give them the environment and support they need, and trust them to get the job done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:6
+### Rule ADR-PROC-AGILEPRINCIPLES:6
 
 Favour direct conversation — the most efficient and effective way to convey information to and within a team is face-to-face.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:7
+### Rule ADR-PROC-AGILEPRINCIPLES:7
 
 Working software is the primary measure of progress — not documents produced, hours spent, or tasks marked done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:8
+### Rule ADR-PROC-AGILEPRINCIPLES:8
 
 Sustain a constant pace indefinitely — sponsors, developers, and users should be able to maintain the pace without burning out; agile is a
 sustainable process, not a sprint to exhaustion.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:9
+### Rule ADR-PROC-AGILEPRINCIPLES:9
 
 Attend continuously to technical excellence and good design — quality is what keeps the cost of change low and so enhances agility.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:10
+### Rule ADR-PROC-AGILEPRINCIPLES:10
 
 Maximise the work not done — simplicity is essential; the cheapest, most responsive system is the one that does no more than it must.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:11
+### Rule ADR-PROC-AGILEPRINCIPLES:11
 
 Let architectures, requirements, and designs emerge from self-organising teams — the best solutions come from the people doing the work, not
 from an authority above them.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PRIN-PROCESS:12
+### Rule ADR-PROC-AGILEPRINCIPLES:12
 
 Reflect and adjust at regular intervals — the team periodically tunes its own behaviour to become more effective; continuous improvement is
 built into the process.

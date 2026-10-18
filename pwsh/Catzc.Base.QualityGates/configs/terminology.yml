@@ -616,39 +616,39 @@ terms:
     - term: datamod
       meaning: "body of the ADR-AZ-DATAMOD code (data-model)"
     - term: wafre
-      meaning: "body of the ADR-AZ-WAFRE code (Well-Architected reliability)"
+      meaning: "body of the ADR-AZ-WAF-RE code (Well-Architected reliability)"
     - term: wafse
-      meaning: "body of the ADR-AZ-WAFSE code (Well-Architected security)"
+      meaning: "body of the ADR-AZ-WAF-SE code (Well-Architected security)"
     - term: wafco
-      meaning: "body of the ADR-AZ-WAFCO code (Well-Architected cost optimization)"
+      meaning: "body of the ADR-AZ-WAF-CO code (Well-Architected cost optimization)"
     - term: wafoe
-      meaning: "body of the ADR-AZ-WAFOE code (Well-Architected operational excellence)"
+      meaning: "body of the ADR-AZ-WAF-OE code (Well-Architected operational excellence)"
     - term: wafpe
-      meaning: "body of the ADR-AZ-WAFPE code (Well-Architected performance efficiency)"
+      meaning: "body of the ADR-AZ-WAF-PE code (Well-Architected performance efficiency)"
     - term: cafprin
-      meaning: "body of the ADR-AZ-CAFPRIN code (CAF landing-zone design principles)"
+      meaning: "body of the ADR-AZ-CAF-PRIN code (CAF landing-zone design principles)"
     - term: cafbill
-      meaning: "body of the ADR-AZ-CAFBILL code (CAF billing and tenant)"
+      meaning: "body of the ADR-AZ-CAF-BILL code (CAF billing and tenant)"
     - term: cafiam
-      meaning: "body of the ADR-AZ-CAFIAM code (CAF identity and access)"
+      meaning: "body of the ADR-AZ-CAF-IAM code (CAF identity and access)"
     - term: cafresorg
-      meaning: "body of the ADR-AZ-CAFRESORG code (CAF resource organization)"
+      meaning: "body of the ADR-AZ-CAF-RESORG code (CAF resource organization)"
     - term: cafnettop
-      meaning: "body of the ADR-AZ-CAFNETTOP code (CAF network topology)"
+      meaning: "body of the ADR-AZ-CAF-NETTOP code (CAF network topology)"
     - term: cafnetcon
-      meaning: "body of the ADR-AZ-CAFNETCON code (CAF network connectivity)"
+      meaning: "body of the ADR-AZ-CAF-NETCON code (CAF network connectivity)"
     - term: cafnetprv
-      meaning: "body of the ADR-AZ-CAFNETPRV code (CAF network private access)"
+      meaning: "body of the ADR-AZ-CAF-NETPRV code (CAF network private access)"
     - term: cafsec
-      meaning: "body of the ADR-AZ-CAFSEC code (CAF landing-zone security)"
+      meaning: "body of the ADR-AZ-CAF-SEC code (CAF landing-zone security)"
     - term: cafdevops
-      meaning: "body of the ADR-AZ-CAFDEVOPS code (CAF platform automation and DevOps)"
+      meaning: "body of the ADR-AZ-CAF-DEVOPS code (CAF platform automation and DevOps)"
     - term: cafmgmt
-      meaning: "body of the ADR-AZ-CAFMGMT code (CAF management)"
+      meaning: "body of the ADR-AZ-CAF-MGMT code (CAF management)"
     - term: cafgov
-      meaning: "body of the ADR-AZ-CAFGOV code (CAF governance)"
+      meaning: "body of the ADR-AZ-CAF-GOV code (CAF governance)"
     - term: cafname
-      meaning: "body of the ADR-AZ-CAFNAME code (CAF naming and tagging)"
+      meaning: "body of the ADR-AZ-CAF-NAME code (CAF naming and tagging)"
     - term: outdir
       meaning: "body of the ADR-REPO-OUTDIR code (dedicated-output-directory)"
     - term: outfmt

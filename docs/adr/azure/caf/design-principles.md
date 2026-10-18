@@ -3,9 +3,9 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone these principles frame) and [`data-model`](../azure-data-model.md) (the
 subscriptions, the configuration tree, and the policy enforcement setting the principles are weighed against).
 
-## Rules: ADR-AZ-CAFPRIN
+## Rules: ADR-AZ-CAF-PRIN
 
-### Rule ADR-AZ-CAFPRIN:1
+### Rule ADR-AZ-CAF-PRIN:1
 
 Partly adopted: the subscription is the unit of management, each customer holds its own non-production and production subscription pair
 declared in `azure.yml`, and a new subscription's landing zone is a config file reviewed as a pull request; subscription vending and a
@@ -14,7 +14,7 @@ management group hierarchy are not adopted, because the repository deploys into 
 
 - [1 — Subscription democratization](#1--subscription-democratization)
 
-### Rule ADR-AZ-CAFPRIN:2
+### Rule ADR-AZ-CAF-PRIN:2
 
 Partly adopted: every landing zone assigns three built-in Azure Policy guardrails at subscription scope
 ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)), enforced or audited by the repository-wide `policy_enforcement` setting
@@ -22,7 +22,7 @@ Partly adopted: every landing zone assigns three built-in Azure Policy guardrail
 
 - [2 — Policy-driven governance](#2--policy-driven-governance)
 
-### Rule ADR-AZ-CAFPRIN:3
+### Rule ADR-AZ-CAF-PRIN:3
 
 Adopted for the control plane, deviated for the management plane: every change is an Azure Resource Manager deployment through Bicep and the
 az CLI, with catzc as a thin command line over it, never a portal in front of it; monitoring goes to one Log Analytics workspace per
@@ -30,7 +30,7 @@ subscription (`foundation`), not to one central workspace.
 
 - [3 — Single control and management plane](#3--single-control-and-management-plane)
 
-### Rule ADR-AZ-CAFPRIN:4
+### Rule ADR-AZ-CAF-PRIN:4
 
 Adopted: a workload is a template that lands in the landing zone of its subscription and owns none of it
 ([ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)); workloads are segmented by customer subscription and environment class, not by a
@@ -38,7 +38,7 @@ management group archetype.
 
 - [4 — Application-centric service model](#4--application-centric-service-model)
 
-### Rule ADR-AZ-CAFPRIN:5
+### Rule ADR-AZ-CAF-PRIN:5
 
 Adopted: the templates use Azure-native services only, written in Bicep from the shared modules in `infrastructure/modules/`, with Azure
 built-in policies and a pinned minimum Bicep CLI version; tracking new service capabilities and API versions is a manual review.
@@ -200,7 +200,7 @@ compiled template, and `-DryRun` runs Azure's own `--what-if`; every Azure opera
 ([ADR-AZ-CLI#1](../prefer-az-cli.md#rule-adr-az-cli1)). catzc is a command line in front of Azure, which the principle warns against, but a
 thin one: it harmonises how the organisation calls the vendor and delegates everything else to Bicep and the az CLI, never hiding or cloning
 the vendor's behaviour ([ADR-DSGN-THINPLAT#2](../../design/thin-platforms.md#rule-adr-dsgn-thinplat2)). Access is the subscription's own
-role-based access control, through the service connection that deploys it, and governance is Azure Policy (ADR-AZ-CAFPRIN#2). The repository
+role-based access control, through the service connection that deploys it, and governance is Azure Policy (ADR-AZ-CAF-PRIN#2). The repository
 is the single place a change is made ([ADR-DSGN-SELFSERV#2](../../design/self-service.md#rule-adr-dsgn-selfserv2)), and what it changes is
 plain Azure resources that the portal, the az CLI, and any Azure tool see as they are.
 
@@ -340,8 +340,8 @@ per subscription so that customers stay isolated.
   ([ADR-AZ-DATAMOD#8](../azure-data-model.md#rule-adr-az-datamod8), [ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
 - `Assert-AzCliBicep` fails a Bicep build on a Bicep CLI older than `bicep_min_version`.
 - The three policy assignments enforce or audit in Azure itself, per subscription.
-- Planned (follow-up): further built-in policy assignments in `discovery` (ADR-AZ-CAFPRIN#2), and a quality gate that flags outdated or
-  preview API versions in `infrastructure/modules/` (ADR-AZ-CAFPRIN#5). Neither exists.
+- Planned (follow-up): further built-in policy assignments in `discovery` (ADR-AZ-CAF-PRIN#2), and a quality gate that flags outdated or
+  preview API versions in `infrastructure/modules/` (ADR-AZ-CAF-PRIN#5). Neither exists.
 
 ## Consequences
 

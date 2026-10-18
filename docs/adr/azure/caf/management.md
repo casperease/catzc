@@ -3,23 +3,23 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that streams the activity log and the network diagnostics) and
 [`operational-excellence`](../waf/operational-excellence.md) (the monitoring stack and the incident process these rules build on).
 
-## Rules: ADR-AZ-CAFMGMT
+## Rules: ADR-AZ-CAF-MGMT
 
-### Rule ADR-AZ-CAFMGMT:1
+### Rule ADR-AZ-CAF-MGMT:1
 
 Not adopted, as a deliberate deviation: every subscription keeps its own Log Analytics workspace from `foundation`, so one customer's
-telemetry stays in that customer's subscription ([ADR-AZ-CAFPRIN#3](design-principles.md#rule-adr-az-cafprin3)).
+telemetry stays in that customer's subscription ([ADR-AZ-CAF-PRIN#3](design-principles.md#rule-adr-az-caf-prin3)).
 
 - [1 — Keep one Log Analytics workspace for the platform](#1--keep-one-log-analytics-workspace-for-the-platform)
 
-### Rule ADR-AZ-CAFMGMT:2
+### Rule ADR-AZ-CAF-MGMT:2
 
 Not adopted, because the workspaces keep 30 days and no example customer needs logs kept for years; retention per environment class is
-planned ([ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7)).
+planned ([ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7)).
 
 - [2 — Archive logs beyond seven years to immutable storage](#2--archive-logs-beyond-seven-years-to-immutable-storage)
 
-### Rule ADR-AZ-CAFMGMT:3
+### Rule ADR-AZ-CAF-MGMT:3
 
 Realised: every landing zone assigns three built-in policies and Azure reports their compliance per subscription
 ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)); the policy design itself is the governance record's.
@@ -27,21 +27,21 @@ Realised: every landing zone assigns three built-in policies and Azure reports t
 - [3 — Enforce settings and report compliance with Azure Policy](#3--enforce-settings-and-report-compliance-with-azure-policy)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFMGMT:4
+### Rule ADR-AZ-CAF-MGMT:4
 
 Planned: virtual network flow logs with Traffic Analytics into `foundation`'s workspace, the flow logging that
-[ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) plans.
+[ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6) plans.
 
 - [4 — Analyse network traffic with Traffic Analytics](#4--analyse-network-traffic-with-traffic-analytics)
 
-### Rule ADR-AZ-CAFMGMT:5
+### Rule ADR-AZ-CAF-MGMT:5
 
 Planned: a delete lock on the hub's virtual network and private DNS zones, the lock that
-[ADR-AZ-WAFRE#5](../waf/reliability.md#rule-adr-az-wafre5) plans; no module places a lock.
+[ADR-AZ-WAF-RE#5](../waf/reliability.md#rule-adr-az-waf-re5) plans; no module places a lock.
 
 - [5 — Lock critical shared resources against deletion](#5--lock-critical-shared-resources-against-deletion)
 
-### Rule ADR-AZ-CAFMGMT:6
+### Rule ADR-AZ-CAF-MGMT:6
 
 Realised: each subscription is deployed by its own service connection, and the landing zone's deny-effect policies limit what any identity
 may deploy there, enforcing in production and auditing outside it ([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
@@ -49,47 +49,47 @@ may deploy there, enforcing in production and auditing outside it ([ADR-AZ-DATAM
 - [6 — Pair role-based access with deny policies](#6--pair-role-based-access-with-deny-policies)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFMGMT:7
+### Rule ADR-AZ-CAF-MGMT:7
 
 Partly realised: the subscription's activity log, its `ServiceHealth` and `ResourceHealth` categories included, streams to `foundation`'s
-workspace; alerts on those events are planned ([ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10)).
+workspace; alerts on those events are planned ([ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10)).
 
 - [7 — Monitor Service Health and Resource Health events](#7--monitor-service-health-and-resource-health-events)
 
-### Rule ADR-AZ-CAFMGMT:8
+### Rule ADR-AZ-CAF-MGMT:8
 
 Not adopted, because the repository has no on-premises monitoring system to forward to; every log stays in Azure.
 
 - [8 — Keep raw logs in Azure, not on premises](#8--keep-raw-logs-in-azure-not-on-premises)
 
-### Rule ADR-AZ-CAFMGMT:9
+### Rule ADR-AZ-CAF-MGMT:9
 
 Not adopted, because no template deploys a virtual machine and every environment maps to one region
 ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
 
 - [9 — Replicate virtual machines with Site Recovery](#9--replicate-virtual-machines-with-site-recovery)
 
-### Rule ADR-AZ-CAFMGMT:10
+### Rule ADR-AZ-CAF-MGMT:10
 
 Partly realised: the workload relies on the platform's own redundancy — zone-redundant storage, and in production a zone-redundant database
-with geo-redundant backups ([ADR-AZ-WAFRE#5](../waf/reliability.md#rule-adr-az-wafre5)); a policy that audits it is not adopted.
+with geo-redundant backups ([ADR-AZ-WAF-RE#5](../waf/reliability.md#rule-adr-az-waf-re5)); a policy that audits it is not adopted.
 
 - [10 — Use the disaster recovery built into platform services](#10--use-the-disaster-recovery-built-into-platform-services)
 
-### Rule ADR-AZ-CAFMGMT:11
+### Rule ADR-AZ-CAF-MGMT:11
 
 Partly realised: the database's own point-in-time backups and the storage account's soft delete are the backup, set per environment class in
 config; a backup vault is not adopted, because nothing deployed needs one.
 
 - [11 — Use Azure-native backup](#11--use-azure-native-backup)
 
-### Rule ADR-AZ-CAFMGMT:12
+### Rule ADR-AZ-CAF-MGMT:12
 
 Not adopted, because the repository has no on-premises connectivity and no ExpressRoute circuit.
 
 - [12 — Make hybrid connectivity redundant across regions](#12--make-hybrid-connectivity-redundant-across-regions)
 
-### Rule ADR-AZ-CAFMGMT:13
+### Rule ADR-AZ-CAF-MGMT:13
 
 Realised: no two networks of the IP plan overlap, which `NetworkConfig` checks when `network.yml` loads
 ([ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)); a recovery network added to the plan falls under the same check.
@@ -97,66 +97,66 @@ Realised: no two networks of the IP plan overlap, which `NetworkConfig` checks w
 - [13 — Keep production and recovery address ranges apart](#13--keep-production-and-recovery-address-ranges-apart)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFMGMT:14
+### Rule ADR-AZ-CAF-MGMT:14
 
 Not adopted, because no template deploys a virtual machine, so there is no operating system to patch.
 
 - [14 — Patch virtual machines with Update Manager](#14--patch-virtual-machines-with-update-manager)
 
-### Rule ADR-AZ-CAFMGMT:15
+### Rule ADR-AZ-CAF-MGMT:15
 
 Not adopted, because no template deploys a virtual machine, so there is no in-guest configuration to audit.
 
 - [15 — Audit in-guest configuration drift by policy](#15--audit-in-guest-configuration-drift-by-policy)
 
-### Rule ADR-AZ-CAFMGMT:16
+### Rule ADR-AZ-CAF-MGMT:16
 
 Partly realised: every resource that emits logs or metrics sends them to `foundation`'s workspace through a diagnostic setting its own
-template deploys ([ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7)); `foundation`'s Key Vault sends none, which is
+template deploys ([ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7)); `foundation`'s Key Vault sends none, which is
 planned.
 
 - [16 — Collect workload logs and metrics in a workspace](#16--collect-workload-logs-and-metrics-in-a-workspace)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFMGMT:17
+### Rule ADR-AZ-CAF-MGMT:17
 
 Partly realised: access to each workspace follows the role-based access control of its subscription, so customers are kept apart by
-subscription; role assignments as code are planned ([ADR-AZ-WAFSE#5](../waf/security.md#rule-adr-az-wafse5)).
+subscription; role assignments as code are planned ([ADR-AZ-WAF-SE#5](../waf/security.md#rule-adr-az-waf-se5)).
 
 - [17 — Control workspace access with role-based access](#17--control-workspace-access-with-role-based-access)
 
-### Rule ADR-AZ-CAFMGMT:18
+### Rule ADR-AZ-CAF-MGMT:18
 
 Partly realised: every resource's platform metrics are in Azure Monitor and its diagnostic setting copies them to the workspace beside its
 logs; metric alerts are planned.
 
 - [18 — Use metrics for time-sensitive analysis](#18--use-metrics-for-time-sensitive-analysis)
 
-### Rule ADR-AZ-CAFMGMT:19
+### Rule ADR-AZ-CAF-MGMT:19
 
 Partly realised: the logs every template collects are queryable in one workspace per subscription; saved queries, workbooks, and dashboards
-are planned with the health model of [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7).
+are planned with the health model of [ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7).
 
 - [19 — Use logs for insight and reporting](#19--use-logs-for-insight-and-reporting)
 
-### Rule ADR-AZ-CAFMGMT:20
+### Rule ADR-AZ-CAF-MGMT:20
 
 Planned: an action group per subscription in `foundation` and alert rules in the templates that own the resources
-([ADR-AZ-WAFOE#8](../waf/operational-excellence.md#rule-adr-az-wafoe8)); the only alerts are the budget's.
+([ADR-AZ-WAF-OE#8](../waf/operational-excellence.md#rule-adr-az-waf-oe8)); the only alerts are the budget's.
 
 - [20 — Raise operational alerts with Azure Monitor](#20--raise-operational-alerts-with-azure-monitor)
 
-### Rule ADR-AZ-CAFMGMT:21
+### Rule ADR-AZ-CAF-MGMT:21
 
 Not adopted, because a workload's resources sit together: one resource group per configuration slot, named by the `workload` tag, inside one
 subscription.
 
 - [21 — Group workload resources with Service Groups](#21--group-workload-resources-with-service-groups)
 
-### Rule ADR-AZ-CAFMGMT:22
+### Rule ADR-AZ-CAF-MGMT:22
 
-Planned: the health model that [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7) and
-[ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10) plan; whether it uses Azure Monitor health models is decided when the feature
+Planned: the health model that [ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7) and
+[ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10) plan; whether it uses Azure Monitor health models is decided when the feature
 leaves preview.
 
 - [22 — Track workload health with health models](#22--track-workload-health-with-health-models)
@@ -182,8 +182,8 @@ pages list them (inventory and visibility 1–8, protection and recovery 9–13,
 rule cites Microsoft's page — area, page, section, link, retrieval date — and summarises it in our own words, because the live CAF text is
 published under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it
 into a shared repository. Nothing is quoted. Much of this area is decided by the Well-Architected records
-([ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7),
-[ADR-AZ-WAFOE#8](../waf/operational-excellence.md#rule-adr-az-wafoe8), [ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10)); the
+([ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7),
+[ADR-AZ-WAF-OE#8](../waf/operational-excellence.md#rule-adr-az-waf-oe8), [ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10)); the
 rules here cite those and do not repeat their analysis.
 
 The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
@@ -212,7 +212,7 @@ Summary (ours): Run the platform from one central Log Analytics workspace, unles
 
 The repository deviates on purpose. `foundation` deploys one workspace per subscription, and the landing zone and the workload of that
 subscription send everything there; there is no central workspace across subscriptions. The deviation and its cost are recorded once, in
-[ADR-AZ-CAFPRIN#3](design-principles.md#rule-adr-az-cafprin3): a view across customers needs a cross-workspace query, and a platform-wide
+[ADR-AZ-CAF-PRIN#3](design-principles.md#rule-adr-az-caf-prin3): a view across customers needs a cross-workspace query, and a platform-wide
 alert is one alert per workspace. The reason is the access-control exception the recommendation itself allows: each customer's telemetry
 stays in the subscription that customer's access covers, and non-production and production stay apart.
 
@@ -232,7 +232,7 @@ Reads the same two parameters and sends its diagnostics to the workspace of the 
 ##### 1 status
 
 Not adopted, because a workspace per subscription keeps each customer's telemetry inside that customer's subscription
-([ADR-AZ-CAFPRIN#3](design-principles.md#rule-adr-az-cafprin3)).
+([ADR-AZ-CAF-PRIN#3](design-principles.md#rule-adr-az-caf-prin3)).
 
 ### 2 — Archive logs beyond seven years to immutable storage
 
@@ -246,7 +246,7 @@ Summary (ours): When logs must be kept for more than seven years, export them to
 
 `log-analytics.bicep` takes `retentionInDays` between 30 and 730; `foundation` does not pass it, so every workspace keeps the default of 30
 days. No example customer carries an obligation to keep logs for years, so no export or archive exists. A longer retention per environment
-class is the config value [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7) plans; a customer whose rules demand more
+class is the config value [ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7) plans; a customer whose rules demand more
 than the workspace can hold would add a data export to an immutable storage account, deployed by `foundation` beside the workspace.
 
 ##### 2 in `foundation`
@@ -278,7 +278,7 @@ Summary (ours): Use Azure Policy to enforce the settings that must hold across t
 Every landing zone assigns three built-in policies at subscription scope — allowed locations, a required tag, and no public IP address on a
 network interface ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)) — and Azure keeps a compliance state for every assignment, so the
 report comes with the assignment. How the policies are chosen, pinned, and assigned is the governance record's
-([ADR-AZ-CAFGOV#4](governance.md#rule-adr-az-cafgov4), [ADR-AZ-CAFGOV#6](governance.md#rule-adr-az-cafgov6)).
+([ADR-AZ-CAF-GOV#4](governance.md#rule-adr-az-caf-gov4), [ADR-AZ-CAF-GOV#6](governance.md#rule-adr-az-caf-gov6)).
 
 ##### 3 in `foundation`
 
@@ -307,7 +307,7 @@ Summary (ours): Use Traffic Analytics to see the IP traffic that flows through t
 #### What 4 means here
 
 Traffic Analytics reads flow logs, and no network logs its flows: the network security groups and the virtual network send their resource
-logs and metrics to the workspace, not their flows. [ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6) plans virtual network flow logs
+logs and metrics to the workspace, not their flows. [ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6) plans virtual network flow logs
 into `foundation`'s workspace. Turning on Traffic Analytics is part of that work: the flow log names the workspace, and it needs a storage
 account for the raw flow records, which `foundation` would hold beside the workspace.
 
@@ -325,7 +325,7 @@ Not applicable: it creates no network.
 
 ##### 4 status
 
-Planned (follow-up) — virtual network flow logs with Traffic Analytics, as part of the flow logging ADR-AZ-WAFSE#6 plans.
+Planned (follow-up) — virtual network flow logs with Traffic Analytics, as part of the flow logging ADR-AZ-WAF-SE#6 plans.
 
 ### 5 — Lock critical shared resources against deletion
 
@@ -338,7 +338,7 @@ Summary (ours): Put resource locks on critical shared services so they cannot be
 #### What 5 means here
 
 No module places a lock. The resources every spoke depends on are the hub's virtual network and its private DNS zones: deleting either
-breaks name resolution or peering for every workload of the tier. [ADR-AZ-WAFRE#5](../waf/reliability.md#rule-adr-az-wafre5) plans a
+breaks name resolution or peering for every workload of the tier. [ADR-AZ-WAF-RE#5](../waf/reliability.md#rule-adr-az-waf-re5) plans a
 `CanNotDelete` lock on them, as a lock module the hub deploys. `foundation`'s Key Vault, which holds the break-glass password every
 `expedition` deploy reads ([ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)), is a candidate for the same lock.
 
@@ -371,7 +371,7 @@ Summary (ours): Let role assignments decide who may deploy, and deny policies de
 #### What 6 means here
 
 Who may deploy is the role-based access of each subscription: every subscription is deployed by its own service connection, which holds
-rights there and nowhere else ([ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4)). What may be deployed is the landing zone's three
+rights there and nowhere else ([ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4)). What may be deployed is the landing zone's three
 policies, each a deny effect: a resource outside the region, without the required tag, or with a public IP address on a network interface is
 refused ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). The policies deny where `policy_enforcement` enforces, which its sensible
 default does in production, and only report outside it ([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
@@ -404,7 +404,7 @@ Summary (ours): Include Service Health and Resource Health events in the platfor
 
 `subscription-diagnostic-setting.bicep` sends the activity log categories `ServiceHealth` and `ResourceHealth`, with the others, to the
 subscription's workspace, so the events are collected. Nothing alerts on them; the Service Health and Resource Health alerts per
-subscription are planned by [ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10), in the landing zone, sent to the action group of
+subscription are planned by [ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10), in the landing zone, sent to the action group of
 [20](#20--raise-operational-alerts-with-azure-monitor).
 
 ##### 7 in `foundation`
@@ -475,9 +475,9 @@ Summary (ours): Rely on the replication and failover that platform services prov
 The workload uses only platform services, and their redundancy is a module default or a config value
 ([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)): storage is zone-redundant (`Standard_ZRS`) in every environment, and a production
 database is zone-redundant with geo-redundant backups, so it can be restored in another region. The redundancy analysis is
-[ADR-AZ-WAFRE#5](../waf/reliability.md#rule-adr-az-wafre5) and the recovery approach — redeploy and restore — is
-[ADR-AZ-WAFRE#9](../waf/reliability.md#rule-adr-az-wafre9). No policy audits these settings; the planned check over the compiled templates
-that fails a production config without zone redundancy, recorded under ADR-AZ-WAFRE#5, covers the same ground at build time.
+[ADR-AZ-WAF-RE#5](../waf/reliability.md#rule-adr-az-waf-re5) and the recovery approach — redeploy and restore — is
+[ADR-AZ-WAF-RE#9](../waf/reliability.md#rule-adr-az-waf-re9). No policy audits these settings; the planned check over the compiled templates
+that fails a production config without zone redundancy, recorded under ADR-AZ-WAF-RE#5, covers the same ground at build time.
 
 ##### 10 in `foundation`
 
@@ -614,7 +614,7 @@ Summary (ours): Audit configuration drift inside virtual machines with Machine C
 
 No template deploys a virtual machine, so there is no guest configuration to drift. Drift of the Azure resources themselves is handled by
 redeploying the template from its config, which restores the declared state, and by the landing zone's policies
-([ADR-AZ-WAFOE#10](../waf/operational-excellence.md#rule-adr-az-wafoe10)).
+([ADR-AZ-WAF-OE#10](../waf/operational-excellence.md#rule-adr-az-waf-oe10)).
 
 ##### 15 status
 
@@ -630,7 +630,7 @@ Summary (ours): Collect the logs and metrics of infrastructure and platform serv
 
 #### What 16 means here
 
-This is the monitoring stack of [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7): each template sends the diagnostics
+This is the monitoring stack of [ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7): each template sends the diagnostics
 of the resources it deploys to `foundation`'s workspace through `diagnostic-setting.bicep`, which picks the categories of each resource kind
 (logs by the `allLogs` category group, plus the kind's metrics). A diagnostic setting in the template exists when the deploy succeeds, which
 a deploy-if-not-exists policy cannot promise ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). The gap is `foundation`'s own Key Vault,
@@ -665,9 +665,9 @@ Summary (ours): Govern who can read a workspace and its logs with Azure role-bas
 
 A workspace per subscription makes access to telemetry a matter of the subscription's own role-based access: whoever may read a customer's
 subscription may read its workspace, and nobody gains another customer's logs by reading one workspace
-([ADR-AZ-CAFPRIN#3](design-principles.md#rule-adr-az-cafprin3)). `log-analytics.bicep` sets no access-control mode, so Azure's default for
+([ADR-AZ-CAF-PRIN#3](design-principles.md#rule-adr-az-caf-prin3)). `log-analytics.bicep` sets no access-control mode, so Azure's default for
 the workspace applies, and the templates assign no role to people. Role assignments as code are planned by
-[ADR-AZ-WAFSE#5](../waf/security.md#rule-adr-az-wafse5); a reader role on the workspace belongs among them.
+[ADR-AZ-WAF-SE#5](../waf/security.md#rule-adr-az-waf-se5); a reader role on the workspace belongs among them.
 
 ##### 17 in `foundation`
 
@@ -699,7 +699,7 @@ Summary (ours): Use Azure Monitor Metrics, a time-series store, for fast alertin
 Every Azure resource publishes its platform metrics to Azure Monitor with no configuration, and `diagnostic-setting.bicep` also copies the
 metric categories of each kind to the workspace, so metrics and logs can be read side by side there. What is missing is the fast use the
 recommendation is about: no metric alert watches the database's availability or capacity, which
-[ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10) plans for production.
+[ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10) plans for production.
 
 ##### 18 in `foundation`
 
@@ -731,7 +731,7 @@ Summary (ours): Use Azure Monitor Logs to analyse and report across the data of 
 
 The logs are there to query: one workspace per subscription holds the activity log and the diagnostics of every template. The reporting on
 top of them — saved queries, workbooks, a dashboard — is not in the repository; it comes with the health model and dashboards that
-[ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7) plans, as template resources so they deploy with the workspace. The
+[ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7) plans, as template resources so they deploy with the workspace. The
 diagnostics-extension storage the recommendation mentions concerns virtual machines, which are not deployed.
 
 ##### 19 in `foundation`
@@ -762,8 +762,8 @@ Summary (ours): Generate operational alerts with Azure Monitor alerts across met
 #### What 20 means here
 
 No alert rule or action group exists; the only alerts are the landing zone's budget thresholds, sent to the subscription's `Owner` role by
-`budget.bicep`. Alert routing is the gap [ADR-AZ-WAFOE#8](../waf/operational-excellence.md#rule-adr-az-wafoe8) records, and the alerts
-themselves are planned by [ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10). The shape follows the rest of the design: one action
+`budget.bicep`. Alert routing is the gap [ADR-AZ-WAF-OE#8](../waf/operational-excellence.md#rule-adr-az-waf-oe8) records, and the alerts
+themselves are planned by [ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10). The shape follows the rest of the design: one action
 group per subscription in `foundation`, addressed to the subscription's `Owner` role as the budget is, so no address lives in a config; each
 later template points the alert rules for its own resources at it. Microsoft's baseline alerts deployed by policy are not the route, for the
 reason of [ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3).
@@ -814,8 +814,8 @@ Summary (ours): Model the health of a service group's resources and their depend
 
 #### What 22 means here
 
-There is no health model. [ADR-AZ-WAFOE#7](../waf/operational-excellence.md#rule-adr-az-wafoe7) and
-[ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10) plan one, so that an alert points at real impact on the workload rather than at
+There is no health model. [ADR-AZ-WAF-OE#7](../waf/operational-excellence.md#rule-adr-az-waf-oe7) and
+[ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10) plan one, so that an alert points at real impact on the workload rather than at
 one resource. Azure Monitor health models are one way to build it; the feature is in preview and builds on Service Groups, which are not
 adopted (see [21](#21--group-workload-resources-with-service-groups)), so the choice of tool is made when that work begins.
 
@@ -839,7 +839,7 @@ Planned (follow-up) — a health model per workload; the tool is chosen when the
 
 The repository answers each of Microsoft's management recommendations with what it does, what it plans, or why it does not adopt it.
 Management is one Log Analytics workspace per subscription, a deliberate deviation from one central workspace
-([ADR-AZ-CAFPRIN#3](design-principles.md#rule-adr-az-cafprin3)); diagnostic settings deployed by each template, never by policy, send the
+([ADR-AZ-CAF-PRIN#3](design-principles.md#rule-adr-az-caf-prin3)); diagnostic settings deployed by each template, never by policy, send the
 activity log and every resource's telemetry there; the landing zone's policies and a budget per subscription complete the baseline. The
 recommendations that assume virtual machines (Site Recovery, Update Manager, Machine Configuration) or on-premises connectivity
 (ExpressRoute, on-premises monitoring) are not adopted, because nothing deployed needs them. The planned items are alerting (an action group
@@ -859,7 +859,7 @@ a health model, and workspace role assignments as code.
 - `NetworkConfig` rejects overlapping ranges when `network.yml` loads, and `Test-AzureNetworkPlan` keeps the plan in step with `azure.yml`
   ([ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)).
 - Planned (follow-up), not existing: a check over the compiled templates (`main.json`) that fails a resource kind with no diagnostic
-  setting, citing ADR-AZ-CAFMGMT#16 and ADR-AZ-WAFRE#10; the action group and alert modules; and a lock module.
+  setting, citing ADR-AZ-CAF-MGMT#16 and ADR-AZ-WAF-RE#10; the action group and alert modules; and a lock module.
 
 ## Consequences
 

@@ -8,7 +8,7 @@ prompt:
 # Prompt: execute the next task of the master plan
 
 You are continuing work in `C:\projects\catzc`. Read `.claude/CLAUDE.md`, then `docs/adr/index.md` (cite rules by code; never sweep the
-corpus), then `docs/adr/repository/ai-agent-contract.md` (ADR-AI). Then read `.claude/plans/plan-master.md`: its Process section is the
+corpus), then `docs/adr/repository/ai-agent-contract.md` (ADR-REPO-AI). Then read `.claude/plans/plan-master.md`: its Process section is the
 method, its Chunks section is the order. Each pointer line names a `task-<topic>.md` in the same folder.
 
 Pick the first task whose `blocked_on` is satisfied, in the order of the Chunks list; a decision round runs only when the user is present to

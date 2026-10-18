@@ -4,9 +4,9 @@ Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that assigns
 [`data-model`](../azure-data-model.md) (the repository-wide `policy_enforcement` setting and the configuration tree every tag and budget
 lives in).
 
-## Rules: ADR-AZ-CAFGOV
+## Rules: ADR-AZ-CAF-GOV
 
-### Rule ADR-AZ-CAFGOV:1
+### Rule ADR-AZ-CAF-GOV:1
 
 Partly realised: every resource carries the six CAF tags from its config, and the landing zone requires one of them, `cost-center`, through
 a deny-effect built-in policy; append-mode tagging is not adopted, because the templates write every tag themselves.
@@ -14,21 +14,21 @@ a deny-effect built-in policy; append-mode tagging is not adopted, because the t
 - [1 — Decide the required tags and enforce them by policy](#1--decide-the-required-tags-and-enforce-them-by-policy)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFGOV:2
+### Rule ADR-AZ-CAF-GOV:2
 
 Not adopted, because the example customers carry no regulatory requirement; a repository whose customer does adds the matching built-in
 regulatory initiative to the landing zone's policy set.
 
 - [2 — Turn compliance requirements into policy](#2--turn-compliance-requirements-into-policy)
 
-### Rule ADR-AZ-CAFGOV:3
+### Rule ADR-AZ-CAF-GOV:3
 
 Not adopted, because the repository owns no management group and defines no policy of its own: the built-in definitions it assigns exist in
 every tenant.
 
 - [3 — Define policies at the top of the hierarchy](#3--define-policies-at-the-top-of-the-hierarchy)
 
-### Rule ADR-AZ-CAFGOV:4
+### Rule ADR-AZ-CAF-GOV:4
 
 Realised at the highest level the repository owns: the landing zone assigns its policies once per subscription, with no exclusion or
 exemption, and no workload assigns a policy.
@@ -36,14 +36,14 @@ exemption, and no workload assigns a policy.
 - [4 — Assign policies as high as is sensible](#4--assign-policies-as-high-as-is-sensible)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFGOV:5
+### Rule ADR-AZ-CAF-GOV:5
 
 Not adopted, because the landing zone restricts where resources go and how they connect, not which services a subscription may use; a
 repository that must restrict them adds a built-in resource-type policy to the landing zone's set.
 
 - [5 — Govern resource provider registration by policy](#5--govern-resource-provider-registration-by-policy)
 
-### Rule ADR-AZ-CAFGOV:6
+### Rule ADR-AZ-CAF-GOV:6
 
 Realised: the landing zone assigns three built-in policies and no custom definition, each pinned by its definition id in
 `discovery/main.bicep` and registered in `guids.yml`, so a change of definition is one reviewed change.
@@ -51,20 +51,20 @@ Realised: the landing zone assigns three built-in policies and no custom definit
 - [6 — Prefer built-in policies](#6--prefer-built-in-policies)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFGOV:7
+### Rule ADR-AZ-CAF-GOV:7
 
 Not adopted, because policy belongs to the landing zone and a workload owns none of it (ADR-AZ-LZ#4); the templates grant no role to an
 application team.
 
 - [7 — Let application teams govern their own scope](#7--let-application-teams-govern-their-own-scope)
 
-### Rule ADR-AZ-CAFGOV:8
+### Rule ADR-AZ-CAF-GOV:8
 
 Not adopted, because the repository makes no assignment above a subscription; the subscription assignments carry no exclusions to manage.
 
 - [8 — Keep root-level assignments few](#8--keep-root-level-assignments-few)
 
-### Rule ADR-AZ-CAFGOV:9
+### Rule ADR-AZ-CAF-GOV:9
 
 Partly realised: every landing zone deploys a monthly budget whose alerts reach the subscription's `Owner` role; cost exports, forecast
 alerts, and anomaly alerts are planned.
@@ -72,7 +72,7 @@ alerts, and anomaly alerts are planned.
 - [9 — Oversee spend with Cost Management](#9--oversee-spend-with-cost-management)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFGOV:10
+### Rule ADR-AZ-CAF-GOV:10
 
 Partly realised: every resource names its paying team in `cost-center` and its workload in `workload`; the resource groups that
 `Deploy-Bicep` creates for `foundation` and `expedition` carry no CAF tags, which is planned.
@@ -361,7 +361,7 @@ Every landing zone deploys a Cost Management budget for its subscription through
 from its config, with alerts at 50, 80, and 100 percent of actual cost to the holders of the subscription's `Owner` role, so no address is
 kept in a config. The amounts are plain config values that anyone reading the repository can see and review. What is missing is the rest of
 the oversight: no cost export writes daily data to storage, the budget compares against actual cost only, and there is no anomaly alert —
-the same gaps [ADR-AZ-WAFCO#3](../waf/cost-optimization.md#rule-adr-az-wafco3) records and plans to close.
+the same gaps [ADR-AZ-WAF-CO#3](../waf/cost-optimization.md#rule-adr-az-waf-co3) records and plans to close.
 
 ##### 9 in `foundation`
 

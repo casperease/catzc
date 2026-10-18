@@ -4,43 +4,43 @@ Pairs with [`landing-zones`](../landing-zones.md) (its Security line, [ADR-AZ-LZ
 these rules expand), [`network-model`](../azure-network-model.md) (the segments the network rules rely on), and
 [`data-model`](../azure-data-model.md) (where a secret may and may not appear in a config).
 
-## Rules: ADR-AZ-WAFSE
+## Rules: ADR-AZ-WAF-SE
 
-### Rule ADR-AZ-WAFSE:1
+### Rule ADR-AZ-WAF-SE:1
 
 The security baseline is the set of secure module defaults, the three landing-zone policies, and the Security line of ADR-AZ-LZ#5; a
 benchmark initiative and a check that reads the compiled templates against it are planned.
 
 - [SE:01 — Establish a security baseline](#se01--establish-a-security-baseline)
 
-### Rule ADR-AZ-WAFSE:2
+### Rule ADR-AZ-WAF-SE:2
 
 Security is built into the delivery flow by the build checks that keep secrets and unregistered identifiers out of the tree; secret
 scanning, dependency scanning, and a threat model are planned.
 
 - [SE:02 — Align secure development lifecycle (SDL) throughout the software development lifecycle](#se02--align-secure-development-lifecycle-sdl-throughout-the-software-development-lifecycle)
 
-### Rule ADR-AZ-WAFSE:3
+### Rule ADR-AZ-WAF-SE:3
 
 Every deployment carries a `data-classification` tag in its config; validating its values and letting it select controls is planned.
 
 - [SE:03 — Classify and consistently apply sensitivity and information type labels](#se03--classify-and-consistently-apply-sensitivity-and-information-type-labels)
 
-### Rule ADR-AZ-WAFSE:4
+### Rule ADR-AZ-WAF-SE:4
 
 Segments are the subscription per customer and tier, the resource group per configuration slot, the hub-and-spoke network, and a network
 security group per workload subnet, each deployed by its own service connection; management groups are left to the tenant's administrators.
 
 - [SE:04 — Create intentional segmentation and perimeters](#se04--create-intentional-segmentation-and-perimeters)
 
-### Rule ADR-AZ-WAFSE:5
+### Rule ADR-AZ-WAF-SE:5
 
 People reach data through Entra ID groups and services through managed identities, shared-key access is off, and the one non-identity
 credential is the break-glass SQL login of ADR-AZ-LZ#6; role assignments as code are planned.
 
 - [SE:05 — Implement strict, conditional, and auditable identity and access management (IAM)](#se05--implement-strict-conditional-and-auditable-identity-and-access-management-iam)
 
-### Rule ADR-AZ-WAFSE:6
+### Rule ADR-AZ-WAF-SE:6
 
 Data services have public network access off and are reached only through private endpoints resolved by the hub's private DNS zones, inbound
 internet traffic is denied at every workload subnet, and no network interface takes a public IP address; egress through a firewall and flow
@@ -48,41 +48,41 @@ logs are planned.
 
 - [SE:06 — Isolate, filter, and control network traffic](#se06--isolate-filter-and-control-network-traffic)
 
-### Rule ADR-AZ-WAFSE:7
+### Rule ADR-AZ-WAF-SE:7
 
 Data is encrypted in transit with TLS 1.2 at minimum and HTTPS only, and at rest by the platform's own encryption; customer-managed keys are
 not adopted.
 
 - [SE:07 — Encrypt data by using modern, industry-standard methods](#se07--encrypt-data-by-using-modern-industry-standard-methods)
 
-### Rule ADR-AZ-WAFSE:8
+### Rule ADR-AZ-WAF-SE:8
 
 Hardening is a secure default of each shared Bicep module, so every caller gets it unless it turns it off; the modules that miss it (the Key
 Vault, the virtual machine, the Data Factory) are planned to gain it.
 
 - [SE:08 — Harden all workload components](#se08--harden-all-workload-components)
 
-### Rule ADR-AZ-WAFSE:9
+### Rule ADR-AZ-WAF-SE:9
 
 The repository holds no secret: a secure parameter is a Key Vault reference to `foundation`'s vault, a config address never carries a
 secret, and services authenticate as managed identities; automated rotation is planned.
 
 - [SE:09 — Protect application secrets](#se09--protect-application-secrets)
 
-### Rule ADR-AZ-WAFSE:10
+### Rule ADR-AZ-WAF-SE:10
 
 The subscription's activity log and the diagnostics of every data and network resource go to `foundation`'s Log Analytics workspace; Key
 Vault and SQL audit logs and threat detection are planned.
 
 - [SE:10 — Implement a holistic monitoring strategy](#se10--implement-a-holistic-monitoring-strategy)
 
-### Rule ADR-AZ-WAFSE:11
+### Rule ADR-AZ-WAF-SE:11
 
 The repository's checks run at build time on the templates and configs; security tests of a deployed workload are planned.
 
 - [SE:11 — Establish a comprehensive testing regimen](#se11--establish-a-comprehensive-testing-regimen)
 
-### Rule ADR-AZ-WAFSE:12
+### Rule ADR-AZ-WAF-SE:12
 
 Incident response is not adopted, because it is an operating process of the tenant's security operations, not something a template deploys;
 the repository supplies what triage reads — the owner tag, the configuration tree as inventory, and the logs in one workspace.

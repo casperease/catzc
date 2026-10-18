@@ -3,35 +3,35 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that stops at the subscription), [`data-model`](../azure-data-model.md)
 (the tenants and subscriptions in `azure.yml`), and [`customer-model`](../azure-customer-model.md) (customers separated by subscription).
 
-## Rules: ADR-AZ-CAFBILL
+## Rules: ADR-AZ-CAF-BILL
 
-### Rule ADR-AZ-CAFBILL:1
+### Rule ADR-AZ-CAF-BILL:1
 
-Partly realised: a subscription is onboarded by pull request, as [ADR-AZ-CAFRESORG#19](resource-organization.md#rule-adr-az-cafresorg19)
+Partly realised: a subscription is onboarded by pull request, as [ADR-AZ-CAF-RESORG#19](resource-organization.md#rule-adr-az-caf-resorg19)
 records; creating it from an Enterprise Agreement enrollment is not adopted, because the repository holds no billing role.
 
 - [1 — Vend subscriptions as a self-service capability (EA)](#1--vend-subscriptions-as-a-self-service-capability-ea)
 
-### Rule ADR-AZ-CAFBILL:2
+### Rule ADR-AZ-CAF-BILL:2
 
 Not adopted, because the repository administers no enrollment account; every identity it names is an Entra object of the one tenant.
 
 - [2 — Use work or school accounts for every EA role](#2--use-work-or-school-accounts-for-every-ea-role)
 
-### Rule ADR-AZ-CAFBILL:3
+### Rule ADR-AZ-CAF-BILL:3
 
 Not adopted, because the enrollment's notification contact is billing administration above the repository; its budget alerts go to the
 subscription's `Owner` role.
 
 - [3 — Send EA notifications to a group mailbox](#3--send-ea-notifications-to-a-group-mailbox)
 
-### Rule ADR-AZ-CAFBILL:4
+### Rule ADR-AZ-CAF-BILL:4
 
 Not adopted, because departments and accounts are billing structure above the subscriptions the repository is given.
 
 - [4 — Model the organisation with EA departments and accounts](#4--model-the-organisation-with-ea-departments-and-accounts)
 
-### Rule ADR-AZ-CAFBILL:5
+### Rule ADR-AZ-CAF-BILL:5
 
 Partly realised: every resource carries the CAF tags and lands in its environment's one region, so Cost Management can slice spend by tag
 and location; the resource groups that `Deploy-Bicep` creates carry no CAF tags, which is planned.
@@ -39,224 +39,224 @@ and location; the resource groups that `Deploy-Bicep` creates carry no CAF tags,
 - [5 — Analyse cost by tag and location](#5--analyse-cost-by-tag-and-location)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFBILL:6
+### Rule ADR-AZ-CAF-BILL:6
 
 Not adopted, because EA account owners are billing roles the repository neither grants nor holds.
 
 - [6 — Keep EA account owners few](#6--keep-ea-account-owners-few)
 
-### Rule ADR-AZ-CAFBILL:7
+### Rule ADR-AZ-CAF-BILL:7
 
 Not adopted at department and account level, because the repository holds no billing role; it budgets each subscription instead
-([ADR-AZ-CAFGOV#9](governance.md#rule-adr-az-cafgov9)).
+([ADR-AZ-CAF-GOV#9](governance.md#rule-adr-az-caf-gov9)).
 
 - [7 — Budget every EA department and account](#7--budget-every-ea-department-and-account)
 
-### Rule ADR-AZ-CAFBILL:8
+### Rule ADR-AZ-CAF-BILL:8
 
 Not adopted, because departments are billing structure above the repository.
 
 - [8 — Add an IT department only where a business unit runs its own IT](#8--add-an-it-department-only-where-a-business-unit-runs-its-own-it)
 
-### Rule ADR-AZ-CAFBILL:9
+### Rule ADR-AZ-CAF-BILL:9
 
 Not adopted, because account owners are set on the enrollment; the repository declares the one tenant every subscription lives in.
 
 - [9 — Keep account owners in the tenant of their subscriptions](#9--keep-account-owners-in-the-tenant-of-their-subscriptions)
 
-### Rule ADR-AZ-CAFBILL:10
+### Rule ADR-AZ-CAF-BILL:10
 
 Not adopted, because the offer is chosen when a subscription is created, outside the repository.
 
 - [10 — Use the Enterprise Dev/Test offer for non-production](#10--use-the-enterprise-devtest-offer-for-non-production)
 
-### Rule ADR-AZ-CAFBILL:11
+### Rule ADR-AZ-CAF-BILL:11
 
 Not adopted, because the notification mailbox belongs to billing administration above the repository.
 
 - [11 — Act on EA notification mail](#11--act-on-ea-notification-mail)
 
-### Rule ADR-AZ-CAFBILL:12
+### Rule ADR-AZ-CAF-BILL:12
 
 Not adopted, because the repository manages no Entra user, the one behind an enrollment account included.
 
 - [12 — Leave the Entra user of an enrollment account untouched](#12--leave-the-entra-user-of-an-enrollment-account-untouched)
 
-### Rule ADR-AZ-CAFBILL:13
+### Rule ADR-AZ-CAF-BILL:13
 
 Not adopted, because access to Cost Management at billing level is granted and reviewed above the repository.
 
 - [13 — Audit who can reach Cost Management](#13--audit-who-can-reach-cost-management)
 
-### Rule ADR-AZ-CAFBILL:14
+### Rule ADR-AZ-CAF-BILL:14
 
 Not adopted, because charge visibility is an enrollment setting above the repository.
 
 - [14 — Let department admins and account owners see charges](#14--let-department-admins-and-account-owners-see-charges)
 
-### Rule ADR-AZ-CAFBILL:15
+### Rule ADR-AZ-CAF-BILL:15
 
 Not adopted, because the repository grants no right to create subscriptions and protects no identity's sign-in.
 
 - [15 — Protect EA subscription creators with MFA](#15--protect-ea-subscription-creators-with-mfa)
 
-### Rule ADR-AZ-CAFBILL:16
+### Rule ADR-AZ-CAF-BILL:16
 
-Partly realised, as [1](#rule-adr-az-cafbill1): onboarding by pull request; creating the subscription from a Microsoft Customer Agreement is
+Partly realised, as [1](#rule-adr-az-caf-bill1): onboarding by pull request; creating the subscription from a Microsoft Customer Agreement is
 not adopted.
 
 - [16 — Vend subscriptions as a self-service capability (MCA)](#16--vend-subscriptions-as-a-self-service-capability-mca)
 
-### Rule ADR-AZ-CAFBILL:17
+### Rule ADR-AZ-CAF-BILL:17
 
 Not adopted, because the billing account's notification contact is administration above the repository.
 
 - [17 — Send MCA notifications to a group mailbox](#17--send-mca-notifications-to-a-group-mailbox)
 
-### Rule ADR-AZ-CAFBILL:18
+### Rule ADR-AZ-CAF-BILL:18
 
 Not adopted at invoice-section and billing-profile level, because the repository holds no billing role; it budgets each subscription
 instead.
 
 - [18 — Budget every invoice section or billing profile](#18--budget-every-invoice-section-or-billing-profile)
 
-### Rule ADR-AZ-CAFBILL:19
+### Rule ADR-AZ-CAF-BILL:19
 
 Not adopted, because the MCA hierarchy is billing structure above the repository.
 
 - [19 — Map the organisation onto the MCA hierarchy](#19--map-the-organisation-onto-the-mca-hierarchy)
 
-### Rule ADR-AZ-CAFBILL:20
+### Rule ADR-AZ-CAF-BILL:20
 
 Not adopted, because invoice sections are billing structure above the repository.
 
 - [20 — Give a business unit with its own IT its own invoice section](#20--give-a-business-unit-with-its-own-it-its-own-invoice-section)
 
-### Rule ADR-AZ-CAFBILL:21
+### Rule ADR-AZ-CAF-BILL:21
 
 Not adopted, because the contact mailbox belongs to billing administration above the repository.
 
 - [21 — Act on MCA notification mail](#21--act-on-mca-notification-mail)
 
-### Rule ADR-AZ-CAFBILL:22
+### Rule ADR-AZ-CAF-BILL:22
 
 Not adopted, because billing role assignments are made and reviewed above the repository.
 
 - [22 — Audit billing role assignments on the agreement](#22--audit-billing-role-assignments-on-the-agreement)
 
-### Rule ADR-AZ-CAFBILL:23
+### Rule ADR-AZ-CAF-BILL:23
 
 Not adopted, because the offer is chosen when a subscription is created, outside the repository.
 
 - [23 — Use the MCA dev/test plan for non-production](#23--use-the-mca-devtest-plan-for-non-production)
 
-### Rule ADR-AZ-CAFBILL:24
+### Rule ADR-AZ-CAF-BILL:24
 
 Not adopted, because the repository grants no right to create subscriptions and protects no identity's sign-in.
 
 - [24 — Protect MCA subscription creators with MFA](#24--protect-mca-subscription-creators-with-mfa)
 
-### Rule ADR-AZ-CAFBILL:25
+### Rule ADR-AZ-CAF-BILL:25
 
 Not adopted, because the repository's subscriptions come from no CSP partner and it delegates no access across tenants.
 
 - [25 — Have the CSP partner use Azure Lighthouse for support access](#25--have-the-csp-partner-use-azure-lighthouse-for-support-access)
 
-### Rule ADR-AZ-CAFBILL:26
+### Rule ADR-AZ-CAF-BILL:26
 
 Not adopted, because partner admin privileges are granted between organisations, above the repository.
 
 - [26 — Have the partner hold granular delegated admin privileges](#26--have-the-partner-hold-granular-delegated-admin-privileges)
 
-### Rule ADR-AZ-CAFBILL:27
+### Rule ADR-AZ-CAF-BILL:27
 
 Not adopted, because Partner Center's customer security practices concern tenant administration above the repository.
 
 - [27 — Apply the customer security best practices](#27--apply-the-customer-security-best-practices)
 
-### Rule ADR-AZ-CAFBILL:28
+### Rule ADR-AZ-CAF-BILL:28
 
 Not adopted, because the partner's own security practices are outside the repository.
 
 - [28 — Have the partner apply the CSP security best practices](#28--have-the-partner-apply-the-csp-security-best-practices)
 
-### Rule ADR-AZ-CAFBILL:29
+### Rule ADR-AZ-CAF-BILL:29
 
 Not adopted, because support arrangements with a partner are outside the repository.
 
 - [29 — Agree how support cases are raised](#29--agree-how-support-cases-are-raised)
 
-### Rule ADR-AZ-CAFBILL:30
+### Rule ADR-AZ-CAF-BILL:30
 
-Not adopted, because creating a subscription is outside the repository; onboarding a given one is [1](#rule-adr-az-cafbill1).
+Not adopted, because creating a subscription is outside the repository; onboarding a given one is [1](#rule-adr-az-caf-bill1).
 
 - [30 — Agree how self-service subscriptions are created](#30--agree-how-self-service-subscriptions-are-created)
 
-### Rule ADR-AZ-CAFBILL:31
+### Rule ADR-AZ-CAF-BILL:31
 
-Partly realised, as [5](#rule-adr-az-cafbill5): every resource carries the CAF tags and one region; CAF tags on the resource groups
+Partly realised, as [5](#rule-adr-az-caf-bill5): every resource carries the CAF tags and one region; CAF tags on the resource groups
 `Deploy-Bicep` creates are planned.
 
 - [31 — Analyse CSP cost by tag and location](#31--analyse-csp-cost-by-tag-and-location)
 
-### Rule ADR-AZ-CAFBILL:32
+### Rule ADR-AZ-CAF-BILL:32
 
 Not adopted, because the repository grants no right to create subscriptions and protects no identity's sign-in.
 
 - [32 — Protect CSP subscription creators with MFA](#32--protect-csp-subscription-creators-with-mfa)
 
-### Rule ADR-AZ-CAFBILL:33
+### Rule ADR-AZ-CAF-BILL:33
 
 Not adopted, because the repository's subscriptions come from no CSP partner; they all sit in the one tenant `azure.yml` declares.
 
 - [33 — Provision CSP subscriptions into the organisation's own tenant](#33--provision-csp-subscriptions-into-the-organisations-own-tenant)
 
-### Rule ADR-AZ-CAFBILL:34
+### Rule ADR-AZ-CAF-BILL:34
 
 Not adopted, because custom names and directory synchronisation are tenant administration above the repository.
 
 - [34 — Register custom names on the tenant](#34--register-custom-names-on-the-tenant)
 
-### Rule ADR-AZ-CAFBILL:35
+### Rule ADR-AZ-CAF-BILL:35
 
 Not adopted, because single sign-on is tenant administration above the repository.
 
 - [35 — Decide the single sign-on approach](#35--decide-the-single-sign-on-approach)
 
-### Rule ADR-AZ-CAFBILL:36
+### Rule ADR-AZ-CAF-BILL:36
 
 Not adopted, because the repository builds no identity estate; it uses the tenant it is given.
 
 - [36 — Start cloud-only when there is no identity estate](#36--start-cloud-only-when-there-is-no-identity-estate)
 
-### Rule ADR-AZ-CAFBILL:37
+### Rule ADR-AZ-CAF-BILL:37
 
 Not adopted, because MFA and Conditional Access are tenant configuration; the templates route SQL administration through an Entra group, so
 the tenant's sign-in policies reach it, and only the break-glass login sits outside them.
 
 - [37 — Require MFA and Conditional Access for privileged accounts](#37--require-mfa-and-conditional-access-for-privileged-accounts)
 
-### Rule ADR-AZ-CAFBILL:38
+### Rule ADR-AZ-CAF-BILL:38
 
 Not adopted for the tenant, because emergency accounts are tenant administration; each SQL server carries the same idea one level down, its
 break-glass SQL login of [ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6).
 
 - [38 — Plan emergency access accounts](#38--plan-emergency-access-accounts)
 
-### Rule ADR-AZ-CAFBILL:39
+### Rule ADR-AZ-CAF-BILL:39
 
 Not adopted, because PIM is tenant configuration; the templates make SQL administrators a group, which PIM can govern without a change here.
 
 - [39 — Govern privileged access with PIM](#39--govern-privileged-access-with-pim)
 
-### Rule ADR-AZ-CAFBILL:40
+### Rule ADR-AZ-CAF-BILL:40
 
 Not adopted, because Entra's diagnostic settings are made at tenant level, where the repository deploys nothing; `foundation`'s workspace is
 where they would go.
 
 - [40 — Stream Entra logs to the central workspace](#40--stream-entra-logs-to-the-central-workspace)
 
-### Rule ADR-AZ-CAFBILL:41
+### Rule ADR-AZ-CAF-BILL:41
 
 Realised: `azure.yml` declares one tenant and every subscription names it; every deploy verifies the session's subscription against the
 declaration, and a deploy-time check of its tenant is planned.
@@ -264,13 +264,13 @@ declaration, and a deploy-time check of its tenant is planned.
 - [41 — Avoid several tenants](#41--avoid-several-tenants)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFBILL:42
+### Rule ADR-AZ-CAF-BILL:42
 
 Not adopted, because the repository grants no partner access across tenants.
 
 - [42 — Grant partner access with Azure Lighthouse](#42--grant-partner-access-with-azure-lighthouse)
 
-### Rule ADR-AZ-CAFBILL:43
+### Rule ADR-AZ-CAF-BILL:43
 
 Realised: all customers share the one tenant and are separated by subscription ([ADR-AZ-CUSTOMER](../azure-customer-model.md)), and the
 landing zone's joins across subscriptions rely on it.
@@ -278,32 +278,32 @@ landing zone's joins across subscriptions rely on it.
 - [43 — Default to one tenant](#43--default-to-one-tenant)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFBILL:44
+### Rule ADR-AZ-CAF-BILL:44
 
 Not adopted, because experiments run as a configuration slot of a non-production subscription; they stay inside the one tenant, which is the
 recommendation's point.
 
 - [44 — Experiment in sandbox subscriptions, not tenants](#44--experiment-in-sandbox-subscriptions-not-tenants)
 
-### Rule ADR-AZ-CAFBILL:45
+### Rule ADR-AZ-CAF-BILL:45
 
 Not adopted, because the repository integrates no operational tool across tenants.
 
 - [45 — Integrate tools across tenants as multitenant apps](#45--integrate-tools-across-tenants-as-multitenant-apps)
 
-### Rule ADR-AZ-CAFBILL:46
+### Rule ADR-AZ-CAF-BILL:46
 
 Not adopted, because the repository is not an ISV offering; its customers are subscriptions in one tenant.
 
 - [46 — Read the ISV landing zone guidance](#46--read-the-isv-landing-zone-guidance)
 
-### Rule ADR-AZ-CAFBILL:47
+### Rule ADR-AZ-CAF-BILL:47
 
 Not adopted, because the repository manages one tenant and nothing across tenants.
 
 - [47 — Manage across tenants with Azure Lighthouse](#47--manage-across-tenants-with-azure-lighthouse)
 
-### Rule ADR-AZ-CAFBILL:48
+### Rule ADR-AZ-CAF-BILL:48
 
 Not adopted, because billing roles are set above the repository; it declares the tenant of every subscription, and a deploy-time check that
 fails a subscription in another directory is planned.
@@ -311,80 +311,80 @@ fails a subscription in another directory is planned.
 - [48 — Keep subscription creators in the destination tenant](#48--keep-subscription-creators-in-the-destination-tenant)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFBILL:49
+### Rule ADR-AZ-CAF-BILL:49
 
 Not adopted, because security operations for the tenant are outside the repository.
 
 - [49 — Follow the Entra security operations guide](#49--follow-the-entra-security-operations-guide)
 
-### Rule ADR-AZ-CAFBILL:50
+### Rule ADR-AZ-CAF-BILL:50
 
 Not adopted, because Global Administrators are tenant administration above the repository.
 
 - [50 — Keep Global Administrators few](#50--keep-global-administrators-few)
 
-### Rule ADR-AZ-CAFBILL:51
+### Rule ADR-AZ-CAF-BILL:51
 
-Not adopted, because PIM is tenant configuration, as [39](#rule-adr-az-cafbill39).
+Not adopted, because PIM is tenant configuration, as [39](#rule-adr-az-caf-bill39).
 
 - [51 — Put every admin account under PIM](#51--put-every-admin-account-under-pim)
 
-### Rule ADR-AZ-CAFBILL:52
+### Rule ADR-AZ-CAF-BILL:52
 
 Not adopted, because PIM approval is tenant configuration.
 
 - [52 — Require approval to activate critical roles](#52--require-approval-to-activate-critical-roles)
 
-### Rule ADR-AZ-CAFBILL:53
+### Rule ADR-AZ-CAF-BILL:53
 
 Not adopted, because alerting on Global Administrator activation is tenant configuration.
 
 - [53 — Alert when Global Administrator is activated](#53--alert-when-global-administrator-is-activated)
 
-### Rule ADR-AZ-CAFBILL:54
+### Rule ADR-AZ-CAF-BILL:54
 
 Not adopted, because the elevation setting belongs to the tenant's Global Administrators; the repository needs no right above a
 subscription.
 
 - [54 — Leave elevated access to Azure resources off](#54--leave-elevated-access-to-azure-resources-off)
 
-### Rule ADR-AZ-CAFBILL:55
+### Rule ADR-AZ-CAF-BILL:55
 
 Not adopted, because the repository works in one tenant and configures no cross-tenant collaboration.
 
 - [55 — Configure cross-tenant collaboration features](#55--configure-cross-tenant-collaboration-features)
 
-### Rule ADR-AZ-CAFBILL:56
+### Rule ADR-AZ-CAF-BILL:56
 
 Not adopted, because the repository targets one tenant in one Microsoft cloud.
 
 - [56 — Configure cross-cloud collaboration](#56--configure-cross-cloud-collaboration)
 
-### Rule ADR-AZ-CAFBILL:57
+### Rule ADR-AZ-CAF-BILL:57
 
 Not adopted, because the example workload is deployed per customer subscription, not built as a multitenant application.
 
 - [57 — Read the multitenant solution guidance](#57--read-the-multitenant-solution-guidance)
 
-### Rule ADR-AZ-CAFBILL:58
+### Rule ADR-AZ-CAF-BILL:58
 
 Not adopted, because the repository uses no Azure Lighthouse.
 
 - [58 — Read the Lighthouse enterprise guidance](#58--read-the-lighthouse-enterprise-guidance)
 
-### Rule ADR-AZ-CAFBILL:59
+### Rule ADR-AZ-CAF-BILL:59
 
 Not adopted, because the repository is not an ISV offering and uses no Azure Lighthouse.
 
 - [59 — Read the Lighthouse ISV guidance](#59--read-the-lighthouse-isv-guidance)
 
-### Rule ADR-AZ-CAFBILL:60
+### Rule ADR-AZ-CAF-BILL:60
 
 Not adopted, because the repository delegates nothing between tenants.
 
 - [60 — Delegate with Lighthouse in both directions](#60--delegate-with-lighthouse-in-both-directions)
 
-### Rule ADR-AZ-CAFBILL:61
+### Rule ADR-AZ-CAF-BILL:61
 
 Not adopted, because the repository makes no Lighthouse delegation.
 
@@ -444,7 +444,7 @@ Summary (ours): Make creating and managing subscriptions an automated, self-serv
 #### What 1 means here
 
 The repository onboards a subscription it is given by pull request — an `azure.yml` entry, its range in `network.yml`, and one config per
-once-per-subscription template — as [ADR-AZ-CAFRESORG#19](resource-organization.md#rule-adr-az-cafresorg19) sets out. Creating the
+once-per-subscription template — as [ADR-AZ-CAF-RESORG#19](resource-organization.md#rule-adr-az-caf-resorg19) sets out. Creating the
 subscription from an enrollment account needs a billing role, which the repository does not hold. Holding one would be the trigger to add a
 tenant-level subscription-creation template ahead of `foundation`.
 
@@ -484,7 +484,7 @@ Summary (ours): Set the enrollment's notification contact to a shared group mail
 
 The enrollment's contact is billing administration. The repository's own cost alerts follow the same thought by other means: each landing
 zone's budget alerts the holders of the subscription's `Owner` role, not a named person, so no address is kept in a config
-([ADR-AZ-CAFGOV#9](governance.md#rule-adr-az-cafgov9)).
+([ADR-AZ-CAF-GOV#9](governance.md#rule-adr-az-caf-gov9)).
 
 ##### 3 status
 
@@ -521,13 +521,13 @@ Summary (ours): Use Cost Management's reports and views to analyse spend, sliced
 
 Cost Management can slice only by what the resources carry. Every template takes the six CAF tags as one `tags` parameter from its config
 and passes them to every resource: `cost-center` names the paying team, `workload` the project, `owner` and `environment` the rest
-([ADR-AZ-CAFGOV#10](governance.md#rule-adr-az-cafgov10)). Location is fixed per environment: `azure.yml` gives each environment its one
+([ADR-AZ-CAF-GOV#10](governance.md#rule-adr-az-caf-gov10)). Location is fixed per environment: `azure.yml` gives each environment its one
 `region`, and the landing zone's allowed-locations policy keeps every resource of the subscription there
 ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)), so a view by location shows one region per environment, with nothing stray.
 
 The gap is the resource groups. `Deploy-Bicep` creates the resource group of a resource-group template (`foundation`, `expedition`) with the
 deployment-provenance tags only, so a view grouped by a resource group's tags has nothing to read for those; the fix is planned under
-[ADR-AZ-CAFGOV#10](governance.md#rule-adr-az-cafgov10).
+[ADR-AZ-CAF-GOV#10](governance.md#rule-adr-az-caf-gov10).
 
 ##### 5 in `foundation`
 
@@ -580,7 +580,7 @@ Summary (ours): Give each department and account a budget, with an alert on it.
 
 A department or account budget is set on the enrollment. The repository budgets one level down: every landing zone deploys a monthly budget
 for its subscription, alerting the subscription's `Owner` role at 50, 80, and 100 percent
-([ADR-AZ-CAFGOV#9](governance.md#rule-adr-az-cafgov9)). An organisation that holds the enrollment adds department budgets above those.
+([ADR-AZ-CAF-GOV#9](governance.md#rule-adr-az-caf-gov9)). An organisation that holds the enrollment adds department budgets above those.
 
 ##### 7 status
 
@@ -1186,7 +1186,7 @@ Summary (ours): Manage privileged identities and their access through Entra Priv
 PIM is configured in the tenant. The repository keeps the door open for it by never granting a privilege to a person: SQL administration
 goes to a group, named by its display name and object id in each `expedition` config, so the tenant can make membership of that group
 eligible and time-bound through PIM with no change to a template or a config. The repository makes no role assignment to people at all
-([ADR-AZ-WAFSE#5](../waf/security.md#rule-adr-az-wafse5)), so there is no standing assignment of its own for PIM to replace.
+([ADR-AZ-WAF-SE#5](../waf/security.md#rule-adr-az-waf-se5)), so there is no standing assignment of its own for PIM to replace.
 
 ##### 39 in `foundation`
 
@@ -1364,7 +1364,7 @@ Summary (ours): Give workload teams safe, isolated room to experiment as sandbox
 
 The recommendation's point is that experiments stay in the organisation's tenant. Here they do, though not in a sandbox subscription: an
 experiment runs as an extra configuration slot of a non-production subscription, behind the same landing zone and guardrails as the rest of
-non-production ([ADR-AZ-CAFRESORG#5](resource-organization.md#rule-adr-az-cafresorg5)). An experiment that needs what the landing zone
+non-production ([ADR-AZ-CAF-RESORG#5](resource-organization.md#rule-adr-az-caf-resorg5)). An experiment that needs what the landing zone
 denies would be the trigger for a sandbox subscription, declared in `azure.yml` in the same tenant like any other.
 
 ##### 44 in `foundation`
@@ -1738,7 +1738,7 @@ budgets, notification contacts, custom names and sign-on, Global Administrators,
 Lighthouse — is not adopted, because the repository deploys into subscriptions it is given and needs no right above them
 ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)). Each of those rules names what would make it apply. Two items are planned: a
 deploy-time check of the session's tenant against the declaration, and the CAF tags on the resource groups `Deploy-Bicep` creates, shared
-with [ADR-AZ-CAFGOV#10](governance.md#rule-adr-az-cafgov10).
+with [ADR-AZ-CAF-GOV#10](governance.md#rule-adr-az-caf-gov10).
 
 ### How this is enforced
 

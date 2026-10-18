@@ -4,106 +4,106 @@ Pairs with [`landing-zones`](../landing-zones.md) (the hub-and-spoke network the
 [`waf-security`](../waf/security.md) (the workload view of network isolation and encryption; its rules are cited here, not repeated), and
 [`caf-security`](landing-zone-security.md) (the landing-zone security design area).
 
-## Rules: ADR-AZ-CAFNETCON
+## Rules: ADR-AZ-CAF-NETCON
 
-### Rule ADR-AZ-CAFNETCON:1
+### Rule ADR-AZ-CAF-NETCON:1
 
 Not adopted, because the repository connects no on-premises site; the hub reserves `GatewaySubnet` so a gateway can be added without
 renumbering.
 
 - [1 — Make ExpressRoute the primary link with VPN as backup](#1--make-expressroute-the-primary-link-with-vpn-as-backup)
 
-### Rule ADR-AZ-CAFNETCON:2
+### Rule ADR-AZ-CAF-NETCON:2
 
 Not adopted, because there is no ExpressRoute circuit.
 
 - [2 — Use two ExpressRoute circuits from different peering locations](#2--use-two-expressroute-circuits-from-different-peering-locations)
 
-### Rule ADR-AZ-CAFNETCON:3
+### Rule ADR-AZ-CAF-NETCON:3
 
 Not adopted, because there is no ExpressRoute circuit to route across.
 
 - [3 — Steer routing across several circuits](#3--steer-routing-across-several-circuits)
 
-### Rule ADR-AZ-CAFNETCON:4
+### Rule ADR-AZ-CAF-NETCON:4
 
 Not adopted, because no ExpressRoute or VPN gateway is deployed.
 
 - [4 — Size the gateway SKU to the bandwidth](#4--size-the-gateway-sku-to-the-bandwidth)
 
-### Rule ADR-AZ-CAFNETCON:5
+### Rule ADR-AZ-CAF-NETCON:5
 
 Not adopted, because no ExpressRoute gateway is deployed.
 
 - [5 — Deploy a zone-redundant ExpressRoute gateway](#5--deploy-a-zone-redundant-expressroute-gateway)
 
-### Rule ADR-AZ-CAFNETCON:6
+### Rule ADR-AZ-CAF-NETCON:6
 
 Not adopted, because there is no ExpressRoute connection of any bandwidth.
 
 - [6 — Use ExpressRoute Direct above 10 Gbps](#6--use-expressroute-direct-above-10-gbps)
 
-### Rule ADR-AZ-CAFNETCON:7
+### Rule ADR-AZ-CAF-NETCON:7
 
 Not adopted, because no ExpressRoute gateway sits in any data path.
 
 - [7 — Use FastPath for low latency](#7--use-fastpath-for-low-latency)
 
-### Rule ADR-AZ-CAFNETCON:8
+### Rule ADR-AZ-CAF-NETCON:8
 
 Not adopted, because no branch or remote site connects to the networks.
 
 - [8 — Connect branches through zone-redundant VPN gateways](#8--connect-branches-through-zone-redundant-vpn-gateways)
 
-### Rule ADR-AZ-CAFNETCON:9
+### Rule ADR-AZ-CAF-NETCON:9
 
 Not adopted, because no site uses ExpressRoute.
 
 - [9 — Link large sites through ExpressRoute Global Reach](#9--link-large-sites-through-expressroute-global-reach)
 
-### Rule ADR-AZ-CAFNETCON:10
+### Rule ADR-AZ-CAF-NETCON:10
 
 Not adopted, because there is no circuit to separate; the production and non-production hubs would each take their own.
 
 - [10 — Separate circuits where isolation is required](#10--separate-circuits-where-isolation-is-required)
 
-### Rule ADR-AZ-CAFNETCON:11
+### Rule ADR-AZ-CAF-NETCON:11
 
 Not adopted, because there is no ExpressRoute connection or on-premises site to monitor.
 
 - [11 — Monitor ExpressRoute with network insights](#11--monitor-expressroute-with-network-insights)
 
-### Rule ADR-AZ-CAFNETCON:12
+### Rule ADR-AZ-CAF-NETCON:12
 
 Not adopted, because there is no ExpressRoute circuit (the concern is the one of rule 2).
 
 - [12 — Avoid a single peering location](#12--avoid-a-single-peering-location)
 
-### Rule ADR-AZ-CAFNETCON:13
+### Rule ADR-AZ-CAF-NETCON:13
 
 Not adopted, because no workload is reached from the internet; the first ingress gateway belongs to the workload template in its spoke.
 
 - [13 — Deliver applications from their own landing zone](#13--deliver-applications-from-their-own-landing-zone)
 
-### Rule ADR-AZ-CAFNETCON:14
+### Rule ADR-AZ-CAF-NETCON:14
 
 Not adopted, because no workload serves HTTP traffic to the internet.
 
 - [14 — Use Application Gateway v2 with a web application firewall](#14--use-application-gateway-v2-with-a-web-application-firewall)
 
-### Rule ADR-AZ-CAFNETCON:15
+### Rule ADR-AZ-CAF-NETCON:15
 
 Not adopted, because there is no inbound web traffic to put an appliance in front of.
 
 - [15 — Fall back to a partner appliance only when needed](#15--fall-back-to-a-partner-appliance-only-when-needed)
 
-### Rule ADR-AZ-CAFNETCON:16
+### Rule ADR-AZ-CAF-NETCON:16
 
 Not adopted, because no inbound gateway exists (the placement is the one of rule 13).
 
 - [16 — Place inbound gateways in the landing-zone network](#16--place-inbound-gateways-in-the-landing-zone-network)
 
-### Rule ADR-AZ-CAFNETCON:17
+### Rule ADR-AZ-CAF-NETCON:17
 
 Not adopted, because no template deploys a public IP address; the landing zone's policy keeps them off network interfaces, and the unused
 `vm.bicep`, which creates one, is planned to lose it.
@@ -111,138 +111,138 @@ Not adopted, because no template deploys a public IP address; the landing zone's
 - [17 — Cover every public IP address with DDoS Protection](#17--cover-every-public-ip-address-with-ddos-protection)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFNETCON:18
+### Rule ADR-AZ-CAF-NETCON:18
 
 Not adopted, because no workload is global or reached from the internet.
 
 - [18 — Use Front Door with a web application firewall for global applications](#18--use-front-door-with-a-web-application-firewall-for-global-applications)
 
-### Rule ADR-AZ-CAFNETCON:19
+### Rule ADR-AZ-CAF-NETCON:19
 
 Not adopted, because Front Door is not used.
 
 - [19 — Review global routing redundancy before relying on Front Door](#19--review-global-routing-redundancy-before-relying-on-front-door)
 
-### Rule ADR-AZ-CAFNETCON:20
+### Rule ADR-AZ-CAF-NETCON:20
 
 Not adopted, because neither Front Door nor Application Gateway is used.
 
 - [20 — Combine Front Door and Application Gateway with the firewall at Front Door](#20--combine-front-door-and-application-gateway-with-the-firewall-at-front-door)
 
-### Rule ADR-AZ-CAFNETCON:21
+### Rule ADR-AZ-CAF-NETCON:21
 
 Not adopted, because no workload is global.
 
 - [21 — Use Traffic Manager for global non-HTTP applications](#21--use-traffic-manager-for-global-non-http-applications)
 
-### Rule ADR-AZ-CAFNETCON:22
+### Rule ADR-AZ-CAF-NETCON:22
 
 Not adopted, because the planned egress path of every spoke is the hub firewall of rule 23, and no workload subnet hosts compute that
 reaches the internet.
 
 - [22 — Use NAT Gateway for direct outbound traffic](#22--use-nat-gateway-for-direct-outbound-traffic)
 
-### Rule ADR-AZ-CAFNETCON:23
+### Rule ADR-AZ-CAF-NETCON:23
 
 Planned: the hub reserves `AzureFirewallSubnet` and deploys nothing into it, so egress is unfiltered; a firewall there with spoke routes to
-it is the follow-up ADR-AZ-WAFSE#6 plans.
+it is the follow-up ADR-AZ-WAF-SE#6 plans.
 
 - [23 — Govern outbound and east-west traffic with Azure Firewall](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)
 
-### Rule ADR-AZ-CAFNETCON:24
+### Rule ADR-AZ-CAF-NETCON:24
 
 Planned with rule 23: the hub reserves no `AzureFirewallManagementSubnet`, so the firewall follow-up adds it to the hub's subnet set in
 `network.yml` and to ADR-AZ-NETWORK#5.
 
 - [24 — Deploy Azure Firewall with its management NIC](#24--deploy-azure-firewall-with-its-management-nic)
 
-### Rule ADR-AZ-CAFNETCON:25
+### Rule ADR-AZ-CAF-NETCON:25
 
 Not adopted, because no firewall is deployed; the follow-up of rule 23 picks the firewall SKU.
 
 - [25 — Use Azure Firewall Premium for advanced inspection](#25--use-azure-firewall-premium-for-advanced-inspection)
 
-### Rule ADR-AZ-CAFNETCON:26
+### Rule ADR-AZ-CAF-NETCON:26
 
 Not adopted, because no firewall is deployed, and one firewall per hub is declared in a template, not managed centrally.
 
 - [26 — Manage firewalls through Firewall Manager](#26--manage-firewalls-through-firewall-manager)
 
-### Rule ADR-AZ-CAFNETCON:27
+### Rule ADR-AZ-CAF-NETCON:27
 
 Not adopted, because no firewall rule exists; `network.yml` is the one home of every range a rule would name.
 
 - [27 — Reuse address sets through IP Groups](#27--reuse-address-sets-through-ip-groups)
 
-### Rule ADR-AZ-CAFNETCON:28
+### Rule ADR-AZ-CAF-NETCON:28
 
 Not adopted, because the spoke route tables carry no routes and platform services are reached through private endpoints, not routed to their
 public addresses.
 
 - [28 — Use service tags in routes toward platform services](#28--use-service-tags-in-routes-toward-platform-services)
 
-### Rule ADR-AZ-CAFNETCON:29
+### Rule ADR-AZ-CAF-NETCON:29
 
 Not adopted, because no firewall is deployed to take a policy.
 
 - [29 — Set a global firewall policy as the baseline](#29--set-a-global-firewall-policy-as-the-baseline)
 
-### Rule ADR-AZ-CAFNETCON:30
+### Rule ADR-AZ-CAF-NETCON:30
 
 Not adopted, because there is no firewall policy, and every landing zone deploys to one region.
 
 - [30 — Delegate regional child policies](#30--delegate-regional-child-policies)
 
-### Rule ADR-AZ-CAFNETCON:31
+### Rule ADR-AZ-CAF-NETCON:31
 
 Not adopted, because no workload takes inbound web traffic (the placement is the one of rule 13).
 
 - [31 — Protect inbound web traffic inside the landing-zone network](#31--protect-inbound-web-traffic-inside-the-landing-zone-network)
 
-### Rule ADR-AZ-CAFNETCON:32
+### Rule ADR-AZ-CAF-NETCON:32
 
 Not adopted, because no workload is global or reached from the internet (the same item as rule 18).
 
 - [32 — Protect global inbound web traffic with Front Door](#32--protect-global-inbound-web-traffic-with-front-door)
 
-### Rule ADR-AZ-CAFNETCON:33
+### Rule ADR-AZ-CAF-NETCON:33
 
 Not adopted, because neither Front Door nor Application Gateway is used (the same item as rule 20).
 
 - [33 — Restrict Application Gateway to Front Door traffic](#33--restrict-application-gateway-to-front-door-traffic)
 
-### Rule ADR-AZ-CAFNETCON:34
+### Rule ADR-AZ-CAF-NETCON:34
 
 Not adopted, because no inbound appliance exists (the placement is the one of rule 13).
 
 - [34 — Keep inbound partner appliances beside their applications](#34--keep-inbound-partner-appliances-beside-their-applications)
 
-### Rule ADR-AZ-CAFNETCON:35
+### Rule ADR-AZ-CAF-NETCON:35
 
 Planned: no subnet hosts compute that uses Azure's default outbound access, and turning it off on every subnet becomes a secure default of
 `virtual-network.bicep`.
 
 - [35 — Do not rely on default outbound access](#35--do-not-rely-on-default-outbound-access)
 
-### Rule ADR-AZ-CAFNETCON:36
+### Rule ADR-AZ-CAF-NETCON:36
 
 Not adopted, because every landing zone is connected: each spoke peers to the hub of its tier (ADR-AZ-LZ#2).
 
 - [36 — Use NAT Gateway in online landing zones](#36--use-nat-gateway-in-online-landing-zones)
 
-### Rule ADR-AZ-CAFNETCON:37
+### Rule ADR-AZ-CAF-NETCON:37
 
 Not adopted, because there is no firewall or Firewall Manager to integrate a provider with.
 
 - [37 — Integrate SaaS security providers through Firewall Manager](#37--integrate-saas-security-providers-through-firewall-manager)
 
-### Rule ADR-AZ-CAFNETCON:38
+### Rule ADR-AZ-CAF-NETCON:38
 
 Not adopted, because the planned filtering device is Azure Firewall in the hub (rule 23), not a partner appliance.
 
 - [38 — Place partner appliances for east-west and north-south traffic](#38--place-partner-appliances-for-east-west-and-north-south-traffic)
 
-### Rule ADR-AZ-CAFNETCON:39
+### Rule ADR-AZ-CAF-NETCON:39
 
 Partly realised: every workload subnet denies inbound internet traffic and the landing zone's policy keeps public IP addresses off network
 interfaces, but the unused `vm.bicep` creates one and is planned to lose it.
@@ -250,142 +250,142 @@ interfaces, but the unused `vm.bicep` creates one and is planned to lose it.
 - [39 — Expose no virtual machine management port to the internet](#39--expose-no-virtual-machine-management-port-to-the-internet)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFNETCON:40
+### Rule ADR-AZ-CAF-NETCON:40
 
 Not adopted, because no network holds a public endpoint (the same item as rule 17).
 
 - [40 — Protect public endpoints with DDoS Protection plans](#40--protect-public-endpoints-with-ddos-protection-plans)
 
-### Rule ADR-AZ-CAFNETCON:41
+### Rule ADR-AZ-CAF-NETCON:41
 
 Realised: the landing zone has no perimeter network; each workload subnet carries its own network security group and data is reached through
 private endpoints.
 
 - [41 — Do not copy an on-premises perimeter into Azure](#41--do-not-copy-an-on-premises-perimeter-into-azure)
 
-### Rule ADR-AZ-CAFNETCON:42
+### Rule ADR-AZ-CAF-NETCON:42
 
 Not adopted, because no template deploys a virtual machine, so there is nothing for Bastion to reach.
 
 - [42 — Use the Standard or Premium Bastion SKU in production](#42--use-the-standard-or-premium-bastion-sku-in-production)
 
-### Rule ADR-AZ-CAFNETCON:43
+### Rule ADR-AZ-CAF-NETCON:43
 
 Not adopted, because there is neither a virtual machine nor private connectivity from on-premises.
 
 - [43 — Reach virtual machines over existing private connectivity](#43--reach-virtual-machines-over-existing-private-connectivity)
 
-### Rule ADR-AZ-CAFNETCON:44
+### Rule ADR-AZ-CAF-NETCON:44
 
 Not adopted, because the topology is a traditional hub and spoke, not Virtual WAN.
 
 - [44 — Place Bastion in a Virtual WAN topology](#44--place-bastion-in-a-virtual-wan-topology)
 
-### Rule ADR-AZ-CAFNETCON:45
+### Rule ADR-AZ-CAF-NETCON:45
 
 Not adopted, because no template deploys a virtual machine; a hub Bastion would need an `AzureBastionSubnet` the hub does not reserve.
 
 - [45 — Place Bastion in a hub-and-spoke topology](#45--place-bastion-in-a-hub-and-spoke-topology)
 
-### Rule ADR-AZ-CAFNETCON:46
+### Rule ADR-AZ-CAF-NETCON:46
 
 Not adopted, because no Bastion is deployed.
 
 - [46 — Protect Bastion with network security group rules](#46--protect-bastion-with-network-security-group-rules)
 
-### Rule ADR-AZ-CAFNETCON:47
+### Rule ADR-AZ-CAF-NETCON:47
 
 Not adopted, because no Bastion is deployed; its diagnostics would follow every other resource's to `foundation`'s workspace.
 
 - [47 — Send Bastion diagnostics to the central workspace](#47--send-bastion-diagnostics-to-the-central-workspace)
 
-### Rule ADR-AZ-CAFNETCON:48
+### Rule ADR-AZ-CAF-NETCON:48
 
 Not adopted, because no Bastion is deployed and the templates grant no role to people.
 
 - [48 — Grant the roles Bastion needs](#48--grant-the-roles-bastion-needs)
 
-### Rule ADR-AZ-CAFNETCON:49
+### Rule ADR-AZ-CAF-NETCON:49
 
 Not adopted, because no Linux virtual machine is deployed.
 
 - [49 — Keep SSH keys for Bastion in Key Vault](#49--keep-ssh-keys-for-bastion-in-key-vault)
 
-### Rule ADR-AZ-CAFNETCON:50
+### Rule ADR-AZ-CAF-NETCON:50
 
 Not adopted, because there is neither a Bastion nor private connectivity to keep beside it.
 
 - [50 — Keep Bastion beside private connectivity for special cases](#50--keep-bastion-beside-private-connectivity-for-special-cases)
 
-### Rule ADR-AZ-CAFNETCON:51
+### Rule ADR-AZ-CAF-NETCON:51
 
 Partly realised, as rule 39: no template gives a virtual machine a public IP address, but the unused `vm.bicep` does.
 
 - [51 — Allow no remote access to virtual machines over public IP addresses](#51--allow-no-remote-access-to-virtual-machines-over-public-ip-addresses)
 
-### Rule ADR-AZ-CAFNETCON:52
+### Rule ADR-AZ-CAF-NETCON:52
 
 Not adopted, because no VPN connection exists.
 
 - [52 — Rely on IPsec for VPN connections](#52--rely-on-ipsec-for-vpn-connections)
 
-### Rule ADR-AZ-CAFNETCON:53
+### Rule ADR-AZ-CAF-NETCON:53
 
-Not adopted, because no traffic flows between virtual machines; every flow to data is encrypted by TLS 1.2 at minimum (ADR-AZ-WAFSE#7).
+Not adopted, because no traffic flows between virtual machines; every flow to data is encrypted by TLS 1.2 at minimum (ADR-AZ-WAF-SE#7).
 
 - [53 — Encrypt traffic between virtual machines](#53--encrypt-traffic-between-virtual-machines)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-CAFNETCON:54
+### Rule ADR-AZ-CAF-NETCON:54
 
 Not adopted, because there is no ExpressRoute Direct port.
 
 - [54 — Encrypt ExpressRoute Direct with MACsec](#54--encrypt-expressroute-direct-with-macsec)
 
-### Rule ADR-AZ-CAFNETCON:55
+### Rule ADR-AZ-CAF-NETCON:55
 
 Not adopted, because there is neither Virtual WAN nor ExpressRoute.
 
 - [55 — Run IPsec over ExpressRoute in Virtual WAN](#55--run-ipsec-over-expressroute-in-virtual-wan)
 
-### Rule ADR-AZ-CAFNETCON:56
+### Rule ADR-AZ-CAF-NETCON:56
 
 Not adopted, because there is no ExpressRoute connection to encrypt.
 
 - [56 — Choose an encryption option over ExpressRoute outside Virtual WAN](#56--choose-an-encryption-option-over-expressroute-outside-virtual-wan)
 
-### Rule ADR-AZ-CAFNETCON:57
+### Rule ADR-AZ-CAF-NETCON:57
 
 Not adopted, because there is no private connection to encrypt.
 
 - [57 — Fall back to partner appliances for encryption](#57--fall-back-to-partner-appliances-for-encryption)
 
-### Rule ADR-AZ-CAFNETCON:58
+### Rule ADR-AZ-CAF-NETCON:58
 
 Planned: the network security groups and the virtual networks send their diagnostics to `foundation`'s workspace, but no flow log is
-recorded; virtual network flow logs are the follow-up ADR-AZ-WAFSE#6 plans.
+recorded; virtual network flow logs are the follow-up ADR-AZ-WAF-SE#6 plans.
 
 - [58 — Use virtual network flow logs](#58--use-virtual-network-flow-logs)
 
-### Rule ADR-AZ-CAFNETCON:59
+### Rule ADR-AZ-CAF-NETCON:59
 
 Planned with rule 58: traffic analytics over the flow logs, in `foundation`'s workspace.
 
 - [59 — Enable traffic analytics](#59--enable-traffic-analytics)
 
-### Rule ADR-AZ-CAFNETCON:60
+### Rule ADR-AZ-CAF-NETCON:60
 
 Not adopted, because traffic analytics is planned, not deployed, so it cannot fall short; a partner solution is weighed only after rule 59.
 
 - [60 — Add a partner solution when traffic analytics falls short](#60--add-a-partner-solution-when-traffic-analytics-falls-short)
 
-### Rule ADR-AZ-CAFNETCON:61
+### Rule ADR-AZ-CAF-NETCON:61
 
 Not adopted, because packet capture runs on virtual machines and no template deploys one.
 
 - [61 — Run packet captures regularly](#61--run-packet-captures-regularly)
 
-### Rule ADR-AZ-CAFNETCON:62
+### Rule ADR-AZ-CAF-NETCON:62
 
 Realised: the repository builds no traffic mirroring of its own.
 
@@ -652,7 +652,7 @@ Summary (ours): Deliver internal and external applications from the landing zone
 #### What 13 means here
 
 No workload is reached from the internet: `expedition`'s storage account and SQL server have public network access off and are reached only
-through private endpoints ([ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6)). The recommendation's placement agrees with how the
+through private endpoints ([ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6)). The recommendation's placement agrees with how the
 repository divides work: a workload lands in its landing zone and owns its own resources, and the landing zone owns only the shared network
 ([ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)). So the first ingress gateway would be a resource of the workload template, in a subnet
 of its customer's spoke, and the hub would stay free of application components.
@@ -671,8 +671,8 @@ Summary (ours): Deliver HTTP and HTTPS applications through Application Gateway 
 
 #### What 14 means here
 
-No workload serves web traffic to the internet, so there is no web application firewall either; ADR-AZ-WAFSE#6 and
-[ADR-AZ-CAFSEC#41](landing-zone-security.md#rule-adr-az-cafsec41) reach the same conclusion. The first web workload would add a gateway
+No workload serves web traffic to the internet, so there is no web application firewall either; ADR-AZ-WAF-SE#6 and
+[ADR-AZ-CAF-SEC#41](landing-zone-security.md#rule-adr-az-caf-sec41) reach the same conclusion. The first web workload would add a gateway
 module with its firewall policy on by default, placed as [13](#13--deliver-applications-from-their-own-landing-zone) says.
 
 ##### 14 status
@@ -731,7 +731,7 @@ assigns the built-in policy against public IP addresses on network interfaces, w
 
 One module contradicts the posture: `infrastructure/modules/vm.bicep` creates a Basic-SKU dynamic public IP address and attaches it to the
 virtual machine's network interface. No template uses the module; its hardening is planned under
-[ADR-AZ-WAFSE#8](../waf/security.md#rule-adr-az-wafse8), and the follow-up here is the same: the module takes no public IP address. A plan
+[ADR-AZ-WAF-SE#8](../waf/security.md#rule-adr-az-waf-se8), and the follow-up here is the same: the module takes no public IP address. A plan
 becomes relevant with the first public endpoint, and it would be bought once for the tenant rather than per landing zone, since a plan
 covers many virtual networks.
 
@@ -834,7 +834,7 @@ Summary (ours): Make NAT Gateway the default for outbound internet traffic that 
 The workload subnets hold private endpoints and nothing that starts outbound connections: `expedition`'s services are platform services
 whose own outbound traffic does not leave through the spoke. Egress therefore has no current user, and the repository has chosen its path
 for when it does: through a firewall in the hub's `AzureFirewallSubnet`, with spoke routes towards it
-([ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6), and [23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)). A NAT
+([ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6), and [23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)). A NAT
 gateway on a spoke subnet would give that subnet a direct, unfiltered path instead. It can have a place behind the firewall, to give the
 firewall's own outbound traffic more ports and stable addresses; that choice belongs to the firewall follow-up.
 
@@ -870,7 +870,7 @@ Summary (ours): Use Azure Firewall to control outbound internet traffic, inbound
 The hub reserves `AzureFirewallSubnet` (a /26 in each hub of `network.yml`) and deploys nothing into it, so a firewall can be added without
 renumbering ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5)). Until it is, egress is unfiltered and traffic between the
 hub and its spokes passes the peerings with only the network security groups between them. The decision to filter egress through the hub is
-ADR-AZ-WAFSE#6's, and the zero-trust view of the same gap is [ADR-AZ-CAFSEC#42](landing-zone-security.md#rule-adr-az-cafsec42); this rule
+ADR-AZ-WAF-SE#6's, and the zero-trust view of the same gap is [ADR-AZ-CAF-SEC#42](landing-zone-security.md#rule-adr-az-caf-sec42); this rule
 records where the pieces go.
 
 The follow-up touches three places. The hub deploys a firewall into `AzureFirewallSubnet` from a new shared module. Each spoke's route table
@@ -893,7 +893,7 @@ Not applicable: a workload creates no network resource; its subnets' egress foll
 
 ##### 23 status
 
-Planned (follow-up) — a firewall in each hub with spoke routes to it, the egress filtering ADR-AZ-WAFSE#6 plans.
+Planned (follow-up) — a firewall in each hub with spoke routes to it, the egress filtering ADR-AZ-WAF-SE#6 plans.
 
 ### 24 — Deploy Azure Firewall with its management NIC
 
@@ -1002,7 +1002,7 @@ Summary (ours): In user-defined routes that steer traffic to Azure platform serv
 
 `route-table.bicep` takes its routes as a parameter, and the spoke's route table passes none. Platform services are reached through private
 endpoints, whose addresses lie inside the spoke, so no route points at a service's public addresses
-([ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6)). The recommendation would apply if a workload reached a service on its public
+([ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6)). The recommendation would apply if a workload reached a service on its public
 endpoint through a firewall, which the private-only design rules out. The note on the management subnet matters for the follow-up of
 [24](#24--deploy-azure-firewall-with-its-management-nic): `discovery` attaches its route table to spoke subnets only, never to a hub subnet,
 and that stays so.
@@ -1142,7 +1142,7 @@ Summary (ours): Never depend on Azure's default outbound internet access: it ris
 Default outbound access is what a virtual machine in a subnet gets when nothing else gives it a way out. No subnet here hosts one, so no
 traffic relies on it. The subnets do not switch it off either: `virtual-network.bicep` sets no `defaultOutboundAccess` on its subnets, and
 the spoke's route table carries no routes, so the first compute placed in a spoke would reach the internet directly. Turning default
-outbound access off on every subnet is a secure default the module should carry ([ADR-AZ-WAFSE#8](../waf/security.md#rule-adr-az-wafse8));
+outbound access off on every subnet is a secure default the module should carry ([ADR-AZ-WAF-SE#8](../waf/security.md#rule-adr-az-waf-se8));
 egress then exists only where the firewall of [23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall) provides it.
 
 ##### 35 in `foundation`
@@ -1238,7 +1238,7 @@ interface where `policy_enforcement` enforces, by default in production, and rep
 No template deploys a virtual machine, so there is no jump host and no Bastion (see [45](#45--place-bastion-in-a-hub-and-spoke-topology)).
 The one gap is `vm.bicep`: an unused module that gives its virtual machine a public IP address, so a non-production deploy that used it
 would expose the machine, with only an audit record from the policy. Its hardening is planned under
-[ADR-AZ-WAFSE#8](../waf/security.md#rule-adr-az-wafse8).
+[ADR-AZ-WAF-SE#8](../waf/security.md#rule-adr-az-waf-se8).
 
 ##### 39 in `foundation`
 
@@ -1288,7 +1288,7 @@ Summary (ours): Do not rebuild on-premises perimeter network and demilitarised-z
 
 The landing zone has no perimeter network and no tier of shared appliances that every flow passes. Its controls sit at each resource
 instead: a network security group per workload subnet, public network access off on each data service, and a private endpoint per service in
-the customer's own spoke ([ADR-AZ-WAFSE#6](../waf/security.md#rule-adr-az-wafse6), [ADR-AZ-WAFSE#4](../waf/security.md#rule-adr-az-wafse4)).
+the customer's own spoke ([ADR-AZ-WAF-SE#6](../waf/security.md#rule-adr-az-waf-se6), [ADR-AZ-WAF-SE#4](../waf/security.md#rule-adr-az-waf-se4)).
 The planned hub firewall ([23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)) filters egress; it is not a perimeter
 network that workloads live behind.
 
@@ -1409,7 +1409,7 @@ Summary (ours): Send Bastion's diagnostic logs to the central Log Analytics work
 #### What 47 means here
 
 No Bastion is deployed. Every network resource the landing zone deploys sends its diagnostics to `foundation`'s workspace through
-`diagnostic-setting.bicep` ([ADR-AZ-WAFSE#10](../waf/security.md#rule-adr-az-wafse10)); a Bastion would be one more kind there.
+`diagnostic-setting.bicep` ([ADR-AZ-WAF-SE#10](../waf/security.md#rule-adr-az-waf-se10)); a Bastion would be one more kind there.
 
 ##### 47 status
 
@@ -1426,7 +1426,7 @@ Summary (ours): Create the role assignments that let the users and groups who co
 #### What 48 means here
 
 No Bastion is deployed, and the templates grant no role to people; role assignments as code are planned under
-[ADR-AZ-WAFSE#5](../waf/security.md#rule-adr-az-wafse5), which is where Bastion's would go.
+[ADR-AZ-WAF-SE#5](../waf/security.md#rule-adr-az-waf-se5), which is where Bastion's would go.
 
 ##### 48 status
 
@@ -1443,7 +1443,7 @@ Summary (ours): Connect to Linux virtual machines over SSH with private keys kep
 #### What 49 means here
 
 No Linux virtual machine is deployed. The recommendation fits the repository's handling of secrets: every secret lives in `foundation`'s
-vault and the repository holds none ([ADR-AZ-WAFSE#9](../waf/security.md#rule-adr-az-wafse9)).
+vault and the repository holds none ([ADR-AZ-WAF-SE#9](../waf/security.md#rule-adr-az-waf-se9)).
 
 ##### 49 status
 
@@ -1515,7 +1515,7 @@ Summary (ours): Where traffic between virtual machines must be encrypted, inside
 Virtual network encryption protects traffic between virtual machines, and no template deploys one. The traffic that does cross the networks
 runs from a client to a data service's private endpoint, and the services encrypt it themselves: `storage-account.bicep` sets
 `minimumTlsVersion: 'TLS1_2'` and `supportsHttpsTrafficOnly: true`, and `sql-server.bicep` sets `minimalTlsVersion: '1.2'`, both fixed in
-the modules rather than offered as parameters ([ADR-AZ-WAFSE#7](../waf/security.md#rule-adr-az-wafse7)). Encryption in transit is therefore
+the modules rather than offered as parameters ([ADR-AZ-WAF-SE#7](../waf/security.md#rule-adr-az-waf-se7)). Encryption in transit is therefore
 a property of each service, independent of the network it travels.
 
 Virtual network encryption would become relevant with virtual machines that talk to each other over a protocol without its own encryption.
@@ -1621,7 +1621,7 @@ Summary (ours): Record traffic with virtual network flow logs and move away from
 The landing zone sends diagnostics, not flows. Each virtual network and each network security group has a diagnostic setting to
 `foundation`'s workspace through `diagnostic-setting.bicep` (the `virtualNetwork` and `networkSecurityGroup` kinds); for a security group
 that records rule events and counters, not the connections that passed. No flow log of either kind is recorded, which is the flow-logging
-gap ADR-AZ-WAFSE#6 plans to close.
+gap ADR-AZ-WAF-SE#6 plans to close.
 
 Virtual network flow logs are the kind to adopt, never the retiring security-group kind. One per virtual network, deployed by `discovery`
 beside the network it watches, covers every subnet, whichever security group it carries. A flow log is a Network Watcher resource that
@@ -1643,7 +1643,7 @@ Not applicable: a workload creates no network resource; its private endpoints' t
 
 ##### 58 status
 
-Planned (follow-up) — a virtual network flow log per landing-zone network, the flow logging ADR-AZ-WAFSE#6 plans.
+Planned (follow-up) — a virtual network flow log per landing-zone network, the flow logging ADR-AZ-WAF-SE#6 plans.
 
 ### 59 — Enable traffic analytics
 
@@ -1736,7 +1736,7 @@ subnet denies inbound internet traffic; and no network interface takes a public 
 Most of the area therefore does not apply, and each such rule says what would make it apply: a link from a customer's sites (rules 1–12 and
 52–57), a workload served to the internet (rules 13–21, 31–34, 40), or a virtual machine (rules 42–51, 61). The planned items close the gaps
 the repository does have: egress filtered through a firewall in each hub, with its management subnet in the plan (rules 23 and 24, the
-follow-up of ADR-AZ-WAFSE#6); default outbound access off on every subnet (rule 35); virtual network flow logs with traffic analytics (rules
+follow-up of ADR-AZ-WAF-SE#6); default outbound access off on every subnet (rule 35); virtual network flow logs with traffic analytics (rules
 58 and 59); and no public IP address in `vm.bicep` (rules 17, 39, 51).
 
 ### How this is enforced
@@ -1747,7 +1747,7 @@ follow-up of ADR-AZ-WAFSE#6); default outbound access off on every subnet (rule 
   rule, and `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` on every change under `infrastructure/`, so the template
   that carries the rule compiles before it deploys.
 - `storage-account.bicep` and `sql-server.bicep` fix TLS 1.2 and public network access off as module defaults
-  ([ADR-AZ-WAFSE#7](../waf/security.md#rule-adr-az-wafse7)).
+  ([ADR-AZ-WAF-SE#7](../waf/security.md#rule-adr-az-waf-se7)).
 - `NetworkConfig` and `Test-AzureNetworkPlan` keep the reserved hub subnets in the plan and every range private and free of overlap
   ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5), [ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)).
 - Planned (follow-up), not existing: a check over the compiled templates (`main.json`) that fails a public IP address, public network

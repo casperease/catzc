@@ -15,7 +15,7 @@ answered and unanswered alike) are the next batch, run the same way.
 
 ## The twenty selected
 
-Q18b ADR-CATS; Q98 Track as root; Q96 plans as deltas; Q97 decisions become rules; Q07 plans authored in .claude/plans; Q05 stable locators
+Q18b ADR-PRIN-CATS; Q98 Track as root; Q96 plans as deltas; Q97 decisions become rules; Q07 plans authored in .claude/plans; Q05 stable locators
 repository-wide; Q10 body-sha removal; Q09 .unordered emptied for the landing zone; Q66 scoped sha as deployable-module globs; Q70
 ADR-AUTO-MATERIAL now; Q101 analyzer rule for literal defaults; Q16 defaults as a contract kind; Q56 ADR-REPO-HELP#3 relaxed; Q35 one
 primary language per track; Q22 the pwsh folder move; Q24 the contract pilot set; Q107 contracts as the only public API; Q108 contracts
@@ -25,7 +25,7 @@ generated from ADRs; Q109 the ADR reading rule; Q118 the next structural change.
 
 ### F1 Names
 
-What changes for the repository when ADR-CATS rules cats and catzc: which folders, namespaces, executors, glossary terms and CLAUDE.md lines
+What changes for the repository when ADR-PRIN-CATS rules cats and catzc: which folders, namespaces, executors, glossary terms and CLAUDE.md lines
 change their name, and does pwsh versus powershell versus automation fall under the same rule?
 
 ### F2 The root entity
@@ -76,7 +76,7 @@ zone, contracts beyond the pilot, a services track, or nothing until the pastes 
 ## Answers
 
 Recorded in decisions-2026-10-16.md as F1 to F10 (all ten answered 2026-10-16; F1 reframed: pwsh and automation stay strictly apart from
-ADR-CATS, automation is a cross-cutting subject beside design principles and pipelines).
+ADR-PRIN-CATS, automation is a cross-cutting subject beside design principles and pipelines).
 
 ## The five (from the ten)
 

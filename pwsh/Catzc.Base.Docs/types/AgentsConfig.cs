@@ -12,7 +12,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly System.Text.RegularExpressions.Regex ContractRe =
         new System.Text.RegularExpressions.Regex("^ADR-[A-Z]+(-[A-Z]+)*$", System.Text.RegularExpressions.RegexOptions.Compiled);
 
-    public IReadOnlyList<string> contracts { get; } = new[] { "ADR-AI" };
+    public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 
     // The standard sub-agent for delegated work ([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)).
     public string standard { get; }

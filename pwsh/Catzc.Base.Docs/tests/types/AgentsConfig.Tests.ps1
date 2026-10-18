@@ -53,7 +53,7 @@ Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#2' {
 
     It 'declares the required contracts once as a default and takes an override' -Tag 'ADR-REPO-AGENTS#6' {
         $default = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget) })
-        $default.contracts | Should -Be @('ADR-AI')
+        $default.contracts | Should -Be @('ADR-REPO-AI')
         $set = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget); contracts = @('ADR-WI', 'ADR-GA') })
         $set.contracts | Should -Be @('ADR-WI', 'ADR-GA')
         $thrown = { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($widget); contracts = @('ADR-WI#1') }) } |

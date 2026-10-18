@@ -3,23 +3,23 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that carries the budget and the guardrails) and
 [`data-model`](../azure-data-model.md) (the configuration tree every cost value lives in).
 
-## Rules: ADR-AZ-WAFCO
+## Rules: ADR-AZ-WAF-CO
 
-### Rule ADR-AZ-WAFCO:1
+### Rule ADR-AZ-WAF-CO:1
 
 Cost information is open to the team: every budget amount is a config value in the repository and every resource names its paying team in
 its `cost-center` tag; training, cost champions, and recognition belong to the organisation, not to the repository.
 
 - [CO:01 — Create a culture of financial responsibility](#co01--create-a-culture-of-financial-responsibility)
 
-### Rule ADR-AZ-WAFCO:2
+### Rule ADR-AZ-WAF-CO:2
 
 Each template gets a written cost model per environment class, and each landing zone's budget amount is derived from the models of the
 templates its subscription runs; until then a budget amount is a bare config value.
 
 - [CO:02 — Create and maintain a cost model](#co02--create-and-maintain-a-cost-model)
 
-### Rule ADR-AZ-WAFCO:3
+### Rule ADR-AZ-WAF-CO:3
 
 Cost is attributable and watched per subscription: every resource carries the CAF tags with `cost-center` and `owner`, and every landing
 zone's budget alerts the subscription's `Owner` role at 50, 80, and 100 percent of actual cost; cost exports, forecast alerts, and anomaly
@@ -28,7 +28,7 @@ alerts are planned.
 - [CO:03 — Collect and review cost data](#co03--collect-and-review-cost-data)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-WAFCO:4
+### Rule ADR-AZ-WAF-CO:4
 
 Spending guardrails are platform controls in the landing zone: the allowed-locations and required-tag policies, a budget per subscription,
 `@allowed` and bound decorators on the SKU tier, size, and retention parameters, and a `--what-if` preview before a deploy; an allowed-SKU
@@ -37,28 +37,28 @@ policy and a pre-deploy cost estimate are planned.
 - [CO:04 — Set spending guardrails](#co04--set-spending-guardrails)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-WAFCO:5
+### Rule ADR-AZ-WAF-CO:5
 
 Every resource is billed pay-as-you-go; reservations, savings plans, licence benefits, and dev/test offers are not adopted, because they are
 bought at the billing account and the subscription offer, above the subscription the repository deploys into.
 
 - [CO:05 — Get the best rates from providers](#co05--get-the-best-rates-from-providers)
 
-### Rule ADR-AZ-WAFCO:6
+### Rule ADR-AZ-WAF-CO:6
 
 Each resource is configured to its meter: a serverless database billed per second of use where usage is intermittent, a provisioned one
 where it is steady, a per-GB workspace fed only the log and metric categories each resource kind needs.
 
 - [CO:06 — Align usage to billing increments](#co06--align-usage-to-billing-increments)
 
-### Rule ADR-AZ-WAFCO:7
+### Rule ADR-AZ-WAF-CO:7
 
 The configuration tree is the inventory of every resource group the repository deploys, every resource names its `owner`, and disaster
 recovery is a redeploy from the templates, never an idle standby; finding orphaned resources is planned.
 
 - [CO:07 — Optimize component costs](#co07--optimize-component-costs)
 
-### Rule ADR-AZ-WAFCO:8
+### Rule ADR-AZ-WAF-CO:8
 
 Non-production spends less by config, not by a different design: the same SKU family and tier as production, but serverless with auto-pause,
 no zone redundancy, locally redundant backups, a 7-day restore window, an audit-only policy mode, and a smaller budget.
@@ -66,42 +66,42 @@ no zone redundancy, locally redundant backups, a 7-day restore window, an audit-
 - [CO:08 — Optimize environment costs](#co08--optimize-environment-costs)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-WAFCO:9
+### Rule ADR-AZ-WAF-CO:9
 
 Not adopted, because each example workload carries one flow; a workload with flows of different value records them, and their tiers, in its
 own template.
 
 - [CO:09 — Optimize flow costs](#co09--optimize-flow-costs)
 
-### Rule ADR-AZ-WAFCO:10
+### Rule ADR-AZ-WAF-CO:10
 
 Data is kept for as long as it earns its cost: workspace retention at the 30-day minimum, blob soft delete for 7 days, backup redundancy and
 retention per environment class; storage lifecycle tiering is planned.
 
 - [CO:10 — Optimize data costs](#co10--optimize-data-costs)
 
-### Rule ADR-AZ-WAFCO:11
+### Rule ADR-AZ-WAF-CO:11
 
 Not adopted, because the templates deploy infrastructure with no application code; a workload that ships code optimises it in its own
 repository.
 
 - [CO:11 — Optimize code costs](#co11--optimize-code-costs)
 
-### Rule ADR-AZ-WAFCO:12
+### Rule ADR-AZ-WAF-CO:12
 
 A component that scales does so within a ceiling set in config: the serverless database moves between `databaseMinCapacity` and
 `databaseSkuCapacity` vCores, and no other component of the examples scales.
 
 - [CO:12 — Optimize scaling costs](#co12--optimize-scaling-costs)
 
-### Rule ADR-AZ-WAFCO:13
+### Rule ADR-AZ-WAF-CO:13
 
 People's time goes to decisions, not repetition: templates compose shared modules, configs read shared values by config address, a CD
 pipeline deploys only the units a change touches, and budget alerts go to a role rather than to a kept address list.
 
 - [CO:13 — Optimize personnel time](#co13--optimize-personnel-time)
 
-### Rule ADR-AZ-WAFCO:14
+### Rule ADR-AZ-WAF-CO:14
 
 Shared services exist once per tier and are consumed, never copied: one hub with the private DNS zones per tier, one workspace and one Key
 Vault per subscription, and the shared platform's workload in the hub; production and non-production are never consolidated.

@@ -3,9 +3,9 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone and the workload these items are judged on) and
 [`cd-discipline-and-promotion-flow`](../../flow/cd-discipline-and-promotion-flow.md) (the delivery flow most of these items map to).
 
-## Rules: ADR-AZ-WAFOE
+## Rules: ADR-AZ-WAF-OE
 
-### Rule ADR-AZ-WAFOE:1
+### Rule ADR-AZ-WAF-OE:1
 
 The repository's standard practices for building and operating its infrastructure are its ADRs, enforced by quality gates, and every
 resource names its owning team in the `owner` tag; team roles and decision authority belong to the operating organisation, outside the
@@ -13,35 +13,35 @@ repository.
 
 - [OE:01 — Define your standard practices to develop and operate your workload](#oe01--define-your-standard-practices-to-develop-and-operate-your-workload)
 
-### Rule ADR-AZ-WAFOE:2
+### Rule ADR-AZ-WAF-OE:2
 
 Routine operations run as version-controlled automation functions and pipelines, never as manual runbooks kept elsewhere; every manual step
 that remains — seeding the break-glass secret, the rollout order of a new spoke — gets a written, version-controlled procedure.
 
 - [OE:02 — Standardize operations](#oe02--standardize-operations)
 
-### Rule ADR-AZ-WAFOE:3
+### Rule ADR-AZ-WAF-OE:3
 
 Every change reaches `main` through a pull request whose build validation runs the CI engine, and every deployment tags its target with the
 commit, the build, and the branch it came from, so a deployed resource traces back to its code.
 
 - [OE:03 — Formalize software development practices](#oe03--formalize-software-development-practices)
 
-### Rule ADR-AZ-WAFOE:4
+### Rule ADR-AZ-WAF-OE:4
 
 The repository uses standard, version-pinned tools, one formatter per file language, one naming standard, and the CAF tags, and records its
 decisions as ADRs; the Bicep linter is a quality gate.
 
 - [OE:04 — Enhance software development and quality assurance](#oe04--enhance-software-development-and-quality-assurance)
 
-### Rule ADR-AZ-WAFOE:5
+### Rule ADR-AZ-WAF-OE:5
 
 All Azure infrastructure is declarative Bicep: one parameterised template per rate of change, shared modules, and one config per slot,
 deployed only by pipelines; no secret sits in the code, and the compiled templates are scanned for misconfiguration.
 
 - [OE:05 — Use a standardized infrastructure as code (IaC) approach to prepare resources and configurations](#oe05--use-a-standardized-infrastructure-as-code-iac-approach-to-prepare-resources-and-configurations)
 
-### Rule ADR-AZ-WAFOE:6
+### Rule ADR-AZ-WAF-OE:6
 
 Every infrastructure change travels one supply chain: a CD pipeline triggered by its deployable-unit's globset builds the artifacts once and
 deploys the same bytes, in dependency order, into subscriptions it asserts; production is reached by promotion, not by the same stage that
@@ -50,14 +50,14 @@ deploys non-production.
 - [OE:06 — Build a workload supply chain that drives changes](#oe06--build-a-workload-supply-chain-that-drives-changes)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-WAFOE:7
+### Rule ADR-AZ-WAF-OE:7
 
 Every subscription has one Log Analytics workspace from `foundation`, and every resource that emits logs or metrics sends them there through
 a diagnostic setting its own template deploys; alerts on health changes join them.
 
 - [OE:07 — Design a monitoring stack](#oe07--design-a-monitoring-stack)
 
-### Rule ADR-AZ-WAFOE:8
+### Rule ADR-AZ-WAF-OE:8
 
 The infrastructure keeps an incident contained and recoverable — segmented networks, private endpoints, a break-glass login — and an
 incident is detected by alerts routed to the subscription's owners; the response plan is a version-controlled procedure, and its roles
@@ -65,21 +65,21 @@ belong to the operating organisation.
 
 - [OE:08 — Establish a clear, structured incident management process](#oe08--establish-a-clear-structured-incident-management-process)
 
-### Rule ADR-AZ-WAFOE:9
+### Rule ADR-AZ-WAF-OE:9
 
 Infrastructure is tested in tiers by `Test-Automation` ([ADR-AUTO-TEST](../../automation/test-automation.md)): the CI engine builds every
 template and checks its parameters files against the compiled parameter model, and a deployed template is verified by a system test.
 
 - [OE:09 — Enhance the quality of your workload](#oe09--enhance-the-quality-of-your-workload)
 
-### Rule ADR-AZ-WAFOE:10
+### Rule ADR-AZ-WAF-OE:10
 
 Automation is a catzc module: version-controlled, tested, idempotent, dry-runnable, and bounded in time; the desired state of a landing zone
 in Azure is held by its policy assignments.
 
 - [OE:10 — Design automation to be reliable, secure, and maintainable](#oe10--design-automation-to-be-reliable-secure-and-maintainable)
 
-### Rule ADR-AZ-WAFOE:11
+### Rule ADR-AZ-WAF-OE:11
 
 A change reaches production as the same build-once artifact, promoted behind gates from non-production through pre-prod, with an Azure
 what-if preview before every deploy.
@@ -619,12 +619,12 @@ Checks that exist:
 Checks that are planned (follow-up), none of which exists:
 
 - A quality gate that reads each compiled `main.json` and reports a resource without a diagnostic setting, without the CAF tags, or with
-  public network access, citing ADR-AZ-WAFOE#5 and ADR-AZ-WAFOE#7.
-- The Bicep linter as a quality gate, through an `infrastructure/bicepconfig.json` that sets its rules to error (ADR-AZ-WAFOE#4).
-- A secret scan of every change in the CI engine (ADR-AZ-WAFOE#3).
-- A what-if preview before every pipeline deploy, and production reached by a DEPLOY pipeline rather than a CD stage (ADR-AZ-WAFOE#6,
-  ADR-AZ-WAFOE#11).
-- L3 system tests that deploy each template to an on-demand environment (ADR-AZ-WAFOE#9).
+  public network access, citing ADR-AZ-WAF-OE#5 and ADR-AZ-WAF-OE#7.
+- The Bicep linter as a quality gate, through an `infrastructure/bicepconfig.json` that sets its rules to error (ADR-AZ-WAF-OE#4).
+- A secret scan of every change in the CI engine (ADR-AZ-WAF-OE#3).
+- A what-if preview before every pipeline deploy, and production reached by a DEPLOY pipeline rather than a CD stage (ADR-AZ-WAF-OE#6,
+  ADR-AZ-WAF-OE#11).
+- L3 system tests that deploy each template to an on-demand environment (ADR-AZ-WAF-OE#9).
 
 ## Consequences
 

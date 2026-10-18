@@ -4,7 +4,7 @@ roofs:
   agent_body_lines: 20
   capability_lines: 10
 # The contracts every robot and capability names under `contracts` in its front matter and reads first.
-contracts: [ADR-AI]
+contracts: [ADR-REPO-AI]
 agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
   - name: catzc-worker
@@ -100,7 +100,7 @@ agents:
 
   # Drives the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.
   - name: implementation-orchestrator
-    supported_by: [ADR-REPO-PLANS#8, ADR-PROC-PULLWORK#1, ADR-PROC-PULLWORK#4, ADR-AI#10]
+    supported_by: [ADR-REPO-PLANS#8, ADR-PROC-PULLWORK#1, ADR-PROC-PULLWORK#4, ADR-REPO-AI#10]
     checks: [Test-Plans]
     model_reason:
       maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions

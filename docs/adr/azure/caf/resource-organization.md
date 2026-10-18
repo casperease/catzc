@@ -3,129 +3,129 @@
 Pairs with [`landing-zones`](../landing-zones.md) (the subscription landing zone that stops below the management groups) and
 [`data-model`](../azure-data-model.md) (the subscriptions, environments, and customers every recommendation here is weighed against).
 
-## Rules: ADR-AZ-CAFRESORG
+## Rules: ADR-AZ-CAF-RESORG
 
-### Rule ADR-AZ-CAFRESORG:1
+### Rule ADR-AZ-CAF-RESORG:1
 
 Not adopted: the repository has no management group hierarchy to keep flat, because its landing zone stops at the subscription
 ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)).
 
 - [1 — Keep the management group hierarchy flat](#1--keep-the-management-group-hierarchy-flat)
 
-### Rule ADR-AZ-CAFRESORG:2
+### Rule ADR-AZ-CAF-RESORG:2
 
 Not adopted: there are no management groups, so none can mirror the organisation chart; the repository's grouping is the subscription model
 in `azure.yml`, keyed by customer and environment class.
 
 - [2 — Group by policy need, not by organisation chart](#2--group-by-policy-need-not-by-organisation-chart)
 
-### Rule ADR-AZ-CAFRESORG:3
+### Rule ADR-AZ-CAF-RESORG:3
 
 Adopted: the repository grants no role above a subscription; each subscription is deployed by its own service connection, pinned with
 `-SubscriptionIdAssertIs`, and the templates make no role assignment for workload teams.
 
 - [3 — No workload-team roles at management-group level](#3--no-workload-team-roles-at-management-group-level)
 
-### Rule ADR-AZ-CAFRESORG:4
+### Rule ADR-AZ-CAF-RESORG:4
 
 Partly adopted: every resource carries the six CAF tags and the landing zone requires `cost-center`; the resource groups that `Deploy-Bicep`
 creates for `foundation` and `expedition` carry deployment-tracking tags but not the CAF tags.
 
 - [4 — Navigate across the hierarchy by tags](#4--navigate-across-the-hierarchy-by-tags)
 
-### Rule ADR-AZ-CAFRESORG:5
+### Rule ADR-AZ-CAF-RESORG:5
 
 Not adopted: there is no sandbox management group; experiments run in a non-production configuration slot of an existing subscription.
 
 - [5 — A sandbox management group](#5--a-sandbox-management-group)
 
-### Rule ADR-AZ-CAFRESORG:6
+### Rule ADR-AZ-CAF-RESORG:6
 
 Not adopted: there is no platform management group; the shared subscriptions `shared_nonprod` and `shared_prod` hold the platform role, each
 with its own subscription-level policies.
 
 - [6 — A platform management group](#6--a-platform-management-group)
 
-### Rule ADR-AZ-CAFRESORG:7
+### Rule ADR-AZ-CAF-RESORG:7
 
 Not adopted: there are no archetype management groups; the network kind of a subscription (hub or spoke) is the repository's one archetype
 split, and it is a config value in `network.yml`.
 
 - [7 — Landing zone management groups per workload archetype](#7--landing-zone-management-groups-per-workload-archetype)
 
-### Rule ADR-AZ-CAFRESORG:8
+### Rule ADR-AZ-CAF-RESORG:8
 
 Not adopted: the repository assigns no policy at the root management group, or at any management group, so the intent holds by construction.
 
 - [8 — Few policy assignments at the root](#8--few-policy-assignments-at-the-root)
 
-### Rule ADR-AZ-CAFRESORG:9
+### Rule ADR-AZ-CAF-RESORG:9
 
 Adopted at subscription level: every landing zone assigns three built-in policies whose enforcement mode is `policy_enforcement` in
 `azure.yml` ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3), [ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
 
 - [9 — Enforce compliance with policy](#9--enforce-compliance-with-policy)
 
-### Rule ADR-AZ-CAFRESORG:10
+### Rule ADR-AZ-CAF-RESORG:10
 
 Not adopted: the management group hierarchy settings are tenant administration, outside what the repository deploys.
 
 - [10 — Only privileged users operate management groups](#10--only-privileged-users-operate-management-groups)
 
-### Rule ADR-AZ-CAFRESORG:11
+### Rule ADR-AZ-CAF-RESORG:11
 
 Not adopted: the default management group for new subscriptions is a tenant setting, outside what the repository deploys.
 
 - [11 — A default management group for new subscriptions](#11--a-default-management-group-for-new-subscriptions)
 
-### Rule ADR-AZ-CAFRESORG:12
+### Rule ADR-AZ-CAF-RESORG:12
 
 Adopted: production and non-production are separated by subscription, never by a management group — `azure.yml` maps the standard
 environments onto a non-production and a production subscription per customer and for the shared platform.
 
 - [12 — Separate environments by subscription, not by management group](#12--separate-environments-by-subscription-not-by-management-group)
 
-### Rule ADR-AZ-CAFRESORG:13
+### Rule ADR-AZ-CAF-RESORG:13
 
 Not adopted: there are no management groups to split by region, and every environment deploys to one region.
 
 - [13 — No management groups per region](#13--no-management-groups-per-region)
 
-### Rule ADR-AZ-CAFRESORG:14
+### Rule ADR-AZ-CAF-RESORG:14
 
 Adopted: the subscription is the unit of management — one landing zone, one workspace, one Key Vault, one budget, and one service connection
 per subscription ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)).
 
 - [14 — The subscription as the unit of management](#14--the-subscription-as-the-unit-of-management)
 
-### Rule ADR-AZ-CAFRESORG:15
+### Rule ADR-AZ-CAF-RESORG:15
 
 Partly adopted: each subscription's budget alerts its `Owner` role and its policies report compliance to that role's view; access reviews
 and remediation are the owner's practice, not the repository's.
 
 - [15 — Subscription owners know their duties](#15--subscription-owners-know-their-duties)
 
-### Rule ADR-AZ-CAFRESORG:16
+### Rule ADR-AZ-CAF-RESORG:16
 
 Partly adopted: a new subscription is cut along a management boundary (the customer), a policy boundary (the environment class), and a
 network boundary (one virtual network per subscription); scale limits are not a criterion.
 
 - [16 — Four tests for a new subscription](#16--four-tests-for-a-new-subscription)
 
-### Rule ADR-AZ-CAFRESORG:17
+### Rule ADR-AZ-CAF-RESORG:17
 
 Not adopted: subscriptions are grouped in `azure.yml` by customer and environment class, not under management groups.
 
 - [17 — Group subscriptions under management groups](#17--group-subscriptions-under-management-groups)
 
-### Rule ADR-AZ-CAFRESORG:18
+### Rule ADR-AZ-CAF-RESORG:18
 
 Not adopted: the platform runs in one shared subscription per environment class, which holds the hub and the shared platform's workloads,
 not in four dedicated platform subscriptions.
 
 - [18 — Four dedicated platform subscriptions](#18--four-dedicated-platform-subscriptions)
 
-### Rule ADR-AZ-CAFRESORG:19
+### Rule ADR-AZ-CAF-RESORG:19
 
 Partly adopted: **subscription vending** is a pull request — an `azure.yml` entry, its range in `network.yml` (the IP address plan), and one
 config per template that gives it its workspace, vault, landing zone, tags, and budget; creating the subscription itself is not adopted,
@@ -133,102 +133,102 @@ because the repository deploys only into subscriptions it is given.
 
 - [19 — A subscription vending process](#19--a-subscription-vending-process)
 
-### Rule ADR-AZ-CAFRESORG:20
+### Rule ADR-AZ-CAF-RESORG:20
 
 Adopted: the subscription model is config — a customer has a production and a non-production subscription or a non-production one alone, and
 the shared platform's workloads share the shared subscriptions.
 
 - [20 — A flexible subscription model](#20--a-flexible-subscription-model)
 
-### Rule ADR-AZ-CAFRESORG:21
+### Rule ADR-AZ-CAF-RESORG:21
 
 Partly adopted: every landing zone streams the subscription's activity log, its `ServiceHealth` category included, to `foundation`'s
 workspace; a Service Health alert per subscription is planned.
 
 - [21 — Service Health on every subscription](#21--service-health-on-every-subscription)
 
-### Rule ADR-AZ-CAFRESORG:22
+### Rule ADR-AZ-CAF-RESORG:22
 
 Adopted: subscriptions are never split by region, because every environment deploys to one region.
 
 - [22 — Per-region subscriptions only for governance or quota](#22--per-region-subscriptions-only-for-governance-or-quota)
 
-### Rule ADR-AZ-CAFRESORG:23
+### Rule ADR-AZ-CAF-RESORG:23
 
 Not adopted: the repository deploys no secondary region, so no disaster-recovery pair needs a subscription decision.
 
 - [23 — A disaster-recovery pair in one subscription](#23--a-disaster-recovery-pair-in-one-subscription)
 
-### Rule ADR-AZ-CAFRESORG:24
+### Rule ADR-AZ-CAF-RESORG:24
 
 Adopted: a resource group is created in its environment's region and the resources in it default to the resource group's region.
 
 - [24 — A resource group in its resources' region](#24--a-resource-group-in-its-resources-region)
 
-### Rule ADR-AZ-CAFRESORG:25
+### Rule ADR-AZ-CAF-RESORG:25
 
 Adopted: a resource group never mixes regions — one region per environment, and the landing zone's allowed-locations policy keeps every
 resource in it.
 
 - [25 — One region per resource group](#25--one-region-per-resource-group)
 
-### Rule ADR-AZ-CAFRESORG:26
+### Rule ADR-AZ-CAF-RESORG:26
 
 Partly adopted: every deploying customer has subscriptions of its own, so load spreads across subscriptions by customer; no subscription is
 split for scale.
 
 - [26 — Subscriptions as scale units](#26--subscriptions-as-scale-units)
 
-### Rule ADR-AZ-CAFRESORG:27
+### Rule ADR-AZ-CAF-RESORG:27
 
 Not adopted: the templates deploy no virtual machine or other capacity-constrained compute to reserve.
 
 - [27 — Capacity reservations](#27--capacity-reservations)
 
-### Rule ADR-AZ-CAFRESORG:28
+### Rule ADR-AZ-CAF-RESORG:28
 
 Planned: capacity alerts on the database in production and a workbook over `foundation`'s workspace; no capacity dashboard or alert exists.
 
 - [28 — A capacity dashboard with alerts](#28--a-capacity-dashboard-with-alerts)
 
-### Rule ADR-AZ-CAFRESORG:29
+### Rule ADR-AZ-CAF-RESORG:29
 
 Not adopted: no template deploys a resource whose default quota needs raising at provisioning.
 
 - [29 — Quota increases at provisioning](#29--quota-increases-at-provisioning)
 
-### Rule ADR-AZ-CAFRESORG:30
+### Rule ADR-AZ-CAF-RESORG:30
 
 Not adopted as a check: every environment uses `westeurope`, where every service the templates deploy is offered; a new region in
 `azure.yml` is the trigger to check availability.
 
 - [30 — Services available in the target regions](#30--services-available-in-the-target-regions)
 
-### Rule ADR-AZ-CAFRESORG:31
+### Rule ADR-AZ-CAF-RESORG:31
 
 Not adopted: no template consumes quota that a Quota Group would share.
 
 - [31 — Quota Groups](#31--quota-groups)
 
-### Rule ADR-AZ-CAFRESORG:32
+### Rule ADR-AZ-CAF-RESORG:32
 
 Not adopted: there are no quota requests to automate.
 
 - [32 — Automated quota requests](#32--automated-quota-requests)
 
-### Rule ADR-AZ-CAFRESORG:33
+### Rule ADR-AZ-CAF-RESORG:33
 
 Not adopted: no template consumes a quota close enough to its limit to need an alert.
 
 - [33 — Quota alerts](#33--quota-alerts)
 
-### Rule ADR-AZ-CAFRESORG:34
+### Rule ADR-AZ-CAF-RESORG:34
 
 Not adopted: the subscription transfer policy is a tenant setting, outside what the repository deploys.
 
 - [34 — Block subscription transfers between directories](#34--block-subscription-transfers-between-directories)
 
-### Rule ADR-AZ-CAFRESORG:35
+### Rule ADR-AZ-CAF-RESORG:35
 
 Not adopted: the list of users exempted from the transfer policy is a tenant setting, outside what the repository deploys.
 
@@ -859,7 +859,7 @@ Summary (ours): Give every subscription Service Health alerts, so that a platfor
 The signal is collected but not alerted on. Every landing zone deploys `subscription-diagnostic-setting.bicep`, which streams the activity
 log, its `ServiceHealth` and `ResourceHealth` categories included, to `foundation`'s workspace
 ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). No activity-log alert or action group exists, so a Service Health event is recorded
-and nobody is told. The reliability record plans the same alert ([ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10)).
+and nobody is told. The reliability record plans the same alert ([ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10)).
 
 ##### 21 in `foundation`
 
@@ -1065,7 +1065,7 @@ Summary (ours): Build a dashboard with views of how much capacity is used, and a
 The metrics are collected but nothing views or alerts on them. `diagnostic-setting.bicep` sends the metrics of each resource kind it
 supports to `foundation`'s workspace, the database's included, and no workbook, dashboard, metric alert, or action group exists. The
 reliability record plans alerts on database availability and capacity in production
-([ADR-AZ-WAFRE#10](../waf/reliability.md#rule-adr-az-wafre10)); this recommendation adds a view over the same metrics.
+([ADR-AZ-WAF-RE#10](../waf/reliability.md#rule-adr-az-waf-re10)); this recommendation adds a view over the same metrics.
 
 ##### 28 in `foundation`
 

@@ -521,7 +521,7 @@ concepts:
   catzc:
     key: catzc
     domain: principles
-    defined_by: ADR-CATS#1
+    defined_by: ADR-PRIN-CATS#1
     short:
       The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token
       in code and precise references.
@@ -533,7 +533,7 @@ concepts:
   cats:
     key: cats
     domain: principles
-    defined_by: ADR-CATS#2
+    defined_by: ADR-PRIN-CATS#2
     short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
     realized_by: { kind: prose-only }
     contrasts:

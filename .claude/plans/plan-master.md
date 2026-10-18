@@ -40,7 +40,7 @@ plans stay the durable record; task files and this master are derived from them 
 
 Done, task files deleted:
 
-- Plans-folder hygiene, the decision round of 2026-10-18, ADR-AI, ADR-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal
+- Plans-folder hygiene, the decision round of 2026-10-18, ADR-REPO-AI, ADR-PRIN-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal
   robots, layers doctrine, class selectors, assets leftovers, comment pages, skip unchanged generators, idle compaction: done 2026-10-17 and
   2026-10-18, as the plans' Done sections and value-of-plan.md record.
 - import-landing-zone, kind-becomes-role, config-defaults-variants, config-defaults-fragment, config-defaults-postures, layers-funnel,

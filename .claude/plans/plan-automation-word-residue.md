@@ -125,9 +125,9 @@ only lines the decided list above keeps. A test check runs under `Invoke-TestFil
 ### Tests that mock the old folder
 
 Landed 2026-10-18 by session catzc-93, all nine below, each "grep clean (only TestAutomation / Test-Automation /
-System.Management.Automation remain); Invoke-TestFile Result=Passed ExitCode=0". The first Invoke-TestFile of the last two crashed after
-3 s with empty stderr before any test ran; the shard script run directly and a second Invoke-TestFile passed (an import race, not these
-edits; noted in plan-test-run-budget's watch).
+System.Management.Automation remain); Invoke-TestFile Result=Passed ExitCode=0". The first Invoke-TestFile of the last two crashed after 3 s
+with empty stderr before any test ran; the shard script run directly and a second Invoke-TestFile passed (an import race, not these edits;
+noted in plan-test-run-budget's watch).
 
 - [x] `pwsh/.internal/tests/Import-AllModules.Tests.ps1:63,189-195`: the context title and the `$automation` local become "modules folder"
       and `$modulesRoot`. (check: grep clean; the file passes under `Invoke-TestFile`)
@@ -156,9 +156,10 @@ kit's `--all` finds only diagram folders (`<article-folder>/.assets/<name>/diagr
 ends `E_SOURCE no diagram folder` (exit 3). Decided by the orchestrator: the rerun waits for the diagram-folders migration
 (task-diagram-folders step 6), then runs as approved; the 149 old-wording pages and 283 stale hashes stay until then.
 
-- [ ] `.claude/drawio/minimaps/describe.py:414`: "under `automation/` by module" becomes "under `pwsh/` by module"; rerun `render.py` per
-      STYLE.md so every `docs/explanation/.assets/tree/*.tree.md` is rewritten from it. (check: `git grep -c "under \`automation/\`" --
-      docs/explanation/.assets`is empty;`Test-GeneratedFiles` clean)
+- [x] Done 2026-10-18: every migrated folder re-rendered in the new layout with "residue grep 0" (catzc-fb's per-folder verdicts in
+      task-diagram-folders step 6). Original step: `.claude/drawio/minimaps/describe.py:414`: "under `automation/` by module" becomes "under
+      `pwsh/` by module"; rerun `render.py` per STYLE.md so every `docs/explanation/.assets/tree/*.tree.md` is rewritten from it. (check:
+      `git grep -c "under \`automation/\`" -- docs/explanation/.assets`is empty;`Test-GeneratedFiles` clean)
 
 ### Comment pages: the source of the help text
 
@@ -173,9 +174,8 @@ automation itself", which means the layer); `gitignore.yml` Format-Code yaml app
 - [x] `docs/references/pwsh/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-      (also "the automation itself", rename plan line 1033)
-  Landed 2026-10-18 by session catzc-59, batch 2, the five ticked below, each Test-Comments ok and Test-Links ok (globs.yml.md keeps
-  the `automation` key and ci-automation for P6).
+      (also "the automation itself", rename plan line 1033) Landed 2026-10-18 by session catzc-59, batch 2, the five ticked below, each
+      Test-Comments ok and Test-Links ok (globs.yml.md keeps the `automation` key and ci-automation for P6).
 - [x] `docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-globs/configs/globs.yml.md` (check: grep clean; Test-Comments and Test-Links clean) (the globset key
       `automation` stays until P6; only the folder wording changes)
@@ -183,25 +183,24 @@ automation itself", which means the layer); `gitignore.yml` Format-Code yaml app
 - [x] `docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
 - [x] `docs/references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-  Landed 2026-10-18 by session catzc-59, batch 3, the five ticked below, each Test-Comments ok and Test-Links ok
-  (Get-UncoveredInternalAssetDependency's default corrected to Get-CatzcModulesRoot, as the code does; Invoke-TestFile.ps1.md needed no
-  change, its hits are `out/test-automation/` and New-TestAutomationShardScript).
+      Landed 2026-10-18 by session catzc-59, batch 3, the five ticked below, each Test-Comments ok and Test-Links ok
+      (Get-UncoveredInternalAssetDependency's default corrected to Get-CatzcModulesRoot, as the code does; Invoke-TestFile.ps1.md needed no
+      change, its hits are `out/test-automation/` and New-TestAutomationShardScript).
 - [x] `docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md` (check: grep clean; Test-Comments
       and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/Format-Types.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [x] `docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-  Landed 2026-10-18 by session catzc-59, batch 4, the five ticked below, each Test-Comments ok and Test-Links ok.
+- [x] `docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md` (check: grep clean; Test-Comments and Test-Links clean) Landed
+      2026-10-18 by session catzc-59, batch 4, the five ticked below, each Test-Comments ok and Test-Links ok.
 - [x] `docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-ChangeTestFile.ps1.md` (check: grep clean; Test-Comments and Test-Links
-      clean)
-  Landed 2026-10-18 by session catzc-59, batch 5, the five ticked below, each Test-Comments ok and Test-Links ok.
+      clean) Landed 2026-10-18 by session catzc-59, batch 5, the five ticked below, each Test-Comments ok and Test-Links ok.
 - [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md` (check: grep clean; Test-Comments and
@@ -211,8 +210,7 @@ automation itself", which means the layer); `gitignore.yml` Format-Code yaml app
 - [x] `docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunContext.ps1.md` (check: grep clean; Test-Comments and Test-Links
       clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md` (check: grep clean; Test-Comments and
-      Test-Links clean)
-  Landed 2026-10-18 by session catzc-59, batch 6, the five ticked below, each Test-Comments ok and Test-Links ok.
+      Test-Links clean) Landed 2026-10-18 by session catzc-59, batch 6, the five ticked below, each Test-Comments ok and Test-Links ok.
 - [x] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md` (check: grep clean; Test-Comments and
       Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestAutomationTestPaths.Tests.ps1.md` (check: grep clean; Test-Comments and
@@ -220,23 +218,23 @@ automation itself", which means the layer); `gitignore.yml` Format-Code yaml app
 - [x] `docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-repository/Get-CatzcModulesRoot.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
       (synopsis "root of the catzc automation tree" and the description's `<RepositoryRoot>/automation`)
-- [x] `docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
-  Landed 2026-10-18 by session catzc-59, batch 7, the five ticked below, each Test-Comments ok and Test-Links ok (index.md keeps the
-  getting-started/automation/ link: it is the system guide and no pwsh/ index exists).
+- [x] `docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md` (check: grep clean; Test-Comments and Test-Links clean) Landed
+      2026-10-18 by session catzc-59, batch 7, the five ticked below, each Test-Comments ok and Test-Links ok (index.md keeps the
+      getting-started/automation/ link: it is the system guide and no pwsh/ index exists).
 - [x] `docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/index.md` (check: grep clean; Test-Comments and Test-Links clean) (the "engine-agnostic `automation/` rules"
       sentence means the ADR domain and stays)
-- [x] `docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
-  Landed 2026-10-18 by session catzc-59, batch 8, the four ticked below, each Test-Comments ok and Test-Links ok (the TestKit handle
-  corrected to `{ Root; ModulesRoot; Saved }`, as the code returns it; "not the automation's to delete" kept, it means the layer).
+- [x] `docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md` (check: grep clean; Test-Comments and Test-Links clean) Landed
+      2026-10-18 by session catzc-59, batch 8, the four ticked below, each Test-Comments ok and Test-Links ok (the TestKit handle corrected
+      to `{ Root; ModulesRoot; Saved }`, as the code returns it; "not the automation's to delete" kept, it means the layer).
 - [x] `docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
-- [x] `docs/references/pwsh/internal/catzc-internal-testkit.md` (check: grep clean; Test-Comments and Test-Links clean)
-  Landed 2026-10-18 by session catzc-59, batch 9, the three ticked below, each Test-Comments ok and Test-Links ok; every comment-page
-  step in this section is done.
+- [x] `docs/references/pwsh/internal/catzc-internal-testkit.md` (check: grep clean; Test-Comments and Test-Links clean) Landed 2026-10-18 by
+      session catzc-59, batch 9, the three ticked below, each Test-Comments ok and Test-Links ok; every comment-page step in this section is
+      done.
 - [x] `docs/references/pwsh/internal/tests/Import-CSharpTypes.Tests.ps1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/scriptanalyzer/NoScriptRootAnchor.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
 - [x] `docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md` (check: grep clean; Test-Comments and Test-Links clean)
@@ -258,18 +256,19 @@ Each page: reword `automation/` to `pwsh/` where the modules folder is meant; le
 and the layer wording alone. Check for each: grep shows no folder-meaning line, `Test-Links` clean on the page. A `.drawio.md` page changes
 its prose only, never the generated sidebar.
 
-  Landed 2026-10-18 by session catzc-59, ADR batch 1, the five ticked below, each Test-Links ok (durable-sha-globs: the `pwsh/**`
-  pattern row now matches its own examples; pipeline-runner-pattern needed no change, line 35 already says pwsh/).
+Landed 2026-10-18 by session catzc-59, ADR batch 1, the five ticked below, each Test-Links ok (durable-sha-globs: the `pwsh/**` pattern row
+now matches its own examples; pipeline-runner-pattern needed no change, line 35 already says pwsh/).
+
 - [x] `docs/adr/azure/caf/platform-automation-and-devops.md` (check: no folder-meaning line; Test-Links clean) (line 326)
 - [x] `docs/adr/azure/waf/operational-excellence.md` (check: no folder-meaning line; Test-Links clean) (line 522)
 - [x] `docs/adr/configuration/module-config-loading.md` (check: no folder-meaning line; Test-Links clean) (lines 82, 114)
 - [x] `docs/adr/flow/durable-sha-globs.md` (check: no folder-meaning line; Test-Links clean) (the glob table at 171 to 174 uses
       `automation/` as sample paths: switch them to `pwsh/`; line 281)
-- [x] `docs/adr/flow/pipeline-runner-pattern.md` (check: no folder-meaning line; Test-Links clean) (line 35)
-  ADR batches 2 and 3, session catzc-59, 2026-10-18, the twelve ticked below, each Test-Links ok. No change needed in `pwsh/index.md`
-  and `pwsh-engine.md` (their `automation/` means the ADR domain); layer-meaning lines kept in pipeline-types, generated-readmes and
-  generated-root-configs; protected-globs keeps the `test-automation|…` protection keys (key format). dynamic-module-manifests now matches
-  Export-Catzc's `out/pwsh/packages/` and the Builder's `# source: pwsh/<Module>/<path>` marker.
+- [x] `docs/adr/flow/pipeline-runner-pattern.md` (check: no folder-meaning line; Test-Links clean) (line 35) ADR batches 2 and 3, session
+      catzc-59, 2026-10-18, the twelve ticked below, each Test-Links ok. No change needed in `pwsh/index.md` and `pwsh-engine.md` (their
+      `automation/` means the ADR domain); layer-meaning lines kept in pipeline-types, generated-readmes and generated-root-configs;
+      protected-globs keeps the `test-automation|…` protection keys (key format). dynamic-module-manifests now matches Export-Catzc's
+      `out/pwsh/packages/` and the Builder's `# source: pwsh/<Module>/<path>` marker.
 - [x] `docs/adr/flow/pipeline-types.md` (check: no folder-meaning line; Test-Links clean) (lines 14, 180)
 - [x] `docs/adr/pwsh/bounded-enumeration.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/adr/pwsh/dynamic-module-manifests.md` (check: no folder-meaning line; Test-Links clean)
@@ -281,23 +280,23 @@ its prose only, never the generated sidebar.
 - [x] `docs/adr/pwsh/working-directory-mechanics.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/adr/repository/generated-readmes.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/adr/repository/generated-root-configs.md` (check: no folder-meaning line; Test-Links clean)
-- [x] `docs/adr/repository/protected-globs.md` (check: no folder-meaning line; Test-Links clean)
-  Explanation batch 1, session catzc-59, 2026-10-18, each Test-Links ok. Ticked: the two configuration pages. Free prose done but kept open
-  for the slide migration (slide-label lines are changed with their slides, never ahead): `a-push-fires-only-touched-pipelines.drawio.md`
-  line 32 (the slide's named-set label `automation/**`); `get-aspect-feeds-globs-and-maps.md` text block lines 6, 9, 10;
-  `manifest-and-aspects-from-one-folder.md` text block lines 6, 10 and marker label 30. Their `aspects.automation` / `-Track automation`
-  lines are the open drift step in plan-explanation-drift-gaps.
+- [x] `docs/adr/repository/protected-globs.md` (check: no folder-meaning line; Test-Links clean) Explanation batch 1, session catzc-59,
+      2026-10-18, each Test-Links ok. Ticked: the two configuration pages. Free prose done but kept open for the slide migration
+      (slide-label lines are changed with their slides, never ahead): `a-push-fires-only-touched-pipelines.drawio.md` line 32 (the slide's
+      named-set label `automation/**`); `get-aspect-feeds-globs-and-maps.md` text block lines 6, 9, 10;
+      `manifest-and-aspects-from-one-folder.md` text block lines 6, 10 and marker label 30. Their `aspects.automation` / `-Track automation`
+      lines are the open drift step in plan-explanation-drift-gaps.
 - [x] `docs/explanation/configuration/callers-depend-on-one-config-module.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/configuration/three-caches-back-one-reader.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/manifest-and-aspects-from-one-folder.md` (check: no folder-meaning line; Test-Links clean)
-  Explanation batch 2, session catzc-59, 2026-10-18, each Test-Links ok; free prose done, all kept open for the slide migration:
-  `manifest-and-aspects-from-one-folder.drawio.md` 21, 32, 43 and `one-folder-two-independent-readers.drawio.md` 21, 32, 43 (slide
-  labels, no edit); `one-folder-two-independent-readers.md` text block 6, marker label 28; `only-automation-compiles-its-aspects.md`
-  title, lines 1, 4, 22 (slide title and slug), text block 8, plus its "automation track/convention" drift at 18, 29, 33 (the drift step
-  in plan-explanation-drift-gaps); `partition-integrity-runs-only-in-unit-tests.md` text block 6, marker label 29 and its `.drawio.md` 21,
-  33, 42 (no edit).
+- [ ] `docs/explanation/design/manifest-and-aspects-from-one-folder.md` (check: no folder-meaning line; Test-Links clean) Explanation batch
+      2, session catzc-59, 2026-10-18, each Test-Links ok; free prose done, all kept open for the slide migration:
+      `manifest-and-aspects-from-one-folder.drawio.md` 21, 32, 43 and `one-folder-two-independent-readers.drawio.md` 21, 32, 43 (slide
+      labels, no edit); `one-folder-two-independent-readers.md` text block 6, marker label 28; `only-automation-compiles-its-aspects.md`
+      title, lines 1, 4, 22 (slide title and slug), text block 8, plus its "automation track/convention" drift at 18, 29, 33 (the drift step
+      in plan-explanation-drift-gaps); `partition-integrity-runs-only-in-unit-tests.md` text block 6, marker label 29 and its `.drawio.md`
+      21, 33, 42 (no edit).
 - [ ] `docs/explanation/design/manifest-and-aspects-from-one-folder.drawio.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/one-folder-two-independent-readers.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/one-folder-two-independent-readers.drawio.md` (check: no folder-meaning line; Test-Links clean)
@@ -305,23 +304,23 @@ its prose only, never the generated sidebar.
       the track: the page's file name is the user's call, the prose changes)
 - [ ] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md` (check: no folder-meaning line; Test-Links clean)
-  Explanation batch 3, session catzc-59, 2026-10-18, each Test-Links ok. Ticked: which-run-mode-rules-have-a-gate, ci-budget,
-  declare-or-add-folder. Kept open for the slide migration: `two-roots-one-importer-same-modules.md` text block 7 and marker label 32
-  (`<RepositoryRoot>/automation`); `the-runner-is-the-only-seam.md` text block 10 (line 16 "its automation" means the layer and stays).
+      Explanation batch 3, session catzc-59, 2026-10-18, each Test-Links ok. Ticked: which-run-mode-rules-have-a-gate, ci-budget,
+      declare-or-add-folder. Kept open for the slide migration: `two-roots-one-importer-same-modules.md` text block 7 and marker label 32
+      (`<RepositoryRoot>/automation`); `the-runner-is-the-only-seam.md` text block 10 (line 16 "its automation" means the layer and stays).
 - [ ] `docs/explanation/design/two-roots-one-importer-same-modules.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/design/which-run-mode-rules-have-a-gate.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/flow/ci-budget-is-the-only-quality-gate.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/flow/the-runner-is-the-only-seam.md` (check: no folder-meaning line; Test-Links clean)
-  Explanation batch 4, session catzc-59, 2026-10-18, each Test-Links ok; every docs/explanation page of this section is reworded. Ticked:
-  two-declared-layers (line 31's `automation` is the globset key, kept until P6), one-source (line 35 means the layer). Kept open:
-  `one-registry-one-writer-two-primitives.md` text block 6 (slide label).
+- [ ] `docs/explanation/flow/the-runner-is-the-only-seam.md` (check: no folder-meaning line; Test-Links clean) Explanation batch 4, session
+      catzc-59, 2026-10-18, each Test-Links ok; every docs/explanation page of this section is reworded. Ticked: two-declared-layers (line
+      31's `automation` is the globset key, kept until P6), one-source (line 35 means the layer). Kept open:
+      `one-registry-one-writer-two-primitives.md` text block 6 (slide label).
 - [x] `docs/explanation/flow/two-declared-layers-one-derived.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/repository/one-registry-one-writer-two-primitives.md` (check: no folder-meaning line; Test-Links clean)
-- [x] `docs/explanation/repository/one-source-one-writer-one-boolean.md` (check: no folder-meaning line; Test-Links clean)
-  How-to batch, session catzc-59, 2026-10-18, the five ticked below, each Test-Links ok; the two index pages needed no change ("under
-  `automation/`" names the getting-started guide folder, "automation platform" the layer). The section is closed but for the
-  slide-label lines kept open above for the migration.
+- [x] `docs/explanation/repository/one-source-one-writer-one-boolean.md` (check: no folder-meaning line; Test-Links clean) How-to batch,
+      session catzc-59, 2026-10-18, the five ticked below, each Test-Links ok; the two index pages needed no change ("under `automation/`"
+      names the getting-started guide folder, "automation platform" the layer). The section is closed but for the slide-label lines kept
+      open above for the migration.
 - [x] `docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/how-to/getting-started/pwsh/BCL/index.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/how-to/getting-started/pwsh/add-a-module.md` (check: no folder-meaning line; Test-Links clean)
@@ -330,25 +329,26 @@ its prose only, never the generated sidebar.
 
   Found by the Close scan 2026-10-18 and landed the same day by session catzc-59, each Test-Links ok; one kept open for its slide labels
   (text block lines 7, 11 and marker label 33).
+
 - [x] `docs/adr/automation/platform-bundle.md` (check: no folder-meaning line; Test-Links clean) (line 133)
 - [x] `docs/adr/automation/internal-asset-dependencies.md` (check: no folder-meaning line; Test-Links clean) (line 77)
 - [x] `docs/explanation/automation/two-entries-feed-one-importer.md` (check: no folder-meaning line; Test-Links clean) (line 37)
 - [x] `docs/explanation/design/one-entry-script-per-mode.md` (check: no folder-meaning line; Test-Links clean) (line 29)
-- [ ] `docs/explanation/design/shims-set-roots-mode-read-back.md` (check: no folder-meaning line; Test-Links clean) (body lines 33, 44
-      done; the slide-label lines wait for the migration)
+- [ ] `docs/explanation/design/shims-set-roots-mode-read-back.md` (check: no folder-meaning line; Test-Links clean) (body lines 33, 44 done;
+      the slide-label lines wait for the migration)
 
 ### Plans that still say P4 waits or name removed functions
 
 - [x] `plan-clear` over `plan-layers-vocabulary-rename-contracts.md`: about 40 lines name `Get-AutomationModules`, `Copy-Automation`,
       `-AutomationRoot` or P2 and P4 work as present or pending, line 58 names a prompt file that is gone, and three link labels name the
-      absorbed `plan-automation-layers-rename.md`. (check: `Test-Plans` clean on the file) Done 2026-10-18 (catzc-59): the head and the
-      top sections say P0 to P4 landed, the gone prompt file and the stale memory note are out, the link labels name the file itself, and
-      the carried drafts are trimmed from 860 lines to what is still open (P6 and its edges, the stray pwsh rules, L3 to L5 with Q-L1 to
-      Q-L5, C7 and contract use 4 with their traps, the do-not-sweep list); 1,034 lines to 264. Test-Plans 0 issues on the file.
+      absorbed `plan-automation-layers-rename.md`. (check: `Test-Plans` clean on the file) Done 2026-10-18 (catzc-59): the head and the top
+      sections say P0 to P4 landed, the gone prompt file and the stale memory note are out, the link labels name the file itself, and the
+      carried drafts are trimmed from 860 lines to what is still open (P6 and its edges, the stray pwsh rules, L3 to L5 with Q-L1 to Q-L5,
+      C7 and contract use 4 with their traps, the do-not-sweep list); 1,034 lines to 264. Test-Plans 0 issues on the file.
 - [x] `plan-clear` over `decisions-2026-10-18.md` (line 24 says P4 waits), `task-layers-classification-flip.md` (lines 13, 38),
       `questionnaire-2026-10-18.md` (lines 23, 37), `plan-module-model-closeout.md` (lines 28, 34, 35), `task-module-model-closeout.md`
-      (lines 48, 49), `value-of-plan.md` (line 33). (check: `Test-Plans` clean on each) Done 2026-10-18 (catzc-59): D10's outcome says
-      P4 landed (row width kept); the flip task's head, intro, steps 3 and 4 and report are present tense (the obj/bin unstage signal was
+      (lines 48, 49), `value-of-plan.md` (line 33). (check: `Test-Plans` clean on each) Done 2026-10-18 (catzc-59): D10's outcome says P4
+      landed (row width kept); the flip task's head, intro, steps 3 and 4 and report are present tense (the obj/bin unstage signal was
       closed, 0 tracked); Copy-Automation is Copy-CatzcModule in the questionnaire, both module-model-closeout files and value-of-plan.
       Test-Plans 0 issues on each of the six.
 

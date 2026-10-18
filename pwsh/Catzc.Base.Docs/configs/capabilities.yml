@@ -104,5 +104,5 @@ capabilities:
 
   # The message protocol between an orchestrator and the live sessions it drives over the master plan.
   - name: plans-orchestrate
-    supported_by: [ADR-PROC-PULLWORK#1, ADR-PROC-PULLWORK#4, ADR-AI#10]
+    supported_by: [ADR-PROC-PULLWORK#1, ADR-PROC-PULLWORK#4, ADR-REPO-AI#10]
     checks: []

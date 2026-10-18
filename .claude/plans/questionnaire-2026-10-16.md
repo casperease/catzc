@@ -712,9 +712,9 @@ three skills where the catalogue says four; the gate checks none of the new shap
 first so the built robots are whole, then Phase 1; b) Phase 1 now, the missing capabilities as its first targets; c) keep going on Phase 2
 and 3 rewrites, Phase 1 later. Decision: a) Phase 1 now; the shared capabilities were built by a peer session during the round.
 
-### Q140 Where ADR-AI is named for agents
+### Q140 Where ADR-REPO-AI is named for agents
 
-The gate's rule 6 fixes the agent front matter to a closed key set; plan-adr-ai plans `contracts: [ADR-AI]` on every robot and capability,
+The gate's rule 6 fixes the agent front matter to a closed key set; plan-adr-ai plans `contracts: [ADR-REPO-AI]` on every robot and capability,
 the same value on every file. Options: a) name it once, the CLAUDE.md session-start line and a top-level `contracts:` entry in agents.yml
 the gate reads, no per-file key; b) extend rule 6 with `contracts`; c) a contracts list per registry entry. Decision: a) named once; the
 per-file key is dropped and plan-adr-ai steps 34, 40 and 46 change.

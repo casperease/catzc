@@ -32,7 +32,7 @@ domains:
       reduce-waste: { external: ADR-PRIN-NOWASTE, terminology: nowaste }
       poka-yoke: { external: ADR-PRIN-POKAYOKE, terminology: pokayoke, concern: [quality-control] }
       one-living-version: { external: ADR-PRIN-ONELIVE, terminology: onelive, concern: [release] }
-      cats-and-catzc: { external: ADR-CATS }
+      cats-and-catzc: { external: ADR-PRIN-CATS }
 
   process:
     code: PROC
@@ -49,7 +49,7 @@ domains:
     rulesets:
       agile: { external: ADR-PROC-AGILE }
       agile-values: { external: ADR-PROC-VALUES }
-      agile-principles: { external: ADR-PRIN-PROCESS, code: PRIN } # leaf override: PRIN code, though the folder defaults to PROC
+      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES, code: PRIN } # leaf override: PRIN code, though the folder defaults to PROC
       process-terms: { external: ADR-PROC-LEANTERMS, terminology: leanterms }
       lean: { external: ADR-PROC-LEAN }
       holding-the-line: { external: ADR-PROC-ANDON, terminology: andon, concern: [quality-control] }
@@ -259,23 +259,23 @@ domains:
       az-session-verification: { external: ADR-AZ-SESSION, terminology: sesverify, concern: [access] }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
-      reliability: { external: ADR-AZ-WAFRE, terminology: wafre }
-      security: { external: ADR-AZ-WAFSE, terminology: wafse }
-      cost-optimization: { external: ADR-AZ-WAFCO, terminology: wafco }
-      operational-excellence: { external: ADR-AZ-WAFOE, terminology: wafoe }
-      performance-efficiency: { external: ADR-AZ-WAFPE, terminology: wafpe }
-      design-principles: { external: ADR-AZ-CAFPRIN, terminology: cafprin }
-      billing-and-tenant: { external: ADR-AZ-CAFBILL, terminology: cafbill }
-      identity-and-access: { external: ADR-AZ-CAFIAM, terminology: cafiam }
-      resource-organization: { external: ADR-AZ-CAFRESORG, terminology: cafresorg }
-      network-topology: { external: ADR-AZ-CAFNETTOP, terminology: cafnettop }
-      network-connectivity: { external: ADR-AZ-CAFNETCON, terminology: cafnetcon }
-      network-private-access: { external: ADR-AZ-CAFNETPRV, terminology: cafnetprv }
-      landing-zone-security: { external: ADR-AZ-CAFSEC, terminology: cafsec }
-      management: { external: ADR-AZ-CAFMGMT, terminology: cafmgmt }
-      governance: { external: ADR-AZ-CAFGOV, terminology: cafgov }
-      naming-and-tagging: { external: ADR-AZ-CAFNAME, terminology: cafname }
-      platform-automation-and-devops: { external: ADR-AZ-CAFDEVOPS, terminology: cafdevops }
+      reliability: { external: ADR-AZ-WAF-RE, terminology: wafre }
+      security: { external: ADR-AZ-WAF-SE, terminology: wafse }
+      cost-optimization: { external: ADR-AZ-WAF-CO, terminology: wafco }
+      operational-excellence: { external: ADR-AZ-WAF-OE, terminology: wafoe }
+      performance-efficiency: { external: ADR-AZ-WAF-PE, terminology: wafpe }
+      design-principles: { external: ADR-AZ-CAF-PRIN, terminology: cafprin }
+      billing-and-tenant: { external: ADR-AZ-CAF-BILL, terminology: cafbill }
+      identity-and-access: { external: ADR-AZ-CAF-IAM, terminology: cafiam }
+      resource-organization: { external: ADR-AZ-CAF-RESORG, terminology: cafresorg }
+      network-topology: { external: ADR-AZ-CAF-NETTOP, terminology: cafnettop }
+      network-connectivity: { external: ADR-AZ-CAF-NETCON, terminology: cafnetcon }
+      network-private-access: { external: ADR-AZ-CAF-NETPRV, terminology: cafnetprv }
+      landing-zone-security: { external: ADR-AZ-CAF-SEC, terminology: cafsec }
+      management: { external: ADR-AZ-CAF-MGMT, terminology: cafmgmt }
+      governance: { external: ADR-AZ-CAF-GOV, terminology: cafgov }
+      naming-and-tagging: { external: ADR-AZ-CAF-NAME, terminology: cafname }
+      platform-automation-and-devops: { external: ADR-AZ-CAF-DEVOPS, terminology: cafdevops }
 
   repository:
     code: REPO
@@ -310,7 +310,7 @@ domains:
       code-file-meta: { external: ADR-REPO-CODEMETA, terminology: codemeta, concern: [quality-control] }
       function-help: { external: ADR-REPO-HELP, concern: [quality-control] }
       agent-definitions: { external: ADR-REPO-AGENTS }
-      ai-agent-contract: { external: ADR-AI }
+      ai-agent-contract: { external: ADR-REPO-AI }
       inspiration: { external: ADR-REPO-INSPIRE }
       protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }
       plans: { external: ADR-REPO-PLANS }

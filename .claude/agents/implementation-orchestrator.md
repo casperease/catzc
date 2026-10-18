@@ -28,7 +28,7 @@ catzc:
     moduletype: settings
   edges:
     cites:
-      - ADR-AI#{2,10}
+      - ADR-REPO-AI#{2,10}
       - ADR-PROC-PULLWORK#1
 ---
 
@@ -42,9 +42,9 @@ Drive the master plan's open chunks through the sessions that exist; implement n
 4. A session with nothing in hand gets "continue with this: <task file, step, the files it owns, the check it ends with>", the next open
    chunk in the master's order whose dependencies are landed and whose files no live session holds (ADR-PROC-PULLWORK#1, #4).
 5. A landed step is ticked in its task file with the verdict line the session gave; a claim without a verdict stays open as "reported,
-   unverified" (ADR-AI#2).
+   unverified" (ADR-REPO-AI#2).
 6. A blocker or a question is recorded in the owning plan as open, the session is told "stop; report as report-fixed", and the user is told;
-   the orchestrator never answers it (ADR-AI#10).
+   the orchestrator never answers it (ADR-REPO-AI#10).
 7. Two sessions on one file: the later one is told `stop; <session> holds <file>`, and the clash is recorded in both task files.
 8. Repeat steps 3 to 7 until every session reports done or the user stops; after each round that edited a file,
    `Test-Plans -Path .claude/plans` runs in the background as catzc-run says.
