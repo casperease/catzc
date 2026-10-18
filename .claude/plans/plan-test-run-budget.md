@@ -3,62 +3,38 @@ plan:
   status: active
   value: medium
   reviewed: 2026-10-18
+  waits_on: the final session's full run (task-user-runs-and-commits, last step)
   targets: [pwsh/Catzc.Base.QualityGates, pwsh/Catzc.Base.Engines, pwsh/Catzc.Base.Timeouts/configs]
 ---
 
 # The full test run under its 180 s roof
 
-Last measured run took 265.8 s. Landed: greedy groups (greedy_group_size) and a decayed maximum in the duration history so a cold spike is
-not forgotten. The largest remaining lever is the format cache stamp.
+The per-engine format cache stamp (ADR-REPO-FORMAT-CONFIGUREDFORMATTERS), greedy groups, the decayed duration maximum and the scheduler that
+starts shards 5 and 6 and the greedy pairs as soon as phase A frees a slot are in the tree. The user's last full run took 347 s against the
+180 s `tests.run_seconds` budget; the effect of the scheduler is read from the next full run.
 
 ## Why its value is medium
 
-Every tools.yml pin edit reformats the whole repository for every engine, 58 to 76 s for PowerShell alone. The roof is a rule, not a target,
-so the value is a suite that proves the same in less time. The user runs full suites; this plan proposes none.
+The roof is a rule, not a target, so the value is a suite that proves the same in less time. The user runs full suites; this plan proposes
+none.
 
 ## Decided
 
-- 2026-10-18: the snapshot test (`Invoke-TestFile`, item 2) and the config conventions test (item 3) stay as they are; what each spends is
-  what it proves, and scheduling, not the files, is the lever. The user may decide otherwise.
-- 2026-10-18, re-measured once `Get-MarkdownScope` landed: `Test-MarkdownTitle.Repository.Tests.ps1` (L1, integrity) takes 2.45 s warm and
-  3.68 s cold against the 2 s L1 limit, its one test reading every in-scope Markdown file, which is what it proves; the over-limit line is
-  report-only. Like item 3, a stated per-test limit with its reason is the user's choice; nothing changes until then.
-
-## Needed docs
-
-- ADR-REPO-FORMAT: an engine's cache stamp contains its own tool pin and its own settings files, nothing else.
-- Per-test limits, if any, are stated with their reason (the config conventions test, 0.77 s against 400 ms, stays).
-
-## Needed tests
-
-- An unrelated pin edit leaves another engine's cache warm.
-- Every declared stamp input invalidates the cache (the risk is a stale result from a missing input).
-- Two measured full runs after the shard change, compared against the 265.8 s table.
+- The snapshot test (`Invoke-TestFile`) and the config conventions test (0.77 s against 400 ms) stay as they are; what each spends is what
+  it proves, and scheduling, not the files, is the lever. The user may decide otherwise.
+- `Test-MarkdownTitle.Repository.Tests.ps1` (L1, integrity) takes 2.45 s warm and 3.68 s cold against the 2 s L1 limit, its one test reading
+  every in-scope Markdown file, which is what it proves; the over-limit line is report-only. A stated per-test limit with its reason is the
+  user's choice; nothing changes until then.
+- The three costliest files (about 14 s alone each) have no lever inside them: each test is one real build; about half of their full-run
+  figure is contention between build-heavy greedy files.
+- Watch: a first `Invoke-TestFile` of `Get-TimeoutSeconds.Repository.Tests` and `Get-EngineCaseTable.Tests` once crashed after 3 s with
+  empty stderr before any test ran; a second run passed (likely an import race).
 
 ## Open steps
 
-- [x] Decide the stamp rule (check: the ADR sentence exists). Decided 2026-10-18 (D08): an engine's stamp contains its own tool pin and its
-      own settings files, nothing else; the sentence and the tests are task-test-run-budget steps 1 and 2.
-- [x] Change the stamp, add both tests (check: Test-Formatting tests pass cold and warm). Done 2026-10-18, already in the tree: each engine
-      lists `tools.yml#<tool>` keys and `Get-FormatEngineStamp` hashes each key alone (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS); its 13
-      tests hold both cases and pass, and ADR-REPO-FORMAT-CONFIGUREDFORMATTERS states the stamp. `Test-Formatting.Tests.ps1` is 4 of 5 cold
-      and warm; its integrity case fails on unformatted working-tree files only.
-- [x] Landed 2026-10-18 by session catzc-93 (verdicts in task-test-run-budget step 6); the wall-clock effect is read from the next full run.
-      The scheduler, decided by the user 2026-10-18 from task-test-run-budget step 3's table: shards 5 and 6 and the greedy pairs start as
-      soon as phase A frees a slot instead of in series, still keeping build-heavy greedy files from overlapping; and the cause of
-      Test-ScriptAnalyzer.Tests' cold 134 s (its cache stamp inputs) found and fixed. No limit raised, no test removed (check: the
-      scheduler's L0 tests pass; the next full run's manifest shows phase B and C overlapping A, read when the user runs it).
-- [x] Done 2026-10-18 by session catzc-93 from three manifests, no run started: apart in all three (shard table in task-test-run-budget step
-      3). Original: Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting, read from the shard manifest of the final
-      session's full run (task-user-runs-and-commits, last step) and of any run the user made on their own; this plan starts none (check:
-      the manifests in out/test-automation place them apart). Watch, reported 2026-10-18 by session catzc-93: a first Invoke-TestFile of
-      Get-TimeoutSeconds.Repository.Tests and Get-EngineCaseTable.Tests crashed after 3 s with empty stderr before any test ran; the shard
-      script run directly and a second Invoke-TestFile passed (likely an import race). The user's last full run took 347 s against the 180 s
-      `tests.run_seconds` budget.
-- [x] Next three files by cost, one at a time via the test-optimization agent (check: same assertions, lower time). Done 2026-10-18 with no
-      edit: each file is about 14 s alone (14.3, 13.9 and 14.8 s against 33.6, 32.9 and 31.3 s in the full run), each test is one real build
-      the test exists to prove, so no file has a lever inside it; about half of each full-run figure is contention between build-heavy
-      greedy files. The lever is scheduling, measured by the shard step above; the options are in task-test-run-budget step 4.
+- [ ] Read the final session's full run (`out/test-automation`), no run started for it: its wall clock and phase table against 347 s, phases
+      B and C overlapping A, and `Invoke-TestFile.Tests.ps1` apart from `Test-Formatting.Tests.ps1` (task-test-run-budget step 1) (check:
+      the table and the verdict recorded here).
 
 ## Refs
 

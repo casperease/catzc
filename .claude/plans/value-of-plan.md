@@ -42,7 +42,6 @@ stale or superseded item is recorded as such, with the reason.
 
 | Value  | Plan                            | Needed docs                     | Needed tests                                        | State                               |
 | ------ | ------------------------------- | ------------------------------- | --------------------------------------------------- | ----------------------------------- |
-| medium | plan-assert-wait                | none left; both rules written   | Test-Automation.Tests after the reachability git mv | all landed but that one check       |
 | medium | plan-bounded-folder-enumeration | none left; ADR-PWSH-ENUM exists | the final full run                                  | built and migrated; delete on green |
 
 ## Pending deletion

@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-assert-wait]
   value: medium
-  blocked_on: step 1 is reported, unverified; catzc-bc runs its check
+  blocked_on: nothing; step 1 landed, the plan's tick is catzc-bc's
   targets: [pwsh/Catzc.Base.Globs/tests]
 ---
 
@@ -14,8 +14,10 @@ task:
 
 ## Steps
 
-1. Run `Test-Automation.Tests.ps1` under `Invoke-TestFile`, then tick the plan's last step; the plan is deleted in task-closing-sweep.
-   Check: the file passes; grep `- [ ]` counts zero in plan-assert-wait. Reported, unverified: catzc-bc runs the check.
+1. [x] Run `Test-Automation.Tests.ps1` under `Invoke-TestFile`, then tick the plan's last step; the plan is deleted in
+       task-closing-sweep. Check: the file passes; grep `- [ ]` counts zero in plan-assert-wait. "Invoke-TestFile Test-Automation.Tests.ps1:
+       Passed (out/test-file/20261018-193451-b6ff7c)", after the Test-AdrRegistry.Tests neutral_codes exemption (SourceConventionsConfig.Tests
+       Passed, out/test-file/20261018-193446-27d0f5). The plan's tick is catzc-bc's.
 
 ## Report
 
