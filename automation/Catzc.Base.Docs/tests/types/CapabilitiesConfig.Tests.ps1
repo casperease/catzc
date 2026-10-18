@@ -21,6 +21,7 @@ catzc:
 ---
 #>
 
+# Rests on [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3) and [ADR-REPO-AGENTS#9](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents9).
 Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#10' {
     BeforeAll {
         $script:widget = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE#1'); checks = @('Test-Widget') }

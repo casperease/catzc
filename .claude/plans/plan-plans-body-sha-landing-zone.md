@@ -73,6 +73,13 @@ other plan.
 - [ ] Phase 0, the unstamped writers: `.claude/drawio/minimaps/render.py` writes the 444 minimap pages with no head, and
       `Catzc.Internal.Types.psm1` writes the compiled types manifest with none; each writer writes the head through the one head function,
       then the minimaps are re-rendered on the user's ask (diagram work, never unasked) (check: Test-GeneratedFiles reports Unstamped 0).
+      2026-10-18, the minimaps half done (the user asked for the writer and the re-render): `.claude/drawio/minimaps/stamp.ps1` writes
+      each sister page's head through Format-GeneratedFileHead, source the slide, and drawio_forward.py runs it right after render.py in
+      both its paths; one run stamped the 447 chain, grid and tree pages above their H1 without changing a body, a second wrote nothing.
+      Test-GeneratedFiles: `Stamped: 461`, `Unstamped: 4`, no issues. The 4 left need a decision, not an edit: the compiled-types
+      manifest (`automation/.compiled/Catzc.Types.<hash>.json`), whose writer runs inside the importer before Catzc.Base.Languages and
+      its head function load; and the three RootConfig templates under `assets/root/`, which are authored sources the generator copies,
+      so their `linguist-generated` class may be the thing to correct.
 - [x] Binding audit of the .unordered references, read-only. Done 2026-10-17 (audit): the section "Binding audit" below holds one verdict
       per code and config line (12 files) and the markdown counts. Check: 12 verdict rows, a counts table, three authored pages named.
 - [x] Phase 1 terms and the import tool (check: its Pester file passes; Test-Glossary clean). Done 2026-10-18 (task-import-landing-zone):

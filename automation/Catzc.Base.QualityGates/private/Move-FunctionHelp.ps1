@@ -29,10 +29,15 @@ catzc:
     parameters:
       Path: The file's repository-relative, '/'-separated path.
       RepositoryRoot: The repository root the path is relative to.
+      RestsOn: Code links ('[ADR-X#n](/docs/adr/...)') the description gains as the sentence 'It rests on ...', in the order given.
       DryRun: Compute the new texts without writing either file.
     outputs: |-
       [pscustomobject] { Path; Page; Moved; Reason; Text; PageText }: Moved is false with a Reason when nothing moves, and Text and
       PageText are the texts the two files have after the move.
+    notes: |-
+      RestsOn carries the codes the head lists that no text of the file spells out, so the move keeps each as a real link in the help's
+      description and none is lost when the head goes
+      ([ADR-REPO-FILEMETA#14](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta14)).
 ---
 #>
 
@@ -45,6 +50,8 @@ function Move-FunctionHelp {
 
         [Parameter(Mandatory)]
         [string] $RepositoryRoot,
+
+        [string[]] $RestsOn = @(),
 
         [switch] $DryRun
     )
@@ -91,6 +98,21 @@ function Move-FunctionHelp {
     }
     else {
         [Catzc.Base.QualityGates.CommentEngine]::FreshPage($Path)
+    }
+    if ($RestsOn.Count -gt 0) {
+        $list = if ($RestsOn.Count -eq 1) {
+            $RestsOn[0]
+        }
+        else {
+            ($RestsOn[0..($RestsOn.Count - 2)] -join ', ') + ' and ' + $RestsOn[-1]
+        }
+        $sentence = "It rests on $list."
+        $config['description'] = if ($config.Contains('description') -and "$($config['description'])".Trim()) {
+            "$($config['description'])".TrimEnd() + "`n`n" + $sentence
+        }
+        else {
+            $sentence
+        }
     }
     $section = [Catzc.Base.QualityGates.FunctionHelp]::FromConfig($config).ToSection()
     $outcome.PageText = [Catzc.Base.QualityGates.FunctionHelp]::WithSection($pageText, $section)

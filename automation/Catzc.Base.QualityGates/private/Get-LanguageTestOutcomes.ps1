@@ -21,6 +21,7 @@ catzc:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-ENGINE
       - ADR-AUTO-GO#2
+      - ADR-AUTO-MODULE#6
       - ADR-AUTO-PY#2
       - ADR-AUTO-TEST#8
   config:

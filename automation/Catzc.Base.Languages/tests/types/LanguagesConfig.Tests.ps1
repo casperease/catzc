@@ -18,7 +18,7 @@ catzc:
     cites:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-MODULE#2
+      - ADR-AUTO-MODULE#{2,6}
       - ADR-PRIN-CONFIG#{2,4}
       - ADR-REPO-FORMAT#8
 ---
@@ -119,6 +119,32 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*invalid settings file 'widget/tools.yml#'*"
             $err.Exception.Message | Should -BeLike "*invalid settings file 'widget/tools.yml#a#b'*"
+        }
+
+        It 'reads a test runner with tools or with an engine, and none for a language without one' -Tag 'ADR-AUTO-MODULE#6' {
+            $tools = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo', 'sprocket'); executable = 'GizmoExecutable' } })).languages[0].tests
+            $tools.runner | Should -Be 'Invoke-WidgetTest'
+            $tools.tools | Should -Be @('gizmo', 'sprocket')
+            $tools.executable | Should -Be 'GizmoExecutable'
+            $tools.engine | Should -BeNullOrEmpty
+            $tools.ExecutableName | Should -Be 'gizmo'
+            $engine = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; engine = 'bash'; executable = 'EngineExecutable' } })).languages[0].tests
+            $engine.tools.Count | Should -Be 0
+            $engine.ExecutableName | Should -Be 'bash'
+            (& $script:one ([ordered]@{ extensions = @('.wdg') })).languages[0].tests | Should -BeNullOrEmpty
+        }
+
+        It 'throws on a test runner that is not a command, a bad executable, an unknown key, or tools and an engine together or neither' -Tag 'ADR-AUTO-MODULE#6' {
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'widget'; tools = @('gizmo'); executable = 'GizmoExecutable' } }) } |
+                Should -Throw "*runner 'widget' is not a command name*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = '-gizmo' } }) } |
+                Should -Throw "*executable '-gizmo' is not a parameter name*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = 'GizmoExecutable'; colour = 'red' } }) } |
+                Should -Throw "*unknown key 'colour'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); engine = 'bash'; executable = 'GizmoExecutable' } }) } |
+                Should -Throw '*never both and never neither*'
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; executable = 'GizmoExecutable' } }) } |
+                Should -Throw '*never both and never neither*'
         }
 
         It 'accepts every engine it declares' {

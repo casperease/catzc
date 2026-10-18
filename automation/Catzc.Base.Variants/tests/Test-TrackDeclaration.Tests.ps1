@@ -21,6 +21,7 @@ catzc:
 ---
 #>
 
+# Rests on [ADR-DSGN-TRACKTYPE#4](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype4).
 Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'ADR-DSGN-MODTYPE#3' {
     BeforeAll {
         $script:trackTypes = [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{

@@ -24,6 +24,7 @@ catzc:
 ---
 #>
 
+# Rests on [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1).
 # cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -- escape-sequence artifacts in the "`n…" fixture strings, and the deliberate misspelling a kept cspell directive covers
 Describe 'CommentEngine' -Tag 'L0', 'logic' {
     BeforeAll {

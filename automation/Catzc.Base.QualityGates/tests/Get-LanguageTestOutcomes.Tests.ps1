@@ -18,6 +18,7 @@ catzc:
     page: docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestOutcomes.Tests.ps1.md
     cites:
       - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-MODULE#6
       - ADR-AUTO-TEST#3
 ---
 #>
@@ -105,6 +106,11 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-BashTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Module -eq 'Catzc.Widget' -and $EngineExecutable -eq 'C:\widget\bash\bash.exe'
         }
+    }
+
+    It 'throws for a language the registry gives no test runner, naming it' -Tag 'ADR-AUTO-MODULE#6' {
+        { Invoke-Outcomes -Language json } | Should -Throw "*Language 'json' declares no tests entry in languages.yml*"
+        Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
     It 'hands the build run''s entry script to the runner, and none for the source run' {

@@ -568,8 +568,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return true;
     }
 
-    // A language's test runner: a runner command, the parameter its executable binds to, and either the tools that must resolve or the
-    // one engine the tests run under, never both and never neither.
     private static LanguageTestRunner ReadTests(string name, object value, List<string> errors)
     {
         if (value == null) { return null; }

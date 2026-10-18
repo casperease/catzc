@@ -22,6 +22,7 @@ catzc:
 ---
 #>
 
+# Rests on [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
 Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
     BeforeAll {
         $script:first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]

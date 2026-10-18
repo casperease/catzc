@@ -1,0 +1,31 @@
+# automation/Catzc.Base.Languages/types/LanguageTestRunner.cs
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## comment:1
+
+Above `public sealed class LanguageTestRunner`, written with `//`.
+
+```text
+How a test-artifact language's tests run: the command that runs them, the tools that must resolve first, and the parameter the tool's
+path binds to ([ADR-AUTO-MODULE#6](/docs/adr/automation/module-model.md#rule-adr-auto-module6)).
+```
+
+## comment:2
+
+Above `public IReadOnlyList<string> tools { get; }`, written with `//`.
+
+```text
+The tools that must resolve at their locked version before a run; the first one's path is the one passed to the runner. Empty for a
+language whose tests run under an engine of their own.
+```
+
+## comment:3
+
+Above `public string engine { get; }`, written with `//`.
+
+```text
+The engine the tests run under when the language is one of the engines (bash); its executable is the one passed, and the runner
+takes no engine argument. Null when the tests run under every engine.
+```

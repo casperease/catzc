@@ -130,3 +130,12 @@ A language's layout rows: { folder, role, extensions, live, shipped }. A row at 
 all among the language's own; any other row places every file in its folder. live and shipped default to true, the default every
 language row takes; only the shared tests row differs, and it is declared on LayoutRow.
 ```
+
+## comment:9
+
+Above `private static LanguageTestRunner ReadTests(string name, object value,...`, written with `//`.
+
+```text
+A language's test runner: a runner command, the parameter its executable binds to, and either the tools that must resolve or the
+one engine the tests run under, never both and never neither.
+```

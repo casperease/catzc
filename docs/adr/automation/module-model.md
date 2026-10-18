@@ -186,6 +186,9 @@ and resolve checks and tests by language ([ADR-AUTO-MODULE#6](#rule-adr-auto-mod
 - **`Get-ChangeCheckPlan`** resolves the checks of a changed file from its language's `checks` list in `languages.yml`, so `Test-Change`
   runs a gate because the registry names it for the language, never because a command names the language
   ([ADR-AUTO-MODULE#6](#rule-adr-auto-module6)).
+- **`Get-LanguageTestOutcomes`** runs a test-artifact language's tests through the runner its `tests` entry in `languages.yml` names, and
+  `Get-LanguageTestExecutable` resolves the tools that entry lists, so a new test language is a registry entry and its runner; the config
+  type fails the load on an entry that names both tools and an engine, or neither ([ADR-AUTO-MODULE#6](#rule-adr-auto-module6)).
 
 ## Consequences
 

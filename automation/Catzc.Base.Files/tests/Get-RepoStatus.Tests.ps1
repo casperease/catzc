@@ -20,6 +20,7 @@ catzc:
 ---
 #>
 
+# Rests on [ADR-REPO-FILEMETA#13](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta13).
 Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:tracked = @('widget/a.md')

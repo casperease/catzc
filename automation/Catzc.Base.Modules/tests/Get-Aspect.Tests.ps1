@@ -21,6 +21,7 @@ catzc:
 ---
 #>
 
+# Rests on [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md).
 Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#2' {
     BeforeAll {
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{
