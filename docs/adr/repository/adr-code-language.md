@@ -28,9 +28,17 @@ answer one vendor framework are `ADR-<DOMAIN>-<FRAMEWORK>-<NAME>`, the framework
 
 A rule is named, never numbered: its last segment says what the rule says, as spelled-out words joined with no length cap (the rule "bound
 every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item
-takes that item's id as its segment.
+takes the vendor's name for it: a Well-Architected rule its item id (`ADR-AZ-WAF-RE-RE01`), a Cloud Adoption Framework rule its checklist
+item's title, upper-cased and joined, with English stop words dropped.
 
 - [Names, not numbers](#names-not-numbers)
+
+### Rule ADR-REPO-ADRCODE-SEGMENTSAREWORDS
+
+Every segment of every registered code and rule heading is a known word to the spell checker, read from the registry and the ADR files by
+`Build-AdrCodeDictionary`. No code body is registered by hand as a term.
+
+- [Segments are known words](#segments-are-known-words)
 
 ### Rule ADR-REPO-ADRCODE-CODEISSELECTOR
 
@@ -56,6 +64,13 @@ rules.
 
 - [No subset spelling](#no-subset-spelling)
 
+### Rule ADR-REPO-ADRCODE-SLIDELOCALKEYS
+
+A rule chip on a diagram carries a slide-local key (`1`, `2`, `3`, with no `#`), and the slide's legend maps each key to its full named
+rule. A key numbers the slide's chips, never a rule.
+
+- [Chips carry local keys](#chips-carry-local-keys)
+
 ### Rule ADR-REPO-ADRCODE-AUTHOREDORDER
 
 A rule registry keeps the order its ADR writes the rules in. Rules are never sorted by name.
@@ -77,19 +92,28 @@ tree, so a domain, an ADR, and a rule are read, searched, and parsed the same wa
 ### The domain comes first
 
 The most general part comes first, so the codes of one domain sort together and one prefix search finds them. A code that leaves out its
-domain, or names another domain than the folder it lives in, breaks both.
+domain, or names another domain than the folder it lives in, breaks both. The research domain's segment is `DORA`, the research program it
+records, so a capability reads as the program's own (`ADR-DORA-VCS`).
 
 ### Vendor references are a level
 
 The Cloud Adoption Framework and Well-Architected Framework ADRs answer a vendor's guidance item by item. They form a family inside the
-azure domain, and a group segment makes that family one prefix (`ADR-AZ-CAF`). Their rules answer named vendor items, and the vendor's own
-item id is the most precise name such a rule can have.
+azure domain, and a group segment makes that family one prefix (`ADR-AZ-CAF`). A Well-Architected ADR is one pillar, so its segment is
+the pillar's code (`ADR-AZ-WAF-RE`). Their rules answer named vendor items, and the vendor's own name for an item is the most precise name
+such a rule can have: the item id where the pillar numbers its items, the checklist title where the checklist names them.
 
 ### Names, not numbers
 
 A number says nothing about its rule: a reader learns nothing from `#7` without opening the ADR. A name tells the reader what the citation
 asks for, so the citation itself carries the fact. Names follow the spell-out rule for identifiers ([spell-out-names](../automation/spell-out-names.md)),
 because a citation is read like one; a vendor's item id is an external name, which that rule leaves as the vendor writes it.
+
+### Segments are known words
+
+A named segment is a run of joined words (`BOUNDEVERYWAIT`) that no dictionary holds, and there are more than sixteen hundred of them. A
+hand-written terminology entry per code body would copy a fact the registry already holds, once per rule, and drift from it on every
+rename. The registry is the one source, so the spell checker reads it: `Build-AdrCodeDictionary` writes every segment, lower-cased, to the
+generated word list `.cspell/adr-codes.txt`, which the root `cspell.yml` loads beside the terminology dictionaries.
 
 ### Every string is a selector
 
@@ -109,6 +133,12 @@ they know what it cites. Writing each fact as its own code keeps every citation 
 as its code when it covers every rule, because the list is regenerated: when a rule is added, the derived list shows it in its diff. Prose
 is not regenerated, so prose cites exactly the rules it means.
 
+### Chips carry local keys
+
+A slide has room for a short mark beside each element, not for a full rule code. A chip that showed a rule's number would bring the
+numbered spelling back in a place no text search reads, inside the embedded diagram model. A slide-local key is short and claims nothing:
+it is the legend that turns each key into a full named code, so the citation on the slide is still the rule's name.
+
 ### Authored order
 
 An ADR orders its rules to be read, general before specific. Numbers gave that order for free; without them the registry keeps it as
@@ -124,6 +154,9 @@ fact and a selector of everything under it, with no numbers and no group syntax.
 - **`Test-AdrRegistry`** (in `Catzc.Base.Docs`) runs the `code_language` check: a code outside the segment grammar, a code that does not
   start with its domain's segment, a numbered rule heading, and a rule that shares a segment with a sibling ADR are findings. The check's
   mode is configured in `adr-checks.yml`; in `report` mode its findings are printed in their own report and never fail the run.
+- **`Test-Links`** (in `Catzc.Base.QualityGates`) reports a numbered citation in a markdown file or a code string as a finding; the test
+  files whose fixtures carry one on purpose are named, each with its reason, in `links.yml` `string_citations.exempt`.
+- **`Test-GeneratedFiles`** fails when `.cspell/adr-codes.txt` is stale against the registry.
 
 ## Consequences
 

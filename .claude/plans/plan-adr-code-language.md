@@ -187,11 +187,11 @@ them all).
       registries at run time, and the hand-written code-body entries leave `terminology.yml` in the same change (open question 1). Then
       rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: the `Test-Spelling` test file
       passes; `Test-Spelling` clean on `docs/adr`; `Test-AdrRegistry` on each rewritten file.
-- [ ] 5. Rewrite the citations through `Update-AdrCitation -RuleMap`, one area at a time in the order `docs/adr`, `pwsh`,
+- [x] 5. Rewrite the citations through `Update-AdrCitation -RuleMap`, one area at a time in the order `docs/adr`, `pwsh`,
       `docs/explanation`, `docs/references` (heads regenerate), `contracts`, `.claude`. Message the orchestrator first. In
       `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
       clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
-- [ ] 6. Replace the parsers (`AdrCodeForm`, `RULE_COLON`, the `:`→`#` replaces) in the same change as their callers and remove the `#`
+- [x] 6. Replace the parsers (`AdrCodeForm`, `RULE_COLON`, the `:`→`#` replaces) in the same change as their callers and remove the `#`
       form, including the seam that lets the three citation validators (`GlossaryConcept`, `AgentEntry`, `CapabilityEntry` `CitationRe`) and
       `Update-AdrCitation`'s numbered rule-map kinds accept it during the migration; restate the index's "Citing a rule" and trim
       ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check: `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the
@@ -237,8 +237,10 @@ them all).
     `ADR-WIDGET-GADGET#{1,3-5}` is re-cited in the minimal form (decided by the orchestrator, delegated; decision 5: a draft, an ordinary
     rewrite) to two named widget rules and one bare ADR. `Format-FileMeta.Contract.Tests.ps1` reads only the sample's keys: 6 passed 0
     failed; `Test-Contracts` on 0.0.0 0 issues.
-  - Left for the check: catzc-b4 lands the chip folders; the model scan reads 0 numbered in 149 models; `Test-Links` over
-    `docs/explanation` again; then tick this step.
+  - Closed 2026-10-18: catzc-b4 landed the 15 chip legends ("SCANNED 149 folders, 0 with hits, 0 numbered codes, 0 chip labels";
+    `Build-Diagrams -Path` all stages clean on each of the 15, 0 `W_` lines). Re-run here: the scan 0 numbered in 149 models; `Test-Links`
+    over `docs/explanation` 0 issues. gate-checks-order-not-liveness's chips 2/3/5 sit beside walkthrough markers 1-6, re-keyed by catzc-a2
+    (not part of this step's check).
 - [ ] 7. Move this plan's decisions into the ADR and delete the plan. Check: `Test-AdrRegistry` and `Test-Links` clean on the ADR;
       `git grep plan-adr-code-language` finds no link left. Not started. Also due here: tick step 5 (its git grep is the step 6 check), fold
       `docs/references/adr-terminology-key.md` (the removed `terminology:` key) into the ADR and remove that page, and record the user's
