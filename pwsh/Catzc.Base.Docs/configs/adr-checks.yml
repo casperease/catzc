@@ -22,3 +22,7 @@ dora_coverage:
   exempt_folders:
     azure/caf: Each ADR answers the Cloud Adoption Framework landing-zone guidance; docs/references/caf/index.md grounds it.
     azure/waf: Each ADR answers one Well-Architected pillar's checklist; docs/references/waf/index.md grounds it.
+
+# The segment grammar of ADR codes and named rule headings (ADR-REPO-ADRCODE).
+code_language:
+  mode: report

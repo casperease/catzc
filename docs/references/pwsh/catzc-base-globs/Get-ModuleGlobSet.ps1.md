@@ -101,10 +101,10 @@ remains the protection dependency; these carry the per-module identity.
 Above `if ('module-leftovers' -in $declaredNames) {`, written with `#`.
 
 ```text
-The module layer's catch-all: every tracked file under automation/ that no per-folder module owns and
+The module layer's catch-all: every tracked file under pwsh/ that no per-folder module owns and
 that is not dot-folder infrastructure (the reserved umbrellas' loose-fileset territory). It exists so
 the module layer covers module-space and a stray file cannot go unmapped — it should be empty in a
-clean tree, but stuff can pop up (a file dropped at automation/'s root, a folder not yet a module). Its
+clean tree, but stuff can pop up (a file dropped at pwsh/'s root, a folder not yet a module). Its
 OWN excludes are every module folder plus the four dot-folders, so it stays disjoint from every module
 set ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)). Derived, module-layer,
 never declared; a declared set may not shadow it.

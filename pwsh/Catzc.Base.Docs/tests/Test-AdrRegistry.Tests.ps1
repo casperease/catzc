@@ -27,10 +27,11 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         }
 
         function New-ChecksConfig {
-            param([string] $CitationGraph, [string] $DoraCoverage)
+            param([string] $CitationGraph, [string] $DoraCoverage, [string] $CodeLanguage = 'report')
             [Catzc.Base.Docs.AdrChecksConfig]::new([ordered]@{
                     citation_graph = [ordered]@{ mode = $CitationGraph }
                     dora_coverage  = [ordered]@{ mode = $DoraCoverage }
+                    code_language  = [ordered]@{ mode = $CodeLanguage }
                 })
         }
     }
@@ -126,6 +127,57 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             $result.IssueCount | Should -Be 0
             $result.DoraCoverageMode | Should -Be 'gate'
             $result.DoraCoverageFindings | Should -Be 0
+        }
+    }
+
+    Context 'the code-language check' -Tag 'ADR-REPO-ADRCODE#1' {
+        It 'counts a file''s numbered rule headings as one finding' {
+            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`n### Rule ADR-WI-ONE:2`n"
+            $result = Test-AdrRegistry -OutputFolder $out -PassThru
+            $result.IssueCount | Should -Be 0
+            $result.CodeLanguageMode | Should -Be 'report'
+            $result.CodeLanguage | Should -Be @('docs/adr/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE#4)')
+        }
+
+        It 'passes named rule headings that are one segment below their ADR' {
+            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINSFREELY`n`n``````text`n### Rule ADR-WI-ONE:9`n```````n"
+            $result = Test-AdrRegistry -OutputFolder $out -PassThru
+            $result.CodeLanguageFindings | Should -Be 0
+        }
+
+        It 'reports a heading of two segments, a heading under another code, a rule named like an ADR, and a code outside its domain' {
+            $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
+                    domains = [ordered]@{
+                        widget = [ordered]@{
+                            code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                            stack = 'PRIN'; concern = @('build')
+                            rulesets = [ordered]@{
+                                'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' }
+                                'widget-two' = [ordered]@{ external = 'ADR-WI-ONE-TWO' }
+                                'gizmo'      = [ordered]@{ external = 'ADR-GIZMO' }
+                            }
+                        }
+                    }
+                })
+            Write-AdrFixture 'widget/widget-one.md' (
+                "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS-FREELY`n`n### Rule ADR-GA-ONE-SPINS`n`n### Rule ADR-WI-ONE-TWO`n")
+            Write-AdrFixture 'widget/widget-two.md' "# Widget two`n`n## Rules: ADR-WI-ONE-TWO`n"
+            Write-AdrFixture 'widget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GIZMO`n"
+            Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
+            $result = Test-AdrRegistry -OutputFolder $out -PassThru
+            $result.CodeLanguage | Should -Be @(
+                "docs/adr/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE#4)"
+                "docs/adr/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE#4)"
+                'docs/adr/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-ADRCODE#6)'
+                "ADR-GIZMO (widget): does not start with its domain's segment, ADR-WI- (ADR-REPO-ADRCODE#2)"
+            )
+        }
+
+        It 'adds its findings to the gate''s issues in gate mode' {
+            $script:checks = New-ChecksConfig -CitationGraph 'report' -DoraCoverage 'report' -CodeLanguage 'gate'
+            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n"
+            $thrown = { Test-AdrRegistry -OutputFolder $out } | Should -Throw -PassThru
+            $thrown.Exception.Message | Should -BeLike '*widget-one.md: 1 numbered rule heading(s)*'
         }
     }
 }

@@ -37,7 +37,7 @@ include minus exclude, evaluated against `git ls-files`.
 Above `automation:`, written with `#`.
 
 ```text
-The automation track — the automation module system under automation/. A loose-fileset
+The automation set (the pwsh track) — the module system under pwsh/. A loose-fileset
 ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)):
 a cross-cutting check surface with a demonstrated use (the ci-automation pipeline binds its marker). It
 overlaps the derived module sets it spans, which is exactly what the loose-fileset layer is for.
@@ -132,7 +132,7 @@ durable SHA is unchanged since the last green run in the session.
 Above `repository:`, written with `#`.
 
 ```text
-The whole repository: every tracked file under every named root (automation/, infrastructure/, docs/,
+The whole repository: every tracked file under every named root (pwsh/, infrastructure/, docs/,
 pipelines/, .github/, contracts/, the root files, and any root added later). The protection identity for
 anything whose read set spans the repository
 ([ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6)/8): the managed-GUID and spelling scans
