@@ -9,19 +9,17 @@ plan:
 
 # Configurable output artifacts with sensible defaults
 
-Landed: the six out/ areas with their numbers are registered in output-formats.yml, sessions live under `out/sessions/<session>/`, the
-time-safeguard log never ages out, and only `Clear-Output` prunes (`OutputRetention`, `Clear-Output.Tests.ps1`). What remains is deleting
-the one-off probe scripts the harvest found, a batch at a time on the user's yes.
+The out/ areas, their retention and `Clear-Output` are in the tree. What remains is deleting the one-off probe scripts the harvest found, a
+batch at a time on the user's yes.
 
 ## Why its value is medium
 
 The out/ root is a contract and it is noisy. Low risk, clear win, but no other plan waits on it.
 
-## The harvest of out/ (2026-10-16)
+## Decided
 
-`out/harvest-verdicts.md` holds one verdict per script: 235 probes (one-off, deleted a batch at a time, Q77), 20 rerun scripts kept for
-their plans, and 5 tool candidates, now steps of their owning tasks (task-file-head-leftovers step 9, task-adr-link-cleanup step 9). A probe
-deletion skips anything younger than the session asking and anything listed in `out/harvest-keep.txt`.
+- `out/harvest-verdicts.md` holds one verdict per script; probes are deleted a batch at a time (Q77). A probe deletion skips anything
+  younger than the session asking and anything listed in `out/harvest-keep.txt`.
 
 ## Open steps
 

@@ -23,8 +23,8 @@ ADR-DSGN-TRACK-UNORDEREDTRACK bolded **note** as the term, and the ModuleSystem 
 
 The unordered track is where imports land, not a shelf of frozen fragments, and the track is empty between imports, so no tracked file
 reaches the kind and the reachability test fails on it. A file under `.unordered/` is whatever its import brought: a PowerShell file is a
-PowerShell file, so a separate kind for "a file in this folder" says nothing the track does not say already. The user decided D20
-(decisions-2026-10-18.md): the kind goes, its meaning first gets this page.
+PowerShell file, so a separate kind for "a file in this folder" says nothing the track does not say already.
+ADR-REPO-FILEMETA-ROLE holds the decision: the role registry has no such kind, and this page keeps its meaning.
 
 ## Where it lives now
 
