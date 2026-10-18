@@ -46,6 +46,12 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         (New-PythonProject -Target 'python/pyproject.toml').Content | Should -Match '(?m)^typeCheckingMode = "strict"$'
     }
 
+    It 'renders the declared extra paths relative to the workspace root' {
+        $script:python['extra_paths'] = @('.widget/scripts', '.widget/scripts/gadget')
+        (New-PythonProject -Target 'python/pyproject.toml').Content |
+            Should -Match '(?m)^extraPaths = \["\.\./\.widget/scripts", "\.\./\.widget/scripts/gadget"\]$'
+    }
+
     It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {
         (New-PythonProject -Target 'python/tests/catzc-widget/pyproject.toml').Content | Should -BeExactly ((@(
                     '[project]'

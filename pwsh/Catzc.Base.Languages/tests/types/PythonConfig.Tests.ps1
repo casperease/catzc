@@ -44,6 +44,12 @@ Describe 'PythonConfig' -Tag 'L0' {
             ([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins; type_checking = 'strict' })).type_checking | Should -Be 'strict'
         }
 
+        It 'resolves no extra import paths unless the file declares them, in file order' {
+            @(([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins })).extra_paths) | Should -HaveCount 0
+            $config = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins; extra_paths = @('.widget/scripts', '.gadget') })
+            @($config.extra_paths) | Should -Be @('.widget/scripts', '.gadget')
+        }
+
         It 'rejects <Case>, naming it' -ForEach @(
             @{ Case = 'an unknown key'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' }; gadget = 1 }; Message = "*unknown key 'gadget'*" }
             @{ Case = 'a missing pytest pin'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; ruff = '0.17.0' } }; Message = "*must pin 'pytest'*" }
@@ -55,6 +61,8 @@ Describe 'PythonConfig' -Tag 'L0' {
             @{ Case = 'a root with a parent segment'; Raw = [ordered]@{ root = '../widget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid root '../widget'*" }
             @{ Case = 'a root with a leading slash'; Raw = [ordered]@{ root = '/widget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid root '/widget'*" }
             @{ Case = 'an unknown type-checking mode'; Raw = [ordered]@{ type_checking = 'gadget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid type_checking 'gadget'*off, basic, standard, strict*" }
+            @{ Case = 'an extra path with a parent segment'; Raw = [ordered]@{ extra_paths = @('../widget'); dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid extra_paths entry '../widget'*" }
+            @{ Case = 'extra paths that are not a list'; Raw = [ordered]@{ extra_paths = '.widget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = '*invalid extra_paths (must be a list*' }
         ) {
             { [Catzc.Base.Languages.PythonConfig]::new($Raw) } | Should -Throw $Message
         }

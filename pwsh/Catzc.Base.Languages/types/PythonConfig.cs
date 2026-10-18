@@ -22,7 +22,7 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultTypeChecking = "standard";
 
     private const string Failed = "python config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking" };
+    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "extra_paths" };
     private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
     private static readonly string[] TypeCheckingModes = { "off", "basic", "standard", "strict" };
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
@@ -36,6 +36,9 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The pyright typeCheckingMode of the gate (Test-PythonTypes) and of Pylance in the editor.
     public string type_checking { get; } = DefaultTypeChecking;
+
+    // The repository-relative folders whose scripts import a sibling module: the type check resolves imports from them too.
+    public IReadOnlyList<string> extra_paths { get; } = Array.Empty<string>();
 
     public PythonConfig(IDictionary raw)
     {
@@ -73,6 +76,30 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
                 {
                     errors.Add(string.Format(CultureInfo.InvariantCulture,
                         "invalid type_checking '{0}' (a pyright typeCheckingMode: {1})", value, string.Join(", ", TypeCheckingModes)));
+                }
+            }
+
+            if (raw.Contains("extra_paths") && raw["extra_paths"] != null)
+            {
+                List<string> paths = new List<string>();
+                if (raw["extra_paths"] is IEnumerable list && !(raw["extra_paths"] is string) && !(raw["extra_paths"] is IDictionary))
+                {
+                    foreach (object item in list)
+                    {
+                        string value = Convert.ToString(item, CultureInfo.InvariantCulture) ?? "";
+                        bool dotSegment = Array.Exists(value.Split('/'), s => s == "." || s == "..");
+                        if (item is string && Root.IsMatch(value) && !dotSegment) { paths.Add(value); }
+                        else
+                        {
+                            errors.Add(string.Format(CultureInfo.InvariantCulture,
+                                "invalid extra_paths entry '{0}' (a repository-relative folder, e.g. '.claude/drawio')", value));
+                        }
+                    }
+                    extra_paths = paths;
+                }
+                else
+                {
+                    errors.Add("invalid extra_paths (must be a list of repository-relative folders, e.g. [.claude/drawio])");
                 }
             }
 

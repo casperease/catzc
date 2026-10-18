@@ -54,6 +54,13 @@ function New-PythonProject {
     $workspace.Add('[tool.pyright]')
     $workspace.Add("pythonVersion = `"$pythonVersion`"")
     $workspace.Add("typeCheckingMode = `"$($config.type_checking)`"")
+    if ($config.extra_paths.Count -gt 0) {
+        $pythonFull = Join-Path $repositoryRoot $pythonRoot
+        $extraPaths = foreach ($extraPath in $config.extra_paths) {
+            "`"$([System.IO.Path]::GetRelativePath($pythonFull, (Join-Path $repositoryRoot $extraPath)).Replace('\', '/'))`""
+        }
+        $workspace.Add("extraPaths = [$($extraPaths -join ', ')]")
+    }
     $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml", ($workspace -join "`n") + "`n"))
 
     foreach ($folder in $folders) {

@@ -85,7 +85,7 @@ Every `.py` file the repository holds is type-checked by pyright, the engine of 
 the editor alike: `python.yml`'s `type_checking`, `standard` by default, declared once on `PythonConfig`. The pinned pyright runs through
 the `Test-PythonTypes` quality gate with the workspace's `[tool.pyright]` settings; the generated VS Code settings give Pylance the same mode
 and the workspace interpreter, so a finding the editor shows is a finding the gate reports. A package a checked file imports is pinned in
-`python.yml`, so the import resolves in both.
+`python.yml`, and a folder whose scripts import a sibling script is named in its `extra_paths`, so every import resolves in both.
 
 - [The type check](#the-type-check)
 
@@ -188,7 +188,9 @@ interpreter mean the editor and the gate never disagree, as the PSScriptAnalyzer
 configuration, not code ([configure-not-program](../../principles/configure-not-program.md)): `python.yml` names it, `PythonConfig`
 declares the `standard` default once, `New-PythonProject` renders it into the workspace's `[tool.pyright]`, and the root-config generator
 renders it into the VS Code settings with the workspace interpreter. The agent helpers import Pillow, so Pillow is pinned beside the test
-dependencies: an import the type check cannot resolve is a finding, never a gap.
+dependencies, and they import each other by bare name from their own folder, which pyright does not search, so `python.yml`'s
+`extra_paths` names those folders and both renderings carry them (`extraPaths`, `python.analysis.extraPaths`): an import the type check
+cannot resolve is a finding, never a gap.
 
 ## Decision
 
