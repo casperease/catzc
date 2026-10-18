@@ -42,6 +42,8 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. Nothing below is held by a session; every chunk that an agent can take without the user has landed, and done
 work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts.
 
+- adr-code-runtime-residue -> plan-adr-code-runtime-residue.md: gates that still compose numbered ADR citations at runtime (no user
+  step).
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs; the `only-pwsh-compiles-its-aspects`
   rename once the user has run its two `Move-Diagram` calls (a session then re-points what is left and runs the checks).
 - automation-word-residue -> plan-automation-word-residue.md (blocked on the user's references asset folder `git mv`): then link-fixer
@@ -67,5 +69,5 @@ work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` li
 - closing-sweep, last -> task-closing-sweep.md, its last step: the plans that closed on green deleted; the master and the task files
   deleted when every chunk is done.
 
-Every chunk is a task file, apart from automation-word-residue, diagram-folders-rest and promotion-ladder, whose plans are the executable. A new plan or paste
+Every chunk is a task file, apart from adr-code-runtime-residue, automation-word-residue, diagram-folders-rest and promotion-ladder, whose plans are the executable. A new plan or paste
 adds its chunk as a pointer line at the position its dependencies and value give it.

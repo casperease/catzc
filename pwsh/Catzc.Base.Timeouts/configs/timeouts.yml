@@ -21,3 +21,5 @@ executables:
   bash: 1800 # Linux/macOS install scripts (dotnet-install.sh downloads the SDK)
   dpkg: 600 # Linux package removal
   go: 900 # module downloads, go vet and go test runs: the first compile of the Go runtime alone takes over 9 s
+tests:
+  engine_start_seconds: 150 # one engine start of a black-box test (import plus one command): two starts and a margin stay under pwsh's 360

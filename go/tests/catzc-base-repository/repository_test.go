@@ -11,13 +11,11 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
 )
-
-// engineTimeout bounds one engine start: an import plus one command.
-const engineTimeout = 5 * time.Minute
 
 // requireEnv returns the value of an environment variable the test contract names, failing the test when it is
 // not set.
@@ -42,7 +40,12 @@ func runEngine(t *testing.T, command string) string {
 	arguments := append([]string(nil), start...)
 	last := len(arguments) - 1
 	arguments[last] = strings.Replace(arguments[last], "{command}", command, 1)
-	ctx, cancel := context.WithTimeout(context.Background(), engineTimeout)
+	// Bounds one engine start, an import plus one command, by the contract's engine start limit.
+	seconds, err := strconv.Atoi(requireEnv(t, "CATZC_ENGINE_TIMEOUT_SECONDS"))
+	if err != nil || seconds <= 0 {
+		t.Fatalf("CATZC_ENGINE_TIMEOUT_SECONDS is not a positive whole number of seconds: %v", err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(seconds)*time.Second)
 	defer cancel()
 	output, err := exec.CommandContext(ctx, executable, arguments...).CombinedOutput()
 	if err != nil {

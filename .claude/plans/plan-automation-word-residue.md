@@ -1,10 +1,9 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: medium-high
   reviewed: 2026-10-18
-  blocked_on: the user's `git mv` of the references asset folder (task-user-runs-and-commits step 5, its references asset bullet)
-  targets: [docs/references/.assets/automation, docs]
+  targets: [docs/references/.assets/pwsh, docs]
 ---
 
 # The word "automation" after the move to pwsh/: retire the folder meaning, keep the layer meaning
@@ -26,8 +25,9 @@ links into it must move with it (ADR-PRIN-ONELIVE).
 
 ## Open steps
 
-- [ ] The user runs `git mv docs/references/.assets/automation docs/references/.assets/pwsh` (a mutating git command; it belongs in
-      task-user-runs-and-commits step 5, its references asset bullet). (check: `ls docs/references/.assets/automation` fails)
+- [x] The user runs `git mv docs/references/.assets/automation docs/references/.assets/pwsh` (a mutating git command; it belongs in
+      task-user-runs-and-commits step 5, its references asset bullet). (check: `ls docs/references/.assets/automation` fails) Done
+      2026-10-18 by the user (`out/run-user-git.ps1`): "ls: cannot access 'docs/references/.assets/automation': No such file or directory".
 - [ ] Every page that links into the moved folder is re-pointed by `link-fixer`, after the move. (check: `Test-Links` clean over `docs/`)
 
 ## Refs

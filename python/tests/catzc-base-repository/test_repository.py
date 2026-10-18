@@ -14,9 +14,6 @@ from pathlib import PurePath
 
 import pytest
 
-# Bounds one engine start: an import plus one command.
-ENGINE_TIMEOUT_SECONDS = 300
-
 
 def require_env(name: str) -> str:
     """Return an environment variable the test contract names, failing the test when it is not set."""
@@ -35,11 +32,13 @@ def run_engine(command: str) -> str:
         pytest.fail("CATZC_ENGINE_START is not a JSON array of arguments")
     arguments = list(start)
     arguments[-1] = arguments[-1].replace("{command}", command, 1)
+    # Bounds one engine start, an import plus one command, by the contract's engine start limit.
+    timeout = int(require_env("CATZC_ENGINE_TIMEOUT_SECONDS"))
     completed = subprocess.run(
         [executable, *arguments],
         capture_output=True,
         text=True,
-        timeout=ENGINE_TIMEOUT_SECONDS,
+        timeout=timeout,
         check=False,
     )
     if completed.returncode != 0:

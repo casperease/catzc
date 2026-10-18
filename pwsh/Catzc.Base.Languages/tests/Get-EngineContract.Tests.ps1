@@ -17,7 +17,7 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
 
     It 'names pwsh, its start arguments loading the repository importer, and the root for a source run' {
         $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
-        @($contract.Keys) | Should -Be @('CATZC_ENGINE', 'CATZC_ENGINE_EXECUTABLE', 'CATZC_ENGINE_ENTRY', 'CATZC_ENGINE_START', 'CATZC_REPOSITORY_ROOT')
+        @($contract.Keys) | Should -Be @('CATZC_ENGINE', 'CATZC_ENGINE_EXECUTABLE', 'CATZC_ENGINE_ENTRY', 'CATZC_ENGINE_START', 'CATZC_REPOSITORY_ROOT', 'CATZC_ENGINE_TIMEOUT_SECONDS')
         $contract['CATZC_ENGINE_ENTRY'] | Should -Be (Join-Path $script:root 'importer.ps1')
         $contract['CATZC_ENGINE'] | Should -Be 'pwsh'
         $contract['CATZC_ENGINE_EXECUTABLE'] | Should -Be 'C:\widget\engine\pwsh.exe'
@@ -25,6 +25,11 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
         $start | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Join-Path $script:root 'importer.ps1'), '{command}'))
         $start[-1] | Should -BeLike "*widget''s repo*; {command}"
         $contract['CATZC_REPOSITORY_ROOT'] | Should -Be $script:root
+    }
+
+    It 'bounds one engine start by the configured engine start limit' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
+        $contract['CATZC_ENGINE_TIMEOUT_SECONDS'] | Should -BeExactly ([string] (Get-Config -Config timeouts).EngineStartSeconds())
     }
 
     It 'loads the build''s entry for a build run' {

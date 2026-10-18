@@ -34,7 +34,14 @@ none.
 
 - [ ] Read the final session's full run (`out/test-automation`), no run started for it: its wall clock and phase table against 347 s, phases
       B and C overlapping A, and `Invoke-TestFile.Tests.ps1` apart from `Test-Formatting.Tests.ps1` (task-test-run-budget step 1) (check:
-      the table and the verdict recorded here).
+      the table and the verdict recorded here). Data so far: the user's run `out/test-automation/20261018-194315` crashed on the roof,
+      "PesterRunner timed out after 360s with 1 worker(s) unfinished: shard-20", the whole run passing its wall clock (371 s against
+      360 s); shards 0 to 19 wrote results, and shard-20, the last scheduled (`python/tests/catzc-base-repository`), runs in 9 s alone.
+- [ ] One engine start of a black-box test is bounded under the shard roof (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT): the Python and Go tests
+      bounded each of their two starts at 300 s, so the inner bound could never fire before the 360 s roof. `tests.engine_start_seconds`
+      (150, `timeouts.yml` and the default on `TimeoutsConfig`) reaches every engine through `Get-EngineContract` as
+      `CATZC_ENGINE_TIMEOUT_SECONDS`, and `test_repository.py` and `repository_test.go` read it (check: TimeoutsConfig.Tests and
+      Get-EngineContract.Tests pass under Invoke-TestFile; the Python and Go folders pass alone; the user's next full run is the proof).
 
 ## Refs
 

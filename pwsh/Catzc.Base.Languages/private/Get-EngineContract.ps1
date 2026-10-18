@@ -46,5 +46,6 @@ function Get-EngineContract {
         $contract['CATZC_IMPORTER'] = $powerShellEntry
     }
     $contract['CATZC_REPOSITORY_ROOT'] = $root
+    $contract['CATZC_ENGINE_TIMEOUT_SECONDS'] = [string] (Get-Config -Config timeouts).tests.engine_start_seconds
     $contract
 }

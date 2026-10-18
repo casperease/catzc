@@ -27,8 +27,8 @@ Order: the commits and git operations first, the remote runs next, the final ful
 
 ## Steps
 
-1. Confirm `out/delete-probes-batch1.ps1` ran, then give a yes for batch two (`out/harvest-batch1-kept-young.txt`, 13 probes). Check: the
-   listed files are gone, nothing in `out/harvest-keep.txt` is; task-out-artifacts steps 1 and 2 ticked.
+1. Run `out/delete-probes-batch1.ps1`, then delete batch two (`out/harvest-batch1-kept-young.txt`, 13 probes; decided yes by the
+   orchestrator on the user's delegation, 2026-10-18). Check: the listed files are gone, nothing in `out/harvest-keep.txt` is; task-out-artifacts steps 1 and 2 ticked.
 2. Bind a key to the "Push dirty" task (`workbench.action.tasks.runTask`, args `Push dirty`) and run `Push-Dirty` once against the real
    remote. Check: one real run reported; plan-fast-push-followups' last step ticked, the plan a closing-sweep candidate;
    task-root-config-fixtures step 1 ticked.
@@ -42,18 +42,6 @@ Order: the commits and git operations first, the remote runs next, the final ful
    task-explanation-drift-gaps steps 1 and 2 ticked.
 5. After task-layers-classification-flip step 1 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
-   - Also, at any time: `git mv docs/references/.assets/automation docs/references/.assets/pwsh` (plan-automation-word-residue's four
-     follow-up steps wait on it). Check: `git ls-files docs/references/.assets/automation` lists nothing.
-   - After that move: run `out/move-rest-diagrams.ps1` (18 `Move-Diagram` lines, each dry-run by a session; plan-diagram-folders-rest).
-     Check: `git ls-files 'docs/.assets/*/*.drawio.png'` lists nothing.
-   - Also, at any time: run the `git rm` lines of `out/delete-done-plans.ps1` (done plans, task files and landed continuation prompts), one
-     at a time; sessions cannot, the permission layer blocks it. Check: the files it names are gone, and `Test-Links -Path .claude/plans` is
-     clean.
-   - Also, at any time (the user's choice 2026-10-18: the user runs the move, sessions do no git): after `. ./importer.ps1`,
-     `Move-Diagram docs/explanation/design/.assets/only-automation-compiles-its-aspects docs/explanation/design/.assets/only-pwsh-compiles-its-aspects`
-     and `Move-Diagram docs/explanation/design/only-automation-compiles-its-aspects.md docs/explanation/design/only-pwsh-compiles-its-aspects.md`
-     (each `-DryRun` first). A session then re-points what is left and runs the checks (plan-explanation-drift-gaps, the rename box).
-     Check: `git ls-files docs/explanation/design | grep only-automation-compiles` lists nothing.
 6. The final full run, last of all, after every other task has landed: a new `pwsh` session, `. ./importer.ps1`, then `Test-Automation` once
    over the whole repository, by hand. Read its report in `out/test-automation` for the two real-repo failures reported earlier (the
    drawio.yml live-yaml test, RootConfig New-GitAttributes) and for any finding in the head shape, the class selectors, the path split
