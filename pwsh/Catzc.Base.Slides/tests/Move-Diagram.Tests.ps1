@@ -20,6 +20,7 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
             Invoke-Executable $command -WorkingDirectory $script:widgetRoot -Silent | Out-Null
         }
         Mock Write-Message -ModuleName Catzc.Base.Slides { }
+        Mock Format-Code -ModuleName Catzc.Base.Slides { }
         $script:read = { param([string] $File) [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $File)) }
     }
 

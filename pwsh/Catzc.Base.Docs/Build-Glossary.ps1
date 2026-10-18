@@ -66,7 +66,9 @@ function Build-Glossary {
             else {
                 "``$($concept.defined_by)``"
             }
-            $lines.Add("- **Defined by:** $definedBy")
+            foreach ($line in (Format-MarkdownParagraph -Text "**Defined by:** $definedBy" -FirstPrefix '- ' -ContinuationPrefix '  ')) {
+                $lines.Add($line)
+            }
 
             $realization = $concept.realized_by
             $realizedBy = if ($realization.kind -eq 'prose-only') {

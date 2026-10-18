@@ -1,5 +1,7 @@
 Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
+        # A rule whose link is longer than a line: the page wraps it the way Prettier does, so the formatter leaves it unchanged.
+        $script:longRule = 'ADR-TST-WIDGET-GADGETSPINSWHILEEVERYWIDGETRESTSANDNOTHINGELSEMOVES'
         $entry = {
             param([string] $term, [string] $domain, [System.Collections.IDictionary] $extra = @{})
             $body = [ordered]@{
@@ -25,9 +27,10 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
                 contrasts = @{ 'gadget run' = 'A gadget run executes; a widget suite is files at rest.' }
                 avoid     = @(@{ phrase = 'widget bundle'; say = 'widget suite' })
             })
+            (& $entry 'gadget shelf' 'repository' @{ defined_by = $script:longRule })
         )
         $citations = [Catzc.Base.Docs.AdrCitationMap]::new(
-            @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = [string[]] @('ADR-TST-WIDGET-REST') } },
+            @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = [string[]] @('ADR-TST-WIDGET-REST', $script:longRule) } },
             @('docs/adr/repository/widget-thing.md'))
         $domains = [pscustomobject]@{
             Domains = @([pscustomobject]@{ Name = 'repository' }, [pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'flow' })
@@ -51,6 +54,17 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         $text | Should -Match ([regex]::Escape('- **Part of:** [widget suite](#widget-suite)'))
         $text | Should -Match ([regex]::Escape('  - [gadget run](#gadget-run): A gadget run executes; a widget suite is files at rest.'))
         $text | Should -Match ([regex]::Escape('| `widget bundle` | widget suite |'))
+    }
+
+    It 'wraps a rule link longer than a line onto its own continuation line, as Prettier does' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        $text = [System.IO.File]::ReadAllText($script:page)
+
+        $link = "[$($script:longRule)](repository/widget-thing.md#rule-$($script:longRule.ToLowerInvariant()))"
+        $text | Should -Match ([regex]::Escape("- **Defined by:**`n  $link`n"))
+        foreach ($line in $text -split "`n") {
+            $line.Length | Should -BeLessOrEqual ([Math]::Max(140, $link.Length + 2)) -Because $line
+        }
     }
 
     It 'is deterministic: a second run reports no change' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
@@ -80,7 +94,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:page, 'stale')
         $report = Build-Glossary -Path $script:page -DryRun -PassThru -Silent
         $report.Changed | Should -BeTrue
-        $report.ConceptCount | Should -Be 2
+        $report.ConceptCount | Should -Be 3
         [System.IO.File]::ReadAllText($script:page) | Should -Be 'stale'
     }
 }

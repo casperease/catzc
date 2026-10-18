@@ -23,6 +23,7 @@ groups:
         Catzc.Base.Objects,
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
+        Catzc.Base.QualityGates,
       ]
     Catzc.Base.Reports:
       [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.Folders]

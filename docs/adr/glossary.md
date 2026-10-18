@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6bbc182f7e3c"
-    with_inputs_sha: "5aeac5d3a4e481e814fe686d668f1d617ebaf6cf5816dfdd22d4ba475b8c392c"
+    with_body_sha: "71aa47ff0c11"
+    with_inputs_sha: ee60e52b30d7deba8e3a371b384e55d86aa48cb4e16eba28db61b041535d4846
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -29,7 +29,8 @@ phrasings to avoid. `Test-Glossary` checks the sources.
 The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
 trunk's pipelines and never edited beside it.
 
-- **Defined by:** [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)
+- **Defined by:**
+  [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -964,7 +965,8 @@ A Describe or Context in a test file — a named group of tests whose tags and s
 One config value, a key path and its value, that an author states in the config part of a tracked Markdown file's meta block and that the
 config reader gathers into the config that opted in to it.
 
-- **Defined by:** [ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION](configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)
+- **Defined by:**
+  [ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION](configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -983,7 +985,8 @@ The one SQL login beside a server's Entra ID admin group, its password a Key Vau
 The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
 required by policy.
 
-- **Defined by:** [ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS](azure/caf/naming-and-tagging.md#rule-adr-az-caf-name-definetaggingrequirements)
+- **Defined by:**
+  [ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS](azure/caf/naming-and-tagging.md#rule-adr-az-caf-name-definetaggingrequirements)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1072,7 +1075,8 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the subscription
 itself is created outside the repository.
 
-- **Defined by:** [ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](azure/caf/resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess)
+- **Defined by:**
+  [ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](azure/caf/resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1200,7 +1204,8 @@ platform change is a new draft.
 
 A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
 
-- **Defined by:** [ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-documentationmarkdownonly)
+- **Defined by:**
+  [ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-documentationmarkdownonly)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `ADR domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,

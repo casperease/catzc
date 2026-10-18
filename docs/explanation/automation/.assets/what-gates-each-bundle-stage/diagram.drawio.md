@@ -6,15 +6,16 @@ Glyphs: 1 code unit (slate), 2 gates, 2 results; 5 flow edges; 5 rule chips; 6 m
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](../../what-gates-each-bundle-stage.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../what-gates-each-bundle-stage.md).
 
 ## At a glance
 
 A 1572 × 620 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through three
-tall bands, a wide BUILD band, then BUNDLE and CODE ROOTS. It holds five glyphs (one code unit, two gates and two results)
-joined by five flow edges, with five rule chips, six markers, and a legend panel along the bottom. Four glyphs sit on one horizontal line
-through the middle of the bands, and a second gate sits below the code unit. The eye lands first on the two grey rhombuses (the gates) in the BUILD band.
+tall bands, a wide BUILD band, then BUNDLE and CODE ROOTS. It holds five glyphs (one code unit, two gates and two results) joined by five
+flow edges, with five rule chips, six markers, and a legend panel along the bottom. Four glyphs sit on one horizontal line through the
+middle of the bands, and a second gate sits below the code unit. The eye lands first on the two grey rhombuses (the gates) in the BUILD
+band.
 
 ## Reading path
 
@@ -48,13 +49,13 @@ runs above the bands in three straight segments with one arrowhead. No edge cros
 
 A full-width panel at the bottom of the drawing area, in three columns, left to right:
 
-| Swatch                  | Phrase                                                               |
-| ----------------------- | -------------------------------------------------------------------- |
-| slate rounded box       | code unit                                                            |
-| grey rhombus, thick rim | gate                                                                 |
-| green rounded box       | result                                                               |
-| grey arrow              | flow: feeds or runs the next step                                    |
-| dark disc `1`           | marker: a Walkthrough step                                           |
+| Swatch                  | Phrase                                                                |
+| ----------------------- | --------------------------------------------------------------------- |
+| slate rounded box       | code unit                                                             |
+| grey rhombus, thick rim | gate                                                                  |
+| green rounded box       | result                                                                |
+| grey arrow              | flow: feeds or runs the next step                                     |
+| dark disc `1`           | marker: a Walkthrough step                                            |
 | white pill `#5`         | rule chip: #n ADR-AUTO-BUNDLE#n, M ADR-PWSH-MANIFEST, T ADR-AUTO-TEST |
 
 ## Sidebar
@@ -63,13 +64,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for every lit
-cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.
