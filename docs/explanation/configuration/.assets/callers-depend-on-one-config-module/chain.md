@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e67e2f7563c"
+    with_body_sha: "60a23ade1d02"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md
-    source: docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
+    path: docs/explanation/configuration/.assets/callers-depend-on-one-config-module/chain.md
+    source: docs/explanation/configuration/.assets/callers-depend-on-one-config-module/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

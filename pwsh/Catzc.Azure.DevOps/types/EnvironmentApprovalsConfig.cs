@@ -14,7 +14,7 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
     public const string DefaultApproverGroup = "Prod Approvers";
 
     // The approver group's description when the file gives none.
-    public const string DefaultApproverDescription = "Approves deploys to the prod-tier environments; synced from environment-approvals.yml.";
+    public const string DefaultApproverDescription = "Approves the RC, RBC and prod-tier deploys; synced from environment-approvals.yml.";
 
     // How long a pending approval waits before the run times out, when the file sets no timeout_hours.
     public const int DefaultTimeoutHours = 24;
@@ -34,7 +34,8 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
     // How long a pending approval waits, in hours.
     public int timeout_hours { get; }
 
-    // The ADO environments that need an approval before a run deploys to them, in file order.
+    // The ADO environments that need an approval before a run deploys to them, in file order: each unit's release-uat (RC) and pre-prod
+    // (RBC), and the prod-tier environments. The apply creates one that does not exist yet.
     public string[] environments { get; }
 
     public EnvironmentApprovalsConfig(IDictionary d)

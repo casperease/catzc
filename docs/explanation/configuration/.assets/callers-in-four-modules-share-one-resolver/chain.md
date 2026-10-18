@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5b5bc0088317"
+    with_body_sha: f7dc4e147052
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.chain.md
-    source: docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
+    path: docs/explanation/configuration/.assets/callers-in-four-modules-share-one-resolver/chain.md
+    source: docs/explanation/configuration/.assets/callers-in-four-modules-share-one-resolver/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

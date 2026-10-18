@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "49bbf01c3901"
+    with_body_sha: "86128385a5f2"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-addressing--an-address-is-a-read-only-walk--meta.chain.md
-    source: docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
+    path: docs/explanation/configuration/.assets/an-address-is-a-read-only-walk/chain.md
+    source: docs/explanation/configuration/.assets/an-address-is-a-read-only-walk/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

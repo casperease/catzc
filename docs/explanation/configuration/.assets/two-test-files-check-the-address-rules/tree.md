@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c18c48832dca
+    with_body_sha: "1b6a65baccdb"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-conf-addressing--two-test-files-check-the-address-rules--governance.tree.md
-    source: docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
+    path: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/tree.md
+    source: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -16,32 +16,32 @@ catzc:
 
 ```text
 Which files cite ADR-AUTO-ENVVAR and ADR-CONF-ADDRESSING: every file of the world map is a tile, grouped by top-level folder.
-24 files lit in 10 groups.
+23 files lit in 10 groups.
 ```
 
 ![The tree minimap of Two L0 test files check the address rules; read-only and committed-only rest on convention](tree.png)
 
 This is the tree minimap in the sidebar of the governance diagram of [Two L0 test files check the address rules; read-only and
-committed-only rest on convention][25], which explains [ADR-AUTO-ENVVAR][1] and [ADR-CONF-ADDRESSING][2]. It lights every file that cites
+committed-only rest on convention][24], which explains [ADR-AUTO-ENVVAR][1] and [ADR-CONF-ADDRESSING][2]. It lights every file that cites
 those codes, grouped by folder, so it shows which files carry the decision. Each lit group has its reason below, naming the code that
 selects it.
 
 ## What the minimap shows
 
-The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 24 files in 10 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
+domain), and lights 23 files in 10 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 11 lit files
-- .claude: 3 lit files
+- .claude: 2 lit files
 - adr/auto (docs/adr/automation): 2 lit files
 - adr/conf (docs/adr/configuration): 2 lit files
+- adr/* (the files directly in docs/adr/): 1 lit file
+- pipelines: 1 lit file
 - Config (pwsh/Catzc.Base.Config): 1 lit file
 - Docs (pwsh/Catzc.Base.Docs): 1 lit file
 - Folders (pwsh/Catzc.Base.Folders): 1 lit file
 - QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
-- adr/* (the files directly in docs/adr/): 1 lit file
-- pipelines: 1 lit file
 
 ## Why each group is lit
 
@@ -73,22 +73,20 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][13], in the cell docs × markdown: selected by
   [ADR-AUTO-ENVVAR][1]: the file cites it at line 43 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 20 (text).
 
-### .claude (3 lit files)
+### .claude (2 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
-- [.claude/plans/plan-bounded-folder-enumeration.md][14], in the cell .claude × markdown: selected by [ADR-CONF-ADDRESSING][2]: the file
-  cites it at line 283 (text).
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][15], in the cell .claude × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 535 (text), line 557 (text) and line 765 (text).
-- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][16], in the cell .claude × markdown: selected by [ADR-CONF-ADDRESSING][2]:
+- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][14], in the cell .claude × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file
+  cites it at line 216 (text).
+- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][15], in the cell .claude × markdown: selected by [ADR-CONF-ADDRESSING][2]:
   the file cites it at line 18 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
 The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
 
-- [docs/adr/automation/dora-explains.md][17], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 383
+- [docs/adr/automation/dora-explains.md][16], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 383
   (text).
 - [docs/adr/automation/environment-variables.md][1], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the ADR's own file.
 
@@ -98,70 +96,70 @@ The group holds the files of docs/adr/configuration; each sits in its world-map 
 
 - [docs/adr/configuration/config-value-addressing.md][2], in the cell docs × markdown: selected by [ADR-CONF-ADDRESSING][2]: the ADR's own
   file.
-- [docs/adr/configuration/dora-explains.md][18], in the cell docs × markdown: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at
+- [docs/adr/configuration/dora-explains.md][17], in the cell docs × markdown: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at
   line 28 (text).
-
-### Config (pwsh/Catzc.Base.Config, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.Config; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][19], in the cell automation × powershell: selected by [ADR-CONF-ADDRESSING][2]:
-  the file cites it at line 37 (text) and line 66 (text).
-
-### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][20], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line
-  139 (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 209 (text).
-
-### Folders (pwsh/Catzc.Base.Folders, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][21], in the cell automation × powershell: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 54 (text).
-
-### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][22], in the cell automation × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 589 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][23], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 170 (text); selected by
+- [docs/adr/index.md][18], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 170 (text); selected by
   [ADR-CONF-ADDRESSING][2]: the file cites it at line 237 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][24], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-ENVVAR][1]: a pipeline that cites nothing
+- [pipelines/ci-automation.yaml][19], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-ENVVAR][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 139 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 589 (text); selected by [ADR-CONF-ADDRESSING][2]: a pipeline that cites
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 591 (text); selected by [ADR-CONF-ADDRESSING][2]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 37 (text),
   `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 209 (text) and
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text).
 
+### Config (pwsh/Catzc.Base.Config, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.Config; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][20], in the cell pwsh × powershell: selected by [ADR-CONF-ADDRESSING][2]: the
+  file cites it at line 37 (text) and line 66 (text).
+
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][21], in the cell pwsh × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 139
+  (text); selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 209 (text).
+
+### Folders (pwsh/Catzc.Base.Folders, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][22], in the cell pwsh × powershell: selected by [ADR-CONF-ADDRESSING][2]:
+  the file cites it at line 54 (text).
+
+### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][23], in the cell pwsh × yaml: selected by [ADR-AUTO-ENVVAR][1]: the file cites it
+  at line 591 (text).
+
 ## Keywords
 
-- [world map][26]
-- [track][27]
-- [file language][28]
-- [cell][29]
-- [lit cell][30]
-- [.claude][31]: a track
-- [automation][31]: a track
-- [docs][31]: a track
-- [pipelines][31]: a track
-- [markdown][32]: a file language
-- [pipeline-yaml][32]: a file language
-- [powershell][32]: a file language
-- [yaml][32]: a file language
+- [world map][25]
+- [track][26]
+- [file language][27]
+- [cell][28]
+- [lit cell][29]
+- [.claude][30]: a track
+- [docs][30]: a track
+- [pipelines][30]: a track
+- [pwsh][30]: a track
+- [markdown][31]: a file language
+- [pipeline-yaml][31]: a file language
+- [powershell][31]: a file language
+- [yaml][31]: a file language
 
 [1]: ../../../../adr/automation/environment-variables.md
 [2]: ../../../../adr/configuration/config-value-addressing.md
@@ -176,22 +174,21 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [11]: ../../../../references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
 [12]: ../../../../references/pwsh/catzc-tooling-environment.md
 [13]: ../../../../references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
-[14]: ../../../../../.claude/plans/plan-bounded-folder-enumeration.md
-[15]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[16]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
-[17]: ../../../../adr/automation/dora-explains.md
-[18]: ../../../../adr/configuration/dora-explains.md
-[19]: ../../../../../pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
-[20]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[21]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-[22]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[23]: ../../../../adr/index.md
-[24]: ../../../../../pipelines/ci-automation.yaml
-[25]: ../../two-test-files-check-the-address-rules.md
-[26]: ../../../../adr/glossary.md#world-map
-[27]: ../../../../adr/glossary.md#track
-[28]: ../../../../adr/glossary.md#file-language
-[29]: ../../../../adr/glossary.md#cell
-[30]: ../../../../adr/glossary.md#lit-cell
-[31]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[32]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[14]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[15]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
+[16]: ../../../../adr/automation/dora-explains.md
+[17]: ../../../../adr/configuration/dora-explains.md
+[18]: ../../../../adr/index.md
+[19]: ../../../../../pipelines/ci-automation.yaml
+[20]: ../../../../../pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+[21]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[22]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+[23]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[24]: ../../two-test-files-check-the-address-rules.md
+[25]: ../../../../adr/glossary.md#world-map
+[26]: ../../../../adr/glossary.md#track
+[27]: ../../../../adr/glossary.md#file-language
+[28]: ../../../../adr/glossary.md#cell
+[29]: ../../../../adr/glossary.md#lit-cell
+[30]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[31]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

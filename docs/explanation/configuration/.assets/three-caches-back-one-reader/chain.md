@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f94f21ee599b
+    with_body_sha: "66d54f629e51"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md
-    source: docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
+    path: docs/explanation/configuration/.assets/three-caches-back-one-reader/chain.md
+    source: docs/explanation/configuration/.assets/three-caches-back-one-reader/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

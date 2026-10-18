@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "49c3604cecfc"
+    with_body_sha: "192ab866f11e"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md
-    source: docs/explanation/.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
+    path: docs/explanation/configuration/.assets/one-reader-one-cache-per-session/chain.md
+    source: docs/explanation/configuration/.assets/one-reader-one-cache-per-session/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

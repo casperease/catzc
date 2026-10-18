@@ -48,7 +48,8 @@ Five plans each hold one step that fits no larger chunk. Each is one file and on
    the list in plan-clear-actions.
 4. The gallery fixture (plan-assets-gallery-pdf): if the decision round gives the kit a test home, a two-PNG fixture run (one with a
    companion) under it; if not, the step is dropped and the plan deleted in the sweep. Check: page count is 3, or the plan is gone.
-5. `pipelines/README.md` (plan-promotion-ladder): the ladder's environments and the pipeline that deploys each, as the decision round's Q1
+5. [x] Landed 2026-10-18 by session catzc-59 as plan-promotion-ladder's steps 1 and 2 (verdicts there). Original step:
+   `pipelines/README.md` (plan-promotion-ladder): the ladder's environments and the pipeline that deploys each, as the decision round's Q1
    to Q4 decide; the decisions become ADR-DSGN-LIFE and ADR-FLOW-CD rules in the same change (ADR-REPO-PLANS#9). Check: `Test-Links` and
    `Test-Pipelines` pass; `Test-AdrRegistry` clean. The ladder's build itself is then planned as its own task from the plan's new steps.
 

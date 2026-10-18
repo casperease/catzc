@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0b9f66febc7
+    with_body_sha: "59d192fc712b"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-addressing--two-test-files-check-the-address-rules--governance.chain.md
-    source: docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
+    path: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/chain.md
+    source: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

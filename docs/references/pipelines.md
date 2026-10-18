@@ -64,6 +64,24 @@ ADRs:
 There are no CRON or INPUT pipelines in the repo yet, and no per-type sample pipelines — the real `ci-*` / `cd-*` pipelines above are the
 canonical shapes to copy.
 
+## The promotion ladder
+
+A commit climbs one rung at a time ([commit-lifecycle](../adr/design/commit-lifecycle.md),
+[cd-discipline-and-promotion-flow](../adr/flow/cd-discipline-and-promotion-flow.md)). Each always-on rung is its own Azure DevOps
+environment per deployable-unit, with one occupant:
+
+| Rung        | Environment                                          | Deployed by                     | Gate before it                             |
+| ----------- | ---------------------------------------------------- | ------------------------------- | ------------------------------------------ |
+| main-uat    | `<unit>-main-uat`                                    | the unit's CD (`cd-<unit>`)     | the CD's CI component and L3 run           |
+| release-uat | `<unit>-release-uat`                                 | DEPLOY                          | RC: an approval check on this environment  |
+| pre-prod    | `<unit>-pre-prod`, a staging slot in the prod sub    | DEPLOY                          | RBC: an approval check on this environment |
+| production  | the prod-tier environments (`*-psub`, apex's `prod`) | DEPLOY, activating the pre-prod | the prod approval gate                     |
+
+The approval checks are declared in `environment-approvals.yml` and applied by `Sync-AdoEnvironmentApprovals`
+([apply-environment-approvals](../how-to/automation/apply-environment-approvals.md)). DEPLOY takes the exact artifact CI built, by the CI
+run id that the certifying CD run records, and never rebuilds it. The CD pipelines above deploy the non-prod and prod-tier targets of a
+stage in one run; the main-uat, release-uat and pre-prod environments and the DEPLOY pipeline are not in the repo yet.
+
 ## Adding a real pipeline
 
 1. Create a `<type>-<name>.yaml` pointed at your real deployable unit (copy an existing one like `ci-infrastructure.yaml` or

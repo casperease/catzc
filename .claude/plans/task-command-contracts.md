@@ -107,7 +107,12 @@ contracts plan).
    commands, `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests and New-CatsCommandLookup.Tests
    (`out/test-file/20261018-135212-cc0b32`, `-135236-24560e`). Open, for a later language step: a type for gate results and a way to state
    parameter sets, which together would let the gates and the two set-based commands be contracted.
-8. Parameter sets in the contract language, held 2026-10-18 by session catzc-f3 (orchestrator). Decided by the orchestrator on the user's
+8. [x] Landed 2026-10-18 by session catzc-f3, verdict: "[Invoke-TestFile] Passed for ContractCommand, Read-CommandSignature,
+   New-CatsCommandLookup, Get-ContractCheckResults.Assets (out/test-file/20261018-162922-0d4274, -162928-2ad798, -162934-c8134f,
+   -162940-ec476e); CONTRACTS issues=0; Test-AdrRegistry issues=0; Test-Links clean on the ADR and catzc.md; Invoke-BashTest
+   catzc-base-engines ok". Lookup columns 8 (sets) and 9 (default set); importer.sh resolves the call's set (two new bats cases);
+   Get-Inspiration and Export-WorldMapPdf contracted; Get-FileLanguage's contract corrected (its sets were unstated). Its
+   Test-GeneratedFiles 287 are the stale minimap pages the migration clears. Original step: Parameter sets in the contract language. Decided by the orchestrator on the user's
    delegation: a spec suffix ` in <Set>[,<Set>]` (none = every set) and a top-level `default_set:` key (omitted = one set); mandatory stays
    per parameter, and a parameter mandatory in one set but optional in another is a finding; the checker reads ParameterSetName and
    DefaultParameterSetName; the `cats` lookup gains a sets column and importer.sh picks the set the given names fit, the default when
@@ -117,8 +122,8 @@ contracts plan).
 9. The gate result type, decided the same way: a C# `Catzc.Base.Reports.QualityGateResult` (Subject, IssueCount, Issues, ReportPath,
    Facts as an ordered dictionary) returned by `Write-QualityGateReport -PassThru`; each gate declares it as its OutputType, one gate file
    at a time with its tests and every caller reading a flattened fact moved to `.Facts[...]` in the same change (one living version); no
-   grammar change (a Catzc.* type); then the gates get contracts. Starts after task-test-run-budget step 6 (catzc-93 edits QualityGates
-   files). Check per gate: its test file and its callers' test files pass; `CONTRACTS issues=0` at the end.
+   grammar change (a Catzc.* type); then the gates get contracts. Unblocked 2026-10-18 (task-test-run-budget step 6 landed); held by
+   session catzc-f3. Check per gate: its test file and its callers' test files pass; `CONTRACTS issues=0` at the end.
 10. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
    in task-closing-sweep. Check: grep `- [ ]` counts zero.
 

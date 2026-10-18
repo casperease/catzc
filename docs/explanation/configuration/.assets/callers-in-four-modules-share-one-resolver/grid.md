@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b1b459ec811b
+    with_body_sha: de7acbfebeae
     repo_status: locked
-    path: docs/explanation/.assets/grid/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.grid.md
-    source: docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
+    path: docs/explanation/configuration/.assets/callers-in-four-modules-share-one-resolver/grid.md
+    source: docs/explanation/configuration/.assets/callers-in-four-modules-share-one-resolver/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -16,13 +16,13 @@ catzc:
 
 ```text
 Where the files that cite ADR-CONF-ADDRESSING sit in the repository: tracks down, file languages across.
-5 of 342 cells lit, holding 17 files.
+5 of 342 cells lit, holding 16 files.
 ```
 
 ![The world-map minimap of Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private](grid.png)
 
 This is the world-map minimap in the sidebar of the architecture diagram of [Callers in four modules dereference an address through
-Catzc.Base.Config; the walk stays private][21], which explains [ADR-CONF-ADDRESSING][1]. It lights every cell of the world map that holds a
+Catzc.Base.Config; the walk stays private][20], which explains [ADR-CONF-ADDRESSING][1]. It lights every cell of the world map that holds a
 file citing those codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that
 selects it.
 
@@ -33,11 +33,11 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 2 lit of 90 files
-- automation × powershell: 2 lit of 1629 files
-- automation × yaml: 1 lit of 112 files
-- docs × markdown: 11 lit of 2742 files
+- .claude × markdown: 1 lit of 89 files
+- docs × markdown: 11 lit of 2756 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
+- pwsh × powershell: 2 lit of 1648 files
+- pwsh × yaml: 1 lit of 115 files
 
 ## Key
 
@@ -50,31 +50,13 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ## Why each cell is lit
 
-### .claude × markdown (2 lit files)
+### .claude × markdown (1 lit file)
 
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.claude/plans/plan-bounded-folder-enumeration.md][5]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 283 (text).
-- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][6]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 18
+- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][5]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 18
   (text).
-
-### automation × powershell (2 lit files)
-
-Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
-powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
-
-- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][7]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 37 (text) and
-  line 66 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][8]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 54
-  (text).
-
-### automation × yaml (1 lit file)
-
-Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
-
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][9]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 209 (text).
 
 ### docs × markdown (11 lit files)
 
@@ -82,23 +64,23 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [docs/adr/configuration/config-value-addressing.md][1]: selected by [ADR-CONF-ADDRESSING][1]: the ADR's own file.
-- [docs/adr/configuration/dora-explains.md][10]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 28 (text).
-- [docs/adr/index.md][11]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 237 (text).
-- [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][12]: selected by
+- [docs/adr/configuration/dora-explains.md][6]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 28 (text).
+- [docs/adr/index.md][7]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 237 (text).
+- [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][8]: selected by
   [ADR-CONF-ADDRESSING][1]: the file cites it at line 45 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][13]: selected by [ADR-CONF-ADDRESSING][1]: the file
-  cites it at line 32 (text) and line 95 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][14]: selected by [ADR-CONF-ADDRESSING][1]: the
+- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][9]: selected by [ADR-CONF-ADDRESSING][1]: the file cites
+  it at line 32 (text) and line 95 (text).
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][10]: selected by [ADR-CONF-ADDRESSING][1]: the
   file cites it at line 17 (text) and line 21 (text).
-- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][15]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][11]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 14
   (text), line 23 (text), line 25 (text) and line 27 (text).
-- [docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md][16]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it
+- [docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md][12]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it
   at line 14 (text), line 20 (text), line 22 (text) and line 26 (text).
-- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][17]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 63
+- [docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md][13]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 63
   (text).
-- [docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md][18]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md][14]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line
   56 (text).
-- [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][19]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it
+- [docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md][15]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it
   at line 20 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -106,52 +88,68 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/ci-automation.yaml][20]: selected by [ADR-CONF-ADDRESSING][1]: a pipeline that cites nothing itself carries its globset's
+- [pipelines/ci-automation.yaml][16]: selected by [ADR-CONF-ADDRESSING][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 37 (text),
   `pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 209 (text) and
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 54 (text).
 
+### pwsh × powershell (2 lit files)
+
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language powershell
+([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+
+- [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][17]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 37 (text)
+  and line 66 (text).
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][18]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 54
+  (text).
+
+### pwsh × yaml (1 lit file)
+
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
+([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][19]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 209 (text).
+
 ## Keywords
 
-- [world map][22]
-- [track][23]
-- [file language][24]
-- [cell][25]
-- [lit cell][26]
-- [.claude][27]: a track
-- [automation][27]: a track
-- [docs][27]: a track
-- [pipelines][27]: a track
-- [markdown][28]: a file language
-- [pipeline-yaml][28]: a file language
-- [powershell][28]: a file language
-- [yaml][28]: a file language
+- [world map][21]
+- [track][22]
+- [file language][23]
+- [cell][24]
+- [lit cell][25]
+- [.claude][26]: a track
+- [docs][26]: a track
+- [pipelines][26]: a track
+- [pwsh][26]: a track
+- [markdown][27]: a file language
+- [pipeline-yaml][27]: a file language
+- [powershell][27]: a file language
+- [yaml][27]: a file language
 
 [1]: ../../../../adr/configuration/config-value-addressing.md
 [2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
 [3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../../.claude/plans/plan-bounded-folder-enumeration.md
-[6]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
-[7]: ../../../../../pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
-[8]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-[9]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[10]: ../../../../adr/configuration/dora-explains.md
-[11]: ../../../../adr/index.md
-[12]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[13]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
-[14]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
-[15]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
-[16]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
-[17]: ../../../../references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
-[18]: ../../../../references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
-[19]: ../../../../references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
-[20]: ../../../../../pipelines/ci-automation.yaml
-[21]: ../../callers-in-four-modules-share-one-resolver.md
-[22]: ../../../../adr/glossary.md#world-map
-[23]: ../../../../adr/glossary.md#track
-[24]: ../../../../adr/glossary.md#file-language
-[25]: ../../../../adr/glossary.md#cell
-[26]: ../../../../adr/glossary.md#lit-cell
-[27]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[28]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[5]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
+[6]: ../../../../adr/configuration/dora-explains.md
+[7]: ../../../../adr/index.md
+[8]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
+[9]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[10]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+[11]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+[12]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+[13]: ../../../../references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+[14]: ../../../../references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+[15]: ../../../../references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+[16]: ../../../../../pipelines/ci-automation.yaml
+[17]: ../../../../../pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+[18]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+[19]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[20]: ../../callers-in-four-modules-share-one-resolver.md
+[21]: ../../../../adr/glossary.md#world-map
+[22]: ../../../../adr/glossary.md#track
+[23]: ../../../../adr/glossary.md#file-language
+[24]: ../../../../adr/glossary.md#cell
+[25]: ../../../../adr/glossary.md#lit-cell
+[26]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[27]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
