@@ -1,0 +1,37 @@
+# .github/workflows/release-automation.yml
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## comment:1
+
+Above `on:`, written with `#`.
+
+```text
+Manual only — the trigger is intentionally NOT wired to push/tag/globset. A release is a deliberate act, so
+it runs on workflow_dispatch and nothing else. Every run BUILDS the artifact (the .nupkg + the PSGallery
+module manifest), freezes the bundle's contracts under contracts/catzc/<version>/ and pushes that commit to the
+trunk (the token needs bypass rights on the branch rule), and uploads the artifact; the publish steps are opt-in and each no-ops without its token, so a run with
+no inputs simply produces the package. GitHub publishing uses the built-in GITHUB_TOKEN (no PSGallery key
+needed); PSGallery publishing needs the PSGALLERY_API_KEY secret and is skipped when it is empty.
+See [ADR-GH-RELEASE](/docs/adr/github/github-release.md).
+```
+
+## comment:2
+
+Above `- name: Freeze the contracts for this version`, written with `#`.
+
+```text
+The release freezes the bundle's contracts: the draft must hold, its copy becomes the released version folder
+with a .frozen record, and that folder must hold too
+([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)).
+```
+
+## comment:3
+
+Above `- name: Upload the package artifact`, written with `#`.
+
+```text
+The artifact is always produced, even when nothing is published. The path is the one Export-Catzc returned
+(NUPKG), so the workflow never restates where the package lands.
+```

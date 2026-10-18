@@ -17,8 +17,8 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
-            & $script:writeFile $root 'automation/Catzc.Widget/Get-Widget.ps1' $script:source
-            & $script:writeFile $root 'automation/Catzc.Widget/Get-Gadget.ps1' "function Get-Gadget { 'gadget' }`n"
+            & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" $script:source
+            & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Gadget.ps1" "function Get-Gadget { 'gadget' }`n"
             $root
         }
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
@@ -26,18 +26,18 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
 
     It 'writes the annotated copy of an exported file, equal to the original, and nothing for a file without a page' -Tag 'ADR-REPO-COMMENTS#4' {
         $root = & $newRepository
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
-        $written = @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root 'automation'))
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
+        $written = @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)))
         $written | Should -Be @('out/annotated/automation/Catzc.Widget/Get-Widget.ps1')
         [System.IO.File]::ReadAllText((Join-Path $root $written[0])) | Should -BeExactly $source
     }
 
     It 'is idempotent and writes nothing under -DryRun' -Tag 'ADR-AUTO-IDEM#1' {
         $root = & $newRepository
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
-        @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root 'automation') -DryRun).Count | Should -Be 1
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
+        @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) -DryRun).Count | Should -Be 1
         Test-Path (Join-Path $root 'out/annotated') | Should -BeFalse
-        Build-CommentView -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
-        Build-CommentView -RepositoryRoot $root -Path (Join-Path $root 'automation') | Should -BeNullOrEmpty
+        Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
+        Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Should -BeNullOrEmpty
     }
 }

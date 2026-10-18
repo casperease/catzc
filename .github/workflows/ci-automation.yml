@@ -1,9 +1,5 @@
 name: CI
 
-# Trigger = the 'automation' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (automation/**), so this fires exactly — and
-# only starts at
-# all — on a real change to the module system. No committed marker to go stale across a squash merge.
 on:
   push:
     branches: [main]
@@ -11,8 +7,6 @@ on:
   pull_request:
     branches: [main]
     paths: [automation/**]
-  # On-demand run: the push/PR triggers fire only on automation/** changes, so a fix to the workflow itself
-  # (or the tool pins it depends on) can't be validated without this. Lets a run be kicked off manually.
   workflow_dispatch:
 
 jobs:
@@ -24,9 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Pin Node to the version tools.yml expects (Assert-Tool node_js enforces it before the npm installs
-      # below — it pins the LTS major, currently 24). GitHub is migrating runners' default Node 20 → 24, so
-      # without this the version check fails intermittently depending on which runner image we land on.
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
@@ -44,10 +35,6 @@ jobs:
           # / cold-JIT push near-limit tests over). The report stays as the signal; the gate does not fail CI.
           Test-Automation -Level 2
 
-  # The same commit builds the same bundle on every OS
-  # ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)). A Windows runner checks
-  # out with core.autocrlf=true and the others with LF, so equal content hashes prove that the build ships the
-  # bytes git stores, not the bytes a checkout wrote.
   bundle-hash:
     strategy:
       matrix:

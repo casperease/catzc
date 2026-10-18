@@ -2,7 +2,7 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeType = {
             param([string] $Root, [string] $Module, [string] $Name, [string] $Text)
-            $folder = Join-Path $Root "automation/$Module/types"
+            $folder = Join-Path $Root "$(Get-CatzcModulesFolder)/$Module/types"
             [void][System.IO.Directory]::CreateDirectory($folder)
             $file = Join-Path $folder "$Name.cs"
             [System.IO.File]::WriteAllText($file, $Text)
@@ -18,7 +18,7 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
     }
 
     It 'leaves a source that declares its module namespace unchanged' {
-        $result = Format-Types -Path (Join-Path $script:root 'automation') -DryRun -PassThru
+        $result = Format-Types -Path (Join-Path $script:root (Get-CatzcModulesFolder)) -DryRun -PassThru
         $result.ChangedCount | Should -Be 0
         $result.BlockScopedFiles | Should -BeNullOrEmpty
     }
@@ -27,7 +27,7 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
         $mismatched = & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '', 'public sealed class Gadget { }', '' -join "`n")
         $missing = & $writeType $script:root 'Catzc.Gadget' 'Bare' "public sealed class Bare { }`n"
 
-        $result = Format-Types -Path (Join-Path $script:root 'automation') -DryRun -PassThru
+        $result = Format-Types -Path (Join-Path $script:root (Get-CatzcModulesFolder)) -DryRun -PassThru
         $result.ChangedFiles | Sort-Object | Should -Be (@($mismatched, $missing) | Sort-Object)
         [System.IO.File]::ReadAllText($missing) | Should -Be "public sealed class Bare { }`n"
     }
@@ -35,7 +35,7 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
     It 'writes the module namespace without -DryRun' {
         $mismatched = & $writeType $script:root 'Catzc.Widget' 'Gadget' ('namespace Catzc.Gadget;', '', 'public sealed class Gadget { }', '' -join "`n")
 
-        Format-Types -Path (Join-Path $script:root 'automation') | Out-Null
+        Format-Types -Path (Join-Path $script:root (Get-CatzcModulesFolder)) | Out-Null
         [System.IO.File]::ReadAllText($mismatched) | Should -BeLike 'namespace Catzc.Widget;*'
     }
 
@@ -43,7 +43,7 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
         $text = "namespace Catzc.Gadget`n{`n    public sealed class Gizmo { }`n}`n"
         $blockScoped = & $writeType $script:root 'Catzc.Gadget' 'Gizmo' $text
 
-        $result = Format-Types -Path (Join-Path $script:root 'automation') -PassThru
+        $result = Format-Types -Path (Join-Path $script:root (Get-CatzcModulesFolder)) -PassThru
         $result.BlockScopedFiles | Should -Be @($blockScoped)
         $result.ChangedFiles | Should -BeNullOrEmpty
         [System.IO.File]::ReadAllText($blockScoped) | Should -Be $text

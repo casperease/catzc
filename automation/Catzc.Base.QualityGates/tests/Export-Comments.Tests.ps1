@@ -22,8 +22,8 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         $script:newRepository = {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
-            & $script:writeFile $root 'automation/Catzc.Widget/Get-Widget.ps1' $script:source
-            & $script:writeFile $root 'automation/Catzc.Widget/assets/root/gadget.yml' "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
+            & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" $script:source
+            & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/assets/root/gadget.yml" "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
             $root
         }
         $script:pageRelative = 'docs/references/automation/catzc-widget/Get-Widget.ps1.md'
@@ -32,9 +32,9 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
 
     It 'moves the long comment into the page and leaves nothing in the file' -Tag 'ADR-REPO-COMMENTS#1' {
         $root = & $newRepository
-        $changed = Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation')
-        $changed | Should -Be @('automation/Catzc.Widget/Get-Widget.ps1')
-        $text = & $readFile $root 'automation/Catzc.Widget/Get-Widget.ps1'
+        $changed = Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder))
+        $changed | Should -Be @("$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1")
+        $text = & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1"
         $text | Should -BeExactly "function Get-Widget {`n    Get-Gadget | Sort-Object`n}`n"
         $page = & $readFile $root $pageRelative
         $page.Contains('# Sorted first') | Should -BeFalse -Because 'the page holds the prose without its comment marker'
@@ -43,27 +43,27 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
 
     It 'leaves an asset''s comments in place' -Tag 'ADR-REPO-COMMENTS#3' {
         $root = & $newRepository
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
-        & $readFile $root 'automation/Catzc.Widget/assets/root/gadget.yml' | Should -BeExactly "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
+        & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/assets/root/gadget.yml" | Should -BeExactly "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
     }
 
     It 'changes nothing on a second run' -Tag 'ADR-AUTO-IDEM#1' {
         $root = & $newRepository
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
-        $before = & $readFile $root 'automation/Catzc.Widget/Get-Widget.ps1'
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
+        $before = & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1"
         $pageBefore = & $readFile $root $pageRelative
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Should -BeNullOrEmpty
-        & $readFile $root 'automation/Catzc.Widget/Get-Widget.ps1' | Should -BeExactly $before
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Should -BeNullOrEmpty
+        & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" | Should -BeExactly $before
         & $readFile $root $pageRelative | Should -BeExactly $pageBefore
     }
 
     It 'writes nothing under -DryRun and returns the would-be results under -PassThru' -Tag 'ADR-AUTO-DRYRUN#1' {
         $root = & $newRepository
-        $results = @(Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') -DryRun -PassThru)
+        $results = @(Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) -DryRun -PassThru)
         $results.Count | Should -Be 1
         $results[0].MovedCount | Should -Be 1
         $results[0].Page | Should -Be $pageRelative
-        & $readFile $root 'automation/Catzc.Widget/Get-Widget.ps1' | Should -BeExactly $source
+        & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1" | Should -BeExactly $source
         Test-Path (Join-Path $root $pageRelative) | Should -BeFalse
     }
 }

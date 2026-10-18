@@ -1,0 +1,45 @@
+# .github/workflows/ci-automation.yml
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## comment:1
+
+Above `on:`, written with `#`.
+
+```text
+Trigger = the 'automation' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (automation/**), so this fires exactly — and
+only starts at
+all — on a real change to the module system. No committed marker to go stale across a squash merge.
+```
+
+## comment:2
+
+Above `workflow_dispatch:`, written with `#`.
+
+```text
+On-demand run: the push/PR triggers fire only on automation/** changes, so a fix to the workflow itself
+(or the tool pins it depends on) can't be validated without this. Lets a run be kicked off manually.
+```
+
+## comment:3
+
+Above `- uses: actions/setup-node@v4`, written with `#`.
+
+```text
+Pin Node to the version tools.yml expects (Assert-Tool node_js enforces it before the npm installs
+below — it pins the LTS major, currently 24). GitHub is migrating runners' default Node 20 → 24, so
+without this the version check fails intermittently depending on which runner image we land on.
+```
+
+## comment:4
+
+Above `bundle-hash:`, written with `#`.
+
+```text
+The same commit builds the same bundle on every OS
+([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)). A Windows runner checks
+out with core.autocrlf=true and the others with LF, so equal content hashes prove that the build ships the
+bytes git stores, not the bytes a checkout wrote.
+```
