@@ -59,17 +59,10 @@ function Get-Aspect {
         return
     }
 
-    $configured = (Get-Config -Config variants).aspects
-    if ($configured -and $configured.ContainsKey($Track)) {
-        $configured[$Track]
-        return
-    }
-
-    $builtIn = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
-            aspects = [ordered]@{ infrastructure = @([ordered]@{ tests = @('**/tests/**') }, [ordered]@{ live = @('**') }) }
-        }).aspects
-    if ($builtIn.ContainsKey($Track)) {
-        $builtIn[$Track]
+    # The type holds the declared conventions over its built-in ones (VariantsConfig.DefaultAspects), so one lookup covers both.
+    $aspects = (Get-Config -Config variants).aspects
+    if ($aspects.ContainsKey($Track)) {
+        $aspects[$Track]
         return
     }
 

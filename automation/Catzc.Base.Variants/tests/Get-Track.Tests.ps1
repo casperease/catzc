@@ -84,13 +84,8 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
     }
 
     Context 'no registry declared' {
-        BeforeEach {
-            Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) }
-        }
-
-        It 'returns nothing, and finds no track for a path' {
-            Get-Track | Should -BeNullOrEmpty
-            Get-Track -Path 'widget/Get-Widget.ps1' | Should -BeNullOrEmpty
+        It 'cannot happen: a variants config without tracks fails at construction, naming the key' -Tag 'ADR-AUTO-DEFAULT#6' {
+            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } | Should -Throw '*declares no tracks; add tracks:*'
         }
     }
 }

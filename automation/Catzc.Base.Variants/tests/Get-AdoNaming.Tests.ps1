@@ -25,7 +25,7 @@ Describe 'Get-AdoNaming' -Tag 'L0', 'logic' {
     }
 
     It 'defaults to standard when ado_naming is unset' {
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [ordered]@{} }
+        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } } }) }
         Get-AdoNaming | Should -Be 'standard'
     }
 }

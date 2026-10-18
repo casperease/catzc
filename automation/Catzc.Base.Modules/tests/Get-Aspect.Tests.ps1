@@ -39,7 +39,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#2' {
             })
         Mock Get-Track -ModuleName Catzc.Base.Modules { $script:tracks }
         Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'languages' } { $script:languages }
-        Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) }
+        Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'variants' } { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } } }) }
     }
 
     It 'derives a code track''s convention from the layout: live closed to the layout''s live rows, tests the catch-all' {
@@ -58,7 +58,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#2' {
 
     It 'returns a configured convention in declared order, ahead of the built-in one' {
         Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'variants' } {
-            [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ aspects = [ordered]@{ gizmos = @([ordered]@{ live = @('src/**') }, [ordered]@{ tests = @('**') }) } })
+            [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } }; aspects = [ordered]@{ gizmos = @([ordered]@{ live = @('src/**') }, [ordered]@{ tests = @('**') }) } })
         }
         $aspects = @(Get-Aspect -Track gizmos)
         $aspects.Name | Should -Be @('live', 'tests')
