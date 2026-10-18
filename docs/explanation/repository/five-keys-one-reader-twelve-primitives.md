@@ -18,7 +18,7 @@ Supports ADR-REPO-VARIANT#1, #2, #4, #5 and #6 (implementation lens).
 ```
 
 `Catzc.Base.Variants` is small: one YAML file with five keys, one C# config type that validates it, one private function that reads it, and
-twelve public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
+fifteen public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
 the accessor to the `Test-` and `Assert-` guards that answer a question or stop the run.
 
 ![Five keys, one private reader, twelve exported primitives](../.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png)
@@ -39,8 +39,9 @@ The diagram is described element by element in [its asset description](five-keys
 5. **Get-GitWorkspace.** Reads `git_workspace` with the default `main-direct`.
 6. **Get-EnabledCustomers.** Reads `have_customers` with the default `$false` and is its single interpreter: a boolean becomes `@()` or
    `all`, the literal `all` stays, and anything else is the list of enabled customer names.
-7. **Get-Aspect · Get-Track.** `Get-Aspect -Track` reads `aspects` with a built-in default of the two shipped tracks; `Get-Track -Name` or
-   `-Path` reads `tracks` with an empty default and throws on an unknown name. These two keys have an accessor and no guard.
+7. **Get-AspectDeclaration · Get-Track.** `Get-AspectDeclaration` reads `aspects` with a built-in default of the two shipped tracks, and
+   `Test-AspectDeclaration -Track` answers whether a track has an entry there; `Get-Aspect` in `Catzc.Base.Modules` reads through it.
+   `Get-Track -Name` or `-Path` reads `tracks` with an empty default and throws on an unknown name. Neither key has an `Assert-` guard.
 8. **Test-/Assert-AdoNaming.** Each takes exactly one of `-Standard` or `-Classic` and calls `Get-AdoNaming`; the predicate returns the
    match, and the guard throws through `Assert-True` with the value to set.
 9. **Test-GitWorkspace.** Takes exactly one of `-MainDirect` or `-MainViaPr` and calls `Get-GitWorkspace`. There is no

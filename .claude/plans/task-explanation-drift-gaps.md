@@ -25,8 +25,9 @@ real runs, and five slides that still draw retired claims. When a step lands, th
 
 Step 1 is unblocked 2026-10-18: the cycle is decided under the step in plan-explanation-drift-gaps (only `Test-AspectDeclaration` moves; one
 exported Variants reader through `Get-Variant`; `Get-Aspect` stays in Modules and calls it; plus `Get-FileLanguage.Tests.ps1:49`). Step 6
-has the user's go (2026-10-18) and the four choices, recorded under the Q4 step there; the slug rename waits for the move command. Step 1 is
-in hand: session catzc-fb (orchestrator).
+has the user's go (2026-10-18) and the four choices, recorded under the Q4 step there, but is blocked on the diagram-folders migration
+(task-diagram-folders step 6): a flat-slide raster re-render is barred until then, and the articles change with their slides, never ahead.
+Step 1 is in hand: session catzc-fb (orchestrator).
 
 1. `Get-Aspect.ps1` and `Test-AspectDeclaration.ps1` move from `Catzc.Base.Modules` into `Catzc.Base.Variants` and read through the private
    `Get-Variant`, so `aspects` has one read path (ADR-REPO-VARIANT); their tests, the `.psd1` export lists, `Get-WorldMap`'s call, the

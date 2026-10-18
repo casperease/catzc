@@ -1,0 +1,22 @@
+# pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Returns the aspect conventions the variants config holds, keyed by track.
+
+### description
+
+The `aspects` repo-wide variant, read through the private Get-Variant: each track's ordered aspect list, declared in variants.yml or built
+in (VariantsConfig.DefaultAspects). Get-Aspect and Test-AspectDeclaration read the variant through this accessor, so the variants file keeps
+one read path ([ADR-REPO-VARIANT](../../../adr/repository/repo-variants.md)).
+
+### example 1
+
+```powershell
+(Get-AspectDeclaration)['infrastructure'].Name
+```

@@ -38,7 +38,7 @@ Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 The real readme.yml registry is consistent with the repository — every resolved README's source exists
-(Get-ReadmeContent asserts it), every automation module is covered by the pattern, and the generated/committed
+(Get-ReadmeContent asserts it), every module under pwsh/ is covered by the pattern, and the generated/committed
 split matches .gitignore (every mapped README is ignored; none is opted back in). Resolves through the
 public generator (Build-Readme -DryRun -PassThru) since the pattern expansion (Get-ReadmeMappings) is
 private. Closes the poka-yoke gap of the two-place "generated vs committed" convention (readme.yml <->
@@ -51,5 +51,5 @@ Above `$violations = foreach ($module in $modules) {`, written with `#`.
 
 ```text
 One Should over the violating set — a Should per module pays Pester's per-assertion cost
-times the whole automation tree.
+times the whole pwsh/ tree.
 ```

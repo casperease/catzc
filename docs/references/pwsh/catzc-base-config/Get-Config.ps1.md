@@ -20,7 +20,7 @@ A config registered in configs/configs.yml (`<name>: { type: <C# FQN> }`) is con
 it; every shipped config is registered (Test-ShippedConfigs). An unregistered config — a fixture, or one a PowerShell validator checks
 through Invoke-ConfigValidator (Catzc.Base.ConfigExtensions) — is returned raw, as the ordered dictionary. See ADR module-config-loading.
 
-In build mode, a consumer overlay may hold a fragment of the config at `<RepositoryRoot>/.catzc/automation/<Module>/configs/<name>.yml`. The
+In build mode, a consumer overlay may hold a fragment of the config at `<RepositoryRoot>/.catzc/pwsh/<Module>/configs/<name>.yml`. The
 fragment is merged onto the bundled config before the type validates it (Merge-ConfigFragment: maps merge, scalars and lists replace, null
 resets a key to its declared default), so a setting resolves caller → overlay fragment → bundled config → type default. A sealed config
 (configs.yml overridable: false) refuses a fragment.

@@ -30,8 +30,8 @@ logic test.
 Saying which part of a unit each file belongs to. An aspect convention is an ordered list of named patterns, matched first to last, whose
 last entry is the catch-all. A code track derives its convention from the layout: `live` is the layout's live rows, kept closed so a stray
 file falls to the `tests` catch-all and never ships. Any other track takes the convention its `aspects` entry in `variants.yml` declares,
-else the built-in one for its track type: a deployment makes `live` the catch-all, so everything under a template ships and only an explicit
-tests folder is non-live.
+read through [Catzc.Base.Variants](catzc-base-variants.md), else the built-in one for its track type: a deployment makes `live` the
+catch-all, so everything under a template ships and only an explicit tests folder is non-live.
 
 ## What the module does
 
@@ -49,8 +49,7 @@ test holds the loader's own folder rules to the same layout.
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                           | Function                 |
-| ---------------------------------------- | ------------------------ |
-| responsibility:1 — Module resolution     | `Get-CatzcModule`        |
-| responsibility:2 — Aspect classification | `Get-Aspect`             |
-|                                          | `Test-AspectDeclaration` |
+| Responsibility                           | Function          |
+| ---------------------------------------- | ----------------- |
+| responsibility:1 — Module resolution     | `Get-CatzcModule` |
+| responsibility:2 — Aspect classification | `Get-Aspect`      |

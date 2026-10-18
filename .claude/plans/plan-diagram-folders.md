@@ -3,7 +3,7 @@ plan:
   status: blocked
   value: high
   reviewed: 2026-10-18
-  blocked_on: the user's review of the out/ pilot (out/diagram-pilot/configuration/.assets/)
+  blocked_on: the kit tests' home (task-decision-round); the pilot was approved 2026-10-18
   targets: [docs/explanation, .claude/drawio, pwsh/Catzc.Base.Slides, pwsh/Catzc.Base.Globs, docs/adr/repository]
 ---
 
@@ -66,7 +66,8 @@ Recorded 2026-10-18 with the user:
 - [ ] Pilot in out/: `out/diagram-pilot/` holds `configuration/` in the new layout (articles copied, each diagram assembled into its
       folder), rendered by the new kit (check: exit 0; the user compares the slides with today's and approves). Rendered 2026-10-18 by
       `out/diagram-pilot.py`: exit 0, 10 of 10 joined; each slide matches today's apart from the minimaps, which follow the current maps
-      (`out/diagram-pilot/sidebar-old-vs-new.png`). Open: the user's review.
+      (`out/diagram-pilot/sidebar-old-vs-new.png`). Approved by the user 2026-10-18; the row still labelled `automation` in both
+      sidebars is fixed when the minimaps re-render in the new layout (describe.py already says `pwsh/`).
 - [x] Normalise the two subtitles still in the `:1,2,3` form (adr-dsgn-aspect--each-track-picks-its-catch-all--meta,
       adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta) through write-drawio-files (check: the subtitle parser reports none).
       Closed 2026-10-18 by session catzc-f3 with nothing to change: both are already canonical (`ADR-DSGN-ASPECT#{1-3} · meta`,

@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-diagram-folders]
   value: high
-  blocked_on: step 3 onward on the user's approval of the out/ pilot (task-decision-round); steps 1 and 2 can start now
+  blocked_on: step 1 on the kit tests' home (task-decision-round); the pilot was approved 2026-10-18, so steps 3 onward can start now
   targets:
     [
       docs/explanation,

@@ -43,8 +43,10 @@ is the one named; the canonical consumer is the stop condition for automated com
 ### responsibility:4 — Aspect classification variant
 
 Each track's ordered, first-match classification of a unit's files into named aspects (see
-[module-aspects](../../adr/design/module-aspects.md)). `Get-Aspect` returns a track's aspects as typed records, each a name and its glob
-patterns, the last the `**` catch-all remainder; a track with no configured or default entry falls back to the `automation` convention.
+[module-aspects](../../adr/design/module-aspects.md)), declared in `variants.yml` or built in: the declared conventions keyed by track, as
+typed records of a name and its glob patterns, the last the `**` catch-all remainder, and whether a track has an entry at all. The code
+track's convention is derived from the layout instead, by [Catzc.Base.Modules](catzc-base-modules.md), which reads this variant through the
+module and never the file.
 
 ## What the module does
 
@@ -69,17 +71,18 @@ The git workspace (responsibility 3) gates automation that commits, and the aspe
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                                   | Function               |
-| ------------------------------------------------ | ---------------------- |
-| responsibility:1 — Resource-name order variant   | `Get-AdoNaming`        |
-|                                                  | `Test-AdoNaming`       |
-|                                                  | `Assert-AdoNaming`     |
-| responsibility:2 — Enabled-customer set variant  | `Get-EnabledCustomers` |
-|                                                  | `Test-HaveCustomers`   |
-|                                                  | `Assert-HaveCustomers` |
-|                                                  | `Test-HaveCustomer`    |
-|                                                  | `Assert-HaveCustomer`  |
-| responsibility:3 — Git workspace variant         | `Get-GitWorkspace`     |
-|                                                  | `Test-GitWorkspace`    |
-| responsibility:4 — Aspect classification variant | `Get-Aspect`           |
-| config                                           | `variants.yml`         |
+| Responsibility                                   | Function                 |
+| ------------------------------------------------ | ------------------------ |
+| responsibility:1 — Resource-name order variant   | `Get-AdoNaming`          |
+|                                                  | `Test-AdoNaming`         |
+|                                                  | `Assert-AdoNaming`       |
+| responsibility:2 — Enabled-customer set variant  | `Get-EnabledCustomers`   |
+|                                                  | `Test-HaveCustomers`     |
+|                                                  | `Assert-HaveCustomers`   |
+|                                                  | `Test-HaveCustomer`      |
+|                                                  | `Assert-HaveCustomer`    |
+| responsibility:3 — Git workspace variant         | `Get-GitWorkspace`       |
+|                                                  | `Test-GitWorkspace`      |
+| responsibility:4 — Aspect classification variant | `Get-AspectDeclaration`  |
+|                                                  | `Test-AspectDeclaration` |
+| config                                           | `variants.yml`           |

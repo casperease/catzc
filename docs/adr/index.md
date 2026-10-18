@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6f94cf63f8dd"
-    with_inputs_sha: "69a5817c396c16eac3e4acb298dc179628658ed38c5f3ba267fb78b58573b613"
+    with_body_sha: cfa7d3f1d209
+    with_inputs_sha: "57aa11d3a1e869ba4c3707b70a3e14ab25d6f7712addf43ef412a802323d4b44"
     repo_status: locked
     path: docs/adr/index.md
     source: pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -328,6 +328,7 @@ skips a repeated scan over an unchanged globset.
 | `ADR-REPO-LANG`        | [domain-language-separation](repository/domain-language-separation.md) |
 | `ADR-REPO-VOCAB`       | [controlled-vocabulary](repository/controlled-vocabulary.md)           |
 | `ADR-REPO-LINK`        | [markdown-links](repository/markdown-links.md)                         |
+| `ADR-REPO-ADRCODE`     | [adr-code-language](repository/adr-code-language.md)                   |
 | `ADR-REPO-COMMENTS`    | [comments-in-docs](repository/comments-in-docs.md)                     |
 | `ADR-REPO-FILEMETA`    | [file-meta](repository/file-meta.md)                                   |
 | `ADR-REPO-CODEMETA`    | [code-file-meta](repository/code-file-meta.md)                         |

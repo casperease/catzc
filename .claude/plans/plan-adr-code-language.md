@@ -1,6 +1,6 @@
 ---
 plan:
-  status: open
+  status: active
   value: high
   reviewed: 2026-10-18
   targets:
@@ -169,24 +169,30 @@ them all).
   forms and points to it.
 - `contracts/EXTERNAL-azure/0.1.0/.frozen`: its SHA-256 lines for the two rewritten files are refreshed (Decision 5).
 
-## Steps
+## Open steps
 
-1. Write `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`) with the grammar's rules 1–9, register it in `adrs.yml`, restate
-   the index's "Citing a rule" and trim ADR-REPO-LINK to the link forms. Add the matching `Test-AdrRegistry` checks (the segment form,
-   sibling uniqueness, never-reused names, authored order), first run in report-only mode against today's tree. Check: `Test-AdrRegistry`,
-   `Test-Links` on the edited pages.
-2. Write the slug map: one `ADR-X:<n> → ADR-X-<SLUG>` line for all 1645 rules, as a reviewable file in `out/`, written per domain and
-   reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
-   duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
-3. Rename the codes: the three domain moves (`ADR-CATS`, `ADR-AI`, `ADR-PRIN-PROCESS`) and the 17 CAF/WAF codes into their group level,
-   through `Update-AdrCitation -CodeMap`. Check: `Test-Links` and `Test-AdrRegistry` on the moved ADRs.
-4. Rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: `Test-AdrRegistry` on that file.
-5. Rewrite the citations through `Update-AdrCitation -RuleMap`, one area at a time in the order `docs/adr`, `pwsh`, `docs/explanation`,
-   `docs/references` (heads regenerate), `contracts`, `.claude`. In `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in
-   the same change. Check: `Test-Links` per area, `Test-Contracts` clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
-6. Replace the parsers (`AdrCodeForm`, `RULE_COLON`, the `:`→`#` replaces) in the same change as their callers, and remove the `#` form.
-   Check: `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the glossary and link test files pass.
-7. Move this plan's decisions into the ADR and delete the plan.
+- [ ] 1. Write `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`) with the grammar's rules 1–9 and register it in `adrs.yml`.
+      Add the `code_language` check to `Test-AdrRegistry` (segment form, domain segment, numbered rule headings, sibling uniqueness), in
+      `report` mode in `adr-checks.yml`, so today's tree reports and never fails. The index's "Citing a rule" and ADR-REPO-LINK keep the `#`
+      form until step 6, because it is the live spelling until then. Check: the `Test-AdrRegistry` and `AdrChecksConfig` test files pass;
+      `Test-AdrRegistry` and `Test-Links` on the new ADR clean.
+- [ ] 2. Write the slug map: one `ADR-X:<n> → ADR-X-<SLUG>` line for all 1645 rules, as a reviewable file in `out/`, written per domain and
+      reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
+      duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
+- [ ] 3. Rename the codes: the three domain moves (`ADR-CATS`, `ADR-AI`, `ADR-PRIN-PROCESS`) and the 17 CAF/WAF codes into their group
+      level, through `Update-AdrCitation -CodeMap`. Message the orchestrator first. Check: `Test-Links` and `Test-AdrRegistry` on the moved
+      ADRs.
+- [ ] 4. Rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: `Test-AdrRegistry` on that
+      file.
+- [ ] 5. Rewrite the citations through `Update-AdrCitation -RuleMap`, one area at a time in the order `docs/adr`, `pwsh`,
+      `docs/explanation`, `docs/references` (heads regenerate), `contracts`, `.claude`. Message the orchestrator first. In
+      `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
+      clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
+- [ ] 6. Replace the parsers (`AdrCodeForm`, `RULE_COLON`, the `:`→`#` replaces) in the same change as their callers and remove the `#`
+      form; restate the index's "Citing a rule" and trim ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check:
+      `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the glossary and link test files pass; `Test-AdrRegistry` clean in gate mode.
+- [ ] 7. Move this plan's decisions into the ADR and delete the plan. Check: `Test-AdrRegistry` and `Test-Links` clean on the ADR;
+      `git grep plan-adr-code-language` finds no link left.
 
 ## Decisions
 

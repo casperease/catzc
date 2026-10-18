@@ -54,7 +54,7 @@ Get-GitTrackedPath '.'
 ### example 4
 
 ```powershell
-Get-GitTrackedPath 'automation' -ExecutableOnly   # the tracked files under automation/ stored as 100755
+Get-GitTrackedPath 'pwsh' -ExecutableOnly   # the tracked files under pwsh/ stored as 100755
 ```
 
 ## comment:1

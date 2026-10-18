@@ -150,7 +150,10 @@ the grep half of each check is unverified, so the three stay open until it is.
 
 2026-10-18, session catzc-59: describe.py edited (grep leaves only the kept AUTO concern key on line 38); 149 tree pages still carry the old
 wording and 283 minimap pages are body-hash stale after commit 06d5525b3. The user's go (2026-10-18): minimaps only,
-`drawio_forward.py --all --stage highlight`, one bounded background run per folder, no slides. Held by catzc-59.
+`drawio_forward.py --all --stage highlight`, one bounded background run per folder, no slides. Blocked the same day: since 06d5525b3 the
+kit's `--all` finds only diagram folders (`<article-folder>/.assets/<name>/diagram.drawio.png`), docs/explanation has none yet, so every
+run ends `E_SOURCE no diagram folder` (exit 3). Decided by the orchestrator: the rerun waits for the diagram-folders migration
+(task-diagram-folders step 6), then runs as approved; the 149 old-wording pages and 283 stale hashes stay until then.
 
 - [ ] `.claude/drawio/minimaps/describe.py:414`: "under `automation/` by module" becomes "under `pwsh/` by module"; rerun `render.py` per
       STYLE.md so every `docs/explanation/.assets/tree/*.tree.md` is rewritten from it. (check: `git grep -c "under \`automation/\`" --

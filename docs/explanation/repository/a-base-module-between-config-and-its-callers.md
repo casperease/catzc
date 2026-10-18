@@ -35,7 +35,7 @@ The diagram is described element by element in [its asset description](a-base-mo
    self-contained: it validates the parsed dictionary and reads no other config, so validation adds no further edge.
 4. **Catzc.Base.Asserts.** The `Assert-` guards throw through `Assert-True`, which Asserts supplies. These three are the module's only
    dependencies.
-5. **Catzc.Base.Variants.** One private reader and twelve exported primitives. The module is a member of the Base group, declared in
+5. **Catzc.Base.Variants.** One private reader and fifteen exported primitives. The module is a member of the Base group, declared in
    `dependencies.yml` with exactly the three edges above.
 6. **AzureExt.** Every Azure extension module pins Base, so all five may call the primitives. One does: `Catzc.Azure.Templates` asks
    `Get-AdoNaming` for the resource-name order, and `Test-HaveCustomers` and `Test-HaveCustomer` before it accepts a customer deployment.

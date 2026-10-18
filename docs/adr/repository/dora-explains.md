@@ -229,6 +229,22 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   anyone changing the code find the reason for it in one step.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## ADR code language
+
+`ADR code language — a path of named segments, every string a fact`
+
+[ADR-REPO-ADRCODE](adr-code-language.md)
+
+> DORA's research on documentation quality finds that documentation helps only while it is accurate and findable. A citation that names
+> its rule, instead of numbering it, tells the reader what the decision asks for before they open it, and one prefix search finds a domain,
+> an ADR, or a rule alike.
+
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — every citation reads as the fact it cites, and a
+  code prefix finds every rule under it.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a code that names its rule tells anyone changing the
+  code what the rule asks for without opening the ADR.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Comments in docs
 
 `Comments in docs — one insight line in the file, the prose in its comment page`

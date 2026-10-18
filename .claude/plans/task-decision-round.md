@@ -28,7 +28,7 @@ change that lands it). The questions, with the plan that owns each:
 - plan-layers-vocabulary-rename-contracts P7: the twelve exported functions nothing calls and the 139 only docs name: contract, make
   internal, or delete each set (the frozen set then holds Test-Contracts clean).
 - plan-diagram-folders: approve the out/ pilot (`out/diagram-pilot/configuration/.assets/`, `out/diagram-pilot/sidebar-old-vs-new.png`) so
-  the 150 diagrams move; or name what the pilot must change first.
+  the 150 diagrams move; or name what the pilot must change first. Answered 2026-10-18: approved.
 - plan-clear-actions: a yes to clear the 36 `out/test-links/20261016-2012*` report folders.
 - plan-out-artifacts: a yes for probe batch two (13 files), if not already given in task-user-runs-and-commits step 3.
 - plan-assets-gallery-pdf: whether the drawio kit gets a test home (`.claude/drawio/tests/`) so the two-PNG fixture step can land, or the

@@ -17,7 +17,7 @@ Get-ReadmeMappings is private, so it is exercised through the module (InModuleSc
 Above `$script:root = Join-Path $TestDrive ([guid]::NewGuid())`, written with `#`.
 
 ```text
-Fixture repo: automation/<modules> + a dot-dir; reference articles, as the sources, for two of the three
+Fixture repo: widgets/<modules> + a dot-dir; reference articles, as the sources, for two of the three
 modules.
 ```
 

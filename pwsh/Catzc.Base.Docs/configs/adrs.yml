@@ -304,6 +304,7 @@ domains:
       domain-language-separation: { external: ADR-REPO-LANG }
       controlled-vocabulary: { external: ADR-REPO-VOCAB, concern: [quality-control] }
       markdown-links: { external: ADR-REPO-LINK, concern: [quality-control] }
+      adr-code-language: { external: ADR-REPO-ADRCODE, concern: [quality-control] }
       comments-in-docs: { external: ADR-REPO-COMMENTS, concern: [quality-control] }
       file-meta: { external: ADR-REPO-FILEMETA, terminology: filemeta, concern: [quality-control] }
       code-file-meta: { external: ADR-REPO-CODEMETA, terminology: codemeta, concern: [quality-control] }
