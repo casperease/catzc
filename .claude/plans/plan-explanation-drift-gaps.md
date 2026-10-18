@@ -180,7 +180,7 @@ When a step lands, remove its claim from every article that states it (search `d
       6). Article 1 landed 2026-10-18 by session catzc-b4: ", and ADR-DSGN-RUNMODE-THREEBUILDKINDS" dropped (the slide draws one build);
       "prepare: done, 0 W_ lines; Test-Links: No links issues found (out/test-links/20261018-190904)". Article 2, decided by the orchestrator
       2026-10-18 (delegated, from the user's subtitle option A): the slide draws ADR-AUTO-TEST on purpose (three `T35` chips), so the subtitle
-      gains ADR-AUTO-TEST, the Supports line stays, and the legend's numbered `ADR-AUTO-TEST#35` is re-cited to its named rule from the slug
+      gains ADR-AUTO-TEST, the Supports line stays, and the legend's numbered test-rule citation is re-cited to `ADR-AUTO-TEST-QUALITYGATE` from the slug
       map. Landed 2026-10-18 by session catzc-b4: subtitle `ADR-FLOW-CD-GLOBS · ADR-AUTO-TEST · governance`, legend
       `ADR-AUTO-TEST-QUALITYGATE` (out/adr-slugs/automation.slugs), and article 1's authored sidebar `supports` cell lost ADR-DSGN-RUNMODE;
       "Build-Diagrams -Path all stages clean on both folders, 0 W_ lines; Test-Links: No links issues found (out/test-links/20261018-191136,

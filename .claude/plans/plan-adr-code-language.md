@@ -229,11 +229,16 @@ them all).
     azure/names-are-derived-never-typed, azure/names-are-pure-and-never-truncated warned because the kit read every backticked code in
     index.md as an ADR, and the restated preamble quotes a rule; `known_adrs` in `drawio_forward.py` now reads the code tables only. Rerun
     the kit pytest after that fix.
-  - Left for the check: the model scan at 0 numbered; `Test-GeneratedFiles`, `Test-Links` over `docs/explanation`; the git grep lists only
-    the intended numbered strings (the refusal fixtures named in `links.yml` `string_citations.exempt`, `AdrCodeForm.Tests.ps1`,
-    `Build-SlideDeck.Tests.ps1`, `MarkdownMetaBlock.Tests.ps1`, `test_slide_facts.py`, and plan-assert-wait / task-assert-wait /
-    prompt-assert-wait-1-watch-blocking, which cite two rules not written yet: name them when they are written); `Test-Comments` 0 (seven
-    stale anchors were re-anchored at the stop and not yet re-run); the import compiles; then tick this step.
+  - Run 2026-10-18 with catzc-b4's chip folders mid-edit: the import compiles; `Test-GeneratedFiles` 0; `Test-Links` over
+    `docs/explanation` 0; `Test-Comments` 0. The git grep counts 56 in 17 files: the exempt fixtures in `links.yml`,
+    `Build-SlideDeck.Tests.ps1`, `MarkdownMetaBlock.Tests.ps1`, `test_slide_facts.py`, prompt-assert-wait-1-watch-blocking (two rules not
+    written yet: name them when they are written), this plan's own examples (gone with step 7), plan-explanation-drift-gaps (names the
+    legend catzc-b4 re-cites), and `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml`, whose group spelling
+    `ADR-WIDGET-GADGET#{1,3-5}` is re-cited in the minimal form (decided by the orchestrator, delegated; decision 5: a draft, an ordinary
+    rewrite) to two named widget rules and one bare ADR. `Format-FileMeta.Contract.Tests.ps1` reads only the sample's keys: 6 passed 0
+    failed; `Test-Contracts` on 0.0.0 0 issues.
+  - Left for the check: catzc-b4 lands the chip folders; the model scan reads 0 numbered in 149 models; `Test-Links` over
+    `docs/explanation` again; then tick this step.
 - [ ] 7. Move this plan's decisions into the ADR and delete the plan. Check: `Test-AdrRegistry` and `Test-Links` clean on the ADR;
       `git grep plan-adr-code-language` finds no link left. Not started. Also due here: tick step 5 (its git grep is the step 6 check), fold
       `docs/references/adr-terminology-key.md` (the removed `terminology:` key) into the ADR and remove that page, and record the user's

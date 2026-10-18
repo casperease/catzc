@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "03a64e6e6622"
+    with_body_sha: "30a2ca3e6b17"
     repo_status: locked
     path: docs/explanation/automation/.assets/types-check-forms-review-checks-crossers/grid.md
     source: docs/explanation/automation/.assets/types-check-forms-review-checks-crossers/diagram.drawio.png
@@ -33,7 +33,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 2 lit of 89 files
-- docs × markdown: 28 lit of 2766 files
+- docs × markdown: 28 lit of 2767 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × powershell: 4 lit of 1651 files
 - pwsh × yaml: 2 lit of 115 files
@@ -54,7 +54,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [.claude/plans/plan-explanation-drift-gaps.md][3]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 61 (text) and line 110
+- [.claude/plans/plan-explanation-drift-gaps.md][3]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 63 (text) and line 113
   (text).
 - [.claude/skills/catzc-module/SKILL.md][4]: selected by [ADR-AUTO-PATH][1]: the file cites it at line 27 (text), line 28 (text), line 41
   (text) and line 41 (text).

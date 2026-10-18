@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9928d8eeae9
+    with_body_sha: "8ad4fd25feed"
     repo_status: locked
     path: docs/explanation/automation/.assets/what-gates-each-bundle-stage/grid.md
     source: docs/explanation/automation/.assets/what-gates-each-bundle-stage/diagram.drawio.png
@@ -33,7 +33,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 21 lit of 2766 files
+- docs × markdown: 21 lit of 2767 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × powershell: 2 lit of 1651 files
 - pwsh × yaml: 2 lit of 115 files
@@ -55,7 +55,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.md` names the file
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
-- [.claude/plans/task-layers-classification-flip.md][4]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 32 (text).
+- [.claude/plans/task-layers-classification-flip.md][4]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 35 (text).
 
 ### docs × markdown (21 lit files)
 

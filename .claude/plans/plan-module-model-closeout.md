@@ -60,7 +60,9 @@ verification found.
       comment `<!--`. Format-FileMeta then Format-Code both left that first line as it was (`out/t011-csproj-first-line.ps1`).
 - [x] Decide the minimaps of the other slides: keep the rebuild or revert it (check: git status under docs/.assets/explanation lists only
       the slides meant to change). Decided 2026-10-18 (D05): keep the rebuild.
-- [ ] Test-Comments lists 36 issues in files outside this change and Test-Glossary flags bare terms in plan text; clear them in their
+- [x] Done 2026-10-18: session catzc-a2, "[Write-QualityGateReport] No comments issues found." (out/test-comments/20261018-191637, 2076
+      files; nothing left to fix, both orphans already gone); Test-Glossary 0 issues over the tree (session catzc-93, plan-clear-actions).
+      Original step: Test-Comments lists 36 issues in files outside this change and Test-Glossary flags bare terms in plan text; clear them in their
       owners' plans (check: Test-Comments and Test-Glossary report none). 2026-10-18: a peer re-pointed the PropertyHead, MarkdownDocument,
       MarkdownMetaBlock and file-meta.yml sections and moved the ConsoleText and DictionaryRecord orphans to `TypeShape.cs.md`; reported
       left, not re-run here: `Get-ModuleGlobSet.ps1.md` comment:4 (its `$internalRoot` line is gone) and `variants.yml.md` comment:4, each a

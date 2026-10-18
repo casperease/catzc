@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "425b923f8848"
+    with_body_sha: e14fd6ee09d6
     repo_status: locked
     path: docs/explanation/automation/.assets/types-check-forms-review-checks-crossers/tree.md
     source: docs/explanation/automation/.assets/types-check-forms-review-checks-crossers/diagram.drawio.png
@@ -102,7 +102,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-explanation-drift-gaps.md][26], in the cell .claude × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 61 (text) and line 110 (text).
+  line 63 (text) and line 113 (text).
 - [.claude/skills/catzc-module/SKILL.md][27], in the cell .claude × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 27
   (text), line 28 (text), line 41 (text) and line 41 (text).
 

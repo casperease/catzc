@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6722cd29cea5"
+    with_body_sha: fdcde4beec30
     repo_status: locked
     path: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/grid.md
     source: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/diagram.drawio.png
@@ -61,17 +61,17 @@ language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCE
 - [.claude/plans/plan-adr-code-language.md][5]: selected by [ADR-FLOW-CD][1]: the file cites it at line 126 (text), line 126 (text), line
   127 (text), line 128 (text), line 181 (text) and line 184 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 126 (text),
   line 127 (text), line 128 (text), line 181 (text) and line 184 (text).
-- [.claude/plans/plan-explanation-drift-gaps.md][6]: selected by [ADR-FLOW-CD][1]: the file cites it at line 36 (text), line 60 (text), line
-  79 (text), line 97 (text) and line 109 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 36 (text).
+- [.claude/plans/plan-explanation-drift-gaps.md][6]: selected by [ADR-FLOW-CD][1]: the file cites it at line 36 (text), line 61 (text), line
+  81 (text), line 99 (text), line 112 (text) and line 184 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 36 (text).
 - [.claude/plans/plan-promotion-ladder.md][7]: selected by [ADR-FLOW-CD][1]: the file cites it at line 12 (text), line 35 (text), line 60
-  (text) and line 94 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text), line 35 (text), line 60 (text) and line
-  94 (text).
-- [.claude/plans/prompt-promotion-ladder-1-build.md][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 20 (text); selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 20 (text).
-- [.claude/plans/task-loose-ends.md][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 57 (text); selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 57 (text).
-- [.claude/plans/value-of-plan.md][10]: selected by [ADR-FLOW-CD][1]: the file cites it at line 35 (text); selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 35 (text).
+  (text) and line 87 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text), line 35 (text), line 60 (text) and line
+  87 (text).
+- [.claude/plans/prompt-promotion-ladder-1-build.md][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 21 (text); selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 21 (text).
+- [.claude/plans/task-loose-ends.md][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 59 (text); selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 59 (text).
+- [.claude/plans/value-of-plan.md][10]: selected by [ADR-FLOW-CD][1]: the file cites it at line 34 (text); selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 34 (text).
 
 ### docs × markdown (83 lit files)
 

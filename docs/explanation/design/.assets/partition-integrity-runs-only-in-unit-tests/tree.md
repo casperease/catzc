@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8d28812a7371"
+    with_body_sha: "2034ecd22729"
     repo_status: locked
     path: docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests/tree.md
     source: docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png
@@ -74,9 +74,9 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/plan-adr-code-language.md][12], in the cell .claude × markdown: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
   111 (text) and line 111 (text).
 - [.claude/plans/plan-diagram-folders.md][13], in the cell .claude × markdown: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
-  73 (text).
+  74 (text).
 - [.claude/plans/task-layers-classification-flip.md][14], in the cell .claude × markdown: selected by [ADR-DSGN-ASPECT][1]: the file cites
-  it at line 31 (text) and line 31 (text).
+  it at line 33 (text) and line 34 (text).
 
 ### adr/dsgn (docs/adr/design, 2 lit files)
 

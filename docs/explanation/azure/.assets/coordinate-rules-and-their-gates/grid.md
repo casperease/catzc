@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e56044e0e203
+    with_body_sha: "13b840ab66e9"
     repo_status: locked
     path: docs/explanation/azure/.assets/coordinate-rules-and-their-gates/grid.md
     source: docs/explanation/azure/.assets/coordinate-rules-and-their-gates/diagram.drawio.png
@@ -34,7 +34,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 65 lit of 2766 files
+- docs × markdown: 65 lit of 2767 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × powershell: 4 lit of 1651 files
 - pwsh × yaml: 4 lit of 115 files

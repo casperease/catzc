@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5935f71c4c1e"
+    with_body_sha: "35c999043d6a"
     repo_status: locked
     path: docs/explanation/automation/.assets/three-tests-prove-the-hook/tree.md
     source: docs/explanation/automation/.assets/three-tests-prove-the-hook/diagram.drawio.png
@@ -226,13 +226,12 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
   line 31 (text), line 32 (text), line 37 (text), line 39 (text), line 89 (text), line 89 (text), line 90 (text), line 90 (text), line 92
   (text), line 92 (text), line 93 (text), line 93 (text), line 105 (text), line 105 (text), line 106 (text), line 107 (text), line 108
   (text) and line 108 (text).
-- [.claude/plans/plan-assert-wait.md][84], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 64
-  (text) and line 65 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 19 (text), line 33 (text), line 41 (text), line
-  86 (text), line 88 (text), line 89 (text), line 89 (text), line 129 (text), line 131 (text), line 140 (text) and line 140 (text).
+- [.claude/plans/plan-assert-wait.md][84], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 18
+  (text), line 32 (text), line 40 (text), line 66 (text), line 107 (text), line 118 (text) and line 118 (text).
 - [.claude/plans/plan-explanation-drift-gaps.md][85], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the file cites it
-  at line 51 (text), line 65 (text) and line 106 (text).
+  at line 51 (text), line 67 (text) and line 109 (text).
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][86], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 213 (text) and line 215 (text).
+  file cites it at line 216 (text) and line 218 (text).
 - [.claude/plans/prompt-assert-wait-1-watch-blocking.md][87], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the file
   cites it at line 18 (text).
 - [.claude/plans/prompt-bounded-folder-enumeration-continue.md][88], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the
@@ -244,8 +243,8 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/questionnaire-2026-10-16.md][91], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
   line 121 (text).
 - [.claude/plans/task-assert-wait.md][92], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 53
-  (text) and line 59 (text).
-- [.claude/plans/value-of-plan.md][93], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 66
+  (text) and line 60 (text).
+- [.claude/plans/value-of-plan.md][93], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 65
   (text).
 - [.claude/skills/catzc-module/SKILL.md][94], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
   26 (text) and line 40 (text).
@@ -360,7 +359,7 @@ The group holds the files of pwsh/Catzc.Base.Languages; each sits in its world-m
 - [pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1][128], in the cell pwsh × powershell: selected by
   [ADR-AUTO-DEFAULT][1]: the file cites it at line 31 (text).
 - [pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1][129], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
-  the file cites it at line 167 (text).
+  the file cites it at line 169 (text).
 - [pwsh/Catzc.Base.Languages/types/LayoutRow.cs][130], in the cell pwsh × csharp: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
   line 6 (body comment) (a passing mention only).
 
@@ -416,7 +415,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 50 (text),
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 23 (text),
   `pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1` line 31 (text),
-  `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 167 (text), `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6
+  `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 169 (text), `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6
   (body comment), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 27 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1` line 159 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1` line 57 (text),

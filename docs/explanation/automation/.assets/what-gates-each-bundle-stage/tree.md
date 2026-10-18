@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0aea898a851c"
+    with_body_sha: "7c23544643db"
     repo_status: locked
     path: docs/explanation/automation/.assets/what-gates-each-bundle-stage/tree.md
     source: docs/explanation/automation/.assets/what-gates-each-bundle-stage/diagram.drawio.png
@@ -124,7 +124,7 @@ The group holds the files of Root files; each sits in its world-map cell and is 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/task-layers-classification-flip.md][25], in the cell .claude × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites
-  it at line 32 (text).
+  it at line 35 (text).
 
 ### pipelines (1 lit file)
 

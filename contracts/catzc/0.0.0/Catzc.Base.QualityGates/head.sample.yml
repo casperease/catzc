@@ -22,4 +22,6 @@ catzc:
   edges:
     test: pwsh/Catzc.Widget/tests/Get-Gadget.Tests.ps1
     cites:
-      - ADR-WIDGET-GADGET#{1,3-5}
+      - ADR-WIDGET-GADGET-SPINS
+      - ADR-WIDGET-GADGET-STOPS
+      - ADR-WIDGET-SPINNER

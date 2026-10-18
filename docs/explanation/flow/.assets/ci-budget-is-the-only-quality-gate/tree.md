@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "61808c69ab39"
+    with_body_sha: "810f28541bf6"
     repo_status: locked
     path: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/tree.md
     source: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/diagram.drawio.png
@@ -242,17 +242,17 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
   (text), line 126 (text), line 127 (text), line 128 (text), line 181 (text) and line 184 (text); selected by [ADR-FLOW-CD-TYPE][2]: the
   file cites it at line 126 (text), line 127 (text), line 128 (text), line 181 (text) and line 184 (text).
 - [.claude/plans/plan-explanation-drift-gaps.md][91], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at
-  line 36 (text), line 60 (text), line 79 (text), line 97 (text) and line 109 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it
-  at line 36 (text).
+  line 36 (text), line 61 (text), line 81 (text), line 99 (text), line 112 (text) and line 184 (text); selected by [ADR-FLOW-CD-TYPE][2]:
+  the file cites it at line 36 (text).
 - [.claude/plans/plan-promotion-ladder.md][92], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 12
-  (text), line 35 (text), line 60 (text) and line 94 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text), line 35
-  (text), line 60 (text) and line 94 (text).
+  (text), line 35 (text), line 60 (text) and line 87 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text), line 35
+  (text), line 60 (text) and line 87 (text).
 - [.claude/plans/prompt-promotion-ladder-1-build.md][93], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at
-  line 20 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 20 (text).
-- [.claude/plans/task-loose-ends.md][94], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 57 (text);
-  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 57 (text).
-- [.claude/plans/value-of-plan.md][95], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 35 (text);
-  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 35 (text).
+  line 21 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 21 (text).
+- [.claude/plans/task-loose-ends.md][94], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 59 (text);
+  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 59 (text).
+- [.claude/plans/value-of-plan.md][95], in the cell .claude × markdown: selected by [ADR-FLOW-CD][1]: the file cites it at line 34 (text);
+  selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 34 (text).
 
 ### adr/flow (docs/adr/flow, 3 lit files)
 

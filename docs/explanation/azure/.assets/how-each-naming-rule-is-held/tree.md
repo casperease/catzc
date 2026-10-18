@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "43e7e85d4e93"
+    with_body_sha: "1468d146bb03"
     repo_status: locked
     path: docs/explanation/azure/.assets/how-each-naming-rule-is-held/tree.md
     source: docs/explanation/azure/.assets/how-each-naming-rule-is-held/diagram.drawio.png
@@ -97,7 +97,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-explanation-drift-gaps.md][20], in the cell .claude × markdown: selected by [ADR-AZ-NAMING][1]: the file cites it at
-  line 54 (text) and line 113 (text).
+  line 54 (text) and line 116 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 

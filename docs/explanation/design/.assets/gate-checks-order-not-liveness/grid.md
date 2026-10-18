@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f967c834e369
+    with_body_sha: f7aa0f294caf
     repo_status: locked
     path: docs/explanation/design/.assets/gate-checks-order-not-liveness/grid.md
     source: docs/explanation/design/.assets/gate-checks-order-not-liveness/diagram.drawio.png
@@ -56,8 +56,8 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRAC
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [.claude/plans/plan-adr-code-language.md][3]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 111 (text) and line 111 (text).
-- [.claude/plans/plan-diagram-folders.md][4]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 73 (text).
-- [.claude/plans/task-layers-classification-flip.md][5]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 31 (text) and line 31
+- [.claude/plans/plan-diagram-folders.md][4]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 74 (text).
+- [.claude/plans/task-layers-classification-flip.md][5]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 33 (text) and line 34
   (text).
 
 ### docs × markdown (13 lit files)

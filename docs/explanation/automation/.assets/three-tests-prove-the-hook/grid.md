@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "09e17070086c"
+    with_body_sha: "44b63fd5df15"
     repo_status: locked
     path: docs/explanation/automation/.assets/three-tests-prove-the-hook/grid.md
     source: docs/explanation/automation/.assets/three-tests-prove-the-hook/diagram.drawio.png
@@ -34,7 +34,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 15 lit of 89 files
-- docs × markdown: 82 lit of 2763 files
+- docs × markdown: 82 lit of 2767 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × csharp: 7 lit of 293 files
 - pwsh × powershell: 31 lit of 1651 files
@@ -66,21 +66,20 @@ language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCE
 - [.claude/plans/plan-adr-code-language.md][7]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 31 (text), line 32 (text),
   line 37 (text), line 39 (text), line 89 (text), line 89 (text), line 90 (text), line 90 (text), line 92 (text), line 92 (text), line 93
   (text), line 93 (text), line 105 (text), line 105 (text), line 106 (text), line 107 (text), line 108 (text) and line 108 (text).
-- [.claude/plans/plan-assert-wait.md][8]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 64 (text) and line 65 (text);
-  selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 19 (text), line 33 (text), line 41 (text), line 86 (text), line 88 (text),
-  line 89 (text), line 89 (text), line 129 (text), line 131 (text), line 140 (text) and line 140 (text).
-- [.claude/plans/plan-explanation-drift-gaps.md][9]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 51 (text), line 65 (text)
-  and line 106 (text).
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][10]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 213 (text)
-  and line 215 (text).
+- [.claude/plans/plan-assert-wait.md][8]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 18 (text), line 32 (text), line 40
+  (text), line 66 (text), line 107 (text), line 118 (text) and line 118 (text).
+- [.claude/plans/plan-explanation-drift-gaps.md][9]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 51 (text), line 67 (text)
+  and line 109 (text).
+- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][10]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 216 (text)
+  and line 218 (text).
 - [.claude/plans/prompt-assert-wait-1-watch-blocking.md][11]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 18 (text).
 - [.claude/plans/prompt-bounded-folder-enumeration-continue.md][12]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 17
   (text).
 - [.claude/plans/prompt-loose-ends-1-flag-and-comments.md][13]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 13 (text).
 - [.claude/plans/prompt-promotion-ladder-1-build.md][14]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 19 (text).
 - [.claude/plans/questionnaire-2026-10-16.md][15]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 121 (text).
-- [.claude/plans/task-assert-wait.md][16]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 53 (text) and line 59 (text).
-- [.claude/plans/value-of-plan.md][17]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 66 (text).
+- [.claude/plans/task-assert-wait.md][16]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 53 (text) and line 60 (text).
+- [.claude/plans/value-of-plan.md][17]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 65 (text).
 - [.claude/skills/catzc-module/SKILL.md][18]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 26 (text) and line 40 (text).
 
 ### docs × markdown (82 lit files)
@@ -262,7 +261,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 50 (text),
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 23 (text),
   `pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1` line 31 (text),
-  `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 167 (text), `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6
+  `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 169 (text), `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6
   (body comment), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 27 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1` line 159 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1` line 57 (text),
@@ -339,7 +338,7 @@ language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LIT
   selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 64 (text).
 - [pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1][117]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 31
   (text).
-- [pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1][118]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 167
+- [pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1][118]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 169
   (text).
 - [pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1][119]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
   159 (text).

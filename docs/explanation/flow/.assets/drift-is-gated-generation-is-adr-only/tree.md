@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "44be45426141"
+    with_body_sha: cb0888f53d8b
     repo_status: locked
     path: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/tree.md
     source: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png
@@ -990,15 +990,15 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/decisions-2026-10-16.md][455], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 80
   (text) and line 83 (text).
 - [.claude/plans/plan-adr-code-language.md][456], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line
-  229 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 126 (text), line 127 (text), line 128 (text), line 181 (text)
-  and line 184 (text).
+  216 (text) and line 227 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 126 (text), line 127 (text), line 128
+  (text), line 181 (text) and line 184 (text).
 - [.claude/plans/plan-assert-wait.md][457], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 47
   (text).
 - [.claude/plans/plan-automation-word-residue.md][458], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
   line 369 (text).
 - [.claude/plans/plan-explanation-drift-gaps.md][459], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
-  line 102 (text), line 175 (text), line 180 (text), line 181 (text) and line 181 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
-  it at line 36 (text), line 61 (text), line 99 (text) and line 112 (text).
+  line 102 (text), line 177 (text), line 182 (text), line 183 (text), line 183 (text), line 184 (text) and line 185 (text); selected by
+  [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 36 (text), line 61 (text), line 99 (text), line 112 (text) and line 184 (text).
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][460], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 208 (text).
 - [.claude/plans/plan-promotion-ladder.md][461], in the cell .claude × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
