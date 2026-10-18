@@ -83,7 +83,7 @@ terms:
     - term: norc
       meaning: "bash --norc — start bash without reading ~/.bashrc"
     - term: shellcheck
-      meaning: "ShellCheck — the shell-script analyzer Test-ShellScripts runs (ADR-AUTO-BASH#6)"
+      meaning: "ShellCheck — the shell-script analyzer Test-ShellScripts runs (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED)"
     - term: koalaman
       meaning: "koalaman.shellcheck — the winget package id of ShellCheck (its author's handle)"
     - term: wekyb
@@ -269,9 +269,9 @@ terms:
     - term: filesets
       meaning: "the sets of files scans or globsets cover (filesets); loose-filesets are the cross-cutting globset layer"
     - term: workstream
-      meaning: "one labeled section of a plan's work breakdown (workstream, ADR-REPO-OUTDIR#10)"
+      meaning: "one labeled section of a plan's work breakdown (workstream, ADR-REPO-OUTDIR-PLANNOTES)"
     - term: workstreams
-      meaning: "labeled sections of a plan's work breakdown (workstreams, ADR-REPO-OUTDIR#10)"
+      meaning: "labeled sections of a plan's work breakdown (workstreams, ADR-REPO-OUTDIR-PLANNOTES)"
     - term: quotepath
       meaning: "the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths"
     - term: rootconfig
@@ -296,10 +296,10 @@ terms:
       meaning: "CMDB — the configuration management database the product thesis contrasts with the repository"
       expands_to: "configuration management database"
     - term: LOCAL
-      meaning: "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK#15)"
+      meaning: "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
       expands_to: "automation"
     - term: release
-      meaning: "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK#15)"
+      meaning: "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
       expands_to: "release"
     - term: dora
       meaning:
@@ -498,7 +498,7 @@ terms:
     - term: mytem
       meaning: "derived short_name of the 'my-template' example in the naming-standard ADR"
     - term: myvalue
-      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-PWSH-NAMES#4)"
+      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES)"
     - term: myvar
       meaning: "placeholder variable name 'myvar' in examples"
     - term: objout

@@ -29,7 +29,7 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         $r.Facts['TermCount'] | Should -Be 2
     }
 
-    It 'reports drift when the checked-in dictionary is stale (ADR-AUTO-SPELL#5)' {
+    It 'reports drift when the checked-in dictionary is stale (ADR-AUTO-SPELL-ONEVOCABULARYSOURCE)' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Category = 'widget'; Path = 'x'; WordCount = 2; Changed = $true; DryRun = $true }
         }
@@ -38,14 +38,14 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         $r.Issues -join "`n" | Should -Match 'drift'
     }
 
-    It 'reports an orphan when a term is not referenced anywhere (ADR-AUTO-SPELL#8)' {
+    It 'reports an orphan when a term is not referenced anywhere (ADR-AUTO-SPELL-LIVEVOCABULARYONLY)' {
         Mock Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates { 'bicep only, no second term here' }
         $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1
         $r.Issues -join "`n" | Should -Match "orphan.*'entra'"
     }
 
-    It 'reports a validation failure when the registry does not load (ADR-AUTO-SPELL#6)' {
+    It 'reports a validation failure when the registry does not load (ADR-AUTO-SPELL-CATEGORYANDMEANING)' {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates { throw 'category is required' }
         $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1

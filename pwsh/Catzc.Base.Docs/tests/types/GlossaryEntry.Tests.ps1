@@ -17,7 +17,7 @@ Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'carries the concept, its owner, its repo-relative source path, and the source options' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'carries the concept, its owner, its repo-relative source path, and the source options' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $entry = & $script:make
         $entry.Concept.term | Should -Be 'widget suite'
         $entry.Owner | Should -Be 'Catzc.Widget'
@@ -25,7 +25,7 @@ Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
         $entry.Options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
     }
 
-    It 'rejects a source path that is not repo-relative' -Tag 'ADR-REPO-VOCAB#3' {
+    It 'rejects a source path that is not repo-relative' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
         foreach ($path in '/widgets/glossary.yml', 'C:/repo/glossary.yml', 'widgets\glossary.yml', '../glossary.yml', ' ') {
             { & $script:make -path $path } | Should -Throw '*must be repo-relative*' -Because "'$path' is not a repo-relative '/'-separated path"
         }

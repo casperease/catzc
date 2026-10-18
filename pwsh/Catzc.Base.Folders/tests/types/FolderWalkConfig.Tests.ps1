@@ -1,12 +1,12 @@
 Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
-    It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Folders.FolderWalkConfig]::new(@{})
         $config.depth | Should -Be 2
         $config.exclude | Should -Be @('.git', 'node_modules', 'out')
         $config.prune_vendor_in_searches | Should -BeTrue
     }
 
-    It 'takes the defaults from a missing file as well' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes the defaults from a missing file as well' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         ([Catzc.Base.Folders.FolderWalkConfig]::new($null)).depth | Should -Be 2
     }
 
@@ -47,11 +47,11 @@ Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
 }
 
 Describe 'FolderWalkConfig (shipped folder-walk.yml)' -Tag 'L1', 'integrity' {
-    It 'loads the shipped folder-walk.yml as a FolderWalkConfig' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'loads the shipped folder-walk.yml as a FolderWalkConfig' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         (Get-Config -Config folder-walk) | Should -BeOfType ([Catzc.Base.Folders.FolderWalkConfig])
     }
 
-    It 'is readable as the global address global.folder-walk.prune_vendor_in_searches' -Tag 'ADR-CONF-ADDRESSING#1' {
+    It 'is readable as the global address global.folder-walk.prune_vendor_in_searches' -Tag 'ADR-CONF-ADDRESSING-GLOBALADDRESSFORM' {
         Get-ConfigValue -Address 'global.folder-walk.prune_vendor_in_searches' | Should -BeTrue
     }
 }

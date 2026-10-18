@@ -86,7 +86,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $result.Issues | Should -HaveCount 1
     }
 
-    It 'fails on the engine-set and neutral-code findings in gate mode, with file and line' -Tag 'ADR-AUTO-ENGINE#1', 'ADR-AUTO-TEST#3', 'ADR-PRIN-CONFIG#4' {
+    It 'fails on the engine-set and neutral-code findings in gate mode, with file and line' -Tag 'ADR-AUTO-ENGINE-THREEENGINES', 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES', 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
         & $writeCheckFixtures
         $result = Test-SourceConventions -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 3
@@ -97,7 +97,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $result.Facts['NeutralCodeCount'] | Should -Be 1
     }
 
-    It 'lists the same findings in report mode and passes' -Tag 'ADR-AUTO-ENGINE#1', 'ADR-AUTO-TEST#3', 'ADR-PRIN-CONFIG#4' {
+    It 'lists the same findings in report mode and passes' -Tag 'ADR-AUTO-ENGINE-THREEENGINES', 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES', 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
         & $writeCheckFixtures
         & $useMode 'report'
         { Test-SourceConventions -OutputFolder $out } | Should -Not -Throw
@@ -108,7 +108,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like '`[engine_set`] widget-modules/Widget/README.md:1:*' }
     }
 
-    It 'leaves out a file a check exempts' -Tag 'ADR-PRIN-CONFIG#4' {
+    It 'leaves out a file a check exempts' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
         & $writeCheckFixtures
         & $useMode 'gate' ([ordered]@{ 'widget-modules/Widget/*.md' = 'widget notes' })
         $result = Test-SourceConventions -OutputFolder $out -PassThru

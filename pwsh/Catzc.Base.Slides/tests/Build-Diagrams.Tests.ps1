@@ -1,4 +1,4 @@
-Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
+Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'
         $pages = [ordered]@{
@@ -68,7 +68,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
         { & $script:build @{ Path = 'docs/widgets/.assets' } } | Should -Throw '*is not a diagram folder*'
     }
 
-    It 'lists the calls per folder under -DryRun and runs none' -Tag 'ADR-AUTO-DRYRUN#2' {
+    It 'lists the calls per folder under -DryRun and runs none' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
         $runs = @(& $script:build @{ DryRun = $true; Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' })
         $runs.Count | Should -Be 6
         @($runs.Status | Sort-Object -Unique) | Should -Be @('dry-run')

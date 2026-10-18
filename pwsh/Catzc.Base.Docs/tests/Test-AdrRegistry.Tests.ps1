@@ -1,4 +1,4 @@
-Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
+Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
                 domains = [ordered]@{
@@ -88,7 +88,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         }
     }
 
-    Context 'the configured checks' -Tag 'ADR-PRIN-CONFIG#1' {
+    Context 'the configured checks' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         BeforeEach {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`nA widget leans on ADR-GA-ONE#1.`n"
         }
@@ -130,7 +130,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         }
     }
 
-    Context 'the code-language check' -Tag 'ADR-REPO-ADRCODE#1' {
+    Context 'the code-language check' -Tag 'ADR-REPO-ADRCODE-PATHOFSEGMENTS' {
         BeforeAll {
             $script:sharedFixture = $script:fixture
         }
@@ -144,7 +144,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
             $result.Facts['CodeLanguageMode'] | Should -Be 'report'
-            $result.Facts['CodeLanguage'] | Should -Be @('docs/adr/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE#4)')
+            $result.Facts['CodeLanguage'] | Should -Be @('docs/adr/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)')
         }
 
         It 'passes named rule headings that are one segment below their ADR' {
@@ -174,10 +174,10 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguage'] | Should -Be @(
-                "docs/adr/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE#4)"
-                "docs/adr/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE#4)"
-                'docs/adr/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-ADRCODE#6)'
-                "ADR-GIZMO (widget): does not start with its domain's segment, ADR-WI- (ADR-REPO-ADRCODE#2)"
+                "docs/adr/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
+                "docs/adr/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
+                'docs/adr/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-ADRCODE-ONESTRINGONEFACT)'
+                "ADR-GIZMO (widget): does not start with its domain's segment, ADR-WI- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
             )
         }
 
@@ -194,7 +194,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
-            $result.Facts['CodeLanguage'] | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-ADRCODE#2)')
+            $result.Facts['CodeLanguage'] | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-ADRCODE-DOMAINSEGMENT)')
         }
 
         It 'adds its findings to the gate''s issues in gate mode' {
@@ -207,7 +207,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
 }
 
 Describe 'Test-AdrRegistry — real ADRs' -Tag 'L2', 'integrity', 'source-only' {
-    It 'Test-AdrRegistry passes over the real registry and ADRs' -Tag 'ADR-AUTO-TEST#35' {
+    It 'Test-AdrRegistry passes over the real registry and ADRs' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-AdrRegistry -OutputFolder (Join-Path $TestDrive 'registry') } | Should -Not -Throw
     }
 }

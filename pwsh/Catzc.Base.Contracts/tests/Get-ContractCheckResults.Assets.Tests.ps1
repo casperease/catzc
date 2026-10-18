@@ -22,7 +22,7 @@ BeforeDiscovery {
         })
 }
 
-Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT#4' {
+Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     It '<Unit> <Version> <Module>: <Path> (<Direction>) holds' -ForEach $script:assetCases {
         $assets = @(Get-Contract -Unit ([WildcardPattern]::Escape($Unit)) -Version ([WildcardPattern]::Escape($Version)) `
                 -Module ([WildcardPattern]::Escape($Module)) | Where-Object { $_.AssetPath -ceq $AssetPath })
@@ -32,7 +32,7 @@ Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-R
     }
 }
 
-Describe 'Command contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT#1', 'ADR-REPO-CMDCONTRACT#5' {
+Describe 'Command contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT-COMMANDCONTRACT', 'ADR-REPO-CMDCONTRACT-ONEREADER' {
     It 'holds at least the pilot set (<Count> command assets)' -ForEach @(@{ Count = $script:commandCases.Count }) {
         $Count | Should -BeGreaterOrEqual 12
     }

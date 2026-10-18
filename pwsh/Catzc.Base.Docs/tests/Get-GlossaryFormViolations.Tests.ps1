@@ -30,27 +30,27 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         $script:tail = '"widget" takes only: gadget widget, CI widget, widget (ADR-TST-WIDGET#1)'
     }
 
-    It 'reports a qualifier outside the forms with its file, line, use, the allowed forms, and the defining rule' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'reports a qualifier outside the forms with its file, line, use, the allowed forms, and the defining rule' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $found = & $script:scan @{ 'docs/alpha.md' = @('# Alpha', '', 'The sprocket widget runs.') }
         $found | Should -Be @("docs/alpha.md:3 says `"sprocket widget`" — $script:tail")
     }
 
-    It 'allows the bare word, a declared form in any case, a function word, and a number' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'allows the bare word, a declared form in any case, a function word, and a number' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $text = @('A widget, the gadget widget, the ci widgets, each widget, two widgets, 3 widgets.')
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
-    It 'allows a spelled-out number above five, and a comparative such as later or further' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'allows a spelled-out number above five, and a comparative such as later or further' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $text = @('Twelve widgets, six widgets, a later widget, further widgets.')
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
-    It 'reads no link label that is a bare repository path as prose' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'reads no link label that is a bare repository path as prose' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $text = @('# Alpha', '', '- [docs/plan-sprocket-widget.md][3]: selected by the rule.', '', '[3]: ../docs/plan-sprocket-widget.md')
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
-    It 'reports a hyphenated or line-wrapped qualifier, and the verb forms' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'reports a hyphenated or line-wrapped qualifier, and the verb forms' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $found = & $script:scan @{ 'docs/alpha.md' = @('A pre-sprocket widget, a sprocket-widget, a sprocket', 'widget; it is widgeted, double-widgeting.') }
         $found | Should -HaveCount 4
         $found | Should -Contain "docs/alpha.md:1 says `"sprocket widget`" — $script:tail"
@@ -59,38 +59,38 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         $found | Should -Contain "docs/alpha.md:2 says `"widgeting`" — $script:tail"
     }
 
-    It 'allows the verb forms of a concept that sets verbs' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'allows the verb forms of a concept that sets verbs' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         & $script:scan @{ 'docs/alpha.md' = @('It is widgeted, then widgeting again.') } @{} $true | Should -BeNullOrEmpty
     }
 
-    It 'reads no link or image destination as prose' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'reads no link or image destination as prose' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $text = @('# Alpha', '', 'See [the article](../pick-widget.md) and ![a gadget widget](../pick-widget.drawio.png).')
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
-    It 'reads no meta block in the front matter as prose, and still reads the rest of the front matter' -Tag 'ADR-REPO-VOCAB#8', 'ADR-REPO-FILEMETA#1' {
+    It 'reads no meta block in the front matter as prose, and still reads the rest of the front matter' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $text = @('---', 'catzc:', '  immutable:', '    path: docs/explanation/pick-sprocket-widget.md', '    kind: explanation', 'note: a sprocket widget', '---', '', '# Alpha')
         $found = & $script:scan @{ 'docs/alpha.md' = $text }
         $found | Should -Be @("docs/alpha.md:6 says `"sprocket widget`" — $script:tail")
     }
 
-    It 'reads no immutable block of a code head as prose, and still reads the rest of the head' -Tag 'ADR-REPO-VOCAB#8', 'ADR-REPO-FILEMETA#1' {
+    It 'reads no immutable block of a code head as prose, and still reads the rest of the head' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $text = @('<#', '---', 'catzc:', '  immutable:', '    path: widgets/Catzc.Widget/Get-Widget.ps1', '    name: get-sprocket-widget', '    kind: function',
             '  config:', '    synopsis: A sprocket widget.', '---', '#>', 'function Get-Widget { }')
         $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = $text }
         $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:9 says `"sprocket widget`" — $script:tail")
     }
 
-    It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         & $script:scan @{ 'docs/alpha.md' = @('Avoid `sprocket widget` and "sprocket widget"; a gadgetwidget, the widgetry.') } | Should -BeNullOrEmpty
     }
 
-    It 'reads PowerShell comments through the parser' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'reads PowerShell comments through the parser' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @('# the sprocket widget', 'function Get-Widget { }') }
         $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:1 says `"sprocket widget`" — $script:tail")
     }
 
-    It 'allows a qualifier that makes another defined term with the head, and still reports one that does not' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'allows a qualifier that makes another defined term with the head, and still reports one that does not' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         $relative = 'docs/alpha.md'
         $full = Join-Path $TestDrive $relative
         [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
@@ -111,7 +111,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         $found | Should -Be @("docs/alpha.md:2 says `"gizmo widget`" — $script:tail")
     }
 
-    It 'skips a source that opts out of the forms check' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'skips a source that opts out of the forms check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         & $script:scan @{ 'docs/alpha.md' = @('The sprocket widget runs.') } @{ checks = @('anchored', 'single', 'avoid', 'enforced') } |
             Should -BeNullOrEmpty
     }

@@ -1,4 +1,4 @@
-Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
+Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE' {
     BeforeAll {
         # Fixture text is built from lines, so every escape stays apart from the words around it.
         function script:Join-Lines {

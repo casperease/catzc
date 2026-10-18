@@ -1,4 +1,4 @@
-Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic', 'ADR-REPO-FILEMETA#2' {
+Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     # Read at discovery: -ForEach needs the declared classes before any BeforeAll runs.
     $declared = foreach ($entry in (Get-Config -Config file-kinds).kinds) {
         @{ Class = $entry.role }
@@ -20,7 +20,7 @@ Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic',
         $reached | Should -BeTrue -Because "no tracked file resolves to '$Class': its globs match nothing, or an earlier kind takes every file"
     }
 
-    It 'no kind is mostly shadowed by an earlier one the registry does not pair it with in overlaps' -Tag 'ADR-REPO-FILEMETA#11' {
+    It 'no kind is mostly shadowed by an earlier one the registry does not pair it with in overlaps' -Tag 'ADR-REPO-FILEMETA-ROLE' {
         $shadows = @((Get-Config -Config file-kinds).Shadowing([string[]] @(Get-TrackedFile)))
         $shadows | Should -BeNullOrEmpty -Because (@($shadows | ForEach-Object { "'$($_.By)' takes $($_.Taken) of the $($_.Matched) files '$($_.Hidden)' matches; list [$($_.By), $($_.Hidden.Split('/')[0])] in overlaps when that is intended" }) -join '; ')
     }

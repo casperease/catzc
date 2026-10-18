@@ -12,7 +12,7 @@ Describe 'New-VSCodeExtensions' -Tag 'L0', 'logic' {
         @($json.recommendations) | Should -Be @('acme.tool-one', 'globex.tool-two')
     }
 
-    It 'appends the formatter engines'' extensions, sorted, after the authored ones, never twice' -Tag 'ADR-REPO-FORMAT#8' {
+    It 'appends the formatter engines'' extensions, sorted, after the authored ones, never twice' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
         $text = New-VSCodeExtensions -EngineExtension 'globex.tool-two', 'globex.widget-formatter', 'contoso.gadget-formatter'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.recommendations) | Should -Be @('acme.tool-one', 'globex.tool-two', 'contoso.gadget-formatter', 'globex.widget-formatter')

@@ -54,8 +54,8 @@ indent_size = 2
 # C# type sources opt out — once here in the root config, not a #pragma in every file — of two IDE rules
 # they break BY DESIGN (ADR native-csharp-types):
 #  - IDE1006 "Naming rule violation": config-mirroring records use snake_case / lowercase property names so
-#    the YAML key and the C# property are the same identifier (ADR-AUTO-TYPES#8) — not PascalCase.
-#  - IDE0130 "Namespace does not match folder structure": each file's namespace is its MODULE (ADR-AUTO-TYPES#2) —
+#    the YAML key and the C# property are the same identifier (ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML) — not PascalCase.
+#  - IDE0130 "Namespace does not match folder structure": each file's namespace is its MODULE (ADR-AUTO-TYPES-NAMESPACEISMODULE) —
 #    e.g. Catzc.Azure for pwsh/Catzc.Azure/types/*.cs — a flat, module-encoding convention, NOT the IDE
 #    project's physical path (Catzc.Types.pwsh.Catzc.Azure.types). We turn the underlying preference off
 #    (stating the policy as code) and mute the diagnostic; this rule is an editor hint, invisible to dotnet build.

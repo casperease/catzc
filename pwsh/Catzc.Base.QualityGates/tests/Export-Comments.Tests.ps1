@@ -30,7 +30,7 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'moves the long comment into the page and leaves nothing in the file' -Tag 'ADR-REPO-COMMENTS#1' {
+    It 'moves the long comment into the page and leaves nothing in the file' -Tag 'ADR-REPO-COMMENTS-ONELINEOFINSIGHT' {
         $root = & $newRepository
         $changed = Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder))
         $changed | Should -Be @("$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1")
@@ -41,13 +41,13 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         $page.Contains("across runs and the cache key never changes.`n" + '```') | Should -BeTrue
     }
 
-    It 'leaves an asset''s comments in place' -Tag 'ADR-REPO-COMMENTS#3' {
+    It 'leaves an asset''s comments in place' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/assets/root/gadget.yml" | Should -BeExactly "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
     }
 
-    It 'changes nothing on a second run' -Tag 'ADR-AUTO-IDEM#1' {
+    It 'changes nothing on a second run' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         $before = & $readFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/Get-Widget.ps1"
@@ -57,7 +57,7 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         & $readFile $root $pageRelative | Should -BeExactly $pageBefore
     }
 
-    It 'writes nothing under -DryRun and returns the would-be results under -PassThru' -Tag 'ADR-AUTO-DRYRUN#1' {
+    It 'writes nothing under -DryRun and returns the would-be results under -PassThru' -Tag 'ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN' {
         $root = & $newRepository
         $results = @(Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) -DryRun -PassThru)
         $results.Count | Should -Be 1

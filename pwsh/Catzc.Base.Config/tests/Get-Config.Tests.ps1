@@ -171,7 +171,7 @@ namespace CatzcGetConfigTest {
             $result.Raw['k'] | Should -Be 'v'
         }
 
-        It 'builds a registered type with no shipped file from an empty map, and merges the repository''s fragment onto it' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'builds a registered type with no shipped file from an empty map, and merges the repository''s fragment onto it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path (Join-Path $overlay 'Catzc.Base.Widget/configs') | Out-Null
             Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -like 'widget-bare*' } -MockWith {
@@ -245,7 +245,7 @@ namespace CatzcGetConfigTest {
             @($registry.sealedConfigs) | Should -Be @('gadget')
         }
 
-        It 'reads each key a shipped value may differ on with its reason, and rejects a blank reason or a list' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'reads each key a shipped value may differ on with its reason, and rejects a blank reason or a list' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $registry = [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{
                         widget = @{ type = 'Tst.Widget'; differs = [ordered]@{ size = 'The widgets ship large.' } }
                         gadget = @{ type = 'Tst.Gadget' }
@@ -259,7 +259,7 @@ namespace CatzcGetConfigTest {
                 Should -Throw "*config 'widget': differs must be a map*"
         }
 
-        It 'compares a shipped key with the type''s Default constant of that key, scalars only' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'compares a shipped key with the type''s Default constant of that key, scalars only' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $type = [Catzc.Base.Variants.VariantsConfig]
             $same = [Catzc.Base.Config.ConfigDefaultDifference]::Compare($type, [ordered]@{ ado_naming = 'standard'; have_customers = $false })
             @($same).Count | Should -Be 0

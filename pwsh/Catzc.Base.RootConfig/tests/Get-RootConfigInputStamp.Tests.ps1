@@ -1,4 +1,4 @@
-Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
+Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     BeforeAll {
         Import-InternalModule TestKit
 

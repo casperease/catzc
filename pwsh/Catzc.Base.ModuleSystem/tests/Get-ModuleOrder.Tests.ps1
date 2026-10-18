@@ -1,4 +1,4 @@
-Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#5' {
+Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-TOPOLOGICALORDER' {
     It 'orders each module after its declared module dependencies (dependencies-first)' {
         Mock Get-ModuleGroupConfig { [ordered]@{} } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-ModuleDependencyConfig {
@@ -66,7 +66,7 @@ Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#5' {
     }
 }
 
-Describe 'Get-ModuleOrder on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE#5' {
+Describe 'Get-ModuleOrder on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-TOPOLOGICALORDER' {
     It 'orders every module of the code track once, each after every module it is declared to depend on' {
         $names = @((Get-CatzcModule -TrackType modules).name)
         $order = @(Get-ModuleOrder)

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.VSCode;
 
-// Rests on [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6) and [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8).
+// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) and [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml).
 public sealed class VscodeOwnExtension : Catzc.Base.Objects.DictionaryRecord
 {
     public const string DefaultPublisher = "catzc";

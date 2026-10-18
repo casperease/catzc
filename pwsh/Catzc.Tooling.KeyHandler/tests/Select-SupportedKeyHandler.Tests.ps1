@@ -1,4 +1,4 @@
-Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#22' {
+Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS' {
 
     It 'marks a binding supported only when its function is in the allow-list' {
         $result = & (Get-Module Catzc.Tooling.KeyHandler) {

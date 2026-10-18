@@ -12,7 +12,7 @@ Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
         Mock Test-Path { $true } -ModuleName Catzc.Base.Globs
     }
 
-    It 'passes when every trigger equals its projection (order-independent include/exclude)' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes when every trigger equals its projection (order-independent include/exclude)' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Get-PipelineTrigger -ParameterFilter { $Path -like '*cd-gadget.yaml' } {
             [pscustomobject]@{ TriggerInclude = @('lib/**'); TriggerExclude = @('lib/gen/**'); PrInclude = @('lib/**'); PrExclude = @('lib/gen/**') }
         } -ModuleName Catzc.Base.Globs
@@ -23,7 +23,7 @@ Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
         { Test-AdoPipelineTriggerGlob -OutputFolder (Join-Path $TestDrive 'ado') } | Should -Not -Throw
     }
 
-    It 'throws once listing every drifted and missing pipeline' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every drifted and missing pipeline' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Test-Path -ParameterFilter { $LiteralPath -like '*cd-widget.yaml' } { $false } -ModuleName Catzc.Base.Globs
         Mock Get-PipelineTrigger {
             [pscustomobject]@{ TriggerInclude = @('lib/**', 'oops/**'); TriggerExclude = @('lib/gen/**'); PrInclude = @('lib/**'); PrExclude = @('lib/gen/**') }
@@ -35,7 +35,7 @@ Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -Match 'widget: pipeline file not found: pipelines/cd-widget\.yaml'
     }
 
-    It 'names every drifted filter of a pipeline under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'names every drifted filter of a pipeline under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Get-PipelineTrigger {
             [pscustomobject]@{ TriggerInclude = @('lib/**'); TriggerExclude = @(); PrInclude = @('other/**'); PrExclude = @('lib/gen/**') }
         } -ModuleName Catzc.Base.Globs

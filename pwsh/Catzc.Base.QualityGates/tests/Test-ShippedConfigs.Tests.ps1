@@ -54,7 +54,7 @@ Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
         $message | Should -BeLike '*TstWidget/configs/widget.yml: does not load — widget.yml: size is required*'
     }
 
-    Context 'the shipped file shows its type''s defaults' -Tag 'ADR-AUTO-DEFAULT#6' {
+    Context 'the shipped file shows its type''s defaults' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         # A real type with a Default<Key> constant: VariantsConfig declares DefaultAdoNaming = 'standard'.
         AfterEach {
             [System.IO.File]::WriteAllText($script:widgetFile, '')

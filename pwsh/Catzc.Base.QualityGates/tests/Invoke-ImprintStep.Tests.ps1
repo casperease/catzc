@@ -1,4 +1,4 @@
-Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
+Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-adapter-repo'))
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' }; powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') } } })
@@ -92,7 +92,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $script:helpText
         }
 
-        It 'returns a finding only a person can settle as a file to repair, and still writes no file' -Tag 'ADR-REPO-HELP#4' {
+        It 'returns a finding only a person can settle as a file to repair, and still writes no file' -Tag 'ADR-REPO-HELP-FIVEFAULTSREPORTED' {
             $broken = $script:pageText.Replace("### parameter ``Widget```n`nThe widget.`n`n", '')
             [System.IO.File]::WriteAllText($script:helpPage, $broken)
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
@@ -104,7 +104,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             [System.IO.File]::ReadAllText($script:helpPage) | Should -BeExactly $broken
         }
 
-        It 'reports a function file that has no comment page' -Tag 'ADR-REPO-HELP#4' {
+        It 'reports a function file that has no comment page' -Tag 'ADR-REPO-HELP-FIVEFAULTSREPORTED' {
             Remove-Item -LiteralPath $script:helpPage
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
                 param($Root, $File)

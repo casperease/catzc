@@ -9,18 +9,18 @@ Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'makes a repository-rooted link relative to the page, keeping its fragment' -Tag 'ADR-REPO-LINK#2' {
+    It 'makes a repository-rooted link relative to the page, keeping its fragment' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         ConvertTo-Markdown 'Pinned by [ADR-TST-WIDGET#2](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget2).' |
             Should -BeExactly 'Pinned by [ADR-TST-WIDGET#2](../../adr/repository/widget-thing.md#rule-adr-tst-widget2).'
         ConvertTo-Markdown 'See [gadget](/docs/references/widgets/gadget.md).' | Should -BeExactly 'See [gadget](gadget.md).'
     }
 
-    It 'leaves a relative link, an autolink, and a code span as written' -Tag 'ADR-REPO-LINK#2' {
+    It 'leaves a relative link, an autolink, and a code span as written' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         $note = 'See [gadget](gadget.md), <https://example.com/widget>, and `[widget](/docs/widget.md)`.'
         ConvertTo-Markdown $note | Should -BeExactly $note
     }
 
-    It 'turns a bare address into an autolink, leaving trailing punctuation outside' -Tag 'ADR-REPO-LINK#7' {
+    It 'turns a bare address into an autolink, leaving trailing punctuation outside' -Tag 'ADR-REPO-LINK-OFFREPOSITORYURLS' {
         ConvertTo-Markdown 'Spec: https://example.com/widget/gadget.' | Should -BeExactly 'Spec: <https://example.com/widget/gadget>.'
     }
 

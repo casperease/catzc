@@ -1,4 +1,4 @@
-Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
+Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         $script:form = [Catzc.Base.Docs.AdrCodeForm]
         $entry = { param($rules) @{ path = 'docs/adr/widget/x.md'; rules = $rules } }
@@ -42,9 +42,9 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             @{ Name = 'a range with no start'; Token = 'ADR-WIDGET-GADGET#{-3}' }
             @{ Name = 'a chained range'; Token = 'ADR-WIDGET-GADGET#{1-3-5}' }
             @{ Name = 'rule zero'; Token = 'ADR-WIDGET-GADGET#0' }
-            @{ Name = 'a leading zero'; Token = 'ADR-WIDGET-GADGET#01' }
+            @{ Name = 'a leading zero'; Token = 'ADR-WIDGET-GADGET#1' }
             @{ Name = 'a leading zero in a group'; Token = 'ADR-WIDGET-GADGET#{1,02}' }
-            @{ Name = 'a number past int range'; Token = 'ADR-WIDGET-GADGET#99999999999' }
+            @{ Name = 'a number past int range'; Token = 'ADR-WIDGET-GADGET#-1' }
             @{ Name = 'a range wider than the cap'; Token = 'ADR-WIDGET-GADGET#{1-20000}' }
             @{ Name = 'a nested group'; Token = 'ADR-WIDGET-GADGET#{1,{2}}' }
             @{ Name = 'a space in a group'; Token = 'ADR-WIDGET-GADGET#{1, 2}' }

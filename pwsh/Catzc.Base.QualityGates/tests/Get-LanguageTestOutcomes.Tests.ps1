@@ -83,7 +83,7 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'throws for a language the registry gives no test runner, naming it' -Tag 'ADR-AUTO-MODULE#6' {
+    It 'throws for a language the registry gives no test runner, naming it' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
         { Invoke-Outcomes -Language json } | Should -Throw "*Language 'json' declares no tests entry in languages.yml*"
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 0
     }

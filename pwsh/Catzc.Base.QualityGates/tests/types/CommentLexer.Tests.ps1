@@ -8,7 +8,7 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'finds PowerShell line comments and help blocks, not a # inside a string or a here-string' -Tag 'ADR-REPO-LINK#1' {
+    It 'finds PowerShell line comments and help blocks, not a # inside a string or a here-string' -Tag 'ADR-REPO-LINK-KINDBYFILE' {
         $source = @(
             '<#'
             '.SYNOPSIS'
@@ -25,7 +25,7 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
         $found[1] | Should -BeExactly '# widget comment'
     }
 
-    It 'finds C# //, ///, and /* */ comments, never the same text inside a string' -Tag 'ADR-REPO-LINK#1' {
+    It 'finds C# //, ///, and /* */ comments, never the same text inside a string' -Tag 'ADR-REPO-LINK-KINDBYFILE' {
         $source = @(
             '/// <summary>Widget.</summary>'
             'var url = "http://gadget"; // trailing'
@@ -41,7 +41,7 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
         $found | Should -Be @('/// <summary>Widget.</summary>', '// trailing', "/* block`n   widget */")
     }
 
-    It 'finds YAML comments, not a # inside a quoted scalar or a block scalar' -Tag 'ADR-REPO-LINK#1' {
+    It 'finds YAML comments, not a # inside a quoted scalar or a block scalar' -Tag 'ADR-REPO-LINK-KINDBYFILE' {
         $source = @(
             '# widget header'
             'key: "a # b"   # trailing'
@@ -56,12 +56,12 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
         $found | Should -Be @('# widget header', '# trailing', '# gadget footer')
     }
 
-    It 'finds XML comments in a project file' -Tag 'ADR-REPO-LINK#1' {
+    It 'finds XML comments in a project file' -Tag 'ADR-REPO-LINK-KINDBYFILE' {
         $found = @(& $commentTexts '<Project><!-- widget --><PropertyGroup /></Project>' '.csproj')
         $found | Should -Be @('<!-- widget -->')
     }
 
-    It 'returns PowerShell string literals as data spans' -Tag 'ADR-REPO-LINK#6' {
+    It 'returns PowerShell string literals as data spans' -Tag 'ADR-REPO-LINK-STRINGSAREDATA' {
         $source = "`$path = 'docs/adr/widget.md'   # see gadget"
         $strings = @(foreach ($span in [Catzc.Base.QualityGates.CommentLexer]::PowerShellStrings($source)) {
                 $source.Substring($span.Item1, $span.Item2)
@@ -79,7 +79,7 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'returns C# regular, verbatim, interpolated, and raw literals, never a comment' -Tag 'ADR-REPO-LINK#6' {
+        It 'returns C# regular, verbatim, interpolated, and raw literals, never a comment' -Tag 'ADR-REPO-LINK-STRINGSAREDATA' {
             $source = @(
                 'var a = "widget"; // "not data"'
                 'var b = @"gad""get";'
@@ -89,12 +89,12 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
             @(& $stringTexts $source '.cs') | Should -Be @('"widget"', '@"gad""get"', '$"sp{x}"', '"""raw"""')
         }
 
-        It 'returns a YAML line''s text before its comment, and a block scalar''s lines' -Tag 'ADR-REPO-LINK#6' {
+        It 'returns a YAML line''s text before its comment, and a block scalar''s lines' -Tag 'ADR-REPO-LINK-STRINGSAREDATA' {
             $source = (@('widget: one   # a comment', '# only a comment', 'gadget: |', '  line two', '') -join "`n")
             @(& $stringTexts $source '.yml') | Should -Be @('widget: one', 'gadget: |', 'line two')
         }
 
-        It 'returns nothing for XML' -Tag 'ADR-REPO-LINK#6' {
+        It 'returns nothing for XML' -Tag 'ADR-REPO-LINK-STRINGSAREDATA' {
             @(& $stringTexts '<Project Name="widget" />' '.csproj') | Should -HaveCount 0
         }
     }

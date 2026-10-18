@@ -35,7 +35,7 @@ Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#4' {
+Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING-CSHARPCONFIGTYPE' {
     It 'Test-AdrRegistry reports no issue: one ADR file per rule set, headed by its external code, none unregistered' {
         (Test-AdrRegistry -PassThru -OutputFolder (Join-Path $TestDrive 'adr-registry')).IssueCount | Should -Be 0
     }

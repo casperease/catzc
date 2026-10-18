@@ -1,4 +1,4 @@
-Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-REPO-CODEMETA#3' {
+Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-CODEMETA-SAMEENGINE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'engine-repository'
         $carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{
@@ -113,7 +113,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $markdown.Fixed | Should -Not -BeLike '*module:*' -Because 'the module kind lists widgets/** only'
     }
 
-    It 'nests a block at the key path its carrier names, keeps the authored config there, and reports a parent it cannot nest under' -Tag 'ADR-REPO-FILEMETA#1' {
+    It 'nests a block at the key path its carrier names, keeps the authored config there, and reports a parent it cannot nest under' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/skills/widget-spin')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/skills/widget-flow')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/skills/widget-spin/SKILL.md'), "---`nname: widget-spin`nmetadata:`n  catzc:`n    config:`n      floor: low`n---`n1. Spin.`n")
@@ -219,7 +219,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         @($result.Files).Count | Should -Be 0
     }
 
-    Context 'the head policy' -Tag 'ADR-REPO-FILEMETA#1' {
+    Context 'the head policy' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         It 'strips the block of a file whose class the policy forbids one, and leaves the code as it was' {
             $text = "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)

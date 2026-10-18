@@ -1,4 +1,4 @@
-Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#4' {
+Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:root = $root
@@ -41,7 +41,7 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#4' {
         { Test-Slides -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Throw '*Test-Slides failed: 1 issue(s)*'
     }
 
-    It 'fails fast on a path that is neither a slide file nor a deck folder' -Tag 'ADR-AUTO-FAILFAST#1' {
+    It 'fails fast on a path that is neither a slide file nor a deck folder' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
         { Test-Slides -Path 'docs/decks/missing' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Throw '*neither a slide file nor a deck folder*'
     }
 }

@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-GeneratedReadmes, the quality gate that checks every
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GeneratedReadmes, the quality gate that checks every
 # generated README is gitignored, untracked and current, and returns its result under -PassThru.
 parameters:
   OutputFolder: string

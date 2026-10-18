@@ -2,7 +2,7 @@ concepts:
   slide file:
     key: slide_file
     domain: repository
-    defined_by: ADR-REPO-SLIDES#1
+    defined_by: ADR-REPO-SLIDES-SLIDEFILE
     short:
       One markdown file per slide, `<stem>.slide.md`, in a deck folder under docs/explanation; its level-one heading is the title, each
       level-two heading a field, and its head names the pattern, the deck and the order.
@@ -12,7 +12,7 @@ concepts:
   deck file:
     key: deck_file
     domain: repository
-    defined_by: ADR-REPO-SLIDES#1
+    defined_by: ADR-REPO-SLIDES-SLIDEFILE
     short: The `deck.md` of a deck folder — the deck's title and its sections, beside the slide files it gathers.
     realized_by: { kind: prose-only }
     contrasts:
@@ -20,7 +20,7 @@ concepts:
   field:
     key: field
     domain: repository
-    defined_by: ADR-REPO-SLIDES#1
+    defined_by: ADR-REPO-SLIDES-SLIDEFILE
     short: One level-two heading of a slide file and the text under it, filled into the placeholder of the same name in the slide's pattern.
     realized_by: { kind: prose-only }
     avoid:
@@ -28,7 +28,7 @@ concepts:
   pattern:
     key: pattern
     domain: repository
-    defined_by: ADR-REPO-SLIDES#2
+    defined_by: ADR-REPO-SLIDES-PATTERN
     short:
       One `.claude/slides/patterns/<name>.html` file — a section in the slide format whose placeholders name the fields it takes and which
       are required; the layout of one kind of slide.

@@ -1,4 +1,4 @@
-Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
+Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'help-repository'
         $script:codePath = 'widgets/Catzc.Widget/Get-Widget.ps1'
@@ -34,7 +34,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
             Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Widget.ps1`n---`n#>`n`nfunction Get-Widget {`n    param([string] `$Name)`n}`n"
     }
 
-    It 'puts the help before the comment sections of an existing page and keeps them as they are' -Tag 'ADR-REPO-COMMENTS#6' {
+    It 'puts the help before the comment sections of an existing page and keeps them as they are' -Tag 'ADR-REPO-COMMENTS-PAGEISAUTHORED' {
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot ([System.IO.Path]::GetDirectoryName($script:pagePath)))) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:pagePath), "# t`n`nThe intro.`n`n## comment:1`n`nAbove ``x``.`n")
         & $script:move | Out-Null
@@ -63,7 +63,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         [System.IO.File]::Exists((Join-Path $script:widgetRoot $script:pagePath)) | Should -BeFalse
     }
 
-    It 'keeps each code it is handed as a real link in the description, after any description there is' -Tag 'ADR-REPO-FILEMETA#14' {
+    It 'keeps each code it is handed as a real link in the description, after any description there is' -Tag 'ADR-REPO-FILEMETA-NOREADBACK' {
         $links = '[ADR-WIDGET#1](/docs/adr/widget.md#rule-adr-widget1)', '[ADR-GADGET](/docs/adr/gadget.md)'
         $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Path = $script:codePath; Links = $links } {
             param($Root, $Path, $Links)
@@ -89,7 +89,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         }
     }
 
-    It 'computes both texts under -DryRun and writes neither file' -Tag 'ADR-AUTO-DRYRUN#2' {
+    It 'computes both texts under -DryRun and writes neither file' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
         $result = & $script:move -DryRun
         $result.Moved | Should -BeTrue
         $result.PageText | Should -BeLike '*## help*'

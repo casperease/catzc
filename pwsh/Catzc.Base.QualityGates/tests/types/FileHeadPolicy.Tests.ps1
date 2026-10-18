@@ -1,5 +1,5 @@
-Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
-    It 'forbids a block by default, declared once on the type' -Tag 'ADR-AUTO-DEFAULT#6' {
+Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
+    It 'forbids a block by default, declared once on the type' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $policy = [Catzc.Base.QualityGates.FileHeadPolicy]::new($null)
         $policy.default | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         [Catzc.Base.QualityGates.FileHeadPolicy]::DefaultPolicy | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
@@ -28,7 +28,7 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
         { [Catzc.Base.QualityGates.FileHeadPolicy]::new(@{ fallback = 'required' }) } | Should -Throw '*unknown key ''fallback''*'
     }
 
-    It 'is read from the head_policy key of the meta-kind registry' -Tag 'ADR-REPO-FILEMETA#2' {
+    It 'is read from the head_policy key of the meta-kind registry' -Tag 'ADR-REPO-FILEMETA-METAKIND' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ classes = @{ widget = 'required' } } })
         $config.PolicyFor('widget') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Required)
         $config.PolicyFor('gadget') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)

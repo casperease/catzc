@@ -35,7 +35,7 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs { $script:glossaryCache = $null }
     }
 
-    It 'merges every source''s concepts, each with its owner, source path, and that source''s options' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'merges every source''s concepts, each with its owner, source path, and that source''s options' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $glossary = Get-Glossary
         $glossary.Count | Should -Be 3
         $widget = $glossary | Where-Object { $_.Concept.term -eq 'widget suite' }

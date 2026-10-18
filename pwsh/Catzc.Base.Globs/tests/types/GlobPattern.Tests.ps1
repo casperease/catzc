@@ -55,7 +55,7 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the constructor guard (ADR-FLOW-CD-GLOBS#3)' {
+    Context 'the constructor guard (ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED)' {
         It 'rejects <why>: <pattern>' -ForEach @(
             @{ pattern = ''; why = 'an empty pattern' }
             @{ pattern = '   '; why = 'a whitespace pattern' }

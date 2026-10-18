@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
-// Rests on [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6).
+// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Name), nameof(Spec))]
 public sealed class ContractParameter
 {

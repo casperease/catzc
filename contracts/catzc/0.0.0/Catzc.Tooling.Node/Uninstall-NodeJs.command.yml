@@ -1,6 +1,6 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Uninstall-NodeJs, which uninstalls Node.js through the platform
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-NodeJs, which uninstalls Node.js through the platform
 # package manager. Version defaults to the version tools.yml locks, a computed default the contract does not restate; Remove escalates
-# to Remove-NodeJs for an off-config install, and Force confirms that destructive step (ADR-AUTO-REMOVE#4).
+# to Remove-NodeJs for an off-config install, and Force confirms that destructive step (ADR-AUTO-REMOVE-DOUBLYGUARDED).
 parameters:
   Version: string
   Remove: switch

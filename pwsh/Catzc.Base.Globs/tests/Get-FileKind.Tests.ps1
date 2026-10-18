@@ -1,4 +1,4 @@
-Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
+Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     It 'names the role of a file in the shipped registry' -ForEach @(
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Get-Track.ps1'; Class = 'function' }
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Test-GitWorkspace.ps1'; Class = 'function/gate' }

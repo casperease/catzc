@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT#6' {
+Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)
@@ -24,7 +24,7 @@ Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEF
         $config.names.Count | Should -Be 6
     }
 
-    It 'honours a declared folder, roof, set and pattern' -Tag 'ADR-REPO-PLANS#2' {
+    It 'honours a declared folder, roof, set and pattern' -Tag 'ADR-REPO-PLANS-PLANHEAD' {
         $config = [Catzc.Base.QualityGates.PlansConfig]::new([ordered]@{
                 folder   = 'widgets/plans/'
                 statuses = @('active')
@@ -38,7 +38,7 @@ Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEF
         $config.Accepts('plan-one.md') | Should -BeFalse
     }
 
-    It 'accepts the shipped name forms and refuses a name that carries an order' -Tag 'ADR-REPO-PLANS#8' -ForEach @(
+    It 'accepts the shipped name forms and refuses a name that carries an order' -Tag 'ADR-REPO-PLANS-MASTERANDTASKS' -ForEach @(
         @{ Name = 'plan-widget-gadget.md'; Accepted = $true }
         @{ Name = 'prompt-widget-continue.md'; Accepted = $true }
         @{ Name = 'prompt-widget-2-implement.md'; Accepted = $true }

@@ -1,4 +1,4 @@
-Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
+Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     BeforeAll {
         function Get-SchemaFinding {
             param([string] $Schema, [string] $Value)

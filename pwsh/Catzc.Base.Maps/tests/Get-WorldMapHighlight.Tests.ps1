@@ -71,7 +71,7 @@ Describe 'Get-WorldMapHighlight — the real repository' -Tag 'L1', 'integrity',
         @((Get-WorldMapHighlight -Adr 'ADR-FLOW-CD').Cells).Count | Should -BeGreaterThan 0
     }
 
-    It 'lights, as an ADR file, only the requested ADR''s own file' -Tag 'ADR-DSGN-TRACK#12' {
+    It 'lights, as an ADR file, only the requested ADR''s own file' -Tag 'ADR-DSGN-TRACK-LITCELL' {
         $citations = Get-AdrCitationMap
         # Codes taken from the registry, not spelled here, so this test cites no ADR and lights no minimap itself.
         $ruleSets = @(Get-AdrRuleSet | Where-Object { $citations.PathOf($_.External) })

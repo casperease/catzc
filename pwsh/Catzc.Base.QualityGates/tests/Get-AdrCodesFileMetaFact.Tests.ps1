@@ -1,4 +1,4 @@
-Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         # The one fixture kind below is a code file, so its class is what the kind's settings name.
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
@@ -75,7 +75,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     }
 
     It 'drops a rule number past int range instead of throwing' {
-        $codes = Get-Codes "See ADR-GADGET#99999999999 and ADR-GADGET#4.`n"
+        $codes = Get-Codes "See ADR-GADGET#-1 and ADR-GADGET#4.`n"
         $codes | Should -Be @('ADR-GADGET#4')
     }
 
@@ -151,24 +151,24 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             }
         }
 
-        It 'derives the codes from the text alone and never keeps one the head lists' -Tag 'ADR-REPO-FILEMETA#14', 'ADR-REPO-CODEMETA#2' {
+        It 'derives the codes from the text alone and never keeps one the head lists' -Tag 'ADR-REPO-FILEMETA-NOREADBACK', 'ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY' {
             $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD#1`n      - ADR-GADGET#4`n---`n*/`n`n// ADR-GADGET#4 and ADR-WIDGET#2`nclass Widget {}`n"
             (Get-CodeCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-WIDGET#2')
         }
 
-        It 'gives the same codes whether the file has a head or not' -Tag 'ADR-REPO-FILEMETA#14' {
+        It 'gives the same codes whether the file has a head or not' -Tag 'ADR-REPO-FILEMETA-NOREADBACK' {
             $withHead = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET#2`nclass Widget {}`n"
             $without = "// ADR-WIDGET#2`nclass Widget {}`n"
             (Get-CodeCodes $withHead) | Should -Be (Get-CodeCodes $without)
         }
 
-        It 'writes the rules the text cites in the minimal form' -Tag 'ADR-REPO-CODEMETA#2' {
+        It 'writes the rules the text cites in the minimal form' -Tag 'ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY' {
             $text = "// ADR-GADGET#2, ADR-GADGET#3 and ADR-GADGET#4`nclass Widget {}`n"
             (Get-CodeCodes $text) | Should -Be @('ADR-GADGET#{2-4}')
         }
     }
 
-    It 'takes domain_classes from the classes the kind selects when it is not set' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-REPO-CODEMETA#2' {
+    It 'takes domain_classes from the classes the kind selects when it is not set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY' {
         $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
             }).kinds[0]

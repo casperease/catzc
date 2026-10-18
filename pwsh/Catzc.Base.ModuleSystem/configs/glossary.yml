@@ -2,7 +2,7 @@ concepts:
   deployable-unit:
     key: deployable_unit
     domain: design
-    defined_by: ADR-DSGN-TRACK#5
+    defined_by: ADR-DSGN-TRACK-DEPLOYABLEUNIT
     short: What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
     realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs.yml" }
     contrasts:
@@ -15,7 +15,7 @@ concepts:
   release candidate:
     key: release_candidate
     domain: flow
-    defined_by: ADR-FLOW-CD#14
+    defined_by: ADR-FLOW-CD-RELEASECANDIDATE
     short: The immutable, tagged artifact a CI component builds from one commit — versioned, never rebuilt, promotable toward production.
     realized_by: { kind: prose-only }
     contrasts:
@@ -34,7 +34,7 @@ concepts:
   published artifact:
     key: published_artifact
     domain: automation
-    defined_by: ADR-AUTO-PATH#10
+    defined_by: ADR-AUTO-PATH-PUBLISHEDARTIFACT
     short: A file one stage produces and a later stage downloads and consumes — carried by ArtifactRef, anchored on its artifact root.
     realized_by: { kind: type, pattern: "Catzc.Base.Objects.ArtifactRef" }
     contrasts:
@@ -46,7 +46,7 @@ concepts:
   occupant:
     key: occupant
     domain: design
-    defined_by: ADR-DSGN-LIFE#5
+    defined_by: ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
     short: The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
     realized_by: { kind: prose-only }
     contrasts:
@@ -59,7 +59,7 @@ concepts:
   unordered track:
     key: unordered_track
     domain: design
-    defined_by: ADR-DSGN-TRACK#17
+    defined_by: ADR-DSGN-TRACK-UNORDEREDTRACK
     short:
       The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads or
       falls back to it.
@@ -67,7 +67,7 @@ concepts:
   import:
     key: import
     domain: design
-    defined_by: ADR-DSGN-TRACK#17
+    defined_by: ADR-DSGN-TRACK-UNORDEREDTRACK
     short: Bringing an outside repository into this one with its full history, at one landing address.
     realized_by: { kind: function, pattern: "Import-RepositoryWithHistory" }
     contrasts:
@@ -76,7 +76,7 @@ concepts:
   landing address:
     key: landing_address
     domain: design
-    defined_by: ADR-DSGN-TRACK#17
+    defined_by: ADR-DSGN-TRACK-UNORDEREDTRACK
     short: The folder `.unordered/<name>` an import lands at, named by a short kebab word unique among the addresses.
     realized_by: { kind: prose-only }
     contrasts:
@@ -85,13 +85,13 @@ concepts:
   sorting:
     key: sorting
     domain: design
-    defined_by: ADR-DSGN-TRACK#17
+    defined_by: ADR-DSGN-TRACK-UNORDEREDTRACK
     short: Moving a file from its landing address to its module or track with `git mv`, so its history follows.
     realized_by: { kind: prose-only }
   track:
     key: track
     domain: design
-    defined_by: ADR-DSGN-TRACK#1
+    defined_by: ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
     short:
       A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one
       track type.
@@ -118,7 +118,7 @@ concepts:
   module:
     key: module
     domain: design
-    defined_by: ADR-DSGN-MODTYPE#1
+    defined_by: ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT
     short: A named unit placed in a track — a folder or one file, found by where its files stand — resolved through its track.
     realized_by: { kind: type, pattern: "Catzc.Base.Modules.Module" }
     contrasts:
@@ -127,7 +127,7 @@ concepts:
   layout:
     key: layout
     domain: automation
-    defined_by: ADR-AUTO-MODULE#2
+    defined_by: ADR-AUTO-MODULE-EXISTSBYLAYOUT
     short:
       The one table of folders inside a module and what each holds, declared once under each file language and read by every command that
       reads a module's folders.
@@ -137,7 +137,7 @@ concepts:
   track type:
     key: track_type
     domain: design
-    defined_by: ADR-DSGN-TRACKTYPE#1
+    defined_by: ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
     short:
       The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
       documentation, verification, or unordered.
@@ -149,7 +149,7 @@ concepts:
   deployable track:
     key: deployable_track
     domain: design
-    defined_by: ADR-DSGN-TRACKTYPE#2
+    defined_by: ADR-DSGN-TRACKTYPE-ONEROLE
     short: A track whose type owns deployable-units — collections of its modules that the repository delivers through CI/CD.
     realized_by: { kind: prose-only }
     contrasts:
@@ -158,7 +158,7 @@ concepts:
   holder track:
     key: holder_track
     domain: design
-    defined_by: ADR-DSGN-TRACKTYPE#2
+    defined_by: ADR-DSGN-TRACKTYPE-ONEROLE
     short:
       A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its
       own.
@@ -169,7 +169,7 @@ concepts:
   vendor:
     key: vendor
     domain: design
-    defined_by: ADR-DSGN-TRACKTYPE#3
+    defined_by: ADR-DSGN-TRACKTYPE-OPTIONALVENDOR
     short: The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
     realized_by: { kind: prose-only }
     contrasts:
@@ -179,7 +179,7 @@ concepts:
   vendored code:
     key: vendored_code
     domain: design
-    defined_by: ADR-DSGN-TRACKTYPE#7
+    defined_by: ADR-DSGN-TRACKTYPE-VENDOREDCODE
     short: Code written by a third party that the repository does not author, held in a track of its own nested under another track's root.
     realized_by: { kind: prose-only }
     contrasts:
@@ -187,7 +187,7 @@ concepts:
   place:
     key: place
     domain: design
-    defined_by: ADR-DSGN-TRACK#1
+    defined_by: ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
     short:
       A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file
       names its track.
@@ -197,7 +197,7 @@ concepts:
   root file:
     key: root_file
     domain: design
-    defined_by: ADR-DSGN-TRACK#7
+    defined_by: ADR-DSGN-TRACK-ROOTFILE
     short: A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
     realized_by: { kind: prose-only }
     contrasts:
@@ -208,7 +208,7 @@ concepts:
   file language:
     key: file_language
     domain: design
-    defined_by: ADR-DSGN-TRACK#6
+    defined_by: ADR-DSGN-TRACK-FILELANGUAGE
     short:
       The language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python; a track's
       tech-stack is a set of them.
@@ -231,7 +231,7 @@ concepts:
   unlisted file:
     key: unlisted_file
     domain: design
-    defined_by: ADR-DSGN-TRACK#8
+    defined_by: ADR-DSGN-TRACK-UNLISTEDFILE
     short: A tracked file no file language names — no extension, or one no entry lists — the world map's own column.
     realized_by: { kind: prose-only }
     contrasts:
@@ -244,7 +244,7 @@ concepts:
   world map:
     key: world_map
     domain: design
-    defined_by: ADR-DSGN-TRACK#9
+    defined_by: ADR-DSGN-TRACK-WORLDMAP
     short:
       The repository drawn as tracks crossed with file languages, plus a row for the root files and a column for the unlisted files — every
       tracked file in exactly one cell.
@@ -258,7 +258,7 @@ concepts:
   cell:
     key: cell
     domain: design
-    defined_by: ADR-DSGN-TRACK#10
+    defined_by: ADR-DSGN-TRACK-CELL
     short:
       One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's
       ADRs of one row of the value-chain stack in one value-chain concern.
@@ -273,7 +273,7 @@ concepts:
   value-chain stack:
     key: value_chain_stack
     domain: design
-    defined_by: ADR-DSGN-TRACK#14
+    defined_by: ADR-DSGN-TRACK-VALUECHAINSTACK
     short:
       The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares one.
     realized_by: { kind: prose-only }
@@ -286,7 +286,7 @@ concepts:
   value-chain concern:
     key: value_chain_concern
     domain: design
-    defined_by: ADR-DSGN-TRACK#15
+    defined_by: ADR-DSGN-TRACK-VALUECHAINCONCERN
     short:
       Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an
       override per ADR.
@@ -298,7 +298,7 @@ concepts:
   value-chain map:
     key: value_chain_map
     domain: design
-    defined_by: ADR-DSGN-TRACK#16
+    defined_by: ADR-DSGN-TRACK-VALUECHAINMAP
     short:
       The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the
       value chain.
@@ -311,9 +311,9 @@ concepts:
   stack violation:
     key: stack_violation
     domain: design
-    defined_by: ADR-DSGN-TRACK#11
+    defined_by: ADR-DSGN-TRACK-STACKVIOLATION
     short:
-      A world-map cell holding a live file whose file language its track does not declare — the second tech-stack ADR-DSGN-TRACK#3 forbids.
+      A world-map cell holding a live file whose file language its track does not declare — the second tech-stack ADR-DSGN-TRACK-ONETECHSTACK forbids.
     realized_by: { kind: prose-only }
     contrasts:
       cell: A cell is any intersection of the world map; a stack violation is a cell that breaks its track's tech-stack.
@@ -325,7 +325,7 @@ concepts:
   lit cell:
     key: lit_cell
     domain: design
-    defined_by: ADR-DSGN-TRACK#12
+    defined_by: ADR-DSGN-TRACK-LITCELL
     short:
       A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells
       an ADR sits in.
@@ -337,7 +337,7 @@ concepts:
   importer:
     key: importer
     domain: automation
-    defined_by: ADR-AUTO-IMPORTER#1
+    defined_by: ADR-AUTO-IMPORTER-ONEENTRY
     short:
       The one way catzc enters a session, one entry per execution engine at the repository root, which decides the mix of languages, engines
       and modules the session loads.

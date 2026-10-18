@@ -1,4 +1,4 @@
-Describe 'AdrIndexConfig' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
+Describe 'AdrIndexConfig' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     It 'holds the preamble and the conventions as written' {
         $config = [Catzc.Base.Docs.AdrIndexConfig]::new([ordered]@{ preamble = "# Widget index`n"; conventions = "## Gadget rules`n" })
         $config.preamble | Should -BeExactly "# Widget index`n"

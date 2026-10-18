@@ -2,7 +2,7 @@ concepts:
   verification track:
     key: verification_track
     domain: design
-    defined_by: ADR-DSGN-TRACK#2
+    defined_by: ADR-DSGN-TRACK-ONETRACKTYPE
     short:
       A test-only track — it verifies the core from outside, ships nothing, and is out of every bundle by construction; go is the first.
     realized_by: { kind: prose-only }
@@ -13,7 +13,7 @@ concepts:
   go test module:
     key: go_test_module
     domain: automation
-    defined_by: ADR-AUTO-GO#2
+    defined_by: ADR-AUTO-GO-ONEGOROOT
     short:
       The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its
       black-box Go tests.
@@ -21,7 +21,7 @@ concepts:
   python test folder:
     key: python_test_folder
     domain: automation
-    defined_by: ADR-AUTO-PY#2
+    defined_by: ADR-AUTO-PY-ONEPYTHONROOT
     short:
       The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box
       Python tests; each is a member of the one generated uv workspace.
@@ -29,7 +29,7 @@ concepts:
   bash test folder:
     key: bash_test_folder
     domain: automation
-    defined_by: ADR-AUTO-BASH#2
+    defined_by: ADR-AUTO-BASH-ONEBASHROOT
     short:
       The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box
       `.bats` tests, which call catzc through `importer.sh` and `cats`.

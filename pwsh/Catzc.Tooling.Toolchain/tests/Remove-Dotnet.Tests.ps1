@@ -1,4 +1,4 @@
-Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
+Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
     BeforeEach {
         if (-not $IsWindows) {
             return
@@ -42,7 +42,7 @@ Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Message -like 'Would remove:*' }
     }
 
-    It 'never deletes a machine folder registered products own, and names their uninstall commands' -Tag 'ADR-AUTO-REMOVE#7' {
+    It 'never deletes a machine folder registered products own, and names their uninstall commands' -Tag 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_removal'; return
         }
@@ -57,7 +57,7 @@ Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  "C:\gadget\setup.exe" /uninstall /quiet*`[Other`]' }
     }
 
-    It 'names only the installer bundles while any is registered — they take the MSI products they hold with them' -Tag 'ADR-AUTO-REMOVE#7' {
+    It 'names only the installer bundles while any is registered — they take the MSI products they hold with them' -Tag 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_removal'; return
         }

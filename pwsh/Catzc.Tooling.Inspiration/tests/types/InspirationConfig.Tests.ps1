@@ -1,4 +1,4 @@
-Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE#5' {
+Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE-DECLAREDINSPIRATION' {
     BeforeAll {
         function New-Entry {
             param(

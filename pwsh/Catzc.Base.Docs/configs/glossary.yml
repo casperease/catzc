@@ -2,7 +2,7 @@ concepts:
   domain rules:
     key: domain_rules
     domain: repository
-    defined_by: ADR-REPO-VOCAB#7
+    defined_by: ADR-REPO-VOCAB-DOMAINRULES
     short: The repository's conventions and decision records — its ADRs and the rules they state.
     realized_by: { kind: prose-only }
     avoid:
@@ -10,7 +10,7 @@ concepts:
   workstream:
     key: workstream
     domain: repository
-    defined_by: ADR-REPO-OUTDIR#10
+    defined_by: ADR-REPO-OUTDIR-PLANNOTES
     short:
       One labeled section of a plan's work breakdown (`out/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one
       change.
@@ -18,7 +18,7 @@ concepts:
   robot:
     key: robot
     domain: repository
-    defined_by: ADR-REPO-AGENTS#6
+    defined_by: ADR-REPO-AGENTS-ROBOTBODYLIMIT
     short:
       A sub-agent in its minimal form — a body of at most the roof's lines on a named model, loading shared know-how from capabilities
       instead of carrying it.
@@ -26,7 +26,7 @@ concepts:
   capability:
     key: capability
     domain: repository
-    defined_by: ADR-REPO-AGENTS#8
+    defined_by: ADR-REPO-AGENTS-CAPABILITYFILE
     short:
       One `.claude/skills/<domain>-<job>/SKILL.md` file a robot preloads through its `skills` list — at most the roof's lines, with a model
       floor declared once in its metadata.
@@ -34,13 +34,13 @@ concepts:
   model floor:
     key: model_floor
     domain: repository
-    defined_by: ADR-REPO-AGENTS#7
+    defined_by: ADR-REPO-AGENTS-NAMEDMODEL
     short: The lowest model that performs a capability's steps reliably; no robot that preloads the capability runs below it.
     realized_by: { kind: prose-only }
   domain:
     key: domain
     domain: repository
-    defined_by: ADR-REPO-FOLDERS#5
+    defined_by: ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
     short: A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
     realized_by: { kind: prose-only }
     forms:
@@ -70,7 +70,7 @@ concepts:
   language zone:
     key: language_zone
     domain: repository
-    defined_by: ADR-REPO-LANG#1
+    defined_by: ADR-REPO-LANG-THREEREGISTERS
     short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
     realized_by: { kind: prose-only }
     forms: [language, design, test, live, landing, dns, availability]
@@ -81,7 +81,7 @@ concepts:
   source:
     key: source
     domain: repository
-    defined_by: ADR-REPO-VOCAB#8
+    defined_by: ADR-REPO-VOCAB-FAMILYFORMS
     short:
       Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot
       source.
@@ -128,10 +128,10 @@ concepts:
   layer:
     key: layer
     domain: repository
-    defined_by: ADR-REPO-VOCAB#8
+    defined_by: ADR-REPO-VOCAB-FAMILYFORMS
     short:
       One stratum of a structure, always qualified — one of the five layers of the automation (automation, contract, language, engine,
-      importer; ADR-AUTO-LAYERS#6), or a globset layer (module, fileset).
+      importer; ADR-AUTO-LAYERS-REALISENEVERREDEFINE), or a globset layer (module, fileset).
     realized_by: { kind: prose-only }
     forms:
       [
@@ -176,7 +176,7 @@ concepts:
   facet:
     key: facet
     domain: repository
-    defined_by: ADR-REPO-VOCAB#8
+    defined_by: ADR-REPO-VOCAB-FAMILYFORMS
     short:
       One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or
       a module facet (disk, session).
@@ -188,7 +188,7 @@ concepts:
   scope:
     key: scope
     domain: repository
-    defined_by: ADR-REPO-VOCAB#8
+    defined_by: ADR-REPO-VOCAB-FAMILYFORMS
     short:
       What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a
       selection scope (verify, scan, content).
@@ -239,7 +239,7 @@ concepts:
   contract:
     key: contract
     domain: repository
-    defined_by: ADR-REPO-CONTRACT#1
+    defined_by: ADR-REPO-CONTRACT-BINDINGINTERFACE
     short:
       A binding interface at the repository boundary, held under contracts/ in either direction — provided or depended-on — and proven by
       its owning module's tests.
@@ -251,7 +251,7 @@ concepts:
   provided contract:
     key: provided_contract
     domain: repository
-    defined_by: ADR-REPO-CONTRACT#1
+    defined_by: ADR-REPO-CONTRACT-BINDINGINTERFACE
     short:
       A contract an outside consumer may rely on — the repository's only public API, kept while a consumer pins that version of its unit.
     realized_by: { kind: prose-only }
@@ -265,7 +265,7 @@ concepts:
   depended-on contract:
     key: depended_on_contract
     domain: repository
-    defined_by: ADR-REPO-CONTRACT#1
+    defined_by: ADR-REPO-CONTRACT-BINDINGINTERFACE
     short:
       A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a
       platform change is a new draft.
@@ -277,7 +277,7 @@ concepts:
   contract asset:
     key: contract_asset
     domain: repository
-    defined_by: ADR-REPO-CONTRACT#6
+    defined_by: ADR-REPO-CONTRACT-CONTRACTASSET
     short:
       One file in an owning module's folder of a unit's contracts/ version folder, whose path names the real file it constrains and whose
       name picks its kind — a fragment, a schema, a sample payload, or a command contract.
@@ -294,7 +294,7 @@ concepts:
   source of truth:
     key: source_of_truth
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH#1
+    defined_by: ADR-THES-ONETRUTH-ONESTOREDECIDES
     short:
       The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change
       process.
@@ -309,7 +309,7 @@ concepts:
   adjacent store:
     key: adjacent_store
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH#2
+    defined_by: ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
     short:
       The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
       trunk's pipelines and never edited beside it.
@@ -320,7 +320,7 @@ concepts:
   query surface:
     key: query_surface
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH#3
+    defined_by: ADR-THES-ONETRUTH-TRUTHISQUERYABLE
     short:
       The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state
       is answered.
@@ -328,7 +328,7 @@ concepts:
   product mono-repository:
     key: product_mono_repository
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH#4
+    defined_by: ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
     short:
       One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is
       one.
@@ -340,7 +340,7 @@ concepts:
   trunk:
     key: trunk
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH#4
+    defined_by: ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
     short:
       The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one
       commit with all its consumers.
@@ -352,7 +352,7 @@ concepts:
   pin:
     key: pin
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH#4
+    defined_by: ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
     short:
       An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an
       immutable artifact at build time.
@@ -365,7 +365,7 @@ concepts:
   config contribution:
     key: config_contribution
     domain: configuration
-    defined_by: ADR-CONF-MDCONTRIB#1
+    defined_by: ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
     short:
       One config value, a key path and its value, that an author states in the config part of a tracked Markdown file's meta block and that
       the config reader gathers into the config that opted in to it.
@@ -373,7 +373,7 @@ concepts:
   meta block:
     key: meta_block
     domain: repository
-    defined_by: ADR-REPO-FILEMETA#1
+    defined_by: ADR-REPO-FILEMETA-HEADPOLICY
     short:
       The facts the tooling owns about one tracked file, written into the file's carrier, which is the reserved front-matter key catzc of a
       Markdown file, at the top level or nested at the key path its carrier declares, or the meta head of a code file.
@@ -384,7 +384,7 @@ concepts:
   meta kind:
     key: meta_kind
     domain: repository
-    defined_by: ADR-REPO-FILEMETA#2
+    defined_by: ADR-REPO-FILEMETA-METAKIND
     short:
       One entry of the meta-kind registry, naming a kind of derived fact imprinted into files, or of config contribution gathered out of
       Markdown files, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
@@ -395,7 +395,7 @@ concepts:
   meta head:
     key: meta_head
     domain: repository
-    defined_by: ADR-REPO-CODEMETA#1
+    defined_by: ADR-REPO-CODEMETA-CODEFILEHEAD
     short:
       The leading comment of a code file, whose text is a front matter document with the catzc block, that holds the file's derived facts,
       so it is the form a meta block takes in a C# or PowerShell file.
@@ -408,7 +408,7 @@ concepts:
   materialization:
     key: materialization
     domain: automation
-    defined_by: ADR-AUTO-MATERIAL#1
+    defined_by: ADR-AUTO-MATERIAL-MATERIALIZATION
     short:
       When a knowledge resource comes into being and how long it holds, on-demand (made when asked, held for the call or the session) or
       commit (made at commit, keyed by the scoped sha of its inputs, never changing).
@@ -423,7 +423,7 @@ concepts:
   place facts:
     key: place_facts
     domain: repository
-    defined_by: ADR-REPO-FILEMETA#13
+    defined_by: ADR-REPO-FILEMETA-FILEISNODE
     short:
       The facts under the immutable part of a meta block, which are what the repository's own configuration makes of a file's location, such
       as its path, kind, language, track and module, each read from a registry and never from the file's text.
@@ -435,7 +435,7 @@ concepts:
   edge:
     key: meta_edge
     domain: repository
-    defined_by: ADR-REPO-FILEMETA#13
+    defined_by: ADR-REPO-FILEMETA-FILEISNODE
     short:
       One named relation under the edges part of a meta block, from the file to a rule code, a file or a URL, such as defines, cites, links,
       page or test, written on its source only.
@@ -447,7 +447,7 @@ concepts:
   role:
     key: file_role
     domain: repository
-    defined_by: ADR-REPO-FILEMETA#11
+    defined_by: ADR-REPO-FILEMETA-ROLE
     short:
       The part a file plays, such as a test, a function, a config or a decision record, named by the file-kinds registry and never by the
       file's language, track or module.
@@ -462,7 +462,7 @@ concepts:
   subkind:
     key: file_subkind
     domain: repository
-    defined_by: ADR-REPO-FILEMETA#11
+    defined_by: ADR-REPO-FILEMETA-ROLE
     short: The narrowing of a role, such as a gate among the functions, written under its role in the file-kinds registry.
     realized_by: { kind: prose-only }
     contrasts:
@@ -471,7 +471,7 @@ concepts:
   file type:
     key: file_type
     domain: repository
-    defined_by: ADR-REPO-FILEMETA#11
+    defined_by: ADR-REPO-FILEMETA-ROLE
     short: The extension of a file's name, which tells the sorts of file inside one language apart, such as ps1 from psm1 and psd1.
     realized_by: { kind: prose-only }
     contrasts:
@@ -481,14 +481,14 @@ concepts:
   staging slot:
     key: staging_slot
     domain: design
-    defined_by: ADR-DSGN-LIFE#5
+    defined_by: ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
     short:
       The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
     realized_by: { kind: prose-only }
   module type:
     key: module_type
     domain: design
-    defined_by: ADR-DSGN-MODTYPE#2
+    defined_by: ADR-DSGN-MODTYPE-MODULETYPEISSORT
     short:
       The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place
       names its module.
@@ -503,7 +503,7 @@ concepts:
   bundle:
     key: bundle
     domain: automation
-    defined_by: ADR-AUTO-BUNDLE#1
+    defined_by: ADR-AUTO-BUNDLE-BUNDLEISBUILD
     short: The toolset's build, one installable, versioned Catzc package of one named bundle, built from a profile of the exporter registry.
     realized_by: { kind: prose-only }
     contrasts:
@@ -513,7 +513,7 @@ concepts:
   imprint step:
     key: imprint_step
     domain: repository
-    defined_by: ADR-REPO-FORMAT#8
+    defined_by: ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
     short:
       A step the file-language registry lists under imprint, global or for one language, which Format-Code runs after the formatter to write
       one derived fact into the file.
@@ -521,7 +521,7 @@ concepts:
   catzc:
     key: catzc
     domain: principles
-    defined_by: ADR-PRIN-CATS#1
+    defined_by: ADR-PRIN-CATS-CATZCISSOURCENAME
     short:
       The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token
       in code and precise references.
@@ -533,7 +533,7 @@ concepts:
   cats:
     key: cats
     domain: principles
-    defined_by: ADR-PRIN-CATS#2
+    defined_by: ADR-PRIN-CATS-CATSISPERSONNAME
     short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
     realized_by: { kind: prose-only }
     contrasts:
@@ -541,7 +541,7 @@ concepts:
   automation:
     key: automation
     domain: automation
-    defined_by: ADR-AUTO-LAYERS#1
+    defined_by: ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT
     short:
       The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
       folder; the ADR domain, the value-chain row and the concern carry the name.
@@ -557,7 +557,7 @@ concepts:
   command:
     key: command
     domain: automation
-    defined_by: ADR-AUTO-LAYERS#2
+    defined_by: ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
     short: One public function of the module system, the unit a contract describes, written in one implementation language.
     realized_by: { kind: prose-only }
     contrasts:
@@ -567,7 +567,7 @@ concepts:
   command contract:
     key: command_contract
     domain: repository
-    defined_by: ADR-REPO-CMDCONTRACT#1
+    defined_by: ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
     short:
       A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in
       the contract language; a command is public exactly when one names it.
@@ -580,7 +580,7 @@ concepts:
   contract language:
     key: contract_language
     domain: repository
-    defined_by: ADR-REPO-CMDCONTRACT#2
+    defined_by: ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
     short:
       The notation a command contract is written in — YAML with one string per parameter (type, mandatory, default, pipeline) and an output
       type, over a closed type set whose defaults are declared once on the ContractCommand type.
@@ -595,7 +595,7 @@ concepts:
   implementation language:
     key: implementation_language
     domain: automation
-    defined_by: ADR-AUTO-LAYERS#2
+    defined_by: ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
     short:
       The file language a command's source is written in, one whose languages.yml entry sets executable, which are PowerShell with its
       hosted C#, Bash, Python and Go.
@@ -611,7 +611,7 @@ concepts:
   pwsh:
     key: pwsh
     domain: automation
-    defined_by: ADR-AUTO-LAYERS#3
+    defined_by: ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
     short: The name of the PowerShell track and of the engine that runs it; the PowerShell product itself is called PowerShell in prose.
     realized_by: { kind: prose-only }
     contrasts:
@@ -619,7 +619,7 @@ concepts:
   run mode:
     key: run_mode
     domain: design
-    defined_by: ADR-DSGN-RUNMODE#1
+    defined_by: ADR-DSGN-RUNMODE-TWORUNMODES
     short: How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
     realized_by: { kind: prose-only }
     contrasts:

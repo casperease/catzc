@@ -95,7 +95,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         ($result | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
-    It 'skips the whole render on a warm run, and renders again when a source or a target changed' -Tag 'ADR-AUTO-CACHE#10' {
+    It 'skips the whole render on a warm run, and renders again when a source or a target changed' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         Build-RootConfig | Out-Null
         Build-RootConfig | Out-Null
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly

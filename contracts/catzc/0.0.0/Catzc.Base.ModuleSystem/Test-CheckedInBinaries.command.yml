@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-CheckedInBinaries, the quality gate that checks every
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-CheckedInBinaries, the quality gate that checks every
 # checked-in binary is stored byte-exact and returns its result under -PassThru.
 parameters:
   OutputFolder: string

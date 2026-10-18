@@ -22,7 +22,7 @@ function Measure-NoLiteralDefault {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoLiteralDefault'
-    $why = 'a configured setting takes its default from its config type, shown in the shipped config file (ADR-AUTO-DEFAULT#6, ADR-PRIN-CONFIG#3)'
+    $why = 'a configured setting takes its default from its config type, shown in the shipped config file (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE)'
     $add = {
         param($Extent, [string] $What)
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{

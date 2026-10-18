@@ -1,4 +1,4 @@
-Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' {
+Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
     BeforeAll {
         function Add-File {
             param([string] $Relative, [string] $Content = 'widget: gadget')
@@ -27,7 +27,7 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' 
             }
         }
 
-        $script:fix = 'a released version folder is immutable, so a change lands in the draft, contracts/widget/0.0.0/ (ADR-REPO-CONTRACT#5).'
+        $script:fix = 'a released version folder is immutable, so a change lands in the draft, contracts/widget/0.0.0/ (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).'
     }
 
     BeforeEach {
@@ -85,7 +85,7 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' 
 
     It 'finds a folder with no record' {
         [System.IO.File]::Delete((Join-Path $script:folder '.frozen'))
-        Get-Finding | Should -Be @('contracts/widget/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the draft with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT#5).')
+        Get-Finding | Should -Be @('contracts/widget/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the draft with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
     }
 
     It 'finds a malformed and a repeated record line' {
@@ -116,7 +116,7 @@ BeforeDiscovery {
         })
 }
 
-Describe 'Released contract version folders' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT#5' {
+Describe 'Released contract version folders' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
     It '<Name> is unchanged since its release' -ForEach $script:releasedCases {
         $findings = @(InModuleScope Catzc.Base.Contracts -Parameters @{ Folder = $Folder; Name = $Name } {
                 param($Folder, $Name)

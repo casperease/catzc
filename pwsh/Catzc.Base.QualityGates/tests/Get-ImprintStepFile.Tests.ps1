@@ -1,4 +1,4 @@
-Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
+Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-scope-repo'))
         $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'docs'), (Join-Path $script:root 'elsewhere') -Force

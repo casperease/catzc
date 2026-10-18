@@ -1,4 +1,4 @@
-Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
+Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
     BeforeAll {
         $script:config = [ordered]@{
             synopsis    = 'Gets a widget.'
@@ -10,7 +10,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $script:section = [Catzc.Base.QualityGates.FunctionHelp]::FromConfig($script:config).ToSection()
     }
 
-    It 'renders the help in the fixed shape, each subsection once and in order, its text as written' -Tag 'ADR-REPO-HELP#2' {
+    It 'renders the help in the fixed shape, each subsection once and in order, its text as written' -Tag 'ADR-REPO-HELP-MARKDOWNASWRITTEN' {
         $script:section | Should -BeExactly (
             "## help`n`n### synopsis`n`nGets a widget.`n`n### description`n`nReads the widget registry.`n`n- one`n- two`n`n" +
             "### parameter ``Name```n`nThe widget name.`n`n### parameter ``Force```n`nSkips the gadget check.`n`n### outputs`n`n``[Widget]`` the widget.`n`n" +
@@ -39,7 +39,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $help.examples[0] | Should -BeExactly '### not a heading'
     }
 
-    It 'reports a subsection the shape does not name, one out of order, text before the first, and a missing synopsis' -Tag 'ADR-REPO-HELP#4' {
+    It 'reports a subsection the shape does not name, one out of order, text before the first, and a missing synopsis' -Tag 'ADR-REPO-HELP-FIVEFAULTSREPORTED' {
         $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`nstray`n`n### outputs`n`nx`n`n### description`n`ny`n`n### remarks`n`nz`n")
         $help.findings | Should -Contain 'the help section holds text before its first subsection: put it under ### synopsis or ### description'
         @($help.findings | Where-Object { $_ -like '*out of order*' }).Count | Should -Be 1
@@ -47,7 +47,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         $help.findings | Should -Contain 'the help section has no synopsis'
     }
 
-    It 'reads a parameter name written as code, and reports one written bare' -Tag 'ADR-REPO-HELP#1' {
+    It 'reads a parameter name written as code, and reports one written bare' -Tag 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
         $help = [Catzc.Base.QualityGates.FunctionHelp]::Parse("## help`n`n### synopsis`n`nGets.`n`n### parameter ``Slot```n`nThe slot.`n`n### parameter Gadget`n`nThe gadget.`n")
         @($help.parameters | ForEach-Object Key) | Should -Be @('Slot', 'Gadget')
         $help.findings | Should -Be @('the parameter heading ''### parameter Gadget'' writes its name as code: ''### parameter `Gadget`''')
@@ -62,7 +62,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         [Catzc.Base.QualityGates.FunctionHelp]::Parse("# docs`n`n## comment:1`n").present | Should -BeFalse
     }
 
-    Context 'plain help text as Markdown' -Tag 'ADR-REPO-HELP#2' {
+    Context 'plain help text as Markdown' -Tag 'ADR-REPO-HELP-MARKDOWNASWRITTEN' {
         BeforeAll {
             $script:md = { param([string] $Text) [Catzc.Base.QualityGates.FunctionHelp]::Markdown($Text) }
         }
@@ -107,7 +107,7 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
         }
     }
 
-    Context 'writing the section into a page' -Tag 'ADR-REPO-COMMENTS#6' {
+    Context 'writing the section into a page' -Tag 'ADR-REPO-COMMENTS-PAGEISAUTHORED' {
         It 'puts a new section before the page''s first section and keeps every other byte' {
             $page = "# docs/x.ps1`n`nThe intro.`n`n## comment:1`n`nAbove ``x``.`n"
             [Catzc.Base.QualityGates.FunctionHelp]::WithSection($page, "## help`n`n### synopsis`n`nGets.`n") |

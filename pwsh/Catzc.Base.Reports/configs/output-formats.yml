@@ -174,7 +174,7 @@ formats:
     producer: an agent session (dumps, measurements, file lists, backups)
     audience: the session that wrote it
     validator: { kind: text }
-  # The time safeguard log is never pruned ([ADR-REPO-OUTDIR#12](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir12)): it is the record the limits are tuned from, and the hook appends to it for as long as the repository is worked in; a session's own logs belong in its session folder, and Clear-Output -All is the one way the top of out/ is emptied.
+  # The time safeguard log is never pruned ([ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat)): it is the record the limits are tuned from, and the hook appends to it for as long as the repository is worked in; a session's own logs belong in its session folder, and Clear-Output -All is the one way the top of out/ is emptied.
   session-log:
     area: log
     max_age: none
@@ -189,7 +189,7 @@ formats:
     audience: the session that wrote it
     validator: { kind: text }
 
-  # ---- the folder's own keep file ([ADR-REPO-OUTDIR#6](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir6)) ----
+  # ---- the folder's own keep file ([ADR-REPO-OUTDIR-OUTGITIGNORED](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outgitignored)) ----
   output-keep:
     area: review
     patterns: [".gitkeep"]

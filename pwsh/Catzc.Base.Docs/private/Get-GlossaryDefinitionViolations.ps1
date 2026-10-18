@@ -24,7 +24,7 @@ function Get-GlossaryDefinitionViolations {
             if ($ruleId -ceq $defining -or $statements[$ruleId] -inotmatch $definition) {
                 continue
             }
-            $violations.Add("$($item.SourcePath): concept '$term': $($ruleId.Replace(':', '#')) defines '**$term**' a second time — it is defined by $($item.Concept.defined_by) (ADR-REPO-VOCAB#1)")
+            $violations.Add("$($item.SourcePath): concept '$term': $($ruleId.Replace(':', '#')) defines '**$term**' a second time — it is defined by $($item.Concept.defined_by) (ADR-REPO-VOCAB-DEFINEDTERM)")
         }
     }
 

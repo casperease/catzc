@@ -42,7 +42,7 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         $script:out = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
     }
 
-    It 'passes a clean map, and reports its facts' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes a clean map, and reports its facts' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-WorldMap -OutputFolder $script:out } | Should -Not -Throw
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'world-map'
@@ -54,23 +54,23 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         $result.Facts['Labels'] | Should -Be 2
     }
 
-    It 'reports one issue per stack-violation cell, naming its count and its first file' -Tag 'ADR-DSGN-TRACK#3' {
+    It 'reports one issue per stack-violation cell, naming its count and its first file' -Tag 'ADR-DSGN-TRACK-ONETECHSTACK' {
         $script:map = $script:brokenMap
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
         $result.Facts['StackViolations'] | Should -Be 2
-        $result.Issues | Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (ADR-DSGN-TRACK#3)"
+        $result.Issues | Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (ADR-DSGN-TRACK-ONETECHSTACK)"
     }
 
-    It 'reports each root folder no track names, never out/ or a file at the root' -Tag 'ADR-DSGN-TRACK#1' {
+    It 'reports each root folder no track names, never out/ or a file at the root' -Tag 'ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER' {
         $script:map = $script:brokenMap
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues | Where-Object { $_ -like 'undeclared root folder:*' })
         $issues | Should -Be @(
-            'undeclared root folder: cogs/ holds 1 tracked file(s) but no track names it (ADR-DSGN-TRACK#1)'
-            'undeclared root folder: sprockets/ holds 2 tracked file(s) but no track names it (ADR-DSGN-TRACK#1)'
+            'undeclared root folder: cogs/ holds 1 tracked file(s) but no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)'
+            'undeclared root folder: sprockets/ holds 2 tracked file(s) but no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)'
         )
     }
 
-    It 'reports a maps.yml label whose head names no glossary term, leaving the value_chain_ labels to Test-ValueChainMap' -Tag 'ADR-DSGN-TRACK#13' {
+    It 'reports a maps.yml label whose head names no glossary term, leaving the value_chain_ labels to Test-ValueChainMap' -Tag 'ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS' {
         $script:labels = [pscustomobject]@{
             row_axis          = 'Widgets'
             legend_files      = 'Gizmos per widget'
@@ -79,28 +79,28 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         }
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "unregistered label: maps.yml labels.column_axis 'Sprocket: gadget boxes' names no glossary term in its head (ADR-DSGN-TRACK#13)"
-            "unregistered label: maps.yml labels.legend_files 'Gizmos per widget' names no glossary term in its head (ADR-DSGN-TRACK#13)"
+            "unregistered label: maps.yml labels.column_axis 'Sprocket: gadget boxes' names no glossary term in its head (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS)"
+            "unregistered label: maps.yml labels.legend_files 'Gizmos per widget' names no glossary term in its head (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS)"
         )
     }
 
-    It 'reports the track and file-language names when the glossary lacks their axis term' -Tag 'ADR-DSGN-TRACK#13' {
+    It 'reports the track and file-language names when the glossary lacks their axis term' -Tag 'ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS' {
         $script:glossary = @($script:fullGlossary | Where-Object { $_.Concept.term -in 'widget', 'gadget box' })
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "unregistered label: the names gadgets, widgets print as instances of 'track', which the glossary does not hold (ADR-DSGN-TRACK#1)"
-            "unregistered label: the names gadget-text, widget-script print as instances of 'file language', which the glossary does not hold (ADR-DSGN-TRACK#6)"
+            "unregistered label: the names gadgets, widgets print as instances of 'track', which the glossary does not hold (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)"
+            "unregistered label: the names gadget-text, widget-script print as instances of 'file language', which the glossary does not hold (ADR-DSGN-TRACK-FILELANGUAGE)"
         )
     }
 
-    It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:map = $script:brokenMap
         $thrown = { Test-WorldMap -OutputFolder $script:out } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-WorldMap failed: 3 issue(s)*'
         $thrown.Exception.Message | Should -BeLike '*undeclared root folder: sprockets/*'
     }
 
-    It 'writes the report to its folder and points latest.txt at it' -Tag 'ADR-AUTO-TEST#35' {
+    It 'writes the report to its folder and points latest.txt at it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
         Test-Path -LiteralPath (Join-Path $result.ReportPath 'world-map.md') | Should -BeTrue
         (Get-Content -LiteralPath (Join-Path $script:out 'latest.txt') -Raw).Trim() | Should -Be (Split-Path $result.ReportPath -Leaf)
@@ -108,7 +108,7 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
 }
 
 Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-WorldMap passes over the repository' -Tag 'ADR-DSGN-TRACK#1', 'ADR-DSGN-TRACK#3', 'ADR-DSGN-TRACK#13', 'ADR-AUTO-TEST#35' {
+    It 'Test-WorldMap passes over the repository' -Tag 'ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER', 'ADR-DSGN-TRACK-ONETECHSTACK', 'ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-WorldMap -PassThru -OutputFolder (Join-Path $TestDrive 'world-map')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

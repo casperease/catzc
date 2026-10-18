@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-AzureNetworkPlan, the quality gate that checks the
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AzureNetworkPlan, the quality gate that checks the
 # network plan against the azure config's environments and subscriptions and returns its result under -PassThru.
 parameters:
   OutputFolder: string

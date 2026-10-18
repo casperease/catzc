@@ -23,7 +23,7 @@ function Test-WorldMap {
         $key = "$($cell.Track) x $($cell.FileLanguage)"
         if ($byCell.Contains($key)) {
             $paths = $byCell[$key]
-            $issues.Add("stack violation: $key holds $($paths.Count) live file(s) outside the track's file languages, e.g. $($paths[0]) (ADR-DSGN-TRACK#3)")
+            $issues.Add("stack violation: $key holds $($paths.Count) live file(s) outside the track's file languages, e.g. $($paths[0]) (ADR-DSGN-TRACK-ONETECHSTACK)")
         }
     }
 
@@ -42,7 +42,7 @@ function Test-WorldMap {
         $undeclared[$rootFolder] = $undeclared.ContainsKey($rootFolder) ? $undeclared[$rootFolder] + 1 : 1
     }
     foreach ($rootFolder in $undeclared.Keys) {
-        $issues.Add("undeclared root folder: $rootFolder/ holds $($undeclared[$rootFolder]) tracked file(s) but no track names it (ADR-DSGN-TRACK#1)")
+        $issues.Add("undeclared root folder: $rootFolder/ holds $($undeclared[$rootFolder]) tracked file(s) but no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)")
     }
 
     # Printed labels: each names a glossary term.
@@ -59,12 +59,12 @@ function Test-WorldMap {
     foreach ($name in $labelNames) {
         $text = [string] $labels.$name
         if ($null -eq (Resolve-MapLabelTerm -Label $text -Term $terms)) {
-            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK#13)")
+            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS)")
         }
     }
     $axes = @(
-        @{ Term = 'track'; Names = @($map.Tracks | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoTrack }); Rule = 'ADR-DSGN-TRACK#1' }
-        @{ Term = 'file language'; Names = @($map.FileLanguages | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoFileLanguage }); Rule = 'ADR-DSGN-TRACK#6' }
+        @{ Term = 'track'; Names = @($map.Tracks | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoTrack }); Rule = 'ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER' }
+        @{ Term = 'file language'; Names = @($map.FileLanguages | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoFileLanguage }); Rule = 'ADR-DSGN-TRACK-FILELANGUAGE' }
     )
     foreach ($axis in $axes) {
         if ($axis.Names.Count -gt 0 -and $terms -cnotcontains $axis.Term) {

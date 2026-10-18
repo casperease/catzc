@@ -153,7 +153,10 @@ When a step lands, remove its claim from every article that states it (search `d
       too, since Q1 wired the Changes step (recommended); slide 5, keep or rename the `…-no-caller` slug; slide 3, the new title wording.
       Also for step 6: the "Where the code and the ADR differ" section of `which-run-mode-rules-have-a-gate.md` still holds the retired
       build kind, `build-catzc.ps1` and `Write-CatzcLoadBanner` bullets.
-- [ ] The declared `aspects.automation` entry: `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` and
+- [x] Done 2026-10-18 by session catzc-fb with the user's go: get-aspect-feeds-globs-and-maps, manifest-and-aspects-from-one-folder,
+      only-automation-compiles-its-aspects and get-aspect-names-the-remainder now say pwsh's aspects derive from the languages.yml layout
+      (Get-Aspect -Track pwsh), slides and articles together; "every stage clean; LINKS 0, FILEMETA 0, Test-Glossary 0 on each article".
+      The declared `aspects.automation` entry: `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` and
       `manifest-and-aspects-from-one-folder.md` (and `only-automation-compiles-its-aspects.md` lines 18, 29, 33, the "automation
       track/convention") describe a declared `aspects.automation` entry and `Get-Aspect -Track automation`; the tree
       has neither (the code track is `pwsh`, its aspects derive from `languages.yml`, as `variants.yml:7` says), so a word swap would be

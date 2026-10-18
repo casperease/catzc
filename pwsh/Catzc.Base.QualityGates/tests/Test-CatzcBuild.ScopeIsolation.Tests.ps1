@@ -1,4 +1,4 @@
-Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
+Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'
 

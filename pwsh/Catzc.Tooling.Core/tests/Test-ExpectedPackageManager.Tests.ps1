@@ -1,4 +1,4 @@
-Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
+Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
     BeforeEach {
         $script:managedDir = Join-Path $TestDrive 'widget-managed'
         Mock Get-ScriptInstallDir { $script:managedDir } -ModuleName Catzc.Tooling.Core
@@ -31,7 +31,7 @@ Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'lo
     }
 }
 
-Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
+Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
     BeforeEach {
         $script:tree = Join-Path $TestDrive 'gadget'
         Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core
@@ -81,7 +81,7 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic
     }
 }
 
-Describe 'Test-ExpectedPackageManager — MSYS2-package tools that also declare an apt package' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
+Describe 'Test-ExpectedPackageManager — MSYS2-package tools that also declare an apt package' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
     BeforeEach {
         $script:tree = Join-Path $TestDrive 'gadget'
         Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core

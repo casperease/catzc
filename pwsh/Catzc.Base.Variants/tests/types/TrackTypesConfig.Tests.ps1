@@ -1,4 +1,4 @@
-Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE#1' {
+Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES' {
     BeforeAll {
         function script:New-Config {
             param($Types, $Vendors)

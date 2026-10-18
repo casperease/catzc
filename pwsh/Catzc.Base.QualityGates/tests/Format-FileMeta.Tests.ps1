@@ -1,4 +1,4 @@
-Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-REPO-FORMAT#9' {
+Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-FORMAT-METAIMPRINT' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
@@ -92,7 +92,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
             Should -Throw "*docs/widget.md:0 ``[Unowned``] expected 'immutable, edges or config', found 'catzc.other' — move it under config, or remove it*"
     }
 
-    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-FileMeta -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'file-meta'
         $result.IssueCount | Should -Be 2

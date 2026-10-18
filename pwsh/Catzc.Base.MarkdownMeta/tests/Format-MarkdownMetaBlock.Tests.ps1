@@ -1,4 +1,4 @@
-Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     It 'creates front matter above a text with none' {
         Format-MarkdownMetaBlock -Text "# docs/widget.md`n" -Immutable ([ordered]@{ kind = 'gadget' }) |
             Should -BeExactly "---`ncatzc:`n  immutable:`n    kind: gadget`n---`n`n# docs/widget.md`n"
@@ -22,7 +22,7 @@ Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         Format-MarkdownMetaBlock -Text $text | Should -BeExactly "---`nname: widget`n---`nbody`n"
     }
 
-    It 'nests the block at the key path the carrier names, and keeps its authored config there' -Tag 'ADR-REPO-FILEMETA#1' {
+    It 'nests the block at the key path the carrier names, and keeps its authored config there' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $text = "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: old`n    config:`n      floor: low`n---`nbody`n"
         Format-MarkdownMetaBlock -Text $text -Immutable ([ordered]@{ kind = 'gadget' }) -Key 'metadata.catzc' |
             Should -BeExactly "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: gadget`n    config:`n      floor: low`n---`nbody`n"

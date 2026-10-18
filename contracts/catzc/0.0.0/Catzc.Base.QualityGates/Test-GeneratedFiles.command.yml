@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-GeneratedFiles, the quality gate that checks every
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GeneratedFiles, the quality gate that checks every
 # generated file equals what its generator would write now, and returns its result under -PassThru.
 parameters:
   Generator: string[]

@@ -11,14 +11,14 @@ Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {
         $script:projection = [string[]] @((Get-GlobSetTrigger -GlobSet (Get-GlobSet -Name widget)).GitHub)
     }
 
-    It 'passes when both filters equal the ordered projection' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes when both filters equal the ordered projection' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Get-PipelineTrigger { [pscustomobject]@{ PushPaths = $script:projection; PrPaths = $script:projection } } -ModuleName Catzc.Base.Globs
 
         { Test-GitHubWorkflowTriggerGlob -Name widget -WorkflowPath '.github/workflows/ci-widget.yml' -OutputFolder (Join-Path $TestDrive 'gh') } |
             Should -Not -Throw
     }
 
-    It 'throws once naming every drifted filter' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once naming every drifted filter' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $reversed = [string[]] @($script:projection)
         [System.Array]::Reverse($reversed)
         Mock Get-PipelineTrigger { [pscustomobject]@{ PushPaths = $reversed; PrPaths = @('other/**') } } -ModuleName Catzc.Base.Globs
@@ -29,7 +29,7 @@ Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -Match 'widget: \.github/workflows/ci-widget\.yml trigger drifted .* on on\.push\.paths, on\.pull_request\.paths'
     }
 
-    It 'reports a missing workflow file under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'reports a missing workflow file under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Test-Path { $false } -ModuleName Catzc.Base.Globs
 
         $result = Test-GitHubWorkflowTriggerGlob -Name widget -WorkflowPath '.github/workflows/ci-widget.yml' -PassThru -OutputFolder (Join-Path $TestDrive 'gh')

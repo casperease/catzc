@@ -1,2 +1,2 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Uninstall-Go, which uninstalls the Go toolchain Install-Go installed;
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Go, which uninstalls the Go toolchain Install-Go installed;
 # it takes no parameters.

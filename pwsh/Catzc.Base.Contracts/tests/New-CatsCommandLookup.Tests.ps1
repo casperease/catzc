@@ -1,4 +1,4 @@
-Describe 'New-CatsCommandLookup — the real contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT#5' {
+Describe 'New-CatsCommandLookup — the real contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT-ONEREADER' {
     BeforeAll {
         $script:text = New-CatsCommandLookup
         $script:rows = @($script:text -split "`n" | Where-Object { $_ -match "`t" })

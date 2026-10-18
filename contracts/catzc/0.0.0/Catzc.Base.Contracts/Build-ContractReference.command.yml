@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Build-ContractReference, the generator of the
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Build-ContractReference, the generator of the
 # contract reference pages. RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
 parameters:
   RepositoryRoot: string

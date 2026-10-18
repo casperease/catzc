@@ -42,7 +42,7 @@ function Invoke-RootConfigGenerator {
             else {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
-            # Pylance runs pyright in the mode Test-PythonTypes runs it in ([ADR-AUTO-PY#9](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py9)).
+            # Pylance runs pyright in the mode Test-PythonTypes runs it in ([ADR-AUTO-PY-EVERYFILETYPECHECKED](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
             $machineSetting['python.analysis.typeCheckingMode'] = $python.type_checking
             if ($python.extra_paths.Count -gt 0) {
                 $machineSetting['python.analysis.extraPaths'] = @(foreach ($extraPath in $python.extra_paths) {

@@ -1,4 +1,4 @@
-Describe 'Read-CommandSignature' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#4' {
+Describe 'Read-CommandSignature' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE' {
     BeforeAll {
         function Read-Fixture {
             param([string] $Body, [string] $Name = 'Get-Widget')
@@ -81,7 +81,7 @@ function Get-Widget {
         $command.output | Should -Be 'string'
     }
 
-    It 'reads parameter sets: the sets a parameter names, every set when it names none, and the default set' -Tag 'ADR-REPO-CMDCONTRACT#2' {
+    It 'reads parameter sets: the sets a parameter names, every set when it names none, and the default set' -Tag 'ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE' {
         $command = Read-Fixture @'
 function Get-Widget {
     [CmdletBinding(DefaultParameterSetName = 'All')]
@@ -107,7 +107,7 @@ function Get-Widget {
         $command.default_set | Should -Be 'All'
     }
 
-    It 'refuses a parameter that is mandatory in one set and optional in another' -Tag 'ADR-REPO-CMDCONTRACT#2' {
+    It 'refuses a parameter that is mandatory in one set and optional in another' -Tag 'ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE' {
         {
             Read-Fixture @'
 function Get-Widget {

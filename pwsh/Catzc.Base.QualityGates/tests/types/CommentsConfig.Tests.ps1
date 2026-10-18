@@ -1,5 +1,5 @@
 Describe 'CommentsConfig' -Tag 'L0', 'logic' {
-    It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $config.languages | Should -Be @('powershell', 'yaml', 'pipeline-yaml', 'csharp', 'bicep')
         $config.min_lines | Should -Be 2
@@ -17,7 +17,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.IsExcluded('function/gate') | Should -BeFalse
     }
 
-    It 'replaces the exclude map when given, by file kind, and rejects one without a reason or that names no kind' -Tag 'ADR-REPO-COMMENTS#3' {
+    It 'replaces the exclude map when given, by file kind, and rejects one without a reason or that names no kind' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ gadget = 'gadgets are generated'; 'widget/cog' = 'cogs are generated' } })
         $config.IsExcluded('gadget') | Should -BeTrue
         $config.IsExcluded('gadget/part') | Should -BeTrue
@@ -37,7 +37,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.IsExcluded($null) | Should -BeFalse
     }
 
-    It 'maps a file to its comment page: the extension stays, the module folder is kebab-cased' -Tag 'ADR-REPO-COMMENTS#3' {
+    It 'maps a file to its comment page: the extension stays, the module folder is kebab-cased' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $config.PageFor('pwsh/Catzc.Widget.Gadgets/private/Get-Gadget.ps1') |
             Should -Be 'docs/references/pwsh/catzc-widget-gadgets/private/Get-Gadget.ps1.md'
@@ -47,7 +47,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.PageFor('.claude/hooks/Gadget/Program.cs') | Should -Be 'docs/references/pwsh/claude-hooks/Gadget/Program.cs.md'
     }
 
-    It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-REPO-COMMENTS#3' {
+    It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $config.PageFor('docs/adr/index.md') | Should -BeNullOrEmpty
         $config.PageFor('pwsh/.vendor/Gadget/Gadget.psm1') | Should -BeNullOrEmpty
@@ -56,7 +56,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.PageFor('') | Should -BeNullOrEmpty
     }
 
-    It 'lets the first matching pages entry win and takes a plain folder map as given' -Tag 'ADR-PRIN-CONFIG#1' {
+    It 'lets the first matching pages entry win and takes a plain folder map as given' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{
                 pages = @(
                     [ordered]@{ source = 'widgets/Catzc.Widget.Gadgets'; docs = 'docs/references/gadgets' },
@@ -67,7 +67,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.PageFor('widgets/Catzc.Widget.Other/Get-Gadget.ps1') | Should -Be 'docs/references/widgets/catzc-widget-other/Get-Gadget.ps1.md'
     }
 
-    It 'maps every key it is given, replacing a language''s keep list but not the others' -Tag 'ADR-PRIN-CONFIG#1' {
+    It 'maps every key it is given, replacing a language''s keep list but not the others' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{
                 languages = @('powershell')
                 min_lines = 3
@@ -83,7 +83,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.view | Should -Be 'out/gadget-view'
     }
 
-    It 'keeps no run by default, and maps a language''s keep_run heads case-insensitively' -Tag 'ADR-REPO-COMMENTS#3' {
+    It 'keeps no run by default, and maps a language''s keep_run heads case-insensitively' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $default = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $default.keep_run.Count | Should -Be 0
         $default.IsKeptRun('csharp', '// catzc:') | Should -BeFalse
@@ -95,11 +95,11 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.IsKept('csharp', '// catzc:') | Should -BeFalse -Because 'a run head is not a single kept line'
     }
 
-    It 'rejects an unknown key, naming the allowed set' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'rejects an unknown key, naming the allowed set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key*languages, min_lines*'
     }
 
-    It 'rejects a malformed value, naming its key' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'rejects a malformed value, naming its key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ min_lines = 0 }) } | Should -Throw '*min_lines must be a positive integer*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ languages = @() }) } | Should -Throw '*languages must name at least one*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ languages = @('yaml', 'YAML') }) } | Should -Throw "*lists 'yaml' twice*"
@@ -111,7 +111,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @() }) } | Should -Throw '*pages must be a non-empty list*'
     }
 
-    It 'rejects a pages entry that is not a folder map with a docs folder' -Tag 'ADR-PRIN-CONFIG#1' {
+    It 'rejects a pages entry that is not a folder map with a docs folder' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         # A '[' in a -Throw pattern is a wildcard class, so the index brackets are escaped.
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @('widget') }) } | Should -Throw '*pages`[0`]*must be a map*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widget' }) }) } | Should -Throw '*pages`[0`]*docs is required*'
@@ -129,7 +129,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
 }
 
 Describe 'CommentsConfig (shipped comments.yml)' -Tag 'L1', 'integrity' {
-    It 'loads the shipped comments.yml as a CommentsConfig' -Tag 'ADR-CONF-LOADING#4' {
+    It 'loads the shipped comments.yml as a CommentsConfig' -Tag 'ADR-CONF-LOADING-CSHARPCONFIGTYPE' {
         (Get-Config -Config comments) | Should -BeOfType ([Catzc.Base.QualityGates.CommentsConfig])
     }
 }

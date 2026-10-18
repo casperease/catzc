@@ -15,11 +15,11 @@ function Publish-ContractRelease {
 
     $name = "contracts/$Unit/$Version"
     if ($Version -ceq '0.0.0') {
-        throw [System.ArgumentException]::new("Publish-ContractRelease: 0.0.0 is the draft of '$Unit', the folder a release freezes, never a release itself (ADR-REPO-CONTRACT#5).")
+        throw [System.ArgumentException]::new("Publish-ContractRelease: 0.0.0 is the draft of '$Unit', the folder a release freezes, never a release itself (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
     }
     $devbox = "$((Get-Config -Config exporter).direct_install_version)"
     if ($Version -ceq $devbox) {
-        throw [System.ArgumentException]::new("Publish-ContractRelease: $Version is the devbox build version (exporter.yml direct_install_version); it names no release, so it never freezes a folder (ADR-REPO-CONTRACT#5).")
+        throw [System.ArgumentException]::new("Publish-ContractRelease: $Version is the devbox build version (exporter.yml direct_install_version); it names no release, so it never freezes a folder (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
     }
 
     $draft = Join-Path $RepositoryRoot 'contracts' $Unit '0.0.0'
@@ -28,7 +28,7 @@ function Publish-ContractRelease {
         throw [System.InvalidOperationException]::new("Publish-ContractRelease: contracts/$Unit/0.0.0/ does not exist, so there is no draft to freeze.")
     }
     if ([System.IO.Directory]::Exists($target) -or [System.IO.File]::Exists($target)) {
-        throw [System.InvalidOperationException]::new("Publish-ContractRelease: $name/ already exists; a released version folder is immutable and is never written again (ADR-REPO-CONTRACT#5).")
+        throw [System.InvalidOperationException]::new("Publish-ContractRelease: $name/ already exists; a released version folder is immutable and is never written again (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
     }
     $null = @(Get-Contract -Unit ([WildcardPattern]::Escape($Unit)) -Version '0.0.0' -RepositoryRoot $RepositoryRoot)
 
@@ -48,7 +48,7 @@ function Publish-ContractRelease {
         $hashes = Get-ContractFileHashes -Folder $target
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add("# $name, frozen by Publish-ContractRelease: the SHA-256 of each file, line endings read as LF.")
-        $lines.Add('# A released version folder is immutable (ADR-REPO-CONTRACT#5); Test-Contracts fails when a file differs.')
+        $lines.Add('# A released version folder is immutable (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE); Test-Contracts fails when a file differs.')
         foreach ($path in $hashes.Keys) {
             $lines.Add("$($hashes[$path])  $path")
         }

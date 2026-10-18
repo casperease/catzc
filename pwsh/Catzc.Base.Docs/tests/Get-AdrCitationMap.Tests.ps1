@@ -20,24 +20,24 @@ Describe 'Get-AdrCitationMap' -Tag 'L0', 'logic' {
         $script:map = Get-AdrCitationMap -RepositoryRoot $script:root
     }
 
-    It 'maps each code to its repository-relative ADR path and declared rules' -Tag 'ADR-REPO-LINK#3' {
+    It 'maps each code to its repository-relative ADR path and declared rules' -Tag 'ADR-REPO-LINK-CODELINKS' {
         $map.PathOf('ADR-TST-WIDGET') | Should -BeExactly 'docs/adr/widget/widget-rules.md'
         $map.HasRule('ADR-TST-WIDGET', 2) | Should -BeTrue
         $map.HasRule('ADR-TST-WIDGET', 3) | Should -BeFalse
         $map.CodeOf('docs/adr/gadget/gadget-rules.md') | Should -BeExactly 'ADR-TST-GADGET'
     }
 
-    It 'derives the repository-rooted destination from the citation' -Tag 'ADR-REPO-LINK#3' {
+    It 'derives the repository-rooted destination from the citation' -Tag 'ADR-REPO-LINK-CODELINKS' {
         $map.Destination('ADR-TST-WIDGET', 2) | Should -BeExactly '/docs/adr/widget/widget-rules.md#rule-adr-tst-widget2'
         $map.Destination('ADR-TST-GADGET', $null) | Should -BeExactly '/docs/adr/gadget/gadget-rules.md'
     }
 
-    It 'knows the domain prefix of its codes and rejects an unknown code' -Tag 'ADR-REPO-LINK#5' {
+    It 'knows the domain prefix of its codes and rejects an unknown code' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {
         $map.IsDomainCode('ADR-TST') | Should -BeTrue
         $map.HasCode('ADR-TST-SPROCKET') | Should -BeFalse
     }
 
-    It 'resolves a unique file name and refuses an ambiguous one' -Tag 'ADR-REPO-LINK#3' {
+    It 'resolves a unique file name and refuses an ambiguous one' -Tag 'ADR-REPO-LINK-CODELINKS' {
         $map.PathOfSlug('gadget-rules') | Should -BeExactly 'docs/adr/gadget/gadget-rules.md'
         $map.PathOfSlug('widget-notes') | Should -BeNullOrEmpty
         $map.IsAmbiguousSlug('widget-notes') | Should -BeTrue

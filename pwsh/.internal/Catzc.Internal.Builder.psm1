@@ -750,14 +750,14 @@ function Invoke-ModuleBuild {
     $parsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -VendorPolicy $VendorPolicy -PackageMetadata $PackageMetadata -Index $index -ParsedScripts $parsedScripts
     if ($plan.Violations.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST#5):`n  " +
+        throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS):`n  " +
             ($plan.Violations -join "`n  "))
     }
 
     # The closure check: the code itself, not only dependencies.yml, must be satisfied by the selection.
     $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index -ParsedScripts $parsedScripts)
     if ($outside.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($outside.Count) call(s) or config read(s) of the selected modules land outside the build (ADR-AUTO-BUNDLE#5). " +
+        throw ("Invoke-ModuleBuild: $($outside.Count) call(s) or config read(s) of the selected modules land outside the build (ADR-AUTO-BUNDLE-IMMUTABLEBUILD). " +
             "Declare the dependency in dependencies.yml so the closure brings the owner in, or add the owning module to the build:`n  " + ($outside -join "`n  "))
     }
 
@@ -793,7 +793,7 @@ function Invoke-ModuleBuild {
         }
     }
     if ($missing.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($missing.Count) internal asset dependency path(s) would be missing from the build (ADR-AUTO-ASSETDEP#4). " +
+        throw ("Invoke-ModuleBuild: $($missing.Count) internal asset dependency path(s) would be missing from the build (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY). " +
             "Ship the asset in the module's configs/ or assets/, or add the owning module to the build:`n  " + ($missing -join "`n  "))
     }
 

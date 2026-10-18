@@ -16,7 +16,7 @@ Describe 'Get-TestExcludeTag' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'a Both run through L3, the default top tier, excludes only the opt-in L4' -Tag 'ADR-AUTO-TEST#41' {
+    It 'a Both run through L3, the default top tier, excludes only the opt-in L4' -Tag 'ADR-AUTO-TEST-TESTINGINPRODUCTION' {
         InModuleScope Catzc.Base.QualityGates {
             Get-TestExcludeTag -MinLevel 0 -MaxLevel 3 -Category Both | Should -Be @('L4')
         }

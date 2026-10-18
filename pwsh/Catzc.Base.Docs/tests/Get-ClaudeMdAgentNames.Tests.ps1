@@ -1,4 +1,4 @@
-Describe 'Get-ClaudeMdAgentNames' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#3' {
+Describe 'Get-ClaudeMdAgentNames' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-LISTEDINCLAUDEFILE' {
     BeforeAll {
         function Write-ClaudeMdFixture {
             param([string] $Text)

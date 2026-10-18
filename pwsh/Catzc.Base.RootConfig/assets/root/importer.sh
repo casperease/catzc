@@ -12,7 +12,7 @@
 # as one PowerShell literal, quoted the PowerShell way, so a value with spaces or a quote stays one value. A command with a
 # command contract is checked first against importer-commands.sh, the lookup generated beside this file: an unknown parameter,
 # a missing mandatory one or a value not of the contract's type fails before pwsh starts, a switch passes as a flag and an int
-# unquoted (ADR-REPO-CMDCONTRACT#5); CATZC_COMMAND_LOOKUP names another lookup, for a test. Every call
+# unquoted (ADR-REPO-CMDCONTRACT-ONEREADER); CATZC_COMMAND_LOOKUP names another lookup, for a test. Every call
 # starts pwsh non-interactively and imports catzc, so it pays the import time; for many commands in a row, start pwsh
 # and dot-source importer.ps1 instead.
 #
@@ -56,7 +56,7 @@ cats() {
     fi
     _catzc_text="$1"
     shift
-    # A contracted command is checked against its contract before pwsh starts (ADR-REPO-CMDCONTRACT#5); any other passes as written.
+    # A contracted command is checked against its contract before pwsh starts (ADR-REPO-CMDCONTRACT-ONEREADER); any other passes as written.
     _catzc_rows="$(_catzc_contract "$_catzc_text")"
     if [ -n "$_catzc_rows" ]; then
         _catzc_text="$(_catzc_checked "$_catzc_text" "$_catzc_rows" "$@")" || return 2

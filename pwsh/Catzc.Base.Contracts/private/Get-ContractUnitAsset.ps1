@@ -22,14 +22,14 @@ function Get-ContractUnitAsset {
 
     $stray = @([System.IO.Directory]::GetFiles($Folder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
     if ($stray.Count -gt 0) {
-        throw "contracts/${Unit}: '$($stray -join "', '")' sits outside a version folder; a unit folder holds only contracts/<unit>/<version>/ (ADR-REPO-CONTRACT#2)."
+        throw "contracts/${Unit}: '$($stray -join "', '")' sits outside a version folder; a unit folder holds only contracts/<unit>/<version>/ (ADR-REPO-CONTRACT-LAYOUT)."
     }
 
     $versionFolders = [string[]] [System.IO.Directory]::GetDirectories($Folder)
     [System.Array]::Sort($versionFolders, [System.StringComparer]::Ordinal)
     $misnamed = @($versionFolders | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Where-Object { $_ -notmatch '^[0-9]+\.[0-9]+\.[0-9]+$' })
     if ($misnamed.Count -gt 0) {
-        throw "contracts/${Unit}: '$($misnamed -join "', '")' is not a version folder; a version folder is named <major>.<minor>.<patch> (ADR-REPO-CONTRACT#2)."
+        throw "contracts/${Unit}: '$($misnamed -join "', '")' is not a version folder; a version folder is named <major>.<minor>.<patch> (ADR-REPO-CONTRACT-LAYOUT)."
     }
 
     foreach ($versionFolder in $versionFolders) {

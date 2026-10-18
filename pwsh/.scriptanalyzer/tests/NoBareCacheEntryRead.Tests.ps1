@@ -1,4 +1,4 @@
-Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {
+Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE-STRICTSAFEPROBE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoBareCacheEntryRead.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

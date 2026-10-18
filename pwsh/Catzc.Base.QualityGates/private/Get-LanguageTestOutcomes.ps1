@@ -70,7 +70,7 @@ function Get-LanguageTestOutcomes {
     }
     $undiscovered = @($results.Keys | Where-Object { -not $keys.Contains($_) } | Sort-Object)
     if ($undiscovered.Count -gt 0) {
-        throw "The $Language tests of $Module reported test(s) the language bridge did not discover in the source: $($undiscovered -join ', '). Declare each as a top-level test function, or a one-line @test in Bash, that the discovery reads (ADR-AUTO-GO#2, ADR-AUTO-PY#2, ADR-AUTO-BASH#2)."
+        throw "The $Language tests of $Module reported test(s) the language bridge did not discover in the source: $($undiscovered -join ', '). Declare each as a top-level test function, or a one-line @test in Bash, that the discovery reads (ADR-AUTO-GO-ONEGOROOT, ADR-AUTO-PY-ONEPYTHONROOT, ADR-AUTO-BASH-ONEBASHROOT)."
     }
 
     foreach ($item in $Case) {

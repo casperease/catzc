@@ -1,4 +1,4 @@
-Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {
+Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
     BeforeAll {
         $script:writeFile = {
             param([string] $Root, [string] $Relative, [string] $Text)

@@ -27,7 +27,7 @@ function Get-Contract {
         throw [System.ArgumentException]::new("Get-Contract: addressing '$Addressing' is not one of: $([Catzc.Base.Contracts.ContractsConfig]::AddressingModes -join ', ').")
     }
     if ($Addressing -cnotin [Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes) {
-        throw [System.NotImplementedException]::new("Get-Contract: the addressing mode '$Addressing' is declared but not built yet; the built modes are: $([Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes -join ', '). A mode is switched on only once it is proven from both pwsh and bash (ADR-REPO-CONTRACT#8).")
+        throw [System.NotImplementedException]::new("Get-Contract: the addressing mode '$Addressing' is declared but not built yet; the built modes are: $([Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes -join ', '). A mode is switched on only once it is proven from both pwsh and bash (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING).")
     }
 
     $contractsRoot = Join-Path $RepositoryRoot 'contracts'

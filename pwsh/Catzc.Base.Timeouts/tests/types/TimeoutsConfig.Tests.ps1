@@ -150,7 +150,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid executables.widget '0'*"
         }
 
-        It 'resolves the Watch-Blocking defaults, one second and one millisecond, when wait is absent' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'resolves the Watch-Blocking defaults, one second and one millisecond, when wait is absent' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $config = New-TimeoutsConfig ([ordered]@{})
             $config.wait['seconds'] | Should -Be 1
             $config.wait['milliseconds'] | Should -Be 1
@@ -173,7 +173,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             { New-TimeoutsConfig ([ordered]@{ wait = $wait }) } | Should -Throw $message
         }
 
-        It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-PWSH-ASSERT#1' {
+        It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
             $config = New-TimeoutsConfig ([ordered]@{ commands = @{ 'Sync-Widget' = 45 } })
             $config.SecondsForCommand('sync-widget') | Should -Be 45
             $config.SecondsForCommand('Sync-Gadget') | Should -BeNullOrEmpty

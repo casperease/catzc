@@ -28,7 +28,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.Contains('have_customers') | Should -BeTrue
         }
 
-        It 'gives every defaulted key its declared default when the config states only tracks' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'gives every defaulted key its declared default when the config states only tracks' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $config = & $script:make ([ordered]@{})
             $config.ado_naming | Should -Be ([Catzc.Base.Variants.VariantsConfig]::DefaultAdoNaming)
             $config.ado_naming | Should -Be 'standard'
@@ -38,7 +38,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.aspects['infrastructure'].Name | Should -Be @('tests', 'live')
         }
 
-        It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $nulls = & $script:make ([ordered]@{ ado_naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
             $omitted = & $script:make ([ordered]@{})
             $nulls.ado_naming | Should -Be $omitted.ado_naming
@@ -47,7 +47,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $nulls.aspects.Keys | Should -Be $omitted.aspects.Keys
         }
 
-        It 'throws when tracks is omitted or null, naming the key and where to add it' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'throws when tracks is omitted or null, naming the key and where to add it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } | Should -Throw '*declares no tracks; add tracks: to variants.yml*'
             { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = $null }) } | Should -Throw '*declares no tracks*'
         }
@@ -214,7 +214,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*unknown key 'class'*"
         }
 
-        It 'reads a track''s execution engines and a module''s override, and leaves both empty when unnamed' -Tag 'ADR-AUTO-MODULE#4' {
+        It 'reads a track''s execution engines and a module''s override, and leaves both empty when unnamed' -Tag 'ADR-AUTO-MODULE-ENGINESUBSET' {
             $first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]
             $second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
             $config = & $script:make ([ordered]@{ tracks = [ordered]@{
@@ -230,7 +230,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
             @($config.tracks[1].module_execution_engines.Keys) | Should -HaveCount 0
         }
 
-        It 'throws on an engine outside the closed set, a duplicate engine, and an override that is empty, repeats the track, or is not a map' -Tag 'ADR-AUTO-MODULE#4' {
+        It 'throws on an engine outside the closed set, a duplicate engine, and an override that is empty, repeats the track, or is not a map' -Tag 'ADR-AUTO-MODULE-ENGINESUBSET' {
             $first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]
             $second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
             $err = { & $script:make ([ordered]@{ tracks = [ordered]@{

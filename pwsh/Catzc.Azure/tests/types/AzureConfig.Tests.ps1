@@ -252,7 +252,7 @@ Describe 'AzureConfig' -Tag 'L0' {
             { & $script:make $ok } | Should -Not -Throw
         }
 
-        It 'throws when two subscriptions of one customer serve the same environment' -Tag 'ADR-AZ-DATAMOD#8' {
+        It 'throws when two subscriptions of one customer serve the same environment' -Tag 'ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.core_lower.customer = 'acme'
             $bad.subscriptions.Add('core_second', [ordered]@{
@@ -287,13 +287,13 @@ Describe 'AzureConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*tenant name 'OtherTenant' is not a valid identifier*"
         }
 
-        It 'defaults policy_enforcement when the file omits it' -Tag 'ADR-AZ-DATAMOD#11' {
+        It 'defaults policy_enforcement when the file omits it' -Tag 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {
             $config = & $script:make (Copy-Object $baseConfig)
             $config.policy_enforcement['production'] | Should -Be 'Default'
             $config.policy_enforcement['nonproduction'] | Should -Be 'DoNotEnforce'
         }
 
-        It 'keeps the policy_enforcement keys a file sets and defaults the rest' -Tag 'ADR-AZ-DATAMOD#11' {
+        It 'keeps the policy_enforcement keys a file sets and defaults the rest' -Tag 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {
             $ok = Copy-Object $baseConfig
             $ok.policy_enforcement = [ordered]@{ nonproduction = 'Default' }
             $config = & $script:make $ok
@@ -301,7 +301,7 @@ Describe 'AzureConfig' -Tag 'L0' {
             $config.policy_enforcement['nonproduction'] | Should -Be 'Default'
         }
 
-        It 'takes a full policy_enforcement map as given' -Tag 'ADR-AZ-DATAMOD#11' {
+        It 'takes a full policy_enforcement map as given' -Tag 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {
             $ok = Copy-Object $baseConfig
             $ok.policy_enforcement = [ordered]@{ production = 'DoNotEnforce'; nonproduction = 'DoNotEnforce' }
             $config = & $script:make $ok
@@ -309,13 +309,13 @@ Describe 'AzureConfig' -Tag 'L0' {
             $config.policy_enforcement['nonproduction'] | Should -Be 'DoNotEnforce'
         }
 
-        It 'resolves policy_enforcement by config address on the typed record' -Tag 'ADR-AZ-DATAMOD#11' {
+        It 'resolves policy_enforcement by config address on the typed record' -Tag 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {
             $config = & $script:make (Copy-Object $baseConfig)
             $mode = & (Get-Module Catzc.Base.Config) { Resolve-ConfigKeyPath -Node $args[0] -Segment 'policy_enforcement', 'production' -Address 'global.azure.policy_enforcement.production' } $config
             $mode | Should -Be 'Default'
         }
 
-        It 'rejects an unknown policy_enforcement key and mode in one throw' -Tag 'ADR-AZ-DATAMOD#11' {
+        It 'rejects an unknown policy_enforcement key and mode in one throw' -Tag 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {
             $bad = Copy-Object $baseConfig
             $bad.policy_enforcement = [ordered]@{ production = 'Enforce'; staging = 'Default' }
             $err = { & $script:make $bad } | Should -Throw -PassThru
@@ -323,7 +323,7 @@ Describe 'AzureConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*policy_enforcement.production: unknown mode 'Enforce'*"
         }
 
-        It 'rejects a policy_enforcement that is not a map' -Tag 'ADR-AZ-DATAMOD#11' {
+        It 'rejects a policy_enforcement that is not a map' -Tag 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {
             $bad = Copy-Object $baseConfig
             $bad.policy_enforcement = 'Default'
             { & $script:make $bad } | Should -Throw '*policy_enforcement must be a map*'

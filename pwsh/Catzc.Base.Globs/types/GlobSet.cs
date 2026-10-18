@@ -51,7 +51,7 @@ public sealed class GlobSet
         if (string.IsNullOrWhiteSpace(layer) || Array.IndexOf(ValidLayers, layer) < 0)
         {
             throw new ArgumentException(string.Format(
-                "globset '{0}': layer '{1}' is not a layer (allowed: {2}, ADR-FLOW-CD-GLOBS#7)",
+                "globset '{0}': layer '{1}' is not a layer (allowed: {2}, ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER)",
                 name, layer, string.Join(", ", ValidLayers)));
         }
         bool hasInclude = include != null && include.Length > 0;

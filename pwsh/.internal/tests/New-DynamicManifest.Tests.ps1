@@ -1,5 +1,5 @@
 # The loader runs before the types load, so it cannot read the layout. This test holds it to the layout instead.
-Describe 'New-DynamicManifest against the layout' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE#2' {
+Describe 'New-DynamicManifest against the layout' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
     }

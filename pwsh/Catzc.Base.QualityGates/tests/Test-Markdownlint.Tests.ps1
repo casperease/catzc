@@ -16,7 +16,7 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
-    It 'passes and writes a report when markdownlint finds no issues' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes and writes a report when markdownlint finds no issues' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:markdownlintExit = 0
         { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-Markdownlint -OutputFolder $script:reportBase -PassThru
@@ -26,7 +26,7 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         (Join-Path $result.ReportPath 'markdownlint.md') | Should -Exist
     }
 
-    It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:markdownlintExit = 1
         $script:markdownlintOut = ('docs/x.md:1:1 MD041/first-line-heading First line', 'docs/y.md:3:1 MD013/line-length Line length', '' -join "`n")
         $thrown = { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw -PassThru
@@ -36,7 +36,7 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         $message | Should -Match 'docs/y\.md:3:1 MD013/line-length'
     }
 
-    It 'with -PassThru returns the issues and file count instead of throwing' -Tag 'ADR-AUTO-TEST#35' {
+    It 'with -PassThru returns the issues and file count instead of throwing' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:markdownlintExit = 1
         $script:markdownlintOut = "a.md:1:1 MD013/line-length Line length`na.md:2:1 MD049/emphasis-style Emphasis`nb.md:2:3 MD040/fenced-code-language Fenced`n"
         $result = Test-Markdownlint -OutputFolder $script:reportBase -PassThru

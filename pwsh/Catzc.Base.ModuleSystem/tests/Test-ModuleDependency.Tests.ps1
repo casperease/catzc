@@ -13,7 +13,7 @@ Describe 'Test-ModuleDependency' {
             }
         }
 
-        It 'does not throw when the code conforms' -Tag 'ADR-AUTO-TEST#35' {
+        It 'does not throw when the code conforms' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }
@@ -25,7 +25,7 @@ Describe 'Test-ModuleDependency' {
             }
         }
 
-        It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST#35' {
+        It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
             InModuleScope Catzc.Base.ModuleSystem {
                 Mock Get-ModuleDependencyConfig { [ordered]@{ A = @('B'); B = @(); 'Catzc.Tpols' = @() } }
                 Mock Get-ModuleGroupConfig { [ordered]@{} }

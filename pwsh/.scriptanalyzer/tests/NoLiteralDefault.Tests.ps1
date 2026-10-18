@@ -1,4 +1,4 @@
-Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT#6', 'ADR-PRIN-CONFIG#3' {
+Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoLiteralDefault.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

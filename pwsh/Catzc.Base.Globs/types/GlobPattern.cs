@@ -20,15 +20,15 @@ public sealed class GlobPattern
         }
         if (pattern.IndexOf('\\') >= 0)
         {
-            throw new ArgumentException(string.Format("glob pattern '{0}': the separator is '/', never '\\' (ADR-FLOW-CD-GLOBS#3)", pattern));
+            throw new ArgumentException(string.Format("glob pattern '{0}': the separator is '/', never '\\' (ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED)", pattern));
         }
         if (pattern.IndexOf('`') >= 0)
         {
-            throw new ArgumentException(string.Format("glob pattern '{0}': the dialect has no escape character — a backtick is rejected (ADR-FLOW-CD-GLOBS#3)", pattern));
+            throw new ArgumentException(string.Format("glob pattern '{0}': the dialect has no escape character — a backtick is rejected (ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED)", pattern));
         }
         if (pattern[0] == '/')
         {
-            throw new ArgumentException(string.Format("glob pattern '{0}': patterns are repo-relative — no leading '/' (ADR-FLOW-CD-GLOBS#3)", pattern));
+            throw new ArgumentException(string.Format("glob pattern '{0}': patterns are repo-relative — no leading '/' (ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED)", pattern));
         }
 
         string[] parts = pattern.Split('/');
@@ -40,11 +40,11 @@ public sealed class GlobPattern
             string segment = parts[i];
             if (segment.Length == 0)
             {
-                throw new ArgumentException(string.Format("glob pattern '{0}': empty segment (a trailing or doubled '/') (ADR-FLOW-CD-GLOBS#3)", pattern));
+                throw new ArgumentException(string.Format("glob pattern '{0}': empty segment (a trailing or doubled '/') (ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED)", pattern));
             }
             if (segment == "." || segment == "..")
             {
-                throw new ArgumentException(string.Format("glob pattern '{0}': '.'/'..' segments are rejected (ADR-FLOW-CD-GLOBS#3)", pattern));
+                throw new ArgumentException(string.Format("glob pattern '{0}': '.'/'..' segments are rejected (ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED)", pattern));
             }
             if (segment == "**")
             {
@@ -53,7 +53,7 @@ public sealed class GlobPattern
             }
             if (segment.Contains("**"))
             {
-                throw new ArgumentException(string.Format("glob pattern '{0}': '**' must stand as a whole segment, never inside one (ADR-FLOW-CD-GLOBS#2)", pattern));
+                throw new ArgumentException(string.Format("glob pattern '{0}': '**' must stand as a whole segment, never inside one (ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS)", pattern));
             }
 
             WildcardPattern wildcard = WildcardPattern.Get(segment, WildcardOptions.None);

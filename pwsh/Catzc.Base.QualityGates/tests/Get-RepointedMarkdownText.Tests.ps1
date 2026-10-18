@@ -1,4 +1,4 @@
-Describe 'Get-RepointedMarkdownText' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#7' {
+Describe 'Get-RepointedMarkdownText' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAINHEADINGS' {
     BeforeAll {
         function script:Get-Repointed {
             param([string] $Text, [string] $RelativePath = 'docs/adr/widget/widget-rules.md')

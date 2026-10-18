@@ -2,7 +2,7 @@ concepts:
   slot:
     key: slot
     domain: azure
-    defined_by: ADR-AZ-DATAMOD#2
+    defined_by: ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
     short: A Bicep configuration slot — one config file of a template (`<env>[-<slot>].yml`), deploying one subscription's resource group.
     realized_by: { kind: prose-only }
     forms:
@@ -10,7 +10,7 @@ concepts:
   landing zone:
     key: landing_zone
     domain: azure
-    defined_by: ADR-AZ-LZ#1
+    defined_by: ADR-AZ-LZ-LANDINGZONE
     short:
       The network, guardrails, and cost control a workload lands in — the CAF application landing zone, deployed once per subscription at
       subscription scope by the discovery template.
@@ -22,7 +22,7 @@ concepts:
   hub:
     key: hub
     domain: azure
-    defined_by: ADR-AZ-LZ#2
+    defined_by: ADR-AZ-LZ-HUBANDSPOKE
     short: The landing zone of a shared subscription — the network every spoke of its tier peers to, holding the private DNS zones.
     realized_by: { kind: prose-only }
     contrasts:
@@ -30,7 +30,7 @@ concepts:
   spoke:
     key: spoke
     domain: azure
-    defined_by: ADR-AZ-LZ#2
+    defined_by: ADR-AZ-LZ-HUBANDSPOKE
     short:
       The landing zone of a customer subscription — peered to the hub of its tier, holding the subnet its workloads' private endpoints use.
     realized_by: { kind: prose-only }
@@ -39,7 +39,7 @@ concepts:
   cloud adoption framework:
     key: cloud_adoption_framework
     domain: azure
-    defined_by: ADR-AZ-LZ#1
+    defined_by: ADR-AZ-LZ-LANDINGZONE
     short:
       Microsoft's guidance for preparing an Azure estate; its landing-zone design principles and design areas are recorded as vendor
       recommendation in docs/adr/azure/caf/, one rule per recommendation.
@@ -50,14 +50,14 @@ concepts:
   management group:
     key: management_group
     domain: azure
-    defined_by: ADR-AZ-LZ#1
+    defined_by: ADR-AZ-LZ-LANDINGZONE
     short:
       An Azure container above subscriptions for policy and access; this repository deploys no management group and nothing at that level.
     realized_by: { kind: prose-only }
   well-architected framework:
     key: well_architected_framework
     domain: azure
-    defined_by: ADR-AZ-LZ#5
+    defined_by: ADR-AZ-LZ-EVERYPILLAR
     short:
       Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as
       Microsoft numbers it.
@@ -68,7 +68,7 @@ concepts:
   pillar:
     key: pillar
     domain: azure
-    defined_by: ADR-AZ-LZ#5
+    defined_by: ADR-AZ-LZ-EVERYPILLAR
     short:
       One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
       efficiency — each one ADR in docs/adr/azure/waf/.
@@ -76,13 +76,13 @@ concepts:
   break-glass login:
     key: break_glass_login
     domain: azure
-    defined_by: ADR-AZ-LZ#6
+    defined_by: ADR-AZ-LZ-SQLENTRAADMINS
     short: The one SQL login beside a server's Entra ID admin group, its password a Key Vault reference to foundation's vault.
     realized_by: { kind: prose-only }
   caf tags:
     key: caf_tags
     domain: azure
-    defined_by: ADR-AZ-CAF-NAME#11
+    defined_by: ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS
     short:
       The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
       required by policy.
@@ -90,7 +90,7 @@ concepts:
   subscription vending:
     key: subscription_vending
     domain: azure
-    defined_by: ADR-AZ-CAF-RESORG#19
+    defined_by: ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS
     short:
       Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the
       subscription itself is created outside the repository.
@@ -98,6 +98,6 @@ concepts:
   environment class:
     key: environment_class
     domain: azure
-    defined_by: ADR-AZ-DATAMOD#11
+    defined_by: ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE
     short: Production or non-production — the split that policy enforcement, database SKUs, backups, and budgets are set by.
     realized_by: { kind: prose-only }

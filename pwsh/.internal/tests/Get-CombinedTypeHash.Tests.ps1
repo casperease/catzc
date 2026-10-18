@@ -1,4 +1,4 @@
-Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
+Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
 

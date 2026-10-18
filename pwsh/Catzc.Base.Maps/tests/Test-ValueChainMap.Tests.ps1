@@ -34,7 +34,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $script:out = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
     }
 
-    It 'passes a clean map, checks only the value_chain_ labels, and reports its facts' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes a clean map, checks only the value_chain_ labels, and reports its facts' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-ValueChainMap -OutputFolder $script:out } | Should -Not -Throw
         $result = Test-ValueChainMap -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'value-chain-map'
@@ -46,30 +46,30 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $result.Facts['Labels'] | Should -Be 3
     }
 
-    It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
+    It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {
         $script:map = $script:brokenMap
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Docs.AdrsConfig]::Stacks -join ', '), in that order (ADR-DSGN-TRACK#14)"
-            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Docs.AdrsConfig]::Concerns -join ', '), in that order (ADR-DSGN-TRACK#15)"
-            "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (ADR-DSGN-TRACK#15)"
-            'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (ADR-DSGN-TRACK#15)'
+            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Docs.AdrsConfig]::Stacks -join ', '), in that order (ADR-DSGN-TRACK-VALUECHAINSTACK)"
+            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Docs.AdrsConfig]::Concerns -join ', '), in that order (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
+            "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
+            'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (ADR-DSGN-TRACK-VALUECHAINCONCERN)'
         )
     }
 
-    It 'reports a value_chain_ label whose head names no glossary term' -Tag 'ADR-DSGN-TRACK#16' {
+    It 'reports a value_chain_ label whose head names no glossary term' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
         $script:labels = [pscustomobject]@{ value_chain_row_axis = 'Widgets'; value_chain_title = 'Gizmo map: widgets' }
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
-        $issues | Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (ADR-DSGN-TRACK#16)")
+        $issues | Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (ADR-DSGN-TRACK-VALUECHAINMAP)")
     }
 
-    It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:map = $script:brokenMap
         $thrown = { Test-ValueChainMap -OutputFolder $script:out } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-ValueChainMap failed: 4 issue(s)*'
     }
 
-    It 'writes the report to its folder and points latest.txt at it' -Tag 'ADR-AUTO-TEST#35' {
+    It 'writes the report to its folder and points latest.txt at it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-ValueChainMap -OutputFolder $script:out -PassThru
         Test-Path -LiteralPath (Join-Path $result.ReportPath 'value-chain-map.md') | Should -BeTrue
         (Get-Content -LiteralPath (Join-Path $script:out 'latest.txt') -Raw).Trim() | Should -Be (Split-Path $result.ReportPath -Leaf)
@@ -77,7 +77,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
 }
 
 Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-ValueChainMap passes over the registry' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15', 'ADR-DSGN-TRACK#16', 'ADR-AUTO-TEST#35' {
+    It 'Test-ValueChainMap passes over the registry' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN', 'ADR-DSGN-TRACK-VALUECHAINMAP', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-ValueChainMap -PassThru -OutputFolder (Join-Path $TestDrive 'value-chain-map')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

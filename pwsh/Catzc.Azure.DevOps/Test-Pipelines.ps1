@@ -53,36 +53,36 @@ function Test-Pipelines {
         }
 
         if ($extension -eq '.yml') {
-            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#6' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
         if ($segments.Count -eq 0) {
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#1' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {
             if ($topFolder -notin $templateFolders) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-TEMPLATEKINDFOLDER' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
             }
             elseif ($segments.Count -gt 1) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-FLATPIPELINESFOLDER' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
             }
             else {
                 if ($record.Classification -eq 'Pipeline') {
-                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-FLATPIPELINESFOLDER' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
                 }
                 elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
-                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-TEMPLATEKINDFOLDER' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
                 }
             }
         }
 
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
             if ($ref -notmatch '^/pipelines/') {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#4' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))
             }
         }
     }

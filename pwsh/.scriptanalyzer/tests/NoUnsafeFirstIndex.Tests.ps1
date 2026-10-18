@@ -1,4 +1,4 @@
-Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR#8' {
+Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR-STRICTCLEAN' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoUnsafeFirstIndex.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

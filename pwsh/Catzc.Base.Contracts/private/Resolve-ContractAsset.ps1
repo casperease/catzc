@@ -43,10 +43,10 @@ function Resolve-ContractAsset {
     }
     elseif ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
         if ($Path.Contains('/')) {
-            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': a command contract sits directly in its module folder, since the folder names the owner and the file names the command (ADR-REPO-CMDCONTRACT#3)."
+            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': a command contract sits directly in its module folder, since the folder names the owner and the file names the command (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
         }
         if (-not $CommandRoot) {
-            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': a command contract needs its module's root to name the command's file; pass -CommandRoot (ADR-REPO-CMDCONTRACT#3)."
+            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': a command contract needs its module's root to name the command's file; pass -CommandRoot (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
         }
         $target = "$CommandRoot/" + $name.Substring(0, $name.Length - '.command.yml'.Length) + '.ps1'
         $direction = [Catzc.Base.Contracts.ContractDirection]::Provided
@@ -61,7 +61,7 @@ function Resolve-ContractAsset {
                 Sort-Object)
         $target = $prefix + $Path.Substring(0, $Path.Length - '.schema.json'.Length)
         if ($samples.Count -gt 1) {
-            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': the schema sits beside $($samples.Count) sample payloads named '$stem' ($($samples -join ', ')); keep one sample per schema name (ADR-REPO-CONTRACT#6)."
+            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': the schema sits beside $($samples.Count) sample payloads named '$stem' ($($samples -join ', ')); keep one sample per schema name (ADR-REPO-CONTRACT-CONTRACTASSET)."
         }
         if ($samples.Count -eq 1) {
             $slash = $Path.LastIndexOf('/')

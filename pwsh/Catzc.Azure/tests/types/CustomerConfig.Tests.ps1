@@ -54,7 +54,7 @@ Describe 'CustomerConfig' -Tag 'L0' {
                 Should -Throw '*customer name*is invalid*'
         }
 
-        It 'throws when a key collides with a shortcode (ambiguity guard)' -Tag 'ADR-AZ-CUSTOMER#2' {
+        It 'throws when a key collides with a shortcode (ambiguity guard)' -Tag 'ADR-AZ-CUSTOMER-TWOBINDINGS' {
             # 'gx' is a key AND globex's shortcode — a subscription reference to 'gx' would be ambiguous.
             $config = [ordered]@{ customers = [ordered]@{
                     globex = [ordered]@{ shortcode = 'gx' }

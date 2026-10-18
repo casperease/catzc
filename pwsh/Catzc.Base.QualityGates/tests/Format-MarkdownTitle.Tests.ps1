@@ -1,4 +1,4 @@
-Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
+Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
@@ -48,7 +48,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         }
     }
 
-    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'markdown-title'
         $result.IssueCount | Should -Be 1
@@ -62,7 +62,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
     }
 }
 
-Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#7' {
+Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAINHEADINGS' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
@@ -99,7 +99,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
     }
 }
 
-Describe 'Format-MarkdownTitle and Test-MarkdownTitle — contract assets' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6', 'ADR-REPO-CONTRACT#6' {
+Describe 'Format-MarkdownTitle and Test-MarkdownTitle — contract assets' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:contractAsset = 'contracts/widget/0.0.0/Gadget/.github/README.md'

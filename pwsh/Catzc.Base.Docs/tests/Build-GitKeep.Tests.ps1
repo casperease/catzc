@@ -53,7 +53,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         Import-InternalModule TestKit
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ 'widgets/.gitkeep' = "stale`n" }

@@ -1,5 +1,5 @@
 # Rests on [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md).
-Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#2' {
+Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     BeforeAll {
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{
                     widgets = [ordered]@{ places = @('widgetry'); type = 'modules'; languages = @('widget-script') }
@@ -49,7 +49,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#2' {
     }
 }
 
-Describe 'Get-Aspect on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE#2' {
+Describe 'Get-Aspect on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     It 'gives the code track the five live folders the aspects were written with' {
         $code = Get-Track | Where-Object type -CEQ 'modules'
         (Get-Aspect -Track $code.name)[0].Patterns | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', 'assets/**')

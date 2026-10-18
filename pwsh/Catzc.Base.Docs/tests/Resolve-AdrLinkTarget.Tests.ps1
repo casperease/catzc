@@ -1,4 +1,4 @@
-Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {
+Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'adr'
         function Resolve-Fixture {

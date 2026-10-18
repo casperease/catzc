@@ -23,7 +23,7 @@ Describe 'Test-PythonLint' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'reports each finding with its repository-relative file' -Tag 'ADR-AUTO-TEST#35' {
+    It 'reports each finding with its repository-relative file' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:checkOutput = "tests\catzc-widget\test_widget.py:3:8: F401 [*] ``os`` imported but unused`nFound 1 error."
         $script:checkExit = 1
         $result = Test-PythonLint -PassThru -OutputFolder $script:reportFolder

@@ -1,4 +1,4 @@
-Describe 'Assert-LoadedTypesCurrent' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#15' {
+Describe 'Assert-LoadedTypesCurrent' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-ONEDRIFTMEASURE' {
     BeforeEach {
         Mock Import-InternalModule -ModuleName Catzc.Base.TypesSystem { }
         Mock Get-LoadedTypeDrift -ModuleName Catzc.Base.TypesSystem { $script:state }

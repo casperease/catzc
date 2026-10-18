@@ -1,4 +1,4 @@
-Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic', 'ADR-PWSH-ANNOUNCE#8' {
+Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic', 'ADR-PWSH-ANNOUNCE-INFORMATIONRECORD' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/AnnounceStateChange.psm1') -Force
         if (-not (Get-Module PSScriptAnalyzer)) {
@@ -144,7 +144,7 @@ function Invoke-Widget {
     }
 }
 
-Describe 'Measure-PersistentWriteThroughSeam' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#33' {
+Describe 'Measure-PersistentWriteThroughSeam' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SYSTEMTESTSATLTHREE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/AnnounceStateChange.psm1') -Force
         if (-not (Get-Module PSScriptAnalyzer)) {

@@ -122,7 +122,7 @@ Describe 'NetworkConfig' -Tag 'L0' {
         }
     }
 
-    Context 'logic: the subscription block (fixture configs)' -Tag 'logic', 'ADR-AZ-NETWORK#5', 'ADR-AZ-NETWORK#6' {
+    Context 'logic: the subscription block (fixture configs)' -Tag 'logic', 'ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION', 'ADR-AZ-NETWORK-NOOVERLAP' {
         BeforeAll {
             $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Azure.NetworkConfig]::new($raw) }
         }

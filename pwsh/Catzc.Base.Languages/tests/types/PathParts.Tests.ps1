@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.Languages.PathParts' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#11' {
+Describe 'Catzc.Base.Languages.PathParts' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-ROLE' {
     Context 'Of' {
         It 'splits a path into its folder, its kebab-case name and its file type' -ForEach @(
             @{ Path = 'types/GadgetMetrics.cs'; Folder = 'types'; Name = 'gadget-metrics'; FileType = 'cs' }

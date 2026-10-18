@@ -17,13 +17,13 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $script:reportFolder = Join-Path $TestDrive 'generated-files'
     }
 
-    It 'passes a tree where no generator would change a file' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes a tree where no generator would change a file' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-GeneratedFiles -OutputFolder $script:reportFolder } | Should -Not -Throw
         Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
         Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
     }
 
-    It 'throws once listing every stale file with its generator and regenerate command' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every stale file with its generator and regenerate command' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Build-GitKeep -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Path = 'widget/.gitkeep'; Changed = $true; DryRun = $true }
             [pscustomobject]@{ Path = 'gadget/.gitkeep'; Changed = $true; DryRun = $true }
@@ -37,7 +37,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -BeLike '*gadget/.gitkeep: stale — Build-GitKeep*'
     }
 
-    It 'returns the result with the generator count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with the generator count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Build-Readme -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Folder = 'widget'; Source = 'docs/widget.md'; Readme = 'widget/README.md'; Changed = $true; DryRun = $true } }
 
         $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
@@ -48,7 +48,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.Facts['Generators'] | Should -Be $known -Because 'the count is every writer of generated-files.yml plus every root-file generator of rootconfig.yml'
     }
 
-    It 'reports a generated file whose head stamp is not the hash of its body, and counts the stamped and unstamped files' -Tag 'ADR-REPO-FILEMETA#7' {
+    It 'reports a generated file whose head stamp is not the hash of its body, and counts the stamped and unstamped files' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
         Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Stamped = 3; Unstamped = [string[]] @('docs/widget/plain.md'); Issues = [string[]] @('docs/widget/index.md: stale — the head''s with_body_sha 000000000000 is not the hash of the body, 111111111111; regenerate the file with its writer') }
         }
@@ -61,7 +61,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1
     }
 
-    It 'lists the writers of generated-files.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST#35' {
+    It 'lists the writers of generated-files.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $known = InModuleScope Catzc.Base.QualityGates { Get-GeneratedFileGenerator }
         $known | Should -Contain 'Build-AdrIndex'
         $known | Should -Contain 'Build-RootConfig'
@@ -74,7 +74,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'throws naming the known generators when a generator is unknown' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws naming the known generators when a generator is unknown' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $thrown = { Test-GeneratedFiles -Generator Build-Widget -OutputFolder $script:reportFolder } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike "Unknown generator 'Build-Widget'. The generators are: Build-AdrIndex*"
     }

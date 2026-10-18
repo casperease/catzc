@@ -1,5 +1,5 @@
 # Rests on [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
-Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
+Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
     BeforeAll {
         $script:first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]
         $script:second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
@@ -76,13 +76,13 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
         (Get-CatzcModule -Name Doodad -RepositoryRoot $script:root).languages | Should -Be @('gizmo-script')
     }
 
-    It 'takes the engines of the track, and a module''s own override when it names one' -Tag 'ADR-AUTO-MODULE#4' {
+    It 'takes the engines of the track, and a module''s own override when it names one' -Tag 'ADR-AUTO-MODULE-ENGINESUBSET' {
         (Get-CatzcModule -Name Sprocket -RepositoryRoot $script:root).engines | Should -Be @($script:first)
         (Get-CatzcModule -Name Gadget -RepositoryRoot $script:root).engines | Should -Be @($script:first, $script:second)
         @((Get-CatzcModule -Name Doodad -RepositoryRoot $script:root).engines) | Should -HaveCount 0
     }
 
-    It 'reports a file the layout places in no row, only for a module whose track''s primary language owns a layout' -Tag 'ADR-AUTO-MODULE#2' {
+    It 'reports a file the layout places in no row, only for a module whose track''s primary language owns a layout' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
         (Get-CatzcModule -Name Gadget -RepositoryRoot $script:root).unplaced | Should -Be @()
         (Get-CatzcModule -Name Sprocket -RepositoryRoot $script:root).unplaced | Should -Be @('oddity/Cog.wdg', 'stray.wdd')
         @((Get-CatzcModule -Name Doodad -RepositoryRoot $script:root).unplaced) | Should -HaveCount 0
@@ -114,7 +114,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
     }
 }
 
-Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE#1', 'ADR-DSGN-MODTYPE#1' {
+Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE', 'ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT' {
     BeforeAll {
         $script:modules = @(Get-CatzcModule)
         $script:codeTrack = Get-Track | Where-Object type -CEQ 'modules'
@@ -135,20 +135,20 @@ Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         }
     }
 
-    It 'keeps every language of a code module within its track''s declared languages' -Tag 'ADR-AUTO-MODULE#3' {
+    It 'keeps every language of a code module within its track''s declared languages' -Tag 'ADR-AUTO-MODULE-LANGUAGESFROMFILES' {
         $declared = $script:codeTrack.languages
         foreach ($module in $script:codeModules) {
             @($module.languages | Where-Object { $declared -cnotcontains $_ }) | Should -HaveCount 0 -Because $module.name
         }
     }
 
-    It 'places every file inside a code module in the layout' -Tag 'ADR-AUTO-MODULE#2' {
+    It 'places every file inside a code module in the layout' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
         foreach ($module in $script:codeModules) {
             @($module.unplaced) | Should -HaveCount 0 -Because "$($module.name) holds a file in no layout row: $($module.unplaced -join ', ')"
         }
     }
 
-    It 'resolves every template folder and every Bicep module file of the infrastructure track' -Tag 'ADR-DSGN-MODTYPE#1' {
+    It 'resolves every template folder and every Bicep module file of the infrastructure track' -Tag 'ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT' {
         $root = Get-RepositoryRoot
         $templates = @([System.IO.Directory]::EnumerateDirectories((Join-Path $root 'infrastructure/templates')).ForEach({ [System.IO.Path]::GetFileName($_) }))
         $bicepModules = @([System.IO.Directory]::EnumerateFiles((Join-Path $root 'infrastructure/modules'), '*.bicep').ForEach({ [System.IO.Path]::GetFileNameWithoutExtension($_) }))

@@ -1,4 +1,4 @@
-Describe 'Get-VisibilityFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' {
+Describe 'Get-VisibilityFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY' {
     BeforeAll {
         Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         function script:Get-Fact {

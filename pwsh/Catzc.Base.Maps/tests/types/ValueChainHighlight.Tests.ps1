@@ -12,20 +12,20 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
         $script:cellNames = { param($Highlight) @($Highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) }
     }
 
-    It 'lights the cells an ADR sits in, in the map''s order' -Tag 'ADR-DSGN-TRACK#16' {
+    It 'lights the cells an ADR sits in, in the map''s order' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
         $highlight = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, 'ADR-WIDGET-GADGET')
         $highlight.Requested | Should -Be @('ADR-WIDGET-GADGET')
         & $script:cellNames $highlight | Should -Be @('TOP x alpha', 'TOP x gamma')
         $highlight.Cells[1].Adrs | Should -Be @('ADR-WIDGET-GADGET')
     }
 
-    It 'lights a rule''s cells as its ADR''s, in either citation form' -Tag 'ADR-DSGN-TRACK#12' {
+    It 'lights a rule''s cells as its ADR''s, in either citation form' -Tag 'ADR-DSGN-TRACK-LITCELL' {
         $highlight = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, @('ADR-WIDGET-SPROCKET#3', 'ADR-WIDGET-COG:2'))
         $highlight.Requested | Should -Be @('ADR-WIDGET-SPROCKET#3', 'ADR-WIDGET-COG#2')
         & $script:cellNames $highlight | Should -Be @('TOP x gamma', 'BOTTOM x beta')
     }
 
-    It 'lists in a lit cell only the requested ADRs that light it, once each' -Tag 'ADR-DSGN-TRACK#12' {
+    It 'lists in a lit cell only the requested ADRs that light it, once each' -Tag 'ADR-DSGN-TRACK-LITCELL' {
         $highlight = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, @('ADR-WIDGET-COG', 'ADR-WIDGET-GADGET#1', 'ADR-WIDGET-COG#4'))
         $highlight.Requested | Should -Be @('ADR-WIDGET-COG', 'ADR-WIDGET-GADGET#1', 'ADR-WIDGET-COG#4')
         & $script:cellNames $highlight | Should -Be @('TOP x alpha', 'TOP x gamma')
@@ -42,7 +42,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
             Should -Throw "*value-chain highlight: 'ADR-WIDGET-GIZMO' is not an ADR code of the adrs registry; 'widget' is not an ADR code of the adrs registry*"
     }
 
-    It 'gives every lit cell a reason per ADR: its ADR domain''s row, the concern, and default or override' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
+    It 'gives every lit cell a reason per ADR: its ADR domain''s row, the concern, and default or override' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {
         $own = [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'gizmo', 'ADR-WIDGET-GIZMO', 'WIDGET', 'WIDGET', $null, 'TOP',
             [string[]] @('beta'), [string[]] @('alpha', 'gamma'))
         $map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta', 'gamma'), @($own))
@@ -55,7 +55,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
         @($default.ReasonsOf('TOP', 'gamma')).Count | Should -Be 1
     }
 
-    It 'emits the request and the lit cells as JSON' -Tag 'ADR-THES-ONETRUTH#3' {
+    It 'emits the request and the lit cells as JSON' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
         $data = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, 'ADR-WIDGET-SPROCKET').ToJson() | ConvertFrom-Json
         $data.requested | Should -Be @('ADR-WIDGET-SPROCKET')
         @($data.cells).Count | Should -Be 1

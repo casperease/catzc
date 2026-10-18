@@ -1,4 +1,4 @@
-Describe 'Get-AdrDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK#5' {
+Describe 'Get-AdrDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
     BeforeAll {
         function script:Get-Defined {
             param([string] $Text)

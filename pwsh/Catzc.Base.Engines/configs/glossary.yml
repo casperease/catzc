@@ -2,7 +2,7 @@ concepts:
   execution engine:
     key: execution_engine
     domain: automation
-    defined_by: ADR-AUTO-ENGINE#1
+    defined_by: ADR-AUTO-ENGINE-THREEENGINES
     short:
       One of the three shells the repository's own code runs under:
         pwsh, bash and zsh, declared once with everything that differs between them.
@@ -16,7 +16,7 @@ concepts:
   engine start environment:
     key: engine_start_environment
     domain: automation
-    defined_by: ADR-AUTO-ENGINE#4
+    defined_by: ADR-AUTO-ENGINE-STARTENVIRONMENT
     short:
       The CATZC_ENGINE variables a test runner sets so a black-box test starts the engine from them and never from a hardcoded command, the
       engine's name, its executable, its importer entry and its start arguments.
@@ -26,7 +26,7 @@ concepts:
   posix engine:
     key: posix_engines
     domain: automation
-    defined_by: ADR-AUTO-ENGINE#6
+    defined_by: ADR-AUTO-ENGINE-IMPORTERENTRY
     short:
       The execution engines whose importer entry is importer.sh, read from the model's ImporterEntry and never listed:
         they share that importer and its cats dispatcher.
@@ -37,7 +37,7 @@ concepts:
   auto:
     key: auto
     domain: automation
-    defined_by: ADR-AUTO-ENGINE#7
+    defined_by: ADR-AUTO-ENGINE-AUTONAMESNOENGINE
     short:
       The engine value that names no particular engine: the caller takes whatever engine the sensible default resolves to.
     realized_by: { kind: prose-only }

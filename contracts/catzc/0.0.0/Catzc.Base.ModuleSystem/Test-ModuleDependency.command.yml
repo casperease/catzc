@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-ModuleDependency, the quality gate that checks the actual
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ModuleDependency, the quality gate that checks the actual
 # module dependencies conform to the declared graph, and returns its result under -PassThru.
 parameters:
   OutputFolder: string

@@ -62,7 +62,7 @@ public sealed class AnalyzerAdrMapConfig : Catzc.Base.Objects.DictionaryRecord
                     {
                         if (!Citation.IsMatch(id))
                         {
-                            errors.Add(string.Format("analyzer '{0}' has a malformed citation '{1}' (want ADR-<CODE>#<n>, e.g. ADR-PWSH-ERROR#3)", rule, id));
+                            errors.Add(string.Format("analyzer '{0}' has a malformed citation '{1}' (want ADR-<CODE>#<n>, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)", rule, id));
                         }
                     }
                     map[rule] = ids;

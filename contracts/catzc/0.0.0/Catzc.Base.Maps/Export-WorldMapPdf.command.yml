@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Export-WorldMapPdf, which writes the world map as PDFs, the
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Export-WorldMapPdf, which writes the world map as PDFs, the
 # grid view, the tree view or both, plain or with the cells of named ADRs or paths highlighted, and returns the paths it wrote.
 parameters:
   View: string[]

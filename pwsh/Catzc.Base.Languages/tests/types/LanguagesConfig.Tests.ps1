@@ -20,14 +20,14 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             Get-Config -Config languages | Should -BeOfType [Catzc.Base.Languages.LanguagesConfig]
         }
 
-        It 'marks PowerShell with its hosted C#, Bash, Python and Go as the implementation languages' -Tag 'ADR-AUTO-LAYERS#2' {
+        It 'marks PowerShell with its hosted C#, Bash, Python and Go as the implementation languages' -Tag 'ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION' {
             @((Get-Config -Config languages).languages.Where({ $_.executable }).name) |
                 Should -Be @('powershell', 'csharp', 'python', 'go', 'bash')
         }
     }
 
     Context 'logic (fixture configs)' -Tag 'logic' {
-        It 'reads languages in declared order: a formatter engine or the reason for none, and adr_folder defaulting to none' -Tag 'ADR-PRIN-CONFIG#4' {
+        It 'reads languages in declared order: a formatter engine or the reason for none, and adr_folder defaulting to none' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
             $config = & $script:make ([ordered]@{ languages = [ordered]@{
                         widget = [ordered]@{ extensions = @('.wdg', '.widget'); formatter = 'prettier'; adr_folder = 'widgets/core' }
                         gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
@@ -44,7 +44,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.languages[1].adr_folder | Should -BeNullOrEmpty
         }
 
-        It 'routes each formatted language''s VS Code language id to its engine''s editor extension' -Tag 'ADR-REPO-FORMAT#8' {
+        It 'routes each formatted language''s VS Code language id to its engine''s editor extension' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ vscode_extension = 'widget.prettier' }; gofmt = [ordered]@{} }
                     languages  = [ordered]@{
@@ -76,7 +76,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid vscode_language 'Widget Lang'*"
         }
 
-        It 'reads an engine''s settings files, and throws on one that is not a repository-relative path' -Tag 'ADR-AUTO-CACHE#10' {
+        It 'reads an engine''s settings files, and throws on one that is not a repository-relative path' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/widget-settings.yml', '.editorconfig') } }
                     languages  =[ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
@@ -88,7 +88,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid settings file 'C:\gadget.yml'*"
         }
 
-        It 'accepts a settings entry that names one top-level key of a file, and throws on a key that is empty or doubled' -Tag 'ADR-AUTO-CACHE#10' {
+        It 'accepts a settings entry that names one top-level key of a file, and throws on a key that is empty or doubled' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/tools.yml#widget', 'widget/tools.yml#gadget_two') } }
                     languages  =[ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
@@ -100,7 +100,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid settings file 'widget/tools.yml#a#b'*"
         }
 
-        It 'reads a test runner with tools or with an engine, and none for a language without one' -Tag 'ADR-AUTO-MODULE#6' {
+        It 'reads a test runner with tools or with an engine, and none for a language without one' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
             $tools = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo', 'sprocket'); executable = 'GizmoExecutable' } })).languages[0].tests
             $tools.runner | Should -Be 'Invoke-WidgetTest'
             $tools.tools | Should -Be @('gizmo', 'sprocket')
@@ -113,7 +113,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             (& $script:one ([ordered]@{ extensions = @('.wdg') })).languages[0].tests | Should -BeNullOrEmpty
         }
 
-        It 'throws on a test runner that is not a command, a bad executable, an unknown key, or tools and an engine together or neither' -Tag 'ADR-AUTO-MODULE#6' {
+        It 'throws on a test runner that is not a command, a bad executable, an unknown key, or tools and an engine together or neither' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
             { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'widget'; tools = @('gizmo'); executable = 'GizmoExecutable' } }) } |
                 Should -Throw "*runner 'widget' is not a command name*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = '-gizmo' } }) } |
@@ -126,7 +126,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Throw '*never both and never neither*'
         }
 
-        It 'reads executable as stated, false when the entry is silent, and throws on one that is not a boolean' -Tag 'ADR-AUTO-LAYERS#2' {
+        It 'reads executable as stated, false when the entry is silent, and throws on one that is not a boolean' -Tag 'ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION' {
             (& $script:one ([ordered]@{ extensions = @('.wdg'); executable = $true })).languages[0].executable | Should -BeTrue
             (& $script:one ([ordered]@{ extensions = @('.wdg'); executable = $false })).languages[0].executable | Should -BeFalse
             (& $script:one ([ordered]@{ extensions = @('.wdg') })).languages[0].executable | Should -BeFalse
@@ -139,7 +139,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             }
         }
 
-        It 'throws on a language with neither a formatter nor the reason for none, or with both' -Tag 'ADR-PRIN-CONFIG#4' {
+        It 'throws on a language with neither a formatter nor the reason for none, or with both' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
             { & $script:make ([ordered]@{ languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg') } } }) } |
                 Should -Throw '*needs a formatter engine (formatter: one of prettier*or the reason it has none*'
             { & $script:one ([ordered]@{ extensions = @('.wdg'); no_formatter = '  ' }) } | Should -Throw '*needs a formatter engine*'
@@ -147,7 +147,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Throw '*names both a formatter and no_formatter*'
         }
 
-        It 'reads the global imprint steps and a language''s own, with the files each step''s cache stamp reads' -Tag 'ADR-REPO-FORMAT#8' {
+        It 'reads the global imprint steps and a language''s own, with the files each step''s cache stamp reads' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
             $config = & $script:make ([ordered]@{
                     imprint   = @('file-meta')
                     steps     = [ordered]@{ 'file-meta' = [ordered]@{ settings = @('configs/file-meta.yml', 'configs/file-carriers.yml') } }
@@ -164,14 +164,14 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.steps.Keys.Count | Should -Be 2
         }
 
-        It 'lists no step unless the file does' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'lists no step unless the file does' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg') })
             $config.imprint.Count | Should -Be 0
             $config.steps.Count | Should -Be 0
             $config.languages[0].imprint.Count | Should -Be 0
         }
 
-        It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'ADR-PRIN-CONFIG#2' {
+        It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
             { & $script:make ([ordered]@{ imprint = @('shine') }) } | Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, csharp-namespace, comments, ps-help)*"
             { & $script:make ([ordered]@{ imprint = @('file-meta', 'file-meta') }) } | Should -Throw "*imprint: duplicate imprint step 'file-meta'*"
             { & $script:make ([ordered]@{ imprint = 'file-meta' }) } | Should -Throw '*imprint must be a list of imprint step names*'
@@ -271,7 +271,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = 'Test-Spelling' }) } | Should -Throw '*checks must be a list*'
         }
 
-        It 'reads a language''s layout rows, then the shared assets and tests rows, and derives the live patterns and folders from them' -Tag 'ADR-AUTO-MODULE#2' {
+        It 'reads a language''s layout rows, then the shared assets and tests rows, and derives the live patterns and folders from them' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg', '.wdx'); layout = @(
                         [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }
                         [ordered]@{ folder = 'inner'; role = 'private-widget' }
@@ -285,13 +285,13 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.ShippedFolders() | Should -Be @('inner', 'assets')
         }
 
-        It 'has only the shared rows when no language declares a layout' -Tag 'ADR-AUTO-MODULE#2' {
+        It 'has only the shared rows when no language declares a layout' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg') })
             $config.layout.folder | Should -Be @('assets', 'tests')
             $config.LivePatterns() | Should -Be @('assets/**')
         }
 
-        It 'places a file by the root row of its extension or by the row that names its folder, and places none it does not know' -Tag 'ADR-AUTO-MODULE#2' {
+        It 'places a file by the root row of its extension or by the row that names its folder, and places none it does not know' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg', '.wdx'); layout = @(
                         [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }
                         [ordered]@{ folder = 'inner'; role = 'private-widget' }
@@ -307,7 +307,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.PlaceOf('') | Should -BeNullOrEmpty
         }
 
-        It 'throws on a folder named twice, within a language, across languages and against a shared row' -Tag 'ADR-AUTO-MODULE#2' {
+        It 'throws on a folder named twice, within a language, across languages and against a shared row' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @(
                             [ordered]@{ folder = 'inner'; role = 'a' }
                             [ordered]@{ folder = 'inner'; role = 'b' }
@@ -323,7 +323,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Throw "*folder 'tests' is named twice (by 'widget' and '(shared)')*"
         }
 
-        It 'throws on an unknown layout key, a bad folder, a bad role, a root row without extensions, extensions on a folder row, and a foreign extension' -Tag 'ADR-AUTO-MODULE#2' {
+        It 'throws on an unknown layout key, a bad folder, a bad role, a root row without extensions, extensions on a folder row, and a foreign extension' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @(
                             [ordered]@{ folder = 'a'; role = 'r'; speed = 1 }
                             [ordered]@{ folder = 'Bad/Folder'; role = 'r' }
@@ -344,7 +344,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*extension '.wdg' is placed by two root rows*"
         }
 
-        It 'throws on a layout that is not a list, and on live or shipped that is not a boolean' -Tag 'ADR-AUTO-MODULE#2' {
+        It 'throws on a layout that is not a list, and on live or shipped that is not a boolean' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = 'inner' }) } | Should -Throw '*layout must be a list of rows*'
             { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @([ordered]@{ folder = 'a'; role = 'r'; live = 'yes' }) }) } |
                 Should -Throw '*live must be true or false*'
@@ -352,7 +352,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
     }
 
     Context 'integrity (shipped languages.yml layout)' -Tag 'integrity' {
-        It 'places the five live folders the aspects were written with, and the shared tests folder is not live' -Tag 'ADR-AUTO-MODULE#2' {
+        It 'places the five live folders the aspects were written with, and the shared tests folder is not live' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = Get-Config -Config languages
             $config.LivePatterns() | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', 'assets/**')
             # The editor extension's folder is laid out but neither live nor shipped, like the shared tests folder.

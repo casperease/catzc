@@ -108,7 +108,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                 Sort-Object -Unique | Where-Object { $_.Split('/')[0] -ne 'out' })
         $folders.Count | Should -BeGreaterThan 0
         $undeclared = @($folders | Where-Object { $null -eq (Get-Track -Path $_) })
-        $undeclared | Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (ADR-DSGN-TRACK#1)'
+        $undeclared | Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)'
     }
 
     It 'registers every file language a track declares' {
@@ -120,7 +120,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                     }
                 }
             })
-        $unknown | Should -BeNullOrEmpty -Because 'a track declares its tech-stack in registered file languages (ADR-DSGN-TRACK#6)'
+        $unknown | Should -BeNullOrEmpty -Because 'a track declares its tech-stack in registered file languages (ADR-DSGN-TRACK-FILELANGUAGE)'
     }
 
     It 'names an existing ADR folder for every file language that declares one' {
@@ -158,6 +158,6 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
         $report = @(foreach ($key in $violations.Keys) {
                 '{0}: {1} file(s), e.g. {2}' -f $key, $violations[$key].Count, $violations[$key][0]
             })
-        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (ADR-DSGN-TRACK#3)'
+        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (ADR-DSGN-TRACK-ONETECHSTACK)'
     }
 }

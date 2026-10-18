@@ -1,4 +1,4 @@
-Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         $script:installDirectory = Join-Path $TestDrive 'dotnet-widget'
         $script:resolvedScripts = [System.Collections.Generic.List[string]]::new()

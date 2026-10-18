@@ -1,4 +1,4 @@
-Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
+Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     It 'reads <Name> (empty: <IsEmpty>) as <Kind>' -ForEach @(
         @{ Name = 'widget.yml'; IsEmpty = $false; Kind = 'Fragment' }
         @{ Name = 'widget.yml'; IsEmpty = $true; Kind = 'Presence' }

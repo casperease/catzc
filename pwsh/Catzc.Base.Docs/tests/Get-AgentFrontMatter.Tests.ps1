@@ -1,4 +1,4 @@
-Describe 'Get-AgentFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#1' {
+Describe 'Get-AgentFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-ONEFILEPERAGENT' {
     BeforeAll {
         function Write-AgentFixture {
             param([string] $Name, [string[]] $Text)

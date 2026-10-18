@@ -17,29 +17,29 @@ Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
     }
 
     Context 'prose' {
-        It 'flags a phrase that names some engines but not all of them, with its line' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'flags a phrase that names some engines but not all of them, with its line' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             $found = @(& $find 'docs/notes.md' "# Notes`n`nIt runs under widget and gadget.`n")
             $found | Should -HaveCount 1
             $found[0] | Should -BeLike "docs/notes.md:3: 'widget and gadget' names 2 of the 3 engines*"
         }
 
-        It 'passes a phrase that names every engine' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'passes a phrase that names every engine' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             @(& $find 'docs/notes.md' "It runs under widget, gadget and sprocket.`n") | Should -HaveCount 0
         }
 
-        It 'flags a count that is not the model''s, and passes the model''s count' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'flags a count that is not the model''s, and passes the model''s count' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             $found = @(& $find 'docs/notes.md' "Both engines agree.`nThe three engines agree.`nThe two engines differ.`n")
             $found | Should -HaveCount 2
             $found[0] | Should -BeLike "docs/notes.md:1: 'Both engines' restates the engine count*"
             $found[1] | Should -BeLike 'docs/notes.md:3:*'
         }
 
-        It 'flags bracketed engine names on one line that leave one out' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'flags bracketed engine names on one line that leave one out' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             @(& $find 'docs/notes.md' "Titled <test> [widget] and <test> [gadget].`n") | Should -HaveCount 1
             @(& $find 'docs/notes.md' "Titled [widget], [gadget] and [sprocket].`n") | Should -HaveCount 0
         }
 
-        It 'reads a code file''s comments as prose, never its code' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'reads a code file''s comments as prose, never its code' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             $found = @(& $find 'src/Get-Widget.ps1' "# Runs under widget or gadget.`n`$label = 'widget or gadget'`n")
             $found | Should -HaveCount 1
             $found[0] | Should -BeLike 'src/Get-Widget.ps1:1:*'
@@ -47,7 +47,7 @@ Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
     }
 
     Context 'PowerShell code' {
-        It 'flags a ValidateSet, an array literal, and a switch with no default that list engines' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'flags a ValidateSet, an array literal, and a switch with no default that list engines' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             $text = @(
                 'function Get-Widget {'
                 '    param([ValidateSet(''widget'', ''gadget'')] [string] $Engine)'
@@ -62,7 +62,7 @@ Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
             $found[2] | Should -BeLike 'src/Get-Widget.ps1:4: a switch with no default*'
         }
 
-        It 'passes one engine name, a switch with a default, and a list of other values' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'passes one engine name, a switch with a default, and a list of other values' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             $text = @(
                 '$one = @(''widget'')'
                 'switch ($x) { ''widget'' { 1 } ''gadget'' { 2 } default { 3 } }'
@@ -73,7 +73,7 @@ Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
     }
 
     Context 'C# code' {
-        It 'flags two engine names as string literals on one line' -Tag 'ADR-AUTO-ENGINE#1' {
+        It 'flags two engine names as string literals on one line' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
             $text = (@('namespace Widget;', 'class A { static readonly string[] Names = { "widget", "gadget" }; }', '') -join "`n")
             $found = @(& $find 'src/A.cs' $text)
             $found | Should -HaveCount 1

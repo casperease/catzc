@@ -25,7 +25,7 @@ Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'is every tracked file present on disk, fixtures included, minus vendored code, byte-frozen contract assets and binary files' -Tag 'ADR-REPO-CONTRACT#5' {
+    It 'is every tracked file present on disk, fixtures included, minus vendored code, byte-frozen contract assets and binary files' -Tag 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
         $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } { param($Root) Get-FormatScope -RepositoryRoot $Root }
         $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'), (& $script:full 'gadgets/d.gdg'))
     }

@@ -14,7 +14,7 @@ BeforeAll {
     }
 }
 
-Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#4' {
+Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM-RESOLUTIONORDER' {
     It 'flags a body that fills an empty parameter in: <Description>' -ForEach @(
         @{ Description = 'if (-not $P) { $P = … }'; Body = "if (-not `$Label) {`n        `$Label = 'widget'`n    }" }
         @{ Description = '$P = $P ?? …'; Body = "`$Label = `$Label ?? 'widget'" }
@@ -36,7 +36,7 @@ Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#4' {
     }
 }
 
-Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#2' {
+Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM-POSITIONALPRIMARY' {
     It 'flags a public function whose one mandatory parameter is named-only' {
         $code = "function Get-Widget {`n    param([Parameter(Mandatory)] [string] `$Name, [int] `$Count = 1)`n}"
         $records = @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1')
@@ -60,7 +60,7 @@ Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#2
     }
 }
 
-Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#3' {
+Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM-SWITCHNOTBOOL' {
     It 'flags an optional [bool] parameter: <Description>' -ForEach @(
         @{ Description = 'bare'; Param = '[bool] $Loud' }
         @{ Description = 'with a default'; Param = '[bool] $Loud = $false' }
@@ -93,7 +93,7 @@ Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARA
     }
 }
 
-Describe 'Measure-NoSwitchDefaultOn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#3' {
+Describe 'Measure-NoSwitchDefaultOn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM-SWITCHNOTBOOL' {
     It 'flags a [switch] declared $true' {
         $code = "function Get-Widget {`n    param([switch] `$Spin = `$true)`n}"
         $records = @(Get-RuleRecord -Rule 'Measure-NoSwitchDefaultOn' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1')

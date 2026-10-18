@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-AnalyzerAdrMap, the quality gate that checks the analyzer
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AnalyzerAdrMap, the quality gate that checks the analyzer
 # map cites only real ADR rules and maps every custom analyzer rule, and returns its result under -PassThru.
 parameters:
   OutputFolder: string

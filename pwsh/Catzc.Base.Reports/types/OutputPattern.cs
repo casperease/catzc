@@ -49,7 +49,7 @@ public sealed class OutputPattern
         return new OutputPattern(text, parsed);
     }
 
-    // Console-ready text ([ADR-AUTO-TYPES#14](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types14)).
+    // Console-ready text ([ADR-AUTO-TYPES-CONSOLEREADYTOSTRING](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-consolereadytostring)).
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // True when the output-root-relative path (with '/' or '\' separators) matches this pattern.

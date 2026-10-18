@@ -2,7 +2,7 @@ concepts:
   tier:
     key: tier
     domain: automation
-    defined_by: ADR-AUTO-TEST#13
+    defined_by: ADR-AUTO-TEST-TWOMANDATORYTAGS
     short: A test's level, L0 to L4 — one mandatory tag that sets what the test may touch and when it runs.
     realized_by: { kind: tag, pattern: "L0|L1|L2|L3|L4" }
     contrasts:
@@ -18,7 +18,7 @@ concepts:
   testing in production:
     key: testing_in_production
     domain: automation
-    defined_by: ADR-AUTO-TEST#41
+    defined_by: ADR-AUTO-TEST-TESTINGINPRODUCTION
     short: The L4 tier — tests of the released system itself, after final approval, that observe it and create nothing of their own.
     realized_by: { kind: tag, pattern: "L4" }
     contrasts:
@@ -27,7 +27,7 @@ concepts:
   category:
     key: category
     domain: automation
-    defined_by: ADR-AUTO-TEST#1
+    defined_by: ADR-AUTO-TEST-ONECATEGORY
     short: A test's kind, logic or integrity — one mandatory tag saying whether it runs on fixtures or reads the shipped assets.
     realized_by: { kind: tag, pattern: "logic|integrity" }
     contrasts:
@@ -37,7 +37,7 @@ concepts:
   test run:
     key: test_run
     domain: automation
-    defined_by: ADR-AUTO-TEST#34
+    defined_by: ADR-AUTO-TEST-TESTRUN
     short:
       One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a selection of test files, in one location, with one
       report.
@@ -55,7 +55,7 @@ concepts:
   gate:
     key: gate
     domain: flow
-    defined_by: ADR-FLOW-CD#13
+    defined_by: ADR-FLOW-CD-GATEDEFINED
     short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
     realized_by: { kind: prose-only }
     forms: [quality, CI, AT, RC, RBC, BVT, release, manual, PR, merge, commit, approval, production, push]
@@ -64,7 +64,7 @@ concepts:
   quality gate:
     key: quality_gate
     domain: automation
-    defined_by: ADR-AUTO-TEST#35
+    defined_by: ADR-AUTO-TEST-QUALITYGATE
     short:
       A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
       Write-QualityGateReport and throws once with every issue.
@@ -79,7 +79,7 @@ concepts:
   test file:
     key: test_file
     domain: automation
-    defined_by: ADR-AUTO-TEST#43
+    defined_by: ADR-AUTO-TEST-TESTFILE
     short:
       One file of tests that discovery maps to one catzc module — the unit a test run schedules, never split; in pwsh a Verb-Noun.Tests.ps1
       under tests/.
@@ -91,7 +91,7 @@ concepts:
   test block:
     key: test_block
     domain: pwsh
-    defined_by: ADR-PWSH-PESTER#8
+    defined_by: ADR-PWSH-PESTER-TESTISIT
     short: A Describe or Context in a test file — a named group of tests whose tags and setup apply to everything inside it.
     realized_by: { kind: function, pattern: "Describe|Context" }
     relations:
@@ -102,7 +102,7 @@ concepts:
   test:
     key: test
     domain: automation
-    defined_by: ADR-AUTO-TEST#42
+    defined_by: ADR-AUTO-TEST-TEST
     short:
       The smallest unit of verification that passes or fails on its own — counted by every report row, rule citation, skip, and timing; in
       pwsh one Pester It.
@@ -114,7 +114,7 @@ concepts:
   phase:
     key: phase
     domain: automation
-    defined_by: ADR-AUTO-TEST#26
+    defined_by: ADR-AUTO-TEST-ONESCHEDULINGPOOL
     short:
       A test run's scheduling stage — parallel and greedy files share one pool, serial runs last — chosen per file by the serial/greedy tags.
     realized_by: { kind: tag, pattern: "serial|greedy" }
@@ -124,7 +124,7 @@ concepts:
   build verification test:
     key: bvt
     domain: automation
-    defined_by: ADR-AUTO-TEST#24
+    defined_by: ADR-AUTO-TEST-BUILDVERIFICATIONTEST
     short: The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
     realized_by: { kind: prose-only }
     contrasts:
@@ -134,7 +134,7 @@ concepts:
   all tests:
     key: all_tests
     domain: automation
-    defined_by: ADR-AUTO-TEST#36
+    defined_by: ADR-AUTO-TEST-ALLTESTS
     short:
       Every test in the repository — every test file of every module, at every tier and category; what a test run selects at its defaults.
     realized_by: { kind: function, pattern: "Test-Automation" }
@@ -149,7 +149,7 @@ concepts:
   test suite:
     key: test_suite
     domain: automation
-    defined_by: ADR-AUTO-TEST#37
+    defined_by: ADR-AUTO-TEST-TESTSUITE
     short:
       A named, declared selection of tests that runs as one unit — a globset's verify scope in globs.yml (modules up to a tier), run with
       Test-Automation -Suite.
@@ -163,7 +163,7 @@ concepts:
   vertical test:
     key: vertical_test
     domain: automation
-    defined_by: ADR-AUTO-TEST#38
+    defined_by: ADR-AUTO-TEST-ONIONOFRINGS
     short: An L2 or L3 test that cuts from an outer ring of the test onion (local tools; outside state) through to the core, the code alone.
     realized_by: { kind: tag, pattern: "L2|L3" }
     contrasts:
@@ -173,7 +173,7 @@ concepts:
   markdown link:
     key: markdown_link
     domain: repository
-    defined_by: ADR-REPO-LINK#1
+    defined_by: ADR-REPO-LINK-KINDBYFILE
     short: A link inside a rendered .md file, written relative to that file so it resolves the same on GitHub and in VS Code.
     realized_by: { kind: function, pattern: Test-Links }
     contrasts:
@@ -183,7 +183,7 @@ concepts:
   code link:
     key: code_link
     domain: repository
-    defined_by: ADR-REPO-LINK#1
+    defined_by: ADR-REPO-LINK-KINDBYFILE
     short: An ADR citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
     realized_by: { kind: function, pattern: Format-Links }
     contrasts:
@@ -193,6 +193,6 @@ concepts:
   comment page:
     key: comment_page
     domain: repository
-    defined_by: ADR-REPO-COMMENTS#1
+    defined_by: ADR-REPO-COMMENTS-ONELINEOFINSIGHT
     short: The Markdown page under docs/references that holds a file's long comments verbatim, one numbered section per comment.
     realized_by: { kind: function, pattern: Export-Comments }

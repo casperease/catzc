@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-GlobSetIndependence, the quality gate that checks no two
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GlobSetIndependence, the quality gate that checks no two
 # globsets of one layer select a common file on their own contribution, and returns its result under -PassThru.
 parameters:
   OutputFolder: string

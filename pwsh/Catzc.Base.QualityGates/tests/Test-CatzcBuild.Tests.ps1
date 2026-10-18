@@ -1,4 +1,4 @@
-Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
+Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS' {
     BeforeAll {
         $script:harness = 'Catzc.Base.QualityGates'
     }

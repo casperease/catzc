@@ -1,4 +1,4 @@
-Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
+Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Docs) { Get-CatsAdrIndex }
         $script:ruleSets = Get-AdrRuleSet
@@ -46,7 +46,7 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
     }
 }
 
-Describe 'Build-AdrIndex — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Build-AdrIndex — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the domain registry and the type sources it stamps in the loaded module' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0

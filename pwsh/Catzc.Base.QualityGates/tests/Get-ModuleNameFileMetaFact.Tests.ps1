@@ -1,4 +1,4 @@
-Describe 'Get-ModuleNameFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' {
+Describe 'Get-ModuleNameFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY' {
     BeforeAll {
         $script:types = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{
                 module_types = [ordered]@{

@@ -1,2 +1,2 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Uninstall-Zsh, which uninstalls the zsh Install-Zsh placed; it
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Zsh, which uninstalls the zsh Install-Zsh placed; it
 # takes no parameters.

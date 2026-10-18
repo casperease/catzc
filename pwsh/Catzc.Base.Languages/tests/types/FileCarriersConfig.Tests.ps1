@@ -12,7 +12,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             Get-Config -Config file-carriers | Should -BeOfType [Catzc.Base.Languages.FileCarriersConfig]
         }
 
-        It 'gives every file language of languages.yml a carrier entry, and every other entry its own files' -Tag 'ADR-REPO-FILEMETA#1' {
+        It 'gives every file language of languages.yml a carrier entry, and every other entry its own files' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
             $carriers = Get-Config -Config file-carriers
             $languages = (Get-Config -Config languages).languages.name
             $missing = @($languages | Where-Object { $null -eq $carriers.Find($_) })
@@ -28,7 +28,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
     }
 
     Context 'logic (fixture configs)' -Tag 'logic' {
-        It 'reads a comment head with a line prefix, defaulting its anchor to the start' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'reads a comment head with a line prefix, defaulting its anchor to the start' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $config = & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#' })
             $config.carriers[0] | Should -BeOfType [Catzc.Base.Languages.FileCarrier]
             $config.carriers[0].carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::CommentHead)
@@ -48,7 +48,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $config.carriers[0].preamble_lines | Should -Be 2
         }
 
-        It 'reads the globs an entry leaves out with their reasons, empty by default' -Tag 'ADR-REPO-CODEMETA#3' {
+        It 'reads the globs an entry leaves out with their reasons, empty by default' -Tag 'ADR-REPO-CODEMETA-SAMEENGINE' {
             $config = & $script:make ([ordered]@{ carriers = [ordered]@{
                         widget = [ordered]@{ carrier = 'comment-head'; line = '#'; exclude = [ordered]@{ '**/tests/**' = 'a test carries no help'; '**/assets/**' = ' copied verbatim ' } }
                         gadget = [ordered]@{ carrier = 'comment-head'; line = '#' }
@@ -62,7 +62,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; exclude = [ordered]@{ 'a/**' = '' } }) } | Should -Throw '*needs a glob and a reason*'
         }
 
-        It 'builds the head form of a comment-head entry, and none for any other carrier' -Tag 'ADR-REPO-CODEMETA#1' {
+        It 'builds the head form of a comment-head entry, and none for any other carrier' -Tag 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
             $config = & $script:make ([ordered]@{ carriers = [ordered]@{
                         widget = [ordered]@{ carrier = 'comment-head'; line = '#'; anchor = 'after-shebang' }
                         gadget = [ordered]@{ carrier = 'comment-head'; block = @('/*', '*/') }
@@ -80,7 +80,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $config.Find('cog').Form() | Should -BeNullOrEmpty
         }
 
-        It 'reads the openers of old heads a comment-head entry strips, and passes them to its head form' -Tag 'ADR-REPO-CODEMETA#1' {
+        It 'reads the openers of old heads a comment-head entry strips, and passes them to its head form' -Tag 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
             $config = & $script:make ([ordered]@{ carriers = [ordered]@{
                         widget = [ordered]@{ carrier = 'comment-head'; block = @('/*', '*/'); strip = @('// catzc:') }
                         gadget = [ordered]@{ carrier = 'comment-head'; line = '#' }
@@ -137,7 +137,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ carrier = 'comment-head'; block = @('<!--') }) } | Should -Throw '*opening and the closing delimiter*'
         }
 
-        It 'nests a front-matter block under a key path that ends in catzc' -Tag 'ADR-REPO-FILEMETA#1' {
+        It 'nests a front-matter block under a key path that ends in catzc' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
             $nested = & $script:one ([ordered]@{ files = @('.widget/skills/**/SKILL.md'); carrier = 'front-matter'; key = 'metadata.catzc' })
             $nested.Find('widget').key | Should -Be 'metadata.catzc'
             { & $script:one ([ordered]@{ carrier = 'front-matter'; key = 'metadata' }) } | Should -Throw '*key is a dotted path of plain keys ending in catzc*'

@@ -43,7 +43,7 @@ function Measure-ParameterFillIn {
             foreach ($statement in @($blocks | ForEach-Object { $_.Statements })) {
                 if ($patterns | Where-Object { $statement.Extent.Text -match $_ }) {
                     $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                            Message  = "Declare -$($parameter.Name.VariablePath.UserPath)'s default in the param block instead of filling it in the body (ADR-PWSH-PARAM#4); suppress with the reason when a declaration cannot express it."
+                            Message  = "Declare -$($parameter.Name.VariablePath.UserPath)'s default in the param block instead of filling it in the body (ADR-PWSH-PARAM-RESOLUTIONORDER); suppress with the reason when a declaration cannot express it."
                             Extent   = $statement.Extent
                             RuleName = 'Measure-ParameterFillIn'
                             Severity = 'Warning'
@@ -78,7 +78,7 @@ function Measure-PrimaryArgumentPosition {
         }
         $primary = $mandatory | Select-Object -First 1
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = "$($function.Name)'s one mandatory parameter -$($primary.Name.VariablePath.UserPath) is its primary argument: give it Position = 0 (ADR-PWSH-PARAM#2)."
+                Message  = "$($function.Name)'s one mandatory parameter -$($primary.Name.VariablePath.UserPath) is its primary argument: give it Position = 0 (ADR-PWSH-PARAM-POSITIONALPRIMARY)."
                 Extent   = $primary.Extent
                 RuleName = 'Measure-PrimaryArgumentPosition'
                 Severity = 'Warning'
@@ -125,7 +125,7 @@ function Measure-NoOptionalBooleanParameter {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "$($function.Name)'s optional [bool] -$($parameter.Name.VariablePath.UserPath) is opt-in behaviour: declare it a [switch] (ADR-PWSH-PARAM#3)."
+                    Message  = "$($function.Name)'s optional [bool] -$($parameter.Name.VariablePath.UserPath) is opt-in behaviour: declare it a [switch] (ADR-PWSH-PARAM-SWITCHNOTBOOL)."
                     Extent   = $parameter.Extent
                     RuleName = 'Measure-NoOptionalBooleanParameter'
                     Severity = 'Warning'
@@ -157,7 +157,7 @@ function Measure-NoSwitchDefaultOn {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "$($function.Name)'s [switch] -$($parameter.Name.VariablePath.UserPath) defaults on: opt-in behaviour is off by default, so name the switch for the non-default behaviour (ADR-PWSH-PARAM#3)."
+                    Message  = "$($function.Name)'s [switch] -$($parameter.Name.VariablePath.UserPath) defaults on: opt-in behaviour is off by default, so name the switch for the non-default behaviour (ADR-PWSH-PARAM-SWITCHNOTBOOL)."
                     Extent   = $parameter.Extent
                     RuleName = 'Measure-NoSwitchDefaultOn'
                     Severity = 'Warning'

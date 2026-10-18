@@ -39,7 +39,7 @@ function Test-GlobSetIndependence {
                     }
                 }
                 $sample = @($shared | Select-Object -First 5) -join ', '
-                $issues.Add("$($layer.Name): $a <-> $b share $($shared.Count) file(s), e.g. $sample (ADR-FLOW-CD-GLOBS#10)")
+                $issues.Add("$($layer.Name): $a <-> $b share $($shared.Count) file(s), e.g. $sample (ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER)")
             }
         }
     }

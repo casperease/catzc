@@ -1,4 +1,4 @@
-Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
+Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     BeforeAll {
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetFileMetaFact {
@@ -59,7 +59,7 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     }
 }
 
-Describe 'File meta processor coverage' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA#4' {
+Describe 'File meta processor coverage' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     It 'every kind of the shipped registry has its function and every processor function has its kind' {
         $result = Test-FileMetaProcessors -PassThru -OutputFolder (Join-Path $TestDrive 'file-meta-processors')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

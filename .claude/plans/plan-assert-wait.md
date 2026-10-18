@@ -120,16 +120,19 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       phase that hides a block (types 203 ms, the largest module imports 56 to 66 ms).
 - [x] Function help beyond the head blocks (check: `Test-Links` on the touched pages). Corrected 2026-10-17 (task-assert-wait): the head's
       config part is the whole help (ADR-REPO-HELP#1), and it now names the registry defaults.
-- [ ] Q6, raised by the read-only review of 2026-10-17 (session catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets
+- [x] Done 2026-10-18 with the rename (catzc-93; task-assert-wait step 7). Q6, raised by the read-only review of 2026-10-17 (session catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets
       go, while ADR-PWSH-VERBS#2 and #3 make an Assert- function one that stops the caller, and the file sits in the `assert` subkind of
       file-kinds.yml ("stops the caller"). The user decides: a watch verb (`Watch-Blocking`) with the assert subkind untouched, or a VERBS#7
       exemption for a watchpoint that never stops (check: a Decided line, then the rename or the exemption in the same change as the ADR
       pair of Q5). Decided 2026-10-18 (D17): the rename to `Watch-Blocking`, the assert subkind untouched; it lands with the Q5 pair.
-- [ ] Q5: after the first measured run (`importer.ps1 -DiagnoseBlocking`, four seconds, the user's; the Test-Automation points are read only
+- [x] Done 2026-10-18 by session catzc-93: the run found no block (worst tick 12-14 ms); the rules landed in the named form as
+      ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND and ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH ("Build-AdrIndex ok; Test-AdrRegistry 0;
+      Test-Links 0, Test-Markdownlint 0 and Test-Spelling 0 on both ADRs and index.md"); Watch-Blocking.Tests 16/16. Q5: after the first measured run (`importer.ps1 -DiagnoseBlocking`, four seconds, the user's; the Test-Automation points are read only
       if the final full run carries the switch, and nothing waits on that), write `ADR-AUTO-FAILFAST#8` and `ADR-PWSH-ASSERT#7` with the D17
       rename to `Watch-Blocking` (check: `Build-AdrIndex`, `Test-Links` and the ADR gates on the touched pages; the renamed test file passes
       under `Invoke-TestFile`).
-- [ ] After that run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check: a grep finds no
+- [x] Done 2026-10-18 (catzc-93; task-assert-wait step 8): no watchpoint found a block, so all eight calls are deleted. After that run:
+      replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check: a grep finds no
       watchpoint call left without a finding).
 
 ## Refs

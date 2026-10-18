@@ -1,4 +1,4 @@
-Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#7' {
+Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
     BeforeEach {
         $script:entries = @{
             '{widget-msi}'    = [pscustomobject]@{ DisplayName = 'Microsoft Widget Runtime - 6.0 (x64)'; DisplayVersion = '48.1'; WindowsInstaller = 1 }

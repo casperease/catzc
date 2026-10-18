@@ -24,13 +24,13 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-o
         $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
     }
 
-    It 'passes when every call resolves' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes when every call resolves' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing' -Body 'Get-BThing; Write-Output 1'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-BThing'
         { Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase } | Should -Not -Throw
     }
 
-    It 'throws once listing every unresolved call and duplicate public function' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every unresolved call and duplicate public function' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-Dupe' -Body 'Get-NoSuchWidget'
         New-FunctionFile -Root $root -Module 'ModB' -Name 'Get-Dupe'
         $thrown = { Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase } | Should -Throw -PassThru
@@ -40,7 +40,7 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-o
         $message | Should -BeLike '*Get-Dupe -> Get-NoSuchWidget (ModA/Get-Dupe.ps1:1)*'
     }
 
-    It 'returns the result with the function count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with the function count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         New-FunctionFile -Root $root -Module 'ModA' -Name 'Get-AThing' -Body 'Get-NoSuchGadget'
         $result = Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase -PassThru
         $result.Subject | Should -Be 'function-dependency'

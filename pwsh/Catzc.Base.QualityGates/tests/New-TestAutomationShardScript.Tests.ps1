@@ -142,7 +142,7 @@ Describe 'New-TestAutomationShardScript' {
         }
     }
 
-    Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
+    Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
             $runDirectory = Join-Path $TestDrive 'live-run'
             [void][System.IO.Directory]::CreateDirectory($runDirectory)

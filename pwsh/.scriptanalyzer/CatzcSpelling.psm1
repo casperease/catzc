@@ -3,7 +3,7 @@ param()
 
 Set-StrictMode -Version Latest   # this module's scope: the entry rule runs strict inside the analyzer engine
 
-# The spelling check reads the dictionaries, so it is its own entry rule: a dictionary edit re-runs this rule alone ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)).
+# The spelling check reads the dictionaries, so it is its own entry rule: a dictionary edit re-runs this rule alone ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
 $script:measure = $null
 
 function Measure-CatzcSpelling {

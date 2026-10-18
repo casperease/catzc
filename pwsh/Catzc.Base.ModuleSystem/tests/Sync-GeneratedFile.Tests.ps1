@@ -32,7 +32,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*pipeline*' }
     }
 
-    It 'never commits in an agent session, and announces what the person should commit' -Tag 'ADR-AUTO-TYPES#13' {
+    It 'never commits in an agent session, and announces what the person should commit' -Tag 'ADR-AUTO-TYPES-JANITORSBYCALLER' {
         Mock Get-SessionActor { 'Agent' } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
@@ -110,7 +110,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Synced*' }
     }
 
-    It 'holds back .compiled with a yellow line while a type source differs from HEAD' -Tag 'ADR-AUTO-CACHE#8' {
+    It 'holds back .compiled with a yellow line while a type source differs from HEAD' -Tag 'ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD' {
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains "$(Get-CatzcModulesFolder)/*/types/*.cs" }
 
         Sync-GeneratedFile | Should -BeNullOrEmpty

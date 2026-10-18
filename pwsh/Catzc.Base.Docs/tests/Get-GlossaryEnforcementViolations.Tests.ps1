@@ -36,7 +36,7 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'reports nothing when a test or an analyzer enforces the defining rule' -Tag 'ADR-REPO-VOCAB#6' {
+    It 'reports nothing when a test or an analyzer enforces the defining rule' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         $entries = @(
             & $script:entry 'widget suite' 'ADR-TST-WIDGET#1'
             & $script:entry 'gadget run' 'ADR-TST-WIDGET#2' 'function'
@@ -44,25 +44,25 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
         & $script:violations $entries | Should -BeNullOrEmpty
     }
 
-    It 'reports a realized concept whose defining rule nothing enforces' -Tag 'ADR-REPO-VOCAB#6' {
+    It 'reports a realized concept whose defining rule nothing enforces' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         $found = & $script:violations @(
             & $script:entry 'widget suite' 'ADR-TST-WIDGET#3'
             & $script:entry 'gadget run' 'ADR-TST-WIDGET#4' 'folder'
         )
         $found.Count | Should -Be 2
-        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#3 — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB#6)"
+        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#3 — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB-REALIZEDBY)"
         $found[1] | Should -BeLike "*: concept 'gadget run' is realized as folder 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#4*"
     }
 
-    It 'exempts a prose-only concept' -Tag 'ADR-REPO-VOCAB#6' {
+    It 'exempts a prose-only concept' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#4' 'prose-only') | Should -BeNullOrEmpty
     }
 
-    It 'skips a source that opts out of the enforced check' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'skips a source that opts out of the enforced check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#4' 'tag' @('anchored', 'single', 'avoid')) | Should -BeNullOrEmpty
     }
 
-    It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB#6' {
+    It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         # Get-Glossary returns its array as one object (', $sorted'); the default must bind that shape.
         $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#3')
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()

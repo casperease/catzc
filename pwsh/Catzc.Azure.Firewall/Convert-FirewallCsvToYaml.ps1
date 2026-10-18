@@ -1,5 +1,5 @@
 function Convert-FirewallCsvToYaml {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM#4)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     param(
         [Parameter(Mandatory, ParameterSetName = 'Path')]

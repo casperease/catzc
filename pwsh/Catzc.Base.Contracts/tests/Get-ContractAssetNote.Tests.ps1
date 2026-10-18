@@ -1,4 +1,4 @@
-Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
+Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     BeforeAll {
         # The lines of a fixture file, each ended by LF.
         function Join-Line {

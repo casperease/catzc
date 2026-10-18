@@ -1,4 +1,4 @@
-Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         # The fixture generators are no loaded functions; the resolver's own tests prove the lookup.
         Mock Get-GeneratorPath -ModuleName Catzc.Base.Languages { "widgets/Catzc.Widget/$Name.ps1" }

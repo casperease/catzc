@@ -1,4 +1,4 @@
-Describe 'Get-FileRoleFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-PRIN-CONFIG#1' {
+Describe 'Get-FileRoleFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     BeforeAll {
         $script:registry = [Catzc.Base.Globs.FileKindsConfig]::new(@{
                 kinds = [ordered]@{

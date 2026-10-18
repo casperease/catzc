@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-ConfigValidators, the quality gate that checks every
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ConfigValidators, the quality gate that checks every
 # config validator maps to a config of its own module and returns its result under -PassThru.
 parameters:
   OutputFolder: string

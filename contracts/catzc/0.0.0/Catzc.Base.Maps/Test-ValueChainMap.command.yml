@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-ValueChainMap, the quality gate that checks every ADR sits
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ValueChainMap, the quality gate that checks every ADR sits
 # in a cell of the value-chain map and every label it prints is a glossary term, and returns its result under -PassThru.
 parameters:
   OutputFolder: string

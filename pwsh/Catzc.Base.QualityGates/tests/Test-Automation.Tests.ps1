@@ -10,7 +10,7 @@ Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' 
         $result.Facts['SkipReasons'] | Should -BeGreaterThan 10
     }
 
-    It 'reports no source or test file convention issues' -Tag 'ADR-PWSH-PESTER#5', 'ADR-AUTO-TEST#43' {
+    It 'reports no source or test file convention issues' -Tag 'ADR-PWSH-PESTER-TESTFILE', 'ADR-AUTO-TEST-TESTFILE' {
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }
@@ -30,7 +30,7 @@ Describe 'Module dependencies' -Tag 'L0', 'integrity', 'source-only' {
     }
 }
 
-Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }
         # -PassThru answers with the module, as the real import does: the already-running Pester

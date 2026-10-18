@@ -12,8 +12,8 @@ function Test-ValueChainMap {
 
     # The rows and the columns: the closed sets of the registry type, in order.
     $axes = @(
-        @{ Name = 'rows'; Printed = @($map.Stacks); Declared = @([Catzc.Base.Docs.AdrsConfig]::Stacks); What = 'the rows of the value-chain stack'; Rule = 'ADR-DSGN-TRACK#14' }
-        @{ Name = 'columns'; Printed = @($map.Concerns); Declared = @([Catzc.Base.Docs.AdrsConfig]::Concerns); What = 'the value-chain concerns'; Rule = 'ADR-DSGN-TRACK#15' }
+        @{ Name = 'rows'; Printed = @($map.Stacks); Declared = @([Catzc.Base.Docs.AdrsConfig]::Stacks); What = 'the rows of the value-chain stack'; Rule = 'ADR-DSGN-TRACK-VALUECHAINSTACK' }
+        @{ Name = 'columns'; Printed = @($map.Concerns); Declared = @([Catzc.Base.Docs.AdrsConfig]::Concerns); What = 'the value-chain concerns'; Rule = 'ADR-DSGN-TRACK-VALUECHAINCONCERN' }
     )
     foreach ($axis in $axes) {
         if (($axis.Printed -join ', ') -cne ($axis.Declared -join ', ')) {
@@ -23,10 +23,10 @@ function Test-ValueChainMap {
 
     # The ADRs: each sits in a cell, and declares only rows and value-chain concerns the map prints.
     foreach ($stray in $map.Strays) {
-        $issues.Add("stray value: $stray (ADR-DSGN-TRACK#15)")
+        $issues.Add("stray value: $stray (ADR-DSGN-TRACK-VALUECHAINCONCERN)")
     }
     foreach ($adr in $map.Unplaced) {
-        $issues.Add("unplaced ADR: $adr sits in no cell of the value-chain map (ADR-DSGN-TRACK#15)")
+        $issues.Add("unplaced ADR: $adr sits in no cell of the value-chain map (ADR-DSGN-TRACK-VALUECHAINCONCERN)")
     }
 
     # Printed labels: each value_chain_ label names a glossary term.
@@ -43,7 +43,7 @@ function Test-ValueChainMap {
     foreach ($name in $labelNames) {
         $text = [string] $labels.$name
         if ($null -eq (Resolve-MapLabelTerm -Label $text -Term $terms)) {
-            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK#16)")
+            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK-VALUECHAINMAP)")
         }
     }
 

@@ -63,7 +63,7 @@ Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Test-ManagedGuids — shipped configs/guids.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Test-ManagedGuids — shipped configs/guids.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the registry it names in the loaded module, with the denied all-zero guid' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/guids.yml' -Module Catzc.Base.QualityGates)) | ConvertFrom-Yaml -Ordered
         @($registry['denied'].Values | ForEach-Object { "$($_['guid'])" }) | Should -Contain ([guid]::Empty.ToString())

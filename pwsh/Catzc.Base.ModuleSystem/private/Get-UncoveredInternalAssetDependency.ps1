@@ -13,7 +13,7 @@ function Get-UncoveredInternalAssetDependency {
         $Dependency = @(Get-InternalAssetDependency -ModulesRoot $ModulesRoot)
     }
 
-    $citation = 'ADR-AUTO-ASSETDEP#3'
+    $citation = 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST'
     $blockNames = @('Describe', 'Context', 'It')
 
     # The literal tag values of one Pester block command (-Tag / -Tags, space or colon form).

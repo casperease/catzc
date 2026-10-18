@@ -1,4 +1,4 @@
-Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
+Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleTextWidgetProbe').Type) {
             # The combined assembly, plus System.Management.Automation for the [Hidden] probe property.

@@ -1,4 +1,4 @@
-Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
+Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     BeforeAll {
         function New-FakeTest {
             param([string[]] $OwnTags = @(), [string[]] $InnerTags = @(), [string[]] $OuterTags)

@@ -24,7 +24,7 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'writes the annotated copy of an exported file, equal to the original, and nothing for a file without a page' -Tag 'ADR-REPO-COMMENTS#4' {
+    It 'writes the annotated copy of an exported file, equal to the original, and nothing for a file without a page' -Tag 'ADR-REPO-COMMENTS-INLINEVIEWGENERATED' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         $written = @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)))
@@ -32,7 +32,7 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
         [System.IO.File]::ReadAllText((Join-Path $root $written[0])) | Should -BeExactly $source
     }
 
-    It 'is idempotent and writes nothing under -DryRun' -Tag 'ADR-AUTO-IDEM#1' {
+    It 'is idempotent and writes nothing under -DryRun' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) -DryRun).Count | Should -Be 1

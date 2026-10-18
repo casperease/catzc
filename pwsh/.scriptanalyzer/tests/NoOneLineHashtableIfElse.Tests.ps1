@@ -1,4 +1,4 @@
-Describe 'Measure-NoOneLineHashtableIfElse' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT#10' {
+Describe 'Measure-NoOneLineHashtableIfElse' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoOneLineHashtableIfElse.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

@@ -71,7 +71,7 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         $script:settings = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
 

@@ -1,4 +1,4 @@
-Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)' -Tag 'L3', 'logic', 'ADR-AUTO-TEST#39' {
+Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)' -Tag 'L3', 'logic', 'ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES' {
     BeforeAll {
         $script:name = 'CATZC_L3_WIDGET_' + [guid]::NewGuid().ToString('N')
         Mock Write-Message { } -ModuleName Catzc.Base.Environment

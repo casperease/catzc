@@ -17,7 +17,7 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
     }
 
-    Context 'source mode reads this repository''s own config fragments only' -Tag 'ADR-PRIN-CATS#5' {
+    Context 'source mode reads this repository''s own config fragments only' -Tag 'ADR-PRIN-CATS-FOLDERSUSECATZC' {
         BeforeEach {
             Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'source' }
             Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { Join-Path $env:RepositoryRoot 'widgetry' }

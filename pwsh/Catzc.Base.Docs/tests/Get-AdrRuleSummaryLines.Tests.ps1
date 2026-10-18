@@ -35,7 +35,7 @@ Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {
         $script:lines = InModuleScope Catzc.Base.Docs -Parameters @{ Path = $path } { Get-AdrRuleSummaryLines $Path }
     }
 
-    It 'returns each normative line with its 1-based number and its rule in citation form' -Tag 'ADR-REPO-LINK#5' {
+    It 'returns each normative line with its 1-based number and its rule in citation form' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {
         $lines | Should -HaveCount 4
         $lines[0].Rule | Should -Be 'ADR-WI-ONE#1'
         $lines[0].Line | Should -Be 9

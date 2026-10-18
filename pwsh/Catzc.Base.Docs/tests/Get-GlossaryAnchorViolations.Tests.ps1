@@ -55,29 +55,29 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'reports nothing when the defining rule bolds the term, across a wrapped line and in any case' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'reports nothing when the defining rule bolds the term, across a wrapped line and in any case' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#1') | Should -BeNullOrEmpty
     }
 
-    It 'reports a defined_by that names no rule' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'reports a defined_by that names no rule' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $found = & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#9')
         $found.Count | Should -Be 1
-        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-TST-WIDGET#9' names no rule in an indexed ADR (ADR-REPO-VOCAB#1)"
+        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-TST-WIDGET#9' names no rule in an indexed ADR (ADR-REPO-VOCAB-DEFINEDTERM)"
     }
 
-    It 'reports a defining rule whose summary does not bold the term' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'reports a defining rule whose summary does not bold the term' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $found = & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#2')
         $found.Count | Should -Be 1
         $found[0] | Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': the normative summary of ADR-TST-WIDGET#2 does not bold '**widget suite**'*"
     }
 
-    It 'does not count bold text in the ADR body, a linked bullet, or a code span' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'does not count bold text in the ADR body, a linked bullet, or a code span' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2')
         $found.Count | Should -Be 1
         $found[0] | Should -BeLike "*concept 'gadget run': the normative summary of ADR-TST-WIDGET#2 does not bold '**gadget run**'*"
     }
 
-    It 'skips a source that opts out of the anchored check' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'skips a source that opts out of the anchored check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $entries = @(
             & $script:entry 'gadget run' 'ADR-TST-WIDGET#2' @('single', 'avoid', 'enforced')
             & $script:entry 'widget suite' 'ADR-TST-WIDGET#9' @()
@@ -89,7 +89,7 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
         & $script:violations @() | Should -BeNullOrEmpty
     }
 
-    It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         # Get-Glossary returns its array as one object (', $sorted'); the default must bind that shape.
         $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#9')
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()

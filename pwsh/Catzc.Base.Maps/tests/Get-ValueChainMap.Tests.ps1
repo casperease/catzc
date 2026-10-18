@@ -14,7 +14,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
         Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps { $script:ruleSets }
     }
 
-    It 'crosses the value-chain stack with the value-chain concerns, every cell included' -Tag 'ADR-DSGN-TRACK#16' {
+    It 'crosses the value-chain stack with the value-chain concerns, every cell included' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
         $map = Get-ValueChainMap
         $map | Should -BeOfType [Catzc.Base.Maps.ValueChainMap]
         $map.Stacks | Should -Be $script:stacks
@@ -25,7 +25,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
         @($map.Cells | Where-Object AdrCount -GT 0).Count | Should -Be 2
     }
 
-    It 'emits JSON with -AsJson' -Tag 'ADR-THES-ONETRUTH#3' {
+    It 'emits JSON with -AsJson' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
         $data = Get-ValueChainMap -AsJson | ConvertFrom-Json
         $data.stacks | Should -Be $script:stacks
         @($data.cells).Count | Should -Be ($script:stacks.Count * $script:concerns.Count)
@@ -33,7 +33,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'places every ADR of adrs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
+    It 'places every ADR of adrs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {
         $map = Get-ValueChainMap
         $ruleSets = @(Get-AdrRuleSet)
         $map.AdrCount | Should -Be $ruleSets.Count

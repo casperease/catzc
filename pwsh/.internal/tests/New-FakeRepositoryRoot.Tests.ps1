@@ -1,4 +1,4 @@
-Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE#4' {
+Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE-MODEISDERIVED' {
     BeforeAll {
         Import-InternalModule TestKit
     }

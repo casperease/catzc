@@ -1,5 +1,5 @@
 # DocumentLinks lists the links a Markdown file points out of itself, in one spelling; a link that stays inside the file is not a link out.
-Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         function script:Get-Links {
             param([string] $Text, [string] $Path = 'docs/widget/part.md', [string] $Page)

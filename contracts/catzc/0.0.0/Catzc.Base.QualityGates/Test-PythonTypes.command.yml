@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-PythonTypes, the quality gate that type-checks every
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-PythonTypes, the quality gate that type-checks every
 # Python file the repository holds with pyright, and returns its result under -PassThru.
 parameters:
   OutputFolder: string

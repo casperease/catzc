@@ -62,13 +62,13 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
     }
 
     Context 'no registry declared' {
-        It 'cannot happen: a variants config without tracks fails at construction, naming the key' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'cannot happen: a variants config without tracks fails at construction, naming the key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } | Should -Throw '*declares no tracks; add tracks:*'
         }
     }
 }
 
-Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'ADR-DSGN-TRACK#17' {
+Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'ADR-DSGN-TRACK-UNORDEREDTRACK' {
     It 'declares the unordered track where imports land, and resolves a file at a landing address to it' {
         (Get-Track -Name '.unordered').type | Should -Be 'unordered'
         (Get-Track -Path '.unordered/widget-tools/Spin-Widget.ps1').name | Should -Be '.unordered'

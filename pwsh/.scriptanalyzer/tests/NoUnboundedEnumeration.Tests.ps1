@@ -1,4 +1,4 @@
-Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1', 'ADR-PWSH-ENUM#3' {
+Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM-RAWDOTNETENUMERATION', 'ADR-PWSH-ENUM-ALWAYSBOUNDED' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoUnboundedEnumeration.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

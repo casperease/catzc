@@ -1,5 +1,5 @@
-Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
-    It 'lists the keys the imprint kinds write under each part, in registry order' -Tag 'ADR-REPO-FILEMETA#13' {
+Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
+    It 'lists the keys the imprint kinds write under each part, in registry order' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     stamp  = @{ keys = @('with_stamp') }
@@ -13,7 +13,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         $config.KeysOf('edges') | Should -Be @('cites', 'links')
     }
 
-    It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = $null } })
         $kind = $config.kinds[0]
         $kind.id | Should -BeExactly 'body-sha'
@@ -28,7 +28,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         $kind.settings.Count | Should -Be 0
     }
 
-    It 'selects every file, root-level and dot-prefixed files included, when a kind names no select' -Tag 'ADR-REPO-FILEMETA#2' {
+    It 'selects every file, root-level and dot-prefixed files included, when a kind names no select' -Tag 'ADR-REPO-FILEMETA-METAKIND' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ widget = @{} } })
         foreach ($fileClass in 'other', 'script', 'type', 'function/gate') {
             $config.Selects($config.kinds[0], $fileClass, $null) | Should -BeTrue -Because $fileClass
@@ -63,7 +63,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         [Catzc.Base.QualityGates.FileSelector]::ClassMatches($Pattern, $Class) | Should -Be $Expected
     }
 
-    It 'defaults a class-list setting to the classes the kind selects' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'defaults a class-list setting to the classes the kind selects' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{ widget = @{ select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type', 'gadget-*') }); settings = @{ held_classes = @('cog') } } }
             })
@@ -91,7 +91,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Id = 'body-sha'; Direction = 'Imprint'; Expected = 'Get-BodyShaFileMetaFact' }
         @{ Id = 'widget'; Direction = 'Imprint'; Expected = 'Get-WidgetFileMetaFact' }
         @{ Id = 'gadget-list'; Direction = 'Gather'; Expected = 'Get-GadgetListMarkdownConfigContribution' }
-    ) -Tag 'ADR-REPO-FILEMETA#4' {
+    ) -Tag 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
         [Catzc.Base.QualityGates.FileMetaKind]::ConventionName($Id, [Catzc.Base.QualityGates.FileMetaDirection]$Direction) | Should -BeExactly $Expected
     }
 

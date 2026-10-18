@@ -1,4 +1,4 @@
-Describe 'Assert-TestTagGate' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#15' {
+Describe 'Assert-TestTagGate' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TAGSENFORCED' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
     }

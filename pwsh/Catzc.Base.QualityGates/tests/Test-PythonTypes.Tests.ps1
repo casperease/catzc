@@ -21,7 +21,7 @@ Describe 'Test-PythonTypes' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'reports each error and warning with its repository-relative file and one-based position, skipping information' -Tag 'ADR-AUTO-TEST#35' {
+    It 'reports each error and warning with its repository-relative file and one-based position, skipping information' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:checkOutput = @"
 { "generalDiagnostics": [
   { "file": "$script:widget", "severity": "error", "rule": "reportOptionalMemberAccess",

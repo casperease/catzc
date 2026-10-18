@@ -14,7 +14,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 
-    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)).
+    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS-STANDARDWORKER](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-standardworker)).
     public string standard { get; }
 
     // The registered agents, in file order.

@@ -2,7 +2,7 @@ concepts:
   inspiration:
     key: inspiration
     domain: repository
-    defined_by: ADR-REPO-INSPIRE#5
+    defined_by: ADR-REPO-INSPIRE-DECLAREDINSPIRATION
     short: A sibling repository declared in inspiration.yml and read for ideas, never as a reference implementation.
     realized_by: { kind: type, pattern: "Catzc.Tooling.Inspiration.InspirationEntry" }
     avoid:

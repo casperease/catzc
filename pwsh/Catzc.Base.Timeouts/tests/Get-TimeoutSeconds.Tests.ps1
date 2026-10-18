@@ -89,7 +89,7 @@ Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
     }
 
     # A function's own limit, most specific first: exemption, commands entry, decoration, environment default.
-    Context '-Command' -Tag 'ADR-PWSH-ASSERT#1' {
+    Context '-Command' -Tag 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
         BeforeAll {
             $script:gizmoBudget = 'c0ffee00-0000-0000-0000-' + '000000000000'
             $budget = $script:gizmoBudget

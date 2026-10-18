@@ -1,5 +1,5 @@
 {
-  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT#6): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may rely on. A fact a file has no value for is left out, so only path and role are required. The role is the name of the file-kinds entry that selects the file; the kind of the object the file belongs to is its track's type, tracktype.",
+  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may rely on. A fact a file has no value for is left out, so only path and role are required. The role is the name of the file-kinds entry that selects the file; the kind of the object the file belongs to is its track's type, tracktype.",
   "type": "object",
   "required": ["catzc"],
   "additionalProperties": false,

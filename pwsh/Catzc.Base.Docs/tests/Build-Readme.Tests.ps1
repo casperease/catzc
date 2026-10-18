@@ -34,7 +34,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Remove-Item $script:readme -Force -ErrorAction Ignore
     }
 
-    It 'generates a plain-file copy whose links resolve from the README folder, under a meta block and a line naming the source' -Tag 'ADR-REPO-README#6' {
+    It 'generates a plain-file copy whose links resolve from the README folder, under a meta block and a line naming the source' -Tag 'ADR-REPO-README-WORKINGLINKS' {
         Build-Readme | Out-Null
         (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -BeNullOrEmpty
         [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly (@(
@@ -53,7 +53,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
             ) -join "`n")
     }
 
-    It 'leaves the source''s front matter, its meta block included, out of the copy' -Tag 'ADR-REPO-README#6' {
+    It 'leaves the source''s front matter, its meta block included, out of the copy' -Tag 'ADR-REPO-README-WORKINGLINKS' {
         $original = [System.IO.File]::ReadAllText($script:source)
         Build-Readme | Out-Null
         $plain = [System.IO.File]::ReadAllText($script:readme)

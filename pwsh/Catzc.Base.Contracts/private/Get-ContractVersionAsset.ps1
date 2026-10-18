@@ -23,7 +23,7 @@ function Get-ContractVersionAsset {
             ForEach-Object { [System.IO.Path]::GetFileName($_) } |
             Where-Object { $_ -cne 'contract.yml' -and -not ($_ -ceq '.frozen' -and $Version -cne '0.0.0') })
     if ($stray.Count -gt 0) {
-        throw "contracts/$Unit/${Version}: '$($stray -join "', '")' sits outside a module folder; an asset lives under contracts/<unit>/<version>/<module>/ (ADR-REPO-CONTRACT#2)."
+        throw "contracts/$Unit/${Version}: '$($stray -join "', '")' sits outside a module folder; an asset lives under contracts/<unit>/<version>/<module>/ (ADR-REPO-CONTRACT-LAYOUT)."
     }
 
     $override = (Read-ContractManifest -Folder $Folder).direction
@@ -49,7 +49,7 @@ function Get-ContractVersionAsset {
 
     $unknown = @($override.Keys | Where-Object { -not $used.Contains($_) } | Sort-Object)
     if ($unknown.Count -gt 0) {
-        throw "contracts/$Unit/$Version/contract.yml: the direction of '$($unknown -join "', '")' is overridden, but no such asset exists under the version folder (ADR-REPO-CONTRACT#7)."
+        throw "contracts/$Unit/$Version/contract.yml: the direction of '$($unknown -join "', '")' is overridden, but no such asset exists under the version folder (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION)."
     }
     $assets
 }

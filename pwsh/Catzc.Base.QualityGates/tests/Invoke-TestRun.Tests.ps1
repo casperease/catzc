@@ -148,7 +148,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the location decides the top tier (ADR-AUTO-TEST#33)' {
+    Context 'the location decides the top tier (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE)' {
         It 'runs every tier, L3 included, in place by default' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
 
@@ -173,7 +173,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like '  tiers *asked L0-L3 · running L0-L2*' }
         }
 
-        It 'names a test suite in the context it records' -Tag 'ADR-AUTO-TEST#37' {
+        It 'names a test suite in the context it records' -Tag 'ADR-AUTO-TEST-TESTSUITE' {
             $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; Suite = 'widget'; Modules = @('TstWidget') }
             $manifest = Get-Content -LiteralPath (Join-Path $summary.RunDirectory 'run.json') -Raw | ConvertFrom-Json
             $manifest.context.selection | Should -Be 'suite widget; modules: TstWidget'
@@ -246,7 +246,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     }
 
     Context 'the source run (no opt-out tag, default entry script)' {
-        It 'runs every file through the default importer and excludes nothing beyond the tier/category filter' -Tag 'ADR-AUTO-TEST#36' {
+        It 'runs every file through the default importer and excludes nothing beyond the tier/category filter' -Tag 'ADR-AUTO-TEST-ALLTESTS' {
             $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true }
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
@@ -261,7 +261,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the build run (source-only opt-out, build entry script)' -Tag 'ADR-AUTO-TEST#30', 'ADR-AUTO-TEST#31' {
+    Context 'the build run (source-only opt-out, build entry script)' -Tag 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS', 'ADR-AUTO-TEST-SOURCEONLYTAG' {
         BeforeAll {
             $script:buildArguments = @{
                 EntryPoint     = 'Test-CatzcBuild'
@@ -301,7 +301,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'writes its reports under the run''s own folder by default' -Tag 'ADR-AUTO-TEST#34' {
+        It 'writes its reports under the run''s own folder by default' -Tag 'ADR-AUTO-TEST-TESTRUN' {
             Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
             $summary = Invoke-Run $script:buildArguments
 

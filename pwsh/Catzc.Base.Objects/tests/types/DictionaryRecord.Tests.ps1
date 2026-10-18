@@ -1,4 +1,4 @@
-Describe 'DictionaryRecord' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
+Describe 'DictionaryRecord' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'DictionaryRecordWidgetProbe').Type) {
             $assembly = [Catzc.Base.Objects.DictionaryRecord].Assembly.Location

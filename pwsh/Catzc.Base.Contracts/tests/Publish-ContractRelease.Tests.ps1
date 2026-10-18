@@ -1,4 +1,4 @@
-Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' {
+Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
     BeforeAll {
         function Add-File {
             param([string] $Relative, [string] $Content = 'widget: gadget')

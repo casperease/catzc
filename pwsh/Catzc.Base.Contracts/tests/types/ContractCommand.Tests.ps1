@@ -1,4 +1,4 @@
-Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
+Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE' {
     BeforeAll {
         function New-Command {
             param([string] $Yaml)
@@ -25,7 +25,7 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
             $command.output | Should -Be 'Catzc.Widgets.Widget'
         }
 
-        It 'declares the defaults once: optional, no default, not from the pipeline, void output' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'declares the defaults once: optional, no default, not from the pipeline, void output' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $command = New-Command "parameters:`n  Path: string`n"
             $command.parameters[0].Mandatory | Should -BeFalse
             $command.parameters[0].Default | Should -BeNullOrEmpty
@@ -46,7 +46,7 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
             [Catzc.Base.Contracts.ContractParameter]::new('Name', 'string', $false, $false, '', $false).Spec | Should -Be 'string'
         }
 
-        It 'names the command from its asset and renders the signature as one line' -Tag 'ADR-REPO-CMDCONTRACT#3' {
+        It 'names the command from its asset and renders the signature as one line' -Tag 'ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS' {
             $asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'Get-Widget.command.yml',
                 [Catzc.Base.Contracts.ContractAssetKind]::Command, 'widgets/Catzc.Widget/Get-Widget.ps1',
                 [Catzc.Base.Contracts.ContractDirection]::Provided, $false)
@@ -89,7 +89,7 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
             [Catzc.Base.Contracts.ContractParameter]::Parse('Item', "string[]! = 'a b' pipeline in Gadget").Spec | Should -Be "string[]! = 'a b' pipeline in Gadget"
         }
 
-        It 'declares the set defaults once: every set, and no default set' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'declares the set defaults once: every set, and no default set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $command = New-Command "parameters:`n  Path: string`n"
             $command.parameters[0].Sets.Count | Should -Be 0
             $command.default_set | Should -BeNullOrEmpty
@@ -110,7 +110,7 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
         }
     }
 
-    Context 'the type map' -Tag 'ADR-REPO-CMDCONTRACT#4' {
+    Context 'the type map' -Tag 'ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE' {
         It 'maps <Name> to <Type> (list: <List>)' -ForEach @(
             @{ Name = 'string'; Type = 'string'; List = $false }
             @{ Name = 'System.String[]'; Type = 'string'; List = $true }
@@ -129,7 +129,7 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
         }
     }
 
-    Context 'the comparison' -Tag 'ADR-REPO-CMDCONTRACT#4' {
+    Context 'the comparison' -Tag 'ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE' {
         It 'has no finding when the command declares what the contract says' {
             $text = "parameters:`n  Path: string!`n  Engine: string = auto`n  Item: string[] pipeline`noutput: int`n"
             [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command $text), (New-Command $text)) | Should -BeNullOrEmpty

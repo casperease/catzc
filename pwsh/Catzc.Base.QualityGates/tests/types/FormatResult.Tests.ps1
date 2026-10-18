@@ -1,4 +1,4 @@
-Describe 'FormatResult' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
+Describe 'FormatResult' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     It 'carries the language, engine, checked and changed files, and the dry-run flag' {
         $result = [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @('a.wdg', 'b.wdg'), [string[]] @('a.wdg'), $true)
         $result.Language | Should -Be 'widget'

@@ -1,4 +1,4 @@
-Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR-AUTO-ENGINE#1' {
+Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-AUTO-ENGINE-THREEENGINES' {
     BeforeAll {
         $script:adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
                 domains = [ordered]@{
@@ -85,7 +85,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR
         $result.Facts['Lines'] | Should -Be 2
     }
 
-    It 'prints the findings and their count in report mode, writes the report, and never throws' -Tag 'ADR-PRIN-CONFIG#1' {
+    It 'prints the findings and their count in report mode, writes the report, and never throws' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         { Test-AdrEngineNeutrality -OutputFolder $out } | Should -Not -Throw
         Test-AdrEngineNeutrality -OutputFolder $out | Should -BeNullOrEmpty
         Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '2 adr-engine-neutrality issue(s).' }
@@ -93,7 +93,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR
         Get-ChildPath $out -File -Filter 'adr-engine-neutrality.md' -Depth 4 -Exclude @() | Should -Not -BeNullOrEmpty
     }
 
-    It 'throws once listing every finding in gate mode' -Tag 'ADR-PRIN-CONFIG#1' {
+    It 'throws once listing every finding in gate mode' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $script:checks = New-ChecksConfig -Mode 'gate'
         $thrown = { Test-AdrEngineNeutrality -OutputFolder $out } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-AdrEngineNeutrality failed: 2 issue(s)*'
@@ -121,7 +121,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR
 }
 
 Describe 'Test-AdrEngineNeutrality — real ADRs' -Tag 'L2', 'integrity', 'source-only' {
-    It 'Test-AdrEngineNeutrality passes over the real ADRs' -Tag 'ADR-AUTO-TEST#35' {
+    It 'Test-AdrEngineNeutrality passes over the real ADRs' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-AdrEngineNeutrality -OutputFolder (Join-Path $TestDrive 'neutrality') } | Should -Not -Throw
     }
 }

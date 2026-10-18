@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
-// Rests on [ADR-AUTO-MODULE#2](/docs/adr/automation/module-model.md#rule-adr-auto-module2).
+// Rests on [ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/adr/automation/module-model.md#rule-adr-auto-module-existsbylayout).
 public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";

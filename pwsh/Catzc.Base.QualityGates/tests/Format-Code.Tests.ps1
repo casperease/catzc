@@ -29,7 +29,7 @@ Describe 'Format-Code' -Tag 'L0', 'logic' {
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Engine -eq 'gofmt' } { , [string[]] @() }
     }
 
-    It 'runs each language''s engine over that language''s files only, and leaves a language without a formatter alone' -Tag 'ADR-PRIN-CONFIG#1' {
+    It 'runs each language''s engine over that language''s files only, and leaves a language without a formatter alone' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         Format-Code
         Should -Invoke Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Engine -eq 'prettier' -and ($File -join '|') -eq "$script:widgetFile|$script:otherWidget" -and -not $DryRun
@@ -126,7 +126,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         @($results | ForEach-Object Language) | Should -Be @('widget', 'gadget')
     }
 
-    It 'skips a file the engine last found formatted, and checks it again once its bytes change' -Tag 'ADR-AUTO-CACHE#10' {
+    It 'skips a file the engine last found formatted, and checks it again once its bytes change' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         $null = Format-Code -DryRun
         $script:handed.Clear()
         $results = @(Format-Code -DryRun -PassThru)
@@ -148,7 +148,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:handed | Should -Be @($script:widgetFile, $script:gadgetFile)
     }
 
-    It 'does not record a file the engine would still change' -Tag 'ADR-AUTO-CACHE#10' {
+    It 'does not record a file the engine would still change' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
             foreach ($file in $File) {
                 $script:handed.Add($file)
@@ -162,7 +162,7 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
+Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-repo'))
         $script:settingsFile = Join-Path $script:root 'step.settings'
@@ -208,7 +208,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         }
     }
 
-    It 'runs the global step once over every language in scope, then a language''s own step over its files only' -Tag 'ADR-PRIN-CONFIG#1' {
+    It 'runs the global step once over every language in scope, then a language''s own step over its files only' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $null = Format-Code -DryRun
         $script:stepRuns | Should -Be @('file-meta|a.wdg,a.gdg', 'csharp-namespace|a.wdg')
     }
@@ -231,7 +231,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         $script:stepRuns[0] | Should -Be 'file-meta|a.wdg,a.gdg'
     }
 
-    It 'reports a file a step cannot repair on its language''s result, and reports it again on the next run' -Tag 'ADR-AUTO-CACHE#10' {
+    It 'reports a file a step cannot repair on its language''s result, and reports it again on the next run' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         $script:stepUnfixable['file-meta'] = @{ $script:gadgetFile = 'a meta key no kind owns' }
         $results = @(Format-Code -DryRun -PassThru)
         ($results | Where-Object Language -EQ gadget).Unfixable[$script:gadgetFile] | Should -Be 'a meta key no kind owns'
@@ -240,7 +240,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         $script:stepRuns[0] | Should -Be 'file-meta|a.gdg' -Because 'a flagged file is never recorded as done'
     }
 
-    It 'skips files a step found current, and checks them all again when a file its stamp reads changes' -Tag 'ADR-AUTO-CACHE#10' {
+    It 'skips files a step found current, and checks them all again when a file its stamp reads changes' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         $null = Format-Code -DryRun
         $script:stepRuns.Clear()
         $null = Format-Code -DryRun
@@ -275,7 +275,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
             Should -Throw "*no adapter for the formatter engine 'widget-fmt'*"
     }
 
-    It 'every settings file an engine declares exists, so the cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE#10' {
+    It 'every settings file an engine declares exists, so the cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         $root = Get-RepositoryRoot
         foreach ($engine in (Get-Config -Config languages).formatters.Values) {
             foreach ($settingsFile in $engine.settings) {
@@ -285,7 +285,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         }
     }
 
-    It 'every settings file an imprint step declares exists, so its cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE#10' {
+    It 'every settings file an imprint step declares exists, so its cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         $root = Get-RepositoryRoot
         $steps = (Get-Config -Config languages).steps
         @($steps.Keys).Count | Should -BeGreaterThan 0
@@ -296,7 +296,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         }
     }
 
-    It 'every step the shipped languages.yml lists has its adapters' -Tag 'ADR-PRIN-CONFIG#2' {
+    It 'every step the shipped languages.yml lists has its adapters' -Tag 'ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
         $config = Get-Config -Config languages
         $listed = @($config.imprint) + @($config.languages | ForEach-Object { $_.imprint })
         $listed | Should -Contain 'file-meta'
@@ -310,14 +310,14 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         }
     }
 
-    It 'the shipped languages.yml gives every language a formatter or the reason it has none' -Tag 'ADR-PRIN-CONFIG#4' {
+    It 'the shipped languages.yml gives every language a formatter or the reason it has none' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
         foreach ($language in (Get-Config -Config languages).languages) {
             ([bool] $language.formatter) -xor ([bool] $language.no_formatter) | Should -BeTrue -Because $language.name
         }
     }
 }
 
-Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'out' }

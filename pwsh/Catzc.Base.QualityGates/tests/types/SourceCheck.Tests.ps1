@@ -1,5 +1,5 @@
 Describe 'SourceCheck' -Tag 'L0', 'logic' {
-    It 'takes gate mode and no exemptions when nothing is given' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes gate mode and no exemptions when nothing is given' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', $null)
         $check.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
         $check.IsReport | Should -BeFalse
@@ -7,7 +7,7 @@ Describe 'SourceCheck' -Tag 'L0', 'logic' {
         $check.IsExempt('src/widget.ps1') | Should -BeFalse
     }
 
-    It 'maps report mode and matches its exempt globs' -Tag 'ADR-PRIN-CONFIG#4' {
+    It 'maps report mode and matches its exempt globs' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', [ordered]@{
                 mode   = 'report'
                 exempt = [ordered]@{ 'src/gadgets/**' = 'gadgets carry the old form on purpose' }
@@ -18,7 +18,7 @@ Describe 'SourceCheck' -Tag 'L0', 'logic' {
         $check.IsExempt('src/widget.ps1') | Should -BeFalse
     }
 
-    It 'rejects an unknown key, an unknown mode, an exempt glob with no reason, and a malformed glob' -Tag 'ADR-PRIN-CONFIG#4' {
+    It 'rejects an unknown key, an unknown mode, an exempt glob with no reason, and a malformed glob' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $thrown = { [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', [ordered]@{
                     gadget = 1
                     mode   = 'loud'

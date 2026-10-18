@@ -15,7 +15,7 @@ public sealed class AdrRuleSet
     public string Stack { get; }       // the owning domain's row of the value-chain stack
     public IReadOnlyList<string> Concerns { get; }       // effective value-chain concerns (override or domain default)
     public IReadOnlyList<string> DomainConcerns { get; } // the owning domain's default value-chain concerns
-    public string Layer { get; }       // the layer of the automation the ADR belongs to ([ADR-AUTO-LAYERS#6](/docs/adr/automation/layers.md#rule-adr-auto-layers6))
+    public string Layer { get; }       // the layer of the automation the ADR belongs to ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/adr/automation/layers.md#rule-adr-auto-layers-realiseneverredefine))
 
     public AdrRuleSet(string domain, string role, string slug, string external, string code, string domainCode, string stack, IReadOnlyList<string> concerns, IReadOnlyList<string> domainConcerns, string layer = AdrsConfig.DefaultLayer)
     {

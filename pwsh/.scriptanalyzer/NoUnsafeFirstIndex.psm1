@@ -39,7 +39,7 @@ function Measure-NoUnsafeFirstIndex {
         $null -ne $target.SubExpression.Find($isSplit, $false)
         if ($collected -and -not $splitOnly) {
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "'$($index.Extent.Text)' indexes the first element of a result that may be empty — under strict mode that throws before any `$null check runs. Use '<result> | Select-Object -First 1' (ADR-PWSH-ERROR#8)."
+                    Message  = "'$($index.Extent.Text)' indexes the first element of a result that may be empty — under strict mode that throws before any `$null check runs. Use '<result> | Select-Object -First 1' (ADR-PWSH-ERROR-STRICTCLEAN)."
                     Extent   = $index.Extent
                     RuleName = 'Measure-NoUnsafeFirstIndex'
                     Severity = 'Warning'

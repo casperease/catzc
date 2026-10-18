@@ -1,4 +1,4 @@
-Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
+Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     BeforeAll {
         function New-FakeTest {
             param([string] $File, [string[]] $Tags)

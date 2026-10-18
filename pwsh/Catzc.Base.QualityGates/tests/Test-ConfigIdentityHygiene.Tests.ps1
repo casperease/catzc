@@ -45,11 +45,11 @@ Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:leaky, "gadgets:`n  gizmo:`n    name: gizmo`n")
     }
 
-    It 'passes when no config names a fixture identity' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes when no config names a fixture identity' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-ConfigIdentityHygiene -Path $script:clean -OutputFolder $script:reportBase } | Should -Not -Throw
     }
 
-    It 'throws once listing every fixture identity, key and value' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every fixture identity, key and value' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $thrown = { Test-ConfigIdentityHygiene -Path $script:clean, $script:leaky -OutputFolder $script:reportBase } |
             Should -Throw -PassThru
         $message = $thrown.Exception.Message
@@ -67,7 +67,7 @@ Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
         $result.Issues[0] | Should -BeLike "fixture identity 'GIZMO' is also a live identity (customer-key in customer.yml)*"
     }
 
-    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-ConfigIdentityHygiene -Path $script:clean, $script:leaky -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'config-identity-hygiene'
         $result.IssueCount | Should -Be 2

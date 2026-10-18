@@ -42,7 +42,7 @@ Describe 'Get-LinkScope' -Tag 'L0', 'logic' {
         $scope | Should -Be @('docs/widget.md')
     }
 
-    It 'leaves out a file .gitattributes marks a contract asset' -Tag 'ADR-REPO-CONTRACT#6' {
+    It 'leaves out a file .gitattributes marks a contract asset' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
         $contractFolder = Join-Path $script:widgetRoot 'contracts/widget/0.0.0/Gadget'
         [System.IO.Directory]::CreateDirectory($contractFolder) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $contractFolder 'gadget.md'), '')

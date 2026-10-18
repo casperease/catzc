@@ -21,7 +21,7 @@ Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
-    It 'passes when every same-layer pair is disjoint' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes when every same-layer pair is disjoint' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:sets = @(
             (New-FixtureSet -Name widget -Layer module -Prefixes 'widget/')
             (New-FixtureSet -Name gadget -Layer module -Prefixes 'gadget/')
@@ -29,7 +29,7 @@ Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
         { Test-GlobSetIndependence -OutputFolder (Join-Path $TestDrive 'gi') } | Should -Not -Throw
     }
 
-    It 'throws once listing every overlapping same-layer pair' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every overlapping same-layer pair' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:sets = @(
             (New-FixtureSet -Name widget -Layer module -Prefixes 'widget/', 'shared/')
             (New-FixtureSet -Name gadget -Layer module -Prefixes 'gadget/', 'shared/')
@@ -42,7 +42,7 @@ Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -Match 'deployable-unit: widget-tst <-> gadget-tst share 1 file\(s\)'
     }
 
-    It 'returns the result with its facts under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with its facts under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:sets = @(
             (New-FixtureSet -Name widget -Layer module -Prefixes 'widget/', 'shared/')
             (New-FixtureSet -Name gadget -Layer module -Prefixes 'shared/')

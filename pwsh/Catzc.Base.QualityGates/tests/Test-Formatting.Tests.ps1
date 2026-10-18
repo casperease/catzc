@@ -22,14 +22,14 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $script:reportFolder = Join-Path $TestDrive 'formatting'
     }
 
-    It 'passes a tree the formatting leaves unchanged, running every language with a formatter in report-only mode, and no step by name' -Tag 'ADR-AUTO-TEST#35', 'ADR-PRIN-CONFIG#1' {
+    It 'passes a tree the formatting leaves unchanged, running every language with a formatter in report-only mode, and no step by name' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         { Test-Formatting -OutputFolder $script:reportFolder } | Should -Not -Throw
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             ($Language -join ',') -eq 'widget,gadget' -and $DryRun -and $PassThru
         }
     }
 
-    It 'throws once listing every unformatted file, repository-relative, with the command that fixes it' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every unformatted file, repository-relative, with the command that fixes it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Format-Code -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile), [string[]] @($script:widgetFile), $true)
             [Catzc.Base.QualityGates.FormatResult]::new('gadget', 'gofmt', [string[]] @($script:gadgetFile, $script:typeFile, $script:blockFile), [string[]] @($script:gadgetFile, $script:typeFile), $true, @{ $script:blockFile = "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'" })

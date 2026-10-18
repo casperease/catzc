@@ -43,7 +43,7 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     }
 
     It 'every shipped template resolves a short_name' {
-        $noShortName | Should -BeNullOrEmpty -Because "a template must resolve a short_name, derived from its folder or overridden in its optional options.yml (the Azure id segment, ADR-AZ-NAMING#2):`n$($noShortName -join "`n")"
+        $noShortName | Should -BeNullOrEmpty -Because "a template must resolve a short_name, derived from its folder or overridden in its optional options.yml (the Azure id segment, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS):`n$($noShortName -join "`n")"
     }
 
     It 'short_names are globally unique across shipped templates' {

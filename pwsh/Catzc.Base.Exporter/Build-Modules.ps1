@@ -1,5 +1,5 @@
 function Build-Modules {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE#1)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE-BUNDLEISBUILD)')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

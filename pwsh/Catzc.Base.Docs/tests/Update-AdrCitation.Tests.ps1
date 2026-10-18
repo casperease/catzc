@@ -99,7 +99,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
     }
 
     Context 'links' {
-        It 'resolves a relative link at the file''s own depth and writes it back relative' -Tag 'ADR-REPO-LINK#2' -ForEach @(
+        It 'resolves a relative link at the file''s own depth and writes it back relative' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' -ForEach @(
             @{ File = 'docs/adr/widget/near.md'; Link = 'sub/gadget-rules.md'; Expected = '../gizmo/gadget-rules.md' }
             @{ File = 'docs/adr/widget/sub/inside.md'; Link = 'gadget-rules.md'; Expected = '../../gizmo/gadget-rules.md' }
             @{ File = 'docs/guide/deep/far.md'; Link = '../../adr/widget/sub/gadget-rules.md'; Expected = '../../adr/gizmo/gadget-rules.md' }
@@ -109,7 +109,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             & $script:update $File "[x]($Link)" | Should -BeExactly "[x]($Expected)"
         }
 
-        It 'follows a rule anchor to the file of the rule''s new ADR' -Tag 'ADR-REPO-LINK#2' {
+        It 'follows a rule anchor to the file of the rule''s new ADR' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
             & $script:update 'docs/adr/widget/follow.md' '[s](sprocket-rules.md#rule-adr-widget-sprocket5) [g](sub/gadget-rules.md#rule-adr-widget-gadget4)' |
                 Should -BeExactly '[s](../gizmo/lever-rules.md#rule-adr-gizmo-lever1) [g](sprocket-rules.md#rule-adr-widget-sprocket9)'
         }
@@ -120,7 +120,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
                 Should -BeExactly "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET:1`n`nSee [five](../gizmo/lever-rules.md#rule-adr-gizmo-lever1) and [one](#rule-adr-widget-sprocket1).`n"
         }
 
-        It 'keeps a code link repository-rooted, its text and target consistent' -Tag 'ADR-REPO-LINK#3' {
+        It 'keeps a code link repository-rooted, its text and target consistent' -Tag 'ADR-REPO-LINK-CODELINKS' {
             $text = "# [ADR-WIDGET-GADGET#3](/docs/adr/widget/sub/gadget-rules.md#rule-adr-widget-gadget3)`n"
             & $script:update 'tools/Get-Widget.ps1' $text |
                 Should -BeExactly "# [ADR-GIZMO-GADGET#3](/docs/adr/gizmo/gadget-rules.md#rule-adr-gizmo-gadget3)`n"
@@ -165,7 +165,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             $script:changes[2].Path | Should -BeExactly 'docs/adr/widget/report.md'
         }
 
-        It 'with -DryRun returns the changes and writes nothing' -Tag 'ADR-AUTO-DRYRUN#2' {
+        It 'with -DryRun returns the changes and writes nothing' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
             $full = & $script:writeText 'dry/run.md' 'ADR-WIDGET-GADGET#3'
             $before = [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full))
             $changes = @(Update-AdrCitation -Path $full -CodeMap $script:codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -DryRun)
@@ -193,7 +193,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full)) | Should -BeExactly $expected
         }
 
-        It 'is a no-op the second time' -Tag 'ADR-AUTO-IDEM#1' {
+        It 'is a no-op the second time' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
             $text = "ADR-WIDGET-GADGET#1, #4 and #7`n[s](../widget/sprocket-rules.md#rule-adr-widget-sprocket5) widget/sub/`n"
             $once = & $script:update 'docs/adr/gizmo/twice.md' $text
             $once | Should -Not -BeExactly $text
@@ -250,7 +250,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'named rules' -Tag 'ADR-REPO-ADRCODE#4' {
+    Context 'named rules' -Tag 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
         It 'writes a named rule''s code for its citation and its heading' {
             & $script:update 'notes/named.md' "See ADR-WIDGET-COG#1.`n### Rule ADR-WIDGET-COG:2`n" |
                 Should -BeExactly "See ADR-WIDGET-COG-TURNS.`n### Rule ADR-WIDGET-COG-MESHES`n"
@@ -261,7 +261,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
                 Should -BeExactly 'ADR-WIDGET-COG-TURNS, ADR-WIDGET-COG-GRIPS and ADR-WIDGET-COG#7'
         }
 
-        It 'rewrites a code link''s text and its anchor to the named rule' -Tag 'ADR-REPO-LINK#3' {
+        It 'rewrites a code link''s text and its anchor to the named rule' -Tag 'ADR-REPO-LINK-CODELINKS' {
             & $script:update 'src/named.ps1' '# [ADR-WIDGET-COG#2](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog2)' |
                 Should -BeExactly '# [ADR-WIDGET-COG-MESHES](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-meshes)'
         }

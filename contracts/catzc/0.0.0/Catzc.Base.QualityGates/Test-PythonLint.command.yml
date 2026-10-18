@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-PythonLint, the quality gate that lints every Python file
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-PythonLint, the quality gate that lints every Python file
 # the repository holds with ruff, and returns its result under -PassThru.
 parameters:
   OutputFolder: string

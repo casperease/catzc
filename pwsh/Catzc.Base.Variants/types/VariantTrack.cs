@@ -13,7 +13,7 @@ public sealed class VariantTrack
     // The places the track covers: repository-relative paths with '/' separators (e.g. pwsh, .github/workflows).
     public IReadOnlyList<string> places { get; }
 
-    // The track's type: the id of a track type of the track-types registry ([ADR-DSGN-TRACKTYPE#1](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype1)).
+    // The track's type: the id of a track type of the track-types registry ([ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype-closedsetoftypes)).
     public string type { get; }
 
     // The vendor that reads the track's files, or null when the track has none.

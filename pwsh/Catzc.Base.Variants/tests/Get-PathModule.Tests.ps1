@@ -1,4 +1,4 @@
-Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
+Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
     BeforeAll {
         $script:types = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{
                 module_types = [ordered]@{
@@ -49,7 +49,7 @@ Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
     }
 }
 
-Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
+Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
     It 'places a file in the module, and the module type, its folder names' -ForEach @(
         @{ Path = "$(Get-CatzcModulesFolder)/Catzc.Base.Variants/Get-Track.ps1"; Name = 'Catzc.Base.Variants'; Type = 'pwsh-folder' }
         @{ Path = "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1' }

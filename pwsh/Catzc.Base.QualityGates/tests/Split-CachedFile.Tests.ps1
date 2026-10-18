@@ -1,4 +1,4 @@
-Describe 'Split-CachedFile' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
+Describe 'Split-CachedFile' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     BeforeEach {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"))
         $script:widget = Join-Path $script:root 'widgets/widget.wdg'
@@ -65,7 +65,7 @@ Describe 'Split-CachedFile' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
     }
 }
 
-Describe 'Get-ContentStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
+Describe 'Get-ContentStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     It 'changes when an input''s content, presence or the label changes, and is stable otherwise' {
         $root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'stamp-repo'))
         $settings = Join-Path $root 'widget.settings'

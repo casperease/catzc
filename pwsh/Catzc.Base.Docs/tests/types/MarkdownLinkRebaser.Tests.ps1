@@ -1,4 +1,4 @@
-Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README#6' {
+Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS' {
     BeforeAll {
         # The article lives in docs/references/widget/ and is copied into the widget/ folder at the root.
         $script:rebase = {

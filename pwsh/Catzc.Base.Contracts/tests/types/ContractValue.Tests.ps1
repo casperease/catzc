@@ -1,4 +1,4 @@
-Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
+Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     It 'reads <Text> as <Kind>' -ForEach @(
         @{ Text = 'null'; Kind = 'null' }
         @{ Text = 'true'; Kind = 'boolean' }

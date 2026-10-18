@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Docs;
 
-// The authored text of the ADR index: the preamble above the generated code tables and the authoring conventions below them, both Markdown that Build-AdrIndex reflows ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+// The authored text of the ADR index: the preamble above the generated code tables and the authoring conventions below them, both Markdown that Build-AdrIndex reflows ([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
 public sealed class AdrIndexConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

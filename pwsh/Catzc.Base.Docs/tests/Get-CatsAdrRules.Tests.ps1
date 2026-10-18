@@ -35,7 +35,7 @@ Describe 'Get-CatsAdrRules' -Tag 'L0', 'logic' {
         $script:rules[1].Summary | Should -Be 'Beta never happens without alpha. A **widget'
     }
 
-    It 'returns the whole normative paragraph as one line, without the linked bullets' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'returns the whole normative paragraph as one line, without the linked bullets' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $script:rules[0].Statement | Should -Be 'Alpha does the first thing deterministically.'
         $script:rules[1].Statement | Should -Be 'Beta never happens without alpha. A **widget suite** wraps onto a second line.'
     }

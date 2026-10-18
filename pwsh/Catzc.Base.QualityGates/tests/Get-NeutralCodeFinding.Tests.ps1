@@ -10,7 +10,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'flags a real code in an L0 block''s fixture data, with its line' -Tag 'ADR-AUTO-TEST#3' {
+    It 'flags a real code in an L0 block''s fixture data, with its line' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
                     '    It ''reads a rule'' {'
@@ -22,7 +22,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found[0] | Should -BeLike "src/tests/Get-Widget.Tests.ps1:3: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET'*"
     }
 
-    It 'passes a real code in a -Tag value and in a comment, and a neutral code anywhere' -Tag 'ADR-AUTO-TEST#3' {
+    It 'passes a real code in a -Tag value and in a comment, and a neutral code anywhere' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     '# Proves ADR-WIDGET-GADGET#2.'
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
@@ -34,7 +34,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found | Should -HaveCount 0
     }
 
-    It 'passes a real code in the title of a Describe, a Context, and an It, given by position' -Tag 'ADR-AUTO-TEST#3' {
+    It 'passes a real code in the title of a Describe, a Context, and an It, given by position' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget per ADR-WIDGET-GADGET'' -Tag ''L0'', ''logic'' {'
                     '    Context "under ADR-WIDGET-GADGET#1" {'
@@ -46,7 +46,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found | Should -HaveCount 0
     }
 
-    It 'passes a real code in a title given by -Name, and still flags the body''s fixture data' -Tag 'ADR-AUTO-TEST#3' {
+    It 'passes a real code in a title given by -Name, and still flags the body''s fixture data' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     'Describe -Tag ''L0'', ''logic'' -Name ''Get-Widget'' {'
                     '    It -Name ''cites ADR-WIDGET-GADGET#2'' {'
@@ -59,7 +59,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found[0] | Should -BeLike 'src/tests/Get-Widget.Tests.ps1:3:*'
     }
 
-    It 'flags a real code in the -ForEach data of an It, which is fixture data, not its title' -Tag 'ADR-AUTO-TEST#3' {
+    It 'flags a real code in the -ForEach data of an It, which is fixture data, not its title' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
                     '    It ''reads <code>'' -ForEach @(@{ code = ''ADR-WIDGET-GADGET'' }) { Get-Widget $code | Should -Be 1 }'
@@ -69,7 +69,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found[0] | Should -BeLike 'src/tests/Get-Widget.Tests.ps1:2:*'
     }
 
-    It 'passes a real code in a block whose nearest tier is not L0' -Tag 'ADR-AUTO-TEST#3' {
+    It 'passes a real code in a block whose nearest tier is not L0' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
                     '    Context ''the shipped registry'' -Tag ''L1'', ''integrity'' {'
@@ -82,7 +82,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found[0] | Should -BeLike 'src/tests/Get-Widget.Tests.ps1:5:*'
     }
 
-    It 'reads setup outside every block as L0 when L0 is the file''s only tier' -Tag 'ADR-AUTO-TEST#3' {
+    It 'reads setup outside every block as L0 when L0 is the file''s only tier' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     '$fixture = @{ code = ''ADR-WIDGET-GADGET'' }'
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' { It ''x'' { 1 | Should -Be 1 } }'

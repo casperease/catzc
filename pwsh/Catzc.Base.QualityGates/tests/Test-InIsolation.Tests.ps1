@@ -59,7 +59,7 @@ Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }
         # -PassThru answers with the module, as the real import does: the already-running Pester

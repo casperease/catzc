@@ -1,4 +1,4 @@
-Describe 'Get-ContractCommandRoot' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#3' {
+Describe 'Get-ContractCommandRoot' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS' {
     BeforeAll {
         function Get-Root {
             param([string] $Module)
@@ -22,7 +22,7 @@ Describe 'Get-ContractCommandRoot' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#3' 
         { Get-Root 'Catzc.Gadget' } | Should -Throw "*no module named 'Catzc.Gadget'*"
     }
 
-    It 'throws NotImplemented for a module in a language with no checker' -Tag 'ADR-REPO-CMDCONTRACT#4' {
+    It 'throws NotImplemented for a module in a language with no checker' -Tag 'ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE' {
         Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
             [pscustomobject]@{ name = 'Catzc.Gadget'; root = 'go/Catzc.Gadget'; languages = @('go') }
         }

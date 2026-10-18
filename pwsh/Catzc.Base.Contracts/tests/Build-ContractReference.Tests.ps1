@@ -30,7 +30,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         Add-File 'contracts/widget/1.10.0/Catzc.Widget/.widget/README.md' ''
     }
 
-    It 'writes one page per unit, with a section per version folder: the draft first, then the releases newest first' -Tag 'ADR-REPO-CONTRACT#2' {
+    It 'writes one page per unit, with a section per version folder: the draft first, then the releases newest first' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
         Add-File 'contracts/gadget/0.0.0/Catzc.Gadget/.gadget/README.md' ''
 
         $paths = @(Build-ContractReference -RepositoryRoot $script:root -Silent)
@@ -42,7 +42,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $sections | Should -Be @('0.0.0', '1.10.0', '1.2.0')
     }
 
-    It 'lists each asset with its module, path, target, direction, and kind' -Tag 'ADR-REPO-CONTRACT#6', 'ADR-REPO-CONTRACT#7' {
+    It 'lists each asset with its module, path, target, direction, and kind' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET', 'ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `Catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
@@ -53,7 +53,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $rows[2] | Should -Be @('`Catzc.Widget`', '`.widget/flows/build.yml`', '`.widget/flows/build.yml`', 'depended-on', 'fragment', 'none')
     }
 
-    It 'shows a command contract''s signature in its own column, from the one reader' -Tag 'ADR-REPO-CMDCONTRACT#5' {
+    It 'shows a command contract''s signature in its own column, from the one reader' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `Catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
@@ -61,13 +61,13 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $rows[3] | Should -Be @('`Catzc.Widget`', '`Get-Widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`', 'provided', 'command contract', '`Path: string!, Strict: switch -> string`')
     }
 
-    It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT#5' {
+    It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' "parameters:`n  Path: text`n"
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         (Read-Page) | Should -Match '(?m)^\| `Catzc\.Widget` +\| `Get-Widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
     }
 
-    It 'lists the notes under the table, one item per asset that carries one' -Tag 'ADR-REPO-CONTRACT#9' {
+    It 'lists the notes under the table, one item per asset that carries one' -Tag 'ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $lines = (Read-Page) -split "`n"
         $first = [array]::IndexOf($lines, '- `Catzc.Widget/.widget/flows/build.yml`: The keys the gadget host reads, per')
@@ -78,7 +78,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         (Read-Page) | Should -Match "(?m)^\| ``Catzc\.Widget``.*\|\n\nNotes:\n\n- "
     }
 
-    It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT#5' {
+    It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED' {
         $long = (@('widget gadget') * 20) -join ' '
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml' ((@("# $long.", 'widget:') -join "`n") + "`n")
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
@@ -88,7 +88,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         @($lines | Where-Object { $_.Length -gt 140 -and -not $_.StartsWith('|') }) | Should -BeNullOrEmpty
     }
 
-    It 'emits formatter-stable markdown: prose within 140 columns, tables aligned' -Tag 'ADR-REPO-FORMAT#5' {
+    It 'emits formatter-stable markdown: prose within 140 columns, tables aligned' -Tag 'ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $lines = (Read-Page) -split "`n"
 
@@ -150,7 +150,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-ContractReference — generated contract reference' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
+Describe 'Build-ContractReference — generated contract reference' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     It 'every unit''s page is current — no drift from its assets' {
         $results = @(Build-ContractReference -DryRun -PassThru -Silent)
         $results.Count | Should -BeGreaterThan 0

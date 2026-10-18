@@ -1,4 +1,4 @@
-Describe 'Measure-NoEnvRepositoryRoot' -Tag 'L0', 'logic', 'ADR-AUTO-NOPWD#6' {
+Describe 'Measure-NoEnvRepositoryRoot' -Tag 'L0', 'logic', 'ADR-AUTO-NOPWD-ONEROOTACCESSOR' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoEnvRepositoryRoot.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

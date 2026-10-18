@@ -1,7 +1,7 @@
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
-Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE#7' {
+Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE-SPARINGCOLOUR' {
     BeforeAll {
         $global:__PesterRunning = $false
 

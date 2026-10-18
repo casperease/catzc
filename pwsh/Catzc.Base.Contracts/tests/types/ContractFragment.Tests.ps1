@@ -1,4 +1,4 @@
-Describe 'ContractFragment' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
+Describe 'ContractFragment' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     Context 'a key subset of JSON and YAML' {
         BeforeAll {
             function Get-DataFinding {

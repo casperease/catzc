@@ -19,16 +19,16 @@ function Get-AdrCodeLanguageViolations {
         # A domain code of several segments is one finding; its ADRs are held to its first segment.
         $domainSegment = $domain.Code.Split('-')[0]
         if ($domain.Code -cnotmatch "^$segment\z") {
-            "$($domain.Name): domain code $($domain.Code) is not one segment (ADR-REPO-ADRCODE#2)"
+            "$($domain.Name): domain code $($domain.Code) is not one segment (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
         }
         foreach ($ruleSet in $domain.RuleSets) {
             $code = $ruleSet.External
             if ($code -cnotmatch "^ADR(-$segment)+\z") {
-                "${code} ($($domain.Name)): not a path of upper-case segments after ADR (ADR-REPO-ADRCODE#1)"
+                "${code} ($($domain.Name)): not a path of upper-case segments after ADR (ADR-REPO-ADRCODE-PATHOFSEGMENTS)"
                 continue
             }
             if (-not $code.StartsWith("ADR-$domainSegment-", [System.StringComparison]::Ordinal)) {
-                "${code} ($($domain.Name)): does not start with its domain's segment, ADR-$domainSegment- (ADR-REPO-ADRCODE#2)"
+                "${code} ($($domain.Name)): does not start with its domain's segment, ADR-$domainSegment- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
             }
             if (-not $Index.FileOf.ContainsKey($code)) {
                 continue
@@ -57,15 +57,15 @@ function Get-AdrCodeLanguageViolations {
                     continue
                 }
                 if ($rule -cnotmatch "^$([regex]::Escape($code))-$segment\z") {
-                    "docs/adr/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-ADRCODE#4)"
+                    "docs/adr/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
                     continue
                 }
                 if ($codes.Contains($rule)) {
-                    "docs/adr/${relative}:$($i + 1): rule $rule shares its name with the ADR $rule (ADR-REPO-ADRCODE#6)"
+                    "docs/adr/${relative}:$($i + 1): rule $rule shares its name with the ADR $rule (ADR-REPO-ADRCODE-ONESTRINGONEFACT)"
                 }
             }
             if ($numbered -gt 0) {
-                "docs/adr/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE#4)"
+                "docs/adr/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
             }
         }
     }

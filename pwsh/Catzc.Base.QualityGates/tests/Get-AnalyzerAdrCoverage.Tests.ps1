@@ -1,4 +1,4 @@
-Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
+Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGEREPORTEDONLY' {
     It 'flattens the map into one pssa-rule row per (analyzer, ADR id)' {
         InModuleScope Catzc.Base.QualityGates {
             Mock Get-Config {
@@ -18,7 +18,7 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     }
 }
 
-Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT#7' {
+Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT-ANALYZERADRMAPPING' {
     BeforeAll {
         $script:result = Test-AnalyzerAdrMap -PassThru -OutputFolder (Join-Path $TestDrive 'analyzer-adr-map')
     }

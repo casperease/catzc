@@ -1,4 +1,4 @@
-Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-PWSH-VENDOR#5' {
+Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE' {
     BeforeEach {
         $script:codeRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:vendoredBase = Join-Path $script:codeRoot '.vendor/Pester/9.9.9'

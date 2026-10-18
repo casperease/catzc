@@ -57,7 +57,7 @@ Describe 'ToolsConfig' -Tag 'L0' {
             { & $script:make $ok } | Should -Not -Throw
         }
 
-        It 'throws when depends_on names an undeclared tool' -Tag 'ADR-AUTO-DEPS#4' {
+        It 'throws when depends_on names an undeclared tool' -Tag 'ADR-AUTO-DEPS-INSTALLORDERINCONFIG' {
             $bad = [ordered]@{ widget = (& $script:tool @{ depends_on = 'gadget' }) }
             { & $script:make $bad } | Should -Throw "*depends_on 'gadget' is not a declared tool*"
         }

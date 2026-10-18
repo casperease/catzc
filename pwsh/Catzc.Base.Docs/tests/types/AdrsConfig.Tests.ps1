@@ -1,4 +1,4 @@
-Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
+Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         function New-ValidRaw {
             [ordered]@{
@@ -105,7 +105,7 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: domains)*"
     }
 
-    Context 'value-chain stack and concerns' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
+    Context 'value-chain stack and concerns' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {
         It 'declares the stack rows and the concerns once, in value-chain order' {
             [Catzc.Base.Docs.AdrsConfig]::Stacks | Should -Be @('PRIN', 'DSGN', 'AUTO', 'PIPE', 'CLOUD')
             [Catzc.Base.Docs.AdrsConfig]::Concerns | Should -Be @('automation', 'build', 'quality-control', 'release', 'deploy', 'access')
@@ -194,7 +194,7 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         }
     }
 
-    Context 'the layer of the automation' -Tag 'ADR-AUTO-LAYERS#6' {
+    Context 'the layer of the automation' -Tag 'ADR-AUTO-LAYERS-REALISENEVERREDEFINE' {
         It 'declares the five layers and the default once, and gives a ruleset that names none the default' {
             [Catzc.Base.Docs.AdrsConfig]::Layers | Should -Be @('automation', 'contract', 'language', 'engine', 'importer')
             [Catzc.Base.Docs.AdrsConfig]::DefaultLayer | Should -Be 'automation'

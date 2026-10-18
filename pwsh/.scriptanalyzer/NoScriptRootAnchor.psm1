@@ -34,7 +34,7 @@ function Measure-NoScriptRootAnchor {
             continue
         }
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = "Locate module-internal content with Get-CatzcModuleRoot -ChildPath '<literal>' (ADR-AUTO-ASSETDEP#1); `$PSScriptRoot does not point at the module folder in build mode."
+                Message  = "Locate module-internal content with Get-CatzcModuleRoot -ChildPath '<literal>' (ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY); `$PSScriptRoot does not point at the module folder in build mode."
                 Extent   = $variable.Extent
                 RuleName = $ruleName
                 Severity = 'Error'

@@ -2,7 +2,7 @@ BeforeAll {
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
 }
 
-Describe 'Get-LoadedTypeDrift' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#15' {
+Describe 'Get-LoadedTypeDrift' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-ONEDRIFTMEASURE' {
     BeforeAll {
         function New-FixtureRoot {
             param([string[]] $Source)

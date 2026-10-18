@@ -236,7 +236,7 @@ function Assert-CatzcRunModeExclusive {
 }
 
 function Set-RedirectedOutputEncoding {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '', Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE#1): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '', Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
     [CmdletBinding()]
     [OutputType([bool])]
     param()

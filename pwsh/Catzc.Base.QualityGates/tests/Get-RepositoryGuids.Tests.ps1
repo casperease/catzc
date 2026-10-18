@@ -57,7 +57,7 @@ Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
 }
 
 Describe 'Repository guid integrity' -Tag 'L2', 'integrity', 'source-only' {
-    It 'every guid in tracked text is registered, every registry entry is live, and the repository globset covers the scan' -Tag 'ADR-REPO-PROTGLOB#6' {
+    It 'every guid in tracked text is registered, every registry entry is live, and the repository globset covers the scan' -Tag 'ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG' {
         if (Test-GlobSetProtection -Test 'guids' -Name 'repository') {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return

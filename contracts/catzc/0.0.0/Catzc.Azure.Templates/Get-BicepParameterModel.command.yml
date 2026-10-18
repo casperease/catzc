@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Get-BicepParameterModel, which returns a template's
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Get-BicepParameterModel, which returns a template's
 # Bicep parameter model, every parameter its compiled main.json declares.
 parameters:
   Template: string!

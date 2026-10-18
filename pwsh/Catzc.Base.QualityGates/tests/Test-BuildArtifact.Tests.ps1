@@ -49,7 +49,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
     }
 
-    It 'passes a build every facet accepts, building once with the full vendor policy' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes a build every facet accepts, building once with the full vendor policy' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-BuildArtifact -OutputFolder $script:reportFolder } | Should -Not -Throw
         Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $VendorPolicy -eq 'full' }
         Should -Invoke Invoke-BuildArtifactProbe -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ScopeModule -eq 'Catzc.Base.Config' }
@@ -58,7 +58,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'throws once listing every issue, each prefixed with its facet' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every issue, each prefixed with its facet' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Get-CommittedTypesDrift -ModuleName Catzc.Base.QualityGates { 'widget-modules/.compiled has pending git changes — commit it' }
         $script:observation.RunMode = 'source'
         Mock Format-Code -ModuleName Catzc.Base.QualityGates {
@@ -73,7 +73,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -BeLike '*`[manifest`] Catzc.Gadget/Catzc.Gadget.psd1 is not formatter-stable*'
     }
 
-    It 'returns the result with the built modules and types hash under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with the built modules and types hash under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-BuildArtifact -PassThru -OutputFolder $script:reportFolder
         $result.Subject | Should -Be 'build-artifact'
         $result.IssueCount | Should -Be 0

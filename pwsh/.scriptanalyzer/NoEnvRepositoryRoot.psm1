@@ -38,7 +38,7 @@ function Measure-NoEnvRepositoryRoot {
             continue
         }
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = 'Read the repository root with Get-RepositoryRoot (ADR-AUTO-NOPWD#6), not $env:RepositoryRoot directly.'
+                Message  = 'Read the repository root with Get-RepositoryRoot (ADR-AUTO-NOPWD-ONEROOTACCESSOR), not $env:RepositoryRoot directly.'
                 Extent   = $variable.Extent
                 RuleName = $ruleName
                 Severity = 'Error'

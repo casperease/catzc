@@ -31,7 +31,7 @@ Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
             Should -Be @('widget/.vendor/v.yml', 'widget/a.yml', 'widget/gadget/b.yml')
     }
 
-    It 'prunes the vendor folder when asked to and enters it when not' -Tag 'ADR-PWSH-PARAM#4' {
+    It 'prunes the vendor folder when asked to and enters it when not' -Tag 'ADR-PWSH-PARAM-RESOLUTIONORDER' {
         (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @() -PruneVendor $true)) | Should -Not -Contain 'widget/.vendor/v.yml'
         (& $relative (Get-ChildPath $root -Depth 3 -File -Exclude @() -PruneVendor $false)) | Should -Contain 'widget/.vendor/v.yml'
     }
@@ -44,7 +44,7 @@ Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
         @(Get-ChildPath $root -Depth 1 -Exclude @() -PruneVendor $false).Count | Should -Be 2
     }
 
-    It 'fails fast on a folder that does not exist' -Tag 'ADR-AUTO-FAILFAST#1' {
+    It 'fails fast on a folder that does not exist' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
         { Get-ChildPath (Join-Path $root 'gadget-missing') -Depth 1 -Exclude @() -PruneVendor $false } | Should -Throw '*does not exist*'
     }
 }
@@ -60,13 +60,13 @@ Describe 'Get-ChildPath (shipped folder-walk.yml)' -Tag 'L1', 'integrity' {
         $script:root = $root
     }
 
-    It 'defaults to two levels, so the third is never loaded' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-PWSH-PARAM#4' {
+    It 'defaults to two levels, so the third is never loaded' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-PWSH-PARAM-RESOLUTIONORDER' {
         @(Get-ChildPath $root -File).Count | Should -Be 1
         @(Get-ChildPath $root -File -Depth 3).Count | Should -Be 2
         @(Get-ChildPath $root -File -Depth 4).Count | Should -Be 3
     }
 
-    It 'prunes the vendor folder by default, from the registry value' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'prunes the vendor folder by default, from the registry value' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         (Get-ChildPath $root -Directory) | Should -Not -Contain (Join-Path $root '.vendor')
         (Get-ChildPath $root -Directory -PruneVendor $false) | Should -Contain (Join-Path $root '.vendor')
     }

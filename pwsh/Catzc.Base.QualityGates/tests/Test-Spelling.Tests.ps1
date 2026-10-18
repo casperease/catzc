@@ -17,7 +17,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
-    It 'passes and writes a report when cspell finds no issues' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes and writes a report when cspell finds no issues' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-Spelling -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-Spelling -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'spelling'
@@ -26,7 +26,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         (Join-Path $result.ReportPath 'spelling.md') | Should -Exist
     }
 
-    It 'throws once listing every issue line, so each misspelled word is named' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every issue line, so each misspelled word is named' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:cspellExit = 1
         $script:cspellOut = (@(
                 'a.md:1:1 - Unknown word (mispeld) fix: (misspelled)'
@@ -40,7 +40,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         $message | Should -Match 'b\.md:2:1 - Unknown word \(bravo\)'
     }
 
-    It 'with -PassThru returns the issues and the file count from cspell''s summary' -Tag 'ADR-AUTO-TEST#35' {
+    It 'with -PassThru returns the issues and the file count from cspell''s summary' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:cspellExit = 1
         $script:cspellOut = "a.md:1:1 - Unknown word (foo)`na.md:2:1 - Unknown word (baz)`nb.ps1:2:3 - Unknown word (bar)`nCSpell: Files checked: 5, Issues found: 3 in 2 files."
         $result = Test-Spelling -OutputFolder $script:reportBase -PassThru
@@ -50,7 +50,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         (Get-Content (Join-Path $result.ReportPath 'spelling.md') -Raw) | Should -Match 'b\.ps1:2:3 - Unknown word \(bar\)'
     }
 
-    It 'checks a long path list in batches, one cspell call each, and merges their issues' -Tag 'ADR-AUTO-TEST#35' {
+    It 'checks a long path list in batches, one cspell call each, and merges their issues' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:cspellExit = 1
         $script:cspellOut = "widget.md:1:1 - Unknown word (foo)`nCSpell: Files checked: 50, Issues found: 1 in 1 files."
         $paths = 1..120 | ForEach-Object { "gadget-$_.md" }
@@ -119,7 +119,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 }
 
 Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
-    It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB#6' {
+    It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG' {
         $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep', '.go', '.py')
         $spelled = foreach ($file in (Get-GitTrackedPath '.')) {
             if ($file.StartsWith("$(Get-CatzcModulesFolder)/.vendor/")) {

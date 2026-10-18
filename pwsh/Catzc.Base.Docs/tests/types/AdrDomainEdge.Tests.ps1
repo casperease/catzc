@@ -1,4 +1,4 @@
-Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
+Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     It 'carries its From and To domains' {
         $edge = [Catzc.Base.Docs.AdrDomainEdge]::new('widget', 'gadget')
         $edge.From | Should -Be 'widget'

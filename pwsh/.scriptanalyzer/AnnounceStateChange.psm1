@@ -303,7 +303,7 @@ function Measure-AnnounceStateChange {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "This changes the session state ($($change.Target)), but $where does not announce it where it happens. Announce every lasting state change with Write-Message, naming what changed (ADR-PWSH-ANNOUNCE#8) — or restore it in a finally block if it is temporary (ADR-PWSH-ANNOUNCE#9)."
+                    Message  = "This changes the session state ($($change.Target)), but $where does not announce it where it happens. Announce every lasting state change with Write-Message, naming what changed (ADR-PWSH-ANNOUNCE-INFORMATIONRECORD) — or restore it in a finally block if it is temporary (ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES)."
                     Extent   = $change.Node.Extent
                     RuleName = $ruleName
                     Severity = 'Warning'
@@ -390,7 +390,7 @@ function Measure-PersistentWriteThroughSeam {
             continue
         }
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = "This writes $target directly. Go through the seam — Set-PermanentEnvironmentVariable for a persistent variable, Set-EnvironmentPath for the persistent PATH — so a logic test can mock it and only the seam's own system test (L3) touches the machine (ADR-AUTO-TEST#33)."
+                Message  = "This writes $target directly. Go through the seam — Set-PermanentEnvironmentVariable for a persistent variable, Set-EnvironmentPath for the persistent PATH — so a logic test can mock it and only the seam's own system test (L3) touches the machine (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE)."
                 Extent   = $node.Extent
                 RuleName = $ruleName
                 Severity = 'Warning'

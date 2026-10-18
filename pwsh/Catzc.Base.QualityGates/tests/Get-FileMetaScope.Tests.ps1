@@ -1,4 +1,4 @@
-Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
+Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
@@ -94,7 +94,7 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         Should -Invoke Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
-    Context 'a file named in -Path' -Tag 'ADR-REPO-FILEMETA#1' {
+    Context 'a file named in -Path' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         BeforeEach {
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/new.gdg'), "# New`n")
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/built.gdg'), "# Built`n")

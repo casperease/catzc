@@ -29,7 +29,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         $script:out = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
     }
 
-    It 'reports no issues, writes the report, and points latest.txt at it' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'reports no issues, writes the report, and points latest.txt at it' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         { Test-Glossary -OutputFolder $script:out } | Should -Not -Throw
         $result = Test-Glossary -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'glossary'
@@ -40,7 +40,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         (Get-Content (Join-Path $script:out 'latest.txt')) | Should -Be (Split-Path $result.ReportPath -Leaf)
     }
 
-    It 'throws once with every check''s issues, prefixed by the check, in check order' -Tag 'ADR-REPO-VOCAB#5', 'ADR-AUTO-TEST#35' {
+    It 'throws once with every check''s issues, prefixed by the check, in check order' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED', 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Get-GlossarySourceViolations -ModuleName Catzc.Base.Docs { 'widget: duplicate' }
         Mock Get-GlossaryPhrasingViolations -ModuleName Catzc.Base.Docs { 'docs/alpha.md:3 says "widget bundle"'; 'docs/beta.md:1 says "widget bundle"' }
         Mock Get-GlossaryEnforcementViolations -ModuleName Catzc.Base.Docs { 'widget: unenforced' }
@@ -54,7 +54,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         $order | Should -Be @($order | Sort-Object)
     }
 
-    It 'returns the issues instead of throwing with -PassThru' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'returns the issues instead of throwing with -PassThru' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         Mock Get-GlossaryAnchorViolations -ModuleName Catzc.Base.Docs { 'widget: not anchored' }
         Mock Get-GlossaryDefinitionViolations -ModuleName Catzc.Base.Docs { 'widget: defined twice' }
         $result = Test-Glossary -OutputFolder $script:out -PassThru
@@ -82,31 +82,31 @@ Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'sour
         }
     }
 
-    It 'Test-Glossary passes over the real sources' -Tag 'ADR-AUTO-TEST#35' {
+    It 'Test-Glossary passes over the real sources' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:gate.IssueCount | Should -Be 0
     }
 
-    It 'discovers at least one glossary source' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'discovers at least one glossary source' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $script:sources.Count | Should -BeGreaterThan 0
     }
 
-    It 'G1 — the sources agree with each other and are tracked' -Tag 'ADR-REPO-VOCAB#3' {
+    It 'G1 — the sources agree with each other and are tracked' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
         & $script:issuesOf 'G1' | Should -BeNullOrEmpty
     }
 
-    It 'G2 — every term is anchored on its defining rule' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'G2 — every term is anchored on its defining rule' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         & $script:issuesOf 'G2' | Should -BeNullOrEmpty
     }
 
-    It 'G3 — no second rule defines a term' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'G3 — no second rule defines a term' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         & $script:issuesOf 'G3' | Should -BeNullOrEmpty
     }
 
-    It 'G4 — prose avoids every avoided phrasing in scope' -Tag 'ADR-REPO-VOCAB#5' {
+    It 'G4 — prose avoids every avoided phrasing in scope' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
         & $script:issuesOf 'G4' | Should -BeNullOrEmpty
     }
 
-    It 'G5 — every realized concept is enforced' -Tag 'ADR-REPO-VOCAB#6' {
+    It 'G5 — every realized concept is enforced' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         & $script:issuesOf 'G5' | Should -BeNullOrEmpty
     }
 }

@@ -1,6 +1,6 @@
 namespace Catzc.Base.Contracts;
 
-// Rests on [ADR-REPO-CMDCONTRACT#1](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract1).
+// Rests on [ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract).
 public enum ContractAssetKind
 {
     Presence,

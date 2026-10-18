@@ -15,7 +15,7 @@ function Get-ContractCommandFindings {
         $folder = $Asset.Target.Substring(0, $Asset.Target.LastIndexOf('/') + 1)
         $private = "${folder}private/$name.ps1"
         if ([System.IO.File]::Exists((Join-Path $RepositoryRoot $private))) {
-            return "$($missing[0]) '$private' exists, so '$name' is a private function, not a command (ADR-REPO-CMDCONTRACT#1)."
+            return "$($missing[0]) '$private' exists, so '$name' is a private function, not a command (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT)."
         }
         return $missing
     }

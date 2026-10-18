@@ -1,4 +1,4 @@
-Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#7' {
+Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs')) | Out-Null

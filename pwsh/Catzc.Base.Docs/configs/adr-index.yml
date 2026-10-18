@@ -13,13 +13,13 @@ preamble: |
 
   - Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus one or more uppercase segments — so
     `ADR-` is the single searchable marker for a rule reference anywhere in the repository.
-  - **Cite a rule** as `<code>#<n>` — e.g. `ADR-PWSH-ERROR#3`, `ADR-AUTO-CACHE#5`, `ADR-AZ-NAMING#7`.
+  - **Cite a rule** as `<code>#<n>` — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`, `ADR-AZ-NAMING-NEVERTRUNCATE`.
   - That resolves to the anchor `#rule-<code><n>` with the code lowercased and the `:` dropped — e.g.
-    `pwsh/error-handling.md#rule-adr-pwsh-error3` (so it is `rule-adr-pwsh-error3`, not
+    `pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror` (so it is `rule-adr-pwsh-error-thrownotwriteerror`, not
     `rule-adr-pwsh-error-3`).
   - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
   - `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
-    `### Rule <code>:<n>` heading (ADR-REPO-LINK#5).
+    `### Rule <code>:<n>` heading (ADR-REPO-LINK-ONECITATIONSPELLING).
   - A rule's number is stable: a retired rule's number is never reused, so a registry may skip numbers, and a citation never changes its
     meaning when a neighbouring rule goes.
 
@@ -41,7 +41,7 @@ conventions: |
 
   - **Two kinds of link (ADR-REPO-LINK).** A markdown link, in a `.md` file, is relative to its own file
     (`[reduce-variability](../principles/reduce-variability.md)`). A code link, in a comment of any other file, is repository-rooted with the
-    citation as its text (`[ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)`); `Format-Links` writes it from the
+    citation as its text (`[ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)`); `Format-Links` writes it from the
     citation, and `Test-Links` checks both kinds.
 
   - **Defined terms live in the glossary.** A defined term means what the one rule that bolds it says
@@ -49,7 +49,7 @@ conventions: |
     contrasts, and the phrasings to avoid. It is generated from the modules' `configs/glossary.yml` sources — edit a source, never the page.
 
   - **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g.
-    `azure-data-model.md#rule-adr-az-datamod2`) when the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR
+    `azure-data-model.md#rule-adr-az-datamod-onefileonesubscription`) when the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR
     document when the context is general — an index list, a "see ADR X for the full rationale" pointer, or a citation that invokes the ADR's
     whole thesis. Over-narrowing a general pointer to one rule is worse than leaving it doc-level.
 

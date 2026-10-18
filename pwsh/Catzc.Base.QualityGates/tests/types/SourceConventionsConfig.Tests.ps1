@@ -1,13 +1,13 @@
 Describe 'SourceConventionsConfig' -Tag 'L0' {
     Context 'logic (fixture configs)' -Tag 'logic' {
-        It 'gives every check its defaults when the file is empty' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'gives every check its defaults when the file is empty' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{})
             $config.engine_set.IsReport | Should -BeFalse
             $config.neutral_codes.IsReport | Should -BeFalse
             $config.engine_set.name_phrases.Count | Should -Be 0
         }
 
-        It 'maps each check it is given' -Tag 'ADR-PRIN-CONFIG#4' {
+        It 'maps each check it is given' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{
                     engine_set    = [ordered]@{ mode = 'report'; name_phrases = @('{name} and {name}') }
                     neutral_codes = [ordered]@{ exempt = [ordered]@{ 'src/**' = 'widget fixtures' } }
@@ -17,14 +17,14 @@ Describe 'SourceConventionsConfig' -Tag 'L0' {
             $config.neutral_codes.IsExempt('src/widget.ps1') | Should -BeTrue
         }
 
-        It 'rejects an unknown key and a check that is not a map' -Tag 'ADR-PRIN-CONFIG#4' {
+        It 'rejects an unknown key and a check that is not a map' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
             { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ gadget = 1 }) } | Should -Throw "*unknown key 'gadget'*"
             { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ neutral_codes = 'report' }) } | Should -Throw '*must be a map*'
         }
     }
 
     Context 'integrity (shipped source-conventions.yml)' -Tag 'L1', 'integrity' {
-        It 'loads the shipped source-conventions.yml as a SourceConventionsConfig' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'loads the shipped source-conventions.yml as a SourceConventionsConfig' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             Get-Config -Config source-conventions | Should -BeOfType ([Catzc.Base.QualityGates.SourceConventionsConfig])
         }
     }

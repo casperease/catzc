@@ -32,7 +32,7 @@ AfterAll {
     }
 }
 
-Describe 'Set-RedirectedOutputEncoding' -Tag 'L1', 'logic', 'ADR-PWSH-ANNOUNCE#1' {
+Describe 'Set-RedirectedOutputEncoding' -Tag 'L1', 'logic', 'ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT' {
     It 'imports cleanly in a redirected child session' {
         $script:exitCode | Should -Be 0 -Because $script:errorOutput
         $script:output | Should -Contain 'redirected=True'
@@ -42,7 +42,7 @@ Describe 'Set-RedirectedOutputEncoding' -Tag 'L1', 'logic', 'ADR-PWSH-ANNOUNCE#1
         $script:output | Should -Contain 'codepage=65001'
     }
 
-    It 'announces the change on the importer''s verbose load record' -Tag 'ADR-PWSH-ANNOUNCE#6' {
+    It 'announces the change on the importer''s verbose load record' -Tag 'ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE' {
         @($script:output | Where-Object { $_ -like '*console output encoding UTF-8 (output is redirected)*' }).Count | Should -Be 1
     }
 }

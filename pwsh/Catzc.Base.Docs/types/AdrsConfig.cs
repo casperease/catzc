@@ -12,7 +12,7 @@ public sealed class AdrsConfig
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*$", RegexOptions.Compiled);
 
-    // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)).
+    // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
@@ -25,7 +25,7 @@ public sealed class AdrsConfig
     private static readonly string[] AllowedDomainKeys = { "code", "role", "description", "depends_on", "stack", "concern", "rulesets" };
     private static readonly string[] AllowedRuleSetKeys = { "external", "code", "concern", "layer" };
 
-    // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS#6](/docs/adr/automation/layers.md#rule-adr-auto-layers6)).
+    // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/adr/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)).
     private static readonly string[] LayerNames = { "automation", "contract", "language", "engine", "importer" };
     public static readonly IReadOnlyList<string> Layers = LayerNames;
     public const string DefaultLayer = "automation";

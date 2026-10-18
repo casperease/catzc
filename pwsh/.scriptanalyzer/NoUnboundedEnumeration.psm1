@@ -52,7 +52,7 @@ function Measure-NoUnboundedEnumeration {
             continue
         }
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = "List folders and files with Get-ChildPath, not $name (ADR-PWSH-ENUM#1)."
+                Message  = "List folders and files with Get-ChildPath, not $name (ADR-PWSH-ENUM-RAWDOTNETENUMERATION)."
                 Extent   = $command.Extent
                 RuleName = $ruleName
                 Severity = 'Error'
@@ -70,7 +70,7 @@ function Measure-NoUnboundedEnumeration {
             continue
         }
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = 'Walk below a folder with Get-ChildPath and an explicit -Depth, not SearchOption.AllDirectories (ADR-PWSH-ENUM#3).'
+                Message  = 'Walk below a folder with Get-ChildPath and an explicit -Depth, not SearchOption.AllDirectories (ADR-PWSH-ENUM-ALWAYSBOUNDED).'
                 Extent   = $member.Extent
                 RuleName = $ruleName
                 Severity = 'Error'

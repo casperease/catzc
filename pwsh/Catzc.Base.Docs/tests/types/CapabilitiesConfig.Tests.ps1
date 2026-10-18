@@ -1,5 +1,5 @@
-# Rests on [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3) and [ADR-REPO-AGENTS#9](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents9).
-Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#10' {
+# Rests on [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
+Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREGISTERED' {
     BeforeAll {
         $script:widget = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE#1'); checks = @('Test-Widget') }
         $script:gadget = [ordered]@{ name = 'gadget-turn-fast'; supported_by = @('ADR-WI-ONE#2'); checks = @() }

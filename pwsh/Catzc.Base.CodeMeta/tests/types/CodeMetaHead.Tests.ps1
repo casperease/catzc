@@ -1,5 +1,5 @@
 # CodeMetaHead over short widget/gadget texts: the proofs are the byte-identical second run and the lossless removal.
-Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FILEMETA#3' {
+Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         $script:block = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')
         $script:hash = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#')
@@ -154,7 +154,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
         }
     }
 
-    Context 'removing the config part' -Tag 'ADR-REPO-HELP#1' {
+    Context 'removing the config part' -Tag 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
         It 'keeps the facts as written and drops the authored lines' {
             $text = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: a/b.cs', '  config:', '    synopsis: Gets.', '---', '*/', '', 'class B { }', ''
             [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($text, $script:block).WithoutConfig() |

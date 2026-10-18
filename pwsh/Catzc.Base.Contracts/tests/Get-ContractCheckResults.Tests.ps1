@@ -26,7 +26,7 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType Directory -Force -Path $script:root
     }
 
-    Context 'presence' -Tag 'ADR-REPO-CONTRACT#6' {
+    Context 'presence' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
         BeforeEach {
             Add-Asset 'docs/gadget.md'
         }
@@ -65,7 +65,7 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'a fragment' -Tag 'ADR-REPO-CONTRACT#6' {
+    Context 'a fragment' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
         It 'passes a YAML key subset' {
             Add-Asset '.widget/build.yml' @'
 on:
@@ -134,7 +134,7 @@ jobs:
         }
     }
 
-    Context 'a schema' -Tag 'ADR-REPO-CONTRACT#6' {
+    Context 'a schema' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
         BeforeEach {
             Add-Asset 'gadget.yml.schema.json' '{"type":"object","required":["widget"],"properties":{"widget":{"enum":["cog","sprocket"]}}}'
         }
@@ -179,7 +179,7 @@ widget: cog
         }
     }
 
-    Context 'a sample payload' -Tag 'ADR-REPO-CONTRACT#6' {
+    Context 'a sample payload' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
         It 'passes a sample with no schema beside it when it parses' {
             Add-Asset 'rest/gadget.sample.json' '{"widget":1}'
             $result = Get-CheckResult 'rest/gadget.sample.json'
@@ -233,7 +233,7 @@ widget: cog
         }
     }
 
-    Context 'the input' -Tag 'ADR-REPO-CONTRACT#4' {
+    Context 'the input' -Tag 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
         BeforeEach {
             Add-Asset 'docs/gadget.md'
             Add-Asset 'docs/widget.md'
@@ -264,7 +264,7 @@ widget: cog
         }
     }
 
-    Context 'a command contract' -Tag 'ADR-REPO-CMDCONTRACT#4' {
+    Context 'a command contract' -Tag 'ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE' {
         BeforeEach {
             Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
                 [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('powershell') }

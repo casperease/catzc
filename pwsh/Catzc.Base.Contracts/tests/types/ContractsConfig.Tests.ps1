@@ -1,29 +1,29 @@
 Describe 'ContractsConfig' -Tag 'L0', 'logic' {
-    It 'takes full-path for an omitted addressing' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes full-path for an omitted addressing' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         [Catzc.Base.Contracts.ContractsConfig]::new(@{}).addressing | Should -Be 'full-path'
         [Catzc.Base.Contracts.ContractsConfig]::new($null).addressing | Should -Be 'full-path'
     }
 
-    It 'accepts every declared addressing mode, built or not' -Tag 'ADR-REPO-CONTRACT#8' {
+    It 'accepts every declared addressing mode, built or not' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
         foreach ($mode in [Catzc.Base.Contracts.ContractsConfig]::AddressingModes) {
             [Catzc.Base.Contracts.ContractsConfig]::new(@{ addressing = $mode }).addressing | Should -Be $mode
         }
     }
 
-    It 'builds only full-path' -Tag 'ADR-REPO-CONTRACT#8' {
+    It 'builds only full-path' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
         [Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes | Should -Be @('full-path')
     }
 
-    It 'rejects an undeclared addressing mode, naming the declared ones' -Tag 'ADR-REPO-CONTRACT#8' {
+    It 'rejects an undeclared addressing mode, naming the declared ones' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
         { [Catzc.Base.Contracts.ContractsConfig]::new(@{ addressing = 'widget' }) } | Should -Throw '*full-path, manifest-glob, per-folder*'
     }
 
-    It 'rejects an unknown key' -Tag 'ADR-REPO-CONTRACT#8' {
+    It 'rejects an unknown key' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
         { [Catzc.Base.Contracts.ContractsConfig]::new(@{ gadget = 1 }) } | Should -Throw "*unknown key 'gadget'*"
     }
 
     Context 'target_roots' {
-        It 'names no module when omitted, so every module takes the repository root' -Tag 'ADR-AUTO-DEFAULT#6', 'ADR-REPO-CONTRACT#2' {
+        It 'names no module when omitted, so every module takes the repository root' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-REPO-CONTRACT-LAYOUT' {
             $config = [Catzc.Base.Contracts.ContractsConfig]::new(@{})
             $config.target_roots.Count | Should -Be 0
             [Catzc.Base.Contracts.ContractsConfig]::DefaultTargetRoot | Should -Be ''
@@ -31,7 +31,7 @@ Describe 'ContractsConfig' -Tag 'L0', 'logic' {
             [Catzc.Base.Contracts.ContractsConfig]::ResolveTargetRoot($null, 'Catzc.Widget') | Should -Be ''
         }
 
-        It 'resolves a declared module to its root, in ordinal module order' -Tag 'ADR-REPO-CONTRACT#2' {
+        It 'resolves a declared module to its root, in ordinal module order' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
             $config = [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'Catzc.Widget' = '.widget'; 'Catzc.Gadget' = 'gadget/flows' } })
             @($config.target_roots.Keys) | Should -Be @('Catzc.Gadget', 'Catzc.Widget')
             [Catzc.Base.Contracts.ContractsConfig]::ResolveTargetRoot($config.target_roots, 'Catzc.Widget') | Should -Be '.widget'
@@ -39,7 +39,7 @@ Describe 'ContractsConfig' -Tag 'L0', 'logic' {
             [Catzc.Base.Contracts.ContractsConfig]::ResolveTargetRoot($config.target_roots, 'Catzc.Sprocket') | Should -Be ''
         }
 
-        It 'rejects the root <Root>' -Tag 'ADR-REPO-CONTRACT#2' -ForEach @(
+        It 'rejects the root <Root>' -Tag 'ADR-REPO-CONTRACT-LAYOUT' -ForEach @(
             @{ Root = '../widget' }
             @{ Root = './widget' }
             @{ Root = '/widget' }
@@ -53,25 +53,25 @@ Describe 'ContractsConfig' -Tag 'L0', 'logic' {
                 Should -Throw "*target root '$([WildcardPattern]::Escape($Root))' of 'Catzc.Widget'*"
         }
 
-        It 'rejects a key that is not a module name' -Tag 'ADR-REPO-CONTRACT#2' {
+        It 'rejects a key that is not a module name' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
             { [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'Catzc/Widget' = 'widget' } }) } |
                 Should -Throw "*target_roots key 'Catzc/Widget' is not a module name*"
         }
 
-        It 'rejects a target_roots that is not a map' -Tag 'ADR-REPO-CONTRACT#2' {
+        It 'rejects a target_roots that is not a map' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
             { [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = 'widget' }) } | Should -Throw '*target_roots must be a map*'
         }
     }
 }
 
 Describe 'ContractsConfig (shipped contracts.yml)' -Tag 'L1', 'integrity' {
-    It 'loads the shipped contracts.yml as a ContractsConfig on the built mode' -Tag 'ADR-REPO-CONTRACT#8' {
+    It 'loads the shipped contracts.yml as a ContractsConfig on the built mode' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
         $config = Get-Config -Config contracts
         $config | Should -BeOfType ([Catzc.Base.Contracts.ContractsConfig])
         $config.addressing | Should -BeIn ([Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes)
     }
 
-    It 'names a target root only for a module folder that exists' -Tag 'ADR-REPO-CONTRACT#2' {
+    It 'names a target root only for a module folder that exists' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
         foreach ($module in (Get-Config -Config contracts).target_roots.Keys) {
             Join-Path (Get-CatzcModulesRoot) $module | Should -Exist
         }

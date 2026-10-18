@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Export-SpellingTriage, which collects the spell-checker's
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Export-SpellingTriage, which collects the spell-checker's
 # flagged tokens into a triage queue. Path and Exclude default to the repository's own globs, a default the contract does not restate.
 parameters:
   Path: string[]

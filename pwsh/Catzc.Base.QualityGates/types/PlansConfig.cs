@@ -1,4 +1,4 @@
-// The settings Test-Plans holds the plans folder to; every default is declared once here ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+// The settings Test-Plans holds the plans folder to; every default is declared once here ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,10 +16,10 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] MasterKeys = { "file", "sections" };
     private static readonly string[] TaskKeys = { "max" };
 
-    // The repository-relative folder the plans live in ([ADR-REPO-PLANS#1](/docs/adr/repository/plans.md#rule-adr-repo-plans1)).
+    // The repository-relative folder the plans live in ([ADR-REPO-PLANS-ONETOPICONEFILE](/docs/adr/repository/plans.md#rule-adr-repo-plans-onetopiconefile)).
     public string folder { get; } = ".claude/plans";
 
-    // The states a plan's head may declare ([ADR-REPO-PLANS#2](/docs/adr/repository/plans.md#rule-adr-repo-plans2)).
+    // The states a plan's head may declare ([ADR-REPO-PLANS-PLANHEAD](/docs/adr/repository/plans.md#rule-adr-repo-plans-planhead)).
     public IReadOnlyList<string> statuses { get; } = new[] { "active", "blocked" };
 
     // The value ranks value-of-plan.md orders by, highest first.
@@ -29,15 +29,15 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
     public IReadOnlyList<string> head_required { get; } = new[] { "status", "value", "reviewed", "targets" };
     public IReadOnlyList<string> head_allowed { get; } = new[] { "blocked_on", "waits_on", "class", "next", "parent", "siblings", "role", "rule" };
 
-    // The section headings every plan has (matched as a prefix of the heading text), and the heading carried text sits under ([ADR-REPO-PLANS#3](/docs/adr/repository/plans.md#rule-adr-repo-plans3)).
+    // The section headings every plan has (matched as a prefix of the heading text), and the heading carried text sits under ([ADR-REPO-PLANS-ONESHAPE](/docs/adr/repository/plans.md#rule-adr-repo-plans-oneshape)).
     public IReadOnlyList<string> sections_required { get; } = new[] { "Open steps" };
     public string sections_carried { get; } = "Carried";
 
-    // The master plan and the sections it has instead of a plan's shape ([ADR-REPO-PLANS#8](/docs/adr/repository/plans.md#rule-adr-repo-plans8)).
+    // The master plan and the sections it has instead of a plan's shape ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
     public string master_file { get; } = "plan-master.md";
     public IReadOnlyList<string> master_sections { get; } = new[] { "Process", "Chunks" };
 
-    // The most task files the folder holds; a task is named by its topic, the master's list carries the order ([ADR-REPO-PLANS#8](/docs/adr/repository/plans.md#rule-adr-repo-plans8)).
+    // The most task files the folder holds; a task is named by its topic, the master's list carries the order ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
     public int tasks_max { get; } = 50;
 
     // The file-name patterns the folder accepts; any other name is a finding.

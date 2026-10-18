@@ -1,4 +1,4 @@
-Describe 'Get-TestOptOutExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#31' {
+Describe 'Get-TestOptOutExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SOURCEONLYTAG' {
     BeforeAll {
         # Fake discovery objects — the same Pester test shape Get-TestBlockTag walks.
         $script:root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

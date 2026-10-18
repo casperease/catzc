@@ -1,11 +1,11 @@
-# Fixture glossary source (Get-GlossarySources / Get-Glossary L0 tests) — neutral terms (ADR-AUTO-TEST#3).
+# Fixture glossary source (Get-GlossarySources / Get-Glossary L0 tests) — neutral terms (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES).
 options:
   checks: [avoid]
 concepts:
   widget suite:
     key: widget_suite
     domain: automation
-    defined_by: ADR-AUTO-TEST#30
+    defined_by: ADR-AUTO-TEST-SAMETESTSBOTHRUNS
     short: A named folder of widget files.
     realized_by: { kind: folder, pattern: "pwsh/*/tests/widgets/<name>/" }
     contrasts:
@@ -13,6 +13,6 @@ concepts:
   alpha widget:
     key: alpha_widget
     domain: automation
-    defined_by: ADR-AUTO-TEST#31
+    defined_by: ADR-AUTO-TEST-SOURCEONLYTAG
     short: The first widget.
     realized_by: { kind: prose-only }

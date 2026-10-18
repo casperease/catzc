@@ -1,10 +1,10 @@
-Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
-    It 'takes the declared default kit folder for an omitted key' -Tag 'ADR-AUTO-DEFAULT#6' {
+Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILEKIND' {
+    It 'takes the declared default kit folder for an omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{})).kit | Should -Be '.claude/slides'
         ([Catzc.Base.Slides.SlidesConfig]::new($null)).kit | Should -Be '.claude/slides'
     }
 
-    It 'takes the declared default for the draw.io kit' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes the declared default for the draw.io kit' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{})).drawio_kit | Should -Be '.claude/drawio'
     }
 
@@ -13,7 +13,7 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = '../kit' }) } | Should -Throw '*drawio_kit*communication form*'
     }
 
-    It 'lists no diagram folder: a diagram folder is found under docs/**/.assets/**, so the old keys are unknown' -Tag 'ADR-REPO-SLIDES#7' {
+    It 'lists no diagram folder: a diagram folder is found under docs/**/.assets/**, so the old keys are unknown' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets') }) } | Should -Throw '*unknown key ''diagram_folders''*'
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 7 }) } | Should -Throw '*unknown key ''diagram_batch''*'
     }
@@ -33,7 +33,7 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*kit*'
     }
 
-    It 'rejects a kit path that is not in communication form' -Tag 'ADR-AUTO-PATH#1' {
+    It 'rejects a kit path that is not in communication form' -Tag 'ADR-AUTO-PATH-TWOFORMS' {
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ kit = 'C:/widget' }) } | Should -Throw '*communication form*'
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ kit = '/widget' }) } | Should -Throw '*communication form*'
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ kit = 'widget\gadget' }) } | Should -Throw '*communication form*'
@@ -43,7 +43,7 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
 }
 
 Describe 'SlidesConfig (shipped slides.yml)' -Tag 'L1', 'integrity' {
-    It 'loads the shipped slides.yml as a SlidesConfig that points at the kit' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'loads the shipped slides.yml as a SlidesConfig that points at the kit' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = Get-Config -Config slides
         $config | Should -BeOfType ([Catzc.Base.Slides.SlidesConfig])
         $config.kit | Should -Be '.claude/slides'

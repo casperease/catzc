@@ -69,7 +69,7 @@ function Read-CommandSignature {
             $inEverySet = $withoutSet -or -not $hasParameterAttribute
             $mandatory = $mandatoryBySet.Count -gt 0 -and $mandatoryBySet[0]
             if (@($mandatoryBySet | Select-Object -Unique).Count -gt 1) {
-                throw "parameter '$($parameter.Name.VariablePath.UserPath)' of '$Name' is mandatory in some parameter sets and optional in others, which a command contract cannot state (ADR-REPO-CMDCONTRACT#2)"
+                throw "parameter '$($parameter.Name.VariablePath.UserPath)' of '$Name' is mandatory in some parameter sets and optional in others, which a command contract cannot state (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE)"
             }
             $isList = $false
             $type = [Catzc.Base.Contracts.ContractParameter]::NormalizeType($typeName, [ref] $isList)

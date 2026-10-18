@@ -1,4 +1,4 @@
-Describe 'Get-MarkdownMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
+Describe 'Get-MarkdownMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'reports no front matter and no meta block for a plain file' {
         $state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nbody`n"
         $state.HasFrontMatter | Should -BeFalse
@@ -21,7 +21,7 @@ Describe 'Get-MarkdownMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
         $state.Body | Should -BeExactly "body`n"
     }
 
-    It 'reads a block nested at the key path the carrier names, and says when a parent cannot hold one' -Tag 'ADR-REPO-FILEMETA#1' {
+    It 'reads a block nested at the key path the carrier names, and says when a parent cannot hold one' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $nested = Get-MarkdownMetaState -Text "---`nname: widget`nmetadata:`n  catzc:`n    immutable:`n      kind: gadget`n    config:`n      floor: low`n---`nbody`n" -Key 'metadata.catzc'
         $nested.HasMetaBlock | Should -BeTrue
         $nested.CanHoldMetaBlock | Should -BeTrue

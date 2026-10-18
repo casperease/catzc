@@ -13,7 +13,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         $script:reportBase = Join-Path $TestDrive 'reports'
     }
 
-    It 'resolves a relative -Path against the repository root, never the working directory' -Tag 'ADR-AUTO-NOPWD#1' {
+    It 'resolves a relative -Path against the repository root, never the working directory' -Tag 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         $elsewhere = Join-Path $TestDrive 'elsewhere'
         [void][System.IO.Directory]::CreateDirectory($elsewhere)
@@ -29,7 +29,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'passes and writes a report when the analyzer finds no violations' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes and writes a report when the analyzer finds no violations' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'script-analyzer'
@@ -38,7 +38,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         (Join-Path $result.ReportPath 'script-analyzer.md') | Should -Exist
     }
 
-    It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:diagnostics = @(
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 3; Column = 5; Severity = 'Warning'; RuleName = 'PSAvoidUsingCmdletAliases'; Message = 'Avoid alias' }
             [pscustomobject]@{ ScriptPath = 'repo/b.ps1'; Line = 9; Column = 3; Severity = 'Error'; RuleName = 'PSAvoidExclaimOperator'; Message = 'Bang' }
@@ -50,7 +50,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         $message | Should -Match 'repo/b\.ps1:9:3 Error PSAvoidExclaimOperator Bang'
     }
 
-    It 'with -PassThru returns the violation and file counts instead of throwing' -Tag 'ADR-AUTO-TEST#35' {
+    It 'with -PassThru returns the violation and file counts instead of throwing' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:diagnostics = @(
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 1; Column = 1; Severity = 'Warning'; RuleName = 'PSUseConsistentIndentation'; Message = 'Indent' }
             [pscustomobject]@{ ScriptPath = 'repo/a.ps1'; Line = 2; Column = 1; Severity = 'Warning'; RuleName = 'PSPlaceOpenBrace'; Message = 'Brace' }
@@ -79,7 +79,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'flags a real aliased-cmdlet violation and passes the clean fixture (real PSScriptAnalyzer, repo rule set)' {
         $clean = Join-Path $TestDrive 'Get-Thing.ps1'
         Set-Content -Path $clean -Value "function Get-Thing {`n    `$value = 1`n    `$value`n}" -Encoding utf8

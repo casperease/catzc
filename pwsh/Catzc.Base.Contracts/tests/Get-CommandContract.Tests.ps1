@@ -1,4 +1,4 @@
-Describe 'Get-CommandContract' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#5' {
+Describe 'Get-CommandContract' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-ONEREADER' {
     BeforeAll {
         function Add-Asset {
             param([string] $Relative, [string] $Content = '')

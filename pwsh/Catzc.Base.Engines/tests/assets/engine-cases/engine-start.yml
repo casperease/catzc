@@ -2,7 +2,7 @@
 # start each execution engine non-interactively, load its importer with the output discarded, and run one catzc command.
 # The command is the same catzc command text in every engine; bash and zsh run it through the cats dispatcher
 # importer.sh defines. Each column holds the `entry` and `command` given, and the `arguments` expected after the
-# executable. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# executable. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 subject: engine start
 cases:
   - case: a plain entry and command

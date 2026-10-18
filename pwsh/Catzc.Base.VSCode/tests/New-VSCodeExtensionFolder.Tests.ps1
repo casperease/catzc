@@ -1,4 +1,4 @@
-# Rests on [ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2).
+# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'New-VSCodeExtensionFolder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assets = Join-Path $TestDrive 'assets'
@@ -57,7 +57,7 @@ Describe 'New-VSCodeExtensionFolder' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'New-VSCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'New-VSCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'renders every registry entry from its shipped script to a manifest the packer accepts' {
         $entries = @((Get-Config -Config vscode-extensions).extensions)
         $entries.Count | Should -BeGreaterThan 0

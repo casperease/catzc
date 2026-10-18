@@ -1,4 +1,4 @@
-Describe 'Get-CatzcBundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
+Describe 'Get-CatzcBundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     BeforeAll {
         $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'catzc-bundle' = @{} } }).kinds[0]
 

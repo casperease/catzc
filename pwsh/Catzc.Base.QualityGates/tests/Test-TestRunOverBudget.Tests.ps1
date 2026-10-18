@@ -1,4 +1,4 @@
-Describe 'Test-TestRunOverBudget' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#44' {
+Describe 'Test-TestRunOverBudget' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-DEVBOXRUNBUDGET' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Test-IsRunningInPipeline -ModuleName Catzc.Base.QualityGates { $false }

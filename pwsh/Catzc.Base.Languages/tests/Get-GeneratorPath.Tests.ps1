@@ -1,4 +1,4 @@
-Describe 'Get-GeneratorPath' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#7' {
+Describe 'Get-GeneratorPath' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
     It 'names the file a loaded function is defined in, relative to the root the code lives in, with forward slashes' {
         InModuleScope Catzc.Base.Languages {
             Get-GeneratorPath Format-GeneratedFileHead | Should -BeExactly "$(Get-CatzcModulesFolder)/Catzc.Base.Languages/Format-GeneratedFileHead.ps1"

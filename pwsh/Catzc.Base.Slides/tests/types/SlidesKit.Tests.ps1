@@ -1,4 +1,4 @@
-Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#2' {
+Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-PATTERN' {
     BeforeAll {
         $script:raw = @{
             token  = @{ bg = '#101010'; accent = '#ABCDEF' }
@@ -16,7 +16,7 @@ Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#2' {
         $kit.Value('layout.gutter') | Should -Be '128'
     }
 
-    It 'takes the declared default output folder for an omitted render.out' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes the declared default output folder for an omitted render.out' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         ([Catzc.Base.Slides.SlidesKit]::new($script:raw)).Value('render.out') | Should -Be 'out/slides'
         ([Catzc.Base.Slides.SlidesKit]::new(@{ face = $script:raw.face; render = @{ out = 'out/gadget' } })).Value('render.out') | Should -Be 'out/gadget'
     }

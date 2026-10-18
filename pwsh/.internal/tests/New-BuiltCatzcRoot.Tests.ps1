@@ -1,4 +1,4 @@
-Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
+Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS' {
     BeforeAll {
         Import-InternalModule TestKit
 
@@ -74,7 +74,7 @@ Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     }
 }
 
-Describe 'Invoke-InBuiltCatzc' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#30' {
+Describe 'Invoke-InBuiltCatzc' -Tag 'L1', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS' {
     BeforeAll {
         Import-InternalModule TestKit
 

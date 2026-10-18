@@ -44,7 +44,7 @@ function Get-Gadget {
 
     It 'carries the ADR-cited message pointing at Get-CatzcModuleRoot' {
         $diagnostic = Test-ScriptRootAnchorFile -Code $script:anchoredCode -RelativePath 'Catzc.Widget/Get-Widget.ps1'
-        $diagnostic.Message | Should -Be "Locate module-internal content with Get-CatzcModuleRoot -ChildPath '<literal>' (ADR-AUTO-ASSETDEP#1); `$PSScriptRoot does not point at the module folder in build mode."
+        $diagnostic.Message | Should -Be "Locate module-internal content with Get-CatzcModuleRoot -ChildPath '<literal>' (ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY); `$PSScriptRoot does not point at the module folder in build mode."
         $diagnostic.Severity | Should -Be 'Error'
     }
 

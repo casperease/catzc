@@ -33,16 +33,16 @@ Describe 'Test-LogicTestIdentity — gate shape' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:leaky, "Describe 'X' -Tag 'L0', 'logic' {`n It 'a' { Do-Thing -Name 'gizmo' | Should -Be 1 }`n}")
     }
 
-    It 'passes when no logic test names a live identity' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes when no logic test names a live identity' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-LogicTestIdentity -Path $script:clean -OutputFolder $script:reportBase } | Should -Not -Throw
     }
 
-    It 'throws once listing every live-identity use with its file and line' -Tag 'ADR-AUTO-TEST#35' {
+    It 'throws once listing every live-identity use with its file and line' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-LogicTestIdentity -Path $script:clean, $script:leaky -OutputFolder $script:reportBase } |
             Should -Throw "Test-LogicTestIdentity failed: 1 issue(s)*Gadget.Tests.ps1:2: logic test uses live identity 'gizmo'*a fixture widget*"
     }
 
-    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
+    It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-LogicTestIdentity -Path $script:clean, $script:leaky -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'logic-test-identity'
         $result.IssueCount | Should -Be 1

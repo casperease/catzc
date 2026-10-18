@@ -11,10 +11,10 @@ function Get-ContractCommandRoot {
 
     $found = @(Get-CatzcModule -Name $Module -TrackType modules -RepositoryRoot $RepositoryRoot)
     if ($found.Count -ne 1) {
-        throw "contract asset: no module named '$Module' in the code track, so its command contracts name no command file (ADR-REPO-CMDCONTRACT#3)."
+        throw "contract asset: no module named '$Module' in the code track, so its command contracts name no command file (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
     }
     if (@($found[0].languages) -cnotcontains 'powershell') {
-        throw [System.NotImplementedException]::new("contract asset: the command contracts of '$Module' need a checker for its implementation language ($(@($found[0].languages) -join ', ')); only PowerShell commands are checked (ADR-REPO-CMDCONTRACT#4).")
+        throw [System.NotImplementedException]::new("contract asset: the command contracts of '$Module' need a checker for its implementation language ($(@($found[0].languages) -join ', ')); only PowerShell commands are checked (ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE).")
     }
     $found[0].root
 }

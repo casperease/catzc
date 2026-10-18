@@ -42,7 +42,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
     }
 
-    It 'puts the module''s Go, Python and Bash test folders in its tests aspect, never in live (ADR-AUTO-GO#2, ADR-AUTO-PY#2, ADR-AUTO-BASH#2)' {
+    It 'puts the module''s Go, Python and Bash test folders in its tests aspect, never in live (ADR-AUTO-GO-ONEGOROOT, ADR-AUTO-PY-ONEPYTHONROOT, ADR-AUTO-BASH-ONEBASHROOT)' {
         $aspects = @(Get-ModuleGlobSet -Name Catzc.Base.Alpha)
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
         $tests = $aspects | Where-Object Name -eq 'catzc-base-alpha-tests'

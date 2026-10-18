@@ -1,4 +1,4 @@
-Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
+Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGEREPORTEDONLY' {
     BeforeAll {
         $script:allRuleIds = @('ADR-FAKE#1', 'ADR-FAKE#8', 'ADR-FAKE#3', 'ADR-FAKE#2', 'ADR-FAKE#10')
         $script:rows = @(

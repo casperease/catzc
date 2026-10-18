@@ -86,6 +86,6 @@ Describe 'Get-WorldMap — the real repository' -Tag 'L1', 'integrity', 'source-
 
     It 'finds no stack violation' {
         $report = @($script:map.StackViolations | ForEach-Object { '{0} ({1} x {2})' -f $_.Path, $_.Track, $_.FileLanguage })
-        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (ADR-DSGN-TRACK#3)'
+        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (ADR-DSGN-TRACK-ONETECHSTACK)'
     }
 }

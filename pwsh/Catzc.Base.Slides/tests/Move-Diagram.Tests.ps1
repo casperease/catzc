@@ -1,4 +1,4 @@
-Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
+Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $files = [ordered]@{

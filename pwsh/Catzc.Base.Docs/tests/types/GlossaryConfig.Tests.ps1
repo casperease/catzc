@@ -19,7 +19,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'constructs a minimal source and defaults every option' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'constructs a minimal source and defaults every option' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $c = & $script:single (& $script:concept)
         $c.concepts.Count | Should -Be 1
         $c.concepts[0].term | Should -Be 'widget suite'
@@ -42,7 +42,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.concepts.term | Should -Be @('widget suite', 'gadget run')
     }
 
-    It 'overrides only the options a source sets, and always keeps the default excludes first' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'overrides only the options a source sets, and always keeps the default excludes first' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $c = & $script:make ([ordered]@{
                 options  = [ordered]@{ checks = @('avoid'); scope = @('docs/**'); exclude = @('docs/widget/**', 'out/**') }
                 concepts = [ordered]@{ 'widget suite' = (& $script:concept) }
@@ -53,19 +53,19 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**', 'docs/widget/**')
     }
 
-    It 'accepts an explicit empty checks list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'accepts an explicit empty checks list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $c = & $script:make ([ordered]@{ options = @{ checks = @() }; concepts = [ordered]@{ 'widget suite' = (& $script:concept) } })
         $c.options.checks.Count | Should -Be 0
     }
 
-    It 'rejects an unknown option key, check, or surface' -Tag 'ADR-REPO-VOCAB#2' {
+    It 'rejects an unknown option key, check, or surface' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
         $body = [ordered]@{ 'widget suite' = (& $script:concept) }
         { & $script:make ([ordered]@{ options = @{ colour = 'blue' }; concepts = $body }) } | Should -Throw "*unknown key 'colour'*"
         { & $script:make ([ordered]@{ options = @{ checks = @('widget') }; concepts = $body }) } | Should -Throw "*options.checks: 'widget' is not one of*"
         { & $script:make ([ordered]@{ options = @{ surfaces = @('gadget') }; concepts = $body }) } | Should -Throw "*options.surfaces: 'gadget' is not one of*"
     }
 
-    It 'rejects a scope or exclude glob that is not repo-relative' -Tag 'ADR-REPO-VOCAB#3' {
+    It 'rejects a scope or exclude glob that is not repo-relative' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
         $body = [ordered]@{ 'widget suite' = (& $script:concept) }
         foreach ($glob in '/docs/**', '../widget/**', 'C:/widget/**', 'docs\widget') {
             { & $script:make ([ordered]@{ options = @{ scope = @($glob) }; concepts = $body }) } |
@@ -73,7 +73,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'rejects a URL anywhere in the source' -Tag 'ADR-REPO-VOCAB#3' {
+    It 'rejects a URL anywhere in the source' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {
         $body = & $script:concept
         $body.short = 'See https://widget.invalid for the definition.'
         { & $script:single $body } | Should -Throw '*concepts.widget suite.short: a glossary stays in the repository*'
@@ -90,7 +90,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         { & $script:make ([ordered]@{ options = @{} }) } | Should -Throw '*non-empty*concepts*'
     }
 
-    It 'names every missing required field of a concept in one throw' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'names every missing required field of a concept in one throw' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $thrown = { & $script:single ([ordered]@{}) } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         foreach ($field in 'key', 'domain', 'defined_by', 'short', 'realized_by') {
@@ -98,7 +98,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'rejects a malformed term, key, domain, or rule citation' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'rejects a malformed term, key, domain, or rule citation' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         { & $script:single (& $script:concept) 'Widget Suite' } | Should -Throw '*lower-case words*'
         { & $script:single (& $script:concept) 'widget  suite' } | Should -Throw '*lower-case words*'
 
@@ -117,13 +117,13 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'accepts a one-segment rule citation, a code with no domain segment' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'accepts a one-segment rule citation, a code with no domain segment' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $body = & $script:concept
         $body.defined_by = 'ADR-COG#3'
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG#3'
     }
 
-    It 'keeps declared forms in order, empty when none, and rejects a non-word or a repeated form' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'keeps declared forms in order, empty when none, and rejects a non-word or a repeated form' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         (& $script:single (& $script:concept)).concepts[0].forms.Count | Should -Be 0
         $body = & $script:concept
         $body.forms = @('gadget', 'CI')
@@ -136,7 +136,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         { & $script:single $body } | Should -Throw '*forms must be a list of single qualifier words*'
     }
 
-    It 'reads verbs as a flag, false unless set' -Tag 'ADR-REPO-VOCAB#8' {
+    It 'reads verbs as a flag, false unless set' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
         (& $script:single (& $script:concept)).concepts[0].verbs | Should -BeFalse
         $body = & $script:concept
         $body.verbs = $true
@@ -149,7 +149,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         { & $script:single $body } | Should -Throw "*unknown key 'synonyms'*"
     }
 
-    It 'requires a known realization kind, a pattern for code kinds, and none for prose-only' -Tag 'ADR-REPO-VOCAB#6' {
+    It 'requires a known realization kind, a pattern for code kinds, and none for prose-only' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         $body = & $script:concept
         $body.realized_by = @{ kind = 'widget'; pattern = 'x' }
         { & $script:single $body } | Should -Throw "*kind 'widget' is not one of*"
@@ -167,7 +167,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         (& $script:single $body).concepts[0].realized_by.pattern | Should -BeNullOrEmpty
     }
 
-    It 'requires a replacement for every avoided phrase and normalizes the phrase' -Tag 'ADR-REPO-VOCAB#5' {
+    It 'requires a replacement for every avoided phrase and normalizes the phrase' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
         $body = & $script:concept
         $body.avoid = @(@{ phrase = 'widget bundle' })
         { & $script:single $body } | Should -Throw '*say is required*'
@@ -179,7 +179,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $avoid.say | Should -Be 'widget suite'
     }
 
-    It 'rejects an avoided phrase that is itself a defined term' -Tag 'ADR-REPO-VOCAB#5' {
+    It 'rejects an avoided phrase that is itself a defined term' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
         $gadget = & $script:concept
         $gadget.key = 'gadget_run'
         $widget = & $script:concept
@@ -188,7 +188,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
             Should -Throw "*avoided phrase 'gadget run' is itself a defined term*"
     }
 
-    It 'requires every contrast to explain the difference, and forbids a self-contrast' -Tag 'ADR-REPO-VOCAB#4' {
+    It 'requires every contrast to explain the difference, and forbids a self-contrast' -Tag 'ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED' {
         $body = & $script:concept
         $body.contrasts = @{ 'gadget run' = ' ' }
         { & $script:single $body } | Should -Throw "*'gadget run' needs a sentence*"

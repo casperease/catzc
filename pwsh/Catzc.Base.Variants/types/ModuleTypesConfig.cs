@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Variants;
 
-// Rests on [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3).
+// Rests on [ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack).
 public sealed class ModuleTypesConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

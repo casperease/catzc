@@ -1,4 +1,4 @@
-Describe 'SlideSource' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#1' {
+Describe 'SlideSource' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILE' {
     BeforeAll {
         $script:body = @'
 # The widget spins

@@ -61,7 +61,7 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         $config.msys2_sha256 | Should -BeNullOrEmpty
     }
 
-    It 'rejects <key> declared without its partner' -Tag 'ADR-AUTO-PKGMGR#6' -ForEach @(
+    It 'rejects <key> declared without its partner' -Tag 'ADR-AUTO-PKGMGR-VERIFYDOWNLOADS' -ForEach @(
         @{ key = 'msys2_url'; value = 'https://example.com/widget.pkg.tar.zst' }
         @{ key = 'msys2_sha256'; value = 'a' * 64 }
     ) {
@@ -70,7 +70,7 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.Execution.ToolConfig]::new($entry) } | Should -Throw '*msys2_url and msys2_sha256 are declared together*'
     }
 
-    It 'rejects an msys2_sha256 that is not 64 lowercase hex digits: <case>' -Tag 'ADR-AUTO-PKGMGR#6' -ForEach @(
+    It 'rejects an msys2_sha256 that is not 64 lowercase hex digits: <case>' -Tag 'ADR-AUTO-PKGMGR-VERIFYDOWNLOADS' -ForEach @(
         @{ case = 'uppercase'; value = 'A' * 64 }
         @{ case = 'too short'; value = 'a' * 63 }
         @{ case = 'too long'; value = 'a' * 65 }
@@ -115,7 +115,7 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         [Catzc.Base.Execution.ToolConfig]::new($entry).HasProbes() | Should -BeTrue
     }
 
-    It 'reports every missing required key in one throw' -Tag 'ADR-AUTO-DEPS#1' {
+    It 'reports every missing required key in one throw' -Tag 'ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS' {
         $err = { [Catzc.Base.Execution.ToolConfig]::new(@{ winget_id = 'Widget.Widget' }) } | Should -Throw -PassThru
         foreach ($key in 'version', 'command', 'version_command', 'version_pattern') {
             $err.Exception.Message | Should -BeLike "*$key is required*"

@@ -20,7 +20,7 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'lists the direct children only at depth 1' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'lists the direct children only at depth 1' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         & $walk 1 | Should -Be @('top.txt', 'top.yml', 'widget')
     }
 
@@ -61,7 +61,7 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
         $listed | Should -Be $sorted
     }
 
-    It 'fails fast on a missing folder and on a depth below 1' -Tag 'ADR-AUTO-FAILFAST#1' {
+    It 'fails fast on a missing folder and on a depth below 1' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
         { [Catzc.Base.Folders.FolderWalker]::Walk((Join-Path $root 'gadget-missing'), 1, $null, $true, $true, $null) } | Should -Throw '*does not exist*'
         { [Catzc.Base.Folders.FolderWalker]::Walk($root, 0, $null, $true, $true, $null) } | Should -Throw '*at least 1*'
         { [Catzc.Base.Folders.FolderWalker]::Walk('', 1, $null, $true, $true, $null) } | Should -Throw '*must not be empty*'

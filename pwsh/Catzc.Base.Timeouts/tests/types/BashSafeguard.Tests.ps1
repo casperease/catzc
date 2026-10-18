@@ -159,7 +159,7 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'BashSafeguard.FindConfig' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS#3' {
+Describe 'BashSafeguard.FindConfig' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         function script:New-Config {

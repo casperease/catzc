@@ -1,4 +1,4 @@
-Describe 'Get-ContractCheckResults on the repository' -Tag 'L1', 'integrity', 'ADR-REPO-CONTRACT#4' {
+Describe 'Get-ContractCheckResults on the repository' -Tag 'L1', 'integrity', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     It 'checks every asset of every unit''s draft without error' {
         $assets = @(Get-Contract)
         $results = @(Get-ContractCheckResults)

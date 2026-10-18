@@ -1,4 +1,4 @@
-Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
+Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'
         $script:folder = Join-Path $script:root 'plans'
@@ -40,66 +40,66 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         $result.Facts['Tasks'] | Should -Be 1
     }
 
-    It 'names a file the folder does not accept, so a name never carries an order' -Tag 'ADR-REPO-PLANS#1' {
+    It 'names a file the folder does not accept, so a name never carries an order' -Tag 'ADR-REPO-PLANS-ONETOPICONEFILE' {
         Write-Plan '01-plan-widget.md' ($script:goodHead + $script:goodBody)
         $result = Invoke-Gate
         $result.Issues | Should -HaveCount 1
-        $result.Issues[0] | Should -BeLike 'plans/01-plan-widget.md:1 [[]ADR-REPO-PLANS#1] the name is not one the plans folder accepts*ADR-REPO-FOLDERS#12*'
+        $result.Issues[0] | Should -BeLike 'plans/01-plan-widget.md:1 [[]ADR-REPO-PLANS-ONETOPICONEFILE] the name is not one the plans folder accepts*ADR-REPO-FOLDERS-STABLEFILENAMES*'
     }
 
-    It 'reports a head without the plan block, a missing key, a foreign key, a bad status, a bad rank and a missing target' -Tag 'ADR-REPO-PLANS#2' {
+    It 'reports a head without the plan block, a missing key, a foreign key, a bad status, a bad rank and a missing target' -Tag 'ADR-REPO-PLANS-PLANHEAD' {
         Write-Plan 'plan-gadget.md' (@('---', 'gadget:', '  status: active', '---', '') + $script:goodBody)
         Write-Plan 'plan-sprocket.md' (@('---', 'plan:', '  status: pending', '  value: huge', '  colour: blue', '  targets: [nowhere]', '---', '') + $script:goodBody)
         $result = Invoke-Gate
-        $result.Issues | Should -Contain "plans/plan-gadget.md:1 [ADR-REPO-PLANS#2] the head has no 'plan:' block"
-        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS#2] the head misses 'reviewed'"
-        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS#2] the head key 'colour' is outside the plan keys (status, value, reviewed, targets, blocked_on, waits_on, class, next, parent, siblings, role, rule)"
-        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS#2] status 'pending' is not one of: active, blocked"
-        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS#2] value 'huge' is not one of the ranks: highest, high, medium-high, medium, low-medium, low"
-        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS#2] target 'nowhere' does not exist"
+        $result.Issues | Should -Contain "plans/plan-gadget.md:1 [ADR-REPO-PLANS-PLANHEAD] the head has no 'plan:' block"
+        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS-PLANHEAD] the head misses 'reviewed'"
+        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS-PLANHEAD] the head key 'colour' is outside the plan keys (status, value, reviewed, targets, blocked_on, waits_on, class, next, parent, siblings, role, rule)"
+        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS-PLANHEAD] status 'pending' is not one of: active, blocked"
+        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS-PLANHEAD] value 'huge' is not one of the ranks: highest, high, medium-high, medium, low-medium, low"
+        $result.Issues | Should -Contain "plans/plan-sprocket.md:1 [ADR-REPO-PLANS-PLANHEAD] target 'nowhere' does not exist"
     }
 
-    It 'requires a blocked plan to name what blocks it' -Tag 'ADR-REPO-PLANS#2' {
+    It 'requires a blocked plan to name what blocks it' -Tag 'ADR-REPO-PLANS-PLANHEAD' {
         Write-Plan 'plan-gadget.md' (@('---', 'plan:', '  status: blocked', '  value: low', '  reviewed: 2026-10-17', '  targets: [widgets]', '---', '') + $script:goodBody)
         $result = Invoke-Gate
-        $result.Issues | Should -Be @("plans/plan-gadget.md:1 [ADR-REPO-PLANS#2] a blocked plan names what blocks it in 'blocked_on' or 'waits_on'")
+        $result.Issues | Should -Be @("plans/plan-gadget.md:1 [ADR-REPO-PLANS-PLANHEAD] a blocked plan names what blocks it in 'blocked_on' or 'waits_on'")
     }
 
-    It 'requires the open steps section' -Tag 'ADR-REPO-PLANS#3' {
+    It 'requires the open steps section' -Tag 'ADR-REPO-PLANS-ONESHAPE' {
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Steps', '', '- [ ] Spin (check: spins).'))
         $result = Invoke-Gate
-        $result.Issues | Should -Be @("plans/plan-gadget.md:1 [ADR-REPO-PLANS#3] the plan has no '## Open steps' section")
+        $result.Issues | Should -Be @("plans/plan-gadget.md:1 [ADR-REPO-PLANS-ONESHAPE] the plan has no '## Open steps' section")
     }
 
-    It 'reports an open step that names no check, at its line, and reads a wrapped step whole' -Tag 'ADR-REPO-PLANS#4' {
+    It 'reports an open step that names no check, at its line, and reads a wrapped step whole' -Tag 'ADR-REPO-PLANS-OPENSTEP' {
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '- [ ] Spin the gadget.', '- [ ] Oil it', '      (check: no squeak).', '- [x] Done already.'))
         $result = Invoke-Gate
-        $result.Issues | Should -Be @('plans/plan-gadget.md:13 [ADR-REPO-PLANS#4] the open step names no check: "- [ ] Spin the gadget."')
+        $result.Issues | Should -Be @('plans/plan-gadget.md:13 [ADR-REPO-PLANS-OPENSTEP] the open step names no check: "- [ ] Spin the gadget."')
     }
 
-    It 'holds a task file to its head and its steps, and the master plan to its sections' -Tag 'ADR-REPO-PLANS#8' {
+    It 'holds a task file to its head and its steps, and the master plan to its sections' -Tag 'ADR-REPO-PLANS-MASTERANDTASKS' {
         Write-Plan 'task-oil-gadget.md' @('---', 'task:', '  status: open', '  plans: [plan-widget]', '  value: low', '  targets: [plans]', '---', '', '# Oil the gadget', '', 'no steps')
         Write-Plan 'plan-master.md' @('---', 'plan:', '  status: active', '  value: highest', '  reviewed: 2026-10-17', '  role: master', '  targets: [plans]', '---', '', '# Master', '', '## Chunks')
         $result = Invoke-Gate
-        $result.Issues | Should -Contain "plans/task-oil-gadget.md:1 [ADR-REPO-PLANS#8] the task head misses 'blocked_on'"
-        $result.Issues | Should -Contain "plans/task-oil-gadget.md:1 [ADR-REPO-PLANS#8] the task file has no '## Steps' section"
-        $result.Issues | Should -Contain "plans/plan-master.md:1 [ADR-REPO-PLANS#8] the master plan has no '## Process' section"
+        $result.Issues | Should -Contain "plans/task-oil-gadget.md:1 [ADR-REPO-PLANS-MASTERANDTASKS] the task head misses 'blocked_on'"
+        $result.Issues | Should -Contain "plans/task-oil-gadget.md:1 [ADR-REPO-PLANS-MASTERANDTASKS] the task file has no '## Steps' section"
+        $result.Issues | Should -Contain "plans/plan-master.md:1 [ADR-REPO-PLANS-MASTERANDTASKS] the master plan has no '## Process' section"
     }
 
-    It 'never accepts a numbered task name, and names a line that points at a task by a number' -Tag 'ADR-REPO-PLANS#8', 'ADR-REPO-FOLDERS#12' {
+    It 'never accepts a numbered task name, and names a line that points at a task by a number' -Tag 'ADR-REPO-PLANS-MASTERANDTASKS', 'ADR-REPO-FOLDERS-STABLEFILENAMES' {
         Write-Plan 'task002.md' $script:task
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '- [ ] Spin after task002 and T003 (check: spins).'))
         $result = Invoke-Gate
-        $result.Issues | Should -Contain 'plans/task002.md:1 [ADR-REPO-PLANS#1] the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS#12)'
-        $result.Issues | Should -Contain "plans/plan-gadget.md:13 [ADR-REPO-PLANS#8] 'task002' names a task by a number; a task is named by its topic and the master's list carries the order"
+        $result.Issues | Should -Contain 'plans/task002.md:1 [ADR-REPO-PLANS-ONETOPICONEFILE] the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS-STABLEFILENAMES)'
+        $result.Issues | Should -Contain "plans/plan-gadget.md:13 [ADR-REPO-PLANS-MASTERANDTASKS] 'task002' names a task by a number; a task is named by its topic and the master's list carries the order"
         $result.Issues | Should -HaveCount 2
     }
 
-    It 'holds the folder to the roof of task files' -Tag 'ADR-REPO-PLANS#8' {
+    It 'holds the folder to the roof of task files' -Tag 'ADR-REPO-PLANS-MASTERANDTASKS' {
         Write-Plan 'task-oil-gadget.md' $script:task
         $roof = [Catzc.Base.QualityGates.PlansConfig]::new(@{ tasks = @{ max = 1 } })
         $result = Test-Plans -Path $script:folder -Config $roof -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Issues | Should -Be @('plans/task-spin-widget.md:1 [ADR-REPO-PLANS#8] the folder holds more than the roof of 1 task files')
+        $result.Issues | Should -Be @('plans/task-spin-widget.md:1 [ADR-REPO-PLANS-MASTERANDTASKS] the folder holds more than the roof of 1 task files')
     }
 
     It 'throws once listing every issue without -PassThru' {

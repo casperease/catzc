@@ -127,25 +127,25 @@ pwsh/.compiled/** linguist-generated
 # catzc: contract assets are data on purpose — an asset's bytes are what its contract check compares, so the tools
 # that rewrite or check content (links, Markdown titles) leave them as written, and an empty presence asset stays
 # empty. They check out with LF on every platform, so a working copy's bytes match the frozen record's hashes
-# (ADR-REPO-CONTRACT#5, ADR-REPO-CONTRACT#6).
+# (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE, ADR-REPO-CONTRACT-CONTRACTASSET).
 contracts/*/*/** catzc-contract text eol=lf
 
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
 **/tests/**/assets/** catzc-fixture
 
 # catzc: files under the unordered track are imports not yet sorted, held to no domain rule until they move — the
-# content tools (links, Markdown titles, source conventions) leave them as they landed (ADR-DSGN-TRACK#17).
+# content tools (links, Markdown titles, source conventions) leave them as they landed (ADR-DSGN-TRACK-UNORDEREDTRACK).
 .unordered/** catzc-unordered
 
 # catzc: these files are read verbatim by another tool, so they carry no meta block: the session instructions are
 # injected as written into every Claude session, the repository landing page is what GitHub renders first, and the
-# session settings are parsed by Claude Code (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#5).
+# session settings are parsed by Claude Code (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA-KINDSCOPE).
 /.claude/CLAUDE.md -catzc-meta
 /.claude/settings.json -catzc-meta
 /.github/README.md -catzc-meta
 
 # catzc: the root-file sources are copied to the repository root under the head Build-RootConfig writes into each copy,
-# so a head here would sit beside it with the source's path (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#7).
+# so a head here would sit beside it with the source's path (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA-COMPOSEDFILES).
 /pwsh/Catzc.Base.RootConfig/assets/root/** -catzc-meta
 
 # catzc: the .gitkeep source is likewise copied into every .gitkeep under the head Build-GitKeep writes there.

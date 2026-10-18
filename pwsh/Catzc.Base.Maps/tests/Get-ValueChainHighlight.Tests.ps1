@@ -14,19 +14,19 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
         Mock Get-ValueChainMap -ModuleName Catzc.Base.Maps { $script:map }
     }
 
-    It 'lights the cells of an ADR code given by position' -Tag 'ADR-DSGN-TRACK#16' {
+    It 'lights the cells of an ADR code given by position' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
         $highlight = Get-ValueChainHighlight ADR-WIDGET-GADGET
         $highlight | Should -BeOfType [Catzc.Base.Maps.ValueChainHighlight]
         @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('TOP x alpha', 'TOP x beta')
     }
 
-    It 'lights a rule citation''s ADR cells' -Tag 'ADR-DSGN-TRACK#12' {
+    It 'lights a rule citation''s ADR cells' -Tag 'ADR-DSGN-TRACK-LITCELL' {
         $highlight = Get-ValueChainHighlight -Adr 'ADR-WIDGET-COG#2'
         $highlight.Requested | Should -Be @('ADR-WIDGET-COG#2')
         @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('BOTTOM x beta')
     }
 
-    It 'emits JSON with -AsJson' -Tag 'ADR-THES-ONETRUTH#3' {
+    It 'emits JSON with -AsJson' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
         $data = Get-ValueChainHighlight -Adr 'ADR-WIDGET-GADGET', 'ADR-WIDGET-COG' -AsJson | ConvertFrom-Json
         @($data.cells).Count | Should -Be 3
         $data.cells[1].adrs | Should -Be @('ADR-WIDGET-GADGET')
@@ -39,7 +39,7 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-ValueChainHighlight — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of adrs.yml' -Tag 'ADR-DSGN-TRACK#16' {
+    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of adrs.yml' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
         foreach ($ruleSet in @(Get-AdrRuleSet)) {
             $cells = @((Get-ValueChainHighlight -Adr "$($ruleSet.External)#1").Cells)
             @($cells | ForEach-Object Concern) | Should -Be @($ruleSet.Concerns) -Because $ruleSet.External

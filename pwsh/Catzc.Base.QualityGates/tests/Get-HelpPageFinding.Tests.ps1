@@ -1,4 +1,4 @@
-Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
+Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP-FIVEFAULTSREPORTED' {
     BeforeAll {
         $script:code = "function Get-Widget {`n    [CmdletBinding()]`n    [OutputType([string])]`n    param(`n        [string] `$Name,`n        [switch] `$Force`n    )`n}`n"
         $script:page = {

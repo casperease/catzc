@@ -115,13 +115,13 @@ pwsh/.compiled/** linguist-generated
 
 # catzc: these files are read verbatim by another tool, so they carry no meta block: the session instructions are
 # injected as written into every Claude session, the repository landing page is what GitHub renders first, and the
-# session settings are parsed by Claude Code (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#5).
+# session settings are parsed by Claude Code (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA-KINDSCOPE).
 /.claude/CLAUDE.md -catzc-meta
 /.claude/settings.json -catzc-meta
 /.github/README.md -catzc-meta
 
 # catzc: the root-file sources are copied to the repository root under the head Build-RootConfig writes into each copy,
-# so a head here would sit beside it with the source's path (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#7).
+# so a head here would sit beside it with the source's path (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA-COMPOSEDFILES).
 /pwsh/Catzc.Base.RootConfig/assets/root/** -catzc-meta
 
 # catzc: the .gitkeep source is likewise copied into every .gitkeep under the head Build-GitKeep writes there.

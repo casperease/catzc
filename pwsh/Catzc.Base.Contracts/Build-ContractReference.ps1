@@ -92,10 +92,10 @@ function Build-ContractReference {
             $lines.Add("## $version")
             $lines.Add('')
             if ($version -ceq '0.0.0') {
-                $lines.Add("The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5]($adr#rule-adr-repo-contract5)).")
+                $lines.Add("The draft: the one mutable version folder ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE]($adr#rule-adr-repo-contract5)).")
             }
             else {
-                $lines.Add("Released, so frozen by its ``.frozen`` record ([ADR-REPO-CONTRACT#5]($adr#rule-adr-repo-contract5)).")
+                $lines.Add("Released, so frozen by its ``.frozen`` record ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE]($adr#rule-adr-repo-contract5)).")
             }
             $lines.Add('')
 

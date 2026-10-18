@@ -1,4 +1,4 @@
-Describe 'Build-AdrCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-ADRCODE#4' {
+Describe 'Build-AdrCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
                 domains = [ordered]@{

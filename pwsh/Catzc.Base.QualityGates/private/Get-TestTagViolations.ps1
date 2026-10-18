@@ -50,7 +50,7 @@ function Get-TestTagViolations {
         }
         foreach ($tag in $candidates) {
             if ($tag -cnotmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {
-                $reasons += "malformed ADR citation '$tag' (want ADR-<CODE>#<n>, e.g. ADR-PWSH-ERROR#3)"
+                $reasons += "malformed ADR citation '$tag' (want ADR-<CODE>#<n>, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)"
                 continue
             }
             if ($null -eq $validRuleIds) {

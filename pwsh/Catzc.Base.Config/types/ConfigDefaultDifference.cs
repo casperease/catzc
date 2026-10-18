@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Catzc.Base.Config;
 
-// One top-level key whose value in a shipped config file differs from the default its config type declares for it ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+// One top-level key whose value in a shipped config file differs from the default its config type declares for it ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 public sealed class ConfigDefaultDifference
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

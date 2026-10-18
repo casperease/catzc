@@ -1,4 +1,4 @@
-Describe 'Get-GuidScanFiles — shipped configs/guids.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Get-GuidScanFiles — shipped configs/guids.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the registry it leaves out of the scan in the loaded module' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/guids.yml' -Module Catzc.Base.QualityGates)) | ConvertFrom-Yaml -Ordered
         @($registry['guids'].Keys).Count | Should -BeGreaterThan 0

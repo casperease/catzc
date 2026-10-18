@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "02f6a3f16443"
-    with_inputs_sha: c986755a19962a6efb17279e743649808d90aadc7e9044aad5ce0124bc6ee5d3
+    with_body_sha: "6dbaefd4d6a5"
+    with_inputs_sha: "837cf88358e66f400baeef70f6d746593cf559fd745359b739da7907be72c412"
     repo_status: locked
     path: docs/adr/index.md
     source: pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -28,12 +28,14 @@ a normative summary plus internal links to the prose that justifies it).
 
 - Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus one or more uppercase segments — so `ADR-` is the single
   searchable marker for a rule reference anywhere in the repository.
-- **Cite a rule** as `<code>#<n>` — e.g. `ADR-PWSH-ERROR#3`, `ADR-AUTO-CACHE#5`, `ADR-AZ-NAMING#7`.
+- **Cite a rule** as `<code>#<n>` — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
+  `ADR-AZ-NAMING-NEVERTRUNCATE`.
 - That resolves to the anchor `#rule-<code><n>` with the code lowercased and the `:` dropped — e.g.
-  `pwsh/error-handling.md#rule-adr-pwsh-error3` (so it is `rule-adr-pwsh-error3`, not `rule-adr-pwsh-error-3`).
+  `pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror` (so it is `rule-adr-pwsh-error-thrownotwriteerror`, not
+  `rule-adr-pwsh-error-3`).
 - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
 - `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
-  `### Rule <code>:<n>` heading (ADR-REPO-LINK#5).
+  `### Rule <code>:<n>` heading (ADR-REPO-LINK-ONECITATIONSPELLING).
 - A rule's number is stable: a retired rule's number is never reused, so a registry may skip numbers, and a citation never changes its
   meaning when a neighbouring rule goes.
 
@@ -402,17 +404,18 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
 - **Two kinds of link (ADR-REPO-LINK).** A markdown link, in a `.md` file, is relative to its own file
   (`[reduce-variability](../principles/reduce-variability.md)`). A code link, in a comment of any other file, is repository-rooted with the
-  citation as its text (`[ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)`); `Format-Links` writes it from the
-  citation, and `Test-Links` checks both kinds.
+  citation as its text
+  (`[ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)`);
+  `Format-Links` writes it from the citation, and `Test-Links` checks both kinds.
 
 - **Defined terms live in the glossary.** A defined term means what the one rule that bolds it says
   ([controlled-vocabulary](repository/controlled-vocabulary.md)); [glossary](glossary.md) lists every term with its defining rule, its
   contrasts, and the phrasings to avoid. It is generated from the modules' `configs/glossary.yml` sources — edit a source, never the page.
 
 - **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g.
-  `azure-data-model.md#rule-adr-az-datamod2`) when the citing sentence, comment, or throw-message invokes one concrete rule. Link the ADR
-  document when the context is general — an index list, a "see ADR X for the full rationale" pointer, or a citation that invokes the ADR's
-  whole thesis. Over-narrowing a general pointer to one rule is worse than leaving it doc-level.
+  `azure-data-model.md#rule-adr-az-datamod-onefileonesubscription`) when the citing sentence, comment, or throw-message invokes one concrete
+  rule. Link the ADR document when the context is general — an index list, a "see ADR X for the full rationale" pointer, or a citation that
+  invokes the ADR's whole thesis. Over-narrowing a general pointer to one rule is worse than leaving it doc-level.
 
 - **Plain language.** Write in plain English; avoid terse logic or math jargon. Never use "iff" — spell out both directions ("required when
   Y; an error otherwise", or "present exactly when Y"). Prefer "when" / "only when" / "exactly when".

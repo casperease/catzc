@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Languages;
 
-// Rests on [ADR-AUTO-MODULE#2](/docs/adr/automation/module-model.md#rule-adr-auto-module2).
+// Rests on [ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/adr/automation/module-model.md#rule-adr-auto-module-existsbylayout).
 public sealed class FileLanguage
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -35,7 +35,7 @@ public sealed class FileLanguage
     // How the language's test artifacts run, for a language that has them; null for every other language.
     public LanguageTestRunner tests { get; }
 
-    // Whether a command may be implemented in the language ([ADR-AUTO-LAYERS#2](/docs/adr/automation/layers.md#rule-adr-auto-layers2)); false unless the entry says true.
+    // Whether a command may be implemented in the language ([ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION](/docs/adr/automation/layers.md#rule-adr-auto-layers-commandispublicfunction)); false unless the entry says true.
     public bool executable { get; }
 
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,

@@ -1,5 +1,5 @@
-Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE#1' {
-    It 'returns the default, gate, with no error when the mode is omitted' -Tag 'ADR-AUTO-DEFAULT#6' {
+Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE-ONEVERSION' {
+    It 'returns the default, gate, with no error when the mode is omitted' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         foreach ($raw in @($null, [ordered]@{}, [ordered]@{ mode = $null })) {
             $parseError = 'unset'
             [Catzc.Base.Docs.CheckModes]::Parse($raw, [ref]$parseError) | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)

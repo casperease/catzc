@@ -57,7 +57,7 @@ Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integ
         [Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('i') | Should -BeNullOrEmpty
     }
 
-    It 'accepts a fixture term only in test scope (ADR-AUTO-SPELL#6)' {
+    It 'accepts a fixture term only in test scope (ADR-AUTO-SPELL-CATEGORYANDMEANING)' {
         [Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('capi', $false) | Should -Be @('capi')
         [Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('capi', $true) | Should -BeNullOrEmpty
     }

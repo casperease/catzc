@@ -1,4 +1,4 @@
-Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#12' {
+Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR-EVERYFILEHASFORMAT' {
     BeforeAll {
         function script:Add-Output {
             param([string] $Relative, [datetime] $WrittenUtc = [datetime]::UtcNow, [string] $Content = 'widget')
@@ -37,7 +37,7 @@ Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#12' {
         Test-Path (Join-Path $script:root 'test-widget/latest.txt') | Should -BeTrue
     }
 
-    It 'ages out a session script after seven days, keeps a fresh one, and never prunes a log or a cache entry' -Tag 'ADR-REPO-OUTDIR#12' {
+    It 'ages out a session script after seven days, keeps a fresh one, and never prunes a log or a cache entry' -Tag 'ADR-REPO-OUTDIR-EVERYFILEHASFORMAT' {
         $old = [datetime]::UtcNow.AddDays(-9)
         Add-Output 'probe-old.ps1' -WrittenUtc $old
         Add-Output 'probe-new.ps1'
@@ -69,7 +69,7 @@ Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#12' {
         Test-Path (Join-Path $script:root 'probe-old.ps1') | Should -BeTrue
     }
 
-    It 'removes everything but the keep file and the plan files under -All' -Tag 'ADR-REPO-OUTDIR#7' {
+    It 'removes everything but the keep file and the plan files under -All' -Tag 'ADR-REPO-OUTDIR-ONECLEANCOMMAND' {
         Add-Output '.gitkeep' -Content ''
         Add-Output 'plan-widget.md'
         Add-Output 'test-widget/20261001-000001/report.md'

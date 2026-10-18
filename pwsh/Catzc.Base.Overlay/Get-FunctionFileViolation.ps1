@@ -45,6 +45,6 @@ function Get-FunctionFileViolation {
     }
 
     foreach ($read in [Catzc.Base.Repository.SyntaxSearch]::VariableReads($syntaxTree, 'PSScriptRoot')) {
-        "${RelativePath}:$($read.Extent.StartLineNumber): reads `$PSScriptRoot, which names the merged file's folder in a build; locate content with Get-CatzcModuleRoot (ADR-AUTO-ASSETDEP#1)"
+        "${RelativePath}:$($read.Extent.StartLineNumber): reads `$PSScriptRoot, which names the merged file's folder in a build; locate content with Get-CatzcModuleRoot (ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY)"
     }
 }

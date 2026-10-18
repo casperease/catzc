@@ -29,7 +29,7 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
         $json.'search.exclude'.'widgets/.vendor' | Should -BeTrue
     }
 
-    It 'sets each language''s editor formatter, merged into an authored [language] block whose own keys win' -Tag 'ADR-REPO-FORMAT#8' {
+    It 'sets each language''s editor formatter, merged into an authored [language] block whose own keys win' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
                     settings = [ordered]@{

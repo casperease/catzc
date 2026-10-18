@@ -1,4 +1,4 @@
-Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
+Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
     BeforeAll {
         function script:New-Config {
             param($Types)

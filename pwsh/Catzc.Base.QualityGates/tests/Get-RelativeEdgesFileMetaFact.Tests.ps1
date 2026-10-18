@@ -1,4 +1,4 @@
-Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10', 'ADR-PRIN-CONFIG#1' {
+Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-FEWLINKS', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     BeforeAll {
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{
                 kinds = [ordered]@{

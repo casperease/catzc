@@ -53,17 +53,17 @@ Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
         Should -Invoke Set-PermanentEnvironmentVariable -ModuleName Catzc.Tooling.Toolchain -Times 0
     }
 
-    It 'escalates to Remove-Java -Force with -Remove -Force' -Tag 'ADR-AUTO-REMOVE#5' {
+    It 'escalates to Remove-Java -Force with -Remove -Force' -Tag 'ADR-AUTO-REMOVE-ONECALLESCALATION' {
         Uninstall-Java -Remove -Force
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Force -eq $true }
     }
 
-    It 'escalates as a dry-run when -Remove has no -Force' -Tag 'ADR-AUTO-REMOVE#4' {
+    It 'escalates as a dry-run when -Remove has no -Force' -Tag 'ADR-AUTO-REMOVE-DOUBLYGUARDED' {
         Uninstall-Java -Remove
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { -not $Force }
     }
 
-    It 'still evicts when the managed uninstall fails' -Tag 'ADR-AUTO-REMOVE#5' {
+    It 'still evicts when the managed uninstall fails' -Tag 'ADR-AUTO-REMOVE-ONECALLESCALATION' {
         Mock Uninstall-Tool { throw 'the manager cannot find this install' } -ModuleName Catzc.Tooling.Toolchain
         Uninstall-Java -Remove -Force
         Should -Invoke Remove-Java -ModuleName Catzc.Tooling.Toolchain -Times 1

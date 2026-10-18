@@ -1,4 +1,4 @@
-Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
+Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'
         [System.IO.Directory]::CreateDirectory($script:widgetRoot) | Out-Null

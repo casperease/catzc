@@ -1,4 +1,4 @@
-Describe 'Sync-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
+Describe 'Sync-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'sync-repository'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
@@ -26,7 +26,7 @@ Describe 'Sync-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
         Sync-FileMeta $script:widget | Should -BeExactly 'docs/widget.md'
     }
 
-    It 'passes -DryRun to both steps and reports it in the result object' -Tag 'ADR-AUTO-DRYRUN#2' {
+    It 'passes -DryRun to both steps and reports it in the result object' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
         Mock Format-Code { [pscustomobject]@{ ChangedFiles = @(); Unfixable = @{ $script:widget = 'a fault only an author can fix' } } } -ModuleName Catzc.Base.QualityGates
         $result = Sync-FileMeta $script:widget -DryRun -PassThru
         $result.Path | Should -BeExactly 'docs/widget.md'

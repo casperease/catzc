@@ -1,5 +1,5 @@
 Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
-    It 'flags tests missing or ambiguous on either axis, and passes fully-tagged tests' -Tag 'ADR-AUTO-TEST#1', 'ADR-AUTO-TEST#13' {
+    It 'flags tests missing or ambiguous on either axis, and passes fully-tagged tests' -Tag 'ADR-AUTO-TEST-ONECATEGORY', 'ADR-AUTO-TEST-TWOMANDATORYTAGS' {
         InModuleScope Catzc.Base.QualityGates {
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
             function New-FakeTest {
@@ -97,7 +97,7 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST#27' {
+    Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST-PROVENANCETAGS' {
         BeforeAll {
             Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET:3', 'ADR-WIDGET-SPROCKET:1') } -ModuleName Catzc.Base.QualityGates
 

@@ -1,5 +1,5 @@
 # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) —
-# [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
+# [ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)
 Set-StrictMode -Version Latest
 
 <#

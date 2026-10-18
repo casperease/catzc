@@ -38,7 +38,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             { $c.Get('missing') } | Should -Throw "*no globset named 'missing'*"
         }
 
-        It 'carries the pipeline binding and the verify scope' -Tag 'ADR-DSGN-TRACK#5', 'ADR-AUTO-TEST#37' {
+        It 'carries the pipeline binding and the verify scope' -Tag 'ADR-DSGN-TRACK-DEPLOYABLEUNIT', 'ADR-AUTO-TEST-TESTSUITE' {
             $c = & $script:make @{
                 unit = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**')
                     pipeline = 'cd-unit'; verify = @{ modules = @('Catzc.Azure.Templates'); level = 2 }
@@ -50,7 +50,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'composition (ADR-FLOW-CD-GLOBS#8)' {
+    Context 'composition (ADR-FLOW-CD-GLOBS-COMPOSESETS)' {
         It 'unions the composed set into the effective membership' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/private/**') }
@@ -63,7 +63,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
-        It 'flattens the composed surface into the scan program, own rules last (ADR-FLOW-CD-GLOBS#8)' {
+        It 'flattens the composed surface into the scan program, own rules last (ADR-FLOW-CD-GLOBS-COMPOSESETS)' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/config/**') }
                 'unit' = @{ description = 'd'; layer = 'deployable-unit'; compose = @('base'); include = @('mine/**'); pipeline = 'cd-unit' }
@@ -74,7 +74,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             (& $script:program $c.Get('base')) | Should -Be @('+ shared/**', '- shared/config/**')
         }
 
-        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (ADR-FLOW-CD-GLOBS#8)' {
+        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (ADR-FLOW-CD-GLOBS-COMPOSESETS)' {
             $c = & $script:make @{
                 'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
                 'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
@@ -86,7 +86,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
         It 'rejects a compose reference to an unknown set' {
             { & $script:make @{ unit = @{ description = 'd'; layer = 'deployable-unit'; compose = @('nope') } } } |
-                Should -Throw '*unknown set*ADR-FLOW-CD-GLOBS#8*'
+                Should -Throw '*unknown set*ADR-FLOW-CD-GLOBS-COMPOSESETS*'
         }
 
         It 'rejects a self-compose' {

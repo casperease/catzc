@@ -3,7 +3,7 @@ Describe 'EngineSetCheck' -Tag 'L0', 'logic' {
         $script:names = [string[]] @('widget', 'gadget', 'sprocket')
     }
 
-    It 'takes gate mode and no phrases when nothing is given' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes gate mode and no phrases when nothing is given' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $check = [Catzc.Base.QualityGates.EngineSetCheck]::new($null)
         $check.IsReport | Should -BeFalse
         $check.count_phrases.Count | Should -Be 0
@@ -11,7 +11,7 @@ Describe 'EngineSetCheck' -Tag 'L0', 'logic' {
         $check.FindProse('widget and gadget, both engines', $names).Count | Should -Be 0
     }
 
-    It 'fills {count} with number words and {name} with the engine names it is given' -Tag 'ADR-AUTO-ENGINE#1' {
+    It 'fills {count} with number words and {name} with the engine names it is given' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
         $check = [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{
                 mode          = 'report'
                 count_phrases = @('\b{count} engines\b')
@@ -25,14 +25,14 @@ Describe 'EngineSetCheck' -Tag 'L0', 'logic' {
         $found[1].Item1 | Should -Be 13
     }
 
-    It 'finds a C# literal list of two or more engine names on one line' -Tag 'ADR-AUTO-ENGINE#1' {
+    It 'finds a C# literal list of two or more engine names on one line' -Tag 'ADR-AUTO-ENGINE-THREEENGINES' {
         $source = (@('var a = "widget";', 'var b = new[] { "gadget", "sprocket" };') -join "`n")
         $found = [Catzc.Base.QualityGates.EngineSetCheck]::FindCSharpLists($source, $names)
         $found.Count | Should -Be 1
         $found[0].Item2 | Should -BeLike '*(gadget, sprocket)*'
     }
 
-    It 'rejects a phrase without its placeholder, a malformed pattern, and a phrase list that is not a list' -Tag 'ADR-PRIN-CONFIG#4' {
+    It 'rejects a phrase without its placeholder, a malformed pattern, and a phrase list that is not a list' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
         { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ count_phrases = @('engines') }) } | Should -Throw '*no {count} placeholder*'
         { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = @('({name}') }) } | Should -Throw '*not a valid regular expression*'
         { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = '{name}' }) } | Should -Throw '*must be a list*'

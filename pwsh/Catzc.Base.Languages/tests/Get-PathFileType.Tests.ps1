@@ -1,4 +1,4 @@
-Describe 'Get-PathFileType' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#6' {
+Describe 'Get-PathFileType' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-FILELANGUAGE' {
     It 'returns the extension of the file name without its dot' -ForEach @(
         @{ Path = 'widgetry/Catzc.Widget/Get-Gadget.ps1'; Expected = 'ps1' }
         @{ Path = 'widgetry/.internal/Catzc.Internal.Types.psm1'; Expected = 'psm1' }

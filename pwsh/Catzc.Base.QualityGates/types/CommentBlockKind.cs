@@ -2,7 +2,7 @@
 
 namespace Catzc.Base.QualityGates;
 
-// Rests on [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1).
+// Rests on [ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion).
 public enum CommentBlockKind
 {
     LineRun,

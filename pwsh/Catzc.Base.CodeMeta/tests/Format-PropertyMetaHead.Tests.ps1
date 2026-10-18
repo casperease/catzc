@@ -1,4 +1,4 @@
-Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     It 'imprints the facts as the first property, and a second run changes nothing' {
         $facts = [ordered]@{ path = 'widget/gadget.json'; kind = 'other' }
         $once = Format-PropertyMetaHead -Text "{`n  `"name`": `"widget`"`n}`n" -Property '//' -Immutable $facts
@@ -18,7 +18,7 @@ Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     }
 }
 
-Describe 'Get-PropertyMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'Get-PropertyMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     It 'reports the sections, the place keys, the edge names and the config lines of the property' {
         $state = Get-PropertyMetaState -Text '{"//": "catzc:\n  immutable:\n    path: a/b.json\n    kind: other\n  edges:\n    page: docs/b.json.md\n  config:\n    note: kept"}' -Property '//'
         $state.IsObject | Should -BeTrue

@@ -1,2 +1,2 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Uninstall-Markdownlint, which uninstalls markdownlint-cli2, the
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Markdownlint, which uninstalls markdownlint-cli2, the
 # global npm package; it takes no parameters and skips when it or npm is absent.

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
-// A file's help, as its comment page's help section holds it ([ADR-REPO-HELP#1](/docs/adr/repository/function-help.md#rule-adr-repo-help1)).
+// A file's help, as its comment page's help section holds it ([ADR-REPO-HELP-HELPONCOMMENTPAGE](/docs/adr/repository/function-help.md#rule-adr-repo-help-helponcommentpage)).
 public sealed class FunctionHelp
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -2,7 +2,7 @@ concepts:
   posture:
     key: config_posture
     domain: automation
-    defined_by: ADR-AUTO-DEFAULT#6
+    defined_by: ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
     short:
       What a config key does when its file states nothing, one of three, defaulted to the type's constant, empty and still valid, or
       required, so the type's constructor throws naming the key and where to add it.
@@ -13,7 +13,7 @@ concepts:
   config fragment:
     key: config_fragment
     domain: automation
-    defined_by: ADR-AUTO-OVERLAY#4
+    defined_by: ADR-AUTO-OVERLAY-CONFIGFRAGMENT
     short:
       A file in an overlay that states only the keys of one config that differ, merged onto the bundled config before its type validates the
       result.

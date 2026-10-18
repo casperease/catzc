@@ -1,4 +1,4 @@
-Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#2' {
+Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
     It 'constructs and exposes name, supported_by, and checks' {
         $entry = [Catzc.Base.Docs.AgentEntry]::new([ordered]@{
                 name = 'widget-worker'; supported_by = @('ADR-WI-ONE#1', 'ADR-WI-TWO-PARTS#12'); checks = @('Test-Widget', 'Invoke-Gadget')

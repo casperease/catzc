@@ -1,6 +1,6 @@
 # Black-box tests of the bash engine's entry, importer.sh, and its cats dispatcher (Catzc.Base.Engines).
 #
-# Each test uses importer.sh the way a Bash user does (ADR-AUTO-BASH#3): setup sources the engine's entry
+# Each test uses importer.sh the way a Bash user does (ADR-AUTO-BASH-BLACKBOXTESTS): setup sources the engine's entry
 # (CATZC_ENGINE_ENTRY), and a test runs a catzc command through cats, asserting on output and exit code only. Two of
 # them start pwsh and import catzc; the run-directly case starts no pwsh.
 

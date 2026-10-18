@@ -1,5 +1,5 @@
 function Remove-PermanentPath {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Does not use ShouldProcess by design — see ADR-PWSH-DRYRUN#1')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Does not use ShouldProcess by design — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

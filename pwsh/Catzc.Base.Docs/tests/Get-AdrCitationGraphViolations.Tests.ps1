@@ -1,4 +1,4 @@
-Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
+Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
                 domains = [ordered]@{

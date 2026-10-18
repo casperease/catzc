@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Docs;
 
-// Rests on [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8), [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4) and [ADR-REPO-AGENTS#9](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents9).
+// Rests on [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml), [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
 public sealed class CapabilitiesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "capabilities" };
 
-    // The registered capabilities, in file order ([ADR-REPO-AGENTS#10](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents10)).
+    // The registered capabilities, in file order ([ADR-REPO-AGENTS-CAPABILITYREGISTERED](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered)).
     public IReadOnlyList<CapabilityEntry> capabilities { get; }
 
     public CapabilitiesConfig(IDictionary d)

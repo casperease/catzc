@@ -30,28 +30,28 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     }
 
     Context 'markdown' {
-        It 'reports a use in prose with its file, line, phrase, replacement, and defining rule' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'reports a use in prose with its file, line, phrase, replacement, and defining rule' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $found = & $script:scan @{ 'docs/alpha.md' = @('# Alpha', '', 'Run the widget bundle first.') }
             $found.Count | Should -Be 1
             $found[0] | Should -Be 'docs/alpha.md:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
         }
 
-        It 'matches case-insensitively and across a wrapped line' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'matches case-insensitively and across a wrapped line' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $found = & $script:scan @{ 'docs/alpha.md' = @('The Widget', 'BUNDLE runs.') }
             $found | Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
         }
 
-        It 'matches whole words only' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'matches whole words only' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             & $script:scan @{ 'docs/alpha.md' = @('A gadget-widget bundle, the widget bundles, the widget bundle-set, and widget bundled.') } | Should -BeNullOrEmpty
         }
 
-        It 'exempts a mention in backticks, double quotes, or curly quotes' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'exempts a mention in backticks, double quotes, or curly quotes' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $curly = "Say $([char]0x201C)widget bundle$([char]0x201D) never."
             $text = @('Avoid `widget bundle`, and "widget', 'bundle" too.', $curly)
             & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
         }
 
-        It 'skips fenced code blocks' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'skips fenced code blocks' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $text = @('```powershell', 'Get-Widget # the widget bundle', '```', '~~~', 'widget bundle', '~~~', 'Then the widget bundle.')
             $found = & $script:scan @{ 'docs/alpha.md' = $text }
             $found | Should -Be @('docs/alpha.md:7 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
@@ -59,7 +59,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     }
 
     Context 'PowerShell surfaces' {
-        It 'reads comments and comment-based help as their own surfaces' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'reads comments and comment-based help as their own surfaces' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $text = @('<#', '.SYNOPSIS', '    Builds the widget bundle.', '#>', 'function Get-Widget {', '    # the widget bundle again', '}')
             $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
             $found | Should -Be @(
@@ -70,7 +70,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                 Should -Be @('widgets/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
         }
 
-        It 'reads the strings of throw and the writers' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'reads the strings of throw and the writers' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $text = @(
                 "throw 'no widget bundle'"
                 "Write-Message 'the widget bundle ran'"
@@ -82,7 +82,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             $found | Should -Contain 'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
         }
 
-        It 'reads the -ErrorText and -Because values of any command' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'reads the -ErrorText and -Because values of any command' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $text = @(
                 "Assert-Widget -ErrorText 'the widget bundle is missing'"
                 "`$x | Should -Be 1 -Because 'the widget bundle counts'"
@@ -91,12 +91,12 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             $found.Count | Should -Be 2
         }
 
-        It 'ignores a string that is not a message' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'ignores a string that is not a message' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $text = @("`$name = 'widget bundle'", "Get-Widget -Name 'widget bundle'")
             & $script:scan @{ 'widgets/Get-Widget.ps1' = $text } | Should -BeNullOrEmpty
         }
 
-        It 'reads only the literal text of an expandable string' -Tag 'ADR-REPO-VOCAB#5' {
+        It 'reads only the literal text of an expandable string' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $text = @(
                 "throw `"the `$(`$widget) bundle is gone`""
                 "throw `"the widget bundle `$(Get-Name 'widget bundle') is gone`""
@@ -107,7 +107,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     }
 
     Context 'source options' {
-        It 'scans only the files in scope and not excluded' -Tag 'ADR-REPO-VOCAB#2' {
+        It 'scans only the files in scope and not excluded' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
             $files = [ordered]@{
                 'docs/alpha.md'    = @('the widget bundle')
                 'docs/old/beta.md' = @('the widget bundle')
@@ -117,15 +117,15 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             $found | Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
         }
 
-        It 'always applies the default excludes' -Tag 'ADR-REPO-VOCAB#2' {
+        It 'always applies the default excludes' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
             & $script:scan @{ 'out/report.md' = @('the widget bundle') } | Should -BeNullOrEmpty
         }
 
-        It 'skips a source that opts out of the avoid check' -Tag 'ADR-REPO-VOCAB#2' {
+        It 'skips a source that opts out of the avoid check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
             & $script:scan @{ 'docs/alpha.md' = @('the widget bundle') } @{ checks = @('anchored', 'single', 'enforced', 'forms') } | Should -BeNullOrEmpty
         }
 
-        It 'reads no file type that is not a surface' -Tag 'ADR-REPO-VOCAB#2' {
+        It 'reads no file type that is not a surface' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
             & $script:scan @{ 'docs/alpha.yml' = @('note: the widget bundle') } | Should -BeNullOrEmpty
         }
     }

@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.Reports.OutputRetention' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#7' {
+Describe 'Catzc.Base.Reports.OutputRetention' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR-ONECLEANCOMMAND' {
     BeforeAll {
         $script:now = [datetime]::new(2026, 10, 15, 12, 0, 0, [System.DateTimeKind]::Utc)
         function script:New-Format {

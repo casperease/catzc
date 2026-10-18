@@ -94,7 +94,7 @@ function Export-SpellingTriage {
         $lines.Add('# Move each entry into the terminology registry')
         $lines.Add('# (Catzc.Base.QualityGates configs/terminology.yml): add it under its category group')
         $lines.Add('# in the terms: map (pick a category from categories:; an abbreviation also needs expands_to), OR')
-        $lines.Add('# spell the token out in the code. Nothing here is accepted until promoted (ADR-AUTO-SPELL#7). This file')
+        $lines.Add('# spell the token out in the code. Nothing here is accepted until promoted (ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED). This file')
         $lines.Add('# is gitignored output — cspell never reads it.')
         foreach ($token in $ret) {
             $lines.Add("- term: $token")

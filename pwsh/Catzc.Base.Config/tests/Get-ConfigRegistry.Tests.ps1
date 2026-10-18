@@ -31,7 +31,7 @@ Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-ConfigRegistry — shipped configs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Get-ConfigRegistry — shipped configs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     AfterAll {
         InModuleScope Catzc.Base.Config { $script:configRegistryCache = $null }
     }

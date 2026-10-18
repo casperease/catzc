@@ -1,5 +1,5 @@
 Describe 'Resolve-TestSuite' -Tag 'L0', 'logic' {
-    It 'returns the test suite''s verify modules and level' -Tag 'ADR-AUTO-TEST#37' {
+    It 'returns the test suite''s verify modules and level' -Tag 'ADR-AUTO-TEST-TESTSUITE' {
         Mock Get-GlobSet {
             [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'deployable-unit', @('x/**'), @(), @(),
                 @('Catzc.Azure.Templates', 'Catzc.Azure'), 2, $null)
@@ -10,7 +10,7 @@ Describe 'Resolve-TestSuite' -Tag 'L0', 'logic' {
         $scope.Level | Should -Be 2
     }
 
-    It 'throws an actionable error when the globset declares no verify scope' -Tag 'ADR-AUTO-TEST#37' {
+    It 'throws an actionable error when the globset declares no verify scope' -Tag 'ADR-AUTO-TEST-TESTSUITE' {
         Mock Get-GlobSet {
             [Catzc.Base.Globs.GlobSet]::new('bare', 'd', 'loose-fileset', @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates

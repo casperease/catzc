@@ -26,7 +26,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'maps a well-formed catalogue, defaulting the target to file' -Tag 'ADR-REPO-OUTFMT#1' {
+    It 'maps a well-formed catalogue, defaulting the target to file' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $config = [Catzc.Base.Reports.OutputFormatsConfig]::new(@{ formats = [ordered]@{
                     'widget-png'    = (New-Format @{ limits = @{ width = 480; height = 300 } })
                     'gadget-bundle' = (New-Format @{ patterns = @('gadgets/*'); target = 'folder'; validator = @{ kind = 'delegate'; command = 'Assert-Gadget' } })
@@ -40,7 +40,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $config.formats['gadget-bundle'].validator_parameters['command'] | Should -Be 'Assert-Gadget'
     }
 
-    It 'takes keep and max_age from the area unless the format overrides them' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'takes keep and max_age from the area unless the format overrides them' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Reports.OutputFormatsConfig]::new(@{ formats = [ordered]@{
                     'widget-run'     = (New-Format @{ area = 'run'; patterns = @('runs/{stamp}/report.md') })
                     'widget-note'    = (New-Format @{ area = 'session'; patterns = @('*.md') })
@@ -62,7 +62,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $forever.in_pipeline | Should -BeTrue
     }
 
-    It 'rejects an unknown area, a keep that is no positive number, and a malformed max_age' -Tag 'ADR-AUTO-DEFAULT#6' {
+    It 'rejects an unknown area, a keep that is no positive number, and a malformed max_age' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $message = Get-LoadError @{ formats = [ordered]@{
                 'widget-a' = (New-Format @{ area = 'archive'; patterns = @('a/*') })
                 'widget-b' = (New-Format @{ patterns = @('b/*'); keep = '0' })
@@ -76,7 +76,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $message | Should -Match "format 'widget-d': in_pipeline 'maybe' must be true or false"
     }
 
-    It 'keeps a list parameter as a list' -Tag 'ADR-REPO-OUTFMT#3' {
+    It 'keeps a list parameter as a list' -Tag 'ADR-REPO-OUTFMT-VALIDATORISCODE' {
         $config = [Catzc.Base.Reports.OutputFormatsConfig]::new(@{ formats = @{
                     'widget-index' = (New-Format @{ patterns = @('widgets/_index.json'); validator = @{ kind = 'json'; required_keys = @('id', 'name') } })
                 }
@@ -84,13 +84,13 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         @($config.formats['widget-index'].validator_parameters['required_keys']) | Should -Be @('id', 'name')
     }
 
-    It 'requires a non-empty formats map and rejects any other top-level key' -Tag 'ADR-REPO-OUTFMT#1' {
+    It 'requires a non-empty formats map and rejects any other top-level key' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $message = Get-LoadError @{ gadgets = @{} }
         $message | Should -Match "unknown top-level key 'gadgets'"
         $message | Should -Match "'formats' is required"
     }
 
-    It 'reports every malformed entry in one throw' -Tag 'ADR-REPO-OUTFMT#1' {
+    It 'reports every malformed entry in one throw' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $message = Get-LoadError @{ formats = @{
                 'Widget_PNG' = (New-Format @{ colour = 'blue' })
                 'gadget-doc' = @{ patterns = @(); validator = @{ kind = 'png' } }
@@ -107,7 +107,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $message | Should -Match "target 'tree' must be 'file' or 'folder'"
     }
 
-    It 'rejects an unknown validator kind, a stray parameter, and a missing required one' -Tag 'ADR-REPO-OUTFMT#3' {
+    It 'rejects an unknown validator kind, a stray parameter, and a missing required one' -Tag 'ADR-REPO-OUTFMT-VALIDATORISCODE' {
         $message = Get-LoadError @{ formats = @{
                 'widget-a' = (New-Format @{ validator = @{ kind = 'gif' } })
                 'widget-b' = (New-Format @{ patterns = @('b/*'); validator = @{ kind = 'png'; columns = @('x') } })
@@ -125,7 +125,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $message | Should -Match "format 'widget-f': validator is required"
     }
 
-    It 'rejects an unknown limit and a limit that is not a positive whole number' -Tag 'ADR-REPO-OUTFMT#5' {
+    It 'rejects an unknown limit and a limit that is not a positive whole number' -Tag 'ADR-REPO-OUTFMT-LIMITSINCATALOGUE' {
         $message = Get-LoadError @{ formats = @{
                 'widget-png' = (New-Format @{ limits = @{ depth = 3; width = 0; height = 'tall' } })
             }
@@ -135,7 +135,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $message | Should -Match "limit 'height' must be a positive whole number"
     }
 
-    It 'rejects two formats whose patterns can match the same path' -Tag 'ADR-REPO-OUTFMT#1' {
+    It 'rejects two formats whose patterns can match the same path' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $message = Get-LoadError @{ formats = [ordered]@{
                 'widget-png'   = (New-Format)
                 'gadget-png'   = (New-Format)
@@ -149,7 +149,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $message | Should -Match "pattern 'runs/\{stamp\}/report\.md' of 'widget-run' and pattern 'runs/20261014-170757/\*\.md' of 'widget-fixed'"
     }
 
-    It 'accepts patterns no path can match together' -Tag 'ADR-REPO-OUTFMT#1' {
+    It 'accepts patterns no path can match together' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $config = [Catzc.Base.Reports.OutputFormatsConfig]::new(@{ formats = [ordered]@{
                     'widget-drawing' = (New-Format @{ patterns = @('widgets/**/*.drawio.png') })
                     'widget-sheet'   = (New-Format @{ patterns = @('widgets/**/*.sheet.png') })
@@ -161,7 +161,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $config.formats.Count | Should -Be 5
     }
 
-    It 'rejects a malformed pattern' -Tag 'ADR-REPO-OUTFMT#1' {
+    It 'rejects a malformed pattern' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $message = Get-LoadError @{ formats = @{
                 'widget-png' = (New-Format @{ patterns = @('widgets/a**/*.png', 'widgets/{run}/*.png', 'widgets//x.png') })
             }
@@ -173,7 +173,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
 }
 
 Describe 'Catzc.Base.Reports.OutputPattern' -Tag 'L0', 'logic' {
-    It 'matches <Path> against <Pattern>: <Expected>' -Tag 'ADR-REPO-OUTFMT#1' -ForEach @(
+    It 'matches <Path> against <Pattern>: <Expected>' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' -ForEach @(
         @{ Pattern = 'widgets/*.png'; Path = 'widgets/a.png'; Expected = $true }
         @{ Pattern = 'widgets/*.png'; Path = 'widgets/deep/a.png'; Expected = $false }
         @{ Pattern = 'widgets/**/*.png'; Path = 'widgets/a.png'; Expected = $true }
@@ -187,7 +187,7 @@ Describe 'Catzc.Base.Reports.OutputPattern' -Tag 'L0', 'logic' {
         [Catzc.Base.Reports.OutputPattern]::Parse($Pattern).Matches($Path) | Should -Be $Expected
     }
 
-    It 'overlap of <A> and <B>: <Expected>' -Tag 'ADR-REPO-OUTFMT#1' -ForEach @(
+    It 'overlap of <A> and <B>: <Expected>' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' -ForEach @(
         @{ A = 'widgets/*.png'; B = 'widgets/a.png'; Expected = $true }
         @{ A = 'widgets/*.drawio.png'; B = 'widgets/*.sheet.png'; Expected = $false }
         @{ A = 'widgets/**/*.png'; B = 'widgets/x/y/*.sheet.png'; Expected = $true }

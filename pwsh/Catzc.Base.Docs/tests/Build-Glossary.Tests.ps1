@@ -39,7 +39,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         $script:page = Join-Path $TestDrive 'glossary.md'
     }
 
-    It 'renders a section per domain in adrs.yml order, each term with its rule link, realization, relations, contrasts, and avoids' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'renders a section per domain in adrs.yml order, each term with its rule link, realization, relations, contrasts, and avoids' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
 
@@ -53,7 +53,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         $text | Should -Match ([regex]::Escape('| `widget bundle` | widget suite |'))
     }
 
-    It 'is deterministic: a second run reports no change' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'is deterministic: a second run reports no change' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         (Build-Glossary -Path $script:page -DryRun -PassThru -Silent).Changed | Should -BeFalse
     }
@@ -75,7 +75,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 2 -Exactly -Scope It
     }
 
-    It 'reports drift without writing under -DryRun' -Tag 'ADR-REPO-VOCAB#1' {
+    It 'reports drift without writing under -DryRun' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         [System.IO.File]::WriteAllText($script:page, 'stale')
         $report = Build-Glossary -Path $script:page -DryRun -PassThru -Silent
@@ -85,7 +85,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
+Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     It 'the on-disk glossary is current — no drift from the glossary sources' {
         (Build-Glossary -DryRun -PassThru -Silent).ConceptCount | Should -BeGreaterThan 0
         $result = Test-GeneratedFiles -Generator Build-Glossary -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
@@ -93,7 +93,7 @@ Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 's
     }
 }
 
-Describe 'Build-Glossary — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Build-Glossary — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the domain registry and the type sources it stamps in the loaded module' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0

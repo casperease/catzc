@@ -1,5 +1,5 @@
-Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
-    Context 'defaults' -Tag 'ADR-AUTO-DEFAULT#6' {
+Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+    Context 'defaults' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         It 'gives every check the gate mode and empty lists when the file states nothing' {
             foreach ($raw in @($null, [ordered]@{})) {
                 $config = [Catzc.Base.Docs.AdrChecksConfig]::new($raw)
@@ -20,7 +20,7 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
         }
     }
 
-    Context 'a stated config' -Tag 'ADR-PRIN-CONFIG#1' {
+    Context 'a stated config' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         BeforeAll {
             $script:config = [Catzc.Base.Docs.AdrChecksConfig]::new([ordered]@{
                     engine_neutrality = [ordered]@{

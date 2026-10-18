@@ -1,4 +1,4 @@
-Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#33' {
+Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic', 'ADR-AUTO-TEST-SYSTEMTESTSATLTHREE' {
     BeforeAll {
         $script:installDir = if ($IsWindows) {
             'C:\Tools\Widget'

@@ -1,4 +1,4 @@
-Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
+Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'stamp-repo'))
         $null = New-Item -ItemType Directory -Path $script:root -Force
@@ -70,7 +70,7 @@ Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
     }
 }
 
-Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', 'ADR-AUTO-CACHE#10' {
+Describe 'The shipped format engines'' keyed settings' -Tag 'L1', 'integrity', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     It 'name a top-level key that exists in their file: <_>' -ForEach @('prettier', 'gofmt', 'ruff', 'dotnet-format', 'bicep') {
         $entries = @((Get-Config -Config languages).formatters[$_].settings | Where-Object { $_ -match '#' })
         $entries.Count | Should -BeGreaterThan 0 -Because "engine $_ stamps the tools it runs, not the whole tool registry"

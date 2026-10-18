@@ -66,7 +66,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             @($highlight.Cells).Count | Should -Be 1
         }
 
-        It 'lights two ADRs of one domain each on its own file only' -Tag 'ADR-DSGN-TRACK#12' {
+        It 'lights two ADRs of one domain each on its own file only' -Tag 'ADR-DSGN-TRACK-LITCELL' {
             $docs = (& $script:forAdr 'ADR-WIDGET-GADGET', 'ADR-WIDGET-SPROCKET').Cells | Where-Object Track -EQ 'docs'
             @($docs.Reasons | Where-Object Basis -EQ 'adr-file' | ForEach-Object { "$($_.Path) $($_.Requested)" }) |
                 Should -Be @('docs/adr/widgetry/widget-gadget.md ADR-WIDGET-GADGET', 'docs/adr/widgetry/widget-sprocket.md ADR-WIDGET-SPROCKET')
@@ -110,7 +110,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     }
 
     Context 'reasons' {
-        It 'gives every lit file its reason: the basis, the covering request and the citation sites' -Tag 'ADR-DSGN-TRACK#12' {
+        It 'gives every lit file its reason: the basis, the covering request and the citation sites' -Tag 'ADR-DSGN-TRACK-LITCELL' {
             $highlight = & $script:forAdr 'ADR-WIDGET-GADGET'
             $docs = $highlight.Cells[0].Reasons
             @($docs).Count | Should -Be 1
@@ -124,7 +124,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $highlight.Cells[1].Touched | Should -BeFalse
         }
 
-        It 'names the owner''s files a root file is lit through' -Tag 'ADR-DSGN-TRACK#7' {
+        It 'names the owner''s files a root file is lit through' -Tag 'ADR-DSGN-TRACK-ROOTFILE' {
             $root = (& $script:forAdr 'ADR-WIDGET-GADGET').Cells[3].Reasons
             $root[0].Path | Should -Be 'importer.ps1'
             $root[0].Basis | Should -Be 'files.yml'

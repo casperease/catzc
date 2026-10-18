@@ -1,4 +1,4 @@
-Describe 'Build-SlideDeck' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#1', 'ADR-REPO-SLIDES#3', 'ADR-REPO-SLIDES#4' {
+Describe 'Build-SlideDeck' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILE', 'ADR-REPO-SLIDES-FAILFORWARDRENDER', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:root = $root
@@ -106,7 +106,7 @@ Notes for $Id.
         Test-Path (Join-Path $out 'project/deck.json') | Should -BeTrue
     }
 
-    It 'reports a duplicate order and a gap, and still renders every slide' -Tag 'ADR-REPO-SLIDES#1' {
+    It 'reports a duplicate order and a gap, and still renders every slide' -Tag 'ADR-REPO-SLIDES-SLIDEFILE' {
         & $write 'decks/gap-deck/deck.md' "# Gaps`n"
         & $write 'decks/gap-deck/a.slide.md' (& $slide 'a' 1 'A' 'a.')
         & $write 'decks/gap-deck/b.slide.md' (& $slide 'b' 1 'B' 'b.')
@@ -120,7 +120,7 @@ Notes for $Id.
         Get-Content (Join-Path $result.OutputFolder 'gap-deck.faults.md') -Raw | Should -Match 'the order 1 is held by 2 slides'
     }
 
-    It 'reports a quoted rule that differs from the registry, a cite the index does not know, and a section starting on no slide' -Tag 'ADR-REPO-SLIDES#4' {
+    It 'reports a quoted rule that differs from the registry, a cite the index does not know, and a section starting on no slide' -Tag 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
         & $write 'decks/drift-deck/deck.md' "# Drift`n`n## Sections`n`n- nowhere: Starts on no slide.`n"
         & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET#2').Replace('cites: [ADR-WIDGET-GADGET#2]', 'cites: [ADR-WIDGET-GADGET#2, ADR-WIDGET-GADGET#9, ADR-WIDGET-GADGET, "ADR-WIDGET-GADGET#{1-2}", gadget]'))
         $faults = @((Build-SlideDeck -Deck 'decks/drift-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
@@ -132,7 +132,7 @@ Notes for $Id.
         $faults | Should -Contain "decks/drift-deck/deck.md: field 'sections': the section 'Starts on no slide.' starts on 'nowhere', and no slide has that id"
     }
 
-    It 'reports a slide whose head names no pattern, or a pattern the kit does not hold, and a non-numeric order' -Tag 'ADR-REPO-SLIDES#2' {
+    It 'reports a slide whose head names no pattern, or a pattern the kit does not hold, and a non-numeric order' -Tag 'ADR-REPO-SLIDES-PATTERN' {
         & $write 'decks/pattern-deck/deck.md' "# Patterns`n"
         & $write 'decks/pattern-deck/e.slide.md' (& $slide 'e' 1 'E' 'e.').Replace('pattern: widget', 'pattern: gadget')
         & $write 'decks/pattern-deck/f.slide.md' (& $slide 'f' 2 'F' 'f.').Replace("    pattern: widget`n", '').Replace('order: 2', 'order: second')
@@ -142,7 +142,7 @@ Notes for $Id.
         $faults | Should -Contain "decks/pattern-deck/f.slide.md: field 'order': the head's config.order is a whole number from 1; found 'second'"
     }
 
-    It 'fails fast on a deck folder that does not exist, a deck with no deck file, and a deck with no slide' -Tag 'ADR-AUTO-FAILFAST#1' {
+    It 'fails fast on a deck folder that does not exist, a deck with no deck file, and a deck with no slide' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
         { Build-SlideDeck -Deck 'decks/missing' -Kit 'kit' -RepositoryRoot $root } | Should -Throw '*does not exist*'
         & $write 'decks/empty-deck/stray.md' 'x'
         { Build-SlideDeck -Deck 'decks/empty-deck' -Kit 'kit' -RepositoryRoot $root } | Should -Throw '*holds no deck.md*'
@@ -150,7 +150,7 @@ Notes for $Id.
         { Build-SlideDeck -Deck 'decks/empty-deck' -Kit 'kit' -RepositoryRoot $root } | Should -Throw '*holds no slide file*'
     }
 
-    It 'fails fast on a kit with no patterns folder' -Tag 'ADR-AUTO-FAILFAST#1' {
+    It 'fails fast on a kit with no patterns folder' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
         & $write 'bare-kit/slides.yml' "face:`n  display: Georgia, serif`n  text: Arial, sans-serif`n"
         { Build-SlideDeck -Deck 'decks/gadget-deck' -Kit 'bare-kit' -RepositoryRoot $root } | Should -Throw '*holds no patterns/ folder*'
     }

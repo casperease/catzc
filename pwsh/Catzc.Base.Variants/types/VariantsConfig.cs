@@ -262,7 +262,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 }
                 else if (place == "out" || place.StartsWith("out/", StringComparison.OrdinalIgnoreCase))
                 {
-                    errors.Add(string.Format("tracks['{0}']: place '{1}' is gitignored output, never a track (ADR-DSGN-TRACK#1)", name, place));
+                    errors.Add(string.Format("tracks['{0}']: place '{1}' is gitignored output, never a track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)", name, place));
                 }
                 else if (placeOwner.ContainsKey(place))
                 {

@@ -1,4 +1,4 @@
-Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT#1' {
+Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
     It 'no function defaults a TimeoutSeconds parameter to a number literal above zero' {
         $root = Get-CatzcModulesRoot
         $isParameter = { param($node) $node -is [System.Management.Automation.Language.ParameterAst] }

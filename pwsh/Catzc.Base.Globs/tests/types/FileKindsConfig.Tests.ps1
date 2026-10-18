@@ -1,4 +1,4 @@
-Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
+Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     BeforeAll {
         function script:New-Config {
             param($Kinds)

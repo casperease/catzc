@@ -1,4 +1,4 @@
-Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6', 'ADR-REPO-FILEMETA#5' {
+Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null

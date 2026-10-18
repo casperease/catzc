@@ -1,4 +1,4 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Get-FileLanguage, the file-language reader: every language
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Get-FileLanguage, the file-language reader: every language
 # with no argument, the languages by name, or the language of one file by path.
 parameters:
   Name: string[]! in Name

@@ -42,7 +42,7 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         $script:modules = & (Get-Module Catzc.Base.Docs) { Get-CatsModules }
     }

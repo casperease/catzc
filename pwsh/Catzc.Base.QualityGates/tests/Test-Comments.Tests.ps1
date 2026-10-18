@@ -33,7 +33,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
     }
 
-    It 'reports a long comment still in the file, then passes once it is exported' -Tag 'ADR-REPO-COMMENTS#5' {
+    It 'reports a long comment still in the file, then passes once it is exported' -Tag 'ADR-REPO-COMMENTS-MOVEDBYTOOL' {
         $root = & $newRepository
         $before = & $check $root
         $before.IssueCount | Should -Be 1
@@ -44,7 +44,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         $after.Facts['PageCount'] | Should -Be 1
     }
 
-    It 'reports a section whose code line the file no longer has' -Tag 'ADR-REPO-COMMENTS#5' {
+    It 'reports a section whose code line the file no longer has' -Tag 'ADR-REPO-COMMENTS-MOVEDBYTOOL' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         $text = & $readFile $root $file

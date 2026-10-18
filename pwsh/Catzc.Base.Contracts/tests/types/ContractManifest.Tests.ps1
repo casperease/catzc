@@ -1,4 +1,4 @@
-Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#7' {
+Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION' {
     It 'is empty for an absent or empty file' {
         [Catzc.Base.Contracts.ContractManifest]::new($null).direction.Count | Should -Be 0
         [Catzc.Base.Contracts.ContractManifest]::new(@{}).direction.Count | Should -Be 0

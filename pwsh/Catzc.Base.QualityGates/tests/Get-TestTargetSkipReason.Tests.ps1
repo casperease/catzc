@@ -1,4 +1,4 @@
-Describe 'Get-TestTargetSkipReason' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#41' {
+Describe 'Get-TestTargetSkipReason' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TESTINGINPRODUCTION' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'test-policy' } {
             [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ l4_mutation = @{ 'wid-get' = 'synthetic' } })

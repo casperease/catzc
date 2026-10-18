@@ -1,6 +1,6 @@
 namespace Catzc.Base.Globs;
 
-// What the file-kinds registry names for one path: the role its kind gives it, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2)).
+// What the file-kinds registry names for one path: the role its kind gives it, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA-METAKIND](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind)).
 public sealed class FileKindMatch
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

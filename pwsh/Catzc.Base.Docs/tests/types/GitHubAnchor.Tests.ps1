@@ -1,26 +1,26 @@
 Describe 'GitHubAnchor' -Tag 'L0', 'logic' {
-    It 'slugs a rule heading to rule- plus the lowercased code and number' -Tag 'ADR-REPO-LINK#2' {
+    It 'slugs a rule heading to rule- plus the lowercased code and number' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('Rule ADR-TST-WIDGET:1') | Should -BeExactly 'rule-adr-tst-widget1'
     }
 
-    It 'drops punctuation and keeps the space either side of an em dash as two hyphens' -Tag 'ADR-REPO-LINK#2' {
+    It 'drops punctuation and keeps the space either side of an em dash as two hyphens' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('responsibility:1 — Widget invocation') | Should -BeExactly 'responsibility1--widget-invocation'
     }
 
-    It 'reduces inline markup to its text: code spans, links, and emphasis' -Tag 'ADR-REPO-LINK#2' {
+    It 'reduces inline markup to its text: code spans, links, and emphasis' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('The `widget/` folder') | Should -BeExactly 'the-widget-folder'
         [Catzc.Base.Docs.GitHubAnchor]::Slug('See [the gadget](gadget.md) **now**') | Should -BeExactly 'see-the-gadget-now'
     }
 
-    It 'drops a code span made only of punctuation and keeps both spaces around it as two hyphens' -Tag 'ADR-REPO-LINK#2' {
+    It 'drops a code span made only of punctuation and keeps both spaces around it as two hyphens' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('The `$?` widget') | Should -BeExactly 'the--widget'
     }
 
-    It 'keeps underscores, hyphens, digits, and non-ASCII letters' -Tag 'ADR-REPO-LINK#2' {
+    It 'keeps underscores, hyphens, digits, and non-ASCII letters' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('snake_case widget-2 Café') | Should -BeExactly 'snake_case-widget-2-café'
     }
 
-    It 'collects every heading, suffixes duplicates, counts explicit anchors, and skips fenced blocks' -Tag 'ADR-REPO-LINK#2' {
+    It 'collects every heading, suffixes duplicates, counts explicit anchors, and skips fenced blocks' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         $markdown = @(
             '# Widget'
             '## Notes'

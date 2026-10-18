@@ -42,7 +42,7 @@ function Test-Plans {
             $issues.Add("${where}:${Line} [ADR-REPO-PLANS#${Rule}] $Message")
         }
         if (-not $Config.Accepts($name)) {
-            & $add 1 1 'the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS#12)'
+            & $add 1 1 'the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS-STABLEFILENAMES)'
             continue
         }
         $text = [System.IO.File]::ReadAllText($file)
