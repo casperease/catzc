@@ -24,7 +24,7 @@ Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'AD
     }
 
     It 'found custom analyzer rules to check (guards against a silent no-op)' {
-        $result.CustomRules | Should -BeGreaterThan 0
+        $result.Facts['CustomRules'] | Should -BeGreaterThan 0
     }
 
     It 'maps every analyzer to real ADR rule ids, and every custom analyzer rule (a new one cannot ship unmapped)' {

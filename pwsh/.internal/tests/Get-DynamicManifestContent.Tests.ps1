@@ -228,7 +228,7 @@ Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity'
 
     It 'Invoke-Formatter leaves every built manifest byte-for-byte unchanged (Test-BuildArtifact)' {
         $result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
-        $result.Modules | Should -BeGreaterThan 0
+        $result.Facts['Modules'] | Should -BeGreaterThan 0
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 

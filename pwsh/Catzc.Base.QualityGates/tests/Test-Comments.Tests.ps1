@@ -41,7 +41,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         $after = & $check $root
         $after.IssueCount | Should -Be 0
-        $after.PageCount | Should -Be 1
+        $after.Facts['PageCount'] | Should -Be 1
     }
 
     It 'reports a section whose code line the file no longer has' -Tag 'ADR-REPO-COMMENTS#5' {

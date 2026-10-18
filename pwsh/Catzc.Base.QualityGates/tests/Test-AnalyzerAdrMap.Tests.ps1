@@ -23,8 +23,8 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
     It 'passes when every cited id is real and every custom rule is mapped (the entry rule excluded)' {
         $result = Test-AnalyzerAdrMap -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Analyzers | Should -Be 2
-        $result.CustomRules | Should -Be 1
+        $result.Facts['Analyzers'] | Should -Be 2
+        $result.Facts['CustomRules'] | Should -Be 1
     }
 
     It 'throws once naming an unknown id and an unmapped custom rule' {

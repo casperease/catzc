@@ -1,6 +1,6 @@
 function Test-BuildArtifact {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]
         [string[]] $Module = @(),

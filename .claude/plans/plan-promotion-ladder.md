@@ -47,6 +47,10 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
       environments)". No live apply. For the user's apply: `approver_group.members` is still empty, so the apply refuses until approvers
       are listed. Original step: The environments: the main-uat and release-uat environments per unit and their RC/RBC approval checks as config entries applied by
       `Sync-AdoEnvironmentApprovals` (check: its L0 tests pass; the apply itself is the user's run).
+- Step 4 shape, decided by the orchestrator on the user's delegation 2026-10-18: `azure.yml` already declares `preprod` in both prod
+  subscriptions; an optional `staging_for: <environment>` on the environment record (AzureEnvironmentRecord) names what it stages,
+  validated in AzureConfig (target exists, neither per_subscription, every subscription listing it lists its target); "inactive until
+  activated" is run-time state DEPLOY's cutover changes, not config; DEPLOY reads `staging_for`.
 - [ ] Pre-prod: the staging slot in the prod subscription, declared in the azure config and inactive until activated (check: the
       resolver's L0 tests pass; Test-Contracts clean).
 - [ ] The DEPLOY pipeline: takes a CI run id, resolves that run's artifact, deploys it to prod; the certifying CD run records the run id

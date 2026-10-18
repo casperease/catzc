@@ -77,8 +77,8 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         $result = Test-BuildArtifact -PassThru -OutputFolder $script:reportFolder
         $result.Subject | Should -Be 'build-artifact'
         $result.IssueCount | Should -Be 0
-        $result.Modules | Should -Be 2
-        $result.TypesHash | Should -Be 'abcd1234'
+        $result.Facts['Modules'] | Should -Be 2
+        $result.Facts['TypesHash'] | Should -Be 'abcd1234'
     }
 
     It 'turns each violation of a failed build into one issue' {

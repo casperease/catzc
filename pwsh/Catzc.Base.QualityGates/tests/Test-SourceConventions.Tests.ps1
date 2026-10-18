@@ -54,9 +54,9 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
     It 'passes a conventional tree and counts what it scanned' {
         $result = Test-SourceConventions -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.SourceFiles | Should -Be 2
-        $result.TestFiles | Should -Be 3
-        $result.SkipReasons | Should -Be 1
+        $result.Facts['SourceFiles'] | Should -Be 2
+        $result.Facts['TestFiles'] | Should -Be 3
+        $result.Facts['SkipReasons'] | Should -Be 1
     }
 
     It 'throws once listing every source and test file convention break' {
@@ -93,8 +93,8 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $result.Issues | Should -Contain "widget-modules/Widget/README.md:1: 'widget and gadget' names 2 of the 3 engines (widget, gadget, sprocket); say 'every engine' or name them all"
         @($result.Issues | Where-Object { $_ -like 'widget-modules/Widget/Set-Widget.ps1:1: a ValidateSet lists engine names*' }) | Should -HaveCount 1
         @($result.Issues | Where-Object { $_ -like "widget-modules/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET'*" }) | Should -HaveCount 1
-        $result.EngineSetCount | Should -Be 2
-        $result.NeutralCodeCount | Should -Be 1
+        $result.Facts['EngineSetCount'] | Should -Be 2
+        $result.Facts['NeutralCodeCount'] | Should -Be 1
     }
 
     It 'lists the same findings in report mode and passes' -Tag 'ADR-AUTO-ENGINE#1', 'ADR-AUTO-TEST#3', 'ADR-PRIN-CONFIG#4' {
@@ -112,6 +112,6 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         & $writeCheckFixtures
         & $useMode 'gate' ([ordered]@{ 'widget-modules/Widget/*.md' = 'widget notes' })
         $result = Test-SourceConventions -OutputFolder $out -PassThru
-        $result.EngineSetCount | Should -Be 1
+        $result.Facts['EngineSetCount'] | Should -Be 1
     }
 }

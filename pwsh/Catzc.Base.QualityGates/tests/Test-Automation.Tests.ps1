@@ -5,9 +5,9 @@ Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' 
 
     It 'the scan found source and test files (guards the checks below against a silent no-op)' {
         # The conventions pass vacuously on an empty set, so prove the scan actually enumerated the tree.
-        $result.SourceFiles | Should -BeGreaterThan 100
-        $result.TestFiles | Should -BeGreaterThan 100
-        $result.SkipReasons | Should -BeGreaterThan 10
+        $result.Facts['SourceFiles'] | Should -BeGreaterThan 100
+        $result.Facts['TestFiles'] | Should -BeGreaterThan 100
+        $result.Facts['SkipReasons'] | Should -BeGreaterThan 10
     }
 
     It 'reports no source or test file convention issues' -Tag 'ADR-PWSH-PESTER#5', 'ADR-AUTO-TEST#43' {
