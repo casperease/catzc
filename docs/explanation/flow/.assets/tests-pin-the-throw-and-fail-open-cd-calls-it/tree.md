@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "19331b06f823"
+    with_body_sha: e059f67760af
     repo_status: locked
     path: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/tree.md
     source: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.png
@@ -16,25 +16,25 @@ catzc:
 
 ```text
 Which files cite ADR-AUTO-FAILFAST, ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS: every file of the world map is a tile, grouped by top-level folder.
-120 files lit in 14 groups.
+119 files lit in 14 groups.
 ```
 
 ![The tree minimap of Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate](tree.png)
 
 This is the tree minimap in the sidebar of the governance diagram of [Tests pin the throw and the fail-open, a rule pins detection, and the
-CD stages call it with no gate][121], which explains [ADR-AUTO-FAILFAST][1], [ADR-FLOW-CD-DETECT][2] and [ADR-FLOW-CD-GLOBS][3]. It lights
+CD stages call it with no gate][120], which explains [ADR-AUTO-FAILFAST][1], [ADR-FLOW-CD-DETECT][2] and [ADR-FLOW-CD-GLOBS][3]. It lights
 every file that cites those codes, grouped by folder, so it shows which files carry the decision. Each lit group has its reason below,
 naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 120 files in 14 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 119 files in 14 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 86 lit files
 - Globs (pwsh/Catzc.Base.Globs): 8 lit files
-- .claude: 5 lit files
+- .claude: 4 lit files
 - adr/flow (docs/adr/flow): 3 lit files
 - pipelines: 3 lit files
 - Docs (pwsh/Catzc.Base.Docs): 3 lit files
@@ -251,7 +251,7 @@ The group holds the files of pwsh/Catzc.Base.Globs; each sits in its world-map c
 - [pwsh/Catzc.Base.Globs/types/GlobsConfig.cs][97], in the cell pwsh × csharp: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line
   73 (text), line 136 (text), line 140 (text) and line 154 (text).
 
-### .claude (5 lit files)
+### .claude (4 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
@@ -262,16 +262,14 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
   at line 17 (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 17 (text).
 - [.claude/plans/plan-promotion-ladder.md][100], in the cell .claude × markdown: selected by [ADR-FLOW-CD-DETECT][2]: the file cites it at
   line 11 (text) and line 38 (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 11 (text) and line 38 (text).
-- [.claude/plans/plan-test-run-budget.md][101], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
-  line 84 (text).
-- [.claude/plans/value-of-plan.md][102], in the cell .claude × markdown: selected by [ADR-FLOW-CD-DETECT][2]: the file cites it at line 32
+- [.claude/plans/value-of-plan.md][101], in the cell .claude × markdown: selected by [ADR-FLOW-CD-DETECT][2]: the file cites it at line 32
   (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 32 (text).
 
 ### adr/flow (docs/adr/flow, 3 lit files)
 
 The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
 
-- [docs/adr/flow/dora-explains.md][103], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][2]: the file cites it at line 11
+- [docs/adr/flow/dora-explains.md][102], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][2]: the file cites it at line 11
   (text) and line 49 (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 11 (text) and line 92 (text).
 - [docs/adr/flow/durable-sha-globs.md][3], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][3]: the ADR's own file.
 - [docs/adr/flow/pipeline-detection.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD-DETECT][2]: the ADR's own file.
@@ -280,9 +278,9 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/cd-shared.yaml][104], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 45
+- [pipelines/cd-shared.yaml][103], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 45
   (body comment) (a passing mention only).
-- [pipelines/ci-automation.yaml][105], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-FAILFAST][1]: a pipeline that cites
+- [pipelines/ci-automation.yaml][104], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-FAILFAST][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 132 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 55 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 76 (text),
   `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47 (text),
@@ -309,26 +307,26 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
   `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml`
   line 1078 (text).
-- [pipelines/extends/cd-customer.yaml][106], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at
+- [pipelines/extends/cd-customer.yaml][105], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at
   line 21 (body comment) (a passing mention only).
 
 ### Docs (pwsh/Catzc.Base.Docs, 3 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][107], in the cell pwsh × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 132
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][106], in the cell pwsh × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 132
   (text); selected by [ADR-FLOW-CD-DETECT][2]: the file cites it at line 97 (text) and line 99 (text); selected by [ADR-FLOW-CD-GLOBS][3]:
   the file cites it at line 97 (text) and line 101 (text).
-- [pwsh/Catzc.Base.Docs/configs/agents.yml][108], in the cell pwsh × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 55
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][107], in the cell pwsh × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 55
   (text) and line 76 (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][109], in the cell pwsh × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][108], in the cell pwsh × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
   line 4 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
 The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
 
-- [docs/adr/automation/dora-explains.md][110], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line
+- [docs/adr/automation/dora-explains.md][109], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line
   260 (text).
 - [docs/adr/automation/fail-fast-with-asserts.md][1], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the ADR's own file.
 
@@ -336,34 +334,34 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][111], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
+- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][110], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
   cites it at line 47 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][112], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][111], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the
   file cites it at line 64 (text).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][113], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-DETECT][2]: the file
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][112], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-DETECT][2]: the file
   cites it at line 11 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][114], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][113], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites
   it at line 1078 (text).
 
 ### Slides (pwsh/Catzc.Base.Slides, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Slides; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][115], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
+- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][114], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
   cites it at line 152 (text) and line 160 (text).
-- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][116], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
+- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][115], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
   cites it at line 46 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][117], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 163 (text); selected
+- [docs/adr/index.md][116], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 163 (text); selected
   by [ADR-FLOW-CD-DETECT][2]: the file cites it at line 129 (text) and line 131 (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites
   it at line 129 (text) and line 133 (text).
 
@@ -371,14 +369,14 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 
 The group holds the files of pwsh/Catzc.Base.Languages; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1][118], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]:
+- [pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1][117], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]:
   the file cites it at line 30 (text).
 
 ### Maps (pwsh/Catzc.Base.Maps, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][119], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-DETECT][2]: the
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][118], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-DETECT][2]: the
   file cites it at line 70 (text) and line 71 (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 70 (text) and line 71
   (text).
 
@@ -386,25 +384,25 @@ The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map ce
 
 The group holds the files of pwsh/Catzc.Base.Timeouts; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1][120], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]:
+- [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1][119], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]:
   the file cites it at line 133 (text).
 
 ## Keywords
 
-- [world map][122]
-- [track][123]
-- [file language][124]
-- [cell][125]
-- [lit cell][126]
-- [.claude][127]: a track
-- [docs][127]: a track
-- [pipelines][127]: a track
-- [pwsh][127]: a track
-- [csharp][128]: a file language
-- [markdown][128]: a file language
-- [pipeline-yaml][128]: a file language
-- [powershell][128]: a file language
-- [yaml][128]: a file language
+- [world map][121]
+- [track][122]
+- [file language][123]
+- [cell][124]
+- [lit cell][125]
+- [.claude][126]: a track
+- [docs][126]: a track
+- [pipelines][126]: a track
+- [pwsh][126]: a track
+- [csharp][127]: a file language
+- [markdown][127]: a file language
+- [pipeline-yaml][127]: a file language
+- [powershell][127]: a file language
+- [yaml][127]: a file language
 
 [1]: ../../../../adr/automation/fail-fast-with-asserts.md
 [2]: ../../../../adr/flow/pipeline-detection.md
@@ -506,31 +504,30 @@ The group holds the files of pwsh/Catzc.Base.Timeouts; each sits in its world-ma
 [98]: ../../../../../.claude/CLAUDE.md
 [99]: ../../../../../.claude/plans/plan-explanation-drift-gaps.md
 [100]: ../../../../../.claude/plans/plan-promotion-ladder.md
-[101]: ../../../../../.claude/plans/plan-test-run-budget.md
-[102]: ../../../../../.claude/plans/value-of-plan.md
-[103]: ../../../../adr/flow/dora-explains.md
-[104]: ../../../../../pipelines/cd-shared.yaml
-[105]: ../../../../../pipelines/ci-automation.yaml
-[106]: ../../../../../pipelines/extends/cd-customer.yaml
-[107]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[108]: ../../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
-[109]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
-[110]: ../../../../adr/automation/dora-explains.md
-[111]: ../../../../../pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
-[112]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
-[113]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[114]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[115]: ../../../../../pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
-[116]: ../../../../../pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
-[117]: ../../../../adr/index.md
-[118]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-[119]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[120]: ../../../../../pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
-[121]: ../../tests-pin-the-throw-and-fail-open-cd-calls-it.md
-[122]: ../../../../adr/glossary.md#world-map
-[123]: ../../../../adr/glossary.md#track
-[124]: ../../../../adr/glossary.md#file-language
-[125]: ../../../../adr/glossary.md#cell
-[126]: ../../../../adr/glossary.md#lit-cell
-[127]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[128]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[101]: ../../../../../.claude/plans/value-of-plan.md
+[102]: ../../../../adr/flow/dora-explains.md
+[103]: ../../../../../pipelines/cd-shared.yaml
+[104]: ../../../../../pipelines/ci-automation.yaml
+[105]: ../../../../../pipelines/extends/cd-customer.yaml
+[106]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[107]: ../../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
+[108]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
+[109]: ../../../../adr/automation/dora-explains.md
+[110]: ../../../../../pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
+[111]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
+[112]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[113]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[114]: ../../../../../pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
+[115]: ../../../../../pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
+[116]: ../../../../adr/index.md
+[117]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+[118]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[119]: ../../../../../pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+[120]: ../../tests-pin-the-throw-and-fail-open-cd-calls-it.md
+[121]: ../../../../adr/glossary.md#world-map
+[122]: ../../../../adr/glossary.md#track
+[123]: ../../../../adr/glossary.md#file-language
+[124]: ../../../../adr/glossary.md#cell
+[125]: ../../../../adr/glossary.md#lit-cell
+[126]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[127]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "57ac2489ca56"
+    with_body_sha: bf3a0ddaaf8f
     repo_status: locked
     path: docs/explanation/automation/.assets/three-tests-prove-the-hook/tree.md
     source: docs/explanation/automation/.assets/three-tests-prove-the-hook/diagram.drawio.png
@@ -16,19 +16,19 @@ catzc:
 
 ```text
 Which files cite ADR-AUTO-DEFAULT and ADR-AUTO-FAILFAST: every file of the world map is a tile, grouped by top-level folder.
-135 files lit in 17 groups.
+134 files lit in 17 groups.
 ```
 
 ![The tree minimap of One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only](tree.png)
 
 This is the tree minimap in the sidebar of the governance diagram of [One rule bounds every call, three tests prove the hook, and the
-exemption route is ADR-only][136], which explains [ADR-AUTO-DEFAULT][1] and [ADR-AUTO-FAILFAST][2]. It lights every file that cites those
+exemption route is ADR-only][135], which explains [ADR-AUTO-DEFAULT][1] and [ADR-AUTO-FAILFAST][2]. It lights every file that cites those
 codes, grouped by folder, so it shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 135 files in 17 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 134 files in 17 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 77 lit files
@@ -36,9 +36,9 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - Reports (pwsh/Catzc.Base.Reports): 7 lit files
 - Contracts (pwsh/Catzc.Base.Contracts): 5 lit files
 - Docs (pwsh/Catzc.Base.Docs): 5 lit files
-- .claude: 4 lit files
 - Languages (pwsh/Catzc.Base.Languages): 4 lit files
 - Slides (pwsh/Catzc.Base.Slides): 4 lit files
+- .claude: 3 lit files
 - adr/auto (docs/adr/automation): 3 lit files
 - Config (pwsh/Catzc.Base.Config): 3 lit files
 - Folders (pwsh/Catzc.Base.Folders): 3 lit files
@@ -288,50 +288,48 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 - [pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1][108], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 2 (text).
 
-### .claude (4 lit files)
-
-The group holds the files of .claude; each sits in its world-map cell and is lit by:
-
-- [.claude/CLAUDE.md][109], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 51 (text); selected
-  by [ADR-AUTO-FAILFAST][2]: the file cites it at line 121 (text).
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][110], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the
-  file cites it at line 82 (text) and line 84 (text).
-- [.claude/plans/plan-test-run-budget.md][111], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
-  line 84 (text).
-- [.claude/skills/catzc-module/SKILL.md][112], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  26 (text) and line 41 (text).
-
 ### Languages (pwsh/Catzc.Base.Languages, 4 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Languages; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1][113], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]:
+- [pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1][109], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]:
   the file cites it at line 30 (text).
-- [pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1][114], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1][110], in the cell pwsh × powershell: selected by
   [ADR-AUTO-DEFAULT][1]: the file cites it at line 31 (text).
-- [pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1][115], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
+- [pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1][111], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
   the file cites it at line 169 (text).
-- [pwsh/Catzc.Base.Languages/types/LayoutRow.cs][116], in the cell pwsh × csharp: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
+- [pwsh/Catzc.Base.Languages/types/LayoutRow.cs][112], in the cell pwsh × csharp: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
   line 6 (body comment) (a passing mention only).
 
 ### Slides (pwsh/Catzc.Base.Slides, 4 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Slides; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][117], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]: the file
+- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][113], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]: the file
   cites it at line 152 (text) and line 160 (text).
-- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][118], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]: the file
+- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][114], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]: the file
   cites it at line 46 (text).
-- [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][119], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the
+- [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][115], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the
   file cites it at line 2 (text), line 7 (text) and line 46 (text).
-- [pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1][120], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1][116], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 19 (text).
+
+### .claude (3 lit files)
+
+The group holds the files of .claude; each sits in its world-map cell and is lit by:
+
+- [.claude/CLAUDE.md][117], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 51 (text); selected
+  by [ADR-AUTO-FAILFAST][2]: the file cites it at line 121 (text).
+- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][118], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the
+  file cites it at line 82 (text) and line 84 (text).
+- [.claude/skills/catzc-module/SKILL.md][119], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+  26 (text) and line 41 (text).
 
 ### adr/auto (docs/adr/automation, 3 lit files)
 
 The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
 
-- [docs/adr/automation/dora-explains.md][121], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 243
+- [docs/adr/automation/dora-explains.md][120], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 243
   (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 260 (text).
 - [docs/adr/automation/fail-fast-with-asserts.md][2], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][2]: the ADR's own file.
 - [docs/adr/automation/sensible-defaults.md][1], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the ADR's own file.
@@ -340,46 +338,46 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 The group holds the files of pwsh/Catzc.Base.Config; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Config/configs/glossary.yml][122], in the cell pwsh × yaml: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
+- [pwsh/Catzc.Base.Config/configs/glossary.yml][121], in the cell pwsh × yaml: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
   5 (text).
-- [pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1][123], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file cites
+- [pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1][122], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file cites
   it at line 174 (text), line 248 (text) and line 262 (text).
-- [pwsh/Catzc.Base.Config/types/ConfigDefaultDifference.cs][124], in the cell pwsh × csharp: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [pwsh/Catzc.Base.Config/types/ConfigDefaultDifference.cs][123], in the cell pwsh × csharp: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 10 (body comment) (a passing mention only).
 
 ### Folders (pwsh/Catzc.Base.Folders, 3 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][125], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][124], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 63 (text) and line 69 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 47 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][126], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1][125], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
   the file cites it at line 2 (text), line 9 (text) and line 50 (text).
-- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][127], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][126], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the
   file cites it at line 23 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 64 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][128], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 783 (text).
-- [docs/adr/index.md][129], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 162 (text); selected
+- [docs/adr/glossary.md][127], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 783 (text).
+- [docs/adr/index.md][128], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 162 (text); selected
   by [ADR-AUTO-FAILFAST][2]: the file cites it at line 163 (text).
 
 ### Variants (pwsh/Catzc.Base.Variants, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Variants; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1][130], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1][129], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 65 (text).
-- [pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1][131], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
+- [pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1][130], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
   the file cites it at line 31 (text), line 41 (text) and line 50 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][132], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-DEFAULT][1]: a pipeline that cites
+- [pipelines/ci-automation.yaml][131], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-DEFAULT][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/.scriptanalyzer/tests/NoLiteralDefault.Tests.ps1` line 1 (text),
   `pwsh/Catzc.Base.Config/configs/glossary.yml` line 5 (text), `pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1` line 174 (text),
   `pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1` line 248 (text), `pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1` line 262 (text),
@@ -442,39 +440,39 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 The group holds the files of pwsh/.scriptanalyzer; each sits in its world-map cell and is lit by:
 
-- [pwsh/.scriptanalyzer/tests/NoLiteralDefault.Tests.ps1][133], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
+- [pwsh/.scriptanalyzer/tests/NoLiteralDefault.Tests.ps1][132], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 1 (text).
 
 ### Timeouts (pwsh/Catzc.Base.Timeouts, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Timeouts; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1][134], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
+- [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1][133], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
   the file cites it at line 163 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 133 (text).
 
 ### VSCode (pwsh/Catzc.Base.VSCode, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs][135], in the cell pwsh × csharp: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
+- [pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs][134], in the cell pwsh × csharp: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
   at line 9 (body comment) (a passing mention only).
 
 ## Keywords
 
-- [world map][137]
-- [track][138]
-- [file language][139]
-- [cell][140]
-- [lit cell][141]
-- [.claude][142]: a track
-- [docs][142]: a track
-- [pipelines][142]: a track
-- [pwsh][142]: a track
-- [csharp][143]: a file language
-- [markdown][143]: a file language
-- [pipeline-yaml][143]: a file language
-- [powershell][143]: a file language
-- [yaml][143]: a file language
+- [world map][136]
+- [track][137]
+- [file language][138]
+- [cell][139]
+- [lit cell][140]
+- [.claude][141]: a track
+- [docs][141]: a track
+- [pipelines][141]: a track
+- [pwsh][141]: a track
+- [csharp][142]: a file language
+- [markdown][142]: a file language
+- [pipeline-yaml][142]: a file language
+- [powershell][142]: a file language
+- [yaml][142]: a file language
 
 [1]: ../../../../adr/automation/sensible-defaults.md
 [2]: ../../../../adr/automation/fail-fast-with-asserts.md
@@ -584,38 +582,37 @@ The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map 
 [106]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
 [107]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
 [108]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
-[109]: ../../../../../.claude/CLAUDE.md
-[110]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[111]: ../../../../../.claude/plans/plan-test-run-budget.md
-[112]: ../../../../../.claude/skills/catzc-module/SKILL.md
-[113]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-[114]: ../../../../../pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
-[115]: ../../../../../pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
-[116]: ../../../../../pwsh/Catzc.Base.Languages/types/LayoutRow.cs
-[117]: ../../../../../pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
-[118]: ../../../../../pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
-[119]: ../../../../../pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
-[120]: ../../../../../pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1
-[121]: ../../../../adr/automation/dora-explains.md
-[122]: ../../../../../pwsh/Catzc.Base.Config/configs/glossary.yml
-[123]: ../../../../../pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
-[124]: ../../../../../pwsh/Catzc.Base.Config/types/ConfigDefaultDifference.cs
-[125]: ../../../../../pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
-[126]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-[127]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
-[128]: ../../../../adr/glossary.md
-[129]: ../../../../adr/index.md
-[130]: ../../../../../pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-[131]: ../../../../../pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
-[132]: ../../../../../pipelines/ci-automation.yaml
-[133]: ../../../../../pwsh/.scriptanalyzer/tests/NoLiteralDefault.Tests.ps1
-[134]: ../../../../../pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
-[135]: ../../../../../pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs
-[136]: ../../three-tests-prove-the-hook.md
-[137]: ../../../../adr/glossary.md#world-map
-[138]: ../../../../adr/glossary.md#track
-[139]: ../../../../adr/glossary.md#file-language
-[140]: ../../../../adr/glossary.md#cell
-[141]: ../../../../adr/glossary.md#lit-cell
-[142]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[143]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[109]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+[110]: ../../../../../pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
+[111]: ../../../../../pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
+[112]: ../../../../../pwsh/Catzc.Base.Languages/types/LayoutRow.cs
+[113]: ../../../../../pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
+[114]: ../../../../../pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
+[115]: ../../../../../pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
+[116]: ../../../../../pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1
+[117]: ../../../../../.claude/CLAUDE.md
+[118]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[119]: ../../../../../.claude/skills/catzc-module/SKILL.md
+[120]: ../../../../adr/automation/dora-explains.md
+[121]: ../../../../../pwsh/Catzc.Base.Config/configs/glossary.yml
+[122]: ../../../../../pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
+[123]: ../../../../../pwsh/Catzc.Base.Config/types/ConfigDefaultDifference.cs
+[124]: ../../../../../pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
+[125]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+[126]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
+[127]: ../../../../adr/glossary.md
+[128]: ../../../../adr/index.md
+[129]: ../../../../../pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+[130]: ../../../../../pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
+[131]: ../../../../../pipelines/ci-automation.yaml
+[132]: ../../../../../pwsh/.scriptanalyzer/tests/NoLiteralDefault.Tests.ps1
+[133]: ../../../../../pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+[134]: ../../../../../pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs
+[135]: ../../three-tests-prove-the-hook.md
+[136]: ../../../../adr/glossary.md#world-map
+[137]: ../../../../adr/glossary.md#track
+[138]: ../../../../adr/glossary.md#file-language
+[139]: ../../../../adr/glossary.md#cell
+[140]: ../../../../adr/glossary.md#lit-cell
+[141]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[142]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
