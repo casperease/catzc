@@ -45,7 +45,7 @@ Every fact about a file (place facts, edges, comments) is verifiable from the re
 reads an imprinted fact back and every command works whether a file has a head or not. Whether a file carries a head is a configured policy
 with sensible defaults. One command, `Sync-FileMeta`, brings one file up to the head its policy says it has.
 
-Context: the explanation article `docs/explanation/file-meta.md` describes the state and this direction; it is not yet tracked.
+Context: the explanation article [file-meta](../../docs/explanation/file-meta.md) describes the state and this direction.
 
 ## Why its value is high
 
@@ -146,9 +146,15 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 ### Phase 4: the single-file command
 
-- [ ] `automation/Catzc.Base.QualityGates/Sync-FileMeta.ps1` with its Pester file `tests/Sync-FileMeta.Tests.ps1`: one mandatory path,
+- [x] `automation/Catzc.Base.QualityGates/Sync-FileMeta.ps1` with its Pester file `tests/Sync-FileMeta.Tests.ps1`: one mandatory path,
       `-DryRun`, `-PassThru`; required, optional and forbidden cases on a temp repo, an untracked path, a kept foreign key, and a second run
-      that changes nothing. (check: `tests/Sync-FileMeta.Tests.ps1`)
+      that changes nothing. (check: `tests/Sync-FileMeta.Tests.ps1`) — 2026-10-18: `Sync-FileMeta` runs `Format-Code -NoCache` and
+      `Format-FileMeta` on the one file, so it reuses the one engine; the policy cases live in `tests/Invoke-FileMetaEngine.Tests.ps1`.
+      `Get-FileMetaScope` takes a file named in `-Path` as given, new or tracked, unless git ignores it (tests in
+      `tests/Get-FileMetaScope.Tests.ps1`), so `Format-Code -Path` and `Format-FileMeta -Path` give a new file its head too. 44 tests over
+      Sync-FileMeta, Get-FileMetaScope, Format-FileMeta, Invoke-ImprintStep and Get-ImprintStepFile pass; run on its own five files a second
+      run changes nothing; Test-FileMeta, Test-Comments, Test-Spelling, Test-Links, Test-ScriptAnalyzer and Test-Markdownlint pass; the
+      module reference lists it.
 
 ### Phase 5: help on the comment page
 
