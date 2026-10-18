@@ -37,7 +37,7 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
         $record | Should -HaveCount 1
         $record[0].Module | Should -Be 'Catzc.Base.Widget'
         $record[0].Function | Should -Be 'Get-Gadget'
-        $record[0].File | Should -Be 'automation/Catzc.Base.Widget/Get-Gadget.ps1'
+        $record[0].File | Should -Be "$(Get-CatzcModulesFolder)/Catzc.Base.Widget/Get-Gadget.ps1"
         $record[0].Line | Should -Be 2
     }
 
@@ -62,7 +62,7 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
     }
 
     It 'scans private/ and module-qualified calls, but not tests/ or assets/' {
-        (& $script:find 'assets/core.txt')[0].File | Should -Be 'automation/Catzc.Base.Widget/private/Get-GadgetCore.ps1'
+        (& $script:find 'assets/core.txt')[0].File | Should -Be "$(Get-CatzcModulesFolder)/Catzc.Base.Widget/private/Get-GadgetCore.ps1"
         & $script:find 'assets/from-test.txt' | Should -HaveCount 0
         & $script:find 'assets/from-asset.txt' | Should -HaveCount 0
     }

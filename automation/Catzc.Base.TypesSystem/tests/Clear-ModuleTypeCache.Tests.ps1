@@ -129,7 +129,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     }
 
     It 'never plans the live combined build for deletion (real repo, DryRun)' -Tag 'L1', 'integrity', 'source-only' {
-        $h = (Get-CombinedTypeHash (Join-Path $env:RepositoryRoot 'automation')).CombinedHash
+        $h = (Get-CombinedTypeHash (Get-CatzcModulesRoot)).CombinedHash
         $planned = Clear-ModuleTypeCache -DryRun
         @($planned) | Where-Object { $_ -match "Catzc\.Types\.$h\.dll$" } | Should -BeNullOrEmpty
     }

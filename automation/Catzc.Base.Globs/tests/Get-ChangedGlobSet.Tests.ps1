@@ -37,8 +37,8 @@ Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
 
     It 'also matches derived module sets under -IncludeModules' {
         Mock Get-ModuleGlobSet {
-            [Catzc.Base.Globs.GlobSet]::new('catzc-widget', 'd', 'module', @('automation/Widget/**'), @(), @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new('catzc-widget', 'd', 'module', @('widgets/Widget/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.Globs
-        (Get-ChangedGlobSet -ChangedFile @('automation/Widget/Get-Foo.ps1') -IncludeModules).Name | Should -Be 'catzc-widget'
+        (Get-ChangedGlobSet -ChangedFile @('widgets/Widget/Get-Foo.ps1') -IncludeModules).Name | Should -Be 'catzc-widget'
     }
 }

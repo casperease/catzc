@@ -60,7 +60,7 @@ Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
 Describe 'New-GitIgnore — real gitignore.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry with the root-config provider (every section resolves)' {
         $text = New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @('/PSScriptAnalyzerSettings.psd1') }
-        $text | Should -Match ([regex]::Escape('automation/**/*.psd1'))
+        $text | Should -Match ([regex]::Escape("$(Get-CatzcModulesFolder)/**/*.psd1"))
         $text | Should -Match ([regex]::Escape('**/README.md'))
         $text | Should -Match ([regex]::Escape('/PSScriptAnalyzerSettings.psd1'))
     }

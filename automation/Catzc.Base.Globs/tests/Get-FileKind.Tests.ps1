@@ -1,18 +1,18 @@
 Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     It 'names the role of a file in the shipped registry' -ForEach @(
-        @{ Path = 'automation/Catzc.Base.Variants/Get-Track.ps1'; Class = 'function' }
-        @{ Path = 'automation/Catzc.Base.Variants/Test-GitWorkspace.ps1'; Class = 'function/gate' }
-        @{ Path = 'automation/Catzc.Base.Docs/Build-Glossary.ps1'; Class = 'function/writer' }
-        @{ Path = 'automation/Catzc.Base.Asserts/Assert-NotNull.ps1'; Class = 'function/assert' }
-        @{ Path = 'automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1'; Class = 'function/formatter' }
-        @{ Path = 'automation/Catzc.Base.QualityGates/private/Get-TrackFileMetaFact.ps1'; Class = 'function/fact' }
-        @{ Path = 'automation/Catzc.Base.QualityGates/private/Get-FileMetaScope.ps1'; Class = 'function' }
-        @{ Path = 'automation/.internal/Catzc.Internal.Types.psm1'; Class = 'module/internal' }
-        @{ Path = 'automation/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Class = 'test' }
-        @{ Path = 'automation/Catzc.Base.Globs/types/FileKindsConfig.cs'; Class = 'type' }
-        @{ Path = 'automation/Catzc.Azure.Cli/tests/assets/config/azure.yml'; Class = 'fixture/input' }
-        @{ Path = 'automation/Catzc.Azure.Cli/tests/data/sample.yml'; Class = 'fixture' }
-        @{ Path = 'automation/Catzc.Base.Globs/configs/file-kinds.yml'; Class = 'config' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Get-Track.ps1'; Class = 'function' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Test-GitWorkspace.ps1'; Class = 'function/gate' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Docs/Build-Glossary.ps1'; Class = 'function/writer' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Asserts/Assert-NotNull.ps1'; Class = 'function/assert' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Languages/Format-GeneratedFileHead.ps1'; Class = 'function/formatter' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.QualityGates/private/Get-TrackFileMetaFact.ps1'; Class = 'function/fact' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.QualityGates/private/Get-FileMetaScope.ps1'; Class = 'function' }
+        @{ Path = (Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Types.psm1'; Class = 'module/internal' }
+        @{ Path = (Get-CatzcModulesFolder) + '/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Class = 'test' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs/types/FileKindsConfig.cs'; Class = 'type' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/assets/config/azure.yml'; Class = 'fixture/input' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/data/sample.yml'; Class = 'fixture' }
+        @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs/configs/file-kinds.yml'; Class = 'config' }
         @{ Path = '.claude/drawio/contact_sheet.py'; Class = 'drawio-kit' }
         @{ Path = '.claude/drawio/STYLE.md'; Class = 'drawio-kit' }
         @{ Path = '.claude/slides/patterns/rule.html'; Class = 'slides-kit' }
@@ -49,7 +49,7 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     }
 
     It 'reads a backslash path' {
-        (Get-FileKind 'automation\Catzc.Base.Variants\Test-GitWorkspace.ps1').Class | Should -BeExactly 'function/gate'
+        (Get-FileKind ((Get-CatzcModulesFolder) + '\Catzc.Base.Variants\Test-GitWorkspace.ps1')).Class | Should -BeExactly 'function/gate'
     }
 
     It 'gives every shipped kind and subkind a definition' {

@@ -1,6 +1,6 @@
 Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     BeforeAll {
-        $root = Join-Path $TestDrive 'automation'
+        $root = Join-Path $TestDrive 'widget-modules'
         foreach ($path in 'TstWidget/configs/widget-parts.yml', 'TstGadget/configs/gadget.yml', '.internal/x.txt') {
             $full = Join-Path $root $path
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
@@ -26,7 +26,7 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.ConfigExtensions { Join-Path $TestDrive 'automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.ConfigExtensions { Join-Path $TestDrive 'widget-modules' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -44,12 +44,12 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     }
 
     It 'passes when every validator maps to a kebab-case config of its module' {
-        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'automation/TstGadget/configs/sprocket.yml'), '')
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'widget-modules/TstGadget/configs/sprocket.yml'), '')
         try {
             { Test-ConfigValidators -OutputFolder $out } | Should -Not -Throw
         }
         finally {
-            Remove-Item (Join-Path $TestDrive 'automation/TstGadget/configs/sprocket.yml')
+            Remove-Item (Join-Path $TestDrive 'widget-modules/TstGadget/configs/sprocket.yml')
         }
     }
 }

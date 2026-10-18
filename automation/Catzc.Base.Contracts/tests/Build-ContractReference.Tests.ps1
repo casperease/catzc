@@ -14,7 +14,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.Contracts { }
         Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
-            [pscustomobject]@{ name = 'Catzc.Widget'; root = 'automation/Catzc.Widget'; languages = @('powershell') }
+            [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('powershell') }
         }
     }
 
@@ -58,7 +58,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `Catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
-        $rows[3] | Should -Be @('`Catzc.Widget`', '`Get-Widget.command.yml`', '`automation/Catzc.Widget/Get-Widget.ps1`', 'provided', 'command contract', '`Path: string!, Strict: switch -> string`')
+        $rows[3] | Should -Be @('`Catzc.Widget`', '`Get-Widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`', 'provided', 'command contract', '`Path: string!, Strict: switch -> string`')
     }
 
     It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT#5' {

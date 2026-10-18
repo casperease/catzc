@@ -1,6 +1,6 @@
 Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {
     BeforeAll {
-        $root = Join-Path $TestDrive 'automation'
+        $root = Join-Path $TestDrive 'widget-modules'
         foreach ($path in 'System/types/String.cs', 'TstWidget/types/Gadget.cs', 'TstWidget/README.md', '.internal/types/Hidden.cs') {
             $full = Join-Path $root $path
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
@@ -10,7 +10,7 @@ Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.TypesSystem { Join-Path $TestDrive 'automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.TypesSystem { Join-Path $TestDrive 'widget-modules' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 

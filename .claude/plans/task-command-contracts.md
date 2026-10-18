@@ -84,7 +84,17 @@ contracts plan).
        under bash only; the check code avoids arrays and bash-only syntax for zsh.
 7. C6 widen: the 15 near-identical tool wrappers as the second batch (one family, one grammar); then the F6 decision applied: every public
    function without a contract becomes internal, one module per step, its `.psd1` export list regenerated. Check: Test-Contracts on the
-   frozen set; the module's tests pass.
+   frozen set; the module's tests pass. The widening done 2026-10-18. The list in `out/plan-help-registry-options.md` is gone (never
+   tracked), so the family was read from the tree: the fifteen installers with the one signature `[string] $Version [switch] $Force` and no
+   output (Install-AzCli, -Bicep, -Dotnet, -Go, -Java, -Shellcheck, -Terraform and -Uv in Toolchain; -Cspell, -Markdownlint, -NodeJs and
+   -Prettier in Node; -Poetry, -PySpark and -Python in Python), each `Version` defaulting to its tools.yml lock, a computed default the
+   contract leaves out. Verdicts: `CONTRACTS issues=0`, 27 contracted commands, the lookup regenerated to 64 rows,
+   `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests (`out/test-file/20261018-125926-c4bfcd`) and
+   New-CatsCommandLookup.Tests, `GENERATED issues=0`. Open, a question for the user: what "becomes internal" does in code.
+   ADR-REPO-CMDCONTRACT#1 makes an uncontracted function internal "exported or not", and the module system's cross-module calls need the
+   export, so dropping a function from the `.psd1` export list breaks every caller in another module; the step names that list, so the
+   reading the user meant decides it (no code change, the contract alone deciding public; or a narrowed export list per module with each
+   caller moved first).
 8. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
    in task-closing-sweep. Check: grep `- [ ]` counts zero.
 

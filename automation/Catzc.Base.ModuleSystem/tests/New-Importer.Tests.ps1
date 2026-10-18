@@ -1,13 +1,13 @@
 Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
     BeforeAll {
-        $script:realOverlay = Join-Path (Get-RepositoryRoot) 'automation/.internal/Catzc.Internal.Importer.psm1'
+        $script:realOverlay = Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Importer.psm1'
         Mock Write-Message -ModuleName Catzc.Base.ModuleSystem { }
     }
 
     BeforeEach {
         # A sandbox repo root carrying only the real overlay at its conventional path.
         $script:sandbox = Join-Path $TestDrive ([System.IO.Path]::GetRandomFileName())
-        $overlayDir = Join-Path $script:sandbox 'automation/.internal'
+        $overlayDir = Join-Path $script:sandbox "$(Get-CatzcModulesFolder)/.internal"
         New-Item -ItemType Directory -Path $overlayDir -Force | Out-Null
         Copy-Item $script:realOverlay (Join-Path $overlayDir 'Catzc.Internal.Importer.psm1')
     }
@@ -60,7 +60,7 @@ Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity', 'so
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:importer = Join-Path $script:repoRoot 'importer.ps1'
-        $script:overlay = Join-Path $script:repoRoot 'automation/.internal/Catzc.Internal.Importer.psm1'
+        $script:overlay = Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Importer.psm1'
 
         function script:Get-ParamSignature {
             param([string] $Path, [string] $FunctionName)

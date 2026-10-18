@@ -1,7 +1,7 @@
 # cspell:ignore etwork
 Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
     BeforeAll {
-        $script:assets = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Firewall/tests/assets'
+        $script:assets = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Firewall/tests/assets'
         $script:subscriptionId = '50a0ed00-de00-50b0-0000-000000000000'
 
         $script:blobJson = @'

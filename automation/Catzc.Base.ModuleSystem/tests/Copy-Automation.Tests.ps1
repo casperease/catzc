@@ -17,15 +17,16 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
             '.gitignore'    = 'out/'
         }
 
+        $script:modules = Get-CatzcModulesFolder
         Mock Write-Message -ModuleName Catzc.Base.ModuleSystem { }
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
         Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
             'Catzc.Base.Alpha', 'Catzc.Base.Repository' | ForEach-Object {
-                [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', 'automation', "automation/$_", 'folder', $null, $null, $null, $null)
+                [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', $script:modules, "$($script:modules)/$_", 'folder', $null, $null, $null, $null)
             }
         }
-        Mock Get-Track -ModuleName Catzc.Base.ModuleSystem { [Catzc.Base.Variants.VariantTrack]::new('widgets', @('automation'), 'modules', $null, @()) }
+        Mock Get-Track -ModuleName Catzc.Base.ModuleSystem { [Catzc.Base.Variants.VariantTrack]::new('widgets', @($script:modules), 'modules', $null, @()) }
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'files' } {
             [Catzc.Base.ModuleSystem.FilesConfig]::new([ordered]@{ modules = [ordered]@{
                         '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
@@ -51,10 +52,10 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
     It 'copies every module folder and package by default' {
         $dest = & $script:newDest
         Copy-Automation -Destination $dest -EmptyDestination | Out-Null
-        Test-Path (Join-Path $dest 'automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
-        Test-Path (Join-Path $dest 'automation/.vendor/PkgX/x.psm1') | Should -BeTrue
-        Test-Path (Join-Path $dest 'automation/.internal/Catzc.Internal.Bootstrap.psm1') | Should -BeTrue
-        Test-Path (Join-Path $dest 'automation/Catzc.Base.Repository/Get-Repo.ps1') | Should -BeTrue
+        Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Alpha/Get-Alpha.ps1") | Should -BeTrue
+        Test-Path (Join-Path $dest "$($script:modules)/.vendor/PkgX/x.psm1") | Should -BeTrue
+        Test-Path (Join-Path $dest "$($script:modules)/.internal/Catzc.Internal.Bootstrap.psm1") | Should -BeTrue
+        Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Repository/Get-Repo.ps1") | Should -BeTrue
         Test-Path (Join-Path $dest 'importer.ps1') | Should -BeTrue        # .internal/entrypoint package
         Test-Path (Join-Path $dest '.editorconfig') | Should -BeTrue       # Repository/root_configs package
         Test-Path (Join-Path $dest '.gitignore') | Should -BeTrue          # Repository/gitignore package
@@ -63,7 +64,7 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
     It 'drops a single package by name (-ExcludePackages) but keeps the module and its other packages' {
         $dest = & $script:newDest
         Copy-Automation -Destination $dest -ExcludePackages gitignore -EmptyDestination | Out-Null
-        Test-Path (Join-Path $dest 'automation/Catzc.Base.Repository/Get-Repo.ps1') | Should -BeTrue
+        Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Repository/Get-Repo.ps1") | Should -BeTrue
         Test-Path (Join-Path $dest '.editorconfig') | Should -BeTrue
         Test-Path (Join-Path $dest '.gitignore') | Should -BeFalse
     }
@@ -71,8 +72,8 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
     It 'copies only the named module (with its packages)' {
         $dest = & $script:newDest
         Copy-Automation -Destination $dest -ModuleNames Catzc.Base.Alpha -EmptyDestination | Out-Null
-        Test-Path (Join-Path $dest 'automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
-        Test-Path (Join-Path $dest 'automation/Catzc.Base.Repository') | Should -BeFalse
+        Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Alpha/Get-Alpha.ps1") | Should -BeTrue
+        Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Repository") | Should -BeFalse
         Test-Path (Join-Path $dest 'importer.ps1') | Should -BeFalse
     }
 
@@ -107,8 +108,8 @@ Describe 'Copy-Automation' -Tag 'L0', 'logic' {
     It 'accepts a -ModuleProfile and copies its resolved module set' {
         $dest = & $script:newDest
         Copy-Automation -Destination $dest -ModuleProfile demo -EmptyDestination | Out-Null
-        Test-Path (Join-Path $dest 'automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
-        Test-Path (Join-Path $dest 'automation/Catzc.Base.Repository') | Should -BeFalse
+        Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Alpha/Get-Alpha.ps1") | Should -BeTrue
+        Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Repository") | Should -BeFalse
     }
 }
 

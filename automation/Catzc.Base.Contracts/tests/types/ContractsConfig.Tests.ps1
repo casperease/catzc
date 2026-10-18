@@ -73,7 +73,7 @@ Describe 'ContractsConfig (shipped contracts.yml)' -Tag 'L1', 'integrity' {
 
     It 'names a target root only for a module folder that exists' -Tag 'ADR-REPO-CONTRACT#2' {
         foreach ($module in (Get-Config -Config contracts).target_roots.Keys) {
-            Join-Path (Get-RepositoryRoot) "automation/$module" | Should -Exist
+            Join-Path (Get-CatzcModulesRoot) $module | Should -Exist
         }
     }
 }

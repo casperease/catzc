@@ -69,7 +69,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         }
 
         It "accepts the 'module' layer — the derived layer is valid on the type, rejected only in the declared registry" {
-            ([Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'module', @('automation/M/**'), @(), @(), @(), -1, $null)).Layer |
+            ([Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'module', @('widgets/M/**'), @(), @(), @(), -1, $null)).Layer |
                 Should -Be 'module'
         }
 

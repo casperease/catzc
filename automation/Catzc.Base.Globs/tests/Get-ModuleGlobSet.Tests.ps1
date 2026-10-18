@@ -5,8 +5,8 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             'Catzc.Base.Alpha' = @{ Public = 'Get-Alpha' }
             'Catzc.Fake.Beta'  = @{ Public = 'Get-Beta' }
         } -Files @{
-            'automation/.internal/Catzc.Internal.Alpha.psm1' = 'function Test-InternalAlpha {}'
-            'automation/.internal/Catzc.Internal.Beta.psm1'  = 'function Test-InternalBeta {}'
+            ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') = 'function Test-InternalAlpha {}'
+            ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Beta.psm1')  = 'function Test-InternalBeta {}'
         }
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
@@ -36,10 +36,10 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
         $tests = $aspects | Where-Object Name -eq 'catzc-base-alpha-tests'
         # live claims the runtime surface, not the tests folder; tests is the non-live catch-all
-        $live.Matches('automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
-        $live.Matches('automation/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeFalse
-        $tests.Matches('automation/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeTrue
-        $live.Matches('automation/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
+        $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
+        $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeFalse
+        $tests.Matches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeTrue
+        $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
     }
 
     It 'puts the module''s Go, Python and Bash test folders in its tests aspect, never in live (ADR-AUTO-GO#2, ADR-AUTO-PY#2, ADR-AUTO-BASH#2)' {
@@ -64,17 +64,17 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     It 'derives one single-file set per internal .psm1 module, by module name and kebab name' {
         $set = Get-ModuleGlobSet -Name Catzc.Internal.Alpha
         $set.Name | Should -Be 'catzc-internal-alpha'
-        $set.Matches('automation/.internal/Catzc.Internal.Alpha.psm1') | Should -BeTrue
-        $set.Matches('automation/.internal/Catzc.Internal.Beta.psm1') | Should -BeFalse
-        $set.Matches('automation/.internal/tests/Test-Something.Tests.ps1') | Should -BeFalse
+        $set.Matches((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') | Should -BeTrue
+        $set.Matches((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Beta.psm1') | Should -BeFalse
+        $set.Matches((Get-CatzcModulesFolder) + '/.internal/tests/Test-Something.Tests.ps1') | Should -BeFalse
         (Get-ModuleGlobSet -Name catzc-internal-alpha).Name | Should -Be $set.Name
     }
 
     It 'derives the reserved infra scopes' -ForEach @(
-        @{ reserved = 'internal'; sample = 'automation/.internal/Catzc.Internal.Loader.psm1' }
-        @{ reserved = 'vendor'; sample = 'automation/.vendor/Pester/5.7.1/Pester.psd1' }
-        @{ reserved = 'compiled'; sample = 'automation/.compiled/Catzc.Types.abc12345.dll' }
-        @{ reserved = 'scriptanalyzer'; sample = 'automation/.scriptanalyzer/NoRawVsoCommand.psm1' }
+        @{ reserved = 'internal'; sample = (Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Loader.psm1' }
+        @{ reserved = 'vendor'; sample = (Get-CatzcModulesFolder) + '/.vendor/Pester/5.7.1/Pester.psd1' }
+        @{ reserved = 'compiled'; sample = (Get-CatzcModulesFolder) + '/.compiled/Catzc.Types.abc12345.dll' }
+        @{ reserved = 'scriptanalyzer'; sample = (Get-CatzcModulesFolder) + '/.scriptanalyzer/NoRawVsoCommand.psm1' }
     ) {
         $set = Get-ModuleGlobSet -Name $reserved
         $set.Name | Should -Be $reserved
@@ -90,12 +90,12 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $leftovers = Get-ModuleGlobSet -Name module-leftovers
         $leftovers.Layer | Should -Be 'module'
         # a file inside a real module folder is owned by that module, never the catch-all
-        $leftovers.OwnMatches('automation/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeFalse
+        $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeFalse
         # dot-folder infrastructure is the umbrellas' territory, not the catch-all's
-        $leftovers.OwnMatches('automation/.vendor/Pester/5.7.1/Pester.psd1') | Should -BeFalse
-        $leftovers.OwnMatches('automation/.internal/Catzc.Internal.Alpha.psm1') | Should -BeFalse
+        $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/.vendor/Pester/5.7.1/Pester.psd1') | Should -BeFalse
+        $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') | Should -BeFalse
         # a stray file at automation/'s root is what the catch-all is for
-        $leftovers.OwnMatches('automation/stray.ps1') | Should -BeTrue
+        $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/stray.ps1') | Should -BeTrue
     }
 
     It 'throws a named error on an unknown name' {

@@ -48,7 +48,7 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
 
         It 'names the command from its asset and renders the signature as one line' -Tag 'ADR-REPO-CMDCONTRACT#3' {
             $asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'Get-Widget.command.yml',
-                [Catzc.Base.Contracts.ContractAssetKind]::Command, 'automation/Catzc.Widget/Get-Widget.ps1',
+                [Catzc.Base.Contracts.ContractAssetKind]::Command, 'widgets/Catzc.Widget/Get-Widget.ps1',
                 [Catzc.Base.Contracts.ContractDirection]::Provided, $false)
             $command = [Catzc.Base.Contracts.ContractCommand]::new($asset, ("parameters:`n  Path: string!`n  Strict: switch`noutput: string`n" | ConvertFrom-Yaml -Ordered))
             $command.Name | Should -Be 'Get-Widget'

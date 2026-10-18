@@ -1,7 +1,7 @@
 ---
 task:
   status: open
-  plans: [plan-fast-push-followups, plan-csproj-xml-head]
+  plans: [plan-fast-push-followups]
   value: medium
   blocked_on: nothing; step 5 is the user's by hand
   targets:

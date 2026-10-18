@@ -47,7 +47,14 @@ first; C# edits need a fresh pwsh.
    Registry bypasses (worklist section 4, about 45 sites): move each onto `Get-CatzcModulesRoot` or `Get-Track`, one file per step with its
    test; C# constants such as `GlobsConfig.ConfigPath` read the track root through the config type's resolver where one exists (`AdrsConfig`
    is S3 and stays). Check: that file's Pester file; a grep of the literal in the file finds nothing.
-4. Test fixtures that bake `<root>/automation`: a root from the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.
+4. (in progress 2026-10-18, module by module, the user's choice) Done and green, guard 0 per file: Azure, Azure.Cli, Azure.Firewall,
+   CodeMeta, ConfigExtensions, Languages, RootConfig, TypesSystem, Vendor, Tooling.Github, Tooling.KeyHandler, Files, Git, ModuleSystem,
+   Objects, Contracts, Globs, and Repository's path tests (60 files). The rule per literal: a real path reads the resolver
+   (`Get-CatzcModulesRoot`, `Get-CatzcModulesFolder`); a fixture TestKit builds follows the real folder name; pure data and throwaway roots
+   take a neutral `widgets` path. Exempt with reasons: the two tests of the constant (Get-CatzcModulesRoot, Get-CatzcRunMode), the three
+   Exporter tests (Q6 out/ areas), PipelineTrigger-Integrity (the real globset key, S6). Left: QualityGates, Docs, Azure.Templates,
+   .scriptanalyzer, .internal; Variants, VSCode and Get-CatzcOverlayRoot's test wait for their holding sessions. Original step:
+   Test fixtures that bake `<root>/automation`: a root from the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.
 5. S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment page regenerated. Check: Test-Links,
    Test-Comments on the touched files.
 6. [x] Guard, built first (the user's choice 2026-10-18, so its report is step 3's exact worklist): `automation/.scriptanalyzer/NoTrackRootLiteral.psm1`

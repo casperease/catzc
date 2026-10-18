@@ -6,7 +6,7 @@ Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
         Mock Invoke-Executable {
             [pscustomobject]@{
                 ExitCode = 0
-                Output   = "Would remove out/report.csv`nWould remove automation/Catzc.Base.Git/README.md`nWould remove .vscode/`nWould remove New-Draft.ps1"
+                Output   = "Would remove out/report.csv`nWould remove widgets/Catzc.Base.Git/README.md`nWould remove .vscode/`nWould remove New-Draft.ps1"
             }
         } -ModuleName Catzc.Base.Git -ParameterFilter { $Command -eq 'git clean -xdn' }
         Mock Invoke-Executable {
@@ -17,7 +17,7 @@ Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
     It 'deletes only the auto-controlled candidates, pathspec-limited' {
         Reset-GitCleanFxd
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 1 -Exactly -ParameterFilter {
-            $Command -eq 'git clean -fxd -- "out/report.csv" "automation/Catzc.Base.Git/README.md" ".vscode"'
+            $Command -eq 'git clean -fxd -- "out/report.csv" "widgets/Catzc.Base.Git/README.md" ".vscode"'
         }
     }
 
@@ -33,7 +33,7 @@ Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
 
     It 'in dry-run, returns the Remove/Keep plan and deletes nothing' {
         $planned = Reset-GitCleanFxd -DryRun
-        @($planned.Remove) | Should -Be @('out/report.csv', 'automation/Catzc.Base.Git/README.md', '.vscode')
+        @($planned.Remove) | Should -Be @('out/report.csv', 'widgets/Catzc.Base.Git/README.md', '.vscode')
         @($planned.Keep) | Should -Be @('New-Draft.ps1')
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 0 -ParameterFilter { $Command -like 'git clean -fxd*' }
     }

@@ -1,7 +1,7 @@
 Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'repo'
-        $vendor = Join-Path $root 'automation/.vendor/Widget'
+        $vendor = Join-Path $root 'widgets/.vendor/Widget'
         [void][System.IO.Directory]::CreateDirectory($vendor)
         [System.IO.File]::WriteAllBytes((Join-Path $vendor 'widget.dll'), [byte[]](77, 90, 0, 1))
         [System.IO.File]::WriteAllBytes((Join-Path $vendor 'gadget.dll'), [byte[]](77, 90, 0, 2))
@@ -24,18 +24,18 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
             # git separates the EOL columns from the path with a tab.
             $tab = [char]9
             $lines = @(
-                "i/$($eol['widget.dll'])  w/-text attr/-text      ${tab}automation/.vendor/Widget/widget.dll"
-                "i/$($eol['gadget.dll'])  w/-text attr/-text      ${tab}automation/.vendor/Widget/gadget.dll"
-                "i/lf    w/lf    attr/                 ${tab}automation/.vendor/Widget/widget.psd1"
-                "i/-text w/      attr/                 ${tab}automation/.vendor/Widget/gone.dll"
+                "i/$($eol['widget.dll'])  w/-text attr/-text      ${tab}widgets/.vendor/Widget/widget.dll"
+                "i/$($eol['gadget.dll'])  w/-text attr/-text      ${tab}widgets/.vendor/Widget/gadget.dll"
+                "i/lf    w/lf    attr/                 ${tab}widgets/.vendor/Widget/widget.psd1"
+                "i/-text w/      attr/                 ${tab}widgets/.vendor/Widget/gone.dll"
                 "i/$($eol['widget.pdf'])  w/-text attr/$($attrColumn['widget.pdf'])      ${tab}docs/widget.pdf"
             )
             [pscustomobject]@{ Output = $lines -join "`n" }
         }
         Mock Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Command -match ' check-attr ' } {
             $lines = @(
-                "automation/.vendor/Widget/widget.dll: binary: $($attr['widget.dll'])"
-                "automation/.vendor/Widget/gadget.dll: binary: $($attr['gadget.dll'])"
+                "widgets/.vendor/Widget/widget.dll: binary: $($attr['widget.dll'])"
+                "widgets/.vendor/Widget/gadget.dll: binary: $($attr['gadget.dll'])"
                 "docs/widget.pdf: binary: $($attr['widget.pdf'])"
             )
             [pscustomobject]@{ Output = $lines -join "`n" }
@@ -47,7 +47,7 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 0
         $result.Binaries | Should -Be 3
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            $Command -match ' check-attr binary -- "automation/.vendor/Widget/widget.dll" "automation/.vendor/Widget/gadget.dll" "docs/widget.pdf"$'
+            $Command -match ' check-attr binary -- "widgets/.vendor/Widget/widget.dll" "widgets/.vendor/Widget/gadget.dll" "docs/widget.pdf"$'
         }
     }
 

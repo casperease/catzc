@@ -16,8 +16,8 @@ plan:
 
 # Unboxing: P1 to P3 shipped; P4 and P5 wait for a go
 
-P1 to P3 are finished and the shipped article carries the figures. The continuation prompt beside this file (prompt-unboxing-continue.md)
-says what a fresh session checks first and what P4 and P5 would be. The long reference is docs/explanation/automation/reference-unboxing.md.
+P1 to P3 are finished and the shipped article carries the figures; task-unboxing-closeout carries what is left. The long reference is
+docs/explanation/automation/reference-unboxing.md.
 
 ## Why its value is low-medium
 
@@ -85,5 +85,5 @@ allocation, else it is reverted.
 
 ## Refs
 
-- prompt-unboxing-continue.md (beside this file), docs/explanation/automation/reference-unboxing.md
+- docs/explanation/automation/reference-unboxing.md
 - docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md

@@ -13,7 +13,7 @@ Describe 'Test-InternalAssetDependency' -Tag 'L0', 'logic' {
 
     It 'throws once naming a non-literal call site and an uncovered function' {
         Mock Get-InternalAssetDependency -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Violation } {
-            [pscustomobject]@{ File = 'automation/Widget/Get-Widget.ps1'; Line = 7; Function = 'Get-Widget'; Reason = '-ChildPath is not a string literal' }
+            [pscustomobject]@{ File = 'widgets/Widget/Get-Widget.ps1'; Line = 7; Function = 'Get-Widget'; Reason = '-ChildPath is not a string literal' }
         }
         Mock Get-UncoveredInternalAssetDependency -ModuleName Catzc.Base.ModuleSystem {
             [pscustomobject]@{ Module = 'Gadget'; Function = 'Get-Gadget'; ChildPath = @('assets/a.txt', 'assets/b.txt'); Reason = 'no test cites ADR-WIDGET-GADGET#3' }
@@ -21,7 +21,7 @@ Describe 'Test-InternalAssetDependency' -Tag 'L0', 'logic' {
         $thrown = { Test-InternalAssetDependency -OutputFolder $out } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-InternalAssetDependency failed: 2 issue(s)*'
-        $message | Should -Match 'automation/Widget/Get-Widget.ps1:7 Get-Widget: -ChildPath is not a string literal'
+        $message | Should -Match 'widgets/Widget/Get-Widget.ps1:7 Get-Widget: -ChildPath is not a string literal'
         $message | Should -Match 'Gadget/Get-Gadget \[assets/a.txt, assets/b.txt\]: no test cites'
     }
 

@@ -53,7 +53,7 @@ Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
     It 'rejects a citing test that is source-only, listing the file it inspected' {
         $record = $script:uncovered | Where-Object Function -EQ 'Set-Gadget'
         $record.Reason | Should -BeLike "*without 'source-only'*"
-        $record.TestFile | Should -Be @('automation/Catzc.Base.Widget/tests/Set-Gadget.Tests.ps1')
+        $record.TestFile | Should -Be @("$(Get-CatzcModulesFolder)/Catzc.Base.Widget/tests/Set-Gadget.Tests.ps1")
     }
 
     It 'reports a function with no test file of its own, with its unique child paths sorted' {

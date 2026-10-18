@@ -3,20 +3,20 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
     BeforeAll {
         $script:block = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')
         $script:hash = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#')
-        $script:facts = [ordered]@{ path = 'automation/Widget/Get-Gadget.ps1'; kind = 'function'; module = 'Widget' }
+        $script:facts = [ordered]@{ path = 'widgets/Widget/Get-Gadget.ps1'; kind = 'function'; module = 'Widget' }
         $script:lf = { param([string[]] $Lines) ($Lines -join "`n") }
         $script:head = {
             param([string] $Text, $Form = $script:block, $Fact = $script:facts)
             [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($Fact, [ordered]@{})
         }
-        $script:written = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/'
+        $script:written = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: widgets/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/'
     }
 
     Context 'rendering' {
         It 'wraps the front matter of a Markdown meta block in the delimiters of a block comment' {
             $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($script:facts, [ordered]@{}, [string[]] @())
             [Catzc.Base.CodeMeta.CodeMetaHead]::Wrap($block, $script:block) | Should -Be @(
-                '/*', '---', 'catzc:', '  immutable:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/')
+                '/*', '---', 'catzc:', '  immutable:', '    path: widgets/Widget/Get-Gadget.ps1', '    kind: function', '    module: Widget', '---', '*/')
         }
 
         It 'wraps it in a line prefix, one space in, for a language without block comments' {

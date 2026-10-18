@@ -267,22 +267,22 @@ widget: cog
     Context 'a command contract' -Tag 'ADR-REPO-CMDCONTRACT#4' {
         BeforeEach {
             Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
-                [pscustomobject]@{ name = 'Catzc.Widget'; root = 'automation/Catzc.Widget'; languages = @('powershell') }
+                [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('powershell') }
             }
             Add-Asset 'Get-Widget.command.yml' "parameters:`n  Path: string!`n  Strict: switch`noutput: string`n"
         }
 
         It 'passes when the command declares the signature the contract states' {
-            Add-File 'automation/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param(`n        [Parameter(Mandatory)]`n        [string] `$Path,`n`n        [switch] `$Strict`n    )`n}`n"
+            Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param(`n        [Parameter(Mandatory)]`n        [string] `$Path,`n`n        [switch] `$Strict`n    )`n}`n"
             $result = Get-CheckResult 'Get-Widget.command.yml'
             $result.Asset.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind]::Command)
             $result.Asset.Direction | Should -Be ([Catzc.Base.Contracts.ContractDirection]::Provided)
-            $result.Asset.Target | Should -Be 'automation/Catzc.Widget/Get-Widget.ps1'
+            $result.Asset.Target | Should -Be 'widgets/Catzc.Widget/Get-Widget.ps1'
             $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")
         }
 
         It 'fails on each disagreement, one finding each' {
-            Add-File 'automation/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([int])]`n    param(`n        [string] `$Path,`n`n        [switch] `$Strict,`n`n        [int] `$Depth`n    )`n}`n"
+            Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([int])]`n    param(`n        [string] `$Path,`n`n        [switch] `$Strict,`n`n        [int] `$Depth`n    )`n}`n"
             $result = Get-CheckResult 'Get-Widget.command.yml'
             $result.Passed | Should -BeFalse
             $result.Findings | Should -Be @(
@@ -293,15 +293,15 @@ widget: cog
         }
 
         It 'fails when the command file is missing, and says so when the name is a private function' {
-            Add-File 'automation/Catzc.Widget/private/Get-Widget.ps1' "function Get-Widget {`n}`n"
+            Add-File 'widgets/Catzc.Widget/private/Get-Widget.ps1' "function Get-Widget {`n}`n"
             $result = Get-CheckResult 'Get-Widget.command.yml'
             $result.Passed | Should -BeFalse
             $result.Findings.Count | Should -Be 1
-            $result.Findings[0] | Should -BeLike "the target 'automation/Catzc.Widget/Get-Widget.ps1' does not exist*'automation/Catzc.Widget/private/Get-Widget.ps1' exists, so 'Get-Widget' is a private function, not a command*"
+            $result.Findings[0] | Should -BeLike "the target 'widgets/Catzc.Widget/Get-Widget.ps1' does not exist*'widgets/Catzc.Widget/private/Get-Widget.ps1' exists, so 'Get-Widget' is a private function, not a command*"
         }
 
         It 'fails when the contract is not written in the contract language' {
-            Add-File 'automation/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
+            Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
             Add-Asset 'Get-Widget.command.yml' "parameters:`n  Path: text`n"
             $result = Get-CheckResult 'Get-Widget.command.yml'
             $result.Findings.Count | Should -Be 1

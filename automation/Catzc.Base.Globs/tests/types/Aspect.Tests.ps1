@@ -18,29 +18,29 @@ Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
 
     Context 'Compile (ordered first-match onto a unit root)' {
         It 'prefixes own patterns as include and every earlier aspect as exclude' {
-            $compiled = [Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'automation/M')
+            $compiled = [Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'widgets/M')
             $compiled[0].Name | Should -Be 'live'
-            $compiled[0].Include | Should -Be @('automation/M/*.ps1', 'automation/M/private/**', 'automation/M/types/**', 'automation/M/configs/**')
+            $compiled[0].Include | Should -Be @('widgets/M/*.ps1', 'widgets/M/private/**', 'widgets/M/types/**', 'widgets/M/configs/**')
             $compiled[0].Exclude | Should -Be @()
             $compiled[1].Name | Should -Be 'tests'
-            $compiled[1].Include | Should -Be @('automation/M/**')
-            $compiled[1].Exclude | Should -Be @('automation/M/*.ps1', 'automation/M/private/**', 'automation/M/types/**', 'automation/M/configs/**')
+            $compiled[1].Include | Should -Be @('widgets/M/**')
+            $compiled[1].Exclude | Should -Be @('widgets/M/*.ps1', 'widgets/M/private/**', 'widgets/M/types/**', 'widgets/M/configs/**')
         }
     }
 
     Context 'the partition (disjoint + exhaustive, fail-safe)' {
         It 'routes live files to live, tests and unclassified strays to the non-live catch-all' {
-            $sets = & $script:sets ([Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'automation/M'))
-            ($sets | Where-Object { $_.Matches('automation/M/Get-Foo.ps1') }).Name | Should -Be 'm-live'
-            ($sets | Where-Object { $_.Matches('automation/M/types/T.cs') }).Name | Should -Be 'm-live'
-            ($sets | Where-Object { $_.Matches('automation/M/tests/Get-Foo.Tests.ps1') }).Name | Should -Be 'm-tests'
+            $sets = & $script:sets ([Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'widgets/M'))
+            ($sets | Where-Object { $_.Matches('widgets/M/Get-Foo.ps1') }).Name | Should -Be 'm-live'
+            ($sets | Where-Object { $_.Matches('widgets/M/types/T.cs') }).Name | Should -Be 'm-live'
+            ($sets | Where-Object { $_.Matches('widgets/M/tests/Get-Foo.Tests.ps1') }).Name | Should -Be 'm-tests'
             # a stray root file 'live' does not claim falls to the non-live side — never ships
-            ($sets | Where-Object { $_.Matches('automation/M/notes.txt') }).Name | Should -Be 'm-tests'
+            ($sets | Where-Object { $_.Matches('widgets/M/notes.txt') }).Name | Should -Be 'm-tests'
         }
 
         It 'validates clean (no file in two aspects, none in zero)' {
-            $sets = & $script:sets ([Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'automation/M'))
-            $universe = [string[]]@('automation/M/Get-Foo.ps1', 'automation/M/private/H.ps1', 'automation/M/tests/A.Tests.ps1', 'automation/M/x.txt')
+            $sets = & $script:sets ([Catzc.Base.Globs.AspectPartition]::Compile((& $script:convention), 'widgets/M'))
+            $universe = [string[]]@('widgets/M/Get-Foo.ps1', 'widgets/M/private/H.ps1', 'widgets/M/tests/A.Tests.ps1', 'widgets/M/x.txt')
             [Catzc.Base.Globs.AspectPartition]::Validate($sets, $universe).Count | Should -Be 0
         }
     }

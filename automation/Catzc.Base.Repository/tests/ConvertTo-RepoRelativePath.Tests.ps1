@@ -16,12 +16,12 @@ Describe 'ConvertTo-RepoRelativePath' -Tag 'L0', 'logic' {
         }
 
         It 'uses a plain repo-relative form for a source path' {
-            $p = Join-Path $script:root 'automation/mod/file.ps1'
-            ConvertTo-RepoRelativePath $p | Should -Be 'automation/mod/file.ps1'
+            $p = Join-Path $script:root 'widgets/mod/file.ps1'
+            ConvertTo-RepoRelativePath $p | Should -Be 'widgets/mod/file.ps1'
         }
 
         It 'has no rooted prefix on a relative result' {
-            $p = Join-Path $script:root 'automation/mod/file.ps1'
+            $p = Join-Path $script:root 'widgets/mod/file.ps1'
             [IO.Path]::IsPathRooted((ConvertTo-RepoRelativePath $p)) | Should -BeFalse
         }
 

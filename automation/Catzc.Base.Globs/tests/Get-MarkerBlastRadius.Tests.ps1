@@ -11,7 +11,7 @@ Describe 'Get-MarkerBlastRadius' -Tag 'L0', 'logic' {
             })
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
         Mock Get-ModuleGlobSet {
-            [Catzc.Base.Globs.GlobSet]::new('catzc-fake', 'd', 'module', @('automation/Catzc.Fake/**'), @(), @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new('catzc-fake', 'd', 'module', @('widgets/Catzc.Fake/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.Globs
     }
 
@@ -24,7 +24,7 @@ Describe 'Get-MarkerBlastRadius' -Tag 'L0', 'logic' {
     }
 
     It 'includes the derived module sets in the answer' {
-        $rows = @(Get-MarkerBlastRadius -ChangedFile 'automation/Catzc.Fake/Get-Thing.ps1')
+        $rows = @(Get-MarkerBlastRadius -ChangedFile 'widgets/Catzc.Fake/Get-Thing.ps1')
         $rows.Name | Should -Be @('catzc-fake')
         $rows[0].Layer | Should -Be 'module'
     }

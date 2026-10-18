@@ -20,7 +20,8 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
 
     It 'includes the conventional generated-artifact classes' {
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
-        foreach ($expected in 'automation/*/*.psd1', '*/README.md', '.cspell/*', 'out/*', '.vscode/*', 'automation/.compiled/*.tmp') {
+        $modules = Get-CatzcModulesFolder
+        foreach ($expected in "$modules/*/*.psd1", '*/README.md', '.cspell/*', 'out/*', '.vscode/*', "$modules/.compiled/*.tmp") {
             $globs | Should -Contain $expected
         }
     }
@@ -42,7 +43,8 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
             }
             $false
         }
-        & $isControlled 'automation/Catzc.Base.Git/Catzc.Base.Git.psd1' | Should -BeTrue
+        $modules = Get-CatzcModulesFolder
+        & $isControlled "$modules/Catzc.Base.Git/Catzc.Base.Git.psd1" | Should -BeTrue
         & $isControlled 'infrastructure/README.md' | Should -BeTrue
         # the generated ADR pages are committed, so a clean never deletes them
         & $isControlled 'docs/adr/index.md' | Should -BeFalse
@@ -50,8 +52,8 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         & $isControlled 'docs/adr/repository/new-draft.md' | Should -BeFalse
         & $isControlled 'out/report-widget.md' | Should -BeTrue
         & $isControlled 'out/plan-widget.md' | Should -BeFalse
-        & $isControlled 'automation/Catzc.Base.Git/New-Draft.ps1' | Should -BeFalse
-        & $isControlled 'automation/.compiled/Catzc.Types.abc123.dll' | Should -BeFalse
+        & $isControlled "$modules/Catzc.Base.Git/New-Draft.ps1" | Should -BeFalse
+        & $isControlled "$modules/.compiled/Catzc.Types.abc123.dll" | Should -BeFalse
         # drawio autosave shadows are disposable clutter; the committed asset beside them is NOT
         & $isControlled 'docs/.assets/deployable-units/.$apex.drawio.png.bkp' | Should -BeTrue
         & $isControlled 'docs/.assets/modules/.$catzc-azure.drawio.png.bkp' | Should -BeTrue

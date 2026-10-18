@@ -1,6 +1,6 @@
 Describe 'Convert-FirewallCsvToYaml' -Tag 'L2', 'logic' {
     BeforeAll {
-        $script:assets = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Firewall/tests/assets'
+        $script:assets = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Firewall/tests/assets'
         $script:appCsv = Join-Path $assets 'application.csv'
         $script:netCsv = Join-Path $assets 'network.csv'
         # Quiet the "wrote ..." log line; this is the module's own status output.

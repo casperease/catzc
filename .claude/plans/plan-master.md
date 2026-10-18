@@ -73,9 +73,9 @@ Open, in execution order:
   identifiers, the NoTrackRootLiteral guard.
 - layers-classification-flip -> task-layers-classification-flip.md (open; P4 and P6 on the user's go, D10): P3 classification table and ADR
   wording drafts; P4 the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
-- command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets and C5 the cats lookup done
-  2026-10-18; C6 next, never inside the P4 window): ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats
-  validation, public functions made internal.
+- command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets, C5 the cats lookup and the C6
+  widening done 2026-10-18; the F6 narrowing waits for the user's reading of "internal", never inside the P4 window): ADR-REPO-CMDCONTRACT,
+  the Command asset kind and checker, pilot contracts, reader, cats validation, public functions made internal.
 - file-head-leftovers -> task-file-head-leftovers.md (done 2026-10-18; the task file goes with the user's `git rm`, its plan keeps the
   user's Test-FileMeta and Test-Automation runs): the binary class skips .compiled, the four tool candidates recorded as not needed, the
   note kind gone with its exemption moved to the unordered track type.

@@ -135,8 +135,8 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
     Context 'the config file is an ordinary member' {
         It 'accepts a set including the config file itself — an ordinary tracked file, not an output' {
-            $c = & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('automation/Catzc.Base.Globs/configs/*.yml') } }
-            $c.Get('unit').Matches('automation/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
+            $c = & $script:make @{ unit = @{ description = 'd'; layer = 'loose-fileset'; include = @('widgets/Catzc.Base.Globs/configs/*.yml') } }
+            $c.Get('unit').Matches('widgets/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
         }
     }
 }

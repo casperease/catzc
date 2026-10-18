@@ -58,7 +58,7 @@ Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     }
 
     It 'reports clean when the token only lives under an excluded path' {
-        $vendor = Join-Path $script:repo 'automation/.vendor'
+        $vendor = Join-Path $script:repo "$(Get-CatzcModulesFolder)/.vendor"
         New-Item -ItemType Directory -Path $vendor -Force | Out-Null
         Set-Content -Path (Join-Path $vendor 'thirdparty.txt') -Value 'has excluded-marker inside'
         & git -C $script:repo add -A *> $null

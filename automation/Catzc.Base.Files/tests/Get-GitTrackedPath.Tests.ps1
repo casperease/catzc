@@ -35,12 +35,12 @@ Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
 
     BeforeEach {
         InModuleScope Catzc.Base.Files { $script:gitIndexCache = $null }
-        Set-GitIndexFile @('automation/widget/configs/gadget.yml', 'automation/widget/configs/widget.yml', 'docs/widget.md')
+        Set-GitIndexFile @('widgets/widget/configs/gadget.yml', 'widgets/widget/configs/widget.yml', 'docs/widget.md')
     }
 
     It 'returns every tracked path at or under the given paths' {
-        Get-GitTrackedPath 'automation/widget/configs' |
-            Should -Be @('automation/widget/configs/gadget.yml', 'automation/widget/configs/widget.yml')
+        Get-GitTrackedPath 'widgets/widget/configs' |
+            Should -Be @('widgets/widget/configs/gadget.yml', 'widgets/widget/configs/widget.yml')
     }
 
     It "returns the whole tracked set for '.'" {
@@ -48,7 +48,7 @@ Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     }
 
     It 'returns nothing when git tracks none of the paths' {
-        @(Get-GitTrackedPath 'automation/widget/configs/missing.yml').Count | Should -Be 0
+        @(Get-GitTrackedPath 'widgets/widget/configs/missing.yml').Count | Should -Be 0
     }
 
     It 'returns nothing when the repository has no index yet (nothing added)' {

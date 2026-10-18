@@ -44,14 +44,14 @@ name: CI
 on:
   push:
     branches: [main]
-    paths: [automation/**]
+    paths: [widgets/**]
   pull_request:
     branches: [main]
-    paths: [automation/**]
+    paths: [widgets/**]
 '@
         Mock Get-Content { $script:yaml } -ModuleName Catzc.Base.Globs
         $t = InModuleScope Catzc.Base.Globs { Get-PipelineTrigger -Path 'x.yml' -Vendor GitHub }
-        $t.PushPaths | Should -Be @('automation/**')
-        $t.PrPaths | Should -Be @('automation/**')
+        $t.PushPaths | Should -Be @('widgets/**')
+        $t.PrPaths | Should -Be @('widgets/**')
     }
 }

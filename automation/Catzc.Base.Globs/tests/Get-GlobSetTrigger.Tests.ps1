@@ -1,11 +1,11 @@
 Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     It 'projects a simple single-include set to both dialects' {
         $t = & (Get-Module Catzc.Base.Globs) {
-            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('automation/**'), @(), @(), @(), -1, $null)
+            $set = [Catzc.Base.Globs.GlobSet]::new('unit', 'd', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1, $null)
             Get-GlobSetTrigger -GlobSet $set
         }
-        $t.GitHub | Should -Be @('automation/**')
-        $t.AdoInclude | Should -Be @('automation/**')
+        $t.GitHub | Should -Be @('widgets/**')
+        $t.AdoInclude | Should -Be @('widgets/**')
         $t.AdoExclude | Should -Be @()
     }
 

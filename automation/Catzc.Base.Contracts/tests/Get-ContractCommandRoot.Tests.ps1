@@ -11,9 +11,9 @@ Describe 'Get-ContractCommandRoot' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#3' 
 
     It 'returns the root of the module the one resolver finds' {
         Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
-            [pscustomobject]@{ name = 'Catzc.Widget'; root = 'automation/Catzc.Widget'; languages = @('csharp', 'powershell') }
+            [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('csharp', 'powershell') }
         }
-        Get-Root 'Catzc.Widget' | Should -Be 'automation/Catzc.Widget'
+        Get-Root 'Catzc.Widget' | Should -Be 'widgets/Catzc.Widget'
         Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -eq 'Catzc.Widget' -and $TrackType -eq 'modules' }
     }
 

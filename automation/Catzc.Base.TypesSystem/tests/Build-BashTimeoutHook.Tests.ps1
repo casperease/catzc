@@ -86,7 +86,7 @@ Describe 'Build-BashTimeoutHook — the published hook' -Tag 'L2', 'logic' {
     BeforeAll {
         # Publish the real program into the test drive, with a copy of the repository layout it locates its config by.
         $script:root = Join-Path $TestDrive 'repo'
-        $configDirectory = Join-Path $script:root 'automation/Catzc.Base.Timeouts/configs'
+        $configDirectory = Join-Path $script:root "$(Get-CatzcModulesFolder)/Catzc.Base.Timeouts/configs"
         $null = New-Item -ItemType Directory -Force -Path $configDirectory
         Set-Content -LiteralPath (Join-Path $configDirectory 'timeouts.yml') -Value @'
 limits:

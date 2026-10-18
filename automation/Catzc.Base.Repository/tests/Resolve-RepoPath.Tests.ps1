@@ -6,8 +6,8 @@ Describe 'Resolve-RepoPath' -Tag 'L0', 'logic' {
 
     It 'resolves a repo-relative path against the repository root, not $PWD' {
         Mock Get-OutputRoot { Join-Path $script:root 'out' } -ModuleName Catzc.Base.Repository
-        $expected = [IO.Path]::GetFullPath((Join-Path $script:root 'automation/mod/file.ps1'))
-        Resolve-RepoPath 'automation/mod/file.ps1' | Should -Be $expected
+        $expected = [IO.Path]::GetFullPath((Join-Path $script:root 'widgets/mod/file.ps1'))
+        Resolve-RepoPath 'widgets/mod/file.ps1' | Should -Be $expected
     }
 
     It 'returns an already-absolute path unchanged' {
@@ -41,9 +41,9 @@ Describe 'Resolve-RepoPath' -Tag 'L0', 'logic' {
 
     It 'round-trips a repo source path through ConvertTo-RepoRelativePath' {
         Mock Get-OutputRoot { Join-Path $script:root 'out' } -ModuleName Catzc.Base.Repository
-        $original = [IO.Path]::GetFullPath((Join-Path $script:root 'automation/mod/file.ps1'))
+        $original = [IO.Path]::GetFullPath((Join-Path $script:root 'widgets/mod/file.ps1'))
         $relative = ConvertTo-RepoRelativePath $original
-        $relative | Should -Be 'automation/mod/file.ps1'
+        $relative | Should -Be 'widgets/mod/file.ps1'
         Resolve-RepoPath $relative | Should -Be $original
     }
 }

@@ -10,7 +10,7 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
         It 'matches <path> against <pattern> => <expected>' -ForEach @(
             @{ pattern = 'importer.ps1'; path = 'importer.ps1'; expected = $true }
             @{ pattern = 'importer.ps1'; path = 'importer.ps2'; expected = $false }
-            @{ pattern = 'pipelines/ci-*.yaml'; path = 'pipelines/ci-automation.yaml'; expected = $true }
+            @{ pattern = 'pipelines/ci-*.yaml'; path = 'pipelines/ci-widgets.yaml'; expected = $true }
             @{ pattern = 'pipelines/ci-*.yaml'; path = 'pipelines/cd-apex.yaml'; expected = $false }
             @{ pattern = 'pipelines/ci-*.yaml'; path = 'pipelines/steps/ci-x.yaml'; expected = $false }
             @{ pattern = 'docs/?.md'; path = 'docs/a.md'; expected = $true }
@@ -27,20 +27,20 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
         }
 
         It 'never lets a single * cross a segment boundary' {
-            & $script:match 'automation/*' 'automation/module/file.ps1' | Should -BeFalse
+            & $script:match 'widgets/*' 'widgets/module/file.ps1' | Should -BeFalse
         }
     }
 
     Context '** — zero or more whole segments' {
         It 'matches <path> against <pattern> => <expected>' -ForEach @(
-            @{ pattern = 'automation/**'; path = 'automation/a.ps1'; expected = $true }
-            @{ pattern = 'automation/**'; path = 'automation/x/y/z.cs'; expected = $true }
-            @{ pattern = 'automation/**'; path = 'automation2/a.ps1'; expected = $false }
+            @{ pattern = 'widgets/**'; path = 'widgets/a.ps1'; expected = $true }
+            @{ pattern = 'widgets/**'; path = 'widgets/x/y/z.cs'; expected = $true }
+            @{ pattern = 'widgets/**'; path = 'widgets2/a.ps1'; expected = $false }
             @{ pattern = '**/*.md'; path = 'README.md'; expected = $true }
             @{ pattern = '**/*.md'; path = 'docs/adr/index.md'; expected = $true }
             @{ pattern = '**/*.md'; path = 'docs/adr/index.txt'; expected = $false }
-            @{ pattern = '**/tests/**/*.ps1'; path = 'automation/M/tests/a.Tests.ps1'; expected = $true }
-            @{ pattern = '**/tests/**/*.ps1'; path = 'automation/M/a.ps1'; expected = $false }
+            @{ pattern = '**/tests/**/*.ps1'; path = 'widgets/M/tests/a.Tests.ps1'; expected = $true }
+            @{ pattern = '**/tests/**/*.ps1'; path = 'widgets/M/a.ps1'; expected = $false }
             @{ pattern = 'a/**/b'; path = 'a/b'; expected = $true }
             @{ pattern = 'a/**/b'; path = 'a/x/b'; expected = $true }
             @{ pattern = 'a/**/b'; path = 'a/x/y/b'; expected = $true }
@@ -60,10 +60,10 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
             @{ pattern = ''; why = 'an empty pattern' }
             @{ pattern = '   '; why = 'a whitespace pattern' }
             @{ pattern = 'a\b.cs'; why = 'a backslash separator' }
-            @{ pattern = '/automation/**'; why = 'a leading slash' }
-            @{ pattern = 'automation//x.ps1'; why = 'a doubled slash (empty segment)' }
-            @{ pattern = 'automation/'; why = 'a trailing slash (empty segment)' }
-            @{ pattern = './automation/**'; why = 'a . segment' }
+            @{ pattern = '/widgets/**'; why = 'a leading slash' }
+            @{ pattern = 'widgets//x.ps1'; why = 'a doubled slash (empty segment)' }
+            @{ pattern = 'widgets/'; why = 'a trailing slash (empty segment)' }
+            @{ pattern = './widgets/**'; why = 'a . segment' }
             @{ pattern = 'a/../b'; why = 'a .. segment' }
             @{ pattern = 'a/`*.md'; why = 'a backtick (no escape character)' }
             @{ pattern = 'a/x**/b'; why = '** embedded inside a segment' }

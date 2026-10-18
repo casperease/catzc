@@ -8,7 +8,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem
         # The type sources match HEAD unless a test dirties them.
-        Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains 'automation/*/types/*.cs' }
+        Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains "$(Get-CatzcModulesFolder)/*/types/*.cs" }
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
         # A tidy .compiled (only the current build) unless a test plants a superseded one.
@@ -37,7 +37,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
-            $Message -like '*agent session*automation/.compiled*commit them*'
+            $Message -like "*agent session*$(Get-CatzcModulesFolder)/.compiled*commit them*"
         }
     }
 
@@ -85,7 +85,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         $result = Sync-GeneratedFile
         $result | Should -Be 'abc1234567890abcdef1234567890abcdef12345'
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            ($Path -join ',') -eq 'automation/.compiled' -and $Message -eq 'chore(repo): sync compiled types'
+            ($Path -join ',') -eq "$(Get-CatzcModulesFolder)/.compiled" -and $Message -eq 'chore(repo): sync compiled types'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter {
             $Message -eq 'Synced compiled types to feature/sync'
@@ -111,12 +111,12 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     }
 
     It 'holds back .compiled with a yellow line while a type source differs from HEAD' -Tag 'ADR-AUTO-CACHE#8' {
-        Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains 'automation/*/types/*.cs' }
+        Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains "$(Get-CatzcModulesFolder)/*/types/*.cs" }
 
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            $Message -like 'Skipped automation/.compiled: type sources*' -and $ForegroundColor -eq 'Yellow'
+            $Message -like "Skipped $(Get-CatzcModulesFolder)/.compiled: type sources*" -and $ForegroundColor -eq 'Yellow'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Synced*' }
     }
@@ -124,7 +124,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     It 'checks the type sources against HEAD before committing .compiled' {
         Sync-GeneratedFile | Should -Not -BeNullOrEmpty
         Should -Invoke Test-GitPathChanged -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            $Path -contains 'automation/*/types/*.cs'
+            $Path -contains "$(Get-CatzcModulesFolder)/*/types/*.cs"
         }
     }
 
@@ -137,7 +137,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     It 'commits the generated path even while other tracked or staged work is in flight' {
         Sync-GeneratedFile | Should -Not -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
-            ($Path -join ',') -eq 'automation/.compiled'
+            ($Path -join ',') -eq "$(Get-CatzcModulesFolder)/.compiled"
         }
     }
 
@@ -150,7 +150,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     }
 
     It 'propagates -DryRun to Invoke-GitCommit and suppresses the synced message' {
-        Mock Invoke-GitCommit { 'git add -A -- "automation/.compiled"', 'git commit ...' } -ModuleName Catzc.Base.ModuleSystem
+        Mock Invoke-GitCommit { "git add -A -- `"$(Get-CatzcModulesFolder)/.compiled`"", 'git commit ...' } -ModuleName Catzc.Base.ModuleSystem
 
         $planned = Sync-GeneratedFile -DryRun
         $planned.Count | Should -Be 2

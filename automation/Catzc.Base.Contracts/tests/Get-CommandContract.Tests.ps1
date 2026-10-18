@@ -12,7 +12,7 @@ Describe 'Get-CommandContract' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#5' {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         $null = New-Item -ItemType Directory -Force -Path $script:root
         Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
-            [pscustomobject]@{ name = $Name; root = "automation/$Name"; languages = @('powershell') }
+            [pscustomobject]@{ name = $Name; root = "widgets/$Name"; languages = @('powershell') }
         }
         Add-Asset 'widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' "parameters:`n  Path: string!`n  Strict: switch`noutput: string`n"
         Add-Asset 'widget/0.0.0/Catzc.Widget/Set-Widget.command.yml' ''
