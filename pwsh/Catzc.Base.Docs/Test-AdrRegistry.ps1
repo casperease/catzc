@@ -68,6 +68,12 @@ function Test-AdrRegistry {
             Mode     = $checks.dora_coverage.mode
             Findings = [string[]] @(Get-AdrDoraCoverageViolations -Adrs $adrs -Index $index -Settings $checks.dora_coverage)
         }
+        [pscustomobject]@{
+            Name     = 'code-language'
+            Fact     = 'CodeLanguage'
+            Mode     = $checks.code_language.mode
+            Findings = [string[]] @(Get-AdrCodeLanguageViolations -Adrs $adrs -Index $index)
+        }
     )
     $facts = [ordered]@{ RuleSets = $ruleSets.Count; Files = $index.Relative.Count }
     foreach ($check in $configured) {

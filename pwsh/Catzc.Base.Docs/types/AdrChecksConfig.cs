@@ -8,11 +8,12 @@ public sealed class AdrChecksConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    private static readonly string[] AllowedKeys = { "engine_neutrality", "citation_graph", "dora_coverage" };
+    private static readonly string[] AllowedKeys = { "engine_neutrality", "citation_graph", "dora_coverage", "code_language" };
 
     public AdrNeutralityCheck engine_neutrality { get; }
     public AdrCheck citation_graph { get; }
     public AdrDoraCheck dora_coverage { get; }
+    public AdrCheck code_language { get; }
 
     public AdrChecksConfig(IDictionary raw)
     {
@@ -22,6 +23,7 @@ public sealed class AdrChecksConfig
         engine_neutrality = new AdrNeutralityCheck(Section(raw, "engine_neutrality", errors), "engine_neutrality", errors);
         citation_graph = new AdrCheck(Section(raw, "citation_graph", errors), "citation_graph", errors);
         dora_coverage = new AdrDoraCheck(Section(raw, "dora_coverage", errors), "dora_coverage", errors);
+        code_language = new AdrCheck(Section(raw, "code_language", errors), "code_language", errors);
 
         if (errors.Count > 0)
         {

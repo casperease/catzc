@@ -69,17 +69,17 @@ sections:
   - id: compiled-types
     title: Compiled C# types — transient temp only
     why: >
-      The combined compiled assembly (pwsh/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed prebuild that lets
-      a fresh checkout and CI load without compiling (see docs/adr/automation/caching.md). Only the concurrent-compile temp file is ignored.
+      The combined compiled assembly (pwsh/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed prebuild that lets a
+      fresh checkout and CI load without compiling (see docs/adr/automation/caching.md). Only the concurrent-compile temp file is ignored.
     patterns:
       - pwsh/.compiled/*.tmp
 
   - id: ide-build
     title: IDE-only C# project build output
     why: >
-      The root catzc.sln references pwsh/.internal/assets/Catzc.Types.csproj for editor tooling, and MSBuild emits obj/bin next to
-      that project. The runtime never builds it (Add-Type compiles the type sources at import), so its MSBuild artifacts are transient and
-      vscode consumed only. The types system builds via the internal builder, no csproj or sln involved.
+      The root catzc.sln references pwsh/.internal/assets/Catzc.Types.csproj for editor tooling, and MSBuild emits obj/bin next to that
+      project. The runtime never builds it (Add-Type compiles the type sources at import), so its MSBuild artifacts are transient and vscode
+      consumed only. The types system builds via the internal builder, no csproj or sln involved.
     patterns:
       - pwsh/.internal/assets/obj/
       - pwsh/.internal/assets/bin/

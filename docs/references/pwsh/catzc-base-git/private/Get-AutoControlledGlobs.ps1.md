@@ -17,7 +17,7 @@ drift from what the owners actually generate. It is the union of:
 - the managed root-config registry's gitignored targets (rootconfig.yml entries with optIn and committed false — .editorconfig, the .vscode/
   files, cspell.yml, catzc.sln, …), read through Get-Config (reading a config is global access, never limited by the dependency graph —
   [ADR-CONF-LOADING#6](../../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading6));
-- the conventional generated-artifact classes: the dynamic module manifests (`automation/<Module>/<Module>.psd1`), the generated READMEs
+- the conventional generated-artifact classes: the dynamic module manifests (`pwsh/<Module>/<Module>.psd1`), the generated READMEs
   (every gitignored README.md is a generated copy by the generated-readmes contract — a hand-authored README is only safe once opted in and
   committed), the generated cspell dictionaries (.cspell/), the transient output root (out/ — disposable by the dedicated-output-directory
   contract), the IDE-only C# project's build output (bin/obj under pwsh/.internal/assets), the compiled-type `*.tmp` scratch, and the drawio
