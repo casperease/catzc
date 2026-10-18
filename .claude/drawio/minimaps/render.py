@@ -1,16 +1,16 @@
 # cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid gfiles gmap gname maxw tname
 """Render the three minimaps of every slide, each with its sister .md, from the map processors' data.
 
-Per slide, into one sub-folder per minimap under the target folder (.claude/drawio/STYLE.md, "Fan-out"):
-  grid/<stem>.grid.png    the world map's grid: tracks x file languages, the lit cells filled
-  tree/<stem>.tree.png    the world map's tree: the files of the map as a treemap, the lit files filled
-  chain/<stem>.chain.png  the value-chain map: value-chain stack x value-chain concerns, the lit cells filled
-and the sister <view>/<stem>.<view>.md of each (describe.py), beside its PNG. The data comes from highlights.ps1 (the --data folder); this script
+Per slide, into its diagram folder (the slide list's `folder`, beside diagram.drawio.png; .claude/drawio/STYLE.md, "Fan-out"):
+  grid.png   the world map's grid: tracks x file languages, the lit cells filled
+  tree.png   the world map's tree: the files of the map as a treemap, the lit files filled
+  chain.png  the value-chain map: value-chain stack x value-chain concerns, the lit cells filled
+and the sister <view>.md of each (describe.py), beside its PNG. The data comes from highlights.ps1 (the --data folder); this script
 places nothing itself: every lit cell, lit file and reason is the highlight's.
 
 usage (repo root, background):
   timeout 300 uv run -q --with pillow python .claude/drawio/minimaps/render.py --slides <slides.json>
-      [--data out/minimaps] [--target docs/explanation/.assets] [--overview <world-map.tree.png>] [--facts <facts.json>]
+      [--data out/minimaps] [--overview <world-map.tree.png>] [--facts <facts.json>]
 """
 
 import argparse
@@ -37,14 +37,6 @@ BG, IDLE, BORDER, LABEL, INK, HALO, BADGE = (
 FONT_R = "C:/Windows/Fonts/segoeui.ttf"
 FONT_B = "C:/Windows/Fonts/segoeuib.ttf"
 FONT_SB = "C:/Windows/Fonts/seguisb.ttf"
-LENS_BADGE = {
-    "meta": "META",
-    "architecture": "ARCH",
-    "implementation": "IMPL",
-    "operations": "OPS",
-    "governance": "GOV",
-    "source": "SRC",
-}
 VIEWS = ("grid", "tree", "chain")
 
 # Set by configure() from the data folder: the maps.yml palette and the bucket labels.
@@ -596,11 +588,6 @@ def main():
         "--data", default="out/minimaps", help="the folder highlights.ps1 wrote"
     )
     parser.add_argument(
-        "--target",
-        default="docs/explanation/.assets",
-        help="the folder the minimaps and .md files go to",
-    )
-    parser.add_argument(
         "--overview", help="also write the full-size tree world map to this PNG"
     )
     parser.add_argument(
@@ -608,9 +595,7 @@ def main():
         help="also write each slide's sidebar facts (lit cells, lit groups, file names) to this JSON",
     )
     args = parser.parse_args()
-    data, target = REPO / args.data, REPO / args.target
-    for view in VIEWS:
-        (target / view).mkdir(parents=True, exist_ok=True)
+    data = REPO / args.data
     labels = configure(data)
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"]
     world = json.loads((data / "world-map.json").read_text(encoding="utf-8"))
@@ -645,50 +630,24 @@ def main():
         hidden = [
             c for c in chain_raw["cells"] if c["concern"] in describe.HIDDEN_CONCERNS
         ]
-        stem = slide["stem"]
         files = lit_files(world_lit)
         groups = lit_groups(layout, files)
-        render_grid(
-            world,
-            world_lit,
-            extensions,
-            LENS_BADGE[slide["lens"]],
-            target / "grid" / f"{stem}.grid.png",
-        )
-        render_tree(
-            layout,
-            files,
-            mentions_only(world_lit),
-            adr_files,
-            target / "tree" / f"{stem}.tree.png",
-        )
-        render_chain(chain, chain_lit, target / "chain" / f"{stem}.chain.png")
-        describe.write(
-            ctx, target / "grid" / f"{stem}.grid.md", slide, "grid", world_lit, {}
-        )
-        describe.write(
-            ctx,
-            target / "tree" / f"{stem}.tree.md",
-            slide,
-            "tree",
-            world_lit,
-            {"groups": groups},
-        )
-        describe.write(
-            ctx,
-            target / "chain" / f"{stem}.chain.md",
-            slide,
-            "chain",
-            chain_lit,
-            {"hidden": hidden},
-        )
-        facts[stem] = describe.facts(ctx, slide, world_lit, chain_lit, groups)
+        (REPO / slide["folder"]).mkdir(parents=True, exist_ok=True)
+        png = lambda view: describe.view_file(slide, view, "png")
+        md = lambda view: describe.view_file(slide, view, "md")
+        render_grid(world, world_lit, extensions, slide["badge"], png("grid"))
+        render_tree(layout, files, mentions_only(world_lit), adr_files, png("tree"))
+        render_chain(chain, chain_lit, png("chain"))
+        describe.write(ctx, md("grid"), slide, "grid", world_lit, {})
+        describe.write(ctx, md("tree"), slide, "tree", world_lit, {"groups": groups})
+        describe.write(ctx, md("chain"), slide, "chain", chain_lit, {"hidden": hidden})
+        facts[slide["id"]] = describe.facts(ctx, slide, world_lit, chain_lit, groups)
     if args.facts:
         (REPO / args.facts).write_text(
             json.dumps(facts, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
         )
     print(
-        f"render.py: {len(slides)} slides, {len(slides) * len(VIEWS)} minimaps and sister .md files -> {target}"
+        f"render.py: {len(slides)} slides, {len(slides) * len(VIEWS)} minimaps and sister .md files, each beside its slide"
     )
 
 

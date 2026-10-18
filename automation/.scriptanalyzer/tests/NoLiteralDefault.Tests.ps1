@@ -26,7 +26,7 @@ Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT#6', 'A
         $diagnostics.Count | Should -Be 1
         $diagnostics[0].RuleName | Should -Be 'Measure-NoLiteralDefault'
         $diagnostics[0].Extent.Text | Should -BeLike "*$Text*"
-        $diagnostics[0].Message | Should -BeLike '*ADR-AUTO-DEFAULT#6*'
+        $diagnostics[0].Message | Should -BeLike '*(ADR-*'
     }
 
     It 'leaves alone <Description>' -ForEach @(

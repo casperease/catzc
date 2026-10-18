@@ -103,12 +103,13 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
         }
     }
 
-    It 'declares a track for every root folder git tracks a file under, except out/' {
-        $roots = @($script:tracked | Where-Object { $_.Contains('/') } | ForEach-Object { $_.Split('/')[0] } |
-                Sort-Object -Unique | Where-Object { $_ -ne 'out' })
-        $roots.Count | Should -BeGreaterThan 0
-        $undeclared = @($roots | Where-Object { $null -eq (Get-Track -Path $_) })
-        $undeclared | Should -BeNullOrEmpty -Because 'every root folder with tracked files is a track (ADR-DSGN-TRACK#1)'
+    It 'places every folder git tracks a file in inside a track, except out/' {
+        # A track's places may sit below its root folder (infrastructure/templates), so the folders are checked, not the root folders.
+        $folders = @($script:tracked | Where-Object { $_.Contains('/') } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } |
+                Sort-Object -Unique | Where-Object { $_.Split('/')[0] -ne 'out' })
+        $folders.Count | Should -BeGreaterThan 0
+        $undeclared = @($folders | Where-Object { $null -eq (Get-Track -Path $_) })
+        $undeclared | Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (ADR-DSGN-TRACK#1)'
     }
 
     It 'registers every file language a track declares' {

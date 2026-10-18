@@ -1,8 +1,8 @@
 # cspell:ignore minimaps
 """The sister .md of every minimap PNG, written by render.py from the same data the PNG is drawn from.
 
-A sister file sits next to its PNG with the same stem (<stem>.grid.png -> <stem>.grid.md). Its H1 is the title of the
-slide's article (the explanation page that embeds the slide) and the view (ADR-REPO-FORMAT#6); a text block says in two
+A sister file sits next to its PNG in the slide's diagram folder (grid.png -> grid.md). Its H1 is the title of the
+slide's article (the one page beside the folder's `.assets` that embeds the slide) and the view (ADR-REPO-FORMAT#6); a text block says in two
 lines what the minimap answers and how much is lit, and an opening paragraph links the article and the cited ADRs. It
 then says what the minimap shows, and gives every lit cell or lit group its reason: what lit it (the file, or the ADR code), the steps that placed it on the map, and how the slide's ADR codes
 selected it, following the highlight's own order (Get-WorldMapHighlight, Get-ValueChainHighlight). A cell lit only by
@@ -21,7 +21,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
 GLOSSARY = "docs/adr/glossary.md"
-EXPLANATION = "docs/explanation"
+SLIDE = "diagram.drawio.png"  # a diagram folder's slide; its minimaps are <view>.png and <view>.md beside it
 WRAP = 140
 # The defined terms the world map is built on (ADR-DSGN-TRACK#1, #6, #9, #10, #12).
 WORLD_TERMS = ["world map", "track", "file language", "cell", "lit cell"]
@@ -84,15 +84,25 @@ class Context:
         self.bucket_terms = {
             key: self._bucket_term(label) for key, label in self.buckets.items()
         }
-        self.articles = articles()
+        self.articles = {}
 
-    def article(self, stem):
-        """The slide's article: (path, title) of the explanation page that embeds <stem>.drawio.png."""
-        if stem not in self.articles:
+    def article(self, slide):
+        """The slide's article: (path, title) of the one page beside the slide's `.assets` folder that embeds the slide."""
+        source = (REPO / slide["source"]).resolve()
+        if source.parent.parent.name != ".assets":
             raise SystemExit(
-                f"describe: no page under {EXPLANATION}/ embeds {stem}.drawio.png, so the minimaps have no title"
+                f"describe: {slide['source']} is not in a diagram folder (<article-folder>/.assets/<name>/{SLIDE})"
             )
-        return self.articles[stem]
+        home = source.parent.parent.parent
+        if home not in self.articles:
+            self.articles[home] = articles(home)
+        found = self.articles[home].get(source, [])
+        if len(found) != 1:
+            pages = [p for p, _ in found] or "no page"
+            raise SystemExit(
+                f"describe: {slide['source']} needs exactly one article in {home.relative_to(REPO).as_posix()}/ that embeds it, found {pages}"
+            )
+        return found[0]
 
     def _declaration(self, config):
         found = [
@@ -126,27 +136,35 @@ class Context:
         return "other" if language == self.no_language else self.extensions[language][0]
 
 
-def articles():
-    """Every explanation article by the slide it embeds: stem -> (path, H1). The asset descriptions and indexes embed no slide
-    of their own, so they are skipped; a slide embedded by two articles has no one title and fails the run."""
+def articles(home):
+    """The pages of one folder by the slides they embed: resolved slide path -> [(path, H1)]. A diagram's article sits beside
+    the `.assets` folder that holds the diagram, so only that folder is read; indexes embed no slide of their own."""
     found = {}
-    for page in sorted((REPO / EXPLANATION).glob("*/*.md")):
-        if page.name.endswith(".drawio.md") or page.name == "index.md":
+    for page in sorted(home.glob("*.md")):
+        if page.name == "index.md":
             continue
         text = page.read_text(encoding="utf-8")
         title = re.search(r"^# (.+)$", text, flags=re.MULTILINE)
-        for stem in re.findall(r"\]\(\.\./\.assets/([^/)]+)\.drawio\.png\)", text):
+        for target in re.findall(r"!\[[^\]]*\]\(([^)\s]+\.drawio\.png)\)", text):
             path = page.relative_to(REPO).as_posix()
-            if stem in found and found[stem][0] != path:
-                raise SystemExit(
-                    f"describe: {stem}.drawio.png is embedded by both {found[stem][0]} and {path}"
-                )
             if not title:
                 raise SystemExit(
-                    f"describe: {path} embeds {stem}.drawio.png but has no H1 to title its minimaps"
+                    f"describe: {path} embeds {target} but has no H1 to title its minimaps"
                 )
-            found[stem] = (path, title.group(1).strip())
+            found.setdefault((page.parent / target).resolve(), []).append(
+                (path, title.group(1).strip())
+            )
     return found
+
+
+def slide_file(slide):
+    """The slide of a diagram folder: <folder>/diagram.drawio.png."""
+    return REPO / slide["folder"] / SLIDE
+
+
+def view_file(slide, view, suffix):
+    """One minimap or its sister page in a diagram folder: <folder>/<view>.png or <folder>/<view>.md."""
+    return REPO / slide["folder"] / f"{view}.{suffix}"
 
 
 def concern_code(concern):
@@ -610,10 +628,9 @@ def write(ctx, md_path, slide, view, highlight, extras):
     """Write one sister .md; a lit cell without a reason, or a reason without a lit cell, fails the run."""
     md_path = Path(md_path)
     name, summary, shows, why, keywords, check, key = VIEWS[view]
-    stem = slide["stem"]
-    check(stem, highlight)
+    check(slide["id"], highlight)
     links = Links(ctx, md_path.parent)
-    article, title = ctx.article(stem)
+    article, title = ctx.article(slide)
     out = [f"# {title}: the {name} minimap", "", "```text"]
     out += summary(ctx, highlight, extras, listing(highlight["requested"]))
     out += ["```", "", f"![The {name} minimap of {title}]({md_path.stem}.png)", ""]
@@ -677,9 +694,8 @@ def file_facts(reasons):
 
 def facts(ctx, slide, world_lit, chain_lit, groups):
     """A slide's sidebar facts: the lit cells and groups of its three minimaps with every reason, and the file names."""
-    stem = slide["stem"]
-    check_world(stem, world_lit)
-    check_chain(stem, chain_lit)
+    check_world(slide["id"], world_lit)
+    check_chain(slide["id"], chain_lit)
     cell_of = {}
     for c in world_lit["cells"]:
         for path, reasons in reasons_by_file(c).items():
@@ -687,7 +703,7 @@ def facts(ctx, slide, world_lit, chain_lit, groups):
                 cell_of[path] = (ctx.cell_name(c["track"], c["file_language"]), reasons)
     return {
         "files": {
-            view: {"png": f"{stem}.{view}.png", "md": f"{stem}.{view}.md"}
+            view: {"png": f"{view}.png", "md": f"{view}.md"}
             for view in VIEWS
         },
         "adrs": world_lit["requested"],

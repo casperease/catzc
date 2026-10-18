@@ -19,7 +19,7 @@ Describe 'Sync-AdoGraphGroup' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'creates the group in the project scope when it does not exist' {
+    It 'creates the group in the project when it does not exist' {
         $result = & $script:sync @{ Context = $script:context; Name = 'Widget Approvers'; Description = 'Widgets' }
         $result.Action | Should -Be 'Create'
         $result.Descriptor | Should -Be 'vssgp.new'

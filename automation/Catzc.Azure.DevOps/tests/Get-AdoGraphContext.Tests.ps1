@@ -11,7 +11,7 @@ Describe 'Get-AdoGraphContext' -Tag 'L0', 'logic' {
         Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/graph/descriptors/p-1?*' } { 'scp.gadget' }
     }
 
-    It 'names the project API, the Graph service and the project scope' {
+    It 'names the project API, the Graph service and the project''s Graph descriptor' {
         $context = & $script:get @{ Project = 'Gadget'; Organization = 'https://dev.azure.com/widgetorg/' }
         $context.ApiBase | Should -Be 'https://dev.azure.com/widgetorg/Gadget/_apis'
         $context.GraphBase | Should -Be 'https://vssps.dev.azure.com/widgetorg/_apis/graph'

@@ -41,7 +41,7 @@ prod-tier deploy. The organization and project come from `ado.yml`.
 
 The apply works in a fixed order, and each step reads the organization before it writes:
 
-1. **The group.** It finds `[<project>]\<name>` in the project's scope and creates it when it is missing.
+1. **The group.** It finds `[<project>]\<name>` among the project's groups and creates it when it is missing.
 2. **The members.** It resolves each configured member to an Azure DevOps user, adds the ones the group lacks, and removes every member the
    config does not list.
 3. **The checks.** For each environment, it creates the Approval check when there is none, updates it when its approver or timeout differs

@@ -16,7 +16,7 @@ function Get-AdoGraphContext {
     $projectRecord = Invoke-AdoRestMethod -Uri "$Organization/_apis/projects/$([uri]::EscapeDataString($Project))?api-version=7.1" -UnwrapValue $false
     Assert-NotNull $projectRecord -ErrorText "Project '$Project' does not exist in $Organization."
     $scopeDescriptor = Invoke-AdoRestMethod -Uri "$graphBase/_apis/graph/descriptors/$($projectRecord.id)?api-version=7.1-preview.1"
-    Assert-NotNullOrWhitespace "$scopeDescriptor" -ErrorText "Project '$Project' has no Graph scope descriptor in $Organization."
+    Assert-NotNullOrWhitespace "$scopeDescriptor" -ErrorText "Project '$Project' has no Graph descriptor in $Organization."
 
     [pscustomobject]@{
         Organization    = $Organization

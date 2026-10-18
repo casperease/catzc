@@ -756,6 +756,8 @@ terms:
       meaning: "ADO predefined variable Build.SourceVersionAuthor"
     - term: sourceversionmessage
       meaning: "ADO predefined variable Build.SourceVersionMessage"
+    - term: subjectquery
+      meaning: "ADO Graph 'subjectquery' REST endpoint, which resolves a principal name to a user (Sync-AdoGraphGroupMembers)"
     - term: teamproject
       meaning: "ADO predefined variable System.TeamProject"
     - term: tempdirectory
@@ -766,6 +768,8 @@ terms:
       meaning: "ADO predefined variable Agent.ToolsDirectory"
     - term: vso
       meaning: "'vso' (Visual Studio Online) ADO logging-command/task prefix"
+    - term: vssgp
+      meaning: "ADO Graph descriptor prefix of a group (vssgp.*), e.g. a project group's descriptor"
     - term: vsts
       meaning: "Visual Studio Team Services (VSTS), former name of Azure DevOps"
   azure:

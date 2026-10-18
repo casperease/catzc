@@ -3,12 +3,12 @@
 
 For every slide of the list: rewrite its source XML's sidebar (the minimap-grid, minimap-tree and minimap-chain image
 cells, the lens badge, the ADR chips and a map key below them; .claude/drawio/STYLE.md, "Limits"), embed
-<target>/{grid,tree,chain}/<stem>.{grid,tree,chain}.png as data URIs, write the XML back, and build <target>/<stem>.drawio.png. Fails
-loudly on any missing piece.
+<folder>/{grid,tree,chain}.png as data URIs, write the XML back, and build <folder>/diagram.drawio.png, the folder being the slide
+list's `folder`. Fails loudly on any missing piece.
 
 usage (repo root, background):
   timeout 360 uv run -q --with pillow python .claude/drawio/minimaps/join.py --slides <slides.json>
-      [--data out/minimaps] [--target docs/explanation/.assets] [--start N --end M]
+      [--data out/minimaps] [--start N --end M]
 The optional slice of the slide list keeps each run inside the 360 s background limit.
 """
 
@@ -163,34 +163,31 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     parser.add_argument("--slides", required=True, help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)")
     parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote (palette, value-chain map)")
-    parser.add_argument("--target", default="docs/explanation/.assets", help="the folder of the minimaps and the built slides")
     parser.add_argument("--start", type=int, default=0)
     parser.add_argument("--end", type=int)
     args = parser.parse_args()
-    target = REPO / args.target
     palette = json.loads((REPO / args.data / "palette.json").read_text(encoding="utf-8"))
     concerns = describe.shown_chain(json.loads((REPO / args.data / "value-chain-map.json").read_text(encoding="utf-8")))["concerns"]
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"][args.start : args.end]
     missing = []
     for slide in slides:
-        stem = slide["stem"]
         xml = REPO / slide["xml"]
-        pngs = {view: target / view / f"{stem}.{view}.png" for view in VIEWS}
+        pngs = {view: describe.view_file(slide, view, "png") for view in VIEWS}
         gaps = [str(p) for p in [xml, *pngs.values()] if not p.exists()]
         if gaps:
-            missing.append((stem, gaps))
+            missing.append((slide["id"], gaps))
             continue
         xml.write_text(lay_out_sidebar(xml.read_text(encoding="utf-8"), palette, concerns), encoding="utf-8")
         pairs = [f"minimap-{view}={png}" for view, png in pngs.items()]
         subprocess.run([sys.executable, str(TOOLS / "embed_images.py"), str(xml), *pairs], check=True, stdout=subprocess.DEVNULL)
         subprocess.run(
-            [sys.executable, str(TOOLS / "drawio_png.py"), str(xml), str(target / f"{stem}.drawio.png"), "--name", slide["lens"]],
+            [sys.executable, str(TOOLS / "drawio_png.py"), str(xml), str(describe.slide_file(slide)), "--name", slide["lens"]],
             check=True,
             stdout=subprocess.DEVNULL,
         )
-    print(f"join.py: joined {len(slides) - len(missing)}/{len(slides)} -> {target}")
-    for stem, gaps in missing:
-        print("MISSING", stem, gaps)
+    print(f"join.py: joined {len(slides) - len(missing)}/{len(slides)}, each in its diagram folder")
+    for slide_id, gaps in missing:
+        print("MISSING", slide_id, gaps)
     sys.exit(1 if missing else 0)
 
 

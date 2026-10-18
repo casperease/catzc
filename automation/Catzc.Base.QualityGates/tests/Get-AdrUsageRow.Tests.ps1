@@ -22,7 +22,7 @@ Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#14' {
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates { $script:map }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comments' } {
             $comments = [pscustomobject]@{}
-            $comments | Add-Member -MemberType ScriptMethod -Name PageFor -Value { param($Path) $null }
+            $comments | Add-Member -MemberType ScriptMethod -Name PageFor -Value { $null }
             $comments
         }
     }
