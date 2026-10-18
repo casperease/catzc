@@ -70,11 +70,11 @@ Open, in execution order:
 - config-defaults-postures -> task-config-defaults-postures.md (done 2026-10-18; plan-config-defaults has no open step, so
   task-closing-sweep deletes both): every typed config into a posture, the NoLiteralDefault analyzer rule, the ADR amendments, the assert
   ladder, two glossary terms.
-- layers-funnel: done 2026-10-18, task file deleted (P2 ticked in plan-layers-vocabulary-rename-contracts): layers P2 funnel: one bootstrap constant, about 45 sites
-  onto the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
-- layers-classification-flip -> task-layers-classification-flip.md (open; P3 done 2026-10-18; the user gave the go for P4 and P6, D24; P4
-  waits for no peer-dirty file and the user's window, task step 3): P3 classification table and ADR wording drafts; P4 the flip by the user;
-  P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
+- layers-funnel: done 2026-10-18, task file deleted (P2 ticked in plan-layers-vocabulary-rename-contracts): layers P2 funnel: one bootstrap
+  constant, about 45 sites onto the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
+- layers-classification-flip -> task-layers-classification-flip.md (open; P3 and P4 done 2026-10-18, automation/ is pwsh/; P5 next, P6 waits
+  for the user's external re-pointing): P3 classification table and ADR wording drafts; P4 the flip; P5 retired-phrase guards; P6 pipeline
+  names with the user's external re-pointing.
 - command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets, C5 the cats lookup and the C6
   widening, F6 under D21 and the D26 and D27 calls done 2026-10-18, 65 contracted commands; open: a later language step for gate results and
   parameter sets): ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats validation, public functions made
@@ -107,8 +107,8 @@ Open, in execution order:
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md (open; the level-2 rerun is green 2026-10-17; the user's run of all
   tests, then the plan and prompt deleted): bounded enumeration closed.
 - diagram-folders -> plan-diagram-folders.md (open; no task file yet; the kit and the out/ pilot done 2026-10-18, the user's pilot review
-  next): every diagram one folder beside its article under role names, rebuilt by `Build-Diagrams -Path <folder>`; then the move command
-  and the migration of all 150.
+  next): every diagram one folder beside its article under role names, rebuilt by `Build-Diagrams -Path <folder>`; then the move command and
+  the migration of all 150.
 - closing-sweep -> task-closing-sweep.md (open; runs after every batch and last): done plans deleted with one line each, the master and task
   files deleted when every chunk is done.
 

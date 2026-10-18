@@ -5,7 +5,7 @@ plan:
   reviewed: 2026-10-17
   next: the handler ids for rule 6 (task-module-model-closeout)
   targets:
-    [pwsh/Catzc.Base.Modules, pwsh/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/automation]
+    [pwsh/Catzc.Base.Modules, pwsh/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/pwsh]
 ---
 
 # Module model: close-out after the implement run
