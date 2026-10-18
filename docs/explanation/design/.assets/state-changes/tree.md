@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2a55fcc92766"
+    with_body_sha: "72f24283b9a9"
     repo_status: locked
     path: docs/explanation/design/.assets/state-changes/tree.md
     source: docs/explanation/design/.assets/state-changes/diagram.drawio.png
@@ -297,7 +297,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
   `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18
   (text), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 58 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
+  line 58 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1078 (text).
 - [pipelines/extends/cd-customer.yaml][104], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line
   21 (body comment) (a passing mention only).
 
@@ -310,7 +310,7 @@ The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its worl
 - [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][106], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it at line
   58 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][107], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][2]: the file cites it at
-  line 1076 (text).
+  line 1078 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 

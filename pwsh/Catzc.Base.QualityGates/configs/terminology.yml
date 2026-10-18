@@ -296,10 +296,12 @@ terms:
       meaning: "CMDB — the configuration management database the product thesis contrasts with the repository"
       expands_to: "configuration management database"
     - term: LOCAL
-      meaning: "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
+      meaning:
+        "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
       expands_to: "automation"
     - term: release
-      meaning: "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
+      meaning:
+        "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
       expands_to: "release"
     - term: dora
       meaning:

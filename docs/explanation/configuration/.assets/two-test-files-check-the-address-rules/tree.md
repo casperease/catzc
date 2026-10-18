@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1e45884f3a17"
+    with_body_sha: a86dd5a65c06
     repo_status: locked
     path: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/tree.md
     source: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/diagram.drawio.png
@@ -48,10 +48,10 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][3], in the cell docs × markdown:
-  selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 45 (text) and line 45 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][4], in the cell docs × markdown: selected by
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md][3], in the cell docs × markdown: selected by
   [ADR-CONF-ADDRESSING][2]: the file cites it at line 32 (text), line 32 (text), line 95 (text) and line 95 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md][4], in the cell docs × markdown: selected by
+  [ADR-CONF-ADDRESSING][2]: the file cites it at line 45 (text) and line 45 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][5], in the cell docs × markdown: selected by
   [ADR-CONF-ADDRESSING][2]: the file cites it at line 17 (text) and line 21 (text).
 - [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][6], in the cell docs × markdown: selected by [ADR-AUTO-ENVVAR][1]: the
@@ -77,7 +77,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][14], in the cell .claude × markdown: selected by [ADR-AUTO-ENVVAR][1]: the file
-  cites it at line 217 (text).
+  cites it at line 86 (text).
 - [.claude/plans/prompt-bounded-folder-enumeration-continue.md][15], in the cell .claude × markdown: selected by [ADR-CONF-ADDRESSING][2]:
   the file cites it at line 18 (text).
 
@@ -155,8 +155,8 @@ The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map
 
 [1]: ../../../../adr/automation/environment-variables.md
 [2]: ../../../../adr/configuration/config-value-addressing.md
-[3]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[4]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[3]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[4]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md
 [5]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [6]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [7]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md

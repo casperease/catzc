@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9c1b55ade6b6"
+    with_body_sha: "510c8e4d5663"
     repo_status: locked
     path: docs/explanation/configuration/.assets/an-address-is-a-read-only-walk/tree.md
     source: docs/explanation/configuration/.assets/an-address-is-a-read-only-walk/diagram.drawio.png
@@ -46,10 +46,10 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][2], in the cell docs × markdown:
-  selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 45 (text) and line 45 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][3], in the cell docs × markdown: selected by
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md][2], in the cell docs × markdown: selected by
   [ADR-CONF-ADDRESSING][1]: the file cites it at line 32 (text), line 32 (text), line 95 (text) and line 95 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md][3], in the cell docs × markdown: selected by
+  [ADR-CONF-ADDRESSING][1]: the file cites it at line 45 (text) and line 45 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][4], in the cell docs × markdown: selected by
   [ADR-CONF-ADDRESSING][1]: the file cites it at line 17 (text) and line 21 (text).
 - [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][5], in the cell docs × markdown: selected by [ADR-CONF-ADDRESSING][1]: the
@@ -132,8 +132,8 @@ The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map
 - [yaml][24]: a file language
 
 [1]: ../../../../adr/configuration/config-value-addressing.md
-[2]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[3]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[2]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[3]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md
 [4]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [5]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [6]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md

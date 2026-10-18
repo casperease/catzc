@@ -116,7 +116,8 @@ concepts:
     domain: automation
     defined_by: ADR-AUTO-TEST-ONESCHEDULINGPOOL
     short:
-      A test run's scheduling stage — parallel and greedy files share one pool, serial runs last — chosen per file by the serial/greedy tags.
+      A test run's scheduling stage — parallel and greedy files share one pool, serial runs last — chosen per file by the serial/greedy
+      tags.
     realized_by: { kind: tag, pattern: "serial|greedy" }
     forms: [parallel, serial, greedy, worker, execution, run, test]
     contrasts:

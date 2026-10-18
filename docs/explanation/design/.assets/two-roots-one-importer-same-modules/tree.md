@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1c5dc0b8e0bf"
+    with_body_sha: "2cfcb6d40d7e"
     repo_status: locked
     path: docs/explanation/design/.assets/two-roots-one-importer-same-modules/tree.md
     source: docs/explanation/design/.assets/two-roots-one-importer-same-modules/diagram.drawio.png
@@ -16,23 +16,22 @@ catzc:
 
 ```text
 Which files cite ADR-DSGN-RUNMODE: every file of the world map is a tile, grouped by top-level folder.
-44 files lit in 9 groups.
+41 files lit in 8 groups.
 ```
 
 ![The tree minimap of Two code roots feed one importer, which loads the same modules](tree.png)
 
-This is the tree minimap in the sidebar of the architecture diagram of [Two code roots feed one importer, which loads the same modules][45],
+This is the tree minimap in the sidebar of the architecture diagram of [Two code roots feed one importer, which loads the same modules][42],
 which explains [ADR-DSGN-RUNMODE][1]. It lights every file that cites those codes, grouped by folder, so it shows which files carry the
 decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 44 files in 9 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 41 files in 8 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 30 lit files
-- .claude: 3 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
 - Docs (pwsh/Catzc.Base.Docs): 2 lit files
@@ -47,30 +46,30 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][2], in the cell docs ×
-  markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 53 (text).
-- [docs/references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md][3], in the cell docs × markdown: selected by
-  [ADR-DSGN-RUNMODE][1]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md][4], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
-  the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][5], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the
-  file cites it at line 31 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Copy-CatzcModule.ps1.md][6], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
-  the file cites it at line 38 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md][7], in the cell docs × markdown: selected by
-  [ADR-DSGN-RUNMODE][1]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md][8], in the cell docs × markdown: selected by
-  [ADR-DSGN-RUNMODE][1]: the file cites it at line 36 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Get-ModuleFunction.ps1.md][9], in the cell docs × markdown: selected by
-  [ADR-DSGN-RUNMODE][1]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md][10], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
-  the file cites it at line 23 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][11], in the cell docs × markdown: selected by
-  [ADR-DSGN-RUNMODE][1]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md][12], in the cell docs × markdown: selected by
-  [ADR-DSGN-RUNMODE][1]: the file cites it at line 26 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][13], in the cell docs × markdown: selected by
+- [docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md][2], in the cell docs × markdown: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 105 (text).
+- [docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.verify.md][3], in the cell docs × markdown: selected by
+  [ADR-DSGN-RUNMODE][1]: the file cites it at line 53 (text).
+- [docs/references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md][4], in the cell docs × markdown: selected by
+  [ADR-DSGN-RUNMODE][1]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md][5], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
+  the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][6], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the
+  file cites it at line 31 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Copy-CatzcModule.ps1.md][7], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
+  the file cites it at line 38 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md][8], in the cell docs × markdown: selected by
+  [ADR-DSGN-RUNMODE][1]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md][9], in the cell docs × markdown: selected by
+  [ADR-DSGN-RUNMODE][1]: the file cites it at line 36 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Get-ModuleFunction.ps1.md][10], in the cell docs × markdown: selected by
+  [ADR-DSGN-RUNMODE][1]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md][11], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
+  the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][12], in the cell docs × markdown: selected by
+  [ADR-DSGN-RUNMODE][1]: the file cites it at line 26 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md][13], in the cell docs × markdown: selected by
+  [ADR-DSGN-RUNMODE][1]: the file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md][14], in the cell docs × markdown: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 34 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md][15], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]:
@@ -108,29 +107,18 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/internal/assets/Import-Catzc.ps1.md][31], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file
   cites it at line 14 (text).
 
-### .claude (3 lit files)
-
-The group holds the files of .claude; each sits in its world-map cell and is lit by:
-
-- [.claude/plans/plan-explanation-drift-gaps.md][32], in the cell .claude × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it
-  at line 56 (text) and line 102 (text).
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][33], in the cell .claude × markdown: selected by [ADR-DSGN-RUNMODE][1]: the
-  file cites it at line 133 (text).
-- [.claude/plans/task-layers-classification-flip.md][34], in the cell .claude × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites
-  it at line 22 (text), line 31 (text), line 31 (text) and line 31 (text).
-
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][35], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 312 (text).
-- [docs/adr/index.md][36], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 114 (text).
+- [docs/adr/glossary.md][32], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 312 (text).
+- [docs/adr/index.md][33], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 114 (text).
 
 ### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/dora-explains.md][37], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 123
+- [docs/adr/design/dora-explains.md][34], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 123
   (text).
 - [docs/adr/design/run-modes.md][1], in the cell docs × markdown: selected by [ADR-DSGN-RUNMODE][1]: the ADR's own file.
 
@@ -138,32 +126,32 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][38], in the cell pwsh × yaml: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 80
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][35], in the cell pwsh × yaml: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 80
   (text).
-- [pwsh/Catzc.Base.Docs/configs/glossary.yml][39], in the cell pwsh × yaml: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 622
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][36], in the cell pwsh × yaml: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 622
   (text).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 2 lit files)
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1][40], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1][37], in the cell pwsh × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1][41], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1][38], in the cell pwsh × powershell: selected by
   [ADR-DSGN-RUNMODE][1]: the file cites it at line 1 (text).
 
 ### Root files (1 lit file)
 
 The group holds the files of Root files; each sits in its world-map cell and is lit by:
 
-- [importer.ps1][42], in the cell Root files × powershell: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner
+- [importer.ps1][39], in the cell Root files × powershell: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner
   module's files (files.yml), which cite it at `pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][43], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-RUNMODE][1]: a pipeline that cites
+- [pipelines/ci-automation.yaml][40], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-RUNMODE][1]: a pipeline that cites
   nothing itself carries its globset's citations, which cite it at `pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text),
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 80 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 622 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` line 1 (text) and
@@ -173,39 +161,38 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 The group holds the files of pwsh/.internal; each sits in its world-map cell and is lit by:
 
-- [pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1][44], in the cell pwsh × powershell: selected by [ADR-DSGN-RUNMODE][1]: the file
+- [pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1][41], in the cell pwsh × powershell: selected by [ADR-DSGN-RUNMODE][1]: the file
   cites it at line 1 (text).
 
 ## Keywords
 
-- [world map][46]
-- [track][47]
-- [file language][48]
-- [cell][49]
-- [lit cell][50]
-- [root file][51]
-- [.claude][52]: a track
-- [docs][52]: a track
-- [pipelines][52]: a track
-- [pwsh][52]: a track
-- [markdown][53]: a file language
-- [pipeline-yaml][53]: a file language
-- [powershell][53]: a file language
-- [yaml][53]: a file language
+- [world map][43]
+- [track][44]
+- [file language][45]
+- [cell][46]
+- [lit cell][47]
+- [root file][48]
+- [docs][49]: a track
+- [pipelines][49]: a track
+- [pwsh][49]: a track
+- [markdown][50]: a file language
+- [pipeline-yaml][50]: a file language
+- [powershell][50]: a file language
+- [yaml][50]: a file language
 
 [1]: ../../../../adr/design/run-modes.md
-[2]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[3]: ../../../../references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md
-[4]: ../../../../references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md
-[5]: ../../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[6]: ../../../../references/pwsh/catzc-base-modulesystem/Copy-CatzcModule.ps1.md
-[7]: ../../../../references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
-[8]: ../../../../references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md
-[9]: ../../../../references/pwsh/catzc-base-modulesystem/Get-ModuleFunction.ps1.md
-[10]: ../../../../references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md
-[11]: ../../../../references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
-[12]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
-[13]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
+[2]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
+[3]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.verify.md
+[4]: ../../../../references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md
+[5]: ../../../../references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md
+[6]: ../../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+[7]: ../../../../references/pwsh/catzc-base-modulesystem/Copy-CatzcModule.ps1.md
+[8]: ../../../../references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
+[9]: ../../../../references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md
+[10]: ../../../../references/pwsh/catzc-base-modulesystem/Get-ModuleFunction.ps1.md
+[11]: ../../../../references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md
+[12]: ../../../../references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+[13]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
 [14]: ../../../../references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md
 [15]: ../../../../references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
 [16]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md
@@ -224,25 +211,22 @@ The group holds the files of pwsh/.internal; each sits in its world-map cell and
 [29]: ../../../../references/pwsh/internal/Catzc.Internal.Importer.psm1.md
 [30]: ../../../../references/pwsh/internal/Catzc.Internal.TestKit.psm1.md
 [31]: ../../../../references/pwsh/internal/assets/Import-Catzc.ps1.md
-[32]: ../../../../../.claude/plans/plan-explanation-drift-gaps.md
-[33]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[34]: ../../../../../.claude/plans/task-layers-classification-flip.md
-[35]: ../../../../adr/glossary.md
-[36]: ../../../../adr/index.md
-[37]: ../../../../adr/design/dora-explains.md
-[38]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[39]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
-[40]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
-[41]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
-[42]: ../../../../../importer.ps1
-[43]: ../../../../../pipelines/ci-automation.yaml
-[44]: ../../../../../pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
-[45]: ../../two-roots-one-importer-same-modules.md
-[46]: ../../../../adr/glossary.md#world-map
-[47]: ../../../../adr/glossary.md#track
-[48]: ../../../../adr/glossary.md#file-language
-[49]: ../../../../adr/glossary.md#cell
-[50]: ../../../../adr/glossary.md#lit-cell
-[51]: ../../../../adr/glossary.md#root-file
-[52]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[53]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[32]: ../../../../adr/glossary.md
+[33]: ../../../../adr/index.md
+[34]: ../../../../adr/design/dora-explains.md
+[35]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[36]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
+[37]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
+[38]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
+[39]: ../../../../../importer.ps1
+[40]: ../../../../../pipelines/ci-automation.yaml
+[41]: ../../../../../pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
+[42]: ../../two-roots-one-importer-same-modules.md
+[43]: ../../../../adr/glossary.md#world-map
+[44]: ../../../../adr/glossary.md#track
+[45]: ../../../../adr/glossary.md#file-language
+[46]: ../../../../adr/glossary.md#cell
+[47]: ../../../../adr/glossary.md#lit-cell
+[48]: ../../../../adr/glossary.md#root-file
+[49]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[50]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

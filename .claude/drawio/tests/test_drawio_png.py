@@ -94,6 +94,55 @@ def test_routes_an_edge_through_its_waypoints_rounding_the_corners_when_rounded(
     assert at(round_, 110, 20) == RED and at(round_, 200, 100) == RED
 
 
+def test_draws_no_arrowhead_for_an_edge_whose_ends_meet():
+    img = rendered(
+        '<mxCell id="label" value="" style="text;strokeColor=none;fillColor=none;" vertex="1" parent="1">'
+        '<mxGeometry x="100" y="100" width="90" height="16" as="geometry"/></mxCell>'
+        '<mxCell id="loop" value="" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#FF0000;" edge="1" parent="1" source="label" target="label">'
+        '<mxGeometry relative="1" as="geometry"/></mxCell>'
+    )
+    assert all(img.getpixel((x, y)) == (255, 255, 255) for x in range(20 + 90, 20 + 200) for y in range(20 + 95, 20 + 125))
+
+
+def test_places_an_edge_label_at_the_middle_of_its_routed_length():
+    img = rendered(
+        '<mxCell id="bend" value="widget" style="endArrow=none;strokeColor=#FF0000;fontColor=#000000;fontSize=11;" edge="1" parent="1">'
+        '<mxGeometry relative="1" as="geometry"><mxPoint x="120" y="20" as="sourcePoint"/><mxPoint x="20" y="180" as="targetPoint"/>'
+        '<Array as="points"><mxPoint x="20" y="20"/></Array></mxGeometry></mxCell>'
+    )
+    ink = lambda x0, x1, y0, y1: any(at(img, x, y) == (0, 0, 0) for x in range(x0, x1) for y in range(y0, y1))
+    assert ink(20, 80, 30, 60)  # beside the vertical leg: the 260 px path's middle is 30 px down it, at (20, 50)
+    assert not ink(50, 110, 0, 15)  # not above the first leg's middle, at (70, 20)
+
+
+def test_draws_nothing_for_a_group_cell():
+    img = rendered(
+        '<mxCell id="group" value="" style="group;" vertex="1" parent="1"><mxGeometry x="50" y="50" width="200" height="100" as="geometry"/></mxCell>'
+    )
+    assert at(img, 50, 100) == (255, 255, 255) and at(img, 150, 50) == (255, 255, 255)  # no border on either edge
+
+
+def test_wraps_a_wrapping_label_inside_its_cell_width():
+    img = rendered(
+        '<mxCell id="note" value="widgets gadgets sprockets widgets gadgets sprockets" '
+        'style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=12;fontColor=#000000;strokeColor=none;" vertex="1" parent="1">'
+        '<mxGeometry x="20" y="20" width="80" height="150" as="geometry"/></mxCell>'
+    )
+    beyond = [img.getpixel((x, y)) for x in range(20 + 110, 20 + 290) for y in range(20 + 20, 20 + 170)]
+    assert all(p == (255, 255, 255) for p in beyond)  # nothing past the cell's 80 px
+    assert any(img.getpixel((x, 20 + 60)) != (255, 255, 255) for x in range(20 + 24, 20 + 100))  # the words went onto later lines
+
+
+def test_reads_an_opening_div_as_a_new_line():
+    assert drawio_png.plain("<font>widget</font><div><font>gadget</font></div>") == "widget\ngadget"
+    assert drawio_png.plain("<div>widget</div><div>gadget</div>") == "widget\ngadget"
+
+
+def test_reads_an_html_font_colour_given_as_rgb():
+    assert drawio_png.html_color('<font style="color: rgb(255, 0, 0);">widget</font>') == "#ff0000"
+    assert drawio_png.html_color('<font color="#00ff00">widget</font>') == "#00ff00"
+
+
 def test_draws_a_flex_arrow_as_a_filled_block_with_a_head():
     img = rendered(
         '<mxCell id="push" value="" style="shape=flexArrow;endArrow=classic;fillColor=#00FF00;strokeColor=#0000FF;width=10;endWidth=20;endSize=7;" '

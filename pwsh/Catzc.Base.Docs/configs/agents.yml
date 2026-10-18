@@ -100,7 +100,8 @@ agents:
 
   # Drives the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.
   - name: implementation-orchestrator
-    supported_by: [ADR-REPO-PLANS-MASTERANDTASKS, ADR-PROC-PULLWORK-PULLNOTPUSH, ADR-PROC-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
+    supported_by:
+      [ADR-REPO-PLANS-MASTERANDTASKS, ADR-PROC-PULLWORK-PULLNOTPUSH, ADR-PROC-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: [Test-Plans]
     model_reason:
       maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions

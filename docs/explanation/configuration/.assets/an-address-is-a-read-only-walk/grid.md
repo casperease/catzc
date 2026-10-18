@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3a7cdfa6180b"
+    with_body_sha: f72da4a34791
     repo_status: locked
     path: docs/explanation/configuration/.assets/an-address-is-a-read-only-walk/grid.md
     source: docs/explanation/configuration/.assets/an-address-is-a-read-only-walk/diagram.drawio.png
@@ -32,10 +32,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 1 lit of 89 files
-- docs × markdown: 11 lit of 2766 files
+- .claude × markdown: 1 lit of 64 files
+- docs × markdown: 11 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
-- pwsh × powershell: 2 lit of 1651 files
+- pwsh × powershell: 2 lit of 1653 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key
@@ -65,10 +65,10 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) b
 - [docs/adr/configuration/config-value-addressing.md][1]: selected by [ADR-CONF-ADDRESSING][1]: the ADR's own file.
 - [docs/adr/configuration/dora-explains.md][4]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 28 (text).
 - [docs/adr/index.md][5]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 237 (text).
-- [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][6]: selected by
-  [ADR-CONF-ADDRESSING][1]: the file cites it at line 45 (text) and line 45 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][7]: selected by [ADR-CONF-ADDRESSING][1]: the file cites
-  it at line 32 (text), line 32 (text), line 95 (text) and line 95 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md][6]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at
+  line 32 (text), line 32 (text), line 95 (text) and line 95 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md][7]: selected by [ADR-CONF-ADDRESSING][1]: the file
+  cites it at line 45 (text) and line 45 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][8]: selected by [ADR-CONF-ADDRESSING][1]: the
   file cites it at line 17 (text) and line 21 (text).
 - [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][9]: selected by [ADR-CONF-ADDRESSING][1]: the file cites it at line 14
@@ -130,8 +130,8 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [3]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
 [4]: ../../../../adr/configuration/dora-explains.md
 [5]: ../../../../adr/index.md
-[6]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[7]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[6]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[7]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md
 [8]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [9]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [10]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md

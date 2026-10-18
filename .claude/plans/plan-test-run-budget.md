@@ -58,6 +58,17 @@ none.
       for the check, and its 127 asset cases share 22 unit, version and module groups, so each group is looked up once with the same
       filtered call (ADR-AUTO-TEST-SETUPONCE). Its command cases (22.3 s) keep one `Get-CommandContract -Name` call each, since the call
       proves the name filter.
+
+      Making the two failing drivers green, 2026-10-18. Decided by the orchestrator (one living version, no fake read, no suppression):
+      `-DiagnoseBlocking` leaves `Invoke-Importer`, `Invoke-TestRun` and `Test-Automation` with their help, contract, lookup and the
+      watchpoint test context, since no watchpoint stands; ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH says the switch is added with the
+      next watchpoint and deleted with the last one. `importer.ps1`, `importer-commands.sh` and the contract reference regenerated. Verdicts
+      under `Invoke-TestFile`: `.internal/tests/Test-ScriptAnalyzer.Tests` "Passed" (`out/test-file/20261018-202830-8588d7`),
+      `Invoke-TestRun.Tests` "Passed" (`20261018-202757-524a41`), `Test-Automation.Tests` "Passed" (`20261018-202809-a020c2`);
+      Test-Contracts 0, Test-AgentDefinitions 0, Test-AdrRegistry 0, Test-Links 0 on the ADR. The four files and seven YAML configs the
+      format check named are formatted, each config test passing. `Test-Formatting.Tests` still fails (`20261018-202909-fa14ac`): 629
+      Markdown files whose lines the code-language rename made longer than 140, so prettier re-wraps them; they surfaced once the markdown
+      cache went cold. Open for the orchestrator: a tree-wide `Format-Code -Language markdown` (it includes `.claude/CLAUDE.md`).
 - [ ] One engine start of a black-box test is bounded under the shard roof (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT): the Python and Go tests
       bounded each of their two starts at 300 s, so the inner bound could never fire before the 360 s roof. `tests.engine_start_seconds`
       (150, `timeouts.yml` and the default on `TimeoutsConfig`) reaches every engine through `Get-EngineContract` as

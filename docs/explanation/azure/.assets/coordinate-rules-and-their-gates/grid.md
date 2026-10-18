@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "13b840ab66e9"
+    with_body_sha: "6c91e2445e4a"
     repo_status: locked
     path: docs/explanation/azure/.assets/coordinate-rules-and-their-gates/grid.md
     source: docs/explanation/azure/.assets/coordinate-rules-and-their-gates/diagram.drawio.png
@@ -33,10 +33,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 1 lit of 89 files
-- docs × markdown: 65 lit of 2767 files
+- .claude × markdown: 1 lit of 64 files
+- docs × markdown: 65 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
-- pwsh × powershell: 4 lit of 1651 files
+- pwsh × powershell: 4 lit of 1653 files
 - pwsh × yaml: 4 lit of 115 files
 
 ## Key
@@ -55,7 +55,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.md` names the file
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
-- [.claude/plans/plan-promotion-ladder.md][4]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 56 (text).
+- [.claude/plans/plan-promotion-ladder.md][4]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 13 (text).
 
 ### docs × markdown (65 lit files)
 
@@ -70,89 +70,87 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/adr/index.md][7]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 285 (text); selected by [ADR-AZ-DATAMOD][2]: the file
   cites it at line 280 (text) and line 406 (text).
 - [docs/how-to/pwsh/manual-test-plan/azure.md][8]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 15 (text) and line 58 (text).
-- [docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md][9]: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 62 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 61 (text) and line
-  61 (text).
-- [docs/references/.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md][10]: selected by
-  [ADR-AZ-DATAMOD][2]: the file cites it at line 58 (text) and line 73 (text).
-- [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][11]: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 44 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 42 (text) and line
-  48 (text).
-- [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][12]: selected by
-  [ADR-AZ-CUSTOMER][1]: the file cites it at line 50 (text) and line 50 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line
-  50 (text), line 50 (text), line 50 (text), line 50 (text) and line 72 (text).
-- [docs/references/infrastructure/templates/discovery/options.yml.md][13]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 14
+- [docs/references/infrastructure/templates/discovery/options.yml.md][9]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 14
   (text).
-- [docs/references/infrastructure/templates/expedition/options.yml.md][14]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 15
+- [docs/references/infrastructure/templates/expedition/options.yml.md][10]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 15
   (text).
-- [docs/references/infrastructure/templates/foundation/options.yml.md][15]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 14
+- [docs/references/infrastructure/templates/foundation/options.yml.md][11]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 14
   (text).
-- [docs/references/pipelines/cd-shared.yaml.md][16]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 13 (text).
-- [docs/references/pipelines/ci-infrastructure.yaml.md][17]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 24 (text).
-- [docs/references/pipelines/extends/cd-customer.yaml.md][18]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 20 (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][19]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 21
-  (text).
-- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md][20]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 17
-  (text).
-- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][21]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 21
-  (text).
-- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][22]: selected by [ADR-AZ-CUSTOMER][1]: the file cites
+- [docs/references/pipelines/cd-shared.yaml.md][12]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 13 (text).
+- [docs/references/pipelines/ci-infrastructure.yaml.md][13]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 24 (text).
+- [docs/references/pipelines/extends/cd-customer.yaml.md][14]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 20 (text).
+- [docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md][15]: selected by [ADR-AZ-CUSTOMER][1]: the file cites
   it at line 101 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 101 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][23]: selected by [ADR-AZ-CUSTOMER][1]: the file
+- [docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.verify.md][16]: selected by [ADR-AZ-CUSTOMER][1]: the file
+  cites it at line 62 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 61 (text) and line 61 (text).
+- [docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.md][17]: selected by [ADR-AZ-CUSTOMER][1]: the file cites
+  it at line 103 (text) and line 103 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 102 (text), line 102 (text), line
+  102 (text) and line 102 (text).
+- [docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.verify.md][18]: selected by [ADR-AZ-CUSTOMER][1]: the
+  file cites it at line 50 (text) and line 50 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 50 (text), line 50 (text),
+  line 50 (text), line 50 (text) and line 72 (text).
+- [docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.md][19]: selected by [ADR-AZ-DATAMOD][2]: the file cites
+  it at line 24 (text), line 30 (text), line 101 (text), line 101 (text) and line 108 (text).
+- [docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.verify.md][20]: selected by [ADR-AZ-DATAMOD][2]: the file
+  cites it at line 58 (text) and line 73 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md][21]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at
+  line 94 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 32 (text), line 94 (text) and line 100 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md][22]: selected by [ADR-AZ-CUSTOMER][1]: the file cites
+  it at line 44 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 42 (text) and line 48 (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][23]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 21
+  (text).
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md][24]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 17
+  (text).
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][25]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 21
+  (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][26]: selected by [ADR-AZ-CUSTOMER][1]: the file
   cites it at line 24 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md][24]: selected by
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md][27]: selected by
   [ADR-AZ-CUSTOMER][1]: the file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][25]: selected by [ADR-AZ-CUSTOMER][1]: the file
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][28]: selected by [ADR-AZ-CUSTOMER][1]: the file
   cites it at line 20 (text).
-- [docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md][26]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line
+- [docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md][29]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line
   94 (text).
-- [docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md][27]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 129
+- [docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md][30]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 129
   (text).
-- [docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md][28]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 17 (text)
+- [docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md][31]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 17 (text)
   and line 105 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md][29]: selected by [ADR-AZ-DATAMOD][2]: the file cites it
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md][32]: selected by [ADR-AZ-DATAMOD][2]: the file cites it
   at line 24 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md][30]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md][33]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at
   line 36 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md][31]: selected by [ADR-AZ-DATAMOD][2]: the file cites it
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md][34]: selected by [ADR-AZ-DATAMOD][2]: the file cites it
   at line 18 (text).
-- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][32]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][35]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line
   128 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 20 (text), line 46 (text) and line 117 (text).
-- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][33]: selected by [ADR-AZ-DATAMOD][2]: the file cites it
+- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][36]: selected by [ADR-AZ-DATAMOD][2]: the file cites it
   at line 26 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md][34]: selected by [ADR-AZ-DATAMOD][2]: the file
-  cites it at line 24 (text), line 30 (text), line 101 (text), line 101 (text) and line 108 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][35]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it
-  at line 94 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 32 (text), line 94 (text) and line 100 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md][36]: selected by [ADR-AZ-DATAMOD][2]: the file
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md][37]: selected by [ADR-AZ-DATAMOD][2]: the file
   cites it at line 22 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md][37]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md][38]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at
   line 16 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md][38]: selected by [ADR-AZ-DATAMOD][2]:
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md][39]: selected by [ADR-AZ-DATAMOD][2]:
   the file cites it at line 14 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md][39]: selected by [ADR-AZ-CUSTOMER][1]: the
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md][40]: selected by [ADR-AZ-CUSTOMER][1]: the
   file cites it at line 24 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md][40]: selected by [ADR-AZ-DATAMOD][2]: the file
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md][41]: selected by [ADR-AZ-DATAMOD][2]: the file
   cites it at line 20 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md][41]: selected by [ADR-AZ-DATAMOD][2]:
+- [docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md][42]: selected by [ADR-AZ-DATAMOD][2]:
   the file cites it at line 25 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md][42]: selected by [ADR-AZ-DATAMOD][2]: the file cites
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md][43]: selected by [ADR-AZ-DATAMOD][2]: the file cites
   it at line 17 (text).
-- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][43]: selected by [ADR-AZ-DATAMOD][2]: the file
+- [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][44]: selected by [ADR-AZ-DATAMOD][2]: the file
   cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][44]: selected by [ADR-AZ-DATAMOD][2]: the
+- [docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md][45]: selected by [ADR-AZ-DATAMOD][2]: the
   file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md][45]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 27
+- [docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md][46]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 27
   (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md][46]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md][47]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md][48]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 19 (text)
+- [docs/references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md][47]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 16 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md][48]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 18 (text).
+- [docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md][49]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 19 (text)
   and line 46 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 18 (text).
-- [docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md][49]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line
+- [docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md][50]: selected by [ADR-AZ-DATAMOD][2]: the file cites it at line
   14 (text).
-- [docs/references/pwsh/catzc-azure/azure-identity-resolves-from-config.drawio.md][50]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it
-  at line 103 (text) and line 103 (text); selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 102 (text), line 102 (text), line 102
-  (text) and line 102 (text).
 - [docs/references/pwsh/catzc-azure/configs/azure.yml.md][51]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 66 (text);
   selected by [ADR-AZ-DATAMOD][2]: the file cites it at line 56 (text), line 83 (text) and line 102 (text).
 - [docs/references/pwsh/catzc-azure/configs/customer.yml.md][52]: selected by [ADR-AZ-CUSTOMER][1]: the file cites it at line 12 (text).
@@ -265,48 +263,48 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [6]: ../../../../adr/glossary.md
 [7]: ../../../../adr/index.md
 [8]: ../../../../how-to/pwsh/manual-test-plan/azure.md
-[9]: ../../../../references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
-[10]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md
-[11]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[12]: ../../../../references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
-[13]: ../../../../references/infrastructure/templates/discovery/options.yml.md
-[14]: ../../../../references/infrastructure/templates/expedition/options.yml.md
-[15]: ../../../../references/infrastructure/templates/foundation/options.yml.md
-[16]: ../../../../references/pipelines/cd-shared.yaml.md
-[17]: ../../../../references/pipelines/ci-infrastructure.yaml.md
-[18]: ../../../../references/pipelines/extends/cd-customer.yaml.md
-[19]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
-[20]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
-[21]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
-[22]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
-[23]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
-[24]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
-[25]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
-[26]: ../../../../references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md
-[27]: ../../../../references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md
-[28]: ../../../../references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
-[29]: ../../../../references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
-[30]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
-[31]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
-[32]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
-[33]: ../../../../references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
-[34]: ../../../../references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.md
-[35]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
-[36]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md
-[37]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md
-[38]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
-[39]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md
-[40]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md
-[41]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md
-[42]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md
-[43]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
-[44]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
-[45]: ../../../../references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md
-[46]: ../../../../references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md
-[47]: ../../../../references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md
-[48]: ../../../../references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md
-[49]: ../../../../references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
-[50]: ../../../../references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.md
+[9]: ../../../../references/infrastructure/templates/discovery/options.yml.md
+[10]: ../../../../references/infrastructure/templates/expedition/options.yml.md
+[11]: ../../../../references/infrastructure/templates/foundation/options.yml.md
+[12]: ../../../../references/pipelines/cd-shared.yaml.md
+[13]: ../../../../references/pipelines/ci-infrastructure.yaml.md
+[14]: ../../../../references/pipelines/extends/cd-customer.yaml.md
+[15]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
+[16]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.verify.md
+[17]: ../../../../references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.md
+[18]: ../../../../references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.verify.md
+[19]: ../../../../references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.md
+[20]: ../../../../references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.verify.md
+[21]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[22]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md
+[23]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+[24]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
+[25]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+[26]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
+[27]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
+[28]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
+[29]: ../../../../references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md
+[30]: ../../../../references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md
+[31]: ../../../../references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
+[32]: ../../../../references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
+[33]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+[34]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+[35]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+[36]: ../../../../references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+[37]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md
+[38]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md
+[39]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
+[40]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md
+[41]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md
+[42]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md
+[43]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md
+[44]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+[45]: ../../../../references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
+[46]: ../../../../references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md
+[47]: ../../../../references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md
+[48]: ../../../../references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md
+[49]: ../../../../references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md
+[50]: ../../../../references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
 [51]: ../../../../references/pwsh/catzc-azure/configs/azure.yml.md
 [52]: ../../../../references/pwsh/catzc-azure/configs/customer.yml.md
 [53]: ../../../../references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md

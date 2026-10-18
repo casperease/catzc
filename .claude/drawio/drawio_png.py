@@ -147,11 +147,17 @@ def dashed_line(d, pts, fill, width, dash=6, gap=4):
 
 def html_color(value):
     m = re.search(r'color[=:]\s*"?(#[0-9a-fA-F]{6})', value or "")
-    return m.group(1) if m else None
+    if m:
+        return m.group(1)
+    m = re.search(r"color:\s*rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)", value or "")
+    return "#{:02x}{:02x}{:02x}".format(*(int(v) for v in m.groups())) if m else None
 
 
 def plain(value):
-    text = re.sub(r"<br\s*/?>|</div>|</p>|</li>", "\n", value or "", flags=re.IGNORECASE)
+    # A block element starts a new line where it opens and where it closes, as draw.io lays it out; the boundary between
+    # two blocks is one line break, and a <br><br> stays a blank line.
+    text = re.sub(r"</(?:div|p)>\s*<(?:div|p)[^>]*>", "\n", value or "", flags=re.IGNORECASE)
+    text = re.sub(r"<br\s*/?>|<div[^>]*>|</div>|<p[^>]*>|</p>|</li>", "\n", text, flags=re.IGNORECASE)
     text = re.sub(r"<[^>]+>", "", text)
     return html.unescape(text).strip()
 
@@ -245,8 +251,9 @@ def render(root, page=None):
         x, y, w, h = geo[cid]
         (x0, y0), (x1, y1) = off(x, y), off(x + w, y + h)
         is_text = "text" in s and s.get("strokeColor", "none") == "none"
-        fill = None if is_text else faded(color(s.get("fillColor"), None), s)
-        stroke = None if s.get("strokeColor") == "none" or is_text else faded(color(s.get("strokeColor"), LINE), s)
+        bare = is_text or "group" in s  # a group only places its children; it paints nothing of its own
+        fill = None if bare else faded(color(s.get("fillColor"), None), s)
+        stroke = None if s.get("strokeColor") == "none" or bare else faded(color(s.get("strokeColor"), LINE), s)
         dashed = s.get("dashed") == "1"
         if fill or stroke:
             sw_raw = float(s.get("strokeWidth", 1))
@@ -274,6 +281,8 @@ def render(root, page=None):
             ink = html_color(c.get("value")) or color(s.get("fontColor"), INK)
             top = s.get("verticalAlign") == "top" or s.get("swimlane") == "1" or "swimlane" in s
             align = s.get("align", "center")
+            if s.get("whiteSpace") == "wrap" and w > 4:  # draw.io pads a wrapped label about 2 px a side
+                text = wrapped(d, text, f, w - 4)
             bbox = d.multiline_textbbox((0, 0), text, font=f, spacing=3)
             tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
             tx = x0 + 6 if align == "left" else (x1 - tw - 6 if align == "right" else (x0 + x1 - tw) / 2)
@@ -308,8 +317,8 @@ def render(root, page=None):
             continue
         s = style_map(c.get("style"))
         pts = path(c)
-        if pts is None:
-            continue
+        if pts is None or all(abs(p[0] - pts[0][0]) < 1 and abs(p[1] - pts[0][1]) < 1 for p in pts):
+            continue  # no end, or ends that meet (a cell's loop onto itself): nothing to draw, so no arrowhead pointing nowhere
         if s.get("shape") == "flexArrow":
             flex_arrow(d, pts[0], pts[-1], s)
             continue
@@ -326,10 +335,9 @@ def render(root, page=None):
             arrow(d, pts[1], pts[0], ink)
         label = plain(c.get("value"))
         if label:
-            mid = len(pts) // 2
-            a, b = pts[mid - 1], pts[mid]
+            mx, my = halfway(pts)
             f = font(int(float(s.get("fontSize", 11))), False)
-            d.text(((a[0] + b[0]) / 2 + 4, (a[1] + b[1]) / 2 - 14), label, font=f, fill=color(s.get("fontColor"), INK))
+            d.text((mx + 4, my - 14), label, font=f, fill=color(s.get("fontColor"), INK))
     return img
 
 
@@ -341,6 +349,34 @@ def clip(p, q, box, minx, miny):
         return p
     t = min((w / 2) / abs(dx) if dx else 1e9, (h / 2) / abs(dy) if dy else 1e9)
     return (cx + dx * t, cy + dy * t)
+
+
+def halfway(pts):
+    """The point half the routed length along a polyline, where draw.io centres an edge's label."""
+    import math
+    legs = [math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in itertools.pairwise(pts)]
+    left = sum(legs) / 2
+    for (a, b), leg in zip(itertools.pairwise(pts), legs):
+        if leg and left <= leg:
+            return a[0] + (b[0] - a[0]) * left / leg, a[1] + (b[1] - a[1]) * left / leg
+        left -= leg
+    return pts[-1]
+
+
+def wrapped(d, text, f, width):
+    """Each line of a `whiteSpace=wrap` label broken at spaces so it fits the width; a word longer than the width stays whole."""
+    out = []
+    for line in text.split("\n"):
+        current = ""
+        for word in line.split(" "):
+            trial = f"{current} {word}" if current else word
+            if current and d.textlength(trial, font=f) > width:
+                out.append(current)
+                current = word
+            else:
+                current = trial
+        out.append(current)
+    return "\n".join(out)
 
 
 def rounded(pts, radius=10, steps=8):

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6d9fbb11eb53"
+    with_body_sha: "328ff75cc359"
     repo_status: locked
     path: docs/explanation/design/.assets/state-changes/grid.md
     source: docs/explanation/design/.assets/state-changes/diagram.drawio.png
@@ -33,7 +33,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 5 lit of 64 files
-- docs × markdown: 91 lit of 2775 files
+- docs × markdown: 91 lit of 2781 files
 - pipelines × pipeline-yaml: 3 lit of 14 files
 - pwsh × csharp: 3 lit of 295 files
 - pwsh × powershell: 6 lit of 1653 files
@@ -261,7 +261,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1`
   line 71 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text),
   `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 58
-  (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
+  (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1078 (text).
 - [pipelines/extends/cd-customer.yaml][100]: selected by [ADR-FLOW-CD][2]: the file cites it at line 21 (body comment) (a passing mention
   only).
 
@@ -303,7 +303,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
   [ADR-FLOW-CD][2]: the file cites it at line 18 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][113]: selected by [ADR-FLOW-CD][2]: the file cites it at line 11 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][114]: selected by [ADR-FLOW-CD][2]: the file cites it at line 58 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][115]: selected by [ADR-FLOW-CD][2]: the file cites it at line 1076 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][115]: selected by [ADR-FLOW-CD][2]: the file cites it at line 1078 (text).
 
 ## Keywords
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fe967f7fdb7d
+    with_body_sha: a6f6dd56bff2
     repo_status: locked
     path: docs/explanation/design/.assets/10-commits-story/grid.md
     source: docs/explanation/design/.assets/10-commits-story/diagram.drawio.png
@@ -34,7 +34,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 6 lit of 64 files
-- docs × markdown: 92 lit of 2778 files
+- docs × markdown: 92 lit of 2781 files
 - pipelines × pipeline-yaml: 3 lit of 14 files
 - pwsh × csharp: 3 lit of 295 files
 - pwsh × powershell: 6 lit of 1653 files
@@ -252,9 +252,9 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-T
   carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 77 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 34 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 39 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 67 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 72 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text) and
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 82 (text); selected by [ADR-FLOW-CD][3]: a pipeline that cites nothing itself carries
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 74 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 79 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 84 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 84 (text) and
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 89 (text); selected by [ADR-FLOW-CD][3]: a pipeline that cites nothing itself carries
   its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml`
   line 98 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 99 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 100 (text),
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 101 (text), `pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 42 (text),
@@ -271,7 +271,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
   `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18
   (text), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 58 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
+  line 58 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1078 (text).
 - [pipelines/extends/cd-customer.yaml][102]: selected by [ADR-FLOW-CD][3]: the file cites it at line 21 (body comment) (a passing mention
   only).
 
@@ -311,14 +311,14 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][
   (text), line 99 (text), line 100 (text) and line 101 (text).
 - [pwsh/Catzc.Base.Docs/configs/agents.yml][113]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 28 (text), line 28 (text),
   line 34 (text) and line 39 (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][114]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 67 (text), line 72
-  (text), line 77 (text), line 77 (text) and line 82 (text).
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][114]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 74 (text), line 79
+  (text), line 84 (text), line 84 (text) and line 89 (text).
 - [pwsh/Catzc.Base.Docs/configs/glossary.yml][115]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 484 (text).
 - [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][116]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text); selected by
   [ADR-FLOW-CD][3]: the file cites it at line 18 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][117]: selected by [ADR-FLOW-CD][3]: the file cites it at line 11 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][118]: selected by [ADR-FLOW-CD][3]: the file cites it at line 58 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][119]: selected by [ADR-FLOW-CD][3]: the file cites it at line 1076 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][119]: selected by [ADR-FLOW-CD][3]: the file cites it at line 1078 (text).
 
 ## Keywords
 

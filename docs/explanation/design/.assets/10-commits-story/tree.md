@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dbd24608a061
+    with_body_sha: e9fed528faa3
     repo_status: locked
     path: docs/explanation/design/.assets/10-commits-story/tree.md
     source: docs/explanation/design/.assets/10-commits-story/diagram.drawio.png
@@ -286,7 +286,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 - [pwsh/Catzc.Base.Docs/configs/agents.yml][105], in the cell pwsh × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 28
   (text), line 28 (text), line 34 (text) and line 39 (text).
 - [pwsh/Catzc.Base.Docs/configs/capabilities.yml][106], in the cell pwsh × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line
-  67 (text), line 72 (text), line 77 (text), line 77 (text) and line 82 (text).
+  74 (text), line 79 (text), line 84 (text), line 84 (text) and line 89 (text).
 - [pwsh/Catzc.Base.Docs/configs/glossary.yml][107], in the cell pwsh × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 484
   (text).
 
@@ -302,9 +302,9 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   selected by [ADR-DSGN-VISUAL][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 77 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 34 (text),
-  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 39 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 67 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 72 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text),
-  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text) and `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 82 (text);
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 39 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 74 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 79 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 84 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 84 (text) and `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 89 (text);
   selected by [ADR-FLOW-CD][3]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 98 (text),
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 99 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 100 (text),
@@ -322,7 +322,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
   `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18
   (text), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text), `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 58 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
+  line 58 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1078 (text).
 - [pipelines/extends/cd-customer.yaml][110], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD][3]: the file cites it at line
   21 (body comment) (a passing mention only).
 
@@ -335,7 +335,7 @@ The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its worl
 - [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][112], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][3]: the file cites it at line
   58 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][113], in the cell pwsh × yaml: selected by [ADR-FLOW-CD][3]: the file cites it at
-  line 1076 (text).
+  line 1078 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 

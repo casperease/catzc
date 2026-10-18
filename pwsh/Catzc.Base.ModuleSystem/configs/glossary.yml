@@ -313,7 +313,8 @@ concepts:
     domain: design
     defined_by: ADR-DSGN-TRACK-STACKVIOLATION
     short:
-      A world-map cell holding a live file whose file language its track does not declare — the second tech-stack ADR-DSGN-TRACK-ONETECHSTACK forbids.
+      A world-map cell holding a live file whose file language its track does not declare — the second tech-stack
+      ADR-DSGN-TRACK-ONETECHSTACK forbids.
     realized_by: { kind: prose-only }
     contrasts:
       cell: A cell is any intersection of the world map; a stack violation is a cell that breaks its track's tech-stack.

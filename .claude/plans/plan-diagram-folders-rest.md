@@ -34,7 +34,7 @@ into its folder. Carried from plan-diagram-folders, which is done and listed for
       2026-10-18: delete it; its `git rm` line is in `out/delete-done-plans.ps1` for the user's run.
 - [x] The user runs `out/move-rest-diagrams.ps1` (it stages `git mv`) (check: `git ls-files 'docs/.assets/*/*.drawio.png'` lists nothing).
       Done 2026-10-18 by the user (`out/run-user-git.ps1`): the check lists 0 files.
-- [ ] `Build-Diagrams -Path` on each new folder, one at a time (check: all stages clean on each; Test-Links over docs/ clean). Run
+- [x] `Build-Diagrams -Path` on each new folder, one at a time (check: all stages clean on each; Test-Links over docs/ clean). Run
       2026-10-18 (`out/build-rest-folders.ps1`): the 11 reference folders under `docs/references/pwsh/.assets/` "prepare=clean
       highlight=clean join=clean"; Test-Links over docs/ issues=0 after the 22 links into the old `docs/references/.assets/automation/` path
       were re-pointed (`out/test-links/20261018-200355`). Blocked on five slides whose model has no subtitle cell, the one warning each
@@ -45,11 +45,18 @@ into its folder. Carried from plan-diagram-folders, which is done and listed for
       sidebar and an ADR-level subtitle, numbered citations named from the slug map. Landed 2026-10-18 by catzc-a2 for sync-point,
       commit-lifecycle-states and azure-name-assembly: "prepare 0 clean, highlight 0 clean, join 0 clean", 0 W_ lines each, every
       numbered citation named (4, 8 and 7), only the title moved to make room, long citations broken onto their own line, two boxes in
-      azure-name-assembly widened; each raster read in the dark theme with nothing overlapping that the light original did not. Open:
-      10-commits-story and state-changes, which the kit's Pillow renderer cannot draw faithfully (curved and in-group edges, flexArrow
-      push/pull arrows, the gate lines and span arrows of the top lane): a migration through it drops their arrows, so both stay light
-      with W_SUBTITLE and W_JOIN until a renderer draws them or the user accepts the loss. HEAD (7010cea99) holds a lossy migrated
-      state-changes, and the working tree its light original.
+      azure-name-assembly widened; each raster read in the dark theme with nothing overlapping that the light original did not.
+      10-commits-story and state-changes landed the same way after the renderer step below: "prepare 0 clean, highlight 0 clean, join 0
+      clean", 0 W_ lines each, and each raster keeps every arrow and line its light original has (the span arrows, the push/pull block
+      arrows, the gate lines, the git branch curves, every discard arrow; state-changes' skip edge is a rounded polyline where the
+      original curves). Test-Links on the four embedding pages and the 15 generated pages of the five folders: "issues 0";
+      `out/scan-numbered-models.py`: "SCANNED 166 folders, 0 with hits". The migrated state-changes in the working tree replaces the
+      lossy copy in HEAD (7010cea99) at the user's next commit.
+- [x] The kit renderer (`.claude/drawio/drawio_png.py`) draws what the draw.io-authored slides use, each added with a test in
+      `.claude/drawio/tests/test_drawio_png.py` that failed first (check: the kit tests pass). Verdict (catzc-a2): edges given by
+      `sourcePoint`/`targetPoint`, inside a group at its offset, with `startArrow`; waypoints, with rounded corners for `rounded=1`;
+      `shape=flexArrow` block arrows; a `group` cell paints nothing; a `whiteSpace=wrap` label wraps at its cell width; an opening
+      `<div>` starts a line; an `rgb()` font colour is read; and the in-place re-render no longer loses its `--page`. "32 passed".
 - [x] Numbered citations left in 12 slide models outside docs/explanation (the widened `out/scan-numbered-models.py`: the glyph legend
       `docs/explanation/.assets/glyphs` and the 11 `docs/references/pwsh/.assets/*` slides), re-cited the way step 6 of the code language
       did: named rules, chips on slide-local keys with a legend naming each rule (check: Build-Diagrams -Path clean on each; the scan

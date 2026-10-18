@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "468a9991f94a"
+    with_body_sha: "1912017739ba"
     repo_status: locked
     path: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/grid.md
     source: docs/explanation/configuration/.assets/two-test-files-check-the-address-rules/diagram.drawio.png
@@ -33,10 +33,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 2 lit of 89 files
-- docs × markdown: 16 lit of 2767 files
+- .claude × markdown: 2 lit of 64 files
+- docs × markdown: 16 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
-- pwsh × powershell: 2 lit of 1651 files
+- pwsh × powershell: 2 lit of 1653 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key
@@ -55,7 +55,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.md` names the file
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
-- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][4]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 217 (text).
+- [.claude/plans/plan-layers-vocabulary-rename-contracts.md][4]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 86 (text).
 - [.claude/plans/prompt-bounded-folder-enumeration-continue.md][5]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 18
   (text).
 
@@ -70,10 +70,10 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/adr/configuration/dora-explains.md][7]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at line 28 (text).
 - [docs/adr/index.md][8]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 170 (text); selected by [ADR-CONF-ADDRESSING][2]: the
   file cites it at line 237 (text).
-- [docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md][9]: selected by
-  [ADR-CONF-ADDRESSING][2]: the file cites it at line 45 (text) and line 45 (text).
-- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][10]: selected by [ADR-CONF-ADDRESSING][2]: the file
-  cites it at line 32 (text), line 32 (text), line 95 (text) and line 95 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md][9]: selected by [ADR-CONF-ADDRESSING][2]: the file cites it at
+  line 32 (text), line 32 (text), line 95 (text) and line 95 (text).
+- [docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md][10]: selected by [ADR-CONF-ADDRESSING][2]: the file
+  cites it at line 45 (text) and line 45 (text).
 - [docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md][11]: selected by [ADR-CONF-ADDRESSING][2]: the
   file cites it at line 17 (text) and line 21 (text).
 - [docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md][12]: selected by [ADR-AUTO-ENVVAR][1]: the file cites it at line 29
@@ -146,8 +146,8 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [6]: ../../../../adr/automation/dora-explains.md
 [7]: ../../../../adr/configuration/dora-explains.md
 [8]: ../../../../adr/index.md
-[9]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[10]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[9]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
+[10]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.verify.md
 [11]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [12]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [13]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md

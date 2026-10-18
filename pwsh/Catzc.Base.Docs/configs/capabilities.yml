@@ -11,12 +11,19 @@ capabilities:
 
   # How a cats module is built to the domain rules, one file at a time with its tests.
   - name: catzc-module
-    supported_by: [ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES, ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML]
+    supported_by:
+      [
+        ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE,
+        ADR-AUTO-DEFAULT-ONERESOLUTIONORDER,
+        ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES,
+        ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML,
+      ]
     checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
 
   # Diagnosing and fixing one slow test file by the speed rules, nothing lost.
   - name: test-speed
-    supported_by: [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS]
+    supported_by:
+      [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS]
     checks: [Invoke-TestFile, Test-ScriptAnalyzer]
 
   # The per-file and end-of-task checks of a delegated change, and the shared files it never edits.

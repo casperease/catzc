@@ -38,7 +38,7 @@ Return the report object as well.
 
 ### outputs
 
-`[pscustomobject]` The quality-gate report, with -PassThru.
+`[Catzc.Base.Reports.QualityGateResult]` The quality-gate report, with -PassThru.
 
 ### example 1
 
