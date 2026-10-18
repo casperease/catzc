@@ -24,6 +24,5 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `$pattern = if ($withDomain) {`, written with `#`.
 
 ```text
-Body text cites a rule as ADR-<CODE>#<n> only: a wildcard there is a mention of a family, never a citation. The group form is the
-head's own notation, read back below from the held list.
+Body text cites a rule as ADR-<CODE>#<n> only: a wildcard there is a mention of a family, never a citation.
 ```

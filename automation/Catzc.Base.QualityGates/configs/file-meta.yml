@@ -115,7 +115,7 @@ kinds:
     keys: [defines]
     select: [{ classes: [adr], languages: [markdown] }]
 
-  # The ADR codes a file cites; a code class also lists bare domain codes and keeps what its head holds (domain_ and held_classes default).
+  # The ADR codes a file and its comment page cite, never read back from its head; a code class also lists bare domain codes (domain_classes default).
   adr-codes:
     section: edges
     keys: [cites]

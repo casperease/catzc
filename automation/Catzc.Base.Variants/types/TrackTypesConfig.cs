@@ -99,9 +99,9 @@ public sealed class TrackTypesConfig
         foreach (object key in entry.Keys)
         {
             string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (name != "definition" && name != "role" && name != "admits")
+            if (name != "definition" && name != "role" && name != "admits" && name != "git")
             {
-                throw new ArgumentException(where + ": unknown key '" + name + "' (allowed: definition, role, admits)");
+                throw new ArgumentException(where + ": unknown key '" + name + "' (allowed: definition, role, admits, git)");
             }
         }
         string definition = Definition(where, entry);
@@ -119,7 +119,34 @@ public sealed class TrackTypesConfig
                 admits.Add(moduleType);
             }
         }
-        return new TrackTypeEntry(id, definition, role, admits);
+        Git(where, entry, out List<string> gitAttributes, out string gitWhy);
+        return new TrackTypeEntry(id, definition, role, admits, gitAttributes, gitWhy);
+    }
+
+    // The git attributes the files under the type's places get in the generated .gitattributes, and why: both or neither.
+    static void Git(string where, IDictionary entry, out List<string> attributes, out string why)
+    {
+        attributes = new List<string>();
+        why = null;
+        if (!entry.Contains("git") || entry["git"] == null) { return; }
+        if (!(entry["git"] is IDictionary git)) { throw new ArgumentException(where + ": git must be a map of attributes and why"); }
+        foreach (object key in git.Keys)
+        {
+            string name = Convert.ToString(key, CultureInfo.InvariantCulture);
+            if (name != "attributes" && name != "why") { throw new ArgumentException(where + ": unknown git key '" + name + "' (allowed: attributes, why)"); }
+        }
+        if (git.Contains("attributes") && git["attributes"] is IEnumerable items && !(git["attributes"] is string))
+        {
+            foreach (object item in items) { attributes.Add(Convert.ToString(item, CultureInfo.InvariantCulture)); }
+        }
+        if (attributes.Count == 0) { throw new ArgumentException(where + ": git needs at least one attribute"); }
+        if (attributes.Any(a => string.IsNullOrWhiteSpace(a) || a.Any(char.IsWhiteSpace)))
+        {
+            throw new ArgumentException(where + ": a git attribute is one token without whitespace, such as catzc-unordered");
+        }
+        why = git.Contains("why") ? Convert.ToString(git["why"], CultureInfo.InvariantCulture) : null;
+        if (string.IsNullOrWhiteSpace(why)) { throw new ArgumentException(where + ": git needs a why, one sentence that says what the attributes do for these files"); }
+        why = why.Trim();
     }
 
     static VendorEntry ParseVendor(string id, IDictionary entry)

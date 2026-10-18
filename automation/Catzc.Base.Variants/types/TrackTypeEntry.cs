@@ -35,11 +35,18 @@ public sealed class TrackTypeEntry
     // The module types a module of a track of this type may have.
     public IReadOnlyList<string> admits { get; }
 
-    public TrackTypeEntry(string id, string definition, string role, IReadOnlyList<string> admits)
+    // The git attributes every file under a place of a track of this type gets in the generated .gitattributes, and why;
+    // empty and null when the type gives none.
+    public IReadOnlyList<string> gitAttributes { get; }
+    public string gitWhy { get; }
+
+    public TrackTypeEntry(string id, string definition, string role, IReadOnlyList<string> admits, IReadOnlyList<string> gitAttributes, string gitWhy)
     {
         this.id = id;
         this.definition = definition;
         this.role = role;
         this.admits = admits;
+        this.gitAttributes = gitAttributes;
+        this.gitWhy = gitWhy;
     }
 }

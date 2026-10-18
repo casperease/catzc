@@ -49,12 +49,40 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
                     }
                 })
         }
+        Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'track-types' } {
+            [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{ track_types = [ordered]@{
+                        'widget-works' = [ordered]@{ definition = 'A widget cluster.'; role = 'holder' }
+                    }
+                })
+        }
+        Mock Get-Track -ModuleName Catzc.Base.RootConfig { }
     }
 
     It 'replaces the placeholder with a why comment and one line per glob, subkind first, in registry order' {
         Set-Template "# head`n{{file-kind-attributes}}`n# tail`n"
         $text = New-GitAttributes
         $text | Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n"
+    }
+
+    It 'gives the attributes a track type declares to every place of each track of that type, after the kinds' {
+        Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'track-types' } {
+            [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{ track_types = [ordered]@{
+                        'widget-works' = [ordered]@{ definition = 'A widget cluster.'; role = 'holder' }
+                        'gadget-shelf' = [ordered]@{
+                            definition = 'A gadget holder.'; role = 'holder'
+                            git = [ordered]@{ attributes = @('catzc-gadget'); why = 'Gadgets wait here unchecked.' }
+                        }
+                    }
+                })
+        }
+        Mock Get-Track -ModuleName Catzc.Base.RootConfig {
+            [pscustomobject]@{ name = 'widgets'; type = 'widget-works'; places = @('widgets') }
+            [pscustomobject]@{ name = '.gadgets'; type = 'gadget-shelf'; places = @('.gadgets', 'spare-gadgets') }
+        }
+        Set-Template "{{file-kind-attributes}}`n"
+        $text = New-GitAttributes
+        $text | Should -BeLike "*extras/** catzc-widget eol=lf`n`n# catzc: Gadgets wait here unchecked.`n.gadgets/** catzc-gadget`nspare-gadgets/** catzc-gadget`n"
+        $text | Should -Not -Match 'widgets/\*\* catzc-gadget'
     }
 
     It 'leaves a kind with no git entry out' {
