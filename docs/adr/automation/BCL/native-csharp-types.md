@@ -408,7 +408,10 @@ assembly costs a shadow copy and an `Add-Type` on every import, and the import a
 command name is known, loads the assembly on the first lookup of one of them and removes itself. A literal type name typed at the console
 before any command stays unresolved until then, which a console user sees and a script never does: a headless session is eager, so a
 pipeline, a test worker or `cats` fails at import on a stale or missing assembly rather than later in a cast. The table that says which cell
-is lazy and which eager is data, one row per host, operating system and run mode, flipped by editing a row and never by code.
+is lazy and which eager is data, one row per host, operating system and run mode, flipped by editing a row and never by code. The
+import-time janitors are catzc commands, so a console import would load the assembly through them before the prompt appeared; a console
+session therefore runs them once the first prompt has shown, through a prompt hook the loader installs and removes after that one run, and
+a headless session runs them at import as before.
 
 The hash that names the assembly is the costliest step of a warm import: every `types/*.cs` read and hashed. A machine-local memo keyed by
 each file's length and last write skips the read for a file that shows the same pair, and rewrites itself when any file was read; it lives

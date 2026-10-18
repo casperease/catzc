@@ -173,7 +173,14 @@ function Invoke-Importer {
         }
 
         if (-not $SkipJanitors) {
-            Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
+            if ($hostKind -eq 'console' -and -not $CleanClone) {
+                # A console import stays types-free: the janitors call catzc commands, so they run once the first prompt has shown.
+                Enable-DeferredJanitors -ShowStateChanges:$showStateChanges
+                Write-Verbose 'Janitors deferred until the first prompt has shown'
+            }
+            else {
+                Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
+            }
         }
         if ($DiagnoseBlocking) {
             Assert-Wait
