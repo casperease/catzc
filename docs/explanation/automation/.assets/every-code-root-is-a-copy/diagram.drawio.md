@@ -18,7 +18,7 @@ stacked one above the other, and a single edge enters the frame. The eye lands f
 
 ## Reading path
 
-1. Marker 1, SOURCE band: the store automation/, a cylinder.
+1. Marker 1, SOURCE band: the store pwsh/, a cylinder.
 2. Along the line to marker 2, BUILD band: the code unit Catzc.Internal.Builder.
 3. Marker 3, BUILD band: the gate Assert-CatzcBundle.
 4. Marker 4, BUNDLE band: the result Temporary build.
@@ -30,7 +30,7 @@ stacked one above the other, and a single edge enters the frame. The eye lands f
 
 | Glyph (legend phrase) | Count | Where                                                                                        |
 | --------------------- | ----- | -------------------------------------------------------------------------------------------- |
-| store                 | 1     | automation/ (SOURCE band)                                                                    |
+| store                 | 1     | pwsh/ (SOURCE band)                                                                    |
 | code unit             | 2     | Catzc.Internal.Builder (BUILD band, on the line), Catzc.Base.Exporter (BUILD band, below it) |
 | gate                  | 1     | Assert-CatzcBundle (BUILD band, right), a rhombus with a 3 px rim                            |
 | result                | 3     | Temporary build (BUNDLE band), Installed and Saved (CODE ROOTS band, in the frame)           |
@@ -41,7 +41,7 @@ The store and the code units are slate with white names; the gate is grey and th
 
 | Edge kind | Count | From → to                                                                                                                                                     |
 | --------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow      | 6     | automation/ → Catzc.Internal.Builder → Assert-CatzcBundle → Temporary build → frame; Catzc.Base.Exporter → Catzc.Internal.Builder; frame → Assert-CatzcBundle |
+| flow      | 6     | pwsh/ → Catzc.Internal.Builder → Assert-CatzcBundle → Temporary build → frame; Catzc.Base.Exporter → Catzc.Internal.Builder; frame → Assert-CatzcBundle |
 
 Five edges are short and straight: four horizontal on the line and one vertical between the two code units. The sixth leaves the top of the
 frame, runs left above the bands, and drops into the top point of the gate; it is drawn as three straight segments with one arrowhead. No

@@ -11,7 +11,7 @@ public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedKeys = { "name", "supported_by", "checks" };
     // <domain>-<job>: lowercase letters, digits and hyphens only (the harness accepts nothing else in a skill name), at least one hyphen.
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)+$", RegexOptions.Compiled);
-    private static readonly Regex CitationRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*#[1-9][0-9]*$", RegexOptions.Compiled);
+    private static readonly Regex CitationRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*#[1-9][0-9]*$|^ADR(-[A-Z][A-Z0-9]*){3,}$", RegexOptions.Compiled);
     private static readonly Regex CommandRe = new Regex("^[A-Z][a-z]+-[A-Za-z0-9]+$", RegexOptions.Compiled);
 
     // The capability's name, <domain>.<job>: the file .claude/skills/<name>/SKILL.md and its front-matter name.

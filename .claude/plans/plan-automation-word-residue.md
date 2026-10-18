@@ -288,35 +288,37 @@ now matches its own examples; pipeline-runner-pattern needed no change, line 35 
       lines are the open drift step in plan-explanation-drift-gaps.
 - [x] `docs/explanation/configuration/callers-depend-on-one-config-module.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/configuration/three-caches-back-one-reader.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/manifest-and-aspects-from-one-folder.md` (check: no folder-meaning line; Test-Links clean) Explanation batch
+  2026-10-18, session catzc-fb with the user's go: the slide-label lines below changed with their slides ("every stage clean; LINKS 0,
+  FILEMETA 0, Test-Glossary 0 on each article"); every open step of this block is now ticked.
+- [x] `docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/manifest-and-aspects-from-one-folder.md` (check: no folder-meaning line; Test-Links clean) Explanation batch
       2, session catzc-59, 2026-10-18, each Test-Links ok; free prose done, all kept open for the slide migration:
       `manifest-and-aspects-from-one-folder.drawio.md` 21, 32, 43 and `one-folder-two-independent-readers.drawio.md` 21, 32, 43 (slide
       labels, no edit); `one-folder-two-independent-readers.md` text block 6, marker label 28; `only-automation-compiles-its-aspects.md`
       title, lines 1, 4, 22 (slide title and slug), text block 8, plus its "automation track/convention" drift at 18, 29, 33 (the drift step
       in plan-explanation-drift-gaps); `partition-integrity-runs-only-in-unit-tests.md` text block 6, marker label 29 and its `.drawio.md`
       21, 33, 42 (no edit).
-- [ ] `docs/explanation/design/manifest-and-aspects-from-one-folder.drawio.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/one-folder-two-independent-readers.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/one-folder-two-independent-readers.drawio.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/only-automation-compiles-its-aspects.md` (check: no folder-meaning line; Test-Links clean) (the title means
+- [x] `docs/explanation/design/manifest-and-aspects-from-one-folder.drawio.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/one-folder-two-independent-readers.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/one-folder-two-independent-readers.drawio.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/only-automation-compiles-its-aspects.md` (check: no folder-meaning line; Test-Links clean) (the title means
       the track: the page's file name is the user's call, the prose changes)
-- [ ] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md` (check: no folder-meaning line; Test-Links clean)
       Explanation batch 3, session catzc-59, 2026-10-18, each Test-Links ok. Ticked: which-run-mode-rules-have-a-gate, ci-budget,
       declare-or-add-folder. Kept open for the slide migration: `two-roots-one-importer-same-modules.md` text block 7 and marker label 32
       (`<RepositoryRoot>/automation`); `the-runner-is-the-only-seam.md` text block 10 (line 16 "its automation" means the layer and stays).
-- [ ] `docs/explanation/design/two-roots-one-importer-same-modules.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/two-roots-one-importer-same-modules.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/design/which-run-mode-rules-have-a-gate.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/flow/ci-budget-is-the-only-quality-gate.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/flow/the-runner-is-the-only-seam.md` (check: no folder-meaning line; Test-Links clean) Explanation batch 4, session
+- [x] `docs/explanation/flow/the-runner-is-the-only-seam.md` (check: no folder-meaning line; Test-Links clean) Explanation batch 4, session
       catzc-59, 2026-10-18, each Test-Links ok; every docs/explanation page of this section is reworded. Ticked: two-declared-layers (line
       31's `automation` is the globset key, kept until P6), one-source (line 35 means the layer). Kept open:
       `one-registry-one-writer-two-primitives.md` text block 6 (slide label).
 - [x] `docs/explanation/flow/two-declared-layers-one-derived.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/repository/one-registry-one-writer-two-primitives.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/repository/one-registry-one-writer-two-primitives.md` (check: no folder-meaning line; Test-Links clean)
 - [x] `docs/explanation/repository/one-source-one-writer-one-boolean.md` (check: no folder-meaning line; Test-Links clean) How-to batch,
       session catzc-59, 2026-10-18, the five ticked below, each Test-Links ok; the two index pages needed no change ("under `automation/`"
       names the getting-started guide folder, "automation platform" the layer). The section is closed but for the slide-label lines kept
@@ -334,7 +336,7 @@ now matches its own examples; pipeline-runner-pattern needed no change, line 35 
 - [x] `docs/adr/automation/internal-asset-dependencies.md` (check: no folder-meaning line; Test-Links clean) (line 77)
 - [x] `docs/explanation/automation/two-entries-feed-one-importer.md` (check: no folder-meaning line; Test-Links clean) (line 37)
 - [x] `docs/explanation/design/one-entry-script-per-mode.md` (check: no folder-meaning line; Test-Links clean) (line 29)
-- [ ] `docs/explanation/design/shims-set-roots-mode-read-back.md` (check: no folder-meaning line; Test-Links clean) (body lines 33, 44 done;
+- [x] `docs/explanation/design/shims-set-roots-mode-read-back.md` (check: no folder-meaning line; Test-Links clean) (body lines 33, 44 done;
       the slide-label lines wait for the migration)
 
 ### Plans that still say P4 waits or name removed functions

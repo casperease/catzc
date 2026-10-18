@@ -4,7 +4,7 @@
 ConvertTo-RepoRelativePath tries the output root, then the repository root, else keeps the absolute; Resolve-RepoPath re-anchors out/.
 
  1  out/template/sample/main.json  a path under the output root: out/ plus the remainder
- 2  automation/mod/file.ps1        a path under the repository root: repo-relative
+ 2  pwsh/mod/file.ps1              a path under the repository root: repo-relative
  3  D:\a\1\ws\sample\main.json     a path under neither root: the normalized absolute, unchanged
  4  Resolve-RepoPath               out/ onto Get-OutputRoot, a rooted path unchanged, else onto Get-RepositoryRoot
  5  Get-OutputRoot                 the staging directory in a pipeline, else {root}/out
@@ -31,7 +31,7 @@ The diagram is described element by element in [its asset description](.assets/o
 1. **out/template/sample/main.json.** The first test in `ConvertTo-RepoRelativePath`: after `[IO.Path]::GetFullPath`, a path under
    `Get-OutputRoot` comes back as `out/` plus the remainder with forward slashes, and the output root itself comes back as `out`. The input
    need not exist.
-2. **automation/mod/file.ps1.** The second test: a path under `Get-RepositoryRoot` comes back repo-relative with forward slashes.
+2. **pwsh/mod/file.ps1.** The second test: a path under `Get-RepositoryRoot` comes back repo-relative with forward slashes.
 3. **D:\a\1\ws\sample\main.json.** A path under neither root comes back as the normalized absolute path, the honest answer when no relative
    form exists.
 4. **Resolve-RepoPath.** Backslashes become forward slashes; `out` and `out/...` are joined onto `Get-OutputRoot` and passed through

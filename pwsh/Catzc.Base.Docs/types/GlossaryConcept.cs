@@ -21,7 +21,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*#[1-9][0-9]*$", RegexOptions.Compiled);
+    public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*#[1-9][0-9]*$|^ADR(-[A-Z][A-Z0-9]*){3,}$", RegexOptions.Compiled);
 
     // One qualifier word in a concept's forms ('quality', 'CI').
     public static readonly Regex FormRe = new Regex("^[A-Za-z0-9]+$", RegexOptions.Compiled);

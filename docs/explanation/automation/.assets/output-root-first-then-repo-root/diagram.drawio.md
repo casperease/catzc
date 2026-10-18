@@ -19,7 +19,7 @@ markers and a legend panel along the bottom. The eye lands first on the three gr
 ## Reading path
 
 1. Markers 1, 2 and 3, `COMMUNICATION FORM` band, top to bottom inside one frame: the results out/template/…/main.json,
-   automation/mod/file.ps1 and D:\a\1\ws\sample\main.json.
+   pwsh/mod/file.ps1 and D:\a\1\ws\sample\main.json.
 2. Right along the flow edge that leaves the frame to marker 4, `THE TWO CROSSERS` band, top: the code unit Resolve-RepoPath.
 3. Marker 5, below it: the code unit Get-OutputRoot, with one flow edge up into Resolve-RepoPath and one down into
    ConvertTo-RepoRelativePath.
@@ -32,7 +32,7 @@ markers and a legend panel along the bottom. The eye lands first on the three gr
 
 | Glyph (legend phrase) | Count | Where                                                                                                                                                                        |
 | --------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                | 3     | out/template/…/main.json, automation/mod/file.ps1, D:\a\1\ws\sample\main.json (`COMMUNICATION FORM`, stacked inside one frame)                                               |
+| result                | 3     | out/template/…/main.json, pwsh/mod/file.ps1, D:\a\1\ws\sample\main.json (`COMMUNICATION FORM`, stacked inside one frame)                                               |
 | code unit             | 6     | Resolve-RepoPath, Get-OutputRoot, ConvertTo-RepoRelativePath (`THE TWO CROSSERS`, top to bottom); ArtifactRef.Materialize, ArtifactRef, ResolveAt / ExistsAt (`CROSS-STAGE`) |
 | named set             | 1     | Reads, writes, tool calls (`BINDING FORM`)                                                                                                                                   |
 

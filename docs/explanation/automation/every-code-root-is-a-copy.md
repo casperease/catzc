@@ -3,10 +3,10 @@
 ```text
 One engine builds the bundle, and every code root is a copy of its output.
 
-1  automation/              the source tree, the engine's only input
+1  pwsh/                    the source tree, the engine's only input
 2  Catzc.Internal.Builder   the .internal engine, Invoke-ModuleBuild, that writes the build
 3  Assert-CatzcBundle       the integrity guard, owned by the exporter
-4  Temporary build          the verified build under out/automation/build/Catzc/<version>/
+4  Temporary build          the verified build under out/pwsh/built/<bundle>/Catzc/<version>/
 5  Installed                Install-Catzc -Scope CurrentUser, the user's module folder
 6  Saved                    Install-Catzc -Root <dir>, the build under <dir>/.vendor/
 7  Catzc.Base.Exporter      the exporter module that drives the engine and owns the lifecycle
@@ -26,13 +26,13 @@ The diagram is described element by element in [its asset description](.assets/e
 
 ## Walkthrough
 
-1. **automation/.** The source tree under the working root is the only input. The engine asserts that it runs in the source tree and refuses
+1. **pwsh/.** The source tree under the working root is the only input. The engine asserts that it runs in the source tree and refuses
    to run anywhere else.
 2. **Catzc.Internal.Builder.** The `.internal` engine, `Invoke-ModuleBuild`, does the writing: the closure over the declared dependencies,
    the merged function files, the manifests, the types DLL, the vendor and `.internal` copies, and `build.json`.
 3. **Assert-CatzcBundle.** The integrity guard checks what the engine wrote and throws with every violation it finds. It belongs to the
    exporter, not to the engine.
-4. **Temporary build.** The verified build lands under `out/automation/build/Catzc/<version>/`. It is the package every placement copies.
+4. **Temporary build.** The verified build lands under `out/pwsh/built/<bundle>/Catzc/<version>/`. It is the package every placement copies.
 5. **Installed.** `Install-Catzc -Scope CurrentUser` copies the build into the user's own PowerShell module folder, so `Import-Module Catzc`
    loads it from any shell.
 6. **Saved.** `Install-Catzc -Root <dir>`, which `Export-Catzc -Root` calls after building, copies the build into `<dir>/.vendor/Catzc/` and
