@@ -18,12 +18,12 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
             if ($PSBoundParameters.ContainsKey('checks')) {
                 $options['checks'] = $checks
             }
-            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
         # ADR-TST-WIDGET#1 is cited by a test, ADR-TST-WIDGET#2 by an analyzer, ADR-TST-WIDGET#3 by nothing.
         $script:enforcer = @{
-            'ADR-TST-WIDGET#1' = [pscustomobject]@{ Analyzers = @(); Tests = @('automation/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
+            'ADR-TST-WIDGET#1' = [pscustomobject]@{ Analyzers = @(); Tests = @('widgets/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
             'ADR-TST-WIDGET#2' = [pscustomobject]@{ Analyzers = @('Measure-Widget'); Tests = @() }
             'ADR-TST-WIDGET#3' = [pscustomobject]@{ Analyzers = @(); Tests = @() }
         }
@@ -50,7 +50,7 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
             & $script:entry 'gadget run' 'ADR-TST-WIDGET#4' 'folder'
         )
         $found.Count | Should -Be 2
-        $found[0] | Should -Be "automation/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#3 — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB#6)"
+        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#3 — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB#6)"
         $found[1] | Should -BeLike "*: concept 'gadget run' is realized as folder 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#4*"
     }
 

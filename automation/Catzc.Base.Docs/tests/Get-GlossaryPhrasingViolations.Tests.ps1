@@ -10,7 +10,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                     realized_by = [ordered]@{ kind = 'prose-only' }
                     avoid       = @([ordered]@{ phrase = 'widget bundle'; say = 'widget suite' })
                 })
-            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
         # Writes each repo-relative file under $TestDrive and scans exactly those files.
@@ -61,13 +61,13 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     Context 'PowerShell surfaces' {
         It 'reads comments and comment-based help as their own surfaces' -Tag 'ADR-REPO-VOCAB#5' {
             $text = @('<#', '.SYNOPSIS', '    Builds the widget bundle.', '#>', 'function Get-Widget {', '    # the widget bundle again', '}')
-            $found = & $script:scan @{ 'automation/Get-Widget.ps1' = $text }
+            $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
             $found | Should -Be @(
-                'automation/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
-                'automation/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
+                'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
+                'widgets/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
             )
-            & $script:scan @{ 'automation/Get-Widget.ps1' = $text } @{ surfaces = @('comments') } |
-                Should -Be @('automation/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+            & $script:scan @{ 'widgets/Get-Widget.ps1' = $text } @{ surfaces = @('comments') } |
+                Should -Be @('widgets/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
         }
 
         It 'reads the strings of throw and the writers' -Tag 'ADR-REPO-VOCAB#5' {
@@ -76,10 +76,10 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                 "Write-Message 'the widget bundle ran'"
                 "Write-Warning -Message 'a widget bundle is stale'"
             )
-            $found = & $script:scan @{ 'automation/Get-Widget.ps1' = $text }
+            $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
             $found.Count | Should -Be 3
-            $found | Should -Contain 'automation/Get-Widget.ps1:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
-            $found | Should -Contain 'automation/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
+            $found | Should -Contain 'widgets/Get-Widget.ps1:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
+            $found | Should -Contain 'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
         }
 
         It 'reads the -ErrorText and -Because values of any command' -Tag 'ADR-REPO-VOCAB#5' {
@@ -87,13 +87,13 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                 "Assert-Widget -ErrorText 'the widget bundle is missing'"
                 "`$x | Should -Be 1 -Because 'the widget bundle counts'"
             )
-            $found = & $script:scan @{ 'automation/Get-Widget.Tests.ps1' = $text }
+            $found = & $script:scan @{ 'widgets/Get-Widget.Tests.ps1' = $text }
             $found.Count | Should -Be 2
         }
 
         It 'ignores a string that is not a message' -Tag 'ADR-REPO-VOCAB#5' {
             $text = @("`$name = 'widget bundle'", "Get-Widget -Name 'widget bundle'")
-            & $script:scan @{ 'automation/Get-Widget.ps1' = $text } | Should -BeNullOrEmpty
+            & $script:scan @{ 'widgets/Get-Widget.ps1' = $text } | Should -BeNullOrEmpty
         }
 
         It 'reads only the literal text of an expandable string' -Tag 'ADR-REPO-VOCAB#5' {
@@ -101,8 +101,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                 "throw `"the `$(`$widget) bundle is gone`""
                 "throw `"the widget bundle `$(Get-Name 'widget bundle') is gone`""
             )
-            $found = & $script:scan @{ 'automation/Get-Widget.ps1' = $text }
-            $found | Should -Be @('automation/Get-Widget.ps1:2 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+            $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
+            $found | Should -Be @('widgets/Get-Widget.ps1:2 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
         }
     }
 
@@ -111,7 +111,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             $files = [ordered]@{
                 'docs/alpha.md'       = @('the widget bundle')
                 'docs/old/beta.md'    = @('the widget bundle')
-                'automation/gamma.md' = @('the widget bundle')
+                'widgets/gamma.md' = @('the widget bundle')
             }
             $found = & $script:scan $files @{ scope = @('docs/**'); exclude = @('docs/old/**') }
             $found | Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')

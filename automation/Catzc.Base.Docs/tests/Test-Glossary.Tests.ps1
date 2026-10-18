@@ -9,7 +9,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
                         short       = "The $term."
                         realized_by = [ordered]@{ kind = 'prose-only' }
                     })
-                [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+                [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                     [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
             })
     }

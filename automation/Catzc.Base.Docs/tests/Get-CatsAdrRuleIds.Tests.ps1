@@ -2,15 +2,15 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adrRoot = Join-Path $TestDrive 'adr'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'principles')) | Out-Null
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'automation')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'widgets')) | Out-Null
 
         $index = @(
             '# ADR index'
             ''
-            '| Code | ADR |'
-            '| ---- | --- |'
+            '|     Code    |                   ADR                    |'
+            '| ----------- | ---------------------------------------- |'
             '| `ADR-ALPHA` | [alpha-thing](principles/alpha-thing.md) |'
-            '| `ADR-BETA`  | [beta-thing](automation/beta-thing.md) |'
+            '| `ADR-BETA`  | [beta-thing](widgets/beta-thing.md)      |'
         ) -join "`n"
         $script:indexPath = Join-Path $script:adrRoot 'index.md'
         [System.IO.File]::WriteAllText($script:indexPath, $index)
@@ -35,7 +35,7 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
             ''
             'Only beta rule.'
         ) -join "`n"
-        [System.IO.File]::WriteAllText((Join-Path $script:adrRoot 'automation/beta-thing.md'), $beta)
+        [System.IO.File]::WriteAllText((Join-Path $script:adrRoot 'widgets/beta-thing.md'), $beta)
 
         # An ADR the index does not reference — its rule id must never appear.
         $gamma = @(
@@ -45,7 +45,7 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
             ''
             'Unlisted.'
         ) -join "`n"
-        [System.IO.File]::WriteAllText((Join-Path $script:adrRoot 'automation/gamma-thing.md'), $gamma)
+        [System.IO.File]::WriteAllText((Join-Path $script:adrRoot 'widgets/gamma-thing.md'), $gamma)
     }
 
     It 'unions the rule ids of every indexed ADR, distinct and sorted in registry form' {

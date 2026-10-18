@@ -69,3 +69,12 @@ test output of a skip) }.
 ```powershell
 $outcomes = Get-LanguageTestOutcomes -Language go -Module Catzc.Base.Repository -Case $cases -Executable $go
 ```
+
+## comment:1
+
+Above `$entry = @((Get-Config -Config languages).languages | Where-Object { $_.name...`, written with `#`.
+
+```text
+The language registry names the runner; a language without a tests entry has no test artifacts to run
+([ADR-AUTO-MODULE#6](/docs/adr/automation/module-model.md#rule-adr-auto-module6)).
+```

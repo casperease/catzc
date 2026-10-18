@@ -3,7 +3,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
         $script:root = Join-Path $TestDrive ([guid]::NewGuid())
-        foreach ($d in 'automation/Catzc.Azure.DevOps', 'automation/Catzc.Base.Files', 'automation/Catzc.NoDoc', 'automation/.vendor', 'docs/references/automation') {
+        foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc', 'widgets/.vendor', 'docs/references/automation') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null
         }
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/automation/catzc-azure-devops.md'), '# x')
@@ -14,13 +14,13 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            @($result.folder) | Should -Contain 'automation/Catzc.Azure.DevOps'
-            @($result.folder) | Should -Contain 'automation/Catzc.Base.Files'
-            ($result | Where-Object folder -EQ 'automation/Catzc.Azure.DevOps').source |
+            @($result.folder) | Should -Contain 'widgets/Catzc.Azure.DevOps'
+            @($result.folder) | Should -Contain 'widgets/Catzc.Base.Files'
+            ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source |
                 Should -Be 'docs/references/automation/catzc-azure-devops.md'
         }
     }
@@ -29,11 +29,11 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            @($result.folder) | Should -Not -Contain 'automation/Catzc.NoDoc'
+            @($result.folder) | Should -Not -Contain 'widgets/Catzc.NoDoc'
         }
     }
 
@@ -41,11 +41,11 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            @($result.folder) | Should -Not -Contain 'automation/.vendor'
+            @($result.folder) | Should -Not -Contain 'widgets/.vendor'
         }
     }
 
@@ -53,18 +53,18 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' })
-                mappings = @([pscustomobject]@{ folder = 'automation/Catzc.Azure.DevOps'; source = 'docs/custom/override.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
+                mappings = @([pscustomobject]@{ folder = 'widgets/Catzc.Azure.DevOps'; source = 'docs/custom/override.md' })
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
-            ($result | Where-Object folder -EQ 'automation/Catzc.Azure.DevOps').source | Should -Be 'docs/custom/override.md'
+            ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source | Should -Be 'docs/custom/override.md'
         }
     }
 
     It 'throws on an unsupported glob (only a trailing /* is supported)' {
         InModuleScope Catzc.Base.Docs {
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'automation/**/deep'; source = 'x/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/**/deep'; source = 'x/{kebab}.md' })
                 mappings = @()
             }
             { Get-ReadmeMappings -Config $config -RepositoryRoot 'x' } | Should -Throw '*Only a trailing*'

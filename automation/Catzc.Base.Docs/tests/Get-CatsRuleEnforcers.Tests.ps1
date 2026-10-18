@@ -1,8 +1,8 @@
 Describe 'Get-CatsRuleEnforcers' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'
-        $tests = Join-Path $script:repo 'automation/Widget/tests'
-        $vendor = Join-Path $script:repo 'automation/.vendor/Gadget/tests'
+        $tests = Join-Path $script:repo 'widget-modules/Widget/tests'
+        $vendor = Join-Path $script:repo 'widget-modules/.vendor/Gadget/tests'
         [void][System.IO.Directory]::CreateDirectory($tests)
         [void][System.IO.Directory]::CreateDirectory($vendor)
         # The citations are assembled from parts so this file's own -Tag scan (the real tree) never sees them as tags.
@@ -29,7 +29,7 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
             @{ analyzers = @{ 'Measure-Widget' = @('ADR-WI-TAG#1', 'ADR-WI-RULE#5') } }
         }
-        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Docs { Join-Path $script:repo 'automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Docs { Join-Path $script:repo 'widget-modules' }
         Mock ConvertTo-RepoRelativePath -ModuleName Catzc.Base.Docs {
             $Path.Substring($script:repo.Length + 1).Replace('\', '/')
         }
@@ -46,9 +46,9 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
     }
 
     It 'credits a test file for each -Tag citation of Describe and Context, beside its analyzer' {
-        $script:enforcers['ADR-WI-TAG#1'].Tests | Should -Be @('automation/Widget/tests/Widget.Tests.ps1')
+        $script:enforcers['ADR-WI-TAG#1'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
         $script:enforcers['ADR-WI-TAG#1'].Analyzers | Should -Be @('Measure-Widget')
-        $script:enforcers['ADR-WI-CTX#2'].Tests | Should -Be @('automation/Widget/tests/Widget.Tests.ps1')
+        $script:enforcers['ADR-WI-CTX#2'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
     }
 
     It 'ignores a citation-shaped string that is not a -Tag (AST, not text scan), and the vendored tree' {

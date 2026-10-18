@@ -11,7 +11,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
                     forms       = @('gadget', 'CI')
                     verbs       = $verbs
                 })
-            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
         $script:scan = {
@@ -75,10 +75,10 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     }
 
     It 'reads no immutable block of a code head as prose, and still reads the rest of the head' -Tag 'ADR-REPO-VOCAB#8', 'ADR-REPO-FILEMETA#1' {
-        $text = @('<#', '---', 'catzc:', '  immutable:', '    path: automation/Catzc.Widget/Get-Widget.ps1', '    name: get-sprocket-widget', '    kind: function',
+        $text = @('<#', '---', 'catzc:', '  immutable:', '    path: widgets/Catzc.Widget/Get-Widget.ps1', '    name: get-sprocket-widget', '    kind: function',
             '  config:', '    synopsis: A sprocket widget.', '---', '#>', 'function Get-Widget { }')
-        $found = & $script:scan @{ 'automation/Catzc.Widget/Get-Widget.ps1' = $text }
-        $found | Should -Be @("automation/Catzc.Widget/Get-Widget.ps1:9 says `"sprocket widget`" — $script:tail")
+        $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = $text }
+        $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:9 says `"sprocket widget`" — $script:tail")
     }
 
     It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB#8' {
@@ -86,8 +86,8 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     }
 
     It 'reads PowerShell comments through the parser' -Tag 'ADR-REPO-VOCAB#8' {
-        $found = & $script:scan @{ 'automation/Catzc.Widget/Get-Widget.ps1' = @('# the sprocket widget', 'function Get-Widget { }') }
-        $found | Should -Be @("automation/Catzc.Widget/Get-Widget.ps1:1 says `"sprocket widget`" — $script:tail")
+        $found = & $script:scan @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @('# the sprocket widget', 'function Get-Widget { }') }
+        $found | Should -Be @("widgets/Catzc.Widget/Get-Widget.ps1:1 says `"sprocket widget`" — $script:tail")
     }
 
     It 'skips a source that opts out of the forms check' -Tag 'ADR-REPO-VOCAB#2' {

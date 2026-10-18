@@ -44,6 +44,8 @@ configs:
     type: Catzc.Base.Docs.AdrsConfig
   adr-checks:
     type: Catzc.Base.Docs.AdrChecksConfig
+  adr-index:
+    type: Catzc.Base.Docs.AdrIndexConfig
   source-conventions:
     type: Catzc.Base.QualityGates.SourceConventionsConfig
   agents:

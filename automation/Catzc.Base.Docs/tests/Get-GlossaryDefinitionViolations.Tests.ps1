@@ -47,7 +47,7 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
             if ($PSBoundParameters.ContainsKey('checks')) {
                 $options['checks'] = $checks
             }
-            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'automation/Catzc.Widget/configs/glossary.yml',
+            [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
         $script:violations = {
@@ -66,7 +66,7 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
     It 'reports a second rule whose summary defines the term, across a wrapped line and in any case' -Tag 'ADR-REPO-VOCAB#1' {
         $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2')
         $found.Count | Should -Be 1
-        $found[0] | Should -Be "automation/Catzc.Widget/configs/glossary.yml: concept 'gadget run': ADR-TST-GADGET#2 defines '**gadget run**' a second time — it is defined by ADR-TST-WIDGET#2 (ADR-REPO-VOCAB#1)"
+        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'gadget run': ADR-TST-GADGET#2 defines '**gadget run**' a second time — it is defined by ADR-TST-WIDGET#2 (ADR-REPO-VOCAB#1)"
     }
 
     It 'does not count a rule that only bolds the term' -Tag 'ADR-REPO-VOCAB#1' {

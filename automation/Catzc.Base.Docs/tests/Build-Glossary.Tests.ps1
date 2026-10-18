@@ -13,7 +13,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
                 $body[$name] = $extra[$name]
             }
             [Catzc.Base.Docs.GlossaryEntry]::new([Catzc.Base.Docs.GlossaryConcept]::new($term, $body), 'Catzc.Widget',
-                'automation/Catzc.Widget/configs/glossary.yml', [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
+                'widgets/Catzc.Widget/configs/glossary.yml', [Catzc.Base.Docs.GlossaryOptions]::new(@{}))
         }
         $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(
             (& $entry 'gadget run' 'automation' @{

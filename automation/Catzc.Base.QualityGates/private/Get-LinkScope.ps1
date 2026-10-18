@@ -32,7 +32,8 @@ function Get-LinkScope {
         }
     }
     else {
-        Get-GitTrackedPath '.'
+        # A tracked file deleted or moved on disk but not yet staged has nothing to scan, so it is left out.
+        Get-GitTrackedPath '.' | Where-Object { [System.IO.File]::Exists([System.IO.Path]::Combine($root, $_)) }
     }
 
     $inRepository = @($files | Where-Object { $_ -notmatch '^\.\./' })

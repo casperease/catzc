@@ -1,6 +1,6 @@
 Describe 'Get-GlossarySources' -Tag 'L0', 'logic' {
     BeforeAll {
-        $assets = 'automation/Catzc.Base.Docs/tests/assets/glossary'
+        $assets = "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/tests/assets/glossary"
         # One shared holder: each test sets the owners the seam lists (in this, already sorted, order).
         $script:fixture = @{
             Paths  = [ordered]@{

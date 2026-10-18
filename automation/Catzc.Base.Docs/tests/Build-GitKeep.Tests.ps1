@@ -7,7 +7,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
             'pipelines/jobs/.gitkeep'          = ''
             'out/.gitkeep'                     = "stale`n"
             'out/deep/.gitkeep'                = "transient`n"
-            'automation/.vendor/Fake/.gitkeep' = "vendored`n"
+            "$(Get-CatzcModulesFolder)/.vendor/Fake/.gitkeep" = "vendored`n"
         }
         $script:expected = "This widget folder is kept by a fixture .gitkeep.`n"
         $script:sourcePath = Join-Path $TestDrive 'gitkeep-fixture'
@@ -25,7 +25,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -Match '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     repo_status: locked\n#     path: contracts/\.gitkeep\n#     source: [^\n]*\n#     kind: other\n#     track: contracts\n#     tracktype: contracts\n#     generator: automation/Catzc\.Base\.Docs/Build-GitKeep\.ps1\n# ---\n\n'
+        $written | Should -Match '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     repo_status: locked\n#     path: contracts/\.gitkeep\n#     source: [^\n]*\n#     kind: other\n#     track: contracts\n#     tracktype: contracts\n#     generator: ' + [regex]::Escape("$(Get-CatzcModulesFolder)/Catzc.Base.Docs/Build-GitKeep.ps1") + '\n# ---\n\n'
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 
@@ -39,7 +39,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         $report.Path | Should -Contain 'out/.gitkeep'
         $report.Path | Should -Not -Contain 'out/deep/.gitkeep'
-        $report.Path | Should -Not -Contain 'automation/.vendor/Fake/.gitkeep'
+        $report.Path | Should -Not -Contain "$(Get-CatzcModulesFolder)/.vendor/Fake/.gitkeep"
         [System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'out/deep/.gitkeep')) | Should -Match 'transient'
     }
 

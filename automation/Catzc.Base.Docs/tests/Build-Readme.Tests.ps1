@@ -10,7 +10,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} } -Files @{
             'docs/references/automation/foo.md' = ($sourceText + "`n")
         }
-        $script:readme = Join-Path $script:fake.Root 'automation/Catzc.Fixture/README.md'
+        $script:readme = Join-Path $script:fake.Root "$(Get-CatzcModulesFolder)/Catzc.Fixture/README.md"
         $script:source = Join-Path $script:fake.Root 'docs/references/automation/foo.md'
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
@@ -20,7 +20,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
             [pscustomobject]@{
                 patterns = @()
                 mappings = @(
-                    [pscustomobject]@{ folder = 'automation/Catzc.Fixture'; source = 'docs/references/automation/foo.md' }
+                    [pscustomobject]@{ folder = "$(Get-CatzcModulesFolder)/Catzc.Fixture"; source = 'docs/references/automation/foo.md' }
                 )
             }
         }
@@ -107,7 +107,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     }
 
     It 'throws when -Folder matches no mapping' {
-        { Build-Readme -Folder 'automation/Nope' } | Should -Throw '*No README mapping*'
+        { Build-Readme -Folder 'widgets/Nope' } | Should -Throw '*No README mapping*'
     }
 
     It 'refuses before touching anything when the session runs a built package' {
@@ -140,14 +140,14 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only
     }
 
     It 'covers every automation module — the pattern derives a reference article for each' {
-        $automationRoot = Join-Path $script:root 'automation'
-        $modules = @([System.IO.Directory]::EnumerateDirectories($automationRoot) |
+        $modulesFolder = Get-CatzcModulesFolder
+        $modules = @([System.IO.Directory]::EnumerateDirectories((Get-CatzcModulesRoot)) |
                 ForEach-Object { [System.IO.Path]::GetFileName($_) } |
                 Where-Object { -not $_.StartsWith('.') })
         $mapped = @($script:results.Folder)
         $violations = foreach ($module in $modules) {
-            if ("automation/$module" -notin $mapped) {
-                "automation/$module has no docs/references/automation/<kebab>.md reference article"
+            if ("$modulesFolder/$module" -notin $mapped) {
+                "$modulesFolder/$module has no docs/references/automation/<kebab>.md reference article"
             }
         }
         @($violations) | Should -BeNullOrEmpty

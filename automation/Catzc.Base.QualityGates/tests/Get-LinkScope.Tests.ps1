@@ -32,6 +32,16 @@ Describe 'Get-LinkScope' -Tag 'L0', 'logic' {
         $scope | Should -Be @('docs/widget.md')
     }
 
+    It 'leaves out a tracked file that is gone from disk, with no -Path' {
+        Mock Get-GitTrackedPath { 'docs/widget.md', 'docs/gadget.md' } -ModuleName Catzc.Base.QualityGates
+        Mock Get-ContentExemptPath { , [string[]] @() } -ModuleName Catzc.Base.QualityGates
+        $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot } {
+            param($Root)
+            Get-LinkScope -RepositoryRoot $Root
+        }
+        $scope | Should -Be @('docs/widget.md')
+    }
+
     It 'leaves out a file .gitattributes marks a contract asset' -Tag 'ADR-REPO-CONTRACT#6' {
         $contractFolder = Join-Path $script:widgetRoot 'contracts/widget/0.0.0/Gadget'
         [System.IO.Directory]::CreateDirectory($contractFolder) | Out-Null

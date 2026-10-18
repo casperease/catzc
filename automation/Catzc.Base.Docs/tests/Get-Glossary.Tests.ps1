@@ -21,8 +21,8 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
                 concepts = [ordered]@{ 'gadget run' = (& $concept 'gadget_run' 'ADR-COG-GADGET#32') }
             })
         $script:sources = @(
-            [pscustomobject]@{ Owner = 'Catzc.Gadget'; Path = 'automation/Catzc.Gadget/configs/glossary.yml'; Config = $gadgets; Tracked = $true }
-            [pscustomobject]@{ Owner = 'Catzc.Widget'; Path = 'automation/Catzc.Widget/configs/glossary.yml'; Config = $widgets; Tracked = $true }
+            [pscustomobject]@{ Owner = 'Catzc.Gadget'; Path = 'widgets/Catzc.Gadget/configs/glossary.yml'; Config = $gadgets; Tracked = $true }
+            [pscustomobject]@{ Owner = 'Catzc.Widget'; Path = 'widgets/Catzc.Widget/configs/glossary.yml'; Config = $widgets; Tracked = $true }
         )
     }
 
@@ -41,7 +41,7 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
         $widget = $glossary | Where-Object { $_.Concept.term -eq 'widget suite' }
         $widget | Should -BeOfType ([Catzc.Base.Docs.GlossaryEntry])
         $widget.Owner | Should -Be 'Catzc.Widget'
-        $widget.SourcePath | Should -Be 'automation/Catzc.Widget/configs/glossary.yml'
+        $widget.SourcePath | Should -Be 'widgets/Catzc.Widget/configs/glossary.yml'
         $widget.Options.checks | Should -Be @('avoid')
         ($glossary | Where-Object { $_.Concept.term -eq 'gadget run' }).Options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
     }
