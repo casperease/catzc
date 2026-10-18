@@ -175,9 +175,14 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       the margin with blank lines around them, fences an aligned layout verbatim as `text`, writes `*word*` emphasis as `_word_`, spans a
       placeholder, glob, bracket or placeholder URL token as code and turns a bare URL into an autolink. The first conversion took the
       preview from 856 errors on 243 pages to 39 on 26.
-- [ ] Rerun `out/help-preview-all.sh` with the URL and spaced-placeholder rules and Prettier's prose wrap, and list what still fails for its
-      author: `Deploy-Bicep.ps1` numbers its flow 1, 3, 4 (MD029), and four code spans an author wrote with an edge space (MD038). (check:
-      `out/help-preview-lint.txt` lists only author faults)
+- [x] Rerun the preview with the URL and spaced-placeholder rules and Prettier's prose wrap, and list what still fails for its author.
+      (check: `out/help-preview-lint.txt` lists only author faults) — 2026-10-18 (`out/help-preview-only.sh`): 755 files move, 4 errors
+      on 3 pages remain: `Get-ClaudeMdAgentNames.ps1` and `Get-AdrDoraCoverageViolations.ps1` write the code span `## ` with its space
+      (MD038), and `Test-ConsoleReadyType.ps1`'s description gives one MD038 and one MD013 whose cause is not yet found. Prettier
+      renumbers `Deploy-Bicep.ps1`'s flow, which skips 2.
+- [ ] Run the help tests (`out/help-tests.sh`: FunctionHelp, Move-FunctionHelp, Get-HelpPageFinding, Export-Comments, CodeMetaHead,
+      MarkdownMetaBlock) once the test-run lock is free: a peer's Test-Automation (pid 25756, from 11:54) held it, and the snapshot
+      fallback failed while draw.io PNGs were being re-rendered. (check: the run passes)
 - [ ] `automation/Catzc.Base.QualityGates/configs/comments.yml`: map `.claude/drawio` to a page folder, so
       `.claude/drawio/minimaps/highlights.ps1` has a page for its help. (check: `out/help-preview.ps1` reports no unmapped file)
 - [ ] `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`: document `Text` and `Color`, which its help does not name.
