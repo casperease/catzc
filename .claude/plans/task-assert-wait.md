@@ -50,9 +50,11 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
        bolds it. Check: Test-Links on the touched pages. Corrected 2026-10-17: ADR-REPO-HELP#1 makes the head's `config` part the whole
        help, so there is nothing beyond it; the head's parameter entries now name the registry defaults (step 3), and `watchpoint` waits for
        step 7.
-7. After the first measured `Test-Automation -DiagnoseBlocking` run (the user's): `ADR-AUTO-FAILFAST#8` (mark a suspected block with a
-   watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`; present tense. Check:
-   Test-AdrRegistry, Test-Links clean; the function head cites #8.
+7. After the first measured `Test-Automation -DiagnoseBlocking` run (the user's, task-user-runs-and-commits step 9): `ADR-AUTO-FAILFAST#8`
+   (mark a suspected block with a watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`;
+   present tense. In the same change, D17 (2026-10-18): `Assert-Wait.ps1` becomes `Watch-Blocking.ps1` with its test file, the `.psd1`
+   export, every call site and the help, the assert subkind of file-kinds.yml untouched. Check: Test-AdrRegistry, Test-Links clean; the
+   function head cites #8; `Watch-Blocking.Tests.ps1` passes 16 of 16; a grep for `Assert-Wait` over the tree finds nothing.
 8. After that run: each watchpoint that found a block becomes a `timeouts.yml` limit with `Invoke-WithTimeout`; every other `Assert-Wait`
    call is deleted; the `-DiagnoseBlocking` switch stays. Check: grep `Assert-Wait` outside its own module and tests finds no call without a
    recorded finding.
