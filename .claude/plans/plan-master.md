@@ -67,13 +67,14 @@ Open, in execution order:
 - config-defaults-fragment -> task-config-defaults-fragment.md (done 2026-10-18: D22 kept the shipped file and replaced the generated
   contract with the defaults check, D28 declared the .catzc track; task-closing-sweep deletes it): the .catzc fragment, config without a
   shipped file, the defaults check.
-- config-defaults-postures -> task-config-defaults-postures.md (open; ready, config-defaults-fragment is done): every typed config into a
-  posture, the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
+- config-defaults-postures -> task-config-defaults-postures.md (done 2026-10-18; plan-config-defaults has no open step, so
+  task-closing-sweep deletes both): every typed config into a posture, the NoLiteralDefault analyzer rule, the ADR amendments, the assert
+  ladder, two glossary terms.
 - layers-funnel -> task-layers-funnel.md (done 2026-10-18; delete once committed): layers P2 funnel: one bootstrap constant, about 45 sites
   onto the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
-- layers-classification-flip -> task-layers-classification-flip.md (open; P3 done 2026-10-18; the user gave the go for P4 and P6, D24;
-  P4 waits for no peer-dirty file and the user's window, task step 3): P3 classification table and ADR wording drafts; P4
-  the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
+- layers-classification-flip -> task-layers-classification-flip.md (open; P3 done 2026-10-18; the user gave the go for P4 and P6, D24; P4
+  waits for no peer-dirty file and the user's window, task step 3): P3 classification table and ADR wording drafts; P4 the flip by the user;
+  P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
 - command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets, C5 the cats lookup and the C6
   widening, F6 under D21 and the D26 and D27 calls done 2026-10-18, 65 contracted commands; open: a later language step for gate results and
   parameter sets): ADR-REPO-CMDCONTRACT, the Command asset kind and checker, pilot contracts, reader, cats validation, public functions made

@@ -82,7 +82,8 @@ It generalises to every typed config in configs.yml.
 
 ## Open steps
 
-- [ ] ADR-CATS names the consumer overlay and this repo's fragment folders (check: plan-adr-cats decided section).
+- [x] ADR-CATS names the consumer overlay and this repo's fragment folders (check: plan-adr-cats decided section). In the tree as
+      ADR-CATS#5: both are `.catzc/`, with no alias.
 - [x] Copy the plan and prompt to the scratchpad, paste prompt-config-defaults-continue.md into a fresh session (check: Phase 1 report).
       Superseded 2026-10-18: task-config-defaults-variants ran Phase 1 in this session from the master plan, so no paste was needed.
 - [x] Phase 1 variants types carry defaults (check: VariantsConfig.Tests and getter tests pass; have_customers agrees). Done 2026-10-18
@@ -110,8 +111,11 @@ It generalises to every typed config in configs.yml.
       contract and its three design questions: the shipped config asset is the published default, and a case of Test-ShippedConfigs compares
       each key a shipped file states with the type's `Default<Key>` constant, a difference passing only with a one-sentence reason under
       `differs` in its `configs.yml` entry (task-config-defaults-fragment steps 5 and 6).
-- [ ] Phase 4 one config per change (check: each config's own tests).
-- [ ] Phase 5 ADRs and re-citation (check: Test-Links, Test-AdrRegistry clean).
+- [x] Phase 4 one config per change (check: each config's own tests). Done 2026-10-18 (task-config-defaults-postures steps 1 to 4): the
+      audit found every one of the 63 types already in a posture and no `-Default` left; the NoLiteralDefault analyzer rule keeps it so.
+- [x] Phase 5 ADRs and re-citation (check: Test-Links, Test-AdrRegistry clean). Done 2026-10-18 (steps 5 to 10): ADR-AUTO-DEFAULT#6 posture,
+      ADR-AUTO-OVERLAY#1 and #8, the assert ladder in ADR-AUTO-FAILFAST, the glossary terms posture and config fragment; `ADRREG issues=0`,
+      `LINKS issues=0`.
 
 ## Refs
 

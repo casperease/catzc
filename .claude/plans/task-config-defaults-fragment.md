@@ -46,17 +46,16 @@ rename is a data edit.
        builds it from an empty map, merges the fragment and refuses one for a sealed config through the existing check. Two new cases;
        `[Invoke-TestFile] Passed` for Get-Config.Tests (`out/test-file/20261018-124212-7c7ab1`); `SHIPPED issues=0`, `VALIDATORS issues=0`,
        `ANALYZER issues=0`.
-3. [x] Declare `.catzc` and write this repository's fragment. Done 2026-10-18 on D28 (delegated by the user): `.catzc` is a
-       `vendor-settings` track with vendor `catzc`, a new entry in the vendor registry (track-types.yml), and
-       `.catzc/automation/Catzc.Base.Variants/configs/variants.yml` holds `have_customers: all`. Correction from the tree: the fragment
-       holds only that key. `tracks` stays in the shipped file, because it has no default, build mode reads no `.catzc` fragment (so a
-       bundle import would find no tracks), and the NoTrackRootLiteral analyzer reads the shipped tracks. `aspects` stays too, since its
-       shipped value is the type's default. Check: in source mode `Get-Config -Config variants` reads `have_customers` as all and
-       Get-EnabledCustomers as all, as before.
-4. [x] The shipped `variants.yml` shows the defaults (D22): `have_customers: false`, the type's `DefaultHaveCustomers`, and the `differs`
-       reason in configs.yml is gone with the difference. Check: `[Invoke-TestFile] Passed` for VariantsConfig.Tests,
-       Get-EnabledCustomers.Tests, Get-Track.Tests, Get-ConfigOverlayRoot.Tests and TrackTypesConfig.Tests (`out/test-file/20261018-135401`
-       to `-135425`); `SHIPPED issues=0`, `WORLDMAP issues=0`, `FILEMETA issues=0`.
+3. [x] Declare `.catzc` and write this repository's fragment. Closed 2026-10-18 as not wanted, from the tree: D28 declared the track and
+       wrote the fragment, and the reduced-build probe then failed. A tracked `.catzc/` is read as the overlay of every bundle loaded
+       against this repository, so each such bundle would have to carry Catzc.Base.Overlay and every module a fragment names. The fragment,
+       the track and the `catzc` vendor were removed again. ADR-AUTO-OVERLAY#1 now says the folder is every loaded bundle's overlay and a
+       fragment there names only modules each such bundle carries. Source mode still reads `.catzc/<modules folder>` (steps 1 and 2) for any
+       repository that keeps one.
+4. [x] The shipped `variants.yml` and its type agree through the defaults check: `have_customers: all` stays shipped, this repository's own
+       value, with its `differs` reason in configs.yml. Check: `[Invoke-TestFile] Passed` for VariantsConfig.Tests, TrackTypesConfig.Tests
+       and Import-Catzc.Tests (the reduced build loads again, `out/test-file/20261018-141006` to `-141033`); `SHIPPED issues=0`,
+       `WORLDMAP issues=0`.
 5. [x] The defaults check (D22: defaults live in both the shipped config assets and the config types, and most of the time they match): for
        every registered config type with a shipped file, compare each key the file states with the default the type declares for it, and
        report a key whose two values differ unless the config's entry in `configs.yml` lists it under `differs` with a one-sentence reason

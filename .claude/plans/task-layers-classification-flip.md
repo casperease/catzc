@@ -15,24 +15,25 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
 
 ## Steps
 
-1. [x] Done 2026-10-18: the table is in the plan's section 8 (P3 classification), 165 hand pages, 94 move and 71 stay; the
-       reference mirror holds 69 hand pages, not 56 (the module articles and diagram descriptions count). Original step: P3 classification table in the plan: every hand page in `docs/explanation/automation`, `docs/how-to/automation`,
-   `docs/how-to/getting-started/automation` and the 56 hand pages inside `docs/references/automation`: page, topic, move (a pwsh topic) or
-   stay (an abstract topic). `docs/adr/automation` stays (Q4). Check: every page has a row; report and stop.
+1. [x] Done 2026-10-18: the table is in the plan's section 8 (P3 classification), 165 hand pages, 94 move and 71 stay; the reference mirror
+       holds 69 hand pages, not 56 (the module articles and diagram descriptions count). Original step: P3 classification table in the plan:
+       every hand page in `docs/explanation/automation`, `docs/how-to/automation`, `docs/how-to/getting-started/automation` and the 56 hand
+       pages inside `docs/references/automation`: page, topic, move (a pwsh topic) or stay (an abstract topic). `docs/adr/automation` stays
+       (Q4). Check: every page has a row; report and stop.
 2. [x] Done 2026-10-18: the drafts are in the plan's section 7 (P3 wording drafts), 22 rules: 18 reworded, ADR-DSGN-RUNMODE#6,
-       ADR-REPO-FILEMETA#12 and ADR-REPO-CONTRACT#2 need no edit, ADR-DSGN-TRACK#5 lands with P6. Original step: ADR rules that state the folder as a fact (worklist section 7): list each with its new wording against TRACK; no edit until P4. Check:
-   the list in the plan.
+       ADR-REPO-FILEMETA#12 and ADR-REPO-CONTRACT#2 need no edit, ADR-DSGN-TRACK#5 lands with P6. Original step: ADR rules that state the
+       folder as a fact (worklist section 7): list each with its new wording against TRACK; no edit until P4. Check: the list in the plan.
 3. P4 preconditions as of 2026-10-18 (not all true yet, so P4 waits):
-   - P1 to P3 green on touched files: true (P2's stop check: guard one hit, the orphan template for the user's delete; Test-GeneratedFiles
-     0 issues).
+   - P1 to P3 green on touched files: true (P2's stop check: guard one hit, the orphan template for the user's delete; Test-GeneratedFiles 0
+     issues).
    - No peer-dirty file: false today; session catzc-cc has five ADR files and `variants.yml` open for config-defaults-postures.
-   - A hook-recovery path out of band: true. The hook finds `timeouts.yml` in whichever top-level folder holds it, and
-     Build-BashTimeoutHook builds it with the folder from `Get-CatzcModulesFolder`, so a `git mv` keeps the published hook working; if it
-     still fails, every Bash call is denied and the user recovers in a terminal (`. ./importer.ps1` republishes it, or removes the hook
-     from `.claude/settings.json` for the window).
-   - The user has named the window (D10): not yet.
-   Original step: P4 preconditions recorded: P1 to P3 green on touched files; `git status` shows no peer-dirty file; a hook-recovery path exists out of
-   band; the user has named the window (D10). Check: four lines in the plan, each true.
+   - A hook-recovery path out of band: true. The hook finds `timeouts.yml` in whichever top-level folder holds it, and Build-BashTimeoutHook
+     builds it with the folder from `Get-CatzcModulesFolder`, so a `git mv` keeps the published hook working; if it still fails, every Bash
+     call is denied and the user recovers in a terminal (`. ./importer.ps1` republishes it, or removes the hook from `.claude/settings.json`
+     for the window).
+   - The user has named the window (D10): not yet. Original step: P4 preconditions recorded: P1 to P3 green on touched files; `git status`
+     shows no peer-dirty file; a hook-recovery path exists out of band; the user has named the window (D10). Check: four lines in the plan,
+     each true.
 4. P4, the user runs: `git mv automation pwsh`; `.catzc/<track>` becomes `.catzc/pwsh`; build outputs `out/pwsh/built` and
    `out/pwsh/packages` (Q6); the tracks registry row and the one bootstrap constant change to pwsh; `Build-RootConfig` regenerates
    importer.ps1; the docs mirror `docs/references/automation` follows the folder for the moved pages of step 1. One source edit per step,

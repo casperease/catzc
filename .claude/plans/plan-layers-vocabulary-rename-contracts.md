@@ -392,8 +392,8 @@ CLAUDE.md rule against script sweeps makes that the user's call (Q7). The defaul
 - **Q3** Keep `Test-Automation`, its 16 helpers and `test-automation/` (a 470-line rename for a name that is already accurate).
 - **Q4** Docs pages in the other `automation` doc folders are classified per page: a pwsh topic moves to `pwsh`, an abstract topic stays.
 - **Q5** The consumer overlay path becomes `.catzc/pwsh/<Module>/`, **no fallback** (one living version). It is consumer-visible, so note it
-  for the release. Note (2026-10-16, [plan-config-defaults.md](plan-config-defaults.md)): this repo's own `.catzc/<track>/` also becomes a
-  source-mode config-fragment root and holds `variants.yml`'s data; the root lookup is resolver-based, so P4 renames the folder only.
+  for the release. Note (2026-10-16, plan-config-defaults): this repo's own `.catzc/<track>/` also becomes a source-mode config-fragment
+  root and holds `variants.yml`'s data; the root lookup is resolver-based, so P4 renames the folder only.
 - **Q6** Build outputs become `out/pwsh/built` and `out/pwsh/packages`.
 - **Q7** Edit-tool-only: no permanent rename tool, one file at a time, each verified.
 - **Q8** The module-model implementation lands first (it deletes `Get-AutomationModules`/`Get-BaseModule` and gives the one resolver), then
@@ -538,9 +538,9 @@ sensible defaults and no new registry (ADR-PRIN-CONFIG, ADR-AUTO-DEFAULT#6, ADR-
 - **Inputs** (resolution order of ADR-AUTO-DEFAULT#6: the caller's explicit value, else configuration, else the default declared once on the
   config type): `-Languages`, `-Engines` on the importer (an importer switch, like today's `-Bundle`), environment variables only where
   ADR-AUTO-ENVVAR allows an external contract (**read it first**), `importer.yml` (new, `Catzc.Base.ModuleSystem/configs/`, type
-  `ImporterConfig` carries the defaults, with the posture and generated `defaults` contract of
-  [plan-config-defaults.md](plan-config-defaults.md)), then the bundle/profile closure for modules. Run mode (source|build) and host
-  (console|headless) stay orthogonal and keep choosing the types-load cell.
+  `ImporterConfig` carries the defaults, with the posture and generated `defaults` contract of plan-config-defaults), then the
+  bundle/profile closure for modules. Run mode (source|build) and host (console|headless) stay orthogonal and keep choosing the types-load
+  cell.
 - **Values:** `auto` (default) or an explicit list. `auto` for **engines** = pwsh plus every POSIX engine whose executable exists (a missing
   zsh is skipped and reported, as the earlier decision says); for **languages** = the executable languages of the loaded modules.
 - **Result:** one `ImportMix { Languages, Engines, Modules }` record kept for the session, readable by `Get-ImportMix`. The test runner
@@ -930,18 +930,19 @@ only). Plus about 160 path lines across `azure/`, `configuration/`, `flow/`, `pw
 Read from the tree with out/layers-p3-rules.ps1. `<TRACK>` is the modules track's new place (`pwsh`, D24). Each line: the rule, where,
 today's phrase -> the wording after P4.
 
-- ADR-DSGN-TRACK#1 (tracks.md:8-9): "a root folder (`automation`), a path inside one (`.github/workflows`, `automation/.vendor`)" -> "a
-  root folder (`<TRACK>`), a path inside one (`.github/workflows`, `<TRACK>/.vendor`)".
-- ADR-DSGN-TRACK#2 (tracks.md:18, 22, 25): "`modules` (`automation`, the core ...)" -> "`modules` (`<TRACK>`, the core ...)"; "`automation/`,
-  where the builder reads its modules" -> "`<TRACK>/`, where ..."; "every yml/config file across automation" -> "across the modules track".
+- ADR-DSGN-TRACK#1 (tracks.md:8-9): "a root folder (`automation`), a path inside one (`.github/workflows`, `automation/.vendor`)" -> "a root
+  folder (`<TRACK>`), a path inside one (`.github/workflows`, `<TRACK>/.vendor`)".
+- ADR-DSGN-TRACK#2 (tracks.md:18, 22, 25): "`modules` (`automation`, the core ...)" -> "`modules` (`<TRACK>`, the core ...)";
+  "`automation/`, where the builder reads its modules" -> "`<TRACK>/`, where ..."; "every yml/config file across automation" -> "across the
+  modules track".
 - ADR-DSGN-TRACK#3 (tracks.md:32, 34): "`automation`'s" -> "`<TRACK>`'s"; "rests on `automation`" -> "rests on `<TRACK>`".
 - ADR-DSGN-TRACK#5 (tracks.md:53): "as `ci-automation` binds the automation track" -> "as `ci-<TRACK>` binds the `<TRACK>` track"; lands
   with P6, not P4.
 - ADR-DSGN-RUNMODE#1 (run-modes.md:7): "from `automation/<Module>/`" -> "from `<TRACK>/<Module>/`".
 - ADR-DSGN-RUNMODE#4 (run-modes.md:31): "`<RepositoryRoot>/automation`" -> "`<RepositoryRoot>/<TRACK>`".
 - ADR-DSGN-RUNMODE#6 (run-modes.md:45): `Test-Automation` is S5 and stays; no edit.
-- ADR-DSGN-RUNMODE#7 (run-modes.md:53): "`<RepositoryRoot>/out/automation/built/<bundle>/`" -> "`<RepositoryRoot>/out/<TRACK>/built/<bundle>/`"
-  (Q6).
+- ADR-DSGN-RUNMODE#7 (run-modes.md:53): "`<RepositoryRoot>/out/automation/built/<bundle>/`" ->
+  "`<RepositoryRoot>/out/<TRACK>/built/<bundle>/`" (Q6).
 - ADR-DSGN-ASPECT#3 (module-aspects.md:28): "A **code** track (`automation`)" -> "A **code** track (`<TRACK>`)".
 - ADR-DSGN-ASPECT#5 (module-aspects.md:51): "files under `automation/` that no" -> "files under `<TRACK>/` that no".
 - ADR-REPO-FOLDERS#4 (conventional-folders.md:32, 37, and the Level 2 section): "`automation/.internal|.scriptanalyzer|.vendor|.compiled/`.
@@ -975,40 +976,40 @@ today's phrase -> the wording after P4.
 
 ### P3 classification (2026-10-18)
 
-165 hand pages (no generator in the head, not a comment page; out/layers-p3-pages.ps1): 94 move to `<TRACK>`, 71 stay. A page moves when
-its topic is the pwsh modules (working in them, their reference mirror, their integrity tests, PowerShell-and-C# engine detail under
-ADR-PWSH); it stays when its topic is automation as a subject (the ADR-AUTO explanations, which follow `docs/adr/automation`, Q4) or another
-track. A page that stays still has its moved path lines rewritten in P4.
+165 hand pages (no generator in the head, not a comment page; out/layers-p3-pages.ps1): 94 move to `<TRACK>`, 71 stay. A page moves when its
+topic is the pwsh modules (working in them, their reference mirror, their integrity tests, PowerShell-and-C# engine detail under ADR-PWSH);
+it stays when its topic is automation as a subject (the ADR-AUTO explanations, which follow `docs/adr/automation`, Q4) or another track. A
+page that stays still has its moved path lines rewritten in P4.
 
-| Page | Topic | Verdict |
-| ---- | ----- | ------- |
-| docs/explanation/automation/*.md and *.drawio.md (62 pages: every page but the two below) | an ADR-AUTO explanation, automation as a subject | stay |
-| docs/explanation/automation/reference-unboxing.md | PowerShell and C# unboxing (ADR-PWSH-TYPES) | move |
-| docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md | PowerShell and C# unboxing (ADR-PWSH-TYPES) | move |
-| docs/how-to/automation/apply-environment-approvals.md | Azure DevOps environment approvals | stay |
-| docs/how-to/automation/sort-an-import.md | sorting an import out of .unordered into the tracks | stay |
-| docs/how-to/automation/manual-test-plan.md | the pwsh modules' integrity tests | move |
-| docs/how-to/automation/manual-test-plan/*.md (13 category pages) | the pwsh modules' integrity tests | move |
-| docs/how-to/getting-started/automation/add-a-cli-tool.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/add-a-module.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/debug-in-vscode.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/run-tests-and-checks.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/vendor-a-module.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/BCL/index.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/powershell/add-a-function.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/powershell/index.md | working in the pwsh modules | move |
-| docs/how-to/getting-started/automation/add-a-deployable-unit.md | a globset and its pipeline triggers | stay |
-| docs/how-to/getting-started/automation/add-a-doc-chapter.md | a doc chapter | stay |
-| docs/how-to/getting-started/automation/add-an-infrastructure-template.md | a Bicep template | stay |
-| docs/how-to/getting-started/automation/faq.md | the system as a whole (its S4 lines 105-111 are fixed in P4) | stay |
-| docs/how-to/getting-started/automation/index.md | getting started with the system as a whole | stay |
-| docs/how-to/getting-started/automation/go/index.md | the go track | stay |
-| docs/how-to/getting-started/automation/python/index.md | the python track | stay |
-| docs/references/automation/catzc-*.md (47 module articles), CLAUDE.md, index.md | the pwsh modules (module reference mirror) | move |
-| docs/references/automation/BCL/index.md, BCL/types-system.md | the pwsh modules' C# types | move |
-| docs/references/automation/internal/*.md (7 pages) | the pwsh modules' internal infrastructure | move |
-| docs/references/automation/<module>/*.drawio.md (11 diagram descriptions) | the pwsh modules (module reference mirror) | move |
+| Page                                                                                      | Topic                                                        | Verdict |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------- |
+| docs/explanation/automation/*.md and *.drawio.md (62 pages: every page but the two below) | an ADR-AUTO explanation, automation as a subject             | stay    |
+| docs/explanation/automation/reference-unboxing.md                                         | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
+| docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md                    | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
+| docs/how-to/automation/apply-environment-approvals.md                                     | Azure DevOps environment approvals                           | stay    |
+| docs/how-to/automation/sort-an-import.md                                                  | sorting an import out of .unordered into the tracks          | stay    |
+| docs/how-to/automation/manual-test-plan.md                                                | the pwsh modules' integrity tests                            | move    |
+| docs/how-to/automation/manual-test-plan/*.md (13 category pages)                          | the pwsh modules' integrity tests                            | move    |
+| docs/how-to/getting-started/automation/add-a-cli-tool.md                                  | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/add-a-module.md                                    | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/debug-in-vscode.md                                 | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/run-tests-and-checks.md                            | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/vendor-a-module.md                                 | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md                           | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/BCL/index.md                                       | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/powershell/add-a-function.md                       | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/powershell/index.md                                | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/add-a-deployable-unit.md                           | a globset and its pipeline triggers                          | stay    |
+| docs/how-to/getting-started/automation/add-a-doc-chapter.md                               | a doc chapter                                                | stay    |
+| docs/how-to/getting-started/automation/add-an-infrastructure-template.md                  | a Bicep template                                             | stay    |
+| docs/how-to/getting-started/automation/faq.md                                             | the system as a whole (its S4 lines 105-111 are fixed in P4) | stay    |
+| docs/how-to/getting-started/automation/index.md                                           | getting started with the system as a whole                   | stay    |
+| docs/how-to/getting-started/automation/go/index.md                                        | the go track                                                 | stay    |
+| docs/how-to/getting-started/automation/python/index.md                                    | the python track                                             | stay    |
+| docs/references/automation/catzc-*.md (47 module articles), CLAUDE.md, index.md           | the pwsh modules (module reference mirror)                   | move    |
+| docs/references/automation/BCL/index.md, BCL/types-system.md                              | the pwsh modules' C# types                                   | move    |
+| docs/references/automation/internal/*.md (7 pages)                                        | the pwsh modules' internal infrastructure                    | move    |
+| docs/references/automation/<module>/*.drawio.md (11 diagram descriptions)                 | the pwsh modules (module reference mirror)                   | move    |
 
 The page-by-page list behind the grouped rows is regenerable from out/layers-p3-table.ps1 over the same tree. The estimate above (56 hand
 pages in the reference mirror, 62 elsewhere) undercounted: the 47 module articles and 11 diagram descriptions are hand pages too.
