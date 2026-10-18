@@ -31,12 +31,11 @@ Runs a catzc module's Python tests and returns one result per Python test.
 
 ### description
 
-In the module's Python test folder, `<root>/tests/<module-in-kebab>/` (Catzc.Base.Repository -> catzc-base-repository;
-the Python root is python.yml's `root`, by default python/ when the repository has one, else .python/), runs three uv
-commands from the Python root, the uv workspace root, through Invoke-Executable, each inside its time safeguard (the
-`uv` entry of timeouts.yml). It runs the managed uv by its path: the caller's -UvExecutable, or the one located from
-its tools.yml entry by Resolve-ToolExecutable, never a bare uv off PATH; it throws with "Run Install-Uv" when no uv
-at the pin is found.
+In the module's Python test folder, `<root>/tests/<module-in-kebab>/` (Catzc.Base.Repository -> catzc-base-repository; the Python root is
+python.yml's `root`, by default python/ when the repository has one, else .python/), runs three uv commands from the Python root, the uv
+workspace root, through Invoke-Executable, each inside its time safeguard (the `uv` entry of timeouts.yml). It runs the managed uv by its
+path: the caller's -UvExecutable, or the one located from its tools.yml entry by Resolve-ToolExecutable, never a bare uv off PATH; it throws
+with "Run Install-Uv" when no uv at the pin is found.
 
 ```text
 uv sync --all-packages                            makes the workspace's one environment (<root>/.venv) and lock
@@ -46,12 +45,12 @@ uv run --no-sync pytest tests/<folder> ...        runs every test, uncached, wit
                                                   and a JUnit XML report.
 ```
 
-uv runs with UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and
-never fetches one silently (the Python form of GOTOOLCHAIN=local; a missing interpreter fails uv sync with the
-remedy Install-Python). Python writes no bytecode into the tree (PYTHONDONTWRITEBYTECODE=1).
+uv runs with UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and never fetches one silently
+(the Python form of GOTOOLCHAIN=local; a missing interpreter fails uv sync with the remedy Install-Python). Python writes no bytecode into
+the tree (PYTHONDONTWRITEBYTECODE=1).
 
-The Python tests are black-box tests: they start the engine and assert on its output. How to start it reaches
-them through the environment (Get-EngineContract), set for these commands only and restored afterwards:
+The Python tests are black-box tests: they start the engine and assert on its output. How to start it reaches them through the environment
+(Get-EngineContract), set for these commands only and restored afterwards:
 
 ```text
 CATZC_ENGINE_EXECUTABLE  the engine's executable;
@@ -61,10 +60,9 @@ CATZC_ENGINE_START       the arguments after it, as a JSON array that loads the 
 CATZC_REPOSITORY_ROOT    the repository root.
 ```
 
-Returns one PythonTestResult per top-level test function (parametrised cases fold into it), with its category
-from its name: `test_integrity*` is integrity, everything else is logic. A failing test is a result, not an
-error. The call throws, with the uv output, when uv sync or ruff check fails, and when pytest fails without a
-failing test (a collection error, or no tests).
+Returns one PythonTestResult per top-level test function (parametrised cases fold into it), with its category from its name:
+`test_integrity*` is integrity, everything else is logic. A failing test is a result, not an error. The call throws, with the uv output,
+when uv sync or ruff check fails, and when pytest fails without a failing test (a collection error, or no tests).
 
 ### parameter Module
 
@@ -72,20 +70,17 @@ The catzc module whose Python tests to run (e.g. Catzc.Base.Repository).
 
 ### parameter EntryScript
 
-The engine entry for a build run: the build's Import-Catzc.ps1. Default: the repository's importer.ps1 (the
-source run).
+The engine entry for a build run: the build's Import-Catzc.ps1. Default: the repository's importer.ps1 (the source run).
 
 ### parameter UvExecutable
 
-The uv to run, already located and checked against the pin by the caller: a test run passes the uv its source
-session resolved, because a build run's engine does not carry the tools.yml entry. Default: located here by
-Resolve-ToolExecutable.
+The uv to run, already located and checked against the pin by the caller: a test run passes the uv its source session resolved, because a
+build run's engine does not carry the tools.yml entry. Default: located here by Resolve-ToolExecutable.
 
 ### parameter Engine
 
-The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats
-dispatcher ([ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)). The tests are the same; only the contract
-they read changes.
+The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats dispatcher
+([ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)). The tests are the same; only the contract they read changes.
 
 ### parameter EngineExecutable
 

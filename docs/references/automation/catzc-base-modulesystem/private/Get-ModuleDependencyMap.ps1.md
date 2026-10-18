@@ -23,17 +23,17 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared
-graph), shared by Get-ModuleOrder (topological order) and Get-ModuleDependencyClosure (subset closure).
+Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared graph), shared by Get-ModuleOrder
+(topological order) and Get-ModuleDependencyClosure (subset closure).
 
 ### description
 
 Returns a hashtable: module name -> `[HashSet[string]]` of the modules it is declared to depend on. Edges:
 
 1. Group-internal layering — each group's member -> the members it may depend on.
-2. Per-module allowed deps — a specific-module target is a direct edge; a GROUP target expands to every
-   member of that group, EXCEPT when the module is itself a member of that group (its intra-group order
-   is governed by step 1; expanding would wrongly couple it to siblings that depend back on it).
+2. Per-module allowed deps — a specific-module target is a direct edge; a GROUP target expands to every member of that group, EXCEPT when
+   the module is itself a member of that group (its intra-group order is governed by step 1; expanding would wrongly couple it to siblings
+   that depend back on it).
 
 Only modules in -Module are kept as keys/targets, so the map is closed over the requested set.
 

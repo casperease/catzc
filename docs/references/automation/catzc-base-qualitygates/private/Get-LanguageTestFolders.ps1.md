@@ -23,8 +23,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Lists the repository's test folders in every test language beside PowerShell, each mapped to the catzc module
-it tests.
+Lists the repository's test folders in every test language beside PowerShell, each mapped to the catzc module it tests.
 
 ### description
 
@@ -43,20 +42,18 @@ bash    <bashRoot>/tests/<folder>/ holding at least one .bats file; the Bash roo
         ([ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)).
 ```
 
-A folder whose name starts with '.' is never a test folder. Each folder is named for its catzc module in kebab
-case — the module name lowercased, with dots replaced by hyphens (Catzc.Base.Repository ->
-catzc-base-repository) — and maps back to the module folder under `<repository>/automation/` of that kebab name.
-The harness runs a mapped folder's tests as part of that module's tests (Get-TestAutomationTestPaths, the
-language bridge).
+A folder whose name starts with '.' is never a test folder. Each folder is named for its catzc module in kebab case — the module name
+lowercased, with dots replaced by hyphens (Catzc.Base.Repository -> catzc-base-repository) — and maps back to the module folder under
+`<repository>/automation/` of that kebab name. The harness runs a mapped folder's tests as part of that module's tests
+(Get-TestAutomationTestPaths, the language bridge).
 
-Throws, naming every such folder, when a test folder matches no catzc module: an unmapped folder would
-otherwise never run.
+Throws, naming every such folder, when a test folder matches no catzc module: an unmapped folder would otherwise never run.
 
 ### outputs
 
-`[pscustomobject]` One record per test folder ({ Language; Module; Folder; Name }), by language (go, python, then
-bash) and ordinal by folder name within it: Language is go, python or bash, Module the catzc module name, Folder the
-absolute folder path, Name the folder name. Nothing when the repository has no such folder.
+`[pscustomobject]` One record per test folder ({ Language; Module; Folder; Name }), by language (go, python, then bash) and ordinal by
+folder name within it: Language is go, python or bash, Module the catzc module name, Folder the absolute folder path, Name the folder name.
+Nothing when the repository has no such folder.
 
 ### example 1
 

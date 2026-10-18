@@ -41,13 +41,11 @@ The directory to remove.
 
 ### parameter Label
 
-Identity marker for Unix profile blocks. Must match the label used
-when Add-PermanentPath was called. Defaults to the leaf folder name.
+Identity marker for Unix profile blocks. Must match the label used when Add-PermanentPath was called. Defaults to the leaf folder name.
 
 ### parameter Sync
 
-After removing, call Sync-SessionPath to refresh the session PATH
-from the registry (Windows only).
+After removing, call Sync-SessionPath to refresh the session PATH from the registry (Windows only).
 
 ### example 1
 

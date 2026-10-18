@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-ManagedGuid.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ Answers whether a GUID is registered in the managed-GUID registry (configs/guids
 
 ### description
 
-The boolean counterpart of Assert-ManagedGuid; both share one lookup (Resolve-ManagedGuid), so they
-can never disagree. Comparison is case-insensitive by `[guid]` value.
+The boolean counterpart of Assert-ManagedGuid; both share one lookup (Resolve-ManagedGuid), so they can never disagree. Comparison is
+case-insensitive by `[guid]` value.
 
 ### parameter Guid
 

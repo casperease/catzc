@@ -1,7 +1,7 @@
 # automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,16 +11,14 @@ Asserts the current az CLI login can reach the named subscription.
 
 ### description
 
-The azure.yml-aware companion to the generic Assert-AzCliSubscriptionAccessible: it
-takes a subscription _name_ (a key in azure.yml's subscriptions), resolves it to a subscription id
-via Get-AzureSubscription, and delegates the real-ARM-read access check down. Drop it at the top of
-a function to fail fast before it calls az against that subscription — whether the subscription is
-the active one or supplied via `--subscription <id>`.
+The azure.yml-aware companion to the generic Assert-AzCliSubscriptionAccessible: it takes a subscription _name_ (a key in azure.yml's
+subscriptions), resolves it to a subscription id via Get-AzureSubscription, and delegates the real-ARM-read access check down. Drop it at
+the top of a function to fail fast before it calls az against that subscription — whether the subscription is the active one or supplied via
+`--subscription <id>`.
 
-This is to access what Assert-AzCliIsConnected is to active-context: same name resolution, different
-question. "IsConnected" asks whether the session is `*set` `to*` the subscription; "CanAccess" asks
-whether the current login can _reach_ it, independent of which subscription is active.
-See [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and
+This is to access what Assert-AzCliIsConnected is to active-context: same name resolution, different question. "IsConnected" asks whether
+the session is `*set` `to*` the subscription; "CanAccess" asks whether the current login can _reach_ it, independent of which subscription
+is active. See [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and
 [ADR-AZ-CLI#1](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
 
 ### parameter Subscription

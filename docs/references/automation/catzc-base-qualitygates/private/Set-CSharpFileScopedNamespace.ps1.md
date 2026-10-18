@@ -29,12 +29,11 @@ Returns the C# source with a file-scoped `namespace <Namespace>;` line present a
 
 The string engine behind Format-Types. Pure (text in, text out), so it is unit-tested directly.
 
-- When the source already declares a file-scoped namespace, its name is corrected to `<Namespace>`
-  (a no-op when it already matches).
-- When it declares none, `namespace <Namespace>;` is inserted after the leading comment/using block —
-  before the first type or attribute — padded by a blank line on each side.
-- A block-scoped `namespace X { … }` (not a shape this repo authors) is left untouched, so the helper
-  never double-declares; Format-Types reports it and Test-Formatting turns it into an issue.
+- When the source already declares a file-scoped namespace, its name is corrected to `<Namespace>` (a no-op when it already matches).
+- When it declares none, `namespace <Namespace>;` is inserted after the leading comment/using block — before the first type or attribute —
+  padded by a blank line on each side.
+- A block-scoped `namespace X { … }` (not a shape this repo authors) is left untouched, so the helper never double-declares; Format-Types
+  reports it and Test-Formatting turns it into an issue.
 
 Line endings are normalised to LF and a single trailing newline is preserved (repo convention).
 

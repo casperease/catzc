@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Objects/Copy-Object.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,12 +11,10 @@ Deep clones a PowerShell object.
 
 ### description
 
-Recursively copies hashtables, ordered dictionaries, PSCustomObjects,
-arrays, and lists. Value types and strings are returned as-is (immutable
-or copied by value). Unknown reference types are returned by reference.
+Recursively copies hashtables, ordered dictionaries, PSCustomObjects, arrays, and lists. Value types and strings are returned as-is
+(immutable or copied by value). Unknown reference types are returned by reference.
 
-PSCustomObject cloning only copies NoteProperties. Use -AcceptWarnings
-to suppress the warning about this limitation.
+PSCustomObject cloning only copies NoteProperties. Use -AcceptWarnings to suppress the warning about this limitation.
 
 Does not use BinaryFormatter or any serialization-based approach.
 

@@ -35,22 +35,18 @@ For each target slot (one per `configuration/[<customer>/]<config>.yml`):
 
 1. Loads the slot's config via Get-BicepTemplateConfiguration.
 2. Runs the UNDEFINED guard (throws if any flattened leaf is the literal string 'UNDEFINED').
-3. Resolves every config-addressed parameter, `{ address: global.<config>.<key>… }`, into `{ value: … }`
-   through Get-ConfigValue (Resolve-BicepParameterAddresses). An address reaches only version-controlled
-   config, so no secret can be addressed: a secure parameter takes a Key Vault `reference`. An address that
-   does not resolve, or one set together with `value` or `reference`, fails the build, naming the config file
-   and the parameter.
-4. If the template ships `infrastructure/templates/<name>/PrePost.psm1` exporting
-   Invoke-BicepPrepareParameterSet, runs it — the merge seam between per-slot config and the
-   global asset configs in `Catzc.Azure.Templates/assets/*.yml`. With no such hook the step is a no-op
-   (the per-slot config is used unchanged).
-5. Renders the resulting `.ParametersFile` to
-   `out/template/<name>/parameters.[<customer>.]<config>.json` — one per config file; the name
+3. Resolves every config-addressed parameter, `{ address: global.<config>.<key>… }`, into `{ value: … }` through Get-ConfigValue
+   (Resolve-BicepParameterAddresses). An address reaches only version-controlled config, so no secret can be addressed: a secure parameter
+   takes a Key Vault `reference`. An address that does not resolve, or one set together with `value` or `reference`, fails the build, naming
+   the config file and the parameter.
+4. If the template ships `infrastructure/templates/<name>/PrePost.psm1` exporting Invoke-BicepPrepareParameterSet, runs it — the merge seam
+   between per-slot config and the global asset configs in `Catzc.Azure.Templates/assets/*.yml`. With no such hook the step is a no-op (the
+   per-slot config is used unchanged).
+5. Renders the resulting `.ParametersFile` to `out/template/<name>/parameters.[<customer>.]<config>.json` — one per config file; the name
    comes from Get-BicepParametersFileName (config name = `<env>[-<slot>]`).
 
-Then runs `az bicep build --file <main.bicep> --outdir <out>` once for the template,
-producing `main.json`. Finally copies the per-template `PrePost.psm1` (if any) and the
-contents of `resources/` (if any) into the output folder.
+Then runs `az bicep build --file <main.bicep> --outdir <out>` once for the template, producing `main.json`. Finally copies the per-template
+`PrePost.psm1` (if any) and the contents of `resources/` (if any) into the output folder.
 
 The output folder is wiped and recreated on every call.
 
@@ -60,8 +56,8 @@ Template name (folder under infrastructure/templates/).
 
 ### parameter Environments
 
-Optional filter — build only slots whose environment is named here. Defaults to all
-slots configured for the template (one parameters file per `configuration/*.yml`, excluding default).
+Optional filter — build only slots whose environment is named here. Defaults to all slots configured for the template (one parameters file
+per `configuration/*.yml`, excluding default).
 
 ### parameter Customers
 
@@ -69,8 +65,8 @@ Optional filter — build only the named customers' slots (their configuration s
 
 ### parameter Shared
 
-Optional filter — build the configuration-root (shared-platform, non-customer) slots. Combines with
--Customers as a union; with neither filter every slot builds.
+Optional filter — build the configuration-root (shared-platform, non-customer) slots. Combines with -Customers as a union; with neither
+filter every slot builds.
 
 ### example 1
 

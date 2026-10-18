@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Git/Push-Dirty.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,13 +11,13 @@ Lands the working tree on the server with one fast push: stage everything, commi
 
 ### description
 
-The fast push of [ADR-DSGN-LIFE#11](../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life11). Stages every change when
-the tree is dirty, commits it with -Message (the editor's commit field; `...` when none is given), and pushes the current
-branch to origin. A tree with nothing to commit still pushes the commits that are waiting locally.
+The fast push of [ADR-DSGN-LIFE#11](../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life11). Stages every change when the tree is
+dirty, commits it with -Message (the editor's commit field; `...` when none is given), and pushes the current branch to origin. A tree with
+nothing to commit still pushes the commits that are waiting locally.
 
-It stops, changing nothing, in `main-via-pr` while standing on main/master (the `git_workspace` variant's one stop
-condition), and it never forces: a push the server rejects because main moved is reported and left for you to integrate
-by hand, since rebasing would build the commit on a tip that may be a dirty HEAD.
+It stops, changing nothing, in `main-via-pr` while standing on main/master (the `git_workspace` variant's one stop condition), and it never
+forces: a push the server rejects because main moved is reported and left for you to integrate by hand, since rebasing would build the
+commit on a tip that may be a dirty HEAD.
 
 It rests on [ADR-AUTO-DRYRUN#2](../../../adr/automation/dry-run.md#rule-adr-auto-dryrun2).
 

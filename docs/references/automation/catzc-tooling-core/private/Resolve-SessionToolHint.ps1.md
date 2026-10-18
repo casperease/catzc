@@ -27,11 +27,11 @@ Points the current session at a tool installed outside the installer layer, usin
 
 ### description
 
-When a configured tool is not resolvable on PATH but tools.yml gives it session_path_hints (e.g. node's
-nvm-for-windows symlink %ProgramFiles%\nodejs), this prepends the first hint directory that actually
-contains the command to $env:PATH for THIS session only, then returns the resolved command. Session-only,
-never persistent — the installer layer owns the registry PATH. Returns $null when the tool has no hints or
-none resolve.
+When a configured tool is not resolvable on PATH but tools.yml gives it session_path_hints (e.g. node's nvm-for-windows symlink
+%ProgramFiles%\nodejs), this prepends the first hint directory that actually contains the command to
+$env:PATH for THIS session only, then returns the resolved command. Session-only,
+never persistent — the installer layer owns the registry PATH. Returns $null
+when the tool has no hints or none resolve.
 
 ### parameter Config
 

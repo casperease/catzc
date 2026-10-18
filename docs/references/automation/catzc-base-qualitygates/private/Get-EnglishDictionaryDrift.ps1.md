@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/private/Get-EnglishDictionaryDrift.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,10 +11,10 @@ Reports why the committed English word list is stale, from its stamp alone — n
 
 ### description
 
-Build-EnglishDictionary's -DryRun re-flattens cspell's bundled tries (node, npx, cspell), so the drift check
-reads the committed artifact's stamp instead: the gz and its stamp both exist, the stamp's cspell version
-matches the pinned cspell version, and the stamp's word count matches the gz's line count. Each failure is
-one reason; none means the list is current. Test-GeneratedFiles turns each reason into one issue.
+Build-EnglishDictionary's -DryRun re-flattens cspell's bundled tries (node, npx, cspell), so the drift check reads the committed artifact's
+stamp instead: the gz and its stamp both exist, the stamp's cspell version matches the pinned cspell version, and the stamp's word count
+matches the gz's line count. Each failure is one reason; none means the list is current. Test-GeneratedFiles turns each reason into one
+issue.
 
 ### parameter AssetsFolder
 

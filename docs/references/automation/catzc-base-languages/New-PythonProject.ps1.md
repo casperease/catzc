@@ -23,15 +23,14 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Renders the Python test workspace: the uv workspace root `<root>/pyproject.toml` and one member pyproject.toml per Python
-test folder.
+Renders the Python test workspace: the uv workspace root `<root>/pyproject.toml` and one member pyproject.toml per Python test folder.
 
 ### description
 
-Python code in this repository is test artifacts only: black-box tests in `<root>/tests/<module-in-kebab>/`, under the
-Python root (python.yml `root`: python/ when the repository has one, else .python/;
-[ADR-AUTO-PY](../../../adr/automation/python/python-test-artifacts.md)). The tests form one uv workspace — uv's own
-monorepo layout, and the Python form of go.work with one go.mod per module:
+Python code in this repository is test artifacts only: black-box tests in `<root>/tests/<module-in-kebab>/`, under the Python root
+(python.yml `root`: python/ when the repository has one, else .python/;
+[ADR-AUTO-PY](../../../adr/automation/python/python-test-artifacts.md)). The tests form one uv workspace — uv's own monorepo layout, and the
+Python form of go.work with one go.mod per module:
 
 ```text
 <root>/pyproject.toml                  the workspace root: a virtual root (no project of its own) whose
@@ -43,11 +42,11 @@ monorepo layout, and the Python form of go.work with one go.mod per module:
                                        python.yml's exact pins, in name order.
 ```
 
-uv makes one environment (`<root>/.venv`) and one lock (`<root>/uv.lock`) for the whole workspace when the test bridge
-syncs it; both are gitignored, as these files are. A repository without Python test folders renders nothing.
+uv makes one environment (`<root>/.venv`) and one lock (`<root>/uv.lock`) for the whole workspace when the test bridge syncs it; both are
+gitignored, as these files are. A repository without Python test folders renders nothing.
 
-This is a pure renderer: it returns the content and writes nothing. It is the `generator` the root-config registry
-names for the workspace targets, and Build-RootConfig owns the write; the entry's target selects which files.
+This is a pure renderer: it returns the content and writes nothing. It is the `generator` the root-config registry names for the workspace
+targets, and Build-RootConfig owns the write; the entry's target selects which files.
 
 ### parameter Target
 
@@ -55,8 +54,8 @@ The files to render, as a repository-relative wildcard over their paths. Default
 
 ### outputs
 
-`[Catzc.Base.Languages.PythonWorkspaceFile]` One record per rendered file ({ Target; Content }): the workspace root
-first, then the members in ordinal folder order.
+`[Catzc.Base.Languages.PythonWorkspaceFile]` One record per rendered file ({ Target; Content }): the workspace root first, then the members
+in ordinal folder order.
 
 ### example 1
 

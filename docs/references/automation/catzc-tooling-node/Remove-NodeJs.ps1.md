@@ -30,12 +30,11 @@ Removes a manually installed Node.js and cleans up system PATH.
 
 ### description
 
-Deletes the Node.js installation folder and removes it from the
-system-level PATH. Requires Administrator. Auto-detects the install
+Deletes the Node.js installation folder and removes it from the system-level PATH. Requires Administrator. Auto-detects the install
 directory from Get-Command if not specified.
 
-This is for Node.js installations that do not appear in Apps & Features
-or winget. If Node.js is managed by winget, use Uninstall-NodeJs instead.
+This is for Node.js installations that do not appear in Apps & Features or winget. If Node.js is managed by winget, use Uninstall-NodeJs
+instead.
 
 ### parameter InstallDir
 

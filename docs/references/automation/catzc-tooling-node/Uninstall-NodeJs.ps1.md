@@ -31,10 +31,9 @@ Uninstalls Node.js via the platform package manager.
 
 ### description
 
-Removes Node.js (and its bundled npm) through the configured manager — the managed uninstall. Idempotent —
-skips if not installed. For a Node.js installed OUTSIDE the tooling system (a stray binary, a foreign
-package), escalate with -Remove -Force: the managed uninstall runs best-effort and then falls through to
-Remove-NodeJs, which destructively evicts whatever the configured manager did not own
+Removes Node.js (and its bundled npm) through the configured manager — the managed uninstall. Idempotent — skips if not installed. For a
+Node.js installed OUTSIDE the tooling system (a stray binary, a foreign package), escalate with -Remove -Force: the managed uninstall runs
+best-effort and then falls through to Remove-NodeJs, which destructively evicts whatever the configured manager did not own
 ([ADR-AUTO-REMOVE#5](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
 
 ### parameter Version
@@ -43,8 +42,8 @@ Node.js version to uninstall. Defaults to the locked version in Get-ToolConfig.
 
 ### parameter Remove
 
-After the managed uninstall, escalate to Remove-NodeJs to evict an off-config install the managed path
-cannot touch. Pair with -Force to actually remove; -Remove alone reports the plan
+After the managed uninstall, escalate to Remove-NodeJs to evict an off-config install the managed path cannot touch. Pair with -Force to
+actually remove; -Remove alone reports the plan
 ([ADR-AUTO-REMOVE#4](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
 
 ### parameter Force

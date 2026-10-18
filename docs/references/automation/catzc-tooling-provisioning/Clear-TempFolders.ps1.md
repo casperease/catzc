@@ -27,25 +27,23 @@ Deletes the contents of the user's temp folder(s).
 
 ### description
 
-Removes every top-level entry from each temp folder, best-effort: a file or directory still in use by
-a running process is locked, so it is skipped (never an error). A bloated temp folder (tens of
-thousands of leftover entries) slows NTFS file/directory creation noticeably — new dirs cost more as
-the directory index and 8.3 short-name generation churn — so periodic clearing keeps temp-heavy work
-(builds, test sandboxes) fast.
+Removes every top-level entry from each temp folder, best-effort: a file or directory still in use by a running process is locked, so it is
+skipped (never an error). A bloated temp folder (tens of thousands of leftover entries) slows NTFS file/directory creation noticeably — new
+dirs cost more as the directory index and 8.3 short-name generation churn — so periodic clearing keeps temp-heavy work (builds, test
+sandboxes) fast.
 
-Idempotent and safe to re-run. The temp folders themselves are kept; only their contents are removed.
-Returns a summary object (Removed / Skipped / Folders).
+Idempotent and safe to re-run. The temp folders themselves are kept; only their contents are removed. Returns a summary object (Removed /
+Skipped / Folders).
 
 ### parameter Path
 
-The temp folder(s) to clear. Defaults to the current user's temp location(s) (`$env:TEMP`, `$env:TMP`,
-and `[IO.Path]::GetTempPath()`, de-duplicated). Pass an explicit path to target a specific folder.
+The temp folder(s) to clear. Defaults to the current user's temp location(s) (`$env:TEMP`, `$env:TMP`, and `[IO.Path]::GetTempPath()`,
+de-duplicated). Pass an explicit path to target a specific folder.
 
 ### parameter DryRun
 
-Report what would be removed without deleting anything. The returned summary's Removed count is the
-number of top-level entries that would be deleted; nothing is touched. See
-[ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Report what would be removed without deleting anything. The returned summary's Removed count is the number of top-level entries that would
+be deleted; nothing is touched. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
 ### example 1
 

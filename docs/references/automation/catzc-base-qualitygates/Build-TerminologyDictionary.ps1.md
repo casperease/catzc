@@ -27,26 +27,21 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Generates the per-category spell-checker dictionaries from the terminology registry — the writer half of
-Test-Terminology.
+Generates the per-category spell-checker dictionaries from the terminology registry — the writer half of Test-Terminology.
 
 ### description
 
-Reads the approved-vocabulary registry (configs/terminology.yml, via Get-Config -Config terminology)
-and writes one plain cspell word list per category
-([ADR-AUTO-SPELL#6](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell6)) to the repository
-root's `.cspell/<category>.txt`
-— one file per category defined in the registry (see .cspell/README.md) — the lists cspell.yml references
-as separate dictionaries. Each carries the generated-file head as a comment (cspell treats
-'#' lines as comments) naming its generator and source. Each list is lower-cased, de-duplicated, and ordinal-sorted, so the
-output is deterministic — the same registry always produces byte-identical bytes. The category set is the
-registry's own `categories` map, and every category's file is always emitted, so the generated file set —
-and cspell.yml — stay stable.
+Reads the approved-vocabulary registry (configs/terminology.yml, via Get-Config -Config terminology) and writes one plain cspell word list
+per category ([ADR-AUTO-SPELL#6](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell6)) to the repository root's
+`.cspell/<category>.txt` — one file per category defined in the registry (see .cspell/README.md) — the lists cspell.yml references as
+separate dictionaries. Each carries the generated-file head as a comment (cspell treats '#' lines as comments) naming its generator and
+source. Each list is lower-cased, de-duplicated, and ordinal-sorted, so the output is deterministic — the same registry always produces
+byte-identical bytes. The category set is the registry's own `categories` map, and every category's file is always emitted, so the generated
+file set — and cspell.yml — stay stable.
 
-terminology.yml is the single source of truth; these lists are generated, never hand-edited. Like the
-.psd1 manifests they are gitignored and regenerated at the importer tail (see importer.ps1), so cspell
-resolves them at fixed paths without a committed second copy of the vocabulary
-([ADR-REPO-OUTDIR#8](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).
+terminology.yml is the single source of truth; these lists are generated, never hand-edited. Like the .psd1 manifests they are gitignored
+and regenerated at the importer tail (see importer.ps1), so cspell resolves them at fixed paths without a committed second copy of the
+vocabulary ([ADR-REPO-OUTDIR#8](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).
 
 See [ADR-AUTO-SPELL](../../../adr/automation/spell-out-names.md)
 ([ADR-AUTO-SPELL#5](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell5),
@@ -55,25 +50,21 @@ See [ADR-AUTO-SPELL](../../../adr/automation/spell-out-names.md)
 
 ### parameter DryRun
 
-Report whether any generated list would change without writing the files. The returned content is the
-same in either mode; -DryRun simply skips the write. See
-[ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Report whether any generated list would change without writing the files. The returned content is the same in either mode; -DryRun simply
+skips the write. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
 ### parameter Silent
 
-The per-category status lines are verbose-level — shown only when this function is run with -Verbose.
--Silent suppresses them entirely, even under -Verbose (used by the importer tail so a session with
--Verbose on does not chatter during import).
+The per-category status lines are verbose-level — shown only when this function is run with -Verbose. -Silent suppresses them entirely, even
+under -Verbose (used by the importer tail so a session with -Verbose on does not chatter during import).
 
 ### parameter PassThru
 
-Return one result object per category ({ Category, Path, WordCount, Changed, DryRun }) instead of the
-path strings.
+Return one result object per category ({ Category, Path, WordCount, Changed, DryRun }) instead of the path strings.
 
 ### outputs
 
-`[string[]]` The paths to the generated dictionaries (with -PassThru, one result object per category
-instead).
+`[string[]]` The paths to the generated dictionaries (with -PassThru, one result object per category instead).
 
 ### example 1
 

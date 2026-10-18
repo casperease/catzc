@@ -31,13 +31,11 @@ Runs a catzc module's Go tests and returns one result per Go test.
 
 ### description
 
-In the module's Go test folder, `<root>/tests/<module-in-kebab>/` (Catzc.Base.Repository -> catzc-base-repository;
-the Go root is go.yml's `root`, by default go/ when the repository has one, else .go/), runs three go commands
-from inside that folder, so ./... expands below the module root whatever the root's name, through
-Invoke-Executable, each inside its time safeguard (the `go` entry of timeouts.yml). It runs the managed go by
-its path, located from its tools.yml entry by Resolve-ToolExecutable (Catzc.Base.Execution), and never a bare go
-off PATH; it throws with "Run Install-Go" when no go is found or the one found does not match the tools.yml
-pin:
+In the module's Go test folder, `<root>/tests/<module-in-kebab>/` (Catzc.Base.Repository -> catzc-base-repository; the Go root is go.yml's
+`root`, by default go/ when the repository has one, else .go/), runs three go commands from inside that folder, so ./... expands below the
+module root whatever the root's name, through Invoke-Executable, each inside its time safeguard (the `go` entry of timeouts.yml). It runs
+the managed go by its path, located from its tools.yml entry by Resolve-ToolExecutable (Catzc.Base.Execution), and never a bare go off PATH;
+it throws with "Run Install-Go" when no go is found or the one found does not match the tools.yml pin:
 
 ```text
 go mod download                fetches the declared dependencies and records go.sum;
@@ -45,8 +43,8 @@ go vet ./...                   type-checks and vets the test packages;
 go test -json -count=1 ./...   runs every test, uncached, as a test2json event stream.
 ```
 
-The Go tests are black-box tests: they start the engine and assert on its output. How to start it reaches them
-through the environment (Get-EngineContract), set for these commands only and restored afterwards:
+The Go tests are black-box tests: they start the engine and assert on its output. How to start it reaches them through the environment
+(Get-EngineContract), set for these commands only and restored afterwards:
 
 ```text
 CATZC_ENGINE_EXECUTABLE  the engine's executable;
@@ -56,13 +54,12 @@ CATZC_ENGINE_START       the arguments after it, as a JSON array that loads the 
 CATZC_REPOSITORY_ROOT    the repository root.
 ```
 
-Returns one GoTestResult per top-level Go test (subtests fold into it), with its category from its name:
-`TestIntegrity*` is integrity, everything else is logic. A failing Go test is a result, not an error. The call
-throws, with the go output, when go vet fails, when the test package does not build, or when a package fails
-outside any test.
+Returns one GoTestResult per top-level Go test (subtests fold into it), with its category from its name: `TestIntegrity*` is integrity,
+everything else is logic. A failing Go test is a result, not an error. The call throws, with the go output, when go vet fails, when the test
+package does not build, or when a package fails outside any test.
 
-The folder's go.mod and the root go.work are generated (New-GoWorkspace, written by Build-RootConfig on
-import); a missing go.mod throws with that remediation.
+The folder's go.mod and the root go.work are generated (New-GoWorkspace, written by Build-RootConfig on import); a missing go.mod throws
+with that remediation.
 
 ### parameter Module
 
@@ -70,20 +67,17 @@ The catzc module whose Go tests to run (e.g. Catzc.Base.Repository).
 
 ### parameter EntryScript
 
-The engine entry for a build run: the build's Import-Catzc.ps1. Default: the repository's importer.ps1 (the
-source run).
+The engine entry for a build run: the build's Import-Catzc.ps1. Default: the repository's importer.ps1 (the source run).
 
 ### parameter GoExecutable
 
-The go to run, already located and checked against the pin by the caller: a test run passes the go its source
-session resolved, because a build run's engine does not carry the tools.yml entry. Default: located here by
-Resolve-ToolExecutable.
+The go to run, already located and checked against the pin by the caller: a test run passes the go its source session resolved, because a
+build run's engine does not carry the tools.yml entry. Default: located here by Resolve-ToolExecutable.
 
 ### parameter Engine
 
-The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats
-dispatcher ([ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)). The tests are the same; only the contract
-they read changes.
+The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats dispatcher
+([ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)). The tests are the same; only the contract they read changes.
 
 ### parameter EngineExecutable
 

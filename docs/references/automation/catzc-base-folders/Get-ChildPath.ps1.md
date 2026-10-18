@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Folders/Get-ChildPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ Lists the files and folders below a folder, to a bounded depth, without loading 
 
 ### description
 
-The one way to enumerate children and deeper. It walks lazily in .NET, stops at the depth, never follows a link, and prunes
-the named folders while it walks, so a pruned folder is never entered. The result is full paths in ordinal order.
+The one way to enumerate children and deeper. It walks lazily in .NET, stops at the depth, never follows a link, and prunes the named
+folders while it walks, so a pruned folder is never entered. The result is full paths in ordinal order.
 
 ### parameter Path
 
@@ -24,8 +24,8 @@ How many levels to list: 1 is the direct children only. The default is the folde
 
 ### parameter Filter
 
-Simple wildcard patterns matched against each name; an entry is listed when any pattern matches. A folder that does not match is
-still entered.
+Simple wildcard patterns matched against each name; an entry is listed when any pattern matches. A folder that does not match is still
+entered.
 
 ### parameter Directory
 

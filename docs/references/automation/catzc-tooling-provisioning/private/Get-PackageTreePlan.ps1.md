@@ -30,8 +30,7 @@ Plans copying an extracted package tree into a destination tree without touching
 
 ### description
 
-Compares the files and folders under -Source with -Destination and returns paths relative to both roots, with
-forward slashes:
+Compares the files and folders under -Source with -Destination and returns paths relative to both roots, with forward slashes:
 
 ```text
 Directories  the folders the destination lacks, parents before children, so creating them in order works;
@@ -39,9 +38,8 @@ Files        the files the destination lacks: the ones a copy adds, and the only
 Kept         the files the destination already has: they belong to whoever placed them, so a copy leaves them alone.
 ```
 
-Reads the filesystem only and changes nothing, so the plan can be recorded before the copy starts and an
-interrupted copy is still covered by it
-([ADR-AUTO-REMOVE#2](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)).
+Reads the filesystem only and changes nothing, so the plan can be recorded before the copy starts and an interrupted copy is still covered
+by it ([ADR-AUTO-REMOVE#2](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)).
 
 ### parameter Source
 

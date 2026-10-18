@@ -27,9 +27,9 @@ Runs one located executable's version command and returns the parsed version —
 
 ### description
 
-Runs the executable at -Path (never whatever its bare name resolves to on PATH) with -Arguments, once, in the
-executable's own folder, and matches the merged output against -Pattern. Returns the captured named group (`?<ver>`...), or $null when the
-output does not match. Find-Executable calls it at most once per executable file per session.
+Runs the executable at -Path (never whatever its bare name resolves to on PATH) with -Arguments, once, in the executable's own folder, and
+matches the merged output against -Pattern. Returns the captured named group (`?<ver>`...), or $null when the output does not match.
+Find-Executable calls it at most once per executable file per session.
 
 ### parameter Path
 

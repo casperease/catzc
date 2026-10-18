@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -12,8 +12,8 @@ Turns a contract asset's note into the markdown text of its list item on a gener
 ### description
 
 A note is written as a comment (Get-ContractAssetNote), where an ADR citation is a repository-rooted code link
-([ADR-REPO-LINK#3](../../../../adr/repository/markdown-links.md#rule-adr-repo-link3)). On the generated page it is markdown,
-so each part is rewritten to its markdown form:
+([ADR-REPO-LINK#3](../../../../adr/repository/markdown-links.md#rule-adr-repo-link3)). On the generated page it is markdown, so each part is
+rewritten to its markdown form:
 
 - a link whose destination starts with '/' becomes relative to the page's folder, its #fragment kept
   ([ADR-REPO-LINK#2](../../../../adr/repository/markdown-links.md#rule-adr-repo-link2));

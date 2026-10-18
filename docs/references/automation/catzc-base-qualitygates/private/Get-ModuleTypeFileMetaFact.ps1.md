@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/private/Get-ModuleTypeFileMetaFact.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,9 @@ The module-type meta kind's fact: the type of the module a file is placed in, fr
 
 ### description
 
-The module type is the one Get-PathModule names for the path ([ADR-DSGN-TRACK#3](../../../../adr/design/tracks.md#rule-adr-dsgn-track3)):
-a pwsh-folder, a settings, a pipeline and so on, as the module-types registry declares them. A file placed in no
-module gets an empty value, so the key is left out of its head.
+The module type is the one Get-PathModule names for the path ([ADR-DSGN-TRACK#3](../../../../adr/design/tracks.md#rule-adr-dsgn-track3)): a
+pwsh-folder, a settings, a pipeline and so on, as the module-types registry declares them. A file placed in no module gets an empty value,
+so the key is left out of its head.
 
 ### parameter State
 

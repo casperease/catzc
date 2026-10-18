@@ -30,21 +30,20 @@ Quality gate: every module folder under automation/ follows the folder and file 
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the module
-folders of `<RepositoryRoot>/automation` (dot-prefixed folders are infrastructure, not modules). It scans the tree
-once with `[System.IO]` and collects every issue
-([ADR-REPO-FOLDERS](../../../adr/repository/conventional-folders.md)):
+A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the module folders of
+`<RepositoryRoot>/automation` (dot-prefixed folders are infrastructure, not modules). It scans the tree once with `[System.IO]` and collects
+every issue ([ADR-REPO-FOLDERS](../../../adr/repository/conventional-folders.md)):
 
 - every module subdirectory is a conventional folder: private, tests, assets, types, configs;
 - no test file (`*.Tests.ps1`) sits at the module root or in private/ — tests belong in tests/;
-- no public function (a module-root .ps1, named for its function) is exported by more than one module — the
-  last-loaded module would win silently;
+- no public function (a module-root .ps1, named for its function) is exported by more than one module — the last-loaded module would win
+  silently;
 - configs/ is flat and holds only kebab-case .yml files (dot-prefixed entries are tooling and are skipped);
-- no module keeps internal config in assets/config/ (it belongs in configs/) or test fixtures in assets/test/
-  (they belong in tests/assets/).
+- no module keeps internal config in assets/config/ (it belongs in configs/) or test fixtures in assets/test/ (they belong in
+  tests/assets/).
 
-The folder convention is the module system's own contract (folder = module, location = visibility), so the
-gate lives with the module system rather than in .internal, which is the loader and not a module.
+The folder convention is the module system's own contract (folder = module, location = visibility), so the gate lives with the module system
+rather than in .internal, which is the loader and not a module.
 
 ### parameter OutputFolder
 

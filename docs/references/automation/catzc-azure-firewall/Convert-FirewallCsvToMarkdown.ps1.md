@@ -30,15 +30,14 @@ Renders an Azure Firewall rule-export CSV (application or network) as a Markdown
 
 ### description
 
-Writes a titled Markdown file: an H1 of the source filename, a line with the CSV generation time and
-the conversion time (both UTC), then a '## Rules' section with a one-line ordering note and the table.
+Writes a titled Markdown file: an H1 of the source filename, a line with the CSV generation time and the conversion time (both UTC), then a
+'## Rules' section with a one-line ordering note and the table.
 
-Rows are sorted toward firewall evaluation order — rule collection GROUP priority (from -GroupPriority,
-since the export omits it), then rule collection priority, then rule name. Columns are composite: Source
-and Destination each list every populated candidate field (IP groups, addresses, FQDNs, FQDN tags, web
-categories), grouped by kind and sorted within a kind; Protocol/Port pairs protocols with ports and is
-left unsorted. IP-group resource IDs are trimmed to their simple name unless -DoNotCutIpgNames is set.
-A requested column with no backing field in the CSV is a schema mismatch and throws.
+Rows are sorted toward firewall evaluation order — rule collection GROUP priority (from -GroupPriority, since the export omits it), then
+rule collection priority, then rule name. Columns are composite: Source and Destination each list every populated candidate field (IP
+groups, addresses, FQDNs, FQDN tags, web categories), grouped by kind and sorted within a kind; Protocol/Port pairs protocols with ports and
+is left unsorted. IP-group resource IDs are trimmed to their simple name unless -DoNotCutIpgNames is set. A requested column with no backing
+field in the CSV is a schema mismatch and throws.
 
 Two parameter sets:
 
@@ -62,8 +61,8 @@ CSV column used as the rule name / first table column. Default 'Name'.
 
 ### parameter CompositeColumns
 
-Ordered map of output column -> candidate CSV fields. Drives column order and which fields each cell pulls
-from; a composite cell lists every populated candidate.
+Ordered map of output column -> candidate CSV fields. Drives column order and which fields each cell pulls from; a composite cell lists
+every populated candidate.
 
 ### parameter ProtocolPortColumnName
 
@@ -91,8 +90,8 @@ Separator joining multiple values within a cell. Default ', '.
 
 ### parameter GroupPriority
 
-Rule collection group -> group priority, for evaluation-order sorting (lower = evaluated first).
-Not present in the export, so it's supplied here. Unlisted groups sort last.
+Rule collection group -> group priority, for evaluation-order sorting (lower = evaluated first). Not present in the export, so it's supplied
+here. Unlisted groups sort last.
 
 ### parameter DoNotCutIpgNames
 
@@ -104,8 +103,7 @@ H1 title. Defaults to the CSV's own filename.
 
 ### parameter GeneratedAt
 
-CSV generation time in UTC, from the filename and supplied by Get-FirewallCsv. When omitted, the preamble
-shows only the conversion time.
+CSV generation time in UTC, from the filename and supplied by Get-FirewallCsv. When omitted, the preamble shows only the conversion time.
 
 ### parameter InputObject
 
@@ -113,9 +111,9 @@ A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the 
 
 ### parameter OutputFolder
 
-Where the .md goes in Object mode; the file is named `<original-name>.md`.
-Destination directory in Object mode; the file is named `<original-name>.md`. Defaults to the markdown folder
-under the output root (Get-OutputRoot: `<repo>/out` locally, the artifact staging directory in a pipeline).
+Where the .md goes in Object mode; the file is named `<original-name>.md`. Destination directory in Object mode; the file is named
+`<original-name>.md`. Defaults to the markdown folder under the output root (Get-OutputRoot: `<repo>/out` locally, the artifact staging
+directory in a pipeline).
 
 ### parameter SortNote
 

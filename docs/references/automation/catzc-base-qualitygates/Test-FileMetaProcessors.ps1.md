@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,11 +11,11 @@ Quality gate: every meta kind resolves to a processor function, and every conven
 
 ### description
 
-A kind whose function is missing fails the run that reads the registry, and a function no kind names is never
-called, so this gate lists both orphans. A function is a processor candidate when it is named `Get-<Kind>FileMetaFact` or
-`Get-<Kind>MarkdownConfigContribution`.
+A kind whose function is missing fails the run that reads the registry, and a function no kind names is never called, so this gate lists
+both orphans. A function is a processor candidate when it is named `Get-<Kind>FileMetaFact` or `Get-<Kind>MarkdownConfigContribution`.
 
-It rests on [ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35) and [ADR-REPO-FILEMETA#4](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta4).
+It rests on [ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35) and
+[ADR-REPO-FILEMETA#4](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta4).
 
 ### parameter Config
 
@@ -27,8 +27,7 @@ The report base folder. Defaults to out/test-file-meta-processors/ (Write-Qualit
 
 ### parameter PassThru
 
-Return the result ({ Subject; IssueCount; Issues; ReportPath; KindCount; ProcessorCount }) instead of
-throwing on issues.
+Return the result ({ Subject; IssueCount; Issues; ReportPath; KindCount; ProcessorCount }) instead of throwing on issues.
 
 ### outputs
 

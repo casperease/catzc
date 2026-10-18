@@ -27,16 +27,12 @@ Provisions Python via uv.
 
 ### description
 
-Installs a uv-managed CPython (`uv python install <version> --default`) — user-space, cross-platform, with
-a global python/python3 shim in uv's bin (~/.local/bin). Requires uv. Idempotent — skips if the correct
-version is already on PATH.
+Installs a uv-managed CPython (`uv python install <version> --default`) — user-space, cross-platform, with a global python/python3 shim in
+uv's bin (~/.local/bin). Requires uv. Idempotent — skips if the correct version is already on PATH.
 
-NOT for CI pipelines. In Azure DevOps, use the native UsePythonVersion task which activates pre-cached
-versions instantly:
+NOT for CI pipelines. In Azure DevOps, use the native UsePythonVersion task which activates pre-cached versions instantly:
 
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.11'
+- task: UsePythonVersion@0 inputs: versionSpec: '3.11'
 
 ### parameter Version
 

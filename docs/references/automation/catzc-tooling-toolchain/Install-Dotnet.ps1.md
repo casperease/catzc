@@ -32,24 +32,16 @@ Installs the .NET SDK via official Microsoft install scripts (user-space).
 
 ### description
 
-Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved
-through Get-CatzcModuleRoot, so the same in source and build mode) instead of package managers.
-Install directory resolved by Get-ScriptInstallDir (LOCALAPPDATA on
-Windows, HOME on Unix — overridable in tools.yml).
-No admin required. Persists DOTNET_ROOT and PATH for future sessions.
-Idempotent — converges to the desired state on every run: when our
-install dir already holds the locked version the download is skipped,
-but the environment (session + persistent PATH, DOTNET_ROOT) is still
-converged, so a machine whose PATH persistence was lost is repaired by
-re-running. Only a right-version dotnet from elsewhere on PATH (a
-system-wide install we do not manage) is a true no-op.
+Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved through Get-CatzcModuleRoot, so the same in
+source and build mode) instead of package managers. Install directory resolved by Get-ScriptInstallDir (LOCALAPPDATA on Windows, HOME on
+Unix — overridable in tools.yml). No admin required. Persists DOTNET_ROOT and PATH for future sessions. Idempotent — converges to the
+desired state on every run: when our install dir already holds the locked version the download is skipped, but the environment (session +
+persistent PATH, DOTNET_ROOT) is still converged, so a machine whose PATH persistence was lost is repaired by re-running. Only a
+right-version dotnet from elsewhere on PATH (a system-wide install we do not manage) is a true no-op.
 
-NOT for CI pipelines. In Azure DevOps, use the native UseDotNet task
-which activates pre-cached versions instantly:
+NOT for CI pipelines. In Azure DevOps, use the native UseDotNet task which activates pre-cached versions instantly:
 
-- task: UseDotNet@2
-  inputs:
-    version: '10.x'
+- task: UseDotNet@2 inputs: version: '10.x'
 
 ### parameter Version
 

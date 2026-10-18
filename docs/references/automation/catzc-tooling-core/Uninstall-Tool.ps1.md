@@ -27,8 +27,7 @@ Uninstalls a tool using the platform package manager.
 
 ### description
 
-Uses winget on Windows, brew on macOS, and apt-get on Linux.
-Skips if the tool is not installed.
+Uses winget on Windows, brew on macOS, and apt-get on Linux. Skips if the tool is not installed.
 
 ### parameter Tool
 

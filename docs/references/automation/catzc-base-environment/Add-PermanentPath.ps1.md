@@ -45,13 +45,11 @@ Place the path at the beginning instead of the end.
 
 ### parameter Label
 
-Identity marker for Unix profile blocks. Defaults to the leaf folder name.
-Must match when calling Remove-PermanentPath.
+Identity marker for Unix profile blocks. Defaults to the leaf folder name. Must match when calling Remove-PermanentPath.
 
 ### parameter Sync
 
-After adding, call Sync-SessionPath to merge any other new registry
-entries into the current session (Windows only).
+After adding, call Sync-SessionPath to merge any other new registry entries into the current session (Windows only).
 
 ### example 1
 

@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,13 +11,12 @@ Packs a Catzc build into a NuGet package (.nupkg) for a local-path Install-PSRes
 
 ### description
 
-The package delivery shape ([ADR-AUTO-BUNDLE#6](../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle6)). The
-build folder is already an installable module — its
-Catzc.psd1 carries the version, GUID and package metadata, its Catzc.psm1 loads the platform, and the
-vendored dependencies ride inside its .vendor/ — so the build folder itself is compressed, as is, with
-Compress-PSResource into `<DestinationPath>/Catzc.<version>.nupkg` (pack only, no publish). A client registers
-the destination folder as a PSResource repository and runs Install-PSResource Catzc. Publishing beyond the
-local disk is the release workflow's act ([ADR-GH-RELEASE](../../../../adr/github/github-release.md)).
+The package delivery shape ([ADR-AUTO-BUNDLE#6](../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle6)). The build folder is
+already an installable module — its Catzc.psd1 carries the version, GUID and package metadata, its Catzc.psm1 loads the platform, and the
+vendored dependencies ride inside its .vendor/ — so the build folder itself is compressed, as is, with Compress-PSResource into
+`<DestinationPath>/Catzc.<version>.nupkg` (pack only, no publish). A client registers the destination folder as a PSResource repository and
+runs Install-PSResource Catzc. Publishing beyond the local disk is the release workflow's act
+([ADR-GH-RELEASE](../../../../adr/github/github-release.md)).
 
 ### parameter Source
 
@@ -29,5 +28,5 @@ The directory the .nupkg is written into.
 
 ### outputs
 
-`[pscustomobject]` with NuPkg, Version (from Catzc.psd1), Manifest (the build's Catzc.psd1), ModulePath (the
-build root), and FunctionCount (the public functions the build's modules export).
+`[pscustomobject]` with NuPkg, Version (from Catzc.psd1), Manifest (the build's Catzc.psd1), ModulePath (the build root), and FunctionCount
+(the public functions the build's modules export).

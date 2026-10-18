@@ -30,16 +30,14 @@ Materialises a file as a filesystem link to a source of truth — the link sibli
 
 ### description
 
-Ensures the file at -Path is a link to the file at -Target, so the two are one file by construction and
-drift is impossible. Idempotent (check before acting): an existing artifact counts as current only when it
-is a symbolic link resolving to the target, or a hard link whose bytes are CR-insensitively identical to
-the target. Anything else — a plain file (an old generated copy, even with identical content), a symbolic
-link to the wrong place, a hard link orphaned by a git rewrite of the source — is deleted and recreated.
+Ensures the file at -Path is a link to the file at -Target, so the two are one file by construction and drift is impossible. Idempotent
+(check before acting): an existing artifact counts as current only when it is a symbolic link resolving to the target, or a hard link whose
+bytes are CR-insensitively identical to the target. Anything else — a plain file (an old generated copy, even with identical content), a
+symbolic link to the wrong place, a hard link orphaned by a git rewrite of the source — is deleted and recreated.
 
-Creation depends on the platform: a relative symbolic link everywhere it is permitted; on Windows without the
-symlink privilege (the enterprise default — no admin, no Developer Mode) a hard link, which needs no
-privilege since the repository is one volume. When neither works the function throws — it never degrades
-to a content copy, which would silently reintroduce the drift the link exists to remove.
+Creation depends on the platform: a relative symbolic link everywhere it is permitted; on Windows without the symlink privilege (the
+enterprise default — no admin, no Developer Mode) a hard link, which needs no privilege since the repository is one volume. When neither
+works the function throws — it never degrades to a content copy, which would silently reintroduce the drift the link exists to remove.
 
 A pure primitive like Write-FileIfChanged: no console output — callers own their reporting. See
 [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md).
@@ -54,8 +52,7 @@ Path of the source file, which must exist, that the link must resolve to.
 
 ### parameter DryRun
 
-Report whether the link would change without touching the filesystem. See
-[ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Report whether the link would change without touching the filesystem. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
 ### outputs
 

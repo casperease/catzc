@@ -23,14 +23,14 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true
-isolation) or the current session (fast) — so a subset of the toolset is verified deterministically.
+Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true isolation) or the current session
+(fast) — so a subset of the toolset is verified deterministically.
 
 ### description
 
-Front half (both modes): resolve the module set with Get-ModuleProfile (a named profile from
-configs/profiles.yml, or an explicit -Modules seed → dependency closure + infrastructure), then
-Copy-Automation it into a fresh sandbox (-EmptyDestination). Back half depends on -Isolation:
+Front half (both modes): resolve the module set with Get-ModuleProfile (a named profile from configs/profiles.yml, or an explicit -Modules
+seed → dependency closure + infrastructure), then Copy-Automation it into a fresh sandbox (-EmptyDestination). Back half depends on
+-Isolation:
 
 ```text
 Process   (default, TRUE isolation) — run Pester in a child `pwsh -NoProfile`:
@@ -45,8 +45,8 @@ InProcess (fast) — point $env:RepositoryRoot at the sandbox and Invoke-Pester 
           session's loaded code is what runs (residue), and $env:RepositoryRoot is restored afterwards.
 ```
 
-Integrity tests bind to the whole real repo and are meaningless in a subset sandbox, so -Category defaults
-to Logic (hermetic). Tiers default to L0+L1 (the unit tiers). Excluded tags are computed by Get-TestExcludeTag.
+Integrity tests bind to the whole real repo and are meaningless in a subset sandbox, so -Category defaults to Logic (hermetic). Tiers
+default to L0+L1 (the unit tiers). Excluded tags are computed by Get-TestExcludeTag.
 
 ### parameter ModuleProfile
 
@@ -74,8 +74,7 @@ Lowest tier to run (0-4). Default 0.
 
 ### parameter Destination
 
-Sandbox directory. Default: a fresh tmp dir (removed after, unless -KeepSandbox). A given -Destination is
-never auto-removed.
+Sandbox directory. Default: a fresh tmp dir (removed after, unless -KeepSandbox). A given -Destination is never auto-removed.
 
 ### parameter KeepSandbox
 

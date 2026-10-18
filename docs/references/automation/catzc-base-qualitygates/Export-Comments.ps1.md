@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Export-Comments.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,23 +11,20 @@ Moves every long comment of the repository's code and config files into the file
 
 ### description
 
-A long comment leaves the file with nothing behind: its prose moves verbatim into the file's comment page under
-docs/references as a section `## comment:N`, which names the code line the comment sat above, so each comment has
-exactly one living copy
-([ADR-PRIN-ONELIVE#1](../../../adr/principles/one-living-version.md#rule-adr-prin-onelive1)). Nothing is dropped:
-Build-CommentView puts every section back above its code line, and the engine's round-trip test proves the view
-equals the original. The file's head lists the page as its `relatives.page`.
+A long comment leaves the file with nothing behind: its prose moves verbatim into the file's comment page under docs/references as a section
+`## comment:N`, which names the code line the comment sat above, so each comment has exactly one living copy
+([ADR-PRIN-ONELIVE#1](../../../adr/principles/one-living-version.md#rule-adr-prin-onelive1)). Nothing is dropped: Build-CommentView puts
+every section back above its code line, and the engine's round-trip test proves the view equals the original. The file's head lists the page
+as its `relatives.page`.
 
-What moves is configured in comments.yml
-([ADR-PRIN-CONFIG#1](../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)): the file languages in
-scope, the minimum prose lines, the comment heads each language keeps (`.SYNOPSIS`, `.EXAMPLE`, `#Requires`, …),
-and where each folder's pages live. The scope is Get-CommentScope's: tracked files of those languages outside
-tests/, minus vendored, generated, fixture and contract files.
+What moves is configured in comments.yml ([ADR-PRIN-CONFIG#1](../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)): the
+file languages in scope, the minimum prose lines, the comment heads each language keeps (`.SYNOPSIS`, `.EXAMPLE`, `#Requires`, …), and where
+each folder's pages live. The scope is Get-CommentScope's: tracked files of those languages outside tests/, minus vendored, generated,
+fixture and contract files.
 
-A page that exists already keeps its sections as written; new comments are appended after its highest number, and
-a number is never reused. A second run over an exported file changes nothing. Source files keep their own line
-endings; pages are written canonical.
-A source-tree tool: it throws in build mode (Assert-SourceTree).
+A page that exists already keeps its sections as written; new comments are appended after its highest number, and a number is never reused.
+A second run over an exported file changes nothing. Source files keep their own line endings; pages are written canonical. A source-tree
+tool: it throws in build mode (Assert-SourceTree).
 
 ### parameter Path
 
@@ -47,8 +44,7 @@ Return one Catzc.Base.QualityGates.CommentFileResult per file that changes.
 
 ### outputs
 
-`[string[]]` the repository-relative files changed (or, under -DryRun, that would change); with -PassThru, the
-results.
+`[string[]]` the repository-relative files changed (or, under -DryRun, that would change); with -PassThru, the results.
 
 ### example 1
 

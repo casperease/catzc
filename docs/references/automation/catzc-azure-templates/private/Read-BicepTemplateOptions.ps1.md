@@ -1,7 +1,7 @@
 # automation/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ Reads a template's optional `options.yml` and returns the validated deployment o
 
 ### description
 
-Each template folder under `infrastructure/templates/<name>/` MAY carry an `options.yml` beside
-`main.bicep` declaring how the template deploys:
+Each template folder under `infrastructure/templates/<name>/` MAY carry an `options.yml` beside `main.bicep` declaring how the template
+deploys:
 
 ```text
 short_name: smpl                  # 2-5 lowercase alnum — OVERRIDES the folder-derived Azure id segment
@@ -22,19 +22,17 @@ environment_kind: subscription    # standard | subscription
 customer_deployment: true         # bool — is this a customer template? (defaults to the have_customers variant)
 ```
 
-Every key is OPTIONAL — the file itself is optional (Read-BicepTemplateOptions just validates what is
-present). `short_name` here is a pure OVERRIDE: with no options.yml (or no `short_name` key) the template's
-short_name is DERIVED from its folder name by `Get-BicepTemplates` (`[BicepShortName]::Resolve`) and checked
-for global uniqueness. An absent file (or an absent key) leaves the caller's default in place;
-`Get-BicepTemplates` overlays the returned keys onto each template's descriptor, replacing the hardcoded
-`Incremental` / `ResourceGroup` defaults.
+Every key is OPTIONAL — the file itself is optional (Read-BicepTemplateOptions just validates what is present). `short_name` here is a pure
+OVERRIDE: with no options.yml (or no `short_name` key) the template's short_name is DERIVED from its folder name by `Get-BicepTemplates`
+(`[BicepShortName]::Resolve`) and checked for global uniqueness. An absent file (or an absent key) leaves the caller's default in place;
+`Get-BicepTemplates` overlays the returned keys onto each template's descriptor, replacing the hardcoded `Incremental` / `ResourceGroup`
+defaults.
 
-The schema is STRICT: any key other than the allowed set (`short_name` / `deployment_mode` /
-`deployment_target` / `environment_kind` / `customer_deployment`), or any value outside the matching
-enum / format / type, throws — so a typo fails fast at discovery time rather than silently doing nothing.
+The schema is STRICT: any key other than the allowed set (`short_name` / `deployment_mode` / `deployment_target` / `environment_kind` /
+`customer_deployment`), or any value outside the matching enum / format / type, throws — so a typo fails fast at discovery time rather than
+silently doing nothing.
 
-Returns an ordered dictionary containing ONLY the keys present in the file (empty when the
-file is absent or carries no recognised keys).
+Returns an ordered dictionary containing ONLY the keys present in the file (empty when the file is absent or carries no recognised keys).
 
 ### parameter TemplateFolder
 

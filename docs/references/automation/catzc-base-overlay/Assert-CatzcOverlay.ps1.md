@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ Checks the consumer overlay against its rules and throws once, listing every vio
 
 ### description
 
-The overlay is the only place a consumer changes what a built bundle does, so it is checked as a whole before
-any of it is applied ([ADR-AUTO-OVERLAY](../../../adr/automation/consumer-overlay.md)):
+The overlay is the only place a consumer changes what a built bundle does, so it is checked as a whole before any of it is applied
+([ADR-AUTO-OVERLAY](../../../adr/automation/consumer-overlay.md)):
 
 ```text
 Unknown           an entry that is no override point

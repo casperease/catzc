@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,10 +11,9 @@ Quality gate: every shipped config has a registered C# config type and loads thr
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the config
-registry ([ADR-CONF-LOADING#4](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)). It walks
-the module folders of the loaded code root (Get-CatzcModulesRoot) — the source tree or a built package — and
-lists every issue:
+A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the config registry
+([ADR-CONF-LOADING#4](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)). It walks the module folders of the
+loaded code root (Get-CatzcModulesRoot) — the source tree or a built package — and lists every issue:
 
 - a shipped `configs/<name>.yml` with no `type:` entry in configs.yml;
 - a configs.yml entry that names no shipped config;

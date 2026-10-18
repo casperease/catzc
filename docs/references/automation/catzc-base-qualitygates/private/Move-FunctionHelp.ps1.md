@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/private/Move-FunctionHelp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -14,9 +14,9 @@ Moves the help of one PowerShell file from its head's config part to the `## hel
 The help keys (synopsis, description, parameters, inputs, outputs, examples, notes) are rendered in the section's fixed shape
 ([ADR-REPO-HELP#1](../../../../adr/repository/function-help.md#rule-adr-repo-help1)), their text kept as written, and the head loses its
 config part; a head left with nothing else goes. A page that does not exist yet starts the way the comment exporter starts one, and an
-existing page keeps every other byte, its comment sections included. A help section already on the page is replaced, so a second
-move changes nothing once the head holds no help. A config part that holds a key that is no help key, or does not parse, is
-reported and the file is left alone, so no authored key is lost.
+existing page keeps every other byte, its comment sections included. A help section already on the page is replaced, so a second move
+changes nothing once the head holds no help. A config part that holds a key that is no help key, or does not parse, is reported and the file
+is left alone, so no authored key is lost.
 
 ### parameter Path
 
@@ -36,11 +36,10 @@ Compute the new texts without writing either file.
 
 ### outputs
 
-`[pscustomobject]` { Path; Page; Moved; Reason; Text; PageText }: Moved is false with a Reason when nothing moves, and Text and
-PageText are the texts the two files have after the move.
+`[pscustomobject]` { Path; Page; Moved; Reason; Text; PageText }: Moved is false with a Reason when nothing moves, and Text and PageText are
+the texts the two files have after the move.
 
 ### notes
 
 RestsOn carries the codes the head lists that no text of the file spells out, so the move keeps each as a real link in the help's
-description and none is lost when the head goes
-([ADR-REPO-FILEMETA#14](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta14)).
+description and none is lost when the head goes ([ADR-REPO-FILEMETA#14](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta14)).

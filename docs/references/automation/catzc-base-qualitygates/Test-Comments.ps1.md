@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-Comments.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,16 +11,16 @@ Quality gate: every long comment lives in its file's comment page, and every pag
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the files in
-scope (Get-CommentScope). A file keeps no long comment and the prose lives once, in the file's comment page
+A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the files in scope
+(Get-CommentScope). A file keeps no long comment and the prose lives once, in the file's comment page
 ([ADR-PRIN-ONELIVE#1](../../../adr/principles/one-living-version.md#rule-adr-prin-onelive1)); it lists every issue:
 
 - a comment long enough to move that is still in the file (run Export-Comments);
 - a page section whose code line the file no longer has, so its prose belongs to nothing.
 
 What the configured thresholds are is comments.yml's
-([ADR-PRIN-CONFIG#1](../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)). A source-tree tool: it
-throws in build mode (Assert-SourceTree).
+([ADR-PRIN-CONFIG#1](../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)). A source-tree tool: it throws in build mode
+(Assert-SourceTree).
 
 ### parameter Path
 

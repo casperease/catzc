@@ -27,10 +27,8 @@ Reports the installation status of all registered tools.
 
 ### description
 
-Reads tool definitions from configs/tools.yml and checks each tool's
-presence, version, package manager, and install scope on the current
-machine. Returns status objects for programmatic use and writes a summary.
-Idempotent — safe to run at any time, read-only.
+Reads tool definitions from configs/tools.yml and checks each tool's presence, version, package manager, and install scope on the current
+machine. Returns status objects for programmatic use and writes a summary. Idempotent — safe to run at any time, read-only.
 
 ### example 1
 

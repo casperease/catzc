@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Files/Invoke-GitCommit.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,13 +11,12 @@ Commits the changes under the given repository paths as one git commit.
 
 ### description
 
-A thin, policy-free git wrapper: stages everything under -Path (modified, new, and deleted files —
-`git add -A`) and commits exactly those paths with the given message. All policy — branch guards,
-CI detection, which paths deserve auto-committing — belongs to the caller.
+A thin, policy-free git wrapper: stages everything under -Path (modified, new, and deleted files — `git add -A`) and commits exactly those
+paths with the given message. All policy — branch guards, CI detection, which paths deserve auto-committing — belongs to the caller.
 
-Idempotent (see [ADR-AUTO-IDEM](../../../adr/automation/idempotent-state-functions.md)): `git commit` itself is not, so
-the wrapper checks first — when `git status --porcelain` reports nothing under -Path, it returns
-nothing and runs no side effect. Re-running after a successful commit is a quiet no-op.
+Idempotent (see [ADR-AUTO-IDEM](../../../adr/automation/idempotent-state-functions.md)): `git commit` itself is not, so the wrapper checks
+first — when `git status --porcelain` reports nothing under -Path, it returns nothing and runs no side effect. Re-running after a successful
+commit is a quiet no-op.
 
 Both git invocations run through Invoke-Executable, so the exact commands are logged before they run
 ([ADR-AUTO-PRELOG](../../../adr/automation/log-before-invoke.md)) and a non-zero exit throws.
@@ -37,8 +36,7 @@ Return the planned command strings without touching git at all (not even the sta
 
 ### outputs
 
-`[string]` The new commit's full SHA; the planned commands with -DryRun; nothing when there was
-nothing to commit.
+`[string]` The new commit's full SHA; the planned commands with -DryRun; nothing when there was nothing to commit.
 
 ### example 1
 

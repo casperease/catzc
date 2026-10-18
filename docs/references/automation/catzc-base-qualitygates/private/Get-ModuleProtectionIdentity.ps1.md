@@ -30,27 +30,22 @@ Composes a module's protection identity — the durable SHA of everything its te
 
 ### description
 
-The composite ([ADR-REPO-PROTGLOB](../../../../adr/repository/protected-globs.md)): a hash-of-hashes fold over (1) the
-module's own derived globset, (2) the
-derived sets of its declared dependency closure from dependencies.yml (transitive; a group reference
-permits any member, so it expands to all members), (3) the four reserved infra scopes (internal, vendor,
-compiled, scriptanalyzer), and (4) the runner's own set (catzc-base-qualitygates — an edit to the harness
-re-keys every module). Two fail-safe cases widen the fold with the declared whole-repository 'repository'
-set (every tracked file under every named root): a module that is UNCONSTRAINED in dependencies.yml (its true
-dependency set is unknown), and a module whose tests include the 'integrity' category (by definition they read the real repository beyond the
-module). The dot-prefixed infra test units ('.internal', '.scriptanalyzer') key on the scope reserved for
-them and are always widened. Per-set hashes are memoized in the caller-owned -HashCache, so one run hashes
-each named set at most once.
+The composite ([ADR-REPO-PROTGLOB](../../../../adr/repository/protected-globs.md)): a hash-of-hashes fold over (1) the module's own derived
+globset, (2) the derived sets of its declared dependency closure from dependencies.yml (transitive; a group reference permits any member, so
+it expands to all members), (3) the four reserved infra scopes (internal, vendor, compiled, scriptanalyzer), and (4) the runner's own set
+(catzc-base-qualitygates — an edit to the harness re-keys every module). Two fail-safe cases widen the fold with the declared
+whole-repository 'repository' set (every tracked file under every named root): a module that is UNCONSTRAINED in dependencies.yml (its true
+dependency set is unknown), and a module whose tests include the 'integrity' category (by definition they read the real repository beyond
+the module). The dot-prefixed infra test units ('.internal', '.scriptanalyzer') key on the scope reserved for them and are always widened.
+Per-set hashes are memoized in the caller-owned -HashCache, so one run hashes each named set at most once.
 
 ### parameter Module
 
-The unit's folder name under automation/ — a module ('Catzc.Base.Globs') or the infra test units
-'.internal' / '.scriptanalyzer'.
+The unit's folder name under automation/ — a module ('Catzc.Base.Globs') or the infra test units '.internal' / '.scriptanalyzer'.
 
 ### parameter HasIntegrityTests
 
-Whether the unit's test files contain any 'integrity'-tagged test (from the run's discovery pass) — folds
-in the repository-wide set.
+Whether the unit's test files contain any 'integrity'-tagged test (from the run's discovery pass) — folds in the repository-wide set.
 
 ### parameter HashCache
 

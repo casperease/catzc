@@ -30,10 +30,9 @@ Deletes a repository snapshot made by New-RepositorySnapshot.
 
 ### description
 
-Removes the snapshot folder in one `[System.IO.Directory]::Delete` call, not item by item. It refuses any
-folder that does not carry New-RepositorySnapshot's provenance marker (.git/catzc-snapshot.json), so a
-wrong path can never delete a real checkout. Read-only files (git writes some) are made writable and the
-delete is retried once. A path that no longer exists is a no-op.
+Removes the snapshot folder in one `[System.IO.Directory]::Delete` call, not item by item. It refuses any folder that does not carry
+New-RepositorySnapshot's provenance marker (.git/catzc-snapshot.json), so a wrong path can never delete a real checkout. Read-only files
+(git writes some) are made writable and the delete is retried once. A path that no longer exists is a no-op.
 
 ### parameter Path
 

@@ -27,13 +27,11 @@ Combines YAML file scanning with ADO pipeline registration data.
 
 ### description
 
-Runs Get-AdoYamlFiles to classify files by heuristics, then
-Get-AdoPipelineDefinitions to fetch registered pipelines from ADO.
+Runs Get-AdoYamlFiles to classify files by heuristics, then Get-AdoPipelineDefinitions to fetch registered pipelines from ADO.
 Cross-references the two datasets to:
 
 - Mark each file as registered or not.
-- Resolve Unknown classifications: if a file is registered as a
-  pipeline in ADO, it is reclassified as Pipeline.
+- Resolve Unknown classifications: if a file is registered as a pipeline in ADO, it is reclassified as Pipeline.
 - Attach the ADO pipeline name and ID to registered files.
 
 ### parameter Path
@@ -42,8 +40,7 @@ Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 
 ### parameter Exclude
 
-Directory names to skip during scanning. Matched as exact names anywhere in the path.
-Defaults to @('.git', 'node_modules', '.terraform').
+Directory names to skip during scanning. Matched as exact names anywhere in the path. Defaults to @('.git', 'node_modules', '.terraform').
 
 ### parameter Project
 

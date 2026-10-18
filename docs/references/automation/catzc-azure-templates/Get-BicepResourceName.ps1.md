@@ -32,18 +32,18 @@ Generates an Azure resource name for a template's slot from the naming standard.
 
 ### description
 
-The templating-layer name generator. It resolves the name components from the template and
-environment, then assembles the name for the requested resource type via Get-AzureResourceName:
+The templating-layer name generator. It resolves the name components from the template and environment, then assembles the name for the
+requested resource type via Get-AzureResourceName:
 
-- env         — the environment NAME (generous types) and its 2-char shortcode (restricted)
-- slot        — the optional special-slot discriminator (`-Slot`)
+- env — the environment NAME (generous types) and its 2-char shortcode (restricted)
+- slot — the optional special-slot discriminator (`-Slot`)
 - region_code — the environment's azure.yml region_code
-- org         — azure.yml top-level org
-- short_name  — the template's options.yml short_name
-- order       — the active naming order (Get-AdoNaming; the ado_naming repo-wide variant)
+- org — azure.yml top-level org
+- short_name — the template's options.yml short_name
+- order — the active naming order (Get-AdoNaming; the ado_naming repo-wide variant)
 
-The caller supplies only what is genuinely per-call: the resource Type and optional Customer /
-Role. Two intended uses for the same generator:
+The caller supplies only what is genuinely per-call: the resource Type and optional Customer / Role. Two intended uses for the same
+generator:
 
 ```text
 validation — compare a name configured in a template's ParametersFile against the generated
@@ -69,9 +69,8 @@ Optional special-slot discriminator; omitted selects the env's base / index-0 sl
 
 ### parameter Customer
 
-Optional customer, named by its key OR its 2-char shortcode (customer.yml). Its readable key renders in
-generous names and its 2-char shortcode in restricted ones — both resolved here (Get-AzureCustomer) and
-passed to the namer.
+Optional customer, named by its key OR its 2-char shortcode (customer.yml). Its readable key renders in generous names and its 2-char
+shortcode in restricted ones — both resolved here (Get-AzureCustomer) and passed to the namer.
 
 ### parameter Role
 

@@ -1,7 +1,7 @@
 # automation/Catzc.Tooling.Python/Install-PySpark.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Installs PySpark into the uv-managed Python via `uv pip`.
 
 ### description
 
-Installs pyspark with `uv pip install --system` so it is importable in the uv-managed Python. Requires uv
-and Python (depends_on python for install ordering). Java is a runtime dependency — Invoke-PySpark asserts
-it before PySpark is used.
+Installs pyspark with `uv pip install --system` so it is importable in the uv-managed Python. Requires uv and Python (depends_on python for
+install ordering). Java is a runtime dependency — Invoke-PySpark asserts it before PySpark is used.
 
 ### parameter Version
 

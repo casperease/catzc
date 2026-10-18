@@ -23,28 +23,24 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Builds the IDE-only C# type project (Catzc.Types.csproj) so VS Code's C# Dev Kit sees the native type
-sources — the editor-facing build pathway, separate from the runtime's Add-Type compile.
+Builds the IDE-only C# type project (Catzc.Types.csproj) so VS Code's C# Dev Kit sees the native type sources — the editor-facing build
+pathway, separate from the runtime's Add-Type compile.
 
 ### description
 
-The runtime compiles every `automation/<Module>/types/*.cs` at import with Add-Type (Import-CSharpTypes),
-and that path is never touched here. This is the SECOND, editor-facing pathway: it drives `dotnet build`
-over the committed automation/.internal/assets/Catzc.Types.csproj (auto-loaded in the editor via the root
-catzc.sln). That build does two things Add-Type
-does not — it runs the Roslyn analyzers (EnableNETAnalyzers), and it runs the project's stamp task, which
-FAILS when the committed `automation/.compiled/Catzc.Types.<hash>.dll` is stale versus the sources. So a green
-build both warms Dev Kit's IntelliSense — making Go-to-Symbol (Ctrl+T) and F12 over the C# types resolve to
-source, the backtrack a bare type accelerator cannot give — and verifies the IDE project matches the
-runtime prebuild.
+The runtime compiles every `automation/<Module>/types/*.cs` at import with Add-Type (Import-CSharpTypes), and that path is never touched
+here. This is the SECOND, editor-facing pathway: it drives `dotnet build` over the committed automation/.internal/assets/Catzc.Types.csproj
+(auto-loaded in the editor via the root catzc.sln). That build does two things Add-Type does not — it runs the Roslyn analyzers
+(EnableNETAnalyzers), and it runs the project's stamp task, which FAILS when the committed `automation/.compiled/Catzc.Types.<hash>.dll` is
+stale versus the sources. So a green build both warms Dev Kit's IntelliSense — making Go-to-Symbol (Ctrl+T) and F12 over the C# types
+resolve to source, the backtrack a bare type accelerator cannot give — and verifies the IDE project matches the runtime prebuild.
 
-dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper (with its locked-SDK
-assertion) lives in the Tooling layer, which this Base module must not depend on. So there is no
-locked-version check here; dotnet must be on PATH. See
+dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper (with its locked-SDK assertion) lives in the Tooling layer,
+which this Base module must not depend on. So there is no locked-version check here; dotnet must be on PATH. See
 [ADR-AUTO-TYPES](../../../adr/automation/BCL/native-csharp-types.md).
 
-The project builds the source tree's `types/*.cs`, so it stops with a named error in build mode
-(Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+The project builds the source tree's `types/*.cs`, so it stops with a named error in build mode (Assert-SourceTree,
+[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
 ### parameter Configuration
 

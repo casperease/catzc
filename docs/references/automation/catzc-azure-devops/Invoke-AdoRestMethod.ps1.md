@@ -1,7 +1,7 @@
 # automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Calls an Azure DevOps REST API endpoint with authentication and standard error h
 
 ### description
 
-Wraps Invoke-RestMethod with the dual-auth pattern (Get-AdoAuthorizationHeader),
-JSON content type for POST/PUT/PATCH, and response unwrapping for list endpoints
-(extracts the .value array automatically).
+Wraps Invoke-RestMethod with the dual-auth pattern (Get-AdoAuthorizationHeader), JSON content type for POST/PUT/PATCH, and response
+unwrapping for list endpoints (extracts the .value array automatically).
 
 Designed for the ADO REST API conventions:
 
@@ -35,8 +34,7 @@ Request body for POST/PUT/PATCH. Accepts a hashtable or array — serialized to 
 
 ### parameter UnwrapValue
 
-For list endpoints, extract the .value array from the response instead of returning the wrapper.
-Defaults to true for GET requests.
+For list endpoints, extract the .value array from the response instead of returning the wrapper. Defaults to true for GET requests.
 
 ### example 1
 

@@ -30,13 +30,12 @@ Builds the selected modules into one installable, versioned Catzc module — bui
 
 ### description
 
-The public entry to the build ([ADR-AUTO-BUNDLE#1](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1)).
-It settles the build's inputs from configs/exporter.yml
-(Get-Config -Config exporter), hands them to the engine (Invoke-ModuleBuild in Catzc.Internal.Builder), and
-verifies what the engine wrote: against the bundle's footprint limits (max_files, max_bytes, when it states them;
-a build that overrides the selection or vendor policy is an experiment, not the bundle, and is not measured),
-then with Assert-CatzcBundle. A build is a build of one named bundle — exporter.yml
-`bundles.<name>`, a release identity with its own profile, version line and vendor policy:
+The public entry to the build ([ADR-AUTO-BUNDLE#1](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1)). It settles the
+build's inputs from configs/exporter.yml (Get-Config -Config exporter), hands them to the engine (Invoke-ModuleBuild in
+Catzc.Internal.Builder), and verifies what the engine wrote: against the bundle's footprint limits (max_files, max_bytes, when it states
+them; a build that overrides the selection or vendor policy is an experiment, not the bundle, and is not measured), then with
+Assert-CatzcBundle. A build is a build of one named bundle — exporter.yml `bundles.<name>`, a release identity with its own profile, version
+line and vendor policy:
 
 ```text
 bundle        -Bundle, else exporter.yml default_bundle
@@ -50,8 +49,8 @@ destination   -Destination, else <Get-OutputRoot>/automation/built/<bundle>; the
 package       exporter.yml module_guid + package.* -> the engine's PackageMetadata for Catzc.psd1
 ```
 
--DryRun returns the engine's plan and writes nothing (so there is nothing to verify). Returns the engine's
-result (BuildRoot, Version, Modules, TypesHash, ContentHash, FileCount, Dirty, DryRun).
+-DryRun returns the engine's plan and writes nothing (so there is nothing to verify). Returns the engine's result (BuildRoot, Version,
+Modules, TypesHash, ContentHash, FileCount, Dirty, DryRun).
 
 ### parameter Module
 
@@ -63,16 +62,14 @@ The bundle to build (an exporter.yml bundles key). Defaults to default_bundle.
 
 ### parameter ModuleProfile
 
-A profiles.yml key whose modules to build (combinable with -Module). Defaults to the bundle's profile when
--Module is not given.
-The bundle's profile, unless -Module names the selection. Read only when the bundle exists; an unknown
-bundle is rejected in the body with the list of bundles.
+A profiles.yml key whose modules to build (combinable with -Module). Defaults to the bundle's profile when -Module is not given. The
+bundle's profile, unless -Module names the selection. Read only when the bundle exists; an unknown bundle is rejected in the body with the
+list of bundles.
 
 ### parameter VendorPolicy
 
-The bundle's vendor policy.
-runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which runs the
-tests against the build). Defaults to the bundle's vendor_policy.
+The bundle's vendor policy. runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which
+runs the tests against the build). Defaults to the bundle's vendor_policy.
 
 ### parameter Version
 
@@ -80,8 +77,7 @@ tests against the build). Defaults to the bundle's vendor_policy.
 
 ### parameter Destination
 
-The parent folder the `Catzc/<version>/` build is written under. Defaults to
-`<Get-OutputRoot>/automation/built/<bundle>`.
+The parent folder the `Catzc/<version>/` build is written under. Defaults to `<Get-OutputRoot>/automation/built/<bundle>`.
 
 ### parameter DryRun
 

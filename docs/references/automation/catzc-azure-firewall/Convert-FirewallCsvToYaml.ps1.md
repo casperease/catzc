@@ -30,13 +30,12 @@ Renders an Azure Firewall rule-export CSV (application or network) as YAML.
 
 ### description
 
-Reads the CSV and writes each row as a YAML mapping, splitting the multi-value fields into arrays
-(forced to a list even for a single value, and to an empty list when blank). All other fields are
-emitted as-is. Field set is schema-agnostic: a name in -MultiValueFields that the CSV doesn't have is
-simply never encountered, so the same defaults serve both the application and network exports.
+Reads the CSV and writes each row as a YAML mapping, splitting the multi-value fields into arrays (forced to a list even for a single value,
+and to an empty list when blank). All other fields are emitted as-is. Field set is schema-agnostic: a name in -MultiValueFields that the CSV
+doesn't have is simply never encountered, so the same defaults serve both the application and network exports.
 
-The file opens with a comment header (source filename, CSV generation time, conversion time, all UTC).
-Being YAML comments they're ignored by parsers, so the parsed document is still a plain list of rules.
+The file opens with a comment header (source filename, CSV generation time, conversion time, all UTC). Being YAML comments they're ignored
+by parsers, so the parsed document is still a plain list of rules.
 
 Two parameter sets:
 
@@ -68,9 +67,9 @@ A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the 
 
 ### parameter OutputFolder
 
-Where the .yaml goes in Object mode; the file is named `<original-name>.yaml`.
-Destination directory in Object mode; the file is named `<original-name>.yaml`. Defaults to the yaml folder
-under the output root (Get-OutputRoot: `<repo>/out` locally, the artifact staging directory in a pipeline).
+Where the .yaml goes in Object mode; the file is named `<original-name>.yaml`. Destination directory in Object mode; the file is named
+`<original-name>.yaml`. Defaults to the yaml folder under the output root (Get-OutputRoot: `<repo>/out` locally, the artifact staging
+directory in a pipeline).
 
 ### parameter MultiValueFields
 

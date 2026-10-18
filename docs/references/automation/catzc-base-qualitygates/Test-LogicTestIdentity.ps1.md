@@ -23,34 +23,31 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
-ADO project) as a code string literal — the tag-aware, comment-blind enforcer of the test/live zone
-separation.
+Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or ADO project) as a code
+string literal — the tag-aware, comment-blind enforcer of the test/live zone separation.
 
 ### description
 
-The forbidden set is DERIVED from the shipped config (Get-LiveIdentityTokens), so it is always current —
-add a customer to customer.yml and it is immediately banned from logic tests. Each test file is classified
-by its Pester tags from the AST (Get-LogicTestIdentityFinding): a pure-logic file is scanned for
-live-identity string literals; an integrity or `*.Integrity.Tests.ps1` file is skipped; a file mixing both
-is reported as needing a split.
+The forbidden set is DERIVED from the shipped config (Get-LiveIdentityTokens), so it is always current — add a customer to customer.yml and
+it is immediately banned from logic tests. Each test file is classified by its Pester tags from the AST (Get-LogicTestIdentityFinding): a
+pure-logic file is scanned for live-identity string literals; an integrity or `*.Integrity.Tests.ps1` file is skipped; a file mixing both is
+reported as needing a split.
 
-This is itself an INTEGRITY check (it reads the shipped config and the whole test tree), so it is tagged
-`integrity` where a Pester test wraps it. A quality gate
-([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
-Write-QualityGateReport, which writes out/test-logic-test-identity/, prints every finding as
-'`<file>:<line>`: `<message>`', and throws once listing them all; -PassThru returns the result instead.
+This is itself an INTEGRITY check (it reads the shipped config and the whole test tree), so it is tagged `integrity` where a Pester test
+wraps it. A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through
+Write-QualityGateReport, which writes out/test-logic-test-identity/, prints every finding as '`<file>:<line>`: `<message>`', and throws once
+listing them all; -PassThru returns the result instead.
 
-Stage 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable
-units, ADO project); environment names (dev/test/preprod/prod) are a later, position-aware stage.
+Stage 1 matches the DISTINCTIVE identities exactly (customers, subscriptions, org, templates, deployable units, ADO project); environment
+names (dev/test/preprod/prod) are a later, position-aware stage.
 
-It rests on [ADR-AUTO-TEST#3](../../../adr/automation/test-automation.md#rule-adr-auto-test3) and [ADR-REPO-LANG](../../../adr/repository/domain-language-separation.md).
+It rests on [ADR-AUTO-TEST#3](../../../adr/automation/test-automation.md#rule-adr-auto-test3) and
+[ADR-REPO-LANG](../../../adr/repository/domain-language-separation.md).
 
 ### parameter Path
 
-Test files to check. Defaults to every `*.Tests.ps1` under automation/ (excluding vendored modules) — the
-catzc source tree, so the default needs the source mode (Assert-SourceTree); an explicit -Path works in
-either.
+Test files to check. Defaults to every `*.Tests.ps1` under automation/ (excluding vendored modules) — the catzc source tree, so the default
+needs the source mode (Assert-SourceTree); an explicit -Path works in either.
 
 ### parameter OutputFolder
 

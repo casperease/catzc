@@ -30,10 +30,9 @@ Returns the managed tool a test run hands to each test language's tests: a path 
 
 ### description
 
-A test run's source session locates each test language's tool once (Resolve-ToolExecutable, the tools.yml entry)
-and hands the paths down to every worker through the shard script and the language bridge container, beside the
-engine entry. The worker never locates a tool itself: a build run's engine carries only the modules under test,
-not the tools.yml entries, and the tools belong to the harness, not to what ships
+A test run's source session locates each test language's tool once (Resolve-ToolExecutable, the tools.yml entry) and hands the paths down to
+every worker through the shard script and the language bridge container, beside the engine entry. The worker never locates a tool itself: a
+build run's engine carries only the modules under test, not the tools.yml entries, and the tools belong to the harness, not to what ships
 ([ADR-AUTO-GO#7](../../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go7),
 [ADR-AUTO-PY#7](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py7)):
 
@@ -47,9 +46,8 @@ python  the managed uv at the pin, handed down only when the uv-managed python a
         engine runs the Bash tests.
 ```
 
-An entry is empty when the repository has no test folder (nothing is probed), or when its tool or engine is
-missing or misses the pin; the bridge then skips those tests with tool_go_missing, tool_uv_missing or
-`tool_<engine>_missing`.
+An entry is empty when the repository has no test folder (nothing is probed), or when its tool or engine is missing or misses the pin; the
+bridge then skips those tests with tool_go_missing, tool_uv_missing or `tool_<engine>_missing`.
 
 ### outputs
 

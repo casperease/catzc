@@ -1,7 +1,7 @@
 # automation/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,10 +11,9 @@ Registers every build-validation branch policy declared in build-validation.yml.
 
 ### description
 
-The config-driven reconcile: for each entry under 'validations' in build-validation.yml, runs
-Register-AdoBuildValidation — creating missing policies, updating drifted ones, and leaving current
-ones alone — and emits each result. This is the everything-as-code path for the server-side policies:
-the local config is the source of truth, and this function converges the ADO project to it.
+The config-driven reconcile: for each entry under 'validations' in build-validation.yml, runs Register-AdoBuildValidation — creating missing
+policies, updating drifted ones, and leaving current ones alone — and emits each result. This is the everything-as-code path for the
+server-side policies: the local config is the source of truth, and this function converges the ADO project to it.
 
 ### parameter Branch
 

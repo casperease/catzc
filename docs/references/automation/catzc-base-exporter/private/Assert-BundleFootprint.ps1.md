@@ -31,10 +31,9 @@ Throws when a build holds more files or bytes than its bundle's footprint limits
 ### description
 
 A bundle is a small engine carried to other environments, so how big it is is a checked property, not a hope
-([ADR-AUTO-BUNDLE](../../../../adr/automation/platform-bundle.md)). The limits are the bundle's own max_files and
-max_bytes in exporter.yml (ExporterBundle); a limit the bundle does not state is not checked. Every exceeded
-limit is reported in one throw, with the build's top-level folders by size, so the message says where the
-weight is.
+([ADR-AUTO-BUNDLE](../../../../adr/automation/platform-bundle.md)). The limits are the bundle's own max_files and max_bytes in exporter.yml
+(ExporterBundle); a limit the bundle does not state is not checked. Every exceeded limit is reported in one throw, with the build's
+top-level folders by size, so the message says where the weight is.
 
 ### parameter Path
 

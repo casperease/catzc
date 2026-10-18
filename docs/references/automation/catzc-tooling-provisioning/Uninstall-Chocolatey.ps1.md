@@ -30,9 +30,8 @@ Uninstalls Chocolatey from the current machine.
 
 ### description
 
-Removes the Chocolatey package manager if it is installed.
-Idempotent — safe to run when Chocolatey is not present.
-Windows-only; returns immediately on other platforms.
+Removes the Chocolatey package manager if it is installed. Idempotent — safe to run when Chocolatey is not present. Windows-only; returns
+immediately on other platforms.
 
 ### example 1
 

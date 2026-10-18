@@ -30,17 +30,15 @@ Resolves the readme config into the concrete folder -> source README copy-in lis
 
 ### description
 
-Expands each `patterns` glob against the filesystem and merges the result with the explicit `mappings`.
-A pattern's `source` template has its `{kebab}` placeholder replaced with the matched folder's leaf name
-lowercased with dots turned to hyphens (automation/Catzc.Azure.DevOps ->
-docs/references/automation/catzc-azure-devops.md). A matched folder whose derived source file does not exist
-is skipped, so a module with no reference article yet simply gets no generated README — the importer runs
-Build-Readme on every load and must never throw when a source is missing. An explicit mapping WINS over a
-pattern that targets the same folder.
+Expands each `patterns` glob against the filesystem and merges the result with the explicit `mappings`. A pattern's `source` template has
+its `{kebab}` placeholder replaced with the matched folder's leaf name lowercased with dots turned to hyphens (automation/Catzc.Azure.DevOps
+-> docs/references/automation/catzc-azure-devops.md). A matched folder whose derived source file does not exist is skipped, so a module with
+no reference article yet simply gets no generated README — the importer runs Build-Readme on every load and must never throw when a source
+is missing. An explicit mapping WINS over a pattern that targets the same folder.
 
-Only a trailing `/*` glob is supported: `<prefix>/*` matches the immediate, non-dot-prefixed subdirectories
-of `<prefix>`. The globs expand over the catzc source tree, so it runs in source mode only
-(Assert-SourceTree). See [ADR-REPO-README](../../../../adr/repository/generated-readmes.md).
+Only a trailing `/*` glob is supported: `<prefix>/*` matches the immediate, non-dot-prefixed subdirectories of `<prefix>`. The globs expand
+over the catzc source tree, so it runs in source mode only (Assert-SourceTree). See
+[ADR-REPO-README](../../../../adr/repository/generated-readmes.md).
 
 ### parameter Config
 
@@ -52,8 +50,8 @@ Repository root the globs and source paths resolve against. Defaults to Get-Repo
 
 ### outputs
 
-`[object[]]` One `{ folder; source }` object per generated README — explicit mappings first, then the
-pattern-derived folders in filesystem order.
+`[object[]]` One `{ folder; source }` object per generated README — explicit mappings first, then the pattern-derived folders in filesystem
+order.
 
 ## comment:1
 

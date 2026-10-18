@@ -1,7 +1,7 @@
 # automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -14,13 +14,13 @@ Returns every way a network plan is out of sync with the azure config's environm
 The cross-asset join of [ADR-AZ-NETWORK#2](../../../../adr/azure/azure-network-model.md#rule-adr-az-network2) and
 [ADR-AZ-NETWORK#5](../../../../adr/azure/azure-network-model.md#rule-adr-az-network5), over two already-typed configs.
 
-Environments: every network environment is a defined azure.yml environment (no ghost plan), and every STANDARD
-azure.yml environment has a network entry. Per-subscription environments (nsub/psub) are exempt — they carry no
-vnet ([ADR-AZ-NETWORK#4](../../../../adr/azure/azure-network-model.md#rule-adr-az-network4)).
+Environments: every network environment is a defined azure.yml environment (no ghost plan), and every STANDARD azure.yml environment has a
+network entry. Per-subscription environments (nsub/psub) are exempt — they carry no vnet
+([ADR-AZ-NETWORK#4](../../../../adr/azure/azure-network-model.md#rule-adr-az-network4)).
 
-Subscriptions: every network subscription is a defined azure.yml subscription (no ghost network), and every
-azure.yml subscription has one of the right kind — a hub when it has no customer, a spoke when it has one. A spoke
-has exactly one workload subnet per standard environment its subscription serves, named for that environment.
+Subscriptions: every network subscription is a defined azure.yml subscription (no ghost network), and every azure.yml subscription has one
+of the right kind — a hub when it has no customer, a spoke when it has one. A spoke has exactly one workload subnet per standard environment
+its subscription serves, named for that environment.
 
 ### parameter Network
 

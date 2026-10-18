@@ -27,8 +27,7 @@ Returns tool names from tools.yml in dependency-safe install order.
 
 ### description
 
-Performs a topological sort based on DependsOn fields. Tools with no
-dependencies come first, tools that depend on others come after their
+Performs a topological sort based on DependsOn fields. Tools with no dependencies come first, tools that depend on others come after their
 dependencies. Throws on circular dependencies.
 
 ### example 1

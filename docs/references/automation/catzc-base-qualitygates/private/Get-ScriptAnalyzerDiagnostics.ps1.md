@@ -34,29 +34,25 @@ Runs PSScriptAnalyzer over a file list, sharded across background processes, ret
 
 ### description
 
-The analysis engine behind Test-ScriptAnalyzer. A single serial Invoke-ScriptAnalyzer pass over the whole
-module tree takes ~90s and prints nothing until it finishes (it looks hung). This shards the file list
-across background pwsh PROCESSES — the same approach, and for the same reasons, as the L2 'PSScriptAnalyzer'
-test (automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1):
+The analysis engine behind Test-ScriptAnalyzer. A single serial Invoke-ScriptAnalyzer pass over the whole module tree takes ~90s and prints
+nothing until it finishes (it looks hung). This shards the file list across background pwsh PROCESSES — the same approach, and for the same
+reasons, as the L2 'PSScriptAnalyzer' test (automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1):
 
-- PSScriptAnalyzer's Helper.Initialize is not thread-safe, so ForEach-Object -Parallel (shared runspaces)
-  races and throws. Separate processes are fully isolated.
-- Each shard imports the analyzer once and pipes its whole file list through a SINGLE
-  Invoke-ScriptAnalyzer call, so the ~3s per-process setup is paid once per shard, not per file.
+- PSScriptAnalyzer's Helper.Initialize is not thread-safe, so ForEach-Object -Parallel (shared runspaces) races and throws. Separate
+  processes are fully isolated.
+- Each shard imports the analyzer once and pipes its whole file list through a SINGLE Invoke-ScriptAnalyzer call, so the ~3s per-process
+  setup is paid once per shard, not per file.
 - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
-- Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath
-  entries resolve (ADR working-directory-mechanics, rule
+- Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath entries resolve (ADR
+  working-directory-mechanics, rule
   [ADR-PWSH-PWD#2](../../../../adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2)/[ADR-PWSH-PWD#3](../../../../adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd3)).
 
-A dot is printed per interval while shards run so the run never looks hung — a progress bar is banned
-(ADR console-output-matters, rule
-[ADR-AUTO-CONSOLE#8](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console8)). The
-external Invoke-ScriptAnalyzer progress bar is suppressed
-inside the worker for the same reason.
-A result cache under out/cache/ skips every file the analyzer last found clean whose bytes and analyzer inputs
-(Get-ScriptAnalyzerInputs: the settings, the custom rules, the vendored analyzer, the spelling oracle's word lists)
-are unchanged since ([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)); only clean files
-are recorded, so a cached run reports exactly the diagnostics a full run would. A pipeline starts without the cache.
+A dot is printed per interval while shards run so the run never looks hung — a progress bar is banned (ADR console-output-matters, rule
+[ADR-AUTO-CONSOLE#8](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console8)). The external Invoke-ScriptAnalyzer
+progress bar is suppressed inside the worker for the same reason. A result cache under out/cache/ skips every file the analyzer last found
+clean whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs: the settings, the custom rules, the vendored analyzer, the spelling
+oracle's word lists) are unchanged since ([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)); only clean
+files are recorded, so a cached run reports exactly the diagnostics a full run would. A pipeline starts without the cache.
 
 ### parameter Path
 

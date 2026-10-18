@@ -27,15 +27,13 @@ Loads a template's per-slot config and returns the ordered dictionary.
 
 ### description
 
-Returns the parsed yml as an ordered dictionary — typically just a `ParametersFile` (the
-template's ARM parameters, written statically). No merge with global config happens here;
-PrePost's Invoke-BicepPrepareParameterSet is the merge seam. The resource-group name is not
-read from this file — it is derived by Get-BicepResourceGroupName.
+Returns the parsed yml as an ordered dictionary — typically just a `ParametersFile` (the template's ARM parameters, written statically). No
+merge with global config happens here; PrePost's Invoke-BicepPrepareParameterSet is the merge seam. The resource-group name is not read from
+this file — it is derived by Get-BicepResourceGroupName.
 
 The config address is literal ([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)): a configuration-root file
-`configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file
-`configuration/<customer>/<env>[-<slot>].yml` when -Customer is given. No resolution machinery —
-the coordinate IS the file.
+`configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file `configuration/<customer>/<env>[-<slot>].yml` when
+-Customer is given. No resolution machinery — the coordinate IS the file.
 
 ### parameter Template
 
@@ -47,13 +45,13 @@ Environment shortname. Must be configured for the template.
 
 ### parameter Slot
 
-Optional special-slot discriminator — 1-3 lowercase alphanumeric chars (`001`, `blu`, …). Selects
-`<env>-<slot>.yml`; omitted selects the env's base slot `<env>.yml`. The selected config must exist.
+Optional special-slot discriminator — 1-3 lowercase alphanumeric chars (`001`, `blu`, …). Selects `<env>-<slot>.yml`; omitted selects the
+env's base slot `<env>.yml`. The selected config must exist.
 
 ### parameter Customer
 
-Optional customer key (a configuration subfolder). Selects the config under
-`configuration/<customer>/`; omitted selects the configuration-root (shared-platform) config.
+Optional customer key (a configuration subfolder). Selects the config under `configuration/<customer>/`; omitted selects the
+configuration-root (shared-platform) config.
 
 ### example 1
 

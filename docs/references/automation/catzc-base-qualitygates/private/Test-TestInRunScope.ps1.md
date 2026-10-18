@@ -27,10 +27,9 @@ Whether a discovered test is inside a test run's tier and category scope.
 
 ### description
 
-A test is in scope when neither its tier nor its category — each resolved along its block chain (Get-TestBlockTag,
-nearest contributing block wins) — is one of the run's exclude tags (Get-TestExcludeTag). The one scope check
-behind the work-list's scope filter (Select-InScopeTestFiles) and the opt-out exclusion (Get-TestOptOutExclusion),
-so both agree on which tests a run would execute.
+A test is in scope when neither its tier nor its category — each resolved along its block chain (Get-TestBlockTag, nearest contributing
+block wins) — is one of the run's exclude tags (Get-TestExcludeTag). The one scope check behind the work-list's scope filter
+(Select-InScopeTestFiles) and the opt-out exclusion (Get-TestOptOutExclusion), so both agree on which tests a run would execute.
 
 ### parameter Test
 

@@ -27,11 +27,10 @@ Reads and parses a JSON or YAML file for a contract check, throwing a finding-re
 
 ### description
 
-Parses by the format Get-ContractDataFormat names: Json with ConvertFrom-Json -AsHashtable, Yaml with the vendored
-ConvertFrom-Yaml -Ordered, the first document only. The result is the value model ContractValue reads (objects as
-dictionaries, arrays as lists, scalars as CLR values, an empty document as null), and an array is returned whole,
-never enumerated. A file of any other format, and a file that does not parse, throw a message naming the file,
-which a contract check reports as its finding
+Parses by the format Get-ContractDataFormat names: Json with ConvertFrom-Json -AsHashtable, Yaml with the vendored ConvertFrom-Yaml
+-Ordered, the first document only. The result is the value model ContractValue reads (objects as dictionaries, arrays as lists, scalars as
+CLR values, an empty document as null), and an array is returned whole, never enumerated. A file of any other format, and a file that does
+not parse, throw a message naming the file, which a contract check reports as its finding
 ([ADR-REPO-CONTRACT#6](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract6)).
 
 ### parameter RepositoryRoot

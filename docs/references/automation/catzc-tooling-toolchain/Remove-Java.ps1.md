@@ -30,13 +30,11 @@ Removes a manually installed Java JDK and cleans up system PATH.
 
 ### description
 
-Deletes the JDK installation folder and removes it (and its bin
-subdirectory) from the system-level PATH. Requires Administrator.
+Deletes the JDK installation folder and removes it (and its bin subdirectory) from the system-level PATH. Requires Administrator.
 Auto-detects the install directory from Get-Command if not specified.
 
-This is for JDK installations (Oracle, AdoptOpenJDK, etc.) that
-are not managed by winget/brew/apt. If Java is managed by the
-tooling system, use Uninstall-Java instead.
+This is for JDK installations (Oracle, AdoptOpenJDK, etc.) that are not managed by winget/brew/apt. If Java is managed by the tooling
+system, use Uninstall-Java instead.
 
 ### parameter InstallDir
 

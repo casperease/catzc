@@ -27,14 +27,11 @@ Runs az with the given arguments.
 
 ### description
 
-Asserts that the installed Azure CLI version matches the locked version
-in Get-ToolConfig before executing the command.
+Asserts that the installed Azure CLI version matches the locked version in Get-ToolConfig before executing the command.
 
-Dynamic extension install is disabled for the duration of the call
-(AZURE_EXTENSION_USE_DYNAMIC_INSTALL=no), so a command that requires an
-uninstalled extension fails with a non-zero exit code instead of blocking
-on an interactive "(Y/n)" install prompt that captured stdin would hide.
-That failure surfaces through the usual exit-code assertion as a throw.
+Dynamic extension install is disabled for the duration of the call (AZURE_EXTENSION_USE_DYNAMIC_INSTALL=no), so a command that requires an
+uninstalled extension fails with a non-zero exit code instead of blocking on an interactive "(Y/n)" install prompt that captured stdin would
+hide. That failure surfaces through the usual exit-code assertion as a throw.
 
 ### parameter Arguments
 

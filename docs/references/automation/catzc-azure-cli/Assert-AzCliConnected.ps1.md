@@ -1,7 +1,7 @@
 # automation/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,10 +11,9 @@ Asserts the active az CLI session matches a given subscription and/or tenant.
 
 ### description
 
-The throwing companion to Test-AzCliConnected. Throws a remediation-bearing error when az is not
-logged in, or is set to a different subscription / tenant than the ones passed by argument. The
-generic, azure.yml-free primitive — the config-aware Assert-AzCliIsConnected takes a subscription
-name, resolves its identity from azure.yml, and delegates here. Both Assert/Test share Get-AzCliConnectionState.
+The throwing companion to Test-AzCliConnected. Throws a remediation-bearing error when az is not logged in, or is set to a different
+subscription / tenant than the ones passed by argument. The generic, azure.yml-free primitive — the config-aware Assert-AzCliIsConnected
+takes a subscription name, resolves its identity from azure.yml, and delegates here. Both Assert/Test share Get-AzCliConnectionState.
 
 Two parameter sets — at least one of subscription / tenant is required:
 

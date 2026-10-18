@@ -1,29 +1,29 @@
 # automation/Catzc.Base.ModuleSystem/Get-ModuleOrder.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
 ### synopsis
 
-Returns module names in foundation-first order — a topological sort of the declared dependency graph
-(configs/dependencies.yml), so a module is ordered after every module it may depend on.
+Returns module names in foundation-first order — a topological sort of the declared dependency graph (configs/dependencies.yml), so a module
+is ordered after every module it may depend on.
 
 ### description
 
-The one function that sorts the graph ([ADR-AUTO-MODULE#5](../../../adr/automation/module-model.md#rule-adr-auto-module5)); every
-command that needs modules in dependency order calls it and never sorts again.
+The one function that sorts the graph ([ADR-AUTO-MODULE#5](../../../adr/automation/module-model.md#rule-adr-auto-module5)); every command
+that needs modules in dependency order calls it and never sorts again.
 
-Builds the module -> dependencies map from the declared graph: each group's internal member -> member
-layering, plus each module's allowed dependencies (a group target expands to all the group's members).
-Then topologically sorts (Kahn's algorithm) with an ordinal-alphabetical tie-break for a stable order.
+Builds the module -> dependencies map from the declared graph: each group's internal member -> member layering, plus each module's allowed
+dependencies (a group target expands to all the group's members). Then topologically sorts (Kahn's algorithm) with an ordinal-alphabetical
+tie-break for a stable order.
 
-Every module in -Module appears exactly once; a module with no declared dependencies sorts among the roots. Throws on a cycle
-(which the DependenciesConfig type already prevents at load).
+Every module in -Module appears exactly once; a module with no declared dependencies sorts among the roots. Throws on a cycle (which the
+DependenciesConfig type already prevents at load).
 
-Test-Automation uses this to run module tests foundation-first, so a broken base module's failures
-surface before the dependents that cascade from it.
+Test-Automation uses this to run module tests foundation-first, so a broken base module's failures surface before the dependents that
+cascade from it.
 
 ### parameter Module
 

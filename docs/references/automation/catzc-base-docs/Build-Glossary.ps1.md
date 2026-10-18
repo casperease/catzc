@@ -23,22 +23,20 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Generates the [glossary](../../../adr/glossary.md) — the controlled vocabulary as one readable page — from the
-glossary sources.
+Generates the [glossary](../../../adr/glossary.md) — the controlled vocabulary as one readable page — from the glossary sources.
 
 ### description
 
 Projects Get-Glossary (every concept of every configs/glossary.yml source,
-[ADR-REPO-VOCAB](../../../adr/repository/controlled-vocabulary.md)) into one markdown page: a section per ADR domain,
-in adrs.yml order, and per term its one-line definition, a link to the rule that defines it, how it is realized,
-its source, its relations, its allowed forms, its contrasts (linked to the related terms), and its avoided phrasings
-with what to say instead. Terms sort by term within a domain, so the output is deterministic.
+[ADR-REPO-VOCAB](../../../adr/repository/controlled-vocabulary.md)) into one markdown page: a section per ADR domain, in adrs.yml order, and
+per term its one-line definition, a link to the rule that defines it, how it is realized, its source, its relations, its allowed forms, its
+contrasts (linked to the related terms), and its avoided phrasings with what to say instead. Terms sort by term within a domain, so the
+output is deterministic.
 
-The page is a derived artifact like the ADR index: committed so GitHub has it (linguist-generated, so its diff
-collapses) and rebuilt on import, its sources (the glossary files and this generator) are what is reviewed and
-checked
-([ADR-REPO-README#7](../../../adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its
-content changes, and emitted already formatted (Format-MarkdownParagraph), so Format-Code is a no-op on it.
+The page is a derived artifact like the ADR index: committed so GitHub has it (linguist-generated, so its diff collapses) and rebuilt on
+import, its sources (the glossary files and this generator) are what is reviewed and checked
+([ADR-REPO-README#7](../../../adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its content changes, and
+emitted already formatted (Format-MarkdownParagraph), so Format-Code is a no-op on it.
 
 ### parameter Path
 

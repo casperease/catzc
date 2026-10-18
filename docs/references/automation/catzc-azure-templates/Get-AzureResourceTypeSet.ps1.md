@@ -1,7 +1,7 @@
 # automation/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ Returns the Azure resource-type registry used by Get-AzureResourceName.
 
 ### description
 
-Each entry is keyed by its name abbreviation (the `<type>` segment of a resource name) and ties
-to one of three render/constraint patterns (Get-AzureNamePatternSet):
+Each entry is keyed by its name abbreviation (the `<type>` segment of a resource name) and ties to one of three render/constraint patterns
+(Get-AzureNamePatternSet):
 
 ```text
 pattern — 'long' (hyphenated, generous), 'kv' (hyphenated but capped 24), 'storage'
@@ -26,12 +26,10 @@ omit    — optional; component names this type drops from its render (e.g. `vm`
           never omitted.
 ```
 
-The `type` segment is 2-5 chars (see
-[ADR-AZ-NAMING](../../../adr/azure/azure-naming-standard.md)); the widened 5-char form is only for
+The `type` segment is 2-5 chars (see [ADR-AZ-NAMING](../../../adr/azure/azure-naming-standard.md)); the widened 5-char form is only for
 `long` types — the restricted `storage`/`vm` patterns keep a short 2-4 char abbreviation.
 
-Starter set from [ADR-AZ-NAMING#4](../../../adr/azure/azure-naming-standard.md#rule-adr-az-naming4) — extend as the
-consuming repos need.
+Starter set from [ADR-AZ-NAMING#4](../../../adr/azure/azure-naming-standard.md#rule-adr-az-naming4) — extend as the consuming repos need.
 
 ### example 1
 

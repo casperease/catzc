@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Asserts a module (optionally at a specific version) is available from the config
 
 ### description
 
-The throwing half of the restorability check (Test-VendorModuleAvailable is the query). Throws an
-actionable error when the source cannot offer the module, so a caller — chiefly Remove-VendorModules — never
-deletes a committed binary that the network cannot restore.
+The throwing half of the restorability check (Test-VendorModuleAvailable is the query). Throws an actionable error when the source cannot
+offer the module, so a caller — chiefly Remove-VendorModules — never deletes a committed binary that the network cannot restore.
 
 ### parameter Name
 

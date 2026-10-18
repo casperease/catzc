@@ -27,12 +27,9 @@ Removes all tools installed by Install-DevBoxTools.
 
 ### description
 
-Uninstalls tools in reverse dependency order (derived from depends_on
-in tools.yml). Tools that depend on others are removed first so their
-uninstallers can still use the dependency (e.g., az_cli is removed
-before uv). OS-provided prerequisites (winget) are never uninstalled,
-and Windows-only tools are skipped off Windows. Idempotent — skips
-tools that are not installed.
+Uninstalls tools in reverse dependency order (derived from depends_on in tools.yml). Tools that depend on others are removed first so their
+uninstallers can still use the dependency (e.g., az_cli is removed before uv). OS-provided prerequisites (winget) are never uninstalled, and
+Windows-only tools are skipped off Windows. Idempotent — skips tools that are not installed.
 
 ### example 1
 

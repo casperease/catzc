@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Variants/Test-AdoNaming.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Tests whether the repo's Azure resource-name order (the `ado_naming` variant) is
 
 ### description
 
-A predicate over the `ado_naming` repo-wide variant (see Get-AdoNaming). Pass exactly one of -Standard
-or -Classic; returns $true when the repo's order matches. A guard callable anywhere above the Config
-layer; use Assert-AdoNaming to fail instead of branch.
+A predicate over the `ado_naming` repo-wide variant (see Get-AdoNaming). Pass exactly one of -Standard or -Classic; returns $true when the
+repo's order matches. A guard callable anywhere above the Config layer; use Assert-AdoNaming to fail instead of branch.
 
 ### parameter Standard
 

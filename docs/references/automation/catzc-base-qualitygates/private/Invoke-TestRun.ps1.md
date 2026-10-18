@@ -32,25 +32,23 @@ Performs one test run through the parallel harness — the shared core of Test-A
 
 ### description
 
-The harness both runs share ([ADR-AUTO-TEST#30](../../../../adr/automation/test-automation.md#rule-adr-auto-test30)):
-lazy-load Pester from the code root, scan the selected
-modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category filter, open
-a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial
-phases, apply per-module protection, run the workers, and write the timing check, reports, verdict, and
--PassThru summary. The two test runs differ only in what they pass in:
+The harness both runs share ([ADR-AUTO-TEST#30](../../../../adr/automation/test-automation.md#rule-adr-auto-test30)): lazy-load Pester from
+the code root, scan the selected modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category filter,
+open a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial phases, apply per-module
+protection, run the workers, and write the timing check, reports, verdict, and -PassThru summary. The two test runs differ only in what they
+pass in:
 
-- the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source
-  importer; the build's Import-Catzc.ps1 for the build run) — the one seam;
-- an opt-out tag (-OptOutTag 'source-only' for the build run): its tests are excluded from the run
-  and counted and listed on the console and in excluded-tests.csv in the run directory
-  ([ADR-AUTO-TEST#31](../../../../adr/automation/test-automation.md#rule-adr-auto-test31));
-- the entry point's name (-EntryPoint), which names the default report folder under out/, the protection key,
-  and the failure message; and the banner title (-Title).
+- the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source importer; the build's Import-Catzc.ps1
+  for the build run) — the one seam;
+- an opt-out tag (-OptOutTag 'source-only' for the build run): its tests are excluded from the run and counted and listed on the console and
+  in excluded-tests.csv in the run directory ([ADR-AUTO-TEST#31](../../../../adr/automation/test-automation.md#rule-adr-auto-test31));
+- the entry point's name (-EntryPoint), which names the default report folder under out/, the protection key, and the failure message; and
+  the banner title (-Title).
 
 ### parameter EntryPoint
 
-The entry point's command name: 'Test-Automation' or 'Test-CatzcBuild'. Its key names the default report folder
-(out/test-automation, out/test-catzc-build) and prefixes the protection key.
+The entry point's command name: 'Test-Automation' or 'Test-CatzcBuild'. Its key names the default report folder (out/test-automation,
+out/test-catzc-build) and prefixes the protection key.
 
 ### parameter Title
 
@@ -94,8 +92,7 @@ Return the aggregated per-test rows and the shard descriptors (Test-Automation's
 
 ### parameter EnforceTimings
 
-Fail the run when a test is over its time limit; by default over-limit tests are only reported
-(Test-Automation's -EnforceTimings).
+Fail the run when a test is over its time limit; by default over-limit tests are only reported (Test-Automation's -EnforceTimings).
 
 ### parameter Rule
 
@@ -131,8 +128,8 @@ Keep the snapshot (when the run used one) after the run, for a post-mortem.
 
 ### parameter DiagnoseBlocking
 
-Stand a watchpoint (Assert-Wait) at four places in the startup, before the workers launch, to show where the thread or process
-stalls (Test-Automation's -DiagnoseBlocking). Each costs its full duration, so it is off by default.
+Stand a watchpoint (Assert-Wait) at four places in the startup, before the workers launch, to show where the thread or process stalls
+(Test-Automation's -DiagnoseBlocking). Each costs its full duration, so it is off by default.
 
 ## comment:1
 

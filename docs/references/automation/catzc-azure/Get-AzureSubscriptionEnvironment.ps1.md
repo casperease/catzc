@@ -1,7 +1,7 @@
 # automation/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,12 +11,9 @@ Returns the per-subscription identity environment (nsub/psub) of a named subscri
 
 ### description
 
-Each subscription carries exactly one per-subscription env (nsub or psub — see
-[ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)), the identity env that environment_kind:subscription
-templates deploy
-once-per-subscription. This returns it for a named subscription, so an environment_kind:standard
-template can locate the once-per-subscription foundation (and its Key Vault) that lives in the same
-subscription.
+Each subscription carries exactly one per-subscription env (nsub or psub — see [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)),
+the identity env that environment_kind:subscription templates deploy once-per-subscription. This returns it for a named subscription, so an
+environment_kind:standard template can locate the once-per-subscription foundation (and its Key Vault) that lives in the same subscription.
 
 ### parameter Subscription
 

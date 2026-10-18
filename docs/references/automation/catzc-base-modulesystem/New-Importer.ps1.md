@@ -31,18 +31,16 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### description
 
-importer.ps1 is a thin, generated entry point: it carries the importer's public parameter form and
-delegates the whole load sequence to Invoke-Importer (automation/.internal/Catzc.Internal.Importer.psm1),
-the single living copy. This reads the overlay's parameter block straight from that module's source (an AST
-parse — the overlay is not loaded post-import) and renders the shim around a fixed template, so the shim's
-parameters can never drift from the overlay's. A drift test asserts the committed importer.ps1 equals this
-output.
+importer.ps1 is a thin, generated entry point: it carries the importer's public parameter form and delegates the whole load sequence to
+Invoke-Importer (automation/.internal/Catzc.Internal.Importer.psm1), the single living copy. This reads the overlay's parameter block
+straight from that module's source (an AST parse — the overlay is not loaded post-import) and renders the shim around a fixed template, so
+the shim's parameters can never drift from the overlay's. A drift test asserts the committed importer.ps1 equals this output.
 
-Scaffolds into ANY repository root that already carries the .internal overlay — the loader path in the shim
-is repository-root-relative, so nothing absolute is baked in.
+Scaffolds into ANY repository root that already carries the .internal overlay — the loader path in the shim is repository-root-relative, so
+nothing absolute is baked in.
 
-Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode
-(Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode (Assert-SourceTree,
+[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
 ### parameter RepositoryRoot
 

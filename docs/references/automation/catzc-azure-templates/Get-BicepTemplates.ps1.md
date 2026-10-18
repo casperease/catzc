@@ -33,19 +33,15 @@ Discovers all bicep templates under $(Get-RepositoryRoot)/infrastructure/templat
 
 ### description
 
-Scans `infrastructure/templates/` at depth 1 for template folders (reusable bicep modules live
-in the sibling `infrastructure/modules/` and are NOT discovered here). Each folder must contain
-a `main.bicep` and a `configuration/` subfolder. A config lives at the configuration ROOT —
-`configuration/<env>[-<slot>].yml`, a shared-platform deployment — or under a customer subfolder,
-`configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY from
-customer.yml. One config file ⟷ one resource group
-([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)). The filename
-resolves (Resolve-BicepConfigName) to its environment + optional slot: `dev.yml` (base slot of env
-`dev`), `dev-001.yml` (slot `001`). The SUBSCRIPTION is resolved per config
-(Get-BicepConfigSubscriptionCandidates): a root config's env must be served by exactly one
-non-customer subscription; a customer config's env by exactly one of that customer's subscriptions.
-Validated at discovery: the subfolder is a defined customer key, and every config resolves to
-exactly one subscription id.
+Scans `infrastructure/templates/` at depth 1 for template folders (reusable bicep modules live in the sibling `infrastructure/modules/` and
+are NOT discovered here). Each folder must contain a `main.bicep` and a `configuration/` subfolder. A config lives at the configuration ROOT
+— `configuration/<env>[-<slot>].yml`, a shared-platform deployment — or under a customer subfolder,
+`configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY from customer.yml. One config file ⟷ one resource
+group ([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)). The filename resolves (Resolve-BicepConfigName) to its environment +
+optional slot: `dev.yml` (base slot of env `dev`), `dev-001.yml` (slot `001`). The SUBSCRIPTION is resolved per config
+(Get-BicepConfigSubscriptionCandidates): a root config's env must be served by exactly one non-customer subscription; a customer config's
+env by exactly one of that customer's subscriptions. Validated at discovery: the subfolder is a defined customer key, and every config
+resolves to exactly one subscription id.
 
 Returns one ordered dictionary per template with these keys:
 
@@ -76,12 +72,10 @@ resources             — extra files in resources/ if present (key omitted othe
 
 Returns an empty array if no `infrastructure/templates/` folder exists at the repo root.
 
-A template's `short_name` is DERIVED from its folder name by default (the first 5 `[a-z0-9]` characters,
-hyphens dropped via
-`[Catzc.Azure.Templates.BicepShortName]::Resolve`. A template MAY override it (and/or declare
-`deployment_mode` / `deployment_target` / `environment_kind`) in an OPTIONAL `options.yml` beside
-`main.bicep`; Read-BicepTemplateOptions validates it (strict schema) and the values overlay the
-defaults here. Templates with no options.yml take the derived short_name and the mode/target defaults.
+A template's `short_name` is DERIVED from its folder name by default (the first 5 `[a-z0-9]` characters, hyphens dropped via
+`[Catzc.Azure.Templates.BicepShortName]::Resolve`. A template MAY override it (and/or declare `deployment_mode` / `deployment_target` /
+`environment_kind`) in an OPTIONAL `options.yml` beside `main.bicep`; Read-BicepTemplateOptions validates it (strict schema) and the values
+overlay the defaults here. Templates with no options.yml take the derived short_name and the mode/target defaults.
 
 ### example 1
 

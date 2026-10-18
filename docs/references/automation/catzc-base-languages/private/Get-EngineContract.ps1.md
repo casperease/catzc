@@ -23,16 +23,16 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Returns the engine start environment a test language's tests start the engine by: the environment variables a runner sets
-for its tool's commands.
+Returns the engine start environment a test language's tests start the engine by: the environment variables a runner sets for its tool's
+commands.
 
 ### description
 
 A Go or Python test starts the engine as a process and asserts on its output
 ([ADR-AUTO-GO#3](../../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go3),
-[ADR-AUTO-PY#3](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3)). How to start it comes from
-the execution engine model, never from the test ([ADR-AUTO-ENGINE](../../../../adr/automation/execution-engines.md)), so
-the same test runs under every engine:
+[ADR-AUTO-PY#3](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3)). How to start it comes from the execution
+engine model, never from the test ([ADR-AUTO-ENGINE](../../../../adr/automation/execution-engines.md)), so the same test runs under every
+engine:
 
 ```text
 CATZC_ENGINE             the engine's name (ExecutionEngines.Names);
@@ -48,9 +48,9 @@ CATZC_IMPORTER           the POSIX engines only: the PowerShell entry the cats d
 CATZC_REPOSITORY_ROOT    the repository root.
 ```
 
-The PowerShell entry is the repository's importer.ps1 for a source run, or -EntryScript (the build's
-Import-Catzc.ps1) for a build run. pwsh loads it directly. The POSIX engines load the repository's importer.sh,
-whose cats dispatcher loads it through CATZC_IMPORTER, so a POSIX engine's session drives the build too.
+The PowerShell entry is the repository's importer.ps1 for a source run, or -EntryScript (the build's Import-Catzc.ps1) for a build run. pwsh
+loads it directly. The POSIX engines load the repository's importer.sh, whose cats dispatcher loads it through CATZC_IMPORTER, so a POSIX
+engine's session drives the build too.
 
 ### parameter Engine
 
@@ -58,9 +58,8 @@ The execution engine: pwsh (default), or any other of ExecutionEngines.Names.
 
 ### parameter EngineExecutable
 
-The engine's executable, already located by the caller (a test run's source session hands it down, since a build
-run's engine does not carry the tools.yml entry a POSIX engine is located through). Default:
-Resolve-EngineExecutable.
+The engine's executable, already located by the caller (a test run's source session hands it down, since a build run's engine does not carry
+the tools.yml entry a POSIX engine is located through). Default: Resolve-EngineExecutable.
 
 ### parameter EntryScript
 

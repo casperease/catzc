@@ -32,10 +32,9 @@ Uninstalls Java via the platform package manager.
 
 ### description
 
-Removes Java through the configured manager and clears JAVA_HOME (on Unix, removes the marker block from
-$PROFILE) — the managed uninstall. For a Java installed OUTSIDE the tooling system (a foreign JDK, an apt
-package on a uv-first box), escalate with -Remove -Force: the managed uninstall runs best-effort and then
-falls through to Remove-Java, which evicts whatever the configured manager did not own
+Removes Java through the configured manager and clears JAVA_HOME (on Unix, removes the marker block from $PROFILE) — the managed uninstall.
+For a Java installed OUTSIDE the tooling system (a foreign JDK, an apt package on a uv-first box), escalate with -Remove -Force: the managed
+uninstall runs best-effort and then falls through to Remove-Java, which evicts whatever the configured manager did not own
 ([ADR-AUTO-REMOVE#5](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
 
 ### parameter Version
@@ -44,9 +43,8 @@ Java version to uninstall. Defaults to the locked version in Get-ToolConfig.
 
 ### parameter Remove
 
-After the managed uninstall, escalate to Remove-Java to evict an off-config install. Pair with -Force to
-actually remove; -Remove alone reports the plan
-([ADR-AUTO-REMOVE#4](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
+After the managed uninstall, escalate to Remove-Java to evict an off-config install. Pair with -Force to actually remove; -Remove alone
+reports the plan ([ADR-AUTO-REMOVE#4](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
 
 ### parameter Force
 

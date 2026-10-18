@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/private/Write-TestRunContext.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,9 @@ Prints a test run's context block under its banner: one line per fact.
 
 ### description
 
-Renders Get-TestRunContext's record so a reader sees, before any test output, what the run is and where it
-runs — the entry point and code root, the location and why, the tiers asked for and running (and why they
-differ), who is running it, which local tools are present, and what is selected:
+Renders Get-TestRunContext's record so a reader sees, before any test output, what the run is and where it runs — the entry point and code
+root, the location and why, the tiers asked for and running (and why they differ), who is running it, which local tools are present, and
+what is selected:
 
 ```text
 entry point  Test-Automation · source run · code root C:\repo\automation

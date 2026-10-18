@@ -27,9 +27,8 @@ Runs uv with the given arguments.
 
 ### description
 
-Asserts that uv is installed at the locked version before executing. uv is the standard Python handler —
-it provisions Python (`uv python`) and runs Python-based CLIs in isolated environments (`uv tool`,
-`uv pip`, `uv run`).
+Asserts that uv is installed at the locked version before executing. uv is the standard Python handler — it provisions Python (`uv python`)
+and runs Python-based CLIs in isolated environments (`uv tool`, `uv pip`, `uv run`).
 
 ### parameter Arguments
 
@@ -37,9 +36,9 @@ Arguments to pass to uv.
 
 ### parameter Prerelease
 
-Append `--prerelease=allow`, permitting pre-release/dev dependency versions in the resolution. This is a
-deliberate, surfaced choice — it emits a warning — because it pulls dev-marked packages into an otherwise
-version-locked install (e.g. the Azure CLI pins beta `azure-*` dependencies). Never enable it silently.
+Append `--prerelease=allow`, permitting pre-release/dev dependency versions in the resolution. This is a deliberate, surfaced choice — it
+emits a warning — because it pulls dev-marked packages into an otherwise version-locked install (e.g. the Azure CLI pins beta `azure-*`
+dependencies). Never enable it silently.
 
 ### parameter PassThru
 

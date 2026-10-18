@@ -27,12 +27,10 @@ Lists all registered pipeline definitions from Azure DevOps.
 
 ### description
 
-Queries the ADO Build Definitions REST API and returns a flattened
-list of pipeline definitions with their YAML paths, repository names,
-and ADO folder placement.
+Queries the ADO Build Definitions REST API and returns a flattened list of pipeline definitions with their YAML paths, repository names, and
+ADO folder placement.
 
-YamlPath is normalized (leading '/' stripped) to match the RelativePath
-output of Get-AdoYamlFiles for easy cross-referencing.
+YamlPath is normalized (leading '/' stripped) to match the RelativePath output of Get-AdoYamlFiles for easy cross-referencing.
 
 ### parameter Project
 

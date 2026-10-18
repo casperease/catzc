@@ -27,21 +27,18 @@ Lists every Pester test that is missing — or ambiguous on — a required tag a
 
 ### description
 
-Inspects a discovery-only Pester result (Get-TestDiscovery), so EVERY test is checked regardless of run
-level or tag filters, and resolves each test's tier (L0-L4) and category (logic|integrity) via
-Get-TestBlockTag (nearest contributing block wins). A test is a violation when an axis resolves to zero
-tags (missing) or to more than one on its nearest contributing block (ambiguous).
+Inspects a discovery-only Pester result (Get-TestDiscovery), so EVERY test is checked regardless of run level or tag filters, and resolves
+each test's tier (L0-L4) and category (logic|integrity) via Get-TestBlockTag (nearest contributing block wins). A test is a violation when
+an axis resolves to zero tags (missing) or to more than one on its nearest contributing block (ambiguous).
 
-It also validates the optional provenance axis — the '`ADR-<CODE>#<n>`' rule citations a test may carry to
-say which ADR rule(s) it enforces. Absence is never a violation (the axis is optional), but a PRESENT
-citation must be well-formed and resolve to a real rule: any tag carrying the reserved 'ADR-' marker that
-is not a well-formed '`ADR-<CODE>#<n>`', or that names a rule absent from Get-CatsAdrRuleIds, is a violation.
-The rule-id set is resolved lazily (only when a well-formed citation is present), so tests with no
-citation stay hermetic — they never read the shipped ADR tree.
+It also validates the optional provenance axis — the '`ADR-<CODE>#<n>`' rule citations a test may carry to say which ADR rule(s) it
+enforces. Absence is never a violation (the axis is optional), but a PRESENT citation must be well-formed and resolve to a real rule: any
+tag carrying the reserved 'ADR-' marker that is not a well-formed '`ADR-<CODE>#<n>`', or that names a rule absent from Get-CatsAdrRuleIds,
+is a violation. The rule-id set is resolved lazily (only when a well-formed citation is present), so tests with no citation stay hermetic —
+they never read the shipped ADR tree.
 
-Returns one object per violating test: @{ Test; File; Reason }. Test-Automation calls this to enforce that
-every test carries exactly one tier and one category tag, and that any rule citation it carries is real.
-See the test-automation ADR.
+Returns one object per violating test: @{ Test; File; Reason }. Test-Automation calls this to enforce that every test carries exactly one
+tier and one category tag, and that any rule citation it carries is real. See the test-automation ADR.
 
 ### parameter Discovery
 

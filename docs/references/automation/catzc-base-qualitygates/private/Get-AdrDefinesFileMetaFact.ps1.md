@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/private/Get-AdrDefinesFileMetaFact.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ The adr-defines meta kind's fact: the rules an ADR defines itself, spelled as ci
 
 ### description
 
-The rules come from the file's own rule headings, so the list is what the file declares and not what it cites. They are written in
-the minimal form, `ADR-<CODE>#{1,3-5}` (Catzc.Base.Docs.AdrCodeForm), without globs.
+The rules come from the file's own rule headings, so the list is what the file declares and not what it cites. They are written in the
+minimal form, `ADR-<CODE>#{1,3-5}` (Catzc.Base.Docs.AdrCodeForm), without globs.
 
 It rests on [ADR-REPO-FILEMETA#3](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3).
 

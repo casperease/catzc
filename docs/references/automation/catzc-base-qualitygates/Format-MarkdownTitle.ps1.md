@@ -30,18 +30,17 @@ Makes the H1 of every in-scope Markdown file its title and brings its headings i
 
 ### description
 
-Makes each file's first line after any YAML front matter its title, an H1 that is not the file's path: an H1 that is
-the path followed by one code-span line takes that line's text as its wording (the line goes), and a file with no
-title is reported, since only a person can write one. Then each heading below it is made plain
-words: a trailing group of code spans or a citation moves to its own line below the heading, a dora-explains
-entry's DORA paragraph becomes a > blockquote, and every link to an anchor that changed is re-pointed
-(Get-MarkdownHeadingFinding). A duplicate anchor is reported, not fixed — the author rewords it. The scope is every
-git-tracked `*.md` file except those .gitattributes marks vendored or generated and the test fixture trees
-(Get-MarkdownScope). Files are written as UTF-8 without a BOM, with their own line endings kept; a file
-already in form is not touched, so a second run changes nothing. Test-MarkdownTitle is the gate. A source-tree
-tool: it throws in build mode (Assert-SourceTree).
+Makes each file's first line after any YAML front matter its title, an H1 that is not the file's path: an H1 that is the path followed by
+one code-span line takes that line's text as its wording (the line goes), and a file with no title is reported, since only a person can
+write one. Then each heading below it is made plain words: a trailing group of code spans or a citation moves to its own line below the
+heading, a dora-explains entry's DORA paragraph becomes a > blockquote, and every link to an anchor that changed is re-pointed
+(Get-MarkdownHeadingFinding). A duplicate anchor is reported, not fixed — the author rewords it. The scope is every git-tracked `*.md` file
+except those .gitattributes marks vendored or generated and the test fixture trees (Get-MarkdownScope). Files are written as UTF-8 without a
+BOM, with their own line endings kept; a file already in form is not touched, so a second run changes nothing. Test-MarkdownTitle is the
+gate. A source-tree tool: it throws in build mode (Assert-SourceTree).
 
-It rests on [ADR-REPO-FORMAT#6](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6) and [ADR-REPO-FORMAT#7](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format7).
+It rests on [ADR-REPO-FORMAT#6](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6) and
+[ADR-REPO-FORMAT#7](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format7).
 
 ### parameter Path
 
@@ -61,8 +60,7 @@ Return a result object ({ ChangedCount; ChangedFiles; FileCount; DryRun }) inste
 
 ### outputs
 
-`[string[]]` the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result
-object.
+`[string[]]` the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result object.
 
 ### example 1
 

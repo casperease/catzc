@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,14 +11,12 @@ Quality gate: the manual test plan lists every integrity check, once.
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) keeping
-the manual test plan in step with the tests. The plan is the overview docs/how-to/automation/manual-test-plan.md
-plus one category file per category (at most 13) in docs/how-to/automation/manual-test-plan/; the index rows live
-in the category files. It finds every integrity-tagged Describe,
-Context, and It across the test files (except the vendored ones) by PARSING them — never by Pester discovery, as a
-nested Invoke-Pester inside a run is unsafe ([ADR-AUTO-TEST#16](../../../adr/automation/test-automation.md#rule-adr-auto-test16)).
-A block is integrity when its own -Tag array holds the literal 'integrity'; its identity is the pair (repository-
-relative file, block name), as block names repeat across files.
+A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)) keeping the manual test plan in step
+with the tests. The plan is the overview docs/how-to/automation/manual-test-plan.md plus one category file per category (at most 13) in
+docs/how-to/automation/manual-test-plan/; the index rows live in the category files. It finds every integrity-tagged Describe, Context, and
+It across the test files (except the vendored ones) by PARSING them — never by Pester discovery, as a nested Invoke-Pester inside a run is
+unsafe ([ADR-AUTO-TEST#16](../../../adr/automation/test-automation.md#rule-adr-auto-test16)). A block is integrity when its own -Tag array
+holds the literal 'integrity'; its identity is the pair (repository- relative file, block name), as block names repeat across files.
 
 The plan's index rows are the category files' markdown table rows that name a .Tests.ps1 path. Issues:
 
@@ -35,8 +33,7 @@ The report base folder. Defaults to out/test-manual-test-plan/ (Write-QualityGat
 
 ### parameter PassThru
 
-Return the result ({ Subject; IssueCount; Issues; ReportPath; IntegrityBlocks; PlanRows; CategoryFiles }) instead of throwing
-on issues.
+Return the result ({ Subject; IssueCount; Issues; ReportPath; IntegrityBlocks; PlanRows; CategoryFiles }) instead of throwing on issues.
 
 ### outputs
 

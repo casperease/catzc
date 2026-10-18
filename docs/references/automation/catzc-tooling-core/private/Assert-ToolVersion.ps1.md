@@ -30,14 +30,12 @@ Asserts the installed version of a tool matches its locked version.
 
 ### description
 
-Checks once per session and caches the result. Subsequent calls
-for the same tool return immediately.
+Checks once per session and caches the result. Subsequent calls for the same tool return immediately.
 
-Devbox lever: a tool may declare an optional `devbox_version` in tools.yml. OUTSIDE a CI pipeline
-(Test-IsRunningInPipeline is false) an installed version matching EITHER the locked `version` or the
-`devbox_version` prefix is accepted, so a devbox can run a functional off-pin tool for local pre-commit
-tooling. A pipeline session ignores the lever and enforces the locked `version` alone, keeping
-main/master builds deterministically locked.
+Devbox lever: a tool may declare an optional `devbox_version` in tools.yml. OUTSIDE a CI pipeline (Test-IsRunningInPipeline is false) an
+installed version matching EITHER the locked `version` or the `devbox_version` prefix is accepted, so a devbox can run a functional off-pin
+tool for local pre-commit tooling. A pipeline session ignores the lever and enforces the locked `version` alone, keeping main/master builds
+deterministically locked.
 
 ### parameter Tool
 

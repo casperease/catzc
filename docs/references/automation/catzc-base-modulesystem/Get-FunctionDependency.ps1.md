@@ -33,12 +33,11 @@ Compiles a list of function-to-function calls across all automation modules usin
 
 ### description
 
-Parses every .ps1 file (excluding tests) under the automation root, builds a
-definition map of all functions, then walks each function body for CommandAst
-nodes and cross-references them against the map.
+Parses every .ps1 file (excluding tests) under the automation root, builds a definition map of all functions, then walks each function body
+for CommandAst nodes and cross-references them against the map.
 
-Reads the per-function source files, which exist only in the source tree, so it stops with a named error
-in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
+[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
 ### parameter AutomationRoot
 
@@ -46,8 +45,7 @@ Path to the automation directory. Defaults to the loaded code root (Get-CatzcMod
 
 ### parameter ParsedScripts
 
-The call's shared parse of each script; the session cache of the result stays, this only spares a second
-parse of a file within one build.
+The call's shared parse of each script; the session cache of the result stays, this only spares a second parse of a file within one build.
 
 ### example 1
 

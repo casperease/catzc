@@ -23,13 +23,13 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Prepares a set of $env: variables for a child or external process to read — the one sanctioned seam for
-handing a secret to an external consumer through the environment.
+Prepares a set of $env: variables for a child or external process to read — the one sanctioned seam for handing a secret to an external
+consumer through the environment.
 
 ### description
 
-Writes environment variables for an external/child/test process from three distinct, unambiguous channels,
-so intent is never guessed (poka-yoke):
+Writes environment variables for an external/child/test process from three distinct, unambiguous channels, so intent is never guessed
+(poka-yoke):
 
 ```text
 -Set   a map whose value is either a [SecureString] (a SECRET) or a 'global.<config>...' config address
@@ -40,10 +40,9 @@ so intent is never guessed (poka-yoke):
 -Value a map of explicit non-secret literals (key = env name, value = literal string).
 ```
 
-Secrets are taken as `[SecureString]`, never logged or returned (masked `***`), and decrypted to plaintext only
-at the $env: assignment. A subtree address flattens under its prefix, env-normalized: uppercased, '.'->'_'
-and '`[n]'->'_n`' (so prefix 'DB' + 'options.ssl' -> DB_OPTIONS_SSL). If two channels would produce the same
-env var name, the call throws rather than silently letting one win.
+Secrets are taken as `[SecureString]`, never logged or returned (masked `***`), and decrypted to plaintext only at the $env: assignment. A
+subtree address flattens under its prefix, env-normalized: uppercased, '.'->'_' and '`[n]'->'_n`' (so prefix 'DB' + 'options.ssl' ->
+DB_OPTIONS_SSL). If two channels would produce the same env var name, the call throws rather than silently letting one win.
 
 Lifetime is one of two mutually exclusive parameter sets:
 
@@ -54,10 +53,9 @@ Lifetime is one of two mutually exclusive parameter sets:
 -Persist:     set all and leave them for the rest of the session/child; nothing is returned.
 ```
 
-Cross-platform note (ADR cross-platform): `[SecureString]` is DPAPI-encrypted only on Windows; on Linux/macOS
-.NET stores it obfuscated, not encrypted. The value of the contract here is don't-log / don't-internalize /
-decrypt-only-at-the-boundary, not at-rest cryptography — the plaintext necessarily lands in $env: for the
-instant the external tool reads it
+Cross-platform note (ADR cross-platform): `[SecureString]` is DPAPI-encrypted only on Windows; on Linux/macOS .NET stores it obfuscated, not
+encrypted. The value of the contract here is don't-log / don't-internalize / decrypt-only-at-the-boundary, not at-rest cryptography — the
+plaintext necessarily lands in $env: for the instant the external tool reads it
 ([ADR-AUTO-ENVVAR#7](../../../adr/automation/environment-variables.md#rule-adr-auto-envvar7)).
 
 ### parameter Set

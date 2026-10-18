@@ -23,24 +23,18 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Runs a CLI command with live-streamed output, exit code handling, and
-optional structured output capture.
+Runs a CLI command with live-streamed output, exit code handling, and optional structured output capture.
 
 ### description
 
 Private implementation for Invoke-Executable (default mode).
 
-Uses a C# CliRunner class (types/CliRunner.cs) that reads stdout/stderr
-char-by-char on background threads via Console.Write. Preserves \r
-carriage returns (spinners, progress bars) and Unicode. Output bypasses
-PowerShell's output stream entirely — zero pipeline leaks.
+Uses a C# CliRunner class (types/CliRunner.cs) that reads stdout/stderr char-by-char on background threads via Console.Write. Preserves \r
+carriage returns (spinners, progress bars) and Unicode. Output bypasses PowerShell's output stream entirely — zero pipeline leaks.
 
-Limitation: ANSI color codes are NOT preserved. When stdout is redirected
-to a pipe (which Process does internally), most CLI tools detect this via
-isatty() and disable colored output. This is a fundamental OS-level
-constraint — the child process never emits the escape sequences. Solving
-this would require ConPTY (pseudo-terminal). Use -Direct when colors
-are important and pipeline leaks are acceptable.
+Limitation: ANSI color codes are NOT preserved. When stdout is redirected to a pipe (which Process does internally), most CLI tools detect
+this via isatty() and disable colored output. This is a fundamental OS-level constraint — the child process never emits the escape
+sequences. Solving this would require ConPTY (pseudo-terminal). Use -Direct when colors are important and pipeline leaks are acceptable.
 
 ### parameter Command
 
@@ -68,8 +62,8 @@ The run's time limit. Past it CliRunner kills the process tree and throws a Time
 
 ### parameter AsBytes
 
-Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary
-stream. Returns the CliResult as -PassThru does.
+Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary stream. Returns the CliResult as
+-PassThru does.
 
 ### parameter InputText
 

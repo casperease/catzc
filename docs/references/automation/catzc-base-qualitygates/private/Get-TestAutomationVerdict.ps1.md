@@ -30,13 +30,11 @@ Derives a completed run's verdict — the Passed/Failed result and its one-line 
 
 ### description
 
-The single place that turns the aggregated run facts (the test verdict, the failed-test count, failed-shard
-labels, the timing verdict) into the two values the closing banner and the failure throw both consume: a
-'Passed'/'Failed' Result — a timing-only or budget-only failure reads Failed even though the test verdict
-passed — and a Summary reason: the counts-in-time on a pass, or the cause on a fail (failed tests, a failed
-shard with no failed test row, a devbox run over its whole-run budget, or an -EnforceTimings over-limit).
-Extracted from Test-Automation so the reason wording
-lives once and the orchestrator stays a single, readable responsibility.
+The single place that turns the aggregated run facts (the test verdict, the failed-test count, failed-shard labels, the timing verdict) into
+the two values the closing banner and the failure throw both consume: a 'Passed'/'Failed' Result — a timing-only or budget-only failure
+reads Failed even though the test verdict passed — and a Summary reason: the counts-in-time on a pass, or the cause on a fail (failed tests,
+a failed shard with no failed test row, a devbox run over its whole-run budget, or an -EnforceTimings over-limit). Extracted from
+Test-Automation so the reason wording lives once and the orchestrator stays a single, readable responsibility.
 
 ### parameter Rows
 

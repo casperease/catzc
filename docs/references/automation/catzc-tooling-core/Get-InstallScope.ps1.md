@@ -1,7 +1,7 @@
 # automation/Catzc.Tooling.Core/Get-InstallScope.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,7 @@ Returns the install scope of a tool based on its binary location.
 
 ### description
 
-Determines whether a tool is installed in user-space or machine-wide
-by inspecting the binary path. Returns 'user', 'machine', or 'unknown'.
+Determines whether a tool is installed in user-space or machine-wide by inspecting the binary path. Returns 'user', 'machine', or 'unknown'.
 
 ### parameter Config
 

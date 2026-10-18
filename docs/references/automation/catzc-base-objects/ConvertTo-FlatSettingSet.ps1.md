@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,12 +11,10 @@ Flattens a nested object into an ordered dictionary of dot-notation key/value pa
 
 ### description
 
-Recursively walks a PSCustomObject (e.g. parsed JSON/YAML configuration)
-and returns an OrderedDictionary where each key is the full dot-separated
-path to a leaf property and each value is the leaf value.
+Recursively walks a PSCustomObject (e.g. parsed JSON/YAML configuration) and returns an OrderedDictionary where each key is the full
+dot-separated path to a leaf property and each value is the leaf value.
 
-Non-leaf nodes (objects, dictionaries, arrays) are expanded, not included.
-Null values are stored as empty strings.
+Non-leaf nodes (objects, dictionaries, arrays) are expanded, not included. Null values are stored as empty strings.
 
 Supports pipeline input for batch processing.
 

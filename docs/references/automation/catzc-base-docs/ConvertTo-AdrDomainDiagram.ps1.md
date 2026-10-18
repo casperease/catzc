@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Docs/ConvertTo-AdrDomainDiagram.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,16 +11,15 @@ Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.
 
 ### description
 
-Serializes the edges from Get-AdrDomainEdges to the format chosen by -As — the ADR-domain counterpart of
-ConvertTo-ModuleDependencyDiagram, so the domain DAG (which the ASM/flow reasoning depends on) is drawn the
-same way the module graph is:
+Serializes the edges from Get-AdrDomainEdges to the format chosen by -As — the ADR-domain counterpart of ConvertTo-ModuleDependencyDiagram,
+so the domain DAG (which the ASM/flow reasoning depends on) is drawn the same way the module graph is:
 
-- Puml     — a `@startuml … @enduml` graph (a dashed arrow per declared edge).
-- Mermaid  — a `flowchart LR` graph for inline rendering in Markdown.
+- Puml — a `@startuml … @enduml` graph (a dashed arrow per declared edge).
+- Mermaid — a `flowchart LR` graph for inline rendering in Markdown.
 - Markdown — a `| From | To |` table.
 
-Each domain's `role` (from Get-Config -Config adrs) annotates its node, so a reader sees which domains are
-axioms / architecture / implementation / reference at a glance.
+Each domain's `role` (from Get-Config -Config adrs) annotates its node, so a reader sees which domains are axioms / architecture /
+implementation / reference at a glance.
 
 ### parameter Edge
 

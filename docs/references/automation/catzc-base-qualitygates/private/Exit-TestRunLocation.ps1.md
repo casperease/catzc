@@ -30,11 +30,10 @@ Releases a test run's location claimed by Enter-TestRunLocation.
 
 ### description
 
-In place: for each lock the location holds — the user's system-test lock (Enter-SystemTestLock), then the
-working folder's — deletes the lock record this run wrote (only while it is still ours), then releases and
-disposes the mutex — record first, so the next holder's record is never deleted. Snapshot: removes the
-snapshot (Remove-RepositorySnapshot), unless the location's KeepSandbox keeps it for a post-mortem, in
-which case its path is announced. A worker's lock-free in-place location releases nothing.
+In place: for each lock the location holds — the user's system-test lock (Enter-SystemTestLock), then the working folder's — deletes the
+lock record this run wrote (only while it is still ours), then releases and disposes the mutex — record first, so the next holder's record
+is never deleted. Snapshot: removes the snapshot (Remove-RepositorySnapshot), unless the location's KeepSandbox keeps it for a post-mortem,
+in which case its path is announced. A worker's lock-free in-place location releases nothing.
 
 ### parameter Location
 

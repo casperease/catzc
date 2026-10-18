@@ -27,12 +27,11 @@ Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdow
 
 ### description
 
-Builds the '| … |' table from already-sorted rows and the column descriptors from
-Get-FirewallMarkdownColumns: a header row, the separator row, then one row per rule. Each cell gathers
-its column's candidate CSV fields — multi-value fields are split on -SplitPattern and IP-group resource
-IDs trimmed to their simple name (unless -DoNotCutIpgNames), sorted within a kind for 'list' columns and
-paired as protocol:port for the 'protoport' column. A cell Markdown would mangle (emphasis at a
-whitespace boundary, or a bare URL/FQDN) is wrapped in a code span. Returns the table block as a string.
+Builds the '| … |' table from already-sorted rows and the column descriptors from Get-FirewallMarkdownColumns: a header row, the separator
+row, then one row per rule. Each cell gathers its column's candidate CSV fields — multi-value fields are split on -SplitPattern and IP-group
+resource IDs trimmed to their simple name (unless -DoNotCutIpgNames), sorted within a kind for 'list' columns and paired as protocol:port
+for the 'protoport' column. A cell Markdown would mangle (emphasis at a whitespace boundary, or a bare URL/FQDN) is wrapped in a code span.
+Returns the table block as a string.
 
 ### parameter Rows
 

@@ -23,22 +23,20 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered
-dictionaries (default) or PSCustomObjects (-AsPSObject).
+Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered dictionaries (default) or PSCustomObjects
+(-AsPSObject).
 
 ### description
 
-The escape hatch from the native data-model classes back to a dictionary surface. It walks public
-properties via PSObject.Properties — the same channel that exposes a C# class's get-only properties and
-a PSCustomObject's note-properties — recursing through nested objects and arrays; scalars pass through.
-The result is a fresh, mutable copy, so the source object is unchanged.
+The escape hatch from the native data-model classes back to a dictionary surface. It walks public properties via PSObject.Properties — the
+same channel that exposes a C# class's get-only properties and a PSCustomObject's note-properties — recursing through nested objects and
+arrays; scalars pass through. The result is a fresh, mutable copy, so the source object is unchanged.
 
-Use it at the seam where a frozen typed object must be spliced into a tree you are about to mutate, or
-serialized (e.g. into a per-slot ParametersFile, or to YAML/JSON). Read-only navigation needs no
-conversion — read the typed object's properties directly.
+Use it at the seam where a frozen typed object must be spliced into a tree you are about to mutate, or serialized (e.g. into a per-slot
+ParametersFile, or to YAML/JSON). Read-only navigation needs no conversion — read the typed object's properties directly.
 
-Keys are the object's property names (snake_case for the config-mirroring data-model types, so a
-round-trip back to YAML stays byte-compatible with the original config).
+Keys are the object's property names (snake_case for the config-mirroring data-model types, so a round-trip back to YAML stays
+byte-compatible with the original config).
 
 ### parameter InputObject
 

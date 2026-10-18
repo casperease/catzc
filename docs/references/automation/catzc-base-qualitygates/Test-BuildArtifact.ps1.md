@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -13,10 +13,9 @@ Quality gate: builds the selected modules once into a temporary destination and 
 
 The built, immutable artifact is what ships, so it is verified as built
 ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35),
-[ADR-AUTO-TEST#24](../../../adr/automation/test-automation.md#rule-adr-auto-test24)). The gate runs
-Build-Modules (vendor policy 'full', so Pester ships and a build-mode session can enter a module's scope) into
-a fresh temporary destination, checks the build facet by facet, and deletes it. Every issue is prefixed with
-its facet:
+[ADR-AUTO-TEST#24](../../../adr/automation/test-automation.md#rule-adr-auto-test24)). The gate runs Build-Modules (vendor policy 'full', so
+Pester ships and a build-mode session can enter a module's scope) into a fresh temporary destination, checks the build facet by facet, and
+deletes it. Every issue is prefixed with its facet:
 
 ```text
 [build]     Build-Modules succeeds — it verifies its own output with Assert-CatzcBundle, the bundle's
@@ -38,14 +37,13 @@ its facet:
             never churns.
 ```
 
-Collects every issue and ends with Write-QualityGateReport: the report lands in out/test-build-artifact/, and
-the gate throws once listing every issue (or returns the result with -PassThru). It builds from the source
-tree, so it needs the source mode (Assert-SourceTree).
+Collects every issue and ends with Write-QualityGateReport: the report lands in out/test-build-artifact/, and the gate throws once listing
+every issue (or returns the result with -PassThru). It builds from the source tree, so it needs the source mode (Assert-SourceTree).
 
 ### parameter Module
 
-Modules to build (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither -> the default
-bundle's profile (exporter.yml default_bundle).
+Modules to build (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither -> the default bundle's profile (exporter.yml
+default_bundle).
 
 ### parameter ModuleProfile
 
@@ -53,8 +51,7 @@ A module profile (profiles.yml) to build.
 
 ### parameter Facet
 
-Check only these facets (default: every one). 'types' alone builds nothing; any other facet builds once and
-also checks `[build]`.
+Check only these facets (default: every one). 'types' alone builds nothing; any other facet builds once and also checks `[build]`.
 
 ### parameter OutputFolder
 
@@ -62,8 +59,7 @@ The report base folder. Defaults to Write-QualityGateReport's (out/test-build-ar
 
 ### parameter PassThru
 
-Return the gate result { Subject; IssueCount; Issues; ReportPath; Modules; TypesHash } instead of throwing on
-issues.
+Return the gate result { Subject; IssueCount; Issues; ReportPath; Modules; TypesHash } instead of throwing on issues.
 
 ### outputs
 

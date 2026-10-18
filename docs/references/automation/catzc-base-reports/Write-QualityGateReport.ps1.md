@@ -30,18 +30,18 @@ Writes a quality gate's report, prints it, and ends the gate: throws once with e
 
 ### description
 
-The one implementation of a quality gate's output
-([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)), so every gate reports the same way:
+The one implementation of a quality gate's output ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)), so
+every gate reports the same way:
 
-- a run folder `<output root>/<folder>/<stamp>/` holding `<report_file>` — a markdown report naming the gate, its
-  facts, and every issue — and `<latest_file>` beside the stamped folders, naming the latest run;
+- a run folder `<output root>/<folder>/<stamp>/` holding `<report_file>` — a markdown report naming the gate, its facts, and every issue —
+  and `<latest_file>` beside the stamped folders, naming the latest run;
 - each issue printed, then the count (or "No `<subject>` issues found."), then the report path;
-- with -PassThru, a result object instead of a throw; otherwise, when there are issues, one throw that lists them
-  all (a fail-fast, aggregated verdict).
+- with -PassThru, a result object instead of a throw; otherwise, when there are issues, one throw that lists them all (a fail-fast,
+  aggregated verdict).
 
 Folder and file names come from configs/reports.yml (Catzc.Base.Reports.ReportsConfig), whose defaults give
-`out/test-<subject>/<yyyyMMdd-HHmmss>/<subject>.md` and `out/test-<subject>/latest.txt`. A gate calls this last, with the
-issues it collected; it never writes its own report.
+`out/test-<subject>/<yyyyMMdd-HHmmss>/<subject>.md` and `out/test-<subject>/latest.txt`. A gate calls this last, with the issues it
+collected; it never writes its own report.
 
 ### parameter Subject
 

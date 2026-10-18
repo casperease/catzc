@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Contracts/Get-CommandContract.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,14 +11,12 @@ Reads the command contracts, all of them or by command, module, unit or version,
 
 ### description
 
-The one reader of a command contract
-([ADR-REPO-CMDCONTRACT#5](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract5)): every
-`<Verb-Noun>.command.yml` asset Get-Contract lists
-([ADR-REPO-CMDCONTRACT#1](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract1)) is parsed by the
-ContractCommand type, the one grammar of the contract language, and comes back with its asset, the command's name,
-its parameters, its output and its one-line signature. The selectors take wildcards and narrow the assets the way
-Get-Contract's do; -Name matches the command. A contract that does not parse throws, naming the asset: this is the
-reader, and Test-Contracts is where a defect is reported as a finding.
+The one reader of a command contract ([ADR-REPO-CMDCONTRACT#5](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract5)):
+every `<Verb-Noun>.command.yml` asset Get-Contract lists
+([ADR-REPO-CMDCONTRACT#1](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract1)) is parsed by the ContractCommand type,
+the one grammar of the contract language, and comes back with its asset, the command's name, its parameters, its output and its one-line
+signature. The selectors take wildcards and narrow the assets the way Get-Contract's do; -Name matches the command. A contract that does not
+parse throws, naming the asset: this is the reader, and Test-Contracts is where a defect is reported as a finding.
 
 ### parameter Name
 

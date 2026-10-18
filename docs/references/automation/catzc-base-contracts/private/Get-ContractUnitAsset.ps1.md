@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Contracts/private/Get-ContractUnitAsset.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -13,9 +13,9 @@ Lists the contract assets of the selected versions of one unit.
 
 A unit folder, `contracts/<unit>/`, holds only version folders named `<major>.<minor>.<patch>`
 ([ADR-REPO-CONTRACT#2](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)); 0.0.0 is the unit's draft
-([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)). Every version folder name is
-checked, selected or not, so a misnamed folder throws on any listing; a file directly in the unit folder throws too.
-A selection that matches no version folder gives nothing. Versions come in ordinal order.
+([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)). Every version folder name is checked, selected
+or not, so a misnamed folder throws on any listing; a file directly in the unit folder throws too. A selection that matches no version
+folder gives nothing. Versions come in ordinal order.
 
 ### parameter Unit
 
@@ -32,8 +32,8 @@ The version folder names to list; wildcards allowed.
 ### parameter TargetRoot
 
 The target roots, module name to repository-relative folder
-([ADR-REPO-CONTRACT#2](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)). A module it does not name
-takes the repository root.
+([ADR-REPO-CONTRACT#2](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract2)). A module it does not name takes the repository
+root.
 
 ### parameter RepositoryRoot
 

@@ -29,7 +29,8 @@ Runs one imprint step over the given files and returns what it changed and what 
 
 A language is never named here: which language runs which step is configuration, not code.
 
-It rests on [ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2) and [ADR-REPO-FORMAT#8](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8).
+It rests on [ADR-PRIN-CONFIG#2](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config2) and
+[ADR-REPO-FORMAT#8](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format8).
 
 ### parameter Step
 
@@ -49,8 +50,8 @@ List the files the step would change without writing them.
 
 ### outputs
 
-`[pscustomobject]` @{ Changed; Unfixable } — absolute paths changed (or, under -DryRun, that would change), and a map of absolute path
-to the problem for the files a person must repair.
+`[pscustomobject]` @{ Changed; Unfixable } — absolute paths changed (or, under -DryRun, that would change), and a map of absolute path to
+the problem for the files a person must repair.
 
 ## comment:1
 

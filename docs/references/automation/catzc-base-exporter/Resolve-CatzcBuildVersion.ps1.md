@@ -1,21 +1,18 @@
 # automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
 ### synopsis
 
-Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an
-explicit MAJOR.MINOR.PATCH.
+Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an explicit MAJOR.MINOR.PATCH.
 
 ### description
 
-The one place a build version is decided
-([ADR-AUTO-BUNDLE#7](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle7)); every value comes from
-configs/exporter.yml
-(Get-Config -Config exporter):
+The one place a build version is decided ([ADR-AUTO-BUNDLE#7](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle7)); every
+value comes from configs/exporter.yml (Get-Config -Config exporter):
 
 ```text
 -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow
@@ -37,8 +34,7 @@ configs/exporter.yml
 
 ### parameter Bundle
 
-The bundle whose version line a pipeline build follows (an exporter.yml bundles key). Defaults to
-default_bundle.
+The bundle whose version line a pipeline build follows (an exporter.yml bundles key). Defaults to default_bundle.
 
 ### parameter Silent
 

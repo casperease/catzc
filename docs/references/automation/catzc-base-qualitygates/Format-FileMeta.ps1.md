@@ -30,10 +30,11 @@ Imprints the place facts and the edges into the meta block of every in-scope Mar
 
 ### description
 
-The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a
-file whose block holds a key no meta kind owns is reported and left unchanged.
+The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a file whose
+block holds a key no meta kind owns is reported and left unchanged.
 
-It rests on [ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3) and [ADR-REPO-FORMAT#9](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format9).
+It rests on [ADR-REPO-FILEMETA#3](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta3) and
+[ADR-REPO-FORMAT#9](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format9).
 
 ### parameter Path
 
@@ -53,8 +54,7 @@ Return a result object ({ ChangedCount; ChangedFiles; FileCount; DryRun }) inste
 
 ### outputs
 
-`[string[]]` the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result
-object.
+`[string[]]` the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result object.
 
 ### example 1
 

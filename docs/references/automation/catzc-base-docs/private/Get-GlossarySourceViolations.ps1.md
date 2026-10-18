@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ Lists the glossary facts that span more than one source (check G1, cross-source)
 
 ### description
 
-The GlossaryConfig type checks each source on its own when it loads; this checks what no single source can
-see ([ADR-REPO-VOCAB](../../../../adr/repository/controlled-vocabulary.md)):
+The GlossaryConfig type checks each source on its own when it loads; this checks what no single source can see
+([ADR-REPO-VOCAB](../../../../adr/repository/controlled-vocabulary.md)):
 
 - a term defined by two sources, or a machine key used by two
 
@@ -50,15 +50,14 @@ see ([ADR-REPO-VOCAB](../../../../adr/repository/controlled-vocabulary.md)):
 ([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)).
 ```
 
-The first source in owner order keeps a duplicated term or key; every later one is reported. Each message
-starts with the repo-relative path of the source it reports and names the term, so it points at the line to fix.
+The first source in owner order keeps a duplicated term or key; every later one is reported. Each message starts with the repo-relative path
+of the source it reports and names the term, so it points at the line to fix.
 
 Private helper for the glossary checks; not exported.
 
 ### parameter Source
 
-The glossary sources, as Get-GlossarySources returns them ({ Owner; Path; Config; Tracked }). Defaults to
-every source in the repository.
+The glossary sources, as Get-GlossarySources returns them ({ Owner; Path; Config; Tracked }). Defaults to every source in the repository.
 
 ### outputs
 

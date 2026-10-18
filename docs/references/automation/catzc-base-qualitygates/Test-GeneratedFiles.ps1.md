@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,11 +11,9 @@ Quality gate: checks that every generated file equals what its generator would w
 
 ### description
 
-One gate for every generator's drift
-([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)).
-Each writer runs in its report-only mode — -DryRun -PassThru, which composes the content and writes
-nothing — and every file it reports as changed is one issue naming the file, the generator, and the
-command that regenerates it:
+One gate for every generator's drift ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)). Each writer runs
+in its report-only mode — -DryRun -PassThru, which composes the content and writes nothing — and every file it reports as changed is one
+issue naming the file, the generator, and the command that regenerates it:
 
 ```text
 Build-AdrIndex               [index](/docs/adr/index.md) from adrs.yml
@@ -34,19 +32,19 @@ Build-RootConfig             every opted-in managed root file (rootconfig.yml); 
                              multi-file generator, e.g. each go/tests/<folder>/go.mod)
 ```
 
-Then the stamp check ([ADR-REPO-FILEMETA#7](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta7)): every
-tracked file .gitattributes marks linguist-generated opens with with_body_sha, the hash of the content below its
-head, and a stamp that is not the hash of the body is one issue (Get-GeneratedStampDrift). A generated file whose
-writer writes no head yet is counted as unstamped in the report's facts, never failed.
+Then the stamp check ([ADR-REPO-FILEMETA#7](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta7)): every tracked file
+.gitattributes marks linguist-generated opens with with_body_sha, the hash of the content below its head, and a stamp that is not the hash
+of the body is one issue (Get-GeneratedStampDrift). A generated file whose writer writes no head yet is counted as unstamped in the report's
+facts, never failed.
 
-Collects every stale file and ends with Write-QualityGateReport: the report lands in
-out/test-generated-files/, and the gate throws once listing every issue (or returns the result with -PassThru).
-The generators read and write the source tree, so the gate needs the source mode (Assert-SourceTree).
+Collects every stale file and ends with Write-QualityGateReport: the report lands in out/test-generated-files/, and the gate throws once
+listing every issue (or returns the result with -PassThru). The generators read and write the source tree, so the gate needs the source mode
+(Assert-SourceTree).
 
 ### parameter Generator
 
-Check only these generators (default: every one). Build-RootConfig selects every managed root file;
-a generator it renders (New-Importer, …) selects only that generator's files.
+Check only these generators (default: every one). Build-RootConfig selects every managed root file; a generator it renders (New-Importer, …)
+selects only that generator's files.
 
 ### parameter OutputFolder
 

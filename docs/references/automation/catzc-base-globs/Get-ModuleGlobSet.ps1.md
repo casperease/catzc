@@ -29,39 +29,34 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
-module, the reserved infra umbrellas, and the 'module-leftovers' catch-all.
+Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1 module, the reserved infra
+umbrellas, and the 'module-leftovers' catch-all.
 
 ### description
 
-Derived sets are never written in globs.yml: the folder (or file) is the registration. Every module
-folder the resolver (Get-CatzcModule) finds in the code track partitions into live/tests aspect sets
-([ADR-DSGN-ASPECT](../../../adr/design/module-aspects.md)), named by the
-readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and
-'catzc-base-globs-tests') — 'live' the module's shippable surface (functions, private helpers, types,
-configs), 'tests' its verification harness, plus its Go, Python and Bash test folders `<root>/tests/<kebab>/` of
-each language root when they exist ([ADR-AUTO-GO#2](../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
+Derived sets are never written in globs.yml: the folder (or file) is the registration. Every module folder the resolver (Get-CatzcModule)
+finds in the code track partitions into live/tests aspect sets ([ADR-DSGN-ASPECT](../../../adr/design/module-aspects.md)), named by the
+readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and 'catzc-base-globs-tests') — 'live' the module's
+shippable surface (functions, private helpers, types, configs), 'tests' its verification harness, plus its Go, Python and Bash test folders
+`<root>/tests/<kebab>/` of each language root when they exist
+([ADR-AUTO-GO#2](../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
 [ADR-AUTO-PY#2](../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
-[ADR-AUTO-BASH#2](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)); the two are disjoint and
-cover the folder. The whole-module
-set is their union (a test-only change never re-keys live). Every internal
-shared module `automation/.internal/<Name>.psm1` derives a single-file set (no tests aspect) by the same
-kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap').
-The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
-'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets bound the scope of protection and blast radius
-([ADR-REPO-PROTGLOB#7](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob7)). A declared globset may not
-shadow a derived name; the collision throws here, naming
-both sides.
+[ADR-AUTO-BASH#2](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)); the two are disjoint and cover the folder. The
+whole-module set is their union (a test-only change never re-keys live). Every internal shared module `automation/.internal/<Name>.psm1`
+derives a single-file set (no tests aspect) by the same kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap'). The
+reserved names cover the dot-prefixed infrastructure every module's test results also depend on: 'internal', 'vendor', 'compiled',
+'scriptanalyzer'. Derived sets bound the scope of protection and blast radius
+([ADR-REPO-PROTGLOB#7](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob7)). A declared globset may not shadow a derived
+name; the collision throws here, naming both sides.
 
-The derived sets are repository-relative globs over the source tree's module folders (git-tracked
-paths), so it stops with a named error in build mode (Assert-SourceTree,
-[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+The derived sets are repository-relative globs over the source tree's module folders (git-tracked paths), so it stops with a named error in
+build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
 ### parameter Name
 
-A module folder name ('Catzc.Base.Globs'), an internal module name ('Catzc.Internal.Bootstrap'), the
-kebab form of either ('catzc-base-globs', 'catzc-internal-bootstrap'), or a reserved infra name
-('internal', 'vendor', 'compiled', 'scriptanalyzer'). Omit for every derived set.
+A module folder name ('Catzc.Base.Globs'), an internal module name ('Catzc.Internal.Bootstrap'), the kebab form of either
+('catzc-base-globs', 'catzc-internal-bootstrap'), or a reserved infra name ('internal', 'vendor', 'compiled', 'scriptanalyzer'). Omit for
+every derived set.
 
 ### example 1
 

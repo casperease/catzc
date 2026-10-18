@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Git/private/Format-GitIgnoreSection.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,11 +11,10 @@ Renders one gitignore section — its titled, explained comment block followed b
 
 ### description
 
-The per-section pretty-printer behind New-GitIgnore: a rule line carrying the section's title, the wrapped
-`why` explanation as comment lines, then each pattern verbatim — with any `note` rendered as its own comment
-line directly above its pattern. git has no trailing comments: a '#' after a pattern becomes part of the
-pattern, so a noted pattern written on one line would match nothing. Pure formatting; the pattern text is never
-rewritten.
+The per-section pretty-printer behind New-GitIgnore: a rule line carrying the section's title, the wrapped `why` explanation as comment
+lines, then each pattern verbatim — with any `note` rendered as its own comment line directly above its pattern. git has no trailing
+comments: a '#' after a pattern becomes part of the pattern, so a noted pattern written on one line would match nothing. Pure formatting;
+the pattern text is never rewritten.
 
 ### parameter Title
 

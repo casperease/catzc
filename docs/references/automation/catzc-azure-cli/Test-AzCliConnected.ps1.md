@@ -1,7 +1,7 @@
 # automation/Catzc.Azure.Cli/Test-AzCliConnected.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -12,8 +12,8 @@ Tests whether the active az CLI session matches a given subscription and/or tena
 ### description
 
 Returns $true when `az account show` reports the subscription and/or tenant passed by argument;
-$false otherwise (including not logged in). A pure query — it never throws on a mismatch. Use
-Assert-AzCliConnected for the throwing companion. Both share Get-AzCliConnectionState.
+$false otherwise (including not logged in). A
+pure query — it never throws on a mismatch. Use Assert-AzCliConnected for the throwing companion. Both share Get-AzCliConnectionState.
 
 Two parameter sets — at least one of subscription / tenant is required:
 

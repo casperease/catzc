@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,12 +11,11 @@ Checks that one released contract version folder still holds exactly what its re
 
 ### description
 
-A released version folder is immutable
-([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)). Publish-ContractRelease
-freezes it with a .frozen record, one line per file, '`<sha256>`  `<path>`', after '#' comment lines; this compares the
-record with the folder's files as Get-ContractFileHashes hashes them now, and returns one finding per defect:
-a missing record, a malformed or repeated record line, and every file changed, added or removed since the freeze.
-No finding means the folder is intact. The draft, 0.0.0, is never frozen, so it is never given here.
+A released version folder is immutable ([ADR-REPO-CONTRACT#5](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
+Publish-ContractRelease freezes it with a .frozen record, one line per file, '`<sha256>` `<path>`', after '#' comment lines; this compares
+the record with the folder's files as Get-ContractFileHashes hashes them now, and returns one finding per defect: a missing record, a
+malformed or repeated record line, and every file changed, added or removed since the freeze. No finding means the folder is intact. The
+draft, 0.0.0, is never frozen, so it is never given here.
 
 ### parameter Folder
 

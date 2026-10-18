@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,8 +11,8 @@ Asserts that a script block finishes within a time limit; past it the work is st
 
 ### description
 
-The assertion form of Invoke-WithTimeout: the block's output is discarded, and the only outcome is pass
-(it finished in time) or throw (it was stopped at the limit, or it failed on its own).
+The assertion form of Invoke-WithTimeout: the block's output is discarded, and the only outcome is pass (it finished in time) or throw (it
+was stopped at the limit, or it failed on its own).
 
 ### parameter ScriptBlock
 
@@ -20,13 +20,12 @@ The work to time.
 
 ### parameter Budget
 
-The work's immutable budget GUID. While timeout-exemptions.yml exempts it, the default limit is the exemption
-ceiling instead.
+The work's immutable budget GUID. While timeout-exemptions.yml exempts it, the default limit is the exemption ceiling instead.
 
 ### parameter Seconds
 
-The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption
-ceiling (Get-TimeoutSeconds -Budget).
+The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption ceiling (Get-TimeoutSeconds
+-Budget).
 
 ### parameter Activity
 

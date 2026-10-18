@@ -27,12 +27,9 @@ Installs the Postman desktop app (user-space, no admin required).
 
 ### description
 
-Windows: Downloads the official installer from dl.pstmn.io and runs it
-silently. Installs to LOCALAPPDATA\Postman (Squirrel/Electron default).
-macOS: brew install --cask postman.
-Linux: Downloads the tar.gz from dl.pstmn.io and extracts to
-HOME/.local/Postman.
-Idempotent — skips if already installed.
+Windows: Downloads the official installer from dl.pstmn.io and runs it silently. Installs to LOCALAPPDATA\Postman (Squirrel/Electron
+default). macOS: brew install --cask postman. Linux: Downloads the tar.gz from dl.pstmn.io and extracts to HOME/.local/Postman. Idempotent —
+skips if already installed.
 
 ### parameter Force
 

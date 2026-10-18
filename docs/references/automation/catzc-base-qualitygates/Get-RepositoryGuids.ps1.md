@@ -27,12 +27,10 @@ Scans every tracked text file for GUID literals and returns one record per occur
 
 ### description
 
-The repository-wide managed-GUID scanner. It reads the tracked-file universe (Get-GuidScanFiles) and
-matches the canonical hyphenated GUID form only — deliberately never bare 32-hex, which would
-false-positive on hashes (the durable SHAs are 64 hex and unhyphenated, so they never match). Paths
-come back repo-relative (communication form); guids come back lowercase. The managed-guid quality
-gate (Test-ManagedGuids) asserts every returned guid against the registry (configs/guids.yml), and every
-registry entry against these results.
+The repository-wide managed-GUID scanner. It reads the tracked-file universe (Get-GuidScanFiles) and matches the canonical hyphenated GUID
+form only — deliberately never bare 32-hex, which would false-positive on hashes (the durable SHAs are 64 hex and unhyphenated, so they
+never match). Paths come back repo-relative (communication form); guids come back lowercase. The managed-guid quality gate
+(Test-ManagedGuids) asserts every returned guid against the registry (configs/guids.yml), and every registry entry against these results.
 
 ### outputs
 

@@ -30,9 +30,9 @@ Installs a Python-library tool into the uv-managed Python via `uv pip`.
 
 ### description
 
-Private helper for Install-PySpark. Mirrors Install-Tool's contract but installs the package INTO the
-uv-managed Python with `uv pip install --system` (so it stays importable, unlike an isolated `uv tool`).
-Handles idempotency, -Force, and version verification. uv presence is asserted by Invoke-Pip.
+Private helper for Install-PySpark. Mirrors Install-Tool's contract but installs the package INTO the uv-managed Python with
+`uv pip install --system` (so it stays importable, unlike an isolated `uv tool`). Handles idempotency, -Force, and version verification. uv
+presence is asserted by Invoke-Pip.
 
 ### parameter Tool
 

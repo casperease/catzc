@@ -27,10 +27,9 @@ Installs a CLI as an isolated uv tool.
 
 ### description
 
-Mirrors Install-Tool's contract but installs via `uv tool install <uv_tool>==<version>.*` — each tool gets
-its own isolated environment with uv's managed Python (user-space, no admin, no shared-env pollution).
-Used for az_cli, poetry, and other Python-based CLIs. Handles idempotency, -Force, and version verify.
-uv is the install mechanism, so it must be present (Invoke-Uv asserts it).
+Mirrors Install-Tool's contract but installs via `uv tool install <uv_tool>==<version>.*` — each tool gets its own isolated environment with
+uv's managed Python (user-space, no admin, no shared-env pollution). Used for az_cli, poetry, and other Python-based CLIs. Handles
+idempotency, -Force, and version verify. uv is the install mechanism, so it must be present (Invoke-Uv asserts it).
 
 ### parameter Tool
 

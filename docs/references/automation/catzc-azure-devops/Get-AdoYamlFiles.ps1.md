@@ -30,12 +30,10 @@ Scans a directory recursively for YAML files and classifies each as Pipeline, Te
 
 ### description
 
-Finds all .yml and .yaml files under the specified path, parses each with
-ConvertFrom-Yaml, and uses top-level key heuristics to classify the file
-as an Azure DevOps pipeline, a template (with subtype), or unknown.
+Finds all .yml and .yaml files under the specified path, parses each with ConvertFrom-Yaml, and uses top-level key heuristics to classify
+the file as an Azure DevOps pipeline, a template (with subtype), or unknown.
 
-Files that fail YAML parsing are included in the output with ParseError set
-and Classification set to Unknown.
+Files that fail YAML parsing are included in the output with ParseError set and Classification set to Unknown.
 
 ### parameter Path
 
@@ -43,8 +41,7 @@ Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 
 ### parameter Exclude
 
-Directory names to skip during scanning. Matched as exact names anywhere in the path.
-Defaults to @('.git', 'node_modules', '.terraform').
+Directory names to skip during scanning. Matched as exact names anywhere in the path. Defaults to @('.git', 'node_modules', '.terraform').
 
 ### example 1
 

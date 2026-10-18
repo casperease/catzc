@@ -30,30 +30,26 @@ Deploys a bicep template to Azure (resolves context, runs hooks, calls az, sets 
 
 ### description
 
-The deploy target is the az session's subscription — in a pipeline, exactly what the service
-connection logged into — reverse-resolved against azure.yml (Get-AzCliSessionSubscription). The
-session's customer picks the slot: a customer subscription deploys the template's
-`configuration/<customer>/` config, a non-customer subscription the configuration-root one. The
--SubscriptionIdAssertIs guard pins the target explicitly and is MANDATORY in a pipeline
-([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)).
+The deploy target is the az session's subscription — in a pipeline, exactly what the service connection logged into — reverse-resolved
+against azure.yml (Get-AzCliSessionSubscription). The session's customer picks the slot: a customer subscription deploys the template's
+`configuration/<customer>/` config, a non-customer subscription the configuration-root one. The -SubscriptionIdAssertIs guard pins the
+target explicitly and is MANDATORY in a pipeline ([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)).
 
 Flow:
 
-1. Get-BicepDeploymentContext           (resolves the session target, applies the assert guard;
-   devbox auto-runs Build-Bicep; pipeline uses ArtifactsFolder).
-   Returns $null if mode is DoNotRun without -OverrideDoNotRunAndRun → skip.
-3. Import the template's own PrePost.psm1 from artifacts (if it ships one); resolve the hooks it exports.
-4. Run the template's Invoke-BicepPreDeploy hook if it exports one (else no-op).
-5. ResourceGroup target: Deploy-AzureResourceGroup (idempotent).
-6. az deployment {group|sub} create — passes ABSOLUTE --template-file / --parameters paths so the
-   call never depends on the process working directory. -DryRun appends `--what-if` and stops here.
-7. Assert provisioningState = Succeeded.
-8. Run the template's Invoke-BicepPostDeploy hook if it exports one (gets the parsed output).
-9. Set-BicepTrackingTagSet.
+1. Get-BicepDeploymentContext (resolves the session target, applies the assert guard; devbox auto-runs Build-Bicep; pipeline uses
+   ArtifactsFolder). Returns $null if mode is DoNotRun without -OverrideDoNotRunAndRun → skip.
+2. Import the template's own PrePost.psm1 from artifacts (if it ships one); resolve the hooks it exports.
+3. Run the template's Invoke-BicepPreDeploy hook if it exports one (else no-op).
+4. ResourceGroup target: Deploy-AzureResourceGroup (idempotent).
+5. az deployment {group|sub} create — passes ABSOLUTE --template-file / --parameters paths so the call never depends on the process working
+   directory. -DryRun appends `--what-if` and stops here.
+6. Assert provisioningState = Succeeded.
+7. Run the template's Invoke-BicepPostDeploy hook if it exports one (gets the parsed output).
+8. Set-BicepTrackingTagSet.
 
-Pass -DryRun to preview: it runs `az deployment ... create --what-if` (Azure's server-side preview)
-and skips the real deploy, the post-deploy hook, and tag-setting. See
-[ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Pass -DryRun to preview: it runs `az deployment ... create --what-if` (Azure's server-side preview) and skips the real deploy, the
+post-deploy hook, and tag-setting. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
 
 ### parameter Environment
 
@@ -65,15 +61,14 @@ Template name.
 
 ### parameter Slot
 
-Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot to
-deploy; omitted -> the env's base / index-0 slot.
+Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot to deploy; omitted -> the env's base /
+index-0 slot.
 
 ### parameter SubscriptionIdAssertIs
 
-Guard — the subscription GUID the az session is expected to target; throws on a mismatch (a
-mis-wired service connection). MANDATORY in a pipeline: a pipeline deploy must pin its target
-explicitly, so a session change can never silently retarget it. Optional on a devbox. Never a
-selector — the session always determines the target.
+Guard — the subscription GUID the az session is expected to target; throws on a mismatch (a mis-wired service connection). MANDATORY in a
+pipeline: a pipeline deploy must pin its target explicitly, so a session change can never silently retarget it. Optional on a devbox. Never
+a selector — the session always determines the target.
 
 ### parameter ArtifactsFolder
 
@@ -89,8 +84,7 @@ Devbox-only. Bypass the template's DoNotRun mode.
 
 ### parameter DryRun
 
-Preview only — runs the Azure `--what-if` deployment and skips the real deploy, post-deploy hook,
-and tag-setting.
+Preview only — runs the Azure `--what-if` deployment and skips the real deploy, post-deploy hook, and tag-setting.
 
 ### example 1
 

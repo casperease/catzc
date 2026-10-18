@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Maps/Export-WorldMapPdf.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Writes the world map as PDFs: the grid view, the tree view, or both, optionally 
 
 ### description
 
-Builds the world map (Get-WorldMap) and draws it with Catzc.Base.Maps.WorldMapPdf, one file per view under the
-world-map output folder (Get-WorldMapOutputRoot,
-[ADR-REPO-OUTDIR#2](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)):
+Builds the world map (Get-WorldMap) and draws it with Catzc.Base.Maps.WorldMapPdf, one file per view under the world-map output folder
+(Get-WorldMapOutputRoot, [ADR-REPO-OUTDIR#2](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)):
 
 ```text
 world-map.grid.pdf   rows are the tracks, columns the file languages, each cell shaded by its file count; the
@@ -25,13 +24,13 @@ world-map.grid.pdf   rows are the tracks, columns the file languages, each cell 
 world-map.tree.pdf   the tracks as a treemap by file count, each holding its non-empty cells.
 ```
 
-One file per view, not one two-page file: each view is a document of its own that a reader opens, links or
-replaces alone, and -View Grid rewrites the grid without touching the tree.
+One file per view, not one two-page file: each view is a document of its own that a reader opens, links or replaces alone, and -View Grid
+rewrites the grid without touching the tree.
 
 With -Adr or -Path the lit cells (Get-WorldMapHighlight) are outlined on every page, and the files are named
-`world-map.<view>.highlight.pdf`, so a highlight never overwrites the plain map. The colours, titles, legend entries,
-label limits and page size come from configs/maps.yml (Get-Config -Config maps). The bytes depend only on the map,
-the config and the highlight, so an unchanged repository writes identical files.
+`world-map.<view>.highlight.pdf`, so a highlight never overwrites the plain map. The colours, titles, legend entries, label limits and page
+size come from configs/maps.yml (Get-Config -Config maps). The bytes depend only on the map, the config and the highlight, so an unchanged
+repository writes identical files.
 
 ### parameter View
 

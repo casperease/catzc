@@ -26,25 +26,21 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: checks per-layer independence — no two same-layer
-globsets select a common file on their OWN contribution.
+Quality gate: checks per-layer independence — no two same-layer globsets select a common file on their OWN contribution.
 
 ### description
 
-Within a layer, no two globsets may match a common file on their OWN membership (GlobSet.OwnMatches —
-the set's own include/exclude program, compose IGNORED). Two that do "contain parts of each other" and
-are not independent. The check is per layer, never across layers: a deployable-unit deliberately
-contains the base it composes, so cross-layer overlap is expected and correct. The 'loose-fileset' layer
-is EXEMPT — its sets are cross-cutting check surfaces (a track's root concern, a scan scope, the
-reserved umbrellas) and overlap by design
+Within a layer, no two globsets may match a common file on their OWN membership (GlobSet.OwnMatches — the set's own include/exclude program,
+compose IGNORED). Two that do "contain parts of each other" and are not independent. The check is per layer, never across layers: a
+deployable-unit deliberately contains the base it composes, so cross-layer overlap is expected and correct. The 'loose-fileset' layer is
+EXEMPT — its sets are cross-cutting check surfaces (a track's root concern, a scan scope, the reserved umbrellas) and overlap by design
 ([ADR-FLOW-CD-GLOBS#7](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)).
 
 Evaluates the declared registry (Get-GlobSet) AND the derived module sets (Get-ModuleGlobSet,
-[ADR-REPO-PROTGLOB#7](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob7)) against the tracked-file
-universe, collects one issue per violating pair ('`<layer>`: `<A>` `<->` `<B>` share N file(s), e.g. ...'), and ends
-with Write-QualityGateReport ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)):
-the report lands in out/test-globset-independence/, and the gate throws once listing every pair (or returns
-the result with -PassThru).
+[ADR-REPO-PROTGLOB#7](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob7)) against the tracked-file universe, collects one
+issue per violating pair ('`<layer>`: `<A>` `<->` `<B>` share N file(s), e.g. ...'), and ends with Write-QualityGateReport
+([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in out/test-globset-independence/,
+and the gate throws once listing every pair (or returns the result with -PassThru).
 
 ### parameter OutputFolder
 

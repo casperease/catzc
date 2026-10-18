@@ -27,11 +27,10 @@ Writes a run's report artifacts and the skip report — best-effort, never maski
 
 ### description
 
-Persists summary.md + tests.csv beside the per-shard results (Write-TestAutomationReport), points
-latest.txt at the run, renders the end-of-run skip report (Write-TestAutomationSkipReport), and writes the
-ADR rule-enforcement coverage (Write-TestAutomationRuleCoverage — rule-coverage.md/.csv). Each part is
-try/catch-guarded independently: a rendering error is reported as a yellow line and swallowed, so a failing
-run still throws for its own reason, not a reporting one.
+Persists summary.md + tests.csv beside the per-shard results (Write-TestAutomationReport), points latest.txt at the run, renders the
+end-of-run skip report (Write-TestAutomationSkipReport), and writes the ADR rule-enforcement coverage (Write-TestAutomationRuleCoverage —
+rule-coverage.md/.csv). Each part is try/catch-guarded independently: a rendering error is reported as a yellow line and swallowed, so a
+failing run still throws for its own reason, not a reporting one.
 
 ### parameter Rows
 

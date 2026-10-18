@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/private/Get-FormatEngineStamp.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,13 +11,11 @@ The fingerprint of everything besides a file's own bytes that decides what a for
 
 ### description
 
-Format-Code's result cache keys a file on its SHA-256 and this stamp (Get-ContentStamp): the engine's name and each
-settings entry languages.yml lists for the engine. An entry is a whole file, or `<file>#<key>` for one top-level key
-of a YAML file; the tool registry is listed by the keys of the tools the engine runs, so that tool's new pin is a new
-stamp and another tool's pin edit is not
-([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)). A missing file or key hashes as
-missing, so adding or removing an input changes the stamp. No input is known here that languages.yml does not
-declare.
+Format-Code's result cache keys a file on its SHA-256 and this stamp (Get-ContentStamp): the engine's name and each settings entry
+languages.yml lists for the engine. An entry is a whole file, or `<file>#<key>` for one top-level key of a YAML file; the tool registry is
+listed by the keys of the tools the engine runs, so that tool's new pin is a new stamp and another tool's pin edit is not
+([ADR-AUTO-CACHE#10](../../../../adr/automation/caching.md#rule-adr-auto-cache10)). A missing file or key hashes as missing, so adding or
+removing an input changes the stamp. No input is known here that languages.yml does not declare.
 
 ### parameter Engine
 

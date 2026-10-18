@@ -27,13 +27,13 @@ Lists the repository-relative Markdown files in the file class the title and the
 
 ### description
 
-Every git-tracked `*.md` file — the repository as committed, so a gitignored generated README is never in scope while
-its tracked source is — minus the files the content tools leave as written (Get-ContentExemptPath: vendored,
-generated, fixture, or contract asset) and those whose OptOut attribute .gitattributes marks unset (the meta block's
--catzc-meta; the title has none). No list of its own: a new exception is declared in the .gitattributes source
-like every other file class.
+Every git-tracked `*.md` file — the repository as committed, so a gitignored generated README is never in scope while its tracked source is
+— minus the files the content tools leave as written (Get-ContentExemptPath: vendored, generated, fixture, or contract asset) and those
+whose OptOut attribute .gitattributes marks unset (the meta block's -catzc-meta; the title has none). No list of its own: a new exception is
+declared in the .gitattributes source like every other file class.
 
-It rests on [ADR-REPO-FILEMETA#5](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta5) and [ADR-REPO-FORMAT#6](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6).
+It rests on [ADR-REPO-FILEMETA#5](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta5) and
+[ADR-REPO-FORMAT#6](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format6).
 
 ### parameter RepositoryRoot
 

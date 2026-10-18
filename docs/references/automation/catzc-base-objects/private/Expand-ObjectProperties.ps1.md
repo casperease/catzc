@@ -27,10 +27,8 @@ Recursively flattens a nested object into dot-notation key/value pairs.
 
 ### description
 
-Walks PSCustomObject, IDictionary, and array structures, building
-dot-separated paths for each leaf value and adding them to the
-supplied OrderedDictionary.  Arrays use `[index]` notation.
-Used internally by ConvertTo-FlatSettingSet.
+Walks PSCustomObject, IDictionary, and array structures, building dot-separated paths for each leaf value and adding them to the supplied
+OrderedDictionary. Arrays use `[index]` notation. Used internally by ConvertTo-FlatSettingSet.
 
 ### parameter Value
 

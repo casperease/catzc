@@ -1,7 +1,7 @@
 # automation/Catzc.Base.VSCode/private/New-VSCodeExtensionFolder.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,9 @@ Renders one of the repository's own editor extensions to a folder the editor can
 
 ### description
 
-The extension's package.json is rendered from its entry under `extensions:` in vscode-extensions.yml, and its script is copied from
-the module's `assets/extensions/<name>.js` to `extension.js`. The folder is generated output: it is replaced on every render, so
-nothing in it is edited by hand.
+The extension's package.json is rendered from its entry under `extensions:` in vscode-extensions.yml, and its script is copied from the
+module's `assets/extensions/<name>.js` to `extension.js`. The folder is generated output: it is replaced on every render, so nothing in it
+is edited by hand.
 
 It rests on [ADR-AUTO-ASSETDEP#1](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1).
 

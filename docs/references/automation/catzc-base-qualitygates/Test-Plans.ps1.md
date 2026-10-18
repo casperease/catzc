@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-Plans.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -16,21 +16,19 @@ One finding per broken rule, each naming the rule ([ADR-REPO-PLANS](../../../adr
 - a file name the folder does not accept: a plan is `plan-<topic>.md` and a name never carries an order
   ([ADR-REPO-PLANS#1](../../../adr/repository/plans.md#rule-adr-repo-plans1),
   [ADR-REPO-FOLDERS#12](../../../adr/repository/conventional-folders.md#rule-adr-repo-folders12));
-- a plan head without the `plan:` block, a required key missing, a key outside the allowed set, a status or value
-  outside the declared sets, a blocked plan that names nothing it is blocked on, or a target path that does not
-  exist ([ADR-REPO-PLANS#2](../../../adr/repository/plans.md#rule-adr-repo-plans2));
+- a plan head without the `plan:` block, a required key missing, a key outside the allowed set, a status or value outside the declared sets,
+  a blocked plan that names nothing it is blocked on, or a target path that does not exist
+  ([ADR-REPO-PLANS#2](../../../adr/repository/plans.md#rule-adr-repo-plans2));
 - a plan without a required section, the open steps first among them
   ([ADR-REPO-PLANS#3](../../../adr/repository/plans.md#rule-adr-repo-plans3));
 - an open step, a `- [ ]` item with its continuation lines, that names no check
   ([ADR-REPO-PLANS#4](../../../adr/repository/plans.md#rule-adr-repo-plans4));
-- a task file whose `task:` head misses a key or which has no steps section, more task files than the roof, a line
-  in any file that names a task by a number, and a master plan without its own sections
-  ([ADR-REPO-PLANS#8](../../../adr/repository/plans.md#rule-adr-repo-plans8)).
+- a task file whose `task:` head misses a key or which has no steps section, more task files than the roof, a line in any file that names a
+  task by a number, and a master plan without its own sections ([ADR-REPO-PLANS#8](../../../adr/repository/plans.md#rule-adr-repo-plans8)).
 
-The folder, the sets and the patterns are the plans registry (configs/plans.yml), its defaults declared once on
-PlansConfig. A quality gate ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it
-ends through Write-QualityGateReport, which writes out/test-plans/, prints every issue, and throws once listing
-them all. The plans live only in the source tree.
+The folder, the sets and the patterns are the plans registry (configs/plans.yml), its defaults declared once on PlansConfig. A quality gate
+([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): it ends through Write-QualityGateReport, which writes
+out/test-plans/, prints every issue, and throws once listing them all. The plans live only in the source tree.
 
 ### parameter Path
 

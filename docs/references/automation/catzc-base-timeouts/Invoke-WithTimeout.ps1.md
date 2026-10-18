@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,11 +11,10 @@ Runs a script block inside a time safeguard: past its limit it is stopped and th
 
 ### description
 
-Runs the script block in the current runspace — it sees the same functions, modules and variables it would
-see when called directly — and returns its output. A PipelineWatchdog stops it once it outlives the limit,
-including a native command it is waiting on; the call then throws a TimeoutException that names the limit
-and where it comes from. A terminating error inside the block is rethrown as itself; non-terminating errors
-are passed on as errors of this call.
+Runs the script block in the current runspace — it sees the same functions, modules and variables it would see when called directly — and
+returns its output. A PipelineWatchdog stops it once it outlives the limit, including a native command it is waiting on; the call then
+throws a TimeoutException that names the limit and where it comes from. A terminating error inside the block is rethrown as itself;
+non-terminating errors are passed on as errors of this call.
 
 ### parameter ScriptBlock
 
@@ -23,13 +22,13 @@ The work to run.
 
 ### parameter Budget
 
-The work's immutable budget GUID (registered in the managed-GUID registry). While timeout-exemptions.yml exempts
-it, the default limit is the exemption ceiling instead.
+The work's immutable budget GUID (registered in the managed-GUID registry). While timeout-exemptions.yml exempts it, the default limit is
+the exemption ceiling instead.
 
 ### parameter Seconds
 
-The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption
-ceiling (Get-TimeoutSeconds -Budget).
+The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption ceiling (Get-TimeoutSeconds
+-Budget).
 
 ### parameter Activity
 

@@ -27,11 +27,10 @@ Lists the repository-relative files the link engine reads.
 
 ### description
 
-With no -Path, every git-tracked file (Get-GitTrackedPath) — the repository as committed, not whatever lies
-untracked in the working folder. With -Path, the given files and the files under the given folders, from the
-filesystem. Either way a file the content tools leave as written (Get-ContentExemptPath: vendored, generated,
-fixture, or contract asset) is never aligned. No list of its own: a new class is declared in the .gitattributes
-source.
+With no -Path, every git-tracked file (Get-GitTrackedPath) — the repository as committed, not whatever lies untracked in the working folder.
+With -Path, the given files and the files under the given folders, from the filesystem. Either way a file the content tools leave as written
+(Get-ContentExemptPath: vendored, generated, fixture, or contract asset) is never aligned. No list of its own: a new class is declared in
+the .gitattributes source.
 
 ### parameter RepositoryRoot
 

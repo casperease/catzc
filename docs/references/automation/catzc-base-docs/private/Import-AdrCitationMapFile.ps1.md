@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,10 +11,9 @@ Reads one tab-separated ADR map (a code map or a rule map) into one hashtable pe
 
 ### description
 
-The map's first line must be exactly the expected header, and every row must have one cell per header column;
-anything else throws, naming the file and line, before a single reference is rewritten
-([ADR-AUTO-FAILFAST](../../../../adr/automation/fail-fast-with-asserts.md)). Blank lines are skipped. The cells are
-validated by `[Catzc.Base.Docs.AdrCitationRewriter]`, which reads the rows.
+The map's first line must be exactly the expected header, and every row must have one cell per header column; anything else throws, naming
+the file and line, before a single reference is rewritten ([ADR-AUTO-FAILFAST](../../../../adr/automation/fail-fast-with-asserts.md)). Blank
+lines are skipped. The cells are validated by `[Catzc.Base.Docs.AdrCitationRewriter]`, which reads the rows.
 
 ### parameter Path
 

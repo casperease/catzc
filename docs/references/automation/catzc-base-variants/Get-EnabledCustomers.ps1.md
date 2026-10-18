@@ -35,9 +35,8 @@ Normalizes the tri-state `have_customers` variant (configs/variants.yml) to one 
 @(names) — only these named customers are enabled (variant is a list)
 ```
 
-This is the single interpreter of the tri-state; Test-/Assert-HaveCustomers read it. It reports which
-customers are enabled `*by` `policy*` — whether a listed name is a defined customer is a customer.yml
-(Azure-layer) concern, cross-checked by an integrity test, not here.
+This is the single interpreter of the tri-state; Test-/Assert-HaveCustomers read it. It reports which customers are enabled `*by` `policy*`
+— whether a listed name is a defined customer is a customer.yml (Azure-layer) concern, cross-checked by an integrity test, not here.
 
 ### example 1
 

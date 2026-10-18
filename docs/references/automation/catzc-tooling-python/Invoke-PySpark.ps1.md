@@ -1,7 +1,7 @@
 # automation/Catzc.Tooling.Python/Invoke-PySpark.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Runs pyspark with the given arguments.
 
 ### description
 
-Asserts that the installed PySpark version matches the locked version
-in Get-ToolConfig before executing the command. Also asserts Java
-is available (DependsOn in tools.yml).
+Asserts that the installed PySpark version matches the locked version in Get-ToolConfig before executing the command. Also asserts Java is
+available (DependsOn in tools.yml).
 
 ### parameter Arguments
 

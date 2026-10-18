@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -17,8 +17,8 @@ A fragment states only the keys that differ ([ADR-AUTO-OVERLAY](../../../../adr/
 - a scalar or a list replaces the bundled value (a list is never appended to, so the result is predictable);
 - an explicit null removes the key, so the config type's declared default applies.
 
-A key the fragment does not name keeps the bundled value. Neither input is changed; the result is a new
-ordered dictionary, which the config's own type then validates like any parsed config.
+A key the fragment does not name keeps the bundled value. Neither input is changed; the result is a new ordered dictionary, which the
+config's own type then validates like any parsed config.
 
 ### parameter Base
 

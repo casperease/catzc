@@ -30,10 +30,8 @@ Installs Microsoft OpenJDK via the platform package manager.
 
 ### description
 
-After installation, sets JAVA_HOME for the current session and
-persists it for future sessions (User registry on Windows, $PROFILE
-on Unix). Modeled on Install-Dotnet / DOTNET_ROOT.
-Idempotent — skips if already installed at the correct version.
+After installation, sets JAVA_HOME for the current session and persists it for future sessions (User registry on Windows, $PROFILE on Unix).
+Modeled on Install-Dotnet / DOTNET_ROOT. Idempotent — skips if already installed at the correct version.
 
 ### parameter Version
 

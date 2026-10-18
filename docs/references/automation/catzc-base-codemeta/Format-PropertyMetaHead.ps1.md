@@ -1,7 +1,7 @@
 # automation/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -12,9 +12,9 @@ Returns a JSON text or an MSBuild project with its meta property imprinted from 
 ### description
 
 The block is the text of one property, in either carrier: in a JSON file an ignored top-level member, in an XML file whose root is an
-MSBuild project a CDATA property named for the block inside the first PropertyGroup labelled catzc. The same facts always give the
-same bytes, so a second run changes no file (ADR-REPO-FILEMETA#8). A text that is neither, or whose property holds something else,
-comes back as it was.
+MSBuild project a CDATA property named for the block inside the first PropertyGroup labelled catzc. The same facts always give the same
+bytes, so a second run changes no file (ADR-REPO-FILEMETA#8). A text that is neither, or whose property holds something else, comes back as
+it was.
 
 ### parameter Text
 

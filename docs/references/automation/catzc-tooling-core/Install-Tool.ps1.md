@@ -27,10 +27,8 @@ Installs a tool using the platform package manager.
 
 ### description
 
-Uses winget on Windows, brew on macOS, and apt-get on Linux.
-Idempotent — skips if already installed at the correct version.
-If the wrong version is found, -Force uninstalls and reinstalls.
-Without -Force, throws with instructions.
+Uses winget on Windows, brew on macOS, and apt-get on Linux. Idempotent — skips if already installed at the correct version. If the wrong
+version is found, -Force uninstalls and reinstalls. Without -Force, throws with instructions.
 
 ### parameter Tool
 

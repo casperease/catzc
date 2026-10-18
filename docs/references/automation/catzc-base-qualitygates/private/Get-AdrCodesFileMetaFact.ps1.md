@@ -27,11 +27,12 @@ The adr-codes meta kind's fact: the ADR citations the file and its comment page 
 
 ### description
 
-A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
-listed under `defines`, never here, and a code the ADR index does not register is no citation. A file whose class the kind's
-`domain_classes` setting names also lists a bare `ADR-<CODE>`; the setting defaults to the classes the kind selects. The codes come
-from the text alone, never from the head ([ADR-REPO-FILEMETA#14](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta14)). The spelling is
-[ADR-REPO-LINK#5](../../../../adr/repository/markdown-links.md#rule-adr-repo-link5), and the order is ordinal, so a rerun never moves a code.
+A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is listed
+under `defines`, never here, and a code the ADR index does not register is no citation. A file whose class the kind's `domain_classes`
+setting names also lists a bare `ADR-<CODE>`; the setting defaults to the classes the kind selects. The codes come from the text alone,
+never from the head ([ADR-REPO-FILEMETA#14](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta14)). The spelling is
+[ADR-REPO-LINK#5](../../../../adr/repository/markdown-links.md#rule-adr-repo-link5), and the order is ordinal, so a rerun never moves a
+code.
 
 ### parameter State
 

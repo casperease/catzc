@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/Test-Change.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Quality gate over what changed: runs the tests and the checks of the changed fil
 
 ### description
 
-The check a person (or an agent) runs before handing work over: instead of the whole suite and every repository-wide
-quality gate, only what the change touches
-([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35): a quality gate over its declared
+The check a person (or an agent) runs before handing work over: instead of the whole suite and every repository-wide quality gate, only what
+the change touches ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35): a quality gate over its declared
 scope — here, the changed files).
 
 ```text
@@ -29,9 +28,9 @@ checks        the quality gates each changed file's language names in languages.
               unattributed, not reported). A gate that throws (a tool missing) is one issue.
 ```
 
-Gates run from the repository root with repo-relative, '/'-separated paths. Ends with Write-QualityGateReport: the
-report lands in out/test-change/, and the gate throws once listing every issue (or returns the result with -PassThru).
--DryRun only plans: it returns the changed paths, the test files, and the checks, and runs nothing.
+Gates run from the repository root with repo-relative, '/'-separated paths. Ends with Write-QualityGateReport: the report lands in
+out/test-change/, and the gate throws once listing every issue (or returns the result with -PassThru). -DryRun only plans: it returns the
+changed paths, the test files, and the checks, and runs nothing.
 
 ### parameter Path
 
@@ -39,8 +38,7 @@ The changed repo-relative, '/'-separated paths. Default: the working tree's chan
 
 ### parameter WholeModule
 
-Run every test file of each module a change touches (`automation/<Module>/tests/`), not only the test files that
-cover the changed files.
+Run every test file of each module a change touches (`automation/<Module>/tests/`), not only the test files that cover the changed files.
 
 ### parameter DryRun
 
@@ -52,8 +50,7 @@ The report base folder. Defaults to Write-QualityGateReport's (out/test-change).
 
 ### parameter PassThru
 
-Return the gate result { Subject; IssueCount; Issues; ReportPath; Changed; Tests; Checks; Unattributed } instead of
-throwing on issues.
+Return the gate result { Subject; IssueCount; Issues; ReportPath; Changed; Tests; Checks; Unattributed } instead of throwing on issues.
 
 ### outputs
 

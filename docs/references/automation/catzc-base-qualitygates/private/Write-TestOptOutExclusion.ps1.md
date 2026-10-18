@@ -1,7 +1,7 @@
 # automation/Catzc.Base.QualityGates/private/Write-TestOptOutExclusion.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,10 +11,9 @@ Prints and records the tests a test run's opt-out tag excluded — the visible h
 
 ### description
 
-The build run never drops a test silently: every test it leaves out by its opt-out tag ('source-only') is
-counted and listed on the console, grouped by file (repository-relative), and written to
-excluded-tests.csv in the run directory (File, ExpandedPath, Level, Category) beside tests.csv. Nothing to
-exclude still prints its one-line count, so a reader sees the exclusion was considered.
+The build run never drops a test silently: every test it leaves out by its opt-out tag ('source-only') is counted and listed on the console,
+grouped by file (repository-relative), and written to excluded-tests.csv in the run directory (File, ExpandedPath, Level, Category) beside
+tests.csv. Nothing to exclude still prints its one-line count, so a reader sees the exclusion was considered.
 
 It rests on [ADR-AUTO-TEST#31](../../../../adr/automation/test-automation.md#rule-adr-auto-test31).
 

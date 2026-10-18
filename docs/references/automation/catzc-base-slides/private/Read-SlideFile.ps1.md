@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Slides/private/Read-SlideFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,9 @@ Reads one slide file into its head values and its parsed body.
 
 ### description
 
-The head's config gives the pattern, the deck, the order and, when the body quotes a rule, the rule it quotes; the head's edges
-give the codes the slide cites; the body is parsed by SlideSource into the title and the fields (ADR-REPO-SLIDES#1). A file that
-does not exist fails at once; a head key that is missing is left empty for the checks to report.
+The head's config gives the pattern, the deck, the order and, when the body quotes a rule, the rule it quotes; the head's edges give the
+codes the slide cites; the body is parsed by SlideSource into the title and the fields (ADR-REPO-SLIDES#1). A file that does not exist fails
+at once; a head key that is missing is left empty for the checks to report.
 
 ### parameter Path
 

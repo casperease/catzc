@@ -30,10 +30,9 @@ Quality gate: checks the pipelines/ tree against the naming-and-placement contra
 
 ### description
 
-Classifies every YAML under pipelines/ with Get-AdoYamlFiles (offline — structure heuristics, no ADO
-call), applies the deterministic [ADR-PIPE-NAME](../../../adr/pipelines/pipeline-naming-and-placement.md) rules,
-collects every violation, and ends with Write-QualityGateReport
-([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
+Classifies every YAML under pipelines/ with Get-AdoYamlFiles (offline — structure heuristics, no ADO call), applies the deterministic
+[ADR-PIPE-NAME](../../../adr/pipelines/pipeline-naming-and-placement.md) rules, collects every violation, and ends with
+Write-QualityGateReport ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
 out/test-pipelines/, and the gate throws once listing every violation (or returns the result with -PassThru).
 
 Rules enforced (each violation names its rule code, as '`[<rule>]` `pipelines/<file>`: `<message>`'):
@@ -57,8 +56,8 @@ referenced by absolute path (`/pipelines/<kind>/<name>.yaml`), never a
 ```
 
 Invoke-AdoScript.ps1 is a `.ps1`, not YAML, so it never enters the scan
-([ADR-PIPE-NAME#7](../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name7)). A file that
-fails to parse is reported as a violation so a broken pipeline cannot slip through silently.
+([ADR-PIPE-NAME#7](../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name7)). A file that fails to parse is reported as
+a violation so a broken pipeline cannot slip through silently.
 
 ### parameter Path
 

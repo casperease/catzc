@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Asserts/Assert-HaveProperty.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -15,9 +15,8 @@ The object to inspect.
 
 ### parameter PropertyName
 
-The property name that must exist on the object. Dotted paths
-(e.g. 'parent.child.etc.value') are walked level by level; the failure
-message names the deepest segment that was reached before the chain broke.
+The property name that must exist on the object. Dotted paths (e.g. 'parent.child.etc.value') are walked level by level; the failure message
+names the deepest segment that was reached before the chain broke.
 
 ### example 1
 

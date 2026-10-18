@@ -26,36 +26,29 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Validates a bicep template (or all templates) against its options.yml and the azure config,
-collecting every problem and throwing one consolidated error. The explicit, author/CI-facing
-counterpart to the fail-fast checks Get-BicepTemplates runs at discovery.
+Validates a bicep template (or all templates) against its options.yml and the azure config, collecting every problem and throwing one
+consolidated error. The explicit, author/CI-facing counterpart to the fail-fast checks Get-BicepTemplates runs at discovery.
 
 ### description
 
-Where Get-BicepTemplates enforces the rules at discovery and throws on the first violation (so a
-bad template makes the whole module fail to load), Assert-BicepTemplate scans a template folder
-directly and reports ALL of its problems at once — so it can describe a template that discovery
-would reject. The two share the per-config rule (Get-BicepConfigClassViolations), so they never drift.
+Where Get-BicepTemplates enforces the rules at discovery and throws on the first violation (so a bad template makes the whole module fail to
+load), Assert-BicepTemplate scans a template folder directly and reports ALL of its problems at once — so it can describe a template that
+discovery would reject. The two share the per-config rule (Get-BicepConfigClassViolations), so they never drift.
 
 Checks (all collected, then thrown together):
 
 - main.bicep exists; configuration/ exists with at least one (non-default) config.
-- options.yml (optional) is schema-valid (Read-BicepTemplateOptions); short_name is resolved from the
-  folder name (or the options.yml override) via BicepShortName and — when validating all templates —
-  globally unique.
-- Env-class classification: every config matches the template's env-class bit
-  (standard/subscription) — via Get-BicepConfigClassViolations. (Slot is per-config: a template
-  may mix slotted and non-slotted configs.)
-- Identity references: each config filename resolves to a defined environment; a configuration
-  subfolder is always a defined customer key, and every config's (customer?, env) coordinate
-  resolves to exactly one subscription (Get-BicepSubscriptionConfigViolations).
-- Parameter alignment: a config's ParametersFile.parameters may only set parameters that
-  main.bicep declares (params main.bicep declares but the config omits are fine — PrePost or
-  bicep defaults supply them).
-- With -Build: Build-Bicep renders the parameters files and compiles main.bicep (needs az; opt-in,
-  slower, and writes the template's build output folder), then Get-BicepParameterViolations checks
-  every rendered parameters file against the compiled parameter model — types, @allowed values,
-  bounds, required parameters, and Key Vault references for secure parameters.
+- options.yml (optional) is schema-valid (Read-BicepTemplateOptions); short_name is resolved from the folder name (or the options.yml
+  override) via BicepShortName and — when validating all templates — globally unique.
+- Env-class classification: every config matches the template's env-class bit (standard/subscription) — via Get-BicepConfigClassViolations.
+  (Slot is per-config: a template may mix slotted and non-slotted configs.)
+- Identity references: each config filename resolves to a defined environment; a configuration subfolder is always a defined customer key,
+  and every config's (customer?, env) coordinate resolves to exactly one subscription (Get-BicepSubscriptionConfigViolations).
+- Parameter alignment: a config's ParametersFile.parameters may only set parameters that main.bicep declares (params main.bicep declares but
+  the config omits are fine — PrePost or bicep defaults supply them).
+- With -Build: Build-Bicep renders the parameters files and compiles main.bicep (needs az; opt-in, slower, and writes the template's build
+  output folder), then Get-BicepParameterViolations checks every rendered parameters file against the compiled parameter model — types,
+  @allowed values, bounds, required parameters, and Key Vault references for secure parameters.
 
 ### parameter Template
 
@@ -63,8 +56,7 @@ Template name to validate. Omit to validate every template under infrastructure/
 
 ### parameter Build
 
-Also build the template (requires az CLI) and check its rendered parameters files against the
-compiled parameter model. Off by default.
+Also build the template (requires az CLI) and check its rendered parameters files against the compiled parameter model. Off by default.
 
 ### example 1
 

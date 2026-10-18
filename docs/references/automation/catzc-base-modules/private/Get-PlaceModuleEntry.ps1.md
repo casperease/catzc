@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Modules/private/Get-PlaceModuleEntry.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,10 +11,9 @@ Lists the modules one place of a module type holds on disk, each as its root, sh
 
 ### description
 
-A folder place yields each non-dot folder under it, a file place each file of its extension, and a root place the place itself; the
-module name is the one the place gives the path (ModulePlace.NameOf), so the prefix and the dot rule live in that one type. The
-folder is where the module's files are listed: the folder itself, or nothing for a file module. Private: Get-CatzcModule is the
-one caller.
+A folder place yields each non-dot folder under it, a file place each file of its extension, and a root place the place itself; the module
+name is the one the place gives the path (ModulePlace.NameOf), so the prefix and the dot rule live in that one type. The folder is where the
+module's files are listed: the folder itself, or nothing for a file module. Private: Get-CatzcModule is the one caller.
 
 It rests on [ADR-AUTO-MODULE#1](../../../../adr/automation/module-model.md#rule-adr-auto-module1).
 

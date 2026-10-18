@@ -45,10 +45,10 @@ Places a build (Build-Modules' `Catzc/<version>/` folder) where it is consumed
                        Import-Module Catzc loads it from any shell.
 ```
 
-The build is verified first (Assert-CatzcBundle), before the destination is touched. The version is the
-build's own (build.json). Idempotent: when the target already holds the same content hash the copy is
-skipped (and a -Root install only refreshes its importer.ps1); -Force copies anyway. On Linux and macOS a copy
-makes every shipped shell script with a shebang executable again, since the copy drops the bit bash needs.
+The build is verified first (Assert-CatzcBundle), before the destination is touched. The version is the build's own (build.json).
+Idempotent: when the target already holds the same content hash the copy is skipped (and a -Root install only refreshes its importer.ps1);
+-Force copies anyway. On Linux and macOS a copy makes every shipped shell script with a shebang executable again, since the copy drops the
+bit bash needs.
 
 ### parameter Root
 
@@ -60,13 +60,11 @@ CurrentUser — install into the user's PowerShell module path instead of beside
 
 ### parameter Bundle
 
-Whose devbox build to install when -Source is not given (an exporter.yml bundles key). Defaults to
-default_bundle.
+Whose devbox build to install when -Source is not given (an exporter.yml bundles key). Defaults to default_bundle.
 
 ### parameter Source
 
-The build to install (default: the bundle's devbox build,
-`<Get-OutputRoot>/automation/built/<bundle>/Catzc/<direct_install_version>`).
+The build to install (default: the bundle's devbox build, `<Get-OutputRoot>/automation/built/<bundle>/Catzc/<direct_install_version>`).
 
 ### parameter Force
 

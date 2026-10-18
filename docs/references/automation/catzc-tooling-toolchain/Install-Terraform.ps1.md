@@ -1,7 +1,7 @@
 # automation/Catzc.Tooling.Toolchain/Install-Terraform.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Installs Terraform via the platform package manager.
 
 ### description
 
-Windows: winget. macOS: Homebrew (hashicorp/tap). Linux: HashiCorp
-apt repository (configured inline if not already present).
-Idempotent — skips if already installed at the correct version.
+Windows: winget. macOS: Homebrew (hashicorp/tap). Linux: HashiCorp apt repository (configured inline if not already present). Idempotent —
+skips if already installed at the correct version.
 
 ### parameter Version
 

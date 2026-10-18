@@ -30,10 +30,10 @@ Loads a per-engine fixture table: one row per case and execution engine (Executi
 
 ### description
 
-Reads a YAML engine case table and validates it through the EngineCaseTable type: every case fills every engine
-column, or names why it does not apply ("n/a: `<reason>`"), so the parity of a behaviour across every engine is
-explicit case by case. Returns one hashtable per case and engine, shaped for Pester's -ForEach
-(Case, Engine, Fields, NotApplicable): Fields is the column's map, NotApplicable the reason when it does not apply.
+Reads a YAML engine case table and validates it through the EngineCaseTable type: every case fills every engine column, or names why it does
+not apply ("n/a: `<reason>`"), so the parity of a behaviour across every engine is explicit case by case. Returns one hashtable per case and
+engine, shaped for Pester's -ForEach (Case, Engine, Fields, NotApplicable): Fields is the column's map, NotApplicable the reason when it
+does not apply.
 
 ### parameter Path
 

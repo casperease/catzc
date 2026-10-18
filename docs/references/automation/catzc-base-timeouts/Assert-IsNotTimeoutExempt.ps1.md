@@ -1,7 +1,7 @@
 # automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,8 @@ Asserts that a budget GUID runs under its normal time limit here, not an exempti
 
 ### description
 
-For work that must never run exempt — for example a quality gate in a pipeline, where an exemption would hide
-a regression. Throws naming the exemption's reason when the budget is exempt; Get-TimeoutExemption defines the
-lookup.
+For work that must never run exempt — for example a quality gate in a pipeline, where an exemption would hide a regression. Throws naming
+the exemption's reason when the budget is exempt; Get-TimeoutExemption defines the lookup.
 
 ### parameter Budget
 
