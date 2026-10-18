@@ -47,6 +47,32 @@ function Measure-NoLiteralDefault {
         if (-not $readsConfig) {
             continue
         }
+        # The variables the function fills from a config read, directly or through a member of one: $settings = Get-Config ...
+        $isConfigRead = {
+            param($node)
+            [bool] $node.Find({
+                    param($inner)
+                    $inner -is [System.Management.Automation.Language.CommandAst] -and $inner.GetCommandName() -eq 'Get-Config'
+                }, $true)
+        }
+        $configVariables = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+        $assignments = $function.Body.FindAll({ param($node) $node -is [System.Management.Automation.Language.AssignmentStatementAst] }, $true)
+        foreach ($assignment in $assignments) {
+            if ($assignment.Left -is [System.Management.Automation.Language.VariableExpressionAst] -and (& $isConfigRead $assignment.Right)) {
+                [void] $configVariables.Add($assignment.Left.VariablePath.UserPath)
+            }
+        }
+        # A value comes from config when it holds a Get-Config call or a variable filled from one.
+        $fromConfig = {
+            param($node)
+            if (& $isConfigRead $node) {
+                return $true
+            }
+            [bool] $node.Find({
+                    param($inner)
+                    $inner -is [System.Management.Automation.Language.VariableExpressionAst] -and $configVariables.Contains($inner.VariablePath.UserPath)
+                }, $true)
+        }
         if ($function.Body.ParamBlock) {
             foreach ($parameter in $function.Body.ParamBlock.Parameters) {
                 if ($parameter.Name.VariablePath.UserPath -eq 'Default') {
@@ -61,7 +87,7 @@ function Measure-NoLiteralDefault {
                 $node.Operator -eq [System.Management.Automation.Language.TokenKind]::QuestionQuestion
             }, $true)
         foreach ($binary in $coalesce) {
-            if (& $isConstant $binary.Right) {
+            if ((& $isConstant $binary.Right) -and (& $fromConfig $binary.Left)) {
                 & $add $binary.Extent 'A literal fallback after ??'
             }
         }
@@ -71,13 +97,15 @@ function Measure-NoLiteralDefault {
             if ($if.Clauses.Count -ne 1 -or $if.ElseClause) {
                 continue
             }
-            $condition = $if.Clauses[0].Item1.PipelineElements
-            $test = if ($condition.Count -eq 1) {
-                $condition[0].Expression
+            $condition = $if.Clauses[0].Item1
+            $test = if ($condition -is [System.Management.Automation.Language.PipelineAst] -and $condition.PipelineElements.Count -eq 1 -and
+                $condition.PipelineElements[0] -is [System.Management.Automation.Language.CommandExpressionAst]) {
+                $condition.PipelineElements[0].Expression
             }
             if (-not ($test -is [System.Management.Automation.Language.UnaryExpressionAst] -and
                     $test.TokenKind -in [System.Management.Automation.Language.TokenKind]::Not, [System.Management.Automation.Language.TokenKind]::Exclaim -and
-                    $test.Child -is [System.Management.Automation.Language.VariableExpressionAst])) {
+                    $test.Child -is [System.Management.Automation.Language.VariableExpressionAst] -and
+                    $configVariables.Contains($test.Child.VariablePath.UserPath))) {
                 continue
             }
             $statements = $if.Clauses[0].Item2.Statements

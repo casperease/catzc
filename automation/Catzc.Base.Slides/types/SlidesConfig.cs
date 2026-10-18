@@ -14,12 +14,13 @@ public sealed class SlidesConfig
     public const string DefaultKit = ".claude/slides";
     public const string DefaultDrawioKit = ".claude/drawio";
     public const int DefaultDiagramBatch = 25;
+    public static readonly string[] DefaultDiagramFolders = { "docs/explanation/.assets" };
     public const string KitDefaultsFile = "slides.yml";
     public const string PatternsFolder = "patterns";
     public const string SlideSuffix = ".slide.md";
     public const string DeckFile = "deck.md";
 
-    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "diagram_batch" };
+    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "diagram_batch", "diagram_folders" };
 
     public string kit { get; }
 
@@ -29,12 +30,16 @@ public sealed class SlidesConfig
     // How many slides one renderer call takes in the per-slide stages, so each call stays inside its time limit.
     public int diagram_batch { get; }
 
+    // The folders whose slides carry the minimap sidebar the renderer rebuilds; a slide elsewhere keeps the picture it has.
+    public IReadOnlyList<string> diagram_folders { get; }
+
     public SlidesConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         string kitValue = DefaultKit;
         string drawioValue = DefaultDrawioKit;
         int batchValue = DefaultDiagramBatch;
+        List<string> foldersValue = new List<string>(DefaultDiagramFolders);
 
         if (raw != null)
         {
@@ -61,6 +66,27 @@ public sealed class SlidesConfig
                     batchValue = batch;
                 }
             }
+
+            if (raw.Contains("diagram_folders") && raw["diagram_folders"] != null)
+            {
+                if (!(raw["diagram_folders"] is IEnumerable items) || raw["diagram_folders"] is string)
+                {
+                    errors.Add("diagram_folders must be a list of repository-relative folders");
+                }
+                else
+                {
+                    foldersValue = new List<string>();
+                    int index = 0;
+                    foreach (object item in items)
+                    {
+                        var one = new Hashtable { { "folder", item } };
+                        string folder = Folder(one, "folder", null, errors);
+                        if (folder != null) { foldersValue.Add(folder); }
+                        index++;
+                    }
+                    if (index == 0) { errors.Add("diagram_folders names no folder; leave the key out to take the default"); }
+                }
+            }
         }
 
         if (errors.Count > 0)
@@ -71,6 +97,7 @@ public sealed class SlidesConfig
         kit = kitValue;
         drawio_kit = drawioValue;
         diagram_batch = batchValue;
+        diagram_folders = foldersValue;
     }
 
     static string Folder(IDictionary raw, string key, string fallback, List<string> errors)

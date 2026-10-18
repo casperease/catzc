@@ -23,14 +23,15 @@ function Build-Diagrams {
     $renderer = Join-Path $root "$Kit/drawio_forward.py"
     Assert-PathExist $renderer -PathType Leaf -ErrorText "Build-Diagrams: the draw.io kit '$Kit' has no drawio_forward.py; slides.yml drawio_kit names the kit."
 
-    # Every folder that holds a tracked slide, or the folders asked for; a slide is a tracked .drawio.png directly in the folder.
+    # The folders whose slides carry the minimap sidebar (diagram_folders), or the folders asked for; a slide is a tracked .drawio.png in one.
     $slides = @(Get-GitTrackedPath '.' | Where-Object { $_ -like '*.drawio.png' })
-    $folders = if ($Folder) {
-        @($Folder | ForEach-Object { ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $_))) -replace '\\', '/').TrimEnd('/') })
+    $named = if ($Folder) {
+        $Folder
     }
     else {
-        @($slides | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } | Sort-Object -Unique)
+        (Get-Config -Config slides).diagram_folders
     }
+    $folders = @($named | ForEach-Object { ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $_))) -replace '\\', '/').TrimEnd('/') })
 
     $uv = 'uv'
     if (-not $DryRun) {

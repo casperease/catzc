@@ -86,7 +86,7 @@ Describe 'New-VSCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
         $json.'powershell.scriptAnalysis.settingsPath' | Should -Be "./$settings"
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
         # The authored un-exclude of the analyzer's settings file must survive rendering verbatim.
-        $json.'search.exclude'.'automation/.internal/assets/PSScriptAnalyzerSettings.psd1' | Should -BeFalse
+        $json.'search.exclude'.$settings | Should -BeFalse
     }
 
     It 'hides no Go test source from the explorer, search, the watcher, or gopls, for the <_>/ root' -ForEach @('go', '.go') {
