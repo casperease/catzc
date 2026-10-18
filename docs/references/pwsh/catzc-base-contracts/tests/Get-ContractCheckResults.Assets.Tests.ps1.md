@@ -17,3 +17,12 @@ released folder follow their platform and are not checked
 its kind and fails with the asset's findings. A tree with no assets discovers no test here. It reads only the
 repository's files, so its answer cannot differ between the run modes (source-only).
 ```
+
+## comment:2
+
+Above `$script:groupContracts = @{}`, written with `#`.
+
+```text
+One lookup per unit, version and module, the filtered call each case makes
+([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+```

@@ -34,25 +34,26 @@ runs `Test-Automation`.
    `Get-UncoveredInternalAssetDependency.Tests` and `Get-InternalAssetDependency.Integrity.Tests` pass. **Verdict (done 2026-10-18,
    catzc-c4):** the reader already matched the named code; the L0 fixture still composed the numbered form (`'ADR-AUTO-ASSETDEP' + '#3'`),
    now the named rule, and Build-AdrCodeDictionary gained an L1 integrity Describe tagged with the citation, reading the shipped
-   `configs/adrs.yml`. Both test files and Build-AdrCodeDictionary.Tests Passed under Invoke-TestFile (`out/test-file/20261018-210821-78c51a`,
-   `-210826-855a15`, `-210832-dff304`). The composed `' + '#3'` form escaped both the literal scan and the runtime-composition check.
+   `configs/adrs.yml`. Both test files and Build-AdrCodeDictionary.Tests Passed under Invoke-TestFile
+   (`out/test-file/20261018-210821-78c51a`, `-210826-855a15`, `-210832-dff304`). The composed `' + '#3'` form escaped both the literal scan
+   and the runtime-composition check.
 3. `Move-Diagram.Tests` (1 failure): "Cannot find path 'docs'" at `Get-LinkScope.ps1:20`: the real move case now reaches the link engine
    through the new Format-Code call or the rebase, with its test root lacking `docs/`. Fix the test's tree or scope the call to the test
-   root. Check: `Move-Diagram.Tests` passes. **Verdict (done 2026-10-18, catzc-c4):** the test, not Move-Diagram: its `Test-Links -Path
-   docs` resolved against the current folder (now under the fixture root), and the fixture's `#top` anchor had no heading (now
-   `#widget-described`). "[Invoke-TestFile] Passed" (`out/test-file/20261018-210943-53206f`); Format-Code 0 of 2.
+   root. Check: `Move-Diagram.Tests` passes. **Verdict (done 2026-10-18, catzc-c4):** the test, not Move-Diagram: its
+   `Test-Links -Path docs` resolved against the current folder (now under the fixture root), and the fixture's `#top` anchor had no heading
+   (now `#widget-described`). "[Invoke-TestFile] Passed" (`out/test-file/20261018-210943-53206f`); Format-Code 0 of 2.
 4. Links and words (5 failures). `Get-ContractCheckResults.Assets.Tests.ps1:27` has a bare `ADR-AUTO-TEST-SETUPONCE` in a comment (run
    `Format-Links` on that file); `docs/references/contracts/catzc.md:324` and one more line say "the test suite" (G4; the generated contract
    reference, so fix the contract text it renders from, then regenerate); one cspell finding (find it with `Test-Spelling`). Check:
-   `Test-Links.Repository.Tests`, `Test-Glossary`, `Test-Spelling` 0; `Test-GeneratedFiles` on the reference 0. **Verdict (done
-   2026-10-18, catzc-c4):** Format-Links aligned the citation; the Test-Automation and Test-CatzcBuild command contracts say "all tests" and
-   the reference is regenerated; the cspell finding was an invented fixture word in Build-Glossary.Tests.ps1, now real words.
-   Test-Links.Repository.Tests and Build-Glossary.Tests Passed; Test-Glossary, Test-Spelling and Test-GeneratedFiles (Build-ContractReference)
-   0.
+   `Test-Links.Repository.Tests`, `Test-Glossary`, `Test-Spelling` 0; `Test-GeneratedFiles` on the reference 0. **Verdict (done 2026-10-18,
+   catzc-c4):** Format-Links aligned the citation; the Test-Automation and Test-CatzcBuild command contracts say "all tests" and the
+   reference is regenerated; the cspell finding was an invented fixture word in Build-Glossary.Tests.ps1, now real words.
+   Test-Links.Repository.Tests and Build-Glossary.Tests Passed; Test-Glossary, Test-Spelling and Test-GeneratedFiles
+   (Build-ContractReference) 0.
 5. Formatting (1 failure, five files): `plan-explanation-drift-gaps.md`, `plan-master.md`, `task-explanation-drift-gaps.md`,
    `task-user-runs-and-commits.md` and `value-of-plan.md` under `.claude/plans`, the orchestrator's own edits; the orchestrator formats the
-   folder after its edits. Check: `Test-Formatting.Tests` passes. **Done 2026-10-18 by the orchestrator:** Format-Code over
-   `.claude/plans`, "markdown: 5 of 22 file(s) changed"; Test-Plans and Test-Links 0. Proof on the user's re-run.
+   folder after its edits. Check: `Test-Formatting.Tests` passes. **Done 2026-10-18 by the orchestrator:** Format-Code over `.claude/plans`,
+   "markdown: 5 of 22 file(s) changed"; Test-Plans and Test-Links 0. Proof on the user's re-run.
 6. The run budget: the run took 221.05 s against `tests.run_seconds` 180 in `timeouts.yml` ("exceeded by 41.05s (fails a devbox run)"),
    while plan-test-run-budget's table names 347 s; the two numbers disagree. Read `summary.md`'s slowest tests and over-limit timings
    (`Get-AdrUsage (repository)` 19.3 s and 9.7 s at L1, roof 2 s; `Invoke-TestFile (real worker)` 25.0 s) and speed up the slowest files as
