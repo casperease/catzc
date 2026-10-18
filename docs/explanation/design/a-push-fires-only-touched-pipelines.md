@@ -18,9 +18,9 @@ Each pipeline in cats triggers on its globset projected to Azure DevOps path fil
 a changed file. A pull request to main runs a pipeline as pre-commit validation, and the merge runs the same pipeline post-commit. An edit
 to the shared foundation fires every CD pipeline; an edit to one unit's configuration fires only that unit's.
 
-![A push fires only the pipelines it touches](../.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png)
+![A push fires only the pipelines it touches](.assets/a-push-fires-only-touched-pipelines/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](a-push-fires-only-touched-pipelines.drawio.md).
+The diagram is described element by element in [its asset description](.assets/a-push-fires-only-touched-pipelines/diagram.drawio.md).
 
 ## Walkthrough
 

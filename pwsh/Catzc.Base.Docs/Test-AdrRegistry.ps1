@@ -1,6 +1,6 @@
 function Test-AdrRegistry {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string] $OutputFolder,
 
@@ -79,6 +79,7 @@ function Test-AdrRegistry {
     foreach ($check in $configured) {
         $facts["$($check.Fact)Mode"] = $check.Mode.ToString().ToLowerInvariant()
         $facts["$($check.Fact)Findings"] = $check.Findings.Count
+        $facts[$check.Fact] = [string[]] $check.Findings
         if ($check.Mode -eq [Catzc.Base.Docs.CheckMode]::Gate) {
             $issues.AddRange($check.Findings)
             continue
@@ -94,12 +95,6 @@ function Test-AdrRegistry {
                 -Issues $check.Findings -OutputFolder $checkFolder -PassThru)
     }
 
-    $result = Write-QualityGateReport -Subject 'adr-registry' -Title 'Test-AdrRegistry' -Issues $issues -Facts $facts `
+    Write-QualityGateReport -Subject 'adr-registry' -Title 'Test-AdrRegistry' -Issues $issues -Facts $facts `
         -OutputFolder $OutputFolder -PassThru:$PassThru
-    if ($PassThru) {
-        foreach ($check in $configured) {
-            $result | Add-Member -NotePropertyName $check.Fact -NotePropertyValue $check.Findings
-        }
-        $result
-    }
 }

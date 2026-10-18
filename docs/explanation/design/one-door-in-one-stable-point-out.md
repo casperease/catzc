@@ -17,9 +17,9 @@ crosses that boundary in two directions, and each direction has one rule: a chan
 reads out only the last verified commit, never the raw tip. Together the two rules keep the mainline trustworthy to build on and honest
 about its history.
 
-![One door in, one stable point out](../.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png)
+![One door in, one stable point out](.assets/one-door-in-one-stable-point-out/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-door-in-one-stable-point-out.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-door-in-one-stable-point-out/diagram.drawio.md).
 
 ## Walkthrough
 

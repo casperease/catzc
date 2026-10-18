@@ -18,9 +18,9 @@ The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, 
 promotes the same tagged artifact, the one the CI engine built once, and each always-on environment holds exactly one commit as its
 occupant. Reading the occupants tells you what lives where right now, and which commit is safe to build on.
 
-![Four pipeline kinds promote one artifact that CI built once](../.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png)
+![Four pipeline kinds promote one artifact that CI built once](.assets/four-domains-promote-one-artifact/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](four-domains-promote-one-artifact.drawio.md).
+The diagram is described element by element in [its asset description](.assets/four-domains-promote-one-artifact/diagram.drawio.md).
 
 ## Walkthrough
 

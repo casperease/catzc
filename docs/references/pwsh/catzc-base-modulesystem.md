@@ -22,7 +22,7 @@ type-reference scanner — lives in [Catzc.Base.TypesSystem](catzc-base-typessys
 
 ### responsibility:1 — Function enumeration
 
-The primitive that answers "what functions exist": the full set of PowerShell functions the automation modules define, and — with
+The primitive that answers "what functions exist": the full set of PowerShell functions the catzc modules define, and — with
 `-NotUsedInternally` — which of them are never called by another. It builds on the module list that `Get-CatzcModule` provides (the modules
 of the code track, `Catzc.Base.Modules`), and the dependency-edge computation in responsibility 2 traverses this function set to find call
 sites.

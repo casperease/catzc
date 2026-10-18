@@ -36,6 +36,12 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
         [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'gadget.md')) | Should -Match '- Files: 3'
     }
 
+    It 'writes a list-valued fact into the report as its count and returns the list itself' -Tag 'ADR-AUTO-TEST#35' {
+        $result = Write-QualityGateReport -Subject gadget -Title Test-Gadget -Facts ([ordered]@{ Widgets = [string[]] @('one', 'two') }) -PassThru
+        $result.Facts['Widgets'] | Should -Be @('one', 'two')
+        [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'gadget.md')) | Should -Match '- Widgets: 2 item\(s\)'
+    }
+
     It 'keeps two runs in the same second apart' -Tag 'ADR-AUTO-TEST#35' {
         $first = Write-QualityGateReport -Subject widget -Title Test-Widget -PassThru
         $second = Write-QualityGateReport -Subject widget -Title Test-Widget -PassThru

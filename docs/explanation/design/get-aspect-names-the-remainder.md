@@ -20,9 +20,9 @@ declared order, and the last one is the remainder, so `(Get-Aspect -Track infras
 `automation` is `tests`. A person who wants to change that edits `variants.yml` and runs the importer again. A wrong order does not get far:
 the config type refuses to load a track whose last aspect is not the bare `**`.
 
-![Get-Aspect names the remainder](../.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png)
+![Get-Aspect names the remainder](.assets/get-aspect-names-the-remainder/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](get-aspect-names-the-remainder.drawio.md).
+The diagram is described element by element in [its asset description](.assets/get-aspect-names-the-remainder/diagram.drawio.md).
 
 ## Walkthrough
 

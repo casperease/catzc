@@ -18,9 +18,9 @@ Every `Deploy_*` stage in cats runs only from main. ADR-DSGN-LIFE#9 allows a wor
 integrating it, but in the code nothing does. The CD pipelines run on a pull request into main, yet a PR run executes only the `CI` stage:
 every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run that deploys.
 
-![Every Deploy stage is main-only](../.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png)
+![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](every-deploy-stage-is-main-only.drawio.md).
+The diagram is described element by element in [its asset description](.assets/every-deploy-stage-is-main-only/diagram.drawio.md).
 
 ## Walkthrough
 

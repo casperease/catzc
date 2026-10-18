@@ -81,7 +81,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
             $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
             $result.IssueCount | Should -Be 0
             $result.Facts['ReportedCount'] | Should -Be 2
-            $result.Reported | Should -BeLike '*`[StringColon`]*'
+            $result.Facts['Reported'] | Should -BeLike '*`[StringColon`]*'
         }
 
         It 'leaves out a file its exempt globs match' -Tag 'ADR-REPO-LINK#5', 'ADR-PRIN-CONFIG#4' {

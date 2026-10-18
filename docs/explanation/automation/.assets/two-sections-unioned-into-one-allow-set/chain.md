@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "393fccdd9ff6"
+    with_body_sha: ea5b0366078b
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
+    path: docs/explanation/automation/.assets/two-sections-unioned-into-one-allow-set/chain.md
+    source: docs/explanation/automation/.assets/two-sections-unioned-into-one-allow-set/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -51,7 +51,7 @@ with a meta block of its own, `role: readme`, the role the file-kinds registry n
 
 ### Rule ADR-REPO-README:7
 
-Authored sources live under `docs/references/` — automation modules as the responsibilities-first reference articles in
+Authored sources live under `docs/references/` — pwsh modules as the responsibilities-first reference articles in
 `docs/references/pwsh/<kebab>.md`, and other folders (pipelines, infrastructure, `out/`, `.cspell/`, `contracts/`) under `docs/references/`.
 The one mapping outside it is `docs/adr/`, whose README is generated from the folder's own generated index, `docs/adr/index.md`. That index,
 the generated glossary, and the per-unit contract pages (`docs/references/contracts/<unit>.md`) are committed, unlike the READMEs — every
@@ -67,9 +67,9 @@ same content is maintained in two places. The repository treats other per-folder
 artifacts ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md), `ADR-PWSH-MANIFEST#3`). A README is the same shape: one authored
 source under `docs/`, one derived artifact per folder, regenerated from the source so it cannot drift.
 
-The artifact is read in the folder it documents. An editor opens `pwsh/<Module>/README.md` and resolves its relative links from that
-folder, while the source article authors them relative to its own folder under `docs/references/`. A README that is the source file itself —
-a filesystem link — therefore sends every relative link to the wrong place; the README has to carry its own link base.
+The artifact is read in the folder it documents. An editor opens `pwsh/<Module>/README.md` and resolves its relative links from that folder,
+while the source article authors them relative to its own folder under `docs/references/`. A README that is the source file itself — a
+filesystem link — therefore sends every relative link to the wrong place; the README has to carry its own link base.
 
 ## Decision
 
@@ -111,10 +111,10 @@ independent file and the source is never written through.
 An authored article links to its neighbours — sibling references, ADRs — relative to its own location, and those links are checked by the
 markdown quality gate at that location. The README places the same article in another folder, so `MarkdownLinkRebaser` resolves each
 relative target at the source's folder and writes it relative to the README's folder: the link that reads `../../adr/...` in
-`docs/references/pwsh/` reads `../../docs/adr/...` in `pwsh/<Module>/`. What is not a relative file reference is left as written —
-code spans and fenced blocks (literal text), URLs, in-file `#anchors` (the README has the same headings), and repository-rooted `/` targets
-(they resolve the same from anywhere). The rebaser uses the link grammar of the links quality gate (`Test-Links`), so it rewrites exactly
-the links `Test-Links` checks.
+`docs/references/pwsh/` reads `../../docs/adr/...` in `pwsh/<Module>/`. What is not a relative file reference is left as written — code
+spans and fenced blocks (literal text), URLs, in-file `#anchors` (the README has the same headings), and repository-rooted `/` targets (they
+resolve the same from anywhere). The rebaser uses the link grammar of the links quality gate (`Test-Links`), so it rewrites exactly the
+links `Test-Links` checks.
 
 The line under the title — "Generated from [source] — edit the source; this copy is rewritten on every import" — makes the copy honest: a
 reader can follow every link from the README, and a writer is sent to the one file whose edits last.

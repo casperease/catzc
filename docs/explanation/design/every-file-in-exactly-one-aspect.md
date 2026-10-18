@@ -17,9 +17,9 @@ apart. The module's files split into two aspects by ordered first match: `live` 
 that takes every other file. No file is in two aspects and no file is in none, so a test edit and a runtime edit never touch the same
 identity.
 
-![Every module file is in exactly one aspect](../.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png)
+![Every module file is in exactly one aspect](.assets/every-file-in-exactly-one-aspect/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](every-file-in-exactly-one-aspect.drawio.md).
+The diagram is described element by element in [its asset description](.assets/every-file-in-exactly-one-aspect/diagram.drawio.md).
 
 ## Walkthrough
 

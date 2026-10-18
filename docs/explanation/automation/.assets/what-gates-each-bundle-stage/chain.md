@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ad694f674873
+    with_body_sha: "435e5222f3bf"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png
+    path: docs/explanation/automation/.assets/what-gates-each-bundle-stage/chain.md
+    source: docs/explanation/automation/.assets/what-gates-each-bundle-stage/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Runs all Pester tests found across automation modules, sharded across parallel worker processes.
+Runs all Pester tests found across the catzc modules, sharded across parallel worker processes.
 
 ### description
 

@@ -18,9 +18,9 @@ identity, branch protection and the audit history live. A client's change passes
 lands at HEAD, and consumers read out from the verified point, which the commit lifecycle owns. Knowing which side owns what tells a reader
 where a guarantee is enforced and where it is only a discipline.
 
-![Clients bridge to one server remote](../.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png)
+![Clients bridge to one server remote](.assets/clients-bridge-to-one-server/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](clients-bridge-to-one-server.drawio.md).
+The diagram is described element by element in [its asset description](.assets/clients-bridge-to-one-server/diagram.drawio.md).
 
 ## Walkthrough
 

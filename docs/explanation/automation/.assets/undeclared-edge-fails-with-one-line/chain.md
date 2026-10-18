@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f898d5febc88
+    with_body_sha: "3edda2b06e71"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+    path: docs/explanation/automation/.assets/undeclared-edge-fails-with-one-line/chain.md
+    source: docs/explanation/automation/.assets/undeclared-edge-fails-with-one-line/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

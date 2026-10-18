@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0cf18c8a2407"
+    with_body_sha: a3f7b58f973b
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
+    path: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/chain.md
+    source: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -33,7 +33,7 @@ CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy,
 is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
-- AUTO × quality-control: 1 lit of 17 ADRs
+- AUTO × quality-control: 1 lit of 18 ADRs
 
 ## Key
 

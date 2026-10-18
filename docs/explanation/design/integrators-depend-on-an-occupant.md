@@ -18,9 +18,9 @@ commit that `main-UAT` holds, not the tip of main. Every environment on the prom
 it, so the whole chain rests on occupants, never on HEAD. Keeping "what is newest" apart from "what is safe to build on" is what stops one
 broken commit from spreading. All of this is stated by the ADRs; no pipeline in the repository runs it yet.
 
-![Upstream integrators depend on the main-UAT occupant, never on the tip of main](../.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png)
+![Upstream integrators depend on the main-UAT occupant, never on the tip of main](.assets/integrators-depend-on-an-occupant/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](integrators-depend-on-an-occupant.drawio.md).
+The diagram is described element by element in [its asset description](.assets/integrators-depend-on-an-occupant/diagram.drawio.md).
 
 ## Walkthrough
 

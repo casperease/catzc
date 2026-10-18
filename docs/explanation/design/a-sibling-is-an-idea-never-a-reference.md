@@ -18,7 +18,7 @@ article says what that means in practice: which parts of the two models now agre
 from one to the other without becoming a copy. The diagram draws the crossing: two repositories, the model they share, and the gate an idea
 passes before it lands here as a rule.
 
-![A sibling is an idea, never a reference; the rules stay home](../.assets/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.drawio.png)
+![A sibling is an idea, never a reference; the rules stay home](.assets/a-sibling-is-an-idea-never-a-reference/diagram.drawio.png)
 
 ## Walkthrough
 
@@ -32,7 +32,7 @@ passes before it lands here as a rule.
 4. **The result.** What passes is rebuilt to catzc's rules, one living version with nothing ported alongside, and lands in catzc as a rule.
    At the foot of the right band, what catzc keeps as its own: a rule is an ADR cited by code, and `.unordered` is where an import lands.
 
-The diagram's glyphs and edges are listed in [its description](a-sibling-is-an-idea-never-a-reference.drawio.md).
+The diagram's glyphs and edges are listed in [its description](.assets/a-sibling-is-an-idea-never-a-reference/diagram.drawio.md).
 
 ## The family
 

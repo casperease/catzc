@@ -20,8 +20,8 @@ inputs (Get-ScriptAnalyzerInputs `-Pass`) are unchanged since
 exactly the diagnostics a full run would. A dictionary edit changes only the spelling pass's inputs, so it re-runs that pass alone. A
 pipeline starts without the cache.
 
-The files a pass has pending are analyzed by Invoke-ScriptAnalyzerShards, which shards them across background pwsh processes; the two
-passes share its shard budget.
+The files a pass has pending are analyzed by Invoke-ScriptAnalyzerShards, which shards them across background pwsh processes; the two passes
+share its shard budget.
 
 ### parameter `Path`
 

@@ -17,9 +17,9 @@ Merging to main is the act that deploys, and an engineer who wants a topic commi
 request starts a build that skips every deploy stage, and the `Release` workflow builds a package but deploys nothing. Only completing the
 pull request into main starts a run that deploys. The out-of-band topic deploy that ADR-DSGN-LIFE#9 allows has no pipeline behind it.
 
-![Merging to main is what deploys](../.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png)
+![Merging to main is what deploys](.assets/merging-to-main-is-what-deploys/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](merging-to-main-is-what-deploys.drawio.md).
+The diagram is described element by element in [its asset description](.assets/merging-to-main-is-what-deploys/diagram.drawio.md).
 
 ## Walkthrough
 

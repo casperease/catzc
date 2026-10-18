@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af0d63d4e281
+    with_body_sha: f32587295de7
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--two-forms-never-a-third--meta.chain.md
-    source: docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
+    path: docs/explanation/automation/.assets/two-forms-never-a-third/chain.md
+    source: docs/explanation/automation/.assets/two-forms-never-a-third/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

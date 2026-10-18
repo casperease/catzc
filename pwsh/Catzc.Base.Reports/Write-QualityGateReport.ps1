@@ -38,7 +38,14 @@ function Write-QualityGateReport {
     $lines.Add('')
     $lines.Add("- Generated: $stamp")
     foreach ($key in $Facts.Keys) {
-        $lines.Add("- ${key}: $($Facts[$key])")
+        $value = $Facts[$key]
+        $shown = if ($value -is [System.Collections.IEnumerable] -and $value -isnot [string]) {
+            "$(@($value).Count) item(s)"
+        }
+        else {
+            "$value"
+        }
+        $lines.Add("- ${key}: $shown")
     }
     if ($Issues.Count -eq 0) {
         $lines.Add("- Result: no $Subject issues")
@@ -74,7 +81,7 @@ function Write-QualityGateReport {
             Issues     = [string[]] @($Issues)
             ReportPath = $runDir
         }
-        # The seam while the gates move to QualityGateResult (ADR-PRIN-ONELIVE#8): facts both flattened and under Facts.
+        # A temporary seam, facts flattened and under Facts ([ADR-PRIN-ONELIVE#8](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive8)).
         foreach ($key in $Facts.Keys) {
             $result[$key] = $Facts[$key]
         }

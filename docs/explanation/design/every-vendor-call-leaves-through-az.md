@@ -19,9 +19,9 @@ Cats is a thin platform over Azure: it standardizes how the vendor is used and l
 deploy path, two Azure modules do the platform's part. One composes and deploys templates, the other owns the az session and the az wrapper,
 and everything that reaches Azure, compiling a template included, goes out through the az CLI.
 
-![Every vendor call leaves through the az CLI](../.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png)
+![Every vendor call leaves through the az CLI](.assets/every-vendor-call-leaves-through-az/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](every-vendor-call-leaves-through-az.drawio.md).
+The diagram is described element by element in [its asset description](.assets/every-vendor-call-leaves-through-az/diagram.drawio.md).
 
 ## Walkthrough
 

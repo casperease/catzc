@@ -12,10 +12,10 @@ The bundle meta kind's fact: the smallest built bundle that holds the module a f
 ### description
 
 A bundle is a profile of the exporter registry, resolved to its module set by Get-ModuleProfile, and the larger bundles hold every module of
-the smaller ones. The module is the folder under the automation track's root, so the infrastructure folders such as `.internal` count, and
-the fact names the bundle with the fewest modules that holds it: `minimal` for a core module, `full` for one only the full bundle ships. A
-file in no module of a bundle, such as a document or a pipeline, gets an empty value, so the key is left out of its head. The bundles are
-data in the exporter registry, never a list in this function
+the smaller ones. The module is the folder under the pwsh track's root, so the infrastructure folders such as `.internal` count, and the
+fact names the bundle with the fewest modules that holds it: `minimal` for a core module, `full` for one only the full bundle ships. A file
+in no module of a bundle, such as a document or a pipeline, gets an empty value, so the key is left out of its head. The bundles are data in
+the exporter registry, never a list in this function
 ([ADR-PRIN-CONFIG#1](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config1)). The member lists are kept for as long as
 the exporter registry object is the same one.
 

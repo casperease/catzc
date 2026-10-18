@@ -17,7 +17,7 @@ for the file. This reads the names from the file names, so a build can be compar
 
 ### parameter `ModulesRoot`
 
-The automation folder of the source tree.
+The pwsh track folder (pwsh/) of the source tree.
 
 ### parameter `Name`
 

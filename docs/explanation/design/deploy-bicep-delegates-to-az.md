@@ -21,9 +21,9 @@ Supports ADR-DSGN-THINPLAT#2 and #3 (implementation lens).
 configuration, builds the template on a devbox, and passes every vendor step to az through `Invoke-AzCli`. Cats contributes the guards and
 the lookup; az and Bicep do the work, which is what keeps the platform thin.
 
-![Deploy-Bicep hands every vendor step to az](../.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png)
+![Deploy-Bicep hands every vendor step to az](.assets/deploy-bicep-delegates-to-az/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](deploy-bicep-delegates-to-az.drawio.md).
+The diagram is described element by element in [its asset description](.assets/deploy-bicep-delegates-to-az/diagram.drawio.md).
 
 ## Walkthrough
 

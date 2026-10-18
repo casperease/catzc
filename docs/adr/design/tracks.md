@@ -50,8 +50,8 @@ that keeps a change in one track from rebuilding every customer of every other t
 
 A **deployable-unit** is what ships: a reduced composition of tracks (the shared infrastructure templates in a defined order, one customer's
 foundation). Deployable-units determine CD pipelines **1-1** — one unit, one pipeline — widening to **1-2** only when a DEPLOY stage is
-split out of CD. A CI pipeline that verifies a whole track binds that track's own globset, as `ci-automation` binds the automation track; no
-other pipeline binds a track's source paths directly.
+split out of CD. A CI pipeline that verifies a whole track binds that track's own globset, as `ci-automation` binds the pwsh track; no other
+pipeline binds a track's source paths directly.
 
 - [Tracks, units, pipelines](#tracks-units-pipelines)
 

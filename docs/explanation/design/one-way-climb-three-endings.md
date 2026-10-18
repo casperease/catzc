@@ -16,9 +16,9 @@ each colour is a durable fact about the same commit. Off the ladder there are ex
 discarded and retired. Telling them apart matters because each is a different fact: the pipeline moved fast, the pipeline caught a defect,
 or the commit delivered its value.
 
-![A commit only climbs, then ends in one of three ways](../.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png)
+![A commit only climbs, then ends in one of three ways](.assets/one-way-climb-three-endings/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-way-climb-three-endings.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-way-climb-three-endings/diagram.drawio.md).
 
 ## Walkthrough
 

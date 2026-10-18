@@ -61,8 +61,8 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         It 'passes when every rule set has one file heading its external code and no rule file is unregistered' {
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
-            $result.RuleSets | Should -Be 3
-            $result.Files | Should -Be 5
+            $result.Facts['RuleSets'] | Should -Be 3
+            $result.Facts['Files'] | Should -Be 5
         }
 
         It 'throws once naming a missing, a duplicated, a mis-headed, and an unregistered rule file' {
@@ -96,11 +96,11 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         It 'prints a report-mode check''s findings in its own report and never fails the run' {
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
-            $result.CitationGraphMode | Should -Be 'report'
-            $result.CitationGraphFindings | Should -Be 1
-            $result.CitationGraph | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE#1 (widget) cites ADR-GA-ONE#1 (gadget); widget depends on: none')
-            $result.DoraCoverageMode | Should -Be 'report'
-            $result.DoraCoverage | Should -Be @(
+            $result.Facts['CitationGraphMode'] | Should -Be 'report'
+            $result.Facts['CitationGraphFindings'] | Should -Be 1
+            $result.Facts['CitationGraph'] | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE#1 (widget) cites ADR-GA-ONE#1 (gadget); widget depends on: none')
+            $result.Facts['DoraCoverageMode'] | Should -Be 'report'
+            $result.Facts['DoraCoverage'] | Should -Be @(
                 'docs/adr/widget/dora-explains.md: missing, so no section links ADR-WI-ONE'
                 'docs/adr/gadget/dora-explains.md: no section links ADR-GA-ONE (docs/adr/gadget/sub/gadget-one.md)'
                 'docs/adr/gadget/dora-explains.md: no section links ADR-GA-WIDGET (docs/adr/gadget/widget-one.md)'
@@ -125,8 +125,8 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             Write-AdrFixture 'gadget/dora-explains.md' "# Dora`n`n## Gadget one`n`n[ADR-GA-ONE](sub/gadget-one.md)`n`n## Widget`n`n[ADR-GA-WIDGET](widget-one.md)`n"
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
-            $result.DoraCoverageMode | Should -Be 'gate'
-            $result.DoraCoverageFindings | Should -Be 0
+            $result.Facts['DoraCoverageMode'] | Should -Be 'gate'
+            $result.Facts['DoraCoverageFindings'] | Should -Be 0
         }
     }
 
@@ -143,14 +143,14 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`n### Rule ADR-WI-ONE:2`n"
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
-            $result.CodeLanguageMode | Should -Be 'report'
-            $result.CodeLanguage | Should -Be @('docs/adr/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE#4)')
+            $result.Facts['CodeLanguageMode'] | Should -Be 'report'
+            $result.Facts['CodeLanguage'] | Should -Be @('docs/adr/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE#4)')
         }
 
         It 'passes named rule headings that are one segment below their ADR' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n`n``````text`n### Rule ADR-WI-ONE:9`n```````n"
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
-            $result.CodeLanguageFindings | Should -Be 0
+            $result.Facts['CodeLanguageFindings'] | Should -Be 0
         }
 
         It 'reports a heading of two segments, a heading under another code, a rule named like an ADR, and a code outside its domain' {
@@ -173,7 +173,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             Write-AdrFixture 'widget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GIZMO`n"
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
-            $result.CodeLanguage | Should -Be @(
+            $result.Facts['CodeLanguage'] | Should -Be @(
                 "docs/adr/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE#4)"
                 "docs/adr/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE#4)"
                 'docs/adr/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-ADRCODE#6)'
@@ -194,7 +194,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
-            $result.CodeLanguage | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-ADRCODE#2)')
+            $result.Facts['CodeLanguage'] | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-ADRCODE#2)')
         }
 
         It 'adds its findings to the gate''s issues in gate mode' {

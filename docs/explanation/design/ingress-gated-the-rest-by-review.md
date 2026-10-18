@@ -19,9 +19,9 @@ a local guard in cats and a branch policy on the server. The rule that the serve
 integrate from, are checked by code review alone. Following a commit from a local clone to a consumer, each step carries a rule chip for the
 rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-DSGN-LIFE.
 
-![Gates on ingress, review for the rest](../.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png)
+![Gates on ingress, review for the rest](.assets/ingress-gated-the-rest-by-review/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](ingress-gated-the-rest-by-review.drawio.md).
+The diagram is described element by element in [its asset description](.assets/ingress-gated-the-rest-by-review/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -20,9 +20,9 @@ build, which `Import-Module Catzc` and a saved root's own `importer.ps1` both ha
 mode's entry script. Two things stop a session with a clear message: a load that leaves modules from two roots in one session, and a
 source-tree tool run in a build.
 
-![Each run mode has one entry script, and a mixed session throws](../.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png)
+![Each run mode has one entry script, and a mixed session throws](.assets/one-entry-script-per-mode/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-entry-script-per-mode.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-entry-script-per-mode/diagram.drawio.md).
 
 ## Walkthrough
 

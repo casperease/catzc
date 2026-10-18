@@ -21,9 +21,9 @@ Cats implements the way in from both sides. On the clone, a `git_workspace` vari
 straight to main; on the server, a config file feeds the blocking build-validation policies on `main` in Azure DevOps. Both chains run in
 the order shown. The way out has no chain at all: no function returns the last verified commit that consumers are told to integrate from.
 
-![A local guard and ADO policies, no resolver](../.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png)
+![A local guard and ADO policies, no resolver](.assets/local-guard-and-server-policies/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](local-guard-and-server-policies.drawio.md).
+The diagram is described element by element in [its asset description](.assets/local-guard-and-server-policies/diagram.drawio.md).
 
 ## Walkthrough
 

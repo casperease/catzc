@@ -14,18 +14,18 @@ Supports ADR-DSGN-ASPECT#1, #2 and #3 (meta lens).
 
 A unit in cats, a module folder or a template, holds files that ship and files that verify them. Its tracked files partition into aspects by
 ordered first match: a file is tried against the aspects in their declared order, and the last aspect, the bare `**`, takes whatever no
-earlier aspect claimed. Which aspect is that remainder is each track's call. The automation track keeps `live` closed and lets `tests` catch
-the rest, so a stray file can never silently ship. The infrastructure track declares the opposite order, because a template deploys whole.
+earlier aspect claimed. Which aspect is that remainder is each track's call. The pwsh track keeps `live` closed and lets `tests` catch the
+rest, so a stray file can never silently ship. The infrastructure track declares the opposite order, because a template deploys whole.
 
-![Each track picks its catch-all](../.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png)
+![Each track picks its catch-all](.assets/each-track-picks-its-catch-all/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](each-track-picks-its-catch-all.drawio.md).
+The diagram is described element by element in [its asset description](.assets/each-track-picks-its-catch-all/diagram.drawio.md).
 
 ## Walkthrough
 
-1. **A tracked file of a unit.** Any file git tracks under a module folder of the automation track, or under a template of the
-   infrastructure track. Each track declares its own ordered list of aspects in the `aspects` variant, and the file is tried against that
-   list from the top. The first aspect whose pattern matches claims it.
+1. **A tracked file of a unit.** Any file git tracks under a module folder of the pwsh track, or under a template of the infrastructure
+   track. Each track declares its own ordered list of aspects in the `aspects` variant, and the file is tried against that list from the
+   top. The first aspect whose pattern matches claims it.
 2. **live, in the automation track.** The first aspect of a code track is a closed convention: `*.ps1`, `private/**`, `types/**`,
    `configs/**` and `assets/**`, folder-scoped patterns that never reach `tests/`. A `*` inside a segment never crosses a `/`, so `*.ps1`
    claims the module's root files only. This is what the builder ships, and a new kind of file enters it only through an explicit change to
@@ -49,9 +49,9 @@ The diagram is described element by element in [its asset description](each-trac
 
 ## Where the code and the ADR differ
 
-- The ADR partitions every delivery package at track granularity by the same convention. In the code, only the module folders of the
-  automation track are compiled into aspect sets; the infrastructure convention is read and classifies files as live or not, but no set is
-  derived from it.
+- The ADR partitions every delivery package at track granularity by the same convention. In the code, only the module folders of the pwsh
+  track are compiled into aspect sets; the infrastructure convention is read and classifies files as live or not, but no set is derived from
+  it.
 - The reference page of the aspect type (`Aspect.cs.md`) says the last aspect is non-live by rule; the infrastructure track declares `live`
   last.
 

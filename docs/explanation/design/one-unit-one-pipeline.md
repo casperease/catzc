@@ -16,9 +16,9 @@ Three words carry the delivery side of cats: a track is a concern, a deployable-
 machine. The invariant ties them in a line: units are composed from tracks, each unit binds one pipeline, and a pipeline never reaches a
 track except through the unit that is that track.
 
-![One unit, one pipeline; tracks ship through units](../.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png)
+![One unit, one pipeline; tracks ship through units](.assets/one-unit-one-pipeline/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-unit-one-pipeline.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-unit-one-pipeline/diagram.drawio.md).
 
 ## Walkthrough
 

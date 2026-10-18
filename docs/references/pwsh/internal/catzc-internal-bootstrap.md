@@ -32,9 +32,8 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   a stale-types load is a hard failure. The full contract is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)
   ADR and the [BCL type-system reference](../BCL/types-system.md).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
-  failure before anything loads. It catches two cases and reports all of them at once: two automation modules exporting the same name, and
-  an automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal`
-  module).
+  failure before anything loads. It catches two cases and reports all of them at once: two catzc modules exporting the same name, and an
+  automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal` module).
 - **Pre-import cache wipe** — `Clear-CompiledType` deletes every `pwsh/.compiled/*.dll` before modules load, so the `-ClearCompiledTypes`
   switch forces a rebuild from source. It is best-effort (a locked DLL is skipped) and distinct from the post-import `Clear-ModuleTypeCache`
   janitor, which keeps the current build and self-skips in CI.

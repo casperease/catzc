@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3d5b4e41410e"
+    with_body_sha: "4b1d621186e2"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
+    path: docs/explanation/automation/.assets/build-then-place-with-one-command/chain.md
+    source: docs/explanation/automation/.assets/build-then-place-with-one-command/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

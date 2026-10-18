@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a2e6db335781
+    with_body_sha: "741db51a1436"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--types-check-forms-review-checks-crossers--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
+    path: docs/explanation/automation/.assets/types-check-forms-review-checks-crossers/chain.md
+    source: docs/explanation/automation/.assets/types-check-forms-review-checks-crossers/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

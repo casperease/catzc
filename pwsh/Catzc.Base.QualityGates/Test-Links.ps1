@@ -43,11 +43,7 @@ function Test-Links {
         FixableCount     = @($violations | Where-Object { $_.IsFixable }).Count
         InformationCount = $information.Count
         ReportedCount    = $reported.Count
+        Reported         = $reportedLines
     }
-    $report = Write-QualityGateReport -Subject links -Title Test-Links -Issues $issues -Facts $facts `
-        -OutputFolder $OutputFolder -PassThru:$PassThru
-    if ($PassThru) {
-        $report | Add-Member -NotePropertyName Reported -NotePropertyValue $reportedLines
-        $report
-    }
+    Write-QualityGateReport -Subject links -Title Test-Links -Issues $issues -Facts $facts -OutputFolder $OutputFolder -PassThru:$PassThru
 }

@@ -18,9 +18,9 @@ Adding a function to a cats module has no registration step. The author drops a 
 exports it, and `Get-ModuleGlobSet` shows that the file belongs to the module's live aspect. The importer and the quality gates do the rest,
 and each failure they raise names the file or function at fault.
 
-![Drop a file, the next import exports it](../.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png)
+![Drop a file, the next import exports it](.assets/drop-a-file-the-import-exports-it/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](drop-a-file-the-import-exports-it.drawio.md).
+The diagram is described element by element in [its asset description](.assets/drop-a-file-the-import-exports-it/diagram.drawio.md).
 
 ## Walkthrough
 

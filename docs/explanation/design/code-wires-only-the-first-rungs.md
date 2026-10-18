@@ -19,9 +19,9 @@ The commit lifecycle names eight rungs, from topic to production. The pipelines 
 merge, and the CI engine that verifies the commit and publishes its artifact. After that, one CD run goes straight from its CI stage into
 `Deploy_*` stages that are ordered by template, not by rung, and each stage deploys to all its targets at once.
 
-![The pipelines wire only topic, landed and BVT; past BVT there is no ladder](../.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png)
+![The pipelines wire only topic, landed and BVT; past BVT there is no ladder](.assets/code-wires-only-the-first-rungs/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](code-wires-only-the-first-rungs.drawio.md).
+The diagram is described element by element in [its asset description](.assets/code-wires-only-the-first-rungs/diagram.drawio.md).
 
 ## Walkthrough
 
