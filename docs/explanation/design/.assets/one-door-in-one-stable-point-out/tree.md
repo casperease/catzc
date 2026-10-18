@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8997be4d50c2"
+    with_body_sha: "81158791cc2a"
     repo_status: locked
     path: docs/explanation/design/.assets/one-door-in-one-stable-point-out/tree.md
     source: docs/explanation/design/.assets/one-door-in-one-stable-point-out/diagram.drawio.png
@@ -50,7 +50,7 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 115 (text).
+- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 113 (text).
 
 ### pipelines (1 lit file)
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "49d647b42d2b"
+    with_body_sha: "92bcb191db1b"
     repo_status: locked
     path: docs/explanation/design/.assets/deploy-bicep-delegates-to-az/tree.md
     source: docs/explanation/design/.assets/deploy-bicep-delegates-to-az/diagram.drawio.png
@@ -50,7 +50,7 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 111 (text).
+- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 109 (text).
 
 ### pipelines (1 lit file)
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1a5f42fe0e34"
+    with_body_sha: "8be8e3cc22c0"
     repo_status: locked
     path: docs/explanation/design/.assets/one-door-in-one-stable-point-out/grid.md
     source: docs/explanation/design/.assets/one-door-in-one-stable-point-out/diagram.drawio.png
@@ -32,7 +32,7 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- docs × markdown: 3 lit of 2763 files
+- docs × markdown: 3 lit of 2767 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × yaml: 1 lit of 115 files
 
@@ -53,7 +53,7 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) b
 
 - [docs/adr/design/dora-explains.md][3]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 103 (text).
 - [docs/adr/design/server-remote-integration.md][1]: selected by [ADR-DSGN-REMOTE][1]: the ADR's own file.
-- [docs/adr/index.md][4]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 115 (text).
+- [docs/adr/index.md][4]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 113 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
