@@ -158,7 +158,7 @@
     <mxCell id="g-source-text" value="private helper: dark slate fill, slate rim, smaller name (never dashed)&lt;br&gt;C# type: code unit with a C# tag&lt;br&gt;catzc module: slate frame named by the module (the slide's own module is a band)" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
       <mxGeometry x="600" y="480" width="660" height="60" as="geometry" />
     </mxCell>
-    <mxCell id="footer" value="Structure in mid-tones with a light rim; neutral kinds dark with a light rim; result and failure saturated. Commits keep the locked palette (ADR-DSGN-VISUAL#4)." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+    <mxCell id="footer" value="Structure in mid-tones with a light rim; neutral kinds dark with a light rim; result and failure saturated. Commits keep the locked palette (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE)." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
       <mxGeometry x="20" y="590" width="1260" height="20" as="geometry" />
     </mxCell>
   </root>

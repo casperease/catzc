@@ -63,7 +63,7 @@ def lit():
 
 
 def printed(name):
-    """A bucket key prints as its defined term (ADR-DSGN-TRACK#7, #8, #13); every other name as itself."""
+    """A bucket key prints as its defined term (ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-UNLISTEDFILE, ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS); every other name as itself."""
     return BUCKETS.get(name, name)
 
 

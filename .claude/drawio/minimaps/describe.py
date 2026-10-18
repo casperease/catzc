@@ -2,7 +2,7 @@
 """The sister .md of every minimap PNG, written by render.py from the same data the PNG is drawn from.
 
 A sister file sits next to its PNG in the slide's diagram folder (grid.png -> grid.md). Its H1 is the title of the
-slide's article (the one page beside the folder's `.assets` that embeds the slide) and the view (ADR-REPO-FORMAT#6); a text block says in two
+slide's article (the one page beside the folder's `.assets` that embeds the slide) and the view (ADR-REPO-FORMAT-MARKDOWNTITLE); a text block says in two
 lines what the minimap answers and how much is lit, and an opening paragraph links the article and the cited ADRs. It
 then says what the minimap shows, and gives every lit cell or lit group its reason: what lit it (the file, or the ADR code), the steps that placed it on the map, and how the slide's ADR codes
 selected it, following the highlight's own order (Get-WorldMapHighlight, Get-ValueChainHighlight). A cell lit only by
@@ -23,9 +23,9 @@ REPO = Path(__file__).resolve().parents[3]
 GLOSSARY = "docs/adr/glossary.md"
 SLIDE = "diagram.drawio.png"  # a diagram folder's slide; its minimaps are <view>.png and <view>.md beside it
 WRAP = 140
-# The defined terms the world map is built on (ADR-DSGN-TRACK#1, #6, #9, #10, #12).
+# The defined terms the world map is built on (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-FILELANGUAGE, ADR-DSGN-TRACK-WORLDMAP, ADR-DSGN-TRACK-CELL, ADR-DSGN-TRACK-LITCELL).
 WORLD_TERMS = ["world map", "track", "file language", "cell", "lit cell"]
-# The defined terms the value-chain map is built on (ADR-DSGN-TRACK#10, #12, #14-#16).
+# The defined terms the value-chain map is built on (ADR-DSGN-TRACK-CELL, ADR-DSGN-TRACK-LITCELL, ADR-DSGN-TRACK-VALUECHAINSTACK-#16).
 CHAIN_TERMS = [
     "value-chain map",
     "value-chain stack",
@@ -287,15 +287,15 @@ def file_reason(links, reason):
 
 
 def placement(ctx, links, cell):
-    """The steps that put a lit cell's files in it: the root folder and the extension (ADR-DSGN-TRACK#1, #6, #7, #8)."""
+    """The steps that put a lit cell's files in it: the root folder and the extension (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-FILELANGUAGE, ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-UNLISTEDFILE)."""
     files = cell["files"]
     if not files:
         return "A reviewed pin of maps.yml lights this cell; it holds no lit file."
     if cell["track"] == ctx.no_track:
-        row = f"each file sits directly in the repository root, so it is a root file ({links.adr('ADR-DSGN-TRACK#7')})"
+        row = f"each file sits directly in the repository root, so it is a root file ({links.adr('ADR-DSGN-TRACK-ROOTFILE')})"
     else:
         roots = sorted({f.split("/")[0] for f in files})
-        row = f"the root folder {listing([f'`{r}/`' for r in roots])} names the track {cell['track']} ({links.adr('ADR-DSGN-TRACK#1')})"
+        row = f"the root folder {listing([f'`{r}/`' for r in roots])} names the track {cell['track']} ({links.adr('ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER')})"
     extensions = sorted({os.path.splitext(f)[1].lower() for f in files})
     named = [f"`{e}`" for e in extensions if e]
     shown = (f"the extension {listing(named)}" if named else "") + (
@@ -303,9 +303,9 @@ def placement(ctx, links, cell):
     )
     shown += "no extension" if "" in extensions else ""
     if cell["file_language"] == ctx.no_language:
-        column = f"{shown} names no file language, so each is an unlisted file ({links.adr('ADR-DSGN-TRACK#8')})"
+        column = f"{shown} names no file language, so each is an unlisted file ({links.adr('ADR-DSGN-TRACK-UNLISTEDFILE')})"
     else:
-        column = f"{shown} names the file language {cell['file_language']} ({links.adr('ADR-DSGN-TRACK#6')})"
+        column = f"{shown} names the file language {cell['file_language']} ({links.adr('ADR-DSGN-TRACK-FILELANGUAGE')})"
     return f"Placed: {row}; {column}."
 
 
@@ -396,7 +396,7 @@ def grid_why(ctx, links, highlight, extras):
             "",
         ]
         lines += para(
-            f"{placement(ctx, links, cell)} Lit ({links.adr('ADR-DSGN-TRACK#12')}) by:"
+            f"{placement(ctx, links, cell)} Lit ({links.adr('ADR-DSGN-TRACK-LITCELL')}) by:"
         )
         lines.append("")
         for path, reasons in reasons_by_file(cell).items():
@@ -513,7 +513,7 @@ def chain_reason(links, r):
         how = f"its value-chain concerns ({concerns}) are its ADR domain's default"
     return (
         f"selected by {links.adr(r['requested'])}; its ADR domain `{r['domain']}` sits on the {r['stack']} row of the value-chain "
-        f"stack ({links.adr('ADR-DSGN-TRACK#14')}); {how}, so it lights the {r['concern']} column ({links.adr('ADR-DSGN-TRACK#15')})"
+        f"stack ({links.adr('ADR-DSGN-TRACK-VALUECHAINSTACK')}); {how}, so it lights the {r['concern']} column ({links.adr('ADR-DSGN-TRACK-VALUECHAINCONCERN')})"
     )
 
 
@@ -527,7 +527,7 @@ def chain_why(ctx, links, highlight, extras):
             f"### {cell['stack']} × {cell['concern']} ({plural(cell['adr_count'], 'ADR')})",
             "",
         ]
-        lines += para(f"Lit ({links.adr('ADR-DSGN-TRACK#12')}) by:")
+        lines += para(f"Lit ({links.adr('ADR-DSGN-TRACK-LITCELL')}) by:")
         lines.append("")
         for r in cell["reasons"]:
             lines += item(f"{links.adr(r['adr'])}: {chain_reason(links, r)}.")

@@ -129,7 +129,7 @@ def slide_facts(model):
         lens = None
     if RULE_COLON.search(subtitle):
         problems.append(
-            f"the subtitle cites rules in the ':' form, a citation is ADR-<CODE>#<n> (ADR-REPO-LINK#5): {subtitle!r}"
+            f"the subtitle cites rules in the ':' form, a citation is ADR-<CODE>#<n> (ADR-REPO-LINK-ONECITATIONSPELLING): {subtitle!r}"
         )
     known = set(
         re.findall(

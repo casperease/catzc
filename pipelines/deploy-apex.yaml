@@ -11,7 +11,7 @@ parameters:
     values: [release-uat, prod]
 
 stages:
-  # release-uat is test; the RC approval check on apex-release-uat holds the job for its certifier (ADR-FLOW-CD#9).
+  # release-uat is test; the RC approval check on apex-release-uat holds the job for its certifier (ADR-FLOW-CD-TWORELEASEGATES).
   - ${{ if eq(parameters.Target, 'release-uat') }}:
       - template: /pipelines/stages/deploy-unit.yaml
         parameters:
@@ -25,7 +25,7 @@ stages:
               }
           ArtifactPipeline: cd-apex
           RunId: ${{ parameters.CiRunId }}
-  # Stage the exact artifact in pre-prod, the inactive slot of prod, then activate it to prod (ADR-FLOW-CD#12).
+  # Stage the exact artifact in pre-prod, the inactive slot of prod, then activate it to prod (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION).
   - ${{ if eq(parameters.Target, 'prod') }}:
       - template: /pipelines/stages/deploy-unit.yaml
         parameters:

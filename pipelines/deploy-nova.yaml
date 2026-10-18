@@ -11,7 +11,7 @@ parameters:
     values: [release-uat]
 
 stages:
-  # release-uat is test; the RC approval check on nova-release-uat holds the job for its certifier (ADR-FLOW-CD#9).
+  # release-uat is test; the RC approval check on nova-release-uat holds the job for its certifier (ADR-FLOW-CD-TWORELEASEGATES).
   - ${{ if eq(parameters.Target, 'release-uat') }}:
       - template: /pipelines/stages/deploy-unit.yaml
         parameters:

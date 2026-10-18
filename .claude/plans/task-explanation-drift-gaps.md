@@ -49,7 +49,11 @@ has the user's go (2026-10-18) and the four choices, recorded under the Q4 step 
        (marker 8 and its title) and `tests-pin-the-throw-and-fail-open-no-caller` (marker 7 and its title), the elements to remove or
        relabel and the new title where one is due, written to `out/drift-slides-brief.md`. Check: the brief names five slides with their
        article, `.drawio.md` and minimap pages.
-6. On the user's go: the five slides changed as the brief says (`write-drawio-files` for labels and titles; a new cell set is a `drawio-png`
+6. [x] Landed 2026-10-18 by session catzc-59, verdict: "Build-Diagrams -Path ok on all 6 folders (and the renamed one); Test-Links ok on
+   all 18 touched pages; Test-Comments ok on pipelines/extends/cd-customer.yaml and its page"; slide 5's slug renamed with the user's go
+   to `tests-pin-the-throw-and-fail-open-cd-calls-it` (Move-Diagram, staged); `a-base-module-between-config-and-its-callers.md` says
+   fifteen. The 13 pages Format-Code would re-wrap are formatted after the citation rename lands. Original step: On the user's go: the
+   five slides changed as the brief says (`write-drawio-files` for labels and titles; a new cell set is a `drawio-png`
    run per slide), the article text blocks and `.drawio.md` pages following, minimaps restamped. Check: each article's text blocks match its
    slide; `Test-Links` passes on the touched pages.
 7. Tick the plan's steps; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero in plan-explanation-drift-gaps.

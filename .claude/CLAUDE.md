@@ -6,10 +6,10 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 
 - **catzc** — the reserved, source-code-level name of the system: the `Catzc.*` module prefix, the C# `Catzc.*` namespaces, the `Catzc.`
   type-accelerator prefix, and the literal product token. Use it in code and in precise references
-  ([ADR-PRIN-CATS#1](../docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats1)).
+  ([ADR-PRIN-CATS-CATZCISSOURCENAME](../docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)).
 - **cats** (plural) — the conversational cover term for the catzc system as a whole: the human-friendly name used in prose and docs and when
   talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc
-  ([ADR-PRIN-CATS#2](../docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats2)).
+  ([ADR-PRIN-CATS-CATSISPERSONNAME](../docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats-catsispersonname)).
 - **"domain rules" / "ADR rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
   it is not a domain-sanctioned term.
 
@@ -24,14 +24,14 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 - `pwsh/.vendor/` — third-party modules (checked in)
 - `.unordered/` — the unordered track, where an import lands with its history at a landing address `.unordered/<name>`
   (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing reads or defaults to the track
-  ([ADR-DSGN-TRACK#17](../docs/adr/design/tracks.md#rule-adr-dsgn-track17))
+  ([ADR-DSGN-TRACK-UNORDEREDTRACK](../docs/adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack))
 - `docs/adr/` — Architecture Decision Records (see below); `docs/references/` — reference articles (incl. the DORA research reference in
   `docs/references/dora/`); `docs/how-to/` — task guides; `docs/.assets/` — diagram assets
 
 ## ADRs
 
 Architecture Decision Records live under `docs/adr/`, grouped into the domains that `docs/adr/index.md` lists. The index also holds every
-rule-citation code (e.g. `ADR-PWSH-ERROR#3`) and the **authoring conventions**. The ADRs define the design principles behind this codebase
+rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The ADRs define the design principles behind this codebase
 and must be followed when writing or reviewing code. **Read `docs/adr/index.md` at the start of every session**, then read in full the ADRs
 that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context window, so never sweep it,
 and never sweep `research/`, which is reference material, not rules.
@@ -48,7 +48,7 @@ Which catzc ADR decides each aspect you might take an idea for:
 
 - **Module and command design:** [ADR-PWSH-ONEFUNC](../docs/adr/pwsh/one-function-per-file.md),
   [ADR-PWSH-PARAM](../docs/adr/pwsh/parameter-design.md), and the one resolution order of a setting,
-  [ADR-AUTO-DEFAULT#6](../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6).
+  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 - **Docs and ADR structure:** the [authoring conventions](../docs/adr/index.md#authoring-conventions).
 - **Contracts:** [ADR-REPO-CONTRACT](../docs/adr/repository/api-contracts.md).
 - **Testing:** [ADR-AUTO-TEST](../docs/adr/automation/test-automation.md).
@@ -118,8 +118,8 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 
 ### Time safeguard
 
-- **ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST#7`,
-  [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). Every Bash tool call — the main
+- **ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`,
+  [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Every Bash tool call — the main
   session and every subagent — passes `timeout: 3000` (at most `limits.devbox.bash.foreground` in
   `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 3 s on a devbox). Longer work runs with `run_in_background: true` **and**
   starts with a GNU `timeout <seconds>` prefix around **one** command (at most `limits.devbox.bash.background`, currently 360 s): the Bash

@@ -18,7 +18,7 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - checkout: self
-            # Test-GlobSetAffected diffs real refs ([ADR-FLOW-CD-GLOBS#9](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs9))
+            # Test-GlobSetAffected diffs real refs ([ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit))
             fetchDepth: 0
 
           - template: /pipelines/steps/invoke-automation.yaml

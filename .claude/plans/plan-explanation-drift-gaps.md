@@ -138,7 +138,8 @@ When a step lands, remove its claim from every article that states it (search `d
 - [ ] Q3 `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`: the user lists the approvers under `approver_group.members` and runs
       the apply (`Sync-AdoEnvironmentApprovals -DryRun`, then without); then the lifecycle articles drop the "prod with no gate" claims
       (check: a second apply reports Unchanged for the group and all three checks, and a CD run to `shared-psub` waits for approval).
-- [ ] Q4 the five slides that draw what is no longer true. Three draw what the run-modes ADR no longer names: `rule-and-gate-per-load-stage`
+- [x] Done 2026-10-18 (catzc-59; verdict in task-explanation-drift-gaps step 6; the fifth slide is now
+      `tests-pin-the-throw-and-fail-open-cd-calls-it`). Q4 the five slides that draw what is no longer true. Three draw what the run-modes ADR no longer names: `rule-and-gate-per-load-stage`
       (`build-catzc.ps1` and `Write-CatzcLoadBanner`, markers 7 and 8), `what-gates-each-bundle-stage` (the cached root, marker 6) and
       `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Two, since Q1, say the in-pipeline check has no caller:
       `drift-is-gated-generation-is-adr-only` (the "in-pipeline exact backstop" ADR-only box, marker 8, and its title) and

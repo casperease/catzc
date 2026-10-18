@@ -42,7 +42,7 @@ names on a glyph `#DDE2E9`, quiet text `#949FAE`), so a dark-mode and a light-mo
 
 - Ids are semantic kebab/underscore slugs (`title`, `note`, `step-build`, `edge-build-test`). Never random ids.
 - Every word comes from the source ADR or code, using its exact terms. Don't invent numbers, parts or loops.
-- Stereotypes use guillemets: `<b>Name</b><br><i>&#171;module&#187;</i>`. Cite rules in parentheses, e.g. `(ADR-FLOW-CD#3)`. Write an em
+- Stereotypes use guillemets: `<b>Name</b><br><i>&#171;module&#187;</i>`. Cite rules in parentheses, e.g. `(ADR-FLOW-CD-SEPARATEPIPELINEKINDS)`. Write an em
   dash as `&#8212;`.
 - The first cell after the root is a `title` text whose words are the finding the reader should leave with, not just the topic.
 
@@ -56,7 +56,7 @@ means two things across slides (grey is not "config" on one slide and "drift" on
 **Structure in mid-tones, state set apart.** On the dark page, structural kinds use lifted mid-tone fills with a light rim of the same hue
 and soft light names (`fontColor=#DDE2E9`): slate `#4E6378` / `#9FB3C8`, mauve `#6A567E` / `#B9A6CC`, olive `#5B7653` / `#A9C29F`. Neutral
 kinds are a dark fill with a light rim. Results and failures are saturated with a bright rim, and commits keep the locked palette
-(ADR-DSGN-VISUAL#4), so no structural glyph can be mistaken for a commit state. Slate is shared by code unit, store and runner on purpose:
+(ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be mistaken for a commit state. Slate is shared by code unit, store and runner on purpose:
 their shapes (box, cylinder, pill) tell them apart.
 
 | Kind (legend phrase) | Shape                             | Fill / stroke         | Use it for                                                                         |
@@ -67,7 +67,7 @@ their shapes (box, cylinder, pill) tell them apart.
 | store                | cylinder                          | `#4E6378` / `#9FB3C8` | the repository, a registry, a cache, a feed (`shape=cylinder3`); text `#DDE2E9`    |
 | runner               | pill                              | `#4E6378` / `#9FB3C8` | a pipeline, stage, task or job that executes (`arcSize=50`); text `#DDE2E9`        |
 | gate                 | rhombus, 3 px rim                 | `#2C3542` / `#C7D0DB` | a check that passes or stops the flow; never red, never yellow; text `#CDD3DC`     |
-| environment          | hexagon                           | `#2C3542` / `#C7D0DB` | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL#13)   |
+| environment          | hexagon                           | `#2C3542` / `#C7D0DB` | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER)   |
 | external tool        | square box                        | `#2C3542` / `#C7D0DB` | a vendor tool the code delegates to (az CLI, Bicep, git); text `#CDD3DC`           |
 | actor                | circle                            | `#1E2430` / `#C7D0DB` | a person (developer, reviewer); text `#CDD3DC`                                     |
 | result               | rounded box                       | `#2E7D5B` / `#7FD3AE` | what a step produces; text `#DDE2E9`                                               |
@@ -99,7 +99,7 @@ module.
 - **Colour budget:** at most four kinds on one slide, plus chrome. A fifth kind means the slide is two slides.
 - **A drift is not a kind.** An ADR claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states it.
 
-**Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from ADR-DSGN-VISUAL#4.
+**Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE.
 
 | Commit state            | Fill      | Stroke    |
 | ----------------------- | --------- | --------- |
@@ -262,8 +262,8 @@ its files are) and the value-chain map (where its ADRs sit in the value chain). 
 
 ### The world map (two views, both always shown)
 
-The minimaps draw the **world map** of the world-map processor (module `Catzc.Base.Maps`, ADR-DSGN-TRACK#9), and light the cells and files
-that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK#12), each with its reason. A minimap answers "where does
+The minimaps draw the **world map** of the world-map processor (module `Catzc.Base.Maps`, ADR-DSGN-TRACK-WORLDMAP), and light the cells and files
+that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK-LITCELL), each with its reason. A minimap answers "where does
 this slide sit", not "how dense is the map": no cell is shaded by its count. The counts belong to the full maps (the world-map PDFs; a full
 value-chain view is still to come). A minimap lights the repository's citations of the slide's ADRs, never the slide's own words: the files
 under `docs/explanation/` (the articles the slides illustrate, their descriptions and the `.assets` with the minimaps' sister files) and
@@ -273,8 +273,8 @@ under `docs/explanation/` (the articles the slides illustrate, their description
    unlisted-file column last. Every cell is an idle grey box, empty ones included, and every **lit cell** is filled in the lit colour. A
    cell lit only by passing mentions (citations in body comments, not in a file's header or text) is **touched**: the lighter lit colour.
    Only the lit rows and columns are named, each with a tick on its axis: a row by its track (the root-file row by `labels.root_files`,
-   ADR-DSGN-TRACK#7, #13), a column by a short horizontal code, the file language's first extension (`.ps1`, `.md`; `other` for the unlisted
-   files, ADR-DSGN-TRACK#8). The codes of neighbouring lit columns alternate between two lines so they never touch.
+   ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS), a column by a short horizontal code, the file language's first extension (`.ps1`, `.md`; `other` for the unlisted
+   files, ADR-DSGN-TRACK-UNLISTEDFILE). The codes of neighbouring lit columns alternate between two lines so they never touch.
 2. **Repository tree map** (`tree/<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
    top-level folder (`pwsh/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). Every tile is idle
    grey; the files the highlight lights are lit (the lighter lit colour when lit only by passing mentions); a lit ADR file has a dark rim in
@@ -282,9 +282,9 @@ under `docs/explanation/` (the articles the slides illustrate, their description
 
 ### The value-chain map (always shown)
 
-**Value-chain grid** (`chain/<stem>.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK#16), lit by
+**Value-chain grid** (`chain/<stem>.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK-VALUECHAINMAP), lit by
 `Get-ValueChainHighlight -Adr <the slide's ADR codes>`: rows are the **value-chain stack** (`PRIN`, `DSGN`, `AUTO`, `PIPE`, `CLOUD`,
-ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (ADR-DSGN-TRACK#15), both closed sets in their declared order and always all
+ADR-DSGN-TRACK-VALUECHAINSTACK) and columns the **value-chain concerns** (ADR-DSGN-TRACK-VALUECHAINCONCERN), both closed sets in their declared order and always all
 named by capital codes, horizontal: a row by its code, a column by the initials of a hyphenated concern or else the whole concern in
 capitals, never truncated (`BUILD`, `QC`, `RELEASE`, `DEPLOY`, `ACCESS`). The column codes sit on **one line**, centred over their columns.
 The `automation` concern has **no column**: the stack's `AUTO` row already names it, so the minimap prints five columns, and the sister
@@ -298,11 +298,11 @@ colour. The axis titles are not printed on the minimap: the map key and the sist
 Every minimap PNG has a **sister `.md`** with the same stem, next to it in the minimap's own sub-folder (`grid/<stem>.grid.md`,
 `tree/<stem>.tree.md`, `chain/<stem>.chain.md`): one sub-folder per minimap, so each minimap's renderings and descriptions stand on their
 own beside the slides that embed them. `render.py` writes it in the same run, from the same data (`describe.py`), and never by hand. It
-opens with its path as the H1 (ADR-REPO-FORMAT#6), states once that every unlit cell is idle and why a cell holds nothing (no file of that
+opens with its path as the H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), states once that every unlit cell is idle and why a cell holds nothing (no file of that
 track and file language; no ADR's value-chain concern lands there), expands the minimap's short codes under **Key**, and gives **every lit
 cell or lit group its reason**:
 
-- **World map:** the root folder names the track (ADR-DSGN-TRACK#1), or the file is a root file (#7); the extension names the file language
+- **World map:** the root folder names the track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER), or the file is a root file (#7); the extension names the file language
   (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (the ADR's own file, only that
   one file: an ADR's domain picks only its value-chain row, never extra world-map files; its own citations, its owner module's files through
   `files.yml`, its globset) and the citing lines with their kind (header, body comment, text). A reviewed pin of `maps.yml` is its own
@@ -424,7 +424,7 @@ image removed.
 ## Why it holds
 
 <A short paragraph, or 2–4 bullets, each restating one ADR rule in plain words with its citation code: "Every dependency is declared before
-it is used (ADR-AUTO-DEPM#1).">
+it is used (ADR-AUTO-DEPM-CODEBUILTFROM).">
 
 ## Where the code and the ADR differ
 
@@ -549,7 +549,7 @@ A finished slide lands in the repository as three files; the verify file stays i
 
 | File                                                    | From                   | Shape                                                                                          |
 | ------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
-| `docs/explanation/<adr-domain>/<explanation>.md`        | the article            | path H1 (ADR-REPO-FORMAT#6), the title in backticks, a `text` overview block, then the article |
+| `docs/explanation/<adr-domain>/<explanation>.md`        | the article            | path H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), the title in backticks, a `text` overview block, then the article |
 | `docs/explanation/.assets/<stem>.drawio.png`            | the built slide        | copied, never overwriting an existing asset                                                    |
 | `docs/explanation/<adr-domain>/<explanation>.drawio.md` | the visual description | path H1, the title in backticks, a `text` at-a-glance block, then the description              |
 
