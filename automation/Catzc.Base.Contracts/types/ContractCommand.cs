@@ -31,7 +31,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-[Catzc.Base.Objects.ConsoleDisplay(nameof(name), nameof(signature))]
+[Catzc.Base.Objects.ConsoleDisplay(nameof(Name), nameof(Signature))]
 public sealed class ContractCommand
 {
     // The output of a command that returns nothing, the default when `output` is omitted.
@@ -48,12 +48,12 @@ public sealed class ContractCommand
     public string output { get; }
 
     // The asset the contract was read from, and the command it names; null and empty for a signature read from a command's file.
-    public ContractAsset asset { get; }
+    public ContractAsset Asset { get; }
 
-    public string name { get; }
+    public string Name { get; }
 
     // The call interface as one line: each parameter as name and spec, then the output unless it is void.
-    public string signature
+    public string Signature
     {
         get
         {
@@ -69,11 +69,12 @@ public sealed class ContractCommand
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The contract of one command asset: the asset names the command (ADR-REPO-CMDCONTRACT#3), raw is its parsed document.
+    // The contract of one command asset: the asset names the command
+    // ([ADR-REPO-CMDCONTRACT#3](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract3)), raw is its parsed document.
     public ContractCommand(ContractAsset asset, IDictionary raw) : this(raw)
     {
-        this.asset = asset ?? throw new ArgumentNullException(nameof(asset), "contract command: the asset is required");
-        name = NameOf(asset);
+        Asset = asset ?? throw new ArgumentNullException(nameof(asset), "contract command: the asset is required");
+        Name = NameOf(asset);
     }
 
     // The command a command asset names: its file name without the suffix.
@@ -147,7 +148,7 @@ public sealed class ContractCommand
         }
         parameters = list;
         output = outputType;
-        name = "";
+        Name = "";
     }
 
     // The signature a checker read from a command's file, in the same shape as a contract, so the two compare.
@@ -156,7 +157,7 @@ public sealed class ContractCommand
         var list = new List<ContractParameter>(parameterList ?? Array.Empty<ContractParameter>());
         parameters = list;
         output = string.IsNullOrEmpty(outputType) ? DefaultOutput : outputType;
-        name = "";
+        Name = "";
     }
 
     public static bool IsOutputType(string value)

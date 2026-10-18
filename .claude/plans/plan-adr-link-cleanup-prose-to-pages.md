@@ -71,13 +71,15 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 - Decided 2026-10-16 (Q55 to Q57): .unordered rows are excluded from the ledger (274 rows; those plans are deleted anyway); ADR-REPO-HELP#3
   is relaxed so a citation inside a help sentence is allowed and only a bare citation line is reported (the sentence is where the why lives;
   the head stays the derived complete set; 0 edits); the review is sample-then-stop.
-- [ ] Amend ADR-REPO-HELP#3 and its gate accordingly (check: Test-Links, Test-AdrRegistry clean; the gate still reports a bare line).
-- [ ] Q58 TryParse regression test; Q59 the five gates on the usage code (check: the test passes; the gates clean).
+- [x] Amend ADR-REPO-HELP#3 and its gate accordingly (check: Test-Links, Test-AdrRegistry clean; the gate still reports a bare line). Done
+      2026-10-17 (task027 step 1, session catzc-6c): the gate already matched a whole line; one test case added; verdicts in task027.
+- [x] Q58 TryParse regression test; Q59 the five gates on the usage code (check: the test passes; the gates clean). Done 2026-10-17 (task027
+      steps 2 and 3, session catzc-6c): the test is in Get-AdrCodesFileMetaFact.Tests.ps1, the gates are clean; verdicts in task027.
 - [ ] F8: every rule statement in the principles ADRs becomes bold, uniform with the other domains (check: Test-Glossary finds every
       defining rule); the sampled review fixes patterns, not rows (Q57, Q60 measured thresholds).
 - [ ] Rebuild the ledger without .unordered rows (check: row count about 4,900).
-- [ ] Add the TryParse regression test (check: its Pester file).
-- [ ] Run the five gates on the usage code (check: each clean).
+- [x] Add the TryParse regression test (check: its Pester file). Done 2026-10-17, the same step as Q58 above.
+- [x] Run the five gates on the usage code (check: each clean). Done 2026-10-17, the same step as Q59 above.
 - [ ] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean).
 - [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean).
 

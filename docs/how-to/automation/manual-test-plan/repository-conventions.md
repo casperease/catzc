@@ -12,6 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     cites:
+      - ADR-AUTO-DEFAULT#6
       - ADR-DSGN-TRACK#{1,3,6,12,14-17}
       - ADR-REPO-CONTRACT#{2,4,5,9}
       - ADR-REPO-FILEMETA#4
@@ -52,6 +53,9 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | 22  | L0   | automation/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1        | Parameter consistency of the public functions                     | One parameter name carries one type across the public functions, apart from the names parameter-consistency.yml exempts with a reason; an exemption that no longer conflicts is reported (ADR-PWSH-PARAM).                                                                                                                                                      |
 | 23  | L1   | automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1                            | Get-Track — the real repository                                   | The unordered track is declared in the registry with its own class, and a path under it resolves to it (ADR-DSGN-TRACK#17).                                                                                                                                                                                                                                     |
 | 24  | L0   | automation/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1          | File meta processor coverage                                      | Every kind of the shipped file-meta registry has its processor function and every processor function has its kind (ADR-REPO-FILEMETA#4).                                                                                                                                                                                                                        |
+| 25  | L1   | automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1                         | Get-ChildPath (shipped folder-walk.yml)                           | `Get-ChildPath` defaults to two levels, so the third is never loaded, and prunes the vendor folder by default from the registry value (ADR-AUTO-DEFAULT#6).                                                                                                                                                                                                     |
+| 26  | L1   | automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Contract.Tests.ps1         | The provided head contract                                        | The provided head contract lists exactly the place facts and edges the meta kinds and the generated-file head write, holds a sample of only written keys, binds a code file to nothing outside its module and docs section, and requires the two keys no head is without (ADR-REPO-CONTRACT#4).                                                                 |
+| 27  | L0   | automation/Catzc.Base.QualityGates/tests/Get-RepoStatusFileMetaFact.Tests.ps1       | The repo-status kind of the shipped registry                      | The repo-status fact locks only classes the shipped file-kinds registry declares.                                                                                                                                                                                                                                                                               |
 
 ## Checks
 

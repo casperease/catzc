@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1704caa9b9b
+    with_body_sha: "25e841f86249"
     repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Importer.psm1.md
     folder: docs/references/automation/internal
@@ -128,15 +128,6 @@ Detect a direct console session vs a load from within a script. The overlay runs
 generated importer.ps1 shim, so the stack is [0] Invoke-Importer, [1] importer.ps1, [2] the shim's caller.
 An empty ScriptName at [2] means importer.ps1 was dot-sourced with no calling script (a console session).
 This reproduces the shim's own `-not $MyInvocation.ScriptName` from inside the module.
-```
-
-## comment:9
-
-Above `$importSw = [Diagnostics.Stopwatch]::new()`, written with `#`.
-
-```text
-Times only the module import (vendor + automation modules), so the console load line can split it from
-the session initializer/finalizer around it (session setup and internal modules before, janitors after).
 ```
 
 ## comment:10

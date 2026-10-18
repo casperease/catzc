@@ -68,7 +68,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'routes each formatted language''s VS Code language id to its engine''s editor extension' -Tag 'ADR-REPO-FORMAT#8' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ vscode_extension = 'widget.prettier' }; gofmt = [ordered]@{} }
-                    languages = [ordered]@{
+                    languages  = [ordered]@{
                         widget   = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' }
                         gadget   = [ordered]@{ extensions = @('.gdg'); formatter = 'prettier'; vscode_language = 'gadget-pipelines' }
                         sprocket = [ordered]@{ extensions = @('.spr'); formatter = 'gofmt' }
@@ -89,7 +89,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'throws on an unknown engine, a bad extension id, an unknown engine key, and a bad vscode_language' {
             $err = { & $script:make ([ordered]@{
                         formatters = [ordered]@{ gizmo = [ordered]@{}; prettier = [ordered]@{ vscode_extension = 'no-dot' }; ruff = [ordered]@{ colour = 'blue' } }
-                        languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; vscode_language = 'Widget Lang' } }
+                        languages  = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; vscode_language = 'Widget Lang' } }
                     }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*formatters: unknown formatter engine 'gizmo'*"
             $err.Exception.Message | Should -BeLike "*invalid vscode_extension 'no-dot'*"
@@ -100,7 +100,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'reads an engine''s settings files, and throws on one that is not a repository-relative path' -Tag 'ADR-AUTO-CACHE#10' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/widget-settings.yml', '.editorconfig') } }
-                    languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
+                    languages  =[ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
                 })
             $config.formatters['prettier'].settings | Should -Be @('widget/widget-settings.yml', '.editorconfig')
             $err = { & $script:make ([ordered]@{ formatters = [ordered]@{ prettier = [ordered]@{ settings = @('../widget.yml', 'C:\gadget.yml') } } }) } |
@@ -112,7 +112,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'accepts a settings entry that names one top-level key of a file, and throws on a key that is empty or doubled' -Tag 'ADR-AUTO-CACHE#10' {
             $config = & $script:make ([ordered]@{
                     formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/tools.yml#widget', 'widget/tools.yml#gadget_two') } }
-                    languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
+                    languages  =[ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
                 })
             $config.formatters['prettier'].settings | Should -Be @('widget/tools.yml#widget', 'widget/tools.yml#gadget_two')
             $err = { & $script:make ([ordered]@{ formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget/tools.yml#', 'widget/tools.yml#a#b') } } }) } |
@@ -343,7 +343,8 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'places the five live folders the aspects were written with, and the shared tests folder is not live' -Tag 'ADR-AUTO-MODULE#2' {
             $config = Get-Config -Config languages
             $config.LivePatterns() | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', 'assets/**')
-            $config.LayoutFolders() | Should -Be @('private', 'types', 'configs', 'assets', 'tests')
+            # The editor extension's folder is laid out but neither live nor shipped, like the shared tests folder.
+            $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'assets', 'tests')
             $config.ShippedFolders() | Should -Be @('types', 'configs', 'assets')
         }
     }

@@ -112,8 +112,8 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'cache-repo'))
         $script:settingsFile = Join-Path $script:root 'widget.settings'
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
-                engines   = [ordered]@{ prettier = [ordered]@{ settings = @('widget.settings') } }
-                languages = [ordered]@{
+                formatters = [ordered]@{ prettier = [ordered]@{ settings = @('widget.settings') } }
+                languages  = [ordered]@{
                     widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' }
                     gadget = [ordered]@{ extensions = @('.gdg'); formatter = 'prettier' }
                 }

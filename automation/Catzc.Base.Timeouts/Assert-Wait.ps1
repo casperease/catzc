@@ -16,6 +16,7 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
+    page: docs/references/automation/catzc-base-timeouts/Assert-Wait.ps1.md
     test: automation/Catzc.Base.Timeouts/tests/Assert-Wait.Tests.ps1
     cites:
       - ADR-AUTO-FAILFAST#{5,7}
@@ -31,8 +32,8 @@ catzc:
       so the cmdlet would terminate where this must let go. A watchpoint is a diagnostic — it costs its full duration on every
       run and is removed once the block it found is bounded (Invoke-WithTimeout, a timeouts.yml entry).
     parameters:
-      Seconds: Whole seconds to stand. Defaults to 1.
-      Milliseconds: Milliseconds added to Seconds. Defaults to 1.
+      Seconds: 'Whole seconds to stand. Default: the timeouts registry''s wait.seconds, one second declared once on TimeoutsConfig.'
+      Milliseconds: 'Milliseconds added to Seconds. Default: the registry''s wait.millisecs, one millisecond declared once on TimeoutsConfig.'
     examples:
       - Assert-Wait
       - Assert-Wait -Seconds 2
@@ -44,10 +45,10 @@ function Assert-Wait {
     [CmdletBinding()]
     param(
         [ValidateRange(0, 3600)]
-        [int] $Seconds = 1,
+        [int] $Seconds = (Get-Config -Config timeouts).wait['seconds'],
 
         [ValidateRange(0, 3600000)]
-        [int] $Milliseconds = 1
+        [int] $Milliseconds = (Get-Config -Config timeouts).wait['millisecs']
     )
 
     $totalMs = $Seconds * 1000 + $Milliseconds
@@ -79,7 +80,10 @@ function Assert-Wait {
             $tickMs
         }
         $dueMs += $sleepMs
-        Start-Sleep -Milliseconds $sleepMs
+        $remainingMs = $dueMs - [long]$watch.ElapsedMilliseconds
+        if ($remainingMs -gt 0) {
+            Start-Sleep -Milliseconds $remainingMs
+        }
         $actualMs = [long]$watch.ElapsedMilliseconds
         $lateMs = [math]::Max(0, $actualMs - $dueMs)
         $worstLateMs = [math]::Max($worstLateMs, $lateMs)

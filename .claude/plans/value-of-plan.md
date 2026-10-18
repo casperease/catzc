@@ -62,7 +62,6 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 | medium      | plan-clear-actions                      | 32 broken links in 5 plans and three over-long plans, judged 2026-10-16 and acted on in none.                                                | none                                                                                                                       | Test-Links per file                                                                                       | links and plan-shape done (T001, T002); trims and deletions open                |
 | medium      | plan-fast-push-followups                | Four Build-RootConfig fixture-head tests fail and two unrelated findings have no owner yet.                                                  | none; ADR-DSGN-LIFE#11 and #12 landed                                                                                      | Build-RootConfig.Tests.ps1 green; Test-AdrRegistry; one real Push-Dirty run (the user's)                  | landed and tested; four steps open                                              |
 | medium      | plan-skip-unchanged-generators          | Four import-time generators still rebuild on an unchanged tree, about 1.3 s of every import.                                                 | none; D12 decides Build-Readme                                                                                             | input tests for Build-RootConfig and Build-GitKeep; a Sync-SessionTools warm skip; the meta gates         | four generators wired; six steps open                                           |
-| low-medium  | plan-format-step-moves-comments         | One long header survives a format run; verify the step loop first.                                                                           | one ADR sentence; comments.yml entries                                                                                     | Format-Code step test                                                                                     | unverified since 2026-10-15                                                     |
 | low         | plan-csproj-xml-head                    | The generated csproj carries a head; its page and two help pages still describe the JSON form.                                               | PropertyHead page and the two help pages to the XML form                                                                   | the four Build-RootConfig fixture tests against a tree without the change                                 | landed; two steps open                                                          |
 | low         | plan-idle-compaction                    | One local setting; whether it is checked in is D06.                                                                                          | none                                                                                                                       | none; both settings files parse                                                                           | set locally; D06 open; delete after                                             |
 | low         | plan-assets-gallery-pdf                 | One review PDF of every asset PNG with its companion text; the split flag is D07.                                                            | the drawio-waves skill line names --assets                                                                                 | a two-PNG fixture run if the kit gains a test home                                                        | mode landed and measured; three steps open                                      |
@@ -91,17 +90,23 @@ next:
 
 ## Deleted 2026-10-17, and why
 
-- plan-adr-ai: ADR-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is
-  folded into its Context; D14 kept the one-segment code. No open step.
+- plan-format-step-moves-comments and task030 (closed by session catzc-6c): the step loop and the page entries for `.scriptanalyzer` and
+  `.internal` were already in the tree, `.vendor` sits outside every pages source, both ADR sentences exist; two stale sections of the
+  `.internal` pages deleted, `Test-Comments` 0 on both folders (`out/test-comments/20261017-202304`), `Export-Comments -DryRun` nothing to
+  move in 70 files, CommentsConfig and New-Importer tests pass. No open step.
+- plan-assets-beside-articles: the move landed, the gallery reads the sidecar carrier for its descriptions, the carrier test passes as it
+  stands, and the old `docs/.assets/explanation` folder is gone. No open step (task023).
+- plan-adr-ai: ADR-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is folded
+  into its Context; D14 kept the one-segment code. No open step.
 - plan-adr-cats: ADR-CATS with five rules in principles, the glossary terms cats and catzc, the decisions told to the two plans that waited.
   No open step.
 - prompt-file-kinds-and-formatting-continue, prompt-file-kinds-registry-continue, prompt-head-path-split-continue: continuation prompts of
   plans deleted on 2026-10-16; every item they named is a step of plan-file-head-immutable-edges-classes or done.
-- task001, task002, task003, task005, task006, task007, task008, task010, task013, task017, task021: done task files, disposable
-  executables (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in git.
+- task001, task002, task003, task005, task006, task007, task008, task010, task013, task017, task021: done task files, disposable executables
+  (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in git.
 - plan-minimal-robots, plan-minimal-robots-agents, plan-minimal-robots-capabilities: the program landed (15 robots, 18 capabilities,
-  ADR-REPO-AGENTS rules 6 to 10, the gate), and Phase 5 is measured in the program plan's own table (static context per robot from its files;
-  no robot over 4,000 tokens). The three files are listed for the user's `git rm`; until then they hold no open step of their own.
+  ADR-REPO-AGENTS rules 6 to 10, the gate), and Phase 5 is measured in the program plan's own table (static context per robot from its
+  files; no robot over 4,000 tokens). The three files are listed for the user's `git rm`; until then they hold no open step of their own.
 
 ## Deleted 2026-10-16 (user's yes), and why
 

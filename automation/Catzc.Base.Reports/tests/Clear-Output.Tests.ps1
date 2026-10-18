@@ -1,0 +1,111 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: automation/Catzc.Base.Reports/tests/Clear-Output.Tests.ps1
+    folder: tests
+    name: clear-output-tests
+    filetype: ps1
+    kind: test
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Reports
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-REPO-OUTDIR#{7,12}
+---
+#>
+
+Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#12' {
+    BeforeAll {
+        function script:Add-Output {
+            param([string] $Relative, [datetime] $WrittenUtc = [datetime]::UtcNow, [string] $Content = 'widget')
+            $file = Join-Path $script:root $Relative
+            $null = New-Item -ItemType Directory -Force -Path ([System.IO.Path]::GetDirectoryName($file))
+            [System.IO.File]::WriteAllText($file, $Content)
+            [System.IO.File]::SetLastWriteTimeUtc($file, $WrittenUtc)
+        }
+
+        function script:Get-Relative {
+            @(Get-ChildPath $script:root -Depth 12 -File -Exclude @() -PruneVendor $false | ForEach-Object {
+                    [System.IO.Path]::GetRelativePath($script:root, $_).Replace('\', '/')
+                } | Sort-Object)
+        }
+    }
+
+    BeforeEach {
+        $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $null = New-Item -ItemType Directory -Force -Path $script:root
+        $outputRoot = $script:root
+        Mock Get-OutputRoot { $outputRoot }.GetNewClosure() -ModuleName Catzc.Base.Reports
+        Mock Get-RunEnvironment { 'Devbox' } -ModuleName Catzc.Base.Reports
+        Mock Write-Message { } -ModuleName Catzc.Base.Reports
+    }
+
+    It 'keeps the newest ten stamps of a run folder and removes the older ones as whole folders' {
+        foreach ($n in 1..12) {
+            Add-Output ('test-widget/20261001-{0:d6}/report.md' -f $n) -Content "run $n"
+        }
+        Add-Output 'test-widget/latest.txt' -Content '20261001-000012'
+
+        $removed = @(Clear-Output)
+        $removed | Should -Be @('test-widget/20261001-000001', 'test-widget/20261001-000002')
+        Test-Path (Join-Path $script:root 'test-widget/20261001-000001') | Should -BeFalse
+        Test-Path (Join-Path $script:root 'test-widget/20261001-000012/report.md') | Should -BeTrue
+        Test-Path (Join-Path $script:root 'test-widget/latest.txt') | Should -BeTrue
+    }
+
+    It 'ages out a session script after seven days, keeps a fresh one, and never prunes a log or a cache entry' -Tag 'ADR-REPO-OUTDIR#12' {
+        $old = [datetime]::UtcNow.AddDays(-9)
+        Add-Output 'probe-old.ps1' -WrittenUtc $old
+        Add-Output 'probe-new.ps1'
+        Add-Output 'time-safeguard.log' -WrittenUtc $old
+        Add-Output 'cache/format-code.json' -WrittenUtc $old
+        Add-Output 'sessions/catzc-xy/run.ps1' -WrittenUtc $old
+
+        $result = Clear-Output -PassThru
+        $result.Removed | Should -Be @('probe-old.ps1', 'sessions/catzc-xy/run.ps1')
+        $result.Uncovered | Should -BeNullOrEmpty
+        Get-Relative | Should -Be @('cache/format-code.json', 'probe-new.ps1', 'time-safeguard.log')
+    }
+
+    It 'reports a file no format covers and leaves it where it is' {
+        Add-Output 'widget.unknown' -WrittenUtc ([datetime]::UtcNow.AddDays(-30))
+
+        $result = Clear-Output -PassThru
+        $result.Removed | Should -BeNullOrEmpty
+        $result.Uncovered | Should -Be @('widget.unknown')
+        Test-Path (Join-Path $script:root 'widget.unknown') | Should -BeTrue
+    }
+
+    It 'removes nothing under -DryRun and lists what it would remove' {
+        Add-Output 'probe-old.ps1' -WrittenUtc ([datetime]::UtcNow.AddDays(-9))
+
+        $result = Clear-Output -DryRun -PassThru
+        $result.DryRun | Should -BeTrue
+        $result.Removed | Should -Be @('probe-old.ps1')
+        Test-Path (Join-Path $script:root 'probe-old.ps1') | Should -BeTrue
+    }
+
+    It 'removes everything but the keep file and the plan files under -All' -Tag 'ADR-REPO-OUTDIR#7' {
+        Add-Output '.gitkeep' -Content ''
+        Add-Output 'plan-widget.md'
+        Add-Output 'test-widget/20261001-000001/report.md'
+        Add-Output 'probe.ps1'
+
+        $removed = @(Clear-Output -All)
+        $removed | Should -Be @('probe.ps1', 'test-widget')
+        Get-Relative | Should -Be @('.gitkeep', 'plan-widget.md')
+    }
+
+    It 'removes nothing when the output root does not exist' {
+        $script:root = Join-Path $TestDrive 'absent'
+        $gone = $script:root
+        Mock Get-OutputRoot { $gone }.GetNewClosure() -ModuleName Catzc.Base.Reports
+        @(Clear-Output) | Should -BeNullOrEmpty
+    }
+}

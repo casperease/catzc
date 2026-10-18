@@ -14,6 +14,9 @@ catzc:
     module: Catzc.Tooling.Core
     moduletype: pwsh-folder
     catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-AUTO-CACHE#10
 ---
 #>
 
@@ -21,6 +24,8 @@ Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:origPath = $env:PATH
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Tooling.Core
+        # A fresh memo folder per call, so no test sees the outcome another one remembered.
+        Mock Get-OutputRoot { Join-Path $TestDrive ([guid]::NewGuid().ToString('N')) } -ModuleName Catzc.Tooling.Core
         Mock Sync-SessionPath { } -ModuleName Catzc.Tooling.Core
         Mock Write-Message { } -ModuleName Catzc.Tooling.Core
         Mock Get-Config { [ordered]@{ alpha = @{}; beta = @{} } } -ParameterFilter { $Config -eq 'tools' } -ModuleName Catzc.Tooling.Core
@@ -116,5 +121,48 @@ Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
         Mock Test-ToolLocationManaged { $false } -ModuleName Catzc.Tooling.Core
         Sync-SessionTools -Silent
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Core -Times 0
+    }
+
+    Context 'the memo' -Tag 'ADR-AUTO-CACHE#10' {
+        BeforeEach {
+            $memoRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            Mock Get-OutputRoot { $memoRoot }.GetNewClosure() -ModuleName Catzc.Tooling.Core
+            Mock Test-ToolLocationManaged { $false } -ModuleName Catzc.Tooling.Core
+            # The host probe moves a folder to the front of the session PATH, the way the real one does.
+            Mock Resolve-SessionToolHost { $env:PATH = "C:\managed\sdk;$env:PATH"; [pscustomobject]@{ Source = "C:\managed\sdk\$($Config.command).exe" } } -ModuleName Catzc.Tooling.Core
+        }
+
+        It 'remembers the pass and, on the same registry and PATH, reapplies its PATH and advisory without probing' {
+            Sync-SessionTools
+            $left = $env:PATH
+            $left | Should -BeLike 'C:\managed\sdk;*'
+            $env:PATH = $script:origPath
+
+            Sync-SessionTools
+            Should -Invoke Get-Command -ModuleName Catzc.Tooling.Core -Times 2 -Exactly -ParameterFilter { $Name -in 'alpha', 'beta' }
+            Should -Invoke Resolve-SessionToolHost -ModuleName Catzc.Tooling.Core -Times 2 -Exactly
+            $env:PATH | Should -Be $left
+            Should -Invoke Write-Message -ModuleName Catzc.Tooling.Core -Times 2 -ParameterFilter { $Message -like '*not managed by the installer layer: alpha; beta*' }
+        }
+
+        It 'runs the pass again when the PATH it starts from changed' {
+            Sync-SessionTools
+            $env:PATH = "C:\somewhere\new;$script:origPath"
+            Sync-SessionTools
+            Should -Invoke Resolve-SessionToolHost -ModuleName Catzc.Tooling.Core -Times 4 -Exactly
+        }
+
+        It 'runs the pass again when the tool registry changed, and ignores a memo it cannot read' {
+            Sync-SessionTools
+            $env:PATH = $script:origPath
+            Mock Get-Config { [ordered]@{ alpha = @{}; beta = @{}; gamma = @{} } } -ParameterFilter { $Config -eq 'tools' } -ModuleName Catzc.Tooling.Core
+            Sync-SessionTools
+            Should -Invoke Resolve-SessionToolHost -ModuleName Catzc.Tooling.Core -Times 5 -Exactly
+
+            $env:PATH = $script:origPath
+            [System.IO.File]::WriteAllText((Join-Path $memoRoot 'cache/session-tools.json'), 'not json {')
+            Sync-SessionTools
+            Should -Invoke Resolve-SessionToolHost -ModuleName Catzc.Tooling.Core -Times 8 -Exactly
+        }
     }
 }

@@ -17,6 +17,7 @@ catzc:
   edges:
     page: docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md
     cites:
+      - ADR-AUTO-CACHE#10
       - ADR-AUTO-TEST#{3,14}
       - ADR-PWSH-PESTER#2
 ---
@@ -63,12 +64,12 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'copies a source entry out under a generated head naming the source and Build-RootConfig as its generator' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
-        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     path: fixture.yml`n#     source: sources/fixture.yml`n#     kind: other`n#     language: yaml`n#     filetype: yml`n#     generator: automation/Catzc.Widget/Build-RootConfig.ps1`n# ---`n`nalpha: 1`nbeta: 2`n"
+        $text | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     repo_status: locked\n#     path: fixture\.yml\n#     source: sources/fixture\.yml\n#     kind: other\n#     language: yaml\n#     filetype: yml\n#     generator: automation/Catzc\.Widget/Build-RootConfig\.ps1\n# ---\n\nalpha: 1\nbeta: 2\n$'
     }
 
     It 'renders a generator entry through the dispatch, under a head naming the generator and its sources' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     path: generated.txt`n#     source: sources/fixture.yml`n#     kind: other`n#     filetype: txt`n#     generator: automation/Catzc.Widget/Fake-Generator.ps1`n# ---`n`nrendered output`n"
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     repo_status: locked\n#     path: generated\.txt\n#     source: sources/fixture\.yml\n#     kind: other\n#     filetype: txt\n#     generator: automation/Catzc\.Widget/Fake-Generator\.ps1\n# ---\n\nrendered output\n$'
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 
@@ -119,6 +120,23 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         ($result | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
+    It 'skips the whole render on a warm run, and renders again when a source or a target changed' -Tag 'ADR-AUTO-CACHE#10' {
+        Build-RootConfig | Out-Null
+        Build-RootConfig | Out-Null
+        Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly
+
+        [System.IO.File]::WriteAllText((Join-Path $script:fake.Root 'sources/fixture.yml'), "alpha: 1`nbeta: 3`n")
+        Build-RootConfig | Out-Null
+        Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -Times 2 -Exactly
+
+        [System.IO.File]::AppendAllText($script:genTarget, "edited by hand`n")
+        Build-RootConfig | Out-Null
+        Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -Times 3 -Exactly
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -Not -Match 'edited by hand'
+
+        [System.IO.File]::WriteAllText((Join-Path $script:fake.Root 'sources/fixture.yml'), "alpha: 1`nbeta: 2`n")
+    }
+
     It 'with -DryRun does not write a missing target but reports the change' {
         $result = Build-RootConfig -DryRun -PassThru
         Test-Path $script:copyTarget | Should -BeFalse
@@ -154,10 +172,10 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         }
         $script:alpha = Join-Path $script:fake.Root 'widgets/alpha/gadget.txt'
         $script:beta = Join-Path $script:fake.Root 'widgets/beta/gadget.txt'
-        # The generated head a generator's file carries, over the content the generator rendered.
+        # The pattern of the generated head a generator's file carries, over the content the generator rendered; the body hash is any 12 hex digits.
         $script:headed = {
             param([string] $Target, [string] $Body)
-            "# ---`n# catzc:`n#   immutable:`n#     path: $Target`n#     kind: other`n#     filetype: txt`n#     generator: automation/Catzc.Widget/New-Widget.ps1`n# ---`n`n$Body"
+            '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     repo_status: locked\n#     path: ' + [regex]::Escape($Target) + '\n#     kind: other\n#     filetype: txt\n#     generator: automation/Catzc\.Widget/New-Widget\.ps1\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
         }
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
@@ -186,8 +204,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 
     It 'passes the wildcard target to the generator and writes every record' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:alpha) | Should -BeExactly (& $script:headed 'widgets/alpha/gadget.txt' "alpha`n")
-        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
+        [System.IO.File]::ReadAllText($script:alpha) | Should -MatchExactly (& $script:headed 'widgets/alpha/gadget.txt' "alpha`n")
+        [System.IO.File]::ReadAllText($script:beta) | Should -MatchExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'New-Widget' -and $Target -eq 'widgets/*/gadget.txt' }
     }
 
@@ -203,7 +221,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:beta, "stale`n")
         $result = Build-RootConfig -PassThru
         @($result | Where-Object Changed).Target | Should -Be 'widgets/beta/gadget.txt'
-        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
+        [System.IO.File]::ReadAllText($script:beta) | Should -MatchExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
     }
 
     It '-Target naming one file of the wildcard entry writes only that file' {
@@ -252,6 +270,8 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        # The fake root is no git checkout, so no file is tracked and none carries a stamp to check.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @() }
         $script:report = Join-Path $TestDrive 'generated-files'
         $script:work = Join-Path $script:fake.Root 'go.work'
         $script:modTarget = "$($script:goRoot)/tests/widget/go.mod"

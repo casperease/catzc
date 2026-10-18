@@ -322,7 +322,7 @@ _tests_ aspect, never of `live`. Widening that (a Bash module that ships) is a d
 **Engine axis** (what runs it). The engine set is closed at three (`ADR-AUTO-ENGINE#1`). A module's `Engines` is the subset it must run and
 be tested under:
 
-- a PowerShell function module runs in **pwsh**; bash and zsh reach it only through the `cats` dispatcher (`ADR-AUTO-ENGINE#6`), so pwsh is
+- a PowerShell function module runs in **pwsh**; the other engines reach it only through the `cats` dispatcher (`ADR-AUTO-ENGINE#6`), so pwsh is
   its one engine and the other two are reach, not run;
 - a module that ships POSIX scripts (an `importer.sh` style root config) has **bash** and **zsh**;
 - an infrastructure module has no engine of its own: it deploys through the Azure CLI, which the automation tools run under any engine, so

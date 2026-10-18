@@ -22,6 +22,5 @@ exempt:
   Config: a config's name to load (Get-Config) versus a loaded config's content to validate (Invoke-ConfigValidator)
   Edge: the edges of a diagram, typed per diagram domain (ADR domains versus module dependencies)
   GlobSet: a loaded globset to read versus the name of a globset an Azure DevOps build validation registers
-  Kind: the link kinds a link check scans versus the module kinds a module listing filters by
   Probe: tool-probe records to report versus a probe scriptblock a test target runs
   Value: the value a single-value command sets or checks versus the variable set an environment writer applies

@@ -346,3 +346,12 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
 .EXAMPLE
     Enable-DeferredTypesLoad -CommandName (Get-Command -Module Widget).Name
 ```
+
+## comment:20
+
+Above `[string] $StampPath`, written with `#`.
+
+```text
+A machine-local memo of each file's hash keyed by length and last write: a file that shows the same pair is not read again, and
+the memo is rewritten when any file was. Omitted, every file is hashed, which is what the builder, the janitor and the gates ask.
+```

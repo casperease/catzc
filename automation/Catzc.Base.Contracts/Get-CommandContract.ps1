@@ -39,7 +39,7 @@ catzc:
     examples:
       - Get-CommandContract
       - Get-CommandContract -Name Get-FileLanguage
-      - (Get-CommandContract -Module Catzc.Base.Languages).signature
+      - (Get-CommandContract -Module Catzc.Base.Languages).Signature
 ---
 #>
 

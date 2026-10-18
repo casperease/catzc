@@ -109,11 +109,22 @@ function Build-ContractReference {
         if (@($unitAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command }).Count -gt 0) {
             try {
                 foreach ($command in Get-CommandContract -Unit ([WildcardPattern]::Escape($unit)) -Version '*' -RepositoryRoot $RepositoryRoot) {
-                    $signatures[$command.asset.AssetPath] = $command.signature
+                    $signatures[$command.Asset.AssetPath] = $command.Signature
                 }
             }
             catch {
-                Write-Verbose "Build-ContractReference: the command contracts of '$unit' do not all read, so the page shows no signature: $($_.Exception.Message)"
+                # One unreadable contract fails the unit's read, so each asset is read on its own and only the broken one shows none.
+                foreach ($asset in @($unitAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command })) {
+                    try {
+                        $one = Get-CommandContract -Unit ([WildcardPattern]::Escape($asset.Unit)) -Version ([WildcardPattern]::Escape($asset.Version)) `
+                            -Module ([WildcardPattern]::Escape($asset.Module)) -Name ([WildcardPattern]::Escape([Catzc.Base.Contracts.ContractCommand]::NameOf($asset))) `
+                            -RepositoryRoot $RepositoryRoot
+                        $signatures[$asset.AssetPath] = $one.Signature
+                    }
+                    catch {
+                        Write-Verbose "Build-ContractReference: '$($asset.AssetPath)' does not read, so the page shows no signature: $($_.Exception.Message)"
+                    }
+                }
             }
         }
 

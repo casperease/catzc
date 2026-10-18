@@ -30,7 +30,7 @@ catzc:
       OutputDirectory: 'The folder the .vsix is written to. Default: the vsix folder under the output root.'
     outputs: '[string] The full path of the .vsix.'
     examples:
-      - Build-VSCodeExtension .vscode/catzc-compiled-info
+      - Build-VSCodeExtension automation/Catzc.Base.VSCode/extension
 ---
 #>
 

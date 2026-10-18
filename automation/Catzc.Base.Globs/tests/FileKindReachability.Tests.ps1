@@ -16,7 +16,7 @@ catzc:
     catzc_bundle: azure
   edges:
     cites:
-      - ADR-REPO-FILEMETA#2
+      - ADR-REPO-FILEMETA#{2,11}
 ---
 #>
 
@@ -42,8 +42,8 @@ Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic',
         $reached | Should -BeTrue -Because "no tracked file resolves to '$Class': its globs match nothing, or an earlier kind takes every file"
     }
 
-    It 'no kind is mostly shadowed by an earlier one the registry does not pair it with in overlaps' {
+    It 'no kind is mostly shadowed by an earlier one the registry does not pair it with in overlaps' -Tag 'ADR-REPO-FILEMETA#11' {
         $shadows = @((Get-Config -Config file-kinds).Shadowing([string[]] @(Get-TrackedFile)))
-        $shadows | Should -BeNullOrEmpty -Because (@($shadows | ForEach-Object { "'$($_.by)' takes $($_.taken) of the $($_.matched) files '$($_.hidden)' matches; list [$($_.by), $($_.hidden.Split('/')[0])] in overlaps when that is intended" }) -join '; ')
+        $shadows | Should -BeNullOrEmpty -Because (@($shadows | ForEach-Object { "'$($_.By)' takes $($_.Taken) of the $($_.Matched) files '$($_.Hidden)' matches; list [$($_.By), $($_.Hidden.Split('/')[0])] in overlaps when that is intended" }) -join '; ')
     }
 }

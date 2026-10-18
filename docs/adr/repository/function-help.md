@@ -47,9 +47,9 @@ block, to its string, and `examples` is a list of strings. The tooling reads the
 
 ### Rule ADR-REPO-HELP:3
 
-A citation is never part of the help text. The ADR codes a function rests on are the head's derived `adrs`
-([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)), and the page of a moved comment is a relative of the file, not a line of
-its help. A line of the text made of nothing but a citation is reported.
+A citation may stand inside a help sentence, where it names the rule the sentence rests on. The ADR codes a function rests on are the head's
+derived `adrs` ([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)), and the page of a moved comment is a relative of the
+file, not a line of its help. A line of the text made of nothing but a citation is reported.
 
 - [Citations are derived](#citations-are-derived)
 

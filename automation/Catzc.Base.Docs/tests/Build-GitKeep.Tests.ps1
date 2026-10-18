@@ -48,7 +48,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -BeLike "# ---`n# catzc:`n#   immutable:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: other`n#     track: contracts`n#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1`n# ---`n`n*"
+        $written | Should -Match '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     repo_status: locked\n#     path: contracts/\.gitkeep\n#     source: [^\n]*\n#     kind: other\n#     track: contracts\n#     tracktype: contracts\n#     generator: automation/Catzc\.Base\.Docs/Build-GitKeep\.ps1\n# ---\n\n'
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 

@@ -24,11 +24,18 @@ staging directory, and functions reach it only through `Get-OutputRoot` — neve
 safe to delete.
 
 The contents are gitignored — only the `.gitkeep` keeping the folder tracked and this README are ever present on a fresh clone. Cleaning
-everything is one command:
+everything is one command, which keeps only the `.gitkeep` and the plan files:
 
 ```powershell
-Remove-Item (Join-Path (Get-OutputRoot) '*') -Recurse -Force
+Clear-Output -All
 ```
+
+Every file under the root belongs to one format of `output-formats.yml` (`Catzc.Base.Reports`), and the format's area says how long it
+stays: a run area (`out/test-<subject>/<stamp>/`) keeps its ten newest stamps, a build keeps the newest, a cache and a review artifact keep
+everything, a session's scripts and data age out after seven days, and a log is never pruned, `out/time-safeguard.log` above all, since the
+time limits are tuned from it. `Clear-Output` applies that retention and reports, never removes, a file no format covers;
+`Clear-Output -DryRun` lists what would go. An agent session's own files live under `out/sessions/<session>/`, so two sessions never
+overwrite each other's scripts.
 
 Functions that produce multiple or recurring files create their own subdirectory under the root (for example `out/test-automation/<run>/`,
 `out/template/<name>/`); the subfolder names are ad-hoc workspaces with no fixed contract — the root is the contract. Scratch files that are

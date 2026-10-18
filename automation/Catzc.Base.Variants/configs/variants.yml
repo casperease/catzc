@@ -50,4 +50,12 @@ tracks:
   .github: { places: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
   .cspell: { places: [.cspell], type: vendor-settings, vendor: cspell }
   .claude: { places: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, csharp, json, xml, html, powershell] }
+  .claude-kits:
+    {
+      places: [.claude/drawio, .claude/slides],
+      type: vendor-settings,
+      vendor: claude,
+      languages: [yaml, markdown, python, html, xml, powershell],
+    }
+  .vscode: { places: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }
   .unordered: { places: [.unordered], type: unordered, languages: [markdown] }

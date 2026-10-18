@@ -735,7 +735,7 @@ Each use is its own phase; none changes the contract file's shape.
    parsed contract. Nothing hand-written (ADR-REPO-CONTRACT#9).
 3. **`cats` validates before it starts pwsh** (poka-yoke, ADR-PRIN-POKAYOKE): an unknown parameter, a missing mandatory one, or a value that
    is not an `int` is rejected in the POSIX shell with the contract's message, instead of failing after a pwsh start and an import
-   (seconds). Needs the contract in a form bash/zsh can read without pwsh: a generated, committed lookup beside `importer.sh`,
+   (seconds). Needs the contract in a form a shell can read without pwsh: a generated, committed lookup beside `importer.sh`,
    **unverified** whether that is one file per command or one file for all; decide in phase C5.
 4. **Tests:** Go/Python black-box tests that call a contracted command take the call shape from the contract; a drift test fails when the
    contract changes and the test does not.

@@ -107,7 +107,7 @@ making for. The numbers come from a benchmark that compiles the repository's own
 ## Where the article and the code differ
 
 - The faster `Kind`, `Equal` and the per-type table are in the types (`ContractValue`, `TypeShape`, `DictionaryRecord`, `ConsoleText`).
-  Their per-file tests pass; the full suite and the other contract test files were not run for this change.
+  Their per-file tests pass; all tests and the other contract test files were not run for this change.
 - `Get-CommentScope` was timed: its per-file loop is 158 ms over 4,136 candidate files, under the 200 ms bar, so it is unchanged.
 - How PowerShell decides to hand a `PSObject` wrapper to an `object` parameter was not traced to its source. The existence of
   `ContractValue.Unwrap` shows that it happens; test with `-is [psobject]` before relying on either answer.

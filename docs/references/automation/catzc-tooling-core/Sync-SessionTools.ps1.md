@@ -47,3 +47,12 @@ resolved location is diagnostic detail, so the second line carries the paths on 
 surfaces only under -Verbose (forward THIS call's verbose state, so a plain import shows just the names
 and `Sync-SessionTools -Verbose` adds the locations).
 ```
+
+## comment:4
+
+Above `$memoPath = Join-Path (Get-OutputRoot) 'cache/session-tools.json'`, written with `#`.
+
+```text
+The pass probes every tool on disk, so its outcome is remembered per machine under the key of what it read: the tool registry
+and the session's PATH as it stood. The same key gets the same outcome, the PATH the pass left, re-applied without a probe.
+```

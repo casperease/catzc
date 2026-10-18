@@ -28,7 +28,9 @@ function Get-CombinedTypeHash {
         [Parameter(Mandatory, Position = 0)]
         [string] $AutomationRoot,
 
-        [string[]] $Module
+        [string[]] $Module,
+
+        [string] $StampPath
     )
 
     $selected = $null
@@ -80,15 +82,39 @@ function Get-CombinedTypeHash {
     $sortedFiles = [object[]]$files.ToArray()
     [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a, $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
 
+    $stamped = @{}
+    if ($StampPath -and [System.IO.File]::Exists($StampPath)) {
+        try {
+            $document = [System.IO.File]::ReadAllText($StampPath) | ConvertFrom-Json -AsHashtable
+            if ($document -is [hashtable] -and $document['files'] -is [hashtable]) {
+                $stamped = $document['files']
+            }
+        }
+        catch {
+            Write-Verbose "Ignoring the unreadable types stamp '$StampPath': $($_.Exception.Message)"
+        }
+    }
+
     $latin1 = [System.Text.Encoding]::Latin1
     $snapshot = [ordered]@{}
+    $memo = [ordered]@{}
+    $rehashed = 0
     $sha = [System.Security.Cryptography.SHA256]::Create()
     try {
         $stringBuilder = [System.Text.StringBuilder]::new()
         foreach ($file in $sortedFiles) {
-            $normalizedBytes = $latin1.GetBytes($latin1.GetString([System.IO.File]::ReadAllBytes($file.Path)).Replace("`r", ''))
-            $fileHash = [System.BitConverter]::ToString($sha.ComputeHash($normalizedBytes)) -replace '-', ''
+            $info = [System.IO.FileInfo]::new($file.Path)
+            $known = $stamped[$file.Key]
+            if ($known -is [hashtable] -and $known['length'] -eq $info.Length -and $known['ticks'] -eq $info.LastWriteTimeUtc.Ticks -and $known['hash'] -is [string]) {
+                $fileHash = $known['hash']
+            }
+            else {
+                $normalizedBytes = $latin1.GetBytes($latin1.GetString([System.IO.File]::ReadAllBytes($file.Path)).Replace("`r", ''))
+                $fileHash = [System.BitConverter]::ToString($sha.ComputeHash($normalizedBytes)) -replace '-', ''
+                $rehashed++
+            }
             $snapshot[$file.Key] = $fileHash
+            $memo[$file.Key] = [ordered]@{ length = $info.Length; ticks = $info.LastWriteTimeUtc.Ticks; hash = $fileHash }
             [void]$stringBuilder.Append($file.Key).Append('|').Append($fileHash).Append("`n")
         }
         $bytes = $sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($stringBuilder.ToString()))
@@ -98,10 +124,22 @@ function Get-CombinedTypeHash {
     }
     $combinedHash = ([System.BitConverter]::ToString($bytes) -replace '-', '').Substring(0, 8).ToLowerInvariant()
 
+    if ($StampPath -and ($rehashed -gt 0 -or $stamped.Count -ne $memo.Count)) {
+        $folder = [System.IO.Path]::GetDirectoryName($StampPath)
+        if ($folder) {
+            [System.IO.Directory]::CreateDirectory($folder) | Out-Null
+        }
+        $json = [ordered]@{ combined = $combinedHash; files = $memo } | ConvertTo-Json -Depth 4 -Compress
+        $temporary = "$StampPath.$([guid]::NewGuid().ToString('N')).tmp"
+        [System.IO.File]::WriteAllText($temporary, $json)
+        [System.IO.File]::Move($temporary, $StampPath, $true)
+    }
+
     [pscustomobject]@{
         CombinedHash = $combinedHash
         Snapshot     = $snapshot
         Files        = $sortedFiles
+        Rehashed     = $rehashed
     }
 }
 
@@ -325,6 +363,19 @@ function Get-TypesShadowRoot {
     else {
         Join-Path $HOME '.local/share/catzc/types'
     }
+}
+
+function Get-TypesStampPath {
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $ModulesRoot
+    )
+
+    # One memo per modules root, named by a digest of its full path, beside the shadow copies (machine-local like them).
+    $normalized = [System.IO.Path]::GetFullPath($ModulesRoot).TrimEnd('\', '/')
+    $digest = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($normalized))).Substring(0, 12).ToLowerInvariant()
+    [System.IO.Path]::Combine((Get-TypesShadowRoot), "stamp-$digest.json")
 }
 
 function Import-TypesAssembly {
@@ -773,4 +824,4 @@ function Enable-DeferredTypesLoad {
     }
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

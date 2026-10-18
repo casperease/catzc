@@ -43,7 +43,9 @@ when the stamp is current. Landed, tested per file:
 
 Janitor times measured 2026-10-17 on an unchanged tree (noisy, machine busy): wired ones 25 to 67 ms each (about 180 ms together); unwired
 `Build-RootConfig` 562 ms, `Sync-SessionTools` 403 ms, `Build-Readme` 315 ms, `Build-GitKeep` 312 ms. The importer finalizer showed 2.6 s,
-the rest being the two unprofiled janitors and import overhead.
+the rest being the two unprofiled janitors and import overhead. Measured again 2026-10-17 after the steps below (`out/t031-profile.ps1`, all
+ten janitors in one process on an unchanged tree): 1,206 ms on each janitor's first call, 398 ms warm; `Build-Readme` (304 and 109 ms) and
+`Build-GitKeep` (331 and 87 ms) are the two largest, `Invoke-TypeCacheJanitor` holds at 99 ms warm.
 
 - [ ] `Build-Readme` (315 ms cold, 107 ms warm, profiled with `out/profile-readme.ps1`): the 58 mappings cost 15 ms to list, 22 ms for
       `Get-FileKind`, 33 ms to strip front matter, 36 ms to rebase links and about 30 ms to compare and write. Nothing dominates, and about
@@ -54,17 +56,24 @@ the rest being the two unprofiled janitors and import overhead.
       its meta block is only `kind: readme`. A stamp would add a key to about 55 committed README copies and touch `Test-GeneratedReadmes`
       and the meta gates. Decide first: stamp into the README meta block, or profile where the 315 ms goes (mapping glob, `Get-FileKind` per
       folder, the link rebase) and cut that instead (check: the decision is recorded on this line, with the user's answer).
-- [ ] `Build-RootConfig` (562 ms): not safe from declared `sources`. Wildcard entries scan the tree and `.gitattributes` is built from more
+- [x] `Build-RootConfig` (562 ms): not safe from declared `sources`. Wildcard entries scan the tree and `.gitattributes` is built from more
       than its two listed files, so a missed input leaves a root file stale with the stamp saying current. Needs its full input set, or a
       stamp over the tree it scans (check: a test that changes each scanned input in turn and sees the stamp change, so no input is missed).
-- [ ] `Build-GitKeep` (125 ms): depends on the folder structure, so it has the same problem as `Build-RootConfig` (check: the same test shape,
-      an added or removed folder changes the stamp).
-- [ ] `Sync-SessionTools` (343 ms): not a generated file, so the head stamp does not apply; it needs its own skip check (check: a warm run on
-      an unchanged tree skips, and the measured time is recorded here).
-- [ ] `Invoke-TypeCacheJanitor` and `Invoke-AgentHookJanitor` costs are unprofiled (check: their numbers from `out/profile-janitors.ps1` are
-      in this plan).
-- [ ] New files still to run through `Format-FileMeta` (heads, reference pages), the `.psd1` `CatzcFiles` regeneration, and the meta gates
-      (check: `Test-FileMeta` and `Test-GeneratedFiles` clean on the touched modules).
+      Done 2026-10-17 (task031): `Get-RootConfigInputStamp` over the sources, the generators' loaded modules, every existing target and the
+      wildcard folders, memo under out/cache; its test changes a source, a target, a wildcard folder and a link in turn; warm 140 ms to 31
+      ms.
+- [x] `Build-GitKeep` (125 ms): depends on the folder structure, so it has the same problem as `Build-RootConfig` (check: the same test
+      shape, an added or removed folder changes the stamp). Done 2026-10-17 (task031) as the bounded walk instead of a stamp, since a stamp
+      would need the walk: `Get-ChildPath` replaces the stack loop; warm 122 ms to 78 ms; its tests pass.
+- [x] `Sync-SessionTools` (343 ms): not a generated file, so the head stamp does not apply; it needs its own skip check (check: a warm run
+      on an unchanged tree skips, and the measured time is recorded here). Done 2026-10-17 (task031): a memo under out/cache keyed by the
+      tool registry, the starting PATH and PATHEXT remembers the PATH the pass left and its advisory; a hit re-applies both without probing
+      a tool; warm 388 ms to 8 ms.
+- [x] `Invoke-TypeCacheJanitor` and `Invoke-AgentHookJanitor` costs are unprofiled (check: their numbers from `out/profile-janitors.ps1` are
+      in this plan). Measured 2026-10-17 (task031, `out/t031-measure.ps1`): TypeCacheJanitor 125 ms first, 99 ms warm; AgentHookJanitor 36
+      ms first, 13 ms warm; under the 100 ms bar, no skip wired.
+- [x] New files still to run through `Format-FileMeta` (heads, reference pages), the `.psd1` `CatzcFiles` regeneration, and the meta gates
+      (check: `Test-FileMeta` and `Test-GeneratedFiles` clean on the touched modules). Done 2026-10-17 (task031): both report zero issues.
 
 ## Done when
 

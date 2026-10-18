@@ -14,13 +14,14 @@ catzc:
     module: Catzc.Base.Timeouts
     moduletype: pwsh-folder
     catzc_bundle: azure
+  edges:
+    page: docs/references/automation/catzc-base-timeouts/tests/Assert-Wait.Tests.ps1.md
 ---
 #>
 
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
-# The contract these tests pin is the one in .claude/plans/plan-assert-wait.md (Q1-Q3 confirm the reading).
 Describe 'Assert-Wait' -Tag 'L0', 'logic' {
     # The chokepoint guard returns early during a run ($global:__PesterRunning); lift it so output can be asserted.
     BeforeAll {
@@ -63,9 +64,14 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
             $lines[0] | Should -BeLike '*0.030 s*'
         }
 
-        It 'sleeps the total in ten equal ticks' {
-            $null = Get-WaitLine @{ Seconds = 0; Milliseconds = 100 }
-            Should -Invoke Start-Sleep -ModuleName Catzc.Base.Timeouts -Times 10 -Exactly -ParameterFilter { $Milliseconds -eq 10 }
+        It 'sleeps until each tick is due and never longer than one slice, so an overrun does not carry into the next tick' {
+            $lines = Get-WaitLine @{ Seconds = 2 }
+            $due = @($lines | Where-Object { $_ -like '*tick */10: due +*' } | ForEach-Object { [int][regex]::Match($_, 'due \+(\d+) ms').Groups[1].Value })
+            $due | Should -Be @(200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2001)
+            # The mock sleeps nothing, so each request is what is left until the tick is due: the first one slice, the last nearly all.
+            Should -Invoke Start-Sleep -ModuleName Catzc.Base.Timeouts -Times 10 -Exactly -ParameterFilter { $Milliseconds -le 2001 }
+            Should -Invoke Start-Sleep -ModuleName Catzc.Base.Timeouts -ParameterFilter { $Milliseconds -ge 190 -and $Milliseconds -le 200 }
+            Should -Invoke Start-Sleep -ModuleName Catzc.Base.Timeouts -ParameterFilter { $Milliseconds -ge 1800 }
         }
     }
 

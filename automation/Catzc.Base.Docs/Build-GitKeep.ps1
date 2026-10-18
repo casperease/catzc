@@ -78,25 +78,14 @@ function Build-GitKeep {
 
     $repositoryRoot = Get-RepositoryRoot
 
-    $outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')
+    # The bounded walker lists every .gitkeep below the root; out/ is pruned, so its own keep file is added by hand.
     $found = [System.Collections.Generic.List[string]]::new()
-    $stack = [System.Collections.Generic.Stack[string]]::new()
-    $stack.Push($repositoryRoot)
-    while ($stack.Count -gt 0) {
-        $directory = $stack.Pop()
-        if ($directory -ne $outputRoot) {
-            foreach ($subdirectory in [System.IO.Directory]::EnumerateDirectories($directory)) {
-                $leaf = [System.IO.Path]::GetFileName($subdirectory)
-                if ($leaf -in '.git', '.vendor') {
-                    continue
-                }
-                $stack.Push($subdirectory)
-            }
-        }
-        $keepPath = [System.IO.Path]::Combine($directory, '.gitkeep')
-        if ([System.IO.File]::Exists($keepPath)) {
-            $found.Add((ConvertTo-RepoRelativePath $keepPath))
-        }
+    foreach ($keepPath in Get-ChildPath $repositoryRoot -Depth 32 -File -Filter '.gitkeep' -Exclude @('.git', '.vendor', 'out') -PruneVendor $true) {
+        $found.Add((ConvertTo-RepoRelativePath $keepPath))
+    }
+    $outputKeep = [System.IO.Path]::Combine($repositoryRoot, 'out', '.gitkeep')
+    if ([System.IO.File]::Exists($outputKeep)) {
+        $found.Add((ConvertTo-RepoRelativePath $outputKeep))
     }
     $found.Sort([System.StringComparer]::Ordinal)
 

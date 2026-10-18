@@ -166,7 +166,7 @@ line that dot-sources the entry, so both ways run the same file and there is no 
 A test run shards its Pester files over worker processes, `Test-InIsolation` runs a module's tests in a clean child process, and a test run
 primes a repository snapshot by importing it once. Each of these starts pwsh because what it runs is PowerShell: Pester, or the importer
 itself. They are not engine-neutral starts with a pwsh default, so they do not take the engine start environment, and running them under
-bash or zsh would mean nothing. The per-engine runs belong to the black-box tests, whose command text is the same under every engine.
+another engine would mean nothing. The per-engine runs belong to the black-box tests, whose command text is the same under every engine.
 
 ## Decision
 

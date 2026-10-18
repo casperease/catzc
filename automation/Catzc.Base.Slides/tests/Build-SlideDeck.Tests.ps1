@@ -87,7 +87,7 @@ Notes for $Id.
         & $write 'decks/gadget-deck/one.slide.md' (& $slide 'one' 1 'The widget spins' 'A widget spins when wound.' '    quotes: ADR-WIDGET-GADGET#2')
         & $write 'decks/gadget-deck/two.slide.md' (& $slide 'two' 2 'The gadget rests' 'A gadget rests on the widget.')
         Mock Get-AdrRuleText -ModuleName Catzc.Base.Slides {
-            param([string] $Code, [string] $RepositoryRoot)
+            param([string] $Code)
             if ($Code -in 'ADR-WIDGET-GADGET#1', 'ADR-WIDGET-GADGET#2') {
                 'A widget spins when wound.'
             }

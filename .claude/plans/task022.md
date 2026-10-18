@@ -66,6 +66,10 @@ others; one file per step; gates in the background. Peers' files (the six Test-C
 8. [x] Tick every leftover step in `plan-file-head-immutable-edges-classes.md`; the plan is then trimmed of its carried drafts (their data is
    in the tree) and deleted in T036. Check: grep `- [ ]` counts zero. Done 2026-10-17 as far as the decisions allow: the grep counts the
    two D13 items (step 3 here, Q47 there) and the user's own gate runs; the trim and the deletion stay with T036.
+9. The four QualityGates tool candidates of the out/ harvest (task028 step 7): `run-head-batch` (stamps heads and proves a set), `diff-one`
+   (one file's head diff), `probe-corpus` (loads the git-HEAD version of a private function for a refactor-equivalence check) and
+   `gates-module` (a per-module gate runner): each becomes a module function with tests, or is recorded here as not needed with the
+   reason. Check: the four names are each a function with a Pester file, or a recorded line.
 
 ## Report
 

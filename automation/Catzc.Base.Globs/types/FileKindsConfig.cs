@@ -109,7 +109,7 @@ public sealed class FileKindsConfig
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
                     "file-kinds config: overlap [{0}, {1}] is not in precedence order: '{0}' must be declared before '{1}'", pair[0], pair[1]));
             }
-            if (pairs.Any(existing => existing.earlier == pair[0] && existing.later == pair[1]))
+            if (pairs.Any(existing => existing.Earlier == pair[0] && existing.Later == pair[1]))
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "file-kinds config: overlap [{0}, {1}] is listed twice", pair[0], pair[1]));
             }
@@ -151,7 +151,7 @@ public sealed class FileKindsConfig
         if (matched == 0 || taken * 100 <= matched * ShadowedPercent) { return; }
         foreach (KeyValuePair<string, int> taker in takers.OrderByDescending(pair => pair.Value).ThenBy(pair => pair.Key, StringComparer.Ordinal))
         {
-            if (!overlaps.Any(pair => pair.earlier == taker.Key && pair.later == entry.kind))
+            if (!overlaps.Any(pair => pair.Earlier == taker.Key && pair.Later == entry.kind))
             {
                 findings.Add(new FileKindShadow(own, taker.Key, taker.Value, matched));
             }

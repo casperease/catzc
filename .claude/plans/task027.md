@@ -35,13 +35,20 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
 
 ## Steps
 
-1. `docs/adr/repository/function-help.md` rule 3: a citation inside a help sentence is allowed; a bare citation line is the finding. Its
+1. [x] `docs/adr/repository/function-help.md` rule 3: a citation inside a help sentence is allowed; a bare citation line is the finding. Its
    gate (`Test-Help` or the help processor in QualityGates) reports only the bare line; its test gains one case each way. Check:
-   Test-AdrRegistry, Test-Links clean; the gate's Pester file passes.
-2. Q58 TryParse regression test in `Catzc.Base.Docs` tests (the AdrCodeForm or usage parser case that regressed). Check: the Pester file
-   passes.
-3. Q59 the five gates on the usage code (Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-Comments on Get-AdrUsage,
-   Get-AdrUsageRow, Group-AdrUsage), one background script each. Check: each clean.
+   Test-AdrRegistry, Test-Links clean; the gate's Pester file passes. Done 2026-10-17 by session catzc-6c: rule 3 reworded; the check,
+   `Get-HelpHeadFinding` (private, QualityGates, run by the ps-help imprint step), already matched a whole line only, so its test gained the
+   one case 'allows a citation inside a help sentence'; Test-AdrRegistry 0 (`out/test-adr-registry/20261017-203125`), Test-Links and
+   Test-Markdownlint 0 on the ADR (`out/test-links/20261017-203125`, `out/test-markdownlint/20261017-203125`); Pester 33 passed.
+2. [x] Q58 TryParse regression test in `Catzc.Base.Docs` tests (the AdrCodeForm or usage parser case that regressed). Check: the Pester file
+   passes. Done 2026-10-17 by session catzc-6c (correction: the TryParse fix is in `Get-AdrCodesFileMetaFact`, QualityGates, not Docs): the
+   case 'drops a rule number past int range instead of throwing' in `Get-AdrCodesFileMetaFact.Tests.ps1`; passes.
+3. [x] Q59 the five gates on the usage code (Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-Comments on Get-AdrUsage,
+   Get-AdrUsageRow, Group-AdrUsage), one background script each. Check: each clean. Done 2026-10-17 by session catzc-6c (correction: the
+   three live in QualityGates): Test-ScriptAnalyzer 0 (`out/test-script-analyzer/20261017-203215`), Test-Spelling 0
+   (`out/test-spelling/20261017-203217`), Test-Comments 0 (`out/test-comments/20261017-203217`), `Format-Code -DryRun` 0 changes in place
+   of Test-Formatting, which takes no -Path; Test-Links had no page to check, since the three have no comment page.
 4. Rebuild the ledger without .unordered rows: `out/build-adr-link-ledger.ps1` then `out/prepass-adr-link-ledger.ps1` in the background;
    keys are stable so verdicts survive. Check: about 4,900 rows; the pilot's 88 verdicts still attached.
 5. F8: every rule statement in the principles ADRs becomes bold, one ADR per step (everything-as-code, configure-not-program,

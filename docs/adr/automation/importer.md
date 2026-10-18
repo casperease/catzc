@@ -46,9 +46,9 @@ catzc:
 
 ### Rule ADR-AUTO-IMPORTER:1
 
-The **importer** is the one way catzc enters a session: per execution engine one entry at the repository root, the importer entry the
-engine model names, every entry generated from one source and never hand-edited
-([ADR-AUTO-ENGINE#6](execution-engines.md#rule-adr-auto-engine6), [ADR-DSGN-RUNMODE#1](../design/run-modes.md#rule-adr-dsgn-runmode1)).
+The **importer** is the one way catzc enters a session: per execution engine one entry at the repository root, the importer entry the engine
+model names, every entry generated from one source and never hand-edited ([ADR-AUTO-ENGINE#6](execution-engines.md#rule-adr-auto-engine6),
+[ADR-DSGN-RUNMODE#1](../design/run-modes.md#rule-adr-dsgn-runmode1)).
 
 - [One entry per engine](#one-entry-per-engine)
 
@@ -71,8 +71,8 @@ again what the importer decided ([ADR-AUTO-BUNDLE#3](platform-bundle.md#rule-adr
 
 ### Rule ADR-AUTO-IMPORTER:4
 
-A language the configuration names and the importer has no handler for stops the import with a NotImplemented error that names the
-language; the handled implementation languages are PowerShell with its hosted C#, Bash, Python and Go
+A language the configuration names and the importer has no handler for stops the import with a NotImplemented error that names the language;
+the handled implementation languages are PowerShell with its hosted C#, Bash, Python and Go
 ([ADR-AUTO-MODULE#3](module-model.md#rule-adr-auto-module3)). A new language is a handler and a registry entry, never a branch
 ([ADR-AUTO-EXTEND#3](open-closed-architecture.md#rule-adr-auto-extend3)).
 
@@ -96,15 +96,15 @@ three parts of one thing. This ADR names the importer as the one that decides, a
 
 ### One entry per engine
 
-An engine reaches catzc through a script it can run: pwsh dot-sources `importer.ps1`, bash and zsh dot-source `importer.sh`, which dispatches
-to the `cats` command. Both are root configs written by a generator from one source, so a change to what the importer does is one edit, and
-`Test-GeneratedFiles` reports the drift when a copy is stale ([generated-root-configs](../repository/generated-root-configs.md)).
+An engine reaches catzc through a script it can run: pwsh dot-sources `importer.ps1`, the other engines dot-source `importer.sh`, which
+dispatches to the `cats` command. Both are root configs written by a generator from one source, so a change to what the importer does is one
+edit, and `Test-GeneratedFiles` reports the drift when a copy is stale ([generated-root-configs](../repository/generated-root-configs.md)).
 
 ### The mix
 
-Languages, engines and modules are three axes of one choice. The order of resolution is the order every setting has: an explicit argument
-to the importer wins, configuration comes second, and the default declared once on the config type comes last, so a devbox, a pipeline and
-a consumer each get the same answer from the same inputs ([devbox-pipeline-parity](devbox-pipeline-parity.md)). The result is kept for the
+Languages, engines and modules are three axes of one choice. The order of resolution is the order every setting has: an explicit argument to
+the importer wins, configuration comes second, and the default declared once on the config type comes last, so a devbox, a pipeline and a
+consumer each get the same answer from the same inputs ([devbox-pipeline-parity](devbox-pipeline-parity.md)). The result is kept for the
 session and read, never recomputed: a test runner that re-decided the engines could disagree with the loader that chose the modules.
 
 ### Growth by entry
@@ -120,7 +120,7 @@ the default; the result is one record per session that the test runner and the b
 
 ## Consequences
 
-- The importer loads every module of the code root under pwsh, with PowerShell and its hosted C# as the languages; that is the mix the
-  rules above describe, and an importer configuration with a readable mix record makes it a setting instead of a fact of the code.
+- The importer loads every module of the code root under pwsh, with PowerShell and its hosted C# as the languages; that is the mix the rules
+  above describe, and an importer configuration with a readable mix record makes it a setting instead of a fact of the code.
 - `importer.ps1` and `importer.sh` stay generated; a hand edit is drift that `Test-GeneratedFiles` reports.
 - A test runner or a builder that selects engines or modules on its own is a defect against rule 3.

@@ -16,6 +16,7 @@ catzc:
     catzc_bundle: azure
   edges:
     cites:
+      - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-ASSERT#1
 ---
 #>
@@ -170,6 +171,29 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*unknown key 'nope'*"
             $err.Exception.Message | Should -BeLike "*invalid limits.devbox.pwsh '0'*"
             $err.Exception.Message | Should -BeLike "*invalid executables.widget '0'*"
+        }
+
+        It 'resolves the Assert-Wait defaults, one second and one millisecond, when wait is absent' -Tag 'ADR-AUTO-DEFAULT#6' {
+            $config = New-TimeoutsConfig ([ordered]@{})
+            $config.wait['seconds'] | Should -Be 1
+            $config.wait['millisecs'] | Should -Be 1
+            [Catzc.Base.Timeouts.TimeoutsConfig]::WaitDefaultSeconds | Should -Be 1
+            [Catzc.Base.Timeouts.TimeoutsConfig]::WaitDefaultMillisecs | Should -Be 1
+        }
+
+        It 'overrides one wait number and keeps the other default' {
+            $config = New-TimeoutsConfig ([ordered]@{ wait = @{ millisecs = 250 } })
+            $config.wait['seconds'] | Should -Be 1
+            $config.wait['millisecs'] | Should -Be 250
+        }
+
+        It 'rejects a bad wait section: <case>' -ForEach @(
+            @{ case = 'an unknown key'; wait = @{ hours = 1 }; message = "*unknown key 'wait.hours'*" }
+            @{ case = 'a zero'; wait = @{ seconds = 0 }; message = "*invalid wait.seconds '0'*" }
+            @{ case = 'a negative number'; wait = @{ millisecs = -5 }; message = "*invalid wait.millisecs '-5'*" }
+            @{ case = 'a shape that is not a map'; wait = 3; message = '*invalid wait (must be a map*' }
+        ) {
+            { New-TimeoutsConfig ([ordered]@{ wait = $wait }) } | Should -Throw $message
         }
 
         It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-PWSH-ASSERT#1' {

@@ -35,7 +35,9 @@ catzc:
       names the offenders and -Verbose adds the paths. The pass emits nothing when every present tool is
       installer-owned. Session-only — it never writes the registry — and a no-op in CI, where the pipeline
       provisions tools. Advisory, not a gate: Get-ToolsStatus stays the authoritative, subprocess-backed
-      classifier.
+      classifier. Its outcome is remembered per machine (out/cache/session-tools.json) under the key of the tool
+      registry and the PATH it started from: a session that starts from the same PATH gets the PATH the pass left
+      and the same advisory without probing a tool again, and a changed registry or PATH runs the pass anew.
     parameters:
       Silent: Suppress both advisory lines outright (even under -Verbose).
     examples:
@@ -59,6 +61,31 @@ function Sync-SessionTools {
     $allTools = Get-Config -Config tools
     $foreignNames = [System.Collections.Generic.List[string]]::new()
     $foreignLocations = [System.Collections.Generic.List[string]]::new()
+
+    $memoPath = Join-Path (Get-OutputRoot) 'cache/session-tools.json'
+    $keyText = ($allTools | ConvertTo-Json -Depth 8 -Compress) + "`n" + $env:PATH + "`n" + $env:PATHEXT
+    $key = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($keyText))).ToLowerInvariant()
+    $memo = $null
+    if ([System.IO.File]::Exists($memoPath)) {
+        try {
+            $memo = [System.IO.File]::ReadAllText($memoPath) | ConvertFrom-Json -AsHashtable
+        }
+        catch {
+            Write-Verbose "Ignoring the unreadable session-tools memo '$memoPath': $($_.Exception.Message)"
+        }
+    }
+    # The memo answers to the PATH the pass started from and to the PATH it left, so a second pass in the same session hits too.
+    if ($memo -is [hashtable] -and @($memo['keys']) -ccontains $key -and $memo['path'] -is [string]) {
+        if ($env:PATH -cne $memo['path']) {
+            $env:PATH = $memo['path']
+            Write-Message 'Session PATH: the hosts and hints of the last session-tools pass re-applied'
+        }
+        if (-not $Silent -and @($memo['foreign']).Count -gt 0) {
+            Write-Message "Session tools not managed by the installer layer: $(@($memo['foreign']) -join '; ')"
+            Write-Message "Locations: $(@($memo['locations']) -join '; ')" -Verbose:($VerbosePreference -eq 'Continue')
+        }
+        return
+    }
 
     foreach ($toolName in $allTools.Keys) {
         $config = Get-ToolConfig -Tool $toolName
@@ -86,4 +113,11 @@ function Sync-SessionTools {
         Write-Message "Session tools not managed by the installer layer: $($foreignNames -join '; ')"
         Write-Message "Locations: $($foreignLocations -join '; ')" -Verbose:($VerbosePreference -eq 'Continue')
     }
+
+    $folder = [System.IO.Path]::GetDirectoryName($memoPath)
+    [System.IO.Directory]::CreateDirectory($folder) | Out-Null
+    $keyAfterText = ($allTools | ConvertTo-Json -Depth 8 -Compress) + "`n" + $env:PATH + "`n" + $env:PATHEXT
+    $keyAfter = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($keyAfterText))).ToLowerInvariant()
+    $json = [ordered]@{ keys = @($key, $keyAfter | Select-Object -Unique); path = $env:PATH; foreign = @($foreignNames); locations = @($foreignLocations) } | ConvertTo-Json -Compress
+    [System.IO.File]::WriteAllText($memoPath, $json)
 }

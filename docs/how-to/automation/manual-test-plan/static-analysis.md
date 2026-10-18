@@ -13,6 +13,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-BASH#6
+      - ADR-AUTO-CACHE#10
       - ADR-AUTO-PY#8
       - ADR-PRIN-CONFIG#{2,4}
       - ADR-PWSH-ASSERT#1
@@ -40,6 +41,7 @@ a check.
 | 9   | L2   | automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1               | Repository Python lint integrity                       | Every Python file the repository holds — the Python tests and the agent helpers — passes the pinned `ruff check` (ADR-AUTO-PY#8).                                                                    |
 | 10  | L2   | automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1             | Repository shell script integrity                      | Every shell script the repository tracks is LF, carries the executable bit when it has a shebang, and passes the pinned ShellCheck (ADR-AUTO-BASH#6).                                                |
 | 11  | L0   | automation/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1                   | Format-Code engines                                    | Every formatter engine languages.yml may name has its adapter, and the shipped languages.yml gives every file language a formatter or the reason it has none (ADR-PRIN-CONFIG#2, ADR-PRIN-CONFIG#4). |
+| 12  | L1   | automation/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1         | The shipped format engines' keyed settings             | Each shipped format engine's keyed settings name a top-level key that exists in their file, and an engine never lists the whole tool registry again (ADR-AUTO-CACHE#10).                             |
 
 ## Checks
 

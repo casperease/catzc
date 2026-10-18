@@ -530,7 +530,7 @@ concepts:
     key: cats
     domain: principles
     defined_by: ADR-CATS#2
-    short: The product's name to a person — the bash and zsh executor, and the word in prose, docs and conversation.
+    short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
     realized_by: { kind: prose-only }
     contrasts:
       catzc: catzc is the source-level name every module, namespace and path carries; cats is the friendly form a person reads and says.

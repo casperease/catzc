@@ -12,13 +12,15 @@ catzc:
     tracktype: documentation
   edges:
     defines:
-      - ADR-AUTO-TYPES#{1-4,7-9,11-15}
+      - ADR-AUTO-TYPES#{1-4,7-9,11-16}
     cites:
       - ADR-AUTO-CACHE#8
+      - ADR-AUTO-DEFAULT#6
     links:
       - docs/adr/automation/caching.md#rule-adr-auto-cache8
       - docs/adr/automation/console-output-matters.md#rule-adr-auto-console1
       - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
       - docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1
       - docs/adr/principles/everything-as-code.md
       - docs/adr/principles/poka-yoke.md
@@ -156,6 +158,20 @@ that is one yellow line naming the changed types by simple name, and the import 
 
 - [The cache-state contract](#the-cache-state-contract)
 - [Stale types in a running process](#stale-types-in-a-running-process)
+
+### Rule ADR-AUTO-TYPES:16
+
+In a console session the importer verifies the types assembly and loads nothing: `Import-CSharpTypes` registers the assembly as deferred,
+and the first lookup of a catzc command loads it (`Enable-DeferredTypesLoad`, `Initialize-Types`), so an import that runs no command pays no
+load. A headless session loads at import, so a pipeline or a test worker fails on stale or missing types where it starts
+(ADR-AUTO-TYPES#15). Which cell loads how is the `types-load.yml` table, host by operating system by run mode, with its default row declared
+once in the `TypesLoadDefault` variable of `Catzc.Internal.Types`: the policy is read while the types assembly is unloaded, so it cannot sit
+on a config type, the one exception to [ADR-AUTO-DEFAULT#6](../sensible-defaults.md#rule-adr-auto-default6). The combined hash of the
+sources is memoised per machine beside the shadow copies, by each file's length and last write (`Get-CombinedTypeHash -StampPath`); only the
+importer reads the memo, and the builder, the janitor and the gates hash every byte.
+
+- [Loaded by the first use](#loaded-by-the-first-use)
+- [How this is enforced](#how-this-is-enforced)
 
 ## Context
 
@@ -382,7 +398,29 @@ better than a property list.
 those, and `Import-CSharpTypes` registers them as the type's default display, so an object shown at the prompt shows those columns instead
 of every property.
 
+### Loaded by the first use
+
+`Verify at import, load at the first command`
+
+An interactive session imports catzc to have its commands at hand, and most sessions then run a few of them or none. Loading the types
+assembly costs a shadow copy and an `Add-Type` on every import, and the import already proves the assembly current by its metadata
+(ADR-AUTO-TYPES#15), so the load is deferred to the moment a command needs a type: a name-filtered command-lookup hook, installed once every
+command name is known, loads the assembly on the first lookup of one of them and removes itself. A literal type name typed at the console
+before any command stays unresolved until then, which a console user sees and a script never does: a headless session is eager, so a
+pipeline, a test worker or `cats` fails at import on a stale or missing assembly rather than later in a cast. The table that says which cell
+is lazy and which eager is data, one row per host, operating system and run mode, flipped by editing a row and never by code.
+
+The hash that names the assembly is the costliest step of a warm import: every `types/*.cs` read and hashed. A machine-local memo keyed by
+each file's length and last write skips the read for a file that shows the same pair, and rewrites itself when any file was read; it lives
+beside the shadow copies, never in the tree, since it holds this machine's write times. Only the importer trusts it: the builder that names
+a release, the janitor that prunes the cache and the gates that compare the committed assembly hash every byte, so the memo can speed up a
+session but never decide what ships.
+
 ### How this is enforced
+
+- **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`automation/.internal/tests`) — the console cell verifies and
+  defers, the first `Initialize-Types` loads, the eager cell loads at import, and the hash memo rehashes exactly the files whose length or
+  last write changed (ADR-AUTO-TYPES#16).
 
 - **`Format-Types` + `Test-Formatting`** (in `Catzc.Base.QualityGates`) — `Format-Types` writes/repairs each source's file-scoped
   `namespace <module>;` from its `types/` folder (the formatter, not an ad-hoc sweep); the `Test-Formatting` quality gate runs it in its

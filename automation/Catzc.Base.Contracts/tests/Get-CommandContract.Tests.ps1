@@ -45,17 +45,17 @@ Describe 'Get-CommandContract' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#5' {
     It 'returns every command contract of the draft as a typed record, in asset order' {
         $commands = @(Get-CommandContract -RepositoryRoot $script:root)
         $commands | Should -BeOfType ([Catzc.Base.Contracts.ContractCommand])
-        $commands.name | Should -Be @('Get-Gadget', 'Get-Widget', 'Set-Widget')
-        $commands[1].asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml'
-        $commands[1].signature | Should -Be 'Path: string!, Strict: switch -> string'
+        $commands.Name | Should -Be @('Get-Gadget', 'Get-Widget', 'Set-Widget')
+        $commands[1].Asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml'
+        $commands[1].Signature | Should -Be 'Path: string!, Strict: switch -> string'
         $commands[2].parameters.Count | Should -Be 0
         $commands[2].output | Should -Be 'void'
     }
 
     It 'narrows by command name and by module, with wildcards' {
-        @(Get-CommandContract -Name 'Get-*' -RepositoryRoot $script:root).name | Should -Be @('Get-Gadget', 'Get-Widget')
-        @(Get-CommandContract -Module Catzc.Widget -RepositoryRoot $script:root).name | Should -Be @('Get-Widget', 'Set-Widget')
-        @(Get-CommandContract Set-Widget -RepositoryRoot $script:root).name | Should -Be 'Set-Widget'
+        @(Get-CommandContract -Name 'Get-*' -RepositoryRoot $script:root).Name | Should -Be @('Get-Gadget', 'Get-Widget')
+        @(Get-CommandContract -Module Catzc.Widget -RepositoryRoot $script:root).Name | Should -Be @('Get-Widget', 'Set-Widget')
+        @(Get-CommandContract Set-Widget -RepositoryRoot $script:root).Name | Should -Be 'Set-Widget'
         @(Get-CommandContract -Name Get-Sprocket -RepositoryRoot $script:root).Count | Should -Be 0
     }
 

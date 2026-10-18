@@ -11,6 +11,8 @@ catzc:
     track: docs
     tracktype: documentation
   edges:
+    cites:
+      - ADR-REPO-FILEMETA#3
     links:
       - docs/how-to/automation/manual-test-plan.md
 ---
@@ -29,3 +31,4 @@ The ADR rule-sets, the domain graph, the generated ADR index, and the rule enfor
 | 3   | L1   | automation/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1    | Test-AgentDefinitions — real agent definitions | `Test-AgentDefinitions` reports 0 issues: every .claude/agents/*.md has an agents.yml entry and back, front matter parses with name = file name, a description with a Do NOT clause, and tools, every supported_by cites a real ADR rule, every checks entry is an existing command, .claude/CLAUDE.md's Sub-agents section lists exactly the registered agents, and the standard agent's description names every specialised agent. |
 | 4   | L2   | automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1 | Test-AdrEngineNeutrality — real ADRs           | `Test-AdrEngineNeutrality` reports 0 issues: the rule summaries of the configured ADR domains carry no engine-specific syntax.                                                                                                                                                                                                                                                                                                       |
 | 5   | L2   | automation/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1         | Test-AdrRegistry — real ADRs                   | `Test-AdrRegistry` reports 0 issues: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/ agree.                                                                                                                                                                                                                                                                                                                       |
+| 6   | L1   | automation/Catzc.Base.QualityGates/tests/Get-AdrUsage.Tests.ps1     | Get-AdrUsage (repository)                      | `Get-AdrUsage` lists the citations and links of the tracked files: every row has a path, a registered code and a rule that code declares, a group never lands in a row, and the scan narrows by code, source and path (ADR-REPO-FILEMETA#3).                                                                                                                                                                                         |

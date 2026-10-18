@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "12ea9b16727f"
+    with_body_sha: "64fd52da4583"
     repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Builder.psm1.md
     folder: docs/references/automation/internal
@@ -77,15 +77,6 @@ Above `$script:mergedFileSuffix = '.functions.ps1'`, written with `#`.
 The merged function file of a built module is <Module>.functions.ps1, never <Module>.ps1: a nested script
 module is named for its file, so <Module>.ps1 would load a second module named <Module> under the manifest's,
 and Get-Module <Module>, Mock -ModuleName and InModuleScope would each see two modules of that name.
-```
-
-## comment:6
-
-Above `$script:shippedSideFolders = @('assets', 'configs', 'types')`, written with `#`.
-
-```text
-A module's side folders that ship verbatim; everything else in the module folder (private/, tests/, README.md,
-the source-mode manifest) does not.
 ```
 
 ## comment:7

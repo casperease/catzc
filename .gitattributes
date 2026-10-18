@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d4110588212c
+#     with_body_sha: cb6e650d7430
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
@@ -129,8 +129,9 @@ automation/.compiled/** linguist-generated
 # (ADR-REPO-CONTRACT#5, ADR-REPO-CONTRACT#6).
 contracts/*/*/** catzc-contract text eol=lf
 
-# catzc: the plans folder holds working notes, not product docs — the content tools (links, Markdown titles, source
-# conventions) leave them as written, like out/ and docs/notes for the spelling, lint and glossary scans.
+# catzc: the unordered track holds fragments frozen as they were committed, not product docs — the content tools
+# (links, Markdown titles, source conventions) leave them as written, like out/ for the spelling, lint and glossary
+# scans.
 .unordered/** catzc-notes
 
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.

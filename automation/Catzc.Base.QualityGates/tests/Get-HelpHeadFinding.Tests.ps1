@@ -85,4 +85,9 @@ Describe 'Get-HelpHeadFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
         $config = @('    synopsis: Returns a gadget.', '    description: |-', '      Does the thing.', '      [ADR-WIDGET-GADGET#3](/docs/adr/widget/gadget.md#rule-adr-widget-gadget3)', '    parameters:', '      Name: The name.')
         (& $script:find (& $script:file $config)) | Should -Contain 'the help text description holds a line made of a citation or a page link, which the head derives'
     }
+
+    It 'allows a citation inside a help sentence' -Tag 'ADR-REPO-HELP#3' {
+        $config = @('    synopsis: Returns a gadget.', '    description: |-', '      Does the thing, as [ADR-WIDGET-GADGET#3](/docs/adr/widget/gadget.md#rule-adr-widget-gadget3) requires.', '    parameters:', '      Name: The name.')
+        (& $script:find (& $script:file $config)).Count | Should -Be 0
+    }
 }

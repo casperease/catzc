@@ -43,8 +43,8 @@ kinds:
     git:
       attributes: [catzc-notes]
       why:
-        the plans folder holds working notes, not product docs — the content tools (links, Markdown titles, source conventions) leave them
-        as written, like out/ and docs/notes for the spelling, lint and glossary scans.
+        the unordered track holds fragments frozen as they were committed, not product docs — the content tools (links, Markdown titles,
+        source conventions) leave them as written, like out/ for the spelling, lint and glossary scans.
   test:
     definition: A file that proves the behaviour of the code it sits beside.
     files:

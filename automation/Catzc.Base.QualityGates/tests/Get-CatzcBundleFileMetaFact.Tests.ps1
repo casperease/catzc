@@ -37,7 +37,7 @@ Describe 'Get-CatzcBundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
         # Declared largest first, to show the fact takes the one with the fewest modules, not the first it finds.
         $script:exporter = [Catzc.Base.Exporter.ExporterConfig]::new([ordered]@{
                 direct_install_version = '1.0.0'
-                module_guid            = '00000000-0000-0000-0000-000000000001'
+                module_guid            = (ConvertTo-Guid 'widget exporter module')
                 default_bundle         = 'large'
                 bundles                = [ordered]@{
                     large = @{ profile = 'azure'; version = '1.0' }

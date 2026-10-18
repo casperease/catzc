@@ -193,8 +193,10 @@ formats:
     producer: an agent session (dumps, measurements, file lists, backups)
     audience: the session that wrote it
     validator: { kind: text }
+  # The time safeguard log is never pruned ([ADR-REPO-OUTDIR#12](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir12)): it is the record the limits are tuned from, and the hook appends to it for as long as the repository is worked in; a session's own logs belong in its session folder, and Clear-Output -All is the one way the top of out/ is emptied.
   session-log:
     area: log
+    max_age: none
     patterns: ["*.log"]
     producer: an agent session's run logs, and the Assert-BashTimeout hook (time-safeguard.log, which stays while it is appended)
     audience: a person tuning timeouts.yml, and the session that wrote it

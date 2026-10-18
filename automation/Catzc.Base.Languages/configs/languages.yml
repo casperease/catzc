@@ -81,6 +81,7 @@ languages:
       - { folder: ".", role: public-function, extensions: [.ps1], shipped: false }
       - { folder: ".", role: manifest, extensions: [.psd1], live: false, shipped: false }
       - { folder: private, role: private-function, shipped: false }
+      - { folder: extension, role: editor-extension, live: false, shipped: false }
   csharp:
     extensions: [.cs]
     formatter: dotnet-format

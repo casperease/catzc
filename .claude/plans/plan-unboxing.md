@@ -57,7 +57,7 @@ allocation, else it is reverted.
   GetValue about 5 percent (bench C). Cache the per-type property table; the box stays (P2).
 - F4 A PowerShell-to-C# crossing is about 4 us and 2.5 KB; the C# work inside is at most 3 percent of it (bench D, noise about 2 us). In
   PowerShell the lever is fewer crossings, not fewer unboxes.
-- F5 Get-CommentScope makes 4 crossings per file, about 24 ms for 1,500 files by arithmetic on F4; gated at a 200 ms bar; measured 158 ms,
+- F5 Get-CommentScope makes 4 crossings per file, about 24 ms for 1,500 files by arithmetic on F4; held to a 200 ms bar; measured 158 ms,
   no-go (P3).
 - F6 Config types unbox raw YAML once per file behind Get-Config; Hashtable storage is built once per load; 678 string.Format calls are
   nearly all on error paths. No change.
@@ -68,7 +68,7 @@ allocation, else it is reverted.
 - Done: P1 and P2 as the figures above; P3 no-go; 110 of 110 tests across the five touched files; docs carry the shipped figures. That
   session ran only those five files, not the suite.
 - Left for the user: the importer built several Catzc.Types.*.dll during the work; .compiled must hold exactly one, so run
-  Clear-ModuleTypeCache and commit the survivor with the types, tests and docs; run the full suite.
+  Clear-ModuleTypeCache and commit the survivor with the types, tests and docs; run all tests.
 - Test-ShippedTypes flags TrackTypeEntry and VendorEntry in Catzc.Base.Variants as not resolving after import; not part of this work, not
   investigated.
 - Optional: a one-sentence ADR line saying ADR-AUTO-CACHE does not cover type-level statics.
@@ -91,7 +91,10 @@ allocation, else it is reverted.
 
 - [ ] The user runs Clear-ModuleTypeCache so .compiled holds one DLL, then commits types, tests, docs and that DLL (check: one
       Catzc.Types.*.dll; git status clean for them).
-- [ ] A fresh session runs the three leftover checks in the prompt (check: its report).
+- [x] A fresh session runs the three leftover checks in the prompt (check: its report). Done 2026-10-17 (task033, session catzc-6c
+      read-only): `.compiled` holds one DLL pair; `Test-ShippedTypes` is clean in a fresh process (`out/test-shipped-types/20261017-210518`),
+      so the `Catzc.Base.Variants` findings once attributed to task012 (Q88) are gone; the optional ADR-AUTO-CACHE sentence on type-level
+      statics is a question for the user.
 - [ ] Only on the user's go: plan P4 and P5, measure first (check: the 15 percent bar on the row).
 
 ## Refs

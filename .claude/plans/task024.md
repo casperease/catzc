@@ -27,6 +27,9 @@ catzc:
     vendor: claude
     module: ".claude"
     moduletype: settings
+  edges:
+    cites:
+      - ADR-REPO-HELP#1
 ---
 
 # task024: Assert-Wait, the config read, the measured run, the ADR pair
@@ -37,21 +40,33 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
 
 ## Steps
 
-1. `automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs`: a `wait` map with `seconds` (default 1) and `millisecs` (default 1), one pair,
-   not keyed by environment; an unknown key under `wait` and a zero or negative value are rejected at construction naming the key. Check:
-   the file compiles in a fresh pwsh.
-2. `tests/types/TimeoutsConfig.Tests.ps1`: defaults when the key is absent; an override read; unknown key rejected; zero and negative
-   rejected. Check: passes.
-3. `Assert-Wait.ps1`: the `param` block reads `Get-Config -Config timeouts` and restates no number; `ValidateRange` stays. Check:
-   `Assert-Wait.Tests.ps1` still passes 16 of 16 with a 1.001 s default total.
-4. `Test-Automation.Tests.ps1`: its one failure (source-conventions) comes from a peer's `FileKindReachability.Tests.ps1` name and "bash and
-   zsh" wording in seven plans. Those plans are this folder's: fix the wording in each plan file, one at a time (the sanctioned form per the
-   conventions config). Check: the file passes; grep "bash and zsh" in `.claude/plans` finds nothing.
-5. Q3: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side in the background (360 s cap); name where the fixed about
-   110 ms first-tick lateness comes from (first-tick JIT of Stopwatch and Write-Message is the likely answer) in the plan. Check: the cause
-   is named, or the tick no longer reports it.
-6. Function help for `Assert-Wait` beyond the head block, per ADR-REPO-HELP; `watchpoint` as a glossary term only if the ADR of step 7 bolds
-   it. Check: Test-Links on the touched pages.
+1. [x] `automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs`: a `wait` map with `seconds` (default 1) and `millisecs` (default 1), one
+   pair, not keyed by environment; an unknown key under `wait` and a zero or negative value are rejected at construction naming the key.
+   Check: the file compiles in a fresh pwsh. Done 2026-10-17: `wait`, `WaitDefaultSeconds`, `WaitDefaultMillisecs`, `ReadWait`; compiled by
+   the import of `out/t024-a.ps1`.
+2. [x] `tests/types/TimeoutsConfig.Tests.ps1`: defaults when the key is absent; an override read; unknown key rejected; zero and negative
+   rejected. Check: passes. Done 2026-10-17: `[Invoke-TestFile] Passed` (`out/test-file/20261017-201413-8a6544`).
+3. [x] `Assert-Wait.ps1`: the `param` block reads `Get-Config -Config timeouts` and restates no number; `ValidateRange` stays. Check:
+   `Assert-Wait.Tests.ps1` still passes 16 of 16 with a 1.001 s default total. Done 2026-10-17: both defaults read `wait` from the registry,
+   the help names the registry; `[Invoke-TestFile] Passed` (`out/test-file/20261017-201434-2a266e`). After the step 5 loop change (sleep
+   until the tick is due) the tick test asserts the due times and the requested sleeps instead of ten equal slices; 16 of 16 pass
+   (`out/test-file/20261017-202939-c2cea9`).
+4. `Test-Automation.Tests.ps1`: its one failure (source-conventions) comes from a peer's `FileKindReachability.Tests.ps1` name and an
+   engine-pair wording in seven plans. Those plans are this folder's: fix the wording in each plan file, one at a time (the sanctioned form
+   per the conventions config). Check: the file passes; a grep for the engine pair in `.claude/plans` finds nothing. 2026-10-17: the
+   wording is gone from six plan lines, three ADRs and the cats glossary entry, and the two tests that assert real rule codes are exempted
+   with their reason in source-conventions.yml; `SOURCECONV issues=1`, the one left being the file name
+   `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1`, whose rename to `Test-FileKindReachability.Tests.ps1` is a `git mv`, the user's;
+   the test file fails on that one finding until then (`out/test-file/20261017-201739-d549ec`).
+5. [x] Q3: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side in the background (360 s cap); name where the fixed
+   about 110 ms first-tick lateness comes from (first-tick JIT of Stopwatch and Write-Message is the likely answer) in the plan. Check: the
+   cause is named, or the tick no longer reports it. Done 2026-10-17: the cause is accumulated sleep overrun, about 9 ms per tick, not a
+   first-tick cost (named in plan-assert-wait Q3); `Assert-Wait` now sleeps until each tick is due, and the worst tick fell from 86 to 94 ms
+   to 13 to 14 ms over the four importer watchpoints (`out/t024-c.ps1`). The tick test is rewritten for the new loop; its verdict is in the
+   report.
+6. [x] Function help for `Assert-Wait` beyond the head block, per ADR-REPO-HELP; `watchpoint` as a glossary term only if the ADR of step 7
+   bolds it. Check: Test-Links on the touched pages. Corrected 2026-10-17: ADR-REPO-HELP#1 makes the head's `config` part the whole help,
+   so there is nothing beyond it; the head's parameter entries now name the registry defaults (step 3), and `watchpoint` waits for step 7.
 7. After the first measured `Test-Automation -DiagnoseBlocking` run (the user's): `ADR-AUTO-FAILFAST#8` (mark a suspected block with a
    watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`; present tense. Check:
    Test-AdrRegistry, Test-Links clean; the function head cites #8.

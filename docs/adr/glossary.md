@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2b937a04347c"
-    with_inputs_sha: "39d61c9e070ee681007f153f67daed0d8058295e583d50403c04b28a4fa9ef41"
+    with_body_sha: f83607184f32
+    with_inputs_sha: a953c0504ed5f446e05c6214e21e47ded8c1cf2c7d5ad032bca21b795aca24d6
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -100,7 +100,7 @@ with all its consumers.
 
 ### cats
 
-The product's name to a person — the bash and zsh executor, and the word in prose, docs and conversation.
+The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
 
 - **Defined by:** [ADR-CATS#2](principles/cats-and-catzc.md#rule-adr-cats2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

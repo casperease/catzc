@@ -175,19 +175,19 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
             (New-Shadowed).overlaps.Count | Should -Be 0
             $pairs = (New-Shadowed @(, @('widget', 'sprocket'))).overlaps
             $pairs.Count | Should -Be 1
-            $pairs[0].earlier | Should -BeExactly 'widget'
-            $pairs[0].later | Should -BeExactly 'sprocket'
+            $pairs[0].Earlier | Should -BeExactly 'widget'
+            $pairs[0].Later | Should -BeExactly 'sprocket'
         }
 
         It 'reports a kind mostly shadowed by an earlier one the overlaps do not list, once per hiding kind' {
             $shadows = @((New-Shadowed).Shadowing($script:paths))
             $shadows.Count | Should -Be 2
-            $shadows[0].hidden | Should -BeExactly 'sprocket'
-            $shadows[0].by | Should -BeExactly 'gadget'
-            $shadows[0].taken | Should -Be 2
-            $shadows[0].matched | Should -Be 5
-            $shadows[1].by | Should -BeExactly 'widget'
-            $shadows[1].taken | Should -Be 2
+            $shadows[0].Hidden | Should -BeExactly 'sprocket'
+            $shadows[0].By | Should -BeExactly 'gadget'
+            $shadows[0].Taken | Should -Be 2
+            $shadows[0].Matched | Should -Be 5
+            $shadows[1].By | Should -BeExactly 'widget'
+            $shadows[1].Taken | Should -Be 2
         }
 
         It 'reports nothing for a listed pair, and nothing below the shadowed share' {
@@ -197,7 +197,7 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         }
 
         It 'counts a subkind''s files as the kind''s own' {
-            @((New-Shadowed).Shadowing([string[]] @('gadgets/cog-1.txt', 'gadgets/cog-2.txt', 'gadgets/x.txt')) | Where-Object hidden -eq 'gadget').Count | Should -Be 0
+            @((New-Shadowed).Shadowing([string[]] @('gadgets/cog-1.txt', 'gadgets/cog-2.txt', 'gadgets/x.txt')) | Where-Object Hidden -eq 'gadget').Count | Should -Be 0
         }
 
         It 'rejects <Name>' -ForEach @(

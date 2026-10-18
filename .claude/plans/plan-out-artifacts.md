@@ -1,9 +1,8 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: medium
-  reviewed: 2026-10-16
-  blocked_on: four decisions in the draft
+  reviewed: 2026-10-17
   targets:
     [
       automation/Catzc.Base.Reports/configs/output-formats.yml,
@@ -88,11 +87,13 @@ sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions
       refused the planner's bulk delete, so the user runs out/delete-probes-batch1.ps1 (check: the listed files are gone; nothing in
       harvest-keep.txt is).
 - [ ] Batch two, today's 13 probes, once their sessions are done (check: a yes, then the same).
-- [ ] The five tool candidates become open steps in their owning plans: run-head-batch and diff-one and probe-corpus and gates-module in the
+- [x] The five tool candidates become open steps in their owning plans: run-head-batch and diff-one and probe-corpus and gates-module in the
       file-head and plans-program plans (QualityGates), tests-comments-rollout in the link cleanup plan (Docs) (check: a grep of those plans
-      finds each of the five names in an open step).
-- [ ] Register the six out/ areas with their numbers in output-formats.yml (Q71); sessions under `out/sessions/<session>/` (Q72);
-      time-safeguard.log never pruned (Q73); only Clear-Output prunes (Q74) (check: the config tests; Test-Links).
+      finds each of the five names in an open step). Done 2026-10-17 (task028): task022 step 9 carries the four, task027 step 9 the fifth.
+- [x] Register the six out/ areas with their numbers in output-formats.yml (Q71); sessions under `out/sessions/<session>/` (Q72);
+      time-safeguard.log never pruned (Q73); only Clear-Output prunes (Q74) (check: the config tests; Test-Links). Done 2026-10-17 (task028):
+      the areas and `sessions/**` were registered; `session-log` gained `max_age: none` so the safeguard log never ages out; config tests
+      pass, Test-Links clean (verdicts in task028).
 
 ## Needed docs
 
@@ -108,8 +109,9 @@ sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions
 
 - Decided (Q71 to Q74): the six areas with their numbers; `out/sessions/<session>/`; time-safeguard.log is never pruned; only Clear-Output
   prunes. Nothing is left to decide here.
-- [ ] Register the unregistered areas (check: Test-Links on output-formats.yml; its config tests).
-- [ ] Implement the prune (check: its Pester file).
+- [x] Register the unregistered areas (check: Test-Links on output-formats.yml; its config tests). Done, see the harvest step above.
+- [x] Implement the prune (check: its Pester file). Done 2026-10-17 (task028): `Clear-Output` and `OutputRetention` were in the tree;
+      `Clear-Output.Tests.ps1` is new and passes (`out/test-file/20261017-204554-c84f1e`).
 
 ## Refs
 

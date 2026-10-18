@@ -36,14 +36,14 @@ for p in sorted(glob.glob("out/diagrams/wave-*/*/*.drawio.png")):
     rel = pathlib.PurePath(p).as_posix().split("out/diagrams/")[1]
     wave, area, fn = rel.split("/")
     name = fn[: -len(".drawio.png")]
-    d = open(p, "rb").read()
+    d = pathlib.Path(p).read_bytes()
     w, h = struct.unpack(">II", d[16:24])
     v = {"wave": wave, "png": rel, "w": w, "h": h}
     vm = p[: -len(".drawio.png")] + ".verify.md"
     if os.path.exists(vm):
         counts = {"confirmed": 0, "adr": 0, "contradicted": 0}
-        for line in open(vm, encoding="utf-8"):
-            if not line.startswith("|") or line.startswith("|---") or line.startswith("| #"):
+        for line in pathlib.Path(vm).read_text(encoding="utf-8").splitlines(keepends=True):
+            if not line.startswith("|") or line.startswith(("|---", "| #")):
                 continue
             verdict = [c.strip() for c in line.strip().strip("|").split("|")][-1].lower().lstrip("*")
             for key, word in (("confirmed", "confirmed"), ("adr", "adr-only"), ("contradicted", "contradicted")):
@@ -55,7 +55,8 @@ for p in sorted(glob.glob("out/diagrams/wave-*/*/*.drawio.png")):
 wave_number = lambda v: int(re.sub(r"\D", "", v["wave"]) or 0)
 out = [{"id": f"{a}.{n}", "area": a, "name": n, "versions": sorted(vs, key=wave_number)} for (a, n), vs in sorted(items.items())]
 os.makedirs("out/print-artifacts", exist_ok=True)
-json.dump(out, open("out/print-artifacts/catalogue.json", "w"), separators=(",", ":"))
+with pathlib.Path("out/print-artifacts/catalogue.json").open("w") as f:
+    json.dump(out, f, separators=(",", ":"))
 for o in out:
     print(o["id"], " ".join(v["wave"] for v in o["versions"]))
 print(len(out), "diagrams,", sum(len(o["versions"]) for o in out), "drawings")

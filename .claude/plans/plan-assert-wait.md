@@ -32,6 +32,8 @@ catzc:
       - ADR-AUTO-FAILFAST#{5,7}
       - ADR-AUTO-TEST#3
       - ADR-PWSH-ASSERT#6
+      - ADR-PWSH-VERBS#2
+      - ADR-REPO-HELP#1
     links:
       - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
 ---
@@ -122,9 +124,10 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing); C# edits need a fresh `pwsh`.
 
 - [x] Answer Q1, Q2, Q3 and Q5. Done 2026-10-17: each is recorded above with its outcome and folded into the contract.
-- [ ] Q1: add the `wait` map (`seconds`, `millisecs`, defaults 1 and 1) to `TimeoutsConfig.cs` and its tests, then replace the literals in
+- [x] Q1: add the `wait` map (`seconds`, `millisecs`, defaults 1 and 1) to `TimeoutsConfig.cs` and its tests, then replace the literals in
       `Assert-Wait.ps1` with the config read (check: `tests/types/TimeoutsConfig.Tests.ps1` and `Assert-Wait.Tests.ps1` pass; C# edits need
-      a fresh `pwsh`).
+      a fresh `pwsh`). Done 2026-10-17 (task024): `[Invoke-TestFile] Passed` for both (`out/test-file/20261017-201413-8a6544`,
+      `out/test-file/20261017-201434-2a266e`).
 - [x] Write `Assert-Wait.ps1`, add it to the `.psd1` export list and `CatzcFiles`, write its test. Done 2026-10-17: `Assert-Wait.Tests.ps1`
       passes 16 of 16. The rest of the module's tests were not run.
 - [x] Importer: the opt-in switch and four standing points (after `Import-AllModules`, `Assert-CatzcRunModeExclusive`,
@@ -135,11 +138,23 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       `Get-TestRunContext`, and just before the workers). Done 2026-10-17: `Invoke-TestRun.Tests.ps1` passes 21 of 21, including two new
       tests (four waits then workers; none by default). A real `Test-Automation -DiagnoseBlocking` run was not made.
 - [ ] Run `Test-Automation.Tests.ps1` green. Its one failure on 2026-10-17 is the source-conventions check, caused by other files: a peer's
-      `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1` name and "bash and zsh" wording in seven other plans, none of them this one
-      (check: the file passes under Invoke-TestFile).
-- [ ] Q3: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side and find where the fixed ~110 ms first-tick lateness
-      comes from (check: the cause is named here, or the tick no longer reports it).
-- [ ] Function help beyond the head blocks (check: `Test-Links` on the touched pages).
+      `Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1` name and an engine-pair wording in seven other plans, none of them this one
+      (check: the file passes under Invoke-TestFile). 2026-10-17 (task024): the wording is fixed everywhere; the one finding left is that
+      file name, a `git mv` to `Test-FileKindReachability.Tests.ps1` that is the user's.
+- [x] Q3: run `importer.ps1 -DiagnoseBlocking` and `-DiagnoseLoadTime` side by side and find where the fixed ~110 ms first-tick lateness
+      comes from (check: the cause is named here, or the tick no longer reports it). Done 2026-10-17 (task024, `out/t024-diag.ps1`): it was
+      never the first tick. Each `Start-Sleep -Milliseconds 100` overruns by about 9 ms (a bare session measures 107 ms, the first call 148
+      ms), and the loop slept the full slice every tick, so the overrun accumulated: ticks late by 3, 15, 22, 30, 42, 49, 65, 72, 79, 86 ms,
+      the worst always the last. The loop now sleeps until the tick is due; the same four importer watchpoints then report a worst tick of
+      13 to 14 ms and 1.002 to 1.012 s measured for 1.001 s asked. `-DiagnoseLoadTime` shows no phase that hides a block (types 203 ms,
+      the largest module imports 56 to 66 ms).
+- [x] Function help beyond the head blocks (check: `Test-Links` on the touched pages). Corrected 2026-10-17 (task024): the head's config
+      part is the whole help (ADR-REPO-HELP#1), and it now names the registry defaults.
+- [ ] Q6, raised by the read-only review of 2026-10-17 (session catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets
+      go, while ADR-PWSH-VERBS#2 and #3 make an Assert- function one that stops the caller, and the file sits in the `assert` subkind of
+      file-kinds.yml ("stops the caller"). The user decides: a watch verb (`Watch-Blocking`) with the assert subkind untouched, or a VERBS#7
+      exemption for a watchpoint that never stops (check: a Decided line, then the rename or the exemption in the same change as the ADR
+      pair of Q5).
 - [ ] Q5: after the first measured run, write `ADR-AUTO-FAILFAST#8` and `ADR-PWSH-ASSERT#7` (check: `Build-AdrIndex`, `Test-Links` and the
       ADR gates on the touched pages).
 - [ ] After the first measured run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check:

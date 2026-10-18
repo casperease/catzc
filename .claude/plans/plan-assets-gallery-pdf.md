@@ -35,6 +35,9 @@ unchanged. The PDF is for a person in a PDF viewer (`review-pdf` in `output-form
 
 - Full run without text pages: 609 pages, 41.3 MiB, under 360 s. With text pages the earlier build was 90 MiB.
 - A chat upload is capped at 30 MiB, so the file was split into two halves (305 + 304 pages) outside the tree to send it.
+- 2026-10-17, after the descriptions moved beside the articles and the builder streams pages: `docs/explanation/.assets` without text is
+  593 pages; with the description pages (the minimap pages run to thousands of rows, cut into pages under the encoder roof) 1059 pages and
+  684 MiB, so D07's split question is about a factor of 20, not 2.
 
 ## Open steps
 

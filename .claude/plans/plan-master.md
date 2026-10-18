@@ -55,11 +55,11 @@ stay the durable record; task files and this master are derived from them and ca
   with the stamp check in Test-GeneratedFiles; the .unordered audit and its deletion, run by the user).
 - T009 -> task009.md (open; after T008): tracks.md rule 17 rewritten, four glossary terms, Import-RepositoryWithHistory with tests, the
   sorting how-to.
-- T010: done 2026-10-17, task file deleted (ADR-REPO-PLANS, ADR-REPO-FOLDERS#12, ADR-REPO-VOCAB#9, the Test-Plans gate); one clause is
-  left and follows T009: the CLAUDE.md plans line cites the landing-zone terms.
+- T010: done 2026-10-17, task file deleted (ADR-REPO-PLANS, ADR-REPO-FOLDERS#12, ADR-REPO-VOCAB#9, the Test-Plans gate); one clause is left
+  and follows T009: the CLAUDE.md plans line cites the landing-zone terms.
 
-- T011 -> task011.md (open; steps 3 read, 4, 5, 6, 8 done 2026-10-17; D01 to D05 and the user's run for the rest): module model
-  close-out, the rule 6 funnel (after D03), infrastructure track (a design step in plan-module-kinds-tracks), waits_on cleared.
+- T011 -> task011.md (open; steps 3 read, 4, 5, 6, 8 done 2026-10-17; D01 to D05 and the user's run for the rest): module model close-out,
+  the rule 6 funnel (after D03), infrastructure track (a design step in plan-module-kinds-tracks), waits_on cleared.
 - T012 -> task012.md (open; after T011): kind becomes role through the registry and generators; tracks.md rule 19 one primary language;
   WorldMapBuilder links; Test-ShippedTypes; the namespace line.
 - T013: done 2026-10-17, task file deleted (minimal robots Phase 5 measured, the three robot plans deleted).
@@ -82,24 +82,29 @@ stay the durable record; task files and this master are derived from them and ca
 - T022 -> task022.md (open; D13 for one step, the rest done 2026-10-17): file head leftovers: note term, ASSETDEP reading, .compiled
   formatting, module-types.yml typo, spelling, four gate reports attributed.
 
-- T023 -> task023.md (open; D07 for one step): assets leftovers: gallery --assets lookup or retirement, the FileCarrierResolver test, the
-  old folder removed, the skill line, both plans deleted.
-- T024 -> task024.md (open; ADR pair after the first measured run): Assert-Wait defaults on TimeoutsConfig, the suite file green, the 110 ms
-  source, help, ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into limits.
-- T025 -> task025.md (open; D09 for one step): lazy types Phases 3 to 5: prompt hook, L1 test, stat-stamp memo, the ADR rule and exception,
-  comment pages, bundle test, eager path deleted.
+- T023 -> task023.md (open; D07 for one step, the rest done 2026-10-17): assets leftovers: gallery --assets reads the sidecar carrier and
+  streams its pages, the carrier test passes as it stands, the old folder removed, the skill line, plan-assets-beside-articles deleted.
+- T024 -> task024.md (open; steps 1 to 6 done 2026-10-17; the ADR pair and the watchpoint retirement wait for the user's measured run, the
+  one conventions finding left is the user's `git mv` of FileKindReachability.Tests.ps1): Assert-Wait defaults on TimeoutsConfig, the
+  lateness explained and removed (sleep until due), ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into limits.
+- T025 -> task025.md (open; done 2026-10-17 apart from the prompt hook, which is D09's branch): lazy types Phases 3 to 5: the hash memo, the
+  ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no second eager path.
 - T026 -> task026.md (open; D16): ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
 - T027 -> task027.md (open; after T007 and T008): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied
   slice by slice with verification, Phase 2 per D1 to D5.
-- T028 -> task028.md (open; deletions are the user's runs): six out/ areas registered in Catzc.Base.Reports output-formats.yml, the prune in
-  Clear-Output, OUTDIR amendments, the two probe batches, five tool candidates placed.
+- T028 -> task028.md (open; done 2026-10-17 apart from the two probe batches, which the user confirms since their lists are gone): the areas
+  were registered and the prune in the tree, the safeguard log never ages out, Clear-Output has its tests, out.md names the retention, the
+  five tool candidates placed.
 - T029 -> task029.md (open; D08, the user's two runs): the per-engine cache stamp with two tests, shard re-check, next three files by cost.
-- T030 -> task030.md (open): comments.yml page entries for .scriptanalyzer and .internal, .vendor excluded, the export run, two ADR
-  sentences.
-- T031 -> task031.md (open; D12): Build-RootConfig and Build-GitKeep input sets, Sync-SessionTools skip, two janitors profiled, re-measure.
+- T030: done 2026-10-17 by session catzc-6c, task file deleted (the page entries, the sentences and the step loop were in the tree; two
+  stale `.internal` page sections removed, Test-Comments 0 on both folders).
+- T031 -> task031.md (steps 2 to 8 done; step 1 waits for D12): Build-RootConfig stamp, Build-GitKeep bounded walk, Sync-SessionTools memo,
+  janitors re-measured at 1.2 s first call and 0.4 s warm.
 - T032 -> task032.md (open): the four Build-RootConfig fixture-head tests, PropertyHead docs to the XML form, the user's keybinding and run.
-- T033 -> task033.md (open; the user's commit, D11): unboxing closed: three leftover checks, two gate findings, P4 and P5 only on a go.
-- T034 -> task034.md (open; the user's full run): bounded enumeration level-2 rerun, then plan and prompt deleted.
+- T033 -> task033.md (open; steps 2, 3 and 5 done 2026-10-17; the user's commit of the one DLL pair, D11 for P4 and P5, and the
+  ADR-AUTO-CACHE sentence as the user's question): unboxing closed: three leftover checks, two gate findings, P4 and P5 only on a go.
+- T034 -> task034.md (open; the level-2 rerun is green 2026-10-17; the user's run of all tests, then the plan and prompt deleted): bounded
+  enumeration closed.
 - T035 -> task035.md (open; D06): idle compaction scope, then the plan deleted.
 - T036 -> task036.md (open; runs after every batch and last): the closing sweep, done plans deleted with one line each, the master and task
   files deleted when every chunk is done.

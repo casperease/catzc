@@ -16,7 +16,7 @@ catzc:
     catzc_bundle: azure
   edges:
     cites:
-      - ADR-REPO-FILEMETA#2
+      - ADR-REPO-FILEMETA#11
 ---
 */
 
@@ -27,12 +27,12 @@ public sealed class FileKindOverlap
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public string earlier { get; }
-    public string later { get; }
+    public string Earlier { get; }
+    public string Later { get; }
 
     public FileKindOverlap(string earlier, string later)
     {
-        this.earlier = earlier;
-        this.later = later;
+        Earlier = earlier;
+        Later = later;
     }
 }

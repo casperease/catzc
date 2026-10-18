@@ -33,8 +33,13 @@ namespace Catzc.Base.Timeouts;
 
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests" };
+    private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait" };
     private static readonly string[] TestKeys = { "level_ms", "run_seconds" };
+
+    // The default Assert-Wait: one second and one millisecond, one pair for every environment.
+    private static readonly string[] WaitKeys = { "seconds", "millisecs" };
+    public const int WaitDefaultSeconds = 1;
+    public const int WaitDefaultMillisecs = 1;
     private static readonly string[] TestLevels = TestTiers.Names;
 
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
@@ -76,8 +81,13 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds].
     public IDictionary tests { get; }
 
+    // The Assert-Wait defaults, defaults filled in: wait[seconds], wait[millisecs].
+    public IDictionary wait { get; }
+
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
     private int testRunSeconds = TestRunDefaultSeconds;
+    private int waitSeconds = WaitDefaultSeconds;
+    private int waitMillisecs = WaitDefaultMillisecs;
 
     public TimeoutsConfig(IDictionary d)
     {
@@ -177,6 +187,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadTests(d["tests"], errors);
         }
 
+        if (d != null && d.Contains("wait") && d["wait"] != null)
+        {
+            ReadWait(d["wait"], errors);
+        }
+
         if (errors.Count > 0)
         {
             throw new ArgumentException("timeouts configuration validation failed:\n" + string.Join("\n", errors));
@@ -205,6 +220,34 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             { "level_ms", TestLevelLimitsMs() },
             { "run_seconds", testRunSeconds },
         };
+
+        wait = new Hashtable(StringComparer.OrdinalIgnoreCase)
+        {
+            { "seconds", waitSeconds },
+            { "millisecs", waitMillisecs },
+        };
+    }
+
+    private void ReadWait(object value, List<string> errors)
+    {
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("invalid wait (must be a map of seconds, millisecs)");
+            return;
+        }
+        CheckKeys(map, WaitKeys, "wait.", errors);
+        foreach (string key in WaitKeys)
+        {
+            if (!map.Contains(key) || map[key] == null) { continue; }
+            int? number = PositiveSeconds(map[key]);
+            if (number == null)
+            {
+                errors.Add(string.Format("invalid wait.{0} '{1}' (must be a positive whole number)", key, map[key]));
+                continue;
+            }
+            if (key == "seconds") { waitSeconds = number.Value; } else { waitMillisecs = number.Value; }
+        }
     }
 
     // The most milliseconds one test may take, per tier (L0..L4) — a fresh copy, so a caller cannot change the config.

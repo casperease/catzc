@@ -50,6 +50,7 @@ groups:
         Catzc.Base.Config,
         Catzc.Base.Repository,
         Catzc.Base.Files,
+        Catzc.Base.Folders,
         Catzc.Base.Execution,
         Catzc.Base.Globs,
         Catzc.Base.Reports,
@@ -150,6 +151,7 @@ groups:
       [
         Catzc.Base.Languages,
         Catzc.Base.ModuleSystem,
+        Catzc.Base.Folders,
         Catzc.Base.Git,
         Catzc.Base.VSCode,
         Catzc.Base.Config,

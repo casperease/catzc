@@ -12,6 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     cites:
+      - ADR-AUTO-MODULE#2
       - ADR-CONF-LOADING#{4,5}
       - ADR-REPO-CONTRACT#8
       - ADR-REPO-FILEMETA#{1,5}
@@ -56,6 +57,9 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 23  | L0   | automation/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1            | integrity (shipped file-carriers.yml)                                  | The shipped file-carriers.yml loads through `FileCarriersConfig`, and every file language of languages.yml has a carrier entry (ADR-REPO-FILEMETA#1).            |
 | 24  | L0   | automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1        | resolves with the shipped registries, every language file to its entry | `FileCarrierResolver`, built from the shipped file-carriers.yml and languages.yml, resolves a real file of each kind to its carrier entry (ADR-REPO-FILEMETA#5). |
 | 25  | L0   | automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1               | names the steps it may list, each with an adapter in Format-Code       | `LanguagesConfig.ImprintSteps` lists exactly the imprint steps `Format-Code` has an adapter for (ADR-REPO-FORMAT#8).                                             |
+| 26  | L1   | automation/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1                | FolderWalkConfig (shipped folder-walk.yml)                             | The shipped folder-walk.yml loads through `FolderWalkConfig` and is readable at the global address `global.folder-walk.prune_vendor_in_searches`.                |
+| 27  | L0   | automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1               | integrity (shipped languages.yml layout)                               | The shipped languages.yml layout places the five live folders the aspects were written with, and the shared tests folder is not live (ADR-AUTO-MODULE#2).        |
+| 28  | L1   | automation/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1                     | SlidesConfig (shipped slides.yml)                                      | The shipped slides.yml loads through `SlidesConfig` and points at the kit.                                                                                       |
 
 ## Checks
 

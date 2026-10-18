@@ -2,7 +2,7 @@
 task:
   id: "023"
   status: open
-  plans: [plan-assets-beside-articles, plan-assets-gallery-pdf]
+  plans: [plan-assets-gallery-pdf]
   value: medium
   blocked_on: D07 for step 5; the rest can start now
   targets:
@@ -38,11 +38,15 @@ of the drawio-waves skill lists `gallery_pdf.py` without naming `--assets`.
 
 ## Steps
 
-1. `.claude/drawio/gallery_pdf.py` `--assets`: the companion of `<stem>.drawio.png` under `docs/<tree>/.assets/...` is
+1. [x] `.claude/drawio/gallery_pdf.py` `--assets`: the companion of `<stem>.drawio.png` under `docs/<tree>/.assets/...` is
    `docs/<tree>/<domain>/<stem>.drawio.md` beside its article (the sidecar carrier `docs/explanation/*/{stem}.drawio.md` in
    file-carriers.yml is the one lookup; read it, do not re-spell it); if the lookup is not worth teaching, delete the mode and its STYLE.md
    lines (D07 then falls away). Check: a run on `docs/explanation/.assets` with `--no-text` ends ok and, with text, includes the
-   descriptions; or the mode is gone from the script and STYLE.md.
+   descriptions; or the mode is gone from the script and STYLE.md. Done 2026-10-17: the script reads the sidecar carriers of
+   file-carriers.yml (globs and pattern) and finds a diagram's page through them, a minimap's page beside it; pages stream to the PDF one
+   at a time and a long markdown file continues on the next page under the encoder's 65500 px roof; an empty folder is named instead of
+   a traceback. `ok out\diagrams\assets-gallery.pdf pages=593` with `--no-text`, `pages=1059` with the descriptions (684 MiB, a D07 fact);
+   `Format-Code` python unchanged, `No spelling issues found.` (`out/t023-gallery.sh`).
 2. [x] `FileCarrierResolver` shipped-registry test: it fails on its test-file exclusion line because the shipped powershell carrier lists
    no `tests` exclude. Read the head rules for test files (ADR-REPO-CODEMETA, the carrier config); fix the test if test files carry heads,
    or the carrier if they do not. Check: that test file passes. Corrected 2026-10-17: the premise is gone, the file passes as it stands,
@@ -59,7 +63,9 @@ of the drawio-waves skill lists `gallery_pdf.py` without naming `--assets`.
 6. [x] A fixture run (two PNGs, one companion) if the kit gains a test home; otherwise the step is recorded as waiting on a test home.
    Check: page count 3, or the line. Recorded 2026-10-17 in plan-assets-gallery-pdf: the kit (`.claude/drawio`) has no test home, so the
    fixture run waits for one.
-7. Tick every step in both plans; both are deleted in T036 with one line each in value-of-plan.md. Check: grep `- [ ]` in both counts zero.
+7. [x] Tick every step in both plans; both are deleted in T036 with one line each in value-of-plan.md. Check: grep `- [ ]` in both counts
+   zero. Done 2026-10-17 as far as D07 allows: plan-assets-beside-articles had no step left but its own deletion and is deleted, with its
+   line in value-of-plan.md; plan-assets-gallery-pdf keeps the D07 step and the test-home step.
 
 ## Report
 

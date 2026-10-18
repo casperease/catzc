@@ -98,6 +98,11 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $codes | Should -Be @('ADR-GADGET#4')
     }
 
+    It 'drops a rule number past int range instead of throwing' {
+        $codes = Get-Codes "See ADR-GADGET#99999999999 and ADR-GADGET#4.`n"
+        $codes | Should -Be @('ADR-GADGET#4')
+    }
+
     It 'returns an empty list for a file that cites nothing' {
         (Get-Codes "# docs/widget.md`n").Count | Should -Be 0
     }

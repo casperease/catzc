@@ -273,7 +273,12 @@ function Import-CSharpTypes {
     )
 
     Import-InternalModule Types
-    $hashResult = Get-CombinedTypeHash $ModulesRoot
+    # The hash memo lives beside the shadow copies, machine-local like them; a bundle is read-only and hashes every file.
+    $hashArguments = @{ AutomationRoot = $ModulesRoot }
+    if (-not $PrebuiltOnly) {
+        $hashArguments['StampPath'] = Get-TypesStampPath -ModulesRoot $ModulesRoot
+    }
+    $hashResult = Get-CombinedTypeHash @hashArguments
     if ($hashResult.Files.Count -eq 0) {
         return
     }

@@ -74,11 +74,11 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
                 [Catzc.Base.Contracts.ContractAssetKind]::Command, 'automation/Catzc.Widget/Get-Widget.ps1',
                 [Catzc.Base.Contracts.ContractDirection]::Provided, $false)
             $command = [Catzc.Base.Contracts.ContractCommand]::new($asset, ("parameters:`n  Path: string!`n  Strict: switch`noutput: string`n" | ConvertFrom-Yaml -Ordered))
-            $command.name | Should -Be 'Get-Widget'
-            $command.asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml'
-            $command.signature | Should -Be 'Path: string!, Strict: switch -> string'
-            [Catzc.Base.Contracts.ContractCommand]::new($asset, $null).signature | Should -Be 'no parameters'
-            (New-Command "parameters:`n  Path: string`n").name | Should -Be ''
+            $command.Name | Should -Be 'Get-Widget'
+            $command.Asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml'
+            $command.Signature | Should -Be 'Path: string!, Strict: switch -> string'
+            [Catzc.Base.Contracts.ContractCommand]::new($asset, $null).Signature | Should -Be 'no parameters'
+            (New-Command "parameters:`n  Path: string`n").Name | Should -Be ''
             $fragment = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'widget.yml',
                 [Catzc.Base.Contracts.ContractAssetKind]::Fragment, 'widget.yml', [Catzc.Base.Contracts.ContractDirection]::DependedOn, $false)
             { [Catzc.Base.Contracts.ContractCommand]::NameOf($fragment) } | Should -Throw '*is not a command contract*'
