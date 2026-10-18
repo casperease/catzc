@@ -21,7 +21,8 @@ A drifted workflow is one issue naming the filters that differ, and a missing wo
 Write-QualityGateReport ([ADR-AUTO-TEST#35](../../../adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
 out/test-github-workflow-trigger-glob/, and the gate throws once listing every issue (or returns the result with -PassThru).
 
-It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1).
+It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
+[ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
 
 ### parameter Name
 

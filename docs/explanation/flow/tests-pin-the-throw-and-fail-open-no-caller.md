@@ -55,9 +55,8 @@ The diagram is described element by element in [its asset description](tests-pin
 ## Where the code and the ADR differ
 
 The fail-fast rule says to use the assertion library; `Test-GlobSetAffected` raises its throw from an inline check, and its function help
-cites the fail-fast decision for it. The function help of `Test-GlobSetAffected` and `Get-GlobSetChangeRange` cites the protected-globs rule
-for the fail-open, while the rule that states the in-pipeline fail-open is the globset-trigger rule. No pipeline or workflow calls
-`Test-GlobSetAffected`, and no Azure DevOps pipeline sets `fetchDepth: 0`.
+cites the fail-fast decision for it. No pipeline or workflow calls `Test-GlobSetAffected`, and no Azure DevOps pipeline sets
+`fetchDepth: 0`.
 
 ## See also
 

@@ -45,6 +45,7 @@ customers:
         [System.IO.File]::WriteAllText((Join-Path $script:config 'customer.yml'), $script:customer)
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo/automation' }
     }
 
     It 'derives the org, tenants, subscriptions, environments, and customers from the fixture configs' {

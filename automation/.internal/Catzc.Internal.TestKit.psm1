@@ -18,7 +18,7 @@ function New-ModuleFolder {
     )
 
     $utf8 = [System.Text.UTF8Encoding]::new($false)
-    $moduleDirectory = Join-Path $Root "automation/$Name"
+    $moduleDirectory = Join-Path $Root "$(Get-CatzcModulesFolder)/$Name"
     [System.IO.Directory]::CreateDirectory($moduleDirectory) | Out-Null
 
     foreach ($function in $Public) {
@@ -58,7 +58,9 @@ function New-FakeRepositoryRoot {
 
     $utf8 = [System.Text.UTF8Encoding]::new($false)
     $root = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-fixture-' + [guid]::NewGuid().ToString('N'))
-    [System.IO.Directory]::CreateDirectory((Join-Path $root 'automation')) | Out-Null
+    # The fixture mirrors the real layout, so its modules folder is the real one's name.
+    $modulesFolder = Get-CatzcModulesFolder
+    [System.IO.Directory]::CreateDirectory((Join-Path $root $modulesFolder)) | Out-Null
 
     foreach ($name in $Modules.Keys) {
         $specification = $Modules[$name]
@@ -83,7 +85,7 @@ function New-FakeRepositoryRoot {
     }
 
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
-    $automation = Join-Path $root 'automation'
+    $automation = Join-Path $root $modulesFolder
     $env:RepositoryRoot = $root
     if (-not $WorkingRootOnly) {
         $env:CatzcModulesRoot = $automation

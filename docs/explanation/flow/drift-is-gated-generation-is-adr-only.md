@@ -68,7 +68,6 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 - The ADR calls `Test-GlobSetAffected` the exact backstop the pipeline runs first; no pipeline or workflow step calls it.
 - The ADR says branch-policy `filenamePatterns` use the Azure DevOps projection; `Get-BuildValidationPathFilter` anchors the GitHub list
   instead.
-- `Get-GlobSetTrigger` and the three gates cite ADR-FLOW-CD-GLOBS#1 in their help, where #6 defines the projection and its gates.
 
 ## See also
 

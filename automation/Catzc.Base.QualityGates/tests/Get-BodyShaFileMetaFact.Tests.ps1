@@ -33,7 +33,7 @@ Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         }
 
         It 'stamps a generated page and never an authored one, so a hand-kept hash on an authored page is no finding' -ForEach @(
-            @{ Class = 'comment-page'; Selected = $true }
+            @{ Class = 'comment-page'; Selected = $false }
             @{ Class = 'glossary'; Selected = $true }
             @{ Class = 'index'; Selected = $true }
             @{ Class = 'adr'; Selected = $false }

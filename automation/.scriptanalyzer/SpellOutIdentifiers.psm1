@@ -9,11 +9,12 @@ function Initialize-SpellingOracle {
     if ($script:oracleReady) {
         return
     }
-    $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..' '..'))
+    # The rule sits in the modules root, so the root is its parent folder and no literal names it.
+    $automationRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+    $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $automationRoot '..'))
 
     if (-not ('Catzc.Base.QualityGates.SpellingOracle' -as [type])) {
-        Import-Module (Join-Path $repoRoot 'automation/.internal/Catzc.Internal.Types.psm1')
-        $automationRoot = Join-Path $repoRoot 'automation'
+        Import-Module (Join-Path $automationRoot '.internal/Catzc.Internal.Types.psm1')
         $combinedHash = (Get-CombinedTypeHash $automationRoot).CombinedHash
         $typesDll = Join-Path $automationRoot ".compiled/Catzc.Types.$combinedHash.dll"
         if (-not [System.IO.File]::Exists($typesDll)) {
@@ -22,7 +23,7 @@ function Initialize-SpellingOracle {
         Import-TypesAssembly -Path $typesDll | Out-Null
     }
 
-    $englishPath = Join-Path $repoRoot 'automation/Catzc.Base.QualityGates/assets/english.txt.gz'
+    $englishPath = Join-Path $automationRoot 'Catzc.Base.QualityGates/assets/english.txt.gz'
     $cspellDir = Join-Path $repoRoot '.cspell'
     $allTermPaths = if ([System.IO.Directory]::Exists($cspellDir)) {
         [string[]] @([System.IO.Directory]::EnumerateFiles($cspellDir, '*.txt'))

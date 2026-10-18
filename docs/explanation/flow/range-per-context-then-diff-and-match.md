@@ -57,11 +57,6 @@ The diagram is described element by element in [its asset description](range-per
   (ADR-FLOW-CD-GLOBS#9).
 - The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly (ADR-FLOW-CD-DETECT#1).
 
-## Where the code and the ADR differ
-
-The function help of `Test-GlobSetAffected` and `Get-GlobSetChangeRange` cites the protected-globs rule for the fail-open; the in-pipeline
-fail-open is stated by the globset-trigger decision.
-
 ## See also
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.

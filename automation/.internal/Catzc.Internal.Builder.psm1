@@ -146,11 +146,12 @@ function Get-BuildClosureViolation {
         [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
+    $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
     $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::Ordinal)
 
     foreach ($call in @(Get-FunctionDependency -AutomationRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
         if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and -not $selected.Contains($call.TargetModule)) {
-            "automation/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
+            "$sourceFolder/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
         }
     }
 
@@ -199,7 +200,7 @@ function Get-BuildClosureViolation {
                         }
                     })
                 if ($owners.Count -gt 0 -and -not @($owners | Where-Object { $selected.Contains($_) })) {
-                    "automation/${relativePath}:$($read.Extent.StartLineNumber): reads config '$config', which $($owners -join ', ') owns"
+                    "$sourceFolder/${relativePath}:$($read.Extent.StartLineNumber): reads config '$config', which $($owners -join ', ') owns"
                 }
             }
         }
@@ -222,6 +223,7 @@ function Get-MergedModule {
         [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
+    $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
     $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $Name)
     $privateDirectory = [System.IO.Path]::Combine($moduleDirectory, 'private')
 
@@ -243,15 +245,15 @@ function Get-MergedModule {
 
     $violations = [System.Collections.Generic.List[string]]::new()
     if ($privateFiles.Count + $publicFiles.Count -eq 0) {
-        $violations.Add("automation/${Name}: has no function files, so there is nothing to build into a module")
+        $violations.Add("$sourceFolder/${Name}: has no function files, so there is nothing to build into a module")
     }
 
     $ordered = [System.Collections.Generic.List[object]]::new()
     foreach ($file in $privateFiles) {
-        $ordered.Add(@{ Path = $file; Relative = "automation/$Name/private/$([System.IO.Path]::GetFileName($file))" })
+        $ordered.Add(@{ Path = $file; Relative = "$sourceFolder/$Name/private/$([System.IO.Path]::GetFileName($file))" })
     }
     foreach ($file in $publicFiles) {
-        $ordered.Add(@{ Path = $file; Relative = "automation/$Name/$([System.IO.Path]::GetFileName($file))" })
+        $ordered.Add(@{ Path = $file; Relative = "$sourceFolder/$Name/$([System.IO.Path]::GetFileName($file))" })
     }
 
     $blocks = [System.Collections.Generic.List[string]]::new()
@@ -344,6 +346,7 @@ function Get-ModuleBuildPlan {
         [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
+    $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
     $entries = [System.Collections.Generic.List[object]]::new()
     $violations = [System.Collections.Generic.List[string]]::new()
     $allPublics = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -351,7 +354,7 @@ function Get-ModuleBuildPlan {
     foreach ($name in $Module) {
         $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $name)
         if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
-            $violations.Add("automation/${name}: the module folder does not exist")
+            $violations.Add("$sourceFolder/${name}: the module folder does not exist")
             continue
         }
         $merged = Get-MergedModule -SourceRoot $SourceRoot -Name $name -Index $Index -ParsedScripts $ParsedScripts
@@ -381,11 +384,11 @@ function Get-ModuleBuildPlan {
     foreach ($relativePath in $internalFiles) {
         $source = [System.IO.Path]::Combine($SourceRoot, '.internal', $relativePath)
         if (-not [System.IO.File]::Exists($source)) {
-            $violations.Add("automation/.internal/${relativePath}: the runtime loader file does not exist")
+            $violations.Add("$sourceFolder/.internal/${relativePath}: the runtime loader file does not exist")
             continue
         }
         if (-not (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $source)) {
-            $violations.Add("automation/.internal/${relativePath}: the runtime loader file is ignored by git, and a bundle never ships an ignored file")
+            $violations.Add("$sourceFolder/.internal/${relativePath}: the runtime loader file is ignored by git, and a bundle never ships an ignored file")
             continue
         }
         $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $source
@@ -417,10 +420,10 @@ function Get-ModuleBuildPlan {
     # The package entry points: the authored initializer (verbatim), its RootModule wrapper, and the manifest.
     $initializer = [System.IO.Path]::Combine($SourceRoot, '.internal', 'assets', 'Import-Catzc.ps1')
     if (-not [System.IO.File]::Exists($initializer)) {
-        $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer does not exist')
+        $violations.Add("$sourceFolder/.internal/assets/Import-Catzc.ps1: the build initializer does not exist")
     }
     elseif (-not (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $initializer)) {
-        $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer is ignored by git, and a bundle never ships an ignored file')
+        $violations.Add("$sourceFolder/.internal/assets/Import-Catzc.ps1: the build initializer is ignored by git, and a bundle never ships an ignored file")
     }
     else {
         $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $initializer
@@ -467,7 +470,7 @@ function Get-ModuleBuildPlan {
                 $entries.Add([pscustomobject]@{ Path = $manifestPath; Kind = 'Copy'; Source = $committedManifest; Content = $null; Exports = $null; Normalize = $false })
             }
             else {
-                $violations.Add("automation/.compiled/Catzc.Types.$typeHash.json: the types manifest beside the committed assembly does not exist; run the importer")
+                $violations.Add("$sourceFolder/.compiled/Catzc.Types.$typeHash.json: the types manifest beside the committed assembly does not exist; run the importer")
             }
         }
         else {
@@ -733,7 +736,7 @@ function Invoke-ModuleBuild {
         }
     }
 
-    $sourceRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) 'automation'))
+    $sourceRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) (Get-CatzcModulesFolder)))
     $buildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($Destination, 'Catzc', $Version))
     $modules = [string[]] @(Resolve-BuildModuleSet -Module $Module -ModuleProfile $ModuleProfile)
 

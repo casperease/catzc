@@ -65,8 +65,6 @@ The diagram is described element by element in [its asset description](gates-che
 - The ADR says the filters are generated into the YAML and that an ADO projection that cannot reproduce exact membership is caught at
   generation time. No generator writes the YAML, `Get-GlobSetTrigger` defers that case to the superset integrity test, and `cd-shared.yaml`
   documents exactly such a case, which `Test-GlobSetTriggerCoverage`, checking ADO includes only, passes.
-- `Test-GlobSetAffected` and `Get-GlobSetChangeRange` cite fail-open as ADR-REPO-PROTGLOB#5; for the change check the ADR states it in
-  ADR-FLOW-CD-GLOBS#9.
 
 ## See also
 

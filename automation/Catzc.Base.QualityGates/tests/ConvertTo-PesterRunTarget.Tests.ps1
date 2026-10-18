@@ -19,6 +19,7 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:repo 'automation' }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
             [pscustomobject]@{ Language = 'python'; Module = 'Catzc.Widget'; Folder = $script:widgetPython; Name = 'catzc-widget' }

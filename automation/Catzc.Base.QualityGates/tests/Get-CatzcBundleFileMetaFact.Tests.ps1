@@ -32,7 +32,7 @@ Describe 'Get-CatzcBundleFileMetaFact' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG#1' {
                 @('Widget.Core', 'Widget.Extra', '.internal')
             }
         }
-        Mock Get-Track -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ name = 'automation'; places = @('widgetry') } }
+        Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widgetry' }
     }
 
     It 'names the smallest bundle that holds the module of the file, under the kind''s key' {

@@ -26,7 +26,8 @@ Two dialects, from the one program:
   membership (a root-glob re-added over an equal-depth exclude) is caught by the superset integrity test, not here; this function only
   performs the mechanical projection.
 
-It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1).
+It rests on [ADR-FLOW-CD-GLOBS#1](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1) and
+[ADR-FLOW-CD-GLOBS#6](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6).
 
 ### parameter Name
 

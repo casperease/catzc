@@ -52,10 +52,6 @@ The diagram is described element by element in [its asset description](one-scan-
 - The trigger is the program projected into each vendor's native path-filter dialect (ADR-FLOW-CD-GLOBS#6).
 - Whether a change touches a set is computed from git at real refs, failing open on any doubt (ADR-FLOW-CD-GLOBS#9).
 
-## Where the code and the ADR differ
-
-`Test-GlobSetAffected` cites fail-open as ADR-REPO-PROTGLOB#5; for the change check the ADR states it in ADR-FLOW-CD-GLOBS#9.
-
 ## See also
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.

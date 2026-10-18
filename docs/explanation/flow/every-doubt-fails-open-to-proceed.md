@@ -42,12 +42,6 @@ The diagram is described element by element in [its asset description](every-dou
 - The check returns false only when it has positively confirmed the unit is untouched, and throws on an undeclared unit name so a typo never
   silently skips (ADR-FLOW-CD-GLOBS#9).
 
-## Where the code and the ADR differ
-
-The function help of `Test-GlobSetAffected` and `Get-GlobSetChangeRange` cites the protected-globs rule for the fail-open; that rule governs
-the local scan-skip record, where an unknown globset means scan, while this check throws on an unknown name. The fail-open it implements is
-the one the globset-trigger decision states.
-
 ## See also
 
 - [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
