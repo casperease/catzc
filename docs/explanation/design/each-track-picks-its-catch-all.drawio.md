@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Each track picks its catch-all: the diagram described
+# Each track picks its catch-all: a stray module file falls to tests, a stray template file to live: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom from one wide file into two side-by-side column bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Callers anywhere depend on one module: the diagram described
+# Callers in any module read config through one module: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into a second band and back up, with a third band below.

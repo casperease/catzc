@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Get-Aspect feeds Globs and Maps: the diagram described
+# Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live: the diagram described
 
 ```text
 A 1572 x 668 diagram, read top to bottom from a file, a code unit and a failure, through a wide code unit, into two column bands.

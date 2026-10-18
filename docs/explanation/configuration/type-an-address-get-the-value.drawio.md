@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Type an address, get the value: the diagram described
+# Type an address and get its value back; a wrong address throws its message at the call: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through three bands side by side, in three rows.

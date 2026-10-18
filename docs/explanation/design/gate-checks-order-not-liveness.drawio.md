@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The gate checks order, not liveness: the diagram described
+# The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom inside two side-by-side column bands, each with its gate on the right.

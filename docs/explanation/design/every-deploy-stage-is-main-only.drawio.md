@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Every Deploy stage runs only from main: the diagram described
+# Every Deploy stage in cats runs only from main, so no topic commit is deployed: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.

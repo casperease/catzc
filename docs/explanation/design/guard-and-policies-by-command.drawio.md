@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Flip git_workspace; sync the ADO policies: the diagram described
+# A person turns on the local guard with one variant; an admin syncs the server policies with one command: the diagram described
 
 ```text
 A 1572 x 600 diagram, read top to bottom through two bands, ON A CLONE and ADMIN, each left to right.

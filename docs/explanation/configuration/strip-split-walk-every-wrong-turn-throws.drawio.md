@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Strip, split, walk, every wrong turn throws: the diagram described
+# Strip, split, read once, walk one segment at a time; every wrong turn throws: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right along one band, with a second band below for the failures.

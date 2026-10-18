@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A developer and a pipeline type the same Deploy-Bicep: the diagram described
+# A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription: the diagram described
 
 ```text
 A 1572 x 850 diagram, read top to bottom through five bands.

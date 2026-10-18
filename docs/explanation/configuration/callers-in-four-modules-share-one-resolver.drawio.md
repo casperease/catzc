@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Callers in four modules share one resolver: the diagram described
+# Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private: the diagram described
 
 ```text
 A 1576 x 654 diagram, read left to right through three bands side by side.

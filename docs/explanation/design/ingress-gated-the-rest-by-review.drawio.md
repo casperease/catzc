@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Only ingress is checked by gates: the diagram described
+# Only ingress is checked by gates; the source-of-truth and integration rules rest on code review: the diagram described
 
 ```text
 A 1572 x 680 diagram, read top to bottom through three bands: LOCAL CLONE, SERVER REMOTE, OUT.

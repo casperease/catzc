@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One gate guards the read path: the diagram described
+# One quality gate guards the config read path, and it checks only the typed step: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into two bands, with a band of gates at the bottom pointing up.

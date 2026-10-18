@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Deploy-Bicep hands every vendor step to az: the diagram described
+# Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az: the diagram described
 
 ```text
 A 1572 x 750 diagram, read top to bottom through four bands.

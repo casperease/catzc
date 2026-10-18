@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Merging to main is what deploys: the diagram described
+# Merging to main is what deploys; there is no run that deploys a topic: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.

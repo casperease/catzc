@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# No gate checks the out-of-band deploy rule: the diagram described
+# No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.

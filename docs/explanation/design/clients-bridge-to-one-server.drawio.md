@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Clients bridge to one server remote: the diagram described
+# Clients bridge to one server remote: in through a pull request, out from the verified point: the diagram described
 
 ```text
 A 1572 x 900 diagram, read top to bottom through four bands: IN, PULL REQUEST, SERVER REMOTE, OUT.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Three gates guard the CLI and az: the diagram described
+# Three gates guard the CLI and az, but nothing checks that cats stays thin: the diagram described
 
 ```text
 A 1572 x 800 diagram, read top to bottom through four bands.

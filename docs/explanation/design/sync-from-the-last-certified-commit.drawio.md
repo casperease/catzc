@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Sync from the last certified commit, not HEAD: the diagram described
+# Sync from the last certified commit, not from the tip of main: the diagram described
 
 ```text
 A 1572 x 600 diagram, read top to bottom, then left to right; no bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Get-Aspect names the remainder: the diagram described
+# Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads: the diagram described
 
 ```text
 A 1572 x 654 diagram, read top to bottom from one wide file into two side-by-side column bands, with a failure beside the file.

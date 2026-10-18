@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Integrators depend on the main-UAT occupant: the diagram described
+# Upstream integrators depend on the main-UAT occupant, never on the tip of main: the diagram described
 
 ```text
 A 1572 x 670 diagram, read top to bottom through three bands, with one row of hexagons in the middle band.

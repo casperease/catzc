@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Four pipeline kinds promote one artifact: the diagram described
+# Four pipeline kinds promote one artifact that CI built once: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through five bands standing side by side.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One door in, one stable point out: the diagram described
+# Changes enter through one door, and consumers build on one stable point: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through three bands: IN, SERVER REMOTE, OUT.

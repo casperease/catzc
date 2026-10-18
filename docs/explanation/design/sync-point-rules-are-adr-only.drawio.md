@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Only BVT has a gate; the sync point is ADR-only: the diagram described
+# Only BVT has a gate in code; the sync-point rules are ADR-only: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands, with one row of hexagons and a gate in the middle band.

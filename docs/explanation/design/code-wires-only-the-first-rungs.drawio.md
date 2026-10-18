@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The pipelines wire only topic, landed and BVT: the diagram described
+# The pipelines wire only topic, landed and BVT; past BVT there is no ladder: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands standing side by side.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Only automation compiles its aspects: the diagram described
+# Both tracks' conventions are read, but only the automation track's compiles into globsets: the diagram described
 
 ```text
 A 1572 x 654 diagram, read top to bottom from a file and a wide code unit into two side-by-side column bands.

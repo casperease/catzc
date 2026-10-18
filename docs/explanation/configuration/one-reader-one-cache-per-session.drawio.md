@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One reader, one cache per session: the diagram described
+# Every config read goes through one reader and one session cache: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right along one band, down into a second band and back up.

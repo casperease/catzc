@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Ask by name, get the cached object: the diagram described
+# Ask for a config by name and get the cached object back: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into a second band and back up, then down to a band of failures.

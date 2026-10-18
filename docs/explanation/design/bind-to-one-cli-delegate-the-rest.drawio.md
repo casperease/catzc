@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Bind to one CLI; delegate the rest: the diagram described
+# Consumers bind to one CLI, and everything behind it is delegated to the vendor: the diagram described
 
 ```text
 A 1572 x 750 diagram, read top to bottom through four bands down one centre spine.

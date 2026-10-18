@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two test files check the address rules: the diagram described
+# Two L0 test files check the address rules; read-only and committed-only rest on convention: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right along two bands side by side, with a band of gates below pointing up.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A local guard and ADO policies, no resolver: the diagram described
+# The code carries both halves of ingress, but nothing finds the last verified commit: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through two bands, LOCAL HALF and SERVER HALF, each left to right.

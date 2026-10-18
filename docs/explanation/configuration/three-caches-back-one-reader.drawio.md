@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Three caches back one reader: the diagram described
+# Three session caches back the one config reader: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, then down into three bands below it.
