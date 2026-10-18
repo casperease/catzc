@@ -13,7 +13,7 @@ files:
     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
     committed: true
     optIn: true
-  - target: importer-commands.sh
+  - target: pwsh/.internal/assets/importer-commands.sh
     generator: New-CatsCommandLookup
     sources:
       - contracts/catzc/0.0.0

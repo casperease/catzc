@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "98e533f8ab5f"
+#     with_body_sha: "13861fbb7e83"
 #     repo_status: locked
 #     path: importer.sh
 #     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
@@ -23,7 +23,7 @@
 #
 # An argument that starts with '-' passes through as a parameter name; every other argument after the command is passed
 # as one PowerShell literal, quoted the PowerShell way, so a value with spaces or a quote stays one value. A command with a
-# command contract is checked first against importer-commands.sh, the lookup generated beside this file: an unknown parameter,
+# command contract is checked first against pwsh/.internal/assets/importer-commands.sh, the generated lookup: an unknown parameter,
 # a missing mandatory one or a value not of the contract's type fails before pwsh starts, a switch passes as a flag and an int
 # unquoted (ADR-REPO-CMDCONTRACT-ONEREADER); CATZC_COMMAND_LOOKUP names another lookup, for a test. Every call
 # starts pwsh non-interactively and imports catzc, so it pays the import time; for many commands in a row, start pwsh
@@ -84,10 +84,10 @@ cats() {
     "$_catzc_pwsh" -NoProfile -NonInteractive -Command "$_catzc_load; $_catzc_text"
 }
 
-# The lookup rows of one command, from the generated importer-commands.sh beside this file; empty for an uncontracted command.
+# The lookup rows of one command, from the generated pwsh/.internal/assets/importer-commands.sh; empty for an uncontracted command.
 _catzc_contract() {
     _catzc_commands=''
-    _catzc_lookup="${CATZC_COMMAND_LOOKUP:-$_catzc_root/importer-commands.sh}"
+    _catzc_lookup="${CATZC_COMMAND_LOOKUP:-$_catzc_root/pwsh/.internal/assets/importer-commands.sh}"
     if [ -f "$_catzc_lookup" ]; then
         # shellcheck source=/dev/null
         . "$_catzc_lookup"

@@ -3,11 +3,15 @@
 #   immutable:
 #     with_body_sha: aff4b5a2e8b8
 #     repo_status: locked
-#     path: importer-commands.sh
+#     path: pwsh/.internal/assets/importer-commands.sh
 #     source: contracts/catzc/0.0.0
-#     role: script
+#     role: asset
 #     language: bash
 #     filetype: sh
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Internal.Assets
+#     moduletype: pwsh-folder
 #     generator: pwsh/Catzc.Base.Contracts/New-CatsCommandLookup.ps1
 # ---
 

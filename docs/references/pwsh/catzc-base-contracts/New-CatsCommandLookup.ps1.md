@@ -11,7 +11,7 @@ Builds the command lookup `cats` reads before it starts pwsh, from the command c
 
 ### description
 
-Writes the text of `importer-commands.sh`, the sourced bash file Build-RootConfig generates
+Writes the text of `pwsh/.internal/assets/importer-commands.sh`, the sourced bash file Build-RootConfig generates
 ([ADR-REPO-CMDCONTRACT-ONEREADER](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)): one tab-separated line
 per contracted parameter of `contracts/catzc/0.0.0`, as Get-CommandContract reads it, giving the command, the parameter, its type, whether
 it is a list, mandatory or bound from the pipeline (1 or 0), and the contract asset. A command with no parameter has one line with an empty
