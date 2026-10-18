@@ -48,8 +48,12 @@ catzc:
 
 ### Rule ADR-REPO-FILEMETA:1
 
-Every in-scope tracked file may carry one **meta block**: the facts the tooling owns about the file, written into the file's carrier. A
-Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under
+A file carries one **meta block** exactly as its **head policy** says: `required`, `optional` or `forbidden`, set per file class in the
+meta-kind registry, with the defaults declared once on the policy's type
+([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). By default a tracked generated file and a file whose
+front matter another tool reads, such as an agent or capability definition, are `required`, an authored file is `forbidden`, and a file git
+does not track is `optional`. A file whose block disagrees with its policy, absent where required or present where forbidden, is a finding.
+The block holds the facts the tooling owns about the file, written into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under
 `edges` ([ADR-REPO-FILEMETA#13](#rule-adr-repo-filemeta13)) and its authored config contributions under `config`
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). The key sits at the top
 level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign data, nests under
@@ -127,7 +131,8 @@ out for a file that has none, and what only a composed file has: `generator` (th
 command that composed the file) and `source` (the authored file or files it comes from). The head opens with `with_body_sha`, the hash of
 the content below it, whatever the file's language and carrier, so a tracked generated file says which text its writer composed and the
 drift check compares the stamp with the hash of the content below it before it compares the content. A generated file is told from an
-authored one by its `generator`, never by a kind of its own. No writer hand-words a banner. The imprint engine leaves these files alone
+authored one by its writer's entry in the writer registry (`generated-files.yml`) and its `linguist-generated` attribute, never by a kind
+of its own and never by its head ([ADR-REPO-FILEMETA#14](#rule-adr-repo-filemeta14)). No writer hand-words a banner. The imprint engine leaves these files alone
 ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated item whose
 block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the comment
 exporter.
@@ -209,6 +214,16 @@ unchanged) are never written into the file, since the write would change them; `
 A kind of the registry names the part it writes, `immutable` by default and `edges` for a relation.
 
 - [Place facts and edges](#place-facts-and-edges)
+
+### Rule ADR-REPO-FILEMETA:14
+
+No command reads an imprinted fact back. A gate, a generator or a resolver that needs a place fact or an edge of a file derives it from the
+registries, git, the disk and the file's body, so stripping every block changes no verdict, and every command works the same on a file with
+a block and on one without. The imprint is the one reader of `immutable` and `edges`, and it reads them only to compare them with what it
+would write. A key another tool owns is read by that tool alone.
+
+- [A head shows the facts, never holds them](#a-head-shows-the-facts-never-holds-them)
+- [Head policy](#head-policy)
 
 ## Context
 
@@ -374,6 +389,26 @@ with a config fragment instead of editing it. A provided contract pins the names
 What a module is and how its type is declared are in [module-types](../design/module-types.md); the head only carries the result. A file in
 no module, such as a documentation page, has neither `module` nor `moduletype`. The catzc bundle a module ships in is read from the exporter
 registry, so the head says whether a module is in a built bundle without a second list.
+
+### A head shows the facts, never holds them
+
+`The repository knows the facts; the head is their picture`
+
+Every fact in a block is computed from something else: a registry, git, the disk or the file's own text. A command that reads the fact out
+of the block instead trusts a copy that is right only when the file was last imprinted, so its verdict depends on when a formatter ran.
+Deriving the fact every time gives one answer whether the file has a block, a stale block or none, and that is what lets the policy add or
+remove blocks freely. The imprint reads the block only to say that it differs from what it would write.
+
+### Head policy
+
+`A head where a reader needs one, none where it only repeats`
+
+A block is worth its bytes where a reader cannot easily derive what it says. A generated file names the command that writes it and the
+source to edit instead, and stamps the body its writer composed, so a tracked generated file requires one. A file whose front matter
+another tool reads, such as an agent definition the editor loads, cannot work without its front matter, so it requires one too. An authored
+file's facts are all derivable, so a block on it is a second statement that can drift and adds a diff to every move, and it carries none.
+The policy is one setting per file class with its default declared once, so a repository that wants blocks on its authored files changes a
+setting, never code.
 
 ### How this is enforced
 

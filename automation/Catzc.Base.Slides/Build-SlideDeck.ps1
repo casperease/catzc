@@ -2,8 +2,18 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Slides/Build-SlideDeck.ps1
+    name: build-slide-deck
+    filetype: ps1
     kind: function
+    subkind: writer
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: public
   edges:
     test: automation/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1

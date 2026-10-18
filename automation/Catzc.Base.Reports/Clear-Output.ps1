@@ -15,6 +15,7 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
+    test: automation/Catzc.Base.Reports/tests/Clear-Output.Tests.ps1
     cites:
       - ADR-AUTO-DRYRUN#1
       - ADR-REPO-OUTDIR#7

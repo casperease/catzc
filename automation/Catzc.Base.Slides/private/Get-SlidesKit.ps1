@@ -2,8 +2,18 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Slides/private/Get-SlidesKit.ps1
+    folder: private
+    name: get-slides-kit
+    filetype: ps1
     kind: function
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Loads the slides kit, its defaults and every pattern, from the kit folder.

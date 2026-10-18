@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "65ea94e7734c"
+    with_body_sha: d289056c7040
     repo_status: locked
     path: docs/references/automation/internal/Catzc.Internal.Types.psm1.md
     folder: docs/references/automation/internal

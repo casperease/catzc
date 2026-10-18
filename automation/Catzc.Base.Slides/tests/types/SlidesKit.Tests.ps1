@@ -2,8 +2,22 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1
+    folder: tests/types
+    name: slides-kit-tests
+    filetype: ps1
     kind: test
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-SLIDES#2
 ---
 #>
 

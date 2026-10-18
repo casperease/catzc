@@ -13,6 +13,9 @@ catzc:
     module: Catzc.Internal.Tests
     moduletype: pwsh-folder
     catzc_bundle: minimal
+  edges:
+    cites:
+      - ADR-AUTO-TYPES#9
 ---
 #>
 

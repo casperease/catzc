@@ -1,3 +1,37 @@
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: docs/explanation/file-meta.md
+    folder: docs/explanation
+    name: file-meta
+    filetype: md
+    kind: explanation
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-COMMENTS#{1,2}
+      - ADR-REPO-FILEMETA#{1-5,7}
+    links:
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/repository/code-file-meta.md
+      - docs/adr/repository/comments-in-docs.md
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments2
+      - docs/adr/repository/file-meta.md
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7
+---
+
 # File meta: the repository knows the facts, a head only shows them
 
 ```text

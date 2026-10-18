@@ -2,8 +2,18 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: automation/Catzc.Base.Slides/private/Read-SlideFile.ps1
+    folder: private
+    name: read-slide-file
+    filetype: ps1
     kind: function
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
     visibility: private
   config:
     synopsis: Reads one slide file into its head values and its parsed body.

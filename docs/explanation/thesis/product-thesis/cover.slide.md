@@ -16,7 +16,7 @@ catzc:
     order: 1
 ---
 
-# One source of truth.
+# One source of truth
 
 ## Eyebrow
 

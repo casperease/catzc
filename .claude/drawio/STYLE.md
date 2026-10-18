@@ -8,7 +8,7 @@ catzc:
     filetype: md
     kind: drawio-kit
     language: markdown
-    track: ".claude"
+    track: ".claude-kits"
     tracktype: vendor-settings
     vendor: claude
     module: ".claude"

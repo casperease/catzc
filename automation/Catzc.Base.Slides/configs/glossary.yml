@@ -1,3 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: automation/Catzc.Base.Slides/configs/glossary.yml
+#     folder: configs
+#     name: glossary
+#     filetype: yml
+#     kind: config
+#     language: yaml
+#     track: automation
+#     tracktype: modules
+#     module: Catzc.Base.Slides
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+# ---
+
 concepts:
   slide file:
     key: slide_file

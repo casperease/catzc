@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    repo_status: clean\n    path: \".vscode/catzc-compiled-info/package.json\"\n    folder: catzc-compiled-info\n    name: package\n    filetype: json\n    kind: other\n    language: json\n    module: \".vscode\"\n    moduletype: settings",
+  "//": "catzc:\n  immutable:\n    repo_status: clean\n    path: automation/Catzc.Base.VSCode/extensions/catzc-compiled-info/package.json\n    folder: catzc-compiled-info\n    name: package\n    filetype: json\n    kind: other\n    language: json\n    module: Catzc.Base.VSCode\n    moduletype: pwsh-folder",
   "name": "catzc-compiled-info",
   "displayName": "Catzc compiled build info",
   "description": "Opens a committed Catzc.Types.<hash>.dll as a short note on what it is and whether it is the current build, instead of the binary screen.",

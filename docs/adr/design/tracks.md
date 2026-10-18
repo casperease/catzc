@@ -187,11 +187,12 @@ column names are the value-chain concerns.
 
 ### Rule ADR-DSGN-TRACK:17
 
-The **unordered track** (`.unordered`, class `unordered`) holds fragments frozen at the moment they were committed, such as finished plans;
-a **note** is one such fragment, the file kind of everything the track holds, and the track is not part of the system. No command, default,
-glob, gate, generator, or agent reads, writes, or falls back to it unless a person names it, and nothing depends on a file in it, because
-the track may be emptied at any time and `git log` keeps its history. It holds no active work: the running session's scratch lives in
-`out/`, and an active plan lives in `.claude/plans/`.
+The **unordered track** (`.unordered`, class `unordered`) is the import landing zone, and the unordered part of the repository is whatever
+is still under `.unordered/`. An **import** brings an outside repository into this one with its full history; it lands at a **landing
+address**, `.unordered/<name>`, where the name is a short kebab word unique among the addresses. **Sorting** moves a file from its landing
+address to its module or track with `git mv`, so its history follows. A **note** is the file kind of everything the track holds, and the
+track is not part of the system: no command, default, glob, gate, generator, or agent reads, writes, or falls back to it unless a person
+names it, and nothing depends on a file in it.
 
 - [The unordered track](#the-unordered-track)
 
@@ -299,12 +300,17 @@ label that names none.
 
 ### The unordered track
 
-A finished plan, an old sketch, or a note nobody owns has no place in the system, and deleting it loses what `git log` would keep. The
-unordered track is that place: a root folder that git tracks and the world map counts, so the place rule (ADR-DSGN-TRACK#1) holds, with one
-property that sets it apart. It is a shelf, not a source: it has no tech-stack beyond the Markdown it holds, no consumer, and no default.
-Anything that quietly read from it would make the system depend on fragments that exist only because nobody deleted them, so the rule is
-stated as a prohibition, and every other track keeps its own reason to exist. Active plans never start here: they live in
-`out/plan-<topic>.md`, the gitignored output directory, and move to the unordered track only once they are done.
+An outside repository brought into this one arrives with a history worth keeping and a layout that matches none of this repository's
+modules. Importing it straight into a module would mix its files with code the gates hold to the domain rules before anyone has judged
+them; leaving the history behind would lose the record of why each file is the way it is. The unordered track is the place between: a
+root folder that git tracks and the world map counts, so the place rule (ADR-DSGN-TRACK#1) holds, and each import lands whole at its own
+landing address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so `git log
+--follow` keeps every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name that is
+taken fails the import, so a second import of the same source is a decision, never an accident.
+
+The track is a landing zone, not a source: it has no tech-stack beyond what an import brings, no consumer, and no default. Anything that
+quietly read from it would make the system depend on files nobody has sorted yet, so the rule is stated as a prohibition, and every other
+track keeps its own reason to exist. What stays under `.unordered/` is exactly the work still to sort.
 
 ### The value-chain map
 

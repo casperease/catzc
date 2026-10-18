@@ -893,6 +893,8 @@ terms:
       meaning: "the Regex Robin VS Code extension's settings prefix (regexrobin.rules) — makes code links clickable"
     - term: levett
       meaning: "the Regex Robin extension's Marketplace publisher (DanLevett.regex-robin)"
+    - term: bitbased
+      meaning: "the Source Tracker extension's Marketplace publisher (bitbased.bitbased-source-tracker)"
     - term: dtmp
       meaning: "draw.io desktop's temporary-file extension (*.dtmp), written beside a diagram while it is open; gitignored"
     - term: py

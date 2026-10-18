@@ -11,6 +11,32 @@ plan:
       automation/Catzc.Base.QualityGates/configs/file-meta.yml,
       automation/Catzc.Base.Slides/private/Read-SlideFile.ps1,
     ]
+catzc:
+  immutable:
+    repo_status: clean
+    path: ".claude/plans/plan-file-meta-head-policy.md"
+    folder: plans
+    name: plan-file-meta-head-policy
+    filetype: md
+    kind: other
+    language: markdown
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-COMMENTS#2
+      - ADR-REPO-FILEMETA#{1,4}
+      - ADR-REPO-PLANS#9
+    links:
+      - ".claude/plans/plan-file-head-immutable-edges-classes.md"
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/repository/code-file-meta.md
+      - docs/adr/repository/comments-in-docs.md
+      - docs/adr/repository/file-meta.md
 ---
 
 # File meta head policy: facts never read from a head, a head only where configured, Sync-FileMeta for one file
