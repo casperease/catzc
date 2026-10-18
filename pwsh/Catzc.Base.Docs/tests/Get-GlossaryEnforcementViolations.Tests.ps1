@@ -23,9 +23,9 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
         }
         # ADR-TST-WIDGET-TESTED is cited by a test, ADR-TST-WIDGET-ANALYZED by an analyzer, ADR-TST-WIDGET-BARE by nothing.
         $script:enforcer = @{
-            'ADR-TST-WIDGET-TESTED' = [pscustomobject]@{ Analyzers = @(); Tests = @('widgets/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
+            'ADR-TST-WIDGET-TESTED'   = [pscustomobject]@{ Analyzers = @(); Tests = @('widgets/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
             'ADR-TST-WIDGET-ANALYZED' = [pscustomobject]@{ Analyzers = @('Measure-Widget'); Tests = @() }
-            'ADR-TST-WIDGET-BARE' = [pscustomobject]@{ Analyzers = @(); Tests = @() }
+            'ADR-TST-WIDGET-BARE'     = [pscustomobject]@{ Analyzers = @(); Tests = @() }
         }
         $script:violations = {
             param([object[]] $entries)
