@@ -94,5 +94,4 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                           | `Get-ValueChainHighlight` |
 |                                           | `Test-ValueChainMap`      |
 | responsibility:5 — PDF rendering          | `Export-WorldMapPdf`      |
-|                                           | `Get-WorldMapOutputRoot`  |
 | config                                    | `maps.yml`                |

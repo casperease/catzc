@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7931adfc023e"
+#     with_body_sha: "367ce1dd912c"
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
@@ -78,6 +78,42 @@ New-PythonProject	Target	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages
 Publish-ContractRelease	Unit	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Contracts/Publish-ContractRelease.command.yml
 Publish-ContractRelease	Version	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Contracts/Publish-ContractRelease.command.yml
 Publish-ContractRelease	RepositoryRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Contracts/Publish-ContractRelease.command.yml
+Remove-AzCli	InstallDir	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Remove-AzCli.command.yml
+Remove-AzCli	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Remove-AzCli.command.yml
+Remove-Dotnet	InstallDir	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Remove-Dotnet.command.yml
+Remove-Dotnet	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Remove-Dotnet.command.yml
+Remove-Java	InstallDir	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Remove-Java.command.yml
+Remove-Java	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Remove-Java.command.yml
+Remove-NodeJs	InstallDir	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Remove-NodeJs.command.yml
+Remove-NodeJs	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Remove-NodeJs.command.yml
+Remove-Python	InstallDir	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Remove-Python.command.yml
+Remove-Python	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Remove-Python.command.yml
 Test-GeneratedFileCurrent	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Test-GeneratedFileCurrent.command.yml
 Test-GeneratedFileCurrent	InputsSha	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Test-GeneratedFileCurrent.command.yml
+Uninstall-AzCli	Remove	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-AzCli.command.yml
+Uninstall-AzCli	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-AzCli.command.yml
+Uninstall-Bicep	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Bicep.command.yml
+Uninstall-Chocolatey			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.command.yml
+Uninstall-Cspell			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Uninstall-Cspell.command.yml
+Uninstall-DevBoxTools			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.command.yml
+Uninstall-Dotnet	Remove	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Dotnet.command.yml
+Uninstall-Dotnet	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Dotnet.command.yml
+Uninstall-Git			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Provisioning/Uninstall-Git.command.yml
+Uninstall-Go			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Go.command.yml
+Uninstall-Java	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Java.command.yml
+Uninstall-Java	Remove	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Java.command.yml
+Uninstall-Java	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Java.command.yml
+Uninstall-Markdownlint			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Uninstall-Markdownlint.command.yml
+Uninstall-NodeJs	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Uninstall-NodeJs.command.yml
+Uninstall-NodeJs	Remove	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Uninstall-NodeJs.command.yml
+Uninstall-NodeJs	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Uninstall-NodeJs.command.yml
+Uninstall-Poetry			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Uninstall-Poetry.command.yml
+Uninstall-Postman			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Provisioning/Uninstall-Postman.command.yml
+Uninstall-Prettier			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Uninstall-Prettier.command.yml
+Uninstall-PySpark			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Uninstall-PySpark.command.yml
+Uninstall-Python	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Uninstall-Python.command.yml
+Uninstall-Shellcheck	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Shellcheck.command.yml
+Uninstall-Terraform	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Terraform.command.yml
+Uninstall-Uv	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-Uv.command.yml
+Uninstall-Zsh			0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Provisioning/Uninstall-Zsh.command.yml
 '

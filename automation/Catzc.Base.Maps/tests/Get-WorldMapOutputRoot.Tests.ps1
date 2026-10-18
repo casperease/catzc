@@ -6,7 +6,7 @@ Describe 'Get-WorldMapOutputRoot' -Tag 'L0', 'logic' {
 
     It 'joins the output root with the default output folder' {
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'maps' } { [Catzc.Base.Maps.MapsConfig]::new([ordered]@{}) }
-        Get-WorldMapOutputRoot | Should -Be (Join-Path $script:outputRoot 'world-map')
+        InModuleScope Catzc.Base.Maps { Get-WorldMapOutputRoot } | Should -Be (Join-Path $script:outputRoot 'world-map')
         Test-Path (Join-Path $script:outputRoot 'world-map') | Should -BeFalse
     }
 
@@ -14,12 +14,12 @@ Describe 'Get-WorldMapOutputRoot' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'maps' } {
             [Catzc.Base.Maps.MapsConfig]::new([ordered]@{ output_folder = 'gadget-map' })
         }
-        Get-WorldMapOutputRoot | Should -Be (Join-Path $script:outputRoot 'gadget-map')
+        InModuleScope Catzc.Base.Maps { Get-WorldMapOutputRoot } | Should -Be (Join-Path $script:outputRoot 'gadget-map')
     }
 
     It 'creates the folder with -EnsureExists' {
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'maps' } { [Catzc.Base.Maps.MapsConfig]::new([ordered]@{}) }
-        $folder = Get-WorldMapOutputRoot -EnsureExists
+        $folder = InModuleScope Catzc.Base.Maps { Get-WorldMapOutputRoot -EnsureExists }
         Test-Path -LiteralPath $folder -PathType Container | Should -BeTrue
         Should -Invoke Get-OutputRoot -ModuleName Catzc.Base.Maps -ParameterFilter { $EnsureExists } -Times 1 -Exactly
     }

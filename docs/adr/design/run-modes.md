@@ -49,13 +49,12 @@ files up to L2, and a test opts out of the build run only with the `source-only`
 
 ### Rule ADR-DSGN-RUNMODE:7
 
-Build mode has four kinds, told apart by where the code root lives: **temporary** (a devbox build under
-`<RepositoryRoot>/out/automation/built/<bundle>/`, overwritten in place), **cached** (a build kept outside the repository and reused across
-sessions for the same commit and version), **installed** (a package under a `PSModulePath` entry, put there by `Install-Catzc`), and
-**saved** (a package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root` calls after building). The
-kind is derived from the code root like the mode itself, never stored, and every kind loads through the same importer.
+Build mode has three kinds, told apart by where the code root lives: **temporary** (a devbox build under
+`<RepositoryRoot>/out/automation/built/<bundle>/`, overwritten in place), **installed** (a package under a `PSModulePath` entry, put there
+by `Install-Catzc`), and **saved** (a package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root`
+calls after building). The kind is never stored, and every kind loads through the same importer.
 
-- [Four kinds of build root](#four-kinds-of-build-root)
+- [Three kinds of build root](#three-kinds-of-build-root)
 
 ## Context
 
@@ -78,10 +77,10 @@ in one session, and are proven in both by running the same tests.
 
 ### Two modes, two entry points
 
-| Mode   | Code root (`CatzcModulesRoot`)    | Entered by                                | A module on disk                          |
-| ------ | --------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| source | `<RepositoryRoot>/automation`     | `importer.ps1`                            | a folder of one-function `.ps1` files     |
-| build  | one of the four build roots below | `Import-Catzc.ps1`, `Import-Module Catzc` | a generated `.psd1` and one merged `.ps1` |
+| Mode   | Code root (`CatzcModulesRoot`)     | Entered by                                | A module on disk                          |
+| ------ | ---------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| source | `<RepositoryRoot>/automation`      | `importer.ps1`                            | a folder of one-function `.ps1` files     |
+| build  | one of the three build roots below | `Import-Catzc.ps1`, `Import-Module Catzc` | a generated `.psd1` and one merged `.ps1` |
 
 Both entries are dot-sourced and run in the caller's scope. `importer.ps1` at the repository root loads the source mode. A temporary build —
 written by `Build-Modules`, which runs in a source-mode session — is entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot`
@@ -94,24 +93,23 @@ Which mode a session is in is read from what actually loaded, never from a flag:
 ([Deriving the mode](#deriving-the-mode)), and a build's `build.json` names the version and the commit it was built from
 ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle5)).
 
-### Four kinds of build root
+### Three kinds of build root
 
-`Temporary, cached, installed, saved`
+`Temporary, installed, saved`
 
 "Build mode" says only that the modules come from a package and not from the source tree. Where that package sits says how long it lives and
-who owns it, and the four kinds name those places (`<v>` is the package version):
+who owns it, and the three kinds name those places (`<v>` is the package version):
 
 | Kind      | Code root                                                   | Made by                     | Lifetime                             |
 | --------- | ----------------------------------------------------------- | --------------------------- | ------------------------------------ |
 | temporary | `<RepositoryRoot>/out/automation/built/<bundle>/Catzc/<v>/` | `Build-Modules` on a devbox | overwritten by the next devbox build |
-| cached    | a build cache outside the repository                        | a build reused per commit   | kept across sessions                 |
 | installed | `<PSModulePath entry>/Catzc/<v>/`                           | `Install-Catzc -Scope`      | until uninstalled or replaced        |
 | saved     | `<root>/.vendor/Catzc/<v>/`                                 | `Install-Catzc -Root`       | versioned with that root             |
 
-The kind is derived from the code root the same way the mode is ([Deriving the mode](#deriving-the-mode)), so it cannot disagree with what
-loaded. All four enter through the package's `Import-Catzc.ps1` (or `Import-Module Catzc` for an installed package), end in the same
-importer, and are the same modules; a NuGet package from `Export-Catzc -To nuget` is a distribution file, not a code root, until it is
-installed or saved.
+The kind is read from where the code root lives, so it cannot disagree with what loaded; `Get-CatzcRunMode` reports the mode only, and no
+function reports the kind, since nothing has needed it. All three enter through the package's `Import-Catzc.ps1` (or `Import-Module Catzc`
+for an installed package), end in the same importer, and are the same modules; a NuGet package from `Export-Catzc -To nuget` is a
+distribution file, not a code root, until it is installed or saved.
 
 ### The same module in both modes
 
@@ -196,7 +194,7 @@ asserting the derived mode, the exclusivity check, a call into each module, and 
 - One body of modules, one importer, and one body of tests stand behind both the developed form and the shipped form; a defect that shows
   only in the build turns the build run red before anything merges.
 - Developers keep one function per file; machines that run the installed package open one function file per module.
-- A session is always in exactly one mode, readable from the code root and printed by the load banner; switching is safe in any order.
+- A session is always in exactly one mode, readable from the code root and reported by `Get-CatzcRunMode`; switching is safe in any order.
 - A built module's errors point into its merged file; the source markers there map each line back to a source file, and debugging happens
   against source.
 - The cost is discipline in module code — content located only through the code root, source-tree tools guarded — enforced by an analyzer

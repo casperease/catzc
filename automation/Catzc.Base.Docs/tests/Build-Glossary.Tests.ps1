@@ -92,3 +92,11 @@ Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 's
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }
+
+Describe 'Build-Glossary — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    It 'finds the domain registry and the type sources it stamps in the loaded module' {
+        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
+        @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
+        [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') | Should -Not -BeNullOrEmpty
+    }
+}

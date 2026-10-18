@@ -53,6 +53,14 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
   - Q7: `Resolve-RepoPath` normalizes a rooted input; its L0 file passed with a new `.`/`..` case.
   - Q8: ADR-AZ-NAMING#7 says the throw lists the components that can be shortened; ADR-AZ-CLI#7 (new) holds the `Verb-Azure<Noun>` naming
     rule and `analyzer-adr-map.yml` credits `Measure-NoAzModuleNaming` to it. Test-AdrRegistry 0 issues; Test-AnalyzerAdrMap.Tests passed.
+  - Q4: ADR-DSGN-RUNMODE#7 has three build kinds (temporary, installed, saved) and no longer says the kind is derived; the Consequences name
+    `Get-CatzcRunMode`, not a load banner. `build-catzc.ps1` and `Write-CatzcLoadBanner` were already gone from the ADR. Seven run-mode
+    articles lost those claims.
+  - Q6: ADR-DSGN-TRACK#5 and its "Tracks, units, pipelines" section say a CI pipeline that verifies a whole track binds the track's own
+    loose-fileset set (ADR-FLOW-CD-GLOBS#7), and units bind CD pipelines 1-1. Four tracks articles lost the disagreement claim.
+  - Q7: ADR-AUTO-PATH says a path-bearing type holds both forms or derives the absolute on demand, `ExistsAt` answers whether the file
+    exists, `Resolve-RepoPath` normalizes an absolute input, `ConvertTo-RepoRelativePath` tries the output root first, and `ArtifactRef` is
+    the published-artifact type with no production caller yet. Five path articles lost those claims.
 
 ## Decided (2026-10-18, the user took every recommendation)
 
@@ -96,18 +104,17 @@ When a step lands, remove its claim from every article that states it (search `d
       (check: its L0 test file passes, and a dry run lists the environments).
 - [ ] Q3 `.claude/plans/plan-promotion-ladder.md` (new): one plan for main-uat, release-uat, RC/RBC, pre-prod staging and DEPLOY (check:
       plan-clear's verdict is keep).
-- [ ] Q4 `docs/adr/design/run-modes.md`: remove `Write-CatzcLoadBanner`, `build-catzc.ps1` and the cached kind (check: Test-AdrRegistry and
-      Test-Links pass; the run-mode articles lose those claims).
+- [ ] Q4 the three slides that draw what the run-modes ADR no longer names: `rule-and-gate-per-load-stage` (`build-catzc.ps1` and
+      `Write-CatzcLoadBanner` as markers 7 and 8), `what-gates-each-bundle-stage` (the cached root, marker 6) and
+      `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Each needs those elements removed or relabelled, with its article,
+      `.drawio.md` and minimaps following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check: the
+      articles' text blocks match their slides, and Test-Links passes).
 - [ ] Q5 `.claude/hooks/Assert-BashTimeout/Program.cs`: a hook error denies the call with its reason instead of exiting non-blocking (check:
       the hook's L2 test asserts the deny).
 - [ ] Q5 `docs/adr/automation/fail-fast-with-asserts.md`: name the unbuilt-hook bootstrap case, accept `-Direct`, scope the hook to agent
       sessions, and drop the bash exemption route (check: Test-AdrRegistry and Test-Links pass).
 - [ ] Q5 `automation/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs` and `configs/timeout-exemptions.yml`: remove the bash ceiling and
       the `shell: bash` scope (check: the Timeouts L0 tests pass).
-- [ ] Q6 `docs/adr/design/tracks.md`: a CI pipeline may bind a loose-fileset track set directly, as ADR-FLOW-CD-GLOBS says (check:
-      Test-AdrRegistry and Test-Links pass).
-- [ ] Q7 `docs/adr/automation/path-representation.md`: `ExistsAt` returns a Boolean, `RepoRelativePath` derives the absolute form, and
-      `ArtifactRef` is the published-artifact type, not the primary enforcement (check: Test-AdrRegistry and Test-Links pass).
 
 ## Refs
 

@@ -50,10 +50,6 @@ The diagram is described element by element in [its asset description](one-out-s
 A file that crosses from a build stage to a deploy stage is anchored differently, on its artifact root through `ArtifactRef`; nobody
 operates that type today, because no production code calls it.
 
-## Where the code and the ADR differ
-
-The ADR names `ArtifactRef` the primary enforcement of the cross-stage rule; today only its tests call it.
-
 ## See also
 
 - [Path representation](../../adr/automation/path-representation.md) — the decision this article explains.

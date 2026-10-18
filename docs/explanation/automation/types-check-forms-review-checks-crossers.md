@@ -62,13 +62,6 @@ The diagram is described element by element in [its asset description](types-che
 Rule #5, degradation, is held by `RepoRelativePath.IsRooted` and the third test in `ConvertTo-RepoRelativePath`; rule #8, rendering per
 channel, is a per-channel choice with no gate. Neither carries a chip.
 
-## Where the code and the ADR differ
-
-- The ADR names the types the primary enforcement; `ArtifactRef` has no production caller today, only its tests.
-- The ADR says a path-bearing type converts once and exposes both forms; `RepoRelativePath` stores the relative form only and derives the
-  absolute on demand.
-- The ADR says `ExistsAt` asserts that the file exists; the method returns a Boolean.
-
 ## See also
 
 - [Path representation](../../adr/automation/path-representation.md) — the decision this article explains.

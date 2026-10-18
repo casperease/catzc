@@ -16,8 +16,8 @@ Describe 'Measure-NoTrackRootLiteral' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS#3' {
         }
     }
 
-    It 'reports a string that is the modules place, or a path under it, single-quoted or expandable' {
-        $code = "function Get-Widget {`n    `$a = '$($script:place)'`n    `$b = '$($script:place)/Catzc.Widget'`n    `$c = `"$($script:place)/`$Name/widget.ps1`"`n}"
+    It 'reports the bare place where a path is built, and a path under it, single-quoted or expandable' {
+        $code = "function Get-Widget {`n    `$a = Join-Path `$root '$($script:place)'`n    `$b = '$($script:place)/Catzc.Widget'`n    `$c = `"$($script:place)/`$Name/widget.ps1`"`n}"
         $diagnostics = Test-TrackRootLiteralFile -Code $code
         $diagnostics | Should -HaveCount 3
         $diagnostics[0].RuleName | Should -Be 'Measure-NoTrackRootLiteral'
@@ -28,6 +28,13 @@ Describe 'Measure-NoTrackRootLiteral' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS#3' {
     It 'leaves a comment, a word that only starts with the place, and another track alone' {
         $code = "function Get-Widget {`n    # '$($script:place)/Catzc.Widget' in a comment`n    `$a = '$($script:place)-gadget'`n    `$b = 'docs/widget.md'`n}"
         Test-TrackRootLiteralFile -Code $code | Should -HaveCount 0
+    }
+
+    It 'leaves the bare word alone where no path is built, as an ADR domain or a layer name, and reads Path.Combine as a path' {
+        $code = "function Get-Widget {`n    `$domain = '$($script:place)'`n    @{ concern = @('$($script:place)') }`n    [System.IO.Path]::Combine(`$root, '$($script:place)')`n}"
+        $diagnostics = Test-TrackRootLiteralFile -Code $code
+        $diagnostics | Should -HaveCount 1
+        $diagnostics[0].Extent.StartLineNumber | Should -Be 4
     }
 
     It 'reports a string nested in an expandable string once' {

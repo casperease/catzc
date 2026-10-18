@@ -45,3 +45,11 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
         @($missing) | Should -BeNullOrEmpty -Because 'each generated link resolves to the ADR markdown it cites'
     }
 }
+
+Describe 'Build-AdrIndex — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    It 'finds the domain registry and the type sources it stamps in the loaded module' {
+        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
+        @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
+        [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') | Should -Not -BeNullOrEmpty
+    }
+}

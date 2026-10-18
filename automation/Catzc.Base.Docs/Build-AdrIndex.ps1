@@ -12,8 +12,8 @@ function Build-AdrIndex {
     $inputsSha = Get-InputStamp -Path @(
         (Get-CatzcModuleRoot 'configs/adrs.yml')
         (Resolve-RepoPath 'docs/adr')
-        (Get-CatzcModuleRoot 'Build-AdrIndex.ps1')
-        (Get-CatzcModuleRoot 'Format-MarkdownParagraph.ps1')
+        (Get-Command Build-AdrIndex).ScriptBlock.File
+        (Get-Command Format-MarkdownParagraph).ScriptBlock.File
         (Get-CatzcModuleRoot 'types')
     ) -Exclude '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
     $indexPath = Resolve-RepoPath 'docs/adr/index.md'

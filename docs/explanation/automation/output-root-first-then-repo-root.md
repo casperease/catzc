@@ -59,13 +59,6 @@ The diagram is described element by element in [its asset description](output-ro
 - A published artifact is created by `ArtifactRef.Materialize`, carries both forms, and is re-resolved and checked at the consumer with
   `ResolveAt` and `ExistsAt` (ADR-AUTO-PATH#10).
 
-## Where the code and the ADR differ
-
-- The ADR says `ExistsAt` asserts that the file exists; the method returns a Boolean.
-- The ADR says a path-bearing type converts once in its constructor and exposes both forms; `RepoRelativePath` stores only the relative form
-  and derives the absolute on demand. `ArtifactRef` holds both.
-- The ADR names `ArtifactRef` the primary enforcement; today only its tests call it.
-
 ## See also
 
 - [Path representation](../../adr/automation/path-representation.md) — the decision this article explains.

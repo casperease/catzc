@@ -14,9 +14,9 @@ Supports ADR-DSGN-TRACK#2, #3, #4 and #5 (architecture lens).
 ```
 
 Cats is one repository made of tracks, the root concerns such as `automation` and `infrastructure`. A track does not ship by itself: what
-ships is a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units, as the
-tracks ADR asks, but the two CI pipelines bind the `automation` and `infrastructure` track sets themselves, with no whole-track unit in
-between.
+ships is a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units, and the
+two CI pipelines bind the `automation` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks ADR and
+the globset ADR both say so.
 
 ![CD binds through units, CI binds the track sets](../.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png)
 
@@ -52,11 +52,8 @@ picture. The `templates` loose-fileset binds none either.
 
 ## Where the code and the ADR differ
 
-- The tracks ADR says a pipeline binds a track only through the deployable-unit that is that track, and names `ci-automation` as that case.
-  The globset ADR says a CI pipeline binds a loose-fileset track's projection, and `globs.yml` follows it: both track sets are
-  `loose-fileset`, not `deployable-unit`, and carry `pipeline:` themselves.
-- The tracks ADR says the gates on the dependency graph enforce the one-directional core and adapter dependency; those gates check module
-  edges only, and nothing checks the direction between tracks.
+The tracks ADR says the gates on the dependency graph enforce the one-directional core and adapter dependency; those gates check module
+edges only, and nothing checks the direction between tracks.
 
 ## See also
 

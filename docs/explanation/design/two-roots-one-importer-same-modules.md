@@ -38,7 +38,7 @@ The diagram is described element by element in [its asset description](two-roots
    `Install-Catzc` and `Export-Catzc`, which put a build where it can be loaded. It stands apart from the arrows because it works before any
    load: it writes the package that a later load reads, and never hands a code root to the importer itself.
 5. **`Catzc/<v>`.** The build-mode code root is a versioned package folder. Each module in it is a generated `.psd1` manifest and one merged
-   `<Module>.functions.ps1`. The ADR names four kinds of build root by where the folder lives: temporary, cached, installed and saved.
+   `<Module>.functions.ps1`. The ADR names three kinds of build root by where the folder lives: temporary, installed and saved.
 6. **Catzc.Internal.** The one importer is the same in both modes. Its shared modules evict any catzc module loaded from the other root,
    load the active root, and then assert that nothing from another root is left.
 7. **Catzc.\* modules.** The modules are the same in both modes: the same names, the same public and private functions, the same configs and
@@ -53,15 +53,9 @@ The diagram is described element by element in [its asset description](two-roots
   package and is entered by its `Import-Catzc.ps1` (ADR-DSGN-RUNMODE#1).
 - Every module works in both modes and is the same module in both; only its form on disk differs (ADR-DSGN-RUNMODE#2).
 - The package `Catzc` is a container, not a scope, so no module ever shares `$script:` state with another (ADR-DSGN-RUNMODE#3).
-- Build mode has four kinds of root, told apart by where the code root lives, and every kind loads through the same importer
+- Build mode has three kinds of root, told apart by where the code root lives, and every kind loads through the same importer
   (ADR-DSGN-RUNMODE#7). A NuGet package from `Export-Catzc -To nuget` is a distribution file, not a code root, until it is installed or
   saved.
-
-## Where the code and the ADR differ
-
-- The ADR names a third build entry, `build-catzc.ps1` at the repository root, but the repository has no such file.
-- The ADR says both modes end with a load banner from `Write-CatzcLoadBanner`, but no such function exists.
-- The ADR lists a cached kind of build root, but no code makes or reads a cached build.
 
 ## See also
 

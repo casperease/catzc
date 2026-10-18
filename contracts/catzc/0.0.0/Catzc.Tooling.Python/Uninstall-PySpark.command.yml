@@ -1,0 +1,2 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Uninstall-PySpark, which uninstalls PySpark from the uv-managed
+# Python; it takes no parameters.

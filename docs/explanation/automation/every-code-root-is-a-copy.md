@@ -56,13 +56,12 @@ drawn here.
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-RUNMODE#7 names a fourth code root, a cached build kept outside the repository and reused per commit. No code makes one.
-- ADR-AUTO-BUNDLE#6 calls the `-Root` placement an install, where ADR-DSGN-RUNMODE#7 calls the same root saved.
+ADR-AUTO-BUNDLE#6 calls the `-Root` placement an install, where ADR-DSGN-RUNMODE#7 calls the same root saved.
 
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.
-- [Run modes](../../adr/design/run-modes.md) — the four kinds of build root.
+- [Run modes](../../adr/design/run-modes.md) — the three kinds of build root.
 - The other lenses on the same bundle: [meta](one-commit-one-immutable-package.md), [implementation](build-verify-then-copy-the-folder.md),
   [operations](build-then-place-with-one-command.md) and [governance](what-gates-each-bundle-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -48,13 +48,6 @@ The diagram is described element by element in [its asset description](two-forms
 - A published artifact is an immutable object with both forms, created by `ArtifactRef` and anchored on the artifact root
   (ADR-AUTO-PATH#10).
 
-## Where the code and the ADR differ
-
-- The ADR names `ArtifactRef` the primary enforcement of the published-artifact rule; today only its tests call it.
-- The ADR says `ExistsAt` asserts that the file exists; the method returns whether it does.
-- The ADR's prose says `ConvertTo-RepoRelativePath` relativizes against the repository root; the function tries the output root first, as
-  its own rules on degradation and the output anchor state.
-
 ## See also
 
 - [Path representation](../../adr/automation/path-representation.md) — the decision this article explains.

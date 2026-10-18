@@ -46,11 +46,6 @@ The diagram is described element by element in [its asset description](one-commi
   (ADR-AUTO-BUNDLE#6).
 - The build kinds say only where the code root lives, and every kind loads through the same importer (ADR-DSGN-RUNMODE#7).
 
-## Where the code and the ADR differ
-
-ADR-DSGN-RUNMODE#7 names a fourth kind, a cached build kept outside the repository and reused per commit, and says the kind is derived from
-the code root. No code makes a cached build, and the run-mode function answers only source or build, never the kind.
-
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.

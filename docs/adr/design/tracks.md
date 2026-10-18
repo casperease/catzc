@@ -48,10 +48,10 @@ that keeps a change in one track from rebuilding every customer of every other t
 
 ### Rule ADR-DSGN-TRACK:5
 
-A **deployable-unit** is what ships: a whole track (`ci-automation` verifies the entire automation track) or a reduced composition (the
-shared infrastructure templates in a defined order, one customer's foundation). Deployable-units determine pipelines **1-1** — one unit, one
-pipeline — widening to **1-2** only when a DEPLOY stage is split out of CD. A pipeline never binds to a track except through the
-deployable-unit that IS that track.
+A **deployable-unit** is what ships: a reduced composition of tracks (the shared infrastructure templates in a defined order, one customer's
+foundation). Deployable-units determine CD pipelines **1-1** — one unit, one pipeline — widening to **1-2** only when a DEPLOY stage is
+split out of CD. A CI pipeline that verifies a whole track binds that track's own globset, as `ci-automation` binds the automation track; no
+other pipeline binds a track's source paths directly.
 
 - [Tracks, units, pipelines](#tracks-units-pipelines)
 
@@ -231,9 +231,10 @@ actually touches it.
 ### Tracks, units, pipelines
 
 A track is a concern; a deployable-unit is a shippable composition; a pipeline is a unit's delivery machine. The three relate strictly:
-units compose from tracks (whole or reduced), pipelines bind to units 1-1 (1-2 when DEPLOY splits from CD), and nothing binds to a track's
-source paths directly. `ci-automation` is the degenerate-but-common case where the unit is the whole core track; the per-customer CD
-pipelines are the reduced case — one customer's foundation unit, composed from the infrastructure track's shared modules plus that
+units compose from tracks, CD pipelines bind to units 1-1 (1-2 when DEPLOY splits from CD), and a CI pipeline that verifies a whole track
+binds that track's set itself. `ci-automation` and `ci-infrastructure` are those CI pipelines: they bind the `automation` and
+`infrastructure` track sets, which `globs.yml` declares as loose-filesets, so no unit stands between them and their track. The per-customer
+CD pipelines are the reduced case — one customer's foundation unit, composed from the infrastructure track's shared modules plus that
 customer's configuration surface.
 
 ### File languages

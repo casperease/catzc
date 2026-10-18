@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Remove-Dotnet, which evicts an off-config
+# install. InstallDir defaults to the install it finds, a computed default the contract does not restate; without Force it shows what
+# it would remove (ADR-AUTO-REMOVE#4).
+parameters:
+  InstallDir: string
+  Force: switch

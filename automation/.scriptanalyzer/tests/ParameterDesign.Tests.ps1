@@ -6,7 +6,7 @@ BeforeAll {
 
     function Get-RuleRecord {
         param([string] $Rule, [string] $Code, [string] $RelativePath)
-        $path = Join-Path $TestDrive $RelativePath
+        $path = Join-Path $TestDrive (Join-Path (Get-CatzcModulesFolder) $RelativePath)
         New-Item -ItemType Directory -Path (Split-Path -Path $path -Parent) -Force | Out-Null
         Set-Content -Path $path -Value $Code
         $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$null)
@@ -20,26 +20,26 @@ Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#4' {
         @{ Description = '$P = $P ?? …'; Body = "`$Label = `$Label ?? 'widget'" }
     ) {
         $code = "function Get-Widget {`n    param([string] `$Label)`n    $Body`n    `$Label`n}"
-        $records = @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1')
+        $records = @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1')
         $records.Count | Should -Be 1
         $records | ForEach-Object { $_.RuleName } | Should -Be 'Measure-ParameterFillIn'
     }
 
     It 'accepts a declared default' {
         $code = "function Get-Widget {`n    param([string] `$Label = 'widget')`n    `$Label`n}"
-        @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
     }
 
     It 'leaves a test file alone' {
         $code = "function Get-Widget {`n    param([string] `$Label)`n    if (-not `$Label) { `$Label = 'widget' }`n}"
-        @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-ParameterFillIn' -Code $code -RelativePath 'Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
     }
 }
 
 Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#2' {
     It 'flags a public function whose one mandatory parameter is named-only' {
         $code = "function Get-Widget {`n    param([Parameter(Mandatory)] [string] `$Name, [int] `$Count = 1)`n}"
-        $records = @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1')
+        $records = @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1')
         $records.Count | Should -Be 1
         $records | ForEach-Object { $_.Message } | Should -BeLike '*-Name*Position = 0*'
     }
@@ -51,12 +51,12 @@ Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#2
         @{ Description = 'no mandatory parameter'; Param = '[string] $Name' }
     ) {
         $code = "function Get-Widget {`n    param($Param)`n}"
-        @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
     }
 
     It 'leaves a private helper alone' {
         $code = "function Get-Widget {`n    param([Parameter(Mandatory)] [string] `$Name)`n}"
-        @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/private/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'Catzc.Widget/private/Get-Widget.ps1').Count | Should -Be 0
     }
 }
 
@@ -67,7 +67,7 @@ Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARA
         @{ Description = 'full type name, Mandatory = $false'; Param = '[Parameter(Mandatory = $false)] [System.Boolean] $Loud' }
     ) {
         $code = "function Get-Widget {`n    param($Param)`n}"
-        $records = @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/private/Get-Widget.ps1')
+        $records = @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'Catzc.Widget/private/Get-Widget.ps1')
         $records.Count | Should -Be 1
         $records | ForEach-Object { $_.Message } | Should -BeLike '*-Loud*[switch]*'
     }
@@ -79,24 +79,24 @@ Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARA
         @{ Description = 'a [bool] whose default is a configured value read by address'; Param = '[bool] $Loud = (Get-ConfigValue -Address ''global.widget.loud'')' }
     ) {
         $code = "function Get-Widget {`n    param($Param)`n}"
-        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
     }
 
     It 'still flags a [bool] whose default only mentions a config elsewhere' {
         $code = "function Get-Widget {`n    param([bool] `$Loud = `$loudDefault)`n}"
-        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 1
+        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1').Count | Should -Be 1
     }
 
     It 'leaves a test file alone' {
         $code = "function Get-Widget {`n    param([bool] `$Loud)`n}"
-        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
     }
 }
 
 Describe 'Measure-NoSwitchDefaultOn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#3' {
     It 'flags a [switch] declared $true' {
         $code = "function Get-Widget {`n    param([switch] `$Spin = `$true)`n}"
-        $records = @(Get-RuleRecord -Rule 'Measure-NoSwitchDefaultOn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1')
+        $records = @(Get-RuleRecord -Rule 'Measure-NoSwitchDefaultOn' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1')
         $records.Count | Should -Be 1
         $records | ForEach-Object { $_.Message } | Should -BeLike '*-Spin defaults on*'
     }
@@ -107,6 +107,6 @@ Describe 'Measure-NoSwitchDefaultOn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#3' {
         @{ Description = 'a [bool] declared $true (not a switch)'; Param = '[Parameter(Mandatory)] [bool] $Spin' }
     ) {
         $code = "function Get-Widget {`n    param($Param)`n}"
-        @(Get-RuleRecord -Rule 'Measure-NoSwitchDefaultOn' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+        @(Get-RuleRecord -Rule 'Measure-NoSwitchDefaultOn' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
     }
 }

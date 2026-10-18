@@ -164,8 +164,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Build-EnglishDictionary`     |
 |                                                 | `Test-Terminology`            |
 | config                                          | `terminology.yml`             |
-| responsibility:5 — Managed GUIDs                | `Get-ManagedGuids`            |
-|                                                 | `Test-ManagedGuid`            |
+| responsibility:5 — Managed GUIDs                | `Test-ManagedGuid`            |
 |                                                 | `Assert-ManagedGuid`          |
 |                                                 | `Get-RepositoryGuids`         |
 |                                                 | `ConvertTo-Guid`              |

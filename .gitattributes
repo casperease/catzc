@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2fe2fe1848db"
+#     with_body_sha: "3d9d0ee3db3d"
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
@@ -79,6 +79,7 @@ automation/.compiled/** linguist-generated
 **/.gitkeep     linguist-generated
 /importer.ps1   linguist-generated
 /importer.sh    linguist-generated
+/importer-commands.sh linguist-generated
 /automation/.internal/assets/Catzc.Types.csproj linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated

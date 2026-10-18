@@ -14,7 +14,7 @@ function Build-TerminologyDictionary {
     # The registry and this file are the whole input: when every list already carries their stamp, nothing is parsed or written.
     $inputsSha = Get-InputStamp -Path (
         (Get-CatzcModuleRoot 'configs/terminology.yml'),
-        (Get-CatzcModuleRoot 'Build-TerminologyDictionary.ps1')
+        (Get-Command Build-TerminologyDictionary).ScriptBlock.File
     )
     if (-not $PassThru -and (Test-Path -LiteralPath $cspellDir)) {
         $lists = @(Get-ChildPath $cspellDir -Depth 1 -File -Filter '*.txt')

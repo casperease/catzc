@@ -60,9 +60,8 @@ The diagram is described element by element in [its asset description](two-cross
 
 ## Where the code and the ADR differ
 
-- The ADR keeps `RepoRelativePath` repo-root-pure, yet its `ToAbsolute` joins every relative value onto the repository root and knows no
-  `out/` anchor, a third resolver beside the two crossers.
-- The ADR's prose says `ConvertTo-RepoRelativePath` relativizes against the repository root; the function tries the output root first.
+The ADR keeps `RepoRelativePath` repo-root-pure, yet its `ToAbsolute` joins every relative value onto the repository root and knows no
+`out/` anchor, a third resolver beside the two crossers.
 
 ## See also
 

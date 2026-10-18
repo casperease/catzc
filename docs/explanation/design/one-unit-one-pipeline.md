@@ -23,8 +23,8 @@ The diagram is described element by element in [its asset description](one-unit-
 ## Walkthrough
 
 1. **Track.** One root concern of the repository, mapped onto one root folder and named by it.
-2. **Composes into.** A deployable-unit is a whole track or a reduced composition of one. Consumers reach a track only through module
-   dependencies or its globset projection, never by matching its paths.
+2. **Composes into.** A deployable-unit is a reduced composition of tracks; a CI pipeline that verifies a whole track binds the track's own
+   set instead. Consumers reach a track only through module dependencies or its globset projection, never by matching its paths.
 3. **Deployable-unit.** What ships.
 4. **Binds one pipeline.** One unit, one pipeline, widening to two only when a DEPLOY stage splits out of CD. No gate checks it; code review
    holds it.
@@ -34,16 +34,11 @@ The diagram is described element by element in [its asset description](one-unit-
 
 - A track is one root concern with one root folder (ADR-DSGN-TRACK#1).
 - Tracks are subscribed to, never path-coupled (ADR-DSGN-TRACK#4).
-- Deployable-units determine pipelines one to one, and a pipeline binds a track only through the unit that is that track (ADR-DSGN-TRACK#5).
+- Deployable-units determine CD pipelines one to one, and a CI pipeline that verifies a whole track binds the track's own set
+  (ADR-DSGN-TRACK#5).
 
 A cross-cutting slice, such as every markdown file, is a scope over tracks rather than a track: it selects through the roots and owns none
 (ADR-DSGN-TRACK#2).
-
-## Where the code and the ADR differ
-
-The two CI pipelines bind the `automation` and `infrastructure` track sets directly: in `globs.yml` those sets are loose-filesets, not
-deployable-units, and carry `pipeline:` themselves, as the globset ADR allows. The tracks ADR asks for a pipeline to bind a track only
-through its unit.
 
 ## See also
 

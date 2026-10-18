@@ -45,3 +45,10 @@ Describe 'Parameter consistency of the public functions' -Tag 'L0', 'integrity',
         $script:result.IssueCount | Should -Be 0 -Because ($script:result.Issues -join "`n")
     }
 }
+
+Describe 'Test-ParameterConsistency — shipped configs/parameter-consistency.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    It 'finds the exemption list it names in the loaded module' {
+        $config = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/parameter-consistency.yml' -Module Catzc.Base.QualityGates)) | ConvertFrom-Yaml -Ordered
+        @($config['exempt'].Keys).Count | Should -BeGreaterThan 0
+    }
+}

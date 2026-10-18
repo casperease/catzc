@@ -193,3 +193,12 @@ Describe 'Test-AgentDefinitions — real agent definitions' -Tag 'L1', 'integrit
         $result.IssueCount | Should -Be 0
     }
 }
+
+Describe 'Test-AgentDefinitions — shipped configs/agents.yml and configs/capabilities.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
+    It 'finds both registries it names in the loaded module' {
+        $agents = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/agents.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
+        $capabilities = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/capabilities.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
+        @($agents['agents'] | ForEach-Object { $_['name'] }) | Should -Contain $agents['standard']
+        @($capabilities['capabilities']).Count | Should -BeGreaterThan 0
+    }
+}

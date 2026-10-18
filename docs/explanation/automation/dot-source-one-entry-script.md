@@ -52,11 +52,6 @@ The diagram is described element by element in [its asset description](dot-sourc
 - A loaded bundle is a session, not a passive library: it sets the same fail-fast preferences, which is why a warning stops the load unless
   it is allowed (ADR-AUTO-BUNDLE#8).
 
-## Where the code and the ADR differ
-
-The run-modes ADR says both modes end with a shared load banner, `Write-CatzcLoadBanner`. No such function exists; the code prints only the
-console "Loaded in N seconds" line.
-
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.

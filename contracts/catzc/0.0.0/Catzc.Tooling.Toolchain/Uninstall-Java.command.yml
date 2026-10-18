@@ -1,0 +1,7 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Uninstall-Java, which uninstalls Java through the platform package
+# manager. Version defaults to the version tools.yml locks, a computed default the contract does not restate; Remove escalates to
+# Remove-Java for an off-config install, and Force confirms that destructive step (ADR-AUTO-REMOVE#4).
+parameters:
+  Version: string
+  Remove: switch
+  Force: switch

@@ -6,8 +6,11 @@
 
 A **command contract** is a contract asset, `<module>/<Verb-Noun>.command.yml` in a unit's version folder, that states the call interface of
 one command, and it is provided: its consumers are the callers outside the module system, a POSIX shell through `cats`, a black-box test in
-another language, a pipeline step. A command is public exactly when a command contract names it. A function no contract names is internal to
-the module system, exported or not, and changes in place under [one living version](../principles/one-living-version.md).
+another language, a pipeline step. A command is public exactly when a command contract names it. A function no contract names is not public
+and changes in place under [one living version](../principles/one-living-version.md): it is **internal** when only its own module calls it,
+placed in the module's `private/` folder and not exported, the way C#'s `internal` scopes a member to its assembly, and it stays exported,
+with no promise, while another module calls it. Internal says where a function is visible, so it is a different thing from a Catzc.Internal
+module, a group of modules with a lifetime and rules of its own.
 
 - [Public is contracted](#public-is-contracted)
 

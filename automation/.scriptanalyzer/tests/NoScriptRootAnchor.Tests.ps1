@@ -13,7 +13,7 @@ function Get-Widget {
 
         function Test-ScriptRootAnchorFile {
             param([string] $Code, [string] $RelativePath)
-            $path = Join-Path $TestDrive $RelativePath
+            $path = Join-Path $TestDrive (Join-Path (Get-CatzcModulesFolder) $RelativePath)
             New-Item -ItemType Directory -Path (Split-Path -Path $path -Parent) -Force | Out-Null
             Set-Content -Path $path -Value $Code
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$null)
@@ -22,8 +22,8 @@ function Get-Widget {
     }
 
     It 'flags $PSScriptRoot in a module function file: <Description>' -ForEach @(
-        @{ Description = 'public (module root)'; RelativePath = 'automation/Catzc.Widget/Get-Widget.ps1' }
-        @{ Description = 'private/'; RelativePath = 'automation/Catzc.Widget/private/Get-Widget.ps1' }
+        @{ Description = 'public (module root)'; RelativePath = 'Catzc.Widget/Get-Widget.ps1' }
+        @{ Description = 'private/'; RelativePath = 'Catzc.Widget/private/Get-Widget.ps1' }
     ) {
         $diagnostics = @(Test-ScriptRootAnchorFile -Code $script:anchoredCode -RelativePath $RelativePath)
         $diagnostics.Count | Should -Be 1
@@ -39,21 +39,21 @@ function Get-Gadget {
     $first, $second
 }
 '@
-        @(Test-ScriptRootAnchorFile -Code $code -RelativePath 'automation/Catzc.Gadget/Get-Gadget.ps1').Count | Should -Be 2
+        @(Test-ScriptRootAnchorFile -Code $code -RelativePath 'Catzc.Gadget/Get-Gadget.ps1').Count | Should -Be 2
     }
 
     It 'carries the ADR-cited message pointing at Get-CatzcModuleRoot' {
-        $diagnostic = Test-ScriptRootAnchorFile -Code $script:anchoredCode -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1'
+        $diagnostic = Test-ScriptRootAnchorFile -Code $script:anchoredCode -RelativePath 'Catzc.Widget/Get-Widget.ps1'
         $diagnostic.Message | Should -Be "Locate module-internal content with Get-CatzcModuleRoot -ChildPath '<literal>' (ADR-AUTO-ASSETDEP#1); `$PSScriptRoot does not point at the module folder in build mode."
         $diagnostic.Severity | Should -Be 'Error'
     }
 
     It 'exempts <Description>' -ForEach @(
-        @{ Description = 'module tests/'; RelativePath = 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1' }
-        @{ Description = 'module assets/'; RelativePath = 'automation/Catzc.Widget/assets/scripts/install-widget.ps1' }
-        @{ Description = 'automation/.internal'; RelativePath = 'automation/.internal/Widget.ps1' }
-        @{ Description = 'automation/.scriptanalyzer'; RelativePath = 'automation/.scriptanalyzer/Widget.ps1' }
-        @{ Description = 'automation/.vendor'; RelativePath = 'automation/.vendor/Gadget/1.0.0/Widget.ps1' }
+        @{ Description = 'module tests/'; RelativePath = 'Catzc.Widget/tests/Get-Widget.Tests.ps1' }
+        @{ Description = 'module assets/'; RelativePath = 'Catzc.Widget/assets/scripts/install-widget.ps1' }
+        @{ Description = '.internal'; RelativePath = '.internal/Widget.ps1' }
+        @{ Description = '.scriptanalyzer'; RelativePath = '.scriptanalyzer/Widget.ps1' }
+        @{ Description = '.vendor'; RelativePath = '.vendor/Gadget/1.0.0/Widget.ps1' }
         @{ Description = 'a repository-root script'; RelativePath = 'widget.ps1' }
         @{ Description = 'infrastructure/'; RelativePath = 'infrastructure/widget/deploy-widget.ps1' }
     ) {
@@ -66,7 +66,7 @@ function Get-Widget {
     Get-Content -Path (Get-CatzcModuleRoot -ChildPath 'assets/widget.txt')
 }
 '@
-        Test-ScriptRootAnchorFile -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1' | Should -BeNullOrEmpty
+        Test-ScriptRootAnchorFile -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1' | Should -BeNullOrEmpty
     }
 
     It 'does not flag $PSScriptRoot as text in comments or emitted code (literal and escaped strings)' {
@@ -80,7 +80,7 @@ function New-Gadget {
     $lines
 }
 '@
-        Test-ScriptRootAnchorFile -Code $code -RelativePath 'automation/Catzc.Gadget/private/New-Gadget.ps1' | Should -BeNullOrEmpty
+        Test-ScriptRootAnchorFile -Code $code -RelativePath 'Catzc.Gadget/private/New-Gadget.ps1' | Should -BeNullOrEmpty
     }
 
     It 'does not flag a script analysed without a file path' {

@@ -67,8 +67,15 @@ function Measure-NoTrackRootLiteral {
             continue
         }
         $value = $node.Value -replace '\\', '/'
+        # The bare place is also a word with other senses (an ADR domain, a layer), so alone it counts only where a path is built.
+        $parent = $node.Parent
+        while ($parent -is [System.Management.Automation.Language.CommandParameterAst] -or $parent -is [System.Management.Automation.Language.ParenExpressionAst] -or $parent -is [System.Management.Automation.Language.PipelineAst] -or $parent -is [System.Management.Automation.Language.CommandExpressionAst]) {
+            $parent = $parent.Parent
+        }
+        $inPath = ($parent -is [System.Management.Automation.Language.CommandAst] -and $parent.GetCommandName() -in 'Join-Path', 'Resolve-RepoPath', 'Get-ChildPath') -or
+            ($parent -is [System.Management.Automation.Language.InvokeMemberExpressionAst] -and "$($parent.Member)" -eq 'Combine')
         foreach ($root in $script:roots) {
-            if ($value -ceq $root -or $value.StartsWith("$root/", [System.StringComparison]::Ordinal)) {
+            if (($value -ceq $root -and $inPath) -or $value.StartsWith("$root/", [System.StringComparison]::Ordinal)) {
                 $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
                         Message  = "The string '$($node.Value)' spells the modules track's place '$root'; resolve it with Get-CatzcModulesRoot or Get-Track (ADR-AUTO-LAYERS), or exempt the file in source-conventions.yml track_root_literal with its reason."
                         Extent   = $node.Extent

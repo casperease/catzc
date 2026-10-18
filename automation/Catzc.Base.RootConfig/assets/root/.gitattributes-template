@@ -66,6 +66,7 @@ automation/.compiled/** linguist-generated
 **/.gitkeep     linguist-generated
 /importer.ps1   linguist-generated
 /importer.sh    linguist-generated
+/importer-commands.sh linguist-generated
 /automation/.internal/assets/Catzc.Types.csproj linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated

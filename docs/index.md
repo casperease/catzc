@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: b721d0354e1f
-    repo_status: clean
+    repo_status: locked
     path: docs/index.md
     folder: docs
     name: index

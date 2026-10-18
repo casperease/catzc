@@ -60,10 +60,8 @@ The diagram is described element by element in [its asset description](shims-set
 
 ## Where the code and the ADR differ
 
-- The ADR says the importer evicts the other mode before it loads a root. The eviction runs inside `Import-AllModules`, after the
-  preferences and the vendored modules have loaded.
-- The ADR says the kind of build root is derived from the code root like the mode, but no code derives it, and the cached kind has no code.
-- The ADR names `build-catzc.ps1` and `Write-CatzcLoadBanner`, and neither exists.
+The ADR says the importer evicts the other mode before it loads a root. The eviction runs inside `Import-AllModules`, after the preferences
+and the vendored modules have loaded.
 
 ## See also
 

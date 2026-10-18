@@ -15,8 +15,8 @@ function Build-Glossary {
         @(Get-Config -Config glossary -ListOwners | ForEach-Object Path)
         (Get-CatzcModuleRoot 'configs/adrs.yml')
         (Resolve-RepoPath 'docs/adr')
-        (Get-CatzcModuleRoot 'Build-Glossary.ps1')
-        (Get-CatzcModuleRoot 'Format-MarkdownParagraph.ps1')
+        (Get-Command Build-Glossary).ScriptBlock.File
+        (Get-Command Format-MarkdownParagraph).ScriptBlock.File
         (Get-CatzcModuleRoot 'types')
     ) -Exclude ([System.Management.Automation.WildcardPattern]::Escape($Path)), '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
     if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $Path -InputsSha $inputsSha)) {

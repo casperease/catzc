@@ -63,9 +63,9 @@ form it holds (`RelativePath`, `*_file`) and the type documents that form, so a 
 ### Rule ADR-AUTO-PATH:8
 
 Logging, console, and other output channels are output _formats_: the path form rendered to each is a deliberate choice, not a fixed rule. A
-path-bearing type converts once in its constructor and exposes both forms, so a channel renders the relative form (the default — portable
-across machines, greppable, and correlatable for tracking) or the absolute form (only when that channel's consumer binds the path) without
-re-deriving it. The stored field stays relative regardless of what a channel renders.
+path-bearing type validates once in its constructor and exposes both forms, holding both or deriving the absolute on demand, so a channel
+renders the relative form (the default — portable across machines, greppable, and correlatable for tracking) or the absolute form (only when
+that channel's consumer binds the path) without re-deriving it. The stored field stays relative regardless of what a channel renders.
 
 - [Logging is an output format](#logging-is-an-output-format)
 
@@ -125,8 +125,8 @@ form).
 **Communication form** — repository-root-relative or output-root-relative, `/`-separated, normalized. This is the form a path takes whenever
 it is _data_: a return value, a stored field, a logged string. It is portable (identical on every machine), comparable (two relative paths
 compare with `-eq` without `GetFullPath` gymnastics), and committable (it can live in a checked-in config or a golden file). It is produced
-by `ConvertTo-RepoRelativePath`, which runs `[IO.Path]::GetFullPath` to collapse `.`/`..`, relativizes against the repository root, and
-replaces backslashes with forward slashes.
+by `ConvertTo-RepoRelativePath`, which runs `[IO.Path]::GetFullPath` to collapse `.`/`..`, relativizes against the output root first and
+then the repository root, and replaces backslashes with forward slashes.
 
 **Binding form** — a normalized absolute path, resolved against the repository root, that exists only on the line that uses it. It is
 produced by `Resolve-RepoPath` (or the `Get-RepositoryFile` / `Get-RepositoryFolder` binding helpers), which join onto `Get-RepositoryRoot`
@@ -178,8 +178,8 @@ two hand-built crossings are ADR-PWSH-XPLAT#10.
 
 Not every path has a repository- or output-relative form. A scratch file in the system temp directory, or any path on an unrelated root,
 lives under neither anchor. For these `ConvertTo-RepoRelativePath` returns a normalized absolute path — the honest answer, since no relative
-form exists — and `Resolve-RepoPath` passes an already-absolute path through unchanged. The degraded value is still normalized; it is never
-a hybrid.
+form exists — and `Resolve-RepoPath` normalizes an already-absolute path in place. The degraded value is still normalized; it is never a
+hybrid.
 
 ### The output anchor
 
@@ -197,9 +197,9 @@ does not survive the boundary and the `out/` sentinel is not the shared anchor; 
 the consumer's downloaded folder). The cross-stage descriptor is therefore an immutable `ArtifactRef` carrying **both** forms: an
 **artifact-relative** relative (e.g. `main.json`, which the consumer re-resolves against **its own** artifact root) and the
 producing-context absolute (for audit). The type is the factory — it takes the raw path and the artifact root, converts once, and
-materializes both — and it exposes the consumer's verification (`ResolveAt`, then `ExistsAt` to assert the file exists) as a method, so the
-"check at the other end" lives on the type rather than in every consumer. `RepoRelativePath` stays repo-root-pure (source paths,
-relative-only); the cross-stage artifact is the separate, dual-form case.
+materializes both — and it exposes the consumer's verification (`ResolveAt`, then `ExistsAt`, which answers whether the file exists) as a
+method, so the "check at the other end" lives on the type rather than in every consumer. `RepoRelativePath` stays repo-root-pure (source
+paths, relative-only); the cross-stage artifact is the separate, dual-form case.
 
 ### The workspace anchor
 
@@ -226,9 +226,10 @@ A log line, a console write, a thrown message, and a returned summary are output
 rendered path form a deliberate decision rather than an accident. The value being rendered is a path that knows both its forms, so the
 channel picks: tracking and correlation want the relative form — it is identical across machines, so log lines from a workstation and a CI
 agent line up, and it greps cleanly — so relative is the default; a channel whose consumer binds the path (a command a human will copy and
-run locally) may render absolute. A path-bearing type carries this by converting once in its constructor and exposing both forms, so the
-rendering choice never costs a re-derivation and the stored field stays relative either way. This is why the rule is _not_ "wrap every log
-call in `ConvertTo-RepoRelativePath`": the path is a typed value with both forms, and each channel renders the one it needs.
+run locally) may render absolute. A path-bearing type carries this by validating once in its constructor and exposing both forms
+(`ArtifactRef` holds both, `RepoRelativePath` holds the relative and derives the absolute on demand), so the rendering choice never costs a
+re-derivation and the stored field stays relative either way. This is why the rule is _not_ "wrap every log call in
+`ConvertTo-RepoRelativePath`": the path is a typed value with both forms, and each channel renders the one it needs.
 
 ## Decision
 
@@ -246,7 +247,8 @@ hand-builds a communicated path from `$env:RepositoryRoot` or normalizes separat
 
 - **`RepoRelativePath` and `ArtifactRef`** (`Catzc.Base.Objects`) make the form a construction-time property: a record that holds one of
   these cannot carry a mis-formed or wrong-anchor path, and the cross-stage artifact's two forms and its consumer-side check are produced
-  and owned by the type. This is the primary, poka-yoke enforcement — correctness by construction, not by a linter pass.
+  and owned by the type. Where a record holds one, that is correctness by construction, not by a linter pass; `ArtifactRef` is the type a
+  published artifact takes, and no production code publishes one yet.
 
 - **`InspirationRoot`** (`Catzc.Tooling.Inspiration`) rejects a stored root that is absolute, has a drive letter, a backslash, or a `..`
   segment, or carries `{workspace}` anywhere but first, and resolves the anchor; `Resolve-InspirationRoot` binds it.

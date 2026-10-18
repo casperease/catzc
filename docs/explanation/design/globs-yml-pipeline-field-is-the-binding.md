@@ -52,10 +52,8 @@ loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline
 
 ## Where the code and the ADR differ
 
-- `globs.yml` says any layer may bind a pipeline, and the two track sets do; the tracks ADR says a pipeline binds a track only through its
-  deployable-unit. The globset ADR sides with the config.
-- `cd-shared.yaml` and `Test-GlobSetTriggerCoverage` name an in-pipeline `Test-GlobSetAffected` check as the exact backstop, but no pipeline
-  under `pipelines/` runs it.
+`cd-shared.yaml` and `Test-GlobSetTriggerCoverage` name an in-pipeline `Test-GlobSetAffected` check as the exact backstop, but no pipeline
+under `pipelines/` runs it.
 
 ## See also
 

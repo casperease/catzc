@@ -59,13 +59,6 @@ until it is installed or saved.
 - The two modes never coexist in one session; switching works in any order (ADR-DSGN-RUNMODE#5).
 - Every kind of build root enters through the package's `Import-Catzc.ps1` (ADR-DSGN-RUNMODE#7).
 
-## Where the code and the ADR differ
-
-- The ADR says both modes end with a load banner (`Write-CatzcLoadBanner`) that prints the mode, but no such function exists. The code
-  offers the verbose Roots line and `Get-CatzcRunMode` instead.
-- The ADR names `build-catzc.ps1` as a build-and-enter script at the repository root, but no such file exists.
-- The ADR lists a cached kind of build root, but no command makes or enters one.
-
 ## See also
 
 - [Run modes: source mode and build mode](../../adr/design/run-modes.md) — the decision this article explains.

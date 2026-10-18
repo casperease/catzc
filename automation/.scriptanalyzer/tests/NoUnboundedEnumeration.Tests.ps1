@@ -7,8 +7,8 @@ Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1',
         }
 
         function Test-EnumerationFile {
-            param([string] $Code, [string] $RelativePath = 'automation/Catzc.Widget/Get-Widget.ps1')
-            $path = Join-Path $TestDrive $RelativePath
+            param([string] $Code, [string] $RelativePath = 'Catzc.Widget/Get-Widget.ps1')
+            $path = Join-Path $TestDrive (Join-Path (Get-CatzcModulesFolder) $RelativePath)
             New-Item -ItemType Directory -Path (Split-Path -Path $path -Parent) -Force | Out-Null
             Set-Content -Path $path -Value $Code
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$null)
@@ -53,7 +53,7 @@ Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1',
 
     It 'flags a listing in a test file as well' {
         $code = 'function Get-Widget { Get-ChildItem $widgetFolder -Recurse }'
-        @(Test-EnumerationFile -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 1
+        @(Test-EnumerationFile -Code $code -RelativePath 'Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 1
     }
 
     It 'leaves a Mock of the cmdlet and the cmdlet name in a string alone' {
@@ -61,7 +61,7 @@ Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1',
 Mock Get-ChildItem { } -ModuleName Catzc.Widget
 $text = 'Get-ChildItem is the cmdlet'
 '@
-        @(Test-EnumerationFile -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
+        @(Test-EnumerationFile -Code $code -RelativePath 'Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
     }
 
     It 'does not flag a one-level raw listing or Get-ChildPath' {

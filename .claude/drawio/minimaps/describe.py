@@ -545,8 +545,10 @@ def tree_summary(ctx, highlight, extras, codes):
 def chain_summary(ctx, highlight, extras, codes):
     cells = highlight["cells"]
     lines = [
-        f"Where {codes} {'sits' if len(highlight['requested']) == 1 else 'sit'} in the value chain: value-chain stack down, "
-        "value-chain concerns across."
+        (
+            f"Where {codes} {'sits' if len(highlight['requested']) == 1 else 'sit'} in the value chain: value-chain stack down, "
+            "value-chain concerns across."
+        )
     ]
     if cells:
         return lines + [
