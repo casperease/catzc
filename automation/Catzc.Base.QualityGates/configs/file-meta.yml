@@ -11,13 +11,13 @@ kinds:
   # The hash of the body below the head, first of the place facts: a generated tracked file carries it, written by its writer or imprinted on a generated page; an authored page carries none, and one an author keeps in the config part is left alone.
   body-sha:
     keys: [with_body_sha]
-    select: [{ classes: [comment-page, index, glossary] }]
+    select: [{ classes: [index, glossary] }]
 
   # What the file itself decides of its repository status: locked for a generated file (edit its source), clean for an authored one; the states only git knows are computed on demand, never stored.
   repo-status:
     keys: [repo_status]
     settings:
-      locked_classes: [comment-page]
+      locked_classes: [index, glossary]
 
   # The repository-relative path of every file that carries a block, written right after the stamp; a Markdown H1 is the title.
   file-path:
@@ -62,12 +62,6 @@ kinds:
   # The smallest bundle of the catzc exporter that holds the module, from the exporter registry; a file in no module of a bundle carries none.
   catzc-bundle:
     keys: [catzc_bundle]
-
-  # The file that writes a generated comment page, so the head names its writer; the path is the setting, and the file must exist.
-  generator:
-    select: [{ classes: [comment-page] }]
-    settings:
-      generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
 
   # Whether a PowerShell function file is public or private, from the module's private folder.
   visibility:

@@ -101,8 +101,13 @@ It generalises to every typed config in configs.yml.
       for any other track without an entry), or apply the universal catch-all knowing it makes non-code tracks non-live on the world map
       (check: a Decided line here with the user's answer).
 - [ ] Phase 2 repo fragment and source-mode overlay, after the module model is implemented (check: overlay root tests pass; shipped file
-      gone).
-- [ ] Phase 3 generated defaults contract (check: Test-Contracts, Test-GeneratedFiles clean).
+      gone). 2026-10-18 (task-config-defaults-fragment steps 1 and 2): source mode reads `.catzc/<modules folder>` through
+      `Get-ConfigOverlayRoot`, and a registered type with no shipped file builds from `{}` plus the fragment; tests pass. Open: the user
+      chooses the `.catzc` track's type and vendor (the world map fails a tracked file in no track), then the fragment is written and the
+      shipped file deleted.
+- [ ] Phase 3 generated defaults contract (check: Test-Contracts, Test-GeneratedFiles clean). Three design questions first
+      (task-config-defaults-fragment step 5): a `<name>.defaults.yml` suffix for the new asset kind, since the plain name is a fragment's;
+      postures before the generator, since it must know the required keys; and how a typed default is written back in the file's shape.
 - [ ] Phase 4 one config per change (check: each config's own tests).
 - [ ] Phase 5 ADRs and re-citation (check: Test-Links, Test-AdrRegistry clean).
 

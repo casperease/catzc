@@ -55,6 +55,7 @@ The module's public functions, sorted into the responsibilities above.
 | responsibility:1 — Repository and output path anchors | `Get-RepositoryRoot`         |
 |                                                       | `Get-RepositoryFile`         |
 |                                                       | `Get-RepositoryFolder`       |
+|                                                       | `Get-CatzcModulesFolder`     |
 |                                                       | `Resolve-RepoPath`           |
 |                                                       | `ConvertTo-RepoRelativePath` |
 |                                                       | `Get-OutputRoot`             |

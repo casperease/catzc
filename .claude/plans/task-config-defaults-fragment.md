@@ -3,7 +3,8 @@ task:
   status: open
   plans: [plan-config-defaults]
   value: high
-  blocked_on: steps 3 and 4 wait for the user's choice of the .catzc track's type and vendor; steps 5 and 6 can start
+  blocked_on:
+    steps 3 and 4 wait for the user's choice of the .catzc track's type and vendor; steps 5 and 6 wait for three design answers (see step 5)
   targets:
     [
       automation/Catzc.Base.Config,
@@ -51,7 +52,14 @@ through the one resolver (Get-Track or Get-CatzcModulesRoot), never an `automati
    object as before (compare the two serialisations in a test or a background script).
 4. Delete `automation/Catzc.Base.Variants/configs/variants.yml` and its reference page; regenerate heads, READMEs and links
    (Format-FileMeta, Build-Readme in the background). Check: Test-GeneratedFiles, Test-Links clean; the five getters' tests still pass.
-5. `automation/Catzc.Base.Contracts/Build-ConfigDefaultsContract.ps1`, new: for a registered overridable config type, writes
+5. Waits for three design answers (2026-10-18), read from the tree: (a) a contract asset's name alone picks its kind (ADR-REPO-CONTRACT#6),
+   and `<Module>/configs/<name>.yml` is already a fragment asset's name (`Catzc.Base.Globs/configs/file-kinds.yml`), so a defaults asset
+   needs a suffix of its own, recommended `<name>.defaults.yml`, which amends rule 6 and the kind's direction in rule 7; (b) the generator
+   must name required keys in the header and omit them (Q7), but no type says which of its keys are required: that is the postures task's
+   work, so the recommendation is to run task-config-defaults-postures before steps 5 and 6; (c) a typed default such as `DefaultAspects` (a
+   map of `VariantAspect` lists) has no generic way back to the file's YAML shape, so each type would expose its defaults in the file's own
+   shape, or the generator writes only scalar defaults and names the rest.
+   `automation/Catzc.Base.Contracts/Build-ConfigDefaultsContract.ps1`, new: for a registered overridable config type, writes
    `contracts/catzc/0.0.0/<Module>/configs/<name>.yml` from the type's defaults: defaulted keys with literals, empty-valid keys empty,
    required keys named in the header comment and omitted; header note per ADR-REPO-CONTRACT#9; asset kind `defaults` (direction provided)
    added to the contract asset kinds config with its default declared once on the type. Test with a fixture type. Check: its Pester file

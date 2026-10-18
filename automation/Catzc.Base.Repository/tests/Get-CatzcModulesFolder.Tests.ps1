@@ -1,0 +1,17 @@
+Describe 'Get-CatzcModulesFolder' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS' {
+    It 'returns the modules root relative to the repository root, forward-slashed' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'widget-repository' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'widget-repository/gadget-modules/inner' }
+        Get-CatzcModulesFolder | Should -BeExactly 'gadget-modules/inner'
+    }
+
+    It 'refuses a modules root outside the repository, as in an installed bundle' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'widget-repository' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'installed/Catzc' }
+        { Get-CatzcModulesFolder } | Should -Throw '*lies outside the repository*'
+    }
+
+    It 'names the real modules folder of this repository' {
+        Get-CatzcModulesFolder | Should -BeExactly ([System.IO.Path]::GetFileName((Get-CatzcModulesRoot)))
+    }
+}

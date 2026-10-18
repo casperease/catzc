@@ -65,8 +65,8 @@ Open, in execution order:
 - config-defaults-variants -> task-config-defaults-variants.md (done 2026-10-18; every step ticked; the aspects default follows the tree and
   Q2 is reopened for the user in plan-config-defaults): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
 - config-defaults-fragment -> task-config-defaults-fragment.md (open; steps 1 and 2 done 2026-10-18; steps 3 and 4 wait for the user's
-  choice of the .catzc track's type and vendor; steps 5 and 6 next): the .catzc fragment, config without a shipped file,
-  Build-ConfigDefaultsContract.
+  choice of the .catzc track's type and vendor; steps 5 and 6 wait for three design answers): the .catzc fragment, config without a shipped
+  file, Build-ConfigDefaultsContract.
 - config-defaults-postures -> task-config-defaults-postures.md (open; after config-defaults-fragment): every typed config into a posture,
   the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
 - layers-funnel -> task-layers-funnel.md (open; ready): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4
