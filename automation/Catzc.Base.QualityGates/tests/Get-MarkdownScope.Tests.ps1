@@ -14,8 +14,8 @@ Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6', 'ADR-REPO-
         # The declared classes, as .gitattributes would report them (unspecified attributes are left out).
         Mock Get-GitAttributeValue {
             @{
-                'widgets/.vendor/Gadget/README.md'             = @{ 'linguist-vendored' = 'set' }
-                'widgets/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
+                'widgets/.vendor/Gadget/README.md'                = @{ 'linguist-vendored' = 'set' }
+                'widgets/Widget/tests/assets/fixture.md'          = @{ 'catzc-fixture' = 'set' }
                 'docs/generated-widget.md'                        = @{ 'linguist-generated' = 'set' }
                 'docs/own-meta.md'                                = @{ 'catzc-meta' = 'unset' }
                 'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' }

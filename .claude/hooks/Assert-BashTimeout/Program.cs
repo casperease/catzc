@@ -34,9 +34,9 @@ public static class AssertBashTimeout
         }
         catch (Exception e)
         {
-            // A non-blocking hook error: the call goes ahead and the person sees why the safeguard did not run.
-            Console.Error.WriteLine("Bash time safeguard hook failed: " + e.Message);
-            return 1;
+            // The safeguard is a control: when it cannot decide, it denies, and the reason names why (ADR-AUTO-FAILFAST#7).
+            Console.Out.Write(BashSafeguard.DenyOutput("Bash time safeguard hook failed, so the call is denied: " + e.Message));
+            return 0;
         }
     }
 

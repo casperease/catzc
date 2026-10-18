@@ -109,8 +109,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     Context 'source options' {
         It 'scans only the files in scope and not excluded' -Tag 'ADR-REPO-VOCAB#2' {
             $files = [ordered]@{
-                'docs/alpha.md'       = @('the widget bundle')
-                'docs/old/beta.md'    = @('the widget bundle')
+                'docs/alpha.md'    = @('the widget bundle')
+                'docs/old/beta.md' = @('the widget bundle')
                 'widgets/gamma.md' = @('the widget bundle')
             }
             $found = & $script:scan $files @{ scope = @('docs/**'); exclude = @('docs/old/**') }

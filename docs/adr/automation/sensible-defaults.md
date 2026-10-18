@@ -29,8 +29,9 @@ mandatory; if it can derive a right value, derive it.
 A configurable setting resolves in one fixed order: the caller's explicit value; else the value in the owning module's configuration
 (`Get-Config`), which includes the config contributions gathered from Markdown files and, in build mode, a consumer overlay's fragment
 merged onto it ([consumer-overlay](consumer-overlay.md#rule-adr-auto-overlay4)); else the setting's sensible default. The sensible default
-is declared exactly once — on the setting's config type — so an omitted key and a fresh checkout behave identically and no function restates
-the value.
+is programmed on the setting's config type, as its `Default<Key>` constant, and shown in the module's shipped config file, and the two agree
+unless the config's registry entry gives the reason they differ; so an omitted key and a fresh checkout behave identically, a reader of the
+file sees the default, and no function restates the value.
 
 - [Where defaults come from](#where-defaults-come-from)
 - [One resolution order](#one-resolution-order)
@@ -109,12 +110,15 @@ everywhere:
 2. **The owning module's configuration.** Otherwise the value comes from the module's `configs/<name>.yml`, read through `Get-Config`.
 3. **The setting's sensible default.** Otherwise — the key is omitted, or the file states nothing for it — the sensible default applies.
 
-The sensible default is declared once, on the config type that maps the file (a C# record constructed by `Get-Config`, see
-[module-config-loading](../configuration/module-config-loading.md)). An omitted key and a key set to the default therefore behave
-identically, a fresh checkout works with no configuration edits, and no function or second file restates the value. This is not a fallback
-kept for an older shape ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an optional
-setting. How a PowerShell parameter expresses steps 1–2 is the language layer,
-[parameter-design](../pwsh/parameter-design.md#configurable-parameters) (`ADR-PWSH-PARAM#4`).
+The sensible default is programmed on the config type that maps the file (a C# record constructed by `Get-Config`, see
+[module-config-loading](../configuration/module-config-loading.md)), and the shipped config file shows the same value, so the code and the
+asset a reader opens say one thing. An omitted key and a key set to the default therefore behave identically, a fresh checkout works with no
+configuration edits, and no function restates the value. Most of the time the two match; where a shipped file carries a value of its own,
+such as this repository enabling every customer, its entry in `configs.yml` names the key under `differs` with one sentence of reason, and
+`Test-ShippedConfigs` fails any other difference and any reason whose values agree. This is not a fallback kept for an older shape
+([one-living-version](../principles/one-living-version.md)): it is the single declared default of an optional setting. How a PowerShell
+parameter expresses steps 1–2 is the language layer, [parameter-design](../pwsh/parameter-design.md#configurable-parameters)
+(`ADR-PWSH-PARAM#4`).
 
 ## Decision
 

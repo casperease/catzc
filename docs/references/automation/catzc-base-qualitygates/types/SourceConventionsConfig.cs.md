@@ -19,3 +19,12 @@ The source checks Test-SourceConventions runs beside its naming and one-function
 An omitted check takes every default of its type: gate mode, nothing exempt, no phrases. Property names mirror the
 YAML keys (snake_case, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 ```
+
+## comment:2
+
+Above `public SourceCheck track_root_literal { get; }`, written with `//`.
+
+```text
+The files that may spell the modules track's place, each with its reason; the analyzer rule NoTrackRootLiteral reads it
+([ADR-AUTO-LAYERS](/docs/adr/automation/layers.md)).
+```

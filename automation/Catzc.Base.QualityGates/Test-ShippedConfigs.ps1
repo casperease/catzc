@@ -49,7 +49,10 @@ function Test-ShippedConfigs {
                 }
             }
             $differingKeys = @($differing | ForEach-Object { $_.key })
-            foreach ($listed in @(if ($reasons) { $reasons.Keys })) {
+            $listedKeys = @(if ($reasons) {
+                    $reasons.Keys
+                })
+            foreach ($listed in $listedKeys) {
                 if ($listed -notin $differingKeys) {
                     $issues.Add("configs.yml: '$name' differs '$listed', but the shipped value and the type's default agree — remove the entry")
                 }

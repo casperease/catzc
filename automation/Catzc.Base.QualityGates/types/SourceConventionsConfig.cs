@@ -11,8 +11,6 @@ public sealed class SourceConventionsConfig
     public EngineSetCheck engine_set { get; }
     public SourceCheck neutral_codes { get; }
 
-    // The files that may spell the modules track's place, each with its reason; the analyzer rule NoTrackRootLiteral reads it
-    // ([ADR-AUTO-LAYERS](/docs/adr/automation/layers.md)).
     public SourceCheck track_root_literal { get; }
 
     public SourceConventionsConfig(IDictionary raw)

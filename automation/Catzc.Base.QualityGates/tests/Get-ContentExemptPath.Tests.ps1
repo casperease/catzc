@@ -18,9 +18,9 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
         # git check-attr is the one boundary: the declared classes, as .gitattributes would report them.
         Mock Get-GitAttributeValue {
             @{
-                'widgets/.vendor/Gadget/README.md'             = @{ 'linguist-vendored' = 'set' }
+                'widgets/.vendor/Gadget/README.md'                = @{ 'linguist-vendored' = 'set' }
                 'docs/generated-widget.md'                        = @{ 'linguist-generated' = 'true' }
-                'widgets/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
+                'widgets/Widget/tests/assets/fixture.md'          = @{ 'catzc-fixture' = 'set' }
                 'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' }
                 'docs/gadget.md'                                  = @{ 'catzc-contract' = 'unset' }
                 'docs/sprocket.md'                                = @{ 'catzc-meta' = 'unset' }

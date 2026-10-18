@@ -143,8 +143,11 @@ executables:
         $decision.permissionDecisionReason | Should -BeLike "*has $Asked;*timeout <= 7000 ms*"
     }
 
-    It 'fails as a non-blocking hook error on a payload it cannot read' {
+    It 'denies the call, naming the failure, on a payload it cannot read' {
         $result = Invoke-Hook 'not json'
-        $result.ExitCode | Should -Be 1
+        $result.ExitCode | Should -Be 0
+        $decision = ($result.Output | ConvertFrom-Json).hookSpecificOutput
+        $decision.permissionDecision | Should -Be 'deny'
+        $decision.permissionDecisionReason | Should -BeLike 'Bash time safeguard hook failed, so the call is denied: *'
     }
 }

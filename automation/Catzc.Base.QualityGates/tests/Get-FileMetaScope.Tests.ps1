@@ -39,7 +39,7 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         Mock Get-GitAttributeValue {
             @{
                 'widgets/Widget/assets/vendor.wdg' = @{ 'linguist-vendored' = 'set' }
-                'docs/own.gdg'                        = @{ 'catzc-meta' = 'unset' }
+                'docs/own.gdg'                     = @{ 'catzc-meta' = 'unset' }
             }
         } -ModuleName Catzc.Base.QualityGates
     }

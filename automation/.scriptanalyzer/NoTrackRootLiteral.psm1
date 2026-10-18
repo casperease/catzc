@@ -1,7 +1,5 @@
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
-# The modules track's places and the exempt globs, read once per analyzer session
-# ([ADR-AUTO-LAYERS](/docs/adr/automation/layers.md)).
 $script:roots = $null
 $script:exempt = $null
 $script:repoRoot = $null
