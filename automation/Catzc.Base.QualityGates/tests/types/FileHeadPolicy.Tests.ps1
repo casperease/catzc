@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: automation/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
+    folder: tests/types
+    name: file-head-policy-tests
+    filetype: ps1
+    kind: test
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-FILEMETA#{1,2}
+---
+#>
+
 Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
     It 'forbids a block by default, declared once on the type' -Tag 'ADR-AUTO-DEFAULT#6' {
         $policy = [Catzc.Base.QualityGates.FileHeadPolicy]::new($null)

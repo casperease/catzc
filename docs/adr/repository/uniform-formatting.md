@@ -102,8 +102,9 @@ checks it.
 
 Each file language's formatter is configured, not coded: its entry in the file-language registry (`languages.yml`) names the formatter
 engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
-vendored code and contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
-[ADR-REPO-CONTRACT#5](api-contracts.md#rule-adr-repo-contract5)), and `Test-Formatting` checks the same entries — there is no formatting
+vendored code, contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
+[ADR-REPO-CONTRACT#5](api-contracts.md#rule-adr-repo-contract5)), and the files `.gitattributes` marks `binary`, such as the generated
+output under `automation/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same entries — there is no formatting
 command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1). The registry lists, under `imprint:`, each **imprint step**:
 a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the top of the registry is global: it runs
 over every file whose carrier is not none ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)), whatever its language, as the meta

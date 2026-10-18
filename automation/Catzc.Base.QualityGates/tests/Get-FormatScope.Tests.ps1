@@ -25,7 +25,7 @@ catzc:
 Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))
-        foreach ($relative in 'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg', 'contracts/widget/v1/e.wdg') {
+        foreach ($relative in 'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg', 'contracts/widget/v1/e.wdg', 'built/f.wdg') {
             $null = New-Item -ItemType File -Path (Join-Path $script:root $relative) -Force
         }
         $script:outside = Join-Path $TestDrive 'build/e.wdg'
@@ -35,20 +35,21 @@ Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq '.' } {
-            'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg', 'contracts/widget/v1/e.wdg', 'widgets/deleted.wdg'
+            'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg', 'contracts/widget/v1/e.wdg', 'built/f.wdg', 'widgets/deleted.wdg'
         }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq 'widgets' } {
             'widgets/a.wdg', 'widgets/tests/assets/b.wdg'
         }
-        Mock Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates -ParameterFilter { ($Attribute -join ',') -eq 'linguist-vendored,catzc-contract' } {
+        Mock Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates -ParameterFilter { ($Attribute -join ',') -eq 'linguist-vendored,catzc-contract,binary' } {
             @{
                 'third-party/c.wdg'         = @{ 'linguist-vendored' = 'set' }
                 'contracts/widget/v1/e.wdg' = @{ 'catzc-contract' = 'set' }
+                'built/f.wdg'               = @{ 'binary' = 'set' }
             }
         }
     }
 
-    It 'is every tracked file present on disk, fixtures included, minus vendored code and byte-frozen contract assets' -Tag 'ADR-REPO-CONTRACT#5' {
+    It 'is every tracked file present on disk, fixtures included, minus vendored code, byte-frozen contract assets and binary files' -Tag 'ADR-REPO-CONTRACT#5' {
         $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } { param($Root) Get-FormatScope -RepositoryRoot $Root }
         $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'), (& $script:full 'gadgets/d.gdg'))
     }
