@@ -65,7 +65,7 @@ Open, in execution order:
 - config-defaults-variants -> task-config-defaults-variants.md (done 2026-10-18; every step ticked; Q2 closed by D22): config defaults Phase
   1, VariantsConfig constants, getters lose -Default.
 - config-defaults-fragment -> task-config-defaults-fragment.md (open; steps 1 and 2 done 2026-10-18; D22 rewrote steps 4 to 6: the shipped
-  file stays and shows the defaults, a defaults check replaces the generated contract; step 5 is ready; steps 3 and 4 wait for the user's
+  file stays and shows the defaults, a defaults check replaces the generated contract; steps 5 and 6 done; steps 3 and 4 wait for the user's
   choice of the .catzc track's type and vendor): the .catzc fragment, config without a shipped file, the defaults check.
 - config-defaults-postures -> task-config-defaults-postures.md (open; after config-defaults-fragment): every typed config into a posture,
   the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.

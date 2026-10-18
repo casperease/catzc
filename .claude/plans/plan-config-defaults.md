@@ -105,7 +105,8 @@ It generalises to every typed config in configs.yml.
       `.catzc/<modules folder>` through `Get-ConfigOverlayRoot`, and a registered type with no shipped file builds from `{}` plus the
       fragment; tests pass. D22 keeps the shipped file (Q3's deletion is dropped). Open: the user chooses the `.catzc` track's type and
       vendor (the world map fails a tracked file in no track), then the fragment is written and the shipped file reduced to the defaults.
-- [ ] Phase 3 the defaults check (check: its Pester file passes; Test-ShippedConfigs lists each difference with its reason). D22 replaces
+- [x] Phase 3 the defaults check (check: its Pester file passes; Test-ShippedConfigs lists each difference with its reason). Done
+      2026-10-18 with the ADR-AUTO-DEFAULT#6 amendment (verdicts in task-config-defaults-fragment steps 5 and 6). D22 replaces
       the generated defaults contract and its three design questions: the shipped config asset is the published default, and a case of
       Test-ShippedConfigs compares each key a shipped file states with the type's `Default<Key>` constant, a difference passing only with a
       one-sentence reason under `differs` in its `configs.yml` entry (task-config-defaults-fragment steps 5 and 6).

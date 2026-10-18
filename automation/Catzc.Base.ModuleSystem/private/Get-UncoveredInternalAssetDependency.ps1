@@ -103,7 +103,7 @@ function Get-UncoveredInternalAssetDependency {
         }
         $childPaths = [string[]] @($readPaths | Sort-Object -Unique)
         $reason = if ($testFiles.Count -eq 0) {
-            "no test file named $functionName.Tests.ps1 (or $functionName.<suffix>.Tests.ps1) in automation/$definingModule/tests"
+            "no test file named $functionName.Tests.ps1 (or $functionName.<suffix>.Tests.ps1) in $modulesFolder/$definingModule/tests"
         }
         else {
             "no It block tagged '$citation' without 'source-only'"

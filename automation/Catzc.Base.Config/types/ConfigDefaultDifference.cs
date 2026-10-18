@@ -23,8 +23,6 @@ public sealed class ConfigDefaultDifference
         this.declared = declared;
     }
 
-    // The keys of a shipped file whose scalar value differs from the type's Default<Key> constant (the key in Pascal case); a key with no such
-    // constant, or one whose default is no scalar (a list or a map), compares nothing.
     public static IReadOnlyList<ConfigDefaultDifference> Compare(Type configType, IDictionary shipped)
     {
         var differences = new List<ConfigDefaultDifference>();
