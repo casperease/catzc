@@ -23,7 +23,9 @@ One plan file at a time, `Test-Links -Path <file>` after each: land every report
 ticked only with a verdict line the report or the tree gives, nothing discarded, a step the report left undone kept open with its reason;
 read the full run's report for the plans that close on green (plan-bounded-folder-enumeration, plan-file-head-immutable-edges-classes,
 plan-module-model-closeout step 9) and tick or keep each on what it says; record the shard table from its manifest in
-plan-test-run-budget; record the user's hand steps as they report them. Then the closing sweep: every plan with no open step and no open
+plan-test-run-budget; record the user's hand steps as they report them; do the plan-folder steps of plan-automation-word-residue that
+its session skipped (the `plan-clear` lines over plan-layers-vocabulary-rename-contracts, decisions-2026-10-18 and
+task-layers-classification-flip), one file at a time. Then the closing sweep: every plan with no open step and no open
 question is deleted with one "deleted, why" line in `value-of-plan.md` and its row removed; its prompts and task files go with it; a plan
 with an open step stays. When no chunk of the master is open, delete the master and every task file. Finish with `Test-Plans -Path
 .claude/plans` and `Test-Links` clean on the folder. No git add, commit or push; the deletions are plain file deletions for the user's

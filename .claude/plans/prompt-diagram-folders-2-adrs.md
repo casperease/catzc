@@ -16,8 +16,9 @@ Restate, present tense and without history (ADR-PRIN-ONELIVE): ADR-REPO-FOLDERS'
 one folder per diagram, role names `diagram`, `grid`, `tree`, `chain` with their `.md`, the description inside the folder, the folder name
 the diagram's only name); ADR-REPO-SLIDES#7 (one command on one folder, `Build-Diagrams -Path`; the whole tree is that command repeated);
 and in `pwsh/Catzc.Base.Globs/configs/file-kinds.yml` the diagram kinds select `docs/**/.assets/**`, which reaches both today's flat files
-and the folders to come, so the reachability test stays green through the migration. No new rule number; if a restatement needs one, stop
-and put it in the report.
+and the folders to come, so the reachability test stays green through the migration. In the same conventional-folders.md edit, line 272:
+`references/.assets/automation/<module>/` becomes `references/.assets/pwsh/<module>/` (a step of plan-automation-word-residue, given to
+this session because it owns the page). No new rule number; if a restatement needs one, stop and put it in the report.
 
 Owns: the two ADR pages, `file-kinds.yml`, and the file-kind reachability test file in `pwsh/Catzc.Base.Globs/tests/`. Touch nothing
 else; re-read a file right before editing it; one file at a time, each verified: `Test-AdrRegistry`, `Test-Links -Path`, `Test-Glossary`

@@ -9,6 +9,7 @@ task:
       plan-clear-actions,
       plan-out-artifacts,
       plan-assets-gallery-pdf,
+      plan-automation-word-residue,
     ]
   value: high
   blocked_on: nothing; the round itself is the step
@@ -17,7 +18,7 @@ task:
 
 # Task: the decision round of 2026-10-19
 
-Six plans hold a question only the user can answer, and two of them (plan-promotion-ladder, plan-diagram-folders) are blocked on nothing
+Seven plans hold a question only the user can answer, and two of them (plan-promotion-ladder, plan-diagram-folders) are blocked on nothing
 else. One round through `plan-decide` asks them all: a questionnaire file, four items per ask with the recommendation first, every answer
 recorded with its projected outcome, then folded into the owning plan (ADR-REPO-PLANS#9: a constraining decision becomes an ADR rule in
 the change that lands it). The questions, with the plan that owns each:
@@ -32,6 +33,9 @@ the change that lands it). The questions, with the plan that owns each:
 - plan-out-artifacts: a yes for probe batch two (13 files), if not already given in task-user-runs-and-commits step 3.
 - plan-assets-gallery-pdf: whether the drawio kit gets a test home (`.claude/drawio/tests/`) so the two-PNG fixture step can land, or the
   step is dropped and the plan deleted.
+- plan-automation-word-residue, its two open questions: whether the how-to folders named `automation` (`docs/how-to/automation/`,
+  `docs/how-to/getting-started/automation/`) keep the name as cross-track pages (recommended) or move; and whether the 31 test fixtures
+  shaped like the old folder (`C:\repo\automation\M\...`) are renamed only when each test is next edited (recommended) or in one pass.
 
 ## Steps
 

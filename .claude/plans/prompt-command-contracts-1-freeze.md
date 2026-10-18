@@ -1,6 +1,6 @@
 ---
 prompt:
-  for: a fresh session, run in parallel with the other prompt-* files of 2026-10-18, after prompt-closeout-1-decisions
+  for: a fresh session, after prompt-closeout-1-decisions and after the prompt-automation-word-residue-1-residue session has ended (both edit comment pages)
   written: 2026-10-18
   plan: plan-layers-vocabulary-rename-contracts
 ---

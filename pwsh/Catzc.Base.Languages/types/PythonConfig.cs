@@ -18,9 +18,13 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     // A test named test_integrity* reads the shipped artifacts and is `integrity`.
     public const string IntegrityPrefix = "test_integrity";
 
+    // The pyright mode the type check runs in, in the gate and in the editor alike: pyright's own default.
+    public const string DefaultTypeChecking = "standard";
+
     private const string Failed = "python config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "dependencies" };
-    private static readonly string[] RequiredDependencies = { "pytest", "ruff" };
+    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking" };
+    private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
+    private static readonly string[] TypeCheckingModes = { "off", "basic", "standard", "strict" };
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex DistributionName = new Regex(@"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$");
     private static readonly Regex ExactVersion = new Regex(@"^[0-9]+(\.[0-9]+)*$");
@@ -29,6 +33,9 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The test dependencies every workspace member requires, distribution name -> exact version, in ordinal name order.
     public IReadOnlyDictionary<string, string> dependencies { get; }
+
+    // The pyright typeCheckingMode of the gate (Test-PythonTypes) and of Pylance in the editor.
+    public string type_checking { get; } = DefaultTypeChecking;
 
     public PythonConfig(IDictionary raw)
     {
@@ -55,6 +62,17 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
                 {
                     errors.Add(string.Format(CultureInfo.InvariantCulture,
                         "invalid root '{0}' (a repository-relative folder: '/'-separated segments, no leading or trailing slash, no '.' or '..' segment, e.g. 'python')", value));
+                }
+            }
+
+            if (raw.Contains("type_checking") && raw["type_checking"] != null)
+            {
+                string value = Convert.ToString(raw["type_checking"], CultureInfo.InvariantCulture);
+                if (raw["type_checking"] is string && Array.IndexOf(TypeCheckingModes, value) >= 0) { type_checking = value; }
+                else
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture,
+                        "invalid type_checking '{0}' (a pyright typeCheckingMode: {1})", value, string.Join(", ", TypeCheckingModes)));
                 }
             }
 
@@ -95,7 +113,7 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
             if (!requires.ContainsKey(required))
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture,
-                    "dependencies must pin '{0}' (the Python test bridge runs it)", required));
+                    "dependencies must pin '{0}' (the Python checks and the test bridge run it)", required));
             }
         }
 

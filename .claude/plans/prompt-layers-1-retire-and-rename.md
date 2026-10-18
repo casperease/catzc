@@ -1,6 +1,6 @@
 ---
 prompt:
-  for: a fresh session, run in parallel with the other prompt-* files of 2026-10-18; prompt-promotion-ladder-1-build waits for it
+  for: a fresh session, after the prompt-automation-word-residue-1-residue session has ended; prompt-promotion-ladder-1-build waits for it
   written: 2026-10-18
   plan: plan-layers-vocabulary-rename-contracts
 ---
@@ -11,7 +11,8 @@ You work in `C:\projects\catzc`, one of several sessions running in parallel on 
 `docs/adr/index.md` (cite rules by code, never sweep the corpus), then `docs/adr/repository/ai-agent-contract.md`, then
 `.claude/plans/task-layers-classification-flip.md` steps 6 and 7 and the "P6" open step of
 `.claude/plans/plan-layers-vocabulary-rename-contracts.md`, then in full `docs/adr/automation/layers.md` and the glossary rules the
-index lists as ADR-REPO-VOCAB.
+index lists as ADR-REPO-VOCAB, then `out/reports/automation-word-residue-1.md` (the folder meaning of "automation" is already retired;
+you reword the layer phrases only, and stop if that report is missing).
 
 P5: in `pwsh/Catzc.Base.Docs/configs/glossary.yml`, avoid-phrasings for "automation folder", "automation track", "automation modules",
 "automation layer", "implementation layer", "PowerShell layer", "PowerShell automation", "the loader"; then grep the tracked tree for

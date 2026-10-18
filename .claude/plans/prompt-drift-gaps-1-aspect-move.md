@@ -19,7 +19,8 @@ Modules reference page (one responsibility left) and the Variants reference page
 (text only; a slide change is diagram work and goes in the report). Then `Export-Comments` on `variants.yml` so its comment page
 (`docs/references/pwsh/catzc-base-variants/configs/variants.yml.md`, comment:4) names a line the file has, `Test-Comments` 0 on it.
 
-Owns: `pwsh/Catzc.Base.Modules/**`, `pwsh/Catzc.Base.Variants/**`, `pwsh/Catzc.Base.Maps/Get-WorldMap.ps1` and its test file,
+Owns: `pwsh/Catzc.Base.Modules/**`, `pwsh/Catzc.Base.Variants/**` except `types/VariantTrack.cs` and `types/VariantsConfig.cs` (the
+automation-word-residue session edits two example strings there), `pwsh/Catzc.Base.Maps/Get-WorldMap.ps1` and its test file,
 `docs/references/pwsh/catzc-base-modules.md`, `catzc-base-modules/**`, `catzc-base-variants.md`, `catzc-base-variants/**`, and the
 article text under `docs/explanation/repository/`. Touch nothing else; re-read a file right before editing it; one file at a time, each
 verified by its own test file under `Invoke-TestFile` or one gate on that path (`Test-Links -Path`, `Test-Comments`, `Test-FileMeta`,
