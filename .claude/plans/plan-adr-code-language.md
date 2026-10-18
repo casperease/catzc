@@ -225,3 +225,7 @@ Recorded 2026-10-18 with the user:
 2. **WAF and CAF rule names** (found in step 2): WAF rules carry Microsoft's ids (`RE:01`), CAF rules carry none in the tree. Decided by
    the orchestrator on the user's delegation, 2026-10-18: the WAF ADR segment is the short pillar code (`RE`, `SE`, `CO`, `OE`, `PE`) and a
    rule is the vendor id without the colon (`ADR-AZ-WAF-RE-RE01`); CAF rules take spelled-out names (the plan's fallback).
+3. **CAF rule names** (found in step 2): decided by the orchestrator on the user's delegation, 2026-10-18: each CAF rule's name is derived
+   mechanically from its vendor checklist title, upper-cased and joined with the English stop words of one list dropped; a collision
+   under one ADR keeps the full title for both. No collision occurred. `ADR-PRIN-PROCESS` becomes `ADR-PROC-AGILEPRINCIPLES`, because
+   `ADR-PROC-AGILE` exists.

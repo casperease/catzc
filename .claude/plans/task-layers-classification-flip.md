@@ -23,17 +23,7 @@ re-points Azure DevOps and GitHub. P8 diagrams are dropped (Q23).
        ADR-REPO-FILEMETA#12 and ADR-REPO-CONTRACT#2 need no edit, ADR-DSGN-TRACK#5 lands with P6. Original step: ADR rules that state the
        folder as a fact (worklist section 7): list each with its new wording against TRACK; no edit until P4. Check: the list in the plan.
 3. [x] P4 preconditions, met 2026-10-18: the user named the window ("quiet window now"), every peer session stopped, and the hook kept
-       working through the move. The record as it stood before:
-   - P1 to P3 green on touched files: true (P2's stop check: guard one hit, the orphan template for the user's delete; Test-GeneratedFiles 0
-     issues).
-   - No peer-dirty file: false today; session catzc-cc has five ADR files and `variants.yml` open for config-defaults-postures.
-   - A hook-recovery path out of band: true. The hook finds `timeouts.yml` in whichever top-level folder holds it, and Build-BashTimeoutHook
-     builds it with the folder from `Get-CatzcModulesFolder`, so a `git mv` keeps the published hook working; if it still fails, every Bash
-     call is denied and the user recovers in a terminal (`. ./importer.ps1` republishes it, or removes the hook from `.claude/settings.json`
-     for the window).
-   - The user has named the window (D10): not yet. Original step: P4 preconditions recorded: P1 to P3 green on touched files; `git status`
-     shows no peer-dirty file; a hook-recovery path exists out of band; the user has named the window (D10). Check: four lines in the plan,
-     each true.
+       working through the move.
 4. [x] P4 done 2026-10-18 by session catzc-cc: `automation/` is `pwsh/` and `docs/references/automation/` is `docs/references/pwsh/`;
        the gates came back clean, and the obj/bin build output the move staged is no longer tracked. The word residue left after the move
        is plan-automation-word-residue.
@@ -61,4 +51,4 @@ re-points Azure DevOps and GitHub. P8 diagrams are dropped (Q23).
 
 ## Report
 
-As report-fixed; P4 is reported only after the user has run it.
+As report-fixed.
