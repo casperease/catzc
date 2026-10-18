@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "30c247e2a95c"
+    with_body_sha: a113de1e4e58
     repo_status: locked
     path: docs/explanation/automation/.assets/a-stopped-run-names-its-limit/tree.md
     source: docs/explanation/automation/.assets/a-stopped-run-names-its-limit/diagram.drawio.png
@@ -98,9 +98,9 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md][23], in the cell docs × markdown: selected by
   [ADR-AUTO-DEFAULT][1]: the file cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][24], in the cell docs × markdown: selected by
-  [ADR-AUTO-DEFAULT][1]: the file cites it at line 19 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 22 (text).
+  [ADR-AUTO-DEFAULT][1]: the file cites it at line 20 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 23 (text).
 - [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][25], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][2]:
-  the file cites it at line 25 (text).
+  the file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-languages.md][26], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
   line 49 (text).
 - [docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md][27], in the cell docs × markdown: selected by
@@ -148,9 +148,9 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md][48], in the cell docs × markdown: selected by
   [ADR-AUTO-DEFAULT][1]: the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][49], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][2]: the file cites it at line 16 (text).
+  [ADR-AUTO-FAILFAST][2]: the file cites it at line 17 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][50], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][2]: the file cites it at line 25 (text).
+  [ADR-AUTO-FAILFAST][2]: the file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md][51], in the cell docs × markdown: selected by
   [ADR-AUTO-DEFAULT][1]: the file cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md][52], in the cell docs × markdown: selected by
@@ -182,7 +182,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][65], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][2]:
   the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md][66], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][2]: the
-  file cites it at line 23 (text), line 24 (text) and line 25 (text).
+  file cites it at line 24 (text), line 25 (text) and line 27 (text).
 - [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][67], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][2]:
   the file cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md][68], in the cell docs × markdown: selected by
@@ -215,7 +215,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][80], in the cell pwsh × yaml: selected by [ADR-AUTO-DEFAULT][1]: the file
-  cites it at line 27 (text).
+  cites it at line 33 (text).
 - [pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1][81], in the cell pwsh × powershell: selected by
   [ADR-AUTO-DEFAULT][1]: the file cites it at line 159 (text).
 - [pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1][82], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]:
@@ -282,7 +282,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 - [pwsh/Catzc.Base.Docs/configs/agents.yml][105], in the cell pwsh × yaml: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 55
   (text) and line 76 (text).
 - [pwsh/Catzc.Base.Docs/configs/capabilities.yml][106], in the cell pwsh × yaml: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 14 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 4 (text).
+  line 17 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 4 (text).
 - [pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1][107], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the
   file cites it at line 2 (text).
 - [pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1][108], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
@@ -296,10 +296,10 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
   by [ADR-AUTO-FAILFAST][2]: the file cites it at line 121 (text).
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][110], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the
   file cites it at line 82 (text) and line 84 (text).
-- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][111], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]:
-  the file cites it at line 17 (text).
+- [.claude/plans/plan-test-run-budget.md][111], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at
+  line 84 (text).
 - [.claude/skills/catzc-module/SKILL.md][112], in the cell .claude × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
-  26 (text) and line 40 (text).
+  26 (text) and line 41 (text).
 
 ### Languages (pwsh/Catzc.Base.Languages, 4 lit files)
 
@@ -321,7 +321,7 @@ The group holds the files of pwsh/Catzc.Base.Slides; each sits in its world-map 
 - [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][117], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]: the file
   cites it at line 152 (text) and line 160 (text).
 - [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][118], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][2]: the file
-  cites it at line 44 (text).
+  cites it at line 46 (text).
 - [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][119], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the
   file cites it at line 2 (text), line 7 (text) and line 46 (text).
 - [pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1][120], in the cell pwsh × powershell: selected by [ADR-AUTO-DEFAULT][1]: the file
@@ -362,7 +362,7 @@ The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][128], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 782 (text).
+- [docs/adr/glossary.md][128], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 783 (text).
 - [docs/adr/index.md][129], in the cell docs × markdown: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 162 (text); selected
   by [ADR-AUTO-FAILFAST][2]: the file cites it at line 163 (text).
 
@@ -391,7 +391,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1` line 2 (text),
   `pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1` line 26 (text), `pwsh/Catzc.Base.Contracts/types/ContractCommand.cs`
   line 8 (body comment), `pwsh/Catzc.Base.Contracts/types/ContractParameter.cs` line 9 (body comment),
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 131 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 14 (text),
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 131 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 17 (text),
   `pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1` line 2 (text), `pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 2
   (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 63 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1`
   line 69 (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 2 (text),
@@ -400,7 +400,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 23 (text),
   `pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1` line 31 (text),
   `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 169 (text), `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6
-  (body comment), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 27 (text),
+  (body comment), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 33 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1` line 159 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1` line 57 (text),
   `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 2 (text),
@@ -435,7 +435,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text),
   `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1` line 30 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1`
   line 152 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 160 (text),
-  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text) and `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1`
+  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 46 (text) and `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1`
   line 133 (text).
 
 ### .scriptanalyzer (pwsh/.scriptanalyzer, 1 lit file)
@@ -586,7 +586,7 @@ The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map 
 [108]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
 [109]: ../../../../../.claude/CLAUDE.md
 [110]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[111]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
+[111]: ../../../../../.claude/plans/plan-test-run-budget.md
 [112]: ../../../../../.claude/skills/catzc-module/SKILL.md
 [113]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
 [114]: ../../../../../pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "775a96c9f5ca"
+    with_body_sha: d9044d10fef1
     repo_status: locked
     path: docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied/tree.md
     source: docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.png
@@ -67,17 +67,17 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md][10], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 37 (text).
 - [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][11], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 22 (text).
+  [ADR-AUTO-FAILFAST][1]: the file cites it at line 23 (text).
 - [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][12], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
-  the file cites it at line 25 (text).
+  the file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][13], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 16 (text).
+  [ADR-AUTO-FAILFAST][1]: the file cites it at line 17 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][14], in the cell docs × markdown: selected by
-  [ADR-AUTO-FAILFAST][1]: the file cites it at line 25 (text).
+  [ADR-AUTO-FAILFAST][1]: the file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][15], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
   the file cites it at line 16 (text).
 - [docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md][16], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the
-  file cites it at line 23 (text), line 24 (text) and line 25 (text).
+  file cites it at line 24 (text), line 25 (text) and line 27 (text).
 - [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][17], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
   the file cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-typessystem.md][18], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it
@@ -105,8 +105,8 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/CLAUDE.md][25], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 121 (text).
-- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][26], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][1]: the
-  file cites it at line 17 (text).
+- [.claude/plans/plan-test-run-budget.md][26], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line
+  84 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
@@ -132,7 +132,7 @@ The group holds the files of pwsh/Catzc.Base.Slides; each sits in its world-map 
 - [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][30], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
   cites it at line 152 (text) and line 160 (text).
 - [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][31], in the cell pwsh × powershell: selected by [ADR-AUTO-FAILFAST][1]: the file
-  cites it at line 44 (text).
+  cites it at line 46 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
@@ -151,7 +151,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text),
   `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1` line 30 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1`
   line 152 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 160 (text),
-  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text) and `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1`
+  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 46 (text) and `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1`
   line 133 (text).
 
 ### Languages (pwsh/Catzc.Base.Languages, 1 lit file)
@@ -209,7 +209,7 @@ The group holds the files of pwsh/Catzc.Base.Timeouts; each sits in its world-ma
 [23]: ../../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
 [24]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
 [25]: ../../../../../.claude/CLAUDE.md
-[26]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
+[26]: ../../../../../.claude/plans/plan-test-run-budget.md
 [27]: ../../../../adr/automation/dora-explains.md
 [28]: ../../../../../pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
 [29]: ../../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1

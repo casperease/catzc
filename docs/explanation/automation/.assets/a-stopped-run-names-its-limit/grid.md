@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b1cc7958d283
+    with_body_sha: "7f722d39bf01"
     repo_status: locked
     path: docs/explanation/automation/.assets/a-stopped-run-names-its-limit/grid.md
     source: docs/explanation/automation/.assets/a-stopped-run-names-its-limit/diagram.drawio.png
@@ -33,11 +33,11 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 4 lit of 63 files
-- docs × markdown: 82 lit of 2766 files
+- .claude × markdown: 4 lit of 49 files
+- docs × markdown: 82 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × csharp: 9 lit of 295 files
-- pwsh × powershell: 34 lit of 1653 files
+- pwsh × powershell: 34 lit of 1657 files
 - pwsh × yaml: 5 lit of 115 files
 
 ## Key
@@ -61,8 +61,8 @@ language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCE
   file cites it at line 121 (text).
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][5]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 82 (text) and
   line 84 (text).
-- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][6]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 17 (text).
-- [.claude/skills/catzc-module/SKILL.md][7]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 26 (text) and line 40 (text).
+- [.claude/plans/plan-test-run-budget.md][6]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 84 (text).
+- [.claude/skills/catzc-module/SKILL.md][7]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 26 (text) and line 41 (text).
 
 ### docs × markdown (82 lit files)
 
@@ -73,7 +73,7 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
   [ADR-AUTO-FAILFAST][2]: the file cites it at line 260 (text).
 - [docs/adr/automation/fail-fast-with-asserts.md][2]: selected by [ADR-AUTO-FAILFAST][2]: the ADR's own file.
 - [docs/adr/automation/sensible-defaults.md][1]: selected by [ADR-AUTO-DEFAULT][1]: the ADR's own file.
-- [docs/adr/glossary.md][9]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 782 (text).
+- [docs/adr/glossary.md][9]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 783 (text).
 - [docs/adr/index.md][10]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 162 (text); selected by [ADR-AUTO-FAILFAST][2]: the
   file cites it at line 163 (text).
 - [docs/how-to/pwsh/manual-test-plan/repository-conventions.md][11]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 34 (text).
@@ -113,8 +113,8 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md][31]: selected by [ADR-AUTO-DEFAULT][1]: the file cites
   it at line 12 (text).
 - [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][32]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at
-  line 19 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 22 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][33]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 25
+  line 20 (text); selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][33]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 26
   (text).
 - [docs/references/pwsh/catzc-base-languages.md][34]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 49 (text).
 - [docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md][35]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line
@@ -157,9 +157,9 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/references/pwsh/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md][56]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
   at line 16 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][57]: selected by [ADR-AUTO-FAILFAST][2]: the file
-  cites it at line 16 (text).
+  cites it at line 17 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][58]: selected by [ADR-AUTO-FAILFAST][2]: the
-  file cites it at line 25 (text).
+  file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md][59]: selected by [ADR-AUTO-DEFAULT][1]: the file
   cites it at line 12 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md][60]: selected by [ADR-AUTO-DEFAULT][1]: the file
@@ -190,8 +190,8 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
   line 13 (text).
 - [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][73]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 16
   (text).
-- [docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md][74]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 23
-  (text), line 24 (text) and line 25 (text).
+- [docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md][74]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 24
+  (text), line 25 (text) and line 27 (text).
 - [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][75]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 12
   (text).
 - [docs/references/pwsh/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md][76]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it
@@ -235,7 +235,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1` line 2 (text),
   `pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1` line 26 (text), `pwsh/Catzc.Base.Contracts/types/ContractCommand.cs`
   line 8 (body comment), `pwsh/Catzc.Base.Contracts/types/ContractParameter.cs` line 9 (body comment),
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 131 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 14 (text),
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 131 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 17 (text),
   `pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1` line 2 (text), `pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 2
   (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 63 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1`
   line 69 (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1` line 2 (text),
@@ -244,7 +244,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 23 (text),
   `pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1` line 31 (text),
   `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` line 169 (text), `pwsh/Catzc.Base.Languages/types/LayoutRow.cs` line 6
-  (body comment), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 27 (text),
+  (body comment), `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 33 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1` line 159 (text),
   `pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1` line 57 (text),
   `pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1` line 2 (text),
@@ -279,7 +279,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text),
   `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1` line 30 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1`
   line 152 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 160 (text),
-  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text) and `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1`
+  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 46 (text) and `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1`
   line 133 (text).
 
 ### pwsh × csharp (9 lit files)
@@ -363,7 +363,7 @@ language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LIT
   (text).
 - [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][125]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 152 (text)
   and line 160 (text).
-- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][126]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 44 (text).
+- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][126]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 46 (text).
 - [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][127]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 2 (text),
   line 7 (text) and line 46 (text).
 - [pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1][128]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 19 (text).
@@ -383,9 +383,9 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
   [ADR-AUTO-FAILFAST][2]: the file cites it at line 132 (text).
 - [pwsh/Catzc.Base.Docs/configs/agents.yml][134]: selected by [ADR-AUTO-FAILFAST][2]: the file cites it at line 55 (text) and line 76
   (text).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][135]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 14 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][135]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 17 (text); selected by
   [ADR-AUTO-FAILFAST][2]: the file cites it at line 4 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][136]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 27 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][136]: selected by [ADR-AUTO-DEFAULT][1]: the file cites it at line 33 (text).
 
 ## Keywords
 
@@ -409,7 +409,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [3]: ../../../../adr/design/tracks.md
 [4]: ../../../../../.claude/CLAUDE.md
 [5]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[6]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
+[6]: ../../../../../.claude/plans/plan-test-run-budget.md
 [7]: ../../../../../.claude/skills/catzc-module/SKILL.md
 [8]: ../../../../adr/automation/dora-explains.md
 [9]: ../../../../adr/glossary.md

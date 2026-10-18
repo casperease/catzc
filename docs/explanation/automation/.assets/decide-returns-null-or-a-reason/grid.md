@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5267688a9967"
+    with_body_sha: "1bc85dc0ef06"
     repo_status: locked
     path: docs/explanation/automation/.assets/decide-returns-null-or-a-reason/grid.md
     source: docs/explanation/automation/.assets/decide-returns-null-or-a-reason/diagram.drawio.png
@@ -32,10 +32,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 2 lit of 63 files
-- docs × markdown: 23 lit of 2766 files
+- .claude × markdown: 2 lit of 49 files
+- docs × markdown: 23 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
-- pwsh × powershell: 6 lit of 1653 files
+- pwsh × powershell: 6 lit of 1657 files
 - pwsh × yaml: 3 lit of 115 files
 
 ## Key
@@ -55,7 +55,7 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRAC
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [.claude/CLAUDE.md][3]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 121 (text).
-- [.claude/plans/prompt-bounded-folder-enumeration-continue.md][4]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 17 (text).
+- [.claude/plans/plan-test-run-budget.md][4]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 84 (text).
 
 ### docs × markdown (23 lit files)
 
@@ -83,17 +83,17 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) b
 - [docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md][15]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line
   37 (text).
 - [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][16]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
-  line 22 (text).
-- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][17]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 25
+  line 23 (text).
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][17]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 26
   (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][18]: selected by [ADR-AUTO-FAILFAST][1]: the file
-  cites it at line 16 (text).
+  cites it at line 17 (text).
 - [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][19]: selected by [ADR-AUTO-FAILFAST][1]: the
-  file cites it at line 25 (text).
+  file cites it at line 26 (text).
 - [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][20]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 16
   (text).
-- [docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md][21]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 23
-  (text), line 24 (text) and line 25 (text).
+- [docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md][21]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 24
+  (text), line 25 (text) and line 27 (text).
 - [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][22]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 12
   (text).
 - [docs/references/pwsh/catzc-base-typessystem.md][23]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 64 (text).
@@ -115,7 +115,7 @@ file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-T
   `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47 (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line
   64 (text), `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1` line 30 (text),
   `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 152 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line
-  160 (text), `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text) and
+  160 (text), `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 46 (text) and
   `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1` line 133 (text).
 
 ### pwsh × powershell (6 lit files)
@@ -129,7 +129,7 @@ language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LIT
   (text).
 - [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][31]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 152 (text) and
   line 160 (text).
-- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][32]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 44 (text).
+- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][32]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 46 (text).
 - [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1][33]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 133
   (text).
 
@@ -161,7 +161,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [1]: ../../../../adr/automation/fail-fast-with-asserts.md
 [2]: ../../../../adr/design/tracks.md
 [3]: ../../../../../.claude/CLAUDE.md
-[4]: ../../../../../.claude/plans/prompt-bounded-folder-enumeration-continue.md
+[4]: ../../../../../.claude/plans/plan-test-run-budget.md
 [5]: ../../../../adr/automation/dora-explains.md
 [6]: ../../../../adr/index.md
 [7]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
