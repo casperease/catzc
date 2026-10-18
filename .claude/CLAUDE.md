@@ -18,9 +18,9 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 - `importer.ps1` — root script that imports all modules; always **dot-sourced** (`.\importer.ps1` is dot-sourcing), so it runs in the
   caller's scope and its global state (the prompt hook, `$env:RepositoryRoot`, `$isConsoleSession`, …) takes effect
 - `pwsh/` — module folders containing `.ps1` function files
-- `pwsh/.internal/` — internal infrastructure, the `Catzc.Internal.*.psm1` modules: `Loader`, `Types`, and `Vendor` stay loaded;
-  `Bootstrap` and `Importer` load first and are removed after import; `Builder` and `TestKit` load when a build or a test run needs them;
-  plus build `assets/`
+- `pwsh/.internal/` — internal infrastructure, the `Catzc.Internal.*.psm1` modules: `Loader`, `Types`, and `Vendor` stay loaded; `Bootstrap`
+  and `Importer` load first and are removed after import; `Builder` and `TestKit` load when a build or a test run needs them; plus build
+  `assets/`
 - `pwsh/.vendor/` — third-party modules (checked in)
 - `.unordered/` — the unordered track, where an import lands with its history at a landing address `.unordered/<name>`
   (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing reads or defaults to the track
@@ -67,9 +67,9 @@ Sub-agent definitions live in `.claude/agents/<name>.md`. Every agent exists bec
 checks it runs or guards; the registry is `pwsh/Catzc.Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
 registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/adr/repository/agent-definitions.md)). Every agent is a
 robot: a body of at most 20 lines on a named model, loading its shared know-how from capabilities, `.claude/skills/<domain>-<job>/SKILL.md`
-files of at most 10 lines with a model floor, registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and
-capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai-agent-contract.md); it is named once, here and as
-`contracts` in `agents.yml`, never in a file's front matter.
+files of at most 10 lines with a model floor, registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and capability
+reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai-agent-contract.md); it is named once, here and as `contracts` in
+`agents.yml`, never in a file's front matter.
 
 - **`catzc-worker`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
   owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent
@@ -94,6 +94,9 @@ capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai
 - **`glossary-keeper`** — keeps the glossary sources in step with the rules that bold each term, one term at a time.
 - **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
   weakening any test.
+- **`implementation-orchestrator`** — drives the open chunks of `plan-master.md` through the sessions the user already started, by message
+  ("what are you working on?", "continue with this: …", "stop; …"); edits plan and task files only, implements nothing, spawns nothing,
+  raises every blocker and question to the user.
 
 ## Rules
 

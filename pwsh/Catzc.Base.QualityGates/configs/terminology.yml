@@ -70,6 +70,8 @@ terms:
       meaning: "--junitxml — pytest's option that writes a JUnit XML report"
     - term: ruff
       meaning: "ruff — the Python formatter and linter the Python tests are checked with"
+    - term: outputjson
+      meaning: "--outputjson — pyright's option that prints its diagnostics as one JSON report (Test-PythonTypes)"
     - term: pyproject
       meaning: "pyproject.toml — a Python project's declaration file"
     - term: rootdir

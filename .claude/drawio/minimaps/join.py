@@ -52,7 +52,15 @@ def mix(hue, alpha, base):
     return "#" + "".join(f"{round(b[i] + (a[i] - b[i]) * alpha):02X}" for i in range(3))
 
 
-def cell(cell_id, value, style, y, height, x=X, width=WIDTH):
+def found(pattern, model, what, flags=0):
+    """The first match of pattern in the slide model; a slide without it stops the join."""
+    match = re.search(pattern, model, flags)
+    if match is None:
+        raise SystemExit(f"the slide has no {what}")
+    return match
+
+
+def cell(cell_id, value, style, y, height, x: float = X, width: float = WIDTH):
     return (
         f'<mxCell id="{cell_id}" value="{value}" style="{style}" vertex="1" parent="1">'
         f'<mxGeometry x="{x}" y="{y}" width="{width}" height="{height}" as="geometry" /></mxCell>'
@@ -129,11 +137,11 @@ def lay_out_sidebar(model, palette, concerns):
     # Drop the slide's own map key, the panel and its swatch rows (template-slide.xml names the rows mk-*), before adding a fresh one.
     model = re.sub(r'\s*<mxCell id="(?:mapkey|mk-)[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
     # The ADR chips grow with their lines (11 px text, 14 px a line); the map key starts below them.
-    supports = re.search(r'<mxCell id="supports" value="([^"]*)".*?</mxCell>', model, re.DOTALL)
+    supports = found(r'<mxCell id="supports" value="([^"]*)".*?</mxCell>', model, "supports cell", re.DOTALL)
     lines = supports.group(1).count("&lt;br&gt;") + 1
     height = max(SIDEBAR["supports"][1], lines * 14 + 4)
     model = model.replace(supports.group(0), re.sub(r'height="[^"]*"', f'height="{height}"', supports.group(0), count=1))
-    supports = re.search(r'<mxCell id="supports".*?</mxCell>', model, re.DOTALL)
+    supports = found(r'<mxCell id="supports".*?</mxCell>', model, "supports cell", re.DOTALL)
     top = max(MAPKEY_Y, SIDEBAR["supports"][0] + height + 8)
     model = model[: supports.end()] + "\n    " + map_key(palette, concerns, top) + model[supports.end() :]
     return add_sidebar_backing(model)
@@ -142,8 +150,8 @@ def lay_out_sidebar(model, palette, concerns):
 def add_sidebar_backing(model):
     """The sidebar backing, from 4 px below the top edge to SIDEBAR_PAD below the sidebar's lowest cell (the raster grows
     with the content, so the declared page height is only a floor), first after the root cells so it is lowest in z."""
-    page_w = int(re.search(r'pageWidth="(\d+)"', model).group(1))
-    page_h = int(re.search(r'pageHeight="(\d+)"', model).group(1))
+    page_w = int(found(r'pageWidth="(\d+)"', model, "pageWidth").group(1))
+    page_h = int(found(r'pageHeight="(\d+)"', model, "pageHeight").group(1))
     bottom = page_h
     for m in re.finditer(r'<mxGeometry x="(-?[\d.]+)" y="(-?[\d.]+)" width="([\d.]+)" height="([\d.]+)"', model):
         x, y, _, h = (float(v) for v in m.groups())

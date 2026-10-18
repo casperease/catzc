@@ -23,7 +23,7 @@ from pathlib import Path
 from urllib.parse import quote, unquote
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
-from PIL.PngImagePlugin import PngInfo
+from PIL.PngImagePlugin import PngImageFile, PngInfo
 
 
 def kit_defaults():
@@ -179,8 +179,17 @@ def encode(model_xml, name):
 
 def decode(chunk):
     mxfile = unquote(chunk)
-    inner = re.search(r"<diagram[^>]*>(.*)</diagram>", mxfile, re.DOTALL).group(1)
-    return unquote(zlib.decompress(base64.b64decode(inner), -15).decode())
+    diagram = re.search(r"<diagram[^>]*>(.*)</diagram>", mxfile, re.DOTALL)
+    if diagram is None:
+        raise SystemExit("the mxfile chunk holds no <diagram>")
+    return unquote(zlib.decompress(base64.b64decode(diagram.group(1)), -15).decode())
+
+
+def mxfile_chunk(img):
+    """The still-encoded mxfile text chunk of an opened .drawio.png."""
+    if not isinstance(img, PngImageFile):
+        raise SystemExit(f"{img.filename} is not a PNG")
+    return img.text["mxfile"]
 
 
 def render(root, page=None):
@@ -256,7 +265,7 @@ def render(root, page=None):
         if s.get("shape") == "image" and uri.startswith("data:image/png,"):
             import io
             pic = Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1]))).convert("RGB")
-            img.paste(pic.resize((max(1, int(x1 - x0)), max(1, int(y1 - y0))), Image.LANCZOS), (int(x0), int(y0)))
+            img.paste(pic.resize((max(1, int(x1 - x0)), max(1, int(y1 - y0))), Image.Resampling.LANCZOS), (int(x0), int(y0)))
         text = plain(c.get("value"))
         if text:
             size = int(float(s.get("fontSize", 12)))
@@ -326,7 +335,7 @@ def main():
         del args[i:i + 2]
     src, dst = args
     if src.lower().endswith(".png"):
-        chunk = Image.open(src).text["mxfile"]
+        chunk = mxfile_chunk(Image.open(src))
         page = re.search(r'name="([^"]*)"', unquote(chunk))
         if page and "--name" not in sys.argv:
             name = html.unescape(page.group(1))
@@ -337,14 +346,14 @@ def main():
     if root.tag != "mxGraphModel":
         raise SystemExit(f"root must be mxGraphModel, got {root.tag}")
     ids = [c.get("id") for c in root.iter("mxCell")]
-    dup = {i for i in ids if ids.count(i) > 1}
+    dup = {i for i in ids if i is not None and ids.count(i) > 1}
     if dup:
         raise SystemExit(f"duplicate cell ids: {sorted(dup)}")
     img = render(root, page).convert("RGB")
     info = PngInfo()
     info.add_text("mxfile", encode(model, name))
     img.save(dst, "PNG", pnginfo=info)
-    back = decode(Image.open(dst).text["mxfile"])
+    back = decode(mxfile_chunk(Image.open(dst)))
     assert back == model, "round-trip mismatch"
     print(f"ok {dst} {img.size[0]}x{img.size[1]} cells={len(ids)} page={page or DEFAULTS['renderer']['page']}")
 

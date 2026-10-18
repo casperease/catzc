@@ -101,3 +101,8 @@ capabilities:
   - name: plan-value
     supported_by: [ADR-PRIN-NOWASTE#1, ADR-PROC-PULLWORK#1]
     checks: []
+
+  # The message protocol between an orchestrator and the live sessions it drives over the master plan.
+  - name: plans-orchestrate
+    supported_by: [ADR-PROC-PULLWORK#1, ADR-PROC-PULLWORK#4, ADR-AI#10]
+    checks: []

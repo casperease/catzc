@@ -39,7 +39,7 @@ import xml.etree.ElementTree as ET
 import zlib
 from pathlib import Path
 
-from drawio_png import DEFAULTS, decode, encode, plain, render
+from drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
@@ -280,7 +280,7 @@ def bulk(root, stage, migrate, start, end):
                         120,
                     )
                 model_of(f).write_text(
-                    decode(Image.open(f / SLIDE).text["mxfile"]).strip(), encoding="utf-8"
+                    decode(mxfile_chunk(Image.open(f / SLIDE))).strip(), encoding="utf-8"
                 )
                 done += 1
             except FORWARD as e:
@@ -453,7 +453,7 @@ def main():
 
     model = None
     try:
-        chunk = Image.open(src).text["mxfile"]
+        chunk = mxfile_chunk(Image.open(src))
         model = decode(chunk).strip()
     except FORWARD as e:  # a transport failure is a warning, the source copy stands in for the result
         warnings.append(f"W_CHUNK no readable mxfile chunk in the source: {e}")
@@ -465,14 +465,14 @@ def main():
             root = ET.fromstring(model)
             ids = [c.get("id") for c in root.iter("mxCell")]
             cells = len(ids)
-            dup = sorted({i for i in ids if ids.count(i) > 1})
+            dup = sorted({i for i in ids if i is not None and ids.count(i) > 1})
             if dup:
                 warnings.append(f"W_IDS duplicate cell ids: {dup}")
             img = render(root, page).convert("RGB")
             info = PngInfo()
             info.add_text("mxfile", encode(model, name))
             img.save(result, "PNG", pnginfo=info)
-            back = decode(Image.open(result).text["mxfile"])
+            back = decode(mxfile_chunk(Image.open(result)))
             if back != model:
                 warnings.append(
                     "W_ROUNDTRIP the result's embedded model differs from the source model"

@@ -419,7 +419,7 @@ def group_label(g):
 def mini_label(g):
     if g.startswith("docs/adr/"):
         area = g.split("/")[2]
-        return "adr/" + ADR_SHORT.get(area, area)
+        return "adr/" + (ADR_SHORT.get(area) or area)
     return group_label(g)
 
 

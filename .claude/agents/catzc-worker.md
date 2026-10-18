@@ -9,7 +9,8 @@ description: >
   inspiration module (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), for cleaning the plans
   (`plan-clear`), for landing a continuation paste in the plans (`plan-intake`), for a decision round over the plans (`plan-decide`), for
   running one gate (`gate-runner`), for repairing links (`link-fixer`), for a rules review (`adr-reviewer`), for glossary terms
-  (`glossary-keeper`), or for making tests faster (`test-optimization`).
+  (`glossary-keeper`), for making tests faster (`test-optimization`), or for driving live sessions through the master plan by message
+  (`implementation-orchestrator`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""
 model: sonnet

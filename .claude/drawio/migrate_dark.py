@@ -89,7 +89,7 @@ def migrate_model(model):
 
 def run(src, dst):
     img = Image.open(src)
-    chunk = img.text["mxfile"]
+    chunk = k.mxfile_chunk(img)
     m = re.search(r'name="([^"]*)"', k.unquote(chunk)); name = html.unescape(m.group(1)) if m else "Page-1"
     model = migrate_model(k.decode(chunk))
     root = ET.fromstring(model)                      # the XML is well-formed
@@ -101,8 +101,8 @@ def run(src, dst):
     out.save(dst, "PNG", pnginfo=info)
     back = Image.open(dst); back.verify()            # the PNG is valid
     back = Image.open(dst)
-    assert k.decode(back.text["mxfile"]) == model, "embedded model does not round-trip"
-    proof = k.render(ET.fromstring(k.decode(back.text["mxfile"]))).convert("RGB")   # the raster is a function of the XML
+    assert k.decode(k.mxfile_chunk(back)) == model, "embedded model does not round-trip"
+    proof = k.render(ET.fromstring(k.decode(k.mxfile_chunk(back)))).convert("RGB")   # the raster is a function of the XML
     assert proof.size == back.size and proof.tobytes() == back.convert("RGB").tobytes(), "raster is not the render of the embedded model"
     with open(dst, "rb") as f:
         raw = f.read()

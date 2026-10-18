@@ -97,3 +97,9 @@ agents:
     supported_by: [ADR-AUTO-TEST#21, ADR-AUTO-TEST#19, ADR-AUTO-TEST#22, ADR-PRIN-NOWASTE#1]
     checks: [Invoke-TestFile, Test-ScriptAnalyzer]
     model_reason: diagnoses where a test's time goes and changes production code without changing what it proves
+
+  # Drives the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.
+  - name: implementation-orchestrator
+    supported_by: [ADR-REPO-PLANS#8, ADR-PROC-PULLWORK#1, ADR-PROC-PULLWORK#4, ADR-AI#10]
+    checks: [Test-Plans]
+    model_reason: maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions hold
