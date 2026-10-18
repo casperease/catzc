@@ -15,6 +15,8 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
 
 ## Steps
 
+In hand 2026-10-18: session catzc-fb holds step 6 (orchestrator round 1).
+
 1. [x] Done 2026-10-18: the table is in the plan's section 8 (P3 classification), 165 hand pages, 94 move and 71 stay; the reference mirror
        holds 69 hand pages, not 56 (the module articles and diagram descriptions count). Original step: P3 classification table in the plan:
        every hand page in `docs/explanation/automation`, `docs/how-to/automation`, `docs/how-to/getting-started/automation` and the 56 hand

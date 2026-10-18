@@ -23,6 +23,8 @@ real runs, and five slides that still draw retired claims. When a step lands, th
 
 ## Steps
 
+In hand 2026-10-18: session catzc-59 holds steps 1 and 5 (orchestrator round 1).
+
 1. `Get-Aspect.ps1` and `Test-AspectDeclaration.ps1` move from `Catzc.Base.Modules` into `Catzc.Base.Variants` and read through the
    private `Get-Variant`, so `aspects` has one read path (ADR-REPO-VARIANT); their tests, the `.psd1` export lists, `Get-WorldMap`'s call,
    the Modules reference page (`docs/references/pwsh/catzc-base-modules.md`, one responsibility left) and the Variants count in
