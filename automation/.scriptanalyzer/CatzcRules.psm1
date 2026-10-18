@@ -24,6 +24,7 @@ $checks = @(
     'NoBareCacheEntryRead'
     'NoUnboundedEnumeration'
     'NoOneLineHashtableIfElse'
+    'NoTrackRootLiteral'
 )
 
 $script:measures = $null

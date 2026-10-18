@@ -27,6 +27,39 @@ function Test-IsRunningInPipeline {
     [bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS
 }
 
+# A host that runs -File, -Command or -EncodedCommand, or runs -NonInteractive, exits when its command ends and never shows a prompt, unless -NoExit keeps it open.
+function Test-IsInteractiveHost {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [string[]] $CommandLine = [System.Environment]::GetCommandLineArgs()
+    )
+
+    $exits = $false
+    $noExit = $false
+    foreach ($argument in @($CommandLine | Select-Object -Skip 1)) {
+        if (-not ($argument.StartsWith('-') -or $argument.StartsWith('/'))) {
+            continue
+        }
+        $name = $argument.TrimStart('-', '/').Split(':')[0].ToLowerInvariant()
+        if ($name.Length -eq 0) {
+            continue
+        }
+        if ($name.Length -ge 3 -and 'noexit'.StartsWith($name)) {
+            $noExit = $true
+        }
+        elseif ($name.Length -ge 4 -and 'noninteractive'.StartsWith($name)) {
+            $exits = $true
+        }
+        elseif ('file'.StartsWith($name) -or 'command'.StartsWith($name) -or 'encodedcommand'.StartsWith($name) -or $name -eq 'ec') {
+            # Everything after the script or the command belongs to it, not to the host.
+            $exits = $true
+            break
+        }
+    }
+    $noExit -or -not $exits
+}
+
 $script:deferredJanitors = $null
 
 # The console session's janitors run once the first prompt has shown: the first render is untouched, the second runs the action and restores the prompt.
@@ -93,4 +126,4 @@ function Invoke-DeferredJanitorsPrompt {
     }
 }
 
-Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt
+Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Test-IsInteractiveHost, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt

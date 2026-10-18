@@ -1,4 +1,4 @@
-# The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root
+# Output root first, then repository root, else absolute, and out/ re-anchors on the output root
 
 ```text
 ConvertTo-RepoRelativePath tries the output root, then the repository root, else keeps the absolute; Resolve-RepoPath re-anchors out/.

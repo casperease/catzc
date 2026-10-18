@@ -11,7 +11,7 @@ Lists every rule set whose domain's DORA file has no section, or more than one, 
 
 ### description
 
-Every domain outside the exempt list keeps one DORA file (dora_coverage.file, default dora-explains.md) with one `## ` section per ADR of
+Every domain outside the exempt list keeps one DORA file (dora_coverage.file, default dora-explains.md) with one `##` section per ADR of
 the domain, the authoring conventions of the ADR index. A section links an ADR when any markdown link in it resolves to the ADR's file
 (Resolve-AdrLinkTarget). This collects a finding when a rule set's ADR is linked from no section, or from more than one, and when the DORA
 file itself is missing. A rule set with no file, or several, is a finding of Test-AdrRegistry and is skipped here, and so is one whose ADR

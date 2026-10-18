@@ -1,30 +1,15 @@
----
-catzc:
-  immutable:
-    with_body_sha: "0e2541df81cc"
-    repo_status: locked
-    path: docs/explanation/.assets/grid/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md
-    source: docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
-# The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root: the world-map minimap
+# Output root first, then repository root, else absolute, and out/ re-anchors on the output root: the world-map minimap
 
 ```text
 Where the files that cite ADR-AUTO-PATH sit in the repository: tracks down, file languages across.
 7 of 324 cells lit, holding 50 files.
 ```
 
-![The world-map minimap of The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root](adr-auto-path--output-root-first-then-repo-root--implementation.grid.png)
+![The world-map minimap of Output root first, then repository root, else absolute, and out/ re-anchors on the output root](adr-auto-path--output-root-first-then-repo-root--implementation.grid.png)
 
-This is the world-map minimap in the sidebar of the implementation diagram of [The output root is tried first, then the repository root,
-else the path stays absolute, and out/ re-anchors on the output root][56], which explains [ADR-AUTO-PATH][1]. It lights every cell of the
-world map that holds a file citing those codes, so it shows where the decision lives in the repository. Each lit cell has its reason below,
-naming the code that selects it.
+This is the world-map minimap in the sidebar of the implementation diagram of [Output root first, then repository root, else absolute, and
+out/ re-anchors on the output root][56], which explains [ADR-AUTO-PATH][1]. It lights every cell of the world map that holds a file citing
+those codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 

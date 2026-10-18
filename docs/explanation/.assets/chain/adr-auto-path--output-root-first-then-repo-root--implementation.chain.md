@@ -1,30 +1,15 @@
----
-catzc:
-  immutable:
-    with_body_sha: "9aaae774072c"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
-# The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root: the value-chain minimap
+# Output root first, then repository root, else absolute, and out/ re-anchors on the output root: the value-chain minimap
 
 ```text
 Where ADR-AUTO-PATH sits in the value chain: value-chain stack down, value-chain concerns across.
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root](adr-auto-path--output-root-first-then-repo-root--implementation.chain.png)
+![The value-chain minimap of Output root first, then repository root, else absolute, and out/ re-anchors on the output root](adr-auto-path--output-root-first-then-repo-root--implementation.chain.png)
 
-This is the value-chain minimap in the sidebar of the implementation diagram of [The output root is tried first, then the repository root,
-else the path stays absolute, and out/ re-anchors on the output root][2], which explains [ADR-AUTO-PATH][1]. It lights the cells of the
-value-chain map where the cited ADRs' value-chain concerns land, so it shows the part of the value chain the decision governs. Nothing is
-lit, so no reason follows.
+This is the value-chain minimap in the sidebar of the implementation diagram of [Output root first, then repository root, else absolute, and
+out/ re-anchors on the output root][2], which explains [ADR-AUTO-PATH][1]. It lights the cells of the value-chain map where the cited ADRs'
+value-chain concerns land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
 
 ## What the minimap shows
 

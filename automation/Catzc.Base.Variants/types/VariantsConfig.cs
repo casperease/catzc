@@ -16,7 +16,9 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex PlacePath = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex TrackTypeName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
-    // The defaults, declared once here and nowhere else (ADR-AUTO-DEFAULT#6): a getter reads the typed property and never restates them.
+    // The defaults, declared once here and nowhere else
+    // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): a getter reads the typed property and never
+    // restates them.
     public const string DefaultAdoNaming = "standard";
     public const string DefaultGitWorkspace = "main-direct";
     public const bool DefaultHaveCustomers = false;

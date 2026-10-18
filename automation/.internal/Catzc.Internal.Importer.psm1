@@ -123,8 +123,8 @@ function Invoke-Importer {
         }
 
         Write-Verbose "Discovering modules in: $modulesRoot"
-        # An interactive dot-source is the only console host; a script, a test worker and a pipeline load the types at import.
-        $hostKind = if ($isConsoleSession -and -not (Test-IsRunningInPipeline)) {
+        # An interactive dot-source is the only console host; a script, a test worker, a -File or -Command process and a pipeline load the types and run the janitors at import.
+        $hostKind = if ($isConsoleSession -and (Test-IsInteractiveHost) -and -not (Test-IsRunningInPipeline)) {
             'console'
         }
         else {

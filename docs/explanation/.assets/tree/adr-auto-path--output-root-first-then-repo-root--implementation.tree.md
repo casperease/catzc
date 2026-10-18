@@ -1,29 +1,15 @@
----
-catzc:
-  immutable:
-    with_body_sha: f19f965bbd76
-    repo_status: locked
-    path: docs/explanation/.assets/tree/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md
-    source: docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
-# The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root: the tree minimap
+# Output root first, then repository root, else absolute, and out/ re-anchors on the output root: the tree minimap
 
 ```text
 Which files cite ADR-AUTO-PATH: every file of the world map is a tile, grouped by top-level folder.
 50 files lit in 14 groups.
 ```
 
-![The tree minimap of The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root](adr-auto-path--output-root-first-then-repo-root--implementation.tree.png)
+![The tree minimap of Output root first, then repository root, else absolute, and out/ re-anchors on the output root](adr-auto-path--output-root-first-then-repo-root--implementation.tree.png)
 
-This is the tree minimap in the sidebar of the implementation diagram of [The output root is tried first, then the repository root, else the
-path stays absolute, and out/ re-anchors on the output root][51], which explains [ADR-AUTO-PATH][1]. It lights every file that cites those
-codes, grouped by folder, so it shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
+This is the tree minimap in the sidebar of the implementation diagram of [Output root first, then repository root, else absolute, and out/
+re-anchors on the output root][51], which explains [ADR-AUTO-PATH][1]. It lights every file that cites those codes, grouped by folder, so it
+shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
