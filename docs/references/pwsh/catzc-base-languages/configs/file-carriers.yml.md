@@ -13,3 +13,12 @@ Where each file class keeps its meta block, or the reason it has none; a class w
 [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
 [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 ```
+
+## comment:2
+
+Above `diagram-folder:`, written with `#`.
+
+```text
+Classes of files that belong to no language.
+A diagram folder's slide keeps its block in the description beside it, diagram.drawio.md in the same folder.
+```

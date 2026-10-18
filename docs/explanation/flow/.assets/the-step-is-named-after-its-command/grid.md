@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f90e6bc89e2b
+    with_body_sha: a25565055eee
     repo_status: locked
-    path: docs/explanation/.assets/grid/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
+    path: docs/explanation/.assets/grid/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,18 +12,19 @@ catzc:
     tracktype: documentation
 ---
 
-# Three tasks share one guard, and one runner imports, traps, sanitizes and invokes: the world-map minimap
+# The Azure DevOps step is named after its command, and its log echoes the command before it runs: the world-map minimap
 
 ```text
 Where the files that cite ADR-FLOW-CD-RUNNER sit in the repository: tracks down, file languages across.
 4 of 342 cells lit, holding 7 files.
 ```
 
-![The world-map minimap of Three tasks share one guard, and one runner imports, traps, sanitizes and invokes](adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.png)
+![The world-map minimap of The Azure DevOps step is named after its command, and its log echoes the command before it runs](grid.png)
 
-This is the world-map minimap in the sidebar of the implementation diagram of [Three tasks share one guard, and one runner imports, traps,
-sanitizes and invokes][11], which explains [ADR-FLOW-CD-RUNNER][1]. It lights every cell of the world map that holds a file citing those
-codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
+This is the world-map minimap in the sidebar of the operations diagram of [The Azure DevOps step is named after its command, and its log
+echoes the command before it runs][11], which explains [ADR-FLOW-CD-RUNNER][1]. It lights every cell of the world map that holds a file
+citing those codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects
+it.
 
 ## What the minimap shows
 
@@ -94,21 +95,21 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 - [pipeline-yaml][18]: a file language
 - [yaml][18]: a file language
 
-[1]: ../../../adr/flow/pipeline-runner-pattern.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../.claude/CLAUDE.md
-[6]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[7]: ../../../adr/flow/dora-explains.md
-[8]: ../../../adr/index.md
-[9]: ../../../references/pipelines/steps/invoke-automation.yaml.md
-[10]: ../../../../pipelines/ci-automation.yaml
-[11]: ../../flow/three-tasks-one-guard-one-runner.md
-[12]: ../../../adr/glossary.md#world-map
-[13]: ../../../adr/glossary.md#track
-[14]: ../../../adr/glossary.md#file-language
-[15]: ../../../adr/glossary.md#cell
-[16]: ../../../adr/glossary.md#lit-cell
-[17]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[18]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/flow/pipeline-runner-pattern.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../../../../.claude/CLAUDE.md
+[6]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[7]: ../../../../adr/flow/dora-explains.md
+[8]: ../../../../adr/index.md
+[9]: ../../../../references/pipelines/steps/invoke-automation.yaml.md
+[10]: ../../../../../pipelines/ci-automation.yaml
+[11]: ../../the-step-is-named-after-its-command.md
+[12]: ../../../../adr/glossary.md#world-map
+[13]: ../../../../adr/glossary.md#track
+[14]: ../../../../adr/glossary.md#file-language
+[15]: ../../../../adr/glossary.md#cell
+[16]: ../../../../adr/glossary.md#lit-cell
+[17]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[18]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

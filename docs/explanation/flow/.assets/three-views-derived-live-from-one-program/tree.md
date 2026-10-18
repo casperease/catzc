@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dcdd9a9e862c
+    with_body_sha: "39e4c7a4ea83"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.tree.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
+    path: docs/explanation/.assets/tree/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# Every globset carries one of three layers, and only two are declared: the tree minimap
+# A globset is one ordered program, and its three views are derived live, never committed: the tree minimap
 
 ```text
 Which files cite ADR-FLOW-CD-GLOBS: every file of the world map is a tile, grouped by top-level folder.
 74 files lit in 8 groups.
 ```
 
-![The tree minimap of Every globset carries one of three layers, and only two are declared](adr-flow-cd-globs--two-declared-layers-one-derived--architecture.tree.png)
+![The tree minimap of A globset is one ordered program, and its three views are derived live, never committed](tree.png)
 
-This is the tree minimap in the sidebar of the architecture diagram of [Every globset carries one of three layers, and only two are
-declared][75], which explains [ADR-FLOW-CD-GLOBS][1]. It lights every file that cites those codes, grouped by folder, so it shows which
-files carry the decision. Each lit group has its reason below, naming the code that selects it.
+This is the tree minimap in the sidebar of the meta diagram of [A globset is one ordered program, and its three views are derived live,
+never committed][75], which explains [ADR-FLOW-CD-GLOBS][1]. It lights every file that cites those codes, grouped by folder, so it shows
+which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -258,85 +258,85 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [powershell][82]: a file language
 - [yaml][82]: a file language
 
-[1]: ../../../adr/flow/durable-sha-globs.md
-[2]: ../../../how-to/pwsh/manual-test-plan/pipelines-and-globs.md
-[3]: ../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
-[4]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
-[5]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
-[6]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md
-[7]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
-[8]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
-[9]: ../../../references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
-[10]: ../../../references/pwsh/catzc-base-globs.md
-[11]: ../../../references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md
-[12]: ../../../references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md
-[13]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
-[14]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md
-[15]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md
-[16]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md
-[17]: ../../../references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
-[18]: ../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[19]: ../../../references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md
-[20]: ../../../references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
-[21]: ../../../references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
-[22]: ../../../references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
-[23]: ../../../references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
-[24]: ../../../references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
-[25]: ../../../references/pwsh/catzc-base-globs/configs/globs.yml.md
-[26]: ../../../references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md
-[27]: ../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
-[28]: ../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
-[29]: ../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[30]: ../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-[31]: ../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
-[32]: ../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
-[33]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
-[34]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
-[35]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
-[36]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
-[37]: ../../../references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
-[38]: ../../../references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
-[39]: ../../../references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
-[40]: ../../../references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
-[41]: ../../../references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md
-[42]: ../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
-[43]: ../../../references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
-[44]: ../../../references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
-[45]: ../../../references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
-[46]: ../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
-[47]: ../../../references/pwsh/catzc-base-globs/types/DurableHash.cs.md
-[48]: ../../../references/pwsh/catzc-base-globs/types/GlobPattern.cs.md
-[49]: ../../../references/pwsh/catzc-base-globs/types/GlobSet.cs.md
-[50]: ../../../references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md
-[51]: ../../../references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md
-[52]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
-[53]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
-[54]: ../../../references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md
-[55]: ../../../references/pipelines/cd-apex.yaml.md
-[56]: ../../../references/pipelines/cd-flux.yaml.md
-[57]: ../../../references/pipelines/cd-nova.yaml.md
-[58]: ../../../references/pipelines/cd-shared.yaml.md
-[59]: ../../../references/pipelines/ci-automation.yaml.md
-[60]: ../../../references/pipelines/ci-infrastructure.yaml.md
-[61]: ../../../../pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-[62]: ../../../../pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
-[63]: ../../../../pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
-[64]: ../../../../pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
-[65]: ../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-[66]: ../../../../pwsh/Catzc.Base.Globs/types/GlobPattern.cs
-[67]: ../../../../pwsh/Catzc.Base.Globs/types/GlobSet.cs
-[68]: ../../../../pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-[69]: ../../../adr/flow/dora-explains.md
-[70]: ../../../../.github/workflows/ci-automation.yml
-[71]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[72]: ../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[73]: ../../../adr/index.md
-[74]: ../../../../pipelines/ci-automation.yaml
-[75]: ../../flow/two-declared-layers-one-derived.md
-[76]: ../../../adr/glossary.md#world-map
-[77]: ../../../adr/glossary.md#track
-[78]: ../../../adr/glossary.md#file-language
-[79]: ../../../adr/glossary.md#cell
-[80]: ../../../adr/glossary.md#lit-cell
-[81]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[82]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/flow/durable-sha-globs.md
+[2]: ../../../../how-to/pwsh/manual-test-plan/pipelines-and-globs.md
+[3]: ../../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
+[4]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
+[5]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
+[6]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md
+[7]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
+[8]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
+[9]: ../../../../references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
+[10]: ../../../../references/pwsh/catzc-base-globs.md
+[11]: ../../../../references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md
+[12]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md
+[13]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+[14]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md
+[15]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md
+[16]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md
+[17]: ../../../../references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
+[18]: ../../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+[19]: ../../../../references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md
+[20]: ../../../../references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
+[21]: ../../../../references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
+[22]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
+[23]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+[24]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
+[25]: ../../../../references/pwsh/catzc-base-globs/configs/globs.yml.md
+[26]: ../../../../references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md
+[27]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
+[28]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
+[29]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
+[30]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[31]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
+[32]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
+[33]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
+[34]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
+[35]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
+[36]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
+[37]: ../../../../references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
+[38]: ../../../../references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
+[39]: ../../../../references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
+[40]: ../../../../references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
+[41]: ../../../../references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md
+[42]: ../../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+[43]: ../../../../references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
+[44]: ../../../../references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
+[45]: ../../../../references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+[46]: ../../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
+[47]: ../../../../references/pwsh/catzc-base-globs/types/DurableHash.cs.md
+[48]: ../../../../references/pwsh/catzc-base-globs/types/GlobPattern.cs.md
+[49]: ../../../../references/pwsh/catzc-base-globs/types/GlobSet.cs.md
+[50]: ../../../../references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md
+[51]: ../../../../references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md
+[52]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
+[53]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
+[54]: ../../../../references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md
+[55]: ../../../../references/pipelines/cd-apex.yaml.md
+[56]: ../../../../references/pipelines/cd-flux.yaml.md
+[57]: ../../../../references/pipelines/cd-nova.yaml.md
+[58]: ../../../../references/pipelines/cd-shared.yaml.md
+[59]: ../../../../references/pipelines/ci-automation.yaml.md
+[60]: ../../../../references/pipelines/ci-infrastructure.yaml.md
+[61]: ../../../../../pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+[62]: ../../../../../pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
+[63]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
+[64]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+[65]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+[66]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+[67]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobSet.cs
+[68]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+[69]: ../../../../adr/flow/dora-explains.md
+[70]: ../../../../../.github/workflows/ci-automation.yml
+[71]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[72]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[73]: ../../../../adr/index.md
+[74]: ../../../../../pipelines/ci-automation.yaml
+[75]: ../../three-views-derived-live-from-one-program.md
+[76]: ../../../../adr/glossary.md#world-map
+[77]: ../../../../adr/glossary.md#track
+[78]: ../../../../adr/glossary.md#file-language
+[79]: ../../../../adr/glossary.md#cell
+[80]: ../../../../adr/glossary.md#lit-cell
+[81]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[82]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

@@ -20,9 +20,9 @@ Every pipeline step in cats runs through two files: the step template `pipelines
 guard before they call the runner. The runner then does four things in a fixed order. Read in code order, the path from a pipeline's
 `RunCommand` to the running command has no other stops.
 
-![Three tasks, one guard, one runner](../.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png)
+![Three tasks, one guard, one runner](.assets/three-tasks-one-guard-one-runner/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](three-tasks-one-guard-one-runner.drawio.md).
+The diagram is described element by element in [its asset description](.assets/three-tasks-one-guard-one-runner/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -21,9 +21,9 @@ Supports ADR-FLOW-CD-DETECT#1, #4 and #5 (implementation lens).
 cares about the pipeline calls it, 24 call sites in all, and a custom PSScriptAnalyzer rule, loaded by the one settings file, turns any
 other read of those two variables into an error.
 
-![Two variables read in one place](../.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png)
+![Two variables read in one place](.assets/two-variables-read-in-one-place/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](two-variables-read-in-one-place.drawio.md).
+The diagram is described element by element in [its asset description](.assets/two-variables-read-in-one-place/diagram.drawio.md).
 
 ## Walkthrough
 

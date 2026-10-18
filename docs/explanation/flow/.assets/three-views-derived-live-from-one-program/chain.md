@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "17a1f11b2803"
+    with_body_sha: "3b2a4c14c09e"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
+    path: docs/explanation/.assets/chain/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.chain.md
+    source: docs/explanation/.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,17 +12,17 @@ catzc:
     tracktype: documentation
 ---
 
-# Two variables, one reader, 24 callers, and one analyzer rule for every other read: the value-chain minimap
+# A globset is one ordered program, and its three views are derived live, never committed: the value-chain minimap
 
 ```text
-Where ADR-FLOW-CD-DETECT sits in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-FLOW-CD-GLOBS sits in the value chain: value-chain stack down, value-chain concerns across.
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Two variables, one reader, 24 callers, and one analyzer rule for every other read](adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.png)
+![The value-chain minimap of A globset is one ordered program, and its three views are derived live, never committed](chain.png)
 
-This is the value-chain minimap in the sidebar of the implementation diagram of [Two variables, one reader, 24 callers, and one analyzer
-rule for every other read][2], which explains [ADR-FLOW-CD-DETECT][1]. It lights the cells of the value-chain map where the cited ADRs'
+This is the value-chain minimap in the sidebar of the meta diagram of [A globset is one ordered program, and its three views are derived
+live, never committed][2], which explains [ADR-FLOW-CD-GLOBS][1]. It lights the cells of the value-chain map where the cited ADRs'
 value-chain concerns land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
 
 ## What the minimap shows
@@ -55,10 +55,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-[1]: ../../../adr/flow/pipeline-detection.md
-[2]: ../../flow/two-variables-read-in-one-place.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
+[1]: ../../../../adr/flow/durable-sha-globs.md
+[2]: ../../three-views-derived-live-from-one-program.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell

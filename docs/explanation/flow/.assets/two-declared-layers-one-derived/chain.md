@@ -19,7 +19,7 @@ Where ADR-FLOW-CD-GLOBS sits in the value chain: value-chain stack down, value-c
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Every globset carries one of three layers, and only two are declared](adr-flow-cd-globs--two-declared-layers-one-derived--architecture.chain.png)
+![The value-chain minimap of Every globset carries one of three layers, and only two are declared](chain.png)
 
 This is the value-chain minimap in the sidebar of the architecture diagram of [Every globset carries one of three layers, and only two are
 declared][2], which explains [ADR-FLOW-CD-GLOBS][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
@@ -55,10 +55,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-[1]: ../../../adr/flow/durable-sha-globs.md
-[2]: ../../flow/two-declared-layers-one-derived.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
+[1]: ../../../../adr/flow/durable-sha-globs.md
+[2]: ../../two-declared-layers-one-derived.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell

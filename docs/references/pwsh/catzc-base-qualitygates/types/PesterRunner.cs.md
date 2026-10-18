@@ -76,3 +76,12 @@ Above `psi.Environment[WorkerParentWatch.PidVariable] =...`, written with `//`.
 Who started this worker, so it can end itself if this process dies without reaping it
 (WorkerParentWatch). Set after the caller's extras, so a caller can never point a worker elsewhere.
 ```
+
+## comment:8
+
+Above `public static PesterRunner Run(string[] runnerScripts, string[] labels,...`, written with `//`.
+
+```text
+One pool with named limits: a worker starts, in submission order, once a slot is free and each of its caps
+(workerCaps[i], names into capLimits) runs fewer workers than its limit; a worker held only by a cap never holds back the ones after it.
+```

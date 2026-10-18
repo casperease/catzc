@@ -478,6 +478,13 @@ concepts:
       file language: A file language groups the extensions of one kind of text; a file type is the single extension of one file.
       role: A role is the part a file plays; a file type is how its name ends.
       subkind: A subkind is a narrower role, whatever the name; a file type is how a file's name ends.
+  staging slot:
+    key: staging_slot
+    domain: design
+    defined_by: ADR-DSGN-LIFE#5
+    short:
+      The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
+    realized_by: { kind: prose-only }
   module type:
     key: module_type
     domain: design

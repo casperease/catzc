@@ -75,7 +75,7 @@ comes first on PATH, and on Windows a machine-wide Go precedes the user-scope ma
 
 ## comment:5
 
-Above `$pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))`, written with `#`.
+Above `$python = Get-Config -Config python`, written with `#`.
 
 ```text
 The Python test workspace's one environment

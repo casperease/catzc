@@ -38,8 +38,6 @@ carriers:
   stamp: { carrier: none, reason: "a stamp is written whole by the generator that records it, and its value is the file" }
   asset: { carrier: none, reason: "a binary file, so the description beside it carries what a reader needs" }
 
-  # Classes of files that belong to no language.
-  # A diagram folder's slide keeps its block in the description beside it, diagram.drawio.md in the same folder.
   diagram-folder:
     files: ["docs/**/.assets/*/diagram.drawio.png"]
     carrier: sidecar

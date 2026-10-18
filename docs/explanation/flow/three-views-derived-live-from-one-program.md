@@ -16,9 +16,9 @@ A globset in cats names an area-of-control and maps it onto files under version 
 that area reads the same flattened program. The registry is the only thing a person writes; the trigger, the change report and the
 protection identity are read-outs of it, recomputed when asked, so nothing stored per set can go stale.
 
-![One program, three views derived live, none committed](../.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png)
+![One program, three views derived live, none committed](.assets/three-views-derived-live-from-one-program/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](three-views-derived-live-from-one-program.drawio.md).
+The diagram is described element by element in [its asset description](.assets/three-views-derived-live-from-one-program/diagram.drawio.md).
 
 ## Walkthrough
 

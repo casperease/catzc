@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "360e1b0be6c8"
+    with_body_sha: "9e902be96309"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
+    path: docs/explanation/automation/.assets/three-layers-edges-point-down/chain.md
+    source: docs/explanation/automation/.assets/three-layers-edges-point-down/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

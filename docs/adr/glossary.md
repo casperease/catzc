@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "345703fae60a"
-    with_inputs_sha: "82a29d33651cfb2193e8c0413e3f60f8e5fb0558687278dfd78691518272c44d"
+    with_body_sha: "302a92f8b48d"
+    with_inputs_sha: "48b51ecd96edc4f51e557f97d458dc2301345d4d6f6e70d9800d30f27b46f66f"
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -337,6 +337,14 @@ A world-map cell holding a live file whose file language its track does not decl
     whatever the highlight.
   - [value-chain stack](#value-chain-stack): The value-chain stack orders decisions, not files; a stack violation is a world-map cell
     outside its track's tech-stack.
+
+### staging slot
+
+System.Collections.Specialized.OrderedDictionary
+
+- **Defined by:** [ADR-DSGN-LIFE#5](design/commit-lifecycle.md#rule-adr-dsgn-life5)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
 ### track
 

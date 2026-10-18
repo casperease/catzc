@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "47ad3e760de5"
+    with_body_sha: "3d5bea81cb0a"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
+    path: docs/explanation/.assets/tree/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.tree.md
+    source: docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# The Azure DevOps step is named after its command, and its log echoes the command before it runs: the tree minimap
+# Three tasks share one guard, and one runner imports, traps, sanitizes and invokes: the tree minimap
 
 ```text
 Which files cite ADR-FLOW-CD-RUNNER: every file of the world map is a tile, grouped by top-level folder.
 7 files lit in 6 groups.
 ```
 
-![The tree minimap of The Azure DevOps step is named after its command, and its log echoes the command before it runs](adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.png)
+![The tree minimap of Three tasks share one guard, and one runner imports, traps, sanitizes and invokes](tree.png)
 
-This is the tree minimap in the sidebar of the operations diagram of [The Azure DevOps step is named after its command, and its log echoes
-the command before it runs][8], which explains [ADR-FLOW-CD-RUNNER][1]. It lights every file that cites those codes, grouped by folder, so
-it shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
+This is the tree minimap in the sidebar of the implementation diagram of [Three tasks share one guard, and one runner imports, traps,
+sanitizes and invokes][8], which explains [ADR-FLOW-CD-RUNNER][1]. It lights every file that cites those codes, grouped by folder, so it
+shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -96,18 +96,18 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipeline-yaml][15]: a file language
 - [yaml][15]: a file language
 
-[1]: ../../../adr/flow/pipeline-runner-pattern.md
-[2]: ../../../adr/flow/dora-explains.md
-[3]: ../../../../.claude/CLAUDE.md
-[4]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[5]: ../../../adr/index.md
-[6]: ../../../references/pipelines/steps/invoke-automation.yaml.md
-[7]: ../../../../pipelines/ci-automation.yaml
-[8]: ../../flow/the-step-is-named-after-its-command.md
-[9]: ../../../adr/glossary.md#world-map
-[10]: ../../../adr/glossary.md#track
-[11]: ../../../adr/glossary.md#file-language
-[12]: ../../../adr/glossary.md#cell
-[13]: ../../../adr/glossary.md#lit-cell
-[14]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[15]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/flow/pipeline-runner-pattern.md
+[2]: ../../../../adr/flow/dora-explains.md
+[3]: ../../../../../.claude/CLAUDE.md
+[4]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[5]: ../../../../adr/index.md
+[6]: ../../../../references/pipelines/steps/invoke-automation.yaml.md
+[7]: ../../../../../pipelines/ci-automation.yaml
+[8]: ../../three-tasks-one-guard-one-runner.md
+[9]: ../../../../adr/glossary.md#world-map
+[10]: ../../../../adr/glossary.md#track
+[11]: ../../../../adr/glossary.md#file-language
+[12]: ../../../../adr/glossary.md#cell
+[13]: ../../../../adr/glossary.md#lit-cell
+[14]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[15]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

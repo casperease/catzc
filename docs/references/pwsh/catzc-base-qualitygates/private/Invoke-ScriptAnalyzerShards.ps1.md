@@ -55,7 +55,7 @@ The shards still run from the repository root: the settings' CustomRulePath entr
 
 ## comment:2
 
-Above `$budget = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 10)), $total)`, written with `#`.
+Above `$budget = [Math]::Min([Math]::Max(1,...`, written with `#`.
 
 ```text
 Shard count tracks CPU but is capped so we don't spawn more process setup than the work can amortize,

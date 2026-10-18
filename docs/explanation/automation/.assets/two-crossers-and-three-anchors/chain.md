@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "664e8ccc1bba"
+    with_body_sha: "52add8d517ae"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md
-    source: docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
+    path: docs/explanation/automation/.assets/two-crossers-and-three-anchors/chain.md
+    source: docs/explanation/automation/.assets/two-crossers-and-three-anchors/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

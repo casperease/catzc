@@ -19,7 +19,7 @@ Which files cite ADR-FLOW-CD-DETECT: every file of the world map is a tile, grou
 11 files lit in 6 groups.
 ```
 
-![The tree minimap of Two variables, one reader, 24 callers, and one analyzer rule for every other read](adr-flow-cd-detect--two-variables-read-in-one-place--implementation.tree.png)
+![The tree minimap of Two variables, one reader, 24 callers, and one analyzer rule for every other read](tree.png)
 
 This is the tree minimap in the sidebar of the implementation diagram of [Two variables, one reader, 24 callers, and one analyzer rule for
 every other read][12], which explains [ADR-FLOW-CD-DETECT][1]. It lights every file that cites those codes, grouped by folder, so it shows
@@ -105,22 +105,22 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipeline-yaml][19]: a file language
 - [yaml][19]: a file language
 
-[1]: ../../../adr/flow/pipeline-detection.md
-[2]: ../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
-[3]: ../../../references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
-[4]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
-[5]: ../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-[6]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
-[7]: ../../../adr/flow/dora-explains.md
-[8]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[10]: ../../../adr/index.md
-[11]: ../../../../pipelines/ci-automation.yaml
-[12]: ../../flow/two-variables-read-in-one-place.md
-[13]: ../../../adr/glossary.md#world-map
-[14]: ../../../adr/glossary.md#track
-[15]: ../../../adr/glossary.md#file-language
-[16]: ../../../adr/glossary.md#cell
-[17]: ../../../adr/glossary.md#lit-cell
-[18]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[19]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/flow/pipeline-detection.md
+[2]: ../../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
+[3]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
+[4]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+[5]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[6]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
+[7]: ../../../../adr/flow/dora-explains.md
+[8]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[9]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[10]: ../../../../adr/index.md
+[11]: ../../../../../pipelines/ci-automation.yaml
+[12]: ../../two-variables-read-in-one-place.md
+[13]: ../../../../adr/glossary.md#world-map
+[14]: ../../../../adr/glossary.md#track
+[15]: ../../../../adr/glossary.md#file-language
+[16]: ../../../../adr/glossary.md#cell
+[17]: ../../../../adr/glossary.md#lit-cell
+[18]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[19]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
