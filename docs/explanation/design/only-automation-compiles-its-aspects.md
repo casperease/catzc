@@ -11,7 +11,7 @@ Both tracks' conventions are read, but only the pwsh track's compiles into globs
 6  Catzc.Base.Maps      reads every track's convention to classify each file live or not
 7  world map            what Maps produces; it derives no globset
 
-Supports ADR-DSGN-ASPECT#2, #3 and #4 (architecture lens).
+Supports ADR-DSGN-ASPECT-ASPECTSAREDERIVED, ADR-DSGN-ASPECT-TRACKPICKSCATCHALL and ADR-DSGN-ASPECT-ASPECTISAGLOBSET (architecture lens).
 ```
 
 A track's aspect convention is declared in the `aspects` variant, read by one module, `Catzc.Base.Variants`, or for the code track derived
@@ -47,14 +47,15 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - A repo-wide variant lives in `configs/variants.yml` of `Catzc.Base.Variants` and is read through the session-cached config; `aspects` is
-  one of them, read by `Get-Aspect` (ADR-REPO-VARIANT#1).
+  one of them, read by `Get-Aspect` (ADR-REPO-VARIANT-SESSIONVARIANT).
 - Nothing reads the file directly: each variant is a typed primitive, and the private `Get-Variant` is the one access point
-  (ADR-REPO-VARIANT#2).
-- The aspect engine compiles each aspect as its own patterns minus every earlier aspect's, prefixed by the unit root (ADR-DSGN-ASPECT#2),
-  and each track names its own remainder (ADR-DSGN-ASPECT#3).
-- Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live identity and nothing committed per set (ADR-DSGN-ASPECT#4).
+  (ADR-REPO-VARIANT-NODIRECTREADS).
+- The aspect engine compiles each aspect as its own patterns minus every earlier aspect's, prefixed by the unit root
+  (ADR-DSGN-ASPECT-ASPECTSAREDERIVED), and each track names its own remainder (ADR-DSGN-ASPECT-TRACKPICKSCATCHALL).
+- Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live identity and nothing committed per set
+  (ADR-DSGN-ASPECT-ASPECTISAGLOBSET).
 - A track owns one coherent tech-stack, and the world map checks it on live files only, which is why Maps needs every track's convention to
-  tell live files from the rest (ADR-DSGN-TRACK#3).
+  tell live files from the rest (ADR-DSGN-TRACK-ONETECHSTACK).
 
 ## Where the code and the ADR differ
 

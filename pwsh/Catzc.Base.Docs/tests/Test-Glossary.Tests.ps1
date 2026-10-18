@@ -5,7 +5,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
                 $concept = [Catzc.Base.Docs.GlossaryConcept]::new($term, [ordered]@{
                         key         = $term.Replace(' ', '_')
                         domain      = 'repository'
-                        defined_by  = 'ADR-TST-WIDGET#1'
+                        defined_by  = 'ADR-TST-WIDGET-REST'
                         short       = "The $term."
                         realized_by = [ordered]@{ kind = 'prose-only' }
                     })

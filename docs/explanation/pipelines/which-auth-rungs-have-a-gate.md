@@ -9,7 +9,7 @@ The PAT proof and the empty-token assert have no gate, and neither do #4 and #7.
 4  az CLI                  #2 checked by two L0 tests; the #5 empty-token assert has none
 5  invoke-automation.yaml  #6, checked by a step in the AzureAuthTests job
 
-Supports ADR-PIPE-AUTH#1, #2, #3, #4, #5, #6 and #7 (governance lens).
+Supports ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-PIPE-AUTH-PROVETARGET, ADR-PIPE-AUTH-EXPLICITDETECTION, ADR-PIPE-AUTH-SEPARATETOKENFUNCTION, ADR-PIPE-AUTH-ASSERTWHENNOTOKEN, ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN and ADR-PIPE-AUTH-NOSTOREDTOKENS (governance lens).
 ```
 
 ADR-PIPE-AUTH has seven rules, and tests check only some of them. The L0 tests of `Get-AdoAuthorizationHeader` cover the pipeline and az CLI
@@ -37,22 +37,23 @@ The diagram is described element by element in [its asset description](.assets/w
    the `AzureAuthTests` job of `pipelines/ci-automation.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is true.
 
 No analyzer rule cites ADR-PIPE-AUTH. The analyzer rule `Measure-NoRawPipelineDetection` forbids raw reads of the pipeline variables outside
-`Test-IsRunningInPipeline`, which supports #3, but it is mapped to ADR-FLOW-CD-DETECT#1.
+`Test-IsRunningInPipeline`, which supports #3, but it is mapped to ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK.
 
 ## Why it holds
 
-- The credential is chosen in a fixed order with no fallback on failure (ADR-PIPE-AUTH#1).
-- Each source proves its org or tenant before it returns a header (ADR-PIPE-AUTH#2).
-- Pipeline detection goes through `Test-IsRunningInPipeline` (ADR-PIPE-AUTH#3).
-- API functions call the header function and never inline token logic (ADR-PIPE-AUTH#4).
-- An empty az CLI result raises an actionable error (ADR-PIPE-AUTH#5).
-- The step template maps the system token when `ExposeAccessToken` is set (ADR-PIPE-AUTH#6).
-- Tokens are never kept beyond the request (ADR-PIPE-AUTH#7).
+- The credential is chosen in a fixed order with no fallback on failure (ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE).
+- Each source proves its org or tenant before it returns a header (ADR-PIPE-AUTH-PROVETARGET).
+- Pipeline detection goes through `Test-IsRunningInPipeline` (ADR-PIPE-AUTH-EXPLICITDETECTION).
+- API functions call the header function and never inline token logic (ADR-PIPE-AUTH-SEPARATETOKENFUNCTION).
+- An empty az CLI result raises an actionable error (ADR-PIPE-AUTH-ASSERTWHENNOTOKEN).
+- The step template maps the system token when `ExposeAccessToken` is set (ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN).
+- Tokens are never kept beyond the request (ADR-PIPE-AUTH-NOSTOREDTOKENS).
 
 ## Where the code and the ADR differ
 
-- ADR-PIPE-AUTH#4, #5 and #7 have no gate: no test and no analyzer rule.
-- The PAT half of ADR-PIPE-AUTH#2 holds only by default, because every API function accepts an `-Organization` override.
+- ADR-PIPE-AUTH-SEPARATETOKENFUNCTION, ADR-PIPE-AUTH-ASSERTWHENNOTOKEN and ADR-PIPE-AUTH-NOSTOREDTOKENS have no gate: no test and no
+  analyzer rule.
+- The PAT half of ADR-PIPE-AUTH-PROVETARGET holds only by default, because every API function accepts an `-Organization` override.
 
 ## See also
 

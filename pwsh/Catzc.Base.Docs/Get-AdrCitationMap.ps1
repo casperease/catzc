@@ -20,15 +20,9 @@ function Get-AdrCitationMap {
     $entries = @{}
     foreach ($row in (Get-CatsAdrIndex -IndexPath $indexPath)) {
         $adrFile = Join-Path $adrRoot $row.Path
-        $declared = @(Get-CatsAdrRules -AdrPath $adrFile)
-        $rules = foreach ($rule in $declared | Where-Object { $_.Id.Contains(':') }) {
-            [int] ($rule.Id -split ':')[-1]
-        }
-        $named = [string[]] @($declared | Where-Object { -not $_.Id.Contains(':') } | ForEach-Object Id)
         $entries[$row.Code] = @{
             path  = 'docs/adr/' + ($row.Path -replace '\\', '/')
-            rules = @($rules)
-            named = $named
+            rules = [string[]] @(Get-CatsAdrRules -AdrPath $adrFile | ForEach-Object Id)
         }
     }
 

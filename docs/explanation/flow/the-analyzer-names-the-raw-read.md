@@ -9,7 +9,7 @@ A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts
 4  Test-IsRunningInPipeline    CI step 2e asserts it is true on the agent
 5  Get-OutputRoot              the same step prints the staging directory it resolves
 
-Supports ADR-FLOW-CD-DETECT#1 and #4 (operations lens).
+Supports ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK and ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL (operations lens).
 ```
 
 A developer who writes `if ($env:TF_BUILD)` finds out at the next analyzer run, not in a code review. `Test-ScriptAnalyzer` prints one line
@@ -40,9 +40,10 @@ The diagram is described element by element in [its asset description](.assets/t
 ## Why it holds
 
 - Never check the detection variables directly; the analyzer rule turns a raw read into an error a developer sees at once
-  (ADR-FLOW-CD-DETECT#1).
-- Detection is boolean, so the pipeline can assert it with one `Assert-True` (ADR-FLOW-CD-DETECT#4).
-- Both environments are checked equally: the analyzer runs on the devbox and in the pipeline, and the two must agree (ADR-AUTO-PARITY#2).
+  (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK).
+- Detection is boolean, so the pipeline can assert it with one `Assert-True` (ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL).
+- Both environments are checked equally: the analyzer runs on the devbox and in the pipeline, and the two must agree
+  (ADR-AUTO-PARITY-CHECKEDEQUALLY).
 
 ## See also
 

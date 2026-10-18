@@ -13,7 +13,7 @@ A config file that resolves to no subscription, or to two, stops discovery with 
 6  more than one subscription   several subscriptions serve it; every config must resolve to exactly one id
 7  is not a customer key        the subfolder names no customer of customer.yml
 
-Supports ADR-AZ-DATAMOD#3 and #8, and ADR-AZ-CUSTOMER#6 (operations lens).
+Supports ADR-AZ-DATAMOD-NAMEKEYEDMAPS and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (operations lens).
 ```
 
 Adding a deployment to cats is adding a file: a person places `configuration/apex/nsub.yml` under a template, and nothing else declares it.
@@ -53,10 +53,11 @@ The diagram is described element by element in [its asset description](.assets/a
 ## Why it holds
 
 - Every config's coordinate must resolve to exactly one subscription id, and a configuration subfolder is always a customer key, asserted
-  per file at discovery and by integrity tests (ADR-AZ-DATAMOD#3).
+  per file at discovery and by integrity tests (ADR-AZ-DATAMOD-NAMEKEYEDMAPS).
 - The cross-layer link is enforced at discovery by `Get-BicepTemplates` through the shared `Get-BicepSubscriptionConfigViolations`, which
-  `Assert-BicepTemplate` runs too, so the two report the same violations (ADR-AZ-DATAMOD#8).
-- A subfolder that is not a defined customer key is a discovery error, and the shortcode never names a folder (ADR-AZ-CUSTOMER#6).
+  `Assert-BicepTemplate` runs too, so the two report the same violations (ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY).
+- A subfolder that is not a defined customer key is a discovery error, and the shortcode never names a folder
+  (ADR-AZ-CUSTOMER-KEYISSUBFOLDER).
 
 ## See also
 

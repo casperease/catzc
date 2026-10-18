@@ -12,12 +12,12 @@ Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
     It 'gives every row a path, a registered code, and a rule that code declares' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         $rows | Where-Object { -not $_.Path } | Should -BeNullOrEmpty
         $rows | Where-Object { -not ($map.HasCode($_.Code) -or $map.IsDomainCode($_.Code)) } | Should -BeNullOrEmpty
-        $rows | Where-Object { $null -ne $_.Rule -and -not $map.HasRule($_.Code, $_.Rule) } | Should -BeNullOrEmpty
+        $rows | Where-Object { $null -ne $_.Rule -and $map.AdrOf($_.Rule) -cne $_.Code } | Should -BeNullOrEmpty
     }
 
-    It 'keeps a group out of a row: a rule is one number or none' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
-        $rows | Where-Object { $_.Code -match '[#{}]' } | Should -BeNullOrEmpty
-        $rows | Where-Object { $null -ne $_.Rule -and $_.Rule -isnot [int] } | Should -BeNullOrEmpty
+    It 'keeps a number out of a row: a rule is one rule code or none' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
+        $rows | Where-Object { $_.Code -match '[#{}:]' } | Should -BeNullOrEmpty
+        $rows | Where-Object { $null -ne $_.Rule -and -not $map.IsRule($_.Rule) } | Should -BeNullOrEmpty
     }
 
     It 'narrows to the codes and the source asked for' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {

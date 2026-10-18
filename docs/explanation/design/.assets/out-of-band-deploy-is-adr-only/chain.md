@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0ed615cf7179"
+    with_body_sha: "12252773443d"
     repo_status: locked
     path: docs/explanation/design/.assets/out-of-band-deploy-is-adr-only/chain.md
     source: docs/explanation/design/.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-DSGN-LIFE and ADR-DSGN-VISUAL sit in the value chain: value-chain stac
 ![The value-chain minimap of No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [No gate checks the out-of-band deploy rule, and the only gate
-on deploys in code is main-only][6], which explains [ADR-DSGN-LIFE][1] and [ADR-DSGN-VISUAL][2]. It lights the cells of the value-chain map
+on deploys in code is main-only][4], which explains [ADR-DSGN-LIFE][1] and [ADR-DSGN-VISUAL][2]. It lights the cells of the value-chain map
 where the cited ADRs' value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason
 below, naming the code that selects it.
 
@@ -56,61 +56,51 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### DSGN × quality-control (2 ADRs)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the quality-control column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the quality-control column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 - [ADR-DSGN-VISUAL][2]: selected by [ADR-DSGN-VISUAL][2]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the quality-control column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the quality-control column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### DSGN × release (2 ADRs)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the release column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the release column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 - [ADR-DSGN-VISUAL][2]: selected by [ADR-DSGN-VISUAL][2]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the release column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the release column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### DSGN × deploy (2 ADRs)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the deploy column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 - [ADR-DSGN-VISUAL][2]: selected by [ADR-DSGN-VISUAL][2]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the deploy column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ## Keywords
 
-- [value-chain map][7]
-- [value-chain stack][8]
-- [value-chain concern][9]
-- [cell][10]
-- [lit cell][11]
-
-Terms the cited ADRs define:
-
-- [occupant][12], defined by [ADR-DSGN-LIFE#5][13]
-- [staging slot][14], defined by [ADR-DSGN-LIFE#5][13]
+- [value-chain map][5]
+- [value-chain stack][6]
+- [value-chain concern][7]
+- [cell][8]
+- [lit cell][9]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/design/visual-design.md
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../out-of-band-deploy-is-adr-only.md
-[7]: ../../../../adr/glossary.md#value-chain-map
-[8]: ../../../../adr/glossary.md#value-chain-stack
-[9]: ../../../../adr/glossary.md#value-chain-concern
-[10]: ../../../../adr/glossary.md#cell
-[11]: ../../../../adr/glossary.md#lit-cell
-[12]: ../../../../adr/glossary.md#occupant
-[13]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
-[14]: ../../../../adr/glossary.md#staging-slot
+[3]: ../../../../adr/design/tracks.md
+[4]: ../../out-of-band-deploy-is-adr-only.md
+[5]: ../../../../adr/glossary.md#value-chain-map
+[6]: ../../../../adr/glossary.md#value-chain-stack
+[7]: ../../../../adr/glossary.md#value-chain-concern
+[8]: ../../../../adr/glossary.md#cell
+[9]: ../../../../adr/glossary.md#lit-cell

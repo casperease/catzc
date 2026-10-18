@@ -22,16 +22,16 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         }
         $script:index = [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry'; 'ADR-WIDGET-SPROCKET' = 'widgetry'; 'ADR-GIZMO-COG' = 'gizmos' }
         $script:texts = [ordered]@{
-            'widgets/Alpha/Get-Widget.ps1'             = '# [ADR-WIDGET-GADGET#2](/docs/adr/widgetry/widget-gadget.md#rule-adr-widget-gadget2)'
+            'widgets/Alpha/Get-Widget.ps1'             = '# [ADR-WIDGET-GADGET-SPIN](/docs/adr/widgetry/widget-gadget.md#rule-adr-widget-gadget-spin)'
             'widgets/Alpha/configs/alpha.yml'          = '# alpha (ADR-GIZMO-COG)'
-            'widgets/Alpha/tests/Get-Widget.Tests.ps1' = '# ADR-GIZMO-COG#9'
+            'widgets/Alpha/tests/Get-Widget.Tests.ps1' = '# ADR-GIZMO-COG-DROP'
             'gadgets/settings.yml'                     = 'gadget: true'
             'gadgets/notes.md'                         = 'A gadget note.'
-            'docs/adr/widgetry/widget-gadget.md'       = '### Rule ADR-WIDGET-GADGET:2 (cites ADR-GIZMO-COG)'
+            'docs/adr/widgetry/widget-gadget.md'       = '### Rule ADR-WIDGET-GADGET-SPIN (cites ADR-GIZMO-COG)'
             'docs/adr/index.md'                        = '- ADR-WIDGET-SPROCKET'
             'docs/guide.md'                            = 'Read ADR-WIDGET-SPROCKET.'
             'pipelines/ci-widgets.yaml'                = 'trigger: none'
-            'pipelines/cd-gadgets.yaml'                = '# ADR-GIZMO-COG:4'
+            'pipelines/cd-gadgets.yaml'                = '# ADR-GIZMO-COG-LIFT'
             'pipelines/lonely.yaml'                    = 'trigger: none'
             'probes/extra.ps1'                         = '# ADR-GIZMO-COG'
             'importer.ps1'                             = '# the entry point'
@@ -169,13 +169,13 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         It 'gives module code its own citations' {
             $placement = $script:map.Placement('widgets/Alpha/Get-Widget.ps1')
             $placement.Basis | Should -Be 'citations'
-            $placement.Citations | Should -Be @('ADR-WIDGET-GADGET#2')
+            $placement.Citations | Should -Be @('ADR-WIDGET-GADGET-SPIN')
         }
 
         It 'gives a repository-root file its files.yml owner''s citations, else its own' {
             $importer = $script:map.Placement('importer.ps1')
             $importer.Basis | Should -Be 'files.yml'
-            $importer.Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG#9', 'ADR-WIDGET-GADGET#2')
+            $importer.Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG-DROP', 'ADR-WIDGET-GADGET-SPIN')
             $readme = $script:map.Placement('README.md')
             $readme.Basis | Should -Be 'citations'
             $readme.Citations | Should -Be @('ADR-WIDGET-GADGET')
@@ -184,10 +184,10 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         It 'gives a pipeline its citations, else its globset''s, else nothing' {
             $cited = $script:map.Placement('pipelines/cd-gadgets.yaml')
             $cited.Basis | Should -Be 'citations'
-            $cited.Citations | Should -Be @('ADR-GIZMO-COG#4')
+            $cited.Citations | Should -Be @('ADR-GIZMO-COG-LIFT')
             $bound = $script:map.Placement('pipelines/ci-widgets.yaml')
             $bound.Basis | Should -Be 'globset'
-            $bound.Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG#9', 'ADR-WIDGET-GADGET#2')
+            $bound.Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG-DROP', 'ADR-WIDGET-GADGET-SPIN')
             $script:map.Placement('pipelines/lonely.yaml').Basis | Should -Be 'none'
         }
 
@@ -203,7 +203,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             $guide.Citations | Should -BeNullOrEmpty
             $guide.Sites | Should -BeNullOrEmpty
             $map.Placement('docs/adr/index.md').Citations | Should -Be @('ADR-WIDGET-SPROCKET')
-            $map.Placement('importer.ps1').Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-WIDGET-GADGET#2')
+            $map.Placement('importer.ps1').Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-WIDGET-GADGET-SPIN')
             $map.Placement('docs/adr/widgetry/widget-gadget.md').Basis | Should -Be 'adr-file'
         }
     }
@@ -218,7 +218,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             @($data.cells).Count | Should -Be 36
             @($data.cells[0].PSObject.Properties.Name) | Should -Be @('track', 'file_language', 'file_count', 'stack_violation')
             @($data.files[0].PSObject.Properties.Name) | Should -Be @('path', 'track', 'file_language', 'live', 'stack_violation', 'basis', 'adr', 'citations')
-            ($data.files | Where-Object path -EQ 'importer.ps1').citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG#9', 'ADR-WIDGET-GADGET#2')
+            ($data.files | Where-Object path -EQ 'importer.ps1').citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG-DROP', 'ADR-WIDGET-GADGET-SPIN')
         }
 
         It 'renders console-ready' {

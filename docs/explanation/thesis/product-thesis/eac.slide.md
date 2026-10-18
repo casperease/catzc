@@ -27,11 +27,11 @@ Principle 1 of 6 · ADR-PRIN-EAC
 
 ## Rows
 
-| Rule           | Says                                                                                       |
-| -------------- | ------------------------------------------------------------------------------------------ |
-| ADR-PRIN-EAC#1 | Every artifact that builds, tests, deploys or operates the system lives in version control |
-| ADR-PRIN-EAC#2 | If it can be diffed, reviewed and rolled back, it belongs in version control               |
-| ADR-PRIN-EAC#3 | No configuration or operational state outside version control; it drifts silently          |
+| Rule                                         | Says                                                                                       |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL      | Every artifact that builds, tests, deploys or operates the system lives in version control |
+| ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL | If it can be diffed, reviewed and rolled back, it belongs in version control               |
+| ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL    | No configuration or operational state outside version control; it drifts silently          |
 
 ## Body
 

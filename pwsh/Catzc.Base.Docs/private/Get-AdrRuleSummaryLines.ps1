@@ -22,8 +22,8 @@ function Get-AdrRuleSummaryLines {
         }
         if ($line -match '^#{1,6}\s') {
             $rule = $null
-            if ($line -cmatch '^###\s+Rule\s+(?<code>ADR-[A-Z]+(?:-[A-Z]+)*):(?<number>\d+)\s*$') {
-                $rule = "$($Matches['code'])#$($Matches['number'])"
+            if ($line -cmatch '^###\s+Rule\s+(?<code>ADR(?:-[A-Z][A-Z0-9]*){3,})\s*$') {
+                $rule = $Matches['code']
             }
             continue
         }

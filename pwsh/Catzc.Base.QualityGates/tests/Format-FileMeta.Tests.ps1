@@ -2,7 +2,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`r`n`r`nSee ADR-GADGET#2.`r`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`r`n`r`nSee ADR-GADGET-SPIN.`r`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "---`nname: gadget`ncatzc:`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n")
         $script:front = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' } } }).Find('markdown')
         $script:scope = @(
@@ -26,7 +26,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         Mock Get-Config { $script:registry } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-meta' }
         # The one code the fixtures cite, registered with ten rules, so the adr-codes kind keeps it.
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/adr/gadget.md'; rules = 1..10 } }, @())
+            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/adr/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
         }
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
@@ -38,7 +38,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $bytes = [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot 'docs/widget.md'))
         $bytes[0] | Should -Be ([byte] [char] '-')
         $text = [System.Text.Encoding]::UTF8.GetString($bytes)
-        $text | Should -BeLike "---`r`ncatzc:`r`n  immutable:`r`n    with_body_sha: *`r`n    role: gadget`r`n  edges:`r`n    cites:`r`n      - ADR-GADGET#2`r`n---`r`n`r`n# docs/widget.md*"
+        $text | Should -BeLike "---`r`ncatzc:`r`n  immutable:`r`n    with_body_sha: *`r`n    role: gadget`r`n  edges:`r`n    cites:`r`n      - ADR-GADGET-SPIN`r`n---`r`n`r`n# docs/widget.md*"
     }
 
     It 'keeps the authored config part and the other front matter keys' {
@@ -57,9 +57,9 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     It 'rewrites a stale fact when the body changes' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         $path = Join-Path $script:widgetRoot 'docs/widget.md'
-        [System.IO.File]::WriteAllText($path, [System.IO.File]::ReadAllText($path).Replace('ADR-GADGET#2', 'ADR-GADGET#3'))
+        [System.IO.File]::WriteAllText($path, [System.IO.File]::ReadAllText($path).Replace('ADR-GADGET-SPIN', 'ADR-GADGET-FOLD'))
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Be @('docs/widget.md')
-        [System.IO.File]::ReadAllText($path) | Should -BeLike '*- ADR-GADGET#3*'
+        [System.IO.File]::ReadAllText($path) | Should -BeLike '*- ADR-GADGET-FOLD*'
     }
 
     It 'writes nothing under -DryRun and reports what would change' {

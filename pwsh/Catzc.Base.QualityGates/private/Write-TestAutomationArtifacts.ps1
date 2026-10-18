@@ -52,7 +52,7 @@ function Write-TestAutomationArtifacts {
     try {
         $ruleIds = Get-CatsAdrRuleIds
         Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerAdrCoverage) `
-            -AllRuleIds @($ruleIds -replace ':', '#') -OutputFolder $RunDirectory
+            -AllRuleIds @($ruleIds) -OutputFolder $RunDirectory
     }
     catch {
         Write-Message "Could not render the rule-coverage report: $_" -ForegroundColor Yellow -NoHeader

@@ -12,7 +12,7 @@ Three types check path forms at construction; the rules about crossing the bound
 7  Published artifact  rule #10: both forms, anchored on the artifact root
 8  ArtifactRef         throws when the file is outside the artifact root
 
-Supports ADR-AUTO-PATH#1, #2, #3, #4, #6, #7, #9, #10 and #11 (governance lens).
+Supports ADR-AUTO-PATH-TWOFORMS, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT and ADR-AUTO-PATH-WORKSPACEANCHOR (governance lens).
 ```
 
 The path rules of cats are enforced by construction, not by a linter. A record that holds a `RepoRelativePath`, an inspiration root checked
@@ -49,15 +49,15 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Why it holds
 
-- A path value is in one of two forms, never a third (ADR-AUTO-PATH#1).
-- A stored or transported path is in communication form (ADR-AUTO-PATH#2).
-- A path is in binding form only at the point of binding (ADR-AUTO-PATH#3).
-- Normalization is mandatory and centralized in the two sanctioned crossers (ADR-AUTO-PATH#4).
-- Source-controlled config and long-lived records store communication-form paths only (ADR-AUTO-PATH#6).
-- A path is named by its form: crossers cross, binding helpers bind (ADR-AUTO-PATH#7).
-- `out/` is a reserved anchor re-anchored on `Get-OutputRoot` (ADR-AUTO-PATH#9).
-- A published artifact is created by `ArtifactRef` and anchored on the artifact root (ADR-AUTO-PATH#10).
-- `{workspace}` is a reserved anchor for a folder beside the repository, resolved only at the point of use (ADR-AUTO-PATH#11).
+- A path value is in one of two forms, never a third (ADR-AUTO-PATH-TWOFORMS).
+- A stored or transported path is in communication form (ADR-AUTO-PATH-COMMUNICATIONFORM).
+- A path is in binding form only at the point of binding (ADR-AUTO-PATH-BINDINGFORMONLYATBINDING).
+- Normalization is mandatory and centralized in the two sanctioned crossers (ADR-AUTO-PATH-CENTRALNORMALIZATION).
+- Source-controlled config and long-lived records store communication-form paths only (ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM).
+- A path is named by its form: crossers cross, binding helpers bind (ADR-AUTO-PATH-NAMEBYFORM).
+- `out/` is a reserved anchor re-anchored on `Get-OutputRoot` (ADR-AUTO-PATH-OUTANCHOR).
+- A published artifact is created by `ArtifactRef` and anchored on the artifact root (ADR-AUTO-PATH-PUBLISHEDARTIFACT).
+- `{workspace}` is a reserved anchor for a folder beside the repository, resolved only at the point of use (ADR-AUTO-PATH-WORKSPACEANCHOR).
 
 Rule #5, degradation, is held by `RepoRelativePath.IsRooted` and the third test in `ConvertTo-RepoRelativePath`; rule #8, rendering per
 channel, is a per-channel choice with no gate. Neither carries a chip.

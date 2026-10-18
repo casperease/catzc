@@ -13,12 +13,12 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
         $widgets = [Catzc.Base.Docs.GlossaryConfig]::new([ordered]@{
                 options  = [ordered]@{ checks = @('avoid') }
                 concepts = [ordered]@{
-                    'widget suite' = (& $concept 'widget_suite' 'ADR-COG-GADGET#30')
-                    'alpha widget' = (& $concept 'alpha_widget' 'ADR-COG-GADGET#31')
+                    'widget suite' = (& $concept 'widget_suite' 'ADR-COG-GADGET-SUITE')
+                    'alpha widget' = (& $concept 'alpha_widget' 'ADR-COG-GADGET-RUN')
                 }
             })
         $gadgets = [Catzc.Base.Docs.GlossaryConfig]::new([ordered]@{
-                concepts = [ordered]@{ 'gadget run' = (& $concept 'gadget_run' 'ADR-COG-GADGET#32') }
+                concepts = [ordered]@{ 'gadget run' = (& $concept 'gadget_run' 'ADR-COG-GADGET-STEP') }
             })
         $script:sources = @(
             [pscustomobject]@{ Owner = 'Catzc.Gadget'; Path = 'widgets/Catzc.Gadget/configs/glossary.yml'; Config = $gadgets; Tracked = $true }

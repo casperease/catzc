@@ -10,7 +10,7 @@ public sealed class AdrsConfig
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
-    private static readonly Regex ExternalRe = new Regex("^ADR-[A-Z]+(-[A-Z]+)*$", RegexOptions.Compiled);
+    private static readonly Regex ExternalRe = new Regex("^ADR(-[A-Z][A-Z0-9]*)+$", RegexOptions.Compiled);
 
     // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });

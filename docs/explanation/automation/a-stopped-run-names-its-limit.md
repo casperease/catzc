@@ -11,7 +11,7 @@ A run past its limit stops with a message that names the limit and where to chan
 6  Bash call denied    the denial: the limit, how to re-issue the call, who to tell
 7  TimeoutException    the throw: how long it ran, the limit, which file or parameter to tune
 
-Supports ADR-AUTO-FAILFAST#7 and ADR-AUTO-DEFAULT#6 (operations lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT and ADR-AUTO-DEFAULT-ONERESOLUTIONORDER (operations lens).
 ```
 
 Nobody in cats waits forever. A person's pwsh work runs through `Invoke-Executable` or `Invoke-WithTimeout`, and a coding agent's shell call
@@ -51,9 +51,9 @@ The diagram is described element by element in [its asset description](.assets/a
 
 - A hang fails fast with a message naming the limit instead of waiting forever; the bash limits bound every shell call an agent makes,
   foreground and background, and a hook denies a call outside them; work that legitimately runs longer while it is tuned carries a budget
-  GUID and is exempted, which raises its limit to a ceiling but never lifts it (ADR-AUTO-FAILFAST#7).
+  GUID and is exempted, which raises its limit to a ceiling but never lifts it (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - The limit a wrapper applies is the caller's explicit value, else the config, else the declared default, so a person tunes one entry in one
-  file and never a number in code (ADR-AUTO-DEFAULT#6).
+  file and never a number in code (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
 ## See also
 

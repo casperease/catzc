@@ -13,6 +13,6 @@ function Get-AdrDefinesFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    # No registry: the file is the one place its own rules are declared, so a glob over the registry would say nothing the headings do not.
-    [ordered]@{ $Kind.keys[0] = [string[]] @([Catzc.Base.Docs.AdrCodeForm]::Minimize([string[]] @(Get-AdrDefinedRule -Text $State.Body))) }
+    # The file is the one place its own rules are declared, so its headings in document order are the list.
+    [ordered]@{ $Kind.keys[0] = [string[]] @(Get-AdrDefinedRule -Text $State.Body) }
 }

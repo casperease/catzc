@@ -9,9 +9,9 @@ plan:
 
 # Plans that stay true, body-sha only where it earns it, .unordered as the import landing zone
 
-Landed: the plans rules and their gate (ADR-REPO-PLANS, `Test-Plans`), stable locators (ADR-REPO-FOLDERS#12), the PowerShell naming rule
-(ADR-REPO-VOCAB#9), the landing zone and the import tool (ADR-DSGN-TRACK#17, `Import-RepositoryWithHistory`, the sort-an-import how-to), and
-a body hash only on generated files (ADR-REPO-FILEMETA#3). One count is left, which settles with the user's commit.
+Landed: the plans rules and their gate (ADR-REPO-PLANS, `Test-Plans`), stable locators (ADR-REPO-FOLDERS-STABLEFILENAMES), the PowerShell naming rule
+(ADR-REPO-VOCAB-SAYPOWERSHELL), the landing zone and the import tool (ADR-DSGN-TRACK-UNORDEREDTRACK, `Import-RepositoryWithHistory`, the sort-an-import how-to), and
+a body hash only on generated files (ADR-REPO-FILEMETA-IMPRINTEDPARTS). One count is left, which settles with the user's commit.
 
 ## Why its value is highest
 
@@ -20,8 +20,8 @@ that stamps no head leaves its output unprovable.
 
 ## Decided in the questionnaire round of 2026-10-16 (decisions-2026-10-16.md, Q01 to Q12)
 
-- The constraining decisions are rules now: ADR-REPO-PLANS (Q04, Q06, Q07, Q08, Q11, Q12, Q49), ADR-REPO-FOLDERS#12 and ADR-REPO-VOCAB#9
-  (Q05), ADR-DSGN-TRACK#17 (Q03, Q09), ADR-REPO-FILEMETA#3 (Q10).
+- The constraining decisions are rules now: ADR-REPO-PLANS (Q04, Q06, Q07, Q08, Q11, Q12, Q49), ADR-REPO-FOLDERS-STABLEFILENAMES and ADR-REPO-VOCAB-SAYPOWERSHELL
+  (Q05), ADR-DSGN-TRACK-UNORDEREDTRACK (Q03, Q09), ADR-REPO-FILEMETA-IMPRINTEDPARTS (Q10).
 - Q01 the history move is decided at the first real import; the tool's contract does not depend on it. Q02 Import-RepositoryWithHistory
   takes an optional -Ref, the source's default branch by default.
 

@@ -5,10 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET:3', 'ADR-WIDGET-SPROCKET:1') }...`, written with `#`.
+Above `Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET-TURN',...`, written with `#`.
 
 ```text
-A fixture rule-id set (registry ':' form) so the validation is hermetic — it never reads the
+A fixture rule-id set so the validation is hermetic — it never reads the
 shipped ADR tree. Mocking the whole boundary function is the seam
 ([ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)).
 ```

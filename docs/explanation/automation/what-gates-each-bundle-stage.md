@@ -10,7 +10,7 @@ Every stage of the bundle has a rule, and two gates check it.
 5  Checked again            the install verifies its source with the same gate (#6)
 6  Test-CatzcBuild          the build run: the same tests, against a fresh build (TEST#30)
 
-Supports ADR-AUTO-BUNDLE#1, #5, #6 and #7, and ADR-PWSH-MANIFEST#5 (governance lens).
+Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL and ADR-AUTO-BUNDLE-AUTOVERSION, and ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS (governance lens).
 ```
 
 ADR-AUTO-BUNDLE fixes every stage of a bundle, from the module selection to the place the build is copied to. Rules only hold when something
@@ -23,9 +23,9 @@ The diagram is described element by element in [its asset description](.assets/w
 
 ## Walkthrough
 
-1. **Build-Modules.** Three rules shape the build. The selection is closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE#1), the
-   payload ships in merged form and never carries `tests/` (ADR-PWSH-MANIFEST#5), and the version is the devbox placeholder or a version
-   calculated in the pipeline (ADR-AUTO-BUNDLE#7).
+1. **Build-Modules.** Three rules shape the build. The selection is closure-expanded over the declared dependencies
+   (ADR-AUTO-BUNDLE-BUNDLEISBUILD), the payload ships in merged form and never carries `tests/` (ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS),
+   and the version is the devbox placeholder or a version calculated in the pipeline (ADR-AUTO-BUNDLE-AUTOVERSION).
 2. **Assert-CatzcBundle.** The gate on integrity checks the layout, that no test file leaked in, that exactly one types DLL is named for the
    recorded types hash, every module's manifest, merged file and exports, and the recorded content hash. It collects every violation and
    throws once.
@@ -39,20 +39,21 @@ The diagram is described element by element in [its asset description](.assets/w
 
 ## Why it holds
 
-- A bundle is built from a selected set of modules, closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE#1).
-- The payload is merged and default-deny: the `tests/` surface never travels (ADR-PWSH-MANIFEST#5).
+- A bundle is built from a selected set of modules, closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
+- The payload is merged and default-deny: the `tests/` surface never travels (ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS).
 - A build is immutable and content-addressed, and `Assert-CatzcBundle` is its integrity guard, run by the build on its own output
-  (ADR-AUTO-BUNDLE#5).
-- An install verifies its source before it changes the destination, and a re-install with a matching hash does not copy (ADR-AUTO-BUNDLE#6).
-- A devbox build carries the placeholder version, and a pipeline build gets a calculated, reproducible one (ADR-AUTO-BUNDLE#7).
-- The same tests run in the source run and the build run (ADR-AUTO-TEST#30), and `source-only` is the one way out of the build run
-  (ADR-AUTO-TEST#31).
-- Build mode has three kinds of code root, temporary, installed and saved (ADR-DSGN-RUNMODE#7).
+  (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
+- An install verifies its source before it changes the destination, and a re-install with a matching hash does not copy
+  (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
+- A devbox build carries the placeholder version, and a pipeline build gets a calculated, reproducible one (ADR-AUTO-BUNDLE-AUTOVERSION).
+- The same tests run in the source run and the build run (ADR-AUTO-TEST-SAMETESTSBOTHRUNS), and `source-only` is the one way out of the
+  build run (ADR-AUTO-TEST-SOURCEONLYTAG).
+- Build mode has three kinds of code root, temporary, installed and saved (ADR-DSGN-RUNMODE-THREEBUILDKINDS).
 
 ## Where the code and the ADR differ
 
-- ADR-AUTO-BUNDLE#5 lists the internal-asset presence check among the checks of `Assert-CatzcBundle`. The code runs that check in the
-  engine, before it writes anything, as ADR-AUTO-ASSETDEP#4 says.
+- ADR-AUTO-BUNDLE-IMMUTABLEBUILD lists the internal-asset presence check among the checks of `Assert-CatzcBundle`. The code runs that check
+  in the engine, before it writes anything, as ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY says.
 
 ## See also
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f32587295de7
+    with_body_sha: "587eba35b4df"
     repo_status: locked
     path: docs/explanation/automation/.assets/two-forms-never-a-third/chain.md
     source: docs/explanation/automation/.assets/two-forms-never-a-third/diagram.drawio.png
@@ -55,10 +55,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-Terms the cited ADRs define:
-
-- [published artifact][8], defined by [ADR-AUTO-PATH#10][9]
-
 [1]: ../../../../adr/automation/path-representation.md
 [2]: ../../two-forms-never-a-third.md
 [3]: ../../../../adr/glossary.md#value-chain-map
@@ -66,5 +62,3 @@ Terms the cited ADRs define:
 [5]: ../../../../adr/glossary.md#value-chain-concern
 [6]: ../../../../adr/glossary.md#cell
 [7]: ../../../../adr/glossary.md#lit-cell
-[8]: ../../../../adr/glossary.md#published-artifact
-[9]: ../../../../adr/automation/path-representation.md#rule-adr-auto-path10

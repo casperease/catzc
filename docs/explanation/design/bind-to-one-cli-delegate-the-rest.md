@@ -8,7 +8,7 @@ Consumers bind to one CLI; everything behind it is delegated to the vendor's own
 3  vendor tooling  a templating language and a control-plane CLI that do the work
 4  cloud vendor    the substrate behind the CLI, swappable in principle; Azure today
 
-Supports ADR-DSGN-THINPLAT#1, #2, #3 and #5 (meta lens).
+Supports ADR-DSGN-THINPLAT-THINPLATFORM, ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT, ADR-DSGN-THINPLAT-PLATFORMASCLI and ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE (meta lens).
 ```
 
 Cats is a thin platform: a single CLI that standardizes how an organization uses a cloud vendor without reimplementing the vendor. Its idea
@@ -31,12 +31,13 @@ The diagram is described element by element in [its asset description](.assets/b
 
 ## Why it holds
 
-- Cats is a thin platform, the smallest set of tooling that measurably speeds up the teams on it (ADR-DSGN-THINPLAT#1).
-- Thin is achieved by delegation, not reimplementation: wrap to harmonize, never to hide or clone the vendor (ADR-DSGN-THINPLAT#2).
+- Cats is a thin platform, the smallest set of tooling that measurably speeds up the teams on it (ADR-DSGN-THINPLAT-THINPLATFORM).
+- Thin is achieved by delegation, not reimplementation: wrap to harmonize, never to hide or clone the vendor
+  (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
 - The consumable surface is a CLI; consumers edit configuration and compose functions, and never touch the vendor wiring
-  (ADR-DSGN-THINPLAT#3).
+  (ADR-DSGN-THINPLAT-PLATFORMASCLI).
 - The substrate is swappable behind the CLI, and cost, region, scale and blast radius stay in the consumer's configuration
-  (ADR-DSGN-THINPLAT#5).
+  (ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE).
 
 ## Where the code and the ADR differ
 

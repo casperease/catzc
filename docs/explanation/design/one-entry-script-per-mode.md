@@ -12,7 +12,7 @@ Each run mode has one entry script, and a mixed session throws.
 7  Assert-SourceTree             the mode check a source-tree tool runs first
 8  Source tree only              the stop when such a tool runs in a build
 
-Supports ADR-DSGN-RUNMODE#1, #2, #5 and #7 (operations lens).
+Supports ADR-DSGN-RUNMODE-TWORUNMODES, ADR-DSGN-RUNMODE-SAMEMODULEINBOTH, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-DSGN-RUNMODE-THREEBUILDKINDS (operations lens).
 ```
 
 Entering cats takes one dot-sourced entry script per run mode: `importer.ps1` for the source tree, or a package's `Import-Catzc.ps1` for a
@@ -54,10 +54,10 @@ until it is installed or saved.
 ## Why it holds
 
 - Each mode has its own entry: `importer.ps1` for source mode, and the package's `Import-Catzc.ps1` (or `Import-Module Catzc`) for build
-  mode (ADR-DSGN-RUNMODE#1).
-- Source-tree tools assert that they run in source mode and fail fast in a build (ADR-DSGN-RUNMODE#2).
-- The two modes never coexist in one session; switching works in any order (ADR-DSGN-RUNMODE#5).
-- Every kind of build root enters through the package's `Import-Catzc.ps1` (ADR-DSGN-RUNMODE#7).
+  mode (ADR-DSGN-RUNMODE-TWORUNMODES).
+- Source-tree tools assert that they run in source mode and fail fast in a build (ADR-DSGN-RUNMODE-SAMEMODULEINBOTH).
+- The two modes never coexist in one session; switching works in any order (ADR-DSGN-RUNMODE-NEVERCOEXIST).
+- Every kind of build root enters through the package's `Import-Catzc.ps1` (ADR-DSGN-RUNMODE-THREEBUILDKINDS).
 
 ## See also
 

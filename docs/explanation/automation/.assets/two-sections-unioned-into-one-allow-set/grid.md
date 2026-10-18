@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b4c436f99aa"
+    with_body_sha: "663d5edb7ecb"
     repo_status: locked
     path: docs/explanation/automation/.assets/two-sections-unioned-into-one-allow-set/grid.md
     source: docs/explanation/automation/.assets/two-sections-unioned-into-one-allow-set/diagram.drawio.png
@@ -22,7 +22,7 @@ Where the files that cite ADR-AUTO-DEPM sit in the repository: tracks down, file
 ![The world-map minimap of Two sections of dependencies.yml are unioned into one allow-set per source module](grid.png)
 
 This is the world-map minimap in the sidebar of the implementation diagram of [Two sections of dependencies.yml are unioned into one
-allow-set per source module][15], which explains [ADR-AUTO-DEPM][1]. It lights every cell of the world map that holds a file citing those
+allow-set per source module][13], which explains [ADR-AUTO-DEPM][1]. It lights every cell of the world map that holds a file citing those
 codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -33,8 +33,8 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 8 lit of 2759 files
-- pipelines × pipeline-yaml: 1 lit of 9 files
+- docs × markdown: 8 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key
@@ -49,79 +49,77 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ### .claude × markdown (1 lit file)
 
-Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file
+language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [.claude/plans/plan-assert-wait.md][5]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 57 (text).
+- [.claude/plans/plan-assert-wait.md][3]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 57 (text).
 
 ### docs × markdown (8 lit files)
 
-Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file language
+markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [docs/adr/automation/controlling-module-dependencies.md][1]: selected by [ADR-AUTO-DEPM][1]: the ADR's own file.
-- [docs/adr/automation/dora-explains.md][6]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 365 (text).
-- [docs/adr/index.md][7]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text).
-- [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][8]: selected by
+- [docs/adr/automation/dora-explains.md][4]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 365 (text).
+- [docs/adr/index.md][5]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text).
+- [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][6]: selected by
   [ADR-AUTO-DEPM][1]: the file cites it at line 47 (text), line 54 (text), line 54 (text), line 71 (text) and line 73 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][9]: selected by [ADR-AUTO-DEPM][1]: the file
+- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][7]: selected by [ADR-AUTO-DEPM][1]: the file
   cites it at line 110 (text) and line 114 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][10]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][8]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
   line 12 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][11]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][9]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line
   15 (text).
-- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][12]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 13
+- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][10]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 13
   (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
-Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
-pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yaml` names the
+file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pipelines/ci-automation.yaml][13]: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing itself carries its globset's citations,
+- [pipelines/ci-automation.yaml][11]: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing itself carries its globset's citations,
   which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 138 (text).
 
 ### pwsh × yaml (1 lit file)
 
-Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yml` names the file
+language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][14]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 138 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][12]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 138 (text).
 
 ## Keywords
 
-- [world map][16]
-- [track][17]
-- [file language][18]
-- [cell][19]
-- [lit cell][20]
-- [.claude][21]: a track
-- [docs][21]: a track
-- [pipelines][21]: a track
-- [pwsh][21]: a track
-- [markdown][22]: a file language
-- [pipeline-yaml][22]: a file language
-- [yaml][22]: a file language
+- [world map][14]
+- [track][15]
+- [file language][16]
+- [cell][17]
+- [lit cell][18]
+- [.claude][19]: a track
+- [docs][19]: a track
+- [pipelines][19]: a track
+- [pwsh][19]: a track
+- [markdown][20]: a file language
+- [pipeline-yaml][20]: a file language
+- [yaml][20]: a file language
 
 [1]: ../../../../adr/automation/controlling-module-dependencies.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../../.claude/plans/plan-assert-wait.md
-[6]: ../../../../adr/automation/dora-explains.md
-[7]: ../../../../adr/index.md
-[8]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[9]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-[10]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[11]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[12]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
-[13]: ../../../../../pipelines/ci-automation.yaml
-[14]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[15]: ../../two-sections-unioned-into-one-allow-set.md
-[16]: ../../../../adr/glossary.md#world-map
-[17]: ../../../../adr/glossary.md#track
-[18]: ../../../../adr/glossary.md#file-language
-[19]: ../../../../adr/glossary.md#cell
-[20]: ../../../../adr/glossary.md#lit-cell
-[21]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[22]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../../../../.claude/plans/plan-assert-wait.md
+[4]: ../../../../adr/automation/dora-explains.md
+[5]: ../../../../adr/index.md
+[6]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+[7]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[8]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[9]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[10]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[11]: ../../../../../pipelines/ci-automation.yaml
+[12]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[13]: ../../two-sections-unioned-into-one-allow-set.md
+[14]: ../../../../adr/glossary.md#world-map
+[15]: ../../../../adr/glossary.md#track
+[16]: ../../../../adr/glossary.md#file-language
+[17]: ../../../../adr/glossary.md#cell
+[18]: ../../../../adr/glossary.md#lit-cell
+[19]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[20]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

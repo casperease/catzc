@@ -12,7 +12,7 @@ Dot-source one entry script; a failed check stops the load with a named error.
 7  Loaded in N seconds        the one line a console session ends on
 8  Stops with a named error   each failed check says what to do
 
-Supports ADR-AUTO-BUNDLE#3 and #8 (operations lens).
+Supports ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-BUNDLEISSESSION (operations lens).
 ```
 
 A person starts cats by dot-sourcing one entry script, one per run mode, and sees the same load either way. Three checks along the way can
@@ -48,9 +48,10 @@ The diagram is described element by element in [its asset description](.assets/d
 
 ## Why it holds
 
-- Every entry script ends in the one living importer, so both run modes run the same checks in the same order (ADR-AUTO-BUNDLE#3).
+- Every entry script ends in the one living importer, so both run modes run the same checks in the same order
+  (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).
 - A loaded bundle is a session, not a passive library: it sets the same fail-fast preferences, which is why a warning stops the load unless
-  it is allowed (ADR-AUTO-BUNDLE#8).
+  it is allowed (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
 
 ## See also
 

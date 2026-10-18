@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {`, written with `#`.
+Above `Describe 'Publish-ContractRelease' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 Publish-ContractRelease freezes a unit's draft as a released version folder

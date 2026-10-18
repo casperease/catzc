@@ -9,12 +9,12 @@ Every managed root file has one source of truth, one writer, and one boolean tha
 4  gitignored target   a derived copy or link that git ignores: 19 of the 23 entries
 5  tracked target      a file git or the bootstrap reads before the importer runs: 4 of 23
 
-Supports ADR-REPO-ROOTCFG#1, #2, #3 and #4 (meta lens).
+Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG and ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION (meta lens).
 ```
 
 The repository root carries configuration files for git, editors and quality-gate tools. Cats does not keep them by hand: each one that is
-opted in is reproduced from one source of truth inside `pwsh/`, by one writer, on every import. Whether the reproduced file is
-gitignored or stays tracked is one boolean per entry, not a second system.
+opted in is reproduced from one source of truth inside `pwsh/`, by one writer, on every import. Whether the reproduced file is gitignored or
+stays tracked is one boolean per entry, not a second system.
 
 ![Every managed root file has one source of truth, one writer, and one boolean that decides git membership](.assets/one-source-one-writer-one-boolean/diagram.drawio.png)
 
@@ -38,12 +38,12 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - An opted-in root file is fully managed: materialised from exactly one in-repo source of truth, a `source` file or a `generator` function,
-  and never corrected in place (ADR-REPO-ROOTCFG#1).
+  and never corrected in place (ADR-REPO-ROOTCFG-FULLYMANAGED).
 - The registry is one file, validated by one type and materialised by one writer; opt-out is the default and `optIn: true` is the explicit
-  takeover switch (ADR-REPO-ROOTCFG#2).
+  takeover switch (ADR-REPO-ROOTCFG-REGISTRY).
 - Per entry, `committed` decides git membership and nothing else: false is a gitignored artifact, true is a tracked file the bootstrap needs
-  before the importer runs (ADR-REPO-ROOTCFG#3).
-- Generation is idempotent and runs on every import, so a target can never go stale between loads (ADR-REPO-ROOTCFG#4).
+  before the importer runs (ADR-REPO-ROOTCFG-COMMITTEDFLAG).
+- Generation is idempotent and runs on every import, so a target can never go stale between loads (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
 
 ## See also
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "45a67df574c2"
+    with_body_sha: "9683914a3ccb"
     repo_status: locked
     path: docs/explanation/design/.assets/a-push-fires-only-touched-pipelines/chain.md
     source: docs/explanation/design/.assets/a-push-fires-only-touched-pipelines/diagram.drawio.png
@@ -55,27 +55,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-Terms the cited ADRs define:
-
-- [cell][6], defined by [ADR-DSGN-TRACK#10][8]
-- [deployable-unit][9], defined by [ADR-DSGN-TRACK#5][10]
-- [file language][11], defined by [ADR-DSGN-TRACK#6][12]
-- [import][13], defined by [ADR-DSGN-TRACK#17][14]
-- [landing address][15], defined by [ADR-DSGN-TRACK#17][14]
-- [lit cell][7], defined by [ADR-DSGN-TRACK#12][16]
-- [place][17], defined by [ADR-DSGN-TRACK#1][18]
-- [root file][19], defined by [ADR-DSGN-TRACK#7][20]
-- [sorting][21], defined by [ADR-DSGN-TRACK#17][14]
-- [stack violation][22], defined by [ADR-DSGN-TRACK#11][23]
-- [track][24], defined by [ADR-DSGN-TRACK#1][18]
-- [unlisted file][25], defined by [ADR-DSGN-TRACK#8][26]
-- [unordered track][27], defined by [ADR-DSGN-TRACK#17][14]
-- [value-chain concern][5], defined by [ADR-DSGN-TRACK#15][28]
-- [value-chain map][3], defined by [ADR-DSGN-TRACK#16][29]
-- [value-chain stack][4], defined by [ADR-DSGN-TRACK#14][30]
-- [verification track][31], defined by [ADR-DSGN-TRACK#2][32]
-- [world map][33], defined by [ADR-DSGN-TRACK#9][34]
-
 [1]: ../../../../adr/design/tracks.md
 [2]: ../../a-push-fires-only-touched-pipelines.md
 [3]: ../../../../adr/glossary.md#value-chain-map
@@ -83,30 +62,3 @@ Terms the cited ADRs define:
 [5]: ../../../../adr/glossary.md#value-chain-concern
 [6]: ../../../../adr/glossary.md#cell
 [7]: ../../../../adr/glossary.md#lit-cell
-[8]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track10
-[9]: ../../../../adr/glossary.md#deployable-unit
-[10]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track5
-[11]: ../../../../adr/glossary.md#file-language
-[12]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[13]: ../../../../adr/glossary.md#import
-[14]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track17
-[15]: ../../../../adr/glossary.md#landing-address
-[16]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[17]: ../../../../adr/glossary.md#place
-[18]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[19]: ../../../../adr/glossary.md#root-file
-[20]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track7
-[21]: ../../../../adr/glossary.md#sorting
-[22]: ../../../../adr/glossary.md#stack-violation
-[23]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track11
-[24]: ../../../../adr/glossary.md#track
-[25]: ../../../../adr/glossary.md#unlisted-file
-[26]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track8
-[27]: ../../../../adr/glossary.md#unordered-track
-[28]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[29]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track16
-[30]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[31]: ../../../../adr/glossary.md#verification-track
-[32]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track2
-[33]: ../../../../adr/glossary.md#world-map
-[34]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track9

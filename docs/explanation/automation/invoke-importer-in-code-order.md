@@ -13,7 +13,7 @@ Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call 
 8  Remove-Module                   removes the Bootstrap; the entry removes the importer
 9  Import-Catzc.ps1                the build-mode entry, which calls Invoke-Importer -Bundle
 
-Supports ADR-AUTO-BUNDLE#2, #3 and #8 (implementation lens).
+Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-BUNDLEISSESSION (implementation lens).
 ```
 
 The whole cats load is one call chain inside `Invoke-Importer`, in `pwsh/.internal/Catzc.Internal.Importer.psm1`. It loads the internal
@@ -56,9 +56,9 @@ The diagram is described element by element in [its asset description](.assets/i
 
 ## Why it holds
 
-- The working root and the code root are set separately, and the code root drives discovery (ADR-AUTO-BUNDLE#2).
-- A bundle runs the same `Invoke-Importer`, so the types load before any module in both modes (ADR-AUTO-BUNDLE#3).
-- Loading sets the global error and warning preferences, because a bundle is a session, not a library (ADR-AUTO-BUNDLE#8).
+- The working root and the code root are set separately, and the code root drives discovery (ADR-AUTO-BUNDLE-TWOROOTS).
+- A bundle runs the same `Invoke-Importer`, so the types load before any module in both modes (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).
+- Loading sets the global error and warning preferences, because a bundle is a session, not a library (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
 
 ## See also
 

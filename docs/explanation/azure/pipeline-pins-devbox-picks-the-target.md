@@ -11,7 +11,7 @@ A pipeline deploy pins its expected subscription; a devbox deploy picks the targ
 6  undeclared subscription  the throw when the session targets a subscription azure.yml does not declare
 7  wrong subscription       the throw when the session differs from the pinned subscription id
 
-Supports ADR-AZ-DATAMOD#7 (operations lens).
+Supports ADR-AZ-DATAMOD-JOINSINPOWERSHELL (operations lens).
 ```
 
 Nobody passes a subscription to a deploy in cats. A pipeline signs in through its service connection and states, with
@@ -54,8 +54,9 @@ The diagram is described element by element in [its asset description](.assets/p
 
 - The deploy-time subscription is the az session's, in a pipeline exactly what the service connection logged into, and a pipeline deploy
   must still pin its target: `-SubscriptionIdAssertIs` is mandatory in a pipeline, where `Deploy-Bicep` throws without it, and optional on a
-  devbox (ADR-AZ-DATAMOD#7).
-- The assert is a guard, never a selector: a mismatch means a mis-wired service connection and fails loudly (ADR-AZ-DATAMOD#7).
+  devbox (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
+- The assert is a guard, never a selector: a mismatch means a mis-wired service connection and fails loudly
+  (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
 
 ## See also
 

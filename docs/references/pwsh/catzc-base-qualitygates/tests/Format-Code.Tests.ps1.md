@@ -24,7 +24,7 @@ mocked ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)).
 
 ## comment:3
 
-Above `Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {`, written with `#`.
+Above `Describe 'Format-Code imprint steps' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 The imprint steps after the engines: a global step over every language in scope, a language's own over its files only, the merge

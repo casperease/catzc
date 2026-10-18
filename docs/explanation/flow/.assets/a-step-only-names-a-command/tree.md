@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7fb5db46ef4
+    with_body_sha: "1f218ed8a268"
     repo_status: locked
     path: docs/explanation/flow/.assets/a-step-only-names-a-command/tree.md
     source: docs/explanation/flow/.assets/a-step-only-names-a-command/diagram.drawio.png
@@ -60,7 +60,7 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][5], in the cell docs × markdown: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 130 (text).
+- [docs/adr/index.md][5], in the cell docs × markdown: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 132 (text).
 
 ### docs (docs/ outside docs/adr/, 1 lit file)
 

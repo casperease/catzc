@@ -11,7 +11,7 @@ Only ingress is checked by gates; the source-of-truth and integration rules rest
 6  code review      the only check on where consumers integrate from (R2, R3, L6)
 7  consumer clones  meant to build on the verified point; nothing resolves it
 
-Supports ADR-DSGN-REMOTE#1, #2, #3 and #4, ADR-REPO-VARIANT#6 and ADR-DSGN-LIFE#6 (governance lens).
+Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED, ADR-DSGN-REMOTE-NORECONCILINGTIPS and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and ADR-DSGN-LIFE-SYNCFROMMAINUAT (governance lens).
 ```
 
 ADR-DSGN-REMOTE makes four rules about the server remote, but only one of them is checked by something that runs. The way in has two gates:
@@ -43,12 +43,12 @@ The diagram is described element by element in [its asset description](.assets/i
 
 ## Why it holds
 
-- The server remote is the single source of truth, and clones are bridges to it (ADR-DSGN-REMOTE#1).
-- Consumers integrate from the last remote-verified commit and so never reconcile a rewritten tip (ADR-DSGN-REMOTE#2, ADR-DSGN-REMOTE#3);
-  that commit is the `main-UAT` occupant (ADR-DSGN-LIFE#6).
-- The pull request is the authenticated ingress, enforced by the server branch policy (ADR-DSGN-REMOTE#4).
+- The server remote is the single source of truth, and clones are bridges to it (ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH).
+- Consumers integrate from the last remote-verified commit and so never reconcile a rewritten tip (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED,
+  ADR-DSGN-REMOTE-NORECONCILINGTIPS); that commit is the `main-UAT` occupant (ADR-DSGN-LIFE-SYNCFROMMAINUAT).
+- The pull request is the authenticated ingress, enforced by the server branch policy (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
 - `git_workspace` selects the regime, and its single stop condition is a direct commit while standing on main or master in `main-via-pr`
-  (ADR-REPO-VARIANT#6).
+  (ADR-REPO-VARIANT-GITWORKSPACE).
 
 ## Where the code and the ADR differ
 

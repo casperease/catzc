@@ -9,7 +9,7 @@ A pipeline step only names a command, and a developer can run that same command 
 4  same command   runs with the same modules, in the scope of the load
 5  developer      loads the modules and types the same command; no gate checks it
 
-Supports ADR-FLOW-CD-RUNNER#1 and #4 (meta lens).
+Supports ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL and ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE (meta lens).
 ```
 
 A pipeline step in cats does not hold PowerShell. It names a command, and one runner turns that name into the same command a developer runs
@@ -35,8 +35,8 @@ the runner's own failure modes.
 
 ## Why it holds
 
-- YAML steps never contain inline PowerShell; all PowerShell runs through the runner (ADR-FLOW-CD-RUNNER#1).
-- Whatever string a step names can be pasted into a local terminal after the importer (ADR-FLOW-CD-RUNNER#4).
+- YAML steps never contain inline PowerShell; all PowerShell runs through the runner (ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL).
+- Whatever string a step names can be pasted into a local terminal after the importer (ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE).
 
 ## Where the code and the ADR differ
 

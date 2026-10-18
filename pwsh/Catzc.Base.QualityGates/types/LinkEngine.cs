@@ -16,8 +16,7 @@ public sealed class LinkEngine
 
     static readonly Regex StringDocPath = new Regex(@"(?<![\w/.\-])docs/adr/[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);
     static readonly Regex InsertedLink = new Regex(@"\[[^\]\r\n]+\]\(/docs/adr/[^)\s]+\)", RegexOptions.Compiled);
-    static readonly Regex StringColonCitation = new Regex(@"(?<![\w\-])ADR-[A-Z]+(?:-[A-Z]+)*(?<colon>:)(?<rule>\d+)", RegexOptions.Compiled);
-    static readonly Regex RuleHeadingLead = new Regex(@"#{1,6}[ \t]+Rule[ \t]+$", RegexOptions.Compiled);
+    static readonly Regex StringNumberedCitation = new Regex(@"(?<![\w\-])ADR(?:-[A-Z][A-Z0-9]*)+[:#]\d+", RegexOptions.Compiled);
 
     readonly string root;
     readonly AdrCitationMap map;
@@ -186,23 +185,16 @@ public sealed class LinkEngine
     {
         if (stringCitations.IsExempt(file)) { return text; }
 
-        char[] output = null;
         foreach ((int start, int length) in CommentLexer.Strings(text, extension))
         {
             string literal = text.Substring(start, length);
-            foreach (Match citation in StringColonCitation.Matches(literal))
+            foreach (Match citation in StringNumberedCitation.Matches(literal))
             {
-                int lineStart = literal.LastIndexOf('\n', Math.Max(citation.Index - 1, 0)) + 1;
-                if (RuleHeadingLead.IsMatch(literal.Substring(lineStart, citation.Index - lineStart))) { continue; }
-
-                string fixedCitation = citation.Value.Replace(':', '#');
-                hits.Add(new CodeLinkRewriter.Hit(start + citation.Index, LinkFindingType.StringColon,
-                    "rule citation '" + citation.Value + "' in a string -> " + fixedCitation + " (strings are data: only the ':' changes)", fixedCitation));
-                output ??= text.ToCharArray();
-                output[start + citation.Groups["colon"].Index] = '#';
+                hits.Add(new CodeLinkRewriter.Hit(start + citation.Index, LinkFindingType.StringNumbered,
+                    "'" + citation.Value + "' in a string is a numbered citation; cite the rule by its name", string.Empty));
             }
         }
-        return output == null ? text : new string(output);
+        return text;
     }
 
     string Wrap(string comment, int column, string marker, string newline, int limit, int commentOffset, List<CodeLinkRewriter.Hit> hits)

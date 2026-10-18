@@ -11,13 +11,13 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             [Catzc.Base.Languages.FileLanguage]::new('notes', @('.md'), $null, 'fixture', $null, $null, $null)
         )
         $texts = [ordered]@{
-            'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET#2'
+            'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET-SPIN'
             'widgets/Alpha/Set-Widget.ps1' = '# ADR-WIDGET-GADGET'
             'widgets/Beta/Get-Gizmo.ps1'   = "function Get-Gizmo {}`n# ADR-GIZMO-COG"
             'docs/guide.md'                = 'Read ADR-WIDGET-SPROCKET.'
             'pipelines/ci-widgets.yaml'    = 'trigger: none'
             'importer.ps1'                 = ''
-            'README.md'                    = 'See ADR-WIDGET-GADGET#3.'
+            'README.md'                    = 'See ADR-WIDGET-GADGET-FOLD.'
         }
         $paths = @(
             'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/Set-Widget.ps1', 'widgets/Beta/Get-Gizmo.ps1', 'docs/adr/widgetry/widget-gadget.md',
@@ -72,17 +72,17 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
                 Should -Be @('docs/adr/widgetry/widget-gadget.md ADR-WIDGET-GADGET', 'docs/adr/widgetry/widget-sprocket.md ADR-WIDGET-SPROCKET')
         }
 
-        It 'narrows a rule request to its rule and the bare citations' {
-            $highlight = & $script:forAdr 'ADR-WIDGET-GADGET:3'
-            $highlight.Requested | Should -Be @('ADR-WIDGET-GADGET#3')
+        It 'narrows a rule request to its rule and the codes above it' {
+            $highlight = & $script:forAdr 'ADR-WIDGET-GADGET-FOLD'
+            $highlight.Requested | Should -Be @('ADR-WIDGET-GADGET-FOLD')
             $widgets = $highlight.Cells | Where-Object Track -EQ 'widgets'
             $widgets.Files | Should -Be @('widgets/Alpha/Set-Widget.ps1')
             ($highlight.Cells | Where-Object FileLanguage -EQ 'notes' | Where-Object Track -EQ '(no track)').Files | Should -Be @('README.md')
         }
 
         It 'keeps an exception dark and lights a pin, the pin winning' {
-            $exceptions = @(& $script:pin 'ADR-WIDGET-GADGET' 'widgets' 'widget-script'; & $script:pin 'ADR-WIDGET-GADGET#2' '(no track)' 'notes')
-            $pins = @(& $script:pin 'ADR-WIDGET-GADGET#3' 'pipelines' 'gadget-pipe'; & $script:pin 'ADR-WIDGET-GADGET' '(no track)' 'notes')
+            $exceptions = @(& $script:pin 'ADR-WIDGET-GADGET' 'widgets' 'widget-script'; & $script:pin 'ADR-WIDGET-GADGET-SPIN' '(no track)' 'notes')
+            $pins = @(& $script:pin 'ADR-WIDGET-GADGET-FOLD' 'pipelines' 'gadget-pipe'; & $script:pin 'ADR-WIDGET-GADGET' '(no track)' 'notes')
             $highlight = & $script:forAdr 'ADR-WIDGET-GADGET' -Pins $pins -Exceptions $exceptions
             & $script:cellNames $highlight | Should -Be @('docs x notes', 'pipelines x gadget-pipe', '(no track) x notes', '(no track) x widget-script')
             ($highlight.Cells | Where-Object Track -EQ 'pipelines').Sources | Should -Be @('pin')
@@ -119,7 +119,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             @($widgets | ForEach-Object { "$($_.Path) $($_.Basis) $($_.Requested)" }) |
                 Should -Be @('widgets/Alpha/Get-Widget.ps1 citations ADR-WIDGET-GADGET', 'widgets/Alpha/Set-Widget.ps1 citations ADR-WIDGET-GADGET')
             @($widgets[0].Sites | ForEach-Object { "$($_.Path):$($_.Line) $($_.Kind) $($_.Citation)" }) |
-                Should -Be @('widgets/Alpha/Get-Widget.ps1:1 help ADR-WIDGET-GADGET#2')
+                Should -Be @('widgets/Alpha/Get-Widget.ps1:1 help ADR-WIDGET-GADGET-SPIN')
             $widgets[0].Mention | Should -BeFalse
             $highlight.Cells[1].Touched | Should -BeFalse
         }
@@ -138,9 +138,9 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
         }
 
         It 'gives a pin its own reason, the reviewed note' {
-            $highlight = & $script:forAdr 'ADR-WIDGET-GADGET#3' -Pins @(& $script:pin 'ADR-WIDGET-GADGET#3' 'pipelines' 'gadget-pipe')
+            $highlight = & $script:forAdr 'ADR-WIDGET-GADGET-FOLD' -Pins @(& $script:pin 'ADR-WIDGET-GADGET-FOLD' 'pipelines' 'gadget-pipe')
             $pin = ($highlight.Cells | Where-Object Track -EQ 'pipelines').Reasons
-            "$($pin.Path)|$($pin.Basis)|$($pin.Requested)|$($pin.Note)" | Should -Be '|pin|ADR-WIDGET-GADGET#3|reviewed'
+            "$($pin.Path)|$($pin.Basis)|$($pin.Requested)|$($pin.Note)" | Should -Be '|pin|ADR-WIDGET-GADGET-FOLD|reviewed'
         }
 
         It 'gives a requested file the path basis' {

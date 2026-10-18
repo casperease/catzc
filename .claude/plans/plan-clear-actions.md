@@ -43,18 +43,20 @@ named in the report.
       mentions left are history in ticked steps. The minimap pages under docs/explanation/.assets name them until their next render.
 - [ ] After the final session's full run (task-user-runs-and-commits, last step): delete `plan-bounded-folder-enumeration.md` and
       `prompt-bounded-folder-enumeration-continue.md` (check: both files gone, `Test-Links` clean on `.claude/plans`).
-- [x] Done 2026-10-18 by the user: `ls -d out/test-links/20261016-2012*` lists nothing. Original step: `out/test-links/20261016-2012*`: the 36 report folders of the verdict pass are gate output; clear them when the user agrees (check:
-      `ls out/test-links` lists no `20261016-2012*` folder).
+- [x] Done 2026-10-18 by the user: `ls -d out/test-links/20261016-2012*` lists nothing. Original step: `out/test-links/20261016-2012*`: the
+      36 report folders of the verdict pass are gate output; clear them when the user agrees (check: `ls out/test-links` lists no
+      `20261016-2012*` folder).
 
 ## Vocabulary steps, one per flagged file
 
 `Test-Glossary` flags bare terms in these files ("full suite" for "all tests", "gate", "phase", "layer", "source", "slot"). No sweep: each
 file is fixed when it is next edited for its own reason (D15: no exemption for plan files).
 
-- [ ] Fix the flagged wording file by file, each when that file is next edited, and strike the file from the list below (check: the next
-      `Test-Glossary` run names no line in the struck file; the list below is empty when the step is done).
+- [x] Fix the flagged wording file by file, each when that file is next edited, and strike the file from the list below (check: the next
+      `Test-Glossary` run names no line in the struck file; the list below is empty when the step is done). Done 2026-10-18 by session
+      catzc-93: `Test-Glossary` reports 0 issues over the tree, none in any of the nine files, which the day's edits had already reworded.
 
-The files: `plan-layers-vocabulary-rename-contracts.md`, `questionnaire-2026-10-16.md`, `decisions-2026-10-16.md`, `value-of-plan.md`,
-`questionnaire-fundamental-2026-10-16.md`, `questionnaire-fundamental-2-2026-10-16.md`, `plan-assert-wait.md`,
-`prompt-bounded-folder-enumeration-continue.md`, `plan-module-model-closeout.md`. Struck 2026-10-18 as deleted files:
-plan-module-kinds-tracks, plan-config-defaults, plan-adr-link-cleanup-prose-to-pages, plan-unboxing and the five topic prompts.
+The files: none left. Struck 2026-10-18 as clean: plan-layers-vocabulary-rename-contracts, questionnaire-2026-10-16, decisions-2026-10-16,
+value-of-plan, questionnaire-fundamental-2026-10-16, questionnaire-fundamental-2-2026-10-16, plan-assert-wait,
+prompt-bounded-folder-enumeration-continue and plan-module-model-closeout. Struck 2026-10-18 as deleted files: plan-module-kinds-tracks,
+plan-config-defaults, plan-adr-link-cleanup-prose-to-pages, plan-unboxing and the five topic prompts.

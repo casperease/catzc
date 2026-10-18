@@ -16,11 +16,11 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-        Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET:1', 'ADR-TST-WIDGET:2' }
+        Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET-SPIN', 'ADR-TST-WIDGET-TURN' }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
             [pscustomobject]@{ analyzers = [ordered]@{
-                    'Measure-Widget' = @('ADR-TST-WIDGET#1')
-                    'PSUseGadget'    = @('ADR-TST-WIDGET#2')
+                    'Measure-Widget' = @('ADR-TST-WIDGET-SPIN')
+                    'PSUseGadget'    = @('ADR-TST-WIDGET-TURN')
                 }
             }
         }
@@ -42,7 +42,7 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
     It 'throws once naming an unknown id and an unmapped custom rule' {
         [System.IO.File]::WriteAllText((Join-Path $TestDrive '.scriptanalyzer/GadgetRules.psm1'), 'function Measure-Gadget { }')
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
-            [pscustomobject]@{ analyzers = [ordered]@{ 'Measure-Widget' = @('ADR-TST-WIDGET#1', 'ADR-TST-WIDGET#9') } }
+            [pscustomobject]@{ analyzers = [ordered]@{ 'Measure-Widget' = @('ADR-TST-WIDGET-SPIN', 'ADR-TST-WIDGET-GHOST') } }
         }
         try {
             $thrown = { Test-AnalyzerAdrMap -OutputFolder $out } | Should -Throw -PassThru
@@ -52,12 +52,12 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
         }
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-AnalyzerAdrMap failed: 2 issue(s)*'
-        $message | Should -Match 'Measure-Widget: cites ADR-TST-WIDGET#9, which is not a rule in docs/adr'
+        $message | Should -Match 'Measure-Widget: cites ADR-TST-WIDGET-GHOST, which is not a rule in docs/adr'
         $message | Should -Match 'Measure-Gadget: a custom analyzer rule missing from analyzer-adr-map.yml'
     }
 
     It 'returns the issues under -PassThru instead of throwing' {
-        Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET:1' }
+        Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET-SPIN' }
         $result = Test-AnalyzerAdrMap -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'analyzer-adr-map'
         $result.Issues | Should -HaveCount 1

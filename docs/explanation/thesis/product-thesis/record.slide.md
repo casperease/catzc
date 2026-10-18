@@ -12,7 +12,8 @@ catzc:
     tracktype: documentation
   edges:
     cites:
-      - ADR-THES-ONETRUTH#2
+      - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
   config:
     pattern: pair
     deck: product-thesis
@@ -23,7 +24,7 @@ catzc:
 
 ## Eyebrow
 
-ADR-THES-ONETRUTH#2 and #3 · Mechanics
+ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD and ADR-THES-ONETRUTH-TRUTHISQUERYABLE · Mechanics
 
 ## Cards
 

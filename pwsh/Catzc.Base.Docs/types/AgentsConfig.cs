@@ -10,7 +10,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] RequiredKeys = { "standard", "agents" };
     private static readonly string[] RoofKeys = { "agent_body_lines", "capability_lines" };
     private static readonly System.Text.RegularExpressions.Regex ContractRe =
-        new System.Text.RegularExpressions.Regex("^ADR-[A-Z]+(-[A-Z]+)*$", System.Text.RegularExpressions.RegexOptions.Compiled);
+        new System.Text.RegularExpressions.Regex("^ADR(-[A-Z][A-Z0-9]*)+$", System.Text.RegularExpressions.RegexOptions.Compiled);
 
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 

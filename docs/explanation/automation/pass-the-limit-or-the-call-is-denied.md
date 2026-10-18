@@ -9,7 +9,7 @@ A call inside the limit runs; outside it, the hook denies it and says how to re-
 4  out/time-safeguard.log  every denial, one line, to tune the limits from
 5  exit 124: stopped       a background call that outlives its prefix is killed by timeout
 
-Supports ADR-AUTO-FAILFAST#7 (operations lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT (operations lens).
 ```
 
 An agent working at a devbox in cats passes `timeout: 3000` on every foreground Bash call, and runs anything longer in the background behind
@@ -50,9 +50,10 @@ The diagram is described element by element in [its asset description](.assets/p
 ## Why it holds
 
 - Every external call runs inside a time safeguard, so a hang fails fast with a message naming the limit instead of waiting forever; the
-  bash limits bound every shell call an agent makes, foreground and background, and a hook denies a call outside them (ADR-AUTO-FAILFAST#7).
+  bash limits bound every shell call an agent makes, foreground and background, and a hook denies a call outside them
+  (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - The limits are deliberately tight at a devbox and live in one config, so a call that needs longer surfaces as a blocker to tune rather
-  than a limit raised quietly (ADR-AUTO-FAILFAST#7).
+  than a limit raised quietly (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 
 ## Where the code and the ADR differ
 

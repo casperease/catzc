@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7e19ac43a56
+    with_body_sha: "4c46c96a4f79"
     repo_status: locked
     path: docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests/grid.md
     source: docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png
@@ -16,12 +16,12 @@ catzc:
 
 ```text
 Where the files that cite ADR-DSGN-ASPECT sit in the repository: tracks down, file languages across.
-5 of 342 cells lit, holding 20 files.
+5 of 342 cells lit, holding 19 files.
 ```
 
 ![The world-map minimap of Partition integrity runs only in unit tests](grid.png)
 
-This is the world-map minimap in the sidebar of the governance diagram of [Partition integrity runs only in unit tests][24], which explains
+This is the world-map minimap in the sidebar of the governance diagram of [Partition integrity runs only in unit tests][21], which explains
 [ADR-DSGN-ASPECT][1]. It lights every cell of the world map that holds a file citing those codes, so it shows where the decision lives in
 the repository. Each lit cell has its reason below, naming the code that selects it.
 
@@ -32,7 +32,7 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 3 lit of 89 files
+- .claude × markdown: 2 lit of 89 files
 - docs × markdown: 13 lit of 2763 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × powershell: 2 lit of 1651 files
@@ -49,112 +49,108 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ## Why each cell is lit
 
-### .claude × markdown (3 lit files)
+### .claude × markdown (2 lit files)
 
-Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file
+language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [.claude/plans/plan-adr-code-language.md][5]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 111 (text) and line 111 (text).
-- [.claude/plans/plan-diagram-folders.md][6]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 73 (text).
-- [.claude/plans/task-layers-classification-flip.md][7]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 31 (text).
+- [.claude/plans/plan-adr-code-language.md][3]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 111 (text) and line 111 (text).
+- [.claude/plans/plan-diagram-folders.md][4]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 73 (text).
 
 ### docs × markdown (13 lit files)
 
-Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file language
+markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [docs/adr/design/dora-explains.md][8]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 171 (text).
+- [docs/adr/design/dora-explains.md][5]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 171 (text).
 - [docs/adr/design/module-aspects.md][1]: selected by [ADR-DSGN-ASPECT][1]: the ADR's own file.
-- [docs/adr/index.md][9]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 117 (text).
-- [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][10]: selected by
-  [ADR-DSGN-ASPECT][1]: the file cites it at line 55 (text).
-- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][11]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 16
-  (text) and line 69 (text).
-- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][12]: selected by [ADR-DSGN-ASPECT][1]: the file cites it
-  at line 109 (text).
-- [docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][13]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
+- [docs/adr/index.md][6]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 119 (text).
+- [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][7]: selected by [ADR-DSGN-ASPECT][1]:
+  the file cites it at line 55 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][8]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 16 (text)
+  and line 69 (text).
+- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][9]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
+  line 109 (text).
+- [docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][10]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
   11 (text).
-- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][14]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 11 (text),
-  line 24 (text) and line 52 (text).
-- [docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md][15]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 15 (text).
-- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][16]: selected by [ADR-DSGN-ASPECT][1]: the file
+- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][11]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 11 (text) and
+  line 24 (text).
+- [docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md][12]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 15 (text).
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][13]: selected by [ADR-DSGN-ASPECT][1]: the file
   cites it at line 50 (text).
-- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][17]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 61
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][14]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 61
   (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md][18]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 12
+- [docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md][15]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 12
   (text).
-- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][19]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 28
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][16]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 28
   (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
-Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
-pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yaml` names the
+file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pipelines/ci-automation.yaml][20]: selected by [ADR-DSGN-ASPECT][1]: a pipeline that cites nothing itself carries its globset's
+- [pipelines/ci-automation.yaml][17]: selected by [ADR-DSGN-ASPECT][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 83 (text),
   `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 33 (text) and `pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` line 1
   (header).
 
 ### pwsh × powershell (2 lit files)
 
-Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language powershell
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.ps1` names the file
+language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][21]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 33 (text).
-- [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1][22]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 1 (header).
+- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][18]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 33 (text).
+- [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1][19]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 1 (header).
 
 ### pwsh × yaml (1 lit file)
 
-Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yml` names the file
+language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][23]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 83 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][20]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 83 (text).
 
 ## Keywords
 
-- [world map][25]
-- [track][26]
-- [file language][27]
-- [cell][28]
-- [lit cell][29]
-- [.claude][30]: a track
-- [docs][30]: a track
-- [pipelines][30]: a track
-- [pwsh][30]: a track
-- [markdown][31]: a file language
-- [pipeline-yaml][31]: a file language
-- [powershell][31]: a file language
-- [yaml][31]: a file language
+- [world map][22]
+- [track][23]
+- [file language][24]
+- [cell][25]
+- [lit cell][26]
+- [.claude][27]: a track
+- [docs][27]: a track
+- [pipelines][27]: a track
+- [pwsh][27]: a track
+- [markdown][28]: a file language
+- [pipeline-yaml][28]: a file language
+- [powershell][28]: a file language
+- [yaml][28]: a file language
 
 [1]: ../../../../adr/design/module-aspects.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../../.claude/plans/plan-adr-code-language.md
-[6]: ../../../../../.claude/plans/plan-diagram-folders.md
-[7]: ../../../../../.claude/plans/task-layers-classification-flip.md
-[8]: ../../../../adr/design/dora-explains.md
-[9]: ../../../../adr/index.md
-[10]: ../../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
-[11]: ../../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[12]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-[13]: ../../../../references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
-[14]: ../../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
-[15]: ../../../../references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
-[16]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
-[17]: ../../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
-[18]: ../../../../references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
-[19]: ../../../../references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-[20]: ../../../../../pipelines/ci-automation.yaml
-[21]: ../../../../../pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-[22]: ../../../../../pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-[23]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[24]: ../../partition-integrity-runs-only-in-unit-tests.md
-[25]: ../../../../adr/glossary.md#world-map
-[26]: ../../../../adr/glossary.md#track
-[27]: ../../../../adr/glossary.md#file-language
-[28]: ../../../../adr/glossary.md#cell
-[29]: ../../../../adr/glossary.md#lit-cell
-[30]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[31]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../../../../.claude/plans/plan-adr-code-language.md
+[4]: ../../../../../.claude/plans/plan-diagram-folders.md
+[5]: ../../../../adr/design/dora-explains.md
+[6]: ../../../../adr/index.md
+[7]: ../../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
+[8]: ../../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+[9]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[10]: ../../../../references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+[11]: ../../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
+[12]: ../../../../references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+[13]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
+[14]: ../../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
+[15]: ../../../../references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+[16]: ../../../../references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+[17]: ../../../../../pipelines/ci-automation.yaml
+[18]: ../../../../../pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+[19]: ../../../../../pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+[20]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[21]: ../../partition-integrity-runs-only-in-unit-tests.md
+[22]: ../../../../adr/glossary.md#world-map
+[23]: ../../../../adr/glossary.md#track
+[24]: ../../../../adr/glossary.md#file-language
+[25]: ../../../../adr/glossary.md#cell
+[26]: ../../../../adr/glossary.md#lit-cell
+[27]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[28]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

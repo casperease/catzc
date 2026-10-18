@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3d145165de71"
+    with_body_sha: "465e90d5e786"
     repo_status: locked
     path: docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference/chain.md
     source: docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference/diagram.drawio.png
@@ -21,7 +21,7 @@ Where ADR-AUTO-GO and ADR-PRIN-ONELIVE sit in the value chain: value-chain stack
 
 ![The value-chain minimap of A sibling is an idea, never a reference](chain.png)
 
-This is the value-chain minimap in the sidebar of the meta diagram of [A sibling is an idea, never a reference][6], which explains
+This is the value-chain minimap in the sidebar of the meta diagram of [A sibling is an idea, never a reference][4], which explains
 [ADR-AUTO-GO][1] and [ADR-PRIN-ONELIVE][2]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so
 it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that selects it.
 
@@ -54,42 +54,34 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### PRIN × release (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-PRIN-ONELIVE][2]: selected by [ADR-PRIN-ONELIVE][2]; its ADR domain `principles` sits on the PRIN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (release) override its ADR domain's default (automation, build, quality-control,
-  release, deploy and access), so it lights the release column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (release) override its ADR domain's default (automation, build,
+  quality-control, release, deploy and access), so it lights the release column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### AUTO × quality-control (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-AUTO-GO][1]: selected by [ADR-AUTO-GO][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control) override its ADR domain's default (automation), so it lights the
-  quality-control column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control) override its ADR domain's default (automation), so
+  it lights the quality-control column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ## Keywords
 
-- [value-chain map][7]
-- [value-chain stack][8]
-- [value-chain concern][9]
-- [cell][10]
-- [lit cell][11]
-
-Terms the cited ADRs define:
-
-- [go test module][12], defined by [ADR-AUTO-GO#2][13]
+- [value-chain map][5]
+- [value-chain stack][6]
+- [value-chain concern][7]
+- [cell][8]
+- [lit cell][9]
 
 [1]: ../../../../adr/automation/go/go-test-artifacts.md
 [2]: ../../../../adr/principles/one-living-version.md
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../a-sibling-is-an-idea-never-a-reference.md
-[7]: ../../../../adr/glossary.md#value-chain-map
-[8]: ../../../../adr/glossary.md#value-chain-stack
-[9]: ../../../../adr/glossary.md#value-chain-concern
-[10]: ../../../../adr/glossary.md#cell
-[11]: ../../../../adr/glossary.md#lit-cell
-[12]: ../../../../adr/glossary.md#go-test-module
-[13]: ../../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2
+[3]: ../../../../adr/design/tracks.md
+[4]: ../../a-sibling-is-an-idea-never-a-reference.md
+[5]: ../../../../adr/glossary.md#value-chain-map
+[6]: ../../../../adr/glossary.md#value-chain-stack
+[7]: ../../../../adr/glossary.md#value-chain-concern
+[8]: ../../../../adr/glossary.md#cell
+[9]: ../../../../adr/glossary.md#lit-cell

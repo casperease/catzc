@@ -14,7 +14,7 @@ The apex unit flattens to 13 rules, 13 GitHub paths, and 7 ADO includes with 6 e
 9   Get-PipelineTrigger          reads the four path-filter lists back from the file
 10  Test-AdoPipelineTriggerGlob  compares projection and file as sets; one issue per pipeline
 
-Supports ADR-FLOW-CD-GLOBS#4, #6 and #8 (implementation lens).
+Supports ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-COMPOSESETS (implementation lens).
 ```
 
 The `apex` deployable unit in cats composes three base units and adds three configuration folders of its own, which flattens into a program
@@ -24,7 +24,8 @@ patterns, and `Test-AdoPipelineTriggerGlob` is the quality gate that proves it.
 
 ![apex: 13 rules, 13 GitHub paths, 7 ADO includes and 6 excludes](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -62,12 +63,12 @@ The diagram is described element by element in [its asset description](.assets/a
 ## Why it holds
 
 - Membership is decided by the ordered scan program, last-match-wins, with the leaf set's includes as selects and its excludes as drops
-  (ADR-FLOW-CD-GLOBS#4).
+  (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY).
 - The native projection renders the flattened program into GitHub's ordered `!` dialect exactly, and into Azure DevOps' order-independent
   include and exclude lists by collapsing each pattern to its last select; the drift quality gate reports one issue per pipeline whose
-  declared trigger no longer equals its projection (ADR-FLOW-CD-GLOBS#6).
+  declared trigger no longer equals its projection (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
 - A composing set's program is the composed programs first, deepest base first, each once, then its own rules last, so a unit re-adds a
-  slice its base dropped; the flattened program is what the projection is computed from (ADR-FLOW-CD-GLOBS#8).
+  slice its base dropped; the flattened program is what the projection is computed from (ADR-FLOW-CD-GLOBS-COMPOSESETS).
 
 ## See also
 

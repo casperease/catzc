@@ -11,7 +11,7 @@ Two L0 test files check the address rules; read-only and committed-only rest on 
 6  Get-ConfigValue.Tests         the L0 file that checks A1, A2 and A4
 7  Write-EnvironmentSet.Tests    the L0 file that checks E7
 
-Supports ADR-CONF-ADDRESSING#1, #2, #3, #4 and #5, and ADR-AUTO-ENVVAR#7 (governance lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST and ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD, and ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS (governance lens).
 ```
 
 Five addressing rules and one environment-variable rule constrain how cats dereferences a global config address. Each stage of the walk
@@ -21,8 +21,8 @@ through, and that nothing an address can reach is a secret.
 
 ![Two L0 test files check the address rules](.assets/two-test-files-check-the-address-rules/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-test-files-check-the-address-rules/diagram.drawio.md). Rule chips name
-the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
+The diagram is described element by element in [its asset description](.assets/two-test-files-check-the-address-rules/diagram.drawio.md).
+Rule chips name the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
 
 ## Walkthrough
 
@@ -48,13 +48,13 @@ the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
 
 ## Why it holds
 
-- An address names one node and is resolved by `Get-ConfigValue` on top of the one reader (ADR-CONF-ADDRESSING#1).
+- An address names one node and is resolved by `Get-ConfigValue` on top of the one reader (ADR-CONF-ADDRESSING-GLOBALADDRESSFORM).
 - The first segment is the config's global name; each following segment is a key on a dictionary node, otherwise a property
-  (ADR-CONF-ADDRESSING#2).
-- An address references only version-controlled config, so secrets never have addresses (ADR-CONF-ADDRESSING#3).
-- Resolution fails fast: unknown name, bad segment and malformed address all throw (ADR-CONF-ADDRESSING#4).
-- A resolved node is a read, never mutated (ADR-CONF-ADDRESSING#5).
-- A secret crosses to a child or external process only through `Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7).
+  (ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG).
+- An address references only version-controlled config, so secrets never have addresses (ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY).
+- Resolution fails fast: unknown name, bad segment and malformed address all throw (ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
+- A resolved node is a read, never mutated (ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD).
+- A secret crosses to a child or external process only through `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS).
 
 ## Where the code and the ADR differ
 

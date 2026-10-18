@@ -19,7 +19,7 @@ plans stay the durable record; task files and this master are derived from them 
   only when its task file carries it, and the plan keeps the checkbox until the work lands in the tree.
 - A task file is `task-<topic>.md`, at most 50 in the folder, one chunk each: head (`task:` with status, plans, value, blocked_on, targets),
   then numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
-- The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS#8, ADR-REPO-FOLDERS#12). A task
+- The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS-MASTERANDTASKS, ADR-REPO-FOLDERS-STABLEFILENAMES). A task
   name says what the task does; no name, head key or reference carries a number, so reordering the list renames nothing.
 - Clear and restart: delete `task-*.md`, reset every pointer line here to its chunk from the source plans, re-stamp `reviewed`. Nothing else
   is touched. The plans themselves are never deleted by a clear.

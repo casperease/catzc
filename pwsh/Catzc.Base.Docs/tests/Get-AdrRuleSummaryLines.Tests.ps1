@@ -4,18 +4,18 @@ Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {
         $content = @(
             '# docs/adr/widget/widget-one.md'                     # 1
             ''                                                   # 2
-            'Prose before the registry cites ADR-GA-ONE#1.'      # 3
+            'Prose before the registry cites ADR-GADGET-ONE-TURN.' # 3
             ''                                                   # 4
-            '## Rules: ADR-WI-ONE'                               # 5
+            '## Rules: ADR-WIDGET-ONE'                           # 5
             ''                                                   # 6
-            '### Rule ADR-WI-ONE:1'                              # 7
+            '### Rule ADR-WIDGET-ONE-SPIN'                       # 7
             ''                                                   # 8
             'A widget spins first.'                              # 9
             'It wraps onto a second line.'                       # 10
             ''                                                   # 11
             '- [Spinning](#spinning)'                            # 12
             ''                                                   # 13
-            '### Rule ADR-WI-ONE:2'                              # 14
+            '### Rule ADR-WIDGET-ONE-FOLLOW'                     # 14
             ''                                                   # 15
             'A gadget follows:'                                  # 16
             ''                                                   # 17
@@ -37,11 +37,11 @@ Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {
 
     It 'returns each normative line with its 1-based number and its rule in citation form' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {
         $lines | Should -HaveCount 4
-        $lines[0].Rule | Should -Be 'ADR-WI-ONE#1'
+        $lines[0].Rule | Should -Be 'ADR-WIDGET-ONE-SPIN'
         $lines[0].Line | Should -Be 9
         $lines[0].Text | Should -Be 'A widget spins first.'
         $lines[1].Line | Should -Be 10
-        $lines[2].Rule | Should -Be 'ADR-WI-ONE#2'
+        $lines[2].Rule | Should -Be 'ADR-WIDGET-ONE-FOLLOW'
         $lines[2].Line | Should -Be 16
         $lines[3].Text | Should -Be '- a listed clause, kept'
     }

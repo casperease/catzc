@@ -47,7 +47,7 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
        86 to 94 ms to 13 to 14 ms over the four importer watchpoints (`out/t024-c.ps1`). The tick test is rewritten for the new loop; its
        verdict is in the report.
 6. [x] Function help for `Assert-Wait` beyond the head block, per ADR-REPO-HELP; `watchpoint` as a glossary term only if the ADR of step 7
-       bolds it. Check: Test-Links on the touched pages. Corrected 2026-10-17: ADR-REPO-HELP#1 makes the head's `config` part the whole
+       bolds it. Check: Test-Links on the touched pages. Corrected 2026-10-17: ADR-REPO-HELP-HELPONCOMMENTPAGE makes the head's `config` part the whole
        help, so there is nothing beyond it; the head's parameter entries now name the registry defaults (step 3), and `watchpoint` waits for
        step 7.
 7. [x] ADR half landed 2026-10-18 too: ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND and ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH ("Test-AdrRegistry

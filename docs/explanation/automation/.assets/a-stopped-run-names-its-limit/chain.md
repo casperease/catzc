@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8c6c7660396d"
+    with_body_sha: "5b490b75ad13"
     repo_status: locked
     path: docs/explanation/automation/.assets/a-stopped-run-names-its-limit/chain.md
     source: docs/explanation/automation/.assets/a-stopped-run-names-its-limit/diagram.drawio.png
@@ -56,10 +56,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][7]
 - [lit cell][8]
 
-Terms the cited ADRs define:
-
-- [posture][9], defined by [ADR-AUTO-DEFAULT#6][10]
-
 [1]: ../../../../adr/automation/sensible-defaults.md
 [2]: ../../../../adr/automation/fail-fast-with-asserts.md
 [3]: ../../a-stopped-run-names-its-limit.md
@@ -68,5 +64,3 @@ Terms the cited ADRs define:
 [6]: ../../../../adr/glossary.md#value-chain-concern
 [7]: ../../../../adr/glossary.md#cell
 [8]: ../../../../adr/glossary.md#lit-cell
-[9]: ../../../../adr/glossary.md#posture
-[10]: ../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default6

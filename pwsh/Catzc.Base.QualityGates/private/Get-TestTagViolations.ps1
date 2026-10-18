@@ -49,16 +49,15 @@ function Get-TestTagViolations {
             $block = $block.Parent
         }
         foreach ($tag in $candidates) {
-            if ($tag -cnotmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$|^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
-                $reasons += "malformed ADR citation '$tag' (want ADR-<CODE>#<n>, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)"
+            if ($tag -cnotmatch '^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
+                $reasons += "malformed ADR citation '$tag' (want a rule's code, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)"
                 continue
             }
             if ($null -eq $validRuleIds) {
                 $validRuleIds = [System.Collections.Generic.HashSet[string]]::new(
                     [string[]] (Get-CatsAdrRuleIds), [System.StringComparer]::Ordinal)
             }
-            # Citations are '#' form; the rule-id set is registry ':' form (see [index](/docs/adr/index.md)).
-            if (-not $validRuleIds.Contains(($tag -replace '#', ':'))) {
+            if (-not $validRuleIds.Contains($tag)) {
                 $reasons += "unknown ADR rule '$tag' — no such rule in docs/adr"
             }
         }

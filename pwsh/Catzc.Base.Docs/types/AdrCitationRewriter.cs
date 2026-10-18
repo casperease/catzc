@@ -13,27 +13,21 @@ public sealed class AdrCitationRewriter
 
     const string AdrRoot = "docs/adr/";
     const string Segment = @"[\w<>*-]+(?:\.[\w<>*-]+)*";
-    const string AnchorPattern = @"rule-adr(?:-[a-z]+)+[0-9]+(?![0-9])";
-    const string Separator = @"(?:[ \t]*,[ \t\r\n]*(?:(?:and|or)[ \t\r\n]+)?|[ \t\r\n]+(?:and|or|to)[ \t\r\n]+|[ \t]*/[ \t]*|[ \t]*–[ \t]*)";
+    const string AnchorPattern = @"rule-adr(?:-[a-z][a-z0-9]*)+(?![\w-])";
+    const string CodePattern = @"ADR(?>(?:-[A-Z][A-Z0-9]*)+)";
 
     static readonly Regex InlineDestination = new Regex(@"\]\((?<dest><[^>\r\n]*>|[^)\s]+)", RegexOptions.Compiled);
     static readonly Regex ReferenceDestination = new Regex(@"^ {0,3}\[[^\]\r\n]+\]:[ \t]*(?<dest><[^>\r\n]*>|\S+)", RegexOptions.Compiled | RegexOptions.Multiline);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
-    static readonly Regex RuleAnchor = new Regex(@"^rule-(?<code>adr(?:-[a-z]+)+)(?<rule>[0-9]+)$", RegexOptions.Compiled);
-    static readonly Regex RuleId = new Regex(@"^(?<code>ADR(?:-[A-Z]+)+):(?<rule>[0-9]+)$", RegexOptions.Compiled);
-    static readonly Regex Code = new Regex(@"^ADR(?:-[A-Z]+)+$", RegexOptions.Compiled);
-    static readonly Regex ContinuationItem = new Regex("(?<sep>" + Separator + ")#(?<rule>[0-9]+)", RegexOptions.Compiled);
+    static readonly Regex RuleAnchor = new Regex(@"^rule-(?<code>adr(?:-[a-z][a-z0-9]*)+)$", RegexOptions.Compiled);
+    static readonly Regex Code = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*)+$", RegexOptions.Compiled);
     static readonly string[] CodeMapColumns = { "old_code", "new_code", "old_path", "new_path", "kind" };
     static readonly string[] RuleMapColumns = { "old_rule", "new_rule", "kind" };
     static readonly HashSet<string> CodeMapKinds = new HashSet<string>(StringComparer.Ordinal) { "move", "path", "new", "folder" };
-    static readonly HashSet<string> RuleMapKinds = new HashSet<string>(StringComparer.Ordinal) { "move", "collapse", "name" };
-    static readonly Regex NamedCode = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*)+$", RegexOptions.Compiled);
+    static readonly HashSet<string> RuleMapKinds = new HashSet<string>(StringComparer.Ordinal) { "move", "collapse" };
 
     readonly Dictionary<string, string> codeMap = new Dictionary<string, string>(StringComparer.Ordinal);
-    readonly Dictionary<string, (string Code, int Rule)> ruleMap = new Dictionary<string, (string, int)>(StringComparer.Ordinal);
-    // A numbered rule's named code, keyed like ruleMap; and the codes that have any.
-    readonly Dictionary<string, string> nameMap = new Dictionary<string, string>(StringComparer.Ordinal);
-    readonly HashSet<string> namedCodes = new HashSet<string>(StringComparer.Ordinal);
+    readonly Dictionary<string, string> ruleMap = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly Dictionary<string, string> pathMap = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly List<(string Old, string New)> folderMap = new List<(string, string)>();
     readonly Dictionary<string, string> newPathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -64,9 +58,9 @@ public sealed class AdrCitationRewriter
         {
             alternatives.Add(@"(?<![\w./-])(?<bare>(?:" + string.Join("|", literals.ConvertAll(Regex.Escape)) + ")(?:/" + Segment + @")*/?)(?![\w-])(?:#(?<bareAnchor>" + AnchorPattern + "))?");
         }
-        alternatives.Add(@"(?<![\w-])(?<code>ADR(?>(?:-[A-Z]+)+))(?<sep>[#:])(?<rule>[0-9]+)(?![0-9])(?<more>(?:" + Separator + "#[0-9]+(?![0-9]))*)");
-        alternatives.Add(@"(?<![\w-])(?<groupCode>ADR(?>(?:-[A-Z]+)+))(?<group>#\{[^}\r\n]*\})");
-        alternatives.Add(@"(?<![\w-])(?<bareCode>ADR(?>(?:-[A-Z]+)+))(?!\w)");
+        // A numbered citation or a group names rules by a number no rule carries: it is reported, never rewritten.
+        alternatives.Add(@"(?<![\w-])(?<numbered>" + CodePattern + @"(?:[#:][0-9]+|#\{[^}\r\n]*\}))");
+        alternatives.Add(@"(?<![\w-])(?<code>" + CodePattern + @")(?![\w-])");
         alternatives.Add(@"(?<![\w-])(?<anchor>" + AnchorPattern + ")");
         reference = new Regex(string.Join("|", alternatives), RegexOptions.Compiled);
     }
@@ -149,32 +143,15 @@ public sealed class AdrCitationRewriter
                 kind = AdrCitationChangeKind.Path;
                 replacement = RewriteReference(match.Groups["bare"].Value, Fragment(match.Groups["bareAnchor"]), Form.AdrRelative, self);
             }
+            else if (match.Groups["numbered"].Success)
+            {
+                unhandled.Add((match.Index, match.Value));
+                continue;
+            }
             else if (match.Groups["code"].Success)
             {
-                kind = AdrCitationChangeKind.Citation;
-                replacement = RewriteCitation(match);
-                if (replacement == null && SplitsRange(match))
-                {
-                    unhandled.Add((match.Index, match.Value));
-                    continue;
-                }
-            }
-            else if (match.Groups["groupCode"].Success)
-            {
-                // A group names its rules by number, so a group over named rules has no one rewrite: it is reported.
-                string groupCode = match.Groups["groupCode"].Value;
-                if (namedCodes.Contains(groupCode))
-                {
-                    unhandled.Add((match.Index, match.Value));
-                    continue;
-                }
-                kind = AdrCitationChangeKind.Code;
-                replacement = codeMap.TryGetValue(groupCode, out string renamedGroup) ? renamedGroup + match.Groups["group"].Value : null;
-            }
-            else if (match.Groups["bareCode"].Success)
-            {
-                kind = AdrCitationChangeKind.Code;
-                replacement = codeMap.TryGetValue(match.Value, out string code) ? code : null;
+                kind = ruleMap.ContainsKey(match.Value) ? AdrCitationChangeKind.Citation : AdrCitationChangeKind.Code;
+                replacement = MapCode(match.Value);
             }
             else
             {
@@ -185,73 +162,13 @@ public sealed class AdrCitationRewriter
         }
     }
 
-    string RewriteCitation(Match match)
-    {
-        if (SplitsRange(match)) { return null; }
-        string oldCode = match.Groups["code"].Value;
-        var output = new StringBuilder();
-        int headNumber = Number(match.Groups["rule"].Value);
-        string current;
-        if (nameMap.TryGetValue(RuleKey(oldCode, headNumber), out string headName))
-        {
-            output.Append(headName);
-            current = null;
-        }
-        else
-        {
-            (string headCode, int headRule) = MapRule(oldCode, headNumber);
-            output.Append(headCode).Append(match.Groups["sep"].Value).Append(headRule.ToString(CultureInfo.InvariantCulture));
-            current = headCode;
-        }
-        foreach (Match item in ContinuationItem.Matches(match.Groups["more"].Value))
-        {
-            int number = Number(item.Groups["rule"].Value);
-            output.Append(item.Groups["sep"].Value);
-            if (nameMap.TryGetValue(RuleKey(oldCode, number), out string name))
-            {
-                output.Append(name);
-                current = null;
-                continue;
-            }
-            (string code, int rule) = MapRule(oldCode, number);
-            if (code != current) { output.Append(code); }
-            output.Append('#').Append(rule.ToString(CultureInfo.InvariantCulture));
-            current = code;
-        }
-        string rewritten = output.ToString();
-        return rewritten == match.Value ? null : rewritten;
-    }
-
-    bool SplitsRange(Match match)
-    {
-        string oldCode = match.Groups["code"].Value;
-        int previous = Number(match.Groups["rule"].Value);
-        foreach (Match item in ContinuationItem.Matches(match.Groups["more"].Value))
-        {
-            int rule = Number(item.Groups["rule"].Value);
-            string separator = item.Groups["sep"].Value;
-            bool range = separator.Contains("–") || separator.Trim() == "to";
-            if (range)
-            {
-                for (int inner = Math.Min(previous, rule); inner <= Math.Max(previous, rule); inner++)
-                {
-                    if (ruleMap.ContainsKey(RuleKey(oldCode, inner)) || nameMap.ContainsKey(RuleKey(oldCode, inner))) { return true; }
-                }
-            }
-            previous = rule;
-        }
-        return false;
-    }
-
     string RewriteAnchor(string anchor)
     {
         Match match = RuleAnchor.Match(anchor);
         if (!match.Success) { return null; }
         string oldCode = match.Groups["code"].Value.ToUpperInvariant();
-        int oldRule = Number(match.Groups["rule"].Value);
-        if (nameMap.TryGetValue(RuleKey(oldCode, oldRule), out string name)) { return NamedAnchor(name); }
-        (string code, int rule) = MapRule(oldCode, oldRule);
-        return code == oldCode && rule == oldRule ? null : Anchor(code, rule);
+        string code = MapCode(oldCode);
+        return code == oldCode ? null : AdrCitationMap.Anchor(code);
     }
 
     // A link destination as written, (<target>) or (target): its path resolved by the link's form and mapped.
@@ -323,15 +240,15 @@ public sealed class AdrCitationRewriter
         if (!anchor.Success) { return (newPath, fragment); }
 
         string oldCode = anchor.Groups["code"].Value.ToUpperInvariant();
-        int oldRule = Number(anchor.Groups["rule"].Value);
-        if (nameMap.TryGetValue(RuleKey(oldCode, oldRule), out string name)) { return (newPath, NamedAnchor(name)); }
-        (string code, int rule) = MapRule(oldCode, oldRule);
-        if (code == oldCode && rule == oldRule) { return (newPath, fragment); }
-        if (code != oldCode && !(inFile && !IsFileOf(oldCode, adrPath)))
+        string code = MapCode(oldCode);
+        if (code == oldCode) { return (newPath, fragment); }
+        string oldAdr = AdrOf(oldCode, false);
+        string newAdr = AdrOf(code, true);
+        if (newAdr != null && newAdr != MapCode(oldAdr ?? string.Empty) && !(inFile && oldAdr != null && !IsFileOf(oldAdr, adrPath)))
         {
-            newPath = PathOfCode(code);
+            newPath = PathOfCode(newAdr);
         }
-        return (newPath, Anchor(code, rule));
+        return (newPath, AdrCitationMap.Anchor(code));
     }
 
     string MapPath(string adrPath)
@@ -346,10 +263,34 @@ public sealed class AdrCitationRewriter
         return bare;
     }
 
-    (string Code, int Rule) MapRule(string code, int rule)
+    // A code's new spelling: a rule row first, then the longest moved ADR code it extends, with the rest of its segments kept.
+    string MapCode(string code)
     {
-        if (ruleMap.TryGetValue(RuleKey(code, rule), out (string, int) moved)) { return moved; }
-        return codeMap.TryGetValue(code, out string renamed) ? (renamed, rule) : (code, rule);
+        if (ruleMap.TryGetValue(code, out string moved)) { return moved; }
+        string prefix = code;
+        while (true)
+        {
+            if (codeMap.TryGetValue(prefix, out string renamed)) { return renamed + code.Substring(prefix.Length); }
+            int dash = prefix.LastIndexOf('-');
+            if (dash <= 0) { return code; }
+            prefix = prefix.Substring(0, dash);
+        }
+    }
+
+    // The ADR a code names or extends: the longest prefix the maps or the index know as an ADR; null when none does.
+    string AdrOf(string code, bool renamed)
+    {
+        string prefix = code;
+        while (true)
+        {
+            bool known = renamed
+                ? newPathByCode.ContainsKey(prefix) || (citations != null && citations.HasCode(prefix) && !citations.IsRule(prefix))
+                : oldPathByCode.ContainsKey(prefix) || codeMap.ContainsKey(prefix) || (citations != null && citations.HasCode(prefix) && !citations.IsRule(prefix));
+            if (known) { return prefix; }
+            int dash = prefix.LastIndexOf('-');
+            if (dash <= 0) { return null; }
+            prefix = prefix.Substring(0, dash);
+        }
     }
 
     bool IsFileOf(string code, string adrPath)
@@ -393,24 +334,11 @@ public sealed class AdrCitationRewriter
 
     void AddRuleRow(Dictionary<string, string> cells)
     {
-        if (!RuleMapKinds.Contains(cells["kind"])) { throw Invalid("rule map", "kind '" + cells["kind"] + "' is not one of move, collapse, name"); }
-        Match old = RuleId.Match(cells["old_rule"]);
-        string key = old.Success ? RuleKey(old.Groups["code"].Value, Number(old.Groups["rule"].Value)) : null;
-        if (key != null && (ruleMap.ContainsKey(key) || nameMap.ContainsKey(key))) { throw Invalid("rule map", "'" + cells["old_rule"] + "' appears twice"); }
-        if (cells["kind"] == "name")
-        {
-            string name = cells["new_rule"];
-            if (!old.Success || !NamedCode.IsMatch(name) || !name.StartsWith(old.Groups["code"].Value + "-", StringComparison.Ordinal))
-            {
-                throw Invalid("rule map", "'" + cells["old_rule"] + "' -> '" + name + "' is not ADR-<CODE>:<n> -> ADR-<CODE>-<NAME>");
-            }
-            nameMap[key] = name;
-            namedCodes.Add(old.Groups["code"].Value);
-            return;
-        }
-        Match moved = RuleId.Match(cells["new_rule"]);
-        if (!old.Success || !moved.Success) { throw Invalid("rule map", "'" + cells["old_rule"] + "' -> '" + cells["new_rule"] + "' is not ADR-<CODE>:<n> -> ADR-<CODE>:<n>"); }
-        ruleMap[key] = (moved.Groups["code"].Value, Number(moved.Groups["rule"].Value));
+        if (!RuleMapKinds.Contains(cells["kind"])) { throw Invalid("rule map", "kind '" + cells["kind"] + "' is not one of move, collapse"); }
+        string old = cells["old_rule"], moved = cells["new_rule"];
+        if (!Code.IsMatch(old) || !Code.IsMatch(moved)) { throw Invalid("rule map", "'" + old + "' -> '" + moved + "' is not a rule code -> a rule code"); }
+        if (ruleMap.ContainsKey(old)) { throw Invalid("rule map", "'" + old + "' appears twice"); }
+        ruleMap[old] = moved;
     }
 
     static Dictionary<string, string> Cells(object row, string[] columns, string map)
@@ -430,15 +358,6 @@ public sealed class AdrCitationRewriter
         new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: {1}", map, reason));
 
     static string Fragment(Group anchor) => anchor.Success ? anchor.Value : null;
-
-    static string RuleKey(string code, int rule) => code + ":" + rule.ToString(CultureInfo.InvariantCulture);
-
-    static string Anchor(string code, int rule) => "rule-" + code.ToLowerInvariant() + rule.ToString(CultureInfo.InvariantCulture);
-
-    static string NamedAnchor(string name) => "rule-" + name.ToLowerInvariant();
-
-    // A number too long for any rule, such as a hash fragment that happens to follow a code, maps to no rule.
-    static int Number(string digits) => int.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out int number) ? number : -1;
 
     static List<int> LineStarts(string text)
     {

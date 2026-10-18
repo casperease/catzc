@@ -7,7 +7,7 @@ Integrators build on the last commit certified in main-UAT, never on the tip of 
 2  main-UAT             the always-on non-prod environment; its occupant, commit 6, is the sync point
 3  dirty HEAD           commit 10, the newest commit on main, which failed in main-UAT
 
-Supports ADR-DSGN-LIFE#6, #7 and #8 (meta lens).
+Supports ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
 ```
 
 "Latest" and "safe to build on" are different questions, and cats answers them with different commits. The newest commit on main is HEAD;
@@ -28,9 +28,10 @@ The diagram is described element by element in [its asset description](.assets/s
 
 ## Why it holds
 
-- The stable integration point is the `main-UAT` occupant, because that commit has cleared every gate a machine decides (ADR-DSGN-LIFE#6).
-- The dirty HEAD is the newest commit and still not safe to sync or promote from (ADR-DSGN-LIFE#7).
-- Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning (ADR-DSGN-LIFE#8).
+- The stable integration point is the `main-UAT` occupant, because that commit has cleared every gate a machine decides
+  (ADR-DSGN-LIFE-SYNCFROMMAINUAT).
+- The dirty HEAD is the newest commit and still not safe to sync or promote from (ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
+- Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
 
 ## Where the code and the ADR differ
 

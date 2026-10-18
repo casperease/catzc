@@ -12,7 +12,7 @@ Three gates check the registry, the drift and the git membership; one clause of 
 7  Test-GeneratedFiles    the drift gate (#6): every target equals what the writer composes now
 8  Test-RootConfigFiles   the integrity gate: git membership (#3), registry = .gitignore = index and links both ways (#6, #7)
 
-Supports ADR-REPO-ROOTCFG#1, #2, #3, #4, #5, #6, #7 and #8 (governance lens).
+Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-COMPOSEDROOTFILE, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-FILESYSTEMLINK and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (governance lens).
 ```
 
 The eight rules of the generated-root-configs decision are enforced at three points. A malformed registry stops the config load; a target
@@ -22,7 +22,8 @@ nowhere else.
 
 ![Three gates check the registry, the drift and the git membership; one rule has no gate](.assets/three-gates-check-registry-drift-membership/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/three-gates-check-registry-drift-membership/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/three-gates-check-registry-drift-membership/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -42,27 +43,29 @@ The diagram is described element by element in [its asset description](.assets/t
 6. **Managed root files.** The `committed` boolean decides whether a target is a gitignored artifact or a tracked file, and nothing else
    (#3).
 7. **Test-GeneratedFiles.** The drift check dry-runs the writer and reports every file whose content would change, one issue per file of a
-   wildcard entry (#6, #8). It is a quality gate in the sense of ADR-AUTO-TEST#35: one report, one throw listing every issue.
+   wildcard entry (#6, #8). It is a quality gate in the sense of ADR-AUTO-TEST-QUALITYGATE: one report, one throw listing every issue.
 8. **Test-RootConfigFiles.** The integrity check asserts, per opted-in target, that `committed` agrees with `.gitignore` and the index (#3,
    #6), that every `copyAsLink` target is an effective link from the running OS, and that no other target is a link (#6, #7). The L2
    integrity test runs it and expects zero issues.
 
 ## Why it holds
 
-- Exactly one in-repo source of truth per opted-in root file; corrections go to the source (ADR-REPO-ROOTCFG#1).
-- One registry, validated by `RootConfigFiles` and written by `Build-RootConfig`; opt-out is the default (ADR-REPO-ROOTCFG#2).
-- `committed` decides git membership and nothing else (ADR-REPO-ROOTCFG#3).
-- Idempotent generation on every import, through `Write-FileIfChanged` or `Set-FileLink` (ADR-REPO-ROOTCFG#4).
-- A composed file carries the generated-file head, and a link carries none (ADR-REPO-ROOTCFG#5).
-- The registry, `.gitignore` and the tracked set agree, and the link mechanism is asserted both ways (ADR-REPO-ROOTCFG#6).
-- A `copyAsLink` entry is a filesystem link under three validated constraints, and `Set-FileLink` never copies (ADR-REPO-ROOTCFG#7).
-- A generator entry may name a wildcard target, each rendered file written, reported and checked on its own (ADR-REPO-ROOTCFG#8).
-- Every repository check is a quality gate that collects every issue, writes one report and throws once (ADR-AUTO-TEST#35).
+- Exactly one in-repo source of truth per opted-in root file; corrections go to the source (ADR-REPO-ROOTCFG-FULLYMANAGED).
+- One registry, validated by `RootConfigFiles` and written by `Build-RootConfig`; opt-out is the default (ADR-REPO-ROOTCFG-REGISTRY).
+- `committed` decides git membership and nothing else (ADR-REPO-ROOTCFG-COMMITTEDFLAG).
+- Idempotent generation on every import, through `Write-FileIfChanged` or `Set-FileLink` (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
+- A composed file carries the generated-file head, and a link carries none (ADR-REPO-ROOTCFG-COMPOSEDROOTFILE).
+- The registry, `.gitignore` and the tracked set agree, and the link mechanism is asserted both ways (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
+- A `copyAsLink` entry is a filesystem link under three validated constraints, and `Set-FileLink` never copies
+  (ADR-REPO-ROOTCFG-FILESYSTEMLINK).
+- A generator entry may name a wildcard target, each rendered file written, reported and checked on its own
+  (ADR-REPO-ROOTCFG-WILDCARDGENERATOR).
+- Every repository check is a quality gate that collects every issue, writes one report and throws once (ADR-AUTO-TEST-QUALITYGATE).
 
 ## Where the code and the ADR differ
 
-ADR-REPO-ROOTCFG#6 lists the drift check among the integrity test's assertions; the integrity check `Test-RootConfigFiles` compares no
-content, and the drift check lives in `Test-GeneratedFiles`.
+ADR-REPO-ROOTCFG-THREEWAYAGREEMENT lists the drift check among the integrity test's assertions; the integrity check `Test-RootConfigFiles`
+compares no content, and the drift check lives in `Test-GeneratedFiles`.
 
 ## See also
 

@@ -14,7 +14,7 @@ Deploy-Bicep adds the guards and the config lookup, and hands every vendor step 
 9   az CLI                        compiles, deploys, or previews with --what-if
 10  Bicep                         the templating language az compiles
 
-Supports ADR-DSGN-THINPLAT#2 and #3 (implementation lens).
+Supports ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT and ADR-DSGN-THINPLAT-PLATFORMASCLI (implementation lens).
 ```
 
 `Deploy-Bicep` is the one entry function that does a whole Bicep deploy. It resolves the az session's subscription against the
@@ -52,12 +52,14 @@ The diagram is described element by element in [its asset description](.assets/d
 
 ## Why it holds
 
-- Thin comes from delegation: Bicep templates, compiled by az, and az for every control-plane step (ADR-DSGN-THINPLAT#2).
-- `Deploy-Bicep` and its configuration are the API a consumer binds to; nothing behind it is called directly (ADR-DSGN-THINPLAT#3).
+- Thin comes from delegation: Bicep templates, compiled by az, and az for every control-plane step
+  (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
+- `Deploy-Bicep` and its configuration are the API a consumer binds to; nothing behind it is called directly
+  (ADR-DSGN-THINPLAT-PLATFORMASCLI).
 
 ## Where the code and the ADR differ
 
-- ADR-AZ-CLI#1 says to parse az output with `ConvertFrom-Json`, but `Deploy-Bicep` asks az for `--output yaml` and parses it with
+- ADR-AZ-CLI-AZBYDEFAULT says to parse az output with `ConvertFrom-Json`, but `Deploy-Bicep` asks az for `--output yaml` and parses it with
   `ConvertFrom-Yaml`.
 - ADR-DSGN-THINPLAT describes a single authentication path that is resolved for you. The code has two logins that meet at the az session,
   AzureCLI@2 in a pipeline and `Connect-AzCli` on a devbox, and on the devbox the caller picks the parameter set.

@@ -12,7 +12,7 @@ The CI budget is the only promotion rule a quality gate checks.
 7  DEPLOY-Prod      stage inactive in pre-prod, then activate live (#12)
 8  reviewer         code review, the only enforcer the ADR names for the whole flow
 
-Supports ADR-FLOW-CD#2, #3, #5, #9, #11, #12 and #13 and ADR-FLOW-CD-TYPE#4 and #8 to #11 (governance lens).
+Supports ADR-FLOW-CD-SHORTINTEGRATIONCYCLE, ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES, ADR-FLOW-CD-PREPRODRUNG, ADR-FLOW-CD-TWOENVIRONMENTACTIVATION and ADR-FLOW-CD-GATEDEFINED, ADR-FLOW-CD-TYPE-PRECOMMITBUDGET, ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL, ADR-FLOW-CD-TYPE-ONEDEPLOYPATH, ADR-FLOW-CD-TYPE-DEPLOYISPINNED and ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE (governance lens).
 ```
 
 The CI discipline and the promotion flow set a rule for every pipeline kind and gate between a merge and production. Only one of those rules
@@ -45,14 +45,15 @@ The diagram is described element by element in [its asset description](.assets/c
 
 ## Why it holds
 
-- The integration cycle is 5–10 minutes on a team basis; a gate slower than that becomes a queue (ADR-FLOW-CD#2, ADR-FLOW-CD-TYPE#4).
-- Build-once: nothing downstream rebuilds the tagged artifact (ADR-FLOW-CD#3).
-- CD stays entirely within non-prod (ADR-FLOW-CD#5).
-- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (ADR-FLOW-CD#9).
-- DEPLOY splits by target into DEPLOY-Non-Prod and DEPLOY-Prod, and acts only once a gate clears (ADR-FLOW-CD#11,
-  ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11).
-- Deploy to prod stages the artifact inactive in pre-prod, then activates it live (ADR-FLOW-CD#12).
-- A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (ADR-FLOW-CD#13).
+- The integration cycle is 5–10 minutes on a team basis; a gate slower than that becomes a queue (ADR-FLOW-CD-SHORTINTEGRATIONCYCLE,
+  ADR-FLOW-CD-TYPE-PRECOMMITBUDGET).
+- Build-once: nothing downstream rebuilds the tagged artifact (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
+- CD stays entirely within non-prod (ADR-FLOW-CD-CDSTAYSINNONPROD).
+- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (ADR-FLOW-CD-TWORELEASEGATES).
+- DEPLOY splits by target into DEPLOY-Non-Prod and DEPLOY-Prod, and acts only once a gate clears (ADR-FLOW-CD-PREPRODRUNG,
+  ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL–ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE).
+- Deploy to prod stages the artifact inactive in pre-prod, then activates it live (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION).
+- A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (ADR-FLOW-CD-GATEDEFINED).
 
 ## Where the code and the ADR differ
 

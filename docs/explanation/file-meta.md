@@ -16,9 +16,9 @@ Explains ADR-REPO-FILEMETA, ADR-REPO-CODEMETA, ADR-REPO-COMMENTS and ADR-REPO-HE
 A file in this repository is more than its text. It has a place (a path, a module, a track), a role (its kind), a language, things it points
 at (the rules it cites, the pages it links, its comment page, its test) and a status in git. Some files also carry these facts in a **meta
 block**: the `catzc` front-matter key of a Markdown file, the meta head of a code file, a property of a JSON file
-([ADR-REPO-FILEMETA#1](../adr/repository/file-meta.md#rule-adr-repo-filemeta1)). Which files carry one is a policy, and no command reads a
-fact back from one ([ADR-REPO-FILEMETA#14](../adr/repository/file-meta.md#rule-adr-repo-filemeta14)), so every command works the same
-whether a file has a block or not.
+([ADR-REPO-FILEMETA-HEADPOLICY](../adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)). Which files carry one is a policy, and
+no command reads a fact back from one ([ADR-REPO-FILEMETA-NOREADBACK](../adr/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)), so
+every command works the same whether a file has a block or not.
 
 ## The principle
 
@@ -29,7 +29,7 @@ run anything to see them. It is never the source:
   that wants a file's citations scans its text and its comment page, never its `cites` edge.
 - **Removing every head changes no verdict.** Every gate, generator and resolver gives the same answer on a tree with all heads stripped.
 - **A head is configured, not assumed.** Whether a file carries one is a setting with its default declared once
-  ([ADR-AUTO-DEFAULT#6](../adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+  ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 Three things can sit in front matter, and only the first is a fact:
 
@@ -42,24 +42,25 @@ Three things can sit in front matter, and only the first is a fact:
 ## Where each fact comes from
 
 Every imprinted kind is an entry of `pwsh/Catzc.Base.QualityGates/configs/file-meta.yml` with a `Get-<Kind>FileMetaFact` processor
-([ADR-REPO-FILEMETA#2](../adr/repository/file-meta.md#rule-adr-repo-filemeta2),
-[ADR-REPO-FILEMETA#4](../adr/repository/file-meta.md#rule-adr-repo-filemeta4)), and each derives from outside the head:
+([ADR-REPO-FILEMETA-METAKIND](../adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
+[ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../adr/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)), and each derives from
+outside the head:
 
-| Fact                                        | Source                                                                                                                       |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `path`, `folder`, `name`, `filetype`        | the path                                                                                                                     |
-| `kind`, `subkind`                           | `file-kinds.yml` by glob                                                                                                     |
-| `language`                                  | `languages.yml` by extension                                                                                                 |
-| `track`, `tracktype`, `vendor`              | the tracks registry                                                                                                          |
-| `module`, `moduletype`, `catzc_bundle`      | the module-types and exporter registries                                                                                     |
-| `visibility`                                | the module's `private/` folder                                                                                               |
-| `repo_status`                               | the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written                      |
-| `generator`, `source`                       | the writer, at write time; a generated file is told by `generated-files.yml` and `linguist-generated`                        |
-| `with_body_sha`                             | a hash of the body, recomputed and compared by `Get-GeneratedStampDrift`                                                     |
-| `defines`, `links`                          | the Markdown body                                                                                                            |
-| `cites`                                     | the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds              |
-| `page`, `test`                              | the `relative-edges` path rules and the disk                                                                                 |
-| comments (a long comment lives on its page) | `comments.yml`, the code and its page ([ADR-REPO-COMMENTS#1](../adr/repository/comments-in-docs.md#rule-adr-repo-comments1)) |
+| Fact                                        | Source                                                                                                                                                      |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`, `folder`, `name`, `filetype`        | the path                                                                                                                                                    |
+| `kind`, `subkind`                           | `file-kinds.yml` by glob                                                                                                                                    |
+| `language`                                  | `languages.yml` by extension                                                                                                                                |
+| `track`, `tracktype`, `vendor`              | the tracks registry                                                                                                                                         |
+| `module`, `moduletype`, `catzc_bundle`      | the module-types and exporter registries                                                                                                                    |
+| `visibility`                                | the module's `private/` folder                                                                                                                              |
+| `repo_status`                               | the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written                                                     |
+| `generator`, `source`                       | the writer, at write time; a generated file is told by `generated-files.yml` and `linguist-generated`                                                       |
+| `with_body_sha`                             | a hash of the body, recomputed and compared by `Get-GeneratedStampDrift`                                                                                    |
+| `defines`, `links`                          | the Markdown body                                                                                                                                           |
+| `cites`                                     | the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds                                             |
+| `page`, `test`                              | the `relative-edges` path rules and the disk                                                                                                                |
+| comments (a long comment lives on its page) | `comments.yml`, the code and its page ([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](../adr/repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) |
 
 `Get-AdrUsage` counts the ADR citations and links of the tree through the same processors, so its rows are the same with or without heads.
 
@@ -84,12 +85,13 @@ part is a finding left for the author (`ForbiddenConfig`), so no authored key is
 ## Function help on the comment page
 
 A function's help is prose an author writes, so it lives with the file's other prose: in the `## help` section of its comment page, the page
-`comments.yml` names for the path ([ADR-REPO-HELP#1](../adr/repository/function-help.md#rule-adr-repo-help1)). The section has one shape,
+`comments.yml` names for the path
+([ADR-REPO-HELP-HELPONCOMMENTPAGE](../adr/repository/function-help.md#rule-adr-repo-help-helponcommentpage)). The section has one shape,
 `### synopsis`, `### description`, one ``### parameter `<Name>` `` per parameter in `param()` order, the name written as code, `### inputs`,
 `### outputs`, one `### example <n>` per example and `### notes`, and `Export-Comments`, which appends the page's `## comment:<n>` sections,
-never writes it ([ADR-REPO-COMMENTS#6](../adr/repository/comments-in-docs.md#rule-adr-repo-comments6)). `Format-Code` checks it through its
-`ps-help` step (`Get-HelpPageFinding`): a function file with no page, a page with no synopsis, a parameter with no subsection or a
-subsection for one that is gone, and an `outputs` type that disagrees with `[OutputType]` are findings.
+never writes it ([ADR-REPO-COMMENTS-PAGEISAUTHORED](../adr/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)).
+`Format-Code` checks it through its `ps-help` step (`Get-HelpPageFinding`): a function file with no page, a page with no synopsis, a
+parameter with no subsection or a subsection for one that is gone, and an `outputs` type that disagrees with `[OutputType]` are findings.
 
 ## The repository-wide tools
 
@@ -99,14 +101,14 @@ Each tool runs over the repository, or over the paths given, and each is idempot
 - **`Format-Code`** formats each file with the formatter engine `languages.yml` names for its language and runs the language's imprint
   steps, and `Test-Formatting` fails when a run would change anything. Markdown is formatted at 140 columns; `Test-Markdownlint` lints it,
   and `Format-MarkdownTitle` brings the H1 and the headings into normal form. The imprint is stable under these formatters, so the two never
-  undo each other ([ADR-REPO-FILEMETA#3](../adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
+  undo each other ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts)).
 - **`Format-FileMeta`** brings every in-scope file to its head policy, and `Test-FileMeta` fails any difference and any key no kind owns.
   Its scope is `Get-FileMetaScope`: the files a folder lists in git, or a file named in `-Path` as given, new or tracked, unless git ignores
-  it, less those `.gitattributes` exempts ([ADR-REPO-FILEMETA#5](../adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
+  it, less those `.gitattributes` exempts ([ADR-REPO-FILEMETA-KINDSCOPE](../adr/repository/file-meta.md#rule-adr-repo-filemeta-kindscope)).
 - **`Export-Comments`** moves every long comment into the file's comment page, and `Test-Comments` checks that each page section still names
   a code line.
 - **`Format-GeneratedFileHead`** is the one function every writer calls to compose a generated file's head; the imprint leaves those files
-  alone ([ADR-REPO-FILEMETA#7](../adr/repository/file-meta.md#rule-adr-repo-filemeta7)).
+  alone ([ADR-REPO-FILEMETA-COMPOSEDFILES](../adr/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles)).
 
 ## The single-file tool: Sync-FileMeta
 

@@ -5,7 +5,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new('widget', [ordered]@{
                     key         = 'widget'
                     domain      = 'repository'
-                    defined_by  = 'ADR-TST-WIDGET#1'
+                    defined_by  = 'ADR-TST-WIDGET-REST'
                     short       = 'A widget.'
                     realized_by = [ordered]@{ kind = 'prose-only' }
                     forms       = @('gadget', 'CI')
@@ -27,7 +27,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
                 })
             Write-Output -NoEnumerate $found
         }
-        $script:tail = '"widget" takes only: gadget widget, CI widget, widget (ADR-TST-WIDGET#1)'
+        $script:tail = '"widget" takes only: gadget widget, CI widget, widget (ADR-TST-WIDGET-REST)'
     }
 
     It 'reports a qualifier outside the forms with its file, line, use, the allowed forms, and the defining rule' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
@@ -98,7 +98,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         $sprocketWidget = [Catzc.Base.Docs.GlossaryConcept]::new('sprocket widget', [ordered]@{
                 key         = 'sprocket_widget'
                 domain      = 'design'
-                defined_by  = 'ADR-TST-SPROCKET#1'
+                defined_by  = 'ADR-TST-SPROCKET-TURN'
                 short       = 'A sprocket widget.'
                 realized_by = [ordered]@{ kind = 'prose-only' }
             })

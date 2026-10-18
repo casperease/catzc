@@ -12,7 +12,7 @@ Only the BVT rung has a gate in code; every sync-point rule is ADR-only.
 7  ci-automation        the one gate code enforces: BVT, which rejects a failing commit
 8  dirty HEAD           commit 10, failed in main-UAT; nothing syncs from it
 
-Supports ADR-DSGN-LIFE#2, #5, #6, #7 and #8, ADR-FLOW-CD#5, #9 and #11 (governance lens).
+Supports ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-PREPRODRUNG (governance lens).
 ```
 
 The sync point is the commit `main-UAT` holds: upstream integrators take it, never the tip of main. Of the rules that govern the rungs of
@@ -25,39 +25,43 @@ The diagram is described element by element in [its asset description](.assets/s
 
 ## Walkthrough
 
-1. **Upstream integrator.** Takes its commit from the `main-UAT` occupant (ADR-DSGN-LIFE#6) and never from the dirty HEAD (ADR-DSGN-LIFE#7).
-   Nothing in code checks either.
-2. **Production.** Holds one occupant, commit 4, plus a history (ADR-DSGN-LIFE#5). No pipeline records which commit that is.
-3. **Pre-prod.** The staged rung between release-uat and production (ADR-FLOW-CD#11). It holds one green commit with no worked-example
-   number.
-4. **Release-uat.** Holds commit 5. Its commit moves on through RBC, the manual gate on release-AT (ADR-FLOW-CD#9). No code runs RBC.
-5. **main-UAT.** Holds commit 6, the stable sync point (ADR-DSGN-LIFE#6). Its commit moves on through RC, the manual gate on main-AT
-   (ADR-FLOW-CD#9). No code runs RC.
+1. **Upstream integrator.** Takes its commit from the `main-UAT` occupant (ADR-DSGN-LIFE-SYNCFROMMAINUAT) and never from the dirty HEAD
+   (ADR-DSGN-LIFE-DIRTYHEADUNSAFE). Nothing in code checks either.
+2. **Production.** Holds one occupant, commit 4, plus a history (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT). No pipeline records which commit
+   that is.
+3. **Pre-prod.** The staged rung between release-uat and production (ADR-FLOW-CD-PREPRODRUNG). It holds one green commit with no
+   worked-example number.
+4. **Release-uat.** Holds commit 5. Its commit moves on through RBC, the manual gate on release-AT (ADR-FLOW-CD-TWORELEASEGATES). No code
+   runs RBC.
+5. **main-UAT.** Holds commit 6, the stable sync point (ADR-DSGN-LIFE-SYNCFROMMAINUAT). Its commit moves on through RC, the manual gate on
+   main-AT (ADR-FLOW-CD-TWORELEASEGATES). No code runs RC.
 6. **On-demand (L3).** The on-demand environment where CD runs the L3 system-level end-to-end tests before it rolls the artifact onto the
-   always-on environment (ADR-FLOW-CD#5). No pipeline defines it.
+   always-on environment (ADR-FLOW-CD-CDSTAYSINNONPROD). No pipeline defines it.
 7. **ci-automation.** The one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests to main that
    touch `pwsh/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit
-   automatically, as BVT should (ADR-DSGN-LIFE#2).
-8. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it (ADR-DSGN-LIFE#7), and it
-   feeds nothing downstream (ADR-DSGN-LIFE#8). It keeps the blue of the state it carried into `main-UAT`.
+   automatically, as BVT should (ADR-DSGN-LIFE-DISCARDISTERMINAL).
+8. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it
+   (ADR-DSGN-LIFE-DIRTYHEADUNSAFE), and it feeds nothing downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM). It keeps the blue of the state it
+   carried into `main-UAT`.
 
 ## Why it holds
 
-- BVT discards automatically, at a named stage (ADR-DSGN-LIFE#2); `ci-automation` is that gate.
-- Each always-on environment hosts exactly one occupant plus a history (ADR-DSGN-LIFE#5). The glossary defines "occupant" as `prose-only`,
-  so `Test-Glossary` checks only its phrasing ("current occupant", "resident commit") and exempts it from the enforcement check.
-- Integrators sync from the `main-UAT` occupant, never from HEAD (ADR-DSGN-LIFE#6, ADR-DSGN-LIFE#7), and a failed commit goes nowhere
-  downstream (ADR-DSGN-LIFE#8).
-- RC and RBC are manual gates at `main-UAT` and release-uat (ADR-FLOW-CD#9); the tail runs through pre-prod (ADR-FLOW-CD#11); L3 runs in an
-  on-demand environment (ADR-FLOW-CD#5).
+- BVT discards automatically, at a named stage (ADR-DSGN-LIFE-DISCARDISTERMINAL); `ci-automation` is that gate.
+- Each always-on environment hosts exactly one occupant plus a history (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT). The glossary defines
+  "occupant" as `prose-only`, so `Test-Glossary` checks only its phrasing ("current occupant", "resident commit") and exempts it from the
+  enforcement check.
+- Integrators sync from the `main-UAT` occupant, never from HEAD (ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE), and a
+  failed commit goes nowhere downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+- RC and RBC are manual gates at `main-UAT` and release-uat (ADR-FLOW-CD-TWORELEASEGATES); the tail runs through pre-prod
+  (ADR-FLOW-CD-PREPRODRUNG); L3 runs in an on-demand environment (ADR-FLOW-CD-CDSTAYSINNONPROD).
 
 ## Where the code and the ADR differ
 
 The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with occupants and RC and RBC gates. The CD pipelines
 define none of them: a main commit that passes its CI stage is deployed to every target of a stage at once, non-prod and prod tier side by
-side (`nsub` and `psub`, or the expedition's `dev` and `prod`), with no gate between the environments. ADR-DSGN-LIFE#8 holds in code only
-between pipeline stages, through `succeeded()` conditions, not between environment rungs. No pipeline defines the on-demand L3 environment.
-The ADRs also spell the environment `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
+side (`nsub` and `psub`, or the expedition's `dev` and `prod`), with no gate between the environments. ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
+holds in code only between pipeline stages, through `succeeded()` conditions, not between environment rungs. No pipeline defines the
+on-demand L3 environment. The ADRs also spell the environment `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
 
 ## See also
 

@@ -10,12 +10,12 @@ Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
                     '| `ADR-TST-GADGET` | [gadget-thing](repository/gadget-thing.md) |'
                 ) -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/widget-thing.md'), (@(
-                    '### Rule ADR-TST-WIDGET:1'
+                    '### Rule ADR-TST-WIDGET-SUITE'
                     ''
                     'A **widget suite** is every widget file at rest; write it `A **widget suite** is …`.'
                 ) -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/gadget-thing.md'), (@(
-                    '### Rule ADR-TST-GADGET:1'
+                    '### Rule ADR-TST-GADGET-RUN'
                     ''
                     'A **gadget run**'
                     'executes widgets.'
@@ -26,11 +26,11 @@ Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
     }
 
     It 'maps every rule of every indexed ADR to its one-line statement' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
-        @($script:statements.Keys | Sort-Object) | Should -Be @('ADR-TST-GADGET:1', 'ADR-TST-WIDGET:1')
-        $script:statements['ADR-TST-GADGET:1'] | Should -Be 'A **gadget run** executes widgets.'
+        @($script:statements.Keys | Sort-Object) | Should -Be @('ADR-TST-GADGET-RUN', 'ADR-TST-WIDGET-SUITE')
+        $script:statements['ADR-TST-GADGET-RUN'] | Should -Be 'A **gadget run** executes widgets.'
     }
 
     It 'drops inline code spans, which are mentions rather than definitions' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
-        $script:statements['ADR-TST-WIDGET:1'] | Should -Be 'A **widget suite** is every widget file at rest; write it .'
+        $script:statements['ADR-TST-WIDGET-SUITE'] | Should -Be 'A **widget suite** is every widget file at rest; write it .'
     }
 }

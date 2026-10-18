@@ -9,7 +9,7 @@ One flattened scan program is rendered exactly for GitHub and by last select for
 4  GitHub paths             the program in order, each drop as a ! negation: exact
 5  ADO include and exclude  each pattern collapsed to its last select: order lost
 
-Supports ADR-FLOW-CD-GLOBS#4, #6 and #8 (meta lens).
+Supports ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-COMPOSESETS (meta lens).
 ```
 
 A globset in cats maps a deployable unit onto its files, and a pipeline triggers on that mapping. The mapping is an ordered scan program,
@@ -39,12 +39,12 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - Membership is an ordered scan program of select and drop rules over tracked files, evaluated last-match-wins with a default of
-  not-selected; precedence is position, never kind (ADR-FLOW-CD-GLOBS#4).
+  not-selected; precedence is position, never kind (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY).
 - A pipeline, workflow or build-validation policy triggers on the globset's native path-filter projection: GitHub `on.*.paths` with ordered
   `!` negation, exact; Azure DevOps `trigger.paths.include` and `exclude`, order-independent, so each pattern is collapsed to its last
-  select (ADR-FLOW-CD-GLOBS#6).
+  select (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
 - A globset may compose other declared sets: the composed programs come first and the set's own rules last, and the flattened program is
-  what both the projection and the durable SHA are computed from (ADR-FLOW-CD-GLOBS#8).
+  what both the projection and the durable SHA are computed from (ADR-FLOW-CD-GLOBS-COMPOSESETS).
 
 ## See also
 

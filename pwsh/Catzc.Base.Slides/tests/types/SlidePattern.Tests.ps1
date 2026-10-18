@@ -55,7 +55,7 @@ catzc:
             $source = [Catzc.Base.Slides.SlideSource]::Parse($Body)
             $script:pattern.Render($source, 'docs/gadget.slide.md', $script:kit, 'gadget', $Page)
         }
-        $script:good = "# The widget spins`n`n## Eyebrow`n`nADR-WIDGET-GADGET#2`n`n## Body`n`nA widget spins when wound.`n`n## Notes`n`nSay it."
+        $script:good = "# The widget spins`n`n## Eyebrow`n`nADR-WIDGET-GADGET-SPIN`n`n## Body`n`nA widget spins when wound.`n`n## Notes`n`nSay it."
     }
 
     It 'reads the fields of a pattern: inline ones from placeholders, block ones from data-field, each with its capacity' {
@@ -82,7 +82,7 @@ catzc:
 
     It 'fills inline fields trimmed, and a block field once per paragraph without the template attributes' {
         $html = (& $render "$good`n`nA second paragraph.".Replace("## Notes`n`nSay it.`n`nA second paragraph.", "A second paragraph.`n`n## Notes`n`nSay it.")).Html
-        $html | Should -Match '<p style="color:#ABCDEF">ADR-WIDGET-GADGET#2</p>'
+        $html | Should -Match '<p style="color:#ABCDEF">ADR-WIDGET-GADGET-SPIN</p>'
         $html | Should -Match '<h2 style="font-size:72px">The widget spins</h2>'
         $html | Should -Match '<div><p>A widget spins when wound.</p><p>A second paragraph.</p></div>'
         $html | Should -Not -Match 'data-field|data-item|data-max'
@@ -123,7 +123,7 @@ catzc:
     }
 
     It 'reports an inline field given more than one line, a card without a lead, and a table field given prose' {
-        $faults = @((& $render "$good`n`n## Cards`n`n- No lead here.`n`n## Rows`n`nProse, not a table.".Replace("## Eyebrow`n`nADR-WIDGET-GADGET#2", "## Eyebrow`n`nOne`n`nTwo")).Faults | ForEach-Object ToString)
+        $faults = @((& $render "$good`n`n## Cards`n`n- No lead here.`n`n## Rows`n`nProse, not a table.".Replace("## Eyebrow`n`nADR-WIDGET-GADGET-SPIN", "## Eyebrow`n`nOne`n`nTwo")).Faults | ForEach-Object ToString)
         $faults | Should -Contain "docs/gadget.slide.md: field 'eyebrow': pattern 'widget' takes one line here; the slide gives 2 items"
         $faults | Should -Contain "docs/gadget.slide.md: field 'cards': item 1 has no bold lead; pattern 'widget' shows one per item"
         $faults | Should -Contain "docs/gadget.slide.md: field 'rows': pattern 'widget' takes a markdown table here, with its first row the header"

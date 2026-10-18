@@ -59,8 +59,7 @@ function Build-Glossary {
             $lines.Add('')
 
             # The defining rule as a markdown link relative to docs/adr/ (the citation map's destination is repo-rooted).
-            $code, $rule = $concept.defined_by -split '#'
-            $destination = $citations.Destination($code, [int] $rule)
+            $destination = $citations.Destination($concept.defined_by)
             $definedBy = if ($destination) {
                 "[$($concept.defined_by)]($($destination -replace '^/docs/adr/', ''))"
             }

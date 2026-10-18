@@ -20,7 +20,7 @@ task:
 
 Seven plans hold a question only the user can answer, and two of them (plan-promotion-ladder, plan-diagram-folders) are blocked on nothing
 else. One round through `plan-decide` asks them all: a questionnaire file, four items per ask with the recommendation first, every answer
-recorded with its projected outcome, then folded into the owning plan (ADR-REPO-PLANS#9: a constraining decision becomes an ADR rule in the
+recorded with its projected outcome, then folded into the owning plan (ADR-REPO-PLANS-DECISIONSBECOMERULES: a constraining decision becomes an ADR rule in the
 change that lands it). The questions, with the plan that owns each:
 
 - plan-promotion-ladder Q1 to Q4: where main-uat lives; what certifies RC and RBC; pre-prod a new subscription or a staging slot; whether

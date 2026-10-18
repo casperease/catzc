@@ -38,9 +38,9 @@ contributes, because provenance is a set (a Describe rule and an inner It rule b
 
 ## comment:2
 
-Above `if ($tag -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {`, written with `#`.
+Above `if ($tag -cmatch '^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {`, written with `#`.
 
 ```text
-Strict, case-sensitive citation grammar: only a well-formed 'ADR-<CODE>#<n>' contributes. A
+Strict, case-sensitive citation grammar: only a well-formed rule code contributes. A
 miscased or malformed tag is Get-TestTagViolations' concern, not a coverage row's.
 ```

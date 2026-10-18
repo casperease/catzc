@@ -25,7 +25,7 @@ legend entry on a diagram uses the phrase given here. How to read a diagram with
 | failure       | light red rounded box                                 | a throw, rejection or discard; the only red                           |
 | ADR-only      | the glyph's shape, white with a dashed outline        | something an ADR states that no code runs or checks                   |
 | actor         | white circle                                          | a person, such as a developer or reviewer                             |
-| commit        | small disc with a digit, in the locked commit palette | one commit, in the colour of its delivery state (ADR-DSGN-VISUAL#4)   |
+| commit        | small disc with a digit, in the locked commit palette | one commit, in the colour of its delivery state (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE)   |
 
 Code unit, store and runner share the slate colour; their shapes tell them apart.
 

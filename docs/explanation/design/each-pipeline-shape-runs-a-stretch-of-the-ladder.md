@@ -8,7 +8,7 @@ Six pipeline shapes each run a stretch of one promotion ladder, and a commit can
 3  the shapes    six panels, each a different stretch of the ladder
 4  the exit      under every step a dashed arrow to discarded
 
-Supports ADR-DSGN-LIFE#1, #2 and #8, and ADR-FLOW-CD#9 and #10.
+Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, and ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT.
 ```
 
 There is one promotion ladder, and cats has more than one way to run it. A shape is the choice of how a commit gets onto the ladder and how
@@ -40,13 +40,14 @@ which steps they include and where the row ends.
 ## Why it holds
 
 - Every shape climbs the same ladder in the same order, so a colour means the same durable fact in every panel
-  ([ADR-DSGN-LIFE#1](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life1)).
+  ([ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-onestateadvancesonerung)).
 - Every step has an exit to discarded, and the discarded commit stays in history
-  ([ADR-DSGN-LIFE#2](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life2)).
-- A failed step stops the commit going further in every shape ([ADR-DSGN-LIFE#8](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life8)).
+  ([ADR-DSGN-LIFE-DISCARDISTERMINAL](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-discardisterminal)).
+- A failed step stops the commit going further in every shape
+  ([ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-failedstaysupstream)).
 - RC and RBC are defined by the flow model, and the acceptance testing that clears them is separate from the environment it runs in
-  ([ADR-FLOW-CD#9](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9),
-  [ADR-FLOW-CD#10](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10)).
+  ([ADR-FLOW-CD-TWORELEASEGATES](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates),
+  [ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat)).
 
 ## See also
 

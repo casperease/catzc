@@ -26,7 +26,7 @@ Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
         $script:gadget = 'C:\repo\automation\Gadget\tests\Get-Gadget.Tests.ps1'
         $script:discovery = [pscustomobject]@{
             Tests = @(
-                (New-FakeTest -File $script:widget -Name 'Widget.logic' -BlockTags @('L0', 'logic', 'ADR-TST-WIDGET#1'))
+                (New-FakeTest -File $script:widget -Name 'Widget.logic' -BlockTags @('L0', 'logic', 'ADR-TST-WIDGET-TURN'))
                 (New-FakeTest -File $script:gadget -Name 'Gadget.real environment' -BlockTags @('L3', 'logic', 'source-only'))
             )
         }
@@ -58,8 +58,8 @@ Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
     }
 
     It 'throws when no test cites the -Rule' {
-        $script:arguments.Rule = @('ADR-TST-GADGET#9')
-        { Select-Run $script:arguments } | Should -Throw '*No test cites ADR-TST-GADGET#9*'
+        $script:arguments.Rule = @('ADR-TST-GADGET-DROP')
+        { Select-Run $script:arguments } | Should -Throw '*No test cites ADR-TST-GADGET-DROP*'
     }
 
     It 'adds the opt-out tag to the exclude tags and throws when it leaves nothing to run' {

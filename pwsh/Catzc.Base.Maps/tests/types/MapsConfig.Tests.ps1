@@ -3,7 +3,7 @@ Describe 'MapsConfig' -Tag 'L0' {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Maps.MapsConfig]::new($raw) }
         $script:times = [string][char]0x00D7
         $script:arrow = [string][char]0x2192
-        $script:pin = { [ordered]@{ adr = 'ADR-WIDGET-GADGET#3'; track = 'widgets'; file_language = 'gadget-script'; reason = 'reviewed widget mention' } }
+        $script:pin = { [ordered]@{ adr = 'ADR-WIDGET-GADGET-FOLD'; track = 'widgets'; file_language = 'gadget-script'; reason = 'reviewed widget mention' } }
     }
 
     Context 'integrity (shipped maps.yml)' -Tag 'L1', 'integrity' {
@@ -96,7 +96,7 @@ Describe 'MapsConfig' -Tag 'L0' {
             $config.labels.value_chain_legend_adrs | Should -Be 'Gadget: widgets'
             $config.labels.value_chain_legend_highlight | Should -Be 'Lit gadget'
             $config.highlight.pins[0] | Should -BeOfType [Catzc.Base.Maps.MapsPin]
-            $config.highlight.pins[0].adr | Should -Be 'ADR-WIDGET-GADGET#3'
+            $config.highlight.pins[0].adr | Should -Be 'ADR-WIDGET-GADGET-FOLD'
             $config.highlight.pins[0].track | Should -Be 'widgets'
             $config.highlight.pins[0].file_language | Should -Be 'gadget-script'
             $config.highlight.exceptions[0].reason | Should -Be 'reviewed widget mention'

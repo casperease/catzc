@@ -8,20 +8,19 @@ preamble: |
 
   ## Citing a rule
 
-  Every ADR carries a numbered rule registry as its first content section: `## Rules: <code>`, followed by
-  `### Rule <code>:<n>` entries (each a normative summary plus internal links to the prose that justifies it).
+  Every ADR carries a rule registry as its first content section: `## Rules: <code>`, followed by `### Rule <code>-<NAME>` entries (each a
+  normative summary plus internal links to the prose that justifies it). The grammar is its own ADR, ADR-REPO-ADRCODE.
 
-  - Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus one or more uppercase segments — so
-    `ADR-` is the single searchable marker for a rule reference anywhere in the repository.
-  - **Cite a rule** as `<code>#<n>` — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`, `ADR-AZ-NAMING-NEVERTRUNCATE`.
-  - That resolves to the anchor `#rule-<code><n>` with the code lowercased and the `:` dropped — e.g.
-    `pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror` (so it is `rule-adr-pwsh-error-thrownotwriteerror`, not
-    `rule-adr-pwsh-error-3`).
-  - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
-  - `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
-    `### Rule <code>:<n>` heading (ADR-REPO-LINK-ONECITATIONSPELLING).
-  - A rule's number is stable: a retired rule's number is never reused, so a registry may skip numbers, and a citation never changes its
-    meaning when a neighbouring rule goes.
+  - A code is a path: `ADR`, then the domain, then the ADR, then the rule, each an upper-case segment joined by `-`, so `ADR-` is the single
+    searchable marker for a reference anywhere in the repository (ADR-REPO-ADRCODE-PATHOFSEGMENTS).
+  - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
+    `ADR-AZ-NAMING-NEVERTRUNCATE`. A rule is never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED).
+  - The code resolves to the heading's anchor, `#rule-` and the code in lower case — e.g.
+    `pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
+  - A code selects everything below it: `ADR-PWSH` is every ADR of the domain, `ADR-PWSH-ERROR` every rule of the ADR
+    (ADR-REPO-ADRCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
+    (ADR-REPO-ADRCODE-NOSUBSETSPELLING).
+  - A name is unique under its parent and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.
 
   ## Codes
 conventions: |

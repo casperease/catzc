@@ -12,12 +12,6 @@ public enum LinkFindingType
     TextMismatch,   // a code link whose destination disagrees with its citation text; the code wins
     NonCanonical,   // a code link in another shape (relative destination, slug text) is re-spelled canonically
 
-    // Both kinds — fixable.
-    Colon,          // `ADR-X:n` becomes `ADR-X#n` outside the rule's own heading
-
-    // Code kind, string literals — fixable. Strings are data, so the citation stays plain: only its ':' changes.
-    StringColon,    // `ADR-X:n` in a string literal becomes `ADR-X#n` outside a `### Rule` heading
-
     // Markdown kind — fixable.
     Rooted,         // a repository-rooted link in a .md file becomes relative to the file
 
@@ -26,6 +20,8 @@ public enum LinkFindingType
     Untracked,      // a markdown link target exists on disk but git does not track it, so GitHub cannot resolve it
     UnknownCode,    // the citation code is not in the ADR index
     UnknownRule,    // the ADR declares no such rule
+    Numbered,       // a numbered citation (`ADR-X:n`, `ADR-X#n`) where a rule is cited by its name
+    StringNumbered, // a numbered citation in a string literal; the string_citations setting decides whether it fails the gate
     BadAnchor,      // the #fragment names no heading or anchor of the target
     EscapesRoot,    // a relative link climbs above the repository root
     SelfUrl,        // an absolute URL into this repository outside .github/

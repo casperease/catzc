@@ -28,9 +28,10 @@ catzc:
     moduletype: settings
   edges:
     cites:
+      - ADR-PROC-PULLWORK-PULLNOTPUSH
+      - ADR-PROC-PULLWORK-LIMITWORKINPROGRESS
       - ADR-REPO-AI-TRUSTTHETREE
       - ADR-REPO-AI-NEVERDECIDEFORUSER
-      - ADR-PROC-PULLWORK-PULLNOTPUSH
 ---
 
 # implementation-orchestrator

@@ -143,7 +143,8 @@ large **retained** collection, never to save call cost.
 5. **Allocation share check.** A stage that allocates 480 MB in 830 ms cannot be explained by 24 B boxes: 480 MB is 20 million of them. If
    the arithmetic does not reach the observed bytes, the cost is elsewhere (in this repository: parsing, per-file function calls).
 6. **Outside this repository:** BenchmarkDotNet's `MemoryDiagnoser` and the Roslyn heap-allocation analyzers (the `HAA06xx` rules flag
-   implicit boxing) are the standard tools. Neither is a dependency here (`ADR-PWSH-TYPES#1` allows no packages in `types/`).
+   implicit boxing) are the standard tools. Neither is a dependency here (`ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES` allows no packages in
+   `types/`).
 
 ## 5. How to reduce it, in order of payoff
 
@@ -162,7 +163,7 @@ large **retained** collection, never to save call cost.
 
 What not to do: replace a boxed numeric comparison with `==` on `object` (reference equality, wrong); add a fast path whose result differs
 from the general path for any input (int against long and double must stay equal by value); cache anything that can change inside a process
-(a type cannot, `ADR-AUTO-TYPES#7`; a guard's verdict can).
+(a type cannot, `ADR-AUTO-TYPES-CHANGEDAFTERLOAD`; a guard's verdict can).
 
 ## 6. This repository, measured
 

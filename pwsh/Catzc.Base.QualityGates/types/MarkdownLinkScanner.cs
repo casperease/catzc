@@ -16,8 +16,7 @@ public sealed class MarkdownLinkScanner
         RegexOptions.Compiled);
     static readonly Regex ReferenceDefinition = new Regex(@"^ {0,3}\[[^\]]+\]:[ \t]*(?<dest><[^>]*>|\S+)", RegexOptions.Compiled);
     static readonly Regex Autolink = new Regex(@"(?<!\\)<(?<dest>[a-zA-Z][a-zA-Z0-9+.\-]*:[^\s<>]+)>", RegexOptions.Compiled);
-    static readonly Regex ColonCitation = new Regex(@"(?<![\w\-])ADR-[A-Z]+(?:-[A-Z]+)*(?<colon>:)(?=\d)", RegexOptions.Compiled);
-    static readonly Regex RuleHeading = new Regex(@"^ {0,3}#{1,6}[ \t]+Rule[ \t]+ADR-", RegexOptions.Compiled);
+    static readonly Regex NumberedCitation = new Regex(@"(?<![\w\-])ADR(?:-[A-Z][A-Z0-9]*)+[:#]\d+", RegexOptions.Compiled);
     static readonly Regex Fence = new Regex(@"^ {0,3}(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
 
@@ -73,18 +72,11 @@ public sealed class MarkdownLinkScanner
                 CheckDestination(dest.Value, lineStart + dest.Index, dest.Length, directory, repoPath, underGitHub, hits, edits);
             }
 
-            if (!RuleHeading.IsMatch(line))
+            foreach (Match citation in NumberedCitation.Matches(line))
             {
-                foreach (Match citation in ColonCitation.Matches(line))
-                {
-                    if (literal[citation.Index]) { continue; }
-                    int at = lineStart + citation.Groups["colon"].Index;
-                    string cited = citation.Value + ReadDigits(line, citation.Index + citation.Length);
-                    string fixedCitation = cited.Replace(':', '#');
-                    hits.Add(new CodeLinkRewriter.Hit(lineStart + citation.Index, LinkFindingType.Colon,
-                        string.Format(CultureInfo.InvariantCulture, "rule citation '{0}' -> {1}", cited, fixedCitation), fixedCitation));
-                    edits.Add((at, 1, "#"));
-                }
+                if (literal[citation.Index]) { continue; }
+                hits.Add(new CodeLinkRewriter.Hit(lineStart + citation.Index, LinkFindingType.Numbered,
+                    string.Format(CultureInfo.InvariantCulture, "'{0}' is a numbered citation; cite the rule by its name", citation.Value), string.Empty));
             }
         }
 
@@ -234,13 +226,6 @@ public sealed class MarkdownLinkScanner
                     string.Format(CultureInfo.InvariantCulture, "{0} has no heading or anchor '#{1}'", targetRepoPath, fragment), string.Empty));
             }
         }
-    }
-
-    static string ReadDigits(string line, int index)
-    {
-        int end = index;
-        while (end < line.Length && char.IsDigit(line[end])) { end++; }
-        return line.Substring(index, end - index);
     }
 
     static bool[] CodeSpans(string line)

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a3f7b58f973b
+    with_body_sha: f48d28b36678
     repo_status: locked
     path: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/chain.md
     source: docs/explanation/automation/.assets/two-gates-check-the-layer-pins/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-AUTO-DEPM and ADR-AUTO-TEST sit in the value chain: value-chain stack 
 ![The value-chain minimap of Two gates check the layer pins, and one rule is left to review](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Two gates check the layer pins, and one rule is left to
-review][6], which explains [ADR-AUTO-DEPM][1] and [ADR-AUTO-TEST][2]. It lights the cells of the value-chain map where the cited ADRs'
+review][4], which explains [ADR-AUTO-DEPM][1] and [ADR-AUTO-TEST][2]. It lights the cells of the value-chain map where the cited ADRs'
 value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code
 that selects it.
 
@@ -54,67 +54,26 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### AUTO × quality-control (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-AUTO-TEST][2]: selected by [ADR-AUTO-TEST][2]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control) override its ADR domain's default (automation), so it lights the
-  quality-control column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control) override its ADR domain's default (automation), so
+  it lights the quality-control column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ## Keywords
 
-- [value-chain map][7]
-- [value-chain stack][8]
-- [value-chain concern][9]
-- [cell][10]
-- [lit cell][11]
-
-Terms the cited ADRs define:
-
-- [all tests][12], defined by [ADR-AUTO-TEST#36][13]
-- [build verification test][14], defined by [ADR-AUTO-TEST#24][15]
-- [category][16], defined by [ADR-AUTO-TEST#1][17]
-- [phase][18], defined by [ADR-AUTO-TEST#26][19]
-- [quality gate][20], defined by [ADR-AUTO-TEST#35][21]
-- [test][22], defined by [ADR-AUTO-TEST#42][23]
-- [test file][24], defined by [ADR-AUTO-TEST#43][25]
-- [test run][26], defined by [ADR-AUTO-TEST#34][27]
-- [test suite][28], defined by [ADR-AUTO-TEST#37][29]
-- [testing in production][30], defined by [ADR-AUTO-TEST#41][31]
-- [tier][32], defined by [ADR-AUTO-TEST#13][33]
-- [vertical test][34], defined by [ADR-AUTO-TEST#38][35]
+- [value-chain map][5]
+- [value-chain stack][6]
+- [value-chain concern][7]
+- [cell][8]
+- [lit cell][9]
 
 [1]: ../../../../adr/automation/controlling-module-dependencies.md
 [2]: ../../../../adr/automation/test-automation.md
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../two-gates-check-the-layer-pins.md
-[7]: ../../../../adr/glossary.md#value-chain-map
-[8]: ../../../../adr/glossary.md#value-chain-stack
-[9]: ../../../../adr/glossary.md#value-chain-concern
-[10]: ../../../../adr/glossary.md#cell
-[11]: ../../../../adr/glossary.md#lit-cell
-[12]: ../../../../adr/glossary.md#all-tests
-[13]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test36
-[14]: ../../../../adr/glossary.md#build-verification-test
-[15]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test24
-[16]: ../../../../adr/glossary.md#category
-[17]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test1
-[18]: ../../../../adr/glossary.md#phase
-[19]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test26
-[20]: ../../../../adr/glossary.md#quality-gate
-[21]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test35
-[22]: ../../../../adr/glossary.md#test
-[23]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test42
-[24]: ../../../../adr/glossary.md#test-file
-[25]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test43
-[26]: ../../../../adr/glossary.md#test-run
-[27]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test34
-[28]: ../../../../adr/glossary.md#test-suite
-[29]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test37
-[30]: ../../../../adr/glossary.md#testing-in-production
-[31]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test41
-[32]: ../../../../adr/glossary.md#tier
-[33]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test13
-[34]: ../../../../adr/glossary.md#vertical-test
-[35]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test38
+[3]: ../../../../adr/design/tracks.md
+[4]: ../../two-gates-check-the-layer-pins.md
+[5]: ../../../../adr/glossary.md#value-chain-map
+[6]: ../../../../adr/glossary.md#value-chain-stack
+[7]: ../../../../adr/glossary.md#value-chain-concern
+[8]: ../../../../adr/glossary.md#cell
+[9]: ../../../../adr/glossary.md#lit-cell

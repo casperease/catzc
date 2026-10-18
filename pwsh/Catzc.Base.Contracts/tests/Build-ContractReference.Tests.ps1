@@ -21,7 +21,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         $null = New-Item -ItemType Directory -Force -Path $script:root
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET#1](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget1).', 'widget:') -join "`n") + "`n")
+        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/README.md' ''
         Add-File 'contracts/widget/0.0.0/Catzc.Gadget/gadget.sample.json' '{ "gadget": 1 }'
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' "parameters:`n  Path: string!`n  Strict: switch`noutput: string`n"
@@ -74,7 +74,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
         @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 1
         $first | Should -BeGreaterThan 0
-        $lines[$first + 1] | Should -BeExactly '  [ADR-TST-WIDGET#1](../../adr/repository/widget-thing.md#rule-adr-tst-widget1).'
+        $lines[$first + 1] | Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../adr/repository/widget-thing.md#rule-adr-tst-widget-turn).'
         (Read-Page) | Should -Match "(?m)^\| ``Catzc\.Widget``.*\|\n\nNotes:\n\n- "
     }
 

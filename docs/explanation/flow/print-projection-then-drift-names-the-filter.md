@@ -12,7 +12,7 @@ Print the projection, then a drifted pipeline fails naming the filter that diffe
 7  trigger drifted              the issue names the filters that differ
 8  pipeline file not found      the issue names the missing pipelines/<pipeline>.yaml
 
-Supports ADR-FLOW-CD-GLOBS#6 (operations lens).
+Supports ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER (operations lens).
 ```
 
 Recomposing a deployable unit in cats is an edit to `globs.yml`, and a developer reads what the edit means for the triggers with one
@@ -22,7 +22,8 @@ and the other names any member file an include pattern would miss.
 
 ![Print the projection, then drift names the filter](.assets/print-projection-then-drift-names-the-filter/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/print-projection-then-drift-names-the-filter/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/print-projection-then-drift-names-the-filter/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -55,7 +56,7 @@ element, since GitHub paths are ordered.
 ## Why it holds
 
 - A pipeline, workflow or build-validation policy triggers on the globset's native projection, and the drift quality gates report one issue
-  per pipeline whose declared trigger no longer equals its projection, or whose file is missing (ADR-FLOW-CD-GLOBS#6).
+  per pipeline whose declared trigger no longer equals its projection, or whose file is missing (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
 - An include-only projection is a safe superset that can never under-trigger, which the coverage check confirms for every member of a
   pipeline-bound set (ADR-FLOW-CD-GLOBS, "How this is enforced").
 

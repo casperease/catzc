@@ -1,8 +1,8 @@
 # Rests on [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
 Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREGISTERED' {
     BeforeAll {
-        $script:widget = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE#1'); checks = @('Test-Widget') }
-        $script:gadget = [ordered]@{ name = 'gadget-turn-fast'; supported_by = @('ADR-WI-ONE#2'); checks = @() }
+        $script:widget = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @('Test-Widget') }
+        $script:gadget = [ordered]@{ name = 'gadget-turn-fast'; supported_by = @('ADR-WIDGET-ONE-SPIN'); checks = @() }
     }
 
     It 'constructs and exposes the capabilities in file order' {
@@ -32,7 +32,7 @@ Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREG
                         $widget,
                         'gadget',
                         [ordered]@{ name = 'gadget'; supported_by = @(); checks = @() },
-                        [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE#1'); checks = @(); gizmo = 1 }
+                        [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @(); gizmo = 1 }
                     )
                 }) } | Should -Throw -PassThru
         $message = $thrown.Exception.Message

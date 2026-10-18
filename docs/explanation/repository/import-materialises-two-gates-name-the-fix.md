@@ -11,7 +11,7 @@ The import materialises every managed root file, and two quality gates catch dri
 6  Test-RootConfigFiles       the integrity gate: registry, .gitignore and the index must agree, links both ways
 7  registry and git disagree  its issue lines: git rm --cached for a tracked copy, re-run the importer for a link
 
-Supports ADR-REPO-ROOTCFG#4 and #6 (operations lens).
+Supports ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION and ADR-REPO-ROOTCFG-THREEWAYAGREEMENT (operations lens).
 ```
 
 A developer never writes a managed root file. Running `. ./importer.ps1` materialises every opted-in target before the prompt returns, and
@@ -20,7 +20,8 @@ out of step with the registry, one of two quality gates says which file and what
 
 ![The import materialises every root file; two gates catch drift and name the fix](.assets/import-materialises-two-gates-name-the-fix/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/import-materialises-two-gates-name-the-fix/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/import-materialises-two-gates-name-the-fix/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -48,13 +49,13 @@ The diagram is described element by element in [its asset description](.assets/i
 ## Why it holds
 
 - Generation is idempotent and runs on every import, so the import is the only command a developer needs; a stale target is a defect the
-  gates report, never a step to remember (ADR-REPO-ROOTCFG#4).
+  gates report, never a step to remember (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
 - The registry, `.gitignore` and git's tracked set must agree, every `copyAsLink` target must be an effective link, and no other managed
-  target may be a link; an integrity test asserts it from the registry outward (ADR-REPO-ROOTCFG#6).
+  target may be a link; an integrity test asserts it from the registry outward (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
 
 ## Where the code and the ADR differ
 
-ADR-REPO-ROOTCFG#6 places the drift check, a generator target matching its generator's output, inside the integrity test;
+ADR-REPO-ROOTCFG-THREEWAYAGREEMENT places the drift check, a generator target matching its generator's output, inside the integrity test;
 `Test-RootConfigFiles` compares no content, and the drift check is `Test-GeneratedFiles`.
 
 ## See also

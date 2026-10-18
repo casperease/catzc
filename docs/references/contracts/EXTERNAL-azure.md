@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: acd1d10cf46b
-    with_inputs_sha: fa69ffce82621373323d807801a7963772671d02e1800e18c3501d94e2eab617
+    with_body_sha: "1736b41bdd25"
+    with_inputs_sha: aebf0a22b405e8d4490f0528119f96f1b72ff17ba79f4e8ca510d06af10604ed
     repo_status: locked
     path: docs/references/contracts/EXTERNAL-azure.md
     source: contracts/EXTERNAL-azure
@@ -34,7 +34,8 @@ Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contract
 
 ## 0.0.0
 
-The draft: the one mutable version folder ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
+The draft: the one mutable version folder
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 
 | Module                  | Asset                                                | Target                                                              | Direction   | Kind   | Signature |
 | ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ----------- | ------ | --------- |
@@ -50,7 +51,8 @@ Notes:
 
 ## 0.1.0
 
-Released, so frozen by its `.frozen` record ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
+Released, so frozen by its `.frozen` record
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 
 | Module                  | Asset                                                | Target                                                              | Direction   | Kind   | Signature |
 | ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ----------- | ------ | --------- |

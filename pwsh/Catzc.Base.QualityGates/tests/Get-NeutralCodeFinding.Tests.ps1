@@ -3,7 +3,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $script:find = {
             param([string] $Text)
             $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$null, [ref]$null)
-            $real = [System.Collections.Generic.HashSet[string]]::new([string[]] @('ADR-WIDGET-GADGET'))
+            $real = [System.Collections.Generic.HashSet[string]]::new([string[]] @('ADR-WIDGET-GADGET', 'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-ROLL', 'ADR-WIDGET-GADGET-STOP'))
             & (Get-Module Catzc.Base.QualityGates) {
                 Get-NeutralCodeFinding -Path 'src/tests/Get-Widget.Tests.ps1' -Ast $args[0] -Code $args[1]
             } $ast $real
@@ -14,20 +14,20 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
                     '    It ''reads a rule'' {'
-                    '        Get-Widget -Citation ''ADR-WIDGET-GADGET#2'' | Should -Be 1'
+                    '        Get-Widget -Citation ''ADR-WIDGET-GADGET-SPIN'' | Should -Be 1'
                     '    }'
                     '}'
                 ) -join "`n"))
         $found | Should -HaveCount 1
-        $found[0] | Should -BeLike "src/tests/Get-Widget.Tests.ps1:3: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET'*"
+        $found[0] | Should -BeLike "src/tests/Get-Widget.Tests.ps1:3: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET-SPIN'*"
     }
 
     It 'passes a real code in a -Tag value and in a comment, and a neutral code anywhere' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
-                    '# Proves ADR-WIDGET-GADGET#2.'
+                    '# Proves ADR-WIDGET-GADGET-SPIN.'
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
-                    '    It ''reads a rule'' -Tag ''ADR-WIDGET-GADGET#2'' {'
-                    '        Get-Widget -Citation ''ADR-WIDGET-SPROCKET#2'' | Should -Be 1'
+                    '    It ''reads a rule'' -Tag ''ADR-WIDGET-GADGET-SPIN'' {'
+                    '        Get-Widget -Citation ''ADR-WIDGET-SPROCKET-SPIN'' | Should -Be 1'
                     '    }'
                     '}'
                 ) -join "`n"))
@@ -37,9 +37,9 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
     It 'passes a real code in the title of a Describe, a Context, and an It, given by position' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget per ADR-WIDGET-GADGET'' -Tag ''L0'', ''logic'' {'
-                    '    Context "under ADR-WIDGET-GADGET#1" {'
-                    '        It ''cites ADR-WIDGET-GADGET#2'' -Tag ''widget'' { Get-Widget | Should -Be 1 }'
-                    '        It -Skip ''skips ADR-WIDGET-GADGET#3'' { Get-Widget | Should -Be 1 }'
+                    '    Context "under ADR-WIDGET-GADGET-TURN" {'
+                    '        It ''cites ADR-WIDGET-GADGET-SPIN'' -Tag ''widget'' { Get-Widget | Should -Be 1 }'
+                    '        It -Skip ''skips ADR-WIDGET-GADGET-ROLL'' { Get-Widget | Should -Be 1 }'
                     '    }'
                     '}'
                 ) -join "`n"))
@@ -49,10 +49,10 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
     It 'passes a real code in a title given by -Name, and still flags the body''s fixture data' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES' {
         $found = @(& $find (@(
                     'Describe -Tag ''L0'', ''logic'' -Name ''Get-Widget'' {'
-                    '    It -Name ''cites ADR-WIDGET-GADGET#2'' {'
-                    '        Get-Widget -Citation ''ADR-WIDGET-GADGET#2'' | Should -Be 1'
+                    '    It -Name ''cites ADR-WIDGET-GADGET-SPIN'' {'
+                    '        Get-Widget -Citation ''ADR-WIDGET-GADGET-SPIN'' | Should -Be 1'
                     '    }'
-                    '    It -Name:''cites ADR-WIDGET-GADGET#4'' { 1 | Should -Be 1 }'
+                    '    It -Name:''cites ADR-WIDGET-GADGET-STOP'' { 1 | Should -Be 1 }'
                     '}'
                 ) -join "`n"))
         $found | Should -HaveCount 1
@@ -73,9 +73,9 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
         $found = @(& $find (@(
                     'Describe ''Get-Widget'' -Tag ''L0'', ''logic'' {'
                     '    Context ''the shipped registry'' -Tag ''L1'', ''integrity'' {'
-                    '        It ''reads it'' { Get-Widget -Citation ''ADR-WIDGET-GADGET#2'' | Should -Be 1 }'
+                    '        It ''reads it'' { Get-Widget -Citation ''ADR-WIDGET-GADGET-SPIN'' | Should -Be 1 }'
                     '    }'
-                    '    It ''reads a fixture'' { Get-Widget -Citation "ADR-WIDGET-GADGET#3" | Should -Be 1 }'
+                    '    It ''reads a fixture'' { Get-Widget -Citation "ADR-WIDGET-GADGET-ROLL" | Should -Be 1 }'
                     '}'
                 ) -join "`n"))
         $found | Should -HaveCount 1

@@ -39,15 +39,15 @@ The glyph library is described element by element in [its asset description](.as
 The sidebar of every diagram places it on three maps, each drawn small as a minimap:
 
 - The **world map** is the repository drawn as its tracks crossed with its file languages
-  ([ADR-DSGN-TRACK#9](../adr/design/tracks.md#rule-adr-dsgn-track9)). It shows where the files the diagram concerns are.
+  ([ADR-DSGN-TRACK-WORLDMAP](../adr/design/tracks.md#rule-adr-dsgn-track-worldmap)). It shows where the files the diagram concerns are.
 - The **tree** is the repository's files, grouped by folder. It shows the same files in the folders that hold them.
 - The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns
-  ([ADR-DSGN-TRACK#16](../adr/design/tracks.md#rule-adr-dsgn-track16)). It shows where the decision sits in delivery.
+  ([ADR-DSGN-TRACK-VALUECHAINMAP](../adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)). It shows where the decision sits in delivery.
 
-On each map, a **lit cell** ([ADR-DSGN-TRACK#12](../adr/design/tracks.md#rule-adr-dsgn-track12)) is one the diagram's ADR selects; a cell
-lit only by passing mentions is drawn lighter, and every other cell is idle. The map key below the minimaps names the four swatches, and
-each minimap's own description, in the minimap's sub-folder of `docs/explanation/.assets/` (`grid/`, `tree/`, `chain/`), gives the reason
-for every lit cell.
+On each map, a **lit cell** ([ADR-DSGN-TRACK-LITCELL](../adr/design/tracks.md#rule-adr-dsgn-track-litcell)) is one the diagram's ADR
+selects; a cell lit only by passing mentions is drawn lighter, and every other cell is idle. The map key below the minimaps names the four
+swatches, and each minimap's own description, in the minimap's sub-folder of `docs/explanation/.assets/` (`grid/`, `tree/`, `chain/`), gives
+the reason for every lit cell.
 
 ## Domains
 

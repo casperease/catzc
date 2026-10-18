@@ -14,7 +14,7 @@ Three session caches back the one config reader, each filled once and kept until
 9   Get-ConfigRegistry            the private registry reader, validated by ConfigsConfig
 10  $script:configRegistryCache   the registry's configs: map, read once per session
 
-Supports ADR-CONF-LOADING#1, #2, #3 and #4 (implementation lens).
+Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH and ADR-CONF-LOADING-CSHARPCONFIGTYPE (implementation lens).
 ```
 
 `Get-Config` is the one config reader in cats, and it stays fast because three `$script:` caches stand behind it: `configIndex` maps config
@@ -47,10 +47,11 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Why it holds
 
-- `Get-Config` is the one reader of module configs; no other function keeps its own config cache (ADR-CONF-LOADING#1).
-- Discovery is a private seam that scans the modules' `configs/` folders and resolves a name to its owning module (ADR-CONF-LOADING#2).
-- The parsed config is cached by its resolved file path, and only a re-import invalidates it (ADR-CONF-LOADING#3).
-- The registered C# type is constructed once, on the cache miss, and its constructor maps and validates (ADR-CONF-LOADING#4).
+- `Get-Config` is the one reader of module configs; no other function keeps its own config cache (ADR-CONF-LOADING-ONEREADER).
+- Discovery is a private seam that scans the modules' `configs/` folders and resolves a name to its owning module
+  (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
+- The parsed config is cached by its resolved file path, and only a re-import invalidates it (ADR-CONF-LOADING-CACHEBYPATH).
+- The registered C# type is constructed once, on the cache miss, and its constructor maps and validates (ADR-CONF-LOADING-CSHARPCONFIGTYPE).
 
 ## Where the code and the ADR differ
 
@@ -58,8 +59,8 @@ The diagram is described element by element in [its asset description](.assets/t
   `configs.yml`, an exception the ADR does not state.
 - The ADR writes a registry entry as `<name>: { type: <C# FQN> }`. In `configs.yml` the entries sit under a top-level `configs:` key, which
   `ConfigsConfig` enforces.
-- The ADR says discovery scans `pwsh/*/configs/`. The code scans `Get-CatzcModulesRoot`, the source `pwsh/` folder or a built package,
-  and skips dot-folders.
+- The ADR says discovery scans `pwsh/*/configs/`. The code scans `Get-CatzcModulesRoot`, the source `pwsh/` folder or a built package, and
+  skips dot-folders.
 
 ## See also
 

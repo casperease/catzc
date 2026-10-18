@@ -11,7 +11,7 @@ A person turns on the local guard with one variant; an admin syncs the server po
 6  ADO branch policy         one blocking build validation on main per globset
 7  Get-AdoBuildValidations   lists what the server now holds
 
-Supports ADR-DSGN-REMOTE#2 and #4 (operations lens).
+Supports ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS (operations lens).
 ```
 
 Two people put the ingress rule into effect in cats, and each has one thing to do. On a clone, a person flips the `git_workspace` variant
@@ -42,10 +42,10 @@ The diagram is described element by element in [its asset description](.assets/g
 ## Why it holds
 
 - The pull request is the authenticated ingress; the server branch policy enforces it, and `Sync-GeneratedFile`'s branch guard is the local
-  half (ADR-DSGN-REMOTE#4).
+  half (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
 - `git_workspace` is read once per importer session, and its single stop condition is a direct commit while standing on main or master in
-  `main-via-pr` (ADR-REPO-VARIANT#6).
-- Consumers integrate from the last remote-verified commit, never the remote HEAD (ADR-DSGN-REMOTE#2).
+  `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
+- Consumers integrate from the last remote-verified commit, never the remote HEAD (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED).
 
 ## Where the code and the ADR differ
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7b3e92f20d09"
+    with_body_sha: "5ab34e12f18e"
     repo_status: locked
     path: docs/explanation/design/.assets/what-keeps-the-platform-thin/chain.md
     source: docs/explanation/design/.assets/what-keeps-the-platform-thin/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-AZ-CLI and ADR-DSGN-THINPLAT sit in the value chain: value-chain stack
 ![The value-chain minimap of Three gates guard the CLI and az, but nothing checks that cats stays thin](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Three gates guard the CLI and az, but nothing checks that cats
-stays thin][6], which explains [ADR-AZ-CLI][1] and [ADR-DSGN-THINPLAT][2]. It lights the cells of the value-chain map where the cited ADRs'
+stays thin][4], which explains [ADR-AZ-CLI][1] and [ADR-DSGN-THINPLAT][2]. It lights the cells of the value-chain map where the cited ADRs'
 value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code
 that selects it.
 
@@ -56,44 +56,42 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### DSGN × deploy (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-DSGN-THINPLAT][2]: selected by [ADR-DSGN-THINPLAT][2]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (automation and deploy) override its ADR domain's default (automation), so it
-  lights the deploy column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (automation and deploy) override its ADR domain's default
+  (automation), so it lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### CLOUD × deploy (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-AZ-CLI][1]: selected by [ADR-AZ-CLI][1]; its ADR domain `azure` sits on the CLOUD row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it lights the
-  deploy column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it
+  lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### CLOUD × access (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-AZ-CLI][1]: selected by [ADR-AZ-CLI][1]; its ADR domain `azure` sits on the CLOUD row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it lights the
-  access column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it
+  lights the access column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ## Keywords
 
-- [value-chain map][7]
-- [value-chain stack][8]
-- [value-chain concern][9]
-- [cell][10]
-- [lit cell][11]
+- [value-chain map][5]
+- [value-chain stack][6]
+- [value-chain concern][7]
+- [cell][8]
+- [lit cell][9]
 
 [1]: ../../../../adr/azure/prefer-az-cli.md
 [2]: ../../../../adr/design/thin-platforms.md
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../what-keeps-the-platform-thin.md
-[7]: ../../../../adr/glossary.md#value-chain-map
-[8]: ../../../../adr/glossary.md#value-chain-stack
-[9]: ../../../../adr/glossary.md#value-chain-concern
-[10]: ../../../../adr/glossary.md#cell
-[11]: ../../../../adr/glossary.md#lit-cell
+[3]: ../../../../adr/design/tracks.md
+[4]: ../../what-keeps-the-platform-thin.md
+[5]: ../../../../adr/glossary.md#value-chain-map
+[6]: ../../../../adr/glossary.md#value-chain-stack
+[7]: ../../../../adr/glossary.md#value-chain-concern
+[8]: ../../../../adr/glossary.md#cell
+[9]: ../../../../adr/glossary.md#lit-cell

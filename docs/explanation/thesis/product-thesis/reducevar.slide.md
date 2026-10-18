@@ -27,11 +27,11 @@ Principle 3 of 6 · ADR-PRIN-REDUCEVAR
 
 ## Rows
 
-| Rule                 | Says                                                                           |
-| -------------------- | ------------------------------------------------------------------------------ |
-| ADR-PRIN-REDUCEVAR#1 | Same steps, tools, versions and artifact structure, so deviations stand out    |
-| ADR-PRIN-REDUCEVAR#2 | Standardise the process and tooling, not the design space                      |
-| ADR-PRIN-REDUCEVAR#3 | Remove accidental differences, make essential ones explicit; one way over many |
+| Rule                                            | Says                                                                           |
+| ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| ADR-PRIN-REDUCEVAR-SAMESTEPSSAMETOOLS           | Same steps, tools, versions and artifact structure, so deviations stand out    |
+| ADR-PRIN-REDUCEVAR-STANDARDIZEPROCESSNOTDESIGN  | Standardise the process and tooling, not the design space                      |
+| ADR-PRIN-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT | Remove accidental differences, make essential ones explicit; one way over many |
 
 ## Body
 

@@ -4,22 +4,22 @@ Describe 'Get-CatsAdrRules' -Tag 'L0', 'logic' {
         $content = @(
             '# ADR: Alpha thing'
             ''
-            '## Rules: ADR-ALPHA'
+            '## Rules: ADR-WIDGET-GADGET'
             ''
-            '### Rule ADR-ALPHA:1'
+            '### Rule ADR-WIDGET-GADGET-TURN'
             ''
             'Alpha does the first thing deterministically.'
             ''
             '- [pointer](#anchor)'
             ''
-            '### Rule ADR-ALPHA:2'
+            '### Rule ADR-WIDGET-GADGET-SPIN'
             ''
             'Beta never happens without alpha. A **widget'
             'suite** wraps onto a second line.'
             ''
             '- [**gadget**](#anchor)'
             ''
-            '### Rule ADR-ALPHA:3'
+            '### Rule ADR-WIDGET-GADGET-STOP'
             ''
             '## Context'
         ) -join "`n"
@@ -29,9 +29,9 @@ Describe 'Get-CatsAdrRules' -Tag 'L0', 'logic' {
 
     It 'returns one entry per rule heading with its first-line summary' {
         @($script:rules).Count | Should -Be 3
-        $script:rules[0].Id | Should -Be 'ADR-ALPHA:1'
+        $script:rules[0].Id | Should -Be 'ADR-WIDGET-GADGET-TURN'
         $script:rules[0].Summary | Should -Be 'Alpha does the first thing deterministically.'
-        $script:rules[1].Id | Should -Be 'ADR-ALPHA:2'
+        $script:rules[1].Id | Should -Be 'ADR-WIDGET-GADGET-SPIN'
         $script:rules[1].Summary | Should -Be 'Beta never happens without alpha. A **widget'
     }
 
@@ -41,7 +41,7 @@ Describe 'Get-CatsAdrRules' -Tag 'L0', 'logic' {
     }
 
     It 'returns an empty summary and statement for a rule with no body' {
-        $script:rules[2].Id | Should -Be 'ADR-ALPHA:3'
+        $script:rules[2].Id | Should -Be 'ADR-WIDGET-GADGET-STOP'
         $script:rules[2].Summary | Should -Be ''
         $script:rules[2].Statement | Should -Be ''
     }

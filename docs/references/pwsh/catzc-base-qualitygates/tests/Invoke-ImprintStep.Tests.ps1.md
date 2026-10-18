@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {`, written with `#`.
+Above `Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 Invoke-ImprintStep with its seams mocked: the registries (Get-Config) and the C# namespace command (Format-Types), over fixture files

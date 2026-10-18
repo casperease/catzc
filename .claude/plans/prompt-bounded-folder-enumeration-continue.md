@@ -14,8 +14,8 @@ The bounded folder enumeration feature is built and migrated (plan: `.claude/pla
 On 2026-10-16 `test-automation -Output Minimal -Level 2` stopped in `Assert-TestTagGate`. Cause: three tests tagged with an ADR code lacking
 `#<n>` (the gate wants `ADR-<CODE>#<n>`; rule must exist in the registry). Fixed on disk:
 
-- `Get-ChildPath.Tests.ps1:69` and `FolderWalker.Tests.ps1:85` -> `ADR-AUTO-FAILFAST#1`
-- `FolderWalkConfig.Tests.ps1:75` -> `ADR-CONF-ADDRESSING#1` (the code was also wrong)
+- `Get-ChildPath.Tests.ps1:69` and `FolderWalker.Tests.ps1:85` -> `ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY`
+- `FolderWalkConfig.Tests.ps1:75` -> `ADR-CONF-ADDRESSING-GLOBALADDRESSFORM` (the code was also wrong)
 
 ## Next
 
@@ -29,6 +29,6 @@ On 2026-10-16 `test-automation -Output Minimal -Level 2` stopped in `Assert-Test
 
 ## Rules learned
 
-- Every new test: tier tag, category tag, and each ADR citation in `ADR-<CODE>#<n>` form naming a real rule (`ADR-PWSH-ERROR#3` style).
+- Every new test: tier tag, category tag, and each ADR citation in `ADR-<CODE>#<n>` form naming a real rule (`ADR-PWSH-ERROR-THROWNOTWRITEERROR` style).
 - Bash: foreground `timeout: 3000`; long work in the background behind a GNU `timeout <s> <one command>`; no `cd`, pipes or `;` there.
 - One file at a time, verify each. Neutral fixture names (`widget`, `gadget`) in L0 tests.

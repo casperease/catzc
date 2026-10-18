@@ -9,7 +9,7 @@ One declared allow-list says what may depend on what, and every allowed edge poi
 4  Base             foundation: one group that depends on nothing outside itself
 5  Undeclared edge  any real edge the declaration does not list; it fails the build
 
-Supports ADR-AUTO-DEPM#1, #3, #4 and #5 (meta lens).
+Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and ADR-AUTO-DEPM-EXTENDBYDECLARING (meta lens).
 ```
 
 The module dependency declaration is one file that says which module may depend on which, and cats checks the code against that file, never
@@ -32,11 +32,13 @@ The diagram is described element by element in [its asset description](.assets/a
 
 ## Why it holds
 
-- The declaration is the only place a module dependency can exist, and an actual edge with no declaration fails the build (ADR-AUTO-DEPM#1).
+- The declaration is the only place a module dependency can exist, and an actual edge with no declaration fails the build
+  (ADR-AUTO-DEPM-CODEBUILTFROM).
 - A group is a concept, not a module on disk. Allowing a group allows an edge to any of its members, while allowing one module allows
-  exactly that edge (ADR-AUTO-DEPM#3).
-- The declaration is checked when it loads, and the quality gate then checks every real edge in the code against it (ADR-AUTO-DEPM#4).
-- A new dependency is a new declared edge, landed in the same change as the code that introduces it (ADR-AUTO-DEPM#5).
+  exactly that edge (ADR-AUTO-DEPM-TWOSECTIONS).
+- The declaration is checked when it loads, and the quality gate then checks every real edge in the code against it
+  (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY).
+- A new dependency is a new declared edge, landed in the same change as the code that introduces it (ADR-AUTO-DEPM-EXTENDBYDECLARING).
 
 The two Tooling modules that belong to no group, Github and KeyHandler, also depend on Base alone; they are left out here for brevity.
 

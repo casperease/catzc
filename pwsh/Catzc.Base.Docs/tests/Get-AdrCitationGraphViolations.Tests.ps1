@@ -26,28 +26,28 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
                 ''                                                                                       # 2
                 '## Rules: ADR-WI-ONE'                                                                   # 3
                 ''                                                                                       # 4
-                '### Rule ADR-WI-ONE:1'                                                                  # 5
+                '### Rule ADR-WI-ONE-SPIN'                                                               # 5
                 ''                                                                                       # 6
-                'A widget cites its own ADR-WI-ONE#2 and the ADR-WI-* family.'                           # 7
+                'A widget cites its own ADR-WI-ONE-LEAN and the ADR-WI-* family.'                        # 7
                 ''                                                                                       # 8
-                '### Rule ADR-WI-ONE:2'                                                                  # 9
+                '### Rule ADR-WI-ONE-LEAN'                                                               # 9
                 ''                                                                                       # 10
-                'A widget leans on ADR-GA-ONE#1 and [gadget-one](../gadget/gadget-one.md#rule-adr-ga-one1), and ADR-GZ-ONE#2.' # 11
+                'A widget leans on ADR-GA-ONE-APPLY and [gadget-one](../gadget/gadget-one.md#rule-adr-ga-one-apply), and ADR-GZ-ONE-TURN.' # 11
                 ''                                                                                       # 12
                 '- [Context](#context)'                                                                  # 13
                 ''                                                                                       # 14
                 '## Context'                                                                             # 15
                 ''                                                                                       # 16
-                'Prose may point anywhere: ADR-GZ-ONE#1 and [gizmo-one](../gizmo/gizmo-one.md).'         # 17
+                'Prose may point anywhere: ADR-GZ-ONE-BUILD and [gizmo-one](../gizmo/gizmo-one.md).'     # 17
             )
             'gadget/gadget-one.md' = @(
                 '# Gadget one'                                                                           # 1
                 ''                                                                                       # 2
                 '## Rules: ADR-GA-ONE'                                                                   # 3
                 ''                                                                                       # 4
-                '### Rule ADR-GA-ONE:1'                                                                  # 5
+                '### Rule ADR-GA-ONE-APPLY'                                                              # 5
                 ''                                                                                       # 6
-                'A gadget applies ADR-WI-ONE#1 ([widget-one](../widget/widget-one.md)), its ADR-GA-* siblings, and ADR-ZZ-NOPE#3.' # 7
+                'A gadget applies ADR-WI-ONE-SPIN ([widget-one](../widget/widget-one.md)), its ADR-GA-* siblings, and ADR-ZZ-NOPE-SPIN.' # 7
                 'It links [the index](../index.md) and [a reference](../../references/gizmo.md).'        # 8
             )
             'gizmo/gizmo-one.md'   = @(
@@ -55,9 +55,9 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
                 ''                                                                                       # 2
                 '## Rules: ADR-GZ-ONE'                                                                   # 3
                 ''                                                                                       # 4
-                '### Rule ADR-GZ-ONE:1'                                                                  # 5
+                '### Rule ADR-GZ-ONE-BUILD'                                                              # 5
                 ''                                                                                       # 6
-                'A gizmo builds on ADR-GA-ONE#1, and on ADR-WI-ONE#2 only through gadget.'               # 7
+                'A gizmo builds on ADR-GA-ONE-APPLY, and on ADR-WI-ONE-LEAN only through gadget.'        # 7
                 'Every ADR-WI-* rule is out of reach too.'                                               # 8
             )
             'index.md'             = @('# Index')
@@ -74,13 +74,13 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
     }
 
     It 'reports a citation of a domain the citing domain does not depend on, naming the rule, the code, and both domains' {
-        $findings | Should -Contain 'docs/adr/widget/widget-one.md:11: ADR-WI-ONE#2 (widget) cites ADR-GA-ONE#1 (gadget); widget depends on: none'
-        $findings | Should -Contain 'docs/adr/widget/widget-one.md:11: ADR-WI-ONE#2 (widget) cites ADR-GZ-ONE#2 (gizmo); widget depends on: none'
+        $findings | Should -Contain 'docs/adr/widget/widget-one.md:11: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none'
+        $findings | Should -Contain 'docs/adr/widget/widget-one.md:11: ADR-WI-ONE-LEAN (widget) cites ADR-GZ-ONE-TURN (gizmo); widget depends on: none'
     }
 
     It 'reads depends_on as declared, not transitively, and resolves a wildcard code to its domain' {
-        $findings | Should -Contain 'docs/adr/gizmo/gizmo-one.md:7: ADR-GZ-ONE#1 (gizmo) cites ADR-WI-ONE#2 (widget); gizmo depends on: gadget'
-        $findings | Should -Contain 'docs/adr/gizmo/gizmo-one.md:8: ADR-GZ-ONE#1 (gizmo) cites ADR-WI (widget); gizmo depends on: gadget'
+        $findings | Should -Contain 'docs/adr/gizmo/gizmo-one.md:7: ADR-GZ-ONE-BUILD (gizmo) cites ADR-WI-ONE-LEAN (widget); gizmo depends on: gadget'
+        $findings | Should -Contain 'docs/adr/gizmo/gizmo-one.md:8: ADR-GZ-ONE-BUILD (gizmo) cites ADR-WI (widget); gizmo depends on: gadget'
     }
 
     It 'reports each cited domain once per line, though a citation and a link both name it' {
@@ -98,11 +98,11 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
         $relative = 'widget/widget-one.md'
         $path = Join-Path $linkOnly "adr/$relative"
         [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
-        [System.IO.File]::WriteAllText($path, "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`nSee [gadget-one](../gadget/gadget-one.md).`n")
+        [System.IO.File]::WriteAllText($path, "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nSee [gadget-one](../gadget/gadget-one.md).`n")
         $found = InModuleScope Catzc.Base.Docs -Parameters @{ Adrs = $adrs; Root = (Join-Path $linkOnly 'adr') } {
             $index = Get-AdrFileIndex @($Adrs.RuleSets) -AdrRoot $Root
             Get-AdrCitationGraphViolations -Adrs $Adrs -Index $index
         }
-        $found | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE#1 (widget) cites ../gadget/gadget-one.md (gadget); widget depends on: none')
+        $found | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE-SPIN (widget) cites ../gadget/gadget-one.md (gadget); widget depends on: none')
     }
 }

@@ -10,7 +10,7 @@ Every environment and every upstream integrator takes an occupant, never the tip
 5  main-UAT             holds commit 6, past every machine gate: the stable sync point
 6  dirty HEAD           commit 10, the newest commit on main, which failed in main-UAT
 
-Supports ADR-DSGN-LIFE#5, #6, #7 and #8, ADR-FLOW-CD#9 and #11 (architecture lens).
+Supports ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-PREPRODRUNG (architecture lens).
 ```
 
 Each always-on environment in cats holds one commit, its occupant, and anyone outside the repository who needs a stable base takes the
@@ -40,12 +40,13 @@ The diagram is described element by element in [its asset description](.assets/i
 ## Why it holds
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history; an environment box is neutral and the occupant carries
-  the state colour (ADR-DSGN-LIFE#5, ADR-DSGN-VISUAL#13).
-- The stable integration point is the `main-UAT` occupant, and upstream integrators sync from it, never from HEAD (ADR-DSGN-LIFE#6).
-- The dirty HEAD is the latest commit on main and is not safe to sync or promote from (ADR-DSGN-LIFE#7).
-- A commit that fails a stage cannot go downstream, neither by promotion nor by consumption (ADR-DSGN-LIFE#8).
-- RC at `main-UAT` and RBC at release-uat are the manual gates, and the prod tail runs release-uat, pre-prod, production (ADR-FLOW-CD#9,
-  ADR-FLOW-CD#11).
+  the state colour (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
+- The stable integration point is the `main-UAT` occupant, and upstream integrators sync from it, never from HEAD
+  (ADR-DSGN-LIFE-SYNCFROMMAINUAT).
+- The dirty HEAD is the latest commit on main and is not safe to sync or promote from (ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
+- A commit that fails a stage cannot go downstream, neither by promotion nor by consumption (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+- RC at `main-UAT` and RBC at release-uat are the manual gates, and the prod tail runs release-uat, pre-prod, production
+  (ADR-FLOW-CD-TWORELEASEGATES, ADR-FLOW-CD-PREPRODRUNG).
 
 ## Where the code and the ADR differ
 

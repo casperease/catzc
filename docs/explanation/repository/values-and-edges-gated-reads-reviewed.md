@@ -10,7 +10,7 @@ Values and module edges have a gate; the rule that nothing reads the file direct
 5  Catzc.Base.Variants    rule 3: depends on Config, Objects and Asserts only
 6  Test-ModuleDependency  the quality gate for rule 3, run by an L1 integrity test
 
-Supports ADR-REPO-VARIANT#1, #2, #3, #4, #5 and #6 (governance lens).
+Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-ADONAMING, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (governance lens).
 ```
 
 The six rules of the variants decision are held by two gates and one habit. The config type checks the file and its values whenever it
@@ -43,13 +43,14 @@ The diagram is described element by element in [its asset description](.assets/v
 
 ## Why it holds
 
-- A variant has one home, `configs/variants.yml`, a growing dictionary of known keys (ADR-REPO-VARIANT#1).
-- Nothing reads the file directly; the private `Get-Variant` is the single access point the primitives share (ADR-REPO-VARIANT#2).
-- The module depends only on Config, Objects and Asserts, and its config type is self-contained (ADR-REPO-VARIANT#3).
-- `ado_naming` is `standard` or `classic` (ADR-REPO-VARIANT#4); `have_customers` is `false`, `all` or a list of names (ADR-REPO-VARIANT#5);
-  `git_workspace` is `main-direct` or `main-via-pr` (ADR-REPO-VARIANT#6).
-- The declaration's shape is checked at load and the real edges by the gate (ADR-AUTO-DEPM#4), and a quality gate is one `Test-<subject>`
-  that collects every issue and throws once, run by an integrity test at its tier (ADR-AUTO-TEST#35).
+- A variant has one home, `configs/variants.yml`, a growing dictionary of known keys (ADR-REPO-VARIANT-SESSIONVARIANT).
+- Nothing reads the file directly; the private `Get-Variant` is the single access point the primitives share
+  (ADR-REPO-VARIANT-NODIRECTREADS).
+- The module depends only on Config, Objects and Asserts, and its config type is self-contained (ADR-REPO-VARIANT-MINIMALDEPENDENCIES).
+- `ado_naming` is `standard` or `classic` (ADR-REPO-VARIANT-ADONAMING); `have_customers` is `false`, `all` or a list of names
+  (ADR-REPO-VARIANT-HAVECUSTOMERS); `git_workspace` is `main-direct` or `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
+- The declaration's shape is checked at load and the real edges by the gate (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY), and a quality gate is one
+  `Test-<subject>` that collects every issue and throws once, run by an integrity test at its tier (ADR-AUTO-TEST-QUALITYGATE).
 
 ## Where the code and the ADR differ
 
@@ -62,7 +63,8 @@ The diagram is described element by element in [its asset description](.assets/v
 
 - [Repo-wide variants](../../adr/repository/repo-variants.md) — the decision this article explains.
 - [Controlling module dependencies](../../adr/automation/controlling-module-dependencies.md) and
-  [test automation](../../adr/automation/test-automation.md) — the gate rules, ADR-AUTO-DEPM#4 and ADR-AUTO-TEST#35.
+  [test automation](../../adr/automation/test-automation.md) — the gate rules, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and
+  ADR-AUTO-TEST-QUALITYGATE.
 - The other lenses on the same diagram: [meta](one-home-one-read-path-one-vocabulary.md),
   [architecture](a-base-module-between-config-and-its-callers.md), [implementation](five-keys-one-reader-twelve-primitives.md) and
   [operations](an-edit-lands-at-the-next-import.md).

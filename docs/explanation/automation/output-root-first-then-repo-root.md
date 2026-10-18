@@ -14,7 +14,7 @@ ConvertTo-RepoRelativePath tries the output root, then the repository root, else
  9  ArtifactRef                    relative and absolute, immutable
 10  ResolveAt / ExistsAt           the consumer's re-resolve and existence check
 
-Supports ADR-AUTO-PATH#4, #5, #9 and #10 (implementation lens).
+Supports ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-FOREIGNPATHS, ADR-AUTO-PATH-OUTANCHOR and ADR-AUTO-PATH-PUBLISHEDARTIFACT (implementation lens).
 ```
 
 `ConvertTo-RepoRelativePath` and `Resolve-RepoPath`, both in `Catzc.Base.Repository`, are the two boundary crossers of cats, and the order
@@ -52,12 +52,12 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Why it holds
 
-- Normalization lives in the two crossers, so a `.\` or a backslash cannot leak downstream (ADR-AUTO-PATH#4).
-- A path under neither root degrades to a normalized absolute path, never to a hybrid (ADR-AUTO-PATH#5).
+- Normalization lives in the two crossers, so a `.\` or a backslash cannot leak downstream (ADR-AUTO-PATH-CENTRALNORMALIZATION).
+- A path under neither root degrades to a normalized absolute path, never to a hybrid (ADR-AUTO-PATH-FOREIGNPATHS).
 - `out/` is a reserved anchor, re-anchored on `Get-OutputRoot` rather than the repository root, so one stored string resolves right on a
-  devbox and in a pipeline (ADR-AUTO-PATH#9).
+  devbox and in a pipeline (ADR-AUTO-PATH-OUTANCHOR).
 - A published artifact is created by `ArtifactRef.Materialize`, carries both forms, and is re-resolved and checked at the consumer with
-  `ResolveAt` and `ExistsAt` (ADR-AUTO-PATH#10).
+  `ResolveAt` and `ExistsAt` (ADR-AUTO-PATH-PUBLISHEDARTIFACT).
 
 ## See also
 

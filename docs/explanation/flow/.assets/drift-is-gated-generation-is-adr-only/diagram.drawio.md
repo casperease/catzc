@@ -58,7 +58,7 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 | thin arrow        | flow: feeds                                              |
 | dashed arrow      | ADR-only (no code)                                       |
 | light disc `1`    | marker: a Walkthrough step                               |
-| pill `#6`         | rule chip: #n ADR-FLOW-CD-GLOBS#n · T35 ADR-AUTO-TEST#35 |
+| pill `#6`         | rule chip: #n ADR-FLOW-CD-GLOBS#n · T35 ADR-AUTO-TEST-QUALITYGATE |
 | dashed pill `#4`  | dashed rule chip: ADR-only (no gate)                     |
 
 ## Sidebar

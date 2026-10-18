@@ -12,7 +12,7 @@ One engine builds the bundle, and every code root is a copy of its output.
 7  Catzc.Base.Exporter      the exporter module that drives the engine and owns the lifecycle
 8  Checked again            Install-Catzc runs the guard before it copies
 
-Supports ADR-AUTO-BUNDLE#1, #2, #3 and #6 (architecture lens).
+Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL (architecture lens).
 ```
 
 Cats runs from a code root: the folder its modules load from. In the repository that root is the source tree itself, but a bundle carries
@@ -45,18 +45,19 @@ The diagram is described element by element in [its asset description](.assets/e
 ## Why it holds
 
 - The bundle is the toolset's build, owned by `Catzc.Base.Exporter`, built through the `Invoke-ModuleBuild` engine, verified by
-  `Assert-CatzcBundle`, and placed by `Install-Catzc` and `Export-Catzc` (ADR-AUTO-BUNDLE#1).
+  `Assert-CatzcBundle`, and placed by `Install-Catzc` and `Export-Catzc` (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
 - The working root and the code root are two anchors. In the repository they coincide; an install makes them differ, which is what lets the
-  code be carried out of the repository (ADR-AUTO-BUNDLE#2).
-- Every copy loads through the one living importer in its bundle mode, never through a forked loader (ADR-AUTO-BUNDLE#3).
-- An install is two artifacts in two places, verified before the destination is touched, and idempotent (ADR-AUTO-BUNDLE#6).
+  code be carried out of the repository (ADR-AUTO-BUNDLE-TWOROOTS).
+- Every copy loads through the one living importer in its bundle mode, never through a forked loader (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).
+- An install is two artifacts in two places, verified before the destination is touched, and idempotent
+  (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
 
 A NuGet package, packed by `Export-Catzc -To nuget`, is a distribution file and not a code root until it is installed or saved, so it is not
 drawn here.
 
 ## Where the code and the ADR differ
 
-ADR-AUTO-BUNDLE#6 calls the `-Root` placement an install, where ADR-DSGN-RUNMODE#7 calls the same root saved.
+ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL calls the `-Root` placement an install, where ADR-DSGN-RUNMODE-THREEBUILDKINDS calls the same root saved.
 
 ## See also
 

@@ -10,7 +10,7 @@ The four CD pipelines bind deployable-units; the two CI pipelines bind the track
 5  nova, apex, flux, shared     four configured units, each composing the base unit
 6  cd-<unit>                    the four CD pipelines, one per unit
 
-Supports ADR-DSGN-TRACK#2, #3, #4 and #5 (architecture lens).
+Supports ADR-DSGN-TRACK-ONETRACKTYPE, ADR-DSGN-TRACK-ONETECHSTACK, ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED and ADR-DSGN-TRACK-DEPLOYABLEUNIT (architecture lens).
 ```
 
 Cats is one repository made of tracks, the root concerns such as `automation` and `infrastructure`. A track does not ship by itself: what
@@ -41,11 +41,11 @@ The diagram is described element by element in [its asset description](.assets/u
 
 ## Why it holds
 
-- A track is a named root concern carrying one class: `automation` is core, `infrastructure` an adapter (ADR-DSGN-TRACK#2).
-- Adapters rest on the core and never the other way round (ADR-DSGN-TRACK#3).
+- A track is a named root concern carrying one class: `automation` is core, `infrastructure` an adapter (ADR-DSGN-TRACK-ONETRACKTYPE).
+- Adapters rest on the core and never the other way round (ADR-DSGN-TRACK-ONETECHSTACK).
 - A consumer binds a track only through module dependencies or the track's globset projection, never by matching its paths by hand
-  (ADR-DSGN-TRACK#4).
-- A deployable-unit is a whole track or a reduced composition, and units bind pipelines one to one (ADR-DSGN-TRACK#5).
+  (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+- A deployable-unit is a whole track or a reduced composition, and units bind pipelines one to one (ADR-DSGN-TRACK-DEPLOYABLEUNIT).
 
 Scopes such as `markdown-scope` and `repository` select across tracks and own no root; they bind no pipeline, so they have no place in this
 picture. The `templates` loose-fileset binds none either.

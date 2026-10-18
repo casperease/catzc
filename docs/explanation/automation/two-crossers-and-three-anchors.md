@@ -12,7 +12,7 @@ Two crossers anchor on the repository root and the output root; a published arti
 7  artifact root               the only anchor that survives a stage boundary
 8  ArtifactRef                 the cross-stage type: both forms, anchored on the artifact root
 
-Supports ADR-AUTO-PATH#4, #7, #9 and #10 (architecture lens).
+Supports ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR and ADR-AUTO-PATH-PUBLISHEDARTIFACT (architecture lens).
 ```
 
 The path contract of cats is built from two functions in `Catzc.Base.Repository` and three anchors. `ConvertTo-RepoRelativePath` and
@@ -52,11 +52,12 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Why it holds
 
-- Normalization is centralized: the two crossers are the only sanctioned way across the boundary (ADR-AUTO-PATH#4).
+- Normalization is centralized: the two crossers are the only sanctioned way across the boundary (ADR-AUTO-PATH-CENTRALNORMALIZATION).
 - A path is named by its form: the two crossers cross, and `Get-RepositoryFile` and `Get-RepositoryFolder` are binding helpers
-  (ADR-AUTO-PATH#7).
-- `out/` is a reserved anchor that `Resolve-RepoPath` re-anchors against `Get-OutputRoot`, not the repository root (ADR-AUTO-PATH#9).
-- A published artifact is created by `ArtifactRef`, holds both forms and anchors on the artifact root (ADR-AUTO-PATH#10).
+  (ADR-AUTO-PATH-NAMEBYFORM).
+- `out/` is a reserved anchor that `Resolve-RepoPath` re-anchors against `Get-OutputRoot`, not the repository root
+  (ADR-AUTO-PATH-OUTANCHOR).
+- A published artifact is created by `ArtifactRef`, holds both forms and anchors on the artifact root (ADR-AUTO-PATH-PUBLISHEDARTIFACT).
 
 ## Where the code and the ADR differ
 

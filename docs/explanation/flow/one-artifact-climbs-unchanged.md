@@ -10,7 +10,7 @@ One artifact is built once and climbs to production unchanged.
 5  production        past the gate, DEPLOY rolls the same artifact to prod
 6  the shortcut      the CD pipelines deploy production themselves today, with no gate
 
-Supports ADR-FLOW-CD#2, #3, #5, #6, #9 and #13 (meta lens).
+Supports ADR-FLOW-CD-SHORTINTEGRATIONCYCLE, ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-GATEDEFINED (meta lens).
 ```
 
 Build-once, deploy-many is the idea at the heart of the cats promotion flow. One artifact is built and verified once, tested in non-prod,
@@ -37,11 +37,13 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Why it holds
 
-- CI is kept within a 5–10 minute integration cycle on a team basis (ADR-FLOW-CD#2).
-- Nothing downstream rebuilds the tagged artifact, so production is byte-identical to what non-prod certified (ADR-FLOW-CD#3).
-- CD takes the artifact through non-prod only (ADR-FLOW-CD#5), and progression toward prod enters DEPLOY behind a manual gate
-  (ADR-FLOW-CD#6).
-- RC and RBC are the manual gates (ADR-FLOW-CD#9). A gate decides; DEPLOY, the pipeline that acts, is not a gate (ADR-FLOW-CD#13).
+- CI is kept within a 5–10 minute integration cycle on a team basis (ADR-FLOW-CD-SHORTINTEGRATIONCYCLE).
+- Nothing downstream rebuilds the tagged artifact, so production is byte-identical to what non-prod certified
+  (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
+- CD takes the artifact through non-prod only (ADR-FLOW-CD-CDSTAYSINNONPROD), and progression toward prod enters DEPLOY behind a manual gate
+  (ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY).
+- RC and RBC are the manual gates (ADR-FLOW-CD-TWORELEASEGATES). A gate decides; DEPLOY, the pipeline that acts, is not a gate
+  (ADR-FLOW-CD-GATEDEFINED).
 
 ## Where the code and the ADR differ
 

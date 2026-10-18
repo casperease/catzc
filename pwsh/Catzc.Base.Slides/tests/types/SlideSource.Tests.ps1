@@ -5,7 +5,7 @@ Describe 'SlideSource' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILE' {
 
 ## Eyebrow
 
-ADR-WIDGET-GADGET#2 · Widgets
+ADR-WIDGET-GADGET-SPIN · Widgets
 
 ## Body
 

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE' {`, written with `#`.
+Above `Describe 'Module script scopes are never shared' -Tag...`, written with `#`.
 
 ```text
 Scope isolation ([ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode-ownscriptscope)): two catzc modules that

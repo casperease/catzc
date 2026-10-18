@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ab428dd76027
+    with_body_sha: cef5e4b0ed2a
     repo_status: locked
     path: docs/explanation/design/.assets/one-entry-script-per-mode/chain.md
     source: docs/explanation/design/.assets/one-entry-script-per-mode/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-DSGN-RUNMODE sits in the value chain: value-chain stack down, value-ch
 ![The value-chain minimap of Each run mode has one entry script, and a mixed session throws](chain.png)
 
 This is the value-chain minimap in the sidebar of the operations diagram of [Each run mode has one entry script, and a mixed session
-throws][5], which explains [ADR-DSGN-RUNMODE][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
+throws][3], which explains [ADR-DSGN-RUNMODE][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
 land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -53,33 +53,25 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### DSGN × build (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][2]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [ADR-DSGN-RUNMODE][1]: selected by [ADR-DSGN-RUNMODE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][3]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
-  the build column ([ADR-DSGN-TRACK#15][4]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (automation and build) override its ADR domain's default (automation),
+  so it lights the build column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
-
-Terms the cited ADRs define:
-
-- [run mode][11], defined by [ADR-DSGN-RUNMODE#1][12]
+- [value-chain map][4]
+- [value-chain stack][5]
+- [value-chain concern][6]
+- [cell][7]
+- [lit cell][8]
 
 [1]: ../../../../adr/design/run-modes.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../one-entry-script-per-mode.md
-[6]: ../../../../adr/glossary.md#value-chain-map
-[7]: ../../../../adr/glossary.md#value-chain-stack
-[8]: ../../../../adr/glossary.md#value-chain-concern
-[9]: ../../../../adr/glossary.md#cell
-[10]: ../../../../adr/glossary.md#lit-cell
-[11]: ../../../../adr/glossary.md#run-mode
-[12]: ../../../../adr/design/run-modes.md#rule-adr-dsgn-runmode1
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../one-entry-script-per-mode.md
+[4]: ../../../../adr/glossary.md#value-chain-map
+[5]: ../../../../adr/glossary.md#value-chain-stack
+[6]: ../../../../adr/glossary.md#value-chain-concern
+[7]: ../../../../adr/glossary.md#cell
+[8]: ../../../../adr/glossary.md#lit-cell

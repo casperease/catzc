@@ -206,7 +206,7 @@ with the module model; c) config defaults Phase 1 in parallel too. Decision:
 
 ### Q39 Contract schema $comment
 
-The schema's $comment must say what the contract pins (ADR-REPO-CONTRACT#9); a generated head would use the same property. Options: a)
+The schema's $comment must say what the contract pins (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS); a generated head would use the same property. Options: a)
 hand-written schema and sample, no generator; b) generated, the generated head wins and the pin note moves elsewhere; c) generated, the pin
 note wins and the head goes into another property. Decision:
 
@@ -281,7 +281,7 @@ Kept as a top-level kind; the match was not re-read. Options: a) re-read and con
 
 274 rows come from finished plans. Options: a) exclude; b) keep. Decision:
 
-### Q56 Head-text citations under ADR-REPO-HELP#3
+### Q56 Head-text citations under ADR-REPO-HELP-CITATIONINSENTENCE
 
 687 citations in function help text. Options: a) relax the rule; b) strip them. Decision:
 
@@ -673,7 +673,7 @@ leave both to the harness default; c) set `effort` only. Decision: a) both on ev
 ### Q133 drawio-png and write-drawio-files
 
 drawio-png talks to the user and verifies one slide; write-drawio-files edits labels and styles in batch on a brief. Once drawio-png loads
-`drawio-model-edit` it could do both. Options: a) two jobs, two robots (ADR-REPO-AGENTS#4); b) drawio-png absorbs write-drawio-files.
+`drawio-model-edit` it could do both. Options: a) two jobs, two robots (ADR-REPO-AGENTS-STANDARDWORKER); b) drawio-png absorbs write-drawio-files.
 Decision: a) two jobs, two robots.
 
 ### Q134 adr-reviewer model

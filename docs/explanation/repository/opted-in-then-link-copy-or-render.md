@@ -14,7 +14,7 @@ Build-RootConfig filters the registry to the opted-in entries, then links, copie
 9   link to the source           what the link branch leaves at the root path
 10  independent file             what the content write leaves at the root path
 
-Supports ADR-REPO-ROOTCFG#2, #4, #5, #7 and #8 (implementation lens).
+Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-COMPOSEDROOTFILE, ADR-REPO-ROOTCFG-FILESYSTEMLINK and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (implementation lens).
 ```
 
 `Build-RootConfig` is a short function with one filter and three branches. It loads the registry through the config reader, which types and
@@ -54,14 +54,15 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - The registry is validated by the `RootConfigFiles` type and materialised by `Build-RootConfig`, the single writer; only `optIn: true`
-  entries are touched (ADR-REPO-ROOTCFG#2).
+  entries are touched (ADR-REPO-ROOTCFG-REGISTRY).
 - Every content write goes through `Write-FileIfChanged`: canonical output, an EOL-insensitive compare, write only on a real change,
-  delete-then-write; link targets go through `Set-FileLink` instead (ADR-REPO-ROOTCFG#4).
+  delete-then-write; link targets go through `Set-FileLink` instead (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
 - A composed file, a source copy that is not a link or a generator's output, carries the generated-file head in its file class's carrier; a
-  `copyAsLink` entry carries no head (ADR-REPO-ROOTCFG#5).
+  `copyAsLink` entry carries no head (ADR-REPO-ROOTCFG-COMPOSEDROOTFILE).
 - A `copyAsLink` entry is a filesystem link, with its three constraints validated by `RootConfigFile`, and `Set-FileLink` throws rather than
-  copy (ADR-REPO-ROOTCFG#7).
-- A generator entry may name a wildcard target and render one record per file, each written and reported on its own (ADR-REPO-ROOTCFG#8).
+  copy (ADR-REPO-ROOTCFG-FILESYSTEMLINK).
+- A generator entry may name a wildcard target and render one record per file, each written and reported on its own
+  (ADR-REPO-ROOTCFG-WILDCARDGENERATOR).
 
 ## See also
 

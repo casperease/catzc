@@ -10,11 +10,11 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
                     '| `ADR-TST-GADGET` | [gadget-thing](repository/gadget-thing.md) |'
                 ) -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/widget-thing.md'), (@(
-                    '### Rule ADR-TST-WIDGET:1'
+                    '### Rule ADR-TST-WIDGET-REST'
                     ''
                     'A **widget suite** is every widget file at rest.'
                     ''
-                    '### Rule ADR-TST-WIDGET:2'
+                    '### Rule ADR-TST-WIDGET-RUN'
                     ''
                     'A **gadget run** is one execution of widgets.'
                     ''
@@ -23,11 +23,11 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
                     'Here a **widget suite** is described again, in the body.'
                 ) -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/gadget-thing.md'), (@(
-                    '### Rule ADR-TST-GADGET:1'
+                    '### Rule ADR-TST-GADGET-PAIR'
                     ''
                     'Every **widget suite** runs in a **gadget run**, and `**widget suite** is` is only a mention.'
                     ''
-                    '### Rule ADR-TST-GADGET:2'
+                    '### Rule ADR-TST-GADGET-SELECT'
                     ''
                     'The **Gadget'
                     'Run** is what a widget suite selects.'
@@ -60,32 +60,32 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
     }
 
     It 'reports nothing when only the defining rule defines the term — ADR bodies and code spans never count' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
-        & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#1') | Should -BeNullOrEmpty
+        & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET-REST') | Should -BeNullOrEmpty
     }
 
     It 'reports a second rule whose summary defines the term, across a wrapped line and in any case' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
-        $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2')
+        $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET-RUN')
         $found.Count | Should -Be 1
-        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'gadget run': ADR-TST-GADGET#2 defines '**gadget run**' a second time — it is defined by ADR-TST-WIDGET#2 (ADR-REPO-VOCAB-DEFINEDTERM)"
+        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'gadget run': ADR-TST-GADGET-SELECT defines '**gadget run**' a second time — it is defined by ADR-TST-WIDGET-RUN (ADR-REPO-VOCAB-DEFINEDTERM)"
     }
 
     It 'does not count a rule that only bolds the term' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
-        # ADR-TST-GADGET:1 bolds both terms without defining either; only ADR-TST-GADGET:2 defines 'gadget run'.
-        $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-GADGET#2')
+        # ADR-TST-GADGET-PAIR bolds both terms without defining either; only ADR-TST-GADGET-SELECT defines 'gadget run'.
+        $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-GADGET-SELECT')
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "*: ADR-TST-WIDGET#2 defines '**gadget run**' a second time*"
+        $found[0] | Should -BeLike "*: ADR-TST-WIDGET-RUN defines '**gadget run**' a second time*"
     }
 
     It 'skips a source that opts out of the single check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
-        & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2' @('anchored', 'avoid', 'enforced')) | Should -BeNullOrEmpty
+        & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET-RUN' @('anchored', 'avoid', 'enforced')) | Should -BeNullOrEmpty
     }
 
     It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         # Get-Glossary returns its array as one object (', $sorted'); the default must bind that shape.
-        $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(& $script:entry 'gadget run' 'ADR-TST-WIDGET#2')
+        $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(& $script:entry 'gadget run' 'ADR-TST-WIDGET-RUN')
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
         $found = @(InModuleScope Catzc.Base.Docs -Parameters @{ IndexPath = $script:indexPath } { Get-GlossaryDefinitionViolations -IndexPath $IndexPath })
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "*: ADR-TST-GADGET#2 defines '**gadget run**' a second time*"
+        $found[0] | Should -BeLike "*: ADR-TST-GADGET-SELECT defines '**gadget run**' a second time*"
     }
 }

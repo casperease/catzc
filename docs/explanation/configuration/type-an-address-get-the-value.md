@@ -12,7 +12,7 @@ Type an address and get its value back; a wrong address throws its message at th
 7  wrong address throws          a malformed address, an unknown config or a bad key, at the call
 8  invalid addressed parameters  one throw naming the config file and every bad parameter
 
-Supports ADR-CONF-ADDRESSING#1, #3 and #4, and ADR-AUTO-ENVVAR#7 (operations lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, and ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS (operations lens).
 ```
 
 Three commands dereference a global config address in cats, and each shows the person or the pipeline step that runs it the same two things:
@@ -54,13 +54,13 @@ The diagram is described element by element in [its asset description](.assets/t
 ## Why it holds
 
 - An address names exactly one node and is resolved by `Get-ConfigValue`, built on the one reader; it is data a command can take and a
-  config file can carry (ADR-CONF-ADDRESSING#1).
+  config file can carry (ADR-CONF-ADDRESSING-GLOBALADDRESSFORM).
 - An address reaches only version-controlled config, so an address-sourced value is non-secret and can be logged with its address, while a
-  secret travels as a `[SecureString]` (ADR-CONF-ADDRESSING#3).
+  secret travels as a `[SecureString]` (ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY).
 - Resolution fails fast: a wrong name, a wrong key or a malformed address throws at the call, never a silent empty value
-  (ADR-CONF-ADDRESSING#4).
+  (ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
 - A secret crosses to a child process only through `Write-EnvironmentSet`, taken as a protected value, masked as `***`, decrypted only at
-  the assignment, and restored when the scoped block ends (ADR-AUTO-ENVVAR#7).
+  the assignment, and restored when the scoped block ends (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS).
 
 ## See also
 

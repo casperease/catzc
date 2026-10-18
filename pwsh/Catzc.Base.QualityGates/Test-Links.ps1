@@ -20,7 +20,7 @@ function Test-Links {
     # The string-citation check fails the gate only in gate mode; in report mode its findings are its work list.
     $isReported = {
         param($finding)
-        $settings.string_citations.IsReport -and $finding.Type -eq [Catzc.Base.QualityGates.LinkFindingType]::StringColon
+        $settings.string_citations.IsReport -and $finding.Type -eq [Catzc.Base.QualityGates.LinkFindingType]::StringNumbered
     }
     $violations = @($result.Findings | Where-Object { $_.IsViolation -and -not (& $isReported $_) })
     $reported = @($result.Findings | Where-Object { $_.IsViolation -and (& $isReported $_) })

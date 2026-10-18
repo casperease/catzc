@@ -9,7 +9,7 @@ plan:
 
 # Fast push to main: what is left
 
-Landed and tested: the five `git.*` commit settings in `vscode-settings.yml`; `ADR-DSGN-LIFE:11` and `:12` in `commit-lifecycle.md`;
+Landed and tested: the five `git.*` commit settings in `vscode-settings.yml`; `ADR-DSGN-LIFE-FASTPUSHLANDS` and `:12` in `commit-lifecycle.md`;
 `Push-Dirty` in `Catzc.Base.Git`; the `.vscode/tasks.json` generator with the "Push dirty" task. A rejected push stops and reports, it never
 rebases.
 
@@ -34,4 +34,4 @@ rebases.
 ## Not in this plan
 
 VS Code has no setting for a default message in the Source Control field, so the empty-field default lives only in the task. No amend, no
-force, no rebase-on-reject (`ADR-DSGN-LIFE:11`).
+force, no rebase-on-reject (`ADR-DSGN-LIFE-FASTPUSHLANDS`).

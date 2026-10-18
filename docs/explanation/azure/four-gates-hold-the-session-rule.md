@@ -1,7 +1,7 @@
 # Four gates hold the session rule; the customer and the name hold by construction
 
 ```text
-Four throwing gates hold ADR-AZ-DATAMOD#7; rules #4, #5 and ADR-AZ-NAMING#8 hold by construction, with no gate.
+Four throwing gates hold ADR-AZ-DATAMOD-JOINSINPOWERSHELL; rules #4, #5 and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction, with no gate.
 
 1  assert given in a pipeline  #7: Deploy-Bicep throws in a pipeline without -SubscriptionIdAssertIs
 2  subscription declared       #7: Get-AzCliSessionSubscription throws on an id azure.yml does not declare
@@ -11,7 +11,7 @@ Four throwing gates hold ADR-AZ-DATAMOD#7; rules #4, #5 and ADR-AZ-NAMING#8 hold
 6  RG name derived             #5 and NAMING#8: Get-BicepResourceGroupName builds the name; no subscription in it
 7  throw                       every gate ends here; nothing retargets or falls back
 
-Supports ADR-AZ-DATAMOD#4, #5 and #7, and ADR-AZ-NAMING#8 (governance lens).
+Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL, and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 ```
 
 The rule that the az session is the deploy target has four parts, and cats holds each one behind a check that throws: a pipeline must give
@@ -28,32 +28,32 @@ The diagram is described element by element in [its asset description](.assets/f
 
 1. **Assert given in a pipeline.** `Deploy-Bicep` checks, before resolving anything, that a pipeline run carries `-SubscriptionIdAssertIs`,
    and throws at the call site when it does not. On a devbox the check does not apply, so the pin stays optional there. The gate holds the
-   "mandatory in a pipeline" half of ADR-AZ-DATAMOD#7.
+   "mandatory in a pipeline" half of ADR-AZ-DATAMOD-JOINSINPOWERSHELL.
 2. **Subscription declared.** `Get-AzCliSessionSubscription` matches the session's subscription id against the subscriptions `azure.yml`
    declares and throws when none, or more than one, carries it. Config defines what is correct: an undeclared session is an error, never a
    fallback.
 3. **Session matches the assert.** `Get-BicepDeploymentContext` compares the resolved session's id with the pin and throws on a mismatch,
    naming both subscriptions and the mis-wired service connection. The pin never changes the target; the gate only confirms it.
 4. **Customer from the session.** The context reads the customer off the resolved session subscription. No gate checks that the customer was
-   not passed in, because it cannot be: `Deploy-Bicep` and `Get-BicepDeploymentContext` have no `-Customer` parameter. ADR-AZ-DATAMOD#4
-   holds by construction.
+   not passed in, because it cannot be: `Deploy-Bicep` and `Get-BicepDeploymentContext` have no `-Customer` parameter.
+   ADR-AZ-DATAMOD-CUSTOMERAXIS holds by construction.
 5. **Serves the env.** `Get-AzureEnvironment`, called with the session's subscription, asserts that the subscription's `environments` list
    contains the requested environment and throws otherwise. This is the check that a session cannot deploy an environment its subscription
    does not serve.
 6. **RG name derived.** `Get-BicepResourceGroupName` builds the resource-group name from the template, the environment, the slot and the
    session's customer, through `Get-BicepResourceName` and the namer. No gate asserts that nobody typed the name or that the subscription
-   stayed out of it: the function is the only source of the name, and it takes no subscription. ADR-AZ-DATAMOD#5 and ADR-AZ-NAMING#8 hold by
-   construction.
+   stayed out of it: the function is the only source of the name, and it takes no subscription. ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and
+   ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction.
 7. **Throw.** Every gate ends in a throw that stops the deploy before a build artifact is read or `az deployment` is called. Nothing is
    retargeted, defaulted or repaired along the way.
 
 ## Why it holds
 
-- The customer is derived from the session subscription at deploy time, never a deploy argument (ADR-AZ-DATAMOD#4).
-- The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed (ADR-AZ-DATAMOD#5).
+- The customer is derived from the session subscription at deploy time, never a deploy argument (ADR-AZ-DATAMOD-CUSTOMERAXIS).
+- The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed (ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME).
 - The deploy-time subscription is the az session's, reverse-resolved against `azure.yml`; `-SubscriptionIdAssertIs` is mandatory in a
-  pipeline and optional on a devbox, and it is a guard, never a selector (ADR-AZ-DATAMOD#7).
-- The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING#8).
+  pipeline and optional on a devbox, and it is a guard, never a selector (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
+- The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
 ## Where the code and the ADR differ
 

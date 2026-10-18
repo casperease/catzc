@@ -10,7 +10,7 @@ function Get-CatsAdrRules {
 
     $lines = [System.IO.File]::ReadAllLines($AdrPath)
     $ret = for ($i = 0; $i -lt $lines.Count; $i++) {
-        if ($lines[$i] -cnotmatch '^###\s+Rule\s+(?<id>ADR-[A-Z]+(?:-[A-Z]+)*:\d+|ADR(?:-[A-Z][A-Z0-9]*){3,})\s*$') {
+        if ($lines[$i] -cnotmatch '^###\s+Rule\s+(?<id>ADR(?:-[A-Z][A-Z0-9]*){3,})\s*$') {
             continue
         }
         $ruleId = $Matches['id']

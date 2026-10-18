@@ -12,7 +12,7 @@ Get-Aspect names each track's remainder, and a wrong order fails when the varian
 7  tests                            first: the explicit tests/ folders, the only non-live part
 8  live                             last: the remainder, it ships
 
-Supports ADR-DSGN-ASPECT#3 (operations lens).
+Supports ADR-DSGN-ASPECT-TRACKPICKSCATCHALL (operations lens).
 ```
 
 A person who wants to know which aspect a track's stray files fall into asks `Get-Aspect`. The command returns the track's aspects in their
@@ -45,11 +45,11 @@ The diagram is described element by element in [its asset description](.assets/g
 ## Why it holds
 
 - Which aspect is the catch-all remainder is each track's call, declared in its `aspects` entry, and the config type enforces at load that
-  the last aspect is `**` and no earlier one uses it (ADR-DSGN-ASPECT#3).
+  the last aspect is `**` and no earlier one uses it (ADR-DSGN-ASPECT-TRACKPICKSCATCHALL).
 - A repo-wide variant is fixed for the importer session and declared in `configs/variants.yml`; `aspects` is read by `Get-Aspect`, and the
-  importer must run again for a change to apply (ADR-REPO-VARIANT#1).
+  importer must run again for a change to apply (ADR-REPO-VARIANT-SESSIONVARIANT).
 - Nothing reads the file directly: a person asks the typed primitive, and the private `Get-Variant` is the one place the file is read
-  (ADR-REPO-VARIANT#2).
+  (ADR-REPO-VARIANT-NODIRECTREADS).
 
 ## See also
 

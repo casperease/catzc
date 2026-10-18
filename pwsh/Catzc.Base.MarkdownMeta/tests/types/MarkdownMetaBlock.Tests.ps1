@@ -6,7 +6,7 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
 
     It 'renders the place facts, then the edges, in the order given, one fixed form' {
         $immutable = [ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'gadget'; count = 2; ok = $true }
-        $edges = [ordered]@{ cites = @('ADR-WIDGET-GADGET#2', 'ADR-WIDGET-GADGET#3'); page = 'docs/gadget.md' }
+        $edges = [ordered]@{ cites = @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD'); page = 'docs/gadget.md' }
         $script:block::Render($immutable, $edges, $script:none) | Should -Be @(
             'catzc:'
             '  immutable:'
@@ -16,8 +16,8 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
             '    ok: true'
             '  edges:'
             '    cites:'
-            '      - ADR-WIDGET-GADGET#2'
-            '      - ADR-WIDGET-GADGET#3'
+            '      - ADR-WIDGET-GADGET-SPIN'
+            '      - ADR-WIDGET-GADGET-FOLD'
             '    page: docs/gadget.md'
         )
     }
@@ -59,17 +59,17 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         @{ Text = "two`nlines"; Expected = '"two\nlines"' }
         @{ Text = 'widget'; Expected = 'widget' }
         @{ Text = 'docs/adr/widget.md'; Expected = 'docs/adr/widget.md' }
-        @{ Text = 'ADR-WIDGET-GADGET#{1,3-5}'; Expected = 'ADR-WIDGET-GADGET#{1,3-5}' }
-        @{ Text = 'ADR-WIDGET-GADGET#{}'; Expected = '"ADR-WIDGET-GADGET#{}"' }
+        @{ Text = 'ADR-WIDGET-GADGET-RE01'; Expected = 'ADR-WIDGET-GADGET-RE01' }
+        @{ Text = 'ADR-WIDGET-GADGET#{1,3-5}'; Expected = '"ADR-WIDGET-GADGET#{1,3-5}"' }
         @{ Text = 'ADR-WIDGET-GADGET#{1, 2}'; Expected = '"ADR-WIDGET-GADGET#{1, 2}"' }
         @{ Text = 'widget#{1,2}'; Expected = '"widget#{1,2}"' }
     ) {
         [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Scalar($Text) | Should -BeExactly $Expected
     }
 
-    It 'reads a grouped ADR token back from a rendered list edge' {
-        $lines = $script:block::Render([ordered]@{}, [ordered]@{ cites = [string[]] @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-LONE#2') }, $script:none)
-        $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-GADGET#{1,3-5}', 'ADR-WIDGET-LONE#2')
+    It 'reads ADR and rule codes back from a rendered list edge' {
+        $lines = $script:block::Render([ordered]@{}, [ordered]@{ cites = [string[]] @('ADR-WIDGET-GADGET', 'ADR-WIDGET-LONE-RE02') }, $script:none)
+        $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-LONE-RE02')
     }
 
     It 'keeps the authored config lines exactly as written' {
@@ -95,15 +95,15 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
     }
 
     It 'lists the keys at the block''s first level, inside immutable and the names of the edges' {
-        $lines = [string[]] @('catzc:', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  edges:', '    cites:', '      - ADR-WIDGET#1', '    page: docs/gadget.md', '  config:', '    gadgets:', '  other: 2')
+        $lines = [string[]] @('catzc:', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  edges:', '    cites:', '      - ADR-WIDGET-TURN', '    page: docs/gadget.md', '  config:', '    gadgets:', '  other: 2')
         $script:block::SectionKeys($lines) | Should -Be @('immutable', 'edges', 'config', 'other')
         $script:block::ImmutableKeys($lines) | Should -Be @('kind', 'with_body_sha')
         $script:block::EdgeKeys($lines) | Should -Be @('cites', 'page')
     }
 
     It 'reads the items of one list edge, and nothing for a scalar edge, a missing edge, a place fact or a config list' {
-        $lines = [string[]] @('catzc:', '  immutable:', '    cites:', '      - ADR-PLACE#9', '  edges:', '    cites:', '      - ADR-WIDGET#1', '      - "ADR-GADGET#2"', '    page: x', '  config:', '    cites:', '      - ADR-OTHER#3')
-        $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
+        $lines = [string[]] @('catzc:', '  immutable:', '    cites:', '      - ADR-PLACE-DROP', '  edges:', '    cites:', '      - ADR-WIDGET-TURN', '      - "ADR-GADGET-SPIN"', '    page: x', '  config:', '    cites:', '      - ADR-OTHER-FOLD')
+        $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-TURN', 'ADR-GADGET-SPIN')
         @($script:block::EdgeList($lines, 'page')).Count | Should -Be 0
         @($script:block::EdgeList($lines, 'widgets')).Count | Should -Be 0
         @($script:block::EdgeList($null, 'cites')).Count | Should -Be 0

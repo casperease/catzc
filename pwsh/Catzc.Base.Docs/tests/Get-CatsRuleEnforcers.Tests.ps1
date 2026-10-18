@@ -6,9 +6,9 @@ Describe 'Get-CatsRuleEnforcers' -Tag 'L0', 'logic' {
         [void][System.IO.Directory]::CreateDirectory($tests)
         [void][System.IO.Directory]::CreateDirectory($vendor)
         # The citations are assembled from parts so this file's own -Tag scan (the real tree) never sees them as tags.
-        $tagged = 'ADR-WI-TAG' + '#1'
-        $context = 'ADR-WI-CTX' + '#2'
-        $data = 'ADR-WI-DATA' + '#3'
+        $tagged = 'ADR-WIDGET-GADGET-' + 'TAG'
+        $context = 'ADR-WIDGET-GADGET-' + 'CONTEXT'
+        $data = 'ADR-WIDGET-GADGET-' + 'DATA'
         [System.IO.File]::WriteAllText((Join-Path $tests 'Widget.Tests.ps1'), @"
 Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
     Context 'gadget' -Tag:@('$context') {
@@ -16,7 +16,7 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
     }
 }
 "@)
-        [System.IO.File]::WriteAllText((Join-Path $vendor 'Gadget.Tests.ps1'), "Describe 'gadget' -Tag 'ADR-WI-VENDOR#4' { }")
+        [System.IO.File]::WriteAllText((Join-Path $vendor 'Gadget.Tests.ps1'), "Describe 'gadget' -Tag '$('ADR-WIDGET-GADGET-' + 'VENDOR')' { }")
 
         function Reset-EnforcerCache {
             InModuleScope Catzc.Base.Docs { $script:catsRuleEnforcersCache = $null }
@@ -27,7 +27,7 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
         Reset-EnforcerCache
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
-            @{ analyzers = @{ 'Measure-Widget' = @('ADR-WI-TAG#1', 'ADR-WI-RULE#5') } }
+            @{ analyzers = @{ 'Measure-Widget' = @('ADR-WIDGET-GADGET-TAG', 'ADR-WIDGET-GADGET-RULE') } }
         }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Docs { Join-Path $script:repo 'widget-modules' }
         Mock ConvertTo-RepoRelativePath -ModuleName Catzc.Base.Docs {
@@ -41,19 +41,19 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
     }
 
     It 'credits an analyzer rule from the analyzer map' {
-        $script:enforcers['ADR-WI-RULE#5'].Analyzers | Should -Be @('Measure-Widget')
-        $script:enforcers['ADR-WI-RULE#5'].Tests | Should -HaveCount 0
+        $script:enforcers['ADR-WIDGET-GADGET-RULE'].Analyzers | Should -Be @('Measure-Widget')
+        $script:enforcers['ADR-WIDGET-GADGET-RULE'].Tests | Should -HaveCount 0
     }
 
     It 'credits a test file for each -Tag citation of Describe and Context, beside its analyzer' {
-        $script:enforcers['ADR-WI-TAG#1'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
-        $script:enforcers['ADR-WI-TAG#1'].Analyzers | Should -Be @('Measure-Widget')
-        $script:enforcers['ADR-WI-CTX#2'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
+        $script:enforcers['ADR-WIDGET-GADGET-TAG'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
+        $script:enforcers['ADR-WIDGET-GADGET-TAG'].Analyzers | Should -Be @('Measure-Widget')
+        $script:enforcers['ADR-WIDGET-GADGET-CONTEXT'].Tests | Should -Be @('widget-modules/Widget/tests/Widget.Tests.ps1')
     }
 
     It 'ignores a citation-shaped string that is not a -Tag (AST, not text scan), and the vendored tree' {
-        $script:enforcers.ContainsKey('ADR-WI-DATA#3') | Should -BeFalse
-        $script:enforcers.ContainsKey('ADR-WI-VENDOR#4') | Should -BeFalse
+        $script:enforcers.ContainsKey('ADR-WIDGET-GADGET-DATA') | Should -BeFalse
+        $script:enforcers.ContainsKey('ADR-WIDGET-GADGET-VENDOR') | Should -BeFalse
         $script:enforcers.ContainsKey('L0') | Should -BeFalse
     }
 }

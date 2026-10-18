@@ -8,7 +8,7 @@ One function answers "am I in a pipeline?", and every branch on context asks it.
 3  context-dependent behavior  every function that behaves differently in a pipeline asks it
 4  analyzer rule               flags any read of the signal outside the function
 
-Supports ADR-FLOW-CD-DETECT#1 and #4 (meta lens).
+Supports ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK and ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL (meta lens).
 ```
 
 Cats runs the same commands on a developer's machine and inside a CI/CD pipeline, and a few of them must behave differently in the two
@@ -36,10 +36,11 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, so the detection logic stays in one place
-  (ADR-FLOW-CD-DETECT#1).
-- Detection is boolean, not modal: the function returns true or false, and either variable set means a pipeline (ADR-FLOW-CD-DETECT#4).
+  (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK).
+- Detection is boolean, not modal: the function returns true or false, and either variable set means a pipeline
+  (ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL).
 - The function is the one seam between devbox and pipeline, and a command branches on it only where the two environments genuinely differ
-  (ADR-AUTO-PARITY#3).
+  (ADR-AUTO-PARITY-ONESEAM).
 
 ## See also
 

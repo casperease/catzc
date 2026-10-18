@@ -57,8 +57,8 @@ FORWARD = (
 )
 KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
-ADR_CODE = re.compile(r"ADR-[A-Z]+(?:-[A-Z]+)*")
-RULE_COLON = re.compile(r"ADR-[A-Z]+(?:-[A-Z]+)*:\d")
+ADR_CODE = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
+NUMBERED = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
 SLIDE = "diagram.drawio.png"  # a diagram folder's slide; its minimaps are <view>.png and <view>.md beside it
 
 
@@ -127,17 +127,33 @@ def slide_facts(model):
             f"the subtitle ends with '{lens}', not a lens of drawio.yml ({', '.join(DEFAULTS['lenses'])})"
         )
         lens = None
-    if RULE_COLON.search(subtitle):
+    if NUMBERED.search(subtitle):
         problems.append(
-            f"the subtitle cites rules in the ':' form, a citation is ADR-<CODE>#<n> (ADR-REPO-LINK-ONECITATIONSPELLING): {subtitle!r}"
+            f"the subtitle cites a rule by number, a rule is cited by its name (ADR-REPO-ADRCODE): {subtitle!r}"
         )
-    known = set(
+    return adrs_of(subtitle), lens, problems
+
+
+def known_adrs():
+    """The ADR codes the index lists."""
+    return set(
         re.findall(
-            r"`(ADR-[A-Z]+(?:-[A-Z]+)*)`",
+            r"`(ADR(?:-[A-Z][A-Z0-9]*)+)`",
             (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8"),
         )
     )
-    return sorted(set(ADR_CODE.findall(subtitle)) & known), lens, problems
+
+
+def adrs_of(text, known=None):
+    """The ADRs a text cites, sorted: each code's longest prefix the index lists, so a rule's code names its ADR."""
+    known = known_adrs() if known is None else known
+    found = set()
+    for code in ADR_CODE.findall(text):
+        while code not in known and "-" in code:
+            code = code.rsplit("-", 1)[0]
+        if code in known:
+            found.add(code)
+    return sorted(found)
 
 
 def supports_drift(folder, adrs, lens):
@@ -152,7 +168,7 @@ def supports_drift(folder, adrs, lens):
         line = re.search(r"^Supports (.+?) \((\w+) lens\)\.?$", text, flags=re.MULTILINE)
         if line is None:
             return None
-        said = (sorted(set(ADR_CODE.findall(line.group(1)))), line.group(2))
+        said = (adrs_of(line.group(1)), line.group(2))
         if said != (adrs, lens):
             return f"{page.relative_to(REPO).as_posix()} says Supports {said[0]} ({said[1]} lens), the subtitle {adrs} ({lens} lens)"
         return None

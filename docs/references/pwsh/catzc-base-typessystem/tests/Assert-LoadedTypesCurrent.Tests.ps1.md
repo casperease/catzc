@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Assert-LoadedTypesCurrent' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-ONEDRIFTMEASURE' {`, written with `#`.
+Above `Describe 'Assert-LoadedTypesCurrent' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 Assert-LoadedTypesCurrent with the one measurement (Get-LoadedTypeDrift, in Catzc.Internal.Types) mocked at the

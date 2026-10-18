@@ -2,7 +2,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $null, $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
         }
         $script:rows = @('TOP', 'BOTTOM')
         $script:columns = @('alpha', 'beta', 'gamma')

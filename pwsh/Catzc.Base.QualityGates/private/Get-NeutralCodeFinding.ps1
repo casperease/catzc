@@ -14,7 +14,7 @@ function Get-NeutralCodeFinding {
     )
 
     $tiers = [Catzc.Base.Timeouts.TestTiers]::Names
-    $codePattern = [regex]::new('(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*')
+    $codePattern = [regex]::new('(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+')
     $isBlockCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -in 'Describe', 'Context', 'It'

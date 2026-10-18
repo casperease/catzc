@@ -9,7 +9,7 @@ namespace Catzc.Base.QualityGates;
 public sealed class AnalyzerAdrMapConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "analyzer-adr-map configuration validation failed:\n";
-    private static readonly Regex Citation = new Regex(@"^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$|^ADR(?:-[A-Z][A-Z0-9]*){3,}$");
+    private static readonly Regex Citation = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*){3,}$");
 
     // Analyzer rule name -> the ADR rule ids it enforces (string[], '#' form), in declaration order; read-only.
     public OrderedDictionary analyzers { get; }
@@ -62,7 +62,7 @@ public sealed class AnalyzerAdrMapConfig : Catzc.Base.Objects.DictionaryRecord
                     {
                         if (!Citation.IsMatch(id))
                         {
-                            errors.Add(string.Format("analyzer '{0}' has a malformed citation '{1}' (want ADR-<CODE>#<n>, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)", rule, id));
+                            errors.Add(string.Format("analyzer '{0}' has a malformed citation '{1}' (want a rule's code, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)", rule, id));
                         }
                     }
                     map[rule] = ids;

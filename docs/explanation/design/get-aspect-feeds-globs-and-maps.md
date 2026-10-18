@@ -14,7 +14,7 @@ Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which on
 9   Get-WorldMap                  asks for the convention of every track that has an entry
 10  WorldMapBuilder.IsLive        first match over the track's aspects; live when that aspect is named live
 
-Supports ADR-DSGN-ASPECT#2, #3 and #4 (implementation lens).
+Supports ADR-DSGN-ASPECT-ASPECTSAREDERIVED, ADR-DSGN-ASPECT-TRACKPICKSCATCHALL and ADR-DSGN-ASPECT-ASPECTISAGLOBSET (implementation lens).
 ```
 
 One function, `Get-Aspect`, is the only way a convention reaches a caller, and two callers take it in different directions. In
@@ -57,15 +57,17 @@ The diagram is described element by element in [its asset description](.assets/g
 
 ## Why it holds
 
-- The aspect engine compiles aspect _k_ as its own patterns minus every earlier aspect's, prefixed by the unit root (ADR-DSGN-ASPECT#2).
+- The aspect engine compiles aspect _k_ as its own patterns minus every earlier aspect's, prefixed by the unit root
+  (ADR-DSGN-ASPECT-ASPECTSAREDERIVED).
 - Which aspect is the remainder is declared per track, and the config type enforces at load that the last aspect is `**` and no earlier one
-  uses it (ADR-DSGN-ASPECT#3).
-- Each aspect is its own derived globset, `<unit>-<aspect>` (ADR-DSGN-ASPECT#4).
+  uses it (ADR-DSGN-ASPECT-TRACKPICKSCATCHALL).
+- Each aspect is its own derived globset, `<unit>-<aspect>` (ADR-DSGN-ASPECT-ASPECTISAGLOBSET).
 - A globset's scan program is an ordered list of `+` and `-` rules evaluated last match wins, and a leaf set's program is its includes then
-  its excludes (ADR-FLOW-CD-GLOBS#4).
-- The variants file is read through the session-cached config, by typed primitives and the one private reader (ADR-REPO-VARIANT#1, #2).
+  its excludes (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY).
+- The variants file is read through the session-cached config, by typed primitives and the one private reader
+  (ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS).
 - A track owns one coherent tech-stack, and the world map checks it on live files only, so the builder must classify every file of every
-  track (ADR-DSGN-TRACK#3).
+  track (ADR-DSGN-TRACK-ONETECHSTACK).
 
 ## Where the code and the ADR differ
 

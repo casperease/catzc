@@ -11,7 +11,7 @@ Drop a file, and the next import exports it; no registration step exists.
 6  In <kebab>-live             the new file is in the live set: it ships
 7  Quality gates               report a non-conventional folder or file
 
-Supports ADR-DSGN-ASPECT#1 and #2 (operations lens).
+Supports ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS and ADR-DSGN-ASPECT-ASPECTSAREDERIVED (operations lens).
 ```
 
 Adding a function to a cats module has no registration step. The author drops a `Verb-Noun.ps1` file into the module folder, the next import
@@ -40,14 +40,15 @@ The diagram is described element by element in [its asset description](.assets/d
 
 ## Why it holds
 
-- A module's files partition into a `live` aspect and a `tests` aspect, with no file in both and none in neither (ADR-DSGN-ASPECT#1).
+- A module's files partition into a `live` aspect and a `tests` aspect, with no file in both and none in neither
+  (ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS).
 - The aspects come from folder conventions, never from a hand-written list; `live` is closed, so a file can enter it only by matching the
-  convention (ADR-DSGN-ASPECT#2).
+  convention (ADR-DSGN-ASPECT-ASPECTSAREDERIVED).
 
 ## Where the code and the ADR differ
 
-ADR-REPO-FOLDERS#10 says unknown folders are ignored, not errors. The loader does skip them, but `Test-FolderConventions` reports every
-non-conventional module subfolder as an issue.
+ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED says unknown folders are ignored, not errors. The loader does skip them, but `Test-FolderConventions`
+reports every non-conventional module subfolder as an issue.
 
 ## See also
 

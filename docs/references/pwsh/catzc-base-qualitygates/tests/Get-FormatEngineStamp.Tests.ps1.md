@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {`, written with `#`.
+Above `Describe 'Get-FormatEngineStamp' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 Get-FormatEngineStamp over fixture files in $TestDrive. Neutral fixture names

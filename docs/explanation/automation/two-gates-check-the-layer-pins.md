@@ -10,7 +10,7 @@ Two gates check the layer pins, and one rule is left to review.
 5  Quality gate        the real code and the on-disk modules, checked against the declaration
 6  Same-change review  a new edge lands with its code; no gate checks it
 
-Supports ADR-AUTO-DEPM#1, #2, #3, #4 and #5, and ADR-AUTO-TEST#35 (governance lens).
+Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and ADR-AUTO-DEPM-EXTENDBYDECLARING, and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
 The layer pins of cats' module graph, the groups and modules each consumer may use, are held by the same ADR rules on every layer, and they
@@ -41,16 +41,18 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Why it holds
 
-- The declaration is the allow-list, and an undeclared edge fails the build (ADR-AUTO-DEPM#1).
-- Function calls and C# type references are one graph, checked by one gate (ADR-AUTO-DEPM#2).
-- Each consumer pins a group (loose) or a module (tight) (ADR-AUTO-DEPM#3).
-- The declaration's shape is checked at load, and the real edges, on-disk modules and in-group edges by the gate (ADR-AUTO-DEPM#4).
-- A new edge is declared in the same change as the code that introduces it (ADR-AUTO-DEPM#5).
+- The declaration is the allow-list, and an undeclared edge fails the build (ADR-AUTO-DEPM-CODEBUILTFROM).
+- Function calls and C# type references are one graph, checked by one gate (ADR-AUTO-DEPM-UNIFIEDGRAPH).
+- Each consumer pins a group (loose) or a module (tight) (ADR-AUTO-DEPM-TWOSECTIONS).
+- The declaration's shape is checked at load, and the real edges, on-disk modules and in-group edges by the gate
+  (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY).
+- A new edge is declared in the same change as the code that introduces it (ADR-AUTO-DEPM-EXTENDBYDECLARING).
 - A quality gate is one `Test-<subject>` that collects every issue, writes its report and throws once, run by an integrity test at its tier
-  (ADR-AUTO-TEST#35).
+  (ADR-AUTO-TEST-QUALITYGATE).
 
-The remaining rules, which keep module and system dependencies apart and pin, vendor and stitch external code (ADR-AUTO-DEPM#6 to #10), lie
-outside these two gates.
+The remaining rules, which keep module and system dependencies apart and pin, vendor and stitch external code
+(ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY, ADR-AUTO-DEPM-EXACTVERSIONPINS, ADR-AUTO-DEPM-INTERNALVENDORED, ADR-AUTO-DEPM-EXTERNALSTITCHEDATBUILD
+and ADR-AUTO-DEPM-STITCHISCONFIG), lie outside these two gates.
 
 ## Where the code and the ADR differ
 
@@ -61,7 +63,7 @@ outside these two gates.
 ## See also
 
 - [Controlling module dependencies](../../adr/automation/controlling-module-dependencies.md) — the decision this article explains.
-- [Test automation](../../adr/automation/test-automation.md) — the quality-gate rule, ADR-AUTO-TEST#35.
+- [Test automation](../../adr/automation/test-automation.md) — the quality-gate rule, ADR-AUTO-TEST-QUALITYGATE.
 - The other lenses on the same graph: [meta](a-declared-allow-list-of-layers.md), [architecture](three-layers-edges-point-down.md),
   [implementation](two-sections-unioned-into-one-allow-set.md) and [operations](undeclared-edge-fails-with-one-line.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

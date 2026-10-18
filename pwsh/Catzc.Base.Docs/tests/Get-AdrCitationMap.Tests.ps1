@@ -13,8 +13,8 @@ Describe 'Get-AdrCitationMap' -Tag 'L0', 'logic' {
             '| `ADR-TST-WIDGET` | [widget-rules](widget/widget-rules.md) |'
             '| `ADR-TST-GADGET` | [gadget-rules](gadget/gadget-rules.md) |'
         )
-        & $write 'docs/adr/widget/widget-rules.md' @('# Widget', '', '### Rule ADR-TST-WIDGET:1', '', 'One.', '', '### Rule ADR-TST-WIDGET:2', '', 'Two.')
-        & $write 'docs/adr/gadget/gadget-rules.md' @('# Gadget', '', '### Rule ADR-TST-GADGET:1', '', 'One.')
+        & $write 'docs/adr/widget/widget-rules.md' @('# Widget', '', '### Rule ADR-TST-WIDGET-TURN', '', 'One.', '', '### Rule ADR-TST-WIDGET-RE02', '', 'Two.')
+        & $write 'docs/adr/gadget/gadget-rules.md' @('# Gadget', '', '### Rule ADR-TST-GADGET-FOLD', '', 'One.')
         & $write 'docs/adr/widget/widget-notes.md' @('# Widget notes')
         & $write 'docs/adr/gadget/widget-notes.md' @('# Gadget notes')
         $script:map = Get-AdrCitationMap -RepositoryRoot $script:root
@@ -22,14 +22,24 @@ Describe 'Get-AdrCitationMap' -Tag 'L0', 'logic' {
 
     It 'maps each code to its repository-relative ADR path and declared rules' -Tag 'ADR-REPO-LINK-CODELINKS' {
         $map.PathOf('ADR-TST-WIDGET') | Should -BeExactly 'docs/adr/widget/widget-rules.md'
-        $map.HasRule('ADR-TST-WIDGET', 2) | Should -BeTrue
-        $map.HasRule('ADR-TST-WIDGET', 3) | Should -BeFalse
+        $map.RulesOf('ADR-TST-WIDGET') | Should -Be @('ADR-TST-WIDGET-TURN', 'ADR-TST-WIDGET-RE02')
+        $map.IsRule('ADR-TST-WIDGET-RE02') | Should -BeTrue
+        $map.IsRule('ADR-TST-WIDGET-SPIN') | Should -BeFalse
+        $map.AdrOf('ADR-TST-WIDGET-RE02') | Should -BeExactly 'ADR-TST-WIDGET'
+        $map.PathOf('ADR-TST-WIDGET-RE02') | Should -BeExactly 'docs/adr/widget/widget-rules.md'
         $map.CodeOf('docs/adr/gadget/gadget-rules.md') | Should -BeExactly 'ADR-TST-GADGET'
     }
 
     It 'derives the repository-rooted destination from the citation' -Tag 'ADR-REPO-LINK-CODELINKS' {
-        $map.Destination('ADR-TST-WIDGET', 2) | Should -BeExactly '/docs/adr/widget/widget-rules.md#rule-adr-tst-widget2'
-        $map.Destination('ADR-TST-GADGET', $null) | Should -BeExactly '/docs/adr/gadget/gadget-rules.md'
+        $map.Destination('ADR-TST-WIDGET-RE02') | Should -BeExactly '/docs/adr/widget/widget-rules.md#rule-adr-tst-widget-re02'
+        $map.Destination('ADR-TST-GADGET') | Should -BeExactly '/docs/adr/gadget/gadget-rules.md'
+    }
+
+    It 'reads a rule heading anchor back as its rule, and names the parent ADR of an undeclared rule' -Tag 'ADR-REPO-LINK-CODELINKS' {
+        $map.RuleOfAnchor('ADR-TST-WIDGET', '#rule-adr-tst-widget-turn') | Should -BeExactly 'ADR-TST-WIDGET-TURN'
+        $map.RuleOfAnchor('ADR-TST-WIDGET', '#rule-adr-tst-widget1') | Should -BeNullOrEmpty
+        $map.ParentAdr('ADR-TST-WIDGET-SPIN') | Should -BeExactly 'ADR-TST-WIDGET'
+        $map.ParentAdr('ADR-TST-SPROCKET-SPIN') | Should -BeNullOrEmpty
     }
 
     It 'knows the domain prefix of its codes and rejects an unknown code' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {

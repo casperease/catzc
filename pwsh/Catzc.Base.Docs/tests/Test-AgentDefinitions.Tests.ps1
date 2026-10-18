@@ -19,9 +19,9 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
             [Catzc.Base.Docs.CapabilitiesConfig]::new([ordered]@{ capabilities = $Capabilities })
         }
 
-        $script:widgetEntry = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @('Get-Glossary') }
-        $script:gadgetEntry = [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE#2'); checks = @() }
-        $script:spinEntry = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE#1'); checks = @() }
+        $script:widgetEntry = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE-TURN'); checks = @('Get-Glossary') }
+        $script:gadgetEntry = [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @() }
+        $script:spinEntry = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WI-ONE-TURN'); checks = @() }
         $script:widgetFile = @('---', 'name: widget', 'description: >', '  The standard agent. Do NOT use it for gadget work.', 'tools: Read, Edit', 'model: haiku', 'skills: [widget-spin]', '---', '', '# Widget')
         $script:gadgetFile = @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read', 'model: haiku', '---', '', '# Gadget')
         $script:spinFile = @('---', 'name: widget-spin', 'description: Spin a widget; for widget; input is the widget.', 'user-invocable: false', 'allowed-tools: Read',
@@ -46,7 +46,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq '.claude/agents' } { Join-Path $TestDrive 'claude/agents' }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq '.claude/skills' } { Join-Path $TestDrive 'claude/skills' }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq '.claude/CLAUDE.md' } { Join-Path $TestDrive 'claude/CLAUDE.md' }
-        Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.Docs { , @('ADR-WI-ONE:1', 'ADR-WI-ONE:2') }
+        Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.Docs { , @('ADR-WI-ONE-TURN', 'ADR-WI-ONE-SPIN') }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -98,11 +98,11 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     }
 
     It 'reports a capability file without an entry, an entry without a file, and an entry whose citation or check resolves to nothing' -Tag 'ADR-REPO-AGENTS-CAPABILITYREGISTERED' {
-        $script:capabilities = New-CapabilitiesFixture @([ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE#9'); checks = @('Test-GadgetWidgetGizmo') })
+        $script:capabilities = New-CapabilitiesFixture @([ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-MISSING'); checks = @('Test-GadgetWidgetGizmo') })
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has no entry in capabilities.yml'
         $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' has no file .claude/skills/gadget-turn/SKILL.md"
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE#9' names no ADR rule"
+        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
         $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/capabilities.yml: capability 'gadget-turn' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 4
     }
@@ -156,10 +156,10 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     It 'reports a citation that names no rule and a check that names no command' -Tag 'ADR-REPO-AGENTS-BACKEDBYRULE' {
         $script:fixture = New-AgentsFixture @(
             $script:widgetEntry,
-            [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE#9'); checks = @('Test-GadgetWidgetGizmo') }
+            [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE-MISSING'); checks = @('Test-GadgetWidgetGizmo') }
         )
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
-        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE#9' names no ADR rule"
+        $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' supported_by 'ADR-WI-ONE-MISSING' names no ADR rule"
         $issues | Should -Contain "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/configs/agents.yml: agent 'gadget' checks 'Test-GadgetWidgetGizmo' names no command"
         $issues | Should -HaveCount 2
     }

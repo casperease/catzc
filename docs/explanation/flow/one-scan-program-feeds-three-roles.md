@@ -13,7 +13,7 @@ One method, GlobSet.ScanProgram(), feeds all three globset role functions.
 8  Test-GlobSetAffected    answers "is this set touched?", failing open on doubt
 9  Test-GlobSetProtection  compares the live identity with the recorded one
 
-Supports ADR-FLOW-CD-GLOBS#4, #5, #6 and #9 (implementation lens).
+Supports ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT (implementation lens).
 ```
 
 `GlobSet.ScanProgram()` is the one method behind a globset's membership, its trigger and its identity in cats. The code runs from
@@ -47,10 +47,10 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Why it holds
 
-- A globset's membership is an ordered scan program evaluated last-match-wins over tracked files (ADR-FLOW-CD-GLOBS#4).
-- The identity is the durable SHA, computed live per member file and folded into one SHA-256 (ADR-FLOW-CD-GLOBS#5).
-- The trigger is the program projected into each vendor's native path-filter dialect (ADR-FLOW-CD-GLOBS#6).
-- Whether a change touches a set is computed from git at real refs, failing open on any doubt (ADR-FLOW-CD-GLOBS#9).
+- A globset's membership is an ordered scan program evaluated last-match-wins over tracked files (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY).
+- The identity is the durable SHA, computed live per member file and folded into one SHA-256 (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY).
+- The trigger is the program projected into each vendor's native path-filter dialect (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
+- Whether a change touches a set is computed from git at real refs, failing open on any doubt (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

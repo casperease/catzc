@@ -9,7 +9,7 @@ A path has two forms, never a third, and one pair of crossers moves it between t
 4  A hybrid form       {root}/./sub: neither form, always a bug, produced by nothing
 5  Published artifact  a file that crosses a stage boundary, anchored on its own artifact root
 
-Supports ADR-AUTO-PATH#1, #2, #3, #4 and #10 (meta lens).
+Supports ADR-AUTO-PATH-TWOFORMS, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-CENTRALNORMALIZATION and ADR-AUTO-PATH-PUBLISHEDARTIFACT (meta lens).
 ```
 
 Every path that moves through cats is either data or an address. As data it is in communication form: relative to the repository root or the
@@ -39,14 +39,14 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Why it holds
 
-- A path value is in communication form or binding form, never a third; a hybrid is always a bug (ADR-AUTO-PATH#1).
-- A stored or transported path is in communication form, and `ConvertTo-RepoRelativePath` produces it (ADR-AUTO-PATH#2).
+- A path value is in communication form or binding form, never a third; a hybrid is always a bug (ADR-AUTO-PATH-TWOFORMS).
+- A stored or transported path is in communication form, and `ConvertTo-RepoRelativePath` produces it (ADR-AUTO-PATH-COMMUNICATIONFORM).
 - A path is in binding form only at the point of binding, resolved with `Resolve-RepoPath` immediately before the side effect
-  (ADR-AUTO-PATH#3).
+  (ADR-AUTO-PATH-BINDINGFORMONLYATBINDING).
 - Normalization is centralized in the two sanctioned crossers; nothing joins a root onto a raw argument or fixes separators by hand
-  (ADR-AUTO-PATH#4).
+  (ADR-AUTO-PATH-CENTRALNORMALIZATION).
 - A published artifact is an immutable object with both forms, created by `ArtifactRef` and anchored on the artifact root
-  (ADR-AUTO-PATH#10).
+  (ADR-AUTO-PATH-PUBLISHEDARTIFACT).
 
 ## See also
 

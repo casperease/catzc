@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "762c1ba9994f"
+    with_body_sha: "324f65d1b23f"
     repo_status: locked
     path: docs/explanation/automation/.assets/three-tests-prove-the-hook/chain.md
     source: docs/explanation/automation/.assets/three-tests-prove-the-hook/diagram.drawio.png
@@ -56,10 +56,6 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][7]
 - [lit cell][8]
 
-Terms the cited ADRs define:
-
-- [posture][9], defined by [ADR-AUTO-DEFAULT#6][10]
-
 [1]: ../../../../adr/automation/sensible-defaults.md
 [2]: ../../../../adr/automation/fail-fast-with-asserts.md
 [3]: ../../three-tests-prove-the-hook.md
@@ -68,5 +64,3 @@ Terms the cited ADRs define:
 [6]: ../../../../adr/glossary.md#value-chain-concern
 [7]: ../../../../adr/glossary.md#cell
 [8]: ../../../../adr/glossary.md#lit-cell
-[9]: ../../../../adr/glossary.md#posture
-[10]: ../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default6

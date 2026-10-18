@@ -25,4 +25,4 @@ dora_coverage:
 
 # The segment grammar of ADR codes and named rule headings ([ADR-REPO-ADRCODE](/docs/adr/repository/adr-code-language.md)).
 code_language:
-  mode: report
+  mode: gate

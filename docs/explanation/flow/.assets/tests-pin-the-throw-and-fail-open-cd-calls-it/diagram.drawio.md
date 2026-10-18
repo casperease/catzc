@@ -1,4 +1,4 @@
-# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated: the diagram described
+# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate: the diagram described
 
 ```text
 A 1572 x 760 diagram, read top to bottom through four bands, each band a row with the governed glyph left and its gate right.

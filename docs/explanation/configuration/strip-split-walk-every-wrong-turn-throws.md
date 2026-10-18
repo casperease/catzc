@@ -13,7 +13,7 @@ Strip, split, read once, walk one segment at a time; every wrong turn throws.
 8  unknown or ambiguous name    no module ships the config, or more than one does
 9  key or property not found    a segment resolves at neither, named with its address
 
-Supports ADR-CONF-ADDRESSING#1, #2 and #4 (implementation lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST (implementation lens).
 ```
 
 Resolving a global config address is three small functions in `Catzc.Base.Config` in a fixed order. `Get-ConfigValue` strips the marker and
@@ -56,11 +56,11 @@ The diagram is described element by element in [its asset description](.assets/s
 ## Why it holds
 
 - `Get-ConfigValue` is built on `Get-Config` and walks with the private `Resolve-ConfigKeyPath`, so there is one reader and one cache and
-  the address is a walk over a config already loaded (ADR-CONF-ADDRESSING#1).
+  the address is a walk over a config already loaded (ADR-CONF-ADDRESSING-GLOBALADDRESSFORM).
 - The first segment after `global.` is the config's global name; each later segment resolves as a dictionary key on a dictionary node,
-  otherwise as a property, uniformly over raw and typed configs (ADR-CONF-ADDRESSING#2).
+  otherwise as a property, uniformly over raw and typed configs (ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG).
 - An unknown or ambiguous name throws from the reader, a bad segment throws naming the address and the segment, and a malformed address is
-  rejected at parameter binding; there is no silent empty value (ADR-CONF-ADDRESSING#4).
+  rejected at parameter binding; there is no silent empty value (ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
 
 ## Where the code and the ADR differ
 

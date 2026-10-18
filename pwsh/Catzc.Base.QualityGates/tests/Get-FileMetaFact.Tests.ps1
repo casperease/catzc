@@ -2,9 +2,9 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     BeforeAll {
         # The one code the fixture cites, registered with ten rules, so the adr-codes kind keeps it.
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/adr/gadget.md'; rules = 1..10 } }, @())
+            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/adr/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
         }
-        $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET#1.`n"
+        $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET-TURN.`n"
 
         # A fixture registry: the `classes` of a test's raw config become the kinds the file-kinds registry names, and none leaves every file other.
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{})
@@ -37,7 +37,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
         $facts = Get-Facts @{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; 'body-sha' = @{ keys = @('with_body_sha') } } }
         $facts.Immutable.Keys | Should -Be @('with_body_sha')
         $facts.Edges.Keys | Should -Be @('cites')
-        $facts.Edges['cites'] | Should -Be @('ADR-GADGET#1')
+        $facts.Edges['cites'] | Should -Be @('ADR-GADGET-TURN')
     }
 
     It 'puts each key into the part its kind names, in registry order within the part' {

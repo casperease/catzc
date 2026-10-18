@@ -12,7 +12,8 @@ catzc:
     tracktype: documentation
   edges:
     cites:
-      - ADR-THES-ONETRUTH#4
+      - ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
+      - ADR-THES-ONETRUTH-NOREPOSITORYVERSION
   config:
     pattern: pair
     deck: product-thesis
@@ -23,7 +24,7 @@ catzc:
 
 ## Eyebrow
 
-ADR-THES-ONETRUTH#4 and #5 · Mechanics
+ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY and ADR-THES-ONETRUTH-NOREPOSITORYVERSION · Mechanics
 
 ## Cards
 

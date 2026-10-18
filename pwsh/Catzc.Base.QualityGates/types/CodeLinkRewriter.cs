@@ -16,17 +16,17 @@ public sealed class CodeLinkRewriter
     static readonly Regex Reference = new Regex(
         @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
         @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
-        @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:(?<sep>[:#])(?<rule>\d+))?(?(rule)(?!\d)|(?![\w*]|-[A-Z*<])))" +
+        @"|(?<numbered>(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+[:#]\d+)" +
+        @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)(?![\w*]|-[A-Z0-9*<]))" +
         @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
         RegexOptions.Compiled);
 
     // A meta head is derived front matter: its adrs list holds the file's codes as plain codes, never as links.
     static readonly Regex MetaHead = new Regex(@"\A(?:/\*|<#|//|#)?[ \t]*\r?\n?[ \t]*(?://|#)?[ \t]*---[ \t]*\r?\n[ \t]*(?://|#)?[ \t]*catzc:", RegexOptions.Compiled);
-    static readonly Regex CitationOnly = new Regex(@"^(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?$", RegexOptions.Compiled);
+    static readonly Regex CitationOnly = new Regex(@"^(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)$", RegexOptions.Compiled);
     static readonly Regex AdjacentCitation = new Regex(
-        @"\G(?<sep>[ \t]*[,;:]?[ \t]*\(?(?:[Rr]ule[ \t]+)?|[ \t]+[—–-][ \t]+)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?(?![\w\-:#])(?<close>\))?",
+        @"\G(?<sep>[ \t]*[,;:]?[ \t]*\(?(?:[Rr]ule[ \t]+)?|[ \t]+[—–-][ \t]+)(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)(?![\w\-:#])(?<close>\))?",
         RegexOptions.Compiled);
-    static readonly Regex RuleFragment = new Regex(@"^#rule-(?<code>adr(?:-[a-z]+)+?)(?<rule>\d+)$", RegexOptions.Compiled);
     static readonly Regex HelpKeyword = new Regex(@"^\s*\.(?<keyword>[A-Za-z]+)\b", RegexOptions.Compiled);
 
     readonly AdrCitationMap map;
@@ -86,12 +86,17 @@ public sealed class CodeLinkRewriter
             }
             else if (match.Groups["path"].Success)
             {
-                consumed += Adjacent(comment, match.Index + match.Length, literal, out string citedCode, out int? citedRule);
-                replacement = RewritePath(match.Groups["path"].Value, match.Groups["frag"].Value, citedCode, citedRule, out type, out problemType, out problem);
+                consumed += Adjacent(comment, match.Index + match.Length, literal, out string citedCode);
+                replacement = RewritePath(match.Groups["path"].Value, match.Groups["frag"].Value, citedCode, out type, out problemType, out problem);
             }
-            else if (match.Groups["cite"].Success && IsQuoted(comment, match.Index, match.Length))
+            else if ((match.Groups["cite"].Success || match.Groups["numbered"].Success) && IsQuoted(comment, match.Index, match.Length))
             {
-                // A quoted citation ('ADR-X:3') is a literal example of the spelling, not a reference.
+                // A quoted citation ('ADR-X-NAME') is a literal example of the spelling, not a reference.
+            }
+            else if (match.Groups["numbered"].Success)
+            {
+                problemType = LinkFindingType.Numbered;
+                problem = string.Format(CultureInfo.InvariantCulture, "'{0}' is a numbered citation; cite the rule by its name", match.Value);
             }
             else if (match.Groups["cite"].Success)
             {
@@ -100,24 +105,14 @@ public sealed class CodeLinkRewriter
                 {
                     if (!map.IsDomainCode(code) && !tolerateUnknownCodes)
                     {
-                        problemType = LinkFindingType.UnknownCode;
-                        problem = string.Format(CultureInfo.InvariantCulture, "'{0}' is not a citation code in the ADR index", code);
+                        problem = Unknown(code, out problemType);
                     }
                 }
                 else
                 {
-                    int? rule = match.Groups["rule"].Success ? int.Parse(match.Groups["rule"].Value, CultureInfo.InvariantCulture) : (int?)null;
-                    if (rule.HasValue && !map.HasRule(code, rule.Value))
-                    {
-                        problemType = LinkFindingType.UnknownRule;
-                        problem = string.Format(CultureInfo.InvariantCulture, "{0} declares no rule {1}", code, rule.Value);
-                    }
-                    else
-                    {
-                        replacement = Canonical(code, rule, null);
-                        type = LinkFindingType.Citation;
-                        consumed += RepeatedLink(comment, match.Index + match.Length, literal, replacement);
-                    }
+                    replacement = Canonical(code, null);
+                    type = LinkFindingType.Citation;
+                    consumed += RepeatedLink(comment, match.Index + match.Length, literal, replacement);
                 }
             }
             else if (match.Groups["slug"].Success)
@@ -125,11 +120,11 @@ public sealed class CodeLinkRewriter
                 string path = map.PathOfSlug(match.Groups["name"].Value);
                 if (path != null)
                 {
-                    int extra = Adjacent(comment, match.Index + match.Length, literal, out string citedCode, out int? citedRule);
+                    int extra = Adjacent(comment, match.Index + match.Length, literal, out string citedCode);
                     if (citedCode != null)
                     {
                         consumed += extra;
-                        replacement = RewritePath(path, string.Empty, citedCode, citedRule, out type, out problemType, out problem);
+                        replacement = RewritePath(path, string.Empty, citedCode, out type, out problemType, out problem);
                     }
                     else
                     {
@@ -160,10 +155,22 @@ public sealed class CodeLinkRewriter
         return output.ToString();
     }
 
-    int Adjacent(string comment, int at, bool[] literal, out string code, out int? rule)
+    // An unregistered code: a rule its ADR does not declare, or no code of the index at all.
+    string Unknown(string code, out LinkFindingType problemType)
+    {
+        string parent = map.ParentAdr(code);
+        if (parent != null)
+        {
+            problemType = LinkFindingType.UnknownRule;
+            return string.Format(CultureInfo.InvariantCulture, "{0} declares no rule {1}", parent, code);
+        }
+        problemType = LinkFindingType.UnknownCode;
+        return string.Format(CultureInfo.InvariantCulture, "'{0}' is not a citation code in the ADR index", code);
+    }
+
+    int Adjacent(string comment, int at, bool[] literal, out string code)
     {
         code = null;
-        rule = null;
         if (at >= comment.Length) { return 0; }
         Match adjacent = AdjacentCitation.Match(comment, at);
         if (!adjacent.Success || literal[adjacent.Groups["code"].Index] || !map.HasCode(adjacent.Groups["code"].Value)) { return 0; }
@@ -173,7 +180,6 @@ public sealed class CodeLinkRewriter
         if (opened && !closed) { return 0; }
 
         code = adjacent.Groups["code"].Value;
-        rule = adjacent.Groups["rule"].Success ? int.Parse(adjacent.Groups["rule"].Value, CultureInfo.InvariantCulture) : (int?)null;
         return closed && !opened ? adjacent.Length - 1 : adjacent.Length;
     }
 
@@ -219,11 +225,9 @@ public sealed class CodeLinkRewriter
         if (repoPath == null && !citation.Success) { return null; }   // a link to something other than an ADR
 
         string code = null;
-        int? rule = null;
         if (citation.Success && map.HasCode(citation.Groups["code"].Value))
         {
             code = citation.Groups["code"].Value;
-            rule = citation.Groups["rule"].Success ? int.Parse(citation.Groups["rule"].Value, CultureInfo.InvariantCulture) : (int?)null;
             if (repoPath != null && !string.Equals(map.PathOf(code), repoPath, StringComparison.OrdinalIgnoreCase))
             {
                 type = map.IsDocument(repoPath) ? LinkFindingType.TextMismatch : LinkFindingType.Stale;
@@ -231,52 +235,41 @@ public sealed class CodeLinkRewriter
         }
         else if (citation.Success)
         {
-            problemType = LinkFindingType.UnknownCode;
-            problem = string.Format(CultureInfo.InvariantCulture, "'{0}' is not a citation code in the ADR index", citation.Groups["code"].Value);
+            problem = Unknown(citation.Groups["code"].Value, out problemType);
             return null;
         }
 
         if (code == null)
         {
             // The text is not a citation (a slug, a title): the path decides, and the link is re-spelled canonically.
-            string fixedLink = RewritePath(repoPath, fragment, null, null, out type, out problemType, out problem);
+            string fixedLink = RewritePath(repoPath, fragment, null, out type, out problemType, out problem);
             if (type == LinkFindingType.Bare || type == LinkFindingType.Relative) { type = LinkFindingType.NonCanonical; }
             return fixedLink;
         }
 
-        if (map.IsNamedRule(code) && string.Equals(fragment, "#rule-" + code.ToLowerInvariant(), StringComparison.Ordinal))
+        if (map.IsRule(code))
         {
             fragment = string.Empty;
         }
-        else if (!rule.HasValue && fragment.Length > 0)
+        else if (fragment.Length > 0)
         {
-            Match ruleFragment = RuleFragment.Match(fragment);
-            if (ruleFragment.Success && ruleFragment.Groups["code"].Value == code.ToLowerInvariant())
+            string rule = map.RuleOfAnchor(code, fragment);
+            if (rule != null)
             {
-                rule = int.Parse(ruleFragment.Groups["rule"].Value, CultureInfo.InvariantCulture);
+                code = rule;
                 fragment = string.Empty;
             }
         }
-        else if (rule.HasValue)
-        {
-            fragment = string.Empty;
-        }
 
-        if (rule.HasValue && !map.HasRule(code, rule.Value))
-        {
-            problemType = LinkFindingType.UnknownRule;
-            problem = string.Format(CultureInfo.InvariantCulture, "{0} declares no rule {1}", code, rule.Value);
-            return null;
-        }
         if (fragment.Length > 0 && !HasAnchor(map.PathOf(code), fragment))
         {
             problemType = LinkFindingType.BadAnchor;
             problem = string.Format(CultureInfo.InvariantCulture, "{0} has no heading or anchor '{1}'", map.PathOf(code), fragment);
         }
-        return Canonical(code, rule, fragment);
+        return Canonical(code, fragment);
     }
 
-    string RewritePath(string rawPath, string fragment, string citedCode, int? citedRule, out LinkFindingType type, out LinkFindingType problemType, out string problem)
+    string RewritePath(string rawPath, string fragment, string citedCode, out LinkFindingType type, out LinkFindingType problemType, out string problem)
     {
         problemType = LinkFindingType.Dangling;
         problem = null;
@@ -287,21 +280,8 @@ public sealed class CodeLinkRewriter
         if (citedCode != null)
         {
             type = LinkFindingType.Adjacent;
-            if (!citedRule.HasValue)
-            {
-                Match ruleFragment = RuleFragment.Match(fragment ?? string.Empty);
-                if (ruleFragment.Success && ruleFragment.Groups["code"].Value == citedCode.ToLowerInvariant())
-                {
-                    citedRule = int.Parse(ruleFragment.Groups["rule"].Value, CultureInfo.InvariantCulture);
-                }
-            }
-            if (citedRule.HasValue && !map.HasRule(citedCode, citedRule.Value))
-            {
-                problemType = LinkFindingType.UnknownRule;
-                problem = string.Format(CultureInfo.InvariantCulture, "{0} declares no rule {1}", citedCode, citedRule.Value);
-                return null;
-            }
-            return Canonical(citedCode, citedRule, null);
+            string rule = map.IsRule(citedCode) ? null : map.RuleOfAnchor(citedCode, fragment);
+            return Canonical(rule ?? citedCode, null);
         }
 
         if (!map.IsDocument(repoPath))
@@ -318,21 +298,14 @@ public sealed class CodeLinkRewriter
         }
 
         string code = map.CodeOf(repoPath);
-        int? rule = null;
         string keptFragment = fragment ?? string.Empty;
         if (code != null && keptFragment.Length > 0)
         {
-            Match ruleFragment = RuleFragment.Match(keptFragment);
-            if (ruleFragment.Success && ruleFragment.Groups["code"].Value == code.ToLowerInvariant())
+            string rule = map.RuleOfAnchor(code, keptFragment);
+            if (rule != null)
             {
-                rule = int.Parse(ruleFragment.Groups["rule"].Value, CultureInfo.InvariantCulture);
+                code = rule;
                 keptFragment = string.Empty;
-                if (!map.HasRule(code, rule.Value))
-                {
-                    problemType = LinkFindingType.UnknownRule;
-                    problem = string.Format(CultureInfo.InvariantCulture, "{0} declares no rule {1}", code, rule.Value);
-                    return null;
-                }
             }
         }
         if (keptFragment.Length > 0 && !HasAnchor(repoPath, keptFragment))
@@ -340,20 +313,17 @@ public sealed class CodeLinkRewriter
             problemType = LinkFindingType.BadAnchor;
             problem = string.Format(CultureInfo.InvariantCulture, "{0} has no heading or anchor '{1}'", repoPath, keptFragment);
         }
-        return code != null ? Canonical(code, rule, keptFragment) : CanonicalForPath(repoPath, keptFragment);
+        return code != null ? Canonical(code, keptFragment) : CanonicalForPath(repoPath, keptFragment);
     }
 
-    string Canonical(string code, int? rule, string fragment)
-    {
-        string text = rule.HasValue ? code + "#" + rule.Value.ToString(CultureInfo.InvariantCulture) : code;
-        return "[" + text + "](" + map.Destination(code, rule) + (rule.HasValue ? string.Empty : fragment ?? string.Empty) + ")";
-    }
+    string Canonical(string code, string fragment) =>
+        "[" + code + "](" + map.Destination(code) + (map.IsRule(code) ? string.Empty : fragment ?? string.Empty) + ")";
 
     // A link to an ADR-folder document with no citation code of its own (index.md, a dora-explains.md): text is the file slug.
     string CanonicalForPath(string repoPath, string fragment)
     {
         string code = map.CodeOf(repoPath);
-        if (code != null) { return Canonical(code, null, fragment); }
+        if (code != null) { return Canonical(code, fragment); }
         return "[" + Path.GetFileNameWithoutExtension(repoPath) + "](/" + repoPath + (fragment ?? string.Empty) + ")";
     }
 

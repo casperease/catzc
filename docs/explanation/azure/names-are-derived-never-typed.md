@@ -11,7 +11,7 @@ An operator changes settings and runs a command; cats derives the name or stops 
 6  dev-001-weu-zct-sidx-rg  the name that passes: printed, or the deploy's resource group
 7  throw                    an error to act on: fix a setting and rerun
 
-Supports ADR-AZ-NAMING#1, #5, #6, #7 and #8 (operations lens).
+Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (operations lens).
 ```
 
 An Azure resource name in cats is never typed by an operator. A person runs a deploy or asks for a name, and the naming standard derives it
@@ -43,11 +43,11 @@ The diagram is described element by element in [its asset description](.assets/n
 
 ## Why it holds
 
-- Every name is assembled deterministically from one canonical component set, so nobody types one (ADR-AZ-NAMING#1).
-- The component order is the `ado_naming` repo variant, and changing it re-spells every derived name (ADR-AZ-NAMING#5).
-- Components are lowercase and validated case-sensitively, so a malformed value stops the run (ADR-AZ-NAMING#6).
-- A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING#7).
-- The subscription picks the deploy target and the customer, never a name segment (ADR-AZ-NAMING#8).
+- Every name is assembled deterministically from one canonical component set, so nobody types one (ADR-AZ-NAMING-DETERMINISTICNAMES).
+- The component order is the `ado_naming` repo variant, and changing it re-spells every derived name (ADR-AZ-NAMING-ORDERISVARIANT).
+- Components are lowercase and validated case-sensitively, so a malformed value stops the run (ADR-AZ-NAMING-LOWERCASECOMPONENTS).
+- A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING-NEVERTRUNCATE).
+- The subscription picks the deploy target and the customer, never a name segment (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
 An external name collision on a globally unique type also fails the deploy. That is Azure's behaviour, which the ADR states: the fix is the
 same, adjust the slot or the `short_name`, and there is no automatic hash.

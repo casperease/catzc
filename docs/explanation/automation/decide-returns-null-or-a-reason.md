@@ -12,7 +12,7 @@ Main loads the limits and the run environment, then Decide returns null to let t
 7  DenyOutput: deny + reason    Decide returns a reason; Main prints the PreToolUse denial
 8  out/time-safeguard.log       one tab-separated line per denial, the list of blockers to tune
 
-Supports ADR-AUTO-FAILFAST#7 (implementation lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT (implementation lens).
 ```
 
 The hook program is short on purpose: `Main` in `Program.cs` does the input and output, and every decision is made by the types it compiles
@@ -54,9 +54,9 @@ The diagram is described element by element in [its asset description](.assets/d
 
 - Every wait is bounded, the bash limits bound every shell call an agent makes, and a hook denies a call outside them; a foreground call
   passes its timeout, and a background call starts with a GNU `timeout` around a single command because the Bash tool does not apply its
-  timeout there (ADR-AUTO-FAILFAST#7).
+  timeout there (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - The hook denies and never rewrites, and each denial is appended to `out/time-safeguard.log`, the list of blockers to tune
-  (ADR-AUTO-FAILFAST#7).
+  (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 
 ## See also
 

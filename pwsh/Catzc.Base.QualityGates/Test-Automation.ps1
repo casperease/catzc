@@ -32,7 +32,7 @@ function Test-Automation {
 
         [switch] $EnforceTimings,
 
-        [ValidatePattern('^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$|^ADR(?:-[A-Z][A-Z0-9]*){3,}$')]
+        [ValidatePattern('^ADR(?:-[A-Z][A-Z0-9]*){3,}$')]
         [string[]] $Rule = @(),
 
         [ArgumentCompleter({ (Get-Config -Config globs).Names })]

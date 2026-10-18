@@ -8,21 +8,20 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `public static class AdrCodeForm`, written with `//`.
 
 ```text
-The minimal form of a set of ADR citations, and the parser that reads it back.
+The ADR code grammar (ADR-REPO-ADRCODE), and the shortest form of a derived list of codes.
 
-  ADR-<CODE>#5             one rule
-  ADR-<CODE>#{1,3-5,9}     a group: numbers and ranges (a range is a run of three or more)
-  ADR-<CODE>               no numbers: the whole ADR, every rule of it (or a domain), never grouped
+  ADR-<DOMAIN>-<ADR>-<NAME>   one rule
+  ADR-<DOMAIN>-<ADR>          the whole ADR, every rule of it
+  ADR-<DOMAIN>                every ADR of the domain
 
-Minimize takes the registry only to see when a code's rules are all present, and then writes the bare code: the whole ADR. A bare code
-never changes meaning when the ADR gains a rule; without a registry no code is ever collapsed.
+A code is a path of upper-case segments, and a prefix selects everything below it. There is no number, group or range.
 ```
 
 ## comment:2
 
-Above `public static IReadOnlyList<string> Minimize(string[] citations,...`, written with `//`.
+Above `public static IReadOnlyList<string> Minimize(string[] codes, AdrCitationMap...`, written with `//`.
 
 ```text
-The fewest tokens that name exactly the citations given. Each input is a bare code or a single rule; duplicates collapse. A code whose
-rules the registry declares, all present and none extra, is written as the bare code.
+A derived list at its shortest: a code another listed code covers goes, and a set of rules that is every rule of its ADR, as the registry
+declares them, becomes the ADR's code. Without a registry nothing collapses, and the list is ordinal; with one it is in authored order.
 ```

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "72a136b32867"
+    with_body_sha: dfc035425611
     repo_status: locked
     path: docs/explanation/design/.assets/guard-and-policies-by-command/tree.md
     source: docs/explanation/design/.assets/guard-and-policies-by-command/diagram.drawio.png
@@ -50,7 +50,7 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 113 (text).
+- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 115 (text).
 
 ### pipelines (1 lit file)
 

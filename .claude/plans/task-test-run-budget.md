@@ -22,8 +22,8 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
 ## Steps
 
 1. [x] D08 recorded; `docs/adr/repository/uniform-formatting.md`: one sentence, an engine's cache stamp contains its own tool pin and its
-       own settings files, nothing else. Check: Test-AdrRegistry, Test-Links. Done 2026-10-18: ADR-REPO-FORMAT#8 says an engine's
-       `settings:` entries are its whole stamp, citing ADR-AUTO-CACHE#10; `ADRREG issues=0`, `LINKS issues=0`, `MDLINT issues=0`.
+       own settings files, nothing else. Check: Test-AdrRegistry, Test-Links. Done 2026-10-18: ADR-REPO-FORMAT-CONFIGUREDFORMATTERS says an engine's
+       `settings:` entries are its whole stamp, citing ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS; `ADRREG issues=0`, `LINKS issues=0`, `MDLINT issues=0`.
 2. [x] The stamp: find where it is built (`Catzc.Base.Engines` or the Format-Code cache in QualityGates); per engine, hash only that
        engine's pin from `tools.yml` and its settings files. Two tests: an unrelated pin edit leaves another engine's cache warm; every
        declared stamp input invalidates it (the risk is a stale result from a missed input). Check: the Test-Formatting tests pass cold and
@@ -81,15 +81,15 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
    inputs and the manifests, fixed in the file that builds the stamp; then the Test-Automation scheduler starts shards 5, 6 and the greedy
    pairs as phase A frees slots, keeping build-heavy greedy files apart, one file at a time. Check: the stamp's and the scheduler's L0
    test files pass under Invoke-TestFile; no run started; the next full run's manifest is read when the user makes it. The cold cache,
-   found 2026-10-18 by catzc-93: the stamp is correct (ADR-AUTO-CACHE#10), but any terminology or glossary edit regenerates a `.cspell`
+   found 2026-10-18 by catzc-93: the stamp is correct (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS), but any terminology or glossary edit regenerates a `.cspell`
    file and so re-analyzes all ~1630 files (~130 s; 15:36 run: only `vssps` added, 637d66ca9). Decided by the orchestrator on the user's
    delegation: `Get-ScriptAnalyzerDiagnostics` runs two cached passes, the spelling rule keyed on the dictionaries and its own files,
    every other rule on settings, rules and manifest only; an L0 case proves a dictionary-only change re-runs only the spelling pass.
    The scheduler, decided by the orchestrator on the user's delegation: one PesterRunner pool with a per-class cap (greedy files start in
    any slot a parallel shard frees, at most `greedy_group_size` at once, serial last and alone); "build-heavy apart" is a `greedy_apart`
-   list in `test-policy.yml` with its default declared once on TestPolicyConfig; ADR-AUTO-TEST#26 is reworded to the pool.
+   list in `test-policy.yml` with its default declared once on TestPolicyConfig; ADR-AUTO-TEST-ONESCHEDULINGPOOL is reworded to the pool.
    Part 1 landed 2026-10-18 by session catzc-93, verdict: "the analyzer cache is split into two passes, rules and spelling, each keyed on
-   every input it declares (ADR-AUTO-CACHE#10); a dictionary-only change re-runs only the spelling pass: 22.9 s against 151.7 s for a
+   every input it declares (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS); a dictionary-only change re-runs only the spelling pass: 22.9 s against 151.7 s for a
    full cold run, and 4.1 s warm; repo-wide .internal Test-ScriptAnalyzer.Tests passes" (new CatzcSpelling.psm1 and private
    Invoke-ScriptAnalyzerShards; settings re-linked). Part 2 landed 2026-10-18 by catzc-93, verdict: "one pool: greedy files take the
    first slot a parallel shard frees, at most greedy_group_size at once and the greedy_apart build files one at a time, serial last;

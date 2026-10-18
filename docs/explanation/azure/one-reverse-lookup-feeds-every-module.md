@@ -12,7 +12,7 @@ One reverse lookup turns the az session into a declared identity that every Azur
 7  configuration tree     configuration/[<customer>/]<env>[-<slot>].yml, one file per slot
 8  resource-group name    derived from the env, the slot and the session's customer; never typed
 
-Supports ADR-AZ-DATAMOD#4 and #7, and ADR-AZ-NAMING#8 (architecture lens).
+Supports ADR-AZ-DATAMOD-CUSTOMERAXIS and ADR-AZ-DATAMOD-JOINSINPOWERSHELL, and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
 ```
 
 Cats keeps Azure identity in one file, `azure.yml`, and the deploy target in one place, the az session. The two meet in a single reverse
@@ -51,10 +51,10 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - The joins between the two layers live in PowerShell and resolve on demand; the deploy-time subscription is the az session's,
-  reverse-resolved against `azure.yml` by `Get-AzCliSessionSubscription` (ADR-AZ-DATAMOD#7).
+  reverse-resolved against `azure.yml` by `Get-AzCliSessionSubscription` (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
 - Customer is a configuration axis, the subfolder, and at deploy time it is derived from the session subscription, never a deploy argument;
-  it addresses the customer's config and renders into the names (ADR-AZ-DATAMOD#4).
-- The subscription is never a name component; the customer that renders is derived from it (ADR-AZ-NAMING#8).
+  it addresses the customer's config and renders into the names (ADR-AZ-DATAMOD-CUSTOMERAXIS).
+- The subscription is never a name component; the customer that renders is derived from it (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
 ## See also
 

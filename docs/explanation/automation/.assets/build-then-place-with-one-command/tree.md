@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b202b18939ec
+    with_body_sha: "1eb46e50c397"
     repo_status: locked
     path: docs/explanation/automation/.assets/build-then-place-with-one-command/tree.md
     source: docs/explanation/automation/.assets/build-then-place-with-one-command/diagram.drawio.png
@@ -78,7 +78,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 611 (text).
+- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 612 (text).
 - [docs/adr/index.md][17], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 173 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
@@ -136,10 +136,6 @@ The group holds the files of pwsh/Catzc.Base.Exporter; each sits in its world-ma
 - [powershell][31]: a file language
 - [yaml][31]: a file language
 
-Terms the cited ADRs define:
-
-- [bundle][32], defined by [ADR-AUTO-BUNDLE#1][33]
-
 [1]: ../../../../adr/automation/platform-bundle.md
 [2]: ../../../../references/pipelines/github-workflows/ci-automation.yml.md
 [3]: ../../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
@@ -171,5 +167,3 @@ Terms the cited ADRs define:
 [29]: ../../../../adr/glossary.md#lit-cell
 [30]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
 [31]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[32]: ../../../../adr/glossary.md#bundle
-[33]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

@@ -8,7 +8,7 @@ The deploy target is the az session's subscription; the guard checks it and neve
 3  deploy target         the confirmed subscription, whose customer picks the config and the names
 4  mis-wired connection  the throw when the session and the pin disagree
 
-Supports ADR-AZ-DATAMOD#7 (meta lens).
+Supports ADR-AZ-DATAMOD-JOINSINPOWERSHELL (meta lens).
 ```
 
 Cats deploys a Bicep template into whatever subscription the az session is signed in to. No deploy call, pipeline step or config path names
@@ -37,8 +37,9 @@ The diagram is described element by element in [its asset description](.assets/t
 ## Why it holds
 
 - The deploy-time subscription is determined by the az session, reverse-resolved against `azure.yml`, and a pipeline deploy must still pin
-  its target: `-SubscriptionIdAssertIs` is mandatory in a pipeline and optional on a devbox (ADR-AZ-DATAMOD#7).
-- The assert is a guard, never a selector: a mismatch means a mis-wired service connection and fails loudly (ADR-AZ-DATAMOD#7).
+  its target: `-SubscriptionIdAssertIs` is mandatory in a pipeline and optional on a devbox (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
+- The assert is a guard, never a selector: a mismatch means a mis-wired service connection and fails loudly
+  (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
 
 ## See also
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd336e08ac81
+    with_body_sha: a79c84be747d
     repo_status: locked
     path: docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot/chain.md
     source: docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-AZ-DATAMOD sits in the value chain: value-chain stack down, value-chai
 ![The value-chain minimap of Get-BicepDeploymentContext reads the session, guards it, then picks the slot](chain.png)
 
 This is the value-chain minimap in the sidebar of the implementation diagram of [Get-BicepDeploymentContext reads the session, guards it,
-then picks the slot][5], which explains [ADR-AZ-DATAMOD][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
+then picks the slot][3], which explains [ADR-AZ-DATAMOD][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
 concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that
 selects it.
 
@@ -55,44 +55,33 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### CLOUD × deploy (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][2]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [ADR-AZ-DATAMOD][1]: selected by [ADR-AZ-DATAMOD][1]; its ADR domain `azure` sits on the CLOUD row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][3]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it lights the
-  deploy column ([ADR-DSGN-TRACK#15][4]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it
+  lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
 ### CLOUD × access (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][2]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [ADR-AZ-DATAMOD][1]: selected by [ADR-AZ-DATAMOD][1]; its ADR domain `azure` sits on the CLOUD row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][3]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it lights the
-  access column ([ADR-DSGN-TRACK#15][4]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (deploy and access) override its ADR domain's default (deploy), so it
+  lights the access column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
-
-Terms the cited ADRs define:
-
-- [environment class][11], defined by [ADR-AZ-DATAMOD#11][12]
-- [slot][13], defined by [ADR-AZ-DATAMOD#2][14]
+- [value-chain map][4]
+- [value-chain stack][5]
+- [value-chain concern][6]
+- [cell][7]
+- [lit cell][8]
 
 [1]: ../../../../adr/azure/azure-data-model.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../read-the-session-guard-then-pick-slot.md
-[6]: ../../../../adr/glossary.md#value-chain-map
-[7]: ../../../../adr/glossary.md#value-chain-stack
-[8]: ../../../../adr/glossary.md#value-chain-concern
-[9]: ../../../../adr/glossary.md#cell
-[10]: ../../../../adr/glossary.md#lit-cell
-[11]: ../../../../adr/glossary.md#environment-class
-[12]: ../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod11
-[13]: ../../../../adr/glossary.md#slot
-[14]: ../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod2
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../read-the-session-guard-then-pick-slot.md
+[4]: ../../../../adr/glossary.md#value-chain-map
+[5]: ../../../../adr/glossary.md#value-chain-stack
+[6]: ../../../../adr/glossary.md#value-chain-concern
+[7]: ../../../../adr/glossary.md#cell
+[8]: ../../../../adr/glossary.md#lit-cell

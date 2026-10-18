@@ -35,7 +35,7 @@ ADR-PRIN-ONELIVE (one living version, no "we used to").
 
 ## Decided, and why
 
-- **Stays as is**: `automation` as the ADR domain and layer (ADR-AUTO-LAYERS#1, `AdrsConfig.Layers`, the default layer), every
+- **Stays as is**: `automation` as the ADR domain and layer (ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT, `AdrsConfig.Layers`, the default layer), every
   `docs/adr/automation/` citation, `Test-Automation` and its `*TestAutomation*` helpers, `System.Management.Automation.*`,
   `invoke-automation.yaml` and `release-automation.yml` (rename plan Q2), and "Cloud Automation Toolkit". These are the abstract layer, a
   gate name, .NET, or a decided keep.
@@ -370,7 +370,7 @@ now matches its own examples; pipeline-runner-pattern needed no change, line 35 
 - **31 test fixtures shaped like the old folder** (`C:\repo\automation\M\...` in Convert-TestRunLocationPath, Select-TestRunFiles,
   Select-InScopeTestFiles, Assert-CatzcRunModeExclusive, Test-Links.Repository, Write-TestRunContext, Test-LoadedTypesCurrent,
   Assert-LoadedTypesCurrent, Get-FileKind and the VariantsConfig track-key fixtures). They are fake data. Recommendation: rename to a
-  neutral segment only when a test is next edited, under the neutral-fixture rule (ADR-AUTO-TEST#3), with no sweep.
+  neutral segment only when a test is next edited, under the neutral-fixture rule (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES), with no sweep.
 
 ## Refs
 

@@ -9,7 +9,7 @@ A globset is one ordered program, and its three views are derived live, never co
 4  Change report    the view that answers "which areas did a change touch?"
 5  Protection       the view that answers "did these inputs change?"
 
-Supports ADR-FLOW-CD-GLOBS#1, #4, #5 and #9 (meta lens).
+Supports ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS, ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY and ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT (meta lens).
 ```
 
 A globset in cats names an area-of-control and maps it onto files under version control. Every question that asks whether a change concerns
@@ -31,10 +31,11 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Why it holds
 
-- One registry is the source of truth, and all three roles are derived from it, none committed per set (ADR-FLOW-CD-GLOBS#1).
-- Membership is decided by an ordered scan program over tracked files, last match wins, default not selected (ADR-FLOW-CD-GLOBS#4).
-- The identity is computed live and never committed (ADR-FLOW-CD-GLOBS#5).
-- Whether a change touches a set is computed from git at the real refs, never from a stored hash (ADR-FLOW-CD-GLOBS#9).
+- One registry is the source of truth, and all three roles are derived from it, none committed per set (ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS).
+- Membership is decided by an ordered scan program over tracked files, last match wins, default not selected
+  (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY).
+- The identity is computed live and never committed (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY).
+- Whether a change touches a set is computed from git at the real refs, never from a stored hash (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

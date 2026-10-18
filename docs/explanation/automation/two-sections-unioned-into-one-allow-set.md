@@ -13,7 +13,7 @@ Two sections of dependencies.yml are unioned into one allow-set per source modul
 8  Test-ModuleDependency     the quality gate that reports every issue
 9  failed: N issue(s)        the gate's one throw, listing every issue
 
-Supports ADR-AUTO-DEPM#2, #3 and #4 (implementation lens).
+Supports ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS and ADR-AUTO-DEPM-GROUPAWAREINTEGRITY (implementation lens).
 ```
 
 `dependencies.yml` declares module dependencies in two sections, `groups:` and `modules:`. The `DependenciesConfig` type validates both when
@@ -50,9 +50,11 @@ The diagram is described element by element in [its asset description](.assets/t
 ## Why it holds
 
 - A cross-module function call and a cross-module C# type reference are one relationship, extracted by two functions and checked against one
-  file (ADR-AUTO-DEPM#2).
-- The file has two sections. Naming a group allows an edge to any member, while naming a module allows exactly that edge (ADR-AUTO-DEPM#3).
-- The declaration's shape is checked when it loads, and the gate checks the real edges and the on-disk modules against it (ADR-AUTO-DEPM#4).
+  file (ADR-AUTO-DEPM-UNIFIEDGRAPH).
+- The file has two sections. Naming a group allows an edge to any member, while naming a module allows exactly that edge
+  (ADR-AUTO-DEPM-TWOSECTIONS).
+- The declaration's shape is checked when it loads, and the gate checks the real edges and the on-disk modules against it
+  (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY).
 
 ## Where the code and the ADR differ
 

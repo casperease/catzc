@@ -5,7 +5,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new('widget suite', [ordered]@{
                     key         = 'widget_suite'
                     domain      = 'repository'
-                    defined_by  = 'ADR-TST-WIDGET#1'
+                    defined_by  = 'ADR-TST-WIDGET-REST'
                     short       = 'The widget suite.'
                     realized_by = [ordered]@{ kind = 'prose-only' }
                     avoid       = @([ordered]@{ phrase = 'widget bundle'; say = 'widget suite' })
@@ -33,12 +33,12 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
         It 'reports a use in prose with its file, line, phrase, replacement, and defining rule' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $found = & $script:scan @{ 'docs/alpha.md' = @('# Alpha', '', 'Run the widget bundle first.') }
             $found.Count | Should -Be 1
-            $found[0] | Should -Be 'docs/alpha.md:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
+            $found[0] | Should -Be 'docs/alpha.md:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
         }
 
         It 'matches case-insensitively and across a wrapped line' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $found = & $script:scan @{ 'docs/alpha.md' = @('The Widget', 'BUNDLE runs.') }
-            $found | Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+            $found | Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
 
         It 'matches whole words only' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
@@ -54,7 +54,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
         It 'skips fenced code blocks' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
             $text = @('```powershell', 'Get-Widget # the widget bundle', '```', '~~~', 'widget bundle', '~~~', 'Then the widget bundle.')
             $found = & $script:scan @{ 'docs/alpha.md' = $text }
-            $found | Should -Be @('docs/alpha.md:7 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+            $found | Should -Be @('docs/alpha.md:7 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
     }
 
@@ -63,11 +63,11 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             $text = @('<#', '.SYNOPSIS', '    Builds the widget bundle.', '#>', 'function Get-Widget {', '    # the widget bundle again', '}')
             $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
             $found | Should -Be @(
-                'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
-                'widgets/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
+                'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
+                'widgets/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
             )
             & $script:scan @{ 'widgets/Get-Widget.ps1' = $text } @{ surfaces = @('comments') } |
-                Should -Be @('widgets/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+                Should -Be @('widgets/Get-Widget.ps1:6 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
 
         It 'reads the strings of throw and the writers' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
@@ -78,8 +78,8 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             )
             $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
             $found.Count | Should -Be 3
-            $found | Should -Contain 'widgets/Get-Widget.ps1:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
-            $found | Should -Contain 'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)'
+            $found | Should -Contain 'widgets/Get-Widget.ps1:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
+            $found | Should -Contain 'widgets/Get-Widget.ps1:3 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)'
         }
 
         It 'reads the -ErrorText and -Because values of any command' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {
@@ -102,7 +102,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                 "throw `"the widget bundle `$(Get-Name 'widget bundle') is gone`""
             )
             $found = & $script:scan @{ 'widgets/Get-Widget.ps1' = $text }
-            $found | Should -Be @('widgets/Get-Widget.ps1:2 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+            $found | Should -Be @('widgets/Get-Widget.ps1:2 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
     }
 
@@ -114,7 +114,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
                 'widgets/gamma.md' = @('the widget bundle')
             }
             $found = & $script:scan $files @{ scope = @('docs/**'); exclude = @('docs/old/**') }
-            $found | Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+            $found | Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
 
         It 'always applies the default excludes' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
@@ -147,7 +147,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
 
             $parameters.Table[$relative] = @([Catzc.Base.Docs.GlossarySegment]::new('markdown', 1, 'the widget bundle'))
             @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) |
-                Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
+                Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET-REST)')
         }
     }
 }

@@ -1,7 +1,7 @@
 Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
     BeforeAll {
-        $script:widget = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @('Test-Widget') }
-        $script:gadget = [ordered]@{ name = 'gadget'; supported_by = @('ADR-WI-ONE#2'); checks = @() }
+        $script:widget = [ordered]@{ name = 'widget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @('Test-Widget') }
+        $script:gadget = [ordered]@{ name = 'gadget'; supported_by = @('ADR-WIDGET-ONE-SPIN'); checks = @() }
     }
 
     It 'constructs and exposes standard and the agents in file order' {
@@ -42,11 +42,11 @@ Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
     }
 
     It 'keeps model_reason optional and rejects it empty' -Tag 'ADR-REPO-AGENTS-NAMEDMODEL' {
-        $reasoned = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @(); model_reason = 'judges across files' }
+        $reasoned = [ordered]@{ name = 'widget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @(); model_reason = 'judges across files' }
         $config = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($reasoned, $gadget) })
         $config.agents[0].model_reason | Should -Be 'judges across files'
         $config.agents[1].model_reason | Should -BeNullOrEmpty
-        $empty = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @(); model_reason = '' }
+        $empty = [ordered]@{ name = 'widget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @(); model_reason = '' }
         { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ standard = 'widget'; agents = @($empty) }) } |
             Should -Throw "*'model_reason' is empty*"
     }

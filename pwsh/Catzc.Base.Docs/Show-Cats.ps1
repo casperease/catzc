@@ -44,7 +44,7 @@ function Show-Cats {
                         }
                         Write-Message "  $($rule.Id)  $summary" -NoHeader
 
-                        $entryEnforcers = $enforcers[($rule.Id -replace ':', '#')]
+                        $entryEnforcers = $enforcers[$rule.Id]
                         if ($entryEnforcers) {
                             $parts = @()
                             if ($entryEnforcers.Analyzers.Count) {

@@ -12,7 +12,7 @@ Tracks and deployable-units are checked in code; one unit to one pipeline is hel
 7  scope globset           a cross-cutting slice is a scope over tracks, never a new root
 8  code review             the only check of the pipeline rule and the scope rule
 
-Supports ADR-DSGN-TRACK#1, ADR-FLOW-CD-GLOBS#7 and #8, and ADR-REPO-FOLDERS#1 and #3 (governance lens).
+Supports ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER and ADR-FLOW-CD-GLOBS-COMPOSESETS, and ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
 ```
 
 The tracks ADR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks
@@ -48,13 +48,13 @@ The diagram is described element by element in [its asset description](.assets/u
 
 ## Why it holds
 
-- A track is one root folder, named by it, and every tracked root folder except `out/` is a track (ADR-DSGN-TRACK#1, ADR-REPO-FOLDERS#1);
-  the root set is closed (ADR-REPO-FOLDERS#3).
-- Each track carries one class, and a cross-cutting slice is a scope, not a track (ADR-DSGN-TRACK#2).
-- A track owns one tech-stack, and a tech-stack is a set of file languages (ADR-DSGN-TRACK#3, ADR-DSGN-TRACK#6).
-- Tracks are subscribed to, never path-coupled (ADR-DSGN-TRACK#4).
-- Every globset declares its layer, and composition is acyclic (ADR-FLOW-CD-GLOBS#7, ADR-FLOW-CD-GLOBS#8).
-- Units bind pipelines one to one (ADR-DSGN-TRACK#5).
+- A track is one root folder, named by it, and every tracked root folder except `out/` is a track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER,
+  ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL); the root set is closed (ADR-REPO-FOLDERS-CLOSEDROOTSET).
+- Each track carries one class, and a cross-cutting slice is a scope, not a track (ADR-DSGN-TRACK-ONETRACKTYPE).
+- A track owns one tech-stack, and a tech-stack is a set of file languages (ADR-DSGN-TRACK-ONETECHSTACK, ADR-DSGN-TRACK-FILELANGUAGE).
+- Tracks are subscribed to, never path-coupled (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+- Every globset declares its layer, and composition is acyclic (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-FLOW-CD-GLOBS-COMPOSESETS).
+- Units bind pipelines one to one (ADR-DSGN-TRACK-DEPLOYABLEUNIT).
 
 ## Where the code and the ADR differ
 

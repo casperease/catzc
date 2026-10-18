@@ -9,7 +9,7 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
             [ordered]@{}, @())
         $script:maps = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{
                 highlight = [ordered]@{
-                    pins = @([ordered]@{ adr = 'ADR-WIDGET-GADGET#1'; track = 'gadgets'; file_language = 'widget-script'; reason = 'reviewed gadget mention' })
+                    pins = @([ordered]@{ adr = 'ADR-WIDGET-GADGET-TURN'; track = 'gadgets'; file_language = 'widget-script'; reason = 'reviewed gadget mention' })
                 }
             })
     }
@@ -74,12 +74,12 @@ Describe 'Get-WorldMapHighlight — the real repository' -Tag 'L1', 'integrity',
     It 'lights, as an ADR file, only the requested ADR''s own file' -Tag 'ADR-DSGN-TRACK-LITCELL' {
         $citations = Get-AdrCitationMap
         # Codes taken from the registry, not spelled here, so this test cites no ADR and lights no minimap itself.
-        $ruleSets = @(Get-AdrRuleSet | Where-Object { $citations.PathOf($_.External) })
-        $codes = @($ruleSets[0].External, "$($ruleSets[1].External)#1", $ruleSets[-1].External)
+        $ruleSets = @(Get-AdrRuleSet | Where-Object { $citations.PathOf($_.External) -and $citations.RulesOf($_.External).Count -gt 0 })
+        $codes = @($ruleSets[0].External, $citations.RulesOf($ruleSets[1].External)[0], $ruleSets[-1].External)
         $reasons = @((Get-WorldMapHighlight -Adr $codes).Cells.Reasons | Where-Object Basis -EQ 'adr-file')
         @($reasons).Count | Should -Be $codes.Count
         foreach ($reason in $reasons) {
-            $reason.Path | Should -Be $citations.PathOf([Catzc.Base.Maps.CitationScanner]::CodeOf($reason.Requested)) -Because $reason.Requested
+            $reason.Path | Should -Be $citations.PathOf($reason.Requested) -Because $reason.Requested
         }
     }
 

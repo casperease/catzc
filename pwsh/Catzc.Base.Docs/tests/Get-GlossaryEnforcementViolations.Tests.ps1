@@ -21,11 +21,11 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
             [Catzc.Base.Docs.GlossaryEntry]::new($concept, 'Catzc.Widget', 'widgets/Catzc.Widget/configs/glossary.yml',
                 [Catzc.Base.Docs.GlossaryOptions]::new($options))
         }
-        # ADR-TST-WIDGET#1 is cited by a test, ADR-TST-WIDGET#2 by an analyzer, ADR-TST-WIDGET#3 by nothing.
+        # ADR-TST-WIDGET-TESTED is cited by a test, ADR-TST-WIDGET-ANALYZED by an analyzer, ADR-TST-WIDGET-BARE by nothing.
         $script:enforcer = @{
-            'ADR-TST-WIDGET#1' = [pscustomobject]@{ Analyzers = @(); Tests = @('widgets/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
-            'ADR-TST-WIDGET#2' = [pscustomobject]@{ Analyzers = @('Measure-Widget'); Tests = @() }
-            'ADR-TST-WIDGET#3' = [pscustomobject]@{ Analyzers = @(); Tests = @() }
+            'ADR-TST-WIDGET-TESTED' = [pscustomobject]@{ Analyzers = @(); Tests = @('widgets/Catzc.Widget/tests/Get-Widget.Tests.ps1') }
+            'ADR-TST-WIDGET-ANALYZED' = [pscustomobject]@{ Analyzers = @('Measure-Widget'); Tests = @() }
+            'ADR-TST-WIDGET-BARE' = [pscustomobject]@{ Analyzers = @(); Tests = @() }
         }
         $script:violations = {
             param([object[]] $entries)
@@ -38,33 +38,33 @@ Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
 
     It 'reports nothing when a test or an analyzer enforces the defining rule' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         $entries = @(
-            & $script:entry 'widget suite' 'ADR-TST-WIDGET#1'
-            & $script:entry 'gadget run' 'ADR-TST-WIDGET#2' 'function'
+            & $script:entry 'widget suite' 'ADR-TST-WIDGET-TESTED'
+            & $script:entry 'gadget run' 'ADR-TST-WIDGET-ANALYZED' 'function'
         )
         & $script:violations $entries | Should -BeNullOrEmpty
     }
 
     It 'reports a realized concept whose defining rule nothing enforces' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         $found = & $script:violations @(
-            & $script:entry 'widget suite' 'ADR-TST-WIDGET#3'
-            & $script:entry 'gadget run' 'ADR-TST-WIDGET#4' 'folder'
+            & $script:entry 'widget suite' 'ADR-TST-WIDGET-BARE'
+            & $script:entry 'gadget run' 'ADR-TST-WIDGET-FOLDED' 'folder'
         )
         $found.Count | Should -Be 2
-        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#3 — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB-REALIZEDBY)"
-        $found[1] | Should -BeLike "*: concept 'gadget run' is realized as folder 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET#4*"
+        $found[0] | Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite' is realized as tag 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET-BARE — tag a test with it or declare the concept prose-only (ADR-REPO-VOCAB-REALIZEDBY)"
+        $found[1] | Should -BeLike "*: concept 'gadget run' is realized as folder 'widget', but no test or analyzer cites its defining rule ADR-TST-WIDGET-FOLDED*"
     }
 
     It 'exempts a prose-only concept' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
-        & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#4' 'prose-only') | Should -BeNullOrEmpty
+        & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET-FOLDED' 'prose-only') | Should -BeNullOrEmpty
     }
 
     It 'skips a source that opts out of the enforced check' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
-        & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#4' 'tag' @('anchored', 'single', 'avoid')) | Should -BeNullOrEmpty
+        & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET-FOLDED' 'tag' @('anchored', 'single', 'avoid')) | Should -BeNullOrEmpty
     }
 
     It 'reads the repository glossary by default' -Tag 'ADR-REPO-VOCAB-REALIZEDBY' {
         # Get-Glossary returns its array as one object (', $sorted'); the default must bind that shape.
-        $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(& $script:entry 'widget suite' 'ADR-TST-WIDGET#3')
+        $entries = [Catzc.Base.Docs.GlossaryEntry[]] @(& $script:entry 'widget suite' 'ADR-TST-WIDGET-BARE')
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
         $found = @(InModuleScope Catzc.Base.Docs -Parameters @{ Enforcer = $script:enforcer } { Get-GlossaryEnforcementViolations -Enforcer $Enforcer })
         $found.Count | Should -Be 1

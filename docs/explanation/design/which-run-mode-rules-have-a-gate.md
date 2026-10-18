@@ -12,13 +12,12 @@ Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none.
 7  Get-CatzcRunMode              derives the mode from the code root: rule 4
 8  Three build kinds             temporary, installed and saved, told apart by place: rule 7
 
-Supports ADR-DSGN-RUNMODE#1, #2, #3, #4, #5, #6 and #7 (governance lens).
+Supports ADR-DSGN-RUNMODE-TWORUNMODES, ADR-DSGN-RUNMODE-SAMEMODULEINBOTH, ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE, ADR-DSGN-RUNMODE-MODEISDERIVED, ADR-DSGN-RUNMODE-NEVERCOEXIST, ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES and ADR-DSGN-RUNMODE-THREEBUILDKINDS (governance lens).
 ```
 
 The run-modes ADR makes seven rules about how cats loads its modules from source and from a built package. Six of them are checked by code:
-two test runs, two asserts, and the tests behind the mode function. The seventh names three kinds of build root, which the place of
-the code root tells apart, so no gate is needed. A reader who wants to know which run-mode promises are enforced finds the gate for each rule
-here.
+two test runs, two asserts, and the tests behind the mode function. The seventh names three kinds of build root, which the place of the code
+root tells apart, so no gate is needed. A reader who wants to know which run-mode promises are enforced finds the gate for each rule here.
 
 ![Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](.assets/which-run-mode-rules-have-a-gate/diagram.drawio.png)
 
@@ -40,30 +39,32 @@ The diagram is described element by element in [its asset description](.assets/w
    `Import-Module Catzc` enters the same way.
 6. **Assert-SourceTree.** Tools that work on the source tree call this assert first. It calls `Get-CatzcRunMode` and throws in a build, so
    such a tool fails fast instead of reading the wrong tree.
-7. **Get-CatzcRunMode.** The mode is derived from the code root: `source` when it is the repository's `pwsh/` folder, `build` anywhere
-   else. Its tests run in both runs.
+7. **Get-CatzcRunMode.** The mode is derived from the code root: `source` when it is the repository's `pwsh/` folder, `build` anywhere else.
+   Its tests run in both runs.
 8. **Three build kinds.** The ADR names three kinds of build root, temporary, installed and saved, told apart by where the code root lives.
    The kind is never stored and no function reports it, since nothing needs it, so the rule needs no gate.
 
 ## Why it holds
 
-- Cats runs in exactly two modes, each with its own entry script (ADR-DSGN-RUNMODE#1). Both test runs load their workers through those entry
-  scripts.
-- Every module is the same module in both modes (ADR-DSGN-RUNMODE#2). The parity test and `Assert-SourceTree` check it, and the analyzer
-  rule `Measure-NoScriptRootAnchor` keeps module code from anchoring on its own file's folder.
-- Each module keeps its own script scope in both modes (ADR-DSGN-RUNMODE#3). The scope-isolation test checks it.
-- The mode is derived, never stored (ADR-DSGN-RUNMODE#4). `Get-CatzcRunMode` derives it, and its tests check the derivation.
-- The two modes never coexist in one session (ADR-DSGN-RUNMODE#5). `Assert-CatzcRunModeExclusive` checks it at the end of every load.
-- Both modes are tested by the same tests, and a test leaves the build run only through the `source-only` tag (ADR-DSGN-RUNMODE#6).
-- Build mode has three kinds of root, told apart by where the code root lives (ADR-DSGN-RUNMODE#7). No code reports the kind.
+- Cats runs in exactly two modes, each with its own entry script (ADR-DSGN-RUNMODE-TWORUNMODES). Both test runs load their workers through
+  those entry scripts.
+- Every module is the same module in both modes (ADR-DSGN-RUNMODE-SAMEMODULEINBOTH). The parity test and `Assert-SourceTree` check it, and
+  the analyzer rule `Measure-NoScriptRootAnchor` keeps module code from anchoring on its own file's folder.
+- Each module keeps its own script scope in both modes (ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE). The scope-isolation test checks it.
+- The mode is derived, never stored (ADR-DSGN-RUNMODE-MODEISDERIVED). `Get-CatzcRunMode` derives it, and its tests check the derivation.
+- The two modes never coexist in one session (ADR-DSGN-RUNMODE-NEVERCOEXIST). `Assert-CatzcRunModeExclusive` checks it at the end of every
+  load.
+- Both modes are tested by the same tests, and a test leaves the build run only through the `source-only` tag
+  (ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES).
+- Build mode has three kinds of root, told apart by where the code root lives (ADR-DSGN-RUNMODE-THREEBUILDKINDS). No code reports the kind.
 
 ## Where the code and the ADR differ
 
 - The ADR says switching is tested from source to build, from build to source, each mode twice and in a longer alternation, each time
   asserting the derived mode. The switch test uses two fixture roots instead, and checks eviction and a fresh script scope, but not the
   derived mode.
-- `Measure-NoScriptRootAnchor` cites ADR-PWSH-PWD#4 and the internal-asset-dependencies rule (ADR-AUTO-ASSETDEP#1), not a run-mode rule; the
-  rules agree.
+- `Measure-NoScriptRootAnchor` cites ADR-PWSH-PWD-MODULELOCATESCONTENT and the internal-asset-dependencies rule
+  (ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY), not a run-mode rule; the rules agree.
 
 ## See also
 

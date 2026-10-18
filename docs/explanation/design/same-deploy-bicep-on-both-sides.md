@@ -11,7 +11,7 @@ A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pi
 6  ... failed (az exited N)       the throw when az exits non-zero
 7  Deployment ... succeeded       the outcome when the guards pass and az succeeds
 
-Supports ADR-DSGN-THINPLAT#2 and #3 (operations lens).
+Supports ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT and ADR-DSGN-THINPLAT-PLATFORMASCLI (operations lens).
 ```
 
 `Deploy-Bicep` is the one command a developer and a CD pipeline both type to deploy infrastructure, because the CLI is the platform's only
@@ -46,15 +46,15 @@ The diagram is described element by element in [its asset description](.assets/s
 
 ## Why it holds
 
-- Thin comes from delegation: the command checks the target and hands the deployment to az (ADR-DSGN-THINPLAT#2).
-- The CLI is the only surface, so a developer and a pipeline bind to the same `Deploy-Bicep` (ADR-DSGN-THINPLAT#3).
+- Thin comes from delegation: the command checks the target and hands the deployment to az (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
+- The CLI is the only surface, so a developer and a pipeline bind to the same `Deploy-Bicep` (ADR-DSGN-THINPLAT-PLATFORMASCLI).
 
 ## Where the code and the ADR differ
 
-ADR-AUTO-PARITY#3 allows a command to branch on the pipeline seam only where the environments genuinely differ, and names where output goes
-and the dev-box auto-commit. Here the seam also changes what the command does: `-SubscriptionIdAssertIs` is mandatory only in a pipeline, a
-devbox builds where a pipeline needs artifacts, `-DoNotRebuild` and `-OverrideDoNotRunAndRun` work on a devbox only, and the `az_cli` pin is
-relaxed off a pipeline, where an installed az matching `devbox_version` is also accepted.
+ADR-AUTO-PARITY-ONESEAM allows a command to branch on the pipeline seam only where the environments genuinely differ, and names where output
+goes and the dev-box auto-commit. Here the seam also changes what the command does: `-SubscriptionIdAssertIs` is mandatory only in a
+pipeline, a devbox builds where a pipeline needs artifacts, `-DoNotRebuild` and `-OverrideDoNotRunAndRun` work on a devbox only, and the
+`az_cli` pin is relaxed off a pipeline, where an installed az matching `devbox_version` is also accepted.
 
 ## See also
 

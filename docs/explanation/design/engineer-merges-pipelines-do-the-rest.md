@@ -12,7 +12,7 @@ An engineer runs the tests and merges the pull request; pipelines run everything
 7  red CI run                the BVT discard; nothing records it, and it stops no deploy
 8  stage failed              the later Deploy_* stages skip
 
-Supports ADR-DSGN-LIFE#1 and #8 (operations lens).
+Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (operations lens).
 ```
 
 A person moves a commit through the first rungs of the cats lifecycle by hand: they run `Test-Automation` on the devbox and merge the pull
@@ -46,10 +46,10 @@ A new attempt is a new commit: the engineer fixes forward with a new pull reques
 
 ## Why it holds
 
-- A commit only climbs, and a new attempt is a new commit (ADR-DSGN-LIFE#1).
-- A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE#8).
-- `Test-Automation` and its tiers run on the devbox and in the pipeline, and must agree (ADR-AUTO-PARITY#2).
-- PR build validation is the inner CI gate; the L3 outer loop runs post-commit (ADR-FLOW-CD#8).
+- A commit only climbs, and a new attempt is a new commit (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG).
+- A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+- `Test-Automation` and its tiers run on the devbox and in the pipeline, and must agree (ADR-AUTO-PARITY-CHECKEDEQUALLY).
+- PR build validation is the inner CI gate; the L3 outer loop runs post-commit (ADR-FLOW-CD-INNERANDOUTERLOOP).
 
 ## Where the code and the ADR differ
 

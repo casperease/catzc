@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "435e5222f3bf"
+    with_body_sha: "35505d187903"
     repo_status: locked
     path: docs/explanation/automation/.assets/what-gates-each-bundle-stage/chain.md
     source: docs/explanation/automation/.assets/what-gates-each-bundle-stage/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST sit in the value chain: value-chain 
 ![The value-chain minimap of Every stage of the bundle has a rule, and two gates check it](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Every stage of the bundle has a rule, and two gates check
-it][6], which explains [ADR-AUTO-BUNDLE][1] and [ADR-PWSH-MANIFEST][2]. It lights the cells of the value-chain map where the cited ADRs'
+it][4], which explains [ADR-AUTO-BUNDLE][1] and [ADR-PWSH-MANIFEST][2]. It lights the cells of the value-chain map where the cited ADRs'
 value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code
 that selects it.
 
@@ -55,42 +55,34 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### AUTO × build (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-AUTO-BUNDLE][1]: selected by [ADR-AUTO-BUNDLE][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so it lights
-  the build column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so
+  it lights the build column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### AUTO × release (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-AUTO-BUNDLE][1]: selected by [ADR-AUTO-BUNDLE][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so it lights
-  the release column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so
+  it lights the release column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ## Keywords
 
-- [value-chain map][7]
-- [value-chain stack][8]
-- [value-chain concern][9]
-- [cell][10]
-- [lit cell][11]
-
-Terms the cited ADRs define:
-
-- [bundle][12], defined by [ADR-AUTO-BUNDLE#1][13]
+- [value-chain map][5]
+- [value-chain stack][6]
+- [value-chain concern][7]
+- [cell][8]
+- [lit cell][9]
 
 [1]: ../../../../adr/automation/platform-bundle.md
 [2]: ../../../../adr/pwsh/dynamic-module-manifests.md
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../what-gates-each-bundle-stage.md
-[7]: ../../../../adr/glossary.md#value-chain-map
-[8]: ../../../../adr/glossary.md#value-chain-stack
-[9]: ../../../../adr/glossary.md#value-chain-concern
-[10]: ../../../../adr/glossary.md#cell
-[11]: ../../../../adr/glossary.md#lit-cell
-[12]: ../../../../adr/glossary.md#bundle
-[13]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+[3]: ../../../../adr/design/tracks.md
+[4]: ../../what-gates-each-bundle-stage.md
+[5]: ../../../../adr/glossary.md#value-chain-map
+[6]: ../../../../adr/glossary.md#value-chain-stack
+[7]: ../../../../adr/glossary.md#value-chain-concern
+[8]: ../../../../adr/glossary.md#cell
+[9]: ../../../../adr/glossary.md#lit-cell

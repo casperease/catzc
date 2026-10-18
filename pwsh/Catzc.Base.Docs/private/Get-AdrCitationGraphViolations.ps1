@@ -40,8 +40,12 @@ function Get-AdrCitationGraphViolations {
             $relative = $Index.FileOf[$ruleSet.External]
             foreach ($summaryLine in (Get-AdrRuleSummaryLines ([System.IO.Path]::Combine($Index.Root, $relative)))) {
                 $references = [System.Collections.Generic.List[object]]::new()
-                foreach ($match in [regex]::Matches($summaryLine.Text, '(?<![A-Za-z0-9-])(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?<rule>#\d+)?')) {
-                    $code = $match.Groups['code'].Value
+                foreach ($match in [regex]::Matches($summaryLine.Text, '(?<![A-Za-z0-9-])ADR(?:-[A-Z][A-Z0-9]*)+')) {
+                    # A rule's code extends its ADR's code, so the longest registered prefix names the domain.
+                    $code = $match.Value
+                    while ($code.Contains('-') -and -not $domainOfCode.ContainsKey($code)) {
+                        $code = $code.Substring(0, $code.LastIndexOf('-'))
+                    }
                     if ($domainOfCode.ContainsKey($code)) {
                         $references.Add(@{ Text = $match.Value; Domain = $domainOfCode[$code] })
                     }

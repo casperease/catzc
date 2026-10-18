@@ -25,7 +25,7 @@ SLIDE = "diagram.drawio.png"  # a diagram folder's slide; its minimaps are <view
 WRAP = 140
 # The defined terms the world map is built on (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-FILELANGUAGE, ADR-DSGN-TRACK-WORLDMAP, ADR-DSGN-TRACK-CELL, ADR-DSGN-TRACK-LITCELL).
 WORLD_TERMS = ["world map", "track", "file language", "cell", "lit cell"]
-# The defined terms the value-chain map is built on (ADR-DSGN-TRACK-CELL, ADR-DSGN-TRACK-LITCELL, ADR-DSGN-TRACK-VALUECHAINSTACK-#16).
+# The defined terms the value-chain map is built on (ADR-DSGN-TRACK cells, lit cells and value-chain rules).
 CHAIN_TERMS = [
     "value-chain map",
     "value-chain stack",

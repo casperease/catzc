@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `$script:allRuleIds = @('ADR-FAKE#1', 'ADR-FAKE#8', 'ADR-FAKE#3',...`, written with `#`.
+Above `$script:allRuleIds = @('ADR-FAKE-TURN', 'ADR-FAKE-PULL', 'ADR-FAKE-FOLD',...`, written with `#`.
 
 ```text
 A fake rule universe (not the real docs) keeps this hermetic — the writer is a pure function of its

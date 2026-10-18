@@ -12,7 +12,7 @@ One quality gate guards the config read path, and it checks only the typed step.
 7  Test-ConfigValidators   the gate for the extension point (L5, T35)
 8  Test-ShippedConfigs     the gate for the typed step (L4, T35)
 
-Supports ADR-CONF-LOADING#1 to #6, ADR-CONF-ADDRESSING#1 to #5 and ADR-AUTO-TEST#35 (governance lens).
+Supports ADR-CONF-LOADING, ADR-CONF-ADDRESSING and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
 Three ADRs constrain how cats reads a config: the loading ADR, the addressing ADR, and the test-automation rule that every quality gate runs
@@ -22,8 +22,8 @@ convention.
 
 ![One quality gate guards the config read path](.assets/one-gate-guards-the-read-path/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-gate-guards-the-read-path/diagram.drawio.md). Rule chips name the rules:
-`L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST.
+The diagram is described element by element in [its asset description](.assets/one-gate-guards-the-read-path/diagram.drawio.md). Rule chips
+name the rules: `L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST.
 
 ## Walkthrough
 
@@ -50,15 +50,17 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Why it holds
 
-- All config reads go through `Get-Config`, and only `Get-Config` is public (ADR-CONF-LOADING#1, ADR-CONF-LOADING#6).
-- A config is discovered from its folder; an unknown or ambiguous name throws (ADR-CONF-LOADING#2).
-- The cache is keyed by resolved path and cleared only by re-import (ADR-CONF-LOADING#3).
-- Every shipped config has a registered C# type, and `Test-ShippedConfigs` is its gate (ADR-CONF-LOADING#4).
-- A PowerShell validator is the extension point outside `Get-Config`, and `Test-ConfigValidators` is its gate (ADR-CONF-LOADING#5).
-- An address names one node, its first segment is the config's global name, and resolution fails fast (ADR-CONF-ADDRESSING#1,
-  ADR-CONF-ADDRESSING#2, ADR-CONF-ADDRESSING#4).
-- Only committed config is addressable, and a resolved node is a read, never mutated (ADR-CONF-ADDRESSING#3, ADR-CONF-ADDRESSING#5).
-- Every quality gate runs in an integrity test at its tier (ADR-AUTO-TEST#35).
+- All config reads go through `Get-Config`, and only `Get-Config` is public (ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-READINGISGLOBAL).
+- A config is discovered from its folder; an unknown or ambiguous name throws (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
+- The cache is keyed by resolved path and cleared only by re-import (ADR-CONF-LOADING-CACHEBYPATH).
+- Every shipped config has a registered C# type, and `Test-ShippedConfigs` is its gate (ADR-CONF-LOADING-CSHARPCONFIGTYPE).
+- A PowerShell validator is the extension point outside `Get-Config`, and `Test-ConfigValidators` is its gate
+  (ADR-CONF-LOADING-POWERSHELLVALIDATOR).
+- An address names one node, its first segment is the config's global name, and resolution fails fast
+  (ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
+- Only committed config is addressable, and a resolved node is a read, never mutated (ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY,
+  ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD).
+- Every quality gate runs in an integrity test at its tier (ADR-AUTO-TEST-QUALITYGATE).
 
 ## Where the code and the ADR differ
 

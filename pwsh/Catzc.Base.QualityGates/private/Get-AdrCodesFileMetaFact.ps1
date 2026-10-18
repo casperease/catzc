@@ -27,14 +27,8 @@ function Get-AdrCodesFileMetaFact {
     $fileClass = (Get-FileKind $Path).Class
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
     $map = Get-AdrCitationMap -RepositoryRoot $repositoryRoot
-    $pattern = if ($withDomain) {
-        '(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*(?:#\d+|(?![\w#-]|:\d))'
-    }
-    else {
-        '(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*#\d+'
-    }
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($match in [regex]::Matches($text, $pattern)) {
+    foreach ($match in [regex]::Matches($text, '(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w#-]|:\d)')) {
         [void] $codes.Add($match.Value)
     }
     if (-not $withDomain) {
@@ -44,14 +38,7 @@ function Get-AdrCodesFileMetaFact {
     }
     # Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not.
     foreach ($code in @($codes)) {
-        $isRule = $code -match '^(?<adr>.+)#(?<rule>\d+)$'
-        $registered = if ($isRule) {
-            $ruleNumber = 0
-            [int]::TryParse($Matches['rule'], [ref] $ruleNumber) -and $map.HasRule($Matches['adr'], $ruleNumber)
-        }
-        else {
-            $map.HasCode($code) -or $map.IsDomainCode($code)
-        }
+        $registered = $map.IsRule($code) -or ($withDomain -and ($map.HasCode($code) -or $map.IsDomainCode($code)))
         if (-not $registered) {
             [void] $codes.Remove($code)
         }

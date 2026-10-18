@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7705c505d7ae"
+    with_body_sha: "063b79123657"
     repo_status: locked
     path: docs/explanation/design/.assets/sync-point-rules-are-adr-only/chain.md
     source: docs/explanation/design/.assets/sync-point-rules-are-adr-only/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-DSGN-LIFE and ADR-FLOW-CD sit in the value chain: value-chain stack do
 ![The value-chain minimap of Only BVT has a gate in code; the sync-point rules are ADR-only](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Only BVT has a gate in code; the sync-point rules are
-ADR-only][6], which explains [ADR-DSGN-LIFE][1] and [ADR-FLOW-CD][2]. It lights the cells of the value-chain map where the cited ADRs'
+ADR-only][4], which explains [ADR-DSGN-LIFE][1] and [ADR-FLOW-CD][2]. It lights the cells of the value-chain map where the cited ADRs'
 value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code
 that selects it.
 
@@ -57,75 +57,59 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### DSGN × build (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-FLOW-CD][2]: selected by [ADR-FLOW-CD][2]; its ADR domain `flow` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default, so it lights
-  the build column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default,
+  so it lights the build column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### DSGN × quality-control (2 ADRs)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the quality-control column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the quality-control column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 - [ADR-FLOW-CD][2]: selected by [ADR-FLOW-CD][2]; its ADR domain `flow` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default, so it lights
-  the quality-control column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default,
+  so it lights the quality-control column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### DSGN × release (2 ADRs)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the release column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the release column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 - [ADR-FLOW-CD][2]: selected by [ADR-FLOW-CD][2]; its ADR domain `flow` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default, so it lights
-  the release column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default,
+  so it lights the release column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ### DSGN × deploy (2 ADRs)
 
-Lit ([ADR-DSGN-TRACK#12][3]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the deploy column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 - [ADR-FLOW-CD][2]: selected by [ADR-FLOW-CD][2]; its ADR domain `flow` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][4]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default, so it lights
-  the deploy column ([ADR-DSGN-TRACK#15][5]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][3]); its value-chain concerns (build, quality-control, release and deploy) are its ADR domain's default,
+  so it lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][3]).
 
 ## Keywords
 
-- [value-chain map][7]
-- [value-chain stack][8]
-- [value-chain concern][9]
-- [cell][10]
-- [lit cell][11]
-
-Terms the cited ADRs define:
-
-- [gate][12], defined by [ADR-FLOW-CD#13][13]
-- [occupant][14], defined by [ADR-DSGN-LIFE#5][15]
-- [release candidate][16], defined by [ADR-FLOW-CD#14][17]
-- [staging slot][18], defined by [ADR-DSGN-LIFE#5][15]
+- [value-chain map][5]
+- [value-chain stack][6]
+- [value-chain concern][7]
+- [cell][8]
+- [lit cell][9]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../sync-point-rules-are-adr-only.md
-[7]: ../../../../adr/glossary.md#value-chain-map
-[8]: ../../../../adr/glossary.md#value-chain-stack
-[9]: ../../../../adr/glossary.md#value-chain-concern
-[10]: ../../../../adr/glossary.md#cell
-[11]: ../../../../adr/glossary.md#lit-cell
-[12]: ../../../../adr/glossary.md#gate
-[13]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[14]: ../../../../adr/glossary.md#occupant
-[15]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
-[16]: ../../../../adr/glossary.md#release-candidate
-[17]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
-[18]: ../../../../adr/glossary.md#staging-slot
+[3]: ../../../../adr/design/tracks.md
+[4]: ../../sync-point-rules-are-adr-only.md
+[5]: ../../../../adr/glossary.md#value-chain-map
+[6]: ../../../../adr/glossary.md#value-chain-stack
+[7]: ../../../../adr/glossary.md#value-chain-concern
+[8]: ../../../../adr/glossary.md#cell
+[9]: ../../../../adr/glossary.md#lit-cell

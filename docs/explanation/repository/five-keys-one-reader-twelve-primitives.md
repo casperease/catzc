@@ -14,7 +14,7 @@ Five keys in variants.yml reach fifteen exported primitives through one private 
 9   Test-GitWorkspace             -MainDirect or -MainViaPr over Get-GitWorkspace
 10  Test-/Assert-HaveCustomer(s)  the plural forms over Get-EnabledCustomers; the singular forms cover them
 
-Supports ADR-REPO-VARIANT#1, #2, #4, #5 and #6 (implementation lens).
+Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-ADONAMING, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (implementation lens).
 ```
 
 `Catzc.Base.Variants` is small: one YAML file with five keys, one C# config type that validates it, one private function that reads it, and
@@ -52,13 +52,14 @@ The diagram is described element by element in [its asset description](.assets/f
 
 ## Why it holds
 
-- The file is the one home, loaded through `Get-Config -Config variants` so that it inherits the session cache (ADR-REPO-VARIANT#1).
+- The file is the one home, loaded through `Get-Config -Config variants` so that it inherits the session cache
+  (ADR-REPO-VARIANT-SESSIONVARIANT).
 - Nothing reads the file directly; each variant is a `Get-` accessor and `Test-`/`Assert-` guards over the private `Get-Variant`, so each
-  default lives in exactly one place (ADR-REPO-VARIANT#2).
-- `ado_naming` is a variant, not a code constant: `Get-AdoNaming` reads it with the default `standard` (ADR-REPO-VARIANT#4).
+  default lives in exactly one place (ADR-REPO-VARIANT-NODIRECTREADS).
+- `ado_naming` is a variant, not a code constant: `Get-AdoNaming` reads it with the default `standard` (ADR-REPO-VARIANT-ADONAMING).
 - `have_customers` is tri-state, `Get-EnabledCustomers` normalises it, and the plural and singular primitives split by cardinality
-  (ADR-REPO-VARIANT#5, ADR-PWSH-VERBS#6).
-- `git_workspace` is read through `Get-GitWorkspace` and `Test-GitWorkspace -MainDirect|-MainViaPr` (ADR-REPO-VARIANT#6).
+  (ADR-REPO-VARIANT-HAVECUSTOMERS, ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS).
+- `git_workspace` is read through `Get-GitWorkspace` and `Test-GitWorkspace -MainDirect|-MainViaPr` (ADR-REPO-VARIANT-GITWORKSPACE).
 
 ## Where the code and the ADR differ
 

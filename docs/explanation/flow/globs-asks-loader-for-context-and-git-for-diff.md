@@ -12,7 +12,7 @@ Catzc.Base.Globs owns the touched-unit check; it asks the loader which context i
 7  Get-ChangedFile             the private diff: the changed paths over the range
 8  git                         the vendor tool that answers the diff
 
-Supports ADR-FLOW-CD-GLOBS#1, #9 and ADR-FLOW-CD-DETECT#1 (architecture lens).
+Supports ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS, ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT and ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK (architecture lens).
 ```
 
 One module, `Catzc.Base.Globs`, owns everything about globsets: the registry file, the dialect, the native projection and the git-reflection
@@ -22,7 +22,8 @@ And it asks git for the diff, because the changed paths are read from the reposi
 
 ![Globs asks the loader for the context and git for the diff](.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -47,11 +48,11 @@ The diagram is described element by element in [its asset description](.assets/g
 ## Why it holds
 
 - The globset is the mechanism and its roles are derived, never committed per set; the area-of-control report is computed from git by
-  `Get-ChangedGlobSet` (ADR-FLOW-CD-GLOBS#1).
+  `Get-ChangedGlobSet` (ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS).
 - Whether a change touches a unit is computed from git at real refs, with `Test-GlobSetAffected` resolving the reference commit per context
-  through `Get-GlobSetChangeRange` and failing open on any doubt (ADR-FLOW-CD-GLOBS#9).
+  through `Get-GlobSetChangeRange` and failing open on any doubt (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 - Nothing checks the pipeline-detection variables directly; context detection goes through `Test-IsRunningInPipeline` so the logic stays in
-  one place (ADR-FLOW-CD-DETECT#1).
+  one place (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK).
 
 ## Where the code and the ADR differ
 

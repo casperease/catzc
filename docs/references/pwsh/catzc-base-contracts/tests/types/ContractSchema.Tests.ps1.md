@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {`, written with `#`.
+Above `Describe 'ContractSchema' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 ContractSchema validates a parsed value against a bounded JSON Schema subset

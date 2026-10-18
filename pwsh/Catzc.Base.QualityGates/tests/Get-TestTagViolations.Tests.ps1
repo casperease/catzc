@@ -99,7 +99,7 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
 
     Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST-PROVENANCETAGS' {
         BeforeAll {
-            Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET:3', 'ADR-WIDGET-SPROCKET:1') } -ModuleName Catzc.Base.QualityGates
+            Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-SPROCKET-COG') } -ModuleName Catzc.Base.QualityGates
 
             function New-Discovery {
                 param([string] $Name, [string[]] $Tags)
@@ -119,21 +119,21 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
         }
 
         It 'passes a well-formed citation that resolves to a real rule' {
-            $v = & $script:violate (New-Discovery 'cites' @('L1', 'logic', 'ADR-WIDGET-GADGET#3'))
+            $v = & $script:violate (New-Discovery 'cites' @('L1', 'logic', 'ADR-WIDGET-GADGET-TURN'))
             @($v) | Should -HaveCount 0
         }
 
-        It 'flags a malformed citation without consulting the rule-id set' {
-            $v = & $script:violate (New-Discovery 'bad' @('L1', 'logic', 'ADR-WIDGET-GADGET:3'))
+        It 'flags a malformed citation (the numbered form) without consulting the rule-id set' {
+            $v = & $script:violate (New-Discovery 'bad' @('L1', 'logic', 'ADR-WIDGET-GADGET#3'))
             @($v) | Should -HaveCount 1
-            $v.Reason | Should -BeLike "*malformed ADR citation 'ADR-WIDGET-GADGET:3'*"
+            $v.Reason | Should -BeLike "*malformed ADR citation 'ADR-WIDGET-GADGET#3'*"
             Should -Invoke Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates -Times 0
         }
 
         It 'flags a well-formed citation that names no real rule' {
-            $v = & $script:violate (New-Discovery 'ghost' @('L1', 'logic', 'ADR-WIDGET-GADGET#999'))
+            $v = & $script:violate (New-Discovery 'ghost' @('L1', 'logic', 'ADR-WIDGET-GADGET-GHOST'))
             @($v) | Should -HaveCount 1
-            $v.Reason | Should -BeLike "*unknown ADR rule 'ADR-WIDGET-GADGET#999'*"
+            $v.Reason | Should -BeLike "*unknown ADR rule 'ADR-WIDGET-GADGET-GHOST'*"
         }
 
         It 'does not consult the rule-id set when no test carries a citation (stays hermetic)' {

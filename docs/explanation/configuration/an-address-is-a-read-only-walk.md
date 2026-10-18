@@ -9,7 +9,7 @@ A config address is a read-only walk over the one cached config, never a second 
 4  one node        the leaf or subtree the walk ends on: a live reference, to read
 5  wrong address   a bad name or a bad key throws at the call, never an empty value
 
-Supports ADR-CONF-ADDRESSING#1, #4 and #5 (meta lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST and ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD (meta lens).
 ```
 
 A global config address is a config value with a name that can be written down: `global.<config>.<key>`, the by-reference form of one node
@@ -39,10 +39,11 @@ The diagram is described element by element in [its asset description](.assets/a
 ## Why it holds
 
 - An address names exactly one node and is resolved on top of the one config reader, so addressing is a walk over an already-loaded config,
-  never a second reader (ADR-CONF-ADDRESSING#1).
+  never a second reader (ADR-CONF-ADDRESSING-GLOBALADDRESSFORM).
 - Resolution fails fast: an unknown or ambiguous name throws, a bad segment throws naming the address and the segment, and a malformed
-  address is rejected at parameter binding; there is no silent empty value (ADR-CONF-ADDRESSING#4).
-- A resolved node is a read. It may be a live reference into the config cache and must never be mutated (ADR-CONF-ADDRESSING#5).
+  address is rejected at parameter binding; there is no silent empty value (ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
+- A resolved node is a read. It may be a live reference into the config cache and must never be mutated
+  (ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD).
 
 ## Where the code and the ADR differ
 

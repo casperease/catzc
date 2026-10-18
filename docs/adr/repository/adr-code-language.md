@@ -20,14 +20,15 @@ domain starts with that domain's segment.
 ### Rule ADR-REPO-ADRCODE-ADRSEGMENT
 
 The segment after the domain names the ADR, unique within its parent. A vendor reference adds one group level before it, so the ADRs that
-answer the Cloud Adoption Framework are `ADR-AZ-CAF-<NAME>` and those that answer the Well-Architected Framework are `ADR-AZ-WAF-<NAME>`.
+answer one vendor framework are `ADR-<DOMAIN>-<FRAMEWORK>-<NAME>`, the framework's short name as the group segment.
 
 - [Vendor references are a level](#vendor-references-are-a-level)
 
 ### Rule ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
 
 A rule is named, never numbered: its last segment says what the rule says, as spelled-out words joined with no length cap (the rule "bound
-every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item takes that item's id as its segment.
+every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item
+takes that item's id as its segment.
 
 - [Names, not numbers](#names-not-numbers)
 
@@ -49,8 +50,9 @@ reused; a rule whose meaning changes takes a new name.
 ### Rule ADR-REPO-ADRCODE-NOSUBSETSPELLING
 
 A citation names a set only by a prefix. There is no group, list, or range syntax inside a code: several facts are several codes. A list
-that a tool derives (a file head's `adrs:`, a diagram subtitle) writes a code that covers every rule of an ADR as the ADR's code;
-hand-written prose never collapses.
+that a tool derives (a file head's `adrs:`) writes a code that covers every rule of an ADR as the ADR's code; hand-written prose never
+collapses. In a diagram subtitle an ADR code names the ADR a slide supports, not every rule of it: the article's Supports line names the
+rules.
 
 - [No subset spelling](#no-subset-spelling)
 

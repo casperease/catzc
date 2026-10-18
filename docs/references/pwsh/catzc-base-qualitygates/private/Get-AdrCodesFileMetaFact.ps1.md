@@ -36,8 +36,8 @@ The registry entry that subscribed this function.
 
 ## comment:1
 
-Above `$pattern = if ($withDomain) {`, written with `#`.
+Above `foreach ($match in [regex]::Matches($text,...`, written with `#`.
 
 ```text
-Body text cites a rule as ADR-<CODE>#<n> only: a wildcard there is a mention of a family, never a citation.
+Body text cites by code only: a numbered citation or a wildcard there is a mention, never a citation.
 ```

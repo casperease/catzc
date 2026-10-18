@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb4ab10e3d07
+    with_body_sha: f5633ccb8af3
     repo_status: locked
     path: docs/explanation/flow/.assets/a-step-only-names-a-command/grid.md
     source: docs/explanation/flow/.assets/a-step-only-names-a-command/diagram.drawio.png
@@ -22,7 +22,7 @@ Where the files that cite ADR-FLOW-CD-RUNNER sit in the repository: tracks down,
 ![The world-map minimap of A pipeline step only names a command that a developer can run locally](grid.png)
 
 This is the world-map minimap in the sidebar of the meta diagram of [A pipeline step only names a command that a developer can run
-locally][12], which explains [ADR-FLOW-CD-RUNNER][1]. It lights every cell of the world map that holds a file citing those codes, so it
+locally][10], which explains [ADR-FLOW-CD-RUNNER][1]. It lights every cell of the world map that holds a file citing those codes, so it
 shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -33,8 +33,8 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 2 lit of 89 files
-- docs × markdown: 4 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 11 files
+- docs × markdown: 4 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key
@@ -49,68 +49,66 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ### .claude × markdown (2 lit files)
 
-Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file
+language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [.claude/CLAUDE.md][5]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 56 (text).
-- [.claude/plans/plan-adr-code-language.md][6]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 126 (text).
+- [.claude/CLAUDE.md][3]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 56 (text).
+- [.claude/plans/plan-adr-code-language.md][4]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 126 (text).
 
 ### docs × markdown (4 lit files)
 
-Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file language
+markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [docs/adr/flow/dora-explains.md][7]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 31 (text).
+- [docs/adr/flow/dora-explains.md][5]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 31 (text).
 - [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: the ADR's own file.
-- [docs/adr/index.md][8]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 130 (text).
-- [docs/references/pipelines/steps/invoke-automation.yaml.md][9]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 28 (text).
+- [docs/adr/index.md][6]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 132 (text).
+- [docs/references/pipelines/steps/invoke-automation.yaml.md][7]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 28 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
-Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
-pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yaml` names the
+file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pipelines/ci-automation.yaml][10]: selected by [ADR-FLOW-CD-RUNNER][1]: a pipeline that cites nothing itself carries its globset's
+- [pipelines/ci-automation.yaml][8]: selected by [ADR-FLOW-CD-RUNNER][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 98 (text).
 
 ### pwsh × yaml (1 lit file)
 
-Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yml` names the file
+language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][11]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 98 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][9]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 98 (text).
 
 ## Keywords
 
-- [world map][13]
-- [track][14]
-- [file language][15]
-- [cell][16]
-- [lit cell][17]
-- [.claude][18]: a track
-- [docs][18]: a track
-- [pipelines][18]: a track
-- [pwsh][18]: a track
-- [markdown][19]: a file language
-- [pipeline-yaml][19]: a file language
-- [yaml][19]: a file language
+- [world map][11]
+- [track][12]
+- [file language][13]
+- [cell][14]
+- [lit cell][15]
+- [.claude][16]: a track
+- [docs][16]: a track
+- [pipelines][16]: a track
+- [pwsh][16]: a track
+- [markdown][17]: a file language
+- [pipeline-yaml][17]: a file language
+- [yaml][17]: a file language
 
 [1]: ../../../../adr/flow/pipeline-runner-pattern.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../../.claude/CLAUDE.md
-[6]: ../../../../../.claude/plans/plan-adr-code-language.md
-[7]: ../../../../adr/flow/dora-explains.md
-[8]: ../../../../adr/index.md
-[9]: ../../../../references/pipelines/steps/invoke-automation.yaml.md
-[10]: ../../../../../pipelines/ci-automation.yaml
-[11]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[12]: ../../a-step-only-names-a-command.md
-[13]: ../../../../adr/glossary.md#world-map
-[14]: ../../../../adr/glossary.md#track
-[15]: ../../../../adr/glossary.md#file-language
-[16]: ../../../../adr/glossary.md#cell
-[17]: ../../../../adr/glossary.md#lit-cell
-[18]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[19]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../../../../.claude/CLAUDE.md
+[4]: ../../../../../.claude/plans/plan-adr-code-language.md
+[5]: ../../../../adr/flow/dora-explains.md
+[6]: ../../../../adr/index.md
+[7]: ../../../../references/pipelines/steps/invoke-automation.yaml.md
+[8]: ../../../../../pipelines/ci-automation.yaml
+[9]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[10]: ../../a-step-only-names-a-command.md
+[11]: ../../../../adr/glossary.md#world-map
+[12]: ../../../../adr/glossary.md#track
+[13]: ../../../../adr/glossary.md#file-language
+[14]: ../../../../adr/glossary.md#cell
+[15]: ../../../../adr/glossary.md#lit-cell
+[16]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[17]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

@@ -2,7 +2,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $null, $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
         }
         $stacks = @([Catzc.Base.Docs.AdrsConfig]::Stacks)
         $concerns = @([Catzc.Base.Docs.AdrsConfig]::Concerns)

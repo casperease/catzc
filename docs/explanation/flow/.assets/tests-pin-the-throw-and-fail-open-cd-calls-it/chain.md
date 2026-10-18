@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d49bc2425033
+    with_body_sha: "03fbd887267d"
     repo_status: locked
     path: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/chain.md
     source: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.png
@@ -12,19 +12,19 @@ catzc:
     tracktype: documentation
 ---
 
-# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated: the value-chain minimap
+# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate: the value-chain minimap
 
 ```text
 Where ADR-AUTO-FAILFAST, ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS sit in the value chain: value-chain stack down, value-chain concerns across.
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated](chain.png)
+![The value-chain minimap of Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Tests pin the throw and the fail-open, a rule pins detection,
-and the CD stages call it ungated][4], which explains [ADR-AUTO-FAILFAST][1], [ADR-FLOW-CD-DETECT][2] and [ADR-FLOW-CD-GLOBS][3]. It lights
-the cells of the value-chain map where the cited ADRs' value-chain concerns land, so it shows the part of the value chain the decision
-governs. Nothing is lit, so no reason follows.
+and the CD stages call it with no gate][4], which explains [ADR-AUTO-FAILFAST][1], [ADR-FLOW-CD-DETECT][2] and [ADR-FLOW-CD-GLOBS][3]. It
+lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so it shows the part of the value chain the
+decision governs. Nothing is lit, so no reason follows.
 
 ## What the minimap shows
 

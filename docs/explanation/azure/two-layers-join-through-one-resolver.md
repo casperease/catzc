@@ -11,7 +11,7 @@ Templating and identity join through one shared check and one resolver.
 6  azure.yml                              the identity layer: subscriptions, the environments they serve, an optional customer
 7  customer.yml                           the customer catalogue: each key with its two-letter shortcode
 
-Supports ADR-AZ-DATAMOD#1, #3 and #8, and ADR-AZ-CUSTOMER#2 (architecture lens).
+Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-NAMEKEYEDMAPS and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, and ADR-AZ-CUSTOMER-TWOBINDINGS (architecture lens).
 ```
 
 Two config layers describe what cats deploys onto Azure. The config layer for identity, `azure.yml` and `customer.yml`, says which
@@ -48,13 +48,13 @@ The diagram is described element by element in [its asset description](.assets/t
 ## Why it holds
 
 - Two config layers, identity and templating, join through the conventional configuration tree, and the subscription is always resolved from
-  that coordinate, never spelled into a path (ADR-AZ-DATAMOD#1).
+  that coordinate, never spelled into a path (ADR-AZ-DATAMOD-TWOCONFIGLAYERS).
 - Every config's coordinate must resolve to exactly one subscription id, asserted per file at discovery and by integrity tests
-  (ADR-AZ-DATAMOD#3).
+  (ADR-AZ-DATAMOD-NAMEKEYEDMAPS).
 - The link between the two layers is enforced at discovery by `Get-BicepTemplates` through the shared
-  `Get-BicepSubscriptionConfigViolations`, and over the shipped tree by integrity tests (ADR-AZ-DATAMOD#8).
+  `Get-BicepSubscriptionConfigViolations`, and over the shipped tree by integrity tests (ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY).
 - A subscription binds a customer by key or by shortcode, both resolved to the same record by the single resolver `Get-AzureCustomer`
-  (ADR-AZ-CUSTOMER#2).
+  (ADR-AZ-CUSTOMER-TWOBINDINGS).
 
 ## See also
 

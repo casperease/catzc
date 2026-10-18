@@ -27,11 +27,11 @@ Principle 4 of 6 · ADR-PRIN-NOWASTE
 
 ## Rows
 
-| Rule               | Says                                                                                                       |
-| ------------------ | ---------------------------------------------------------------------------------------------------------- |
-| ADR-PRIN-NOWASTE#1 | Eliminate the seven wastes: partial work, extra features, relearning, handoffs, switching, delays, defects |
-| ADR-PRIN-NOWASTE#2 | For any step ask: could I deliver the same outcome without it? If yes, it is waste                         |
-| ADR-PRIN-NOWASTE#3 | Automation over manual steps, self-service over approvals, small batches, fast feedback                    |
+| Rule                                | Says                                                                                                       |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| ADR-PRIN-NOWASTE-SEVENWASTES        | Eliminate the seven wastes: partial work, extra features, relearning, handoffs, switching, delays, defects |
+| ADR-PRIN-NOWASTE-DROPUNNEEDEDSTEPS  | For any step ask: could I deliver the same outcome without it? If yes, it is waste                         |
+| ADR-PRIN-NOWASTE-PREFERLEANDEFAULTS | Automation over manual steps, self-service over approvals, small batches, fast feedback                    |
 
 ## Notes
 

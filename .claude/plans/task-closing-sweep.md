@@ -9,7 +9,7 @@ task:
 
 # Task: the closing sweep
 
-ADR-REPO-PLANS#5: a plan with no open step is deleted and value-of-plan.md keeps one "deleted, why" line. This task runs after any batch of
+ADR-REPO-PLANS-DONEPLANDELETED: a plan with no open step is deleted and value-of-plan.md keeps one "deleted, why" line. This task runs after any batch of
 tasks lands, as often as needed, and last of all. `git rm` is the user's; the sweep lists.
 
 ## Steps

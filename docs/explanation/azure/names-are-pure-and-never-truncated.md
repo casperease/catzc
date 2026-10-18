@@ -11,7 +11,7 @@ An Azure name is computed from fixed components; it fits its limit or the deploy
 4  throw             a name that is too long stops the deploy, never truncated
 5  the same name     a name that fits; the same inputs give it every time
 
-Supports ADR-AZ-NAMING#1, #3, #7 and #8 (meta lens).
+Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-ENVIRONMENTFIRST, ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (meta lens).
 ```
 
 An Azure resource name in cats is not chosen; it is computed. Fixed components go in, the resource type's pattern decides their form and the
@@ -36,10 +36,10 @@ The diagram is described element by element in [its asset description](.assets/n
 ## Why it holds
 
 - No random suffix, hash or truncation ever enters a name: every name is assembled deterministically from one canonical component set
-  (ADR-AZ-NAMING#1), and a name over its limit throws instead of being cut (ADR-AZ-NAMING#7).
+  (ADR-AZ-NAMING-DETERMINISTICNAMES), and a name over its limit throws instead of being cut (ADR-AZ-NAMING-NEVERTRUNCATE).
 - The environment is the first segment, and the restricted patterns use its 2-char shortcode, so a readable name never costs a tight name a
-  byte (ADR-AZ-NAMING#3).
-- The subscription selects where a deploy goes but never enters the name (ADR-AZ-NAMING#8).
+  byte (ADR-AZ-NAMING-ENVIRONMENTFIRST).
+- The subscription selects where a deploy goes but never enters the name (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
 ## See also
 

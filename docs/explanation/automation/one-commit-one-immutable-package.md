@@ -10,7 +10,7 @@ One commit becomes one verified, immutable package, and every code root is a cop
 5  Installed, saved         every other code root, a copy of the same package
 6  Checked again            the integrity check runs on the package before a copy is placed
 
-Supports ADR-AUTO-BUNDLE#1, #5 and #6, and ADR-DSGN-RUNMODE#7 (meta lens).
+Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD and ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, and ADR-DSGN-RUNMODE-THREEBUILDKINDS (meta lens).
 ```
 
 A bundle is how cats leaves the repository it is developed in: the selected modules are built once into one versioned package that loads
@@ -39,12 +39,12 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - A bundle is one installable, versioned module built from a selected set of modules, closure-expanded over the declared dependencies, that
-  loads outside the repository (ADR-AUTO-BUNDLE#1).
+  loads outside the repository (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
 - A build is immutable and content-addressed: the same commit yields a byte-identical build and an identical content hash, and the integrity
-  guard re-verifies that hash (ADR-AUTO-BUNDLE#5).
+  guard re-verifies that hash (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
 - An install verifies the source build before it touches the destination, and a re-install with a matching content hash does not copy again
-  (ADR-AUTO-BUNDLE#6).
-- The build kinds say only where the code root lives, and every kind loads through the same importer (ADR-DSGN-RUNMODE#7).
+  (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
+- The build kinds say only where the code root lives, and every kind loads through the same importer (ADR-DSGN-RUNMODE-THREEBUILDKINDS).
 
 ## See also
 

@@ -12,19 +12,19 @@ catzc:
     tracktype: documentation
   edges:
     cites:
-      - ADR-THES-ONETRUTH#1
+      - ADR-THES-ONETRUTH-ONESTOREDECIDES
   config:
     pattern: rule
     deck: product-thesis
     order: 2
-    quotes: ADR-THES-ONETRUTH#1
+    quotes: ADR-THES-ONETRUTH-ONESTOREDECIDES
 ---
 
 # Delivery is slow because the truth is scattered
 
 ## Eyebrow
 
-ADR-THES-ONETRUTH#1 · The thesis
+ADR-THES-ONETRUTH-ONESTOREDECIDES · The thesis
 
 ## Body
 

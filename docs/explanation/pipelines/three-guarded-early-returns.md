@@ -11,7 +11,7 @@ Four checks in code order, three returns, and no check falls through on failure.
 6  Assert-NotNullOrWhitespace    check 4: the token is not empty; returns Bearer $result.Output
 7  No ADO token available        the throw when the az CLI yields no token
 
-Supports ADR-PIPE-AUTH#1, #2, #3 and #5 (implementation lens).
+Supports ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-PIPE-AUTH-PROVETARGET, ADR-PIPE-AUTH-EXPLICITDETECTION and ADR-PIPE-AUTH-ASSERTWHENNOTOKEN (implementation lens).
 ```
 
 `Get-AdoAuthorizationHeader` in `Catzc.Azure.DevOps` builds the `Authorization` header for every Azure DevOps REST call in cats. In code it
@@ -48,11 +48,12 @@ have a value to check against. The only caller of the function is `Invoke-AdoRes
 
 ## Why it holds
 
-- The rungs run in a fixed order over what is configured, and a rung that fails throws instead of falling through (ADR-PIPE-AUTH#1).
+- The rungs run in a fixed order over what is configured, and a rung that fails throws instead of falling through
+  (ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE).
 - The pipeline rung proves the collection is the configured org, and the az CLI rung proves the session tenant, before a header is returned
-  (ADR-PIPE-AUTH#2).
-- Pipeline detection goes through `Test-IsRunningInPipeline`, never a raw read of the agent variables (ADR-PIPE-AUTH#3).
-- When the az CLI yields no token, the assert names the actionable causes (ADR-PIPE-AUTH#5).
+  (ADR-PIPE-AUTH-PROVETARGET).
+- Pipeline detection goes through `Test-IsRunningInPipeline`, never a raw read of the agent variables (ADR-PIPE-AUTH-EXPLICITDETECTION).
+- When the az CLI yields no token, the assert names the actionable causes (ADR-PIPE-AUTH-ASSERTWHENNOTOKEN).
 
 ## Where the code and the ADR differ
 

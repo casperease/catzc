@@ -11,7 +11,7 @@ Every pipeline kind after CI promotes the one artifact CI built, and each enviro
 6  pre-prod -> production   DEPLOY-Prod: staged inactive, then activated live
 7  tagged artifact          the one build every later domain promotes, never rebuilt
 
-Supports ADR-DSGN-LIFE#5, #6, #7 and #8 (architecture lens).
+Supports ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
 ```
 
 The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
@@ -42,14 +42,15 @@ The diagram is described element by element in [its asset description](.assets/f
 
 ## Why it holds
 
-- Each always-on environment hosts exactly one commit, its occupant, plus a history of the commits it held before (ADR-DSGN-LIFE#5).
+- Each always-on environment hosts exactly one commit, its occupant, plus a history of the commits it held before
+  (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT).
 - Upstream integrators sync from the `main-uat` occupant, the latest commit certified onto the always-on non-prod environment
-  (ADR-DSGN-LIFE#6).
+  (ADR-DSGN-LIFE-SYNCFROMMAINUAT).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
-  it (ADR-DSGN-LIFE#7).
-- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (ADR-DSGN-LIFE#8).
-- A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact (ADR-FLOW-CD#3,
-  ADR-FLOW-CD#4).
+  it (ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
+- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+- A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact
+  (ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDCONTAINSCI).
 
 ## Where the code and the ADR differ
 

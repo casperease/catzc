@@ -23,7 +23,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] HighlightKeys = { "pins", "exceptions", "citation_exclude" };
     private static readonly string[] PinKeys = { "adr", "track", "file_language", "reason" };
     private static readonly Regex Colour = new Regex("^#[0-9A-Fa-f]{6}$");
-    private static readonly Regex AdrCode = new Regex("^ADR(-[A-Z0-9]+)+(#[1-9][0-9]*)?$");
+    private static readonly Regex AdrCode = new Regex("^ADR(-[A-Z][A-Z0-9]*)+$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
@@ -208,7 +208,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             }
             int before = errors.Count;
             CheckKeys(at + ": ", entry, PinKeys, errors);
-            string adr = PinField(entry, "adr", AdrCode, "an ADR code, optionally with its rule, e.g. ADR-WIDGET-GADGET#3", at, errors);
+            string adr = PinField(entry, "adr", AdrCode, "an ADR or rule code, e.g. ADR-WIDGET-GADGET or ADR-WIDGET-GADGET-SPROCKET", at, errors);
             string track = PinField(entry, "track", TrackName, "a track name, e.g. widgets or .gadgets", at, errors);
             string language = PinField(entry, "file_language", LanguageName, "a kebab-case file-language name", at, errors);
             string reason = Has(entry, "reason") ? Text(entry["reason"]).Trim() : "";

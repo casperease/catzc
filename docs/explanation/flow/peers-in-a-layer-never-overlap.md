@@ -8,7 +8,7 @@ Peers in a layer never share a file on their own contribution; only loose-filese
 3  Module space             the module layer: derived from the folders, never declared
 4  Peers disjoint           the one rule, checked by a gate for the two boundary layers
 
-Supports ADR-FLOW-CD-GLOBS#7 and #10 (meta lens).
+Supports ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER and ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER (meta lens).
 ```
 
 Every globset in cats belongs to one layer, and a layer is a set of peers that partition one concern into boundaries. Within a layer, no two
@@ -32,9 +32,9 @@ The diagram is described element by element in [its asset description](.assets/p
 
 ## Why it holds
 
-- Every globset carries a layer: two are declared, and `module` is derived-only (ADR-FLOW-CD-GLOBS#7).
+- Every globset carries a layer: two are declared, and `module` is derived-only (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution; the rule is per layer, never across, and the
-  `loose-fileset` layer is exempt (ADR-FLOW-CD-GLOBS#10).
+  `loose-fileset` layer is exempt (ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER).
 
 ## Where the code and the ADR differ
 

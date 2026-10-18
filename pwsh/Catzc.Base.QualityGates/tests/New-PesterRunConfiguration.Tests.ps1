@@ -52,9 +52,9 @@ Describe 'New-PesterRunConfiguration' -Tag 'L0', 'logic' {
 
     It 'applies include tags (the -Rule provenance filter) only when given' {
         $with = InModuleScope Catzc.Base.QualityGates {
-            New-PesterRunConfiguration -Path 'a.Tests.ps1' -IncludeTag 'ADR-FAKE#1'
+            New-PesterRunConfiguration -Path 'a.Tests.ps1' -IncludeTag 'ADR-FAKE-TURN'
         }
-        @($with.Filter.Tag.Value) | Should -Be @('ADR-FAKE#1')
+        @($with.Filter.Tag.Value) | Should -Be @('ADR-FAKE-TURN')
 
         $without = InModuleScope Catzc.Base.QualityGates {
             New-PesterRunConfiguration -Path 'a.Tests.ps1'

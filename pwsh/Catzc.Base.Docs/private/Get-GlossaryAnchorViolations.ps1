@@ -17,13 +17,12 @@ function Get-GlossaryAnchorViolations {
         }
         $term = $item.Concept.term
         $citation = $item.Concept.defined_by
-        $ruleId = $citation.Replace('#', ':')
-        if (-not $statements.ContainsKey($ruleId)) {
+        if (-not $statements.ContainsKey($citation)) {
             $violations.Add("$($item.SourcePath): concept '$term': defined_by '$citation' names no rule in an indexed ADR (ADR-REPO-VOCAB-DEFINEDTERM)")
             continue
         }
         $bold = '\*\*' + ([regex]::Escape($term) -replace '\\ ', '\s+') + '\*\*'
-        if ($statements[$ruleId] -inotmatch $bold) {
+        if ($statements[$citation] -inotmatch $bold) {
             $violations.Add("$($item.SourcePath): concept '$term': the normative summary of $citation does not bold '**$term**' — a term is defined where its rule bolds it (ADR-REPO-VOCAB-DEFINEDTERM)")
         }
     }

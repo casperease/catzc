@@ -11,7 +11,7 @@ The hook compiles the module's own verdict and limit types, so the agent side an
 6  timeouts.yml        the one config the limits live in, keyed by run environment and shell
 7  Get-TimeoutSeconds  the pwsh side, resolving its limits from the same TimeoutsConfig
 
-Supports ADR-AUTO-FAILFAST#7 (architecture lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT (architecture lens).
 ```
 
 The time safeguard of cats has two consumers that must never disagree: the pwsh code that bounds its own work, and the hook that bounds a
@@ -48,9 +48,10 @@ The diagram is described element by element in [its asset description](.assets/h
 ## Why it holds
 
 - The limits live in one config, `timeouts.yml`, owned by `Catzc.Base.Timeouts`, with sensible defaults declared on its config type, and the
-  bash limits bound every shell call an agent makes (ADR-AUTO-FAILFAST#7).
+  bash limits bound every shell call an agent makes (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - The hook compiles the module's own config and verdict types, so its limits and decisions are the ones `Get-TimeoutSeconds` resolves and
-  the L0 tests check, and an integrity test runs the published hook against the shipped config to prove it (ADR-AUTO-FAILFAST#7).
+  the L0 tests check, and an integrity test runs the published hook against the shipped config to prove it
+  (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 
 ## Where the code and the ADR differ
 

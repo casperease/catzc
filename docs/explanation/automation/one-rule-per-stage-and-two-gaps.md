@@ -12,12 +12,13 @@ Two rules govern every stage of the limit's resolution, tests and the hook check
 7  Assert-BashTimeout        F7: the hook denies an agent's call outside the bash limits
 8  Invoke-Executable -Direct no gate: the interactive mode runs unbounded against F7
 
-Supports ADR-AUTO-FAILFAST#7 and ADR-AUTO-DEFAULT#6 (governance lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT and ADR-AUTO-DEFAULT-ONERESOLUTIONORDER (governance lens).
 ```
 
-Two rules decide how a time limit is found in cats. ADR-AUTO-FAILFAST#7 says what is bounded, where the limits live and how an exemption may
-raise one; ADR-AUTO-DEFAULT#6 says in which order a configurable setting resolves and where its default is declared. Two L0 test files and
-the Bash hook check them, and the checks leave two gaps: an exemption the hook never reads, and one mode that no gate bounds.
+Two rules decide how a time limit is found in cats. ADR-AUTO-FAILFAST-BOUNDEVERYWAIT says what is bounded, where the limits live and how an
+exemption may raise one; ADR-AUTO-DEFAULT-ONERESOLUTIONORDER says in which order a configurable setting resolves and where its default is
+declared. Two L0 test files and the Bash hook check them, and the checks leave two gaps: an exemption the hook never reads, and one mode
+that no gate bounds.
 
 ![Two rules govern every stage, tests and the hook check them, and two gaps remain](.assets/one-rule-per-stage-and-two-gaps/diagram.drawio.png)
 
@@ -51,9 +52,9 @@ The diagram is described element by element in [its asset description](.assets/o
 
 - Every external call and every unbounded piece of work runs inside a time safeguard, the limits live in one config keyed by run environment
   and execution engine with sensible defaults on the type and no "no limit" value, a hook denies an agent's call outside the bash limits,
-  and an exemption raises a limit to a ceiling but never lifts it (ADR-AUTO-FAILFAST#7).
+  and an exemption raises a limit to a ceiling but never lifts it (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - A configurable setting resolves in one order, the explicit value, else the configuration, else the sensible default, and the default is
-  declared exactly once, on the config type (ADR-AUTO-DEFAULT#6).
+  declared exactly once, on the config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
 ## See also
 

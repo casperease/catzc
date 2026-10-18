@@ -33,68 +33,56 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
                     '| `ADR-GIZMO-GADGET` | [gadget-rules](gizmo/gadget-rules.md) |'
                     '| `ADR-GIZMO-LEVER` | [lever-rules](gizmo/lever-rules.md) |'
                 ) -join "`n") + "`n") | Out-Null
-        & $script:writeText 'docs/adr/widget/sprocket-rules.md' "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET:1`n`nOne.`n" | Out-Null
-        & $script:writeText 'docs/adr/widget/cog-rules.md' "# Cog`n`n### Rule ADR-WIDGET-COG:1`n`nOne.`n" | Out-Null
-        & $script:writeText 'docs/adr/gizmo/gadget-rules.md' "# Gadget`n`n### Rule ADR-GIZMO-GADGET:1`n`nOne.`n" | Out-Null
-        & $script:writeText 'docs/adr/gizmo/lever-rules.md' "# Lever`n`n### Rule ADR-GIZMO-LEVER:1`n`nOne.`n" | Out-Null
+        & $script:writeText 'docs/adr/widget/sprocket-rules.md' "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nOne.`n`n### Rule ADR-WIDGET-SPROCKET-DROP`n`nTwo.`n" | Out-Null
+        & $script:writeText 'docs/adr/widget/cog-rules.md' "# Cog`n`n### Rule ADR-WIDGET-COG-SPINS`n`nOne.`n" | Out-Null
+        & $script:writeText 'docs/adr/gizmo/gadget-rules.md' "# Gadget`n`n### Rule ADR-GIZMO-GADGET-TURN`n`nOne.`n" | Out-Null
+        & $script:writeText 'docs/adr/gizmo/lever-rules.md' "# Lever`n`n### Rule ADR-GIZMO-LEVER-SPIN`n`nOne.`n" | Out-Null
     }
 
     Context 'citations' {
-        It 'renames a citation and the heading''s colon form through the code map, keeping each spelling' {
-            & $script:update 'notes/rename.md' "See ADR-WIDGET-GADGET#3.`n### Rule ADR-WIDGET-GADGET:3`n" |
-                Should -BeExactly "See ADR-GIZMO-GADGET#3.`n### Rule ADR-GIZMO-GADGET:3`n"
+        It 'carries a rule and its heading with its ADR''s code through the code map' {
+            & $script:update 'notes/rename.md' "See ADR-WIDGET-GADGET-FOLD.`n### Rule ADR-WIDGET-GADGET-FOLD`n" |
+                Should -BeExactly "See ADR-GIZMO-GADGET-FOLD.`n### Rule ADR-GIZMO-GADGET-FOLD`n"
         }
 
-        It 'sends a moved rule and a collapsed rule where the rule map says' {
-            & $script:update 'notes/moved.md' 'ADR-WIDGET-SPROCKET#5 and ADR-WIDGET-GADGET#4' |
-                Should -BeExactly 'ADR-GIZMO-LEVER#1 and ADR-WIDGET-SPROCKET#9'
+        It 'sends a moved rule and a collapsed rule where the rule map says, the rule map before the code map' {
+            & $script:update 'notes/moved.md' 'ADR-WIDGET-SPROCKET-SPIN and ADR-WIDGET-GADGET-LIFT' |
+                Should -BeExactly 'ADR-GIZMO-LEVER-SPIN and ADR-WIDGET-SPROCKET-DROP'
         }
 
-        It 'keeps a list continuation bare while its rules keep the code' {
-            & $script:update 'notes/list.md' 'ADR-WIDGET-GADGET#1, #3 and #7' | Should -BeExactly 'ADR-GIZMO-GADGET#1, #3 and #7'
+        It 'rewrites each code of a list on its own' {
+            & $script:update 'notes/list.md' 'ADR-WIDGET-GADGET-TURN, ADR-WIDGET-GADGET-LIFT and ADR-WIDGET-SPROCKET-SPIN' |
+                Should -BeExactly 'ADR-GIZMO-GADGET-TURN, ADR-WIDGET-SPROCKET-DROP and ADR-GIZMO-LEVER-SPIN'
         }
 
-        It 'gives an inherited rule its own code when it moves, and the next one the code it returns to' {
-            & $script:update 'notes/list-split.md' 'ADR-WIDGET-GADGET#1, #4 and #7; ADR-WIDGET-SPROCKET#5/#6' |
-                Should -BeExactly 'ADR-GIZMO-GADGET#1, ADR-WIDGET-SPROCKET#9 and ADR-GIZMO-GADGET#7; ADR-GIZMO-LEVER#1/ADR-WIDGET-SPROCKET#6'
-        }
-
-        It 'carries a list continuation across a wrapped line' {
-            & $script:update 'notes/list-wrapped.md' "ADR-WIDGET-GADGET#1, #3 and`n#7" | Should -BeExactly "ADR-GIZMO-GADGET#1, #3 and`n#7"
-        }
-
-        It 'renames a range whose rules all keep their numbers' {
-            & $script:update 'notes/range.md' 'ADR-WIDGET-GADGET#5 to #8' | Should -BeExactly 'ADR-GIZMO-GADGET#5 to #8'
-        }
-
-        It 'leaves a range that spans a moved rule as written and reports it Unhandled' {
-            & $script:update 'notes/range-split.md' 'ADR-WIDGET-GADGET#1 to #6' | Should -BeExactly 'ADR-WIDGET-GADGET#1 to #6'
-            $script:changes.Count | Should -Be 1
-            $script:changes[0].Kind | Should -Be ([Catzc.Base.Docs.AdrCitationChangeKind]::Unhandled)
-            $script:changes[0].Old | Should -BeExactly 'ADR-WIDGET-GADGET#1 to #6'
+        It 'leaves a numbered citation and a group as written and reports each Unhandled' {
+            $text = 'ADR-WIDGET-GADGET' + '#3 and ADR-WIDGET-GADGET' + '#{1,2}'
+            & $script:update 'notes/numbered.md' $text | Should -BeExactly $text
+            @($script:changes.Kind) | Should -Be @([Catzc.Base.Docs.AdrCitationChangeKind]::Unhandled, [Catzc.Base.Docs.AdrCitationChangeKind]::Unhandled)
+            @($script:changes.Old) | Should -Be @(('ADR-WIDGET-GADGET' + '#3'), ('ADR-WIDGET-GADGET' + '#{1,2}'))
             $script:changes[0].New | Should -BeNullOrEmpty
         }
 
-        It 'matches a whole code and a whole rule number only' {
-            & $script:update 'notes/boundary.md' 'ADR-WIDGET-GADGETS#3 ADR-WIDGET-GADGET#12 ADR-WIDGET-SPROCKET#50 xADR-WIDGET-GADGET#3' |
-                Should -BeExactly 'ADR-WIDGET-GADGETS#3 ADR-GIZMO-GADGET#12 ADR-WIDGET-SPROCKET#50 xADR-WIDGET-GADGET#3'
+        It 'matches a whole code and whole segments only' {
+            & $script:update 'notes/boundary.md' 'ADR-WIDGET-GADGETS-FOLD ADR-WIDGET-GADGET-RE12 ADR-WIDGET-SPROCKET-SPINS xADR-WIDGET-GADGET-FOLD' |
+                Should -BeExactly 'ADR-WIDGET-GADGETS-FOLD ADR-GIZMO-GADGET-RE12 ADR-WIDGET-SPROCKET-SPINS xADR-WIDGET-GADGET-FOLD'
         }
 
         It 'rewrites inside a fenced code block and an inline code span' {
-            & $script:update 'notes/fenced.md' "``````text`nADR-WIDGET-SPROCKET#5`n```````n``ADR-WIDGET-GADGET#2``" |
-                Should -BeExactly "``````text`nADR-GIZMO-LEVER#1`n```````n``ADR-GIZMO-GADGET#2``"
+            & $script:update 'notes/fenced.md' "``````text`nADR-WIDGET-SPROCKET-SPIN`n```````n``ADR-WIDGET-GADGET-TURN``" |
+                Should -BeExactly "``````text`nADR-GIZMO-LEVER-SPIN`n```````n``ADR-GIZMO-GADGET-TURN``"
         }
     }
 
     Context 'codes and anchors' {
-        It 'renames a bare code and leaves a longer one alone' {
+        It 'renames an ADR code and leaves a longer one alone' {
             & $script:update 'notes/code.md' 'ADR-WIDGET-GADGET, ADR-WIDGET-GADGETS, ADR-WIDGET-SPROCKET' |
                 Should -BeExactly 'ADR-GIZMO-GADGET, ADR-WIDGET-GADGETS, ADR-WIDGET-SPROCKET'
         }
 
         It 'rewrites a standalone anchor through the rule map, then the code map' {
-            & $script:update 'notes/anchor.md' 'rule-adr-widget-gadget3 rule-adr-widget-sprocket5 rule-adr-widget-sprocket50 rule-adr-widget-gadget4' |
-                Should -BeExactly 'rule-adr-gizmo-gadget3 rule-adr-gizmo-lever1 rule-adr-widget-sprocket50 rule-adr-widget-sprocket9'
+            & $script:update 'notes/anchor.md' 'rule-adr-widget-gadget-fold rule-adr-widget-sprocket-spin rule-adr-widget-sprocket-spins rule-adr-widget-gadget-lift' |
+                Should -BeExactly 'rule-adr-gizmo-gadget-fold rule-adr-gizmo-lever-spin rule-adr-widget-sprocket-spins rule-adr-widget-sprocket-drop'
         }
     }
 
@@ -110,24 +98,24 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         }
 
         It 'follows a rule anchor to the file of the rule''s new ADR' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
-            & $script:update 'docs/adr/widget/follow.md' '[s](sprocket-rules.md#rule-adr-widget-sprocket5) [g](sub/gadget-rules.md#rule-adr-widget-gadget4)' |
-                Should -BeExactly '[s](../gizmo/lever-rules.md#rule-adr-gizmo-lever1) [g](sprocket-rules.md#rule-adr-widget-sprocket9)'
+            & $script:update 'docs/adr/widget/follow.md' '[s](sprocket-rules.md#rule-adr-widget-sprocket-spin) [g](sub/gadget-rules.md#rule-adr-widget-gadget-lift)' |
+                Should -BeExactly '[s](../gizmo/lever-rules.md#rule-adr-gizmo-lever-spin) [g](sprocket-rules.md#rule-adr-widget-sprocket-drop)'
         }
 
         It 'sends an in-file anchor of a rule that leaves the ADR to the rule''s new file' {
-            $text = "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET:1`n`nSee [five](#rule-adr-widget-sprocket5) and [one](#rule-adr-widget-sprocket1).`n"
+            $text = "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nSee [spin](#rule-adr-widget-sprocket-spin) and [turn](#rule-adr-widget-sprocket-turn).`n"
             & $script:update 'docs/adr/widget/sprocket-rules.md' $text |
-                Should -BeExactly "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET:1`n`nSee [five](../gizmo/lever-rules.md#rule-adr-gizmo-lever1) and [one](#rule-adr-widget-sprocket1).`n"
+                Should -BeExactly "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nSee [spin](../gizmo/lever-rules.md#rule-adr-gizmo-lever-spin) and [turn](#rule-adr-widget-sprocket-turn).`n"
         }
 
         It 'keeps a code link repository-rooted, its text and target consistent' -Tag 'ADR-REPO-LINK-CODELINKS' {
-            $text = "# [ADR-WIDGET-GADGET#3](/docs/adr/widget/sub/gadget-rules.md#rule-adr-widget-gadget3)`n"
+            $text = "# [ADR-WIDGET-GADGET-FOLD](/docs/adr/widget/sub/gadget-rules.md#rule-adr-widget-gadget-fold)`n"
             & $script:update 'tools/Get-Widget.ps1' $text |
-                Should -BeExactly "# [ADR-GIZMO-GADGET#3](/docs/adr/gizmo/gadget-rules.md#rule-adr-gizmo-gadget3)`n"
+                Should -BeExactly "# [ADR-GIZMO-GADGET-FOLD](/docs/adr/gizmo/gadget-rules.md#rule-adr-gizmo-gadget-fold)`n"
         }
 
         It 'leaves an off-repository URL and an unmapped link alone' {
-            $text = '[u](https://example.com/docs/adr/widget/sub/gadget-rules.md) [k](docs/adr/widget/sprocket-rules.md#rule-adr-widget-sprocket1)'
+            $text = '[u](https://example.com/docs/adr/widget/sub/gadget-rules.md) [k](docs/adr/widget/sprocket-rules.md#rule-adr-widget-sprocket-turn)'
             & $script:update 'untouched-links.md' $text | Should -BeExactly $text
         }
     }
@@ -139,7 +127,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             @{ Text = 'widget/sub/cog-rules.md'; Expected = 'widget/cog-rules.md' }
             @{ Text = 'widget/sub/<name>.md'; Expected = 'gizmo/<name>.md' }
             @{ Text = 'folder: widget/sub'; Expected = 'folder: gizmo' }
-            @{ Text = 'widget/sub/gadget-rules.md#rule-adr-widget-gadget4'; Expected = 'widget/sprocket-rules.md#rule-adr-widget-sprocket9' }
+            @{ Text = 'widget/sub/gadget-rules.md#rule-adr-widget-gadget-lift'; Expected = 'widget/sprocket-rules.md#rule-adr-widget-sprocket-drop' }
         ) {
             & $script:update 'docs/adr/plain.md' $Text | Should -BeExactly $Expected
         }
@@ -152,12 +140,12 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
     Context 'the file' {
         It 'returns each change with its kind, line, old text, and new text' {
-            & $script:update 'docs/adr/widget/report.md' "ADR-WIDGET-GADGET#3`n[c](sub/cog-rules.md) ADR-WIDGET-GADGET`n" | Out-Null
+            & $script:update 'docs/adr/widget/report.md' "ADR-WIDGET-GADGET-LIFT`n[c](sub/cog-rules.md) ADR-WIDGET-GADGET`n" | Out-Null
             $script:changes.Count | Should -Be 3
             $script:changes[0].Kind | Should -Be ([Catzc.Base.Docs.AdrCitationChangeKind]::Citation)
             $script:changes[0].Line | Should -Be 1
-            $script:changes[0].Old | Should -BeExactly 'ADR-WIDGET-GADGET#3'
-            $script:changes[0].New | Should -BeExactly 'ADR-GIZMO-GADGET#3'
+            $script:changes[0].Old | Should -BeExactly 'ADR-WIDGET-GADGET-LIFT'
+            $script:changes[0].New | Should -BeExactly 'ADR-WIDGET-SPROCKET-DROP'
             $script:changes[1].Kind | Should -Be ([Catzc.Base.Docs.AdrCitationChangeKind]::Link)
             $script:changes[1].Line | Should -Be 2
             $script:changes[1].New | Should -BeExactly 'cog-rules.md'
@@ -166,16 +154,16 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         }
 
         It 'with -DryRun returns the changes and writes nothing' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
-            $full = & $script:writeText 'dry/run.md' 'ADR-WIDGET-GADGET#3'
+            $full = & $script:writeText 'dry/run.md' 'ADR-WIDGET-GADGET-FOLD'
             $before = [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full))
             $changes = @(Update-AdrCitation -Path $full -CodeMap $script:codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -DryRun)
             $changes.Count | Should -Be 1
-            $changes[0].New | Should -BeExactly 'ADR-GIZMO-GADGET#3'
+            $changes[0].New | Should -BeExactly 'ADR-GIZMO-GADGET-FOLD'
             [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full)) | Should -BeExactly $before
         }
 
         It 'leaves a file with nothing to change byte-identical, with CRLF and a byte order mark' {
-            $body = $script:utf8.GetBytes("ADR-WIDGET-SPROCKET#1`r`n[k](../widget/cog-rules.md)`r`n")
+            $body = $script:utf8.GetBytes("ADR-WIDGET-SPROCKET-TURN`r`n[k](../widget/cog-rules.md)`r`n")
             $full = & $script:writeBytes 'docs/adr/gizmo/still.md' ([byte[]] (@(0xEF, 0xBB, 0xBF) + $body))
             $before = [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full))
             $stamp = [System.IO.File]::GetLastWriteTimeUtc($full)
@@ -186,15 +174,15 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         }
 
         It 'keeps the byte order mark, CRLF line endings, and the trailing newline of a changed file' {
-            $body = $script:utf8.GetBytes("ADR-WIDGET-GADGET#3`r`n- a widget`r`n")
+            $body = $script:utf8.GetBytes("ADR-WIDGET-GADGET-FOLD`r`n- a widget`r`n")
             $full = & $script:writeBytes 'docs/bom.md' ([byte[]] (@(0xEF, 0xBB, 0xBF) + $body))
             Update-AdrCitation -Path $full -CodeMap $script:codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root | Out-Null
-            $expected = [System.Convert]::ToBase64String([byte[]] (@(0xEF, 0xBB, 0xBF) + $script:utf8.GetBytes("ADR-GIZMO-GADGET#3`r`n- a widget`r`n")))
+            $expected = [System.Convert]::ToBase64String([byte[]] (@(0xEF, 0xBB, 0xBF) + $script:utf8.GetBytes("ADR-GIZMO-GADGET-FOLD`r`n- a widget`r`n")))
             [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full)) | Should -BeExactly $expected
         }
 
         It 'is a no-op the second time' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
-            $text = "ADR-WIDGET-GADGET#1, #4 and #7`n[s](../widget/sprocket-rules.md#rule-adr-widget-sprocket5) widget/sub/`n"
+            $text = "ADR-WIDGET-GADGET-TURN, ADR-WIDGET-GADGET-LIFT`n[s](../widget/sprocket-rules.md#rule-adr-widget-sprocket-spin) widget/sub/`n"
             $once = & $script:update 'docs/adr/gizmo/twice.md' $text
             $once | Should -Not -BeExactly $text
             $full = Join-Path $script:root 'docs/adr/gizmo/twice.md'
@@ -224,57 +212,37 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
                 Should -Throw '*header*'
         }
 
-        It 'fails on a rule map row that is not spelled with the colon' {
-            $rows = @(
-                @('old_rule', 'new_rule', 'kind', 'why') -join "`t"
-                @('ADR-WIDGET-GADGET#4', 'ADR-WIDGET-SPROCKET:9', 'collapse', 'a hash, not a colon') -join "`t"
-            )
-            $full = & $script:writeText 'maps/bad-rule-map.tsv' (($rows -join "`n") + "`n")
-            $target = & $script:writeText 'maps/target-rule.md' 'text'
-            { Update-AdrCitation -Path $target -CodeMap $script:codeMap -RuleMap $full -RepositoryRoot $script:root } |
-                Should -Throw '*rule map*'
-        }
-
-        It 'fails on a name row whose name is not one segment below the rule''s own code' -ForEach @(
-            @{ Name = 'ADR-GIZMO-COG-TURNS' }
-            @{ Name = 'ADR-WIDGET-COG-turns' }
+        It 'fails on a rule map row that is not <Name>' -ForEach @(
+            @{ Name = 'a rule code on both sides, as a numbered rule is not'; Old = ('ADR-WIDGET-GADGET' + '#4'); New = 'ADR-WIDGET-SPROCKET-DROP'; Kind = 'collapse'; Expected = '*is not a rule code -> a rule code*' }
+            @{ Name = 'upper case'; Old = 'ADR-WIDGET-COG-TURNS'; New = 'ADR-WIDGET-COG-turns'; Kind = 'move'; Expected = '*is not a rule code -> a rule code*' }
+            @{ Name = 'of a kind the map knows'; Old = 'ADR-WIDGET-COG-TURNS'; New = 'ADR-WIDGET-COG-SPINS'; Kind = 'name'; Expected = '*is not one of move, collapse*' }
         ) {
             $rows = @(
                 @('old_rule', 'new_rule', 'kind', 'why') -join "`t"
-                @('ADR-WIDGET-COG:1', $Name, 'name', 'a name under the wrong code or in lower case') -join "`t"
+                @($Old, $New, $Kind, 'a malformed row') -join "`t"
             )
-            $full = & $script:writeText "maps/bad-name-map-$([guid]::NewGuid().ToString('N')).tsv" (($rows -join "`n") + "`n")
-            $target = & $script:writeText 'maps/target-name.md' 'text'
+            $full = & $script:writeText "maps/bad-rule-map-$([guid]::NewGuid().ToString('N')).tsv" (($rows -join "`n") + "`n")
+            $target = & $script:writeText 'maps/target-rule.md' 'text'
             { Update-AdrCitation -Path $target -CodeMap $script:codeMap -RuleMap $full -RepositoryRoot $script:root } |
-                Should -Throw '*is not ADR-<CODE>:<n> -> ADR-<CODE>-<NAME>*'
+                Should -Throw $Expected
         }
     }
 
-    Context 'named rules' -Tag 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
-        It 'writes a named rule''s code for its citation and its heading' {
-            & $script:update 'notes/named.md' "See ADR-WIDGET-COG#1.`n### Rule ADR-WIDGET-COG:2`n" |
-                Should -BeExactly "See ADR-WIDGET-COG-TURNS.`n### Rule ADR-WIDGET-COG-MESHES`n"
+    Context 'rule renames' -Tag 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
+        It 'renames a rule in place, its citation and its heading' {
+            & $script:update 'notes/renamed.md' "See ADR-WIDGET-COG-TURNS.`n### Rule ADR-WIDGET-COG-TURNS`n" |
+                Should -BeExactly "See ADR-WIDGET-COG-SPINS.`n### Rule ADR-WIDGET-COG-SPINS`n"
         }
 
-        It 'spells each named rule of a list in full and keeps a numbered one numbered' {
-            & $script:update 'notes/named-list.md' 'ADR-WIDGET-COG#1, #3 and #7' |
-                Should -BeExactly 'ADR-WIDGET-COG-TURNS, ADR-WIDGET-COG-GRIPS and ADR-WIDGET-COG#7'
+        It 'rewrites a code link''s text and its anchor to the renamed rule' -Tag 'ADR-REPO-LINK-CODELINKS' {
+            & $script:update 'src/renamed.ps1' '# [ADR-WIDGET-COG-TURNS](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-turns)' |
+                Should -BeExactly '# [ADR-WIDGET-COG-SPINS](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-spins)'
         }
 
-        It 'rewrites a code link''s text and its anchor to the named rule' -Tag 'ADR-REPO-LINK-CODELINKS' {
-            & $script:update 'src/named.ps1' '# [ADR-WIDGET-COG#2](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog2)' |
-                Should -BeExactly '# [ADR-WIDGET-COG-MESHES](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-meshes)'
-        }
-
-        It 'reports a group and a range over named rules as Unhandled and leaves them as written' {
-            & $script:update 'notes/named-group.md' 'ADR-WIDGET-COG#{1-3} and ADR-WIDGET-COG#1 to #3' |
-                Should -BeExactly 'ADR-WIDGET-COG#{1-3} and ADR-WIDGET-COG#1 to #3'
-            @($script:changes | Where-Object Kind -EQ ([Catzc.Base.Docs.AdrCitationChangeKind]::Unhandled)).Old |
-                Should -Be @('ADR-WIDGET-COG#{1-3}', 'ADR-WIDGET-COG#1 to #3')
-        }
-
-        It 'renames the code of a group whose rules have no names' {
-            & $script:update 'notes/group-rename.md' 'ADR-WIDGET-GADGET#{1,2}' | Should -BeExactly 'ADR-GIZMO-GADGET#{1,2}'
+        It 'reports a numbered heading as Unhandled and leaves it as written' {
+            $text = "### Rule ADR-WIDGET-COG" + ":2`n"
+            & $script:update 'notes/numbered-heading.md' $text | Should -BeExactly $text
+            @($script:changes.Kind) | Should -Be @([Catzc.Base.Docs.AdrCitationChangeKind]::Unhandled)
         }
     }
 }

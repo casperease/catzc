@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE',...`, written with `#`.
+Above `Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 Test-AdrEngineNeutrality over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig

@@ -21,7 +21,7 @@ public sealed class WorldMapHighlight
     // KindAdr or KindPath.
     public string Kind { get; }
 
-    // The request: canonical ADR citations (ADR-<CODE> or ADR-<CODE>#n), or repository-relative paths, in given order.
+    // The request: ADR or rule codes (ADR-<CODE> or ADR-<CODE>-<NAME>), or repository-relative paths, in given order.
     public IReadOnlyList<string> Requested { get; }
 
     // The lit cells, in the map's order.
@@ -63,7 +63,7 @@ public sealed class WorldMapHighlight
             {
                 foreach (string request in requested)
                 {
-                    if (!string.Equals(CitationScanner.CodeOf(request), placement.Adr, StringComparison.Ordinal)) { continue; }
+                    if (!string.Equals(CitationScanner.CodeOf(request, map.AdrIndex), placement.Adr, StringComparison.Ordinal)) { continue; }
                     lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis,
                         new HighlightReason(placement.Path, placement.Basis, request, null, null));
                 }

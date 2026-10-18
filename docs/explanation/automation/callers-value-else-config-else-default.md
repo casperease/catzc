@@ -9,7 +9,7 @@ Every wait is bounded, and its limit resolves in one order: the caller's value, 
 4  the exemption ceiling  timeout-exemptions.yml: an exempt budget runs up to it, never past it
 5  one bounded wait       the process or script block, stopped at the limit
 
-Supports ADR-AUTO-FAILFAST#7 and ADR-AUTO-DEFAULT#6 (meta lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT and ADR-AUTO-DEFAULT-ONERESOLUTIONORDER (meta lens).
 ```
 
 A hang is the slowest failure cats can have: a process waiting on a prompt nobody answers holds a terminal, a pipeline agent or a coding
@@ -42,9 +42,9 @@ The diagram is described element by element in [its asset description](.assets/c
 
 - Every external call and every unbounded piece of work runs inside a time safeguard, with the limits in one config keyed by run environment
   and execution engine, sensible defaults on the config type, per-executable entries, and no "no limit" value; an exemption raises a limit
-  to a ceiling but never lifts it (ADR-AUTO-FAILFAST#7).
+  to a ceiling but never lifts it (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - A configurable setting resolves in one fixed order, the caller's explicit value, else the owning module's configuration, else the sensible
-  default, and that default is declared exactly once, on the setting's config type (ADR-AUTO-DEFAULT#6).
+  default, and that default is declared exactly once, on the setting's config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
 ## Where the code and the ADR differ
 

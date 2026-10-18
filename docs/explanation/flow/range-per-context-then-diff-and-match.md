@@ -13,7 +13,7 @@ Test-GlobSetAffected checks the name, picks a git range per context, then diffs 
 8  $false                   the named set is not among the touched sets
 9  $true                    the named set is touched, or the diff threw and was caught
 
-Supports ADR-FLOW-CD-GLOBS#9 and ADR-FLOW-CD-DETECT#1 (implementation lens).
+Supports ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT and ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK (implementation lens).
 ```
 
 `Test-GlobSetAffected` is a short function with a strict order. It refuses a name it does not know, asks the resolver for the git range the
@@ -54,8 +54,9 @@ The diagram is described element by element in [its asset description](.assets/r
 
 - The change is computed from git at real refs: `Get-ChangedGlobSet` diffs a commit range with `git diff --name-only --no-renames` and
   matches the paths against the registry; `Test-GlobSetAffected` resolves the reference commit per context and fails open on any doubt
-  (ADR-FLOW-CD-GLOBS#9).
-- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly (ADR-FLOW-CD-DETECT#1).
+  (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly
+  (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK).
 
 ## See also
 

@@ -12,7 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     cites:
-      - ADR-THES-ONETRUTH#6
+      - ADR-THES-ONETRUTH-PROCESSESFOLLOWDELIVERY
   config:
     pattern: table
     deck: product-thesis
@@ -23,7 +23,7 @@ catzc:
 
 ## Eyebrow
 
-ADR-THES-ONETRUTH#6 · Mechanics
+ADR-THES-ONETRUTH-PROCESSESFOLLOWDELIVERY · Mechanics
 
 ## Rows
 

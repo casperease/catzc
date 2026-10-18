@@ -12,7 +12,7 @@ An edit to a variant lands at the next import; a wrong value fails once at load,
 7  Sync-GeneratedFile            a committer that asks Test-GitWorkspace -MainViaPr first
 8  Skipped: main-via-pr on main  its stop, naming the branch to use instead
 
-Supports ADR-REPO-VARIANT#1, #2, #5 and #6 (operations lens).
+Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (operations lens).
 ```
 
 Changing a repo-wide decision in cats is an edit and a re-import. The edit is one key in `variants.yml`; the re-import is
@@ -48,17 +48,18 @@ The diagram is described element by element in [its asset description](.assets/a
 7. **Sync-GeneratedFile.** A committer in `Catzc.Base.ModuleSystem`: before it commits a generated file it asks
    `Test-GitWorkspace -MainViaPr`.
 8. **Skipped: main-via-pr on main.** On `main` or `master` in `main-via-pr` mode it writes
-   `Skipped: the git_workspace variant is 'main-via-pr' and this is <branch> — commit generated files from a working branch (variants.yml, ADR-REPO-VARIANT#6).`
+   `Skipped: the git_workspace variant is 'main-via-pr' and this is <branch> — commit generated files from a working branch (variants.yml, ADR-REPO-VARIANT-GITWORKSPACE).`
    and returns without committing. In `main-direct` mode any named branch, main included, commits.
 
 ## Why it holds
 
 - A variant is fixed for the importer session because it inherits the `Get-Config` cache, so re-running the importer is how it changes
-  (ADR-REPO-VARIANT#1); the importer is the only invalidation of a session cache (ADR-AUTO-CACHE#6).
-- A repo-wide decision is a one-liner such as `Assert-HaveCustomers`, and a guard throws with an actionable message (ADR-REPO-VARIANT#2).
-- `have_customers` is tri-state, and the plural guards answer the repo-wide question (ADR-REPO-VARIANT#5).
+  (ADR-REPO-VARIANT-SESSIONVARIANT); the importer is the only invalidation of a session cache (ADR-AUTO-CACHE-IMPORTERINVALIDATES).
+- A repo-wide decision is a one-liner such as `Assert-HaveCustomers`, and a guard throws with an actionable message
+  (ADR-REPO-VARIANT-NODIRECTREADS).
+- `have_customers` is tri-state, and the plural guards answer the repo-wide question (ADR-REPO-VARIANT-HAVECUSTOMERS).
 - `git_workspace` guards automation that commits; the single stop condition is a direct commit made while standing on main locally
-  (ADR-REPO-VARIANT#6).
+  (ADR-REPO-VARIANT-GITWORKSPACE).
 
 ## See also
 

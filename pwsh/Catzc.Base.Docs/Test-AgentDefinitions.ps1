@@ -188,7 +188,7 @@ function Test-AgentDefinitions {
             $issues.Add("${agentsFile}: agent '$($entry.name)' has no file .claude/agents/$($entry.name).md")
         }
         foreach ($citation in $entry.supported_by) {
-            if (-not $ruleIds.Contains($citation.Replace('#', ':'))) {
+            if (-not $ruleIds.Contains($citation)) {
                 $issues.Add("${agentsFile}: agent '$($entry.name)' supported_by '$citation' names no ADR rule")
             }
         }
@@ -206,7 +206,7 @@ function Test-AgentDefinitions {
             $issues.Add("${capabilitiesFile}: capability '$($entry.name)' has no file .claude/skills/$($entry.name)/SKILL.md")
         }
         foreach ($citation in $entry.supported_by) {
-            if (-not $ruleIds.Contains($citation.Replace('#', ':'))) {
+            if (-not $ruleIds.Contains($citation)) {
                 $issues.Add("${capabilitiesFile}: capability '$($entry.name)' supported_by '$citation' names no ADR rule")
             }
         }

@@ -3,15 +3,15 @@
 ```text
 One rule bounds every agent call, three tests prove the hook at three tiers, and the exemption route is ADR-only.
 
-1  TimeoutsConfig             the limits, validated at load, defaults declared once (ADR-AUTO-FAILFAST#7, ADR-AUTO-DEFAULT#6)
-2  BashSafeguard.Decide       the verdict that applies the bash limits to a call (ADR-AUTO-FAILFAST#7)
-3  Assert-BashTimeout         the hook that denies a call outside them (ADR-AUTO-FAILFAST#7)
+1  TimeoutsConfig             the limits, validated at load, defaults declared once (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER)
+2  BashSafeguard.Decide       the verdict that applies the bash limits to a call (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
+3  Assert-BashTimeout         the hook that denies a call outside them (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
 4  BashSafeguard (L0 logic)   the verdict against fixture limits: every rule, actor and wording
 5  parity (L1 integrity)      the published hook against the shipped config, against Get-TimeoutSeconds
 6  published hook (L2 logic)  the published program end to end: allow, deny, log, and deny on its own error
 7  timeout-exemptions.yml     a budget exemption raises a limit; a Bash call carries no budget and takes none
 
-Supports ADR-AUTO-FAILFAST#7 and ADR-AUTO-DEFAULT#6 (governance lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT and ADR-AUTO-DEFAULT-ONERESOLUTIONORDER (governance lens).
 ```
 
 One rule governs the whole path of an agent's shell call through cats: every wait is bounded, the limits live in one config, and a hook
@@ -49,8 +49,9 @@ The diagram is described element by element in [its asset description](.assets/t
 
 - Every wait runs inside a time safeguard; the limits live in one config, `timeouts.yml`, keyed by run environment and execution engine,
   with no "no limit" value; the bash limits bound every shell call an agent makes and a hook denies a call outside them; and the hook
-  compiles the module's own config and verdict types, proven by an integrity test against the shipped config (ADR-AUTO-FAILFAST#7).
-- A setting resolves in one fixed order, and its sensible default is declared once on the config type (ADR-AUTO-DEFAULT#6).
+  compiles the module's own config and verdict types, proven by an integrity test against the shipped config
+  (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
+- A setting resolves in one fixed order, and its sensible default is declared once on the config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
 ## Where the code and the ADR differ
 
@@ -60,7 +61,7 @@ the two in agreement.
 ## See also
 
 - [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) — the decision this article explains.
-- [Sensible defaults](../../adr/automation/sensible-defaults.md) — the resolution order of a setting, ADR-AUTO-DEFAULT#6.
+- [Sensible defaults](../../adr/automation/sensible-defaults.md) — the resolution order of a setting, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER.
 - The other lenses on the same verdict: [meta](a-shell-call-carries-its-limit-or-is-denied.md),
   [architecture](hook-compiles-module-verdict-and-limits.md), [implementation](decide-returns-null-or-a-reason.md) and
   [operations](pass-the-limit-or-the-call-is-denied.md).

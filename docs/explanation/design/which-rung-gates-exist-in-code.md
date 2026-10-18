@@ -12,7 +12,7 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, ADR-only
 8  failure stops downstream  each Deploy_* stage runs only when the stage before it succeeded
 
-Supports ADR-DSGN-LIFE#1, #2, #3, #4, #5, #6, #8 and #9 (governance lens).
+Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD, ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM and ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND (governance lens).
 ```
 
 Every rung of the commit ladder has an ADR rule and a gate that decides whether a commit climbs it. Lined up in ladder order, with the
@@ -46,18 +46,18 @@ The diagram is described element by element in [its asset description](.assets/w
 
 ## Why it holds
 
-- A commit holds one state at a time and only climbs; a new attempt is a new commit (ADR-DSGN-LIFE#1).
-- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (ADR-DSGN-LIFE#2).
-- Retirement is a successful end of life, never a discard (ADR-DSGN-LIFE#3).
-- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (ADR-DSGN-LIFE#4).
-- Each always-on environment holds one occupant, and no gate checks it (ADR-DSGN-LIFE#5).
-- The `main-uat` occupant is the stable integration point (ADR-DSGN-LIFE#6).
-- A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE#8).
-- An out-of-band deploy of a topic commit is not an integration (ADR-DSGN-LIFE#9).
-- PR build validation is the inner CI gate (ADR-FLOW-CD#8); L3 runs in CD (ADR-FLOW-CD#5); RC and RBC are the manual gates (ADR-FLOW-CD#9);
-  deploy-to-prod is a two-environment activation (ADR-FLOW-CD#12).
-- The BVT includes the built-artifact checks of `Test-BuildArtifact` (ADR-AUTO-TEST#24).
-- The commit colours are the locked palette (ADR-DSGN-VISUAL#4).
+- A commit holds one state at a time and only climbs; a new attempt is a new commit (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG).
+- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (ADR-DSGN-LIFE-DISCARDISTERMINAL).
+- Retirement is a successful end of life, never a discard (ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD).
+- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
+- Each always-on environment holds one occupant, and no gate checks it (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT).
+- The `main-uat` occupant is the stable integration point (ADR-DSGN-LIFE-SYNCFROMMAINUAT).
+- A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+- An out-of-band deploy of a topic commit is not an integration (ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND).
+- PR build validation is the inner CI gate (ADR-FLOW-CD-INNERANDOUTERLOOP); L3 runs in CD (ADR-FLOW-CD-CDSTAYSINNONPROD); RC and RBC are the
+  manual gates (ADR-FLOW-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION).
+- The BVT includes the built-artifact checks of `Test-BuildArtifact` (ADR-AUTO-TEST-BUILDVERIFICATIONTEST).
+- The commit colours are the locked palette (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE).
 
 ## Where the code and the ADR differ
 

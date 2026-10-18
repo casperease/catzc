@@ -55,7 +55,7 @@ public sealed class ValueChainHighlight
         foreach (string reference in Strings(references))
         {
             string canonical = CitationScanner.Canonical(reference);
-            string adr = CitationScanner.CodeOf(canonical);
+            string adr = CitationScanner.CodeOf(canonical, code => map.CellsOf(code) != null);
             IReadOnlyList<ValueChainCell> cells = map.CellsOf(adr);
             if (cells == null)
             {

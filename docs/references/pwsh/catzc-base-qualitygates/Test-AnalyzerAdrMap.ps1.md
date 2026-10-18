@@ -42,9 +42,9 @@ Test-AnalyzerAdrMap
 
 ## comment:1
 
-Above `$ruleIds = Get-CatsAdrRuleIds`, written with `#`.
+Above `[string[]] $ruleIds = Get-CatsAdrRuleIds`, written with `#`.
 
 ```text
-The rule ids in '#' citation form, so they compare to the map. Plain assignment receives the comma-wrapped
+The rule ids are the codes the map cites, so they compare as they are. Typed assignment receives the comma-wrapped
 getter result intact — @() would nest it.
 ```

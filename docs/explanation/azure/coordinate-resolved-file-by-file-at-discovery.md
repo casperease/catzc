@@ -13,7 +13,7 @@ Discovery resolves every config file's coordinate through one shared check.
 8  has an invalid config                  the throw: Template '<name>' has an invalid config: <violations>.
 9  BicepSlot                              the slot: name, environment, slot, subscription, customer; one per config file
 
-Supports ADR-AZ-DATAMOD#2, #3 and #8, and ADR-AZ-CUSTOMER#2 and #6 (implementation lens).
+Supports ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-DATAMOD-NAMEKEYEDMAPS and ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, and ADR-AZ-CUSTOMER-TWOBINDINGS and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (implementation lens).
 ```
 
 Discovery is the moment cats turns a template's `configuration/` tree into slots, and it is where the coordinate of every config file is
@@ -23,7 +23,8 @@ example: its coordinate is customer `apex`, environment `nsub`, base slot, and i
 
 ![Discovery resolves every config file's coordinate through one shared check](.assets/coordinate-resolved-file-by-file-at-discovery/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/coordinate-resolved-file-by-file-at-discovery/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/coordinate-resolved-file-by-file-at-discovery/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -54,14 +55,14 @@ The diagram is described element by element in [its asset description](.assets/c
 ## Why it holds
 
 - One config file is one (customer?, env, slot), one subscription and one Azure resource group, with the filename `<env>[-<slot>]` parsed by
-  splitting on the first `-` (ADR-AZ-DATAMOD#2).
+  splitting on the first `-` (ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION).
 - A configuration subfolder is always a customer key, and every coordinate must resolve to exactly one subscription id, asserted per file at
-  discovery (ADR-AZ-DATAMOD#3).
+  discovery (ADR-AZ-DATAMOD-NAMEKEYEDMAPS).
 - The link across the two layers is enforced at discovery by `Get-BicepTemplates` through the shared `Get-BicepSubscriptionConfigViolations`
-  (ADR-AZ-DATAMOD#8).
+  (ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY).
 - A subscription binds a customer by either its key or its shortcode, and `Get-AzureCustomer` is the single resolver, keys first and then
-  shortcodes (ADR-AZ-CUSTOMER#2).
-- The customer key is the subfolder name, and a subfolder that is not a defined key is a discovery error (ADR-AZ-CUSTOMER#6).
+  shortcodes (ADR-AZ-CUSTOMER-TWOBINDINGS).
+- The customer key is the subfolder name, and a subfolder that is not a defined key is a discovery error (ADR-AZ-CUSTOMER-KEYISSUBFOLDER).
 
 ## See also
 

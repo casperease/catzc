@@ -11,7 +11,7 @@ One stored out/ string resolves to {root}/out on a devbox and to the staging dir
 6  {staging}/.../main.json        what a pipeline job sees
 7  Path does not exist            the throw when the staging directory the variable names is missing
 
-Supports ADR-AUTO-PATH#3 and #9 (operations lens).
+Supports ADR-AUTO-PATH-BINDINGFORMONLYATBINDING and ADR-AUTO-PATH-OUTANCHOR (operations lens).
 ```
 
 An output artifact of cats is stored as one string, `out/template/sample/main.json`, wherever it is recorded. Whoever runs
@@ -43,9 +43,9 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - A path is in binding form only at the point of binding, resolved with `Resolve-RepoPath` immediately before the side effect
-  (ADR-AUTO-PATH#3).
+  (ADR-AUTO-PATH-BINDINGFORMONLYATBINDING).
 - `out/` is a reserved anchor re-anchored against `Get-OutputRoot`, so the same stored string resolves to the right place on a devbox and in
-  a pipeline (ADR-AUTO-PATH#9).
+  a pipeline (ADR-AUTO-PATH-OUTANCHOR).
 
 A file that crosses from a build stage to a deploy stage is anchored differently, on its artifact root through `ArtifactRef`; nobody
 operates that type today, because no production code calls it.

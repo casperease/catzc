@@ -10,7 +10,7 @@ An undeclared module edge fails the gate with one line per issue.
 5  failed: N issue(s)     the one throw, one line per undeclared edge or unknown module
 6  dependencies.yml       the fix: declare the edge, or remove the call
 
-Supports ADR-AUTO-DEPM#3, #4 and #5 (operations lens).
+Supports ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and ADR-AUTO-DEPM-EXTENDBYDECLARING (operations lens).
 ```
 
 `Test-ModuleDependency` gives everyone who runs it, directly or through `Test-Automation` at level 1 or higher, the same verdict on the
@@ -43,9 +43,10 @@ The diagram is described element by element in [its asset description](.assets/u
 ## Why it holds
 
 - `dependencies.yml` has two sections, and each consumer's allowed names come from them: a group allows any member, a module allows exactly
-  that one (ADR-AUTO-DEPM#3).
-- Integrity fails fast: the declaration's shape at load, then the real edges and the on-disk modules in the gate (ADR-AUTO-DEPM#4).
-- A new dependency is a new declared edge, landed in the same change as the code that introduces it (ADR-AUTO-DEPM#5).
+  that one (ADR-AUTO-DEPM-TWOSECTIONS).
+- Integrity fails fast: the declaration's shape at load, then the real edges and the on-disk modules in the gate
+  (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY).
+- A new dependency is a new declared edge, landed in the same change as the code that introduces it (ADR-AUTO-DEPM-EXTENDBYDECLARING).
 
 A module in neither section is never flagged. Today all 40 modules under `automation/` are declared (26 Base, 6 Azure, 8 Tooling), so none
 is unconstrained.

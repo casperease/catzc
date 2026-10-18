@@ -37,7 +37,7 @@ below, and kept five that only the user can answer.
 18. Prose may say PowerShell; identifiers use only pwsh or powershell; the formatting ADR decides the compiled folder.
 19. In-use, untracked and peer-dirty files are out of plan scope; owners fix their own comment findings.
 20. Class selectors go now; the file-head plan stays one plan.
-21. The link ledger excludes .unordered; ADR-REPO-HELP#3 is relaxed; the review is sample-then-stop; Phase 2 thresholds are measured.
+21. The link ledger excludes .unordered; ADR-REPO-HELP-CITATIONINSENTENCE is relaxed; the review is sample-then-stop; Phase 2 thresholds are measured.
 22. The TryParse regression test and the five gates on the usage code run now.
 23. Per-engine cache stamps; the config-conventions and snapshot tests stay; EnforceTimings waits for the budget; slow files after two runs.
 24. Materialization: scoped sha of a deployable-module globset, declared per kind, loud fallback, its own ADR written now.

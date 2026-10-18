@@ -12,7 +12,7 @@ What you set decides the credential, and each wrong setup stops with its own mes
 7  No ADO token available     the message when the session yields no token
 8  Authorization header       what a working setup gives the REST call
 
-Supports ADR-PIPE-AUTH#1, #2, #5 and #6 (operations lens).
+Supports ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-PIPE-AUTH-PROVETARGET, ADR-PIPE-AUTH-ASSERTWHENNOTOKEN and ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN (operations lens).
 ```
 
 Anyone who runs an Azure DevOps REST function in cats, from a pipeline or a terminal, gets its credential from one ladder. The first thing
@@ -21,8 +21,8 @@ switch credentials, unset the one above.
 
 ![What you set decides the credential](.assets/what-you-set-decides-the-credential/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/what-you-set-decides-the-credential/diagram.drawio.md). Each failure carries
-a verbatim fragment of its message; the full messages are quoted below.
+The diagram is described element by element in [its asset description](.assets/what-you-set-decides-the-credential/diagram.drawio.md). Each
+failure carries a verbatim fragment of its message; the full messages are quoted below.
 
 ## Walkthrough
 
@@ -45,10 +45,11 @@ a verbatim fragment of its message; the full messages are quoted below.
 ## Why it holds
 
 - The first configured credential is used, and a configured one that fails stops the call rather than dropping to the next
-  (ADR-PIPE-AUTH#1).
-- The pipeline token and the az CLI session must prove they belong to the organization and tenant in `ado.yml` (ADR-PIPE-AUTH#2).
-- When nothing yields a token, the message names the two fixes (ADR-PIPE-AUTH#5).
-- The step template, not the function, decides whether a step gets the token, so the pipeline YAML is the audit trail (ADR-PIPE-AUTH#6).
+  (ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE).
+- The pipeline token and the az CLI session must prove they belong to the organization and tenant in `ado.yml` (ADR-PIPE-AUTH-PROVETARGET).
+- When nothing yields a token, the message names the two fixes (ADR-PIPE-AUTH-ASSERTWHENNOTOKEN).
+- The step template, not the function, decides whether a step gets the token, so the pipeline YAML is the audit trail
+  (ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN).
 
 ## Where the code and the ADR differ
 

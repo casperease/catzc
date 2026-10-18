@@ -35,7 +35,7 @@ Five plans each hold one step that fits no larger chunk. Each is one file and on
        reports 0 on both sources.
 2. [x] Landed 2026-10-18 by session catzc-fb, committed by the user in dcc194abd, verdict: "LanguagesConfig.Tests.ps1 Passed 35/35
        failures=0; ADRREG issues=0; LINKS issues=0 on layers.md". `executable` on FileLanguage.cs (default false once on the type),
-       validated in LanguagesConfig, set on powershell, csharp, python, go and bash; ADR-AUTO-LAYERS#2 names the flag. Naming note for a
+       validated in LanguagesConfig, set on powershell, csharp, python, go and bash; ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION names the flag. Naming note for a
        later look: the `tests:` block already has an `executable` key meaning a parameter name (GoExecutable), so one entry uses the word
        twice. Original step: The `executable` flag (plan-layers-vocabulary-rename-contracts, the last open step): `languages.yml` gains
        `executable: true` on the languages a command is implemented in, read by `LanguagesConfig` with its default declared once on the type
@@ -52,7 +52,7 @@ Five plans each hold one step that fits no larger chunk. Each is one file and on
    companion) under it; if not, the step is dropped and the plan deleted in the sweep. Check: page count is 3, or the plan is gone.
 5. [x] Landed 2026-10-18 by session catzc-59 as plan-promotion-ladder's steps 1 and 2 (verdicts there). Original step:
    `pipelines/README.md` (plan-promotion-ladder): the ladder's environments and the pipeline that deploys each, as the decision round's Q1
-   to Q4 decide; the decisions become ADR-DSGN-LIFE and ADR-FLOW-CD rules in the same change (ADR-REPO-PLANS#9). Check: `Test-Links` and
+   to Q4 decide; the decisions become ADR-DSGN-LIFE and ADR-FLOW-CD rules in the same change (ADR-REPO-PLANS-DECISIONSBECOMERULES). Check: `Test-Links` and
    `Test-Pipelines` pass; `Test-AdrRegistry` clean. The ladder's build itself is then planned as its own task from the plan's new steps.
 
 ## Report

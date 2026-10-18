@@ -12,7 +12,7 @@ Three gates guard the CLI and az, but nothing checks that cats stays thin.
 7  az CLI                the default for every Azure operation
 8  swappable substrate   ADR-only: the vendor could change behind the CLI
 
-Supports ADR-DSGN-THINPLAT#1, #2, #3, #4 and #5, and ADR-AZ-CLI#1, #2 and #3 (governance lens).
+Supports ADR-DSGN-THINPLAT-THINPLATFORM, ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT, ADR-DSGN-THINPLAT-PLATFORMASCLI, ADR-DSGN-THINPLAT-REPRESENTEDASCODE and ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (governance lens).
 ```
 
 Each rule that shapes cats as a thin platform constrains either the CLI surface or the vendor call behind it. Three of those rules have a
@@ -28,7 +28,7 @@ The diagram is described element by element in [its asset description](.assets/w
 
 1. **NoAzModuleNaming.** A custom PSScriptAnalyzer rule that flags any function named like an Az PowerShell cmdlet (`Verb-Az<Noun>`),
    allowing only the `Azure`, `AzCli` and `AzBicep` prefixes. It runs inside `Test-Automation` on every devbox run and in CI, and the
-   analyzer map credits it to ADR-AZ-CLI#7.
+   analyzer map credits it to ADR-AZ-CLI-AZURENOUNPREFIX.
 2. **Verb-Noun functions.** The CLI surface: the public functions are the only thing a consumer binds to. The code delivers that surface,
    but no gate checks that consumers bind to nothing else.
 3. **Config validation.** The configuration the functions read is checked before they act. The `AzureConfig` type validates `azure.yml` when
@@ -49,13 +49,13 @@ The diagram is described element by element in [its asset description](.assets/w
 
 ## Why it holds
 
-- The conventions over Azure are owned by the platform and live in its configuration (ADR-DSGN-THINPLAT#1).
-- Thin is delegation, not reimplementation (ADR-DSGN-THINPLAT#2).
-- The `Verb-Noun` functions and their configuration are the platform's API (ADR-DSGN-THINPLAT#3).
-- Everything the platform covers is code, in one living version (ADR-DSGN-THINPLAT#4).
-- The substrate is swappable, and the consequential choices stay in the consumer's configuration (ADR-DSGN-THINPLAT#5).
-- az is the default for Azure operations (ADR-AZ-CLI#1), a function that calls az asserts `Assert-Tool 'az_cli'` first (ADR-AZ-CLI#2), and
-  automation code never imports `Az.*` (ADR-AZ-CLI#3).
+- The conventions over Azure are owned by the platform and live in its configuration (ADR-DSGN-THINPLAT-THINPLATFORM).
+- Thin is delegation, not reimplementation (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
+- The `Verb-Noun` functions and their configuration are the platform's API (ADR-DSGN-THINPLAT-PLATFORMASCLI).
+- Everything the platform covers is code, in one living version (ADR-DSGN-THINPLAT-REPRESENTEDASCODE).
+- The substrate is swappable, and the consequential choices stay in the consumer's configuration (ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE).
+- az is the default for Azure operations (ADR-AZ-CLI-AZBYDEFAULT), a function that calls az asserts `Assert-Tool 'az_cli'` first
+  (ADR-AZ-CLI-ASSERTAZ), and automation code never imports `Az.*` (ADR-AZ-CLI-NOAZMODULEIMPORT).
 
 ## Where the code and the ADR differ
 

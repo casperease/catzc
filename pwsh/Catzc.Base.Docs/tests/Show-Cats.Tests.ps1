@@ -17,7 +17,7 @@ Describe 'Show-Cats' -Tag 'L0', 'logic' {
         Mock Get-CatsAdrIndex -ModuleName Catzc.Base.Docs {
             @([pscustomobject]@{ Code = 'ADR-ALPHA'; Title = 'alpha-thing'; Path = 'principles/alpha-thing.md' })
         }
-        Mock Get-CatsAdrRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA:1'; Summary = 's' }) }
+        Mock Get-CatsAdrRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA-BETA-TURN'; Summary = 's' }) }
         Mock Get-CatsRuleEnforcers -ModuleName Catzc.Base.Docs { @{} }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs { 'TestDrive:/fake.md' }
         Show-Cats adr alpha
@@ -28,7 +28,7 @@ Describe 'Show-Cats' -Tag 'L0', 'logic' {
         Mock Get-CatsAdrIndex -ModuleName Catzc.Base.Docs {
             @([pscustomobject]@{ Code = 'ADR-ALPHA'; Title = 'alpha-thing'; Path = 'principles/alpha-thing.md' })
         }
-        Mock Get-CatsAdrRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA:1'; Summary = 's' }) }
+        Mock Get-CatsAdrRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA-BETA-TURN'; Summary = 's' }) }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs { 'TestDrive:/fake.md' }
         Mock Get-CatsRuleEnforcers -ModuleName Catzc.Base.Docs { @{} }
         Show-Cats adr alpha

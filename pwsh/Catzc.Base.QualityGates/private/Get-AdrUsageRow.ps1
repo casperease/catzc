@@ -34,30 +34,27 @@ function Get-AdrUsageRow {
         @((Get-LinksFileMetaFact -State $state -Path $Path -Kind $linksKind)[$linksKind.keys[0]])
     }
 
-    foreach ($token in $adrs) {
-        foreach ($citation in [Catzc.Base.Docs.AdrCodeForm]::Expand($token)) {
-            $code, $rule = $citation -split '#', 2
-            $registered = if ($rule) {
-                $Map.HasRule($code, [int] $rule)
+    foreach ($citation in $adrs) {
+        # A fixture code or a placeholder named in a comment is no usage of an ADR.
+        if (-not ($Map.HasCode($citation) -or $Map.IsDomainCode($citation))) {
+            continue
+        }
+        $isRule = $Map.IsRule($citation)
+        [pscustomobject]@{
+            Path   = $Path
+            Code   = if ($isRule) {
+                $Map.AdrOf($citation)
             }
             else {
-                $Map.HasCode($code) -or $Map.IsDomainCode($code)
+                $citation
             }
-            # A fixture code or a placeholder named in a comment is no usage of an ADR.
-            if (-not $registered) {
-                continue
+            Rule   = if ($isRule) {
+                $citation
             }
-            [pscustomobject]@{
-                Path   = $Path
-                Code   = $code
-                Rule   = if ($rule) {
-                    [int] $rule
-                }
-                else {
-                    $null
-                }
-                Source = 'cites'
+            else {
+                $null
             }
+            Source = 'cites'
         }
     }
 
@@ -67,14 +64,6 @@ function Get-AdrUsageRow {
         if (-not $code) {
             continue
         }
-        $prefix = 'rule-' + $code.ToLowerInvariant()
-        $rule = $null
-        if ($anchor -and $anchor.StartsWith($prefix, [System.StringComparison]::Ordinal)) {
-            $number = 0
-            if ([int]::TryParse($anchor.Substring($prefix.Length), [ref] $number)) {
-                $rule = $number
-            }
-        }
-        [pscustomobject]@{ Path = $Path; Code = $code; Rule = $rule; Source = 'link' }
+        [pscustomobject]@{ Path = $Path; Code = $code; Rule = $Map.RuleOfAnchor($code, $anchor); Source = 'link' }
     }
 }

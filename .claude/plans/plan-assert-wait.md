@@ -16,7 +16,7 @@ stops nothing and throws on nothing. First uses: the startup of the importer and
 
 ## Why its value is medium
 
-A hang today shows nothing about where it stopped (ADR-AUTO-FAILFAST#7, "A hang is the slowest failure"). The watchpoint finds the place so
+A hang today shows nothing about where it stopped (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, "A hang is the slowest failure"). The watchpoint finds the place so
 a limit can be put there and tuned. It is a diagnostic that leaves the tree once the block is bounded, so its lasting value is the limits it
 leads to, not the function. It needs one ADR pair and one L0 test file.
 
@@ -30,10 +30,10 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 - The closing line is `Write-Message -Warning`, always, blocked or not: asked, measured, worst tick late, and "remove this watchpoint once
   the block is bounded". It is not the `Write-Warning` cmdlet: the importer sets `$WarningPreference = 'Stop'`, so the cmdlet would
   terminate.
-- Returns nothing; throws only for invalid arguments, never caught (ADR-AUTO-FAILFAST#5).
+- Returns nothing; throws only for invalid arguments, never caught (ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS).
 - Sees the calling thread's schedule only; a starved process shows as late ticks too. Telling thread from process apart (a second thread's
   heartbeat, as `Invoke-WithProgress` runs) is out of scope.
-- Home: `Catzc.Base.Timeouts`, beside `Assert-CompletesWithin`. `ADR-PWSH-ASSERT#6` bans an unbounded wait; this one is bounded by
+- Home: `Catzc.Base.Timeouts`, beside `Assert-CompletesWithin`. `ADR-PWSH-ASSERT-TWOWAITBOUNDS` bans an unbounded wait; this one is bounded by
   construction, so its `Start-Sleep` is not a finding.
 
 ## Needed docs
@@ -45,7 +45,7 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 
 ## Needed tests
 
-- `tests/Assert-Wait.Tests.ps1`, L0 logic, neutral fixture names (ADR-AUTO-TEST#3); lift `$global:__PesterRunning` in the test's own scope.
+- `tests/Assert-Wait.Tests.ps1`, L0 logic, neutral fixture names (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES); lift `$global:__PesterRunning` in the test's own scope.
   - default total is 1.001 s with ten ticks; `-Seconds 0 -Millisecs 30` runs 30 ms
   - zero total and a negative value throw the assertion message
   - output order: opening, ten ticks, exactly one warning, the warning last
@@ -61,8 +61,8 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 - **Q1. Answered 2026-10-17 at the user's request: on the config type.** The defaults 1 s and 1 ms are declared once on `TimeoutsConfig`, as
   a `wait` map with `seconds` and `millisecs`, one pair and not keyed by environment (a watchpoint is a diagnostic; a pipeline run of one is
   the rare case). The `param` block reads them from `Get-Config -Config timeouts` and restates no number. Why:
-  [ADR-AUTO-DEFAULT#6](../../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6) declares a sensible default exactly once, on
-  the setting's config type, and ADR-AUTO-DEFAULT#2 pulls defaults from configuration. Projected outcome: `timeouts.yml` may set `wait`, a
+  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) declares a sensible default exactly once, on
+  the setting's config type, and ADR-AUTO-DEFAULT-DEFAULTSFROMCONFIG pulls defaults from configuration. Projected outcome: `timeouts.yml` may set `wait`, a
   fresh checkout behaves as the type says, and `Assert-Wait.Tests.ps1` still pins a 1.001 s total. The literals now in `Assert-Wait.ps1` are
   replaced in the same change (ADR-PRIN-ONELIVE).
 - **Q2. Answered 2026-10-17 at the user's request: as drafted.** `Assert-Wait` really waits and measures its own ticks (not a threshold on
@@ -86,7 +86,7 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 - **Q5. Answered 2026-10-17 at the user's request: after the first measured run, not with the code.** `ADR-AUTO-FAILFAST#8` and
   `ADR-PWSH-ASSERT#7` are written once a run has shown what a watchpoint finds and whether the ten-tick shape and the always-on warning
   hold. An ADR states the current design in the present tense and is cited by code (`ADR-AUTO-FAILFAST#8`); a rule written before the shape
-  is proven would be edited or retired again, and a retired number is never reused. The function's head block cites ADR-AUTO-FAILFAST#{5,7},
+  is proven would be edited or retired again, and a retired number is never reused. The function's head block cites ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS and ADR-AUTO-FAILFAST-BOUNDEVERYWAIT,
   which is what governs it meanwhile. Projected outcome: the ADR step stays open with that trigger.
 
 ## Open steps
@@ -119,9 +119,9 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       watchpoints then report a worst tick of 13 to 14 ms and 1.002 to 1.012 s measured for 1.001 s asked. `-DiagnoseLoadTime` shows no
       phase that hides a block (types 203 ms, the largest module imports 56 to 66 ms).
 - [x] Function help beyond the head blocks (check: `Test-Links` on the touched pages). Corrected 2026-10-17 (task-assert-wait): the head's
-      config part is the whole help (ADR-REPO-HELP#1), and it now names the registry defaults.
+      config part is the whole help (ADR-REPO-HELP-HELPONCOMMENTPAGE), and it now names the registry defaults.
 - [x] Done 2026-10-18 with the rename (catzc-93; task-assert-wait step 7). Q6, raised by the read-only review of 2026-10-17 (session catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets
-      go, while ADR-PWSH-VERBS#2 and #3 make an Assert- function one that stops the caller, and the file sits in the `assert` subkind of
+      go, while ADR-PWSH-VERBS-SEMANTICCONTRACT and ADR-PWSH-VERBS-TESTANDASSERT make an Assert- function one that stops the caller, and the file sits in the `assert` subkind of
       file-kinds.yml ("stops the caller"). The user decides: a watch verb (`Watch-Blocking`) with the assert subkind untouched, or a VERBS#7
       exemption for a watchpoint that never stops (check: a Decided line, then the rename or the exemption in the same change as the ADR
       pair of Q5). Decided 2026-10-18 (D17): the rename to `Watch-Blocking`, the assert subkind untouched; it lands with the Q5 pair.
@@ -137,9 +137,9 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
 
 ## Refs
 
-- docs/adr/automation/fail-fast-with-asserts.md (ADR-AUTO-FAILFAST#5, #7)
-- docs/adr/pwsh/assert-idioms.md (ADR-PWSH-ASSERT#6)
-- docs/adr/automation/console-output-matters.md (ADR-AUTO-CONSOLE#7, #10)
+- docs/adr/automation/fail-fast-with-asserts.md (ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
+- docs/adr/pwsh/assert-idioms.md (ADR-PWSH-ASSERT-TWOWAITBOUNDS)
+- docs/adr/automation/console-output-matters.md (ADR-AUTO-CONSOLE-SPARINGCOLOUR, ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING)
 - docs/adr/principles/one-living-version.md (ADR-PRIN-ONELIVE)
 - pwsh/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1, pwsh/Catzc.Base.Writers/Write-Message.ps1
 - pwsh/Catzc.Base.Execution/Invoke-WithProgress.ps1 (the heartbeat thread Q3 may reuse)

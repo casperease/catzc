@@ -13,7 +13,7 @@ Two entry scripts feed one importer, and the importer leaves once the load is do
 8  Catzc.* modules            every module folder, on top of one combined types DLL
 9  Janitor owners             the seven modules whose functions the janitors call
 
-Supports ADR-AUTO-BUNDLE#2 and #3 (architecture lens).
+Supports ADR-AUTO-BUNDLE-TWOROOTS and ADR-AUTO-BUNDLE-ONELIVINGIMPORTER (architecture lens).
 ```
 
 Cats has two run modes, and each has its own entry script: `importer.ps1` for source mode and `Import-Catzc.ps1` for build mode. Both hand
@@ -53,9 +53,9 @@ The bash entry, `importer.sh`, is not a third load path: its `cats` dispatcher s
 ## Why it holds
 
 - Cats anchors on two roots, not one. The working root and the code root coincide in the repository and differ in an install, and every
-  config, type and vendor scan follows the code root (ADR-AUTO-BUNDLE#2).
+  config, type and vendor scan follows the code root (ADR-AUTO-BUNDLE-TWOROOTS).
 - A bundle loads by running the one living importer in its `-Bundle` mode, never a forked bootstrap, so the types and their accelerators
-  register before any module loads in both modes (ADR-AUTO-BUNDLE#3).
+  register before any module loads in both modes (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).
 
 ## See also
 

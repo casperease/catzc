@@ -12,7 +12,7 @@ Catzc.Base.Variants sits in Base, over Config, under every real caller.
 7  Globs · ModuleSystem · Maps  the three upper-Base modules that declare and call it
 8  Tooling                      may call through its Base pin; no Tooling module calls today
 
-Supports ADR-REPO-VARIANT#1 and #3 (architecture lens).
+Supports ADR-REPO-VARIANT-SESSIONVARIANT and ADR-REPO-VARIANT-MINIMALDEPENDENCIES (architecture lens).
 ```
 
 The primitives that answer a repo-wide question have to be usable as trivial guards wherever such a question matters: deep in the Azure
@@ -22,7 +22,8 @@ it.
 
 ![Catzc.Base.Variants sits in Base, over Config, under every real caller](.assets/a-base-module-between-config-and-its-callers/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/a-base-module-between-config-and-its-callers/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/a-base-module-between-config-and-its-callers/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -48,11 +49,11 @@ The diagram is described element by element in [its asset description](.assets/a
 ## Why it holds
 
 - A variant is declared in `configs/variants.yml` in `Catzc.Base.Variants` and read through `Get-Config -Config variants`
-  (ADR-REPO-VARIANT#1).
+  (ADR-REPO-VARIANT-SESSIONVARIANT).
 - The module depends only on Config, Objects and Asserts, its config type is self-contained, and so the primitives are callable from any
-  module above the Config layer, while the foundation modules that cannot call them never need to (ADR-REPO-VARIANT#3).
-- All config reads go through `Get-Config` (ADR-CONF-LOADING#1), and every module edge is declared in `dependencies.yml` before it is used
-  (ADR-AUTO-DEPM#1).
+  module above the Config layer, while the foundation modules that cannot call them never need to (ADR-REPO-VARIANT-MINIMALDEPENDENCIES).
+- All config reads go through `Get-Config` (ADR-CONF-LOADING-ONEREADER), and every module edge is declared in `dependencies.yml` before it
+  is used (ADR-AUTO-DEPM-CODEBUILTFROM).
 
 ## Where the code and the ADR differ
 

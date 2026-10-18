@@ -17,7 +17,7 @@ function Get-TestRuleTags {
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($levelTags in $levels) {
         foreach ($tag in $levelTags) {
-            if ($tag -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$|^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
+            if ($tag -cmatch '^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
                 [void]$ids.Add($tag)
             }
         }

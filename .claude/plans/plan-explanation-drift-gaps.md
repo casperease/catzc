@@ -43,7 +43,7 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
   (config addressing, globset hash, Bicep context path, name patterns, `Get-AdoNaming`, `Get-BicepResourceName`, `Register-AdoPipeline`, the
   fail-open and projection citations). Test-MarkdownTitle, Test-Links and Test-Markdownlint report 0 on every edited file.
 - 2026-10-18, the small code fixes, each with its article claims removed:
-  - `Get-AdoAuthorizationHeader` gets its token through `Invoke-AzCli`, which asserts `az_cli` (ADR-AZ-CLI#2); its L0 file passed.
+  - `Get-AdoAuthorizationHeader` gets its token through `Invoke-AzCli`, which asserts `az_cli` (ADR-AZ-CLI-ASSERTAZ); its L0 file passed.
   - `Get-WorldMap` asks the new `Test-AspectDeclaration` (Catzc.Base.Modules, beside `Get-Aspect`) instead of reading the config; the
     `Test-AspectDeclaration` L0 file passed, and `Get-WorldMap.Tests` passed but for one real-tree failure that is not this change (the
     `gitattributes.template` stack violation from catzc-0a's RootConfig rename, reported to it). The read itself moved, not closed: see the
@@ -51,13 +51,13 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
   - `Test-GlobSetAffected` raises its unknown-name throw through `Assert-True` (ADR-AUTO-FAILFAST); its L0 file passed.
   - `Build-Bicep.Integrity.Tests` checks that a template resolves a `short_name`, worded as such; the file passed.
   - Q7: `Resolve-RepoPath` normalizes a rooted input; its L0 file passed with a new `.`/`..` case.
-  - Q8: ADR-AZ-NAMING#7 says the throw lists the components that can be shortened; ADR-AZ-CLI#7 (new) holds the `Verb-Azure<Noun>` naming
+  - Q8: ADR-AZ-NAMING-NEVERTRUNCATE says the throw lists the components that can be shortened; ADR-AZ-CLI-AZURENOUNPREFIX (new) holds the `Verb-Azure<Noun>` naming
     rule and `analyzer-adr-map.yml` credits `Measure-NoAzModuleNaming` to it. Test-AdrRegistry 0 issues; Test-AnalyzerAdrMap.Tests passed.
-  - Q4: ADR-DSGN-RUNMODE#7 has three build kinds (temporary, installed, saved) and no longer says the kind is derived; the Consequences name
+  - Q4: ADR-DSGN-RUNMODE-THREEBUILDKINDS has three build kinds (temporary, installed, saved) and no longer says the kind is derived; the Consequences name
     `Get-CatzcRunMode`, not a load banner. `build-catzc.ps1` and `Write-CatzcLoadBanner` were already gone from the ADR. Seven run-mode
     articles lost those claims.
-  - Q6: ADR-DSGN-TRACK#5 and its "Tracks, units, pipelines" section say a CI pipeline that verifies a whole track binds the track's own
-    loose-fileset set (ADR-FLOW-CD-GLOBS#7), and units bind CD pipelines 1-1. Four tracks articles lost the disagreement claim.
+  - Q6: ADR-DSGN-TRACK-DEPLOYABLEUNIT and its "Tracks, units, pipelines" section say a CI pipeline that verifies a whole track binds the track's own
+    loose-fileset set (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER), and units bind CD pipelines 1-1. Four tracks articles lost the disagreement claim.
   - Q7: ADR-AUTO-PATH says a path-bearing type holds both forms or derives the absolute on demand, `ExistsAt` answers whether the file
     exists, `Resolve-RepoPath` normalizes an absolute input, `ConvertTo-RepoRelativePath` tries the output root first, and `ArtifactRef` is
     the published-artifact type with no production caller yet. Five path articles lost those claims.
@@ -76,7 +76,7 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
     empty member list is refused. Documented in `docs/how-to/automation/apply-environment-approvals.md`. Six L0 files passed, the analyzer
     reports 0 over the 11 files, and the manual-test-plan row and coverage test passed. The group's description is written at creation only,
     since a Graph group patch needs a JSON-patch content type the REST caller does not send. The ladder itself is `plan-promotion-ladder`.
-    ADR-FLOW-CD#15 (new) makes the gate a rule and links the how-to.
+    ADR-FLOW-CD-PRODAPPROVALGATE (new) makes the gate a rule and links the how-to.
   - Q1, wired in YAML: `invoke-automation.yaml` takes a `StepName`, so a step can publish output variables; the CI stage of `cd-shared.yaml`
     and of `extends/cd-customer.yaml` checks out with `fetchDepth: 0` and runs
     `Set-AdoPipelineVariable AFFECTED (Test-GlobSetAffected <unit>) -IsOutput` as step `Changes`; `Deploy_Foundation` also needs `AFFECTED`
@@ -91,12 +91,12 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
 
 ## Decided (2026-10-18, the user took every recommendation)
 
-Each decision becomes an ADR rule, or an ADR amendment, in the change that lands it (ADR-REPO-PLANS#9).
+Each decision becomes an ADR rule, or an ADR amendment, in the change that lands it (ADR-REPO-PLANS-DECISIONSBECOMERULES).
 
 - Q1, code. Wire `Test-GlobSetAffected` into the CD stages and set `fetchDepth: 0` on every Azure DevOps checkout: the function exists, its
-  tests pin the throw and the fail-open, and a wrong answer only costs a redundant run. ADR-FLOW-CD-GLOBS#9 stands as written.
+  tests pin the throw and the fail-open, and a wrong answer only costs a redundant run. ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT stands as written.
 - Q2, code. Run `Test-BuildArtifact` in the post-merge BVT, not in PR CI, so it costs nothing against the CI budget that
-  plan-test-run-budget is fighting. ADR-AUTO-TEST#24 stands.
+  plan-test-run-budget is fighting. ADR-AUTO-TEST-BUILDVERIFICATIONTEST stands.
 - Q3, code now, ladder later. "CD never touches production" is a safety rule the CD runs break today: put an approval check on the prod-tier
   environments (`*-psub` and apex's `prod`). Building main-uat, release-uat, RC/RBC and DEPLOY is its own plan, not an ADR rollback.
 - Q4, ADR. Drop `Write-CatzcLoadBanner`, the root `build-catzc.ps1` and the cached build kind from ADR-DSGN-RUNMODE: `Get-CatzcRunMode`

@@ -10,7 +10,7 @@ The deploy path and the integration path share only the topic commit; nothing on
 5  BVT                   produces the BVT-verified commit, yellow
 6  the landing edge      the only link between the two paths is their start
 
-Supports ADR-DSGN-LIFE#1 and #9, and ADR-DSGN-VISUAL#4 and #13 (architecture lens).
+Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG and ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND, and ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER (architecture lens).
 ```
 
 Cats keeps two events apart that are easy to blur: deploying a commit and integrating it. A commit on a topic branch can reach an
@@ -40,17 +40,17 @@ The diagram is described element by element in [its asset description](.assets/d
 ## Why it holds
 
 - A topic commit can be deployed out-of-band by a workflow without integrating into main; the deploy is not an integration and confers no
-  promotion state on the mainline (ADR-DSGN-LIFE#9).
+  promotion state on the mainline (ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND).
 - A commit holds one lifecycle state at a time and advances one rung along the ladder, topic, landed on main, BVT-verified and onward, or
-  leaves it (ADR-DSGN-LIFE#1).
+  leaves it (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG).
 - The commit colours are fixed: brown is a development commit, grey is integrated onto main, and yellow is past the BVT with an immutable
-  artifact (ADR-DSGN-VISUAL#4).
-- An environment box is a neutral container, and the commit inside it carries its own state colour (ADR-DSGN-VISUAL#13).
+  artifact (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE).
+- An environment box is a neutral container, and the commit inside it carries its own state colour (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-LIFE#9 allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does: every `Deploy_*` stage
-  runs only when the source branch is `refs/heads/main`.
+- ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does:
+  every `Deploy_*` stage runs only when the source branch is `refs/heads/main`.
 - ADR-DSGN-VISUAL lets the BVT accept a brown commit as well as a grey one; the integration path here follows the commit after it lands.
 
 ## See also

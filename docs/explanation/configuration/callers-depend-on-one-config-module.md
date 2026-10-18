@@ -11,7 +11,7 @@ Callers in any module depend on one config module; the owner only ships a file a
 6  owner's C# type           built once on the miss; its constructor maps and validates
 7  Catzc.Base.QualityGates   its gate Test-ShippedConfigs calls the same reader
 
-Supports ADR-CONF-LOADING#1, #2, #3, #4 and #6 (architecture lens).
+Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH, ADR-CONF-LOADING-CSHARPCONFIGTYPE and ADR-CONF-LOADING-READINGISGLOBAL (architecture lens).
 ```
 
 A config belongs to the module that ships it, but the code that reads it can live anywhere in cats. The architecture keeps those two apart:
@@ -41,16 +41,18 @@ The diagram is described element by element in [its asset description](.assets/c
 
 ## Why it holds
 
-- All config reads go through `Get-Config`; no function re-reads a config file or keeps its own config cache (ADR-CONF-LOADING#1).
-- A config's existence is discovered from its folder, and a name is global; `-Module` only disambiguates (ADR-CONF-LOADING#2).
-- The parsed config is cached by its resolved file path for the session (ADR-CONF-LOADING#3).
-- Every shipped config has a C# config type registered in `configs.yml`, and `Test-ShippedConfigs` is its gate (ADR-CONF-LOADING#4).
-- Reading a config is global access, never guarded by dependencies (ADR-CONF-LOADING#6).
+- All config reads go through `Get-Config`; no function re-reads a config file or keeps its own config cache (ADR-CONF-LOADING-ONEREADER).
+- A config's existence is discovered from its folder, and a name is global; `-Module` only disambiguates
+  (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
+- The parsed config is cached by its resolved file path for the session (ADR-CONF-LOADING-CACHEBYPATH).
+- Every shipped config has a C# config type registered in `configs.yml`, and `Test-ShippedConfigs` is its gate
+  (ADR-CONF-LOADING-CSHARPCONFIGTYPE).
+- Reading a config is global access, never guarded by dependencies (ADR-CONF-LOADING-READINGISGLOBAL).
 
 ## Where the code and the ADR differ
 
-The ADR says discovery scans `pwsh/*/configs/`. The code scans the loaded code root, `Get-CatzcModulesRoot`, which is the source
-`pwsh/` folder or a built package, and skips dot-folders.
+The ADR says discovery scans `pwsh/*/configs/`. The code scans the loaded code root, `Get-CatzcModulesRoot`, which is the source `pwsh/`
+folder or a built package, and skips dot-folders.
 
 The ADR says only `Get-Config` is public. `Catzc.Base.Config` also exports `Get-ConfigValue`, which the addressing ADR sanctions and which
 reads no file itself.

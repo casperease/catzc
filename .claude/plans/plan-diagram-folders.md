@@ -11,7 +11,7 @@ plan:
 
 A diagram is a folder `<article-folder>/.assets/<name>/` holding everything the diagram owns, under role names: `diagram.drawio.png`, its
 description `diagram.drawio.md`, and `grid`, `tree` and `chain` each as a `.png` and a `.md`. Moving the diagram moves the folder.
-`Build-Diagrams -Path <folder>` rebuilds one folder in place; with no path it repeats that for every diagram folder (ADR-REPO-SLIDES#7). The
+`Build-Diagrams -Path <folder>` rebuilds one folder in place; with no path it repeats that for every diagram folder (ADR-REPO-SLIDES-ONEBUILDCOMMAND). The
 explanation article stays outside the folder; the render reads it and never writes it. Scope: the 150 slides of `docs/explanation`; the 18
 in `docs/.assets` and `docs/references/.assets` follow later.
 
@@ -25,7 +25,7 @@ moved, reviewed or rebuilt as one thing. One folder per diagram makes the move a
 Recorded 2026-10-18 with the user:
 
 - Role names inside the folder; the folder name is the diagram's only name.
-- The description moves into the folder. Its relative links (ADR-REPO-LINK#2) are kept right by a move command, not generated: one tested
+- The description moves into the folder. Its relative links (ADR-REPO-LINK-MARKDOWNRELATIVE) are kept right by a move command, not generated: one tested
   command moves a diagram folder with `git mv` and re-points every relative link in the moved `.md` files and in the pages that link into
   them, each resolved to its repository path and recomputed from the new place; Test-Links after each move.
 - ADR codes and lens come from the model's `subtitle` cell only (`<codes> · <lens>`, on all 151 models); the sidebar chips, the lens badge
@@ -43,7 +43,7 @@ Recorded 2026-10-18 with the user:
 
 - ADR-REPO-FOLDERS (conventional-folders.md, the `.assets` paragraph) restated: `.assets/` beside an article holds one folder per diagram,
   the role names, and the description inside the folder.
-- ADR-REPO-SLIDES#7 restated: one command on one folder; the whole tree is that command repeated.
+- ADR-REPO-SLIDES-ONEBUILDCOMMAND restated: one command on one folder; the whole tree is that command repeated.
 - `file-kinds.yml` diagram kinds move from the three fixed `.assets` roots to `docs/**/.assets/**`.
 - `Build-Diagrams.ps1.md` help and `catzc-base-slides.md` responsibility:4 follow the new parameter.
 
@@ -70,8 +70,8 @@ Recorded 2026-10-18 with the user:
       sidebars is fixed when the minimaps re-render in the new layout (describe.py already says `pwsh/`).
 - [x] Normalise the two subtitles still in the `:1,2,3` form (adr-dsgn-aspect--each-track-picks-its-catch-all--meta,
       adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta) through write-drawio-files (check: the subtitle parser reports none).
-      Closed 2026-10-18 by session catzc-f3 with nothing to change: both are already canonical (`ADR-DSGN-ASPECT#{1-3} · meta`,
-      `ADR-AUTO-GO#1 · ADR-PRIN-ONELIVE#{1,5} · meta`, last touched in 928c51e9d); drawio_forward.py on both: exit 0, status ok, no
+      Closed 2026-10-18 by session catzc-f3 with nothing to change: both subtitles, citing ADR-DSGN-ASPECT and ADR-PRIN-ONELIVE, were already
+      in the citation form of that day, last touched in 928c51e9d); drawio_forward.py on both: exit 0, status ok, no
       W_SUBTITLE.
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 3). The move command: moves files with `git mv` and re-points relative links in and into them, with L0 tests on neutral fixtures (check:
       its tests pass; Test-Links clean after a fixture move).
@@ -79,7 +79,7 @@ Recorded 2026-10-18 with the user:
       folder).
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 4). `Build-Diagrams -Path`, the folder discovery; `diagram_folders` replaced in the same change (ADR-PRIN-ONELIVE); each description's
       rebuild step names `Build-Diagrams -Path` (check: its L0 tests pass, dry run lists the call set per folder).
-- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 5). ADR-REPO-FOLDERS, ADR-REPO-SLIDES#7 and `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 5). ADR-REPO-FOLDERS, ADR-REPO-SLIDES-ONEBUILDCOMMAND and `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability
       test).
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 7). `glyphs.drawio.png`, the shared glyph legend, into `docs/explanation/.assets/glyphs/` (check: every page that links it resolves).
 - [x] Folders done 2026-10-18 (task-diagram-folders step 8); the plan itself goes in the closing sweep. Delete the emptied

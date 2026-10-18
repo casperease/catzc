@@ -2,7 +2,7 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $null, $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
         }
         $script:map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta'), @(
                 & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha', 'beta')
@@ -21,8 +21,8 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     }
 
     It 'lights a rule citation''s ADR cells' -Tag 'ADR-DSGN-TRACK-LITCELL' {
-        $highlight = Get-ValueChainHighlight -Adr 'ADR-WIDGET-COG#2'
-        $highlight.Requested | Should -Be @('ADR-WIDGET-COG#2')
+        $highlight = Get-ValueChainHighlight -Adr 'ADR-WIDGET-COG-SPIN'
+        $highlight.Requested | Should -Be @('ADR-WIDGET-COG-SPIN')
         @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('BOTTOM x beta')
     }
 
@@ -40,8 +40,11 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
 
 Describe 'Get-ValueChainHighlight — the real registry' -Tag 'L1', 'integrity', 'source-only' {
     It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of adrs.yml' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
+        $citations = Get-AdrCitationMap
         foreach ($ruleSet in @(Get-AdrRuleSet)) {
-            $cells = @((Get-ValueChainHighlight -Adr "$($ruleSet.External)#1").Cells)
+            # A rule lights its ADR's cells; an ADR with no rules of its own stands for itself.
+            $rule = @($citations.RulesOf($ruleSet.External)) + $ruleSet.External | Select-Object -First 1
+            $cells = @((Get-ValueChainHighlight -Adr $rule).Cells)
             @($cells | ForEach-Object Concern) | Should -Be @($ruleSet.Concerns) -Because $ruleSet.External
             @($cells | Where-Object Stack -CNE $ruleSet.Stack) | Should -BeNullOrEmpty -Because $ruleSet.External
         }

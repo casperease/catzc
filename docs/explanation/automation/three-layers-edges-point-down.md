@@ -10,7 +10,7 @@ Module dependencies form three layers, and every allowed edge points down.
 5  Base                 foundation: 26 libraries that everything rests on
 6  Cli -> Tooling.Core  the one edge from the top layer to a single Tooling module
 
-Supports ADR-AUTO-DEPM#1, #3 and #4 (architecture lens).
+Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS and ADR-AUTO-DEPM-GROUPAWAREINTEGRITY (architecture lens).
 ```
 
 Cats is built from about forty PowerShell modules that call one another. To keep that web from tangling, every dependency between modules is
@@ -38,11 +38,11 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Why it holds
 
-- The declaration is the only place a module dependency can exist, and an undeclared edge fails the build (ADR-AUTO-DEPM#1).
+- The declaration is the only place a module dependency can exist, and an undeclared edge fails the build (ADR-AUTO-DEPM-CODEBUILTFROM).
 - A group is a concept, not a folder on disk. Depending on a group permits an edge to any of its members, while naming a module permits
-  exactly that one edge (ADR-AUTO-DEPM#3).
+  exactly that one edge (ADR-AUTO-DEPM-TWOSECTIONS).
 - The declaration is checked when it loads, so every target must exist and no cycle may form, and the quality gate then checks every real
-  edge in the code against it (ADR-AUTO-DEPM#4).
+  edge in the code against it (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY).
 
 ## Where the code and the ADR differ
 

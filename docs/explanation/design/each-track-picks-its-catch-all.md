@@ -9,7 +9,7 @@ Each track picks its catch-all: a stray module file falls to tests, a stray temp
 4  tests                     the deployment track's first aspect: only an explicit tests/ folder
 5  live                      the deployment track's last aspect: the ** remainder, it ships
 
-Supports ADR-DSGN-ASPECT#1, #2 and #3 (meta lens).
+Supports ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS, ADR-DSGN-ASPECT-ASPECTSAREDERIVED and ADR-DSGN-ASPECT-TRACKPICKSCATCHALL (meta lens).
 ```
 
 A unit in cats, a module folder or a template, holds files that ship and files that verify them. Its tracked files partition into aspects by
@@ -40,11 +40,11 @@ The diagram is described element by element in [its asset description](.assets/e
 ## Why it holds
 
 - A unit's tracked files partition into aspects that are pairwise disjoint and jointly exhaustive, and the aspect set is the `aspects`
-  variant, an ordered first-match classification per track (ADR-DSGN-ASPECT#1).
+  variant, an ordered first-match classification per track (ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS).
 - Aspects derive from folder conventions, never from a hand-written list. `live` is a closed convention, the last aspect is the `**`
-  remainder, and ordered first match makes the partition true by construction (ADR-DSGN-ASPECT#2).
+  remainder, and ordered first match makes the partition true by construction (ADR-DSGN-ASPECT-ASPECTSAREDERIVED).
 - Which aspect is the remainder is the track's call: a code track declares the non-live `tests` last, a deployment track declares `live`
-  last, and the config type checks the structure when the variants load (ADR-DSGN-ASPECT#3).
+  last, and the config type checks the structure when the variants load (ADR-DSGN-ASPECT-TRACKPICKSCATCHALL).
 
 ## Where the code and the ADR differ
 

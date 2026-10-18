@@ -49,24 +49,14 @@ function Get-SlideFinding {
         $faults.Add($fault)
     }
 
+    $citations = Get-AdrCitationMap -RepositoryRoot $RepositoryRoot
     foreach ($cite in $Slide.Cites) {
-        # A bare code names the whole ADR, so its first rule stands for it; #n and #{n-m} name rules, checked by their first number.
-        $match = [regex]::Match($cite, '^(ADR-[A-Z0-9]+(?:-[A-Z0-9]+)*)(?:#(?:(\d+)|\{(\d+)[^}]*\}))?$')
-        if (-not $match.Success) {
-            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "'$cite' is not a citation of the form ADR-NAME, ADR-NAME#n or ADR-NAME#{n-m}"))
+        if (-not [Catzc.Base.Docs.AdrCodeForm]::IsCode($cite)) {
+            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "'$cite' is not an ADR code: 'ADR' and upper-case segments joined by '-'"))
             continue
         }
-        $number = if ($match.Groups[2].Success) {
-            $match.Groups[2].Value
-        }
-        elseif ($match.Groups[3].Success) {
-            $match.Groups[3].Value
-        }
-        else {
-            '1'
-        }
-        if ($null -eq (Get-AdrRuleText -Code "$($match.Groups[1].Value)#$number" -RepositoryRoot $RepositoryRoot)) {
-            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "the ADR index knows no rule '$cite'"))
+        if (-not $citations.HasCode($cite)) {
+            $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "the ADR index knows no ADR or rule '$cite'"))
         }
     }
 

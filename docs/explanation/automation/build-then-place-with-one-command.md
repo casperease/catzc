@@ -12,7 +12,7 @@ Build the bundle once, then place it with one command.
 7  Export-Catzc -Root           builds, then installs beside a working root
 8  Export-Catzc -To nuget       builds, then packs into out/automation/packages/
 
-Supports ADR-AUTO-BUNDLE#5, #6 and #7 (operations lens).
+Supports ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL and ADR-AUTO-BUNDLE-AUTOVERSION (operations lens).
 ```
 
 Building and placing the bundle takes two commands at the prompt. In a source-mode session a person runs `Build-Modules`, which verifies its
@@ -46,11 +46,12 @@ destination; a failure there throws the same message.
 
 ## Why it holds
 
-- `Assert-CatzcBundle` is the integrity guard, and `Build-Modules` runs it as a self-check on its own output (ADR-AUTO-BUNDLE#5).
+- `Assert-CatzcBundle` is the integrity guard, and `Build-Modules` runs it as a self-check on its own output
+  (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
 - `Export-Catzc -Root` installs beside a working root, `Install-Catzc -Scope CurrentUser` into the module path, and `Export-Catzc -To nuget`
-  packs into `out/automation/packages/`; every install is idempotent (ADR-AUTO-BUNDLE#6).
+  packs into `out/automation/packages/`; every install is idempotent (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
 - A devbox build carries the `6.6.666` placeholder with a yellow notice, and a pipeline build gets a calculated version that needs the full
-  history (ADR-AUTO-BUNDLE#7).
+  history (ADR-AUTO-BUNDLE-AUTOVERSION).
 
 ## See also
 

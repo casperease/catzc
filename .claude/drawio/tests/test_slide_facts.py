@@ -30,33 +30,42 @@ def repo(tmp_path, monkeypatch):
     return tmp_path
 
 
-def test_the_canonical_code_form_is_accepted(repo):
-    assert drawio_forward.slide_facts(model("ADR-WIDGET#1,2 · ADR-GADGET#3 · architecture")) == (
+def test_each_rule_code_names_its_adr(repo):
+    assert drawio_forward.slide_facts(model("ADR-WIDGET-TURN · ADR-WIDGET-SPIN · ADR-GADGET-FOLD · architecture")) == (
         ["ADR-GADGET", "ADR-WIDGET"],
         "architecture",
         [],
     )
 
 
-def test_the_colon_code_form_is_reported_and_its_codes_still_read(repo):
-    adrs, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET:1,2,3 · meta"))
+def test_a_rule_name_with_digits_names_its_adr(repo):
+    assert drawio_forward.slide_facts(model("ADR-WIDGET-RE01 · meta"))[0] == ["ADR-WIDGET"]
+
+
+def test_a_numbered_citation_is_reported_and_its_adr_still_read(repo):
+    adrs, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET#3 · meta"))
     assert (adrs, lens) == (["ADR-WIDGET"], "meta")
     assert len(problems) == 1
-    assert "':' form" in problems[0]
+    assert "cites a rule by number" in problems[0]
+
+
+def test_a_numbered_group_is_reported(repo):
+    problems = drawio_forward.slide_facts(model("ADR-WIDGET#{1,3} · meta"))[2]
+    assert len(problems) == 1
 
 
 def test_a_code_the_index_does_not_know_is_dropped(repo):
-    assert drawio_forward.slide_facts(model("ADR-SPROCKET#1 · ADR-WIDGET#2 · meta"))[0] == ["ADR-WIDGET"]
+    assert drawio_forward.slide_facts(model("ADR-SPROCKET-TURN · ADR-WIDGET-SPIN · meta"))[0] == ["ADR-WIDGET"]
 
 
 @pytest.mark.parametrize("lens", sorted(DEFAULTS["lenses"]))
 def test_every_lens_of_the_closed_set_is_accepted_with_or_without_the_word_lens(repo, lens):
-    for subtitle in (f"ADR-WIDGET#1 · {lens}", f"ADR-WIDGET#1 · {lens} lens"):
+    for subtitle in (f"ADR-WIDGET-TURN · {lens}", f"ADR-WIDGET-TURN · {lens} lens"):
         assert drawio_forward.slide_facts(model(subtitle))[1:] == (lens, [])
 
 
 def test_a_lens_outside_the_closed_set_is_reported_and_read_as_none(repo):
-    adrs, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET#1 · sprocket"))
+    adrs, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET-TURN · sprocket"))
     assert (adrs, lens) == (["ADR-WIDGET"], None)
     assert len(problems) == 1
     assert "'sprocket', not a lens of drawio.yml" in problems[0]
@@ -105,6 +114,11 @@ def test_a_supports_line_naming_other_codes_is_drift(article):
     warning = drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "meta")
     assert warning is not None
     assert "says Supports ['ADR-GADGET', 'ADR-WIDGET'] (meta lens)" in warning
+
+
+def test_a_supports_line_citing_rules_agrees_at_the_adr_level(article):
+    folder = article("Supports ADR-WIDGET-TURN and ADR-WIDGET-SPIN (meta lens).")
+    assert drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "meta") is None
 
 
 def test_no_drift_without_a_supports_line(article):

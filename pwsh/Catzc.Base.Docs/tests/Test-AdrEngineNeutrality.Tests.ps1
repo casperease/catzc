@@ -36,7 +36,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
                 ''
                 '## Rules: ADR-WI-ONE'
                 ''
-                '### Rule ADR-WI-ONE:1'
+                '### Rule ADR-WI-ONE-READ'
                 ''
                 'A widget may read `$gizmo:HOME`; its domain is not checked.'
             )
@@ -45,7 +45,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
                 ''                                                                 # 2
                 '## Rules: ADR-GA-ONE'                                             # 3
                 ''                                                                 # 4
-                '### Rule ADR-GA-ONE:1'                                            # 5
+                '### Rule ADR-GA-ONE-RUN'                                          # 5
                 ''                                                                 # 6
                 'A gadget reads `$gizmo:HOME` and `$gizmo:PATH`, then runs `spin.gz1`.' # 7
                 'Naming the catzc command `Get-Gadget` is allowed.'                 # 8
@@ -76,8 +76,8 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         $result = Test-AdrEngineNeutrality -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'adr-engine-neutrality'
         $result.Issues | Should -Be @(
-            "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE#1: gizmo-variable — '`$gizmo:'"
-            "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE#1: gizmo-file — '.gz1'"
+            "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-variable — '`$gizmo:'"
+            "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-file — '.gz1'"
         )
         $result.Facts['Mode'] | Should -Be 'report'
         $result.Facts['Domains'] | Should -Be 'gadget'
@@ -111,7 +111,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'docs/adr' } {
             $clean = Join-Path $TestDrive 'clean/adr'
             [void][System.IO.Directory]::CreateDirectory((Join-Path $clean 'widget'))
-            [System.IO.File]::WriteAllText((Join-Path $clean 'widget/widget-one.md'), "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`nA widget spins.`n")
+            [System.IO.File]::WriteAllText((Join-Path $clean 'widget/widget-one.md'), "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nA widget spins.`n")
             $clean
         }
         $result = Test-AdrEngineNeutrality -OutputFolder $out -PassThru

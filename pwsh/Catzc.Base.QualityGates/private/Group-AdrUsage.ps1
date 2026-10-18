@@ -12,19 +12,14 @@ function Group-AdrUsage {
     )
 
     if ($By -eq 'Rule') {
-        $groups = $Row | Group-Object -Property { "$($_.Code)#$($_.Rule)" }
+        $groups = $Row | Group-Object -Property { "$($_.Code)|$($_.Rule)" }
         $result = foreach ($group in $groups) {
             $first = $group.Group[0]
             $documents = [string[]] @($group.Group.Path | Sort-Object -Unique -CaseSensitive)
             [pscustomobject]@{ Code = $first.Code; Rule = $first.Rule; Count = $documents.Count; Documents = $documents }
         }
-        $result | Sort-Object -Property Code, @{ Expression = { if ($null -eq $_.Rule) {
-                    -1
-                }
-                else {
-                    $_.Rule
-                } }
-        }
+        # The whole ADR sorts before its rules: an empty rule key is the smallest.
+        $result | Sort-Object -CaseSensitive -Property Code, @{ Expression = { "$($_.Rule)" } }
         return
     }
 
@@ -34,7 +29,7 @@ function Group-AdrUsage {
                     $_.Code
                 }
                 else {
-                    "$($_.Code)#$($_.Rule)"
+                    $_.Rule
                 } } | Sort-Object -Unique -CaseSensitive)
         [pscustomobject]@{ Path = $group.Name; Count = $citations.Count; Citations = $citations }
     }

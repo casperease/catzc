@@ -9,22 +9,15 @@ function Get-AdrRuleText {
         [string] $RepositoryRoot
     )
 
-    $match = [regex]::Match($Code, '^(ADR-[A-Z0-9]+(?:-[A-Z0-9]+)*)#(\d+)$')
-    if (-not $match.Success) {
-        return $null
-    }
-    $adr = $match.Groups[1].Value
-    $rule = [int] $match.Groups[2].Value
-
     $map = Get-AdrCitationMap -RepositoryRoot $RepositoryRoot
-    if (-not $map.HasRule($adr, $rule)) {
+    if (-not $map.IsRule($Code)) {
         return $null
     }
-    $file = Join-Path $RepositoryRoot ($map.PathOf($adr).TrimStart('/'))
+    $file = Join-Path $RepositoryRoot ($map.PathOf($Code).TrimStart('/'))
     Assert-PathExist $file -PathType Leaf
 
     $lines = [System.IO.File]::ReadAllLines($file)
-    $heading = "### Rule ${adr}:$rule"
+    $heading = "### Rule $Code"
     $index = [Array]::IndexOf($lines, $heading)
     if ($index -lt 0) {
         return $null

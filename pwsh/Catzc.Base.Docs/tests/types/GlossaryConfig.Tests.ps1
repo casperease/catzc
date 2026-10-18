@@ -8,7 +8,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
             [ordered]@{
                 key         = 'widget_suite'
                 domain      = 'automation'
-                defined_by  = 'ADR-COG-GADGET#30'
+                defined_by  = 'ADR-COG-GADGET-SUITE'
                 short       = 'A named folder of widget files.'
                 realized_by = [ordered]@{ kind = 'folder'; pattern = 'widgets/*/tests/suites/<name>/' }
             }
@@ -113,14 +113,14 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         foreach ($citation in 'ADR-COG-GADGET:30', 'ADR-COG-GADGET#0', 'ADR-COG-#3', 'adr-cog-gadget#3') {
             $body = & $script:concept
             $body.defined_by = $citation
-            { & $script:single $body } | Should -Throw '*must be a rule citation*' -Because "'$citation' is not the '#' citation form"
+            { & $script:single $body } | Should -Throw "*must be a rule's code*" -Because "'$citation' is not a named rule code"
         }
     }
 
-    It 'accepts a one-segment rule citation, a code with no domain segment' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+    It 'accepts a rule of a multi-segment ADR code' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $body = & $script:concept
-        $body.defined_by = 'ADR-COG#3'
-        (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG#3'
+        $body.defined_by = 'ADR-COG-GADGET-WHEEL-SPINS'
+        (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-WHEEL-SPINS'
     }
 
     It 'accepts a named rule citation, the domain, the ADR and the rule''s name' -Tag 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
@@ -128,7 +128,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $body.defined_by = 'ADR-COG-GADGET-SPINS'
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-SPINS'
         $body.defined_by = 'ADR-COG-GADGET'
-        { & $script:single $body } | Should -Throw '*must be a rule citation*' -Because 'two segments name an ADR, not a rule'
+        { & $script:single $body } | Should -Throw "*must be a rule's code*" -Because 'two segments name an ADR, not a rule'
     }
 
     It 'keeps declared forms in order, empty when none, and rejects a non-word or a repeated form' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {

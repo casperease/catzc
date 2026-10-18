@@ -9,7 +9,7 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
             $body = [ordered]@{
                 key         = $key
                 domain      = 'automation'
-                defined_by  = 'ADR-COG-GADGET#30'
+                defined_by  = 'ADR-COG-GADGET-SUITE'
                 short       = "The $key."
                 realized_by = [ordered]@{ kind = 'prose-only' }
             }

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELATIVE' {`, written with `#`.
+Above `Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 Resolve-AdrLinkTarget — a markdown link in a file under docs/adr/, resolved relative to its file

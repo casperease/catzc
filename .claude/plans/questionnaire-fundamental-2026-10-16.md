@@ -17,7 +17,7 @@ answered and unanswered alike) are the next batch, run the same way.
 
 Q18b ADR-PRIN-CATS; Q98 Track as root; Q96 plans as deltas; Q97 decisions become rules; Q07 plans authored in .claude/plans; Q05 stable locators
 repository-wide; Q10 body-sha removal; Q09 .unordered emptied for the landing zone; Q66 scoped sha as deployable-module globs; Q70
-ADR-AUTO-MATERIAL now; Q101 analyzer rule for literal defaults; Q16 defaults as a contract kind; Q56 ADR-REPO-HELP#3 relaxed; Q35 one
+ADR-AUTO-MATERIAL now; Q101 analyzer rule for literal defaults; Q16 defaults as a contract kind; Q56 ADR-REPO-HELP-CITATIONINSENTENCE relaxed; Q35 one
 primary language per track; Q22 the pwsh folder move; Q24 the contract pilot set; Q107 contracts as the only public API; Q108 contracts
 generated from ADRs; Q109 the ADR reading rule; Q118 the next structural change.
 

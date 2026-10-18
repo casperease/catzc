@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
+Above `Describe 'AdrChecksConfig' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 AdrChecksConfig — the ADR checks' settings (adr-checks.yml): every key optional with its default declared once on the type, and

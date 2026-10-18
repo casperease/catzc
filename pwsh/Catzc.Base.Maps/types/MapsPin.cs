@@ -3,7 +3,7 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(adr), nameof(track), nameof(file_language))]
 public sealed class MapsPin
 {
-    // The ADR code, or one rule of it (an index code, or that code with #3 for its third rule).
+    // The ADR code, or one rule of it (an index code, or a rule code that extends it).
     public string adr { get; }
 
     // The cell's track: a key of the `tracks` map in variants.yml (e.g. pwsh, .github).

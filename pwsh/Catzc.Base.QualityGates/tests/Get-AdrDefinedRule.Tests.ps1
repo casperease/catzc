@@ -10,22 +10,22 @@ Describe 'Get-AdrDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPEL
         }
     }
 
-    It 'spells each rule heading as a citation, in document order' {
-        $text = "## Rules: ADR-WIDGET`n`n### Rule ADR-WIDGET:1`n`nText.`n`n### Rule ADR-WIDGET:2`n`n### Rule ADR-WIDGET:10`n"
-        (Get-Defined $text) | Should -Be @('ADR-WIDGET#1', 'ADR-WIDGET#2', 'ADR-WIDGET#10')
+    It 'reads each rule heading as its code, in document order' {
+        $text = "## Rules: ADR-WIDGET-PART`n`n### Rule ADR-WIDGET-PART-TURN`n`nText.`n`n### Rule ADR-WIDGET-PART-SPIN`n`n### Rule ADR-WIDGET-PART-FOLD`n"
+        (Get-Defined $text) | Should -Be @('ADR-WIDGET-PART-TURN', 'ADR-WIDGET-PART-SPIN', 'ADR-WIDGET-PART-FOLD')
     }
 
-    It 'reads a code of several segments' {
-        Get-Defined "### Rule ADR-GADGET-PART:3`n" | Should -Be @('ADR-GADGET-PART#3')
+    It 'reads a rule name with digits, as a vendor id has' {
+        Get-Defined "### Rule ADR-GADGET-PART-RE03`n" | Should -Be @('ADR-GADGET-PART-RE03')
     }
 
     It 'lists a rule once when its heading repeats' {
-        Get-Defined "### Rule ADR-WIDGET:1`n`n### Rule ADR-WIDGET:1`n" | Should -Be @('ADR-WIDGET#1')
+        Get-Defined "### Rule ADR-WIDGET-PART-TURN`n`n### Rule ADR-WIDGET-PART-TURN`n" | Should -Be @('ADR-WIDGET-PART-TURN')
     }
 
-    It 'takes a citation in prose, a registry heading and a deeper heading for no definition' {
-        # The colon forms are built from two strings: a literal one would be respelled to the hash form by the string-citation alignment.
-        $text = "## Rules: ADR-WIDGET`n`nSee ADR-WIDGET#1 and ADR-WIDGET" + ":2.`n`n#### Rule ADR-WIDGET" + ":3`n"
+    It 'takes a citation in prose, a numbered heading and a deeper heading for no definition' {
+        # The numbered heading is built from two strings, so the string-citation check reads no numbered citation in this file.
+        $text = "## Rules: ADR-WIDGET-PART`n`nSee ADR-WIDGET-PART-TURN.`n`n### Rule ADR-WIDGET-PART" + ":2`n`n#### Rule ADR-WIDGET-PART-SPIN`n"
         (Get-Defined $text).Count | Should -Be 0
     }
 

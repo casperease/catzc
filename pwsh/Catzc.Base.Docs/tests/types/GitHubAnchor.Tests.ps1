@@ -1,6 +1,6 @@
 Describe 'GitHubAnchor' -Tag 'L0', 'logic' {
-    It 'slugs a rule heading to rule- plus the lowercased code and number' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
-        [Catzc.Base.Docs.GitHubAnchor]::Slug('Rule ADR-TST-WIDGET:1') | Should -BeExactly 'rule-adr-tst-widget1'
+    It 'slugs a rule heading to rule- plus the lowercased code' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
+        [Catzc.Base.Docs.GitHubAnchor]::Slug('Rule ADR-TST-WIDGET-RE01') | Should -BeExactly 'rule-adr-tst-widget-re01'
     }
 
     It 'drops punctuation and keeps the space either side of an em dash as two hyphens' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {

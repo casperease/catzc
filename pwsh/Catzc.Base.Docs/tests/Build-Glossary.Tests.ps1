@@ -5,7 +5,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
             $body = [ordered]@{
                 key         = $term.Replace(' ', '_')
                 domain      = $domain
-                defined_by  = 'ADR-TST-WIDGET#1'
+                defined_by  = 'ADR-TST-WIDGET-REST'
                 short       = "The $term."
                 realized_by = [ordered]@{ kind = 'prose-only' }
             }
@@ -27,7 +27,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
             })
         )
         $citations = [Catzc.Base.Docs.AdrCitationMap]::new(
-            @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = @(1) } },
+            @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = [string[]] @('ADR-TST-WIDGET-REST') } },
             @('docs/adr/repository/widget-thing.md'))
         $domains = [pscustomobject]@{
             Domains = @([pscustomobject]@{ Name = 'repository' }, [pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'flow' })
@@ -46,7 +46,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         $text | Should -BeLike "---`ncatzc:*role: other*generator: pwsh/Catzc.Base.Docs/Build-Glossary.ps1*---`n`n# docs/adr/glossary.md*"
         $text.IndexOf('## repository') | Should -BeLessThan $text.IndexOf('## automation')
         $text | Should -Not -Match '## flow'   # a domain without concepts gets no section
-        $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET#1](repository/widget-thing.md#rule-adr-tst-widget1)'))
+        $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET-REST](repository/widget-thing.md#rule-adr-tst-widget-rest)'))
         $text | Should -Match ([regex]::Escape('- **Realized by:** tag `gadget`'))
         $text | Should -Match ([regex]::Escape('- **Part of:** [widget suite](#widget-suite)'))
         $text | Should -Match ([regex]::Escape('  - [gadget run](#gadget-run): A gadget run executes; a widget suite is files at rest.'))

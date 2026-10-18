@@ -14,7 +14,7 @@ Get-AzureResourceName looks up, forms, checks and renders, then throws or return
 9   limit throw            an over-limit name throws
 10  return $name           a name within the limit is returned unchanged
 
-Supports ADR-AZ-NAMING#4, #5, #6 and #7 (implementation lens).
+Supports ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS and ADR-AZ-NAMING-NEVERTRUNCATE (implementation lens).
 ```
 
 `Get-AzureResourceName` is the one function that turns name components into an Azure name. It runs four steps in code order: it looks up the
@@ -54,10 +54,10 @@ for `rg`, 64 for `vnet` and 63 for `sql`.
 ## Why it holds
 
 - Each resource type ties to one pattern, which fixes the separator, the length budget and the form of the environment and customer segments
-  (ADR-AZ-NAMING#4).
-- The component order is the `ado_naming` repo variant, handed to the namer as data, never chosen per name (ADR-AZ-NAMING#5).
-- Every component is lowercase and validated case-sensitively (ADR-AZ-NAMING#6).
-- A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING#7).
+  (ADR-AZ-NAMING-PATTERNPERRESOURCETYPE).
+- The component order is the `ado_naming` repo variant, handed to the namer as data, never chosen per name (ADR-AZ-NAMING-ORDERISVARIANT).
+- Every component is lowercase and validated case-sensitively (ADR-AZ-NAMING-LOWERCASECOMPONENTS).
+- A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING-NEVERTRUNCATE).
 
 ## See also
 

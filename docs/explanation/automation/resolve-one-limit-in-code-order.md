@@ -12,7 +12,7 @@ Get-TimeoutSeconds resolves the run environment, then the config entry or defaul
 7  Invoke-Executable       defaults -TimeoutSeconds to Get-TimeoutSeconds -Executable
 8  Invoke-WithTimeout      defaults -Seconds to Get-TimeoutSeconds -Budget
 
-Supports ADR-AUTO-FAILFAST#7 and ADR-AUTO-DEFAULT#6 (implementation lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT and ADR-AUTO-DEFAULT-ONERESOLUTIONORDER (implementation lens).
 ```
 
 `Get-TimeoutSeconds` is a short function, and its code order is the resolution order of the time safeguard. It reads the run environment,
@@ -53,9 +53,9 @@ The diagram is described element by element in [its asset description](.assets/r
 
 - The limits live in one config keyed by run environment and execution engine, with sensible defaults on the config type and per-executable
   entries, and no "no limit" value; `Invoke-Executable` kills a process tree at its executable's limit, the in-process wrappers stop a
-  script block at theirs, and an exemption raises a budget's limit to a ceiling but never lifts it (ADR-AUTO-FAILFAST#7).
+  script block at theirs, and an exemption raises a budget's limit to a ceiling but never lifts it (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - The explicit value, else the module's configuration read through `Get-Config`, else the default declared once on the config type, is the
-  one resolution order of every configurable setting (ADR-AUTO-DEFAULT#6).
+  one resolution order of every configurable setting (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
 ## Where the code and the ADR differ
 

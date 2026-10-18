@@ -2,7 +2,7 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
         foreach ($file in @(
-                @{ Path = 'widgets/Alpha/Get-Widget.ps1'; Text = '# ADR-WIDGET-GADGET#2' }
+                @{ Path = 'widgets/Alpha/Get-Widget.ps1'; Text = '# ADR-WIDGET-GADGET-SPIN' }
                 @{ Path = 'widgets/Alpha/widget.json'; Text = '{ "note": "ADR-WIDGET-GADGET" }' }
                 @{ Path = 'importer.ps1'; Text = '# the entry point' }
             )) {
@@ -37,7 +37,7 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         $map = Get-WorldMap
         $map | Should -BeOfType [Catzc.Base.Maps.WorldMap]
         $map.FileCount | Should -Be 4
-        $map.Placement('widgets/Alpha/Get-Widget.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET#2')
+        $map.Placement('widgets/Alpha/Get-Widget.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET-SPIN')
         $map.Placement('widgets/Alpha/widget.json').StackViolation | Should -BeFalse -Because 'the widgets aspects leave a .json file in tests'
     }
 
@@ -50,17 +50,17 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
     It 'gives a repository-root file its files.yml module''s folder under the modules root' {
         $importer = (Get-WorldMap).Placement('importer.ps1')
         $importer.Basis | Should -Be 'files.yml'
-        $importer.Citations | Should -Be @('ADR-WIDGET-GADGET#2')
+        $importer.Citations | Should -Be @('ADR-WIDGET-GADGET-SPIN')
     }
 
     It 'reads each file once per session' {
         $null = Get-WorldMap
-        Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET#7' -NoNewline
+        Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET-BEND' -NoNewline
         try {
-            (Get-WorldMap).Placement('widgets/Alpha/Get-Widget.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET#2')
+            (Get-WorldMap).Placement('widgets/Alpha/Get-Widget.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET-SPIN')
         }
         finally {
-            Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET#2' -NoNewline
+            Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET-SPIN' -NoNewline
         }
     }
 

@@ -66,9 +66,9 @@ which assignment receives intact — wrapping it again in @() would nest it one 
 
 ## comment:2
 
-Above `$entryEnforcers = $enforcers[($rule.Id -replace ':', '#')]`, written with `#`.
+Above `$entryEnforcers = $enforcers[$rule.Id]`, written with `#`.
 
 ```text
 Show what mechanically enforces this rule (tests + analyzer rules), if anything —
-the citation is the '#' form of the registry id ([index](/docs/adr/index.md)).
+the rule's code is the key both sides use ([index](/docs/adr/index.md)).
 ```

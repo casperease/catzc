@@ -12,7 +12,7 @@ Ask for a config by name and get the cached object back; every mistake throws at
 7  unknown or ambiguous name     a name no module ships, or several ship, throws
 8  malformed config              a config its type rejects throws every violation
 
-Supports ADR-CONF-LOADING#1, #2, #3 and #4, and ADR-CONF-ADDRESSING#4 (operations lens).
+Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-LOADING-CACHEBYPATH and ADR-CONF-LOADING-CSHARPCONFIGTYPE, and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST (operations lens).
 ```
 
 The two config commands, `Get-ConfigValue` and `Get-Config`, are how a person or a pipeline step reads cats configuration: by an address
@@ -45,11 +45,13 @@ The diagram is described element by element in [its asset description](.assets/a
 
 ## Why it holds
 
-- All config reads go through `Get-Config` (ADR-CONF-LOADING#1).
-- The name is global and the owner is discovered; `-Module` only disambiguates, and `-ListOwners` lists the owners (ADR-CONF-LOADING#2).
-- The parsed config is cached for the session, and only a re-import clears it (ADR-CONF-LOADING#3).
-- The C# type validates on the first read and reports every violation in one exception (ADR-CONF-LOADING#4).
-- Resolution fails fast: a wrong name, a wrong key or a malformed address throws, never a silent empty value (ADR-CONF-ADDRESSING#4).
+- All config reads go through `Get-Config` (ADR-CONF-LOADING-ONEREADER).
+- The name is global and the owner is discovered; `-Module` only disambiguates, and `-ListOwners` lists the owners
+  (ADR-CONF-LOADING-EXISTENCEDISCOVERED).
+- The parsed config is cached for the session, and only a re-import clears it (ADR-CONF-LOADING-CACHEBYPATH).
+- The C# type validates on the first read and reports every violation in one exception (ADR-CONF-LOADING-CSHARPCONFIGTYPE).
+- Resolution fails fast: a wrong name, a wrong key or a malformed address throws, never a silent empty value
+  (ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
 
 ## Where the code and the ADR differ
 

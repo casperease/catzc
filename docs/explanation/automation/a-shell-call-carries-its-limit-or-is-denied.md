@@ -8,7 +8,7 @@ An agent's shell call carries its limit, or the hook denies it with a reason; it
 3  call goes ahead  the call carries its limit; the hook says nothing and the normal permission flow runs
 4  call denied      the call does not; the hook denies it and says how to re-issue it
 
-Supports ADR-AUTO-FAILFAST#7 (meta lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT (meta lens).
 ```
 
 A coding agent working in cats runs shell commands all day, and each one is a wait like any other: a command that hangs holds the agent
@@ -19,7 +19,8 @@ safeguard relies on.
 
 ![A shell call carries its limit or is denied](.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -37,10 +38,10 @@ The diagram is described element by element in [its asset description](.assets/a
 ## Why it holds
 
 - Every wait is bounded, and an agent's shell call is a wait: the bash limits bound every shell call an agent makes, in the foreground and
-  the background, and a hook denies a call outside them (ADR-AUTO-FAILFAST#7).
+  the background, and a hook denies a call outside them (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - The limits live in one config with no "no limit" value, so a call that needs longer is a blocker to tune, never a limit raised quietly in
-  a call (ADR-AUTO-FAILFAST#7).
-- The hook denies and never rewrites, so a denial leaves every other safeguard in force (ADR-AUTO-FAILFAST#7).
+  a call (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
+- The hook denies and never rewrites, so a denial leaves every other safeguard in force (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 
 ## See also
 

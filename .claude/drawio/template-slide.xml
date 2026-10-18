@@ -7,7 +7,7 @@
     <mxCell id="title" value="Template: a widget is built, checked, and either shipped or rejected" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;" vertex="1" parent="1">
       <mxGeometry x="20" y="14" width="1260" height="30" as="geometry" />
     </mxCell>
-    <mxCell id="subtitle" value="ADR-WIDGET-DEMO:1,2 &amp;#183; architecture" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#949FAE;" vertex="1" parent="1">
+    <mxCell id="subtitle" value="ADR-WIDGET-DEMO-TURN &amp;#183; ADR-WIDGET-DEMO-SPIN &amp;#183; architecture" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#949FAE;" vertex="1" parent="1">
       <mxGeometry x="20" y="44" width="1240" height="20" as="geometry" />
     </mxCell>
     <mxCell id="span-ci" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;" vertex="1" parent="1">

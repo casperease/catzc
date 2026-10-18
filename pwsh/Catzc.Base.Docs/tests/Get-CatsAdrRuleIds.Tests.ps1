@@ -7,10 +7,10 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
         $index = @(
             '# ADR index'
             ''
-            '|     Code    |                   ADR                    |'
-            '| ----------- | ---------------------------------------- |'
-            '| `ADR-ALPHA` | [alpha-thing](principles/alpha-thing.md) |'
-            '| `ADR-BETA`  | [beta-thing](widgets/beta-thing.md)      |'
+            '| Code                  | ADR                                      |'
+            '| --------------------- | ---------------------------------------- |'
+            '| `ADR-WIDGET-GADGET`   | [alpha-thing](principles/alpha-thing.md) |'
+            '| `ADR-WIDGET-SPROCKET` | [beta-thing](widgets/beta-thing.md)      |'
         ) -join "`n"
         $script:indexPath = Join-Path $script:adrRoot 'index.md'
         [System.IO.File]::WriteAllText($script:indexPath, $index)
@@ -18,11 +18,11 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
         $alpha = @(
             '# ADR: Alpha'
             ''
-            '### Rule ADR-ALPHA:1'
+            '### Rule ADR-WIDGET-GADGET-TURN'
             ''
             'First alpha rule.'
             ''
-            '### Rule ADR-ALPHA:2'
+            '### Rule ADR-WIDGET-GADGET-SPIN'
             ''
             'Second alpha rule.'
         ) -join "`n"
@@ -31,7 +31,7 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
         $beta = @(
             '# ADR: Beta'
             ''
-            '### Rule ADR-BETA:1'
+            '### Rule ADR-WIDGET-SPROCKET-COG'
             ''
             'Only beta rule.'
         ) -join "`n"
@@ -41,7 +41,7 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
         $gamma = @(
             '# ADR: Gamma'
             ''
-            '### Rule ADR-GAMMA:1'
+            '### Rule ADR-WIDGET-BOLT-STOP'
             ''
             'Unlisted.'
         ) -join "`n"
@@ -50,11 +50,11 @@ Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
 
     It 'unions the rule ids of every indexed ADR, distinct and sorted in registry form' {
         $ids = Get-CatsAdrRuleIds -IndexPath $script:indexPath
-        $ids | Should -Be @('ADR-ALPHA:1', 'ADR-ALPHA:2', 'ADR-BETA:1')
+        $ids | Should -Be @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-SPROCKET-COG')
     }
 
     It 'contributes rule ids only from ADRs the index lists' {
         $ids = Get-CatsAdrRuleIds -IndexPath $script:indexPath
-        $ids | Should -Not -Contain 'ADR-GAMMA:1'
+        $ids | Should -Not -Contain 'ADR-WIDGET-BOLT-STOP'
     }
 }

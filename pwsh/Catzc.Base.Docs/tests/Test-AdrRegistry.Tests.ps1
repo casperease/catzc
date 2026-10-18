@@ -90,7 +90,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     Context 'the configured checks' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         BeforeEach {
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`nA widget leans on ADR-GA-ONE#1.`n"
+            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-LEAN`n`nA widget leans on ADR-GA-ONE-APPLY.`n"
         }
 
         It 'prints a report-mode check''s findings in its own report and never fails the run' {
@@ -98,7 +98,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $result.IssueCount | Should -Be 0
             $result.Facts['CitationGraphMode'] | Should -Be 'report'
             $result.Facts['CitationGraphFindings'] | Should -Be 1
-            $result.Facts['CitationGraph'] | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE#1 (widget) cites ADR-GA-ONE#1 (gadget); widget depends on: none')
+            $result.Facts['CitationGraph'] | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none')
             $result.Facts['DoraCoverageMode'] | Should -Be 'report'
             $result.Facts['DoraCoverage'] | Should -Be @(
                 'docs/adr/widget/dora-explains.md: missing, so no section links ADR-WI-ONE'
@@ -116,7 +116,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $script:checks = New-ChecksConfig -CitationGraph 'gate' -DoraCoverage 'report'
             $thrown = { Test-AdrRegistry -OutputFolder $out } | Should -Throw -PassThru
             $thrown.Exception.Message | Should -BeLike 'Test-AdrRegistry failed: 1 issue(s)*'
-            $thrown.Exception.Message | Should -BeLike '*ADR-WI-ONE#1 (widget) cites ADR-GA-ONE#1 (gadget)*'
+            $thrown.Exception.Message | Should -BeLike '*ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget)*'
         }
 
         It 'passes a gate-mode DORA-coverage check when every rule set has exactly one section' {

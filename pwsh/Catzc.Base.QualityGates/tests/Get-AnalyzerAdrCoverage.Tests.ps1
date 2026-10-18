@@ -3,8 +3,8 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGERE
         InModuleScope Catzc.Base.QualityGates {
             Mock Get-Config {
                 [ordered]@{ analyzers = [ordered]@{
-                        'Measure-FakeRule2' = @('ADR-FAKE#3', 'ADR-FAKE#5')
-                        'PSUseFakeRule'     = @('ADR-FAKE#4')
+                        'Measure-FakeRule2' = @('ADR-FAKE-FOLD', 'ADR-FAKE-SINK')
+                        'PSUseFakeRule'     = @('ADR-FAKE-LIFT')
                     }
                 }
             } -ParameterFilter { $Config -eq 'analyzer-adr-map' }
@@ -12,8 +12,8 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGERE
             $rows = @(Get-AnalyzerAdrCoverage)
             $rows | Should -HaveCount 3
             ($rows | ForEach-Object Kind | Sort-Object -Unique) | Should -Be 'pssa-rule'
-            ($rows | Where-Object { $_.Enforcer -eq 'Measure-FakeRule2' }).AdrId | Should -Be @('ADR-FAKE#3', 'ADR-FAKE#5')
-            ($rows | Where-Object { $_.AdrId -eq 'ADR-FAKE#4' }).Enforcer | Should -Be 'PSUseFakeRule'
+            ($rows | Where-Object { $_.Enforcer -eq 'Measure-FakeRule2' }).AdrId | Should -Be @('ADR-FAKE-FOLD', 'ADR-FAKE-SINK')
+            ($rows | Where-Object { $_.AdrId -eq 'ADR-FAKE-LIFT' }).Enforcer | Should -Be 'PSUseFakeRule'
         }
     }
 }

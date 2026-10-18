@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "95c77749852c"
+    with_body_sha: "1c258a7523ba"
     repo_status: locked
     path: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/chain.md
     source: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-PIPE-AUTH sits in the value chain: value-chain stack down, value-chain
 ![The value-chain minimap of One function owns the credential precedence, and ado.yml anchors every proof](chain.png)
 
 This is the value-chain minimap in the sidebar of the architecture diagram of [One function owns the credential precedence, and ado.yml
-anchors every proof][5], which explains [ADR-PIPE-AUTH][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
+anchors every proof][3], which explains [ADR-PIPE-AUTH][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
 concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that
 selects it.
 
@@ -54,27 +54,25 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### PIPE × access (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][2]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [ADR-PIPE-AUTH][1]: selected by [ADR-PIPE-AUTH][1]; its ADR domain `pipelines` sits on the PIPE row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][3]); its own value-chain concerns (access) override its ADR domain's default (build, quality-control, release and
-  deploy), so it lights the access column ([ADR-DSGN-TRACK#15][4]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (access) override its ADR domain's default (build, quality-control,
+  release and deploy), so it lights the access column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
+- [value-chain map][4]
+- [value-chain stack][5]
+- [value-chain concern][6]
+- [cell][7]
+- [lit cell][8]
 
 [1]: ../../../../adr/pipelines/dual-authentication.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../one-header-function-owns-precedence.md
-[6]: ../../../../adr/glossary.md#value-chain-map
-[7]: ../../../../adr/glossary.md#value-chain-stack
-[8]: ../../../../adr/glossary.md#value-chain-concern
-[9]: ../../../../adr/glossary.md#cell
-[10]: ../../../../adr/glossary.md#lit-cell
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../one-header-function-owns-precedence.md
+[4]: ../../../../adr/glossary.md#value-chain-map
+[5]: ../../../../adr/glossary.md#value-chain-stack
+[6]: ../../../../adr/glossary.md#value-chain-concern
+[7]: ../../../../adr/glossary.md#cell
+[8]: ../../../../adr/glossary.md#lit-cell

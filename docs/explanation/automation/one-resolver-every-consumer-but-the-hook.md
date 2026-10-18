@@ -11,7 +11,7 @@ One resolver, Get-TimeoutSeconds, serves every consumer of the time safeguard bu
 6  Invoke-Executable        a native tool's run, bounded by its executable's limit
 7  Invoke-WithTimeout       a script block's run, bounded by the pwsh limit or a budget's ceiling
 
-Supports ADR-AUTO-FAILFAST#7 and ADR-AUTO-DEFAULT#6 (architecture lens).
+Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT and ADR-AUTO-DEFAULT-ONERESOLUTIONORDER (architecture lens).
 ```
 
 The time safeguard of cats has one resolver. `Get-TimeoutSeconds` reads the run environment, the limits config and the exemptions, and hands
@@ -48,8 +48,10 @@ The diagram is described element by element in [its asset description](.assets/o
 
 - The limits live in one config owned by `Catzc.Base.Timeouts`, keyed by run environment and execution engine, with sensible defaults
   declared on its config type; `Invoke-Executable`, `Invoke-WithTimeout` and the hook are the consumers the decision names, and the hook
-  compiles the module's own config and verdict types so its limits are the ones `Get-TimeoutSeconds` resolves (ADR-AUTO-FAILFAST#7).
-- The sensible default is declared exactly once, on the config type, so no function and no second file restates it (ADR-AUTO-DEFAULT#6).
+  compiles the module's own config and verdict types so its limits are the ones `Get-TimeoutSeconds` resolves
+  (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
+- The sensible default is declared exactly once, on the config type, so no function and no second file restates it
+  (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
 ## See also
 

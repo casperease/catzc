@@ -59,7 +59,7 @@ round's test home for the kit.
 5. [x] Landed 2026-10-18 by session catzc-fb, verdict: "ADRREG issues=0; LINKS 0 and MARKDOWNLINT 0 on conventional-folders.md and
        slides-as-markdown.md; FileKindReachability, Get-FileKind and FileKindsConfig tests Passed; Build-AdrIndex applied, index.md
        unchanged". The two beside-the-article `*.drawio.md` kind patterns stay until step 6 empties them and go in its last change. Original
-       step: ADR-REPO-FOLDERS (conventional-folders.md, the `.assets` paragraph), ADR-REPO-SLIDES#7 (slides-as-markdown.md) and
+       step: ADR-REPO-FOLDERS (conventional-folders.md, the `.assets` paragraph), ADR-REPO-SLIDES-ONEBUILDCOMMAND (slides-as-markdown.md) and
        `file-kinds.yml` (the diagram kinds select `docs/**/.assets/**`) restated, present tense. Check: `Test-AdrRegistry`, `Test-Links`,
        the file-kind reachability test clean; `Build-AdrIndex` dry run unchanged or applied.
 6. [x] Landed 2026-10-18, all 149 diagrams. Last verdicts: design "44 folders moved and rendered (132 stages: 126 clean, 6 prepare

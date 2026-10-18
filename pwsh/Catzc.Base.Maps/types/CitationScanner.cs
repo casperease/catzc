@@ -12,11 +12,10 @@ public static class CitationScanner
     public static readonly IReadOnlyList<string> CitingExtensions = new[] { ".cs", ".md", ".ps1", ".yaml", ".yml" };
 
     private static readonly Regex Citation = new Regex(
-        @"(?<![A-Za-z0-9_\-])(?<code>ADR(?:-[A-Z0-9]+)+)(?:[#:](?<rule>[0-9]+))?(?![A-Za-z0-9_\-])",
+        @"(?<![A-Za-z0-9_\-])(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)(?![A-Za-z0-9_\-])",
         RegexOptions.CultureInvariant);
 
-    private static readonly Regex Reference = new Regex(@"^(?<code>ADR(?:-[A-Z0-9]+)+)(?:[#:](?<rule>[0-9]+))?$",
-        RegexOptions.CultureInvariant);
+    private static readonly Regex Reference = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*)+$", RegexOptions.CultureInvariant);
 
     // True when the file's kind cites ADRs (its extension is one of CitingExtensions, in any case).
     public static bool Cites(string path)
@@ -39,8 +38,7 @@ public static class CitationScanner
         {
             string code = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
             string domain = Convert.ToString(entry.Value, CultureInfo.InvariantCulture);
-            Match match = Reference.Match(code ?? "");
-            if (!match.Success || match.Groups["rule"].Success)
+            if (!Reference.IsMatch(code ?? ""))
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture, "'{0}' is not an ADR code (ADR-<CODE>)", code));
                 continue;
@@ -67,8 +65,8 @@ public static class CitationScanner
         foreach (Match match in Citation.Matches(text))
         {
             string code = match.Groups["code"].Value;
-            if (!index.ContainsKey(code)) { continue; }
-            found.Add(match.Groups["rule"].Success ? code + "#" + match.Groups["rule"].Value : code);
+            if (CodeOf(code, index) == null) { continue; }
+            found.Add(code);
         }
         string[] result = new string[found.Count];
         found.CopyTo(result);
@@ -97,9 +95,8 @@ public static class CitationScanner
             if (header && !inBlock && trimmed.Length > 0 && !commentLine) { header = false; }
             foreach (Match match in Citation.Matches(line))
             {
-                string code = match.Groups["code"].Value;
-                if (!index.ContainsKey(code)) { continue; }
-                string citation = match.Groups["rule"].Success ? code + "#" + match.Groups["rule"].Value : code;
+                string citation = match.Groups["code"].Value;
+                if (CodeOf(citation, index) == null) { continue; }
                 string kind;
                 if (prose) { kind = CitationSite.KindText; }
                 else if (inBlock || (header && commentLine) || (marker == "//" && trimmed.StartsWith("///", StringComparison.Ordinal)))
@@ -117,37 +114,41 @@ public static class CitationScanner
         return sites.ToArray();
     }
 
+    // The reference as a code, trimmed; null when it is no ADR code.
     public static string Canonical(string reference)
     {
-        Match match = Reference.Match((reference ?? "").Trim());
-        if (!match.Success) { return null; }
-        return match.Groups["rule"].Success ? match.Groups["code"].Value + "#" + match.Groups["rule"].Value : match.Groups["code"].Value;
+        string code = (reference ?? "").Trim();
+        return Reference.IsMatch(code) ? code : null;
     }
 
-    // The ADR code of a canonical citation: the citation without its #n.
-    public static string CodeOf(string citation)
+    // The ADR code of a citation: the longest whole-segment prefix the test accepts, the citation itself included.
+    public static string CodeOf(string citation, Func<string, bool> isAdr)
     {
-        if (citation == null) { return null; }
-        int hash = citation.IndexOf('#');
-        return hash < 0 ? citation : citation.Substring(0, hash);
+        if (citation == null || isAdr == null) { return null; }
+        string code = citation;
+        while (true)
+        {
+            if (isAdr(code)) { return code; }
+            int dash = code.LastIndexOf('-');
+            if (dash <= 0) { return null; }
+            code = code.Substring(0, dash);
+        }
     }
 
-    // The domain of a citation's ADR, or null when the index does not list its code.
+    public static string CodeOf(string citation, IReadOnlyDictionary<string, string> index) =>
+        index == null ? null : CodeOf(citation, index.ContainsKey);
+
+    // The domain of a citation's ADR, or null when the index lists no prefix of it.
     public static string DomainOf(string citation, IReadOnlyDictionary<string, string> index)
     {
-        string code = CodeOf(citation);
-        if (code == null || index == null) { return null; }
-        string domain;
-        return index.TryGetValue(code, out domain) ? domain : null;
+        string code = CodeOf(citation, index);
+        return code == null ? null : index[code];
     }
 
+    // True when one code selects the other: equal, or a whole-segment prefix of it.
     public static bool Covers(string requested, string cited)
     {
         if (requested == null || cited == null) { return false; }
-        if (string.Equals(requested, cited, StringComparison.Ordinal)) { return true; }
-        string requestedCode = CodeOf(requested);
-        string citedCode = CodeOf(cited);
-        if (!string.Equals(requestedCode, citedCode, StringComparison.Ordinal)) { return false; }
-        return string.Equals(requested, requestedCode, StringComparison.Ordinal) || string.Equals(cited, citedCode, StringComparison.Ordinal);
+        return Catzc.Base.Docs.AdrCodeForm.Covers(requested, cited) || Catzc.Base.Docs.AdrCodeForm.Covers(cited, requested);
     }
 }

@@ -12,7 +12,7 @@ Every vendor call leaves cats through the az CLI, the one exit to Azure.
 7  Azure                    the vendor substrate, today the only one
 8  the single exit          the only edge that reaches Azure leaves from az
 
-Supports ADR-DSGN-THINPLAT#1, #2 and #3, and ADR-AZ-CLI#1, #2 and #3 (architecture lens).
+Supports ADR-DSGN-THINPLAT-THINPLATFORM, ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT and ADR-DSGN-THINPLAT-PLATFORMASCLI, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (architecture lens).
 ```
 
 Cats is a thin platform over Azure: it standardizes how the vendor is used and leaves the work to the vendor's own tools. On the Bicep
@@ -42,12 +42,14 @@ The diagram is described element by element in [its asset description](.assets/e
 
 ## Why it holds
 
-- Cats is a single CLI abstraction over the vendor that standardizes how Azure is used without reimplementing it (ADR-DSGN-THINPLAT#1).
-- Thin comes from delegation: Bicep for templating and the az CLI for control-plane actions, never a clone of either (ADR-DSGN-THINPLAT#2).
+- Cats is a single CLI abstraction over the vendor that standardizes how Azure is used without reimplementing it
+  (ADR-DSGN-THINPLAT-THINPLATFORM).
+- Thin comes from delegation: Bicep for templating and the az CLI for control-plane actions, never a clone of either
+  (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
 - The `Verb-Noun` functions and their configuration are the platform's API, so the modules behind them can be re-wired without touching a
-  consumer (ADR-DSGN-THINPLAT#3).
-- az is the default for every Azure operation, called through `Invoke-Executable` (ADR-AZ-CLI#1); a function that calls az asserts it with
-  `Assert-Tool 'az_cli'` first (ADR-AZ-CLI#2); and automation code never imports `Az.*` (ADR-AZ-CLI#3).
+  consumer (ADR-DSGN-THINPLAT-PLATFORMASCLI).
+- az is the default for every Azure operation, called through `Invoke-Executable` (ADR-AZ-CLI-AZBYDEFAULT); a function that calls az asserts
+  it with `Assert-Tool 'az_cli'` first (ADR-AZ-CLI-ASSERTAZ); and automation code never imports `Az.*` (ADR-AZ-CLI-NOAZMODULEIMPORT).
 
 ## See also
 

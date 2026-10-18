@@ -9,9 +9,8 @@ function Test-AnalyzerAdrMap {
 
     Assert-SourceTree
     $map = Get-Config -Config analyzer-adr-map
-    $ruleIds = Get-CatsAdrRuleIds
-    [string[]] $citations = $ruleIds -replace ':', '#'
-    $validIds = [System.Collections.Generic.HashSet[string]]::new($citations, [System.StringComparer]::Ordinal)
+    [string[]] $ruleIds = Get-CatsAdrRuleIds
+    $validIds = [System.Collections.Generic.HashSet[string]]::new($ruleIds, [System.StringComparer]::Ordinal)
 
     $issues = [System.Collections.Generic.List[string]]::new()
     $mapped = @($map.analyzers.Keys)

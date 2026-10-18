@@ -12,7 +12,7 @@ Root config materialisation is one registry, one writer, two write primitives an
 7  gitignored targets      19 targets git ignores: every link, plus 12 written copies
 8  tracked targets         4 written targets git keeps: importer.ps1, importer.sh, .gitattributes, .gitignore
 
-Supports ADR-REPO-ROOTCFG#2, #4 and #7 (architecture lens).
+Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION and ADR-REPO-ROOTCFG-FILESYSTEMLINK (architecture lens).
 ```
 
 Root config materialisation in cats has four parts and one direction. Sources of truth sit under `pwsh/`; the registry in
@@ -48,11 +48,11 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - The registry is one file and `Build-RootConfig` is its single writer; the target-to-source pairing lives nowhere else
-  (ADR-REPO-ROOTCFG#2).
+  (ADR-REPO-ROOTCFG-REGISTRY).
 - All content writes go through `Write-FileIfChanged`, whose delete-then-write can never write through a linked target into a source of
-  truth; link targets are materialised by `Set-FileLink` instead (ADR-REPO-ROOTCFG#4).
+  truth; link targets are materialised by `Set-FileLink` instead (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
 - A `copyAsLink` entry requires a `source`, requires `committed: false` and forbids a `comment`; `Set-FileLink` is the single mechanism
-  owner and throws rather than degrade to a copy (ADR-REPO-ROOTCFG#7).
+  owner and throws rather than degrade to a copy (ADR-REPO-ROOTCFG-FILESYSTEMLINK).
 
 ## See also
 

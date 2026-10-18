@@ -10,7 +10,7 @@ All eight naming rules are held in code; seven behind a check that throws, one b
 5  length limit           #7: throws on every over-limit render; never truncates
 6  throw                  every check ends here; nothing is truncated or repaired
 
-Supports ADR-AZ-NAMING#1, #2, #3, #4, #5, #6, #7 and #8 (governance lens).
+Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-ENVIRONMENTFIRST, ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 ```
 
 The Azure naming standard has eight rules, and cats holds every one of them in code. Seven sit behind a check that throws: one at template
@@ -44,15 +44,17 @@ The diagram is described element by element in [its asset description](.assets/h
 
 ## Why it holds
 
-- Every name is assembled deterministically from one canonical component set (ADR-AZ-NAMING#1).
+- Every name is assembled deterministically from one canonical component set (ADR-AZ-NAMING-DETERMINISTICNAMES).
 - Each template has a readable folder name and a 2–5 char `short_name`, derived from the folder and optionally overridden in `options.yml`
-  (ADR-AZ-NAMING#2).
-- The environment comes first, and environment and customer take their 2-char shortcode in the restricted patterns (ADR-AZ-NAMING#3).
-- Each resource type ties to one pattern, which fixes the separator, the length budget and the segment forms (ADR-AZ-NAMING#4).
-- The component order is the `ado_naming` repo variant, never a per-name argument (ADR-AZ-NAMING#5).
-- All components are lowercase, validated case-sensitively, and most must start with a letter (ADR-AZ-NAMING#6).
-- A name is never truncated to fit; the namer throws instead (ADR-AZ-NAMING#7).
-- The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING#8).
+  (ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS).
+- The environment comes first, and environment and customer take their 2-char shortcode in the restricted patterns
+  (ADR-AZ-NAMING-ENVIRONMENTFIRST).
+- Each resource type ties to one pattern, which fixes the separator, the length budget and the segment forms
+  (ADR-AZ-NAMING-PATTERNPERRESOURCETYPE).
+- The component order is the `ado_naming` repo variant, never a per-name argument (ADR-AZ-NAMING-ORDERISVARIANT).
+- All components are lowercase, validated case-sensitively, and most must start with a letter (ADR-AZ-NAMING-LOWERCASECOMPONENTS).
+- A name is never truncated to fit; the namer throws instead (ADR-AZ-NAMING-NEVERTRUNCATE).
+- The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
 ## See also
 

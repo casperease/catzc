@@ -13,7 +13,7 @@ Get-BicepDeploymentContext resolves the session, applies the guard, then address
 8  Get-BicepTemplateConfiguration  reads configuration/[<customer>/]<env>[-<slot>].yml
 9  Get-BicepResourceGroupName      derives the resource-group name from the env, the slot and the customer
 
-Supports ADR-AZ-DATAMOD#4, #5 and #7 (implementation lens).
+Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL (implementation lens).
 ```
 
 `Get-BicepDeploymentContext` is where cats turns an az session into a deployment. It runs three stages in a fixed order: it reads the
@@ -53,10 +53,11 @@ The diagram is described element by element in [its asset description](.assets/r
 ## Why it holds
 
 - The customer is derived from the session subscription (`subscription.customer`), never a deploy argument: `Deploy-Bicep` has no
-  `-Customer` parameter, and a customer-subscription session addresses the customer's subfolder config (ADR-AZ-DATAMOD#4).
-- The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed (ADR-AZ-DATAMOD#5).
+  `-Customer` parameter, and a customer-subscription session addresses the customer's subfolder config (ADR-AZ-DATAMOD-CUSTOMERAXIS).
+- The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed (ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME).
 - The joins resolve on demand in `Get-AzureEnvironment` and `Get-BicepDeploymentContext`; the deploy-time subscription is the az session's,
-  reverse-resolved by `Get-AzCliSessionSubscription`, and `-SubscriptionIdAssertIs` is a guard, never a selector (ADR-AZ-DATAMOD#7).
+  reverse-resolved by `Get-AzCliSessionSubscription`, and `-SubscriptionIdAssertIs` is a guard, never a selector
+  (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
 
 ## See also
 

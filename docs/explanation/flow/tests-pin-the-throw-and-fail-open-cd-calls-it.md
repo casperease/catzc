@@ -1,4 +1,4 @@
-# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated
+# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
 
 ```text
 Logic tests pin the throw and the fail-open, an analyzer rule pins detection, and the CD stages call the check with no gate.
@@ -12,7 +12,7 @@ Logic tests pin the throw and the fail-open, an analyzer rule pins detection, an
 7  fetchDepth: 0                  required by GLOBS#9; set on the CD checkouts that diff, no gate checks it
 8  Changes step                   GLOBS#9's first step: the CD stages run the check, no gate requires it
 
-Supports ADR-FLOW-CD-GLOBS#9, ADR-FLOW-CD-DETECT#1 and ADR-AUTO-FAILFAST#4 (governance lens).
+Supports ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK and ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY (governance lens).
 ```
 
 Three rules constrain the touched-unit check, and they are enforced unevenly. The behaviour inside the module, the throw on an undeclared
@@ -20,9 +20,10 @@ name, the fail-open on an unresolved range or a failed diff, and the range chose
 test run. The context detection is pinned by a custom analyzer rule. What the decision asks of the pipeline side, a deep checkout and a
 stage that runs the check first, is wired into the CD pipelines, and no gate checks it.
 
-![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.png)
+![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -40,18 +41,20 @@ The diagram is described element by element in [its asset description](.assets/t
    that function.
 6. **Test-ScriptAnalyzer.** The quality gate that runs the custom `NoRawPipelineDetection` rule, which flags any read of `TF_BUILD` or
    `GITHUB_ACTIONS` outside `Test-IsRunningInPipeline`.
-7. **fetchDepth: 0.** The decision requires a checkout deep enough to reach the base ref. The GitHub workflows set `fetch-depth: 0`, and
-   the CI stage of `cd-shared.yaml` and of `extends/cd-customer.yaml` sets `fetchDepth: 0` on the checkout that diffs. No gate checks it.
-   On a shallow clone the check fails open rather than skips.
+7. **fetchDepth: 0.** The decision requires a checkout deep enough to reach the base ref. The GitHub workflows set `fetch-depth: 0`, and the
+   CI stage of `cd-shared.yaml` and of `extends/cd-customer.yaml` sets `fetchDepth: 0` on the checkout that diffs. No gate checks it. On a
+   shallow clone the check fails open rather than skips.
 8. **Changes step.** The CI stage of each CD pipeline runs `Test-GlobSetAffected` as step `Changes` and publishes `AFFECTED`; the deploy
    stages run only when it is true. No gate requires the step.
 
 ## Why it holds
 
 - Whether a change touches a unit is computed from git at real refs, the reference commit is resolved per context, the check fails open on
-  any doubt and throws on an undeclared name, and a pipeline checks out with `fetchDepth: 0` (ADR-FLOW-CD-GLOBS#9).
-- The detection variables are never read directly; `Test-IsRunningInPipeline` keeps the detection logic in one place (ADR-FLOW-CD-DETECT#1).
-- An error is raised through the assertion library, never through an inline check that raises its own error (ADR-AUTO-FAILFAST#4).
+  any doubt and throws on an undeclared name, and a pipeline checks out with `fetchDepth: 0` (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+- The detection variables are never read directly; `Test-IsRunningInPipeline` keeps the detection logic in one place
+  (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK).
+- An error is raised through the assertion library, never through an inline check that raises its own error
+  (ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY).
 
 ## Where the code and the ADR differ
 

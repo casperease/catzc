@@ -8,7 +8,7 @@ A repo-wide switch has one home, one read path and one guard vocabulary.
 3  one guard vocabulary     the Get-/Test-/Assert- primitives a caller asks instead of reading a key
 4  any module above Config  the callers: every module layered above the configuration layer
 
-Supports ADR-REPO-VARIANT#1 and #2 (meta lens).
+Supports ADR-REPO-VARIANT-SESSIONVARIANT and ADR-REPO-VARIANT-NODIRECTREADS (meta lens).
 ```
 
 Some settings belong to the whole repository and hold for a whole run: which Azure naming convention every resource name uses, whether this
@@ -35,11 +35,12 @@ The diagram is described element by element in [its asset description](.assets/o
 ## Why it holds
 
 - A repo-wide variant is a session-fixed setting declared in `configs/variants.yml` in `Catzc.Base.Variants` and read through
-  `Get-Config -Config variants`, so it inherits the session cache (ADR-REPO-VARIANT#1).
+  `Get-Config -Config variants`, so it inherits the session cache (ADR-REPO-VARIANT-SESSIONVARIANT).
 - Nothing reads `variants.yml` directly; each variant is exposed as `Get-`, `Test-` and `Assert-` primitives over the private `Get-Variant`
-  reader, the single access point (ADR-REPO-VARIANT#2).
-- "Fixed for the session" is the ordinary configuration cache boundary: the only invalidation is re-running the importer (ADR-AUTO-CACHE#6),
-  and the cache lives in module script state that the importer boundary resets (ADR-PWSH-CACHE#1).
+  reader, the single access point (ADR-REPO-VARIANT-NODIRECTREADS).
+- "Fixed for the session" is the ordinary configuration cache boundary: the only invalidation is re-running the importer
+  (ADR-AUTO-CACHE-IMPORTERINVALIDATES), and the cache lives in module script state that the importer boundary resets
+  (ADR-PWSH-CACHE-SCRIPTSCOPESTATE).
 
 ## Where the code and the ADR differ
 

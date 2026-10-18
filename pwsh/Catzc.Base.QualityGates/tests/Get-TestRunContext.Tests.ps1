@@ -54,10 +54,10 @@ Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
     It 'describes a build run by its entry script and joins the selection' {
         $context = Get-Context @{
             EntryPoint = 'Test-CatzcBuild'; EntryScript = 'C:\gadget\Import-Catzc.ps1'; Location = (New-FixtureLocation)
-            Suite = 'widget'; Modules = @('TstWidget'); Category = 'Logic'; Rule = @('ADR-WI-ONE#1')
+            Suite = 'widget'; Modules = @('TstWidget'); Category = 'Logic'; Rule = @('ADR-WI-ONE-TURN')
         }
         $context.run | Should -Be 'build'
         $context.codeRoot | Should -Be (Join-Path 'C:\gadget' (Get-CatzcModulesFolder))
-        $context.selection | Should -Be 'suite widget; modules: TstWidget; category Logic; rules: ADR-WI-ONE#1'
+        $context.selection | Should -Be 'suite widget; modules: TstWidget; category Logic; rules: ADR-WI-ONE-TURN'
     }
 }

@@ -66,8 +66,8 @@ moves onto its own line above the statement, at the statement's indentation, and
 Above `string AlignStringCitations(string text, string file, string extension,...`, written with `//`.
 
 ```text
-Respells every `ADR-X:n` in the file's string literals as `ADR-X#n`, outside a `### Rule` heading the string
-builds, and reports each as StringColon. A file the string_citations check exempts is returned as written.
+Reports every numbered citation in the file's string literals as StringNumbered, unfixable, since it names no
+rule; the text is returned as written. A file the string_citations check exempts is not read.
 ```
 
 ## comment:7

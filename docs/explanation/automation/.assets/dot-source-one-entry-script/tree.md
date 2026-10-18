@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e813949e52e2
+    with_body_sha: b1f7585259fb
     repo_status: locked
     path: docs/explanation/automation/.assets/dot-source-one-entry-script/tree.md
     source: docs/explanation/automation/.assets/dot-source-one-entry-script/diagram.drawio.png
@@ -78,7 +78,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 603 (text).
+- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 612 (text).
 - [docs/adr/index.md][17], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 173 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
@@ -95,7 +95,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][19], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 142
   (text).
-- [pwsh/Catzc.Base.Docs/configs/glossary.yml][20], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 499
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][20], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 506
   (text).
 
 ### .claude (1 lit file)
@@ -111,7 +111,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][22], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text),
-  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 499 (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text).
+  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 506 (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text).
 
 ### Exporter (pwsh/Catzc.Base.Exporter, 1 lit file)
 
@@ -135,10 +135,6 @@ The group holds the files of pwsh/Catzc.Base.Exporter; each sits in its world-ma
 - [pipeline-yaml][31]: a file language
 - [powershell][31]: a file language
 - [yaml][31]: a file language
-
-Terms the cited ADRs define:
-
-- [bundle][32], defined by [ADR-AUTO-BUNDLE#1][33]
 
 [1]: ../../../../adr/automation/platform-bundle.md
 [2]: ../../../../references/pipelines/github-workflows/ci-automation.yml.md
@@ -171,5 +167,3 @@ Terms the cited ADRs define:
 [29]: ../../../../adr/glossary.md#lit-cell
 [30]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
 [31]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[32]: ../../../../adr/glossary.md#bundle
-[33]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

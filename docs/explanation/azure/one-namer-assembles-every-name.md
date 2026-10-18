@@ -12,7 +12,7 @@ Every Azure name comes out of one resolver and one namer; nothing else builds na
 7  throw                       a bad component, unknown customer or over-limit name stops here
 8  Get-BicepResourceGroupName  the one in-tree consumer: the resource-group name
 
-Supports ADR-AZ-NAMING#1, #4, #5 and #8 (architecture lens).
+Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
 ```
 
 Every Azure resource name in cats comes out of one place. A resolver gathers the name components from three config files, and a single
@@ -47,13 +47,14 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Why it holds
 
-- Every name is assembled deterministically from one canonical component set, with no random suffix or hash (ADR-AZ-NAMING#1).
+- Every name is assembled deterministically from one canonical component set, with no random suffix or hash
+  (ADR-AZ-NAMING-DETERMINISTICNAMES).
 - Each resource type ties to one pattern in the type registry, and the pattern fixes the separator, the length budget and the form of the
-  environment and customer segments (ADR-AZ-NAMING#4).
+  environment and customer segments (ADR-AZ-NAMING-PATTERNPERRESOURCETYPE).
 - The component order is the `ado_naming` repo variant, not a per-name argument, so changing it re-spells every derived name
-  (ADR-AZ-NAMING#5).
+  (ADR-AZ-NAMING-ORDERISVARIANT).
 - The subscription only selects the deploy target. It is never a name component and never an input to the resolver; the customer that
-  renders is derived from it by the caller (ADR-AZ-NAMING#8).
+  renders is derived from it by the caller (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
 ## See also
 

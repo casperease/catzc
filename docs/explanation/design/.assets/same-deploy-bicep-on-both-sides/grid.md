@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ad97db47f41"
+    with_body_sha: cc4ef51b4cfa
     repo_status: locked
     path: docs/explanation/design/.assets/same-deploy-bicep-on-both-sides/grid.md
     source: docs/explanation/design/.assets/same-deploy-bicep-on-both-sides/diagram.drawio.png
@@ -16,13 +16,13 @@ catzc:
 
 ```text
 Where the files that cite ADR-DSGN-THINPLAT sit in the repository: tracks down, file languages across.
-3 of 342 cells lit, holding 6 files.
+3 of 342 cells lit, holding 5 files.
 ```
 
 ![The world-map minimap of A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription](grid.png)
 
 This is the world-map minimap in the sidebar of the operations diagram of [A developer and a pipeline type the same Deploy-Bicep; only the
-pipeline must pin the subscription][10], which explains [ADR-DSGN-THINPLAT][1]. It lights every cell of the world map that holds a file
+pipeline must pin the subscription][7], which explains [ADR-DSGN-THINPLAT][1]. It lights every cell of the world map that holds a file
 citing those codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects
 it.
 
@@ -33,9 +33,9 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- docs × markdown: 3 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
-- pwsh × yaml: 2 lit of 115 files
+- docs × markdown: 3 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
+- pwsh × yaml: 1 lit of 115 files
 
 ## Key
 
@@ -49,58 +49,53 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ### docs × markdown (3 lit files)
 
-Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.md` names the file language
+markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [docs/adr/design/dora-explains.md][5]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 27 (text).
+- [docs/adr/design/dora-explains.md][3]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 27 (text).
 - [docs/adr/design/thin-platforms.md][1]: selected by [ADR-DSGN-THINPLAT][1]: the ADR's own file.
-- [docs/adr/index.md][6]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 109 (text).
+- [docs/adr/index.md][4]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 111 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
-Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
-pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yaml` names the
+file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pipelines/ci-automation.yaml][7]: selected by [ADR-DSGN-THINPLAT][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 661 (text).
+- [pipelines/ci-automation.yaml][5]: selected by [ADR-DSGN-THINPLAT][1]: a pipeline that cites nothing itself carries its globset's
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text).
 
-### pwsh × yaml (2 lit files)
+### pwsh × yaml (1 lit file)
 
-Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][2]); the extension `.yml` names the file
+language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 75 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][9]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 661 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][6]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 75 (text).
 
 ## Keywords
 
-- [world map][11]
-- [track][12]
-- [file language][13]
-- [cell][14]
-- [lit cell][15]
-- [docs][16]: a track
-- [pipelines][16]: a track
-- [pwsh][16]: a track
-- [markdown][17]: a file language
-- [pipeline-yaml][17]: a file language
-- [yaml][17]: a file language
+- [world map][8]
+- [track][9]
+- [file language][10]
+- [cell][11]
+- [lit cell][12]
+- [docs][13]: a track
+- [pipelines][13]: a track
+- [pwsh][13]: a track
+- [markdown][14]: a file language
+- [pipeline-yaml][14]: a file language
+- [yaml][14]: a file language
 
 [1]: ../../../../adr/design/thin-platforms.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../adr/design/dora-explains.md
-[6]: ../../../../adr/index.md
-[7]: ../../../../../pipelines/ci-automation.yaml
-[8]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[10]: ../../same-deploy-bicep-on-both-sides.md
-[11]: ../../../../adr/glossary.md#world-map
-[12]: ../../../../adr/glossary.md#track
-[13]: ../../../../adr/glossary.md#file-language
-[14]: ../../../../adr/glossary.md#cell
-[15]: ../../../../adr/glossary.md#lit-cell
-[16]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[17]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../../../adr/design/dora-explains.md
+[4]: ../../../../adr/index.md
+[5]: ../../../../../pipelines/ci-automation.yaml
+[6]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[7]: ../../same-deploy-bicep-on-both-sides.md
+[8]: ../../../../adr/glossary.md#world-map
+[9]: ../../../../adr/glossary.md#track
+[10]: ../../../../adr/glossary.md#file-language
+[11]: ../../../../adr/glossary.md#cell
+[12]: ../../../../adr/glossary.md#lit-cell
+[13]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[14]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

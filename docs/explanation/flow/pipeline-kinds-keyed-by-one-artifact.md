@@ -12,7 +12,7 @@ CI, CD and DEPLOY are separate pipeline kinds, keyed together by one artifact.
 7  pre-prod, production  DEPLOY-Prod stages the artifact inactive, then activates it live
 8  the CD run's path     the apex and shared CD pipelines deploy the prod tier themselves today
 
-Supports ADR-FLOW-CD#3, #4, #5, #9 and #11 (architecture lens).
+Supports ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDCONTAINSCI, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-PREPRODRUNG (architecture lens).
 ```
 
 Cats does not build one giant pipeline from commit to production. CI, CD and DEPLOY are separate pipeline kinds, each with its own trigger,
@@ -48,15 +48,15 @@ The diagram is described element by element in [its asset description](.assets/p
 ## Why it holds
 
 - CI, CD, CDe and DEPLOY are separate pipeline kinds keyed together by the tagged artifact, and nothing downstream rebuilds it
-  (ADR-FLOW-CD#3).
-- A CD pipeline always contains the CI component, and a solo CI pipeline contains only it (ADR-FLOW-CD#4).
+  (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
+- A CD pipeline always contains the CI component, and a solo CI pipeline contains only it (ADR-FLOW-CD-CDCONTAINSCI).
 - CD takes the artifact through an on-demand environment with L3 system tests and then onto the always-on environment that tracks main,
-  entirely within non-prod (ADR-FLOW-CD#5).
-- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (ADR-FLOW-CD#9).
+  entirely within non-prod (ADR-FLOW-CD-CDSTAYSINNONPROD).
+- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (ADR-FLOW-CD-TWORELEASEGATES).
 - DEPLOY splits by target: DEPLOY-Non-Prod into the non-prod acceptance environments, DEPLOY-Prod through pre-prod into production
-  (ADR-FLOW-CD#11).
+  (ADR-FLOW-CD-PREPRODRUNG).
 - CD is the delivery posture. CDe is the alternative, a CD that folds the DEPLOY step back in and rolls to production automatically; a unit
-  is governed as one or the other, never both (ADR-FLOW-CD#7).
+  is governed as one or the other, never both (ADR-FLOW-CD-CDEINTERNALIZESPROMOTION).
 
 ## Where the code and the ADR differ
 

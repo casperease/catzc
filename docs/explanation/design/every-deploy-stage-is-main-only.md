@@ -6,17 +6,18 @@ A pull request run skips every Deploy_* stage; only the run on main deploys, so 
 1  topic branch         a pull request into main starts a run (pr: [main])
 2  stage: CI            the PR run builds and publishes the templates
 3  main only            the Deploy_* condition; false on a PR run
-4  out-of-band deploy   the deploy ADR-DSGN-LIFE#9 allows; no pipeline or workflow runs it
+4  out-of-band deploy   the deploy ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND allows; no pipeline or workflow runs it
 5  main                 completing the PR lands the commit; trigger: [main] starts the CD run
 6  stage: CI            the CD run's CI stage; the main-only condition now holds
 7  Deploy_* stages      six stages carry the condition; they run in dependsOn order
 
-Supports ADR-DSGN-LIFE#9 (implementation lens).
+Supports ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND (implementation lens).
 ```
 
-Every `Deploy_*` stage in cats runs only from main. ADR-DSGN-LIFE#9 allows a workflow or pipeline to deploy a topic commit without
-integrating it, but in the code nothing does. The CD pipelines run on a pull request into main, yet a PR run executes only the `CI` stage:
-every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run that deploys.
+Every `Deploy_*` stage in cats runs only from main. ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic
+commit without integrating it, but in the code nothing does. The CD pipelines run on a pull request into main, yet a PR run executes only
+the `CI` stage: every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run
+that deploys.
 
 ![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only/diagram.drawio.png)
 
@@ -30,8 +31,9 @@ The diagram is described element by element in [its asset description](.assets/e
    expedition, and publishes each as a pipeline artifact.
 3. **Main only.** Each `Deploy_*` stage carries `condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))`. A PR
    run's source branch is a pull-request ref, so the condition is false and every deploy stage is skipped.
-4. **Out-of-band deploy.** The deploy that ADR-DSGN-LIFE#9 allows has no pipeline or workflow. The GitHub `CI` workflow only runs tests, and
-   the `Release` workflow builds and may publish the package from any ref, which is a release, not a deploy to an environment.
+4. **Out-of-band deploy.** The deploy that ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND allows has no pipeline or workflow. The GitHub `CI` workflow
+   only runs tests, and the `Release` workflow builds and may publish the package from any ref, which is a release, not a deploy to an
+   environment.
 5. **Main.** Completing the pull request lands the commit on main, and the push trigger `trigger: branches: include: [main]` starts the CD
    run.
 6. **Stage `CI`.** The CD run executes the same `CI` stage, and the main-only condition now holds.
@@ -44,13 +46,13 @@ No stage in `pipelines/` is named BVT; the pipeline guide names the CI type's po
 
 ## Why it holds
 
-- A topic commit can be deployed out-of-band by a workflow or pipeline, and that deploy is not an integration (ADR-DSGN-LIFE#9). The code
-  takes the stricter path: it deploys nothing that has not landed on main.
+- A topic commit can be deployed out-of-band by a workflow or pipeline, and that deploy is not an integration
+  (ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND). The code takes the stricter path: it deploys nothing that has not landed on main.
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-LIFE#9 says a workflow or pipeline may deploy a topic commit; no pipeline or workflow does, and every `Deploy_*` stage is
-  main-only.
+- ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND says a workflow or pipeline may deploy a topic commit; no pipeline or workflow does, and every
+  `Deploy_*` stage is main-only.
 - The `Release` workflow is the only path from a topic ref to an output, and no ADR-DSGN-LIFE rule covers it.
 
 ## See also

@@ -9,7 +9,7 @@ Callers in four modules dereference an address through Catzc.Base.Config; the wa
 4  Get-Config               the one reader the resolver is built on
 5  configs/<name>.yml       the committed file the reader opens; all an address can reach
 
-Supports ADR-CONF-ADDRESSING#1, #2 and #3 (architecture lens).
+Supports ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG and ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY (architecture lens).
 ```
 
 A global config address can be held by code in any module, but only one module knows how to dereference it. `Catzc.Base.Config` exports the
@@ -19,7 +19,8 @@ committed `configs/<name>.yml` in the module that ships it.
 
 ![Callers in four modules dereference an address through Catzc.Base.Config](.assets/callers-in-four-modules-share-one-resolver/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/callers-in-four-modules-share-one-resolver/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/callers-in-four-modules-share-one-resolver/diagram.drawio.md).
 
 ## Walkthrough
 
@@ -43,11 +44,11 @@ The diagram is described element by element in [its asset description](.assets/c
 ## Why it holds
 
 - `Get-ConfigValue` is public in `Catzc.Base.Config` and built on `Get-Config`, so addressing adds a grammar and a walk on top of the one
-  reader and the one cache, never a second reader (ADR-CONF-ADDRESSING#1).
+  reader and the one cache, never a second reader (ADR-CONF-ADDRESSING-GLOBALADDRESSFORM).
 - The first segment after `global.` is the config's global name and the owning module is discovered, not written into the address; each
-  following segment resolves as a dictionary key, otherwise as a property (ADR-CONF-ADDRESSING#2).
+  following segment resolves as a dictionary key, otherwise as a property (ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG).
 - An address references only version-controlled config, so anything addressable is non-secret, and secrets travel out of band as a
-  `[SecureString]` through the one sanctioned seam (ADR-CONF-ADDRESSING#3).
+  `[SecureString]` through the one sanctioned seam (ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY).
 
 ## Where the code and the ADR differ
 

@@ -24,7 +24,7 @@ contracts plan).
        `the target 'Get-Thing.command.yml' does not exist` (`out/t020-unknown-suffix.ps1`).
 2. [x] C1 `docs/adr/repository/command-contracts.md`, ADR-REPO-CMDCONTRACT: rules 1 a command is public exactly when a command contract
        names it; 2 the contract language and its closed types; 3 derived facts (placement says module, version, language; none stored); 4
-       one checker per language; 5 use (reader, reference column, cats validation); 6 version and pinning. Amend ADR-REPO-CONTRACT#6 (fifth
+       one checker per language; 5 use (reader, reference column, cats validation); 6 version and pinning. Amend ADR-REPO-CONTRACT-CONTRACTASSET (fifth
        kind) and #7 (direction by kind) and its enforcement list. Glossary: command contract, contract language (command is layers').
        `adrs.yml`, `Build-AdrIndex`, `Build-Glossary`. Check: Test-AdrRegistry, Test-Glossary, Test-Links clean. Done 2026-10-17:
        `ADRREG issues=0` (`out/test-adr-registry/20261017-190652`), `NEUTRAL issues=0`, Test-Glossary 222 issues none on the touched files
@@ -47,7 +47,7 @@ contracts plan).
        `.command.yml` per command, provided; the existing contract L1 test file extended so one test per asset enumerates them. Check:
        Test-Contracts clean; the L1 file passes. Done 2026-10-18: 12 assets under `contracts/catzc/0.0.0`, each with its header comment.
        Correction from the tree: the two modules hold 15 public commands today, and three sit outside the contract language
-       (ADR-REPO-CMDCONTRACT#2), so they stay uncontracted and internal until C6 decides their signatures: `Format-GeneratedFileHead` (an
+       (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE), so they stay uncontracted and internal until C6 decides their signatures: `Format-GeneratedFileHead` (an
        `object` parameter), `Get-Contract` (an `IDictionary` parameter) and `Test-Contracts` (a `pscustomobject` output). The 8 Languages
        commands are every other Languages command; the 4 Contracts commands are Build-ContractReference, Get-CommandContract,
        Get-ContractCheckResults and Publish-ContractRelease. Verdicts: `CONTRACTS issues=0` (`out/test-contracts/20261018-104227`),
@@ -84,7 +84,7 @@ contracts plan).
    contract leaves out. Verdicts: `CONTRACTS issues=0`, 27 contracted commands, the lookup regenerated to 64 rows,
    `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests (`out/test-file/20261018-125926-c4bfcd`) and
    New-CatsCommandLookup.Tests, `GENERATED issues=0`. F6 under D21 (2026-10-18, the user: internal means internal to its module, as C#'s
-   `internal` scopes to an assembly; a Catzc.Internal module is another thing): ADR-REPO-CMDCONTRACT#1 reworded to say so, a function other
+   `internal` scopes to an assembly; a Catzc.Internal module is another thing): ADR-REPO-CMDCONTRACT-COMMANDCONTRACT reworded to say so, a function other
    modules call stays exported with no promise. The inventory (`out/inventory-f6.sh`, one grep pass, `out/f6-inventory.tsv`) read the 457
    public functions: 27 contracted, 244 named by code outside their module, 139 named only in docs, 47 named nowhere outside it. Of the 47,
    the console commands are public and were contracted, the counterpart family of the installers: 20 `Uninstall-<Tool>` and 5
@@ -116,7 +116,7 @@ contracts plan).
    delegation: a spec suffix ` in <Set>[,<Set>]` (none = every set) and a top-level `default_set:` key (omitted = one set); mandatory stays
    per parameter, and a parameter mandatory in one set but optional in another is a finding; the checker reads ParameterSetName and
    DefaultParameterSetName; the `cats` lookup gains a sets column and importer.sh picks the set the given names fit, the default when
-   several fit. ADR-REPO-CMDCONTRACT#2 states it; then Get-Inspiration and Export-WorldMapPdf get their contracts. Check:
+   several fit. ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE states it; then Get-Inspiration and Export-WorldMapPdf get their contracts. Check:
    Test-AdrRegistry and Test-Links on the ADR; the ContractCommand, Read-CommandSignature, Get-ContractCheckResults.Assets and
    New-CatsCommandLookup test files pass; the cats.bats cases pass; `CONTRACTS issues=0`; Test-GeneratedFiles clean.
 9. [x] Landed 2026-10-18 by session catzc-f3, verdict: "CONTRACTS issues=0 (124 assets); New-CatsCommandLookup +

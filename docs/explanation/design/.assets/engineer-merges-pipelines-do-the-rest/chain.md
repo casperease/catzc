@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b99ad8c490bd
+    with_body_sha: "8e04cc67a803"
     repo_status: locked
     path: docs/explanation/design/.assets/engineer-merges-pipelines-do-the-rest/chain.md
     source: docs/explanation/design/.assets/engineer-merges-pipelines-do-the-rest/diagram.drawio.png
@@ -22,7 +22,7 @@ Where ADR-DSGN-LIFE sits in the value chain: value-chain stack down, value-chain
 ![The value-chain minimap of An engineer runs the tests and merges; pipelines do the rest](chain.png)
 
 This is the value-chain minimap in the sidebar of the operations diagram of [An engineer runs the tests and merges; pipelines do the
-rest][5], which explains [ADR-DSGN-LIFE][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so
+rest][3], which explains [ADR-DSGN-LIFE][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so
 it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -55,51 +55,41 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 ### DSGN × quality-control (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][2]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the quality-control column ([ADR-DSGN-TRACK#15][4]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the quality-control column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
 ### DSGN × release (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][2]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the release column ([ADR-DSGN-TRACK#15][4]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the release column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
 ### DSGN × deploy (1 ADR)
 
-Lit ([ADR-DSGN-TRACK#12][2]) by:
+Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
 - [ADR-DSGN-LIFE][1]: selected by [ADR-DSGN-LIFE][1]; its ADR domain `design` sits on the DSGN row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][3]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's default
-  (automation), so it lights the deploy column ([ADR-DSGN-TRACK#15][4]).
+  ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (quality-control, release and deploy) override its ADR domain's
+  default (automation), so it lights the deploy column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
-
-Terms the cited ADRs define:
-
-- [occupant][11], defined by [ADR-DSGN-LIFE#5][12]
-- [staging slot][13], defined by [ADR-DSGN-LIFE#5][12]
+- [value-chain map][4]
+- [value-chain stack][5]
+- [value-chain concern][6]
+- [cell][7]
+- [lit cell][8]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
-[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../engineer-merges-pipelines-do-the-rest.md
-[6]: ../../../../adr/glossary.md#value-chain-map
-[7]: ../../../../adr/glossary.md#value-chain-stack
-[8]: ../../../../adr/glossary.md#value-chain-concern
-[9]: ../../../../adr/glossary.md#cell
-[10]: ../../../../adr/glossary.md#lit-cell
-[11]: ../../../../adr/glossary.md#occupant
-[12]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
-[13]: ../../../../adr/glossary.md#staging-slot
+[2]: ../../../../adr/design/tracks.md
+[3]: ../../engineer-merges-pipelines-do-the-rest.md
+[4]: ../../../../adr/glossary.md#value-chain-map
+[5]: ../../../../adr/glossary.md#value-chain-stack
+[6]: ../../../../adr/glossary.md#value-chain-concern
+[7]: ../../../../adr/glossary.md#cell
+[8]: ../../../../adr/glossary.md#lit-cell

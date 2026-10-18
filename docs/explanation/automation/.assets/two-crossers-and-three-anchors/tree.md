@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "496a5dc606d3"
+    with_body_sha: af3a93841d0f
     repo_status: locked
     path: docs/explanation/automation/.assets/two-crossers-and-three-anchors/tree.md
     source: docs/explanation/automation/.assets/two-crossers-and-three-anchors/diagram.drawio.png
@@ -104,13 +104,13 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/plan-explanation-drift-gaps.md][26], in the cell .claude × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at
   line 61 (text) and line 110 (text).
 - [.claude/skills/catzc-module/SKILL.md][27], in the cell .claude × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 27
-  (text), line 40 (text) and line 40 (text).
+  (text), line 28 (text), line 41 (text) and line 41 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][28], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 792 (text).
+- [docs/adr/glossary.md][28], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 793 (text).
 - [docs/adr/index.md][29], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 171 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
@@ -126,7 +126,7 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 The group holds the files of pwsh/Catzc.Base.Contracts; each sits in its world-map cell and is lit by:
 
 - [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1][31], in the cell pwsh × powershell: selected by [ADR-AUTO-PATH][1]: the file
-  cites it at line 27 (body comment) (a passing mention only).
+  cites it at line 27 (text).
 - [pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1][32], in the cell pwsh × powershell: selected by [ADR-AUTO-PATH][1]: the
   file cites it at line 13 (text).
 
@@ -135,7 +135,7 @@ The group holds the files of pwsh/Catzc.Base.Contracts; each sits in its world-m
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][33], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-PATH][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 27 (body comment),
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 27 (text),
   `pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1` line 13 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 140 (text),
   `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 37 (text), `pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1` line 1
   (text) and `pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 36 (text).
@@ -184,10 +184,6 @@ The group holds the files of pwsh/Catzc.Base.Slides; each sits in its world-map 
 - [powershell][45]: a file language
 - [yaml][45]: a file language
 
-Terms the cited ADRs define:
-
-- [published artifact][46], defined by [ADR-AUTO-PATH#10][47]
-
 [1]: ../../../../adr/automation/path-representation.md
 [2]: ../../../../references/pwsh/catzc-base-contracts/Get-Contract.ps1.md
 [3]: ../../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
@@ -233,5 +229,3 @@ Terms the cited ADRs define:
 [43]: ../../../../adr/glossary.md#lit-cell
 [44]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
 [45]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[46]: ../../../../adr/glossary.md#published-artifact
-[47]: ../../../../adr/automation/path-representation.md#rule-adr-auto-path10

@@ -15,7 +15,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $script:writeCheckFixtures = {
             New-FixtureFile 'Widget/Set-Widget.ps1' "function Set-Widget { param([ValidateSet('widget', 'gadget')] [string] `$Engine) }"
             New-FixtureFile 'Widget/README.md' "Runs under widget and gadget.`n"
-            New-FixtureFile 'Widget/tests/Set-Widget.Tests.ps1' "Describe 'Set-Widget' -Tag 'L0', 'logic' { It 'x' { Set-Widget -Rule 'ADR-WIDGET-GADGET#1' } }"
+            New-FixtureFile 'Widget/tests/Set-Widget.Tests.ps1' "Describe 'Set-Widget' -Tag 'L0', 'logic' { It 'x' { Set-Widget -Rule 'ADR-WIDGET-GADGET-TURN' } }"
         }
     }
 
@@ -38,7 +38,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
             }
         }
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/adr/widget/gadget.md'; rules = @(1) } }, @())
+            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/adr/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, @())
         }
         & $script:useMode 'gate'
         New-FixtureFile 'Widget/Get-Widget.ps1' 'function Get-Widget { }'
@@ -92,7 +92,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 3
         $result.Issues | Should -Contain "widget-modules/Widget/README.md:1: 'widget and gadget' names 2 of the 3 engines (widget, gadget, sprocket); say 'every engine' or name them all"
         @($result.Issues | Where-Object { $_ -like 'widget-modules/Widget/Set-Widget.ps1:1: a ValidateSet lists engine names*' }) | Should -HaveCount 1
-        @($result.Issues | Where-Object { $_ -like "widget-modules/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET'*" }) | Should -HaveCount 1
+        @($result.Issues | Where-Object { $_ -like "widget-modules/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET-TURN'*" }) | Should -HaveCount 1
         $result.Facts['EngineSetCount'] | Should -Be 2
         $result.Facts['NeutralCodeCount'] | Should -Be 1
     }

@@ -18,21 +18,21 @@ Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     }
 
     It 'unions citations across own tags and every ancestor block' {
-        $result = & $script:rules (New-FakeTest -OwnTags @('L0', 'logic', 'ADR-FAKE#1') -InnerTags @('ADR-FAKE#8') -OuterTags @('ADR-FAKE#2'))
-        $result | Should -Be @('ADR-FAKE#1', 'ADR-FAKE#2', 'ADR-FAKE#8')
+        $result = & $script:rules (New-FakeTest -OwnTags @('L0', 'logic', 'ADR-WIDGET-GADGET-SPIN') -InnerTags @('ADR-WIDGET-GADGET-TURN') -OuterTags @('ADR-WIDGET-GADGET-STOP'))
+        $result | Should -Be @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-STOP', 'ADR-WIDGET-GADGET-TURN')
     }
 
     It 'de-duplicates a citation carried at more than one level' {
-        $result = & $script:rules (New-FakeTest -OwnTags @('ADR-FAKE#1') -InnerTags @('ADR-FAKE#1'))
-        $result | Should -Be @('ADR-FAKE#1')
+        $result = & $script:rules (New-FakeTest -OwnTags @('ADR-WIDGET-GADGET-SPIN') -InnerTags @('ADR-WIDGET-GADGET-SPIN'))
+        $result | Should -Be @('ADR-WIDGET-GADGET-SPIN')
     }
 
     It 'ignores the tier, category and serial tags' {
         (& $script:rules (New-FakeTest -InnerTags @('L2', 'integrity', 'serial'))) | Should -HaveCount 0
     }
 
-    It 'ignores a malformed citation (registry colon form, missing number, wrong case)' {
-        $result = & $script:rules (New-FakeTest -InnerTags @('ADR-WIDGET-GADGET:3', 'ADR-WIDGET-GADGET', 'adr-widget-gadget#3'))
+    It 'ignores a malformed citation (the numbered and colon forms, an ADR code that names no rule, wrong case)' {
+        $result = & $script:rules (New-FakeTest -InnerTags @('ADR-WIDGET-GADGET#3', 'ADR-WIDGET-GADGET:3', 'ADR-WIDGET-GADGET', 'adr-widget-gadget-spin'))
         $result | Should -HaveCount 0
     }
 

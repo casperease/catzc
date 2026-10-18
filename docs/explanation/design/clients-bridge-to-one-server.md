@@ -10,7 +10,7 @@ Clients bridge to one server remote: in through a pull request, out from the ver
 5  verified point   the stable integration point, the main-UAT occupant
 6  consumer clones  developers, downstream units and upstream integrators build here
 
-Supports ADR-DSGN-REMOTE#1, #2 and #4, and ADR-DSGN-LIFE#6 and #7 (architecture lens).
+Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS, and ADR-DSGN-LIFE-SYNCFROMMAINUAT and ADR-DSGN-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 In cats the mainline is not a local artifact. It is the `main` / `master` branch that the server remote enforces, and that server is where
@@ -39,12 +39,12 @@ The diagram is described element by element in [its asset description](.assets/c
 
 ## Why it holds
 
-- The server remote is the single source of truth, and every local and CI clone is a bridge to it (ADR-DSGN-REMOTE#1).
-- Consumers integrate from the last remote-verified commit, never the current remote HEAD (ADR-DSGN-REMOTE#2).
+- The server remote is the single source of truth, and every local and CI clone is a bridge to it (ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH).
+- Consumers integrate from the last remote-verified commit, never the current remote HEAD (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED).
 - The pull request authenticates the author, runs the merge gates and performs the merge: it is the ingress engine, not merely a review
-  (ADR-DSGN-REMOTE#4).
-- The stable integration point is the current `main-UAT` commit (ADR-DSGN-LIFE#6), and the dirty HEAD is never a source to sync from
-  (ADR-DSGN-LIFE#7).
+  (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
+- The stable integration point is the current `main-UAT` commit (ADR-DSGN-LIFE-SYNCFROMMAINUAT), and the dirty HEAD is never a source to
+  sync from (ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
 
 ## Where the code and the ADR differ
 

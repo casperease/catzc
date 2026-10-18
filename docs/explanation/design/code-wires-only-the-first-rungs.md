@@ -12,7 +12,7 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
 8  Deploy_Discovery    one stage that deploys nsub and psub side by side
 
-Supports ADR-DSGN-LIFE#8 (implementation lens).
+Supports ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
 ```
 
 The commit lifecycle names eight rungs, from topic to production. The pipelines in cats wire the first three: a pull request to `main`, the
@@ -49,8 +49,8 @@ The diagram is described element by element in [its asset description](.assets/c
 
 ## Why it holds
 
-A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE#8). In the code that rule is the `succeeded()` condition on every `Deploy_*`
-stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
+A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()` condition
+on every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
 
 ## Where the code and the ADR differ
 

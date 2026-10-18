@@ -13,29 +13,28 @@ Describe 'Get-AdrDefinesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMP
     }
 
     It 'lists the rules the file defines under the kind''s key' {
-        $fact = Get-Defines "# ADR: Widget`n`n## Rules: ADR-WIDGET`n`n### Rule ADR-WIDGET:1`n`n### Rule ADR-WIDGET:2`n"
+        $fact = Get-Defines "# ADR: Widget`n`n## Rules: ADR-WIDGET-PART`n`n### Rule ADR-WIDGET-PART-TURN`n`n### Rule ADR-WIDGET-PART-SPIN`n"
         @($fact.Keys) | Should -Be @('defines')
-        @($fact['defines']) | Should -Be @('ADR-WIDGET#{1,2}')
+        @($fact['defines']) | Should -Be @('ADR-WIDGET-PART-TURN', 'ADR-WIDGET-PART-SPIN')
     }
 
-    It 'writes the defined rules in the minimal form, a run as a range and never as a glob' {
-        $rules = (1..4 + 9 | ForEach-Object { "### Rule ADR-WIDGET:$_`n" }) -join "`n"
-        $fact = Get-Defines "# ADR: Widget`n`n## Rules: ADR-WIDGET`n`n$rules"
-        @($fact['defines']) | Should -Be @('ADR-WIDGET#{1-4,9}')
+    It 'keeps the authored order of the headings, never a sorted one' {
+        $fact = Get-Defines "# ADR: Widget`n`n### Rule ADR-WIDGET-PART-SPIN`n`n### Rule ADR-WIDGET-PART-FOLD`n`n### Rule ADR-WIDGET-PART-BEND`n"
+        @($fact['defines']) | Should -Be @('ADR-WIDGET-PART-SPIN', 'ADR-WIDGET-PART-FOLD', 'ADR-WIDGET-PART-BEND')
     }
 
-    It 'keeps a single defined rule plain' {
-        $fact = Get-Defines "# ADR: Widget`n`n### Rule ADR-WIDGET:7`n"
-        @($fact['defines']) | Should -Be @('ADR-WIDGET#7')
+    It 'keeps a single defined rule as it is' {
+        $fact = Get-Defines "# ADR: Widget`n`n### Rule ADR-WIDGET-PART-TURN`n"
+        @($fact['defines']) | Should -Be @('ADR-WIDGET-PART-TURN')
     }
 
     It 'lists no rule for a file that defines none, however many it cites' {
-        $fact = Get-Defines "# ADR: Index`n`nSee ADR-GADGET#4.`n"
+        $fact = Get-Defines "# ADR: Index`n`nSee ADR-GADGET-PART-DROP.`n"
         @($fact['defines']).Count | Should -Be 0
     }
 
     It 'does not read a heading from the front matter' {
-        $fact = Get-Defines "---`ncatzc:`n  edges:`n    defines:`n      - ADR-WIDGET#9`n---`nbody`n"
+        $fact = Get-Defines "---`ncatzc:`n  edges:`n    defines:`n      - ADR-WIDGET-PART-SPIN`n---`nbody`n"
         @($fact['defines']).Count | Should -Be 0
     }
 }

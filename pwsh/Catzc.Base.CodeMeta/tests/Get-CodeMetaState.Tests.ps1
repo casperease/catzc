@@ -16,9 +16,9 @@ Describe 'Get-CodeMetaState' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD
     }
 
     It 'reports each list edge with the items the head holds, and no entry for a scalar edge or a place fact' {
-        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  immutable:`n    path: a/b.cs`n  edges:`n    cites:`n      - ADR-WIDGET#1`n      - ADR-GADGET#2`n    test: tests/b.Tests.ps1`n---`n*/`n`nclass Gadget { }`n" -Form $script:form
+        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  immutable:`n    path: a/b.cs`n  edges:`n    cites:`n      - ADR-WIDGET-TURN`n      - ADR-GADGET-SPIN`n    test: tests/b.Tests.ps1`n---`n*/`n`nclass Gadget { }`n" -Form $script:form
         @($state.EdgeLists.Keys) | Should -Be @('cites')
-        $state.EdgeLists['cites'] | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
+        $state.EdgeLists['cites'] | Should -Be @('ADR-WIDGET-TURN', 'ADR-GADGET-SPIN')
     }
 
     It 'reports a text without a head as having none, leaving the whole text as the rest' {

@@ -9,7 +9,7 @@ A config file's path is a coordinate that resolves to one subscription and one r
 4  subscription              the one subscription the coordinate resolves to, never spelled into the path
 5  resource group            the one resource group the config deploys, its name derived from the coordinate
 
-Supports ADR-AZ-DATAMOD#1, #2 and #3, and ADR-AZ-CUSTOMER#6 (meta lens).
+Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION and ADR-AZ-DATAMOD-NAMEKEYEDMAPS, and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (meta lens).
 ```
 
 A Bicep template in cats keeps one config file per deployment under its `configuration/` folder, and where that file sits is its whole
@@ -39,13 +39,14 @@ The diagram is described element by element in [its asset description](.assets/c
 ## Why it holds
 
 - A config at the configuration root is the shared platform's and a config under a customer subfolder is that customer's; the subscription
-  is always resolved from that coordinate and never spelled into a path (ADR-AZ-DATAMOD#1).
+  is always resolved from that coordinate and never spelled into a path (ADR-AZ-DATAMOD-TWOCONFIGLAYERS).
 - One config file is one (customer?, env, slot), one subscription and one Azure resource group, at
-  `configuration/[<customer>/]<env>[-<slot>].yml`, so listing the tree is the resource-group inventory (ADR-AZ-DATAMOD#2).
+  `configuration/[<customer>/]<env>[-<slot>].yml`, so listing the tree is the resource-group inventory
+  (ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION).
 - A configuration subfolder is always a customer key, and every coordinate must resolve to exactly one subscription: a root config's
   environment to one non-customer subscription, a customer config's environment to one of that customer's, asserted per file at discovery
-  and by integrity tests (ADR-AZ-DATAMOD#3).
-- The customer key is the subfolder name, one spelling on disk; the shortcode never names a folder (ADR-AZ-CUSTOMER#6).
+  and by integrity tests (ADR-AZ-DATAMOD-NAMEKEYEDMAPS).
+- The customer key is the subfolder name, one spelling on disk; the shortcode never names a folder (ADR-AZ-CUSTOMER-KEYISSUBFOLDER).
 
 ## See also
 

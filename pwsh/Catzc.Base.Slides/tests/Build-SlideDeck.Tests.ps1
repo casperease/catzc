@@ -37,7 +37,7 @@ render:
 ---
 catzc:
   edges:
-    cites: [ADR-WIDGET-GADGET#2]
+    cites: [ADR-WIDGET-GADGET-SPIN]
   config:
     pattern: widget
     deck: gadget-deck
@@ -49,7 +49,7 @@ $Extra
 
 ## Eyebrow
 
-ADR-WIDGET-GADGET#2 · Widgets
+ADR-WIDGET-GADGET-SPIN · Widgets
 
 ## Body
 
@@ -61,13 +61,18 @@ Notes for $Id.
 "@
         }
         & $write 'decks/gadget-deck/deck.md' "# The gadget deck`n`n## Sections`n`n- one: Why the widget spins.`n- two: What it rests on.`n"
-        & $write 'decks/gadget-deck/one.slide.md' (& $slide 'one' 1 'The widget spins' 'A widget spins when wound.' '    quotes: ADR-WIDGET-GADGET#2')
+        & $write 'decks/gadget-deck/one.slide.md' (& $slide 'one' 1 'The widget spins' 'A widget spins when wound.' '    quotes: ADR-WIDGET-GADGET-SPIN')
         & $write 'decks/gadget-deck/two.slide.md' (& $slide 'two' 2 'The gadget rests' 'A gadget rests on the widget.')
         Mock Get-AdrRuleText -ModuleName Catzc.Base.Slides {
             param([string] $Code)
-            if ($Code -in 'ADR-WIDGET-GADGET#1', 'ADR-WIDGET-GADGET#2') {
+            if ($Code -in 'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') {
                 'A widget spins when wound.'
             }
+        }
+        # The index the slides' cites are checked against: one ADR and its two rules.
+        Mock Get-AdrCitationMap -ModuleName Catzc.Base.Slides {
+            [Catzc.Base.Docs.AdrCitationMap]::new(
+                @{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/adr/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, $null)
         }
         Mock Write-Message -ModuleName Catzc.Base.Slides {}
     }
@@ -122,13 +127,15 @@ Notes for $Id.
 
     It 'reports a quoted rule that differs from the registry, a cite the index does not know, and a section starting on no slide' -Tag 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
         & $write 'decks/drift-deck/deck.md' "# Drift`n`n## Sections`n`n- nowhere: Starts on no slide.`n"
-        & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET#2').Replace('cites: [ADR-WIDGET-GADGET#2]', 'cites: [ADR-WIDGET-GADGET#2, ADR-WIDGET-GADGET#9, ADR-WIDGET-GADGET, "ADR-WIDGET-GADGET#{1-2}", gadget]'))
+        & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET-SPIN').Replace('cites: [ADR-WIDGET-GADGET-SPIN]', 'cites: [ADR-WIDGET-GADGET-SPIN, ADR-WIDGET-GADGET-GHOST, ADR-WIDGET-GADGET, "ADR-WIDGET-GADGET#{1-2}", gadget]'))
         $faults = @((Build-SlideDeck -Deck 'decks/drift-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
-        ($faults -join "`n") | Should -Not -Match "'ADR-WIDGET-GADGET'|'ADR-WIDGET-GADGET#\{1-2\}'"
-        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': 'gadget' is not a citation of the form ADR-NAME, ADR-NAME#n or ADR-NAME#{n-m}"
-        ($faults -join "`n") | Should -Match "d\.slide\.md: field 'body': quotes ADR-WIDGET-GADGET#2 but differs from the registry\."
+        # An ADR code is a cite like a rule code; a group of numbers is no code any more.
+        ($faults -join "`n") | Should -Not -Match "'ADR-WIDGET-GADGET'"
+        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': 'ADR-WIDGET-GADGET#{1-2}' is not an ADR code: 'ADR' and upper-case segments joined by '-'"
+        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': 'gadget' is not an ADR code: 'ADR' and upper-case segments joined by '-'"
+        ($faults -join "`n") | Should -Match "d\.slide\.md: field 'body': quotes ADR-WIDGET-GADGET-SPIN but differs from the registry\."
         ($faults -join "`n") | Should -Match 'registry: A widget spins when wound\.'
-        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the ADR index knows no rule 'ADR-WIDGET-GADGET#9'"
+        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the ADR index knows no ADR or rule 'ADR-WIDGET-GADGET-GHOST'"
         $faults | Should -Contain "decks/drift-deck/deck.md: field 'sections': the section 'Starts on no slide.' starts on 'nowhere', and no slide has that id"
     }
 

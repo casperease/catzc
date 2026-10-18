@@ -12,7 +12,7 @@ Build-Modules builds, verifies, and leaves one folder that every target copies w
 7  New-CatzcNuGetPackage    packs the folder into out/automation/packages/
 8  Checked again            Install-Catzc's first call is the guard
 
-Supports ADR-AUTO-BUNDLE#1, #5, #6 and #7 (implementation lens).
+Supports ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL and ADR-AUTO-BUNDLE-AUTOVERSION (implementation lens).
 ```
 
 A bundle, in code, is a short chain of functions in `Catzc.Base.Exporter` and one `.internal` engine. `Build-Modules` reads its options,
@@ -52,19 +52,20 @@ for a disk export.
 ## Why it holds
 
 - `Build-Modules` builds a selected, closure-expanded set of modules through the `Invoke-ModuleBuild` engine, and `Assert-CatzcBundle`
-  verifies it (ADR-AUTO-BUNDLE#1).
+  verifies it (ADR-AUTO-BUNDLE-BUNDLEISBUILD).
 - The build is content-addressed: it copies the source tree's types DLL instead of compiling, records its hashes in `build.json`, and runs
-  `Assert-CatzcBundle` as a self-check on its own output (ADR-AUTO-BUNDLE#5).
-- An install copies the build to two places, verifies the source before the destination, and is idempotent (ADR-AUTO-BUNDLE#6).
+  `Assert-CatzcBundle` as a self-check on its own output (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
+- An install copies the build to two places, verifies the source before the destination, and is idempotent
+  (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
 - A devbox build carries the `6.6.666` placeholder and a pipeline build gets a calculated version, both declared in `exporter.yml`
-  (ADR-AUTO-BUNDLE#7).
+  (ADR-AUTO-BUNDLE-AUTOVERSION).
 
 ## Where the code and the ADR differ
 
-- ADR-AUTO-BUNDLE#5 lists the internal-asset presence check among the checks of `Assert-CatzcBundle`. The code runs it in
-  `Invoke-ModuleBuild`, against the plan and before any write, as ADR-AUTO-ASSETDEP#4 says.
-- `Assert-CatzcBundle` checks more than ADR-AUTO-BUNDLE#5 lists: the layout files, the folder named for the version, the recorded type
-  sources, and a manifest's `NestedModules` being exactly the merged file.
+- ADR-AUTO-BUNDLE-IMMUTABLEBUILD lists the internal-asset presence check among the checks of `Assert-CatzcBundle`. The code runs it in
+  `Invoke-ModuleBuild`, against the plan and before any write, as ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY says.
+- `Assert-CatzcBundle` checks more than ADR-AUTO-BUNDLE-IMMUTABLEBUILD lists: the layout files, the folder named for the version, the
+  recorded type sources, and a manifest's `NestedModules` being exactly the merged file.
 
 ## See also
 
