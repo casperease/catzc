@@ -146,10 +146,18 @@ public sealed class MarkdownDocument
             }
             lines.InsertRange(at.Insert, Nested(block, at.Depth, at.Indent));
         }
-        if (lines.Count == 0 && remove) { return Body; }
+        // A front matter left empty goes whole, with the one blank line a created front matter puts before the body.
+        if (lines.Count == 0 && remove) { return WithoutSeparator(Body); }
         var text = new StringBuilder(openingFence).Append(NewLine);
         foreach (string line in lines) { text.Append(line).Append(NewLine); }
         return text.Append(closingFence).Append(Body).ToString();
+    }
+
+    static string WithoutSeparator(string body)
+    {
+        if (body.StartsWith("\r\n", StringComparison.Ordinal)) { return body.Substring(2); }
+        if (body.StartsWith("\n", StringComparison.Ordinal)) { return body.Substring(1); }
+        return body;
     }
 
     // The document as it was parsed.

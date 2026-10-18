@@ -62,7 +62,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
 
     It 'no longer holds the file classes, which the file-kinds registry owns' {
         { [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ classes = @(@{ class = 'widget'; files = @('a/**') }) }) } |
-            Should -Throw '*unknown key ''classes'' (allowed: kinds)*'
+            Should -Throw '*unknown key ''classes'' (allowed: kinds, head_policy)*'
     }
 
     It 'matches a class pattern with one star, and a class name exactly' -ForEach @(
@@ -134,7 +134,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     }
 
     It 'rejects a malformed registry, naming the kind and the allowed set' -ForEach @(
-        @{ Raw = @{ other = 1 }; Message = '*unknown key ''other'' (allowed: kinds)*' }
+        @{ Raw = @{ other = 1 }; Message = '*unknown key ''other'' (allowed: kinds, head_policy)*' }
         @{ Raw = @{ kinds = 'x' }; Message = '*kinds must be a map*' }
         @{ Raw = @{ kinds = @{ 'Bad_Id' = @{} } }; Message = '*kind id ''Bad_Id''*' }
         @{ Raw = @{ kinds = @{ widget = 'x' } }; Message = '*kind ''widget'' must be a map*' }
