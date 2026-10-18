@@ -423,6 +423,24 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       meta block: The meta block is the facts in any file; the meta head is the form they take in a code file.
+      materialization:
+        Materialization says when a resource comes into being and how long it holds; a meta head is where a generated file shows its commit
+        key, body_sha.
+  materialization:
+    key: materialization
+    domain: automation
+    defined_by: ADR-AUTO-MATERIAL#1
+    short:
+      When a knowledge resource comes into being and how long it holds, on-demand (made when asked, held for the call or the session) or
+      commit (made at commit, keyed by the scoped sha of its inputs, never changing).
+    realized_by: { kind: prose-only }
+    contrasts:
+      meta head:
+        A meta head is the leading comment that holds a file's facts; materialization is the property of a resource that a generated
+        file's body_sha makes visible there.
+    avoid:
+      - { phrase: cached at commit, say: a commit resource }
+      - { phrase: materialized view, say: a commit resource }
   place facts:
     key: place_facts
     domain: repository

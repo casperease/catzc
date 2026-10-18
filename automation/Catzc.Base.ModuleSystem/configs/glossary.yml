@@ -75,12 +75,6 @@ concepts:
       - { phrase: current occupant, say: occupant (the <environment> occupant) }
       - { phrase: current occupants, say: occupants }
       - { phrase: resident commit, say: occupant }
-  note:
-    key: note
-    domain: design
-    defined_by: ADR-DSGN-TRACK#17
-    short: The file kind of everything the unordered track holds; no part of the system until it is sorted.
-    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Globs/configs/file-kinds.yml" }
   unordered track:
     key: unordered_track
     domain: design

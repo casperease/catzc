@@ -89,10 +89,10 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
 
     It 'defaults a class-list setting to the classes the kind selects' -Tag 'ADR-AUTO-DEFAULT#6' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ widget = @{ select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type', 'gadget-*') }); settings = @{ sprocket_classes = @('cog') } } }
+                kinds = [ordered]@{ widget = @{ select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type', 'gadget-*') }); settings = @{ held_classes = @('cog') } } }
             })
         $config.kinds[0].ClassSetting('domain_classes') | Should -Be @('widget-type', 'gadget-*')
-        $config.kinds[0].ClassSetting('sprocket_classes') | Should -Be @('cog')
+        $config.kinds[0].ClassSetting('held_classes') | Should -Be @('cog')
     }
 
     It 'maps every key it is given, in file order' {

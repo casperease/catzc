@@ -1,0 +1,54 @@
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: docs/references/note-file-kind.md
+    folder: docs/references
+    name: note-file-kind
+    filetype: md
+    kind: reference
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    cites:
+      - ADR-DSGN-TRACK#17
+      - ADR-REPO-FILEMETA#11
+---
+
+# The `note` file kind: what it said, and where it lives now
+
+## What the key said
+
+The file-kinds registry (`automation/Catzc.Base.Globs/configs/file-kinds.yml`) carried one kind for the unordered track:
+
+```yaml
+note:
+  definition: A fragment frozen when it was committed, kept in the unordered track and no part of the system.
+  files: [".unordered/**"]
+  git:
+    attributes: [catzc-notes]
+    why: the unordered track holds fragments frozen as they were committed, not product docs — the content tools (links, Markdown
+      titles, source conventions) leave them as written, like out/ for the spelling, lint and glossary scans.
+```
+
+It did two jobs. It named the file kind of everything under `.unordered/`, and its `git` block gave those files the `catzc-notes`
+attribute, which `Get-ContentExemptPath` and the source-conventions engine-set exemption read so the content tools left them as written.
+ADR-DSGN-TRACK#17 bolded **note** as the term, and the ModuleSystem glossary defined it.
+
+## Why it goes
+
+The unordered track is where imports land, not a shelf of frozen fragments, and the track is empty between imports, so no tracked file
+reaches the kind and the reachability test fails on it. A file under `.unordered/` is whatever its import brought: a PowerShell file is a
+PowerShell file, so a separate kind for "a file in this folder" says nothing the track does not say already. The user decided D20
+(decisions-2026-10-18.md): the kind goes, its meaning first gets this page.
+
+## Where it lives now
+
+- The exemption moved to the track: the `unordered` entry of `automation/Catzc.Base.Variants/configs/track-types.yml` declares
+  `git: { attributes: [catzc-unordered], why: ... }`, and `New-GitAttributes` writes `.unordered/** catzc-unordered` for every place of
+  every track of that type. `Get-ContentExemptPath` and `source-conventions.yml` name the `catzc-unordered` class.
+- The track and its terms (unordered track, import, landing address, sorting) are ADR-DSGN-TRACK#17 and the ModuleSystem glossary.
+- A file under `.unordered/` takes the kind its own name and language give it, as it will after sorting.
+
+When ADR-REPO-FILEMETA or ADR-DSGN-TRACK absorbs this account, this page is deleted (ADR-PRIN-ONELIVE).

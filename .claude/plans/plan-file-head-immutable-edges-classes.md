@@ -139,9 +139,10 @@ approved list. That file continued out/continuation-prompt-markerless.md (marker
 
 ## Open leftovers from that follow-up (left open)
 
-- [ ] Test-Formatting not re-run since those edits; last run flagged only the compiled types .json under automation/.compiled. Check whether
+- [x] Test-Formatting not re-run since those edits; last run flagged only the compiled types .json under automation/.compiled. Check whether
       Format-Code should skip that folder and fix it only if the ADR says so (Q47; same step as above) (check: the Test-Formatting report
-      names no automation/.compiled file, or the ADR is amended). D13 decided the skip (2026-10-18).
+      names no automation/.compiled file, or the ADR is amended). D13 decided the skip (2026-10-18). Done 2026-10-18: ADR-REPO-FORMAT#8
+      names the binary class; `Test-Formatting -Language json` names no `.compiled` file.
 - Context, not a step (Q48, Q49): Test-Comments: 6 findings, all in other sessions' files: PropertyHead.cs.md section 1,
   MarkdownMetaBlock.cs.md sections 1 and 2, file-meta.yml.md section 5 (orphan sections, the code line under a moved comment changed),
   PathParts.cs:67 and ModulePlace.cs:68 (a 2-line comment still in the file, Export-Comments). The owners fix them.

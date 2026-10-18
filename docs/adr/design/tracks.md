@@ -190,9 +190,8 @@ column names are the value-chain concerns.
 The **unordered track** (`.unordered`, class `unordered`) is where imports land, and the unordered part of the repository is whatever is
 still under `.unordered/`. An **import** brings an outside repository into this one with its full history; it lands at a **landing
 address**, `.unordered/<name>`, where the name is a short kebab word unique among the addresses. **Sorting** moves a file from its landing
-address to its module or track with `git mv`, so its history follows. A **note** is the file kind of everything the track holds, and the
-track is not part of the system: no command, default, glob, gate, generator, or agent reads, writes, or falls back to it unless a person
-names it, and nothing depends on a file in it.
+address to its module or track with `git mv`, so its history follows. The track is not part of the system: no command, default, glob,
+gate, generator, or agent reads, writes, or falls back to it unless a person names it, and nothing depends on a file in it.
 
 - [The unordered track](#the-unordered-track)
 

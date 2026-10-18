@@ -1,3 +1,35 @@
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: docs/adr/automation/materialization.md
+    folder: docs/adr/automation
+    name: materialization
+    filetype: md
+    kind: adr
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    defines:
+      - ADR-AUTO-MATERIAL#{1-7}
+    cites:
+      - ADR-AUTO-CACHE#{5,6,9}
+      - ADR-AUTO-DEFAULT#6
+      - ADR-DSGN-TRACK#5
+      - ADR-PRIN-CONFIG#3
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/caching.md#rule-adr-auto-cache5
+      - docs/adr/automation/caching.md#rule-adr-auto-cache6
+      - docs/adr/automation/caching.md#rule-adr-auto-cache9
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track5
+      - docs/adr/principles/configure-not-program.md
+      - docs/adr/principles/configure-not-program.md#rule-adr-prin-config3
+      - docs/adr/principles/one-living-version.md
+---
+
 # ADR: Materialization — when a knowledge resource comes into being and how long it holds
 
 ## Rules: ADR-AUTO-MATERIAL
@@ -5,16 +37,17 @@
 ### Rule ADR-AUTO-MATERIAL:1
 
 **Materialization** names when a knowledge resource comes into being and how long it holds, and it takes one of two values. An on-demand
-resource is made when asked, a scan, a computation or a resolved config, and holds until the call ends or the session cache entry that
-holds it is gone. A commit resource is made at commit, keyed by the scoped sha of its inputs, and never changes: the key is its identity.
+resource is made when asked, a scan, a computation or a resolved config, and holds until the call ends or the session cache entry that holds
+it is gone. A commit resource is made at commit, keyed by the scoped sha of its inputs, and never changes: the key is its identity.
 
 - [The axis](#the-axis)
 
 ### Rule ADR-AUTO-MATERIAL:2
 
-A resource that is not pinned resolves its materialization from context into one of the two values, the way every setting resolves
-([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)): a clean tree at a known scoped sha with a commit copy present uses the
-copy; anything else computes on-demand. The resolved value is never stored and never displayed; a display shows a pinned value only.
+A resource whose kind declares no explicit value resolves its materialization from context into one of the two values, the way every setting
+resolves ([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)): a clean tree at a known scoped sha with a commit copy present
+uses the copy; anything else computes on-demand. The resolved value is never stored and never displayed; a display shows an explicitly
+declared value only.
 
 - [How the default resolves](#how-the-default-resolves)
 
@@ -30,7 +63,7 @@ different resource with its own key.
 
 Materialization is declared per resource kind, in a config entry with one default declared once on its config type
 ([ADR-PRIN-CONFIG#3](../principles/configure-not-program.md#rule-adr-prin-config3)). An instance of the kind changes it only by an explicit
-pin, and a resource that costs milliseconds to compute declares on-demand and never earns a commit copy.
+value of its own, and a resource that costs milliseconds to compute declares on-demand and never earns a commit copy.
 
 - [Declared per kind](#declared-per-kind)
 
@@ -43,16 +76,15 @@ stream, naming the resource and the reason. It never serves a copy whose key doe
 
 ### Rule ADR-AUTO-MATERIAL:6
 
-A guard is pinned on-demand. Its verdict is a control, decided from the state in front of it on every call, so the default never resolves a
-guard to commit and no guard kind declares commit.
+A guard declares on-demand explicitly. Its verdict is a control, decided from the state in front of it on every call, so the default never
+resolves a guard to commit and no guard kind declares commit.
 
 - [Guards are controls](#guards-are-controls)
 
 ### Rule ADR-AUTO-MATERIAL:7
 
 A generated tracked file and the analyzer's result cache are commit resources, each keyed by its globset, and `body_sha` in a generated
-file's head ([ADR-REPO-FILEMETA#7](../repository/file-meta.md#rule-adr-repo-filemeta7)) is that key's visible form. Every other resource
-is on-demand unless its kind declares otherwise.
+file's head is that key's visible form. Every other resource is on-demand unless its kind declares otherwise.
 
 - [The kinds that are commit resources](#the-kinds-that-are-commit-resources)
 
@@ -61,24 +93,24 @@ is on-demand unless its kind declares otherwise.
 Most information in catzc exists only when someone asks for it: a repository scan, a derived listing, a resolved config. Tools cache some of
 it inside a session ([caching](caching.md)). Some information can instead be frozen with a commit and never change, because its inputs are
 tracked files whose content the commit fixes. A reader who meets a resource needs to know which of the two it is: whether it is probably
-there already, warm, or has to be made, cold, and whether a change to the tree invalidates it or leaves it untouched. Materialization is
-the one word for that property, so no resource kind has to invent its own cache story.
+there already, warm, or has to be made, cold, and whether a change to the tree invalidates it or leaves it untouched. Materialization is the
+one word for that property, so no resource kind has to invent its own cache story.
 
-The word is the database term: a plain view is computed per query, a materialized view is stored. It is chosen over existence, which says
-whether a resource is there and not when or for how long; over residency, which says where it sits and not when; and over persistence,
-which the sha-marker companion uses for its opt-out from the commit copy.
+The word is the database term: a plain view is computed per query, and the other kind of view is stored. It is chosen over existence, which
+says whether a resource is there and not when or for how long; over residency, which says where it sits and not when; and over persistence,
+which says whether a value survives a session and not how it is keyed.
 
 ### The axis
 
 `Two values, and a default that resolves to one of them`
 
-| Value     | Comes into being                                   | Holds until                                | Cache expectation                |
-| --------- | -------------------------------------------------- | ------------------------------------------ | -------------------------------- |
-| on-demand | when asked: a scan, a computation                  | the call ends, or the session cache entry  | cold; a tool may have cached it  |
-| commit    | at commit, keyed by the scoped sha of its inputs   | never changes: the key is its identity     | warm; invalidation is free       |
+| Value     | Comes into being                                 | Holds until                               | Cache expectation               |
+| --------- | ------------------------------------------------ | ----------------------------------------- | ------------------------------- |
+| on-demand | when asked: a scan, a computation                | the call ends, or the session cache entry | cold; a tool may have cached it |
+| commit    | at commit, keyed by the scoped sha of its inputs | never changes: the key is its identity    | warm; invalidation is free      |
 
-There is no third value. "Not pinned" is not a peer of the two but the instruction to resolve, the same shape as the one resolution order of
-a setting and as a guard that determines its subject from the ambient context and is pinned only by an explicit override.
+There is no third value. "Not declared" is not a peer of the two but the instruction to resolve, the same shape as the one resolution order
+of a setting and as a guard that determines its subject from the ambient context and takes an explicit value only as an override.
 
 ### How the default resolves
 
@@ -101,12 +133,12 @@ own.
 
 ### Declared per kind
 
-`One config entry per kind, one default, pinned per instance only explicitly`
+`One config entry per kind, one default, an instance deviates only explicitly`
 
-Each kind of work has one mechanism in code and each instance of it is a registry entry ([configure-not-program](../principles/configure-not-program.md)),
-and materialization follows: the kind declares it, with its default declared once on the config type, and a call never decides it in code.
-An instance that needs another value says so with a pin, so the deviation is visible as a line in a config rather than a branch in a
-function.
+Each kind of work has one mechanism in code and each instance of it is a registry entry
+([configure-not-program](../principles/configure-not-program.md)), and materialization follows: the kind declares it, with its default
+declared once on the config type, and a call never decides it in code. An instance that needs another value says so in its own entry, so the
+deviation is visible as a line in a config rather than a branch in a function.
 
 ### The loud fallback
 
@@ -120,9 +152,9 @@ once keeps the person informed that the call was slower and why, without repeati
 
 `A verdict is decided from the state in front of it, every time`
 
-The devbox is also a regulated opsbox: a guard is a control, and a control whose verdict is remembered across a session or a commit is a
-control that can be wrong about the present. A guard is therefore pinned on-demand as a property of its kind, and the default never resolves
-a guard to commit, however cheap its copy would be. Materialization is partly a property of the kind, not only of the cost.
+The devbox is also a regulated operations machine: a guard is a control, and a control whose verdict is remembered across a session or a
+commit is a control that can be wrong about the present. A guard therefore declares on-demand as a property of its kind, and the default
+never resolves a guard to commit, however cheap its copy would be. Materialization is partly a property of the kind, not only of the cost.
 
 ### The kinds that are commit resources
 
@@ -145,14 +177,14 @@ on-demand shape and a commit shape of the same data side by side.
 ## Decision
 
 Name the axis once, resolve the default from the tree, key a commit copy by the resource's own globset, declare it per kind, fall back
-loudly, pin guards on-demand, and make generated tracked files and the analyzer cache the commit resources.
+loudly, hold guards on-demand, and make generated tracked files and the analyzer cache the commit resources.
 
 ### How this is enforced
 
 - **`Test-GeneratedFiles`** (`automation/Catzc.Base.QualityGates`) — compares every generated tracked file's `body_sha` with its body, the
   check that a commit copy matches the tree (ADR-AUTO-MATERIAL#7).
-- **`Test-Formatting`'s cache stamp tests** (`automation/Catzc.Base.QualityGates/tests`) — prove that every declared input of the
-  analyzer's result cache invalidates it (ADR-AUTO-MATERIAL#3, #7).
+- **`Test-Formatting`'s cache stamp tests** (`automation/Catzc.Base.QualityGates/tests`) — prove that every declared input of the analyzer's
+  result cache invalidates it (ADR-AUTO-MATERIAL#3, #7).
 - **Code review** — a kind that keeps a copy across sessions without declaring commit, a stored or displayed resolved value, a silent
   fallback, or a guard that remembers a verdict is a finding against the rule it breaks.
 
@@ -171,5 +203,5 @@ loudly, pin guards on-demand, and make generated tracked files and the analyzer 
    repository.
 3. **A per-call parameter deciding materialization** — rejected: it programs per instance what one config entry per kind declares, and it
    scatters the decision across call sites.
-4. **A silent fallback on a dirty tree** — rejected: a check that got slower without saying why is indistinguishable from a check that read a
-   stale copy.
+4. **A silent fallback on a dirty tree** — rejected: a check that got slower without saying why is indistinguishable from a check that read
+   a stale copy.

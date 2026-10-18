@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7a617ade8383"
-    with_inputs_sha: "00482dbe201c2496bf3a0b2952963f2118da8cdd90a4d503fbfaa14f5360f266"
+    with_body_sha: e2cb9426eaef
+    with_inputs_sha: "861f726a393ff5e0ae31c3c52c0df6f07182db31eb2226a74a1baed03e82d076"
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -264,14 +264,6 @@ its module.
   - [track](#track): A track is the cluster of module contents and the concern it holds; a module type is the sort of module found at a
     place inside or across tracks.
   - [track type](#track-type): A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
-
-### note
-
-The file kind of everything the unordered track holds; no part of the system until it is sorted.
-
-- **Defined by:** [ADR-DSGN-TRACK#17](design/tracks.md#rule-adr-dsgn-track17)
-- **Realized by:** config-key `automation/Catzc.Base.Globs/configs/file-kinds.yml`
-- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
 ### occupant
 
@@ -712,6 +704,23 @@ module's folders.
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [module type](#module-type): A module type says where modules of a sort are found; a layout says what a module's own folders hold.
+
+### materialization
+
+When a knowledge resource comes into being and how long it holds, on-demand (made when asked, held for the call or the session) or commit
+(made at commit, keyed by the scoped sha of its inputs, never changing).
+
+- **Defined by:** [ADR-AUTO-MATERIAL#1](automation/materialization.md#rule-adr-auto-material1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [meta head](#meta-head): A meta head is the leading comment that holds a file's facts; materialization is the property of a resource
+    that a generated file's body_sha makes visible there.
+
+| Avoid               | Say instead       |
+| ------------------- | ----------------- |
+| `cached at commit`  | a commit resource |
+| `materialized view` | a commit resource |
 
 ### phase
 
@@ -1324,6 +1333,8 @@ is the form a meta block takes in a C# or PowerShell file.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
+  - [materialization](#materialization): Materialization says when a resource comes into being and how long it holds; a meta head is where a
+    generated file shows its commit key, body_sha.
   - [meta block](#meta-block): The meta block is the facts in any file; the meta head is the form they take in a code file.
 
 ### meta kind

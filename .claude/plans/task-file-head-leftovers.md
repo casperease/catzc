@@ -1,6 +1,6 @@
 ---
 task:
-  status: open
+  status: done
   plans: [plan-file-head-immutable-edges-classes]
   value: medium-high
   blocked_on: nothing; D13 (step 3) and D20 (step 10) were decided 2026-10-18
@@ -83,10 +83,16 @@ others; one file per step; gates in the background. Peers' files (the six Test-C
      behaviour, written in its Pester file, not a generic loader of old code.
    - `gates-module`: `Test-Change -Path automation/<Module> -WholeModule` runs the module's tests and the checks its files' languages
      configure (Get-ChangeCheckPlan), so a hand list of gates would be a second source.
-10. D20 decided 2026-10-18: the `note` file kind goes. First a page for its meaning (never drop a key silently), then the kind leaves
+10. [x] D20 decided 2026-10-18: the `note` file kind goes. First a page for its meaning (never drop a key silently), then the kind leaves
     `file-kinds.yml` and its `overlaps` pair, ADR-DSGN-TRACK#17 stops bolding **note**, the glossary term and its contrasts go, and the
     reachability test is green without an exemption. Check: `FileKindsConfig.Tests.ps1` and `FileKindReachability.Tests.ps1` pass;
-    Test-Glossary and Test-Links clean on the touched pages.
+    Test-Glossary and Test-Links clean on the touched pages. Done 2026-10-18 (correction: the kind had no `overlaps` pair). The kind's
+    `catzc-notes` attribute was the content tools' exemption for `.unordered/`; the user chose 2026-10-18 to move it to the track: the
+    `unordered` track type declares `git: { attributes: [catzc-unordered], why }` (TrackTypesConfig and TrackTypeEntry read it),
+    `New-GitAttributes` writes `.unordered/** catzc-unordered` per place of each track of that type, and Get-ContentExemptPath and
+    source-conventions.yml name the class. The page is `docs/references/note-file-kind.md`. Verdicts: TrackTypesConfig 11/11,
+    New-GitAttributes 7/7, Get-ContentExemptPath 4/4, FileKindsConfig 37/37, FileKindReachability 39/39; Build-RootConfig wrote line 137
+    `.unordered/** catzc-unordered`; `GLOSSARY issues=0`, `LINKS issues=0`, `MDLINT issues=0`.
 
 ## Report
 

@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "611c4f9901c8"
-    with_inputs_sha: "7eb12a87bf4ec773fd75b2cc4646a77ca4abc7027fd5a7afb2dce167994df783"
+    with_body_sha: d60eea89b50f
+    with_inputs_sha: b768a19d3e67d475b1c5a6a372c56a7ef143a9abfd6f7c7666e120ccbf6405b2
     repo_status: locked
     path: docs/adr/index.md
     source: automation/Catzc.Base.Docs/configs/adrs.yml
@@ -157,6 +157,7 @@ domains build on it.
 | `ADR-AUTO-XPLAT`    | [cross-platform](automation/cross-platform.md)                                   |
 | `ADR-AUTO-ONEJOB`   | [single-responsibility-functions](automation/single-responsibility-functions.md) |
 | `ADR-AUTO-CACHE`    | [caching](automation/caching.md)                                                 |
+| `ADR-AUTO-MATERIAL` | [materialization](automation/materialization.md)                                 |
 | `ADR-AUTO-TRACKED`  | [tracked-files-from-the-index](automation/tracked-files-from-the-index.md)       |
 | `ADR-AUTO-DEFAULT`  | [sensible-defaults](automation/sensible-defaults.md)                             |
 | `ADR-AUTO-FAILFAST` | [fail-fast-with-asserts](automation/fail-fast-with-asserts.md)                   |

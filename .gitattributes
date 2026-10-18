@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7f1a348b04ce"
+#     with_body_sha: "2fe2fe1848db"
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
@@ -128,11 +128,6 @@ automation/.compiled/** linguist-generated
 # empty. They check out with LF on every platform, so a working copy's bytes match the frozen record's hashes
 # (ADR-REPO-CONTRACT#5, ADR-REPO-CONTRACT#6).
 contracts/*/*/** catzc-contract text eol=lf
-
-# catzc: the unordered track holds fragments frozen as they were committed, not product docs — the content tools
-# (links, Markdown titles, source conventions) leave them as written, like out/ for the spelling, lint and glossary
-# scans.
-.unordered/** catzc-notes
 
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
 **/tests/**/assets/** catzc-fixture

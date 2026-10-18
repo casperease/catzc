@@ -34,6 +34,7 @@ catzc:
       - docs/adr/automation/layers.md
       - docs/adr/automation/log-before-invoke.md
       - docs/adr/automation/managed-guids.md
+      - docs/adr/automation/materialization.md
       - docs/adr/automation/module-model.md
       - docs/adr/automation/never-depend-on-pwd.md
       - docs/adr/automation/open-closed-architecture.md
@@ -283,8 +284,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   checks of an unrelated commit as cheap as a read.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — a generated tracked file's stamp proves the copy matches the
   tree, so a stale copy never passes a check.
-- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the one announced fallback line
-  tells a person when and why a resource was computed instead of read.
+- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the one announced fallback line tells
+  a person when and why a resource was computed instead of read.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Tracked files from the index
