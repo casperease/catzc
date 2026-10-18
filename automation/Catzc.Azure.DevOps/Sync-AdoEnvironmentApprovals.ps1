@@ -1,6 +1,6 @@
 function Sync-AdoEnvironmentApprovals {
     [CmdletBinding()]
-    [OutputType([PSCustomObject[]])]
+    [OutputType([pscustomobject])]
     param(
         [string] $Project = (Get-Config -Config ado)['project'],
 

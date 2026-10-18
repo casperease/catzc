@@ -42,3 +42,12 @@ Above `public static string Decide(string payload, TimeoutsConfig config, string
 The verdict for one hook payload: null to let the call through, or the reason to deny it. logLine is a
 tab-separated record of a denial (null when allowed) — the tuning list of blockers.
 ```
+
+## comment:4
+
+Above `public static string FindConfig(string repositoryRoot)`, written with `//`.
+
+```text
+The hook runs outside cats, so it finds the modules folder by the one top-level folder that holds this config
+([ADR-AUTO-LAYERS](/docs/adr/automation/layers.md)).
+```

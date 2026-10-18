@@ -98,14 +98,15 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
    here-strings to `configs/adr-index.yml`, read through the new `AdrIndexConfig` type (registered in configs.yml, as adrs.yml already holds
    the domains' prose), and the regenerated index is the same body. Verdicts: `[Invoke-TestFile] Passed` for AdrIndexConfig.Tests and
    Build-AdrIndex.Tests; Test-ShippedConfigs, Test-ConfigValidators, Test-GeneratedFiles, Test-FileMeta, Test-Comments, Test-Links,
-   Test-AdrRegistry, Test-Spelling and Test-Markdownlint clean on the touched files. Open: the 2 held rows (FileHeadPolicy.cs,
-   FunctionHelp.cs), once their sessions release them.
+   Test-AdrRegistry, Test-Spelling and Test-Markdownlint clean on the touched files. The 2 held rows (FileHeadPolicy.cs, FunctionHelp.cs)
+   closed the same day once session catzc-e5 released them: Export-Comments finds nothing to move in either, Test-Comments is clean, and
+   FileHeadPolicy.Tests and FunctionHelp.Tests pass (`out/test-file/20261018-142556-232167`, `-142602-4f59f1`).
 9. [x] The `tests-comments-rollout.ps1` tool candidate (from plan-out-artifacts) becomes a module function with tests if Phase 2 needs the
        before-and-after citation-map proof; else recorded as not needed. Check: the function's Pester file, or the line. Recorded 2026-10-18
        as not needed: Phase 2 applies no edit to a source file, so there is no before and after to prove; the two decisions, if they move
        text, take the comment exporter's own round trip (`Test-Comments`) as their proof.
-10. Tick the plan's steps; the carried draft goes when its data is in the tree; the plan is deleted in task-closing-sweep. Check: grep
-    `- [ ]` counts zero.
+10. [x] Tick the plan's steps; the carried draft goes when its data is in the tree; the plan is deleted in task-closing-sweep. Check: grep
+        `- [ ]` counts zero. Done 2026-10-18.
 
 ## Report
 

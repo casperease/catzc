@@ -1,7 +1,7 @@
 ---
 task:
   status: "steps 3 (read), 4, 5, 6 and 8 done; the rest waits on the user's runs"
-  plans: [plan-module-model-closeout, plan-module-kinds-tracks, plan-layers-vocabulary-rename-contracts]
+  plans: [plan-module-model-closeout, plan-layers-vocabulary-rename-contracts]
   value: high
   blocked_on: "the user's Test-Automation run (step 9); D01 to D05 were confirmed 2026-10-18"
   targets:

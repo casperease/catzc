@@ -34,8 +34,6 @@ public static class AssertBashTimeout
         }
         catch (Exception e)
         {
-            // The safeguard is a control: when it cannot decide, it denies, and the reason names why
-            // ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
             Console.Out.Write(BashSafeguard.DenyOutput("Bash time safeguard hook failed, so the call is denied: " + e.Message));
             return 0;
         }

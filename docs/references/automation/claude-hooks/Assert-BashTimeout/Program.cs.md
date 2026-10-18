@@ -29,3 +29,12 @@ Above `private static IDictionary LoadYaml(string path)`, written with `//`.
 timeouts.yml as the nested IDictionary TimeoutsConfig takes, typed the way the module's YAML loader types it:
 a plain integer is a number, a plain float a double, a quoted scalar stays a string.
 ```
+
+## comment:3
+
+Above `Console.Out.Write(BashSafeguard.DenyOutput("Bash time safeguard hook failed,...`, written with `//`.
+
+```text
+The safeguard is a control: when it cannot decide, it denies, and the reason names why
+([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
+```

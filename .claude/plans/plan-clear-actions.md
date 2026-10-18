@@ -31,8 +31,8 @@ named in the report.
       worklist) are the specs of the open phases P2 to P8, so none is in the tree yet; trim each as its phase lands.
 - [x] `plan-module-kinds-tracks.md`: trim. Check: `Test-Links` reports 0 dangling. Done 2026-10-18: the module-model, track-type,
       track-structure and tracks-modules-types drafts are in the tree (ADR-AUTO-MODULE, ADR-DSGN-TRACKTYPE, ADR-DSGN-MODTYPE; the track-type
-      Q1 to Q5 answered by its rules, LoadedModule dropped by D03) and are cut; the k8s kinds draft stays for the kind-to-role task; 1,062 to
-      266 lines. plan-config-defaults keeps its draft too: Phases 2, 4 and 5 are open.
+      Q1 to Q5 answered by its rules, LoadedModule dropped by D03) and are cut; the k8s kinds draft stays for the kind-to-role task; 1,062
+      to 266 lines. plan-config-defaults keeps its draft too: Phases 2, 4 and 5 are open.
 - [x] The topic prompts superseded by task files (prompt-automation-layers-continue, prompt-config-defaults-continue,
       prompt-k8s-kinds-1-prepare, prompt-k8s-kinds-2-implement, prompt-adr-links-and-plans-continue) and the landed module-model prompts
       (prompt-module-model-1-prepare, prompt-module-model-2-implement): delete each once no plan links it. Check: `Test-Links` clean on

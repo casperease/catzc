@@ -15,6 +15,9 @@ guids:
   ado_build_policy_type:
     guid: 0609b952-1397-4640-95ec-e00a01b2c241
     description: Azure DevOps well-known 'Build' policy type id — the discriminator every build-validation policy carries
+  ado_approval_check_type:
+    guid: 8c6f20a7-a545-4486-9777-f762fafe0d4d
+    description: Azure Pipelines well-known 'Approval' check type id — the discriminator every environment approval check carries
   vs_csharp_project_type:
     guid: 9a19103f-16f7-4668-be54-9a1e7a4f7556
     description: Visual Studio SDK-style C# project-type id (catzc.sln)

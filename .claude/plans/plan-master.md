@@ -92,8 +92,8 @@ Open, in execution order:
   console prompt hook.
 - adr-auto-material -> task-adr-auto-material.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both):
   ADR-AUTO-MATERIAL with seven rules, registry, dora-explains, glossary term.
-- adr-link-cleanup -> task-adr-link-cleanup.md (open; steps 1 to 9 done by 2026-10-18, Phase 2 applied per D23; the 2 held files wait for
-  their sessions): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied slice by slice with
+- adr-link-cleanup -> task-adr-link-cleanup.md (done 2026-10-18; Phase 2 applied per D23 and the held files closed; task-closing-sweep
+  deletes it with its plan): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules, Phase 1 applied slice by slice with
   verification, Phase 2 per D1 to D5.
 - out-artifacts -> task-out-artifacts.md (open; done 2026-10-17 apart from the two probe batches, which the user confirms since their lists
   are gone): the areas were registered and the prune in the tree, the safeguard log never ages out, Clear-Output has its tests, out.md names

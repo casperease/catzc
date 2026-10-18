@@ -57,12 +57,13 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
       editable row of the 6,449 carries a verdict. Phase 1 is done: the `Get-AdrCodesFileMetaFact` placeholder fix is moot since 2026-10-18,
       when the file-meta pass removed the held-codes merge, so a head's codes come from the text and the comment page only
       (ADR-REPO-FILEMETA#14) and no head can hold an unregistered code.
-- [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean). 2026-10-18 (task-adr-link-cleanup step 8): the
+- [x] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean). 2026-10-18 (task-adr-link-cleanup step 8): the
       inventory, `out/inventory-source-text.ps1`, finds 6,099 pieces of text in 1,173 source files; every piece has a verdict, 6,082 stay, 2
       hold (files in use), 15 decided by D23 (2026-10-18, delegated to the domain rules) and applied: `.claude/slides` and
       `.github/workflows` joined the comment page map and their 8 runs moved to pages, the `.claude/drawio` runs stay, and the ADR index's
       text moved from Build-AdrIndex into `configs/adr-index.yml` (verdicts in task-adr-link-cleanup step 8). The threshold is 3 lines or
-      200 characters (D5), a `CommentsConfig` setting once a function reads it. Open: the 2 held files once their sessions release them.
+      200 characters (D5), a `CommentsConfig` setting once a function reads it. The 2 held files closed the same day: nothing left to move
+      in either.
 
 ## Done, and why (session report of 2026-10-16 15:23)
 
