@@ -167,8 +167,14 @@ MarkdownMetaBlock tests. `Export-Comments` keeps a `## help` section untouched: 
 move, 839 hold no help, one is unmapped, one has page findings, and after Prettier 243 of the 752 pages fail markdownlint (856 errors,
 537 of them MD033 for placeholders such as `<build>`), because the help was written as plain text inside YAML.
 
-- [ ] Decide how help text that is plain text becomes a page section (243 pages fail markdownlint as written). (check: the answer is
-      recorded under Decided)
+- [x] Decide how help text that is plain text becomes a page section (243 pages fail markdownlint as written). (check: the answer is
+      recorded under Decided) — 2026-10-18: the user decided to convert it to Markdown. `FunctionHelp.Markdown` moves YAML-indented lists to
+      the margin with blank lines around them, fences an aligned layout verbatim as `text`, writes `*word*` emphasis as `_word_`, spans a
+      placeholder, glob, bracket or placeholder URL token as code and turns a bare URL into an autolink. The first conversion took the
+      preview from 856 errors on 243 pages to 39 on 26.
+- [ ] Rerun `out/help-preview-all.sh` with the URL and spaced-placeholder rules and Prettier's prose wrap, and list what still fails for
+      its author: `Deploy-Bicep.ps1` numbers its flow 1, 3, 4 (MD029), and four code spans an author wrote with an edge space (MD038).
+      (check: `out/help-preview-lint.txt` lists only author faults)
 - [ ] `automation/Catzc.Base.QualityGates/configs/comments.yml`: map `.claude/drawio` to a page folder, so
       `.claude/drawio/minimaps/highlights.ps1` has a page for its help. (check: `out/help-preview.ps1` reports no unmapped file)
 - [ ] `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`: document `Text` and `Color`, which its help does not name.

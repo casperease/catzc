@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Names are pure and never truncated: the diagram described
+# An Azure name is a pure function of its components, and it is never truncated: the diagram described
 
 ```text
 A 1572 x 670 diagram, read top to bottom through three bands.

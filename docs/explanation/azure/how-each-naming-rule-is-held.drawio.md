@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# How each naming rule is held: the diagram described
+# Code holds all eight naming rules, seven of them behind a check that throws: the diagram described
 
 ```text
 A 1572 x 820 diagram, read top to bottom through three bands.

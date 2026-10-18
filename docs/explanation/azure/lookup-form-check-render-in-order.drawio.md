@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The namer looks up, forms, checks and renders in order: the diagram described
+# The namer looks up, forms, checks and renders a name in that order: the diagram described
 
 ```text
 A 1572 x 820 diagram, read top to bottom down one column.

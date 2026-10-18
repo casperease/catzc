@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# An address is a read-only walk: the diagram described
+# A config address is a read-only walk over the one cached config, never a second reader: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right along one band, with a second band below for the failure.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Read the session, guard, then pick the slot: the diagram described
+# Get-BicepDeploymentContext reads the session, guards it, then picks the slot: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Names are derived, never typed: the diagram described
+# Nobody types an Azure name: cats derives it, and a bad name stops with an error: the diagram described
 
 ```text
 A 1572 x 654 diagram, read top to bottom through three bands.

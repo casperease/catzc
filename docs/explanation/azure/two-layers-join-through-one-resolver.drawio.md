@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two layers join through one resolver: the diagram described
+# Templating and identity join through one shared check and one resolver: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through two bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The session is the deploy target: the diagram described
+# The az session is the deploy target, and the guard only checks it: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through two bands.

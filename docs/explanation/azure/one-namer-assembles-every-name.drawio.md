@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One namer assembles every Azure name: the diagram described
+# One resolver gathers the components and one namer assembles every Azure name: the diagram described
 
 ```text
 A 1572 x 750 diagram, read top to bottom through four bands.
