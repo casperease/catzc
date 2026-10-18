@@ -3,10 +3,10 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         Import-InternalModule TestKit
 
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} } -Files @{
-            'contracts/.gitkeep'               = "stale`n"
-            'pipelines/jobs/.gitkeep'          = ''
-            'out/.gitkeep'                     = "stale`n"
-            'out/deep/.gitkeep'                = "transient`n"
+            'contracts/.gitkeep'                              = "stale`n"
+            'pipelines/jobs/.gitkeep'                         = ''
+            'out/.gitkeep'                                    = "stale`n"
+            'out/deep/.gitkeep'                               = "transient`n"
             "$(Get-CatzcModulesFolder)/.vendor/Fake/.gitkeep" = "vendored`n"
         }
         $script:expected = "This widget folder is kept by a fixture .gitkeep.`n"

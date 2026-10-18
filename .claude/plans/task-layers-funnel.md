@@ -49,11 +49,18 @@ first; C# edits need a fresh pwsh.
    is S3 and stays). Check: that file's Pester file; a grep of the literal in the file finds nothing.
 4. (in progress 2026-10-18, module by module, the user's choice) Done and green, guard 0 per file: Azure, Azure.Cli, Azure.Firewall,
    CodeMeta, ConfigExtensions, Languages, RootConfig, TypesSystem, Vendor, Tooling.Github, Tooling.KeyHandler, Files, Git, ModuleSystem,
-   Objects, Contracts, Globs, and Repository's path tests (60 files). The rule per literal: a real path reads the resolver
-   (`Get-CatzcModulesRoot`, `Get-CatzcModulesFolder`); a fixture TestKit builds follows the real folder name; pure data and throwaway roots
-   take a neutral `widgets` path. Exempt with reasons: the two tests of the constant (Get-CatzcModulesRoot, Get-CatzcRunMode), the three
-   Exporter tests (Q6 out/ areas), PipelineTrigger-Integrity (the real globset key, S6). Left: QualityGates, Docs, Azure.Templates,
-   .scriptanalyzer, .internal; Variants, VSCode and Get-CatzcOverlayRoot's test wait for their holding sessions. Original step:
+   Objects, Contracts, Globs, Repository's path tests, Azure.Templates (26), Docs (16), QualityGates (52), .scriptanalyzer, .internal. The
+   rule per literal: a real path reads the resolver (`Get-CatzcModulesRoot`, `Get-CatzcModulesFolder`); a fixture TestKit builds, or code
+   that reads the resolver over a throwaway root, follows the real folder name or mocks `Get-CatzcModulesFolder` to a neutral one; pure data
+   takes a neutral `widgets` path. The bare place alone is flagged only where a path is built (Join-Path, Resolve-RepoPath, Get-ChildPath,
+   Path.Combine), so an ADR domain or layer named `automation` is no hit. Exempt with reasons: the two tests of the constant
+   (Get-CatzcModulesRoot, Get-CatzcRunMode), the three Exporter tests (Q6 out/ areas), PipelineTrigger-Integrity (the real globset key, S6).
+   Code sites the guard cannot see (the place inside a regex or a here-string) were fixed on the way: Get-ChangeTestFile,
+   Get-ImprintStepFile, Test-InIsolation, Test-Markdownlint. Still open: types/CommentsConfig.Tests.ps1 lines 11 and 42-55 test the C#
+   default `automation/*` and move with the C# constants (step 3); messages that name the folder in prose (Builder, Get-ModuleGlobSet,
+   Get-FileLanguage, Get-Track, Assert-ManagedGuid, Export-SpellingTriage, Clear-ModuleTypeCache, Get-UncoveredInternalAssetDependency,
+   Get-ReadmeMappings) read `Get-CatzcModulesFolder` before P4; Variants, VSCode and Get-CatzcOverlayRoot's test wait for their holding
+   sessions. Original step:
    Test fixtures that bake `<root>/automation`: a root from the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.
 5. S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment page regenerated. Check: Test-Links,
    Test-Comments on the touched files.

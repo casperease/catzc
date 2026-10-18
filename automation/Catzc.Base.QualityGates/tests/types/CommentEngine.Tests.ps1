@@ -37,7 +37,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $result.Text | Should -Not -Match 'Sorted first'
         ($result.Text -split "`n") | Should -Contain '    $widgets = Get-Gadget | Sort-Object   # a trailing note stays'
         ($result.Text -split "`n") | Should -Contain '    # One line stays.'
-        $result.PageText.StartsWith("# automation/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file that outgrew one line") | Should -BeTrue -Because 'the title is the file the page belongs to'
+        $result.PageText.StartsWith("# widgets/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file that outgrew one line") | Should -BeTrue -Because 'the title is the file the page belongs to'
         $section = "## comment:1`n`nAbove ``" + '$widgets = Get-Gadget | Sort-Object   # a trailing note stays' + "``, written with ``#``.`n`n" + '```text' + "`nSorted first, so the gadget order is stable`nacross runs and the cache key never changes.`n" + '```'
         $result.PageText.Contains($section) | Should -BeTrue -Because 'a section names its code line and fences the prose, indent stripped'
     }
@@ -135,7 +135,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $result = & $export $yaml '.yml' 'yaml'
         $result.MovedCount | Should -Be 2
         $result.Text | Should -BeExactly "# cspell:ignore gadgt`ngadgt: 1`n"
-        $result.PageText.Contains("# automation/Catzc.Widget/Get-Widget.ps1`n`n<!-- cspell:ignore gadgt -->`n") | Should -BeTrue -Because 'the page ignores what the file ignores'
+        $result.PageText.Contains("# widgets/Catzc.Widget/Get-Widget.ps1`n`n<!-- cspell:ignore gadgt -->`n") | Should -BeTrue -Because 'the page ignores what the file ignores'
     }
 
     It 'merges the ignored words into an existing page once' -Tag 'ADR-REPO-COMMENTS#2' {

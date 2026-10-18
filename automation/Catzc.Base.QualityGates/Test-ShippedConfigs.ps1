@@ -8,7 +8,8 @@ function Test-ShippedConfigs {
     )
 
     $issues = [System.Collections.Generic.List[string]]::new()
-    $registry = (Get-Config -Config configs).configs
+    $registryConfig = Get-Config -Config configs
+    $registry = $registryConfig.configs
 
     $shipped = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $configCount = 0
@@ -32,6 +33,26 @@ function Test-ShippedConfigs {
             }
             catch {
                 $issues.Add("$moduleName/configs/$name.yml: does not load — $($_.Exception.Message)")
+                continue
+            }
+            # The shipped file shows the defaults its type declares; a key may differ only with its reason in configs.yml (ADR-AUTO-DEFAULT#6).
+            $raw = Get-Content -LiteralPath $file -Raw | ConvertFrom-Yaml -Ordered
+            $reasons = if ($registryConfig.differs.ContainsKey($name)) {
+                $registryConfig.differs[$name]
+            }
+            $differing = @(if ($raw -is [System.Collections.IDictionary]) {
+                    [Catzc.Base.Config.ConfigDefaultDifference]::Compare(($registry[$name] -as [type]), $raw)
+                })
+            foreach ($difference in $differing) {
+                if (-not ($reasons -and $reasons.ContainsKey($difference.key))) {
+                    $issues.Add("$moduleName/configs/$name.yml: '$($difference.key)' ships '$($difference.shipped)' where its type's default is '$($difference.declared)' — match them, or give the reason under differs in configs.yml")
+                }
+            }
+            $differingKeys = @($differing | ForEach-Object { $_.key })
+            foreach ($listed in @(if ($reasons) { $reasons.Keys })) {
+                if ($listed -notin $differingKeys) {
+                    $issues.Add("configs.yml: '$name' differs '$listed', but the shipped value and the type's default agree — remove the entry")
+                }
             }
         }
     }

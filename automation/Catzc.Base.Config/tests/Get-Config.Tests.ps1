@@ -231,7 +231,7 @@ namespace CatzcGetConfigTest {
             $thrown = { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ a = @{ module = 'X' }; b = @{ type = 'Foo'; pwsh = 'Bar' }; c = $null } }) } |
                 Should -Throw -PassThru
             $thrown.Exception.Message | Should -BeLike "*config 'a': an entry must specify a 'type'*"
-            $thrown.Exception.Message | Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type, overridable)*"
+            $thrown.Exception.Message | Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type, overridable, differs)*"
             $thrown.Exception.Message | Should -BeLike "*config 'c': an entry must specify a 'type'*"
         }
 
@@ -243,6 +243,32 @@ namespace CatzcGetConfigTest {
                     }
                 })
             @($registry.sealedConfigs) | Should -Be @('gadget')
+        }
+
+        It 'reads each key a shipped value may differ on with its reason, and rejects a blank reason or a list' -Tag 'ADR-AUTO-DEFAULT#6' {
+            $registry = [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{
+                        widget = @{ type = 'Tst.Widget'; differs = [ordered]@{ size = 'The widgets ship large.' } }
+                        gadget = @{ type = 'Tst.Gadget' }
+                    }
+                })
+            $registry.differs['widget']['size'] | Should -BeExactly 'The widgets ship large.'
+            $registry.differs.ContainsKey('gadget') | Should -BeFalse
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget'; differs = @{ size = ' ' } } } }) } |
+                Should -Throw "*config 'widget': differs 'size' needs its reason*"
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget'; differs = @('size') } } }) } |
+                Should -Throw "*config 'widget': differs must be a map*"
+        }
+
+        It 'compares a shipped key with the type''s Default constant of that key, scalars only' -Tag 'ADR-AUTO-DEFAULT#6' {
+            $type = [Catzc.Base.Variants.VariantsConfig]
+            $same = [Catzc.Base.Config.ConfigDefaultDifference]::Compare($type, [ordered]@{ ado_naming = 'standard'; have_customers = $false })
+            @($same).Count | Should -Be 0
+            $differs = @([Catzc.Base.Config.ConfigDefaultDifference]::Compare($type, [ordered]@{ ado_naming = 'gadget'; tracks = @{ widgets = @{} }; widget_size = 3 }))
+            $differs.Count | Should -Be 1
+            $differs[0].key | Should -BeExactly 'ado_naming'
+            $differs[0].shipped | Should -BeExactly 'gadget'
+            $differs[0].declared | Should -BeExactly 'standard'
+            [Catzc.Base.Config.ConfigDefaultDifference]::Pascal('have_customers') | Should -BeExactly 'HaveCustomers'
         }
 
         It 'rejects an overridable that is not true or false' {

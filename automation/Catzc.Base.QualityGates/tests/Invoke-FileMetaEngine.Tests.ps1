@@ -25,6 +25,11 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
             })
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
         Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widgets' }
+        Mock Get-PathModule -ModuleName Catzc.Base.QualityGates {
+            if ($Path -match '^widgets/(?<name>[^/.][^/]*)/') {
+                [pscustomobject]@{ name = $Matches['name'] }
+            }
+        }
         $script:widgetKinds = [ordered]@{
             'file-path'   = @{ keys = @('path') }
             'module-name' = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
