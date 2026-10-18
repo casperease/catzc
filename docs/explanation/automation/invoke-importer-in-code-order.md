@@ -87,13 +87,6 @@ The diagram is described element by element in [its asset description](invoke-im
 - A bundle runs the same `Invoke-Importer`, so the types load before any module in both modes (ADR-AUTO-BUNDLE#3).
 - Loading sets the global error and warning preferences, because a bundle is a session, not a library (ADR-AUTO-BUNDLE#8).
 
-## Where the code and the ADR differ
-
-The code and the ADR agree on this sequence; two comments in `Catzc.Internal.Importer.psm1` lag behind the code. The comment on
-`-SkipJanitors` names four janitors, while the switch skips all eleven calls and the network-share check. The help block written for
-`Write-LoadTimeSummary` sits above `Invoke-TypeCacheJanitor`, which therefore carries two help blocks while `Write-LoadTimeSummary` has
-none.
-
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.

@@ -79,8 +79,7 @@ The diagram is described element by element in [its asset description](callers-i
 ## Where the code and the ADR differ
 
 - The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
-- The help texts of `Get-ConfigValue`, `Resolve-ConfigKeyPath` and `Write-EnvironmentSet` cite the addressing ADR by its file name, not by
-  `ADR-CONF-ADDRESSING`.
+- The help text of `Write-EnvironmentSet` cites the addressing ADR by its file name, not by `ADR-CONF-ADDRESSING`.
 
 ## See also
 

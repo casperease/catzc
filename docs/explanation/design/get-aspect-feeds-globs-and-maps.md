@@ -102,10 +102,11 @@ The diagram is described element by element in [its asset description](get-aspec
 
 ## Where the code and the ADR differ
 
-- The comment on the aspect type names `Get-ModuleAspect` as the PowerShell side that builds the sets; `Get-ModuleGlobSet` does it, and no
-  function of that name exists.
+- The reference page of the aspect type (`Aspect.cs.md`) names `Get-ModuleAspect` as the PowerShell side that builds the sets;
+  `Get-ModuleGlobSet` does it, and no function of that name exists.
 - The ADR prefixes every aspect pattern with the unit root; the derived `tests` set adds the language test folders outside it.
-- The comment on the aspect type says the last aspect is non-live by rule; the infrastructure entry declares `live` last.
+- The reference page of the aspect type (`Aspect.cs.md`) says the last aspect is non-live by rule; the infrastructure entry declares `live`
+  last.
 
 ## See also
 

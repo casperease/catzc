@@ -93,8 +93,7 @@ The diagram is described element by element in [its asset description](type-an-a
 
 ## Where the code and the ADR differ
 
-The help texts of `Get-ConfigValue`, `Resolve-ConfigKeyPath` and `Write-EnvironmentSet` cite the addressing ADR by its file name, not by
-`ADR-CONF-ADDRESSING`.
+The help text of `Write-EnvironmentSet` cites the addressing ADR by its file name, not by `ADR-CONF-ADDRESSING`.
 
 ## See also
 

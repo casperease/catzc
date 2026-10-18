@@ -36,7 +36,7 @@ function Get-EnabledCustomers {
     [CmdletBinding()]
     param()
 
-    $value = Get-Variant -Name have_customers -Default $false
+    $value = Get-Variant -Name have_customers
 
     if ($value -is [bool]) {
         if ($value) {

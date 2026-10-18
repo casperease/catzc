@@ -79,12 +79,6 @@ destination; a failure there throws the same message.
 - A devbox build carries the `6.6.666` placeholder with a yellow notice, and a pipeline build gets a calculated version that needs the full
   history (ADR-AUTO-BUNDLE#7).
 
-## Where the code and the ADR differ
-
-- The Release workflow uploads `out/catzc-nuget/*.nupkg` and fails when no file matches, but `Export-Catzc -To nuget` writes to
-  `out/automation/packages/`.
-- The Release workflow checks out without the full history, so a pipeline export there meets the shallow-clone throw.
-
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.

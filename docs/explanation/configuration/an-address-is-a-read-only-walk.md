@@ -73,8 +73,7 @@ The diagram is described element by element in [its asset description](an-addres
 
 ## Where the code and the ADR differ
 
-- The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
-- The help text of `Get-ConfigValue` cites the addressing ADR by its file name and a stale short code, not by `ADR-CONF-ADDRESSING`.
+The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
 
 ## See also
 

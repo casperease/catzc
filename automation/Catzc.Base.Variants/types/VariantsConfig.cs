@@ -43,18 +43,27 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex PlacePath = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex TrackTypeName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
-    // Azure resource-name component order: 'standard' or 'classic'. Null when unset.
+    // The defaults, declared once here and nowhere else (ADR-AUTO-DEFAULT#6): a getter reads the typed property and never restates them.
+    public const string DefaultAdoNaming = "standard";
+    public const string DefaultGitWorkspace = "main-direct";
+    public const bool DefaultHaveCustomers = false;
+
+    // The built-in aspect convention of a track that declares none of its own: a deployment ships everything but an explicit tests/ folder.
+    public static IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> DefaultAspects =>
+        ReadAspects(new Hashtable { ["infrastructure"] = new object[] { new Hashtable { ["tests"] = new object[] { "**/tests/**" } }, new Hashtable { ["live"] = new object[] { "**" } } } }, new List<string>());
+
+    // Azure resource-name component order: 'standard' or 'classic'.
     public string ado_naming { get; }
 
-    // How changes reach main: 'main-direct' or 'main-via-pr'. Null when unset.
+    // How changes reach main: 'main-direct' or 'main-via-pr'.
     public string git_workspace { get; }
 
     public object have_customers { get; }
 
-    // Per-track ordered aspect classifications. Null when unset.
+    // Per-track ordered aspect classifications: the declared ones over the built-in ones, a declared track replacing its built-in.
     public IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> aspects { get; }
 
-    // The repository's tracks, in declared order. Null when unset.
+    // The repository's tracks, in declared order. Required: a repository with no tracks fails at construction.
     public IReadOnlyList<VariantTrack> tracks { get; }
 
     public VariantsConfig(IDictionary d)
@@ -72,25 +81,40 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        if (Has(d, "ado_naming"))
+        ado_naming = DefaultAdoNaming;
+        git_workspace = DefaultGitWorkspace;
+        have_customers = DefaultHaveCustomers;
+
+        if (Present(d, "ado_naming"))
         {
             string value = Text(d["ado_naming"]);
             if (value == "standard" || value == "classic") { ado_naming = value; }
             else { errors.Add(string.Format("invalid ado_naming '{0}' (valid: standard, classic)", value)); }
         }
 
-        if (Has(d, "git_workspace"))
+        if (Present(d, "git_workspace"))
         {
             string value = Text(d["git_workspace"]);
             if (value == "main-direct" || value == "main-via-pr") { git_workspace = value; }
             else { errors.Add(string.Format("invalid git_workspace '{0}' (valid: main-direct, main-via-pr)", value)); }
         }
 
-        if (Has(d, "have_customers")) { have_customers = ReadCustomers(d["have_customers"], errors); }
+        if (Present(d, "have_customers")) { have_customers = ReadCustomers(d["have_customers"], errors); }
 
-        if (Has(d, "aspects")) { aspects = ReadAspects(d["aspects"], errors); }
+        Dictionary<string, IReadOnlyList<VariantAspect>> mergedAspects = new Dictionary<string, IReadOnlyList<VariantAspect>>(StringComparer.Ordinal);
+        foreach (KeyValuePair<string, IReadOnlyList<VariantAspect>> builtIn in DefaultAspects) { mergedAspects[builtIn.Key] = builtIn.Value; }
+        if (Present(d, "aspects"))
+        {
+            IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> declared = ReadAspects(d["aspects"], errors);
+            if (declared != null) { foreach (KeyValuePair<string, IReadOnlyList<VariantAspect>> track in declared) { mergedAspects[track.Key] = track.Value; } }
+        }
+        aspects = mergedAspects;
 
-        if (Has(d, "tracks")) { tracks = ReadTracks(d["tracks"], errors); }
+        if (Present(d, "tracks")) { tracks = ReadTracks(d["tracks"], errors); }
+        else
+        {
+            errors.Add("this repository declares no tracks; add tracks: to variants.yml or the repository's fragment of it");
+        }
 
         if (errors.Count > 0)
         {
@@ -99,6 +123,9 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     }
 
     private static bool Has(IDictionary d, string key) => d != null && d.Contains(key);
+
+    // A key counts as stated when it is there and not null, so an omitted key and a null one take the same default.
+    private static bool Present(IDictionary d, string key) => Has(d, key) && d[key] != null;
 
     private static string Text(object value) => value == null ? "" : value.ToString();
 

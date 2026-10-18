@@ -79,7 +79,8 @@ The diagram is described element by element in [its asset description](each-trac
 - The ADR partitions every delivery package at track granularity by the same convention. In the code, only the module folders of the
   automation track are compiled into aspect sets; the infrastructure convention is read and classifies files as live or not, but no set is
   derived from it.
-- The code comment on the aspect type says the last aspect is non-live by rule; the infrastructure track declares `live` last.
+- The reference page of the aspect type (`Aspect.cs.md`) says the last aspect is non-live by rule; the infrastructure track declares `live`
+  last.
 
 ## See also
 

@@ -65,8 +65,8 @@ The diagram is described element by element in [its asset description](three-vie
 
 ## Where the code and the ADR differ
 
-The ADR says nothing is committed per set, and the code commits nothing. The `globs.yml` header and the help text of the hash function still
-speak of a per-set "marker" and its SHA.
+The ADR says nothing is committed per set, and the code commits nothing. The help text of the hash function, `Get-GlobSetHash`, still speaks
+of a per-set "marker" and its SHA.
 
 ## See also
 

@@ -89,8 +89,8 @@ The diagram is described element by element in [its asset description](only-auto
 
 - The ADR partitions every delivery package at track granularity by the same convention, and says a track's `-live` and `-tests` packages
   use it when derived. No code derives them: the compiler runs only for `automation/<Module>` roots, and Maps classifies without deriving.
-- The comment on the aspect type names `Get-ModuleAspect` as the PowerShell side that builds the sets; that function does not exist, and
-  `Get-ModuleGlobSet` builds them.
+- The reference page of the aspect type (`Aspect.cs.md`) names `Get-ModuleAspect` as the PowerShell side that builds the sets; that
+  function does not exist, and `Get-ModuleGlobSet` builds them.
 - The ADR prefixes every aspect pattern with the unit root; the derived `tests` set also reaches the language test folders outside it.
 
 ## See also

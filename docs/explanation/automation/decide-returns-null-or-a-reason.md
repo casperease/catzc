@@ -87,9 +87,8 @@ The diagram is described element by element in [its asset description](decide-re
 
 ## Where the code and the ADR differ
 
-- The ADR states that an agent cannot start a shell call that has no limit. A hook error, a payload that is not JSON for instance, exits 1
-  as a non-blocking error and the call goes ahead; so does an unbuilt hook.
-- The hook reads `timeouts.yml` with its own YAML loader, while the file's header says it is loaded by `Get-Config`.
+The ADR states that an agent cannot start a shell call that has no limit. A hook error, a payload that is not JSON for instance, exits 1 as
+a non-blocking error and the call goes ahead; so does an unbuilt hook.
 
 ## See also
 

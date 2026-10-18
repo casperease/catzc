@@ -35,5 +35,5 @@ function Get-GitWorkspace {
     [OutputType([string])]
     param()
 
-    "$(Get-Variant -Name git_workspace -Default 'main-direct')"
+    "$(Get-Variant -Name git_workspace)"
 }

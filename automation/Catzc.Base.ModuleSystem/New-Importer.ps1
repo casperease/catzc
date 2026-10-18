@@ -61,7 +61,10 @@ function New-Importer {
 
     Assert-SourceTree
 
-    $overlayPath = Join-Path $RepositoryRoot 'automation/.internal/Catzc.Internal.Importer.psm1'
+    # The modules folder, relative to the root, as the importer's one constant set it (read back through the resolver), so this
+    # generator names no folder of its own and the shim it writes spells the folder from the same place.
+    $modulesFolder = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot), (Get-CatzcModulesRoot)) -replace '\\', '/'
+    $overlayPath = Join-Path $RepositoryRoot "$modulesFolder/.internal/Catzc.Internal.Importer.psm1"
     if (-not (Test-Path -LiteralPath $overlayPath -PathType Leaf)) {
         throw "New-Importer: overlay not found at '$overlayPath' — the repository must carry the .internal toolset first."
     }
@@ -97,7 +100,7 @@ function New-Importer {
 
     $explanation = @'
 # This shim carries only the importer's outer parameter form and delegates the whole load sequence to
-# Invoke-Importer in automation/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
+# Invoke-Importer in {{modules-folder}}/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
 # dot-sourced (. ./importer.ps1), so its $global:/$env: effects land in the caller's session.
 '@
 
@@ -110,7 +113,7 @@ $env:RepositoryRoot = $PSScriptRoot
 # Load the .internal shared-code loader (the one module imported by path), then the importer overlay, and
 # delegate. Catzc.Internal.Importer is import-time orchestration — remove it once the load returns. -Verbose is
 # for Invoke-Importer's state-change record, not these imports' per-function detail.
-Import-Module (Join-Path $PSScriptRoot 'automation/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force -Verbose:$false
+Import-Module (Join-Path $PSScriptRoot '{{modules-folder}}/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force -Verbose:$false
 Import-InternalModule Importer -Force -Verbose:$false
 try {
     Invoke-Importer @PSBoundParameters
@@ -120,7 +123,7 @@ finally {
 }
 '@
 
-    $content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"
+    $content = ($explanation + "`n" + $paramBlock + "`n`n" + $body + "`n").Replace('{{modules-folder}}', $modulesFolder)
 
     if ($DryRun) {
         return $content

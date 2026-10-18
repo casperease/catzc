@@ -84,12 +84,6 @@ The bash entry, `importer.sh`, is not a third load path: its `cats` dispatcher s
 - A bundle loads by running the one living importer in its `-Bundle` mode, never a forked bootstrap, so the types and their accelerators
   register before any module loads in both modes (ADR-AUTO-BUNDLE#3).
 
-## Where the code and the ADR differ
-
-The ADR and `Import-Catzc.ps1` agree that a build's code root is the build's own folder. The help text and comments of `Invoke-Importer`
-still say that the build's `Catzc.psm1` pre-sets the code root to "the bundle's own automation/"; in the code, `Catzc.psm1` only dot-sources
-`Import-Catzc.ps1`, which sets it.
-
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.

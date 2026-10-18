@@ -92,8 +92,7 @@ The diagram is described element by element in [its asset description](strip-spl
 ## Where the code and the ADR differ
 
 - A key cannot contain a dot, because `Get-ConfigValue` splits the whole address on every dot; the ADR's grammar does not say so.
-- The help text of `Get-ConfigValue` cites the addressing ADR by its file name and a stale short code, not by `ADR-CONF-ADDRESSING`; the
-  help texts of `Resolve-ConfigKeyPath` and `Write-EnvironmentSet` cite the file name as well.
+- The help text of `Write-EnvironmentSet` cites the addressing ADR by its file name, not by `ADR-CONF-ADDRESSING`.
 
 ## See also
 

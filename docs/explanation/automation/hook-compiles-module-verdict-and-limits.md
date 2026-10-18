@@ -85,7 +85,6 @@ The diagram is described element by element in [its asset description](hook-comp
   pipeline itself with `BashSafeguard.EnvironmentOf`, a second copy of the one pipeline-detection test; an L0 test checks the two agree.
 - The hook carries pipeline limits and a pipeline escalation, but the importer never publishes the hook in a pipeline, so in a pipeline it
   is absent.
-- The hook reads `timeouts.yml` with its own YAML loader, while the file's header says it is loaded by `Get-Config`.
 
 ## See also
 

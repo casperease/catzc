@@ -190,6 +190,10 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       Test-Comments on the four files) — 2026-10-18: done with catzc-ff's go-ahead, plus `VscodeOwnExtension.cs` and
       `New-VSCodeExtensionFolder.Tests.ps1` it added today; Test-Links and Test-Comments pass, no head changes, the tests pass.
       `New-VSCodeExtensionFolder.ps1` has help, so the pass's `-RestsOn` carries its `ADR-AUTO-ASSETDEP#1` once the measurement runs again.
+- [x] A dry run of `out/one-pass.ps1` before the five edits. (check: every file with help moves or is refused for a named reason) —
+      2026-10-18 12:23, after a fresh measurement (66 held-only codes: 65 in 54 help files, carried by `-RestsOn`; one, `ADR-REPO-LINK#9`
+      in `CodeLinkRewriter.cs`, names no rule) and a fix for an empty `-RestsOn` list arriving as `$null`: 755 files move, 2 are refused
+      (`.claude/drawio/minimaps/highlights.ps1` and `stamp.ps1`, no page mapped, which edit 5 settles).
 - [ ] The user reviews `out/one-pass.ps1` before it runs (drafted, never run: lists the five edits that land first, moves the help with
       `-RestsOn` from `out/held-links.tsv` and `-Go` only, formats the pages, runs `Format-FileMeta` and six gates, logging to
       `out/one-pass.log`). (check: the user's go-ahead)

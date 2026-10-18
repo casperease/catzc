@@ -76,11 +76,12 @@ The diagram is described element by element in [its asset description](gate-chec
 
 ## Where the code and the ADR differ
 
-- The ADR makes the partition invariant an integrity check over `git ls-files`, and the type's comment calls `AspectPartition.Validate` the
-  integrity check; no gate runs it on the real tree.
+- The ADR makes the partition invariant an integrity check over `git ls-files`, and the type's reference page (`Aspect.cs.md`) says
+  `AspectPartition.Validate` re-checks for the integrity gate; no gate runs it on the real tree.
 - The ADR partitions every delivery package at track granularity by the same convention; no code derives a track's delivery packages, and
   the infrastructure convention only classifies files for the world map.
-- The comment on the aspect type says the last aspect is non-live by rule; the infrastructure track declares `live` last.
+- The reference page of the aspect type (`Aspect.cs.md`) says the last aspect is non-live by rule; the infrastructure track declares `live`
+  last.
 
 ## See also
 

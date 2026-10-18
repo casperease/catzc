@@ -21,6 +21,11 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
+# The one bootstrap constant: the folder under the repository root that holds the modules. It is read before any registry
+# loads, so it cannot come from one; everything after the import reads it back through Get-CatzcModulesRoot, and
+# New-Importer writes the shim's loader line from that resolver (ADR-AUTO-LAYERS).
+$script:ModulesFolder = 'automation'
+
 function Invoke-Importer {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Importer console output runs before the module system (Write-Message) is available')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: $global:__CatzcLoadTimings is the cross-module load-timing collector created here under -DiagnoseLoadTime, appended to by the Bootstrap loaders across module imports, and summarized at the end — it must be global to survive across those imports (Bootstrap.psm1 carries the same suppression)')]
@@ -71,7 +76,6 @@ function Invoke-Importer {
     $global:VerbosePreference = 'SilentlyContinue'
     try {
         # Configuration
-        $automationFolder = 'automation'
         $vendorFolder = '.vendor'
 
         # Global error handling — fail fast on errors and warnings by default
@@ -93,7 +97,7 @@ function Invoke-Importer {
             $modulesRoot = $env:CatzcModulesRoot
         }
         else {
-            $modulesRoot = Join-Path $repoRoot $automationFolder
+            $modulesRoot = Join-Path $repoRoot $script:ModulesFolder
         }
         $env:CatzcModulesRoot = $modulesRoot
         Write-Verbose "CatzcModulesRoot: $modulesRoot"
@@ -230,11 +234,11 @@ function Invoke-ConsumerOverlay {
         [string] $RepositoryRoot
     )
 
-    if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc', 'automation'))) {
+    if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc', $script:ModulesFolder))) {
         return
     }
     if (-not (Get-Command Import-CatzcOverlay -ErrorAction Ignore)) {
-        throw "The working root '$RepositoryRoot' has a consumer overlay (.catzc/automation/), but this bundle does not carry Catzc.Base.Overlay, which applies it. Use a bundle whose profile includes Catzc.Base.Overlay, or remove the overlay."
+        throw "The working root '$RepositoryRoot' has a consumer overlay (.catzc/$($script:ModulesFolder)/), but this bundle does not carry Catzc.Base.Overlay, which applies it. Use a bundle whose profile includes Catzc.Base.Overlay, or remove the overlay."
     }
     $applied = @(Import-CatzcOverlay)
     $overrides = @($applied | Where-Object { $_.Kind -eq 'FunctionOverride' }).Count

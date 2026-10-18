@@ -89,7 +89,7 @@ The diagram is described element by element in [its asset description](what-keep
 ## Where the code and the ADR differ
 
 - The analyzer map credits `NoAzModuleNaming` to ADR-AZ-CLI#3, which forbids `Import-Module Az.*`, but the rule checks function names, not
-  imports. Its comment also names a `Verb-AzBicep*` prefix, while the real Bicep checks are named `*-AzCliBicep`.
+  imports.
 - The pipeline step template still offers `Mode: azps` (AzurePowerShell@5), and the CI pipeline exercises it, beside ADR-AZ-CLI's az-first
   rule.
 - The ADR says consumers call `Get-Azure*` and `New-*` verbs; the only `New-*` function in the Azure modules is `New-AdoPullRequest`, and

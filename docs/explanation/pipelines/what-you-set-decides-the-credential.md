@@ -79,10 +79,8 @@ a verbatim fragment of its message; the full messages are quoted below.
 
 ## Where the code and the ADR differ
 
-- The ADR's step-template sample shows only the `PowerShell@2` task, while `invoke-automation.yaml` maps the token in all three Modes
-  (`PowerShell@2`, `AzureCLI@2` and `AzurePowerShell@5`).
-- The template's header comment says no credentials leak to environment variables in any mode, yet `ExposeAccessToken` maps
-  `SYSTEM_ACCESSTOKEN` as an environment variable, as ADR-PIPE-AUTH#6 requires.
+The ADR's step-template sample shows only the `PowerShell@2` task, while `invoke-automation.yaml` maps the token in all three Modes
+(`PowerShell@2`, `AzureCLI@2` and `AzurePowerShell@5`).
 
 ## See also
 
