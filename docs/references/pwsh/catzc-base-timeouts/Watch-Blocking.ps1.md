@@ -20,9 +20,12 @@ The closing line is Write-Message -Warning, not the Write-Warning cmdlet: the im
 terminate where this must let go. A watchpoint is a diagnostic — it costs its full duration on every run and is removed once the block it
 found is bounded (Invoke-WithTimeout, a timeouts.yml entry).
 
-It rests on [ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-nevercatchassertions) and
-[ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait). It is the watchpoint of
-[ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-watchpointthenbound), in its pwsh form
+It rests on
+[ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-nevercatchassertions) and
+[ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait). It is the
+watchpoint of
+[ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-watchpointthenbound), in
+its pwsh form
 [ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-watchblockingbehindswitch).
 
 ### parameter `Seconds`

@@ -38,9 +38,9 @@ by naming which public functions are contracted. Every later plan speaks this vo
       `automation` form leaves the layer family. The user's go first (check: Test-Pipelines, Test-Contracts and Test-Glossary clean; the
       triggers fire on the next push after the user re-points the bindings).
 - [x] P7: decided by the user 2026-10-18 (D26, D27) and landed (task-command-contracts): five dead functions left the tree, the Test/Assert
-      pair halves and debug writers stay exported, the how-to-named commands the grammar can state are contracted; `CONTRACTS issues=0`,
-      65 contracted commands. The parameter-set grammar and the QualityGateResult gate contracts landed too (task-command-contracts
-      steps 8 and 9); the test runners return TestRunResult and IsolationRunResult and are contracted.
+      pair halves and debug writers stay exported, the how-to-named commands the grammar can state are contracted; `CONTRACTS issues=0`, 65
+      contracted commands. The parameter-set grammar and the QualityGateResult gate contracts landed too (task-command-contracts steps 8 and
+      9); the test runners return TestRunResult and IsolationRunResult and are contracted.
 
 ## Stop and ask when
 
@@ -96,9 +96,9 @@ sensible defaults and no new registry (ADR-PRIN-CONFIG, ADR-AUTO-DEFAULT-ONERESO
   3. entry files follow the mix (`importer.sh` is only generated and mentioned when a POSIX engine is in the mix);
   4. languages beyond powershell and csharp: **throw `NotImplemented` when configured** (the pattern of
      ADR-REPO-CONTRACT-CONFIGUREDADDRESSING); switched on only once proven from every engine.
-- **Per-language facts** that the importer needs (`build`, `test`, `layout` handlers) belong in `languages.yml` beside `formatter`,
-  `checks` and `executable`. Whether `FileLanguage` rejects unknown keys is **unverified**; a new key needs the type edit first (C# change,
-  fresh `pwsh`).
+- **Per-language facts** that the importer needs (`build`, `test`, `layout` handlers) belong in `languages.yml` beside `formatter`, `checks`
+  and `executable`. Whether `FileLanguage` rejects unknown keys is **unverified**; a new key needs the type edit first (C# change, fresh
+  `pwsh`).
 
 | Phase | Work                                                                                                                                             |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------ |

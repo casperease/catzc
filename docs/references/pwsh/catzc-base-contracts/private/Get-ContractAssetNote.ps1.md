@@ -12,8 +12,8 @@ Reads a contract asset's note: the header comment its file carries, as one line 
 ### description
 
 The note is what an asset says about itself, in the one place it can say it without changing what its check compares
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)). Build-ContractReference lists it per asset. By
-the asset's format (Get-ContractDataFormat):
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)).
+Build-ContractReference lists it per asset. By the asset's format (Get-ContractDataFormat):
 
 - a YAML asset (a fragment or a sample payload): the leading run of '#' comment lines, which parsing ignores. The run ends at the first line
   that is not a comment, a blank line included;

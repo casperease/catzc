@@ -54,8 +54,8 @@ state-changing responsibility, and it verifies the session targets the configure
 Checking that a template is internally consistent and conforms to the model — that its configuration sits under defined subscriptions
 serving the right environments, that its class and slots are valid, that its name renders within budget, and that every parameters file it
 renders satisfies the parameter model of its compiled `main.json` (see
-[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)). This is the guard the integrity tests run across every shipped
-template.
+[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)). This is the guard the integrity tests run across
+every shipped template.
 
 ## What the module does
 
@@ -71,7 +71,8 @@ extension hooks at the right moments — preparation merges global configuration
 hooks bracket the deployment — which is how a template injects a secret reference or provisions a queue without that logic leaking into the
 engine (see [prepost-extension-modules](../../adr/pwsh/prepost-extension-modules.md)). A value that belongs to the repository rather than to
 one template, such as the policy enforcement mode, needs no hook: a template's configuration names it by its config address, and build
-renders the addressed value into the parameter file (see [data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress) and
+renders the addressed value into the parameter file (see
+[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress) and
 [config-value-addressing](../../adr/configuration/config-value-addressing.md)). Deploy leans on the session-verification checks before it
 acts, so a deployment can never run against the wrong subscription.
 

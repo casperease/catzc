@@ -11,10 +11,10 @@ Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the ADR registry (Get-Config
--Config adrs, an AdrsConfig) and the ADR files it registers. An ADR rule file is a `docs/adr/**/*.md` that declares a `## Rules: <code>`
-registry; the other files there (the generated index and glossary, each domain's dora-explains.md, a folder's index.md or README.md) carry
-none and are out of scope. It collects an issue when:
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the ADR
+registry (Get-Config -Config adrs, an AdrsConfig) and the ADR files it registers. An ADR rule file is a `docs/adr/**/*.md` that declares a
+`## Rules: <code>` registry; the other files there (the generated index and glossary, each domain's dora-explains.md, a folder's index.md or
+README.md) carry none and are out of scope. It collects an issue when:
 
 - a rule set has no file `docs/adr/<domain>/**/<slug>.md`, or more than one;
 - a rule set's file does not head its registry `## Rules: <External>` with the registered external code;

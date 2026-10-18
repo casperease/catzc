@@ -45,8 +45,8 @@ artifact (one assembly for the whole repository) and lives there on purpose. Onl
 
 ### Rule ADR-REPO-OUTDIR-ONECLEANCOMMAND
 
-Cleaning all output is one command: `Clear-Output -All`, which keeps only the folder's `.gitkeep` and the plan files (ADR-REPO-OUTDIR-PLANNOTES).
-CI and developers use the same command.
+Cleaning all output is one command: `Clear-Output -All`, which keeps only the folder's `.gitkeep` and the plan files
+(ADR-REPO-OUTDIR-PLANNOTES). CI and developers use the same command.
 
 - [Decision](#decision)
 
@@ -57,7 +57,8 @@ The spell-checker dictionaries generated from the terminology registry are NOT c
 `configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at a
 fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
 word lists, the folder's `.gitignore` (a managed root-config copy), and its `README.md` (a generated link); only the `.gitkeep` keeping the
-folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-REPO-OUTDIR-COMPILEDPREBUILD.
+folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of
+ADR-REPO-OUTDIR-COMPILEDPREBUILD.
 
 - [Decision](#decision)
 
@@ -131,15 +132,15 @@ Locally this is `{RepositoryRoot}/out`; in an Azure DevOps pipeline it is `$env:
 Scratch files use the system temp directory.
 
 Two classes of generated file live in the source tree rather than under `out/`. One is committed: the combined compiled-type prebuild
-(ADR-REPO-OUTDIR-COMPILEDPREBUILD), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the deliberate
-exception to ADR-REPO-OUTDIR-NOOUTPUTELSEWHERE. The other is gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and
-the spell-checker dictionaries (ADR-REPO-OUTDIR-DICTIONARIESGENERATED; the terminology registry they are generated from is
-[ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)) — cheap to reproduce, so they are never committed and the
-authored source stays the single source of truth.
+(ADR-REPO-OUTDIR-COMPILEDPREBUILD), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the
+deliberate exception to ADR-REPO-OUTDIR-NOOUTPUTELSEWHERE. The other is gitignored and regenerated on import — the `.psd1` module manifests,
+the generated READMEs, and the spell-checker dictionaries (ADR-REPO-OUTDIR-DICTIONARIESGENERATED; the terminology registry they are
+generated from is [ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)) — cheap to
+reproduce, so they are never committed and the authored source stays the single source of truth.
 
 A PDF is output by its nature: every PDF here is rendered from a source, such as a diagram, a world map or a review bundle. So the ignore
-rule is by file type, not by folder: `*.pdf` is ignored everywhere (ADR-REPO-OUTDIR-PDFISOUTPUT). Committing a PDF is a deliberate exception, made
-visible as its own opt-out line in the gitignore registry.
+rule is by file type, not by folder: `*.pdf` is ignored everywhere (ADR-REPO-OUTDIR-PDFISOUTPUT). Committing a PDF is a deliberate
+exception, made visible as its own opt-out line in the gitignore registry.
 
 ### The toolset's build
 

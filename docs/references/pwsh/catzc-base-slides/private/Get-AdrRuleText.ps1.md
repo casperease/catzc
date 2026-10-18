@@ -12,8 +12,8 @@ Reads the registry text of one ADR rule, by its citation code.
 ### description
 
 Resolves the code through the ADR citation map, opens the ADR, and returns the paragraph under the rule's heading as plain text, links
-reduced to their text and whitespace collapsed, so a slide that quotes the rule can be compared to it (ADR-REPO-SLIDES-CHECKABLECLAIMS). Null when the
-code is not of the form ADR-NAME#n or the index knows no such rule.
+reduced to their text and whitespace collapsed, so a slide that quotes the rule can be compared to it (ADR-REPO-SLIDES-CHECKABLECLAIMS).
+Null when the code is not of the form ADR-NAME#n or the index knows no such rule.
 
 ### parameter `Code`
 

@@ -98,7 +98,8 @@ part they need because they cannot use the function without the part they do not
 | Function creates a resource, then configures it            | Partial failure leaves orphaned resource         | Separate `New-*` and `Set-*`; caller composes them                       |
 | Function logs before/after its work                        | Logging concerns change independently            | Use `Write-Verbose`/`Write-Debug` (built-in), or wrap at the call site   |
 
-The pwsh forms of a temporary state change and of a retry wrapper are in [error-handling](../pwsh/error-handling.md#rule-adr-pwsh-error-preferencesareambientstate).
+The pwsh forms of a temporary state change and of a retry wrapper are in
+[error-handling](../pwsh/error-handling.md#rule-adr-pwsh-error-preferencesareambientstate).
 
 ### Composition vs mixing
 

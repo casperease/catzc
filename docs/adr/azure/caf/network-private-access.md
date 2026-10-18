@@ -131,8 +131,8 @@ to the service's public addresses working, restricted with user-defined routes, 
 Injection puts a service's own instances into a subnet, which only some services support (an App Service environment, a managed instance, a
 container platform). The templates deploy none of them: Azure SQL Database and a StorageV2 account are not injected, and they reach no
 private resource of their own. They are reached instead, through private endpoints (rule 2). A first injected service would need its own
-delegated subnet in `network.yml` ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)) and the management-plane rules this
-item names.
+delegated subnet in `network.yml` ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)) and the
+management-plane rules this item names.
 
 ##### 1 status
 
@@ -150,9 +150,10 @@ Summary (ours): Use Private Link where protection against data exfiltration and 
 
 Private-only access to data is the repository's default, not an exception. `storage-account.bicep` and `sql-server.bicep` default
 `publicNetworkAccess` to `'Disabled'`, the storage network rules deny by default, and `private-endpoint.bicep` gives each service a private
-endpoint with a DNS zone group that registers its address in the hub's zone ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone),
-[ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). A private endpoint maps one resource, not a whole service, into the network, so a
-workload that is breached can reach its own storage account and database, and nothing else of the service.
+endpoint with a DNS zone group that registers its address in the hub's zone
+([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone),
+[ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). A private endpoint maps one resource, not a whole service, into the
+network, so a workload that is breached can reach its own storage account and database, and nothing else of the service.
 
 CAF's page on limiting cross-tenant private endpoint connections adds the other direction: an endpoint in our network that connects to a
 resource in a foreign tenant is an exfiltration path, and CAF proposes deny policies against it. Here every private endpoint targets a
@@ -162,8 +163,9 @@ a template change that review sees. No policy denies it in Azure.
 ##### 2 in `foundation`
 
 The Key Vault and the Log Analytics workspace accept public network traffic. The vault's private endpoint (group id `vault`) and public
-access off are planned by [ADR-AZ-CAF-SEC-VAULTFIREWALLNETWORKRESTRICTION](landing-zone-security.md#rule-adr-az-caf-sec-vaultfirewallnetworkrestriction) and ADR-AZ-WAF-SE-SE06; that makes `foundation`
-depend on a subnet of `discovery` and on a zone in the hub.
+access off are planned by
+[ADR-AZ-CAF-SEC-VAULTFIREWALLNETWORKRESTRICTION](landing-zone-security.md#rule-adr-az-caf-sec-vaultfirewallnetworkrestriction) and
+ADR-AZ-WAF-SE-SE06; that makes `foundation` depend on a subnet of `discovery` and on a zone in the hub.
 
 ##### 2 in `discovery`
 
@@ -199,7 +201,8 @@ one DNS design behind it. The per-gigabyte charge is small at the workloads' vol
 
 ##### 3 in `foundation`
 
-Not applicable: its vault and workspace are planned to take private endpoints, not service endpoints (ADR-AZ-CAF-SEC-VAULTFIREWALLNETWORKRESTRICTION).
+Not applicable: its vault and workspace are planned to take private endpoints, not service endpoints
+(ADR-AZ-CAF-SEC-VAULTFIREWALLNETWORKRESTRICTION).
 
 ##### 3 in `discovery`
 
@@ -225,9 +228,9 @@ otherwise use ExpressRoute private peering or a site-to-site VPN, with injection
 #### What 4 means here
 
 The repository has no on-premises network and no gateway: the hub reserves `GatewaySubnet` and deploys nothing into it
-([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). Hybrid connectivity is decided by ADR-AZ-CAF-NETCON. Once a gateway exists, an
-on-premises client reaches the data services through the same private endpoints, which needs on-premises DNS to resolve the `privatelink`
-zones (rules 8 and 10).
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). Hybrid connectivity is decided by ADR-AZ-CAF-NETCON. Once a
+gateway exists, an on-premises client reaches the data services through the same private endpoints, which needs on-premises DNS to resolve
+the `privatelink` zones (rules 8 and 10).
 
 ##### 4 status
 
@@ -358,9 +361,9 @@ Summary (ours): Where Azure Firewall exists, consider it as a DNS proxy.
 
 #### What 9 means here
 
-The hub reserves `AzureFirewallSubnet` and deploys nothing into it ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). When a firewall
-lands (ADR-AZ-CAF-NETCON), the proxy lets its network rules filter by name, and the spokes would point their DNS at it; this item is
-revisited with that change.
+The hub reserves `AzureFirewallSubnet` and deploys nothing into it
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). When a firewall lands (ADR-AZ-CAF-NETCON), the proxy lets its
+network rules filter by name, and the spokes would point their DNS at it; this item is revisited with that change.
 
 ##### 9 status
 
@@ -378,9 +381,10 @@ on-premises names go to on-premises DNS, while on-premises servers forward the A
 #### What 10 means here
 
 The link half is the landing zone's design: each zone in the hub is linked to the hub and to every spoke the hub lists
-([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)), so a private endpoint resolves from any network of its tier. A link names an existing
-network, so a new spoke is linked on the hub's second deploy ([ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). The forwarding half needs
-a resolver and an on-premises DNS service, and neither exists (rule 8).
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)), so a private endpoint resolves from any network of its tier. A
+link names an existing network, so a new spoke is linked on the hub's second deploy
+([ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). The forwarding half needs a resolver and an
+on-premises DNS service, and neither exists (rule 8).
 
 ##### 10 in `foundation`
 
@@ -413,8 +417,8 @@ public names still resolve.
 
 No resolver is deployed (rule 8). Each hub's `/16` in `network.yml` uses a few small ranges for `GatewaySubnet`, `AzureFirewallSubnet`, and
 `shared-services`, so the two resolver subnets fit without renumbering, and the network plan's overlap check
-([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)) proves them when they are added. The hub's subnets are decided by
-ADR-AZ-CAF-NETTOP.
+([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)) proves them when they are added. The hub's subnets are
+decided by ADR-AZ-CAF-NETTOP.
 
 ##### 11 status
 
@@ -449,18 +453,20 @@ connectivity subscription.
 #### What 13 means here
 
 The connectivity subscription of CAF is the hub here: each tier's shared subscription holds a hub, and the hub holds the private DNS zones
-([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke), [ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). There are two
-sets, one per tier, not one global set, so non-production and production records never share a zone, and a broken non-production DNS zone
-cannot stop production resolution.
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke),
+[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). There are two sets, one per
+tier, not one global set, so non-production and production records never share a zone, and a broken non-production DNS zone cannot stop
+production resolution.
 
 CAF's page on Private Link and DNS integration at scale describes the same central DNS zones, kept central by policy: deny public network
 access, deny a `privatelink` zone created anywhere but the connectivity subscription, and deploy-if-not-exists policies that write each
 endpoint's record into the central DNS zone through a remediation identity holding Private DNS Zone Contributor. The repository reaches the
 same end by template. The modules turn public access off by default; `expedition` creates no zone and looks up the hub's zones as `existing`
-resources ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); and `private-endpoint.bicep` registers each endpoint through its DNS zone
-group in the same deploy. A record written by the template exists when the deploy succeeds, and a missing DNS zone fails the deploy with its
-name; a remediation task writes it later, needs an identity with rights in the hub, and reports after the fact. This is the argument of
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) for the activity log, applied to DNS records.
+resources ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); and `private-endpoint.bicep` registers each
+endpoint through its DNS zone group in the same deploy. A record written by the template exists when the deploy succeeds, and a missing DNS
+zone fails the deploy with its name; a remediation task writes it later, needs an identity with rights in the hub, and reports after the
+fact. This is the argument of [ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) for the activity
+log, applied to DNS records.
 
 ##### 13 in `foundation`
 
@@ -502,7 +508,8 @@ network topology and connectivity records (ADR-AZ-CAF-NETTOP, ADR-AZ-CAF-NETCON)
 - In Azure, the landing zone's policy against public IP addresses on network interfaces audits or denies by `policy_enforcement`
   ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 - **Planned (follow-up):** the quality gate over the compiled templates of ADR-AZ-WAF-SE, which fails a resource with public network access;
-  and the vault's private endpoint with its `privatelink.vaultcore.azure.net` zone (ADR-AZ-CAF-SEC-VAULTFIREWALLNETWORKRESTRICTION). These are plans, not checks that run.
+  and the vault's private endpoint with its `privatelink.vaultcore.azure.net` zone (ADR-AZ-CAF-SEC-VAULTFIREWALLNETWORKRESTRICTION). These
+  are plans, not checks that run.
 
 ## Consequences
 

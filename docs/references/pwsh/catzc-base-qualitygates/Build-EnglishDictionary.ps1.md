@@ -19,12 +19,13 @@ result gzip-compressed to pwsh/Catzc.Base.QualityGates/assets/english.txt.gz.
 Unlike the `.cspell/*.txt` term lists (regenerated cheaply from terminology.yml on every import), this list is EXPENSIVE to regenerate — it
 needs node, npx, and cspell's bundled tries — and it is needed on a fresh checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So
 it is COMMITTED, the same call the compiled-type prebuild makes
-([ADR-REPO-OUTDIR-COMPILEDPREBUILD](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-compiledprebuild)): a deterministic, expensive-to-regenerate
-artifact kept in the tree, not regenerated at import. Alongside the gz it writes a committed stamp (`assets/english.stamp`) recording the
-cspell + dict package versions it was flattened from and the word count. The drift check (Build-EnglishDictionary.Tests.ps1) compares that
-stamp's cspell version against the tools.yml pin — cheaply, with no node round-trip — and fails when they diverge, so a cspell bump that
-leaves this artifact stale is caught in CI. Re-run this (and commit the gz + stamp) when bumping cspell; `-DryRun` reports whether either
-would change. It writes the source module in the repository, so it needs the source mode and throws in build mode (Assert-SourceTree).
+([ADR-REPO-OUTDIR-COMPILEDPREBUILD](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-compiledprebuild)): a
+deterministic, expensive-to-regenerate artifact kept in the tree, not regenerated at import. Alongside the gz it writes a committed stamp
+(`assets/english.stamp`) recording the cspell + dict package versions it was flattened from and the word count. The drift check
+(Build-EnglishDictionary.Tests.ps1) compares that stamp's cspell version against the tools.yml pin — cheaply, with no node round-trip — and
+fails when they diverge, so a cspell bump that leaves this artifact stale is caught in CI. Re-run this (and commit the gz + stamp) when
+bumping cspell; `-DryRun` reports whether either would change. It writes the source module in the repository, so it needs the source mode
+and throws in build mode (Assert-SourceTree).
 
 SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every `.cspell/*.txt` term list into one set. English recognizes the
 spelled-out words (rule, collection, group); the term lists carry the product vocabulary and the conventional-abbreviation allow-list. See

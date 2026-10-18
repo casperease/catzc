@@ -42,10 +42,10 @@ metadata:
    find `Get-ChildItem`, `Copy-Item -Recurse`, `New-Item`, `Set-Content` on hot paths and repository-wide scans where one file would do;
    name the cause in one sentence with its evidence (ADR-AUTO-TEST-MEASUREFIRST).
 2. Fix that one cause by its rule: set-up repeated per test builds once in `BeforeAll`, shared read-only (ADR-AUTO-TEST-SETUPONCE); repeated
-   imports or spawns of one tree become one import asserted in separate `It` blocks (ADR-AUTO-TEST-ONEIMPORTPERCASE); filesystem cmdlets on a hot path
-   become `[System.IO]` or `Copy-Directory`, in the test and the code it exercises (ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS); L2/L3 tests re-proving one wiring
-   keep one integration test and move per-case assertions into L0 (ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, ADR-AUTO-TEST-FEWINTEGRATIONTESTS); a repository-wide check narrows to the files the
-   test is about.
+   imports or spawns of one tree become one import asserted in separate `It` blocks (ADR-AUTO-TEST-ONEIMPORTPERCASE); filesystem cmdlets on
+   a hot path become `[System.IO]` or `Copy-Directory`, in the test and the code it exercises (ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS); L2/L3
+   tests re-proving one wiring keep one integration test and move per-case assertions into L0 (ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS,
+   ADR-AUTO-TEST-FEWINTEGRATIONTESTS); a repository-wide check narrows to the files the test is about.
 3. Prove nothing was lost: same test names (a moved assertion listed with its new home), same or more `Should` assertions, all passing, the
    new timing from two runs, exactly one tier and one category tag per test (ADR-AUTO-TEST-TWOMANDATORYTAGS),
    `Test-ScriptAnalyzer -Path <changed files> -PassThru` at 0; never remove, weaken or skip a test, re-tier it, mock away the integration an

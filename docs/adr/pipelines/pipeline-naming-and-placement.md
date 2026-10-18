@@ -173,11 +173,13 @@ pipelines/
 - **The filename prefix is the authoring contract, not the classifier.** A pipeline's type is its filename prefix for readers and for the
   directory index; the tooling above derives Pipeline-vs-Template from YAML keys and ADO data. A pipeline whose prefix disagrees with its
   structure or its ADO registration is visible as a convention break at review.
-- **`Test-Pipelines`** — an offline quality gate ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the
-  `pipelines/` tree against this ADR: the type prefix (ADR-PIPE-NAME-TYPEPREFIX), flat placement and the closed set of per-kind template folders with
-  matching fragment kinds (ADR-PIPE-NAME-FLATPIPELINESFOLDER, ADR-PIPE-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension (ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION), and absolute `/pipelines/...`
-  template references (ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH). It collects one issue per violation, each naming its rule code, and throws once listing them all;
-  its L1 integrity test requires zero issues over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
+- **`Test-Pipelines`** — an offline quality gate
+  ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the `pipelines/` tree against
+  this ADR: the type prefix (ADR-PIPE-NAME-TYPEPREFIX), flat placement and the closed set of per-kind template folders with matching
+  fragment kinds (ADR-PIPE-NAME-FLATPIPELINESFOLDER, ADR-PIPE-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension
+  (ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION), and absolute `/pipelines/...` template references (ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH). It
+  collects one issue per violation, each naming its rule code, and throws once listing them all; its L1 integrity test requires zero issues
+  over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
 
 ## Consequences
 

@@ -107,8 +107,8 @@ Not adopted: there is no ExpressRoute or VPN gateway to carry traffic between.
 
 ### Rule ADR-AZ-CAF-NETTOP-GLOBALPEERINGFEWCROSSREGIONSPOKES
 
-Not adopted: every environment deploys to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), so no spoke needs
-a cross-region link.
+Not adopted: every environment deploys to one region
+([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), so no spoke needs a cross-region link.
 
 - [17 — Global peering for a few cross-region spokes](#17--global-peering-for-a-few-cross-region-spokes)
 
@@ -343,7 +343,8 @@ virtual network boundary.
 ### Rule ADR-AZ-CAF-NETTOP-VIRTUALNETWORKFLOWLOGSTRAFFICANALYTICS
 
 Planned: virtual network flow logs with traffic analytics into `foundation`'s workspace, the flow logging
-[ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06) and [ADR-AZ-CAF-MGMT-ANALYSENETWORKTRAFFICTRAFFICANALYTICS](management.md#rule-adr-az-caf-mgmt-analysenetworktraffictrafficanalytics) plan.
+[ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06) and
+[ADR-AZ-CAF-MGMT-ANALYSENETWORKTRAFFICTRAFFICANALYTICS](management.md#rule-adr-az-caf-mgmt-analysenetworktraffictrafficanalytics) plan.
 
 - [54 — Virtual network flow logs with traffic analytics](#54--virtual-network-flow-logs-with-traffic-analytics)
 
@@ -446,14 +447,15 @@ takeaway is the three templates `foundation`, `discovery` (the landing zone), an
 
 One design answers most of this record. The landing zones form a hub-and-spoke network per subscription: a hub in each shared subscription
 (`shared_nonprod`, `shared_prod`), a spoke in each customer subscription, each spoke peered statically and on both sides to the hub of its
-tier ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke), [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). Every range lives in
+tier ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke),
+[ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). Every range lives in
 `pwsh/Catzc.Azure/configs/network.yml` — hubs 10.0.0.0/16 and 10.1.0.0/16, spokes 10.100.0.0/16 to 10.103.0.0/16 — validated by
 `NetworkConfig` and its range arithmetic `NetworkCidr`, and joined to `azure.yml` by `Test-AzureNetworkPlan`
-([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription), [ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)).
-That file is the repository's IP address management. Each workload subnet has a network security group that allows traffic inside the
-virtual networks and denies inbound internet traffic; each spoke subnet has a route table with no routes; the hub's `GatewaySubnet` and
-`AzureFirewallSubnet` are reserved and empty. There is no Virtual WAN, no Virtual Network Manager, no IPv6, no on-premises network, and one
-region.
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription),
+[ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). That file is the repository's IP address management.
+Each workload subnet has a network security group that allows traffic inside the virtual networks and denies inbound internet traffic; each
+spoke subnet has a route table with no routes; the hub's `GatewaySubnet` and `AzureFirewallSubnet` are reserved and empty. There is no
+Virtual WAN, no Virtual Network Manager, no IPv6, no on-premises network, and one region.
 
 ### 1 — Hub and spoke as the network design
 
@@ -469,10 +471,11 @@ mostly ExpressRoute with few VPN connections, and when central appliances and fi
 #### What 1 means here
 
 Every condition holds: one region, no VPN, no ExpressRoute, and no transit between landing zones. The repository's topology is hub-and-spoke
-by design ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)): the hub of a tier is the landing zone of a shared subscription, each spoke
-the landing zone of a customer subscription, and `network.yml` declares the kind of each (`kind: hub`, `kind: spoke`) so a template reads it
-from the plan alone ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). The network is a segmentation boundary as
-[ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04) decides: one spoke per customer and tier.
+by design ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)): the hub of a tier is the landing zone of a shared
+subscription, each spoke the landing zone of a customer subscription, and `network.yml` declares the kind of each (`kind: hub`,
+`kind: spoke`) so a template reads it from the plan alone
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). The network is a
+segmentation boundary as [ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04) decides: one spoke per customer and tier.
 
 ##### 1 in `foundation`
 
@@ -508,8 +511,8 @@ outbound internet traffic with Azure Firewall or a partner appliance.
 The repository has one region and a hub per tier, not per region: `shared_nonprod` for the non-production spokes, `shared_prod` for the
 production ones. The hub's services are reserved, not deployed: `GatewaySubnet` (for a VPN or ExpressRoute gateway) and
 `AzureFirewallSubnet` exist in the plan so either can be added without renumbering, and nothing is deployed into them
-([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). There is no hybrid link to serve and no spoke-to-spoke traffic to
-route; filtered egress is the firewall of rule 7.
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). There is no hybrid link to
+serve and no spoke-to-spoke traffic to route; filtered egress is the firewall of rule 7.
 
 ##### 2 in `foundation`
 
@@ -617,8 +620,8 @@ and from the internet.
 #### What 7 means here
 
 The hub reserves `AzureFirewallSubnet` in `network.yml` and deploys nothing into it, so egress is not filtered: the spoke route tables carry
-no routes and traffic leaves through Azure's default route. [ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06) plans egress through a
-firewall. Spoke-to-spoke traffic needs no filter, because no spoke reaches another (rule 56).
+no routes and traffic leaves through Azure's default route. [ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06) plans egress
+through a firewall. Spoke-to-spoke traffic needs no filter, because no spoke reaches another (rule 56).
 
 ##### 7 in `foundation`
 
@@ -650,10 +653,10 @@ appliances, and where needed domain controllers and DNS servers.
 #### What 8 means here
 
 A hub carries exactly `GatewaySubnet`, `AzureFirewallSubnet`, and `shared-services`
-([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), and holds the private DNS zones every spoke resolves through. That is
-the minimal set, with one addition: the shared platform's own workload places its private endpoints in `shared-services`, so the hub
-subscription also runs a workload. That keeps the shared platform's workloads in the shared subscriptions; the cost is that the hub's
-subscription carries a workload's resources beside the connectivity.
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), and holds the private DNS
+zones every spoke resolves through. That is the minimal set, with one addition: the shared platform's own workload places its private
+endpoints in `shared-services`, so the hub subscription also runs a workload. That keeps the shared platform's workloads in the shared
+subscriptions; the cost is that the hub's subscription carries a workload's resources beside the connectivity.
 
 ##### 8 in `foundation`
 
@@ -686,9 +689,10 @@ platform virtual network.
 #### What 9 means here
 
 No workload has a public endpoint: data services take private endpoints only, and the landing zone's policy denies a public IP address on a
-network interface ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A DDoS Protection plan protects public addresses, so it has nothing
-to protect ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The first public ingress — a gateway, a firewall, or an inbound
-application proxy — would make it apply, as one plan per hub subscription that the hub and its spokes reference.
+network interface ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A DDoS Protection plan
+protects public addresses, so it has nothing to protect ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The first public
+ingress — a gateway, a firewall, or an inbound application proxy — would make it apply, as one plan per hub subscription that the hub and
+its spokes reference.
 
 ##### 9 status
 
@@ -763,7 +767,8 @@ hub; it belongs in the landing zone of the application it serves.
 
 The hub deploys no inbound application proxy, and no workload has inbound web traffic. A workload that needs one deploys it with its own
 resources, as `expedition` deploys its own storage and database, and the landing zone owns only the network
-([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). The connectivity record decides application delivery itself.
+([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). The connectivity record decides application delivery
+itself.
 
 ##### 13 status
 
@@ -833,9 +838,9 @@ directly with global peering; it is fast but bypasses the hub appliances.
 
 #### What 17 means here
 
-Every environment maps to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), and every environment of the
-repository deploys to West Europe, so there is no second region to reach. A second region would be a new environment with its own range in
-`network.yml`, and this rule would then decide how its spokes reach the first region's.
+Every environment maps to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), and
+every environment of the repository deploys to West Europe, so there is no second region to reach. A second region would be a new
+environment with its own range in `network.yml`, and this rule would then decide how its spokes reach the first region's.
 
 ##### 17 status
 
@@ -872,8 +877,8 @@ Summary (ours): To connect two regions, peer their two hubs with global peering.
 #### What 19 means here
 
 The two hubs of the repository share one region and serve two tiers, not two regions. They are not peered on purpose: production and
-non-production are separated by subscription ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), and a peering between their hubs
-would join the two tiers' networks.
+non-production are separated by subscription ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), and a peering between their
+hubs would join the two tiers' networks.
 
 ##### 19 status
 
@@ -999,9 +1004,9 @@ Summary (ours): Manage connectivity and security configuration across subscripti
 #### What 25 means here
 
 The repository manages connectivity in config: each spoke names its hub and each hub lists its spokes, and `discovery` deploys both sides of
-every peering ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). The security rules are the same per subnet, deployed by the same
-template. Virtual Network Manager would move both into a service that reaches across subscriptions from above them; rules 59 to 65 weigh it
-in detail.
+every peering ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). The security rules are the same per subnet,
+deployed by the same template. Virtual Network Manager would move both into a service that reaches across subscriptions from above them;
+rules 59 to 65 weigh it in detail.
 
 ##### 25 status
 
@@ -1081,10 +1086,10 @@ Summary (ours): Plan the address spaces in advance so that no two Azure regions 
 
 #### What 28 means here
 
-`network.yml` is the one home of every range ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and `NetworkConfig`
-rejects the file when any two of its networks overlap, environment or subscription, or a subnet leaves its network
-([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). Any hub can therefore peer to any spoke. There is no on-premises range
-to keep clear of; one would enter the plan as a further entry so the same check covers it.
+`network.yml` is the one home of every range ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and
+`NetworkConfig` rejects the file when any two of its networks overlap, environment or subscription, or a subnet leaves its network
+([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). Any hub can therefore peer to any spoke. There is no
+on-premises range to keep clear of; one would enter the plan as a further entry so the same check covers it.
 
 ##### 28 in `foundation`
 
@@ -1229,9 +1234,10 @@ Summary (ours): Do not create a virtual network before its address space is plan
 #### What 33 means here
 
 A virtual network gets its address space only from `network.yml`, through a config address in the template's parameter file
-([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and `Test-AzureNetworkPlan` requires a network entry for every
-subscription in `azure.yml` ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). A network without a planned range cannot
-be deployed: its config address does not resolve and the build fails.
+([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and `Test-AzureNetworkPlan` requires a network entry
+for every subscription in `azure.yml`
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). A network without a planned
+range cannot be deployed: its config address does not resolve and the build fails.
 
 ##### 33 in `foundation`
 
@@ -1293,9 +1299,9 @@ Summary (ours): Account for the services that reserve address ranges of their ow
 
 The services that need dedicated subnets are the ones the hub reserves: `GatewaySubnet` (a /27) for a VPN or ExpressRoute gateway and
 `AzureFirewallSubnet` (a /26) for Azure Firewall, each at the size the service requires and under the name Azure requires
-([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). The workload's services — storage and SQL Database behind private
-endpoints — take one address per endpoint in `private-endpoints`, and no template deploys Kubernetes or another service that reserves a
-range.
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). The workload's services —
+storage and SQL Database behind private endpoints — take one address per endpoint in `private-endpoints`, and no template deploys Kubernetes
+or another service that reserves a range.
 
 ##### 35 in `foundation`
 
@@ -1536,9 +1542,9 @@ reserve non-overlapping ranges automatically.
 #### What 47 means here
 
 `network.yml` is the repository's IP address management. Infrastructure as code reads it directly: a template's parameter file names a range
-by config address and the build resolves it ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)). A range is reserved by
-pull request — the same pull request that adds the subscription to `azure.yml` and gives it its configs — and `NetworkConfig` and
-`Test-AzureNetworkPlan` validate it on load. What is missing is an API that picks the next free range: the author chooses it, and the
+by config address and the build resolves it ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)). A range
+is reserved by pull request — the same pull request that adds the subscription to `azure.yml` and gives it its configs — and `NetworkConfig`
+and `Test-AzureNetworkPlan` validate it on load. What is missing is an API that picks the next free range: the author chooses it, and the
 overlap check catches a clash. With a handful of subscriptions a person choosing the next second octet is enough.
 
 ##### 47 in `foundation`
@@ -1601,8 +1607,9 @@ Summary (ours): Decommissioning a workload includes returning its address ranges
 #### What 49 means here
 
 The plan follows the subscriptions: `Test-AzureNetworkPlan` fails a network whose subscription is not in `azure.yml`, and a spoke subnet for
-an environment the subscription does not serve ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). Removing a subscription
-or an environment therefore forces its range out of `network.yml` in the same pull request, and the range is free for the next entry.
+an environment the subscription does not serve
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). Removing a subscription or
+an environment therefore forces its range out of `network.yml` in the same pull request, and the range is free for the next entry.
 
 ##### 49 in `foundation`
 
@@ -1633,10 +1640,10 @@ subnet a network security group with baseline deny rules, such as no SSH or RDP 
 #### What 50 means here
 
 The repository plans subnets centrally: a spoke's subnets are fixed by its kind — `private-endpoints` and one per environment it serves —
-and live in `network.yml` ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). One repository owns every landing zone, so
-there is no separate owner to delegate to. The guarantee CAF asks of policy, the template gives: `discovery` attaches a security group to
-every subnet named in `networkSecurityGroupNames`, and its rules deny all inbound internet traffic, SSH and RDP among it. No policy requires
-a security group, so a subnet created outside the template would have none; the segmentation
+and live in `network.yml` ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)).
+One repository owns every landing zone, so there is no separate owner to delegate to. The guarantee CAF asks of policy, the template gives:
+`discovery` attaches a security group to every subnet named in `networkSecurityGroupNames`, and its rules deny all inbound internet traffic,
+SSH and RDP among it. No policy requires a security group, so a subnet created outside the template would have none; the segmentation
 [ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04) decides holds for what the repository deploys.
 
 ##### 50 in `foundation`
@@ -1646,8 +1653,9 @@ Not applicable: `foundation` deploys no network.
 ##### 50 in `discovery`
 
 Every workload subnet in a spoke and `shared-services` in the hub have a security group; the reserved subnets have none. A built-in policy
-that requires a security group on every subnet, assigned beside the three of [ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) with the
-reserved subnets exempt, is the planned addition.
+that requires a security group on every subnet, assigned beside the three of
+[ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) with the reserved subnets exempt, is the planned
+addition.
 
 ##### 50 in `expedition`
 
@@ -1669,8 +1677,8 @@ Summary (ours): Use network security groups to control traffic between subnets a
 
 #### What 51 means here
 
-Every workload subnet has a security group ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), but its inbound rules allow any
-traffic tagged `VirtualNetwork` — every address of the local network and of the networks peered to it — and deny the internet. Traffic
+Every workload subnet has a security group ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), but its inbound rules allow
+any traffic tagged `VirtualNetwork` — every address of the local network and of the networks peered to it — and deny the internet. Traffic
 between subnets of one spoke, and between a spoke and its hub, is therefore allowed in full. A spoke's `dev` and `test` subnets can reach
 each other, which separates the environments by subnet but not by rule.
 
@@ -1724,8 +1732,8 @@ than sending it through a central appliance.
 #### What 53 means here
 
 The shape is the recommended one: segmentation inside a spoke is a security group per subnet, and no central appliance filters traffic
-between subnets ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)). The rules are coarse, as rule 51 describes, so the segments are
-drawn but not separated by rule.
+between subnets ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)). The rules are coarse, as rule 51 describes, so the
+segments are drawn but not separated by rule.
 
 ##### 53 in `foundation`
 
@@ -1756,8 +1764,9 @@ into traffic, investigation, and compliance.
 #### What 54 means here
 
 No network logs its flows. The security groups and the virtual network send their resource logs and metrics to `foundation`'s workspace, not
-their flows. [ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06) and [ADR-AZ-CAF-MGMT-ANALYSENETWORKTRAFFICTRAFFICANALYTICS](management.md#rule-adr-az-caf-mgmt-analysenetworktraffictrafficanalytics) plan virtual
-network flow logs with traffic analytics into that workspace; this rule is the same plan, seen from segmentation.
+their flows. [ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06) and
+[ADR-AZ-CAF-MGMT-ANALYSENETWORKTRAFFICTRAFFICANALYTICS](management.md#rule-adr-az-caf-mgmt-analysenetworktraffictrafficanalytics) plan
+virtual network flow logs with traffic analytics into that workspace; this rule is the same plan, seen from segmentation.
 
 ##### 54 in `foundation`
 
@@ -1877,9 +1886,10 @@ the whole organisation reach every existing and future resource.
 
 #### What 59 means here
 
-The repository owns no management group and deploys nothing at tenant level ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so there
-is nothing above a subscription for Virtual Network Manager to cover. A tenant administrator may run one above the repository's
-subscriptions; its rules would then apply beneath the security groups `discovery` deploys, outside what the configuration tree shows.
+The repository owns no management group and deploys nothing at tenant level
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so there is nothing above a subscription for Virtual Network
+Manager to cover. A tenant administrator may run one above the repository's subscriptions; its rules would then apply beneath the security
+groups `discovery` deploys, outside what the configuration tree shows.
 
 ##### 59 status
 
@@ -1916,8 +1926,8 @@ Summary (ours): Segment networks by grouping them, statically or dynamically thr
 #### What 61 means here
 
 The repository's grouping is static and lives in config: a hub's `spokes` list is the group of networks it connects, and the tier
-(non-production, production) is the segment ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). A Virtual Network Manager network group
-would duplicate that list in another service.
+(non-production, production) is the segment ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). A Virtual Network
+Manager network group would duplicate that list in another service.
 
 ##### 61 status
 
@@ -1988,10 +1998,10 @@ cannot override, and hand the security groups fully to the workload teams.
 
 #### What 65 means here
 
-The landing zone, not the workload, owns the security groups ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)): the rules that must hold
-— deny inbound internet traffic — are deployed by `discovery` on every workload subnet, and no workload template can change them. The split
-this recommendation makes between rules the platform enforces and groups the workloads own has no counterpart here, because one repository
-deploys both.
+The landing zone, not the workload, owns the security groups
+([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)): the rules that must hold — deny inbound internet
+traffic — are deployed by `discovery` on every workload subnet, and no workload template can change them. The split this recommendation
+makes between rules the platform enforces and groups the workloads own has no counterpart here, because one repository deploys both.
 
 ##### 65 status
 
@@ -2016,7 +2026,8 @@ IPv6, or virtual machines is not adopted, each for its stated reason.
 
 - `NetworkConfig`, with `NetworkCidr` for the range arithmetic, validates `network.yml` when it loads: aligned IPv4 ranges, every subnet
   inside its network, no overlap between any two networks, and the subnet set of each kind
-  ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription), [ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)).
+  ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription),
+  [ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)).
 - `Test-AzureNetworkPlan` joins the plan to `azure.yml`: every subscription has a network of the right kind, every network a subscription,
   and every spoke exactly the workload subnets of the environments its subscription serves.
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for `discovery` and `expedition`, so a config address into

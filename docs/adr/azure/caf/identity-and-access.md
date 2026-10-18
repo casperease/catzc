@@ -1,8 +1,10 @@
 # ADR: CAF identity and access — what the repository does about each recommendation of the landing-zone identity and access design area
 
-Pairs with [`waf-security`](../waf/security.md) (the workload view of identity, [ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05),
-whose analysis is cited here, not repeated), [`caf-security`](landing-zone-security.md) (the platform's Key Vault and privileged-access
-rules), and [`landing-zones`](../landing-zones.md) (the SQL authentication of [ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
+Pairs with [`waf-security`](../waf/security.md) (the workload view of identity,
+[ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05), whose analysis is cited here, not repeated),
+[`caf-security`](landing-zone-security.md) (the platform's Key Vault and privileged-access rules), and
+[`landing-zones`](../landing-zones.md) (the SQL authentication of
+[ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
 
 ## Rules: ADR-AZ-CAF-IAM
 
@@ -86,7 +88,8 @@ A compatibility check against the directory services is not adopted, because no 
 
 ### Rule ADR-AZ-CAF-IAM-DIRECTORYSERVERSIDENTITYSUBSCRIPTION
 
-Directory servers in an identity subscription are not adopted, because no template deploys a directory server (ADR-AZ-CAF-SEC-SEPARATESUBSCRIPTIONIDENTITYRESOURCES).
+Directory servers in an identity subscription are not adopted, because no template deploys a directory server
+(ADR-AZ-CAF-SEC-SEPARATESUBSCRIPTIONIDENTITYRESOURCES).
 
 - [14 — Directory servers in the identity subscription](#14--directory-servers-in-the-identity-subscription)
 
@@ -178,8 +181,8 @@ to the `Owner` role; role assignments as code are planned (ADR-AZ-WAF-SE-SE05).
 
 ### Rule ADR-AZ-CAF-IAM-EMERGENCYACCESSACCOUNTS
 
-Tenant emergency-access accounts are not adopted; at the level the repository owns, the break-glass SQL login of ADR-AZ-LZ-SQLENTRAADMINS keeps a SQL
-server reachable, and monitoring its use is planned.
+Tenant emergency-access accounts are not adopted; at the level the repository owns, the break-glass SQL login of ADR-AZ-LZ-SQLENTRAADMINS
+keeps a SQL server reachable, and monitoring its use is planned.
 
 - [29 — Emergency-access accounts](#29--emergency-access-accounts)
 
@@ -301,7 +304,8 @@ connection and their vault secret, and every environment shares the SQL administ
 
 ### Rule ADR-AZ-CAF-IAM-JUSTTIMEPLATFORMACCESSWORKLOADLANDINGZONES
 
-Just-in-time platform access is not adopted, because Privileged Identity Management is a tenant setting (ADR-AZ-CAF-SEC-PRIVILEGEDIDENTITYMANAGEMENT).
+Just-in-time platform access is not adopted, because Privileged Identity Management is a tenant setting
+(ADR-AZ-CAF-SEC-PRIVILEGEDIDENTITYMANAGEMENT).
 
 - [48 — Just-in-time platform access to workload landing zones](#48--just-in-time-platform-access-to-workload-landing-zones)
 
@@ -453,14 +457,15 @@ The [CAF reference](../../../references/caf/index.md) lists every CAF record in 
 
 The repository's identity model is small, and most of this area falls outside it. Entra ID is the one identity provider; there is no
 on-premises directory, no synchronisation, no directory server in Azure, and no on-premises connectivity (the hub reserves `GatewaySubnet`
-and deploys nothing into it, [ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). The directory, its accounts and groups, Conditional
-Access, and Privileged Identity Management belong to the tenant's administrators, because the repository deploys into subscriptions it is
-given and owns nothing above them ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Within that boundary it has a SQL administrator that
-is an Entra ID group, a break-glass SQL login whose password is a Key Vault reference ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)),
-RBAC-authorized vaults, system-assigned managed identities on the storage account and the SQL server, no role assignment in any template
-([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)), and one service connection per subscription whose target every deploy pins
-([az-session-verification](../az-session-verification.md)). So the hybrid-identity items and the tenant items take the compact form, and the
-items that bear on a template, a module, a config, or a pipeline take the full one.
+and deploys nothing into it, [ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). The directory, its accounts and
+groups, Conditional Access, and Privileged Identity Management belong to the tenant's administrators, because the repository deploys into
+subscriptions it is given and owns nothing above them ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Within that
+boundary it has a SQL administrator that is an Entra ID group, a break-glass SQL login whose password is a Key Vault reference
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), RBAC-authorized vaults, system-assigned managed identities
+on the storage account and the SQL server, no role assignment in any template
+([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)), and one service connection per subscription whose target every deploy
+pins ([az-session-verification](../az-session-verification.md)). So the hybrid-identity items and the tenant items take the compact form,
+and the items that bear on a template, a module, a config, or a pipeline take the full one.
 
 Microsoft's
 [DevOps security considerations](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview)
@@ -485,7 +490,8 @@ Summary (ours): Record which authentication provider each application relies on,
 
 The inventory has one row. Every resource the templates deploy authenticates through Entra ID: the SQL server through its Entra ID
 administrator group, the storage account through Entra ID only (shared-key access is off), and the vault through Azure RBAC
-([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). The item would apply with the first workload whose users authenticate elsewhere.
+([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). The item would apply with the first workload whose users authenticate
+elsewhere.
 
 ##### 1 status
 
@@ -521,8 +527,8 @@ Summary (ours): Entra ID is globally redundant, but Domain Services and self-run
 #### What 3 means here
 
 The only identity service the repository relies on is Entra ID, whose redundancy is Microsoft's. Each environment maps to one region
-([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), so a multi-region directory would also need a second region the
-network plan does not have.
+([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), so a multi-region directory would also
+need a second region the network plan does not have.
 
 ##### 3 status
 
@@ -540,7 +546,8 @@ Summary (ours): When extending on-premises AD DS into Azure, define each Azure r
 #### What 4 means here
 
 There is no on-premises directory to extend and no on-premises connectivity. Were one added, the subnet objects would come from the ranges
-of `pwsh/Catzc.Azure/configs/network.yml`, the one home of every address ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)).
+of `pwsh/Catzc.Azure/configs/network.yml`, the one home of every address
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)).
 
 ##### 4 status
 
@@ -924,8 +931,8 @@ Summary (ours): Use Microsoft Sentinel over Azure Monitor, Entra ID, and Microso
 #### What 26 means here
 
 The choice of a security information and event management tool belongs to the tenant's security operations
-([ADR-AZ-CAF-SEC-MICROSOFTSENTINELLANDINGZONE](landing-zone-security.md#rule-adr-az-caf-sec-microsoftsentinellandingzone)); `foundation`'s workspace in each subscription is where Sentinel would
-attach.
+([ADR-AZ-CAF-SEC-MICROSOFTSENTINELLANDINGZONE](landing-zone-security.md#rule-adr-az-caf-sec-microsoftsentinellandingzone)); `foundation`'s
+workspace in each subscription is where Sentinel would attach.
 
 ##### 26 status
 
@@ -962,13 +969,15 @@ Summary (ours): Do not assign roles to users directly, since a subscription has 
 #### What 28 means here
 
 The templates name a principal in two places, and neither is a user. `sql-server.bicep` makes an Entra ID principal the server's
-administrator with `entraAdminPrincipalType` defaulting to `Group` ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), and every
-`expedition` config names the group `zct-exped-sql-admins` with a placeholder object id registered in the managed-GUID registry as
-`entra_sql_admin_group` ([ADR-AUTO-GUIDS-EVERYGUIDREGISTERED](../../automation/managed-guids.md#rule-adr-auto-guids-everyguidregistered)). `budget.bicep` sends its alerts to the
-holders of a role (`contactRoles`, `Owner` by default), so no address or person is kept in a config.
+administrator with `entraAdminPrincipalType` defaulting to `Group`
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), and every `expedition` config names the group
+`zct-exped-sql-admins` with a placeholder object id registered in the managed-GUID registry as `entra_sql_admin_group`
+([ADR-AUTO-GUIDS-EVERYGUIDREGISTERED](../../automation/managed-guids.md#rule-adr-auto-guids-everyguidregistered)). `budget.bicep` sends its
+alerts to the holders of a role (`contactRoles`, `Owner` by default), so no address or person is kept in a config.
 
-No template makes an Azure role assignment for a person ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). The groups are created in
-the tenant's directory, which is cloud-only as far as the repository knows: there is no on-premises directory to synchronise from.
+No template makes an Azure role assignment for a person ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). The groups are
+created in the tenant's directory, which is cloud-only as far as the repository knows: there is no on-premises directory to synchronise
+from.
 
 ##### 28 in `foundation`
 
@@ -1002,12 +1011,14 @@ Summary (ours): Keep a small number of highly privileged emergency-access (break
 
 CAF means tenant accounts that survive a broken sign-in policy; those are the tenant's. The repository applies the same idea at the level it
 owns, the SQL server: beside the Entra ID administrator group sits one break-glass SQL login, `exped-break-glass`, so the server stays
-reachable when the directory or the group is not ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). Its password is stored safely: it is
-the secret `exped-sql-admin-password` in `foundation`'s vault, resolved by Azure Resource Manager at deploy time, so the repository never
-holds it ([ADR-AZ-WAF-SE-SE09](../waf/security.md#rule-adr-az-waf-se-se09)).
+reachable when the directory or the group is not ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). Its
+password is stored safely: it is the secret `exped-sql-admin-password` in `foundation`'s vault, resolved by Azure Resource Manager at deploy
+time, so the repository never holds it ([ADR-AZ-WAF-SE-SE09](../waf/security.md#rule-adr-az-waf-se-se09)).
 
-Its use is not monitored: no SQL audit log is sent to the workspace ([ADR-AZ-WAF-SE-SE10](../waf/security.md#rule-adr-az-waf-se-se10)), and the
-vault's reads are not logged ([ADR-AZ-CAF-SEC-VAULTUSAGEAUDITEDCENTRALWORKSPACE](landing-zone-security.md#rule-adr-az-caf-sec-vaultusageauditedcentralworkspace)). Nothing tests that the login works.
+Its use is not monitored: no SQL audit log is sent to the workspace ([ADR-AZ-WAF-SE-SE10](../waf/security.md#rule-adr-az-waf-se-se10)), and
+the vault's reads are not logged
+([ADR-AZ-CAF-SEC-VAULTUSAGEAUDITEDCENTRALWORKSPACE](landing-zone-security.md#rule-adr-az-caf-sec-vaultusageauditedcentralworkspace)).
+Nothing tests that the login works.
 
 ##### 29 in `foundation`
 
@@ -1040,8 +1051,10 @@ Summary (ours): Send the Entra ID sign-in and audit logs, through a diagnostic s
 #### What 30 means here
 
 An Entra ID diagnostic setting is a tenant-level resource, which no service connection of the repository may deploy
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and there is no central workspace: each subscription has its own in `foundation`
-([ADR-AZ-CAF-SEC-RESOURCEDIAGNOSTICSCENTRALWORKSPACE](landing-zone-security.md#rule-adr-az-caf-sec-resourcediagnosticscentralworkspace)). The tenant's administrators choose where the directory's logs go.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and there is no central workspace: each subscription has its own
+in `foundation`
+([ADR-AZ-CAF-SEC-RESOURCEDIAGNOSTICSCENTRALWORKSPACE](landing-zone-security.md#rule-adr-az-caf-sec-resourcediagnosticscentralworkspace)).
+The tenant's administrators choose where the directory's logs go.
 
 ##### 30 status
 
@@ -1146,13 +1159,14 @@ Summary (ours): Use the same roles and the same assignment patterns in every wor
 #### What 36 means here
 
 Standardisation is the landing zone's premise: every subscription gets the same landing zone from one template
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so one change reaches all of them. But the landing zone assigns no role, so the
-standard role set is empty, and who holds what in each subscription is decided by hand outside the repository
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so one change reaches all of them. But the landing zone assigns
+no role, so the standard role set is empty, and who holds what in each subscription is decided by hand outside the repository
 ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)).
 
 The standard set belongs in `discovery`: each role assignment a resource of the template, the role definitions declared once with their
-sensible default, and the groups per subscription in its config ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode) gives the
-pattern, as `policy_enforcement` does for the policies).
+sensible default, and the groups per subscription in its config
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode) gives the pattern, as
+`policy_enforcement` does for the policies).
 
 ##### 36 in `foundation`
 
@@ -1165,8 +1179,8 @@ group its config names.
 
 ##### 36 in `expedition`
 
-Not applicable: a workload owns no landing-zone setting ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); its resource-level data roles
-are rule 37.
+Not applicable: a workload owns no landing-zone setting ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone));
+its resource-level data roles are rule 37.
 
 ##### 36 status
 
@@ -1184,10 +1198,11 @@ Summary (ours): Use Azure RBAC for access to data as well, for example in Key Va
 #### What 37 means here
 
 The authorization model is in place. `key-vault.bicep` fixes `enableRbacAuthorization: true` with no access policies
-([ADR-AZ-CAF-SEC-AZURERBACKEYVAULTDATAPLANE](landing-zone-security.md#rule-adr-az-caf-sec-azurerbackeyvaultdataplane)), so a control-plane role such as Contributor does not read a secret; a
-data role does. `storage-account.bicep` turns shared-key access off, so every data request carries an Entra ID token and is authorized by an
-Azure RBAC data role. SQL has no Azure RBAC data plane: access inside the database goes to Entra ID principals, and the server's
-administrator is a group ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
+([ADR-AZ-CAF-SEC-AZURERBACKEYVAULTDATAPLANE](landing-zone-security.md#rule-adr-az-caf-sec-azurerbackeyvaultdataplane)), so a control-plane
+role such as Contributor does not read a secret; a data role does. `storage-account.bicep` turns shared-key access off, so every data
+request carries an Entra ID token and is authorized by an Azure RBAC data role. SQL has no Azure RBAC data plane: access inside the database
+goes to Entra ID principals, and the server's administrator is a group
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
 
 What is missing is the roles: no template grants a Key Vault, storage, or SQL data role
 ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)).
@@ -1223,9 +1238,10 @@ Summary (ours): Give a shared central Log Analytics workspace the resource-conte
 #### What 38 means here
 
 There is no central workspace. `foundation` deploys one per subscription, so a customer's logs never share a workspace with another
-customer's ([ADR-AZ-CAF-SEC-RESOURCEDIAGNOSTICSCENTRALWORKSPACE](landing-zone-security.md#rule-adr-az-caf-sec-resourcediagnosticscentralworkspace)). Within a subscription the workspace is shared: in the shared
-non-production subscription, the landing zone and the `dev` and `test` slots of `expedition` all send their diagnostics to the same
-workspace.
+customer's
+([ADR-AZ-CAF-SEC-RESOURCEDIAGNOSTICSCENTRALWORKSPACE](landing-zone-security.md#rule-adr-az-caf-sec-resourcediagnosticscentralworkspace)).
+Within a subscription the workspace is shared: in the shared non-production subscription, the landing zone and the `dev` and `test` slots of
+`expedition` all send their diagnostics to the same workspace.
 
 `log-analytics.bicep` sets the name, the SKU, the retention, and the tags, and leaves the access-control mode to the platform's default. A
 secure default that pins resource-context access (`enableLogAccessUsingOnlyResourcePermissions`) would make the mode a decision of the
@@ -1314,7 +1330,8 @@ Summary (ours): Watch Microsoft's announcements of new role definitions, because
 #### What 41 means here
 
 The repository keeps no watch process of its own; each CAF and WAF record carries its retrieval date and is revisited when the vendor
-guidance changes ([ADR-AZ-CAF-SEC-SECURITYREQUIREMENTSALIGNEDAZUREROADMAPS](landing-zone-security.md#rule-adr-az-caf-sec-securityrequirementsalignedazureroadmaps)).
+guidance changes
+([ADR-AZ-CAF-SEC-SECURITYREQUIREMENTSALIGNEDAZUREROADMAPS](landing-zone-security.md#rule-adr-az-caf-sec-securityrequirementsalignedazureroadmaps)).
 
 ##### 41 status
 
@@ -1350,8 +1367,8 @@ Summary (ours): When the platform team provisions a workload landing zone, the p
 
 #### What 43 means here
 
-`discovery` is the provisioning: one config per subscription deploys the landing zone ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)).
-It creates none of the three things this item lists.
+`discovery` is the provisioning: one config per subscription deploys the landing zone
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). It creates none of the three things this item lists.
 
 - **Role assignments** are planned as the standard role set of rule 36.
 - **Security groups** are directory objects. Creating them would need rights in the tenant's directory, which the service connections do not
@@ -1393,9 +1410,9 @@ The planned assignments fall where this item puts them: the standard set of rule
 of rule 37 on the resources of `expedition`. None goes above a subscription, because the repository owns nothing there.
 
 The item's second half does not hold here. The landing zone's policies are assigned at the subscription too
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so an `Owner` of the subscription can change them. The safeguard is that the
-assignments are code: a changed policy differs from its template and is set back at the next deploy. A role that may change policy belongs
-to the deploying identity and the subscription's owners only, never to a workload team (rule 49).
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so an `Owner` of the subscription can change
+them. The safeguard is that the assignments are code: a changed policy differs from its template and is set back at the next deploy. A role
+that may change policy belongs to the deploying identity and the subscription's owners only, never to a workload team (rule 49).
 
 ##### 44 in `foundation`
 
@@ -1493,13 +1510,14 @@ Summary (ours): Treat each environment of an application (development, test, pro
 
 The separation follows the tier, not the environment. Each customer has a non-production and a production subscription, and each
 subscription has its own service connection (`sc-apex-nonprod`, `sc-apex-prod`, `sc-shared-nonprod`, …), its own vault, and its own
-workspace ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)). Production shares no subscription, service connection, vault, or
-workspace with non-production.
+workspace ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)). Production shares no subscription, service connection, vault,
+or workspace with non-production.
 
 Within a tier, the environments share. In the shared non-production subscription, the `dev` and `test` slots of `expedition` deploy through
 the one service connection `sc-shared-nonprod`, read the same break-glass secret from the same vault
-([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS](landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments)), and name the same SQL administrator group (rule 45). Managed identities
-are the exception: each is system-assigned to one resource of one configuration slot, so none is shared (rule 61).
+([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS](landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments)),
+and name the same SQL administrator group (rule 45). Managed identities are the exception: each is system-assigned to one resource of one
+configuration slot, so none is shared (rule 61).
 
 The DevOps security considerations advise one deploying identity per application and environment. Here that would be one service connection
 per environment, each with rights on its environment's resource group, rather than per subscription.
@@ -1536,8 +1554,8 @@ Summary (ours): Decide whether platform administrators need rights on workload l
 #### What 48 means here
 
 Eligibility and activation are settings of Privileged Identity Management in the tenant
-([ADR-AZ-CAF-SEC-PRIVILEGEDIDENTITYMANAGEMENT](landing-zone-security.md#rule-adr-az-caf-sec-privilegedidentitymanagement)). The repository's platform access is its deploying identity, one service
-connection per subscription (rule 54), not a person.
+([ADR-AZ-CAF-SEC-PRIVILEGEDIDENTITYMANAGEMENT](landing-zone-security.md#rule-adr-az-caf-sec-privilegedidentitymanagement)). The repository's
+platform access is its deploying identity, one service connection per subscription (rule 54), not a person.
 
 ##### 48 status
 
@@ -1683,11 +1701,13 @@ Summary (ours): Give privileged automation, such as runbooks and deployment pipe
 
 The repository's privileged automation is its CD pipelines. Each deploy runs through the step template
 `pipelines/steps/invoke-automation.yaml` in `azcli` mode, signed in by the service connection of its subscription, and pins its target with
-`-SubscriptionIdAssertIs`, which `Deploy-Bicep` requires in a pipeline ([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell),
-[ADR-AZ-SESSION-REVERSELOOKUP](../az-session-verification.md#rule-adr-az-session-reverselookup)). A mis-wired service connection therefore fails before it changes
-anything. Every deploy job is bound to an Azure DevOps environment (`shared-psub`, `apex-prod`, …), where approvals and checks can be
-attached. The infrastructure CI needs no Azure identity at all: `ci-infrastructure.yaml` builds offline with `Mode: none`. Credentials never
-reach an environment variable in any mode ([ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES](../../flow/pipeline-runner-pattern.md#rule-adr-flow-cd-runner-thinsteptemplates)).
+`-SubscriptionIdAssertIs`, which `Deploy-Bicep` requires in a pipeline
+([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell),
+[ADR-AZ-SESSION-REVERSELOOKUP](../az-session-verification.md#rule-adr-az-session-reverselookup)). A mis-wired service connection therefore
+fails before it changes anything. Every deploy job is bound to an Azure DevOps environment (`shared-psub`, `apex-prod`, …), where approvals
+and checks can be attached. The infrastructure CI needs no Azure identity at all: `ci-infrastructure.yaml` builds offline with `Mode: none`.
+Credentials never reach an environment variable in any mode
+([ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES](../../flow/pipeline-runner-pattern.md#rule-adr-flow-cd-runner-thinsteptemplates)).
 
 Two gaps remain. One service connection per subscription deploys `foundation`, `discovery`, and `expedition` alike, so a workload deploy
 runs with the rights the landing zone needs, to assign policies and, once rule 36 lands, roles. And the preview of a change,
@@ -1726,8 +1746,8 @@ Summary (ours): Put highly privileged roles such as Owner and User Access Admini
 #### What 55 means here
 
 Group eligibility is a setting of Privileged Identity Management in the tenant
-([ADR-AZ-CAF-SEC-PRIVILEGEDIDENTITYMANAGEMENT](landing-zone-security.md#rule-adr-az-caf-sec-privilegedidentitymanagement)). The planned standard role set (rule 36) would name such groups once
-they exist.
+([ADR-AZ-CAF-SEC-PRIVILEGEDIDENTITYMANAGEMENT](landing-zone-security.md#rule-adr-az-caf-sec-privilegedidentitymanagement)). The planned
+standard role set (rule 36) would name such groups once they exist.
 
 ##### 55 status
 
@@ -1816,8 +1836,10 @@ Summary (ours): Where possible, sign in to Linux and Windows virtual machines wi
 
 #### What 59 means here
 
-No template deploys a virtual machine ([ADR-AZ-CAF-SEC-JUSTTIMEVIRTUALMACHINEACCESS](landing-zone-security.md#rule-adr-az-caf-sec-justtimevirtualmachineaccess)). `vm.bicep` exists as a module and
-takes a local administrator name and password; the first template that uses it should give the machine Entra ID sign-in instead.
+No template deploys a virtual machine
+([ADR-AZ-CAF-SEC-JUSTTIMEVIRTUALMACHINEACCESS](landing-zone-security.md#rule-adr-az-caf-sec-justtimevirtualmachineaccess)). `vm.bicep`
+exists as a module and takes a local administrator name and password; the first template that uses it should give the machine Entra ID
+sign-in instead.
 
 ##### 59 status
 
@@ -1834,9 +1856,9 @@ Summary (ours): Use managed identities for access between Azure resources, so th
 #### What 60 means here
 
 `storage-account.bicep` and `sql-server.bicep` give their resource a system-assigned managed identity and output its `principalId`
-([ADR-AZ-CAF-SEC-MANAGEDIDENTITIESWHEREPOSSIBLE](landing-zone-security.md#rule-adr-az-caf-sec-managedidentitieswherepossible)). Nothing uses them: no role is granted to either, and no resource calls
-another. The one credential between resources, the break-glass password, is read by Azure Resource Manager on behalf of the deploying
-identity, not by a resource.
+([ADR-AZ-CAF-SEC-MANAGEDIDENTITIESWHEREPOSSIBLE](landing-zone-security.md#rule-adr-az-caf-sec-managedidentitieswherepossible)). Nothing uses
+them: no role is granted to either, and no resource calls another. The one credential between resources, the break-glass password, is read
+by Azure Resource Manager on behalf of the deploying identity, not by a resource.
 
 The identities become useful with the first access between resources, for example the SQL server writing its audit log or a workload reading
 from the storage account; each is then a role assignment to the identity, in the template that deploys the resource.
@@ -1871,9 +1893,9 @@ Summary (ours): Give each application instance and environment its own credentia
 #### What 61 means here
 
 Managed identities are never shared: each is system-assigned to one resource, and each configuration slot deploys its own resources
-([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). Production never shares a credential with development, because the two
-live in different subscriptions with different vaults and service connections (rule 47); the SQL administrator group they share is an access
-group, not a credential (rule 45).
+([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). Production never shares a
+credential with development, because the two live in different subscriptions with different vaults and service connections (rule 47); the
+SQL administrator group they share is an access group, not a credential (rule 45).
 
 The shared credential is the break-glass login. Every `expedition` config names the login `exped-break-glass` and the secret
 `exped-sql-admin-password`, read from its tier's vault, so the environments of one tier share one password
@@ -1894,7 +1916,8 @@ Each config should name a secret of its own slot, so `dev`, `test`, and `dev-blu
 ##### 61 status
 
 **Partly realised.** No managed identity is shared and production shares nothing with development, but the break-glass password is shared
-within a tier; a secret per configuration slot is planned (follow-up), as ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS decides.
+within a tier; a secret per configuration slot is planned (follow-up), as ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS
+decides.
 
 ### 62 — User-assigned identities at scale
 
@@ -1925,10 +1948,11 @@ Summary (ours): Keep application secrets, keys, and certificates in Key Vault, a
 #### What 63 means here
 
 The repository's one secret, the break-glass password, lives in Key Vault, and a secure parameter takes a Key Vault reference, never a
-literal ([ADR-AZ-WAF-SE-SE09](../waf/security.md#rule-adr-az-waf-se-se09)). `key-vault.bicep` authorizes both planes through Azure RBAC, with no
-access policies ([ADR-AZ-CAF-SEC-AZURERBACKEYVAULTDATAPLANE](landing-zone-security.md#rule-adr-az-caf-sec-azurerbackeyvaultdataplane)). No application reads the vault: Azure Resource Manager
-resolves the reference at deploy time (`enabledForTemplateDeployment: true`). A workload that reads a secret at run time would do so with
-its managed identity and a data role such as Key Vault Secrets User, granted on the vault.
+literal ([ADR-AZ-WAF-SE-SE09](../waf/security.md#rule-adr-az-waf-se-se09)). `key-vault.bicep` authorizes both planes through Azure RBAC,
+with no access policies
+([ADR-AZ-CAF-SEC-AZURERBACKEYVAULTDATAPLANE](landing-zone-security.md#rule-adr-az-caf-sec-azurerbackeyvaultdataplane)). No application reads
+the vault: Azure Resource Manager resolves the reference at deploy time (`enabledForTemplateDeployment: true`). A workload that reads a
+secret at run time would do so with its managed identity and a data role such as Key Vault Secrets User, granted on the vault.
 
 ##### 63 in `foundation`
 
@@ -1959,10 +1983,12 @@ Summary (ours): Use a separate key vault for each application environment in eac
 #### What 64 means here
 
 Vaults are per subscription: `foundation` deploys one in each, so every customer and every tier has its own
-([ADR-AZ-CAF-SEC-FEDERATEDKEYVAULTMODEL](landing-zone-security.md#rule-adr-az-caf-sec-federatedkeyvaultmodel)), in the one region of its environment
-([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)). They are not per application environment: the environments of a tier
-share their tier's vault ([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS](landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments)), and the workload's secret sits in the
-platform's vault, not in one of its own ([ADR-AZ-CAF-SEC-NOCENTRALVAULTAPPLICATIONSECRETS](landing-zone-security.md#rule-adr-az-caf-sec-nocentralvaultapplicationsecrets)).
+([ADR-AZ-CAF-SEC-FEDERATEDKEYVAULTMODEL](landing-zone-security.md#rule-adr-az-caf-sec-federatedkeyvaultmodel)), in the one region of its
+environment ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)). They are not per application
+environment: the environments of a tier share their tier's vault
+([ADR-AZ-CAF-SEC-NOVAULTSHAREDBETWEENAPPLICATIONSORENVIRONMENTS](landing-zone-security.md#rule-adr-az-caf-sec-novaultsharedbetweenapplicationsorenvironments)),
+and the workload's secret sits in the platform's vault, not in one of its own
+([ADR-AZ-CAF-SEC-NOCENTRALVAULTAPPLICATIONSECRETS](landing-zone-security.md#rule-adr-az-caf-sec-nocentralvaultapplicationsecrets)).
 
 A vault inside the workload is not adopted, because the workload's secret must exist before the workload deploys: the SQL server reads the
 break-glass password at creation, so the vault that holds it belongs to the template deployed before it. Separation per environment comes
@@ -2034,8 +2060,8 @@ Summary (ours): Cloud-native applications should use the Microsoft identity plat
 #### What 67 means here
 
 The workload of `expedition` is a storage account and a database with no user-facing application
-([ADR-AZ-CAF-SEC-EVERYAPPLICATIONONBOARDEDACCESSPRACTICES](landing-zone-security.md#rule-adr-az-caf-sec-everyapplicationonboardedaccesspractices)). An application registration and its sign-in are the application's
-concern, outside the templates.
+([ADR-AZ-CAF-SEC-EVERYAPPLICATIONONBOARDEDACCESSPRACTICES](landing-zone-security.md#rule-adr-az-caf-sec-everyapplicationonboardedaccesspractices)).
+An application registration and its sign-in are the application's concern, outside the templates.
 
 ##### 67 status
 
@@ -2082,7 +2108,8 @@ belong to the tenant's administrators and the repository owns nothing above a su
   enters a config only as the registered `entra_sql_admin_group`
   ([ADR-AUTO-GUIDS-LIVEENTRIESONLY](../../automation/managed-guids.md#rule-adr-auto-guids-liveentriesonly)).
 - `Deploy-Bicep` requires `-SubscriptionIdAssertIs` in a pipeline and verifies the session's subscription against `azure.yml`
-  ([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell), [az-session-verification](../az-session-verification.md)) (rule 54).
+  ([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell),
+  [az-session-verification](../az-session-verification.md)) (rule 54).
 - **Planned (follow-up):** the standard role set in `discovery` and the data roles in `expedition` (rules 36, 37, 60, 63); a group per
   customer and environment in the `expedition` configs (rule 45); a secret per configuration slot (rules 61 and 64); a resource-context
   default in `log-analytics.bicep` (rule 38); a separate deploying identity for the workload and a read-only one for the what-if preview

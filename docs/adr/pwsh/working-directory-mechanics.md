@@ -4,11 +4,11 @@
 
 ### Rule ADR-PWSH-PWD-NEVERDEPENDONPWD
 
-PowerShell code applies [never-depend-on-pwd](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths) (`ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS`) with two
-anchors: the code root (`Get-CatzcModuleRoot` for a module's own content, `Get-CatzcModulesRoot` for the dot-prefixed infrastructure,
-ADR-PWSH-PWD-MODULELOCATESCONTENT) and the working root (`Get-RepositoryRoot`, ADR-PWSH-PWD-ROOTTHROUGHACCESSOR), combined with `Join-Path` — never a path resolved against
-`$PWD`. `$PSScriptRoot` is the anchor only for files that are not module function files: tests, standalone asset scripts, and the
-`.internal` loader.
+PowerShell code applies [never-depend-on-pwd](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)
+(`ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS`) with two anchors: the code root (`Get-CatzcModuleRoot` for a module's own content,
+`Get-CatzcModulesRoot` for the dot-prefixed infrastructure, ADR-PWSH-PWD-MODULELOCATESCONTENT) and the working root (`Get-RepositoryRoot`,
+ADR-PWSH-PWD-ROOTTHROUGHACCESSOR), combined with `Join-Path` — never a path resolved against `$PWD`. `$PSScriptRoot` is the anchor only for
+files that are not module function files: tests, standalone asset scripts, and the `.internal` loader.
 
 - [The anchors](#the-anchors)
 
@@ -31,11 +31,11 @@ guarantee restoration.
 
 Module code locates its own content — its `configs/`, its `assets/`, another module's, and the dot-prefixed infrastructure (`.internal/`,
 `.vendor/`, `.compiled/`), the internal asset dependencies of
-[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency) — only through
-`Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
-`Get-RepositoryRoot`, or a `Join-Path` over a hand-built `pwsh/...` path. `$PSScriptRoot` is banned in module function files (a
-module's root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule `Measure-NoScriptRootAnchor`
-enforces the ban.
+[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency) —
+only through `Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
+`Get-RepositoryRoot`, or a `Join-Path` over a hand-built `pwsh/...` path. `$PSScriptRoot` is banned in module function files (a module's
+root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule `Measure-NoScriptRootAnchor` enforces the
+ban.
 
 - [The code root](#the-code-root)
 - [How this is enforced](#how-this-is-enforced)
@@ -43,26 +43,27 @@ enforces the ban.
 ### Rule ADR-PWSH-PWD-TESTABSOLUTEPATHS
 
 A test file builds its absolute paths from `$env:RepositoryRoot`, or from `$PSScriptRoot` for its own fixtures (`tests/assets/`), never from
-`$PWD` or a relative path ([ADR-AUTO-NOPWD-TESTSBUILDABSOLUTEPATHS](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-testsbuildabsolutepaths)).
+`$PWD` or a relative path
+([ADR-AUTO-NOPWD-TESTSBUILDABSOLUTEPATHS](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-testsbuildabsolutepaths)).
 
 - [The anchors](#the-anchors)
 
 ### Rule ADR-PWSH-PWD-ROOTTHROUGHACCESSOR
 
 A module function file reads the working root through `Get-RepositoryRoot`, never `$env:RepositoryRoot`
-([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)). A function whose job is the variable itself
-(`Test-InIsolation` swaps it for a sandbox and restores it) carries a justified suppression; tests and `.internal` keep the variable. The
-analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
+([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)). A function whose job is the
+variable itself (`Test-InIsolation` swaps it for a sandbox and restores it) carries a justified suppression; tests and `.internal` keep the
+variable. The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
 
 - [The anchors](#the-anchors)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-PWSH-PWD-LITERALCHILDPATH
 
-The child path of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath) is the `-ChildPath` argument
-of `Get-CatzcModuleRoot`, written as one string literal at the call site — never a variable, an expression, or a `Join-Path` around the
-call. `Get-InternalAssetDependency` reads that literal from the syntax trees of the module function files, so a computed child path is a
-dependency the inventory cannot see.
+The child path of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)
+is the `-ChildPath` argument of `Get-CatzcModuleRoot`, written as one string literal at the call site — never a variable, an expression, or
+a `Join-Path` around the call. `Get-InternalAssetDependency` reads that literal from the syntax trees of the module function files, so a
+computed child path is a dependency the inventory cannot see.
 
 - [The code root](#the-code-root)
 
@@ -130,8 +131,8 @@ Paths resolve from the code root (`Get-CatzcModuleRoot`, with a literal `-ChildP
 ### How this is enforced
 
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
-  `Set-Location`/`cd` calls (ADR-PWSH-PWD-RESTORESETLOCATION) and `$PWD` references (ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS). Runs as one of the L2 tests via
-  `Test-ScriptAnalyzer.Tests.ps1`.
+  `Set-Location`/`cd` calls (ADR-PWSH-PWD-RESTORESETLOCATION) and `$PWD` references (ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS). Runs as one of
+  the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags `$PSScriptRoot` in
   module function files (ADR-PWSH-PWD-MODULELOCATESCONTENT), exempting tests, `assets/`, and `.internal`.
 - **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** (`pwsh/.scriptanalyzer/NoEnvRepositoryRoot.psm1`) — flags a

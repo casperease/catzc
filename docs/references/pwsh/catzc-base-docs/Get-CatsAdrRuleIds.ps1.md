@@ -13,11 +13,11 @@ The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 
 
 Unions the rule ids of every ADR the index ([index](../../../adr/index.md)) lists: for each index row (Get-CatsAdrIndex) it reads that ADR
 file (Get-CatsAdrRules) and collects the `### Rule <CODE>:<n>` ids, returning them distinct and ordinally sorted in registry form (colon,
-e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'). This is the authoritative set a rule citation is validated against — a test tag or an analyzer mapping that names
-a rule absent from this set is a dead reference.
+e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'). This is the authoritative set a rule citation is validated against — a test tag or an
+analyzer mapping that names a rule absent from this set is a dead reference.
 
-Ids are returned in registry (`:`) form; a caller comparing a citation, which is spelled in `#` form (e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS', the
-[index](../../../adr/index.md) citation grammar), canonicalizes the separator before lookup.
+Ids are returned in registry (`:`) form; a caller comparing a citation, which is spelled in `#` form (e.g.
+'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS', the [index](../../../adr/index.md) citation grammar), canonicalizes the separator before lookup.
 
 A pure function of the files on disk, memoized per resolved index path for the session (re-run the importer to refresh — see
 [ADR-AUTO-CACHE](../../../adr/automation/caching.md)). Built on the two existing ADR parsers rather than re-scanning the tree

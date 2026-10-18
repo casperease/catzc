@@ -11,13 +11,13 @@ Quality gate: the network plan (network.yml) and the azure config's environments
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the cross-asset join of
-[ADR-AZ-NETWORK-KEYEDBYENVIRONMENT](../../../adr/azure/azure-network-model.md#rule-adr-az-network-keyedbyenvironment) and
-[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../../adr/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription). Each config validates its own shape when Get-Config
-loads it; this gate checks what neither file can check alone: every network environment is a defined azure.yml environment, and every
-standard azure.yml environment has a network entry (per-subscription environments are exempt); every network subscription is a defined
-azure.yml subscription, every azure.yml subscription has a hub (no customer) or a spoke (a customer), and a spoke has a workload subnet for
-each standard environment its subscription serves, and no other. It lists every violation.
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the cross-asset
+join of [ADR-AZ-NETWORK-KEYEDBYENVIRONMENT](../../../adr/azure/azure-network-model.md#rule-adr-az-network-keyedbyenvironment) and
+[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../../adr/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription). Each config
+validates its own shape when Get-Config loads it; this gate checks what neither file can check alone: every network environment is a defined
+azure.yml environment, and every standard azure.yml environment has a network entry (per-subscription environments are exempt); every
+network subscription is a defined azure.yml subscription, every azure.yml subscription has a hub (no customer) or a spoke (a customer), and
+a spoke has a workload subnet for each standard environment its subscription serves, and no other. It lists every violation.
 
 ### parameter `OutputFolder`
 

@@ -78,10 +78,10 @@ This platform's CI discipline ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion
 integration is a discipline before it is a pipeline, bound by a 5–10 minute integration budget on every merge into main so the fast gate
 never degrades into a queue, with the Build Verification Test as the aggregate pass/fail signal a commit must clear. The pipeline taxonomy
 carries the mechanics that budget depends on — CI and CD share one build-and-verify engine, and anything slower than the budget is pushed
-into the post-commit path rather than the pre-commit gate ([ADR-FLOW-CD-TYPE](../flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)). Test
-automation supplies the tiered suite the fast gate runs: L0–L1 unit tests and L2 CLI-tool tests execute on every change and self-skip only
-when a tool is genuinely absent, while L3 cloud tests stay opt-in and out of the inner loop
-([ADR-AUTO-TEST](../automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
+into the post-commit path rather than the pre-commit gate
+([ADR-FLOW-CD-TYPE](../flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)). Test automation supplies the tiered suite the fast
+gate runs: L0–L1 unit tests and L2 CLI-tool tests execute on every change and self-skip only when a tool is genuinely absent, while L3 cloud
+tests stay opt-in and out of the inner loop ([ADR-AUTO-TEST](../automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 
 ## Common pitfalls
 

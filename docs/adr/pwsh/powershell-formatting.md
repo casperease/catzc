@@ -59,17 +59,18 @@ renumber breaks the build. Id existence is checked by that gate, not at load, ke
 
 ### Rule ADR-PWSH-FORMAT-STEPASSERTIONS
 
-The step assertions of [ADR-AUTO-NONEST-ASSERTBETWEENSTEPS](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest-assertbetweensteps) are `Assert-*` calls on the named
-intermediate, on the line after the step that produced it. Inside a pipeline that must stay one statement, `Assert-PipelineCount` asserts
-mid-pipeline and passes the items through.
+The step assertions of [ADR-AUTO-NONEST-ASSERTBETWEENSTEPS](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest-assertbetweensteps) are
+`Assert-*` calls on the named intermediate, on the line after the step that produced it. Inside a pipeline that must stay one statement,
+`Assert-PipelineCount` asserts mid-pipeline and passes the items through.
 
 - [Flat steps](#flat-steps)
 
 ### Rule ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS
 
-The simple expressions [ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest-simpleexpressionsexempt) exempts are, in PowerShell, a
-`Join-Path` onto an anchor, a single property access (`$moduleDir.Name`), a straightforward cast, and a short pipeline of two obvious stages
-(`Get-ChildPath … | Sort-Object`).
+The simple expressions
+[ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest-simpleexpressionsexempt) exempts are, in
+PowerShell, a `Join-Path` onto an anchor, a single property access (`$moduleDir.Name`), a straightforward cast, and a short pipeline of two
+obvious stages (`Get-ChildPath … | Sort-Object`).
 
 - [Flat steps](#flat-steps)
 
@@ -182,8 +183,8 @@ from analyzer rule to citation sits with the analyzer quality gate (`Test-Script
 a custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
 `Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
 in the gate rather than at config load is the same split the Azure customer catalogue uses
-([azure-customer-model](../azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)): the load stays hermetic, and the cross-reference is a
-quality gate.
+([azure-customer-model](../azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)): the load stays hermetic, and
+the cross-reference is a quality gate.
 
 ### Flat steps
 

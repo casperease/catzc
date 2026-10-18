@@ -5,7 +5,8 @@
 ### Rule ADR-AUTO-IMPORTER-ONEENTRY
 
 The **importer** is the one way catzc enters a session: per execution engine one entry at the repository root, the importer entry the engine
-model names, every entry generated from one source and never hand-edited ([ADR-AUTO-ENGINE-IMPORTERENTRY](execution-engines.md#rule-adr-auto-engine-importerentry),
+model names, every entry generated from one source and never hand-edited
+([ADR-AUTO-ENGINE-IMPORTERENTRY](execution-engines.md#rule-adr-auto-engine-importerentry),
 [ADR-DSGN-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-adr-dsgn-runmode-tworunmodes)).
 
 - [One entry per engine](#one-entry-per-engine)
@@ -13,9 +14,11 @@ model names, every entry generated from one source and never hand-edited ([ADR-A
 ### Rule ADR-AUTO-IMPORTER-DECIDESMIX
 
 The importer decides the mix a session loads: which languages, which engines and which modules. Each input resolves in the one order of a
-setting ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the caller's explicit value, else the importer's configuration,
-else the default declared once on its config type. The default is `auto`: every engine whose executable is present, with a missing one
-skipped and reported ([ADR-AUTO-ENGINE-AUTONAMESNOENGINE](execution-engines.md#rule-adr-auto-engine-autonamesnoengine)), and the languages of the modules it loads.
+setting ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the caller's explicit value,
+else the importer's configuration, else the default declared once on its config type. The default is `auto`: every engine whose executable
+is present, with a missing one skipped and reported
+([ADR-AUTO-ENGINE-AUTONAMESNOENGINE](execution-engines.md#rule-adr-auto-engine-autonamesnoengine)), and the languages of the modules it
+loads.
 
 - [The mix](#the-mix)
 
@@ -31,7 +34,8 @@ again what the importer decided ([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](platform-bu
 
 A language the configuration names and the importer has no handler for stops the import with a NotImplemented error that names the language;
 the handled implementation languages are PowerShell with its hosted C#, Bash, Python and Go
-([ADR-AUTO-MODULE-LANGUAGESFROMFILES](module-model.md#rule-adr-auto-module-languagesfromfiles)). A new language is a handler and a registry entry, never a branch
+([ADR-AUTO-MODULE-LANGUAGESFROMFILES](module-model.md#rule-adr-auto-module-languagesfromfiles)). A new language is a handler and a registry
+entry, never a branch
 ([ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE](open-closed-architecture.md#rule-adr-auto-extend-contentagnosticinfrastructure)).
 
 - [Growth by entry](#growth-by-entry)
@@ -40,7 +44,8 @@ the handled implementation languages are PowerShell with its hosted C#, Bash, Py
 
 The run mode, source or build, and the host, console or headless, are orthogonal to the mix: they choose where the modules are read from and
 how the native types load ([ADR-DSGN-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-adr-dsgn-runmode-modeisderived),
-[ADR-AUTO-TYPES-CHANGEDAFTERLOAD](BCL/native-csharp-types.md#rule-adr-auto-types-changedafterload)), the mix chooses which modules, languages and engines.
+[ADR-AUTO-TYPES-CHANGEDAFTERLOAD](BCL/native-csharp-types.md#rule-adr-auto-types-changedafterload)), the mix chooses which modules,
+languages and engines.
 
 - [The mix](#the-mix)
 

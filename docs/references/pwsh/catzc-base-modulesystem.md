@@ -31,12 +31,12 @@ sites.
 
 Computing the actual dependency edges — module-to-module through PowerShell call-site analysis and function-to-function through call-graph
 traversal from a named root — rendering them, ordering the modules foundation-first, and checking them with quality gates
-([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The actual edges, together with the cross-module C# type
-edges that [Catzc.Base.TypesSystem](catzc-base-typessystem.md) computes, are checked against the declared graph in `dependencies.yml`; the
-whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The declared graph is
-group-aware: its `groups:` section names sets of on-disk modules each with an internal member-to-member DAG; its `modules:` section lists,
-per consumer, the allowed targets as group names (loose: any member) or specific module names (tight). The config this responsibility owns —
-`dependencies.yml` — is the platform's single declared layering contract.
+([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The actual edges, together with the
+cross-module C# type edges that [Catzc.Base.TypesSystem](catzc-base-typessystem.md) computes, are checked against the declared graph in
+`dependencies.yml`; the whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The
+declared graph is group-aware: its `groups:` section names sets of on-disk modules each with an internal member-to-member DAG; its
+`modules:` section lists, per consumer, the allowed targets as group names (loose: any member) or specific module names (tight). The config
+this responsibility owns — `dependencies.yml` — is the platform's single declared layering contract.
 
 ### responsibility:3 — Module conventions
 
@@ -91,8 +91,8 @@ runs against.
 
 The diagram below draws the two dependency graphs from the source. The declared graph in `dependencies.yml` orders the test run and closes
 each profile. The graph observed from the parsed code is checked against it for cycles and for undeclared edges. Its
-[description](.assets/module-graph-declared-vs-observed/diagram.drawio.md) walks it step by step, including the one place the test
-order falls back instead of failing.
+[description](.assets/module-graph-declared-vs-observed/diagram.drawio.md) walks it step by step, including the one place the test order
+falls back instead of failing.
 
 ![Declared graph orders and closes; observed graph is checked](.assets/module-graph-declared-vs-observed/diagram.drawio.png)
 

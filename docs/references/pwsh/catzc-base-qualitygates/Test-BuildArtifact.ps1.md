@@ -13,9 +13,9 @@ Quality gate: builds the selected modules once into a temporary destination and 
 
 The built, immutable artifact is what ships, so it is verified as built
 ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate),
-[ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../../../adr/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)). The gate runs Build-Modules (vendor policy 'full', so
-Pester ships and a build-mode session can enter a module's scope) into a fresh temporary destination, checks the build facet by facet, and
-deletes it. Every issue is prefixed with its facet:
+[ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../../../adr/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)). The gate runs
+Build-Modules (vendor policy 'full', so Pester ships and a build-mode session can enter a module's scope) into a fresh temporary
+destination, checks the build facet by facet, and deletes it. Every issue is prefixed with its facet:
 
 ```text
 [build]     Build-Modules succeeds — it verifies its own output with Assert-CatzcBundle, the bundle's

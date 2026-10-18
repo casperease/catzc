@@ -61,8 +61,9 @@ Four failure axes are platform-independent facts every language obeys:
 
 The concrete PowerShell breakage tables — Windows-isms that fail on Unix and Unix-isms that fail on Windows — live in
 [cross-platform-powershell](../pwsh/cross-platform-powershell.md), whose rules carry the PowerShell mechanics of each rule here: the path
-anchors and joins of rule 3 (ADR-PWSH-XPLAT-PATHJOINPRIMITIVE, ADR-PWSH-XPLAT-PATHFROMANCHORS), the invariant culture of rule 6 (ADR-PWSH-XPLAT-INVARIANTCULTURE), the path comparison of
-rule 7 (ADR-PWSH-XPLAT-PATHCOMPARISON), and the shell-outs of rule 9 (ADR-PWSH-XPLAT-NOPLATFORMSHELL).
+anchors and joins of rule 3 (ADR-PWSH-XPLAT-PATHJOINPRIMITIVE, ADR-PWSH-XPLAT-PATHFROMANCHORS), the invariant culture of rule 6
+(ADR-PWSH-XPLAT-INVARIANTCULTURE), the path comparison of rule 7 (ADR-PWSH-XPLAT-PATHCOMPARISON), and the shell-outs of rule 9
+(ADR-PWSH-XPLAT-NOPLATFORMSHELL).
 
 ### How we enforce this
 

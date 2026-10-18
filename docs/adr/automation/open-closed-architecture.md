@@ -77,8 +77,8 @@ The open/closed guarantee rests on conventions:
 - **Folder = module.** A directory under `pwsh/` with `.ps1` files is a module. No registration needed.
 - **Root = public, `private/` = private.** Export visibility is determined by file location. No attribute or annotation needed.
 
-In PowerShell these conventions are [one-function-per-file](../pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-onefunctionperfile) and the location-based
-exports of [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-visibilityislocation).
+In PowerShell these conventions are [one-function-per-file](../pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-onefunctionperfile) and
+the location-based exports of [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-visibilityislocation).
 
 These conventions are rigid by design. Rigidity is what makes the system predictable and extensible. If every module followed its own
 structure, the bootstrap module could not derive registrations automatically, and you would be back to hand-maintained configuration.
@@ -106,9 +106,11 @@ The platform must remain open for extension and closed for modification. Concret
   is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap module, or any
   other module's files (ADR-AUTO-EXTEND-ADDNOTEDIT).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
-  from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE).
+  from names and locations alone; they never name a specific module, function, or business rule
+  (ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE).
 - **Non-conforming code is fixed, not accommodated.** Code that does not follow file name = function name, folder = module, and root =
-  public is not discovered; the remedy is to rename or move it, never to teach the loader an exception (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS).
+  public is not discovered; the remedy is to rename or move it, never to teach the loader an exception
+  (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS).
 - **Special needs stay inside the module.** A module that needs custom initialization or extra wiring implements it with its own private
   helpers; the loader gains no module-specific branch (ADR-AUTO-EXTEND-SPECIALCASESINMODULE).
 

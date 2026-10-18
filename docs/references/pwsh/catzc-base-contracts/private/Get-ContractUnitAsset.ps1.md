@@ -13,9 +13,9 @@ Lists the contract assets of the selected versions of one unit.
 
 A unit folder, `contracts/<unit>/`, holds only version folders named `<major>.<minor>.<patch>`
 ([ADR-REPO-CONTRACT-LAYOUT](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)); 0.0.0 is the unit's draft
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)). Every version folder name is checked, selected
-or not, so a misnamed folder throws on any listing; a file directly in the unit folder throws too. A selection that matches no version
-folder gives nothing. Versions come in ordinal order.
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)). Every version
+folder name is checked, selected or not, so a misnamed folder throws on any listing; a file directly in the unit folder throws too. A
+selection that matches no version folder gives nothing. Versions come in ordinal order.
 
 ### parameter `Unit`
 
@@ -32,8 +32,8 @@ The version folder names to list; wildcards allowed.
 ### parameter `TargetRoot`
 
 The target roots, module name to repository-relative folder
-([ADR-REPO-CONTRACT-LAYOUT](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)). A module it does not name takes the repository
-root.
+([ADR-REPO-CONTRACT-LAYOUT](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)). A module it does not name takes the
+repository root.
 
 ### parameter `RepositoryRoot`
 

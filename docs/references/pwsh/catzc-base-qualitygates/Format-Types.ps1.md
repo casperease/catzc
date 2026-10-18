@@ -11,9 +11,9 @@ Maintains the file-scoped namespace on each C# type source, derived from its mod
 
 ### description
 
-Every catzc C# type lives at `pwsh/<Module>/types/<Type>.cs` and belongs to namespace `<Module>` (ADR native-csharp-types). The
-namespace is NOT hand-authored: this formatter writes/repairs the `namespace <Module>;` line from the file's folder, so the folder stays the
-single source of truth and a move between modules is a safe refactor — re-running Format-Types rewrites the line to the new folder, and
+Every catzc C# type lives at `pwsh/<Module>/types/<Type>.cs` and belongs to namespace `<Module>` (ADR native-csharp-types). The namespace is
+NOT hand-authored: this formatter writes/repairs the `namespace <Module>;` line from the file's folder, so the folder stays the single
+source of truth and a move between modules is a safe refactor — re-running Format-Types rewrites the line to the new folder, and
 Test-Formatting (its -DryRun) fails CI on any drift. The declared namespace is what lets the editor's C# toolchain compile and analyze these
 files (no CA1050), so the rule is visible in-editor (everything-as-code).
 

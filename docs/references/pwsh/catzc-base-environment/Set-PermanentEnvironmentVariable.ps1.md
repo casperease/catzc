@@ -17,9 +17,9 @@ environment, which every other process and every concurrent test run on the mach
 callers guard Windows-only use with $IsWindows.
 
 Because every such write passes through here, this is also where it is announced
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)): one line names the scope, the variable
-and the change. Writing the value the scope already holds — or removing a variable that is not set — is a no-op, so it neither writes nor
-announces.
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
+one line names the scope, the variable and the change. Writing the value the scope already holds — or removing a variable that is not set —
+is a no-op, so it neither writes nor announces.
 
 This is the thin I/O boundary itself, so its test is the vertical system test (L3): a real round trip through the user environment.
 

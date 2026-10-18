@@ -13,11 +13,12 @@ opens with.
 ### description
 
 Renders one end-of-run banner and nothing else: a Write-Header whose rule lines carry a per-character gradient (green-rainbow on a passing
-run, red-rainbow on a failing one, [ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) while
-its titled line keeps the anchor's solid base colour, a default-coloured counts detail line (the banner rule carries the signal; the counts
-are data), and a Write-Footer closing the same gradient. It is the symmetric close to Write-TestAutomationHeader's cyan opener, printed on
-every exit path so a run is always visually bracketed. Every line routes through the shared Write-InformationColored chokepoint, so it stays
-silent under the Pester harness ($global:__PesterRunning) with no per-function plumbing.
+run, red-rainbow on a failing one,
+[ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) while its titled
+line keeps the anchor's solid base colour, a default-coloured counts detail line (the banner rule carries the signal; the counts are data),
+and a Write-Footer closing the same gradient. It is the symmetric close to Write-TestAutomationHeader's cyan opener, printed on every exit
+path so a run is always visually bracketed. Every line routes through the shared Write-InformationColored chokepoint, so it stays silent
+under the Pester harness ($global:__PesterRunning) with no per-function plumbing.
 
 ### parameter `Result`
 

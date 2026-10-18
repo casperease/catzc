@@ -43,18 +43,19 @@ constants; modifying a bootstrap anchor means the design is wrong.
 
 Never store a secret in an environment variable as internal state our own code reads back — durable state, config, or a value our own code
 later reads. A secret may cross to a child or external process through the environment only via the single disciplined seam
-`Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS), never written ad hoc. The environment is visible to child processes, process-inspection tools,
-and crash dumps (CWE-526).
+`Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS), never written ad hoc. The environment is visible to child processes,
+process-inspection tools, and crash dumps (CWE-526).
 
 - [They are a security surface](#they-are-a-security-surface)
 - [The secret hand-off](#the-secret-hand-off)
 
 ### Rule ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
 
-Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR-SETONLYFORTOOLS), permitted
-only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes the secret as a protected value, never as plain text;
-never logs or returns the plaintext (it masks it as `***`); decrypts only at the moment it sets the variable; and defaults to a scoped set
-and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret stays prohibited.
+Handing a secret to a child or external process through the environment is a legitimate external-boundary use
+(ADR-AUTO-ENVVAR-SETONLYFORTOOLS), permitted only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes the secret
+as a protected value, never as plain text; never logs or returns the plaintext (it masks it as `***`); decrypts only at the moment it sets
+the variable; and defaults to a scoped set and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret
+stays prohibited.
 
 - [The secret hand-off](#the-secret-hand-off)
 
@@ -173,19 +174,20 @@ Setting a variable for an external tool (legitimate use 1) covers non-secret con
 — the consumer is an outside process, not our code — but a secret crossing the boundary demands more discipline than a bare assignment,
 because the plaintext must not leak into a log, a return value, or a persisted variable that outlives the call.
 
-ADR-AUTO-ENVVAR-NOSECRETSTATE forbids using the environment as a secret **store** — durable or internal state, config, or any secret our own code reads
-back out of the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret from the
-environment; that narrow, external-boundary crossing is ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS, and it is permitted through exactly one seam:
-**`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`). It takes the secret as a protected value, never logs or returns the plaintext,
-decrypts only at the assignment that is the boundary, and by default removes the secret from the environment when the hand-off ends. Its
-PowerShell mechanics are [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md#the-secret-hand-off).
+ADR-AUTO-ENVVAR-NOSECRETSTATE forbids using the environment as a secret **store** — durable or internal state, config, or any secret our own
+code reads back out of the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret
+from the environment; that narrow, external-boundary crossing is ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS, and it is permitted through exactly
+one seam: **`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`). It takes the secret as a protected value, never logs or returns the
+plaintext, decrypts only at the assignment that is the boundary, and by default removes the secret from the environment when the hand-off
+ends. Its PowerShell mechanics are [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md#the-secret-hand-off).
 
 The plaintext does land in the environment for the instant the external tool reads it — that is unavoidable, because the tool's contract is
-to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS guarantees is that this is the _only_
-place the plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off.
+to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS guarantees is that this
+is the _only_ place the plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off.
 
-This _strengthens_ ADR-AUTO-ENVVAR-NOSECRETSTATE rather than weakening it: scattered ad-hoc plaintext assignments are replaced by one seam that carries
-the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string assignment.
+This _strengthens_ ADR-AUTO-ENVVAR-NOSECRETSTATE rather than weakening it: scattered ad-hoc plaintext assignments are replaced by one seam
+that carries the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string
+assignment.
 
 ### Prohibited uses
 
@@ -258,5 +260,5 @@ Environment variables remain the right answer when your config is genuinely a fl
   external/diagnostic toggles, which are read (not written) as boundary inputs. Internal state flows through function contracts, not the
   environment.
 - Secrets reach an external tool through one auditable seam. A secret bound into the environment for a child process goes through
-  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS) — protected in, masked in logs, decrypted only at the assignment, scoped by default — so there
-  is a single function to review rather than scattered ad-hoc secret-into-environment writes.
+  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS) — protected in, masked in logs, decrypted only at the assignment, scoped by
+  default — so there is a single function to review rather than scattered ad-hoc secret-into-environment writes.

@@ -11,16 +11,17 @@ Imports an outside repository with its full history at one landing address under
 
 ### description
 
-An import ([ADR-DSGN-TRACK-UNORDEREDTRACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack)): every commit of the source ref becomes part of this
-repository's history, and the source's files land at the landing address `<unordered>/<name>`, where `<unordered>` is the place of the track
-of type `unordered`. Nothing outside the address changes; sorting the files into their modules is a later `git mv`, one file or folder at a
-time.
+An import ([ADR-DSGN-TRACK-UNORDEREDTRACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack)): every commit of the source
+ref becomes part of this repository's history, and the source's files land at the landing address `<unordered>/<name>`, where `<unordered>`
+is the place of the track of type `unordered`. Nothing outside the address changes; sorting the files into their modules is a later
+`git mv`, one file or folder at a time.
 
-The name resolves once ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): -Name when given, else
-the source's folder or repository name in kebab case. A name that is not a short kebab word fails, a taken address fails, and no suffix is
-ever added. Every precondition is asserted before anything is written
-([ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-assertpreconditions)): git is present, the target has nothing
-staged, and a source given as a path is a git repository with a clean working tree.
+The name resolves once
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): -Name when
+given, else the source's folder or repository name in kebab case. A name that is not a short kebab word fails, a taken address fails, and no
+suffix is ever added. Every precondition is asserted before anything is written
+([ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-assertpreconditions)): git
+is present, the target has nothing staged, and a source given as a path is a git repository with a clean working tree.
 
 The history is joined by a subtree merge in core git: the source ref is fetched, its tree is read in under the address, and one merge commit
 records both parents, so `git log` reaches every source commit.

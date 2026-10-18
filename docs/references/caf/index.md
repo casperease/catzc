@@ -22,8 +22,8 @@ ends with a status: realised, partly realised, planned (follow-up), or not adopt
 template, config, module, pipeline, or check of this repository (a billing agreement type, another cloud) is recorded in a compact form that
 says why it does not apply.
 
-| Design area                        | ADR                                                                                     | Code               |
-| ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------ |
+| Design area                        | ADR                                                                                     | Code                |
+| ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------- |
 | Design principles                  | [design-principles](../../adr/azure/caf/design-principles.md)                           | `ADR-AZ-CAF-PRIN`   |
 | Billing and Microsoft Entra tenant | [billing-and-tenant](../../adr/azure/caf/billing-and-tenant.md)                         | `ADR-AZ-CAF-BILL`   |
 | Identity and access management     | [identity-and-access](../../adr/azure/caf/identity-and-access.md)                       | `ADR-AZ-CAF-IAM`    |

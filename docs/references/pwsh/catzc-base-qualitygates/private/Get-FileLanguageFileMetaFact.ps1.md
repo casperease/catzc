@@ -12,8 +12,9 @@ The file-language meta kind's fact: the file language of the file, from the lang
 ### description
 
 The language is the one whose extensions list the file's own, as Get-FileLanguage reads it; the languages are data in the registry, never a
-list in this function ([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)). A file no language
-lists, such as a dotfile, gets an empty value, so the key is left out of its head.
+list in this function
+([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
+A file no language lists, such as a dotfile, gets an empty value, so the key is left out of its head.
 
 It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 

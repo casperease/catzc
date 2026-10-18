@@ -10,8 +10,8 @@ plan:
 
 # Bounded folder enumeration: raw .NET, depth 2 by default, nothing deeply loaded
 
-The walker and `Get-ChildPath` (Catzc.Base.Folders), ADR-PWSH-ENUM, the migrated call sites and the analyzer rule NoUnboundedEnumeration
-are in the tree. The proof left is the user's full test run.
+The walker and `Get-ChildPath` (Catzc.Base.Folders), ADR-PWSH-ENUM, the migrated call sites and the analyzer rule NoUnboundedEnumeration are
+in the tree. The proof left is the user's full test run.
 
 ## Why its value is medium
 

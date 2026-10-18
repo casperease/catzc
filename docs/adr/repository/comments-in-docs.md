@@ -8,8 +8,8 @@ A comment in a code or configuration file is at most one line of insight: what t
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
 the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's ADR citations move with
 the rest of its prose and are found there. The way from a file to its page is the `pages` map of `comments.yml`
-([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)), so it is derived from the file's path, never a line of code and never a head
-([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)), so it is derived from the file's path, never a line of
+code and never a head ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
 
 - [Nothing in the file](#nothing-in-the-file)
 
@@ -30,8 +30,9 @@ file's own name and extension plus `.md`, so a page maps back to exactly one fil
 comment that moves, the comment heads each language keeps — is configured there too, with its defaults declared once on the config type. A
 kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`) keeps the whole contiguous run it opens,
 and the front matter of a block comment that opens with such a head is kept whole, so the meta head of a code file
-([ADR-REPO-CODEMETA-CODEFILEHEAD](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)) is never moved as prose, while prose directly under a kept spell-checker
-line still is. A delimited block that holds a kept head, such as the comment-based help a script analyzer rule carries, stays whole.
+([ADR-REPO-CODEMETA-CODEFILEHEAD](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)) is never moved as prose, while prose directly
+under a kept spell-checker line still is. A delimited block that holds a kept head, such as the comment-based help a script analyzer rule
+carries, stays whole.
 
 - [Where a page lives](#where-a-page-lives)
 
@@ -46,19 +47,19 @@ exported file reads as the file before the move, and exporting an exported file 
 ### Rule ADR-REPO-COMMENTS-MOVEDBYTOOL
 
 The move is made by tool and checked by a gate: `Export-Comments` moves every long comment in scope, and `Format-Code` runs it as its
-`comments` imprint step ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](uniform-formatting.md#rule-adr-repo-format-configuredformatters)), so formatting a file also moves its prose.
-`Test-Comments` fails on a long comment left in a file and on a section whose code line the file no longer has. A comment page is told as
-one by its path, which the file-kinds registry names `comment-page` ([ADR-REPO-FILEMETA-ROLE](file-meta.md#rule-adr-repo-filemeta-role)), never
-by its head.
+`comments` imprint step ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](uniform-formatting.md#rule-adr-repo-format-configuredformatters)), so
+formatting a file also moves its prose. `Test-Comments` fails on a long comment left in a file and on a section whose code line the file no
+longer has. A comment page is told as one by its path, which the file-kinds registry names `comment-page`
+([ADR-REPO-FILEMETA-ROLE](file-meta.md#rule-adr-repo-filemeta-role)), never by its head.
 
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-REPO-COMMENTS-PAGEISAUTHORED
 
 A comment page is an authored file. Its `## comment:<n>` sections are the exporter's to append and the author's to edit
-([ADR-REPO-COMMENTS-MOVELOSESNOTHING](#rule-adr-repo-comments-movelosesnothing)), and the page of a PowerShell function file or script also holds the file's help in a
-`## help` section ([ADR-REPO-HELP-HELPONCOMMENTPAGE](function-help.md#rule-adr-repo-help-helponcommentpage)), which is the author's alone: `Export-Comments` never writes,
-moves or reorders it, and `Test-Comments` checks only the comment sections.
+([ADR-REPO-COMMENTS-MOVELOSESNOTHING](#rule-adr-repo-comments-movelosesnothing)), and the page of a PowerShell function file or script also
+holds the file's help in a `## help` section ([ADR-REPO-HELP-HELPONCOMMENTPAGE](function-help.md#rule-adr-repo-help-helponcommentpage)),
+which is the author's alone: `Export-Comments` never writes, moves or reorders it, and `Test-Comments` checks only the comment sections.
 
 - [An authored page](#an-authored-page)
 

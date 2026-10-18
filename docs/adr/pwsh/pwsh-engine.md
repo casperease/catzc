@@ -4,22 +4,22 @@
 
 ### Rule ADR-PWSH-ENGINE-PWSHISANENGINE
 
-pwsh is one of the three execution engines ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-threeengines)), and the one
-every catzc module runs under: PowerShell 7.4 or later, on Windows, Linux, and macOS. `Invoke-Importer` refuses an older PowerShell before
-anything loads. A pwsh that catzc starts as an engine is located beside the running PowerShell, `$PSHOME`
-([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-locateexecutable)), so it is the caller's own pwsh, never Windows PowerShell
-5.1 and never another pwsh that comes first on `PATH`.
+pwsh is one of the three execution engines ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-threeengines)), and
+the one every catzc module runs under: PowerShell 7.4 or later, on Windows, Linux, and macOS. `Invoke-Importer` refuses an older PowerShell
+before anything loads. A pwsh that catzc starts as an engine is located beside the running PowerShell, `$PSHOME`
+([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-locateexecutable)), so it is the caller's own pwsh, never
+Windows PowerShell 5.1 and never another pwsh that comes first on `PATH`.
 
 - [One engine of three](#one-engine-of-three)
 
 ### Rule ADR-PWSH-ENGINE-STRICTMODELATEST
 
 Every PowerShell scope catzc owns runs under `Set-StrictMode -Version Latest`, the engine's strict mode
-([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)). Strict mode belongs to a PowerShell scope, and a
-session-level setting does not reach module code, so it is set where the code runs: the importer in the caller's scope, `Import-AllModules`
-in each module's script scope, the top of each `.internal` module and analyzer rule, a template's `PrePost.psm1` scope after its import, the
-first line of a pipeline step that runs without the importer, and the test worker before Pester starts. Code is written strict-clean
-([error-handling](error-handling.md#rule-adr-pwsh-error-strictclean)).
+([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)). Strict mode belongs to a PowerShell
+scope, and a session-level setting does not reach module code, so it is set where the code runs: the importer in the caller's scope,
+`Import-AllModules` in each module's script scope, the top of each `.internal` module and analyzer rule, a template's `PrePost.psm1` scope
+after its import, the first line of a pipeline step that runs without the importer, and the test worker before Pester starts. Code is
+written strict-clean ([error-handling](error-handling.md#rule-adr-pwsh-error-strictclean)).
 
 - [Strict mode](#strict-mode)
 
@@ -37,32 +37,34 @@ The importer sets the session's preferences once, globally: `$global:ErrorAction
 `importer.ps1` is always **dot-sourced** (`. ./importer.ps1`), so it runs in the caller's scope and its session state lands in the caller's
 session. It is a generated shim (`New-Importer`) that carries only the importer's parameter block and delegates the whole load sequence to
 `Invoke-Importer` in `Catzc.Internal.Importer`, the one living copy, which it removes once the load returns. The state it leaves is fixed:
-`$env:RepositoryRoot` (the shim's own folder) and `$env:CatzcModulesRoot`; the preferences and error view of ADR-PWSH-ENGINE-GLOBALPREFERENCESONCE; UTF-8
-console output when output is redirected; the `.internal` modules that stay loaded (`Catzc.Internal.Loader`, `Catzc.Internal.Types`,
-`Catzc.Internal.Vendor`); the vendored modules and every catzc module; the session's record of loaded C# types; and the session `PATH`
-reconciled to the tools present. Each lasting change is announced
+`$env:RepositoryRoot` (the shim's own folder) and `$env:CatzcModulesRoot`; the preferences and error view of
+ADR-PWSH-ENGINE-GLOBALPREFERENCESONCE; UTF-8 console output when output is redirected; the `.internal` modules that stay loaded
+(`Catzc.Internal.Loader`, `Catzc.Internal.Types`, `Catzc.Internal.Vendor`); the vendored modules and every catzc module; the session's
+record of loaded C# types; and the session `PATH` reconciled to the tools present. Each lasting change is announced
 ([console-output-matters](../automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
 
 - [The dot-sourced importer](#the-dot-sourced-importer)
 
 ### Rule ADR-PWSH-ENGINE-BUILDENTRY
 
-The build's entry is `Import-Catzc.ps1`, the pwsh mechanics of [platform-bundle](../automation/platform-bundle.md) (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER,
-ADR-AUTO-BUNDLE-BUNDLEISSESSION). It is authored once, at `pwsh/.internal/assets/Import-Catzc.ps1`, and copied verbatim into every build; the build's
-generated `Catzc.psm1` dot-sources it, so `Import-Module Catzc` and `. <build>/Import-Catzc.ps1` set up the same session. It sets
-`$env:RepositoryRoot` (its `-RepositoryRoot`, else the value already set, else the current location) and `$env:CatzcModulesRoot` (its own
-folder), then calls `Invoke-Importer -Bundle`, which sets the preferences of ADR-PWSH-ENGINE-GLOBALPREFERENCESONCE and registers the prebuilt types and their
-accelerators ([hosting-csharp-types](hosting-csharp-types.md#rule-adr-pwsh-types-typeacceleratorattribute)) before it reads any module's prebuilt manifest. The root
-`importer.ps1` that `Export-Catzc -Root <dir>` writes dot-sources it with `-RepositoryRoot <dir>`.
+The build's entry is `Import-Catzc.ps1`, the pwsh mechanics of [platform-bundle](../automation/platform-bundle.md)
+(ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION). It is authored once, at `pwsh/.internal/assets/Import-Catzc.ps1`, and
+copied verbatim into every build; the build's generated `Catzc.psm1` dot-sources it, so `Import-Module Catzc` and
+`. <build>/Import-Catzc.ps1` set up the same session. It sets `$env:RepositoryRoot` (its `-RepositoryRoot`, else the value already set, else
+the current location) and `$env:CatzcModulesRoot` (its own folder), then calls `Invoke-Importer -Bundle`, which sets the preferences of
+ADR-PWSH-ENGINE-GLOBALPREFERENCESONCE and registers the prebuilt types and their accelerators
+([hosting-csharp-types](hosting-csharp-types.md#rule-adr-pwsh-types-typeacceleratorattribute)) before it reads any module's prebuilt
+manifest. The root `importer.ps1` that `Export-Catzc -Root <dir>` writes dot-sources it with `-RepositoryRoot <dir>`.
 
 - [The build's entry](#the-builds-entry)
 
 ### Rule ADR-PWSH-ENGINE-CHILDPROCESSES
 
 The Pester workers of a test run, the isolated runs of `Test-InIsolation`, and the snapshot priming of a test run each start a child pwsh,
-never an engine from the per-engine loop of [execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-startenvironment). Pester is a
-PowerShell framework, so these starts are pwsh by nature and have no column for any other engine; behaviour that differs between the engines
-is proven by the black-box tests and the engine-case tables ([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-sidebysidetests)).
+never an engine from the per-engine loop of [execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-startenvironment).
+Pester is a PowerShell framework, so these starts are pwsh by nature and have no column for any other engine; behaviour that differs between
+the engines is proven by the black-box tests and the engine-case tables
+([execution-engines](../automation/execution-engines.md#rule-adr-auto-engine-sidebysidetests)).
 
 - [Starts that are pwsh by nature](#starts-that-are-pwsh-by-nature)
 

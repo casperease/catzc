@@ -5,8 +5,8 @@
 ### Rule ADR-PWSH-CACHE-SCRIPTSCOPESTATE
 
 A session cache lives in module `$script:` state, which the importer boundary of
-[ADR-AUTO-CACHE-IMPORTERINVALIDATES](../automation/caching.md#rule-adr-auto-cache-importerinvalidates) maps onto exactly: `$script:` state is established at import and destroyed
-on re-import, so "re-run the importer" is the literal and only invalidation.
+[ADR-AUTO-CACHE-IMPORTERINVALIDATES](../automation/caching.md#rule-adr-auto-cache-importerinvalidates) maps onto exactly: `$script:` state
+is established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
 
 - [The `$script:` scope](#the-script-scope)
 
@@ -28,9 +28,9 @@ name falls through to `$global:` when the module's cache entry is unset.
 
 ### Rule ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD
 
-The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild) is realised by the bootstrap:
-`Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and loads the committed
-`Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
+The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild) is
+realised by the bootstrap: `Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and
+loads the committed `Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
 (`Catzc.Internal.Types.psm1`) is the one load path, through the per-user shadow copy, for the bootstrap and the `SpellOutIdentifiers`
 analyzer rule alike.
 

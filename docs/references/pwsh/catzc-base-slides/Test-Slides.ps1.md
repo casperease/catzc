@@ -11,10 +11,10 @@ The slides quality gate; fails every slide file whose pattern, fields, cited cod
 
 ### description
 
-Runs the checks of Get-SlideFinding over each slide file, one at a time, and reports through the quality-gate report (ADR-REPO-SLIDES-CHECKABLECLAIMS):
-the head names a pattern the kit holds and a whole-number order; every field fits its pattern and its capacity; every cited code is a rule
-the index knows; a quoted rule is the registry's text verbatim; and every text is in the rendered slide. It writes no deck; the render is
-Build-SlideDeck's.
+Runs the checks of Get-SlideFinding over each slide file, one at a time, and reports through the quality-gate report
+(ADR-REPO-SLIDES-CHECKABLECLAIMS): the head names a pattern the kit holds and a whole-number order; every field fits its pattern and its
+capacity; every cited code is a rule the index knows; a quoted rule is the registry's text verbatim; and every text is in the rendered
+slide. It writes no deck; the render is Build-SlideDeck's.
 
 ### parameter `Path`
 

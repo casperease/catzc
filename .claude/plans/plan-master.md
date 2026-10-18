@@ -15,8 +15,8 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Process (the planner's own rules)
 
-- Sources: `plan-*.md` and `value-of-plan.md`; decisions live in their ADRs. Never a signal lost: a step leaves a plan
-  only when its task file carries it, and the plan keeps the checkbox until the work lands in the tree.
+- Sources: `plan-*.md` and `value-of-plan.md`; decisions live in their ADRs. Never a signal lost: a step leaves a plan only when its task
+  file carries it, and the plan keeps the checkbox until the work lands in the tree.
 - A task file is `task-<topic>.md`, at most 50 in the folder, one chunk each: head (`task:` with status, plans, value, blocked_on, targets),
   then numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
 - The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS-MASTERANDTASKS,
@@ -39,15 +39,13 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Chunks
 
-Open, in execution order. Nothing below is held by a session; every chunk that an agent can take without the user has landed, and done
-work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts.
+Open, in execution order. Nothing below is held by a session; every chunk that an agent can take without the user has landed, and done work
+is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts.
 
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs; the `only-pwsh-compiles-its-aspects`
   rename once the user has run its two `Move-Diagram` calls (a session then re-points what is left and runs the checks).
-- diagram-folders-rest -> plan-diagram-folders-rest.md: the 18 flat slides outside docs/explanation; the prepared Move-Diagram
-  script (the user runs it, after the references asset `git mv`), then `Build-Diagrams -Path` per new folder.
-- promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying record, after the user's
-  CD proof run.
+- promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying record, after the user's CD
+  proof run.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
   form's retirement, on the day the user re-points the external definitions.
 - test-run-budget -> task-test-run-budget.md: read the next full run's wall clock against the 347 s table.
@@ -62,8 +60,8 @@ work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` li
 - final-full-run -> task-user-runs-and-commits.md, its last step, after every chunk above: a new session, `. ./importer.ps1`, then
   `Test-Automation` once over the whole repository, by hand; the one place the tree is tested. Closes plan-bounded-folder-enumeration,
   plan-file-head-immutable-edges-classes, plan-module-model-closeout and plan-test-run-budget's shard check.
-- closing-sweep, last -> task-closing-sweep.md, its last step: the plans that closed on green deleted; the master and the task files
-  deleted when every chunk is done.
+- closing-sweep, last -> task-closing-sweep.md, its last step: the plans that closed on green deleted; the master and the task files deleted
+  when every chunk is done.
 
-Every chunk is a task file, apart from diagram-folders-rest and promotion-ladder, whose plans are the executable. A new plan or paste
-adds its chunk as a pointer line at the position its dependencies and value give it.
+Every chunk is a task file, apart from promotion-ladder, whose plans are the executable. A new plan or paste adds its chunk as a pointer
+line at the position its dependencies and value give it.

@@ -47,27 +47,27 @@ key through `.Contains()`, an indexer, or the typed config record, never as a ba
 
 ### Rule ADR-PWSH-ERROR-PREFERENCESAREAMBIENTSTATE
 
-In pwsh, the ambient state ADR-AUTO-ONEJOB-EXPLICITSTATECHANGES protects is the preference variables (`$ErrorActionPreference` first), the location, `$env:`
-variables, and `$global:` variables. A function that needs a different error behaviour for one call passes `-ErrorAction` to that call. A
-temporary change is made inside `try` and undone in its `finally` — `Push-Location` paired with `Pop-Location`, a saved value written back —
-so it is restored when the body throws too.
+In pwsh, the ambient state ADR-AUTO-ONEJOB-EXPLICITSTATECHANGES protects is the preference variables (`$ErrorActionPreference` first), the
+location, `$env:` variables, and `$global:` variables. A function that needs a different error behaviour for one call passes `-ErrorAction`
+to that call. A temporary change is made inside `try` and undone in its `finally` — `Push-Location` paired with `Pop-Location`, a saved
+value written back — so it is restored when the body throws too.
 
 - [Temporary state](#temporary-state)
 
 ### Rule ADR-PWSH-ERROR-NORETRYINTESTS
 
-In pwsh, a test never retries (ADR-AUTO-RETRY-NEVERINTESTS): no loop or retry wrapper around a call inside an `It`, and no re-run of a failed Pester
-run. An external dependency is replaced with `Mock`, or the test is tagged `L3` and marks itself skipped with
+In pwsh, a test never retries (ADR-AUTO-RETRY-NEVERINTESTS): no loop or retry wrapper around a call inside an `It`, and no re-run of a
+failed Pester run. An external dependency is replaced with `Mock`, or the test is tagged `L3` and marks itself skipped with
 `Set-ItResult -Skipped -Because '<reason>'` when its dependency is unavailable.
 
 - [Retry](#retry)
 
 ### Rule ADR-PWSH-ERROR-RETRYWRAPPERFUNCTION
 
-In pwsh, the retry wrapper of ADR-AUTO-RETRY-DEDICATEDWRAPPER is its own function that takes the one operation to repeat as a `[scriptblock]` parameter,
-with an explicit attempt count and delay, writes each retry with `Write-Message -Warning` (ADR-AUTO-RETRY-BOUNDEDANDVISIBLE; never `Write-Warning`,
-ADR-PWSH-ERROR-NOWRITEWARNING), and rethrows the last error unchanged when the attempts run out. The function that does the work holds no retry loop and
-no `catch` that repeats a call.
+In pwsh, the retry wrapper of ADR-AUTO-RETRY-DEDICATEDWRAPPER is its own function that takes the one operation to repeat as a
+`[scriptblock]` parameter, with an explicit attempt count and delay, writes each retry with `Write-Message -Warning`
+(ADR-AUTO-RETRY-BOUNDEDANDVISIBLE; never `Write-Warning`, ADR-PWSH-ERROR-NOWRITEWARNING), and rethrows the last error unchanged when the
+attempts run out. The function that does the work holds no retry loop and no `catch` that repeats a call.
 
 - [Retry](#retry)
 
@@ -115,8 +115,8 @@ non-terminating error mechanism internally) also terminate. Between `throw` and 
 ### The Assert-* pattern
 
 A precondition is checked with the `Assert-*` library, not an inline `if ($bad) { throw "message" }`
-([ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-useassertionlibrary); the pwsh idiom is
-[assert-idioms](assert-idioms.md#rule-adr-pwsh-assert-noinlinethrowcheck)):
+([ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-useassertionlibrary); the pwsh idiom
+is [assert-idioms](assert-idioms.md#rule-adr-pwsh-assert-noinlinethrowcheck)):
 
 ```powershell
 Assert-Command python                    # throws: "'python' is not installed"
@@ -148,11 +148,11 @@ decision ([single-responsibility-functions](../automation/single-responsibility-
 
 ### Temporary state
 
-[single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-explicitstatechanges) rules out a function that changes
-ambient state as a side effect. In pwsh that state is mostly variables the caller cannot see being changed: `$ErrorActionPreference` and the
-other preferences, the location, `$env:` and `$global:` variables. Setting `$ErrorActionPreference` inside a function changes error handling
-for every call it makes and, in a dot-sourced script, for its caller too; the per-call `-ErrorAction` parameter changes it for the one call
-that needs it.
+[single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-explicitstatechanges) rules out a
+function that changes ambient state as a side effect. In pwsh that state is mostly variables the caller cannot see being changed:
+`$ErrorActionPreference` and the other preferences, the location, `$env:` and `$global:` variables. Setting `$ErrorActionPreference` inside
+a function changes error handling for every call it makes and, in a dot-sourced script, for its caller too; the per-call `-ErrorAction`
+parameter changes it for the one call that needs it.
 
 A change that has to hold for a stretch of work is undone in `finally`, because a `finally` block runs whether the body returns or throws:
 
@@ -207,12 +207,12 @@ its own scriptblock-taking wrapper and never in a test.
   inherits it, in the source tree and in an installed bundle alike), each `.internal` module and custom analyzer rule declares it at its
   top, and `Build-Bicep`/`Deploy-Bicep` set it in a template's `PrePost.psm1` scope after importing it. A pipeline or workflow step that
   runs PowerShell is strict too: dot-sourcing the importer sets it for the step's scope, and a step that runs without the importer declares
-  `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR-STRICTCLEAN); a lazy `$script:` cache
-  entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe) prescribes.
+  `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR-STRICTCLEAN); a lazy
+  `$script:` cache entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe) prescribes.
 - **Custom analyzer rules** — `Measure-NoWriteErrorOrWarning` flags `Write-Error` and `Write-Warning`; `Measure-NoUnsafeFirstIndex` flags
   `@(<result>)[0]` and `(<a | b>)[0]`; and `Measure-NoBareCacheEntryRead` flags a function file reading a `$script:` cache entry it has
-  neither assigned nor probed. The `.Count` and optional-key forms of ADR-PWSH-ERROR-STRICTCLEAN need type knowledge an AST does not carry, so code
-  review owns them.
+  neither assigned nor probed. The `.Count` and optional-key forms of ADR-PWSH-ERROR-STRICTCLEAN need type knowledge an AST does not carry,
+  so code review owns them.
 - **Interactive prompt hook** — `Write-Exception` fires automatically after every failed command, providing full diagnostics.
 
 ## Consequences

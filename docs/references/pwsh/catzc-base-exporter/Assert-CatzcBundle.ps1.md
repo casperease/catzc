@@ -11,7 +11,8 @@ Verifies a Catzc build (or an install of one) is complete and unchanged since it
 
 ### description
 
-The build's integrity guard ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). Given a build root —
+The build's integrity guard
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). Given a build root —
 `out/automation/built/<bundle>/Catzc/<version>/`, or an installed copy — it asserts:
 
 - layout: build.json, Catzc.psd1, Catzc.psm1, Import-Catzc.ps1 and the .internal loader are present, and the folder is named for

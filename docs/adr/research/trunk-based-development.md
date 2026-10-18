@@ -76,11 +76,13 @@ build fast enough — DORA's guidance is a few minutes — that this testing nev
 tests, and advocates or mentors who help the rest of the team adopt the discipline, support the transition.
 
 This platform realizes the capability directly: one living version of every behaviour is kept on trunk with no long-lived release or version
-branches carrying an alternate copy of the code ([ADR-PRIN-ONELIVE-TRUNKBASED](../principles/one-living-version.md#rule-adr-prin-onelive-trunkbased)). The CI
-discipline's 5–10 minute integration budget is the mechanical enforcement of "merge small and merge often"
-([ADR-FLOW-CD-SHORTINTEGRATIONCYCLE](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-shortintegrationcycle)), and the commit lifecycle's rule that consumers sync from
-the stable `main-UAT` occupant rather than the dirty tip of main keeps a trunk that merges frequently from also being a trunk that is unsafe
-to build on ([ADR-DSGN-LIFE-SYNCFROMMAINUAT](../design/commit-lifecycle.md#rule-adr-dsgn-life-syncfrommainuat)).
+branches carrying an alternate copy of the code
+([ADR-PRIN-ONELIVE-TRUNKBASED](../principles/one-living-version.md#rule-adr-prin-onelive-trunkbased)). The CI discipline's 5–10 minute
+integration budget is the mechanical enforcement of "merge small and merge often"
+([ADR-FLOW-CD-SHORTINTEGRATIONCYCLE](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-shortintegrationcycle)), and the commit
+lifecycle's rule that consumers sync from the stable `main-UAT` occupant rather than the dirty tip of main keeps a trunk that merges
+frequently from also being a trunk that is unsafe to build on
+([ADR-DSGN-LIFE-SYNCFROMMAINUAT](../design/commit-lifecycle.md#rule-adr-dsgn-life-syncfrommainuat)).
 
 ## Common pitfalls
 

@@ -18,9 +18,9 @@ path because it IS the harness path, one shard wide.
 
 Why a child process and not an in-session Invoke-Pester: a worker starts from a fresh process — a freshly imported toolset with empty
 session caches, no state left by earlier commands, and its own top scope set strict by the shard script
-([ADR-AUTO-TEST-FILEPARALLELISM](../../../adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) — exactly the conditions CI runs under. A bare
-Invoke-Pester from an interactive session runs the same tests against whatever that session has accumulated; this entry point closes that
-gap.
+([ADR-AUTO-TEST-FILEPARALLELISM](../../../adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) — exactly the conditions CI
+runs under. A bare Invoke-Pester from an interactive session runs the same tests against whatever that session has accumulated; this entry
+point closes that gap.
 
 Use it for the manual single-check flow in docs/how-to/pwsh/manual-test-plan.md: pass the row's test file and (optionally) its
 FullNameFilter. No category exclusion is applied — a hand-run of a named check should run exactly that check. The run's artifacts (worker
@@ -31,12 +31,13 @@ path, with where the run executed (in place, or a snapshot with its provenance) 
 out/test-file/ whose process died is marked 'abandoned' first (Set-AbandonedTestRun).
 
 It never waits for another test run's use of the working folder
-([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait), Enter-TestRunLocation): when the working folder is
-free it runs in place; when another run holds it, it runs in a verified snapshot of the working folder instead — the test files map to the
-same repository-relative paths inside the snapshot, a test file outside the repository runs as given, and the artifacts still land in the
-working folder's out/test-file/. Every tier up to L3 runs in place; a snapshot run skips the L3 vertical system tests, which change state
-outside the repository, and says so (Resolve-TestRunMaxLevel,
-[ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)). The opt-in L4 tests run only with -MaxLevel 4
+([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait), Enter-TestRunLocation): when
+the working folder is free it runs in place; when another run holds it, it runs in a verified snapshot of the working folder instead — the
+test files map to the same repository-relative paths inside the snapshot, a test file outside the repository runs as given, and the
+artifacts still land in the working folder's out/test-file/. Every tier up to L3 runs in place; a snapshot run skips the L3 vertical system
+tests, which change state outside the repository, and says so (Resolve-TestRunMaxLevel,
+[ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)). The opt-in L4 tests
+run only with -MaxLevel 4
 ([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../adr/automation/test-automation.md#rule-adr-auto-test-testinginproduction)).
 
 ### parameter `Path`
@@ -59,7 +60,8 @@ The highest tier to run (alias: -Level): 3 by default, every tier but the opt-in
 ### parameter `TimeoutSeconds`
 
 Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to this function's `[TimeLimit]` (360 s on a devbox, 600 s in
-a pipeline), unless timeouts.yml overrides it ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
+a pipeline), unless timeouts.yml overrides it
+([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
 
 ### parameter `Isolated`
 

@@ -11,9 +11,9 @@ Lands the working tree on the server with one fast push: stage everything, commi
 
 ### description
 
-The fast push of [ADR-DSGN-LIFE-FASTPUSHLANDS](../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-fastpushlands). Stages every change when the tree is
-dirty, commits it with -Message (the editor's commit field; `...` when none is given), and pushes the current branch to origin. A tree with
-nothing to commit still pushes the commits that are waiting locally.
+The fast push of [ADR-DSGN-LIFE-FASTPUSHLANDS](../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-fastpushlands). Stages every
+change when the tree is dirty, commits it with -Message (the editor's commit field; `...` when none is given), and pushes the current branch
+to origin. A tree with nothing to commit still pushes the commits that are waiting locally.
 
 It stops, changing nothing, in `main-via-pr` while standing on main/master (the `git_workspace` variant's one stop condition), and it never
 forces: a push the server rejects because main moved is reported and left for you to integrate by hand, since rebasing would build the

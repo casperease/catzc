@@ -11,9 +11,10 @@ The bicep formatter engine: formats the given Bicep files with the managed Bicep
 
 ### description
 
-One Format-Code engine adapter ([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)). The Bicep
-CLI is the one at the tools.yml pin (Install-Bicep), never whichever bicep is first on PATH; a missing or off-pin CLI throws, naming
-Install-Bicep.
+One Format-Code engine adapter
+([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)).
+The Bicep CLI is the one at the tools.yml pin (Install-Bicep), never whichever bicep is first on PATH; a missing or off-pin CLI throws,
+naming Install-Bicep.
 
 The CLI starts slowly, so it runs once for all the files: each is copied into a temporary folder, `bicep format --pattern` formats the
 copies in one process, and each copy is compared byte for byte with its file, so -DryRun never touches the file; without -DryRun a changed

@@ -53,8 +53,8 @@ Realised: the landing zone assigns three built-in policies and no custom definit
 
 ### Rule ADR-AZ-CAF-GOV-LETAPPLICATIONTEAMSGOVERNTHEIROWNSCOPE
 
-Not adopted, because policy belongs to the landing zone and a workload owns none of it (ADR-AZ-LZ-WORKLOADOWNSNONE); the templates grant no role to an
-application team.
+Not adopted, because policy belongs to the landing zone and a workload owns none of it (ADR-AZ-LZ-WORKLOADOWNSNONE); the templates grant no
+role to an application team.
 
 - [7 — Let application teams govern their own scope](#7--let-application-teams-govern-their-own-scope)
 
@@ -88,11 +88,12 @@ to weigh and numbered design recommendations; the landing zone that a subscripti
 
 The governance design area is about guardrails: what to audit, what to enforce, and what to deploy automatically by Azure Policy, drawing on
 the identity, network, security, and management decisions, plus the cost oversight that keeps spend visible. Here governance is policy as
-code. The landing zone `discovery` assigns three built-in policies ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)); whether they
-enforce or only audit is the repository-wide setting `policy_enforcement` in `azure.yml`, with its sensible default declared once
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); every resource carries the CAF tags; and every subscription has a
-budget. (The area page's out-of-scope paragraph reads as if reused from the network design area, since it speaks of the networking
-foundation; the rules below rely only on the recommendations.)
+code. The landing zone `discovery` assigns three built-in policies
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)); whether they enforce or only audit is the
+repository-wide setting `policy_enforcement` in `azure.yml`, with its sensible default declared once
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); every resource carries the CAF
+tags; and every subscription has a budget. (The area page's out-of-scope paragraph reads as if reused from the network design area, since it
+speaks of the networking foundation; the rules below rely only on the recommendations.)
 
 These rules are vendor recommendation, not principled theory. They do not argue from first principles the way the axioms and DORA's research
 do; they record what the repository does about each of Microsoft's ten governance recommendations, numbered in the order the area page lists
@@ -107,8 +108,9 @@ carry procedures rather than recommendations, so they are not rules here. They i
 assigns built-in definitions only, pins each by its id, and changes one in a single reviewed change (see [6](#6--prefer-built-in-policies)).
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
-`discovery` (the landing zone), and `expedition` (a workload that lands in it, [ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every
-takeaway below points at what those three do, or says plainly what they do not.
+`discovery` (the landing zone), and `expedition` (a workload that lands in it,
+[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every takeaway below points at what those three do, or
+says plainly what they do not.
 
 ### 1 — Decide the required tags and enforce them by policy
 
@@ -194,9 +196,10 @@ Summary (ours): Create custom policy definitions at the top-level root managemen
 #### What 3 means here
 
 The recommendation is about where custom definitions live in a management-group hierarchy. The repository has neither: it deploys into
-subscriptions it is given and owns no management group ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and it assigns built-in
-definitions only, which Azure publishes at tenant level and every subscription can assign. It would apply if the repository defined a custom
-policy and gained rights over the tenant's hierarchy; until then a custom definition would sit at subscription level, beside its assignment.
+subscriptions it is given and owns no management group ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and it
+assigns built-in definitions only, which Azure publishes at tenant level and every subscription can assign. It would apply if the repository
+defined a custom policy and gained rights over the tenant's hierarchy; until then a custom definition would sit at subscription level,
+beside its assignment.
 
 ##### 3 status
 
@@ -213,10 +216,11 @@ Summary (ours): Assign each policy at the highest level where it fits, and exclu
 #### What 4 means here
 
 The highest level the repository owns is the subscription, so each policy is assigned there, once, by the landing zone
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Every resource group of the subscription, those of `foundation` and `expedition`
-included, inherits the assignments. No assignment carries an exclusion and the repository makes no exemption; where production and
-non-production must differ, they differ through the enforcement mode, which each config reads by config address from `policy_enforcement`
-(`global.azure.policy_enforcement.production` in `psub` configs, `.nonproduction` in `nsub` configs), not through a narrower assignment.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Every resource group of the subscription, those of `foundation`
+and `expedition` included, inherits the assignments. No assignment carries an exclusion and the repository makes no exemption; where
+production and non-production must differ, they differ through the enforcement mode, which each config reads by config address from
+`policy_enforcement` (`global.azure.policy_enforcement.production` in `psub` configs, `.nonproduction` in `nsub` configs), not through a
+narrower assignment.
 
 ##### 4 in `foundation`
 
@@ -229,8 +233,8 @@ subscription, named per config (for example `psub-weu-zct-disco-loc-pa`, `-tag-p
 
 ##### 4 in `expedition`
 
-Not applicable: a workload assigns no policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); its resource groups inherit the
-subscription's assignments.
+Not applicable: a workload assigns no policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); its
+resource groups inherit the subscription's assignments.
 
 ##### 4 status
 
@@ -278,8 +282,8 @@ Summary (ours): Use built-in policy definitions wherever they fit, to keep the e
 #### What 6 means here
 
 All three of the landing zone's policies are built-in: "Allowed locations", "Require a tag on resources", and "Network interfaces should not
-have public IPs" ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Their meaning is Microsoft's, and the repository maintains no custom
-definition.
+have public IPs" ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Their meaning is Microsoft's,
+and the repository maintains no custom definition.
 
 Keeping them current is a matter of their ids. `discovery/main.bicep` pins each definition by its tenant-level id in one map, and each id is
 registered in `pwsh/Catzc.Base.QualityGates/configs/guids.yml` (`policy_allowed_locations`, `policy_require_tag_on_resources`,
@@ -319,10 +323,11 @@ Summary (ours): Give application teams the built-in Resource Policy Contributor 
 #### What 7 means here
 
 Policy here belongs to the landing zone, and a workload lands in it and owns none of it
-([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)): every workload of a subscription meets the same policies, and none adds its own. The
-templates grant no role to a team; the only role assignment a module can make is the remediation role of a policy assignment's managed
-identity, which no assignment of the landing zone uses. A team that needs a policy for its application proposes it for the landing zone,
-through review like any other change. Role assignments for people belong to whoever administers the subscription.
+([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)): every workload of a subscription meets the same
+policies, and none adds its own. The templates grant no role to a team; the only role assignment a module can make is the remediation role
+of a policy assignment's managed identity, which no assignment of the landing zone uses. A team that needs a policy for its application
+proposes it for the landing zone, through review like any other change. Role assignments for people belong to whoever administers the
+subscription.
 
 ##### 7 status
 
@@ -338,10 +343,10 @@ Summary (ours): Make few assignments at the root management group, so exclusions
 
 #### What 8 means here
 
-The repository makes no assignment above a subscription ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so it has no root-level
-assignment to keep few. The concern behind the recommendation — exclusions spreading downward — does not arise either, because the
-subscription assignments carry none (see [4](#4--assign-policies-as-high-as-is-sensible)). Assignments that a tenant's administrators make
-at a management group above the subscriptions apply alongside the landing zone's and are theirs to manage.
+The repository makes no assignment above a subscription ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so it has
+no root-level assignment to keep few. The concern behind the recommendation — exclusions spreading downward — does not arise either, because
+the subscription assignments carry none (see [4](#4--assign-policies-as-high-as-is-sensible)). Assignments that a tenant's administrators
+make at a management group above the subscriptions apply alongside the landing zone's and are theirs to manage.
 
 ##### 8 status
 
@@ -432,13 +437,14 @@ keeps policy out of workloads. The planned items close the cost-oversight gaps a
   address on a network interface where `policy_enforcement` enforces, and reports it where it audits
   ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 - `AzureConfig` declares the default of `policy_enforcement` and rejects an unknown key or mode
-  ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); `discovery`'s `@allowed` decorator on `policyEnforcementMode` rejects
-  any other value at build time.
+  ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); `discovery`'s `@allowed`
+  decorator on `policyEnforcementMode` rejects any other value at build time.
 - `Test-ManagedGuids` fails an unregistered GUID in tracked text, so a built-in definition id can enter `discovery/main.bicep` only with its
   `guids.yml` entry ([ADR-AUTO-GUIDS](../../automation/managed-guids.md)).
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for every template, and the parameter-model test checks each
-  rendered parameters file against the compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), so a
-  missing `tags`, budget, or policy parameter fails the build.
+  rendered parameters file against the compiled parameter model
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), so a missing `tags`, budget, or policy
+  parameter fails the build.
 - The budget's alerts reach the subscription's `Owner` role at each threshold.
 - Planned (follow-up), not existing: a check over the compiled templates (`main.json`) that fails a resource without the CAF tags, CAF tags
   on the resource groups `Deploy-Bicep` creates, and cost exports with forecast and anomaly alerts.

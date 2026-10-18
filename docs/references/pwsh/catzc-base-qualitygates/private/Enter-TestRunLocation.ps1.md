@@ -11,9 +11,10 @@ Claims where a test run executes — its location: in place in the working folde
 
 ### description
 
-A test run never waits for another ([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)). Concurrent runs
-share real state in a checkout — the out/ build folders, the .compiled assembly, the git index and working tree — so only one run at a time
-may use the working folder itself. This is the one claim path both entry points use:
+A test run never waits for another
+([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)). Concurrent runs share real
+state in a checkout — the out/ build folders, the .compiled assembly, the git index and working tree — so only one run at a time may use the
+working folder itself. This is the one claim path both entry points use:
 
 - The working folder's lock — a named `[System.Threading.Mutex]` keyed on the repository root, machine-wide through the Global\ namespace —
   is tried without waiting. Free (or abandoned: the previous holder died mid-run): the run owns the working folder and runs in place. The

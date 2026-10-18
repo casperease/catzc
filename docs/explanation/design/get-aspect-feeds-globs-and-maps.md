@@ -82,7 +82,6 @@ The diagram is described element by element in [its asset description](.assets/g
 - [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains. Also
   [durable sha globs](../../adr/flow/durable-sha-globs.md), [repo-wide variants](../../adr/repository/repo-variants.md) and
   [tracks](../../adr/design/tracks.md).
-- The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md),
-  [architecture](only-pwsh-compiles-its-aspects.md), [operations](get-aspect-names-the-remainder.md) and
-  [governance](gate-checks-order-not-liveness.md).
+- The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md), [architecture](only-pwsh-compiles-its-aspects.md),
+  [operations](get-aspect-names-the-remainder.md) and [governance](gate-checks-order-not-liveness.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

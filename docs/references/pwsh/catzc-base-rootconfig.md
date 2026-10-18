@@ -38,18 +38,19 @@ result row under its own path, so a wildcard entry such as `go/tests/*/go.mod` m
 Which root file is managed, from what, and how it relates to git. The registry is `rootconfig.yml`: per entry a `target`, exactly one of
 `source` or `generator`, the two booleans — `optIn` (is the file managed at all; **opt-out is the default**) and `committed` (gitignored
 derived artifact vs tracked bootstrap file) — and the `copyAsLink` mechanism flag, which requires `source`, requires `committed: false`, and
-forbids a declared `comment` ([ADR-REPO-ROOTCFG-FILESYSTEMLINK](../../adr/repository/generated-root-configs.md)). A wildcard `target` names the set of
-files a multi-file generator renders and is allowed only on a `generator` entry. It is validated when it loads so a malformed entry can
-never produce a run. The registry is the single place the pairing is stated; the generator reads it through
+forbids a declared `comment` ([ADR-REPO-ROOTCFG-FILESYSTEMLINK](../../adr/repository/generated-root-configs.md)). A wildcard `target` names
+the set of files a multi-file generator renders and is allowed only on a `generator` entry. It is validated when it loads so a malformed
+entry can never produce a run. The registry is the single place the pairing is stated; the generator reads it through
 [Catzc.Base.Config](catzc-base-config.md) and never hard-codes a path.
 
 ### responsibility:3 — Root-config quality gates
 
-The quality gates ([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the materialised result. One
-checks that the registry, `.gitignore`, git's tracked set, and the link mechanism agree for every opted-in entry, a wildcard entry once per
-file its generator renders ([ADR-REPO-ROOTCFG-THREEWAYAGREEMENT](../../adr/repository/generated-root-configs.md)); the other checks the consumer contract of
-the root `PSScriptAnalyzerSettings.psd1` — that a consumer opening the root path follows the link and parses a non-empty settings hashtable.
-Content drift of a generated copy is [Catzc.Base.QualityGates](catzc-base-qualitygates.md)' `Test-GeneratedFiles`.
+The quality gates ([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the
+materialised result. One checks that the registry, `.gitignore`, git's tracked set, and the link mechanism agree for every opted-in entry, a
+wildcard entry once per file its generator renders ([ADR-REPO-ROOTCFG-THREEWAYAGREEMENT](../../adr/repository/generated-root-configs.md));
+the other checks the consumer contract of the root `PSScriptAnalyzerSettings.psd1` — that a consumer opening the root path follows the link
+and parses a non-empty settings hashtable. Content drift of a generated copy is [Catzc.Base.QualityGates](catzc-base-qualitygates.md)'
+`Test-GeneratedFiles`.
 
 ## What the module does
 

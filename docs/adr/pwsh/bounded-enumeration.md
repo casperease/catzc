@@ -14,8 +14,9 @@ name is pruned and nothing is collected.
 
 ### Rule ADR-PWSH-ENUM-SHALLOWBYDEFAULT
 
-Enumeration is shallow by default: the depth is 2, declared once on the `folder-walk` config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER) and read in the
-parameter declaration (ADR-PWSH-PARAM-RESOLUTIONORDER). A deeper walk is an explicit `-Depth` at the call site, never a new default.
+Enumeration is shallow by default: the depth is 2, declared once on the `folder-walk` config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER) and
+read in the parameter declaration (ADR-PWSH-PARAM-RESOLUTIONORDER). A deeper walk is an explicit `-Depth` at the call site, never a new
+default.
 
 - [Shallow by default](#shallow-by-default)
 
@@ -58,15 +59,15 @@ The cost grows with the repository, so a command that is fast today slows down a
 
 The walker answers "what is on disk below this folder", which includes an untracked file and leaves out a deleted one. "Which files does git
 track" is a different question with its own seam, `Get-GitTrackedPath`
-([tracked-files-from-the-index](../automation/tracked-files-from-the-index.md), `ADR-AUTO-TRACKED-ONESEAM`). Code that scopes itself by what is
-committed asks that seam and never walks the folder; code that needs what is actually present, such as a build input, a fixture tree, a
+([tracked-files-from-the-index](../automation/tracked-files-from-the-index.md), `ADR-AUTO-TRACKED-ONESEAM`). Code that scopes itself by what
+is committed asks that seam and never walks the folder; code that needs what is actually present, such as a build input, a fixture tree, a
 report folder, or a freshly written file, walks.
 
 ### Raw .NET, one way
 
-On Windows the PowerShell file cmdlets carry per-call provider and AV/AMSI overhead that `System.IO` avoids (ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS names the
-same effect for tests). `Get-ChildItem` also wraps every entry in a `PSObject`, so a large listing pays for properties the caller discards.
-Raw .NET returns plain strings.
+On Windows the PowerShell file cmdlets carry per-call provider and AV/AMSI overhead that `System.IO` avoids
+(ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS names the same effect for tests). `Get-ChildItem` also wraps every entry in a `PSObject`, so a large
+listing pays for properties the caller discards. Raw .NET returns plain strings.
 
 Raw calls alone are not enough: each author then writes the loop, the pruning, and the depth handling again, and each copy differs. One
 function, `Get-ChildPath`, is the single way, so the depth, the pruning, and the link rule are decided once.
@@ -97,8 +98,8 @@ nobody noticed.
 
 ### Pruned, and never through a link
 
-A search for `*.yml` below `pwsh/` should not return the vendored modules' files, and a search below the repository root should not
-enter `.git`. Pruning by folder name, before descending, is far cheaper than filtering a full listing afterwards.
+A search for `*.yml` below `pwsh/` should not return the vendored modules' files, and a search below the repository root should not enter
+`.git`. Pruning by folder name, before descending, is far cheaper than filtering a full listing afterwards.
 
 Vendor pruning is a global config value rather than a list entry or a parameter default, because the same repository question, "do searches
 include third-party code?", has one answer for every command. A caller that needs vendored files passes `-PruneVendor $false`.
@@ -131,9 +132,9 @@ pruned and links never entered. Back it with a compiled type. Code that loads be
   root, a tree deeper than the depth that is never entered, and a link that is listed and not followed.
 - **`folder-walk` config** — `Test-ShippedConfigs` validates the shipped values against the config type that declares the defaults.
 - **Custom PSScriptAnalyzer rule `Measure-NoUnboundedEnumeration`** (`pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1`, severity: Error) —
-  flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM-RAWDOTNETENUMERATION) and `[System.IO.SearchOption]::AllDirectories`
-  (ADR-PWSH-ENUM-ALWAYSBOUNDED). A literal provider path (`env:`, `function:`, `HKLM:`) is left alone, a provider listing through a variable carries a
-  justified suppression. Test files are covered like any other code.
+  flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM-RAWDOTNETENUMERATION) and
+  `[System.IO.SearchOption]::AllDirectories` (ADR-PWSH-ENUM-ALWAYSBOUNDED). A literal provider path (`env:`, `function:`, `HKLM:`) is left
+  alone, a provider listing through a variable carries a justified suppression. Test files are covered like any other code.
 - **Code review** — a whole-tree walk whose depth or comment is not justified is checked against this ADR.
 
 ## Consequences

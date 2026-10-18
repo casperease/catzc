@@ -15,18 +15,18 @@ Writes `<RunDirectory>/shard-<N>.ps1` — the script a PesterRunner worker execu
 generated runner). The worker dot-sources the repository importer (-SkipJanitors), starts watching the process that launched it
 (WorkerParentWatch — the worker kills itself when that parent is gone, so a run whose parent died never leaves workers behind), then sets
 strict mode for its own scope, whichever entry script loaded the modules: the test scopes chain to that scope, so every test body runs
-strict ([ADR-AUTO-TEST-FILEPARALLELISM](../../../../adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) — the module code under test is strict
-through its own module scope. It then imports vendored Pester — resolved inside the worker, after the import, from the worker's own code
-root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always comes from the tree the worker loaded
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)) — builds its run configuration
-through the ONE shared builder (New-PesterRunConfiguration, reached via module scope — the same builder Invoke-TestFile uses, so the worker
-and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes Pester's NUnit results to
-`results-shard-<N>.xml`, reduces its live result to rows (ConvertTo- TestAutomationRowSet — tier/category resolution needs the live .Block
-chain, so it must happen inside the worker) into `rows-shard-<N>.json`, writes each test file's whole Pester duration (set-up included) into
-`files-shard-<N>.json` — the measurement the next run schedules by (Select-TestShardAssignment) — with the file's own Result and
-ErrorMessage (the error of a file that failed while Pester discovered or set it up, which no test row can carry; empty when the file
-loaded), and exits 0 (green) or 1 (the run did not pass — failed tests, or a container/discovery error that fails the run with zero failed
-tests). Any other exit code — or a missing rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
+strict ([ADR-AUTO-TEST-FILEPARALLELISM](../../../../adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)) — the module code
+under test is strict through its own module scope. It then imports vendored Pester — resolved inside the worker, after the import, from the
+worker's own code root (Get-CatzcModulesRoot/.vendor/Pester), so Pester always comes from the tree the worker loaded
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency))
+— builds its run configuration through the ONE shared builder (New-PesterRunConfiguration, reached via module scope — the same builder
+Invoke-TestFile uses, so the worker and manual paths cannot drift), runs the shard's test files with the run's exclude tags, writes Pester's
+NUnit results to `results-shard-<N>.xml`, reduces its live result to rows (ConvertTo- TestAutomationRowSet — tier/category resolution needs
+the live .Block chain, so it must happen inside the worker) into `rows-shard-<N>.json`, writes each test file's whole Pester duration
+(set-up included) into `files-shard-<N>.json` — the measurement the next run schedules by (Select-TestShardAssignment) — with the file's own
+Result and ErrorMessage (the error of a file that failed while Pester discovered or set it up, which no test row can carry; empty when the
+file loaded), and exits 0 (green) or 1 (the run did not pass — failed tests, or a container/discovery error that fails the run with zero
+failed tests). Any other exit code — or a missing rows sidecar — means the worker itself crashed, which the parent surfaces loudly.
 
 ### parameter `ShardIndex`
 
@@ -59,11 +59,11 @@ filter (the harness never sets one).
 
 ### parameter `EntryScript`
 
-The run seam ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)): the script the worker dot-sources to
-load the modules. Empty (the default) is the source run's `<repo>/importer.ps1 -SkipJanitors`; the build run passes the build's
-`Import-Catzc.ps1`. Everything after the load — Pester from the code root, the shared configuration builder, the row sidecar — is identical
-for both runs, except that the configuration hands the entry script to the Go bridge, so the Go tests start the same engine the worker
-loaded.
+The run seam ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)): the
+script the worker dot-sources to load the modules. Empty (the default) is the source run's `<repo>/importer.ps1 -SkipJanitors`; the build
+run passes the build's `Import-Catzc.ps1`. Everything after the load — Pester from the code root, the shared configuration builder, the row
+sidecar — is identical for both runs, except that the configuration hands the entry script to the Go bridge, so the Go tests start the same
+engine the worker loaded.
 
 ### parameter `EntryParameter`
 

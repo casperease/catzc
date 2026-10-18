@@ -7,8 +7,9 @@ Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that stops a
 
 ### Rule ADR-AZ-CAF-BILL-VENDSUBSCRIPTIONSASSELFSERVICECAPABILITYEA
 
-Partly realised: a subscription is onboarded by pull request, as [ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess)
-records; creating it from an Enterprise Agreement enrollment is not adopted, because the repository holds no billing role.
+Partly realised: a subscription is onboarded by pull request, as
+[ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess) records; creating
+it from an Enterprise Agreement enrollment is not adopted, because the repository holds no billing role.
 
 - [1 — Vend subscriptions as a self-service capability (EA)](#1--vend-subscriptions-as-a-self-service-capability-ea)
 
@@ -102,8 +103,8 @@ Not adopted, because the repository grants no right to create subscriptions and 
 
 ### Rule ADR-AZ-CAF-BILL-VENDSUBSCRIPTIONSASSELFSERVICECAPABILITYMCA
 
-Partly realised, as [1](#rule-adr-az-caf-bill-vendsubscriptionsasselfservicecapabilityea): onboarding by pull request; creating the subscription from a Microsoft Customer Agreement is
-not adopted.
+Partly realised, as [1](#rule-adr-az-caf-bill-vendsubscriptionsasselfservicecapabilityea): onboarding by pull request; creating the
+subscription from a Microsoft Customer Agreement is not adopted.
 
 - [16 — Vend subscriptions as a self-service capability (MCA)](#16--vend-subscriptions-as-a-self-service-capability-mca)
 
@@ -188,14 +189,15 @@ Not adopted, because support arrangements with a partner are outside the reposit
 
 ### Rule ADR-AZ-CAF-BILL-AGREEHOWSELFSERVICESUBSCRIPTIONSARECREATED
 
-Not adopted, because creating a subscription is outside the repository; onboarding a given one is [1](#rule-adr-az-caf-bill-vendsubscriptionsasselfservicecapabilityea).
+Not adopted, because creating a subscription is outside the repository; onboarding a given one is
+[1](#rule-adr-az-caf-bill-vendsubscriptionsasselfservicecapabilityea).
 
 - [30 — Agree how self-service subscriptions are created](#30--agree-how-self-service-subscriptions-are-created)
 
 ### Rule ADR-AZ-CAF-BILL-ANALYSECSPCOSTBYTAGLOCATION
 
-Partly realised, as [5](#rule-adr-az-caf-bill-analysecostbytaglocation): every resource carries the CAF tags and one region; CAF tags on the resource groups
-`Deploy-Bicep` creates are planned.
+Partly realised, as [5](#rule-adr-az-caf-bill-analysecostbytaglocation): every resource carries the CAF tags and one region; CAF tags on the
+resource groups `Deploy-Bicep` creates are planned.
 
 - [31 — Analyse CSP cost by tag and location](#31--analyse-csp-cost-by-tag-and-location)
 
@@ -415,12 +417,13 @@ repository. Nothing is quoted.
 The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
 
 Most of the area sits above this repository. It deploys into subscriptions it is given and owns nothing at management-group or tenant level
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)): it holds no billing role, chooses no offer, and administers no Entra user, role, or
-sign-in policy. Those recommendations take the compact form below: why the item does not apply here, and what would make it apply. What the
-repository does touch is the tenant and the subscriptions it declares in `azure.yml`
-([ADR-AZ-DATAMOD-TWOCONFIGLAYERS](../azure-data-model.md#rule-adr-az-datamod-twoconfiglayers)), one tenant for every customer, with customers separated by subscription
-([ADR-AZ-CUSTOMER](../azure-customer-model.md)), one service connection per subscription in the CD pipelines, the CAF tags that cost
-analysis reads, and the Entra administrator group and break-glass login of each SQL server. Those rules take the full form.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)): it holds no billing role, chooses no offer, and administers no
+Entra user, role, or sign-in policy. Those recommendations take the compact form below: why the item does not apply here, and what would
+make it apply. What the repository does touch is the tenant and the subscriptions it declares in `azure.yml`
+([ADR-AZ-DATAMOD-TWOCONFIGLAYERS](../azure-data-model.md#rule-adr-az-datamod-twoconfiglayers)), one tenant for every customer, with
+customers separated by subscription ([ADR-AZ-CUSTOMER](../azure-customer-model.md)), one service connection per subscription in the CD
+pipelines, the CAF tags that cost analysis reads, and the Entra administrator group and break-glass login of each SQL server. Those rules
+take the full form.
 
 The multitenant part of the area has two further pages without recommendations: one on automating landing zones across several tenants, and
 one on keeping a separate canary tenant to try tenant-level changes before they reach production. They inform rules
@@ -429,8 +432,9 @@ not per tenant, and it makes no tenant-level change that a canary tenant would t
 before production through the CD pipelines.
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
-`discovery` (the landing zone), and `expedition` (a workload that lands in it, [ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every
-full-form takeaway below points at what those three do, or says plainly what they do not.
+`discovery` (the landing zone), and `expedition` (a workload that lands in it,
+[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every full-form takeaway below points at what those
+three do, or says plainly what they do not.
 
 ### 1 — Vend subscriptions as a self-service capability (EA)
 
@@ -444,9 +448,10 @@ Summary (ours): Make creating and managing subscriptions an automated, self-serv
 #### What 1 means here
 
 The repository onboards a subscription it is given by pull request — an `azure.yml` entry, its range in `network.yml`, and one config per
-once-per-subscription template — as [ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess) sets out. Creating the
-subscription from an enrollment account needs a billing role, which the repository does not hold. Holding one would be the trigger to add a
-tenant-level subscription-creation template ahead of `foundation`.
+once-per-subscription template — as
+[ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS](resource-organization.md#rule-adr-az-caf-resorg-subscriptionvendingprocess) sets out.
+Creating the subscription from an enrollment account needs a billing role, which the repository does not hold. Holding one would be the
+trigger to add a tenant-level subscription-creation template ahead of `foundation`.
 
 ##### 1 status
 
@@ -521,9 +526,10 @@ Summary (ours): Use Cost Management's reports and views to analyse spend, sliced
 
 Cost Management can slice only by what the resources carry. Every template takes the six CAF tags as one `tags` parameter from its config
 and passes them to every resource: `cost-center` names the paying team, `workload` the project, `owner` and `environment` the rest
-([ADR-AZ-CAF-GOV-TAGRESOURCESCOSTANALYSIS](governance.md#rule-adr-az-caf-gov-tagresourcescostanalysis)). Location is fixed per environment: `azure.yml` gives each environment its one
-`region`, and the landing zone's allowed-locations policy keeps every resource of the subscription there
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so a view by location shows one region per environment, with nothing stray.
+([ADR-AZ-CAF-GOV-TAGRESOURCESCOSTANALYSIS](governance.md#rule-adr-az-caf-gov-tagresourcescostanalysis)). Location is fixed per environment:
+`azure.yml` gives each environment its one `region`, and the landing zone's allowed-locations policy keeps every resource of the
+subscription there ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so a view by location shows
+one region per environment, with nothing stray.
 
 The gap is the resource groups. `Deploy-Bicep` creates the resource group of a resource-group template (`foundation`, `expedition`) with the
 deployment-provenance tags only, so a view grouped by a resource group's tags has nothing to read for those; the fix is planned under
@@ -580,7 +586,8 @@ Summary (ours): Give each department and account a budget, with an alert on it.
 
 A department or account budget is set on the enrollment. The repository budgets one level down: every landing zone deploys a monthly budget
 for its subscription, alerting the subscription's `Owner` role at 50, 80, and 100 percent
-([ADR-AZ-CAF-GOV-OVERSEESPENDCOSTMANAGEMENT](governance.md#rule-adr-az-caf-gov-overseespendcostmanagement)). An organisation that holds the enrollment adds department budgets above those.
+([ADR-AZ-CAF-GOV-OVERSEESPENDCOSTMANAGEMENT](governance.md#rule-adr-az-caf-gov-overseespendcostmanagement)). An organisation that holds the
+enrollment adds department budgets above those.
 
 ##### 7 status
 
@@ -1117,10 +1124,10 @@ Summary (ours): Use Entra multifactor authentication, and enforce phishing-resis
 
 MFA and Conditional Access are policies of the tenant, and the repository sets none. What it decides is whether its privileged access goes
 through the tenant at all, and for SQL it does: each SQL server's administrator is an Entra group
-([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), so an administrator signs in through Entra and meets whatever MFA and Conditional
-Access the tenant enforces. The one path outside the tenant's policies is the break-glass SQL login, kept for the case where the directory
-is unavailable ([38](#38--plan-emergency-access-accounts)). Deployment identities are service connections, which sign in without MFA by
-nature; the pipelines use one per subscription.
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), so an administrator signs in through Entra and meets
+whatever MFA and Conditional Access the tenant enforces. The one path outside the tenant's policies is the break-glass SQL login, kept for
+the case where the directory is unavailable ([38](#38--plan-emergency-access-accounts)). Deployment identities are service connections,
+which sign in without MFA by nature; the pipelines use one per subscription.
 
 ##### 37 in `foundation`
 
@@ -1152,8 +1159,9 @@ Summary (ours): Keep emergency access (break-glass) accounts so the tenant canno
 
 Emergency accounts for the tenant are created and guarded by its administrators. The repository applies the same idea where it owns the
 access: a SQL server authenticates its administrators through an Entra group first, and beside it sits one break-glass SQL login whose
-password is a Key Vault reference to `foundation`'s vault in the same subscription ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
-When the directory or the group is unavailable, the server stays reachable, and the repository holds no secret
+password is a Key Vault reference to `foundation`'s vault in the same subscription
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). When the directory or the group is unavailable, the server
+stays reachable, and the repository holds no secret
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 
 ##### 38 in `foundation`
@@ -1216,10 +1224,11 @@ Summary (ours): Send every Microsoft Entra diagnostic log to a central Azure Mon
 #### What 40 means here
 
 Entra's diagnostic settings belong to the tenant, not to a subscription, so making one is a tenant-level deployment that needs a directory
-role; the repository deploys nothing at that level ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The subscription-level counterpart
-is realised: each landing zone streams its subscription's activity log to `foundation`'s workspace
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A tenant administrator who adopts the recommendation can point Entra's logs at the
-shared production subscription's workspace, which would then hold both kinds of log side by side.
+role; the repository deploys nothing at that level ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The
+subscription-level counterpart is realised: each landing zone streams its subscription's activity log to `foundation`'s workspace
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A tenant administrator who adopts the
+recommendation can point Entra's logs at the shared production subscription's workspace, which would then hold both kinds of log side by
+side.
 
 ##### 40 in `foundation`
 
@@ -1249,21 +1258,23 @@ Summary (ours): Keep one tenant per organisation unless a concrete business need
 
 #### What 41 means here
 
-`azure.yml` holds the tenants as a map keyed by name ([ADR-AZ-DATAMOD-NAMEKEYEDMAPS](../azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)), and the shipped file
-declares exactly one, `placeholder`, whose id is a minted GUID registered in `guids.yml` as `tenant_placeholder`. Every subscription, shared
-and customer alike, names it in its `tenant` field, and `AzureConfig` rejects a subscription whose tenant is not declared. The data model
-could hold more tenants; the repository uses one, so test and production, shared platform and customers, all live in it. `ado.yml` names the
-same tenant as the directory behind the DevOps organisation.
+`azure.yml` holds the tenants as a map keyed by name
+([ADR-AZ-DATAMOD-NAMEKEYEDMAPS](../azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)), and the shipped file declares exactly one,
+`placeholder`, whose id is a minted GUID registered in `guids.yml` as `tenant_placeholder`. Every subscription, shared and customer alike,
+names it in its `tenant` field, and `AzureConfig` rejects a subscription whose tenant is not declared. The data model could hold more
+tenants; the repository uses one, so test and production, shared platform and customers, all live in it. `ado.yml` names the same tenant as
+the directory behind the DevOps organisation.
 
 Each deploy proves its subscription. In a pipeline, the session is whatever the stage's service connection logged into;
 `Get-AzCliSessionSubscription` resolves its subscription against `azure.yml` and throws on one the file does not declare, and
-`-SubscriptionIdAssertIs` pins the expected subscription ([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)). The tenant is
-declared beside it; the config-aware session check `Assert-AzCliIsConnected` compares both tenant and subscription with the declaration
-([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](../az-session-verification.md#rule-adr-az-session-configdefinescorrect)), but the deploy path does not call it, so a deploy-time tenant
-check is planned (see [48](#48--keep-subscription-creators-in-the-destination-tenant)). The CD pipelines carry one service connection per
-subscription (`sc-shared-nonprod`, `sc-shared-prod`, `sc-apex-nonprod`, `sc-apex-prod`, …). CAF's page on automating several tenants
-describes one deployment identity per tenant; with one tenant, the identity per subscription is the finer split, and a second tenant would
-need no new mechanism, only a second `tenants` entry and the service connections of its subscriptions.
+`-SubscriptionIdAssertIs` pins the expected subscription
+([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)). The tenant is declared beside it; the
+config-aware session check `Assert-AzCliIsConnected` compares both tenant and subscription with the declaration
+([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](../az-session-verification.md#rule-adr-az-session-configdefinescorrect)), but the deploy path does
+not call it, so a deploy-time tenant check is planned (see [48](#48--keep-subscription-creators-in-the-destination-tenant)). The CD
+pipelines carry one service connection per subscription (`sc-shared-nonprod`, `sc-shared-prod`, `sc-apex-nonprod`, `sc-apex-prod`, …). CAF's
+page on automating several tenants describes one deployment identity per tenant; with one tenant, the identity per subscription is the finer
+split, and a second tenant would need no new mechanism, only a second `tenants` entry and the service connections of its subscriptions.
 
 CAF's testing note concerns tenant-level changes, which the repository does not make, so it keeps no separate test tenant; its changes reach
 non-production subscriptions before production ones.
@@ -1318,13 +1329,14 @@ Summary (ours): Use the organisation's one corporate tenant by default, and add 
 
 The question this recommendation raises here is whether each customer should get a tenant of its own. It does not. A customer is a
 subscription pair in the one tenant, bound by the subscription's `customer` field
-([ADR-AZ-CUSTOMER-TWOBINDINGS](../azure-customer-model.md#rule-adr-az-customer-twobindings)), and its isolation comes from the subscription: its own landing
-zone, network, budget, workspace, and vault, its own CD pipeline, and its own service connections.
+([ADR-AZ-CUSTOMER-TWOBINDINGS](../azure-customer-model.md#rule-adr-az-customer-twobindings)), and its isolation comes from the subscription:
+its own landing zone, network, budget, workspace, and vault, its own CD pipeline, and its own service connections.
 
 The landing zone depends on that choice. A customer's spoke peers to the hub in a shared subscription, the hub's private DNS zones link to
-every spoke, and a workload registers its private endpoints in the hub's zones ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). Within
-one tenant, each of those joins across subscriptions needs only a role on the other side; across tenants each would need an identity known
-in both, and the one SQL administrator group could not administer every customer's server.
+every spoke, and a workload registers its private endpoints in the hub's zones
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). Within one tenant, each of those joins across subscriptions needs
+only a role on the other side; across tenants each would need an identity known in both, and the one SQL administrator group could not
+administer every customer's server.
 
 A customer whose contract or regulation demands its own directory is the requirement that would justify a second tenant; the data model
 holds it as a second `tenants` entry, and that customer's subscriptions would then need a hub of their own, since a cross-tenant join is
@@ -1364,8 +1376,9 @@ Summary (ours): Give workload teams safe, isolated room to experiment as sandbox
 
 The recommendation's point is that experiments stay in the organisation's tenant. Here they do, though not in a sandbox subscription: an
 experiment runs as an extra configuration slot of a non-production subscription, behind the same landing zone and guardrails as the rest of
-non-production ([ADR-AZ-CAF-RESORG-SANDBOXMANAGEMENTGROUP](resource-organization.md#rule-adr-az-caf-resorg-sandboxmanagementgroup)). An experiment that needs what the landing zone
-denies would be the trigger for a sandbox subscription, declared in `azure.yml` in the same tenant like any other.
+non-production ([ADR-AZ-CAF-RESORG-SANDBOXMANAGEMENTGROUP](resource-organization.md#rule-adr-az-caf-resorg-sandboxmanagementgroup)). An
+experiment that needs what the landing zone denies would be the trigger for a sandbox subscription, declared in `azure.yml` in the same
+tenant like any other.
 
 ##### 44 in `foundation`
 
@@ -1736,17 +1749,17 @@ policies and PIM can govern, with a break-glass login beside it whose password s
 Everything that sits on the billing agreement or administers the tenant — offers, departments and invoice sections, billing roles and
 budgets, notification contacts, custom names and sign-on, Global Administrators, PIM, Conditional Access, partner access and Azure
 Lighthouse — is not adopted, because the repository deploys into subscriptions it is given and needs no right above them
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Each of those rules names what would make it apply. Two items are planned: a
-deploy-time check of the session's tenant against the declaration, and the CAF tags on the resource groups `Deploy-Bicep` creates, shared
-with [ADR-AZ-CAF-GOV-TAGRESOURCESCOSTANALYSIS](governance.md#rule-adr-az-caf-gov-tagresourcescostanalysis).
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Each of those rules names what would make it apply. Two items are
+planned: a deploy-time check of the session's tenant against the declaration, and the CAF tags on the resource groups `Deploy-Bicep`
+creates, shared with [ADR-AZ-CAF-GOV-TAGRESOURCESCOSTANALYSIS](governance.md#rule-adr-az-caf-gov-tagresourcescostanalysis).
 
 ### How this is enforced
 
 - `AzureConfig` requires a non-empty `tenants` map and rejects a subscription whose `tenant` is not declared
   ([ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../azure-data-model.md#rule-adr-az-datamod-schemaandintegrity)).
 - On every deploy, `Get-AzCliSessionSubscription` resolves the session's subscription against `azure.yml` and throws on one it does not
-  declare ([ADR-AZ-SESSION-REVERSELOOKUP](../az-session-verification.md#rule-adr-az-session-reverselookup)); outside the deploy path, `Assert-AzCliIsConnected`
-  compares a session's tenant and subscription with the declaration
+  declare ([ADR-AZ-SESSION-REVERSELOOKUP](../az-session-verification.md#rule-adr-az-session-reverselookup)); outside the deploy path,
+  `Assert-AzCliIsConnected` compares a session's tenant and subscription with the declaration
   ([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](../az-session-verification.md#rule-adr-az-session-configdefinescorrect)).
 - `Deploy-Bicep` throws in a pipeline without `-SubscriptionIdAssertIs`, and every CD pipeline entry pairs its service connection with the
   subscription id it must reach ([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
@@ -1755,7 +1768,8 @@ with [ADR-AZ-CAF-GOV-TAGRESOURCESCOSTANALYSIS](governance.md#rule-adr-az-caf-gov
 - The parameter-model test checks every rendered parameters file against the compiled parameter model, so a config without its `tags`, its
   Entra administrator, or a Key Vault reference for the break-glass password fails the build
   ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
-- The landing zone's allowed-locations policy keeps every resource in its region ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
+- The landing zone's allowed-locations policy keeps every resource in its region
+  ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 - Planned (follow-up), not existing: a tenant comparison in `Get-BicepDeploymentContext` that fails a session whose tenant differs from the
   one `azure.yml` declares for its subscription, and CAF tags on the resource groups `Deploy-Bicep` creates.
 

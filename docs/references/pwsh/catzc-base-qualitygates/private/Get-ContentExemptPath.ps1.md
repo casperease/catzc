@@ -15,11 +15,12 @@ The one predicate the tools that rewrite or check tracked-file content (the link
 file. A path is exempt when .gitattributes puts it in one of five classes: linguist-vendored (third-party code, kept as shipped),
 linguist-generated (files the automation writes, aligned at their authored input instead), catzc-fixture (test fixture trees, data on
 purpose), catzc-contract (contract assets under `contracts/<unit>/<version>/`, whose bytes are what a contract check compares —
-[ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), and catzc-unordered (imports under the
-unordered track, not yet sorted — [ADR-DSGN-TRACK-UNORDEREDTRACK](../../../../adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack)). The classes are declared in
-the authored .gitattributes that Build-RootConfig renders to the root
-([ADR-REPO-ROOTCFG-FULLYMANAGED](../../../../adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg-fullymanaged)), never in a list of a tool's own; this
-function only names which classes mean "leave as written".
+[ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), and catzc-unordered
+(imports under the unordered track, not yet sorted —
+[ADR-DSGN-TRACK-UNORDEREDTRACK](../../../../adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack)). The classes are declared in the
+authored .gitattributes that Build-RootConfig renders to the root
+([ADR-REPO-ROOTCFG-FULLYMANAGED](../../../../adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg-fullymanaged)), never in a list
+of a tool's own; this function only names which classes mean "leave as written".
 
 ### parameter `RepositoryRoot`
 

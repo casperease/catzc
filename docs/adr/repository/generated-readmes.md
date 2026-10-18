@@ -44,8 +44,8 @@ so a README that is a filesystem link is severed, never written through into its
 Every link in a generated README works where the README is opened. Each relative link target is resolved at the source's folder and
 rewritten relative to the README's folder (`MarkdownLinkRebaser`); code spans, fenced blocks, URLs, in-file `#anchors`, and
 repository-rooted `/` targets are left as written. A line under the title links back to the source as the one place to edit. The source's
-front matter, its meta block ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)) included, is left out of the copy. The copy opens
-with a meta block of its own, `role: readme`, the role the file-kinds registry names for it, and then its title.
+front matter, its meta block ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)) included, is left out of the
+copy. The copy opens with a meta block of its own, `role: readme`, the role the file-kinds registry names for it, and then its title.
 
 - [Readable where it is opened](#readable-where-it-is-opened)
 
@@ -64,8 +64,8 @@ artifact the quality gates check; the README is outside the markdown quality gat
 
 A `README.md` is what a reader sees first in a folder in an editor. Kept by hand, each drifts from the documentation it duplicates, and the
 same content is maintained in two places. The repository treats other per-folder, convention-derived files as generated, gitignored
-artifacts ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md), `ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED`). A README is the same shape: one authored
-source under `docs/`, one derived artifact per folder, regenerated from the source so it cannot drift.
+artifacts ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md), `ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED`). A README is the same
+shape: one authored source under `docs/`, one derived artifact per folder, regenerated from the source so it cannot drift.
 
 The artifact is read in the folder it documents. An editor opens `pwsh/<Module>/README.md` and resolves its relative links from that folder,
 while the source article authors them relative to its own folder under `docs/references/`. A README that is the source file itself — a

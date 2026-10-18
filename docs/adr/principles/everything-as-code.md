@@ -30,8 +30,9 @@ Organizations commonly version-control the source code of their applications whi
 pipeline definitions, and operational artifacts as second-class citizens — managed through UIs, wikis, shared drives, or tribal knowledge.
 This creates a class of assets that cannot be reproduced, compared, audited, or rolled back.
 
-This principle is the mechanics of [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord): the repository is the
-configuration record of everything it delivers, and the rules here say what that requires of each artifact.
+This principle is the mechanics of
+[ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord):
+the repository is the configuration record of everything it delivers, and the rules here say what that requires of each artifact.
 
 ## Principle
 

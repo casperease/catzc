@@ -115,11 +115,11 @@ configuration, where they belong.
 
 ## Decision
 
-Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (ADR-DSGN-THINPLAT-THINPLATFORM), kept thin by delegating to the
-vendor's own primitives rather than reimplementing them (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT), consumed through a single CLI surface (ADR-DSGN-THINPLAT-PLATFORMASCLI),
-fully represented as one living version of code (ADR-DSGN-THINPLAT-REPRESENTEDASCODE), and owned as a reusable product over a substrate that stays swappable
-behind the CLI (ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE). This is our implementation of the EaC and CD principles as a Team-Topologies platform, covering Azure
-and Azure RM via Bicep plus a curated az CLI.
+Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (ADR-DSGN-THINPLAT-THINPLATFORM), kept thin by delegating to
+the vendor's own primitives rather than reimplementing them (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT), consumed through a single CLI
+surface (ADR-DSGN-THINPLAT-PLATFORMASCLI), fully represented as one living version of code (ADR-DSGN-THINPLAT-REPRESENTEDASCODE), and owned
+as a reusable product over a substrate that stays swappable behind the CLI (ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE). This is our
+implementation of the EaC and CD principles as a Team-Topologies platform, covering Azure and Azure RM via Bicep plus a curated az CLI.
 
 ### How this holds together
 

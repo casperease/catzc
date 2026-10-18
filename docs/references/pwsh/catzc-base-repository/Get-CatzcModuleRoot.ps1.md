@@ -12,10 +12,10 @@ Returns a module's own folder inside the loaded catzc code tree, optionally join
 ### description
 
 The one sanctioned way for module code to locate content that ships with it — its configs/ and assets/, or another module's
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)). Resolves against
-Get-CatzcModulesRoot, so the answer is correct in both run modes ([ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)):
-`<RepositoryRoot>/pwsh/<Module>` in source mode, and `<build>/<version>/<Module>` in build mode, where the merged `<Module>.ps1` sits
-beside the same configs/ and assets/ folders.
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
+Resolves against Get-CatzcModulesRoot, so the answer is correct in both run modes ([ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)):
+`<RepositoryRoot>/pwsh/<Module>` in source mode, and `<build>/<version>/<Module>` in build mode, where the merged `<Module>.ps1` sits beside
+the same configs/ and assets/ folders.
 
 -Module defaults to the module of the calling function, so module code writes only the child path. Pass -ChildPath as a string literal at
 every call site: Get-InternalAssetDependency derives the inventory of internal asset dependencies from those literals

@@ -50,11 +50,11 @@ changes the scan's outcome must re-key the set.
 ### Rule ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
 
 Module globsets are derived, never declared: every module folder under `pwsh/` derives a set named by the readme-kebab convention
-(`Catzc.Base.Globs` → `catzc-base-globs`, include `pwsh/<Module>/**`), every internal shared module `pwsh/.internal/<Name>.psm1`
-derives a single-file set by the same convention (`Catzc.Internal.Bootstrap` → `catzc-internal-bootstrap`), and the reserved names
-`internal`, `vendor`, `compiled`, and `scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space
-— a declared set that shadows a derived name is rejected. Derived sets set the scope of protection and blast-radius exactly as declared sets
-do, with nothing committed per set; pipeline routing stays declared-only — a pipeline registers on a declared deployable-unit's native
+(`Catzc.Base.Globs` → `catzc-base-globs`, include `pwsh/<Module>/**`), every internal shared module `pwsh/.internal/<Name>.psm1` derives a
+single-file set by the same convention (`Catzc.Internal.Bootstrap` → `catzc-internal-bootstrap`), and the reserved names `internal`,
+`vendor`, `compiled`, and `scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space — a
+declared set that shadows a derived name is rejected. Derived sets set the scope of protection and blast-radius exactly as declared sets do,
+with nothing committed per set; pipeline routing stays declared-only — a pipeline registers on a declared deployable-unit's native
 projection, never on a derived module's.
 
 - [Derived module globsets](#derived-module-globsets)
@@ -152,11 +152,11 @@ re-run more — the failure mode is a redundant run, never a wrong skip.
 `Test-Automation` applies the protection skip per module, in the orchestrator, around the sharded execution engine: after discovery, each
 in-scope unit's composite identity is computed and queried — a protected unit's test files are dropped from the work-list before sharding,
 reported one line per unit and as `ProtectedModules` on the `-PassThru` object; after the workers return, every unit that produced no failed
-row is promoted (the pending pre-run identity, `ADR-REPO-PROTGLOB-PROTECTIONKEY`). Anything unattributable is conservative: a failed shard container, or
-a failed row with no file, promotes nothing. Workers never read or write the map — a worker is a fresh process whose module state could not
-see it anyway. In a pipeline the whole block is bypassed before any identity is computed, so CI pays nothing and skips nothing. A run keyed
-`test-automation|L0-L1|Logic` protects only that scope; the default `L0-L2|Both` run has its own key, so a narrow green never hides a wide
-red.
+row is promoted (the pending pre-run identity, `ADR-REPO-PROTGLOB-PROTECTIONKEY`). Anything unattributable is conservative: a failed shard
+container, or a failed row with no file, promotes nothing. Workers never read or write the map — a worker is a fresh process whose module
+state could not see it anyway. In a pipeline the whole block is bypassed before any identity is computed, so CI pays nothing and skips
+nothing. A run keyed `test-automation|L0-L1|Logic` protects only that scope; the default `L0-L2|Both` run has its own key, so a narrow green
+never hides a wide red.
 
 ### How this is enforced
 

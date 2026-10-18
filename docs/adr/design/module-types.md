@@ -22,11 +22,12 @@ place's root). `module` and `moduletype` are read from the registry and never gu
 ### Rule ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES
 
 Each track type **admits** a set of module types, declared on the track type
-([ADR-DSGN-TRACKTYPE-DECLAREDONCE](track-types.md#rule-adr-dsgn-tracktype-declaredonce)), and a module's type must be admitted by the type of the track that holds
-it: `modules` admits `pwsh-folder` and `pwsh-psm1`, `infrastructure` admits `bicep`, `pipelines` admits `pipeline` (the track's vendor says
-which platform), `vendor-settings` admits `settings`, `vendored-code` admits the module types of the track it is nested in, and
-`verification` admits `python`, `go` and `bash`. A module of a type its track does not admit is a load failure, so a second stack inside a
-track shows as a violation without reading the file ([ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)).
+([ADR-DSGN-TRACKTYPE-DECLAREDONCE](track-types.md#rule-adr-dsgn-tracktype-declaredonce)), and a module's type must be admitted by the type
+of the track that holds it: `modules` admits `pwsh-folder` and `pwsh-psm1`, `infrastructure` admits `bicep`, `pipelines` admits `pipeline`
+(the track's vendor says which platform), `vendor-settings` admits `settings`, `vendored-code` admits the module types of the track it is
+nested in, and `verification` admits `python`, `go` and `bash`. A module of a type its track does not admit is a load failure, so a second
+stack inside a track shows as a violation without reading the file
+([ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)).
 
 - [Types and tracks](#types-and-tracks)
 
@@ -60,9 +61,11 @@ looks for a module folder where none exists.
 
 ## Decision
 
-A module is a unit placed in a track; its type comes from the registry ([ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT](#rule-adr-dsgn-modtype-moduleisplacedunit),
-[ADR-DSGN-MODTYPE-MODULETYPEISSORT](#rule-adr-dsgn-modtype-moduletypeissort)); its track type must admit it ([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)); a holder's
-module is the holder ([ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE](#rule-adr-dsgn-modtype-deployableorholdermodule)).
+A module is a unit placed in a track; its type comes from the registry
+([ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT](#rule-adr-dsgn-modtype-moduleisplacedunit),
+[ADR-DSGN-MODTYPE-MODULETYPEISSORT](#rule-adr-dsgn-modtype-moduletypeissort)); its track type must admit it
+([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)); a holder's module is the holder
+([ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE](#rule-adr-dsgn-modtype-deployableorholdermodule)).
 
 ### How this is enforced
 

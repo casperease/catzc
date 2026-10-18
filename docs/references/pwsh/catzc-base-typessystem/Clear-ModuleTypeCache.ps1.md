@@ -17,11 +17,11 @@ assembly whose name matches the current combined hash of every module's `types/*
 previous version of a type. The current build is never deleted, so the committed file stays put on every platform.
 
 Nothing in catzc holds a .compiled DLL open: every load goes through a per-user shadow copy (Import-TypesAssembly,
-[ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../adr/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)), so a superseded build is always expected to delete. A delete
-that still fails means something outside catzc holds the file (an antivirus scan, an indexer, a session started before shadow loading). The
-janitor removes every deletable build first, then throws one error naming each file it could not remove and, on Windows, the processes
-holding it (Get-FileLockingProcess) — a silent skip is how a stale build reaches a commit. The importer catches that error into one red
-line, so the load still completes.
+[ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../adr/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)), so a superseded build
+is always expected to delete. A delete that still fails means something outside catzc holds the file (an antivirus scan, an indexer, a
+session started before shadow loading). The janitor removes every deletable build first, then throws one error naming each file it could not
+remove and, on Windows, the processes holding it (Get-FileLockingProcess) — a silent skip is how a stale build reaches a commit. The
+importer catches that error into one red line, so the load still completes.
 
 Makes no source-control changes in a pipeline (Test-IsRunningInPipeline): CI must not modify committed files, so the delete pass is a devbox
 concern — run locally so the tidied .compiled is what gets committed. The importer invokes this automatically on a devbox. In a pipeline it

@@ -11,9 +11,9 @@ Quality gate: every guid in tracked text is registered in guids.yml, none is den
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the managed guids
-([ADR-AUTO-GUIDS](../../../adr/automation/managed-guids.md)): it scans the tracked text (Get-RepositoryGuids over Get-GuidScanFiles) against
-the registry (configs/guids.yml) and collects an issue for:
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the managed
+guids ([ADR-AUTO-GUIDS](../../../adr/automation/managed-guids.md)): it scans the tracked text (Get-RepositoryGuids over Get-GuidScanFiles)
+against the registry (configs/guids.yml) and collects an issue for:
 
 - a scanned file, or the registry itself, outside the 'repository' globset — the protection identity of the scan must cover everything it
   reads ([ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-includesownconfig));

@@ -30,8 +30,8 @@ never plan the live build for deletion.
 
 The other half of the cache is the copy in the running process, which cannot be swapped once loaded. A test/assert pair asks whether the
 types this process loaded are still those its sources declare, from the one measurement the loader and the importer use
-([ADR-AUTO-TYPES-ONEDRIFTMEASURE](../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-onedriftmeasure)); the assert names every drifted type and the
-one remedy, a new PowerShell.
+([ADR-AUTO-TYPES-ONEDRIFTMEASURE](../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-onedriftmeasure)); the assert names
+every drifted type and the one remedy, a new PowerShell.
 
 ### responsibility:2 — Cross-module type dependency analysis
 
@@ -61,10 +61,10 @@ so after import that full name must resolve. The quality gate lists every type t
 ### responsibility:5 — Agent hook build
 
 Publishing the one C# program the platform runs outside PowerShell: the Claude Code hook that holds every agent Bash call to the time
-safeguard ([fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md), `ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`). It runs before every such call,
-so it is compiled rather than scripted. The importer asks for it on every import; it publishes with `dotnet` only when the source's hash
-differs from the one recorded beside the published program, finds the program by the project's own assembly name, and asserts the publish
-produced it.
+safeguard ([fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md), `ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`). It runs before
+every such call, so it is compiled rather than scripted. The importer asks for it on every import; it publishes with `dotnet` only when the
+source's hash differs from the one recorded beside the published program, finds the program by the project's own assembly name, and asserts
+the publish produced it.
 
 ## What the module does
 

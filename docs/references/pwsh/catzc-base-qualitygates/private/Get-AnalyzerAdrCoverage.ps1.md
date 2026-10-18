@@ -19,4 +19,5 @@ kinds union on AdrId directly. See the test-automation ADR.
 
 ### outputs
 
-`[pscustomobject]` one per mapping: AdrId (e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'), Enforcer (the analyzer rule name), Kind ('pssa-rule').
+`[pscustomobject]` one per mapping: AdrId (e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'), Enforcer (the analyzer rule name), Kind
+('pssa-rule').

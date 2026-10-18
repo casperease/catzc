@@ -2,11 +2,12 @@
 
 The contracts module. It **makes the repository's contracts binding**: every contract asset under `contracts/` is checked against the real
 files it constrains, and every released version folder is held to the `.frozen` record written when it was released, so a change that breaks
-a contract fails here and not at a consumer or a platform ([api-contracts](../../adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)).
-It owns the mechanism — listing the assets, checking them, freezing a release, and writing the contract reference — but **not** the assets
-themselves: each asset sits in the folder of the module that talks to the outside party, such as
-[Catzc.Tooling.Github](catzc-tooling-github.md) for the workflow files GitHub reads. The layout and the rules are the subject of
-[api-contracts](../../adr/repository/api-contracts.md); the folder itself is described in [the contracts surface](../contracts.md).
+a contract fails here and not at a consumer or a platform
+([api-contracts](../../adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)). It owns the mechanism — listing the assets,
+checking them, freezing a release, and writing the contract reference — but **not** the assets themselves: each asset sits in the folder of
+the module that talks to the outside party, such as [Catzc.Tooling.Github](catzc-tooling-github.md) for the workflow files GitHub reads. The
+layout and the rules are the subject of [api-contracts](../../adr/repository/api-contracts.md); the folder itself is described in
+[the contracts surface](../contracts.md).
 
 ## Responsibilities
 
@@ -66,16 +67,16 @@ step is what lets an owning module test its own assets in its own tests while th
 
 Two rules from [api-contracts](../../adr/repository/api-contracts.md) shape the release half. A released provided contract is kept while a
 consumer pins it — the one sanctioned backwards compatibility in the repository
-([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../adr/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)) — so the quality gate keeps checking the provided
-assets of older released folders, but not their depended-on assets, which follow their platform. And a released folder is immutable
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): responsibility 4 writes the `.frozen` record once,
-and responsibility 1 holds the folder to it on every run. The release version itself comes from
-[Catzc.Base.Exporter](catzc-base-exporter.md) (`Resolve-CatzcBuildVersion`).
+([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../adr/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)) — so the quality gate
+keeps checking the provided assets of older released folders, but not their depended-on assets, which follow their platform. And a released
+folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)):
+responsibility 4 writes the `.frozen` record once, and responsibility 1 holds the folder to it on every run. The release version itself
+comes from [Catzc.Base.Exporter](catzc-base-exporter.md) (`Resolve-CatzcBuildVersion`).
 
 Responsibility 5 keeps what an asset is for in one place, the asset's header comment
-([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](../../adr/repository/api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)): `contracts/` holds only assets, and the reference
-pages project their notes. The module reads its one setting through [Catzc.Base.Config](catzc-base-config.md) and ends its quality gate
-through [Catzc.Base.Reports](catzc-base-reports.md).
+([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](../../adr/repository/api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)): `contracts/`
+holds only assets, and the reference pages project their notes. The module reads its one setting through
+[Catzc.Base.Config](catzc-base-config.md) and ends its quality gate through [Catzc.Base.Reports](catzc-base-reports.md).
 
 ## Division
 

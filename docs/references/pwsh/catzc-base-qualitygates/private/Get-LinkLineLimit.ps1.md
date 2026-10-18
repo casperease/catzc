@@ -13,8 +13,8 @@ Resolves the per-extension comment line limits the link aligner wraps to.
 
 Reads max_line_length from the repository's .editorconfig sections of the form `[*.ext]` and `[*.{a,b}]` — the source of truth for
 formatting — then applies links.yml's line_limit overrides on top. An extension neither names takes the config's default_line_limit
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), which the caller passes to the engine
-separately.
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), which the
+caller passes to the engine separately.
 
 ### parameter `RepositoryRoot`
 

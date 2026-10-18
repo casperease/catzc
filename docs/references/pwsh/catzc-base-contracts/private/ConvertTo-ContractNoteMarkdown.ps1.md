@@ -12,8 +12,8 @@ Turns a contract asset's note into the markdown text of its list item on a gener
 ### description
 
 A note is written as a comment (Get-ContractAssetNote), where an ADR citation is a repository-rooted code link
-([ADR-REPO-LINK-CODELINKS](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)). On the generated page it is markdown, so each part is
-rewritten to its markdown form:
+([ADR-REPO-LINK-CODELINKS](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)). On the generated page it is
+markdown, so each part is rewritten to its markdown form:
 
 - a link whose destination starts with '/' becomes relative to the page's folder, its #fragment kept
   ([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative));

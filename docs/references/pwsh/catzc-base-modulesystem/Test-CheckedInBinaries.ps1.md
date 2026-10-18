@@ -11,11 +11,11 @@ Quality gate: every checked-in binary in the repository is stored byte-exact.
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over every tracked file — the vendored
-modules (`pwsh/.vendor/**`) and the committed combined C# types assembly (`pwsh/.compiled/**`, see the caching ADR) as much as the diagrams
-and documents under docs/. A tracked file is a binary the way git decides — a NUL byte in its first 8000 bytes — so the gate follows the
-content, not an extension list, and a binary of a type .gitattributes does not name yet fails here instead of slipping by. For each binary
-it collects an issue when:
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over every tracked
+file — the vendored modules (`pwsh/.vendor/**`) and the committed combined C# types assembly (`pwsh/.compiled/**`, see the caching ADR) as
+much as the diagrams and documents under docs/. A tracked file is a binary the way git decides — a NUL byte in its first 8000 bytes — so the
+gate follows the content, not an extension list, and a binary of a type .gitattributes does not name yet fails here instead of slipping by.
+For each binary it collects an issue when:
 
 - git stores it as text: `git ls-files --eol` reports its index EOL as lf, crlf, or mixed (git applied EOL conversion and corrupted the
   bytes) rather than -text;

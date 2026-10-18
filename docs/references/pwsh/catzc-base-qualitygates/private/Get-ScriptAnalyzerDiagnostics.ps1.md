@@ -16,9 +16,9 @@ but the spelling one, and `Measure-CatzcSpelling` runs the spelling check, which
 runs as two passes, `rules` (every rule but `Measure-CatzcSpelling`) and `spelling` (that rule alone), each with its own result cache under
 out/cache/ (`script-analyzer.json`, `script-analyzer-spelling.json`). A pass skips every file it last found clean whose bytes and the pass's
 inputs (Get-ScriptAnalyzerInputs `-Pass`) are unchanged since
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)); only clean files are recorded, so a cached run reports
-exactly the diagnostics a full run would. A dictionary edit changes only the spelling pass's inputs, so it re-runs that pass alone. A
-pipeline starts without the cache.
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)); only
+clean files are recorded, so a cached run reports exactly the diagnostics a full run would. A dictionary edit changes only the spelling
+pass's inputs, so it re-runs that pass alone. A pipeline starts without the cache.
 
 The files a pass has pending are analyzed by Invoke-ScriptAnalyzerShards, which shards them across background pwsh processes; the two passes
 share its shard budget.

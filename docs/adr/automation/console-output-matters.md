@@ -61,7 +61,8 @@ never needed there.
 
 Announce work before it blocks. Before any operation that leaves the session unresponsive for more than ~5 seconds — a slow external tool, a
 scan or format pass over many files, a first-time lazy module load, a long cloud call — write a status line first, naming what is about to
-happen, so silence never reads as a hang. This refines ADR-AUTO-CONSOLE-REPORTOUTCOMES: staying silent is right for fast work, wrong for slow work.
+happen, so silence never reads as a hang. This refines ADR-AUTO-CONSOLE-REPORTOUTCOMES: staying silent is right for fast work, wrong for
+slow work.
 
 - [Announce work before it blocks](#announce-work-before-it-blocks)
 
@@ -154,8 +155,9 @@ The distinction between status and diagnostic output is about audience, not impo
 ### Output practice
 
 **Log commands, not commentary.** Every wrapper around an external tool logs the exact command before it runs (see
-[log-before-invoke](log-before-invoke.md#rule-adr-auto-prelog-logresolvedcommand)). This is the most valuable output: it tells the user what ran, and they can
-copy-paste it to reproduce. Do not add "Now installing Poetry..." before the command — the command itself is more informative.
+[log-before-invoke](log-before-invoke.md#rule-adr-auto-prelog-logresolvedcommand)). This is the most valuable output: it tells the user what
+ran, and they can copy-paste it to reproduce. Do not add "Now installing Poetry..." before the command — the command itself is more
+informative.
 
 **Let tools speak for themselves.** When `poetry install` produces output, let it flow to the console. Do not capture and re-format it. Do
 not prefix each line. The user knows what poetry output looks like — wrapping it in your own formatting makes it harder to read and
@@ -232,10 +234,10 @@ long operation is itself an outcome worth reporting.
 
 The announcement goes _before_ the blocking call, not after — a message printed once the work is done cannot tell the user it is in
 progress. For an operation whose duration is open-ended, pair the up-front message with a dot-per-interval liveness signal
-(ADR-AUTO-CONSOLE-NOBOXDRAWING) rather than leaving the console frozen. `Invoke-Executable` covers the common case: it logs the exact command before
-running it (ADR-AUTO-CONSOLE-LOGCOMMANDS, [log-before-invoke](log-before-invoke.md)), so a function whose slow step _is_ a single external call
-inherits the announcement for free. The rule bites where the slow work is not a logged external call — a large in-process loop, a module
-import, an in-memory computation — where nothing else would print.
+(ADR-AUTO-CONSOLE-NOBOXDRAWING) rather than leaving the console frozen. `Invoke-Executable` covers the common case: it logs the exact
+command before running it (ADR-AUTO-CONSOLE-LOGCOMMANDS, [log-before-invoke](log-before-invoke.md)), so a function whose slow step _is_ a
+single external call inherits the announcement for free. The rule bites where the slow work is not a logged external call — a large
+in-process loop, a module import, an in-memory computation — where nothing else would print.
 
 ### Session state changes
 
@@ -278,13 +280,13 @@ timing line printed only under a diagnostic switch for example, does not announc
 would make the change and print nothing. The line names the target and the value: `Session PATH: prepended 'C:\...\dotnet'`,
 `User environment: JAVA_HOME='...'`, `Loaded vendor module powershell-yaml 0.4.12`. A function that makes several related changes may
 announce them on one line built as it goes, and a function that only converges announces the changes it actually made: an installer re-run
-on a box that has the right `JAVA_HOME` writes nothing and says nothing. That keeps this rule consistent with ADR-AUTO-CONSOLE-REPORTOUTCOMES: a state
-change is always worth reporting, and a no-op is not a change.
+on a box that has the right `JAVA_HOME` writes nothing and says nothing. That keeps this rule consistent with
+ADR-AUTO-CONSOLE-REPORTOUTCOMES: a state change is always worth reporting, and a no-op is not a change.
 
 Diagnostic output does not announce. A state change is a fact about the session, and the always-shown status output is where facts go;
 diagnostic output is for the detail behind them. The toolset's own load sequence is the one exception: it makes the same expected changes at
-every session start, so printing them at every shell open is noise (ADR-AUTO-CONSOLE-REPORTOUTCOMES), and its record of them is diagnostic output, one
-switch away. The functions the load sequence calls announce on status output like any other caller's.
+every session start, so printing them at every shell open is noise (ADR-AUTO-CONSOLE-REPORTOUTCOMES), and its record of them is diagnostic
+output, one switch away. The functions the load sequence calls announce on status output like any other caller's.
 
 ### Not a state change
 
@@ -319,8 +321,8 @@ is announced where it happens, naming what changed and to what; changes that are
   into test output and no test needs its own guard; a child process's relayed output honours the same flag.
 - **`Invoke-Executable`** — logs the exact command via `Write-Message` before execution. All `Invoke-*` wrappers inherit this.
 - **Analyzer rules** — `Measure-NoRawConsoleWrite` flags a write that goes around the writer, and `Measure-AnnounceStateChange` flags a
-  state change that no announcement covers and passes the exemptions of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES. They check that a change is announced; what the
-  line says is a review concern.
+  state change that no announcement covers and passes the exemptions of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES. They check that a change is
+  announced; what the line says is a review concern.
 - **Console-ready C# types** — every catzc C# object interpolated into a message or shown in a table renders as one readable line, not its
   type name ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types-consolereadytostring)).
 - **Code review** — output quality is a review concern, same as logic correctness. A function that spams the console or swallows errors is a

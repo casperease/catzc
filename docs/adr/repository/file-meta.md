@@ -6,18 +6,18 @@
 
 A file carries one **meta block** exactly as its **head policy** says: `required`, `optional` or `forbidden`, set per file class in the
 meta-kind registry, with the defaults declared once on the policy's type
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). By default a tracked generated file and a file whose
-front matter another tool reads, such as an agent or capability definition, are `required`, an authored file is `forbidden`, and a file git
-does not track is `optional`. A file whose block disagrees with its policy, absent where required or present where forbidden, is a finding.
-The block holds the facts the tooling owns about the file, written into the file's carrier. A Markdown file's carrier is the reserved
-front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under `edges`
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). By default a tracked
+generated file and a file whose front matter another tool reads, such as an agent or capability definition, are `required`, an authored file
+is `forbidden`, and a file git does not track is `optional`. A file whose block disagrees with its policy, absent where required or present
+where forbidden, is a finding. The block holds the facts the tooling owns about the file, written into the file's carrier. A Markdown file's
+carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under `edges`
 ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and its authored config contributions under `config`
-([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)). The key sits at the top
-level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign data, nests under
-that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own key is `catzc`
-either way, and a parent key written as a flow mapping or a scalar is the author's to open up, never rewritten. A code file's carrier is its
-meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file the tooling owns: every
-other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
+([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)). The key
+sits at the top level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign
+data, nests under that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own
+key is `catzc` either way, and a parent key written as a flow mapping or a scalar is the author's to open up, never rewritten. A code file's
+carrier is its meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file
+the tooling owns: every other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
 - [One block, two carriers](#one-block-two-carriers)
@@ -25,13 +25,14 @@ other front-matter key belongs to the tool that reads it, and the tooling never 
 ### Rule ADR-REPO-FILEMETA-METAKIND
 
 A **meta kind** is one entry of the meta-kind registry (`file-meta.yml`), validated by its own C# type, with every default declared once on
-that type ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). An entry names the kind's id, its direction
-(`imprint` writes derived facts into the file, `gather` reads config contributions out of it), the files it applies to, the keys it owns and
-their order, and, for a gather kind, the config it feeds. Globs live in one place: the registry's ordered `classes`, where a file is the
-first class whose globs match it, or `other` (ADR-REPO-FILEMETA-ROLE). A kind selects files by class and language (`select`, entries of
-`classes` with at most one `*` and `languages` from the file-language registry) and never by glob, and a kind that selects nothing applies
-to every file, such as the path. A setting that names files does so by class too, and defaults to the classes its kind selects. The carrier
-registry decides which files carry a block at all. Which kinds exist is data, never a list inside an engine.
+that type ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). An entry
+names the kind's id, its direction (`imprint` writes derived facts into the file, `gather` reads config contributions out of it), the files
+it applies to, the keys it owns and their order, and, for a gather kind, the config it feeds. Globs live in one place: the registry's
+ordered `classes`, where a file is the first class whose globs match it, or `other` (ADR-REPO-FILEMETA-ROLE). A kind selects files by class
+and language (`select`, entries of `classes` with at most one `*` and `languages` from the file-language registry) and never by glob, and a
+kind that selects nothing applies to every file, such as the path. A setting that names files does so by class too, and defaults to the
+classes its kind selects. The carrier registry decides which files carry a block at all. Which kinds exist is data, never a list inside an
+engine.
 
 - [The meta-kind registry](#the-meta-kind-registry)
 
@@ -50,10 +51,10 @@ output is stable under the formatter of the file's language, so the formatter an
 ### Rule ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
 
 A module subscribes to a meta kind by shipping a function named for it, found by convention as `Assert-<Name>Config` is
-([ADR-CONF-LOADING-POWERSHELLVALIDATOR](../configuration/module-config-loading.md#rule-adr-conf-loading-powershellvalidator)): `Get-<Kind>FileMetaFact` for an imprint kind and
-`Get-<Kind>MarkdownConfigContribution` for a gather kind, or a function the entry names. `Test-FileMetaProcessors` fails a kind with no
-function and a function no kind names. A new kind is a registry entry and a function file, never an edit to the engine
-([ADR-AUTO-EXTEND-ADDNOTEDIT](../automation/open-closed-architecture.md#rule-adr-auto-extend-addnotedit)).
+([ADR-CONF-LOADING-POWERSHELLVALIDATOR](../configuration/module-config-loading.md#rule-adr-conf-loading-powershellvalidator)):
+`Get-<Kind>FileMetaFact` for an imprint kind and `Get-<Kind>MarkdownConfigContribution` for a gather kind, or a function the entry names.
+`Test-FileMetaProcessors` fails a kind with no function and a function no kind names. A new kind is a registry entry and a function file,
+never an edit to the engine ([ADR-AUTO-EXTEND-ADDNOTEDIT](../automation/open-closed-architecture.md#rule-adr-auto-extend-addnotedit)).
 
 - [Subscribing a kind](#subscribing-a-kind)
 
@@ -61,9 +62,9 @@ function and a function no kind names. A new kind is a registry entry and a func
 
 The scope of a kind is the files it selects, less the files `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
 `catzc-fixture` or `catzc-contract`, and those it marks `-catzc-meta`. For Markdown the globs match the file class of the Markdown title
-([ADR-REPO-FORMAT-MARKDOWNTITLE](uniform-formatting.md#rule-adr-repo-format-markdowntitle)). A new exception is declared in the `.gitattributes` source, never in a
-list of the gate's own. A key an author wrote under `immutable` or `edges` is a finding the author fixes, never overwritten silently, and a
-`config` part is validated against its kind and kept as written.
+([ADR-REPO-FORMAT-MARKDOWNTITLE](uniform-formatting.md#rule-adr-repo-format-markdowntitle)). A new exception is declared in the
+`.gitattributes` source, never in a list of the gate's own. A key an author wrote under `immutable` or `edges` is a finding the author
+fixes, never overwritten silently, and a `config` part is validated against its kind and kept as written.
 
 - [Scope](#scope)
 
@@ -90,10 +91,10 @@ command that composed the file) and `source` (the authored file or files it come
 the content below it, whatever the file's language and carrier, so a tracked generated file says which text its writer composed and the
 drift check compares the stamp with the hash of the content below it before it compares the content. A generated file is told from an
 authored one by its writer's entry in the writer registry (`generated-files.yml`) and its `linguist-generated` attribute, never by a kind of
-its own and never by its head ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). No writer hand-words a banner. The imprint engine leaves
-these files alone ([ADR-REPO-FILEMETA-KINDSCOPE](#rule-adr-repo-filemeta-kindscope)), since the writer owns every byte of them. A comment page is no
-generated file: it is an authored file ([ADR-REPO-COMMENTS-PAGEISAUTHORED](comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the head policy gives it no
-head.
+its own and never by its head ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). No writer hand-words a banner. The
+imprint engine leaves these files alone ([ADR-REPO-FILEMETA-KINDSCOPE](#rule-adr-repo-filemeta-kindscope)), since the writer owns every byte
+of them. A comment page is no generated file: it is an authored file
+([ADR-REPO-COMMENTS-PAGEISAUTHORED](comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the head policy gives it no head.
 
 - [Generated files](#generated-files)
 
@@ -121,12 +122,12 @@ link that stays inside the file, an anchor in it, the file itself or its own com
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
 truly define a relationship. The edges of a code file point at its **relatives**, at most two edges with fixed names: `page` (its comment
-page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) and `test` (the Pester file that tests it). A relative stays
-inside the file's own module or its docs section, never in another module, so modules relate to each other by name and never through a file
-path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no pair is recorded twice. The edges
-and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry entry, never a new
-mechanism. An edge holds a repository-relative path that exists on disk, and an edge with no file is left out. No file carries a pointer of
-its own in its code: the head is the one place a code file names its relatives.
+page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) and `test` (the Pester file that
+tests it). A relative stays inside the file's own module or its docs section, never in another module, so modules relate to each other by
+name and never through a file path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no pair
+is recorded twice. The edges and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a
+registry entry, never a new mechanism. An edge holds a repository-relative path that exists on disk, and an edge with no file is left out.
+No file carries a pointer of its own in its code: the head is the one place a code file names its relatives.
 
 - [Relatives](#relatives)
 
@@ -148,9 +149,9 @@ contract pins the role and subkind names.
 ### Rule ADR-REPO-FILEMETA-MODULEFACTS
 
 The head holds `module` and `moduletype` for a file placed in a module, as the module-types registry declares them
-([ADR-DSGN-MODTYPE-MODULETYPEISSORT](../design/module-types.md#rule-adr-dsgn-modtype-moduletypeissort)), and neither for a file placed in none, and it holds
-`catzc_bundle`, the smallest bundle of the catzc exporter (the one bundler there is) that holds the module, from the exporter registry, so
-the head never carries a list of its own. It also holds `tracktype` and `vendor` from the track's declaration
+([ADR-DSGN-MODTYPE-MODULETYPEISSORT](../design/module-types.md#rule-adr-dsgn-modtype-moduletypeissort)), and neither for a file placed in
+none, and it holds `catzc_bundle`, the smallest bundle of the catzc exporter (the one bundler there is) that holds the module, from the
+exporter registry, so the head never carries a list of its own. It also holds `tracktype` and `vendor` from the track's declaration
 ([ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](../design/track-types.md#rule-adr-dsgn-tracktype-headreadsdeclaration)).
 
 - [Module types](#module-types)
@@ -163,14 +164,15 @@ the rest, each read from a registry and never from the file's text. `edges` hold
 **edge**, a named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both
 parts are imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an
 edge until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the
-relation, never for the type of its target. In a generated file of any language ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)), and in a
-generated page the engine imprints, `immutable` opens with `with_body_sha`, the hash of the body below the head, so the stamp says which
-text the writer composed. An authored file, page or code, carries no hash ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts),
-[ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly)). Every block and every generated head also holds `repo_status`, the part
-of the file's repository status that the file itself decides: `locked` for a generated file, whose source is the truth and is edited
-instead, and `clean` for an authored one. The states only git knows, edited, staged, committed and pushed, and `ready` (tracked and
-unchanged) are never written into the file, since the write would change them; `Get-RepoStatus` computes them on demand from git, read-only.
-A kind of the registry names the part it writes, `immutable` by default and `edges` for a relation.
+relation, never for the type of its target. In a generated file of any language
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)), and in a generated page the engine imprints, `immutable` opens
+with `with_body_sha`, the hash of the body below the head, so the stamp says which text the writer composed. An authored file, page or code,
+carries no hash ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts),
+[ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly)). Every block and every generated head
+also holds `repo_status`, the part of the file's repository status that the file itself decides: `locked` for a generated file, whose source
+is the truth and is edited instead, and `clean` for an authored one. The states only git knows, edited, staged, committed and pushed, and
+`ready` (tracked and unchanged) are never written into the file, since the write would change them; `Get-RepoStatus` computes them on demand
+from git, read-only. A kind of the registry names the part it writes, `immutable` by default and `edges` for a relation.
 
 - [Place facts and edges](#place-facts-and-edges)
 
@@ -316,8 +318,8 @@ A rule an ADR declares and a rule it cites answer different questions: which dec
 on. Listing both under one key would make every ADR depend on itself, so the declared rules have their own key and the citations leave them
 out. The links answer a third question, what the file points at, in a spelling that does not depend on where the link was written, so a
 reader or a tool can find every file that points at a given page without parsing Markdown. Code links in comments only ever point into the
-ADRs ([ADR-REPO-LINK-ONEWAY](markdown-links.md#rule-adr-repo-link-oneway)), which `cites` already lists, so the edge belongs to Markdown. A link that
-stays inside the file tells a reader nothing about where the file leads, so it is left out.
+ADRs ([ADR-REPO-LINK-ONEWAY](markdown-links.md#rule-adr-repo-link-oneway)), which `cites` already lists, so the edge belongs to Markdown. A
+link that stays inside the file tells a reader nothing about where the file leads, so it is left out.
 
 ### Relatives
 

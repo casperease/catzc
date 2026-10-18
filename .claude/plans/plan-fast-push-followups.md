@@ -9,8 +9,8 @@ plan:
 
 # Fast push to main: what is left
 
-`Push-Dirty` (Catzc.Base.Git), the generated "Push dirty" task in `.vscode/tasks.json`, the `git.*` commit settings in
-`vscode-settings.yml` and `ADR-DSGN-LIFE-FASTPUSHLANDS` are in the tree. A rejected push stops and reports; it never rebases.
+`Push-Dirty` (Catzc.Base.Git), the generated "Push dirty" task in `.vscode/tasks.json`, the `git.*` commit settings in `vscode-settings.yml`
+and `ADR-DSGN-LIFE-FASTPUSHLANDS` are in the tree. A rejected push stops and reports; it never rebases.
 
 ## Decided
 

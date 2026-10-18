@@ -11,16 +11,18 @@ Performs one test run through the parallel harness — the shared core of Test-A
 
 ### description
 
-The harness both runs share ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)): lazy-load Pester from
-the code root, scan the selected modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category filter,
-open a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial phases, apply per-module
-protection, run the workers, and write the timing check, reports, verdict, and -PassThru summary. The two test runs differ only in what they
-pass in:
+The harness both runs share
+([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)): lazy-load Pester
+from the code root, scan the selected modules' tests/ folders, discover once, enforce the mandatory tag axes, build the tier/category
+filter, open a timestamped run directory with its run.json state record, split the files into parallel/greedy/serial phases, apply
+per-module protection, run the workers, and write the timing check, reports, verdict, and -PassThru summary. The two test runs differ only
+in what they pass in:
 
 - the entry script each shard worker dot-sources (-EntryScript/-EntryParameter, empty for the source importer; the build's Import-Catzc.ps1
   for the build run) — the one seam;
 - an opt-out tag (-OptOutTag 'source-only' for the build run): its tests are excluded from the run and counted and listed on the console and
-  in excluded-tests.csv in the run directory ([ADR-AUTO-TEST-SOURCEONLYTAG](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sourceonlytag));
+  in excluded-tests.csv in the run directory
+  ([ADR-AUTO-TEST-SOURCEONLYTAG](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sourceonlytag));
 - the entry point's name (-EntryPoint), which names the default report folder under out/, the protection key, and the failure message; and
   the banner title (-Title).
 

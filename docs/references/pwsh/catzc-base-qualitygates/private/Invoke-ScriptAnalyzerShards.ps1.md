@@ -28,8 +28,8 @@ shards each pass's files across background pwsh PROCESSES — the same approach,
 
 The passes share one shard budget, split by their file counts, each pass at least one shard. A dot is printed per interval while shards run
 so the run never looks hung — a progress bar is banned (ADR console-output-matters, rule
-[ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The external Invoke-ScriptAnalyzer
-progress bar is suppressed inside the worker for the same reason.
+[ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The external
+Invoke-ScriptAnalyzer progress bar is suppressed inside the worker for the same reason.
 
 ### parameter `Batch`
 

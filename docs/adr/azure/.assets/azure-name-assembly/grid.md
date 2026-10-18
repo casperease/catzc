@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f1e97779c93c
+    with_body_sha: "5b3fe333e64d"
     repo_status: locked
     path: docs/adr/azure/.assets/azure-name-assembly/grid.md
     source: docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.png
@@ -32,7 +32,7 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- docs × markdown: 21 lit of 2775 files
+- docs × markdown: 21 lit of 2781 files
 - pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × powershell: 1 lit of 1653 files
 - pwsh × yaml: 2 lit of 115 files
@@ -56,13 +56,15 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][2]) b
 - [docs/adr/azure/.assets/azure-name-assembly/chain.md][3]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 18 (text), line 25
   (text), line 58 (text) and line 58 (text).
 - [docs/adr/azure/.assets/azure-name-assembly/grid.md][4]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 18 (text), line 25
-  (text), line 56 (text), line 57 (text), line 58 (text), line 59 (text), line 60 (text), line 62 (text), line 64 (text), line 66 (text),
-  line 68 (text), line 70 (text), line 72 (text), line 74 (text), line 76 (text), line 78 (text), line 80 (text), line 81 (text), line 82
-  (text), line 84 (text), line 92 (text), line 101 (text), line 109 (text) and line 110 (text).
+  (text), line 56 (text), line 58 (text), line 62 (text), line 66 (text), line 67 (text), line 68 (text), line 69 (text), line 70 (text),
+  line 72 (text), line 74 (text), line 76 (text), line 78 (text), line 80 (text), line 82 (text), line 84 (text), line 86 (text), line 88
+  (text), line 90 (text), line 91 (text), line 92 (text), line 94 (text), line 102 (text), line 111 (text), line 119 (text) and line 120
+  (text).
 - [docs/adr/azure/.assets/azure-name-assembly/tree.md][5]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 18 (text), line 25
   (text), line 47 (text), line 50 (text), line 52 (text), line 54 (text), line 55 (text), line 58 (text), line 59 (text), line 61 (text),
-  line 64 (text), line 65 (text), line 67 (text), line 69 (text), line 71 (text), line 73 (text), line 75 (text), line 82 (text), line 83
-  (text), line 89 (text), line 91 (text), line 98 (text), line 105 (text) and line 113 (text).
+  line 64 (text), line 65 (text), line 67 (text), line 69 (text), line 71 (text), line 73 (text), line 75 (text), line 82 (text), line 84
+  (text), line 88 (text), line 92 (text), line 93 (text), line 99 (text), line 101 (text), line 108 (text), line 115 (text) and line 123
+  (text).
 - [docs/adr/azure/azure-naming-standard.md][1]: selected by [ADR-AZ-NAMING][1]: the ADR's own file.
 - [docs/adr/azure/dora-explains.md][6]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 43 (text).
 - [docs/adr/index.md][7]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 32 (text) and line 282 (text).

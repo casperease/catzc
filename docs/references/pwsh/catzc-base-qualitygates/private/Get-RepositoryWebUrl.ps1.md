@@ -13,8 +13,8 @@ Returns this repository's GitHub web URL (`https://github.com/<owner>/<repo>`), 
 
 Reads the origin remote from `<root>/.git/config` — no git process — and normalizes an https or ssh GitHub remote to its web URL. Test-Links
 uses it to recognise an absolute URL into this repository, which belongs only under .github/
-([ADR-REPO-LINK-OFFREPOSITORYURLS](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-offrepositoryurls)). A root with no .git/config (a test fixture, an
-exported build) or a non-GitHub remote yields $null, and that check is skipped.
+([ADR-REPO-LINK-OFFREPOSITORYURLS](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-offrepositoryurls)). A root with no
+.git/config (a test fixture, an exported build) or a non-GitHub remote yields $null, and that check is skipped.
 
 ### parameter `RepositoryRoot`
 

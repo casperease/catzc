@@ -14,7 +14,8 @@ The module-name meta kind's fact: the name of the module a file is placed in, fr
 The module is the one Get-PathModule names for the path, by the places the module types of the module-types registry give. A file placed in
 no module gets an empty value, so the key is left out of its head.
 
-It rests on [ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](../../../../adr/repository/code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly).
+It rests on
+[ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](../../../../adr/repository/code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly).
 
 ### parameter `State`
 

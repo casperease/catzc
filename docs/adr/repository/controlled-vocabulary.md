@@ -57,9 +57,9 @@ Prose names them that way; an informal stand-in such as "house rules" is an avoi
 ### Rule ADR-REPO-VOCAB-FAMILYFORMS
 
 A term that names a family declares its **forms** — the words that may qualify its head word. Within a source's scope, any other qualified
-use, and the head word used as a verb, is a defect; the bare head word is always allowed, and a mention is exempt (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED). The
-general words **source**, **layer**, **facet**, and **scope** are such families too: each takes only its declared forms, and its verb forms
-("sourced", "layered", "faceted", "scoped") stay ordinary English (`verbs: true`).
+use, and the head word used as a verb, is a defect; the bare head word is always allowed, and a mention is exempt
+(ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED). The general words **source**, **layer**, **facet**, and **scope** are such families too: each
+takes only its declared forms, and its verb forms ("sourced", "layered", "faceted", "scoped") stay ordinary English (`verbs: true`).
 
 - [Qualified forms](#qualified-forms)
 
@@ -173,37 +173,40 @@ with their replacements. A source's options default sensibly, and a source overr
 - **`Catzc.Base.Docs.GlossaryConfig`** is the glossary source's type, registered for the `glossary` config in
   `Catzc.Base.Config/configs/configs.yml`, so every source is validated when it is read (`Get-Config -Config glossary -Module <owner>`). It
   checks the source's own shape: the allowed keys, the term, key, domain, and citation forms, a known realization kind with a pattern
-  exactly when the kind is not `prose-only` (ADR-REPO-VOCAB-REALIZEDBY), a replacement for every avoided phrase and no avoided phrase that is a
-  defined term (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED), an explanation for every contrast (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED), repo-relative globs and no URL anywhere
-  (ADR-REPO-VOCAB-SOURCESINREPOSITORY), and the option defaults (ADR-REPO-VOCAB-GLOSSARYSOURCE). Every violation is reported in one throw.
+  exactly when the kind is not `prose-only` (ADR-REPO-VOCAB-REALIZEDBY), a replacement for every avoided phrase and no avoided phrase that
+  is a defined term (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED), an explanation for every contrast (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED),
+  repo-relative globs and no URL anywhere (ADR-REPO-VOCAB-SOURCESINREPOSITORY), and the option defaults (ADR-REPO-VOCAB-GLOSSARYSOURCE).
+  Every violation is reported in one throw.
 
 - **`Get-GlossarySourceViolations`** (`Catzc.Base.Docs`) checks the facts that span more than one source, over every source
   `Get-GlossarySources` discovers (`Get-Config -Config glossary -ListOwners`): a term or machine key declared by two sources and a domain
-  that `adrs.yml` does not declare (ADR-REPO-VOCAB-DEFINEDTERM), a contrast or relation target that no source defines and a source that git does not
-  track (ADR-REPO-VOCAB-SOURCESINREPOSITORY), a contrast that is not reciprocal (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED), and an avoided phrase that is another source's term
-  (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED). It names the source path and the term in one message per violation.
+  that `adrs.yml` does not declare (ADR-REPO-VOCAB-DEFINEDTERM), a contrast or relation target that no source defines and a source that git
+  does not track (ADR-REPO-VOCAB-SOURCESINREPOSITORY), a contrast that is not reciprocal (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED), and an
+  avoided phrase that is another source's term (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED). It names the source path and the term in one
+  message per violation.
 
 - **`Get-GlossaryAnchorViolations`** (`Catzc.Base.Docs`) checks that every term is anchored on its defining rule: its `defined_by` names a
-  rule of an indexed ADR, and that rule's normative summary bolds the term (ADR-REPO-VOCAB-DEFINEDTERM). Only the normative summary counts — bold text
-  in the ADR body, in the rule's linked bullets, or inside a code span never anchors a term.
+  rule of an indexed ADR, and that rule's normative summary bolds the term (ADR-REPO-VOCAB-DEFINEDTERM). Only the normative summary counts —
+  bold text in the ADR body, in the rule's linked bullets, or inside a code span never anchors a term.
 
 - **`Get-GlossaryDefinitionViolations`** (`Catzc.Base.Docs`) checks that no rule other than the defining one defines the term a second time
-  — a normative summary that says `**<term>** is` (ADR-REPO-VOCAB-DEFINEDTERM). A rule that merely bolds the term is not a definition, and ADR bodies
-  are never read.
+  — a normative summary that says `**<term>** is` (ADR-REPO-VOCAB-DEFINEDTERM). A rule that merely bolds the term is not a definition, and
+  ADR bodies are never read.
 
 - **`Get-GlossaryEnforcementViolations`** (`Catzc.Base.Docs`) checks that every concept realized in code has an enforcer: an analyzer rule
-  or a test that cites its defining rule, found through the same rule-citation link `Show-Cats` reports (ADR-REPO-VOCAB-REALIZEDBY). A `prose-only`
-  concept is exempt.
+  or a test that cites its defining rule, found through the same rule-citation link `Show-Cats` reports (ADR-REPO-VOCAB-REALIZEDBY). A
+  `prose-only` concept is exempt.
 
-- **`Get-GlossaryPhrasingViolations`** (`Catzc.Base.Docs`) checks that prose avoids the avoided phrasings (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED): in the tracked
-  files a source's `scope` matches and its `exclude` does not, on the surfaces its `surfaces` name — markdown prose outside fenced code,
-  and, read through the PowerShell parser, comments, comment-based help, and the static text of messages (`throw`, the `Write-*` writers,
-  `-ErrorText`, `-Because`). A phrase matches case-insensitively, as whole words, across line breaks; a mention in backticks or quotes is
-  exempt. Each use is reported as `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)`.
+- **`Get-GlossaryPhrasingViolations`** (`Catzc.Base.Docs`) checks that prose avoids the avoided phrasings
+  (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED): in the tracked files a source's `scope` matches and its `exclude` does not, on the surfaces its
+  `surfaces` name — markdown prose outside fenced code, and, read through the PowerShell parser, comments, comment-based help, and the
+  static text of messages (`throw`, the `Write-*` writers, `-ErrorText`, `-Because`). A phrase matches case-insensitively, as whole words,
+  across line breaks; a mention in backticks or quotes is exempt. Each use is reported as
+  `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)`.
 
-- **`Get-GlossaryFormViolations`** (`Catzc.Base.Docs`) checks that every concept with `forms:` is qualified only by them (ADR-REPO-VOCAB-FAMILYFORMS),
-  on the same files and surfaces as the phrasing check: a "`<word> <head>`" or "`<word>-<head>`" whose word is neither a declared form nor a
-  function word, and the head word's verb forms. Each use is reported as
+- **`Get-GlossaryFormViolations`** (`Catzc.Base.Docs`) checks that every concept with `forms:` is qualified only by them
+  (ADR-REPO-VOCAB-FAMILYFORMS), on the same files and surfaces as the phrasing check: a "`<word> <head>`" or "`<word>-<head>`" whose word is
+  neither a declared form nor a function word, and the head word's verb forms. Each use is reported as
   `<file>:<line> says "<use>" — "<term>" takes only: <forms> (<defined_by>)`.
 
 - Each of these checks reads only the concepts of sources whose `checks` option includes it (`anchored`, `single`, `avoid`, `enforced`,

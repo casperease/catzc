@@ -27,9 +27,9 @@ answer one vendor framework are `ADR-<DOMAIN>-<FRAMEWORK>-<NAME>`, the framework
 ### Rule ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
 
 A rule is named, never numbered: its last segment says what the rule says, as spelled-out words joined with no length cap (the rule "bound
-every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item
-takes the vendor's name for it: a Well-Architected rule its item id (`RE01`), a Cloud Adoption Framework rule its checklist
-item's title, upper-cased and joined, with English stop words dropped.
+every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item takes
+the vendor's name for it: a Well-Architected rule its item id (`RE01`), a Cloud Adoption Framework rule its checklist item's title,
+upper-cased and joined, with English stop words dropped.
 
 - [Names, not numbers](#names-not-numbers)
 
@@ -50,8 +50,8 @@ the automation domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A mat
 
 ### Rule ADR-REPO-ADRCODE-ONESTRINGONEFACT
 
-Under one parent, a child ADR and a rule never share a segment, so every code names exactly one ADR, rule, or domain. A retired name is never
-reused; a rule whose meaning changes takes a new name.
+Under one parent, a child ADR and a rule never share a segment, so every code names exactly one ADR, rule, or domain. A retired name is
+never reused; a rule whose meaning changes takes a new name.
 
 - [One string, one fact](#one-string-one-fact)
 
@@ -98,27 +98,28 @@ records, so a capability reads as the program's own (`ADR-DORA-VCS`).
 ### Vendor references are a level
 
 The Cloud Adoption Framework and Well-Architected Framework ADRs answer a vendor's guidance item by item. They form a family inside the
-azure domain, and a group segment makes that family one prefix (`ADR-AZ-CAF`). A Well-Architected ADR is one pillar, so its segment is
-the pillar's code (`ADR-AZ-WAF-RE`). Their rules answer named vendor items, and the vendor's own name for an item is the most precise name
-such a rule can have: the item id where the pillar numbers its items, the checklist title where the checklist names them.
+azure domain, and a group segment makes that family one prefix (`ADR-AZ-CAF`). A Well-Architected ADR is one pillar, so its segment is the
+pillar's code (`ADR-AZ-WAF-RE`). Their rules answer named vendor items, and the vendor's own name for an item is the most precise name such
+a rule can have: the item id where the pillar numbers its items, the checklist title where the checklist names them.
 
 ### Names, not numbers
 
 A number says nothing about its rule: a reader learns nothing from `#7` without opening the ADR. A name tells the reader what the citation
-asks for, so the citation itself carries the fact. Names follow the spell-out rule for identifiers ([spell-out-names](../automation/spell-out-names.md)),
-because a citation is read like one; a vendor's item id is an external name, which that rule leaves as the vendor writes it.
+asks for, so the citation itself carries the fact. Names follow the spell-out rule for identifiers
+([spell-out-names](../automation/spell-out-names.md)), because a citation is read like one; a vendor's item id is an external name, which
+that rule leaves as the vendor writes it.
 
 ### Segments are known words
 
 A named segment is a run of joined words (`BOUNDEVERYWAIT`) that no dictionary holds, and there are more than sixteen hundred of them. A
-hand-written terminology entry per code body would copy a fact the registry already holds, once per rule, and drift from it on every
-rename. The registry is the one source, so the spell checker reads it: `Build-AdrCodeDictionary` writes every segment, lower-cased, to the
-generated word list `.cspell/adr-codes.txt`, which the root `cspell.yml` loads beside the terminology dictionaries.
+hand-written terminology entry per code body would copy a fact the registry already holds, once per rule, and drift from it on every rename.
+The registry is the one source, so the spell checker reads it: `Build-AdrCodeDictionary` writes every segment, lower-cased, to the generated
+word list `.cspell/adr-codes.txt`, which the root `cspell.yml` loads beside the terminology dictionaries.
 
 ### Every string is a selector
 
-Because a prefix of a code is itself a code, a search, a filter, or a test-tag match needs no wildcard syntax: the shorter code is the
-wider selection. Matching by whole segments keeps two ADRs whose names merely start alike apart.
+Because a prefix of a code is itself a code, a search, a filter, or a test-tag match needs no wildcard syntax: the shorter code is the wider
+selection. Matching by whole segments keeps two ADRs whose names merely start alike apart.
 
 ### One string, one fact
 
@@ -129,15 +130,15 @@ different name and its old citations fail the link check instead of drifting.
 ### No subset spelling
 
 A group such as a list or a range of rules inside one code makes a citation a small expression that a reader and a tool must expand before
-they know what it cites. Writing each fact as its own code keeps every citation a plain string. A tool-derived list may write a whole ADR
-as its code when it covers every rule, because the list is regenerated: when a rule is added, the derived list shows it in its diff. Prose
-is not regenerated, so prose cites exactly the rules it means.
+they know what it cites. Writing each fact as its own code keeps every citation a plain string. A tool-derived list may write a whole ADR as
+its code when it covers every rule, because the list is regenerated: when a rule is added, the derived list shows it in its diff. Prose is
+not regenerated, so prose cites exactly the rules it means.
 
 ### Chips carry local keys
 
-A slide has room for a short mark beside each element, not for a full rule code. A chip that showed a rule's number would bring the
-numbered spelling back in a place no text search reads, inside the embedded diagram model. A slide-local key is short and claims nothing:
-it is the legend that turns each key into a full named code, so the citation on the slide is still the rule's name.
+A slide has room for a short mark beside each element, not for a full rule code. A chip that showed a rule's number would bring the numbered
+spelling back in a place no text search reads, inside the embedded diagram model. A slide-local key is short and claims nothing: it is the
+legend that turns each key into a full named code, so the citation on the slide is still the rule's name.
 
 ### Authored order
 

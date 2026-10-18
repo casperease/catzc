@@ -51,15 +51,16 @@ Invoke-TestFile <Test file> -FullNameFilter '<FullNameFilter>'
 ```
 
 `Invoke-TestFile` runs the file as a one-shard worker, exactly the way `Test-Automation` does: the same generated runner, the same Pester
-configuration builder, and strict mode per `ADR-AUTO-TEST-FILEPARALLELISM`. Do **not** call `Invoke-Pester` directly from an importer session. The tests
-would run against whatever that session has accumulated, such as warm caches and leftover state, instead of a fresh worker's.
+configuration builder, and strict mode per `ADR-AUTO-TEST-FILEPARALLELISM`. Do **not** call `Invoke-Pester` directly from an importer
+session. The tests would run against whatever that session has accumulated, such as warm caches and leftover state, instead of a fresh
+worker's.
 
 A check **passes** when its assertions are green. A few L2 checks shell out to a tool (git, PSScriptAnalyzer, cspell, markdownlint-cli2) and
 **self-skip** when that tool is absent. A skip is not a failure (see the end-of-run skip report).
 
-**While another run is going.** A test run never waits for another (`ADR-AUTO-TEST-RUNSNEVERWAIT`). When another test run or session already holds the
-working folder, your run says who holds it and runs in a verified snapshot of your working folder instead. The snapshot includes your
-uncommitted changes, frozen at the moment the run started. The artifacts still land in `out/test-automation/<stamp>/` (or
+**While another run is going.** A test run never waits for another (`ADR-AUTO-TEST-RUNSNEVERWAIT`). When another test run or session already
+holds the working folder, your run says who holds it and runs in a verified snapshot of your working folder instead. The snapshot includes
+your uncommitted changes, frozen at the moment the run started. The artifacts still land in `out/test-automation/<stamp>/` (or
 `out/test-file/<stamp>/`). A `Test-Automation` run's `run.json` and `summary.md` record the snapshot location and provenance, and
 `Invoke-TestFile` names the location on its closing line. Add `-KeepSandbox` to keep the snapshot for a post-mortem (its path is printed at
 the end), or `-Isolated` to run in a snapshot even when the working folder is free.

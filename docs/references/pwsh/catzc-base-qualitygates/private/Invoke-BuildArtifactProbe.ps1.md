@@ -12,12 +12,12 @@ Loads a build cold in a fresh pwsh and returns what that build-mode session obse
 ### description
 
 Loaded assemblies and $env: are process-global, so a build is observed in its own child pwsh
-([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)): the child dot-sources
-`<BuildRoot>/Import-Catzc.ps1` -RepositoryRoot `<RepositoryRoot>`, observes the session once, and writes the observation to a JSON file —
-never stdout, so the importer's console lines cannot mix into it. The observation names the two roots and the run mode; per loaded Catzc
-module its base folder, exported and defined function names, and instance count; the internal modules' bases; the types assembly and an
-accelerator; every shipped config read through Get-Config; a few calls into the modules; and whether Pester's InModuleScope enters a built
-module. Test-BuildArtifact judges it.
+([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)): the child
+dot-sources `<BuildRoot>/Import-Catzc.ps1` -RepositoryRoot `<RepositoryRoot>`, observes the session once, and writes the observation to a
+JSON file — never stdout, so the importer's console lines cannot mix into it. The observation names the two roots and the run mode; per
+loaded Catzc module its base folder, exported and defined function names, and instance count; the internal modules' bases; the types
+assembly and an accelerator; every shipped config read through Get-Config; a few calls into the modules; and whether Pester's InModuleScope
+enters a built module. Test-BuildArtifact judges it.
 
 ### parameter `BuildRoot`
 

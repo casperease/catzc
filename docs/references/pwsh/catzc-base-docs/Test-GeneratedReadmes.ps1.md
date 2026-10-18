@@ -11,10 +11,10 @@ Quality gate: every generated README is gitignored, untracked, and current with 
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the generated READMEs
-([ADR-REPO-README](../../../adr/repository/generated-readmes.md)). readme.yml, expanded by Get-ReadmeMappings exactly as Build-Readme
-expands it, lists the folders whose README.md is generated from a docs/ source — a derived artifact, never authored in place. For each, it
-collects an issue when the README is:
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the generated
+READMEs ([ADR-REPO-README](../../../adr/repository/generated-readmes.md)). readme.yml, expanded by Get-ReadmeMappings exactly as
+Build-Readme expands it, lists the folders whose README.md is generated from a docs/ source — a derived artifact, never authored in place.
+For each, it collects an issue when the README is:
 
 - not matched by a .gitignore rule (`git check-ignore --no-index` evaluates the rules alone; the default would consult the index and call a
   wrongly tracked file "not ignored", masking the next check);

@@ -97,8 +97,9 @@ research is the authority it rests on. Audit and retrospection are answered once
 
 The code takes the place of the CMDBs. Infrastructure is reproducible from a commit, so the repository is the configuration record in its
 totality, and no second database has to be kept in parity with it. [everything-as-code](../principles/everything-as-code.md) holds the
-mechanics: every artifact lives in version control (ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL), what can be diffed belongs there (ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL), and no configuration
-or operational state lives outside it (ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL).
+mechanics: every artifact lives in version control (ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL), what can be diffed belongs there
+(ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL), and no configuration or operational state lives outside it
+(ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL).
 
 ### Adjacent stores
 
@@ -158,8 +159,10 @@ A process that keeps its own model of delivery recreates the disjoint store this
 
 ## Related
 
-- [everything-as-code](../principles/everything-as-code.md) — the mechanics of [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](#rule-adr-thes-onetruth-repositoryisconfigurationrecord).
-- [one-living-version](../principles/one-living-version.md) — [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](#rule-adr-thes-onetruth-productmonorepository) seen from inside the trunk.
+- [everything-as-code](../principles/everything-as-code.md) — the mechanics of
+  [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](#rule-adr-thes-onetruth-repositoryisconfigurationrecord).
+- [one-living-version](../principles/one-living-version.md) —
+  [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](#rule-adr-thes-onetruth-productmonorepository) seen from inside the trunk.
 - [platform-bundle](../automation/platform-bundle.md) — the bundle, catzc's one provided pin point.
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the release candidate and the releasable trunk.
 - [tracks](../design/tracks.md) — the tracks and deployable-units that bound the product mono-repository.

@@ -11,10 +11,10 @@ Checks that a sample payload parses, and validates against the schema beside it 
 
 ### description
 
-The sample check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset). A sample payload
-`<name>.sample.<ext>` must be JSON or YAML by its extension and parse. When `<name>.schema.json` sits in the same folder, with exactly that
-case (the rule Get-Contract uses to aim that schema at the sample), the sample also validates against it (Get-ContractSchemaFindings). That
-the owning module produces or parses the sample is the module's own tests' work, not this check's.
+The sample check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset). A
+sample payload `<name>.sample.<ext>` must be JSON or YAML by its extension and parse. When `<name>.schema.json` sits in the same folder,
+with exactly that case (the rule Get-Contract uses to aim that schema at the sample), the sample also validates against it
+(Get-ContractSchemaFindings). That the owning module produces or parses the sample is the module's own tests' work, not this check's.
 
 ### parameter `RepositoryRoot`
 

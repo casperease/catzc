@@ -13,25 +13,26 @@ it is gone. A commit resource is made at commit, keyed by the scoped sha of its 
 ### Rule ADR-AUTO-MATERIAL-RESOLVEDFROMCONTEXT
 
 A resource whose kind declares no explicit value resolves its materialization from context into one of the two values, the way every setting
-resolves ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): a clean tree at a known scoped sha with a commit copy present
-uses the copy; anything else computes on-demand. The resolved value is never stored and never displayed; a display shows an explicitly
-declared value only.
+resolves ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): a clean tree at a known
+scoped sha with a commit copy present uses the copy; anything else computes on-demand. The resolved value is never stored and never
+displayed; a display shows an explicitly declared value only.
 
 - [How the default resolves](#how-the-default-resolves)
 
 ### Rule ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY
 
 The commit key of a resource is the scoped sha of its own globset, the patterns of `globs.yml` that select its inputs
-([ADR-DSGN-TRACK-DEPLOYABLEUNIT](../design/tracks.md#rule-adr-dsgn-track-deployableunit)), never the sha of the whole repository. A config variant of the globset is a
-different resource with its own key.
+([ADR-DSGN-TRACK-DEPLOYABLEUNIT](../design/tracks.md#rule-adr-dsgn-track-deployableunit)), never the sha of the whole repository. A config
+variant of the globset is a different resource with its own key.
 
 - [The commit key](#the-commit-key)
 
 ### Rule ADR-AUTO-MATERIAL-DECLAREDPERKIND
 
 Materialization is declared per resource kind, in a config entry with one default declared once on its config type
-([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). An instance of the kind changes it only by an explicit
-value of its own, and a resource that costs milliseconds to compute declares on-demand and never earns a commit copy.
+([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). An instance of the
+kind changes it only by an explicit value of its own, and a resource that costs milliseconds to compute declares on-demand and never earns a
+commit copy.
 
 - [Declared per kind](#declared-per-kind)
 
@@ -136,11 +137,12 @@ the commit set by declaring it, with its key and its check, never by a tool deci
 ### Fit with caching
 
 The session cache of [caching](caching.md) and a commit copy are the same idea at two durations. A cached value is read-only to its callers
-([ADR-AUTO-CACHE-READONLYVALUES](caching.md#rule-adr-auto-cache-readonlyvalues)), and so is a commit copy. The importer is the only invalidation of a session cache
-([ADR-AUTO-CACHE-IMPORTERINVALIDATES](caching.md#rule-adr-auto-cache-importerinvalidates)), and git state that changes inside a session is keyed on its own content
-([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](caching.md#rule-adr-auto-cache-sessionchangedgitstate)); a commit resource is that content key made durable, so nothing ever invalidates it.
-One living version ([one-living-version](../principles/one-living-version.md)) holds per key: there is one shape of each resource, never an
-on-demand shape and a commit shape of the same data side by side.
+([ADR-AUTO-CACHE-READONLYVALUES](caching.md#rule-adr-auto-cache-readonlyvalues)), and so is a commit copy. The importer is the only
+invalidation of a session cache ([ADR-AUTO-CACHE-IMPORTERINVALIDATES](caching.md#rule-adr-auto-cache-importerinvalidates)), and git state
+that changes inside a session is keyed on its own content
+([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](caching.md#rule-adr-auto-cache-sessionchangedgitstate)); a commit resource is that content key made
+durable, so nothing ever invalidates it. One living version ([one-living-version](../principles/one-living-version.md)) holds per key: there
+is one shape of each resource, never an on-demand shape and a commit shape of the same data side by side.
 
 ## Decision
 

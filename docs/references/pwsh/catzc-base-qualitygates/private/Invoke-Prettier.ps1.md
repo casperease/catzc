@@ -11,9 +11,11 @@ The prettier formatter engine: formats the given files with Prettier and returns
 
 ### description
 
-One Format-Code engine adapter ([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)): every file
-language languages.yml gives `formatter: prettier` is formatted here. Prettier picks its parser from each file's extension and applies the
-root .prettierrc.yml and .editorconfig, so the Markdown and pipeline YAML rules live in those files, not in a command per language.
+One Format-Code engine adapter
+([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)):
+every file language languages.yml gives `formatter: prettier` is formatted here. Prettier picks its parser from each file's extension and
+applies the root .prettierrc.yml and .editorconfig, so the Markdown and pipeline YAML rules live in those files, not in a command per
+language.
 
 `prettier --list-different` names the files that differ; without -DryRun, `prettier --write` then rewrites exactly those. The files go to
 Prettier in batches that keep each command line short. Exit codes: 0 = clean, 1 = files differ (expected), anything higher is a tool error

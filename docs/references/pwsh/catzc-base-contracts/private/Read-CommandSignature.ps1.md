@@ -12,9 +12,9 @@ Reads a PowerShell command's signature from its file, without loading it, as a C
 ### description
 
 The PowerShell checker's reading side
-([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)): the file is parsed, never run or
-imported, and the named function's parameter block becomes one ContractParameter per parameter, in the same shape a contract parses to, so
-ContractCommand.Compare can hold the two against each other.
+([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)):
+the file is parsed, never run or imported, and the named function's parameter block becomes one ContractParameter per parameter, in the same
+shape a contract parses to, so ContractCommand.Compare can hold the two against each other.
 
 - The type is the parameter's type constraint, mapped to the contract's closed set (string, int, bool, switch, a `Catzc.*` type, '`[]`' for
   an array); a type outside the set keeps its own name, so the comparison names it, and an untyped parameter is 'object'.

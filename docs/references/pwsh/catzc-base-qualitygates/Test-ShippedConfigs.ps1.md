@@ -11,9 +11,9 @@ Quality gate: every shipped config has a registered C# config type and loads thr
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the config registry
-([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). It walks the module folders of the
-loaded code root (Get-CatzcModulesRoot) — the source tree or a built package — and lists every issue:
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the config
+registry ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
+It walks the module folders of the loaded code root (Get-CatzcModulesRoot) — the source tree or a built package — and lists every issue:
 
 - a shipped `configs/<name>.yml` with no `type:` entry in configs.yml;
 - a configs.yml entry that names no shipped config;

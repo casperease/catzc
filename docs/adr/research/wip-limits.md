@@ -76,11 +76,12 @@ capacity of the people who work it, not from an aspirational or round number. Wh
 and instead work on unblocking what is already in flight.
 
 Within this platform, the pull discipline this capability enforces is the general rule
-([ADR-PROC-PULLWORK](../process/pull-work.md#rule-adr-proc-pullwork-limitworkinprogress)): work is drawn into a stage only when it has capacity to finish it,
-and limiting work in progress is what turns that pull into a mechanism rather than a slogan. The economic case for the cap follows Little's
-Law ([ADR-PROC-QUEUECOST](../process/queues-cost-money.md#rule-adr-proc-queuecost-littleslaw)) — with throughput roughly fixed in the short run,
-cutting work in progress is what lowers lead time. And the storyboard itself depends on the work being observed and rendered rather than
-tracked from memory ([ADR-PROC-OBSERVEWIP](../process/observe-work.md#rule-adr-proc-observewip-workstatevisible)).
+([ADR-PROC-PULLWORK](../process/pull-work.md#rule-adr-proc-pullwork-limitworkinprogress)): work is drawn into a stage only when it has
+capacity to finish it, and limiting work in progress is what turns that pull into a mechanism rather than a slogan. The economic case for
+the cap follows Little's Law ([ADR-PROC-QUEUECOST](../process/queues-cost-money.md#rule-adr-proc-queuecost-littleslaw)) — with throughput
+roughly fixed in the short run, cutting work in progress is what lowers lead time. And the storyboard itself depends on the work being
+observed and rendered rather than tracked from memory
+([ADR-PROC-OBSERVEWIP](../process/observe-work.md#rule-adr-proc-observewip-workstatevisible)).
 
 ## Common pitfalls
 

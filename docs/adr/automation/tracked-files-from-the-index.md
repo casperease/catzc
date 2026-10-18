@@ -43,8 +43,9 @@ a sparse index, an index version outside 2–4, and a checksum mismatch (a corru
 
 ### Rule ADR-AUTO-TRACKED-CACHEDBYINDEXHASH
 
-The parsed index is cached under the SHA-256 of the index file's bytes, recomputed on every call (ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE). The key is computed by
-the seam, not taken from the checksum git writes at the end of the file, because git writes that checksum as zeros under `index.skipHash`.
+The parsed index is cached under the SHA-256 of the index file's bytes, recomputed on every call (ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE).
+The key is computed by the seam, not taken from the checksum git writes at the end of the file, because git writes that checksum as zeros
+under `index.skipHash`.
 
 - [Following the index](#following-the-index)
 
@@ -121,8 +122,9 @@ costs: the call is a file read, and the gates that use it run as ordinary L1 int
 
 The tracked set changes while a session runs: a commit, a `git add`, or a parallel session's commit rewrites the index. So the seam cannot
 keep a listing for the session's lifetime, which is the default for filesystem-derived information
-([caching](caching.md#rule-adr-auto-cache-importerinvalidates)). It hashes the index file on every call — cheap next to parsing it — and parses again only when
-the hash differs. Equal bytes give an equal answer, so the cached listing can never be stale (ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE).
+([caching](caching.md#rule-adr-auto-cache-importerinvalidates)). It hashes the index file on every call — cheap next to parsing it — and
+parses again only when the hash differs. Equal bytes give an equal answer, so the cached listing can never be stale
+(ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE).
 
 ### Refuse rather than guess
 

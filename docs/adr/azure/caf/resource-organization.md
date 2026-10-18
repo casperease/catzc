@@ -62,7 +62,8 @@ Not adopted: the repository assigns no policy at the root management group, or a
 ### Rule ADR-AZ-CAF-RESORG-ENFORCECOMPLIANCEPOLICY
 
 Adopted at subscription level: every landing zone assigns three built-in policies whose enforcement mode is `policy_enforcement` in
-`azure.yml` ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
+`azure.yml` ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 
 - [9 — Enforce compliance with policy](#9--enforce-compliance-with-policy)
 
@@ -258,10 +259,10 @@ The [CAF reference](../../../references/caf/index.md) lists every CAF record in 
 
 One decision shapes most of this record. The repository has no management groups: its landing zone is deployed at subscription scope and
 deploys nothing at management-group or tenant level, because a repository that deploys into subscriptions it is given cannot assume it owns
-the hierarchy above them ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). So each management group recommendation below says what
-leaving it out costs here and what would change that, and each subscription recommendation maps to the subscription model in `azure.yml` —
-shared and customer subscriptions, non-production and production ([data-model](../azure-data-model.md)) — and the customer catalogue in
-`customer.yml` ([customer-model](../azure-customer-model.md)).
+the hierarchy above them ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). So each management group recommendation
+below says what leaving it out costs here and what would change that, and each subscription recommendation maps to the subscription model in
+`azure.yml` — shared and customer subscriptions, non-production and production ([data-model](../azure-data-model.md)) — and the customer
+catalogue in `customer.yml` ([customer-model](../azure-customer-model.md)).
 
 ### 1 — Keep the management group hierarchy flat
 
@@ -275,10 +276,10 @@ Summary (ours): Keep the management group hierarchy shallow, three to four level
 #### What 1 means here
 
 The repository has no hierarchy to keep flat: every policy, diagnostic setting, and budget is assigned at subscription level by `discovery`
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The cost is that nothing the repository deploys is inherited: a second landing zone
-gets its guardrails by deploying its own copy, and a tenant administrator who adds a management group above a subscription adds policy the
-configuration tree does not show. What would change it: a repository that administers its own tenant and owns the hierarchy, which would
-then live in config beside `azure.yml` and be deployed at tenant level.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The cost is that nothing the repository deploys is inherited: a
+second landing zone gets its guardrails by deploying its own copy, and a tenant administrator who adds a management group above a
+subscription adds policy the configuration tree does not show. What would change it: a repository that administers its own tenant and owns
+the hierarchy, which would then live in config beside `azure.yml` and be deployed at tenant level.
 
 ##### 1 status
 
@@ -297,11 +298,11 @@ Summary (ours): A management group exists to apply policy to workloads that shar
 #### What 2 means here
 
 Without management groups the question moves down a level: the repository groups subscriptions in `azure.yml` by customer (the `customer`
-key, [ADR-AZ-CUSTOMER-TWOBINDINGS](../azure-customer-model.md#rule-adr-az-customer-twobindings)) and by environment class (the environments each subscription
-serves), and the policy need follows the environment class through `policy_enforcement`
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). The cost of having no management group is that a policy need shared by
-many subscriptions is assigned in each one. A tenant whose compliance needs differ by workload kind, rather than by customer, would be the
-trigger to add management groups, grouped by that need.
+key, [ADR-AZ-CUSTOMER-TWOBINDINGS](../azure-customer-model.md#rule-adr-az-customer-twobindings)) and by environment class (the environments
+each subscription serves), and the policy need follows the environment class through `policy_enforcement`
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). The cost of having no management
+group is that a policy need shared by many subscriptions is assigned in each one. A tenant whose compliance needs differ by workload kind,
+rather than by customer, would be the trigger to add management groups, grouped by that need.
 
 ##### 2 status
 
@@ -339,7 +340,8 @@ scope by the subscription's own service connection.
 ##### 3 in `expedition`
 
 No Azure role assignment. Database administration goes to an Entra ID group (`entraAdminLogin`, `entraAdminObjectId`) on the SQL server,
-which is a data-plane administrator, not a management-group or subscription role ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
+which is a data-plane administrator, not a management-group or subscription role
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
 
 ##### 3 status
 
@@ -358,10 +360,10 @@ Summary (ours): For cross-cutting questions, query by tags enforced through poli
 
 The CAF tags (`workload`, `environment`, `owner`, `cost-center`, `criticality`, `data-classification`) are a parameter of every template,
 set from each config, and the landing zone's required-tag policy makes `cost-center` mandatory on every resource of the subscription
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A query across subscriptions by `owner` or by `environment` therefore works without a
-hierarchy. Two gaps remain: only one of the six tags is enforced by policy, and the resource groups that `Deploy-Bicep` creates
-(`Deploy-AzureResourceGroup`) carry the deployment-tracking tags from `Set-BicepTrackingTagSet`, not the CAF tags. The naming and tagging
-record owns the tag set itself.
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A query across subscriptions by `owner` or by
+`environment` therefore works without a hierarchy. Two gaps remain: only one of the six tags is enforced by policy, and the resource groups
+that `Deploy-Bicep` creates (`Deploy-AzureResourceGroup`) carry the deployment-tracking tags from `Set-BicepTrackingTagSet`, not the CAF
+tags. The naming and tagging record owns the tag set itself.
 
 ##### 4 in `foundation`
 
@@ -393,10 +395,11 @@ Summary (ours): Keep a sandbox management group where users can experiment, isol
 #### What 5 means here
 
 There is no sandbox management group and no sandbox subscription. An experiment runs as an extra configuration slot in a non-production
-subscription (`apex/dev-blu.yml` beside `apex/dev.yml` in `expedition`, [ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)), so
-it lands in the same landing zone, behind the same guardrails, as the rest of non-production. The cost is that an experiment is not isolated
-from development and test: it shares their network, their budget, and their audit-only policy mode. A need to try services the landing zone
-would deny would be the trigger for a sandbox subscription, declared in `azure.yml` like any other.
+subscription (`apex/dev-blu.yml` beside `apex/dev.yml` in `expedition`,
+[ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)), so it lands in the same landing
+zone, behind the same guardrails, as the rest of non-production. The cost is that an experiment is not isolated from development and test:
+it shares their network, their budget, and their audit-only policy mode. A need to try services the landing zone would deny would be the
+trigger for a sandbox subscription, declared in `azure.yml` like any other.
 
 ##### 5 status
 
@@ -436,10 +439,11 @@ Summary (ours): Under the landing zones management group, add one child per kind
 #### What 7 means here
 
 The repository has one archetype axis and keeps it in config: a subscription's network is a hub or a spoke (`kind` in `network.yml`,
-[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), and every spoke has the same connectivity — peered to its tier's hub,
-private endpoints only, no public IP address on a network interface. Every customer subscription is a "corp" landing zone in CAF's terms;
-there is no "online" archetype, since no template exposes a public endpoint. A workload that must be reachable from the internet would be
-the trigger for a second archetype, as a new network kind and its own policy set, before it would need a management group.
+[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), and every spoke has the same
+connectivity — peered to its tier's hub, private endpoints only, no public IP address on a network interface. Every customer subscription is
+a "corp" landing zone in CAF's terms; there is no "online" archetype, since no template exposes a public endpoint. A workload that must be
+reachable from the internet would be the trigger for a second archetype, as a new network kind and its own policy set, before it would need
+a management group.
 
 ##### 7 status
 
@@ -477,9 +481,10 @@ Summary (ours): Enforce compliance requirements through Azure Policy assigned at
 
 Adopted at subscription level, the one level the repository owns. Every landing zone assigns three built-in policies — allowed locations, a
 required tag, no public IP address on a network interface — through `policy-assignment.bicep`
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Whether they deny or only audit is `policy_enforcement` in `azure.yml`, enforcing in
-production and auditing outside it by default ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)), so a repository changes
-its compliance stance with one edit.
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Whether they deny or only audit is
+`policy_enforcement` in `azure.yml`, enforcing in production and auditing outside it by default
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)), so a repository changes its
+compliance stance with one edit.
 
 ##### 9 in `foundation`
 
@@ -492,8 +497,8 @@ enforcement mode by config address (`global.azure.policy_enforcement.production`
 
 ##### 9 in `expedition`
 
-Assigns no policy and owns none ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); it deploys within the landing zone's region, with the
-CAF tags, and with no public IP address.
+Assigns no policy and owns none ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); it deploys within the
+landing zone's region, with the CAF tags, and with no public IP address.
 
 ##### 9 status
 
@@ -512,8 +517,8 @@ Summary (ours): Turn on the hierarchy setting that requires a role to create man
 #### What 10 means here
 
 The hierarchy settings belong to the tenant, and the repository deploys nothing at tenant level
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The cost is that the repository cannot show the setting is on; it relies on the
-tenant's administrators. A repository that administers its own tenant would set it in a tenant-level deployment.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The cost is that the repository cannot show the setting is on; it
+relies on the tenant's administrators. A repository that administers its own tenant would set it in a tenant-level deployment.
 
 ##### 10 status
 
@@ -554,8 +559,8 @@ Summary (ours): Do not create management groups for production, test, and develo
 The environments are separated by subscription. In `azure.yml` a non-production subscription serves `dev`, `test`, and `nsub`, and a
 production one serves `preprod`, `prod`, and `psub`, for the shared platform (`shared_nonprod`, `shared_prod`) and for each customer
 (`apex_nonprod`, `apex_prod`). The policy difference between the classes is the enforcement mode, read per class from `policy_enforcement`
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)), not a different management group. Below the production boundary, `dev`
-and `test` share a subscription and are kept apart by resource group, one per configuration slot
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)), not a different management
+group. Below the production boundary, `dev` and `test` share a subscription and are kept apart by resource group, one per configuration slot
 ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)).
 
 ##### 12 in `foundation`
@@ -589,9 +594,9 @@ Summary (ours): Use the standard hierarchy for deployments across several region
 #### What 13 means here
 
 There are no management groups to split, and every environment in `azure.yml` deploys to one region (`westeurope`), with one address space
-per environment ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)). A customer bound by data residency in another region
-would be the trigger; even then, the repository's first answer is a subscription and environments in that region, and its allowed-locations
-policy, before a management group.
+per environment ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)). A customer bound by data
+residency in another region would be the trigger; even then, the repository's first answer is a subscription and environments in that
+region, and its allowed-locations policy, before a management group.
 
 ##### 13 status
 
@@ -609,10 +614,12 @@ Summary (ours): Treat the subscription as the unit of management, cut to fit the
 #### What 14 means here
 
 The subscription is the repository's unit of management. `azure.yml` declares each one by name, with its tenant, the environments it serves,
-and its customer when it has one ([ADR-AZ-DATAMOD-TWOCONFIGLAYERS](../azure-data-model.md#rule-adr-az-datamod-twoconfiglayers)); `network.yml` gives each one network
-([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)); and the once-per-subscription templates give each one its workspace,
-vault, landing zone, guardrails, and budget ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The business fit is the customer: every
-customer in `customer.yml` that deploys has subscriptions of its own.
+and its customer when it has one ([ADR-AZ-DATAMOD-TWOCONFIGLAYERS](../azure-data-model.md#rule-adr-az-datamod-twoconfiglayers));
+`network.yml` gives each one network
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)); and the
+once-per-subscription templates give each one its workspace, vault, landing zone, guardrails, and budget
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The business fit is the customer: every customer in
+`customer.yml` that deploys has subscriptions of its own.
 
 ##### 14 in `foundation`
 
@@ -680,11 +687,13 @@ Summary (ours): Decide whether a requirement needs a new subscription by four te
 #### What 16 means here
 
 Three of the four tests are built into the subscription model. The management boundary is the customer: each customer has subscriptions of
-its own, bound by the `customer` key ([ADR-AZ-CUSTOMER-TWOBINDINGS](../azure-customer-model.md#rule-adr-az-customer-twobindings)). The policy boundary is the
-environment class: production and non-production are separate subscriptions with their own enforcement mode
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). The network test is one virtual network per subscription, a hub or a
-spoke, in `network.yml` ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). Scale limits are not a criterion: no template
-comes near a subscription limit, and the model has no way to give one customer's workload a second subscription of the same class.
+its own, bound by the `customer` key ([ADR-AZ-CUSTOMER-TWOBINDINGS](../azure-customer-model.md#rule-adr-az-customer-twobindings)). The
+policy boundary is the environment class: production and non-production are separate subscriptions with their own enforcement mode
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). The network test is one virtual
+network per subscription, a hub or a spoke, in `network.yml`
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). Scale limits are not a
+criterion: no template comes near a subscription limit, and the model has no way to give one customer's workload a second subscription of
+the same class.
 
 ##### 16 in `foundation`
 
@@ -777,19 +786,20 @@ Summary (ours): Automate creating subscriptions for workload teams behind a self
 
 CAF's subscription vending guidance describes the process as an intake request, an IP address plan (IPAM) that hands the subscription its
 ranges, a subscription created by infrastructure as code, and a baseline of tags and budgets on it. The repository does all of that except
-the creation. The intake is a pull request ([ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-adr-dsgn-selfserv-consumersprovisionthemselves)): a customer entry
-in `customer.yml` when the customer is new, a subscription entry in `azure.yml`, and the subscription's network in `network.yml`, which is
-the repository's IP address plan — the ranges live there and nowhere else
-([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and `Test-AzureNetworkPlan` fails a plan where two networks overlap
-([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). The baseline is a config per once-per-subscription template:
-`foundation` for the workspace and the vault, `discovery` for the landing zone with its CAF tags, policies, and budget. The customer's CD
-pipeline then deploys them in order.
+the creation. The intake is a pull request
+([ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-adr-dsgn-selfserv-consumersprovisionthemselves)): a
+customer entry in `customer.yml` when the customer is new, a subscription entry in `azure.yml`, and the subscription's network in
+`network.yml`, which is the repository's IP address plan — the ranges live there and nowhere else
+([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and `Test-AzureNetworkPlan` fails a plan where two
+networks overlap ([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). The baseline is a config per
+once-per-subscription template: `foundation` for the workspace and the vault, `discovery` for the landing zone with its CAF tags, policies,
+and budget. The customer's CD pipeline then deploys them in order.
 
 Creating the subscription is not adopted. It takes rights on a billing account, above any subscription, and the repository deploys only into
-subscriptions it is given ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so a subscription's `id` in `azure.yml` names one someone
-else created, and its service connection is set up outside the repository too. The cost is a wait on the tenant's administrators before a
-new customer's first deploy. A repository that held a billing account role would be the trigger to add a subscription-creation template,
-deployed at tenant level, ahead of `foundation`.
+subscriptions it is given ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so a subscription's `id` in `azure.yml`
+names one someone else created, and its service connection is set up outside the repository too. The cost is a wait on the tenant's
+administrators before a new customer's first deploy. A repository that held a billing account role would be the trigger to add a
+subscription-creation template, deployed at tenant level, ahead of `foundation`.
 
 ##### 19 in `foundation`
 
@@ -798,7 +808,8 @@ The first deploy into a vended subscription: one config (`<customer>/nsub.yml`, 
 ##### 19 in `discovery`
 
 The landing zone of the vended subscription: its network by config address from `network.yml`, its tags, policies, and budget. A new spoke
-also needs the hub's config to list it, in the order of [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks).
+also needs the hub's config to list it, in the order of
+[ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks).
 
 ##### 19 in `expedition`
 
@@ -823,10 +834,11 @@ Summary (ours): Avoid a rigid subscription model; group subscriptions by criteri
 
 The model is config, so it changes with an edit. A customer may have a production and a non-production subscription (`apex_nonprod`,
 `apex_prod`) or a non-production one alone (`nova_nonprod`, `flux_nonprod`); the customers enabled for deployment are a repository variant,
-`have_customers` ([ADR-AZ-CUSTOMER-HAVECUSTOMERSVARIANT](../azure-customer-model.md#rule-adr-az-customer-havecustomersvariant)); and a subscription's environments are a list.
-Applications share a subscription by default — every workload of a customer and class lands in that customer's subscription — and the shared
-platform's workloads share the shared subscriptions. The one rigid point is that a subscription is bound to at most one customer and a
-customer has one subscription per environment ([ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../azure-data-model.md#rule-adr-az-datamod-schemaandintegrity)).
+`have_customers` ([ADR-AZ-CUSTOMER-HAVECUSTOMERSVARIANT](../azure-customer-model.md#rule-adr-az-customer-havecustomersvariant)); and a
+subscription's environments are a list. Applications share a subscription by default — every workload of a customer and class lands in that
+customer's subscription — and the shared platform's workloads share the shared subscriptions. The one rigid point is that a subscription is
+bound to at most one customer and a customer has one subscription per environment
+([ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../azure-data-model.md#rule-adr-az-datamod-schemaandintegrity)).
 
 ##### 20 in `foundation`
 
@@ -858,8 +870,9 @@ Summary (ours): Give every subscription Service Health alerts, so that a platfor
 
 The signal is collected but not alerted on. Every landing zone deploys `subscription-diagnostic-setting.bicep`, which streams the activity
 log, its `ServiceHealth` and `ResourceHealth` categories included, to `foundation`'s workspace
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). No activity-log alert or action group exists, so a Service Health event is recorded
-and nobody is told. The reliability record plans the same alert ([ADR-AZ-WAF-RE-RE10](../waf/reliability.md#rule-adr-az-waf-re-re10)).
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). No activity-log alert or action group exists,
+so a Service Health event is recorded and nobody is told. The reliability record plans the same alert
+([ADR-AZ-WAF-RE-RE10](../waf/reliability.md#rule-adr-az-waf-re-re10)).
 
 ##### 21 in `foundation`
 
@@ -892,9 +905,9 @@ Summary (ours): Add subscriptions per region only when a region needs its own go
 #### What 22 means here
 
 No subscription is split by region. Each environment in `azure.yml` names one region (`region: westeurope`, `region_code: weu`), with one
-address space per environment ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), and every subscription serves its
-environments in that region. A second region would be a new environment with its own `region`, served by the existing subscriptions unless
-governance or quota calls for more.
+address space per environment ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), and every
+subscription serves its environments in that region. A second region would be a new environment with its own `region`, served by the
+existing subscriptions unless governance or quota calls for more.
 
 ##### 22 in `foundation`
 
@@ -925,9 +938,9 @@ Summary (ours): Where scale is no concern, a primary and secondary disaster-reco
 #### What 23 means here
 
 The repository deploys no secondary region: recovery is a redeploy from the templates, and production databases keep geo-redundant backups
-([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). So there is no pair to place. A workload with a recovery target that a redeploy cannot
-meet would be the trigger; in the subscription model as it stands, its secondary region would be a second environment served by the same
-production subscription, which is the shared-subscription option this recommendation allows.
+([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). So there is no pair to place. A workload with a recovery target
+that a redeploy cannot meet would be the trigger; in the subscription model as it stands, its secondary region would be a second environment
+served by the same production subscription, which is the shared-subscription option this recommendation allows.
 
 ##### 23 status
 
@@ -1011,9 +1024,9 @@ Summary (ours): Scale out across subscriptions rather than running into one subs
 
 The subscription per customer spreads load: every customer's workloads count against their own subscription's limits, never against a shared
 one. Within a customer and class, though, there is one subscription, and the model allows no second one of the same class
-([ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../azure-data-model.md#rule-adr-az-datamod-schemaandintegrity)). The example workloads are a storage account and one database per
-configuration slot, far from any subscription limit, so the gap costs nothing at this size. A customer whose workloads approach a limit
-would be the trigger to let the model hold more than one subscription per customer and environment.
+([ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../azure-data-model.md#rule-adr-az-datamod-schemaandintegrity)). The example workloads are a storage
+account and one database per configuration slot, far from any subscription limit, so the gap costs nothing at this size. A customer whose
+workloads approach a limit would be the trigger to let the model hold more than one subscription per customer and environment.
 
 ##### 26 in `foundation`
 
@@ -1188,9 +1201,9 @@ Summary (ours): Set the subscription policy so that no one may move a subscripti
 #### What 34 means here
 
 The subscription policy is a tenant-wide setting, and the repository deploys nothing at tenant level
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Each subscription in `azure.yml` names its tenant, and `Deploy-Bicep` verifies the
-session's subscription against `-SubscriptionIdAssertIs` before a deploy, so a subscription moved to another directory fails its next deploy
-rather than receiving one. A repository that administers its own tenant would set the policy there.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Each subscription in `azure.yml` names its tenant, and
+`Deploy-Bicep` verifies the session's subscription against `-SubscriptionIdAssertIs` before a deploy, so a subscription moved to another
+directory fails its next deploy rather than receiving one. A repository that administers its own tenant would set the policy there.
 
 ##### 34 status
 
@@ -1208,8 +1221,8 @@ Summary (ours): Exempt only a few users from the transfer policy: members of pla
 #### What 35 means here
 
 The exemption list belongs to the same tenant setting as recommendation 34. The repository's one break-glass credential, the SQL login
-beside each server's Entra ID administrator group ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), is a database login, not a directory
-account, so it has no place on this list.
+beside each server's Entra ID administrator group ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), is a
+database login, not a directory account, so it has no place on this list.
 
 ##### 35 status
 
@@ -1235,9 +1248,11 @@ subscriptions per function, quota management, and tenant settings are not adopte
 - `Deploy-Bicep` requires `-SubscriptionIdAssertIs` in a pipeline and fails a deploy whose session targets another subscription, and each CD
   pipeline names one service connection per subscription.
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for every template, and the parameter-model test checks each
-  rendered parameters file against the compiled template ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
+  rendered parameters file against the compiled template
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 - The landing zone's allowed-locations and required-tag policies deny a resource in another region or without `cost-center` where
-  `policy_enforcement` enforces, and report it where it audits ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
+  `policy_enforcement` enforces, and report it where it audits
+  ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 - Planned (follow-up), not existing: a Service Health alert and action group in `discovery`, metric alerts on the database in `expedition`'s
   production configs and a capacity workbook over `foundation`'s workspace, and the CAF tags on the resource groups `Deploy-Bicep` creates.
 

@@ -20,7 +20,8 @@ Kept         the files the destination already has: they belong to whoever place
 ```
 
 Reads the filesystem only and changes nothing, so the plan can be recorded before the copy starts and an interrupted copy is still covered
-by it ([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)).
+by it
+([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)).
 
 ### parameter `Source`
 

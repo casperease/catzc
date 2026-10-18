@@ -24,11 +24,13 @@ One finding per broken rule, each naming the rule ([ADR-REPO-PLANS](../../../adr
 - an open step, a `- [ ]` item with its continuation lines, that names no check
   ([ADR-REPO-PLANS-OPENSTEP](../../../adr/repository/plans.md#rule-adr-repo-plans-openstep));
 - a task file whose `task:` head misses a key or which has no steps section, more task files than the roof, a line in any file that names a
-  task by a number, and a master plan without its own sections ([ADR-REPO-PLANS-MASTERANDTASKS](../../../adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
+  task by a number, and a master plan without its own sections
+  ([ADR-REPO-PLANS-MASTERANDTASKS](../../../adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
 
 The folder, the sets and the patterns are the plans registry (configs/plans.yml), its defaults declared once on PlansConfig. A quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through Write-QualityGateReport, which writes
-out/test-plans/, prints every issue, and throws once listing them all. The plans live only in the source tree.
+([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
+Write-QualityGateReport, which writes out/test-plans/, prints every issue, and throws once listing them all. The plans live only in the
+source tree.
 
 ### parameter `Path`
 

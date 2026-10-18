@@ -16,9 +16,10 @@ to UTF-8 (`Set-RedirectedOutputEncoding`), so a captured log carries one encodin
 
 ### Rule ADR-PWSH-ANNOUNCE-CHILDOUTPUTRELAYED
 
-In pwsh, the relay ADR-AUTO-CONSOLE-TOOLSSPEAK requires bypasses the chokepoint: a child process's bytes never become a PowerShell record, and the C#
-relays (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write them to the console directly as they arrive, save and restore
-the console encoding around the run, and honour the Pester-run flag. Only what the toolset itself says goes through the information stream.
+In pwsh, the relay ADR-AUTO-CONSOLE-TOOLSSPEAK requires bypasses the chokepoint: a child process's bytes never become a PowerShell record,
+and the C# relays (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write them to the console directly as they arrive, save and
+restore the console encoding around the run, and honour the Pester-run flag. Only what the toolset itself says goes through the information
+stream.
 
 - [Child-process output](#child-process-output)
 
@@ -32,12 +33,12 @@ because its caller owns the wording, such as one that masks a secret — the cha
 
 ### Rule ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
 
-The importer's own load sequence is the load-sequence exception of ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES: the state changes it makes itself (session
-preferences, a redirected session's output encoding, roots, vendor modules, `PSModulePath`, the types assembly, the catzc modules) are
-announced on the verbose stream through `Write-ImporterMessage -StateChange`, shown by `. .\importer.ps1 -Verbose`. A plain import shows
-only its `Loaded in N seconds` line and genuine warnings. The functions the importer calls announce on the information stream as everywhere
-else; the session-tool janitor's `PATH` nudges and its advisory recur at every shell open, so the importer runs that janitor with its
-information stream shown only under the same `-Verbose`.
+The importer's own load sequence is the load-sequence exception of ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES: the state changes it makes
+itself (session preferences, a redirected session's output encoding, roots, vendor modules, `PSModulePath`, the types assembly, the catzc
+modules) are announced on the verbose stream through `Write-ImporterMessage -StateChange`, shown by `. .\importer.ps1 -Verbose`. A plain
+import shows only its `Loaded in N seconds` line and genuine warnings. The functions the importer calls announce on the information stream
+as everywhere else; the session-tool janitor's `PATH` nudges and its advisory recur at every shell open, so the importer runs that janitor
+with its information stream shown only under the same `-Verbose`.
 
 - [The importer's load record](#the-importers-load-record)
 
@@ -50,35 +51,35 @@ detail, `Write-Output` only for return values — and never `Write-Warning`/`Wri
 
 ### Rule ADR-PWSH-ANNOUNCE-INFORMATIONRECORD
 
-In pwsh, the announcement ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES requires is an information-stream record written through the chokepoint (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT),
-never a `Write-Verbose` line. The session state it covers is what the commands in the [state-change table](#what-counts-as-a-state-change)
-change: `$env:` and `PSModulePath`, `Add-Type` and the assembly loaders, `Import-Module`/`Remove-Module`, `$global:` variables and
-preferences, `Push-Location`/`Pop-Location`, the PSReadLine options and key handlers, `Update-TypeData`/`Update-FormatData`, and the user
-and machine environment and the PowerShell profile.
+In pwsh, the announcement ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES requires is an information-stream record written through the chokepoint
+(ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT), never a `Write-Verbose` line. The session state it covers is what the commands in the
+[state-change table](#what-counts-as-a-state-change) change: `$env:` and `PSModulePath`, `Add-Type` and the assembly loaders,
+`Import-Module`/`Remove-Module`, `$global:` variables and preferences, `Push-Location`/`Pop-Location`, the PSReadLine options and key
+handlers, `Update-TypeData`/`Update-FormatData`, and the user and machine environment and the PowerShell profile.
 
 - [What counts as a state change](#what-counts-as-a-state-change)
 - [Announce where it happens](#announce-where-it-happens)
 
 ### Rule ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES
 
-In pwsh, the changes ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES leaves unannounced are: a change restored in a `finally` block before the function returns; a
-change inside `Start-Job`, `Start-ThreadJob`, or `ForEach-Object -Parallel`; PowerShell's own `$LASTEXITCODE`; the toolset's private
-`$global:__<Name>` bookkeeping; and the state a Pester test sets and restores in `AfterEach`/`AfterAll`.
+In pwsh, the changes ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES leaves unannounced are: a change restored in a `finally` block before the
+function returns; a change inside `Start-Job`, `Start-ThreadJob`, or `ForEach-Object -Parallel`; PowerShell's own `$LASTEXITCODE`; the
+toolset's private `$global:__<Name>` bookkeeping; and the state a Pester test sets and restores in `AfterEach`/`AfterAll`.
 
 - [Not a state change](#not-a-state-change)
 
 ### Rule ADR-PWSH-ANNOUNCE-NATIVETOOLCOMMAND
 
 In pwsh, a native tool runs through `Invoke-Executable`, which writes the resolved command with `Write-Message` before it starts the process
-(ADR-AUTO-PRELOG-RUNNERLOGS). A function that starts a tool any other way — the call operator (`& $tool`), a bare native command, `Start-Process`, or
-a `[System.Diagnostics.Process]` — writes the resolved command line with `Write-Message` directly before it.
+(ADR-AUTO-PRELOG-RUNNERLOGS). A function that starts a tool any other way — the call operator (`& $tool`), a bare native command,
+`Start-Process`, or a `[System.Diagnostics.Process]` — writes the resolved command line with `Write-Message` directly before it.
 
 - [Logging a command](#logging-a-command)
 
 ### Rule ADR-PWSH-ANNOUNCE-COMMANDLOGLINE
 
-In pwsh, the command log of ADR-AUTO-PRELOG-ALWAYSLOG is a `Write-Message` line on the information stream: never a `Write-Verbose` or `Write-Debug`
-line, and never inside a branch on `-Verbose`, `-Debug`, `$VerbosePreference`, or a diagnostic switch. The `-Silent` switch of
+In pwsh, the command log of ADR-AUTO-PRELOG-ALWAYSLOG is a `Write-Message` line on the information stream: never a `Write-Verbose` or
+`Write-Debug` line, and never inside a branch on `-Verbose`, `-Debug`, `$VerbosePreference`, or a diagnostic switch. The `-Silent` switch of
 ADR-AUTO-PRELOG-SILENTSWITCH is the one way a call leaves it out.
 
 - [Logging a command](#logging-a-command)
@@ -107,9 +108,9 @@ Pester run, because `Write-InformationColored` returns before writing while `$gl
 output and no test needs its own guard. And it is headed with its caller (`[Invoke-Importer] ...`), so every line names the function that
 wrote it.
 
-The one thing a raw write offers is a dot without a line break, which a liveness signal needs (ADR-AUTO-CONSOLE-NOBOXDRAWING). The chokepoint offers
-that too: `-NoNewline` wraps the text in a `HostInformationMessage` with `NoNewLine` set, the same record `Write-Host` emits internally, so
-the host renders it inline while it stays an ordinary information record:
+The one thing a raw write offers is a dot without a line break, which a liveness signal needs (ADR-AUTO-CONSOLE-NOBOXDRAWING). The
+chokepoint offers that too: `-NoNewline` wraps the text in a `HostInformationMessage` with `NoNewLine` set, the same record `Write-Host`
+emits internally, so the host renders it inline while it stays an ordinary information record:
 
 ```powershell
 while (-not $done) {
@@ -185,8 +186,8 @@ The announcement is a `Write-Message` in the block that makes the change. An `if
 made outside that branch, because a plain run would make the change and print nothing.
 
 `-Verbose` does not announce. A state change is a fact about the session, and the always-on information stream is where facts go; the
-verbose stream is for the diagnostic detail behind them (ADR-PWSH-ANNOUNCE-CORRECTSTREAM). The importer's own load record is the one exception
-([below](#the-importers-load-record)).
+verbose stream is for the diagnostic detail behind them (ADR-PWSH-ANNOUNCE-CORRECTSTREAM). The importer's own load record is the one
+exception ([below](#the-importers-load-record)).
 
 ### Not a state change
 
@@ -223,8 +224,8 @@ is never routed there, and never written only when a diagnostic switch is set.
 
 `Child-process output is relayed, not re-written`
 
-When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE-TOOLSSPEAK), and a parallel test
-runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
+When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE-TOOLSSPEAK), and a parallel
+test runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
 (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write it to the console directly, saving and restoring the console encoding
 around the run. The command that started the child is announced before it runs ([log-before-invoke](../automation/log-before-invoke.md));
 the relay honours the same Pester-run flag as the chokepoint.
@@ -243,25 +244,27 @@ plaintext secret if it announced its own writes. The changing function then carr
 
 `. .\importer.ps1` runs at the start of every session and makes the same expected changes each time: it sets the preferences, anchors the
 roots, imports the vendor modules, prepends the vendor root to `PSModulePath`, loads the types assembly, and loads the catzc modules.
-Printing those lines at every shell open is noise (ADR-AUTO-CONSOLE-REPORTOUTCOMES), so they are written with `Write-ImporterMessage -StateChange`, which
-puts them on the verbose stream. A plain import shows one `Loaded in N seconds (...)` line, plus anything that actually needs attention: a
-warning, `Built <dll>` for a freshly compiled assembly to commit, the stale-types notice, and the `-DiagnoseLoadTime` timings.
-`. .\importer.ps1 -Verbose` shows the full record.
+Printing those lines at every shell open is noise (ADR-AUTO-CONSOLE-REPORTOUTCOMES), so they are written with
+`Write-ImporterMessage -StateChange`, which puts them on the verbose stream. A plain import shows one `Loaded in N seconds (...)` line, plus
+anything that actually needs attention: a warning, `Built <dll>` for a freshly compiled assembly to commit, the stale-types notice, and the
+`-DiagnoseLoadTime` timings. `. .\importer.ps1 -Verbose` shows the full record.
 
 The shim is an advanced script so that it accepts `-Verbose`. Dot-sourced, it sets the preference in the caller's scope for the length of
 the import, and PowerShell restores it afterwards. `-Verbose` reaches Invoke-Importer, but not the bootstrap and vendor module functions
 that make the changes, so Invoke-Importer hands it to the bootstrap writer with `Set-ImporterVerbosity`. The setting lives in the bootstrap
 module and goes away with it. While the import runs, Invoke-Importer quiets the session-wide preference and restores it in a `finally`
-(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES), so `-Verbose` shows the load record rather than every function each `Import-Module` dot-sources and exports.
+(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES), so `-Verbose` shows the load record rather than every function each `Import-Module` dot-sources and
+exports.
 
 The exception covers only the importer's own load. The functions it calls, such as the janitors that adjust `PATH`, are ordinary public
 functions and announce on the information stream like any other caller's, so a person who runs `Sync-SessionTools` at the prompt sees every
 nudge. The same nudges made at every shell open are part of the load record, not news: a session's `PATH` starts from the registry each
 time, so the session-tool janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore quiets the
 session-wide information preference around that one janitor unless its own `-Verbose` is set, and restores it in a `finally`
-(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES); a common parameter would reach only the janitor's scope, while the preference reaches the writer chokepoint in its
-own module (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT). A plain import shows the `Loaded` line alone, and `-Verbose` shows the nudges and the advisory beside the
-rest of the record. The janitor itself still announces unconditionally, which is what the analyzer rule checks.
+(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES); a common parameter would reach only the janitor's scope, while the preference reaches the writer
+chokepoint in its own module (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT). A plain import shows the `Loaded` line alone, and `-Verbose`
+shows the nudges and the advisory beside the rest of the record. The janitor itself still announces unconditionally, which is what the
+analyzer rule checks.
 
 ## Decision
 
@@ -279,8 +282,9 @@ announcement is recorded with a justified suppression. Every external command is
   exclude so a `Write-Host` is reported once. Its one justified suppression is `Set-RedirectedOutputEncoding` in the importer module, the
   exception ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT names.
 - **`Measure-AnnounceStateChange`** (`pwsh/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table above
-  that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE) in the same or an enclosing block
-  announces, and passes the exemptions of ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES. It checks that a change is announced; what the line says is a review concern.
+  that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE) in the same or an
+  enclosing block announces, and passes the exemptions of ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES. It checks that a change is announced; what
+  the line says is a review concern.
 - **`Measure-NoRawInformationStream`** keeps `Write-Information` inside the two chokepoint functions, `Write-InformationColored` and
   `Write-ImporterMessage`.
 - **Writers emit on the information stream.** Every writer routes through `Write-InformationColored`, which emits via `Write-Information`

@@ -6,7 +6,8 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ### Rule ADR-REPO-AI-READCONTRACTFIRST
 
-**Read this contract first, every start.** Then the ADR index and only the rules your brief cites, by code. (ADR-REPO-LINK-ONECITATIONSPELLING)
+**Read this contract first, every start.** Then the ADR index and only the rules your brief cites, by code.
+(ADR-REPO-LINK-ONECITATIONSPELLING)
 
 ### Rule ADR-REPO-AI-TRUSTTHETREE
 
@@ -30,7 +31,8 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ### Rule ADR-REPO-AI-SHORTFOREGROUNDCALLS
 
-**Foreground shell calls take at most 3 seconds.** Longer work runs in the background with a timeout prefix. (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
+**Foreground shell calls take at most 3 seconds.** Longer work runs in the background with a timeout prefix.
+(ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
 
 ### Rule ADR-REPO-AI-ONEFILEATATIME
 
@@ -61,8 +63,8 @@ Every agent and every skill reads this first, at every start and after every cle
 Agents start cold on small models. Test runs are the largest cost of a session, and a mutating git command by an agent cannot be undone by
 the user. The time safeguard bounds every call; this contract bounds what a call is spent on.
 
-A robot's front matter is a closed key set (ADR-REPO-AGENTS-ROBOTBODYLIMIT), and a value identical on every file is a constant, declared once
-(ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
+A robot's front matter is a closed key set (ADR-REPO-AGENTS-ROBOTBODYLIMIT), and a value identical on every file is a constant, declared
+once (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
 `contracts` entry of agents.yml, which Test-AgentDefinitions reads, and in the CLAUDE.md session-start line.
 
 ## Decision

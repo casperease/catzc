@@ -17,8 +17,8 @@ docs/notes/) and the generated README copy-ins (`**/README.md`, a derived artifa
 markdownlint-cli2 does not apply .markdownlintignore to globs passed on the command line, so the exclusions are passed explicitly. The root
 .markdownlintignore mirrors these for the editor extension's benefit.
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every violation line
-('`<path>:<line>:<col>` `<rule id>/<rule name>` …') is an issue, and the gate ends through Write-QualityGateReport, which writes
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every violation
+line ('`<path>:<line>:<col>` `<rule id>/<rule name>` …') is an issue, and the gate ends through Write-QualityGateReport, which writes
 out/test-markdownlint/, prints every issue, and throws once listing them all; -PassThru returns the result object instead. A tool error
 (exit > 1) throws before the report.
 

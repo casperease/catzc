@@ -57,8 +57,8 @@ verbatim, with a header that maps every path the paste names to where the text n
 
 The **master plan**, `plan-master.md`, and the **task files**, `task-<topic>.md` with at most 50 in the folder, are derived executables
 rebuilt from the plans: the master holds every open step of every plan in one executable order, and a task file is one chunk of it, named by
-its topic. The order is the master's list alone; no task name, head key or reference carries a number (ADR-REPO-FOLDERS-STABLEFILENAMES). They are
-cleared and rebuilt; the plans are never deleted by a clear.
+its topic. The order is the master's list alone; no task name, head key or reference carries a number (ADR-REPO-FOLDERS-STABLEFILENAMES).
+They are cleared and rebuilt; the plans are never deleted by a clear.
 
 - [Derived executables](#derived-executables)
 
@@ -81,7 +81,8 @@ folder to the shape this ADR states.
 
 A plan that narrates what happened grows without bound and is wrong a week later. A plan that holds the delta is short by construction: when
 a step lands, it is ticked with its verdict and the plan loses nothing; when the last step lands, the plan goes. The record of what happened
-is `git log` on the plan and on the files it changed ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-historyingit)).
+is `git log` on the plan and on the files it changed
+([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-historyingit)).
 
 ### One head, one overlay
 
@@ -98,8 +99,8 @@ a sub-agent can take one step cold. Carried text, a draft or a paste kept verbat
 ### Done is deleted
 
 Keeping a finished plan "for the record" is the habit this repository does not have
-([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-nodeadcode)). The one line in `value-of-plan.md` says what was deleted
-and why, so a reader who misses a plan finds the reason in one place and the text in git.
+([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-nodeadcode)). The one line in `value-of-plan.md` says what
+was deleted and why, so a reader who misses a plan finds the reason in one place and the text in git.
 
 ### In-use files
 

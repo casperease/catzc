@@ -11,30 +11,30 @@ the pattern we reject.
 
 ### Rule ADR-PWSH-DRYRUN-DRYRUNSWITCH
 
-In pwsh, the dry-run parameter of ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN is `[switch] $DryRun`. No function declares `[CmdletBinding(SupportsShouldProcess)]` or
-calls `$PSCmdlet.ShouldProcess`, so no function carries `-WhatIf`.
+In pwsh, the dry-run parameter of ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN is `[switch] $DryRun`. No function declares
+`[CmdletBinding(SupportsShouldProcess)]` or calls `$PSCmdlet.ShouldProcess`, so no function carries `-WhatIf`.
 
 - [Why not ShouldProcess](#why-not-shouldprocess)
 - [The idiom](#the-idiom)
 
 ### Rule ADR-PWSH-DRYRUN-EARLYRETURNBRANCH
 
-In pwsh, the dry-run branch of ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT is `if ($DryRun) { return <the action> }` before the side effect: the planned action goes
-to the output stream, where a caller or test captures it, and nothing is written to the host as narration.
+In pwsh, the dry-run branch of ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT is `if ($DryRun) { return <the action> }` before the side effect: the
+planned action goes to the output stream, where a caller or test captures it, and nothing is written to the host as narration.
 
 - [The idiom](#the-idiom)
 
 ### Rule ADR-PWSH-DRYRUN-PASSDRYRUNON
 
-In pwsh, ADR-AUTO-DRYRUN-PROPAGATEEXPLICITLY's propagation is `-DryRun:$DryRun` on every call to a function that takes the switch. No preference variable —
-`$WhatIfPreference` or one of our own — carries it.
+In pwsh, ADR-AUTO-DRYRUN-PROPAGATEEXPLICITLY's propagation is `-DryRun:$DryRun` on every call to a function that takes the switch. No
+preference variable — `$WhatIfPreference` or one of our own — carries it.
 
 - [What we use instead](#what-we-use-instead)
 
 ### Rule ADR-PWSH-DRYRUN-NOCONFIRM
 
-In pwsh, ADR-AUTO-DRYRUN-NOCONFIRMATION means no `-Confirm`, no `ConfirmImpact`, and no `$ConfirmPreference`: a destructive function is safe because it
-is idempotent, not because the Confirm subsystem asks.
+In pwsh, ADR-AUTO-DRYRUN-NOCONFIRMATION means no `-Confirm`, no `ConfirmImpact`, and no `$ConfirmPreference`: a destructive function is safe
+because it is idempotent, not because the Confirm subsystem asks.
 
 - [Why not ShouldProcess](#why-not-shouldprocess)
 
@@ -110,7 +110,8 @@ It 'in dry-run, returns the command and does not execute' {
   form of ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS.
 - **Code review.** A new `SupportsShouldProcess` / `$PSCmdlet.ShouldProcess` / `-WhatIf` is rejected in review in favour of `-DryRun`.
 - **The suppression.** Each function the analyzer flags carries a `SuppressMessageAttribute` for
-  `PSUseShouldProcessForStateChangingFunctions` whose justification cites ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS, so a reader of the function finds the reason.
+  `PSUseShouldProcessForStateChangingFunctions` whose justification cites ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS, so a reader of the function
+  finds the reason.
 
 ## Consequences
 

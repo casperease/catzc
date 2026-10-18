@@ -12,8 +12,8 @@ The track-type meta kind's fact: the type of the track that holds the file.
 ### description
 
 The track is the one Get-Track names for the path, and its type is the track type the `tracks` registry declares for it
-([ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-headreadsdeclaration)). A root file, which no track holds, gets an empty
-value, so the key is left out of its head.
+([ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-headreadsdeclaration)). A root
+file, which no track holds, gets an empty value, so the key is left out of its head.
 
 ### parameter `State`
 

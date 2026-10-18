@@ -14,17 +14,18 @@ Uninstalls the zsh Install-Zsh placed: in Git Bash's tree on Windows, the apt-ge
 Windows: reads the manifest Install-Zsh wrote inside the Git for Windows tree (the zsh entry's windows_install_dir, which
 Get-ScriptInstallDir resolves) and deletes exactly the files it lists, then the folders it lists once they are empty, then the manifest. A
 file Git's tree had before Install-Zsh ran is never in the manifest, so it stays
-([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)). No admin required.
+([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)). No
+admin required.
 
 Linux: removes the package the entry's apt_package names through Uninstall-Tool (apt-get), the manager Install-Zsh installs it through
-([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)). A zsh that apt does not own stops the
-uninstall rather than being removed; the apt step needs root
+([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)). A zsh
+that apt does not own stops the uninstall rather than being removed; the apt step needs root
 ([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
 
 macOS: zsh is the system's /bin/zsh, and Install-Zsh installed nothing, so there is nothing to uninstall.
 
-Idempotent ([ADR-AUTO-IDEM-ALREADYDONEISFINE](../../../adr/automation/idempotent-state-functions.md#rule-adr-auto-idem-alreadydoneisfine)): without a manifest (Windows) or
-without zsh (Linux) it reports that there is nothing to do, and a listed file already gone is skipped.
+Idempotent ([ADR-AUTO-IDEM-ALREADYDONEISFINE](../../../adr/automation/idempotent-state-functions.md#rule-adr-auto-idem-alreadydoneisfine)):
+without a manifest (Windows) or without zsh (Linux) it reports that there is nothing to do, and a listed file already gone is skipped.
 
 ### example 1
 

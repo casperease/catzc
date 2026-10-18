@@ -11,16 +11,17 @@ Quality gate: every internal asset dependency is inventoried and covered by a te
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) enforcing the coverage rule
-[ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically) over the module code. It collects an
-issue for:
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) enforcing the
+coverage rule
+[ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)
+over the module code. It collects an issue for:
 
 - every Get-CatzcModuleRoot call site whose -ChildPath or -Module is not a string literal
-  ([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)) — such a site cannot be
-  inventoried (Get-InternalAssetDependency -Violation);
+  ([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)) —
+  such a site cannot be inventoried (Get-InternalAssetDependency -Violation);
 - every function with an internal asset dependency that no test citing
-  [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) and not source-only covers, so the
-  read is exercised in the source run and the build run (Get-UncoveredInternalAssetDependency).
+  [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) and
+  not source-only covers, so the read is exercised in the source run and the build run (Get-UncoveredInternalAssetDependency).
 
 It scans the per-function source files and tests, which exist only in the source tree.
 

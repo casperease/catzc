@@ -4,50 +4,52 @@
 
 ### Rule ADR-PWSH-IDEM-OVERWRITEOWNEDSTATE
 
-A pwsh function overwrites the state it owns (ADR-AUTO-IDEM-OVERWRITENOTAPPEND): it writes a file with `Set-Content`, `Out-File` without `-Append`, `>`, or
-`[System.IO.File]::WriteAllText`, never with `Add-Content`, `Out-File -Append`, `>>`, or `[System.IO.File]::AppendAllText`. A log the
-function writes on purpose on every call is output, not state, and is the one place an append belongs.
+A pwsh function overwrites the state it owns (ADR-AUTO-IDEM-OVERWRITENOTAPPEND): it writes a file with `Set-Content`, `Out-File` without
+`-Append`, `>`, or `[System.IO.File]::WriteAllText`, never with `Add-Content`, `Out-File -Append`, `>>`, or
+`[System.IO.File]::AppendAllText`. A log the function writes on purpose on every call is output, not state, and is the one place an append
+belongs.
 
 - [Overwrite, not append](#overwrite-not-append)
 
 ### Rule ADR-PWSH-IDEM-LISTSETTINGDEDUPLICATED
 
 A list-valued setting — `$env:PATH`, `$env:PSModulePath`, a list in a config the function writes — is extended only after a membership check
-(ADR-AUTO-IDEM-CHECKBEFOREACTING): split it on its separator (`[System.IO.Path]::PathSeparator` for a path list), add the entry only when `-notcontains`
-says it is absent, and write the whole value back. An unguarded `"$env:PATH;$dir"` adds one more copy on every re-run.
+(ADR-AUTO-IDEM-CHECKBEFOREACTING): split it on its separator (`[System.IO.Path]::PathSeparator` for a path list), add the entry only when
+`-notcontains` says it is absent, and write the whole value back. An unguarded `"$env:PATH;$dir"` adds one more copy on every re-run.
 
 - [List-valued settings](#list-valued-settings)
 
 ### Rule ADR-PWSH-IDEM-IDEMPOTENTBUILTINS
 
-A pwsh function knows which built-in commands are idempotent and leans on them (ADR-AUTO-IDEM-CHECKBEFOREACTING, ADR-AUTO-IDEM-ALREADYDONEISFINE):
-`New-Item -ItemType Directory -Force` and `[System.IO.Directory]::CreateDirectory` return the folder whether or not it exists, while
-`New-Item -ItemType File -Force` empties an existing file, so a create-if-missing file guards with `Test-Path -LiteralPath` first. A removal
-of something that may already be gone checks with `Test-Path -LiteralPath` and returns early.
+A pwsh function knows which built-in commands are idempotent and leans on them (ADR-AUTO-IDEM-CHECKBEFOREACTING,
+ADR-AUTO-IDEM-ALREADYDONEISFINE): `New-Item -ItemType Directory -Force` and `[System.IO.Directory]::CreateDirectory` return the folder
+whether or not it exists, while `New-Item -ItemType File -Force` empties an existing file, so a create-if-missing file guards with
+`Test-Path -LiteralPath` first. A removal of something that may already be gone checks with `Test-Path -LiteralPath` and returns early.
 
 - [Idempotent built-ins](#idempotent-built-ins)
 
 ### Rule ADR-PWSH-IDEM-FORCESKIPSCHECK
 
-On a state function, `-Force` is the one `[switch]` that skips the check before acting (ADR-AUTO-IDEM-CHECKBEFOREACTING) and redoes the work — an
-`Install-<Tool> -Force` replaces an install at the wrong version or rebuilds one that is present. Without it, a re-run that finds the
-desired state changes nothing. On a destructive `Remove-*`, `-Force` is the confirmation of ADR-AUTO-REMOVE-DOUBLYGUARDED instead, and its help says so.
+On a state function, `-Force` is the one `[switch]` that skips the check before acting (ADR-AUTO-IDEM-CHECKBEFOREACTING) and redoes the work
+— an `Install-<Tool> -Force` replaces an install at the wrong version or rebuilds one that is present. Without it, a re-run that finds the
+desired state changes nothing. On a destructive `Remove-*`, `-Force` is the confirmation of ADR-AUTO-REMOVE-DOUBLYGUARDED instead, and its
+help says so.
 
 - [The -Force switch](#the--force-switch)
 
 ### Rule ADR-PWSH-IDEM-SAMERESULTBOTHPATHS
 
-Both paths of a pwsh state function return the same result (ADR-AUTO-IDEM-RETURNRESULTINGSTATE): the early `return $existing` and the end of the work path emit
-the same type, declared in `[OutputType()]`, and a function that returns nothing emits nothing on either path. Every incidental output on
-the work path — a `New-Item` result, an `ArrayList.Add` index, a tool's stdout — is discarded (`$null = …`), because pwsh sends every
-uncaptured value to the pipeline.
+Both paths of a pwsh state function return the same result (ADR-AUTO-IDEM-RETURNRESULTINGSTATE): the early `return $existing` and the end of
+the work path emit the same type, declared in `[OutputType()]`, and a function that returns nothing emits nothing on either path. Every
+incidental output on the work path — a `New-Item` result, an `ArrayList.Add` index, a tool's stdout — is discarded (`$null = …`), because
+pwsh sends every uncaptured value to the pipeline.
 
 - [One result on both paths](#one-result-on-both-paths)
 
 ### Rule ADR-PWSH-IDEM-CONTRACTINHELP
 
-The idempotency contract of ADR-AUTO-IDEM-DOCUMENTCONTRACT is written in the function's comment-based help: its `.DESCRIPTION` states that the function is
-idempotent and names a non-idempotent command it wraps, and a `.PARAMETER Force` says what the switch redoes.
+The idempotency contract of ADR-AUTO-IDEM-DOCUMENTCONTRACT is written in the function's comment-based help: its `.DESCRIPTION` states that
+the function is idempotent and names a non-idempotent command it wraps, and a `.PARAMETER Force` says what the switch redoes.
 
 - [The contract in the help](#the-contract-in-the-help)
 
@@ -94,7 +96,8 @@ same without the cmdlet's cost. The same switch on a file is not a create-if-mis
 file with an empty one, so a function that must keep an existing file checks `Test-Path -LiteralPath` first.
 
 `Remove-Item` throws when the path is already gone. A removal that may run twice checks first and returns early, the guard clause of
-ADR-AUTO-IDEM-ALREADYDONEISFINE, so the second run is a silent success and a different failure — a locked file, a denied access — still throws.
+ADR-AUTO-IDEM-ALREADYDONEISFINE, so the second run is a silent success and a different failure — a locked file, a denied access — still
+throws.
 
 ### The -Force switch
 
@@ -104,8 +107,8 @@ the idempotent path, and the switch is opt-in behaviour, so it is a `[switch]`
 ([parameter-design](parameter-design.md#rule-adr-pwsh-param-switchnotbool)).
 
 A destructive verb uses the same name for a different job: on `Remove-<Tool>`, `-Force` confirms the removal, and without it the function
-reports its plan ([tool-removal-lifecycle](../automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)). The two meanings never meet on
-one function, and each function's help states which one it has (ADR-PWSH-IDEM-CONTRACTINHELP).
+reports its plan ([tool-removal-lifecycle](../automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)). The two meanings
+never meet on one function, and each function's help states which one it has (ADR-PWSH-IDEM-CONTRACTINHELP).
 
 ### One result on both paths
 

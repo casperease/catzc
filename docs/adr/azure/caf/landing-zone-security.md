@@ -189,7 +189,8 @@ A separate identity subscription is not adopted, because the repository deploys 
 
 ### Rule ADR-AZ-CAF-SEC-MANAGEDIDENTITIESWHEREPOSSIBLE
 
-Services authenticate as system-assigned managed identities; the one non-identity credential is the break-glass SQL login of ADR-AZ-LZ-SQLENTRAADMINS.
+Services authenticate as system-assigned managed identities; the one non-identity credential is the break-glass SQL login of
+ADR-AZ-LZ-SQLENTRAADMINS.
 
 - [29 — Managed identities where possible](#29--managed-identities-where-possible)
 
@@ -328,8 +329,8 @@ Summary (ours): Produce access-control audit reports from the reporting features
 #### What 1 means here
 
 Entra ID reporting is a feature of the directory, and the repository deploys into subscriptions it is given, never into the tenant above
-them ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The access the templates grant is visible in code: an Entra ID group as SQL
-administrator ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), and no role assignment at all
+them ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The access the templates grant is visible in code: an Entra
+ID group as SQL administrator ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), and no role assignment at all
 ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)).
 
 ##### 1 status
@@ -348,8 +349,8 @@ than two years.
 #### What 2 means here
 
 The landing zone streams the subscription's activity log to `foundation`'s workspace through a diagnostic setting it deploys, never through
-a deploy-if-not-exists policy ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). `subscription-diagnostic-setting.bicep` sends every
-category, `Administrative`, `Security`, and `Policy` among them.
+a deploy-if-not-exists policy ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
+`subscription-diagnostic-setting.bicep` sends every category, `Administrative`, `Security`, and `Policy` among them.
 
 The workspace keeps 30 days, the `retentionInDays` default of `log-analytics.bicep`, which accepts up to 730. No requirement in the
 repository asks for more than two years, so a storage archive has nothing to serve; a retention per environment class, as a config value, is
@@ -384,10 +385,10 @@ Summary (ours): Turn on the paid plans of Microsoft Defender for Cloud on every 
 #### What 3 means here
 
 No Defender for Cloud plan is deployed. Every subscription gets one landing zone, so `discovery` is where a plan belongs: a plan is a
-subscription-level resource, and deploying it in the template follows the reason ADR-AZ-LZ-THREEBUILTINPOLICIES gives for the activity log — it exists when the
-deploy succeeds, with no remediation task and no managed identity. Which plans to turn on is a config value per environment class, since
-each plan costs per protected resource; the plans that matter are those of the services the workloads use (storage, SQL, Key Vault). This is
-the threat detection [ADR-AZ-WAF-SE-SE10](../waf/security.md#rule-adr-az-waf-se-se10) plans.
+subscription-level resource, and deploying it in the template follows the reason ADR-AZ-LZ-THREEBUILTINPOLICIES gives for the activity log —
+it exists when the deploy succeeds, with no remediation task and no managed identity. Which plans to turn on is a config value per
+environment class, since each plan costs per protected resource; the plans that matter are those of the services the workloads use (storage,
+SQL, Key Vault). This is the threat detection [ADR-AZ-WAF-SE-SE10](../waf/security.md#rule-adr-az-waf-se-se10) plans.
 
 ##### 3 in `foundation`
 
@@ -417,8 +418,8 @@ Summary (ours): Track drift in operating system patching with Azure Monitor Logs
 #### What 4 means here
 
 Every resource the templates deploy is a managed platform service, and no template runs self-managed compute
-([ADR-AZ-WAF-RE-RE01](../waf/reliability.md#rule-adr-az-waf-re-re01)). `vm.bicep` exists as a module, but no template uses it. Patch tracking becomes
-relevant with the first template that deploys a virtual machine.
+([ADR-AZ-WAF-RE-RE01](../waf/reliability.md#rule-adr-az-waf-re-re01)). `vm.bicep` exists as a module, but no template uses it. Patch
+tracking becomes relevant with the first template that deploys a virtual machine.
 
 ##### 4 status
 
@@ -435,7 +436,8 @@ Summary (ours): Use Azure Policy to deploy virtual machine extensions, so every 
 #### What 5 means here
 
 No template deploys a virtual machine (rule 4). A machine added later would also meet the landing zone's preference for template resources
-over deploy-if-not-exists policies ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)): its extensions would be part of its module.
+over deploy-if-not-exists policies ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)): its
+extensions would be part of its module.
 
 ##### 5 status
 
@@ -469,9 +471,10 @@ Summary (ours): Have the default configuration of every resource report its logs
 
 The repository's central workspace is one per subscription, not one per tenant: `foundation` deploys it in every subscription, and every
 resource that emits logs sends them there through a diagnostic setting its own template deploys
-([ADR-AZ-WAF-OE-OE07](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe07)). One workspace per subscription keeps a customer's logs in that
-customer's subscription, beside its secrets ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), and needs no rights outside it. The
-diagnostic setting is part of each template rather than a default enforced by policy, for the reason of ADR-AZ-LZ-THREEBUILTINPOLICIES.
+([ADR-AZ-WAF-OE-OE07](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe07)). One workspace per subscription keeps a customer's logs in
+that customer's subscription, beside its secrets ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), and needs no rights
+outside it. The diagnostic setting is part of each template rather than a default enforced by policy, for the reason of
+ADR-AZ-LZ-THREEBUILTINPOLICIES.
 
 ##### 7 in `foundation`
 
@@ -501,8 +504,8 @@ Summary (ours): Drive real-time alerts from logs through a solution built on Azu
 #### What 8 means here
 
 The only alerts the templates create are the budget alerts, sent to the subscription's `Owner` role. Security alerts wait on threat
-detection (rule 3) and on the alerting of [ADR-AZ-WAF-OE-OE07](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe07); whether they travel through
-Event Grid or through Azure Monitor alert rules is decided when the first of them is built.
+detection (rule 3) and on the alerting of [ADR-AZ-WAF-OE-OE07](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe07); whether they
+travel through Event Grid or through Azure Monitor alert rules is decided when the first of them is built.
 
 ##### 8 status
 
@@ -539,8 +542,8 @@ bring-your-own-key, close the gaps found, and choose region pairs and disaster r
 
 The review exists as records: the WAF and CAF ADRs take each service the templates use — Log Analytics, Key Vault, storage, SQL, the network
 resources — item by item, and say what it does, what is planned, and what is not adopted. Bring-your-own-key is not needed (rule 24). Each
-environment maps to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), so no disaster recovery region is
-chosen ([ADR-AZ-WAF-RE-RE05](../waf/reliability.md#rule-adr-az-waf-re-re05)).
+environment maps to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), so no
+disaster recovery region is chosen ([ADR-AZ-WAF-RE-RE05](../waf/reliability.md#rule-adr-az-waf-re-re05)).
 
 ##### 10 status
 
@@ -558,11 +561,11 @@ joins the systems in place.
 #### What 11 means here
 
 A service enters the repository as a shared module in `infrastructure/modules/`, with its secure defaults
-([ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08)) and a `diagnostic-setting.bicep` kind, and is reviewed against these records. The
-modules are therefore the allowlist in practice. Nothing enforces it: a template can declare a resource of any type, and Azure accepts it in
-any landing zone. The built-in "allowed resource types" policy, assigned by `discovery` beside its three guardrails
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)) and listing the types of the shared modules, would turn the convention into a
-guardrail.
+([ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08)) and a `diagnostic-setting.bicep` kind, and is reviewed against these
+records. The modules are therefore the allowlist in practice. Nothing enforces it: a template can declare a resource of any type, and Azure
+accepts it in any landing zone. The built-in "allowed resource types" policy, assigned by `discovery` beside its three guardrails
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)) and listing the types of the shared modules,
+would turn the convention into a guardrail.
 
 ##### 11 in `foundation`
 
@@ -571,7 +574,8 @@ Uses `log-analytics.bicep` and `key-vault.bicep` only.
 ##### 11 in `discovery`
 
 Uses the network, policy, budget, and diagnostic modules only. It should assign the allowed-resource-types policy, with the list as a config
-value and the enforcement mode of `policy_enforcement` ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
+value and the enforcement mode of `policy_enforcement`
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 
 ##### 11 in `expedition`
 
@@ -591,9 +595,9 @@ Summary (ours): Have an incident response plan for a service before the service 
 
 #### What 12 means here
 
-Decided by [ADR-AZ-WAF-SE-SE12](../waf/security.md#rule-adr-az-waf-se-se12): incident response is the tenant's security operations process, and the
-repository supplies what triage reads — the `owner` and `criticality` tags, the configuration tree as the deployment inventory, and the logs
-of each subscription in one workspace. The landing zone adds nothing of its own.
+Decided by [ADR-AZ-WAF-SE-SE12](../waf/security.md#rule-adr-az-waf-se-se12): incident response is the tenant's security operations process,
+and the repository supplies what triage reads — the `owner` and `criticality` tags, the configuration tree as the deployment inventory, and
+the logs of each subscription in one workspace. The landing zone adds nothing of its own.
 
 ##### 12 status
 
@@ -628,11 +632,11 @@ Summary (ours): Apply a Zero Trust approach to access to the platform where it f
 #### What 14 means here
 
 Zero Trust here means three things the templates do. Every identity is an Entra ID identity — a group for people, a managed identity for
-services ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). Every deploy runs through the service connection of its own subscription
-and pins the subscription with `-SubscriptionIdAssertIs` ([az-session-verification](../az-session-verification.md)), so a pipeline cannot
-reach a subscription it was not built for. And data is reached only through private endpoints
-([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The gaps are the platform's own resources: `foundation`'s vault and workspace
-accept public network traffic.
+services ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). Every deploy runs through the service connection of its own
+subscription and pins the subscription with `-SubscriptionIdAssertIs` ([az-session-verification](../az-session-verification.md)), so a
+pipeline cannot reach a subscription it was not built for. And data is reached only through private endpoints
+([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The gaps are the platform's own resources: `foundation`'s vault and
+workspace accept public network traffic.
 
 ##### 14 in `foundation`
 
@@ -726,9 +730,9 @@ Summary (ours): Create every vault with soft delete and purge protection turned 
 
 Soft delete is on for every vault by the platform, and `key-vault.bicep` sets no retention, so the platform's default applies. Purge
 protection is not set, so a deleted vault or secret can be purged before its retention ends; the module is planned to set
-`enablePurgeProtection: true` by default ([ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08)). Purge protection cannot be turned off
-once on, and a deleted vault's name stays taken until its retention ends, so a config that renames or removes a vault waits out the
-retention before the name is free.
+`enablePurgeProtection: true` by default ([ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08)). Purge protection cannot be
+turned off once on, and a deleted vault's name stays taken until its retention ends, so a config that renames or removes a vault waits out
+the retention before the name is free.
 
 ##### 17 in `foundation`
 
@@ -788,8 +792,8 @@ Summary (ours): Automate the issuing and renewal of certificates with public cer
 #### What 19 means here
 
 No template issues, holds, or presents a certificate. The services the workloads use terminate TLS with certificates the platform manages,
-and no workload has public ingress with a host name of its own ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The first public
-endpoint with its own host name makes this item apply.
+and no workload has public ingress with a host name of its own ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The first
+public endpoint with its own host name makes this item apply.
 
 ##### 19 status
 
@@ -836,13 +840,14 @@ Summary (ours): Limit network access to a vault with its firewall and virtual ne
 #### What 21 means here
 
 `key-vault.bicep` sets no network rules, so every vault accepts public network traffic. The repository restricts data services with private
-endpoints rather than service endpoints ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)), and the vault is planned to follow:
-`publicNetworkAccess: 'Disabled'` and a private endpoint (group id `vault`) registered in a `privatelink.vaultcore.azure.net` zone in the
-hub ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06), [ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08)).
+endpoints rather than service endpoints ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)), and the vault
+is planned to follow: `publicNetworkAccess: 'Disabled'` and a private endpoint (group id `vault`) registered in a
+`privatelink.vaultcore.azure.net` zone in the hub ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06),
+[ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08)).
 
 The vault keeps `enabledForTemplateDeployment` on, because Azure Resource Manager resolves `expedition`'s break-glass reference at deploy
-time ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The closed vault must let it read the secret, so the change that closes it is
-proven by a deploy of `expedition` that resolves the reference.
+time ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The closed vault must let it read the secret, so the
+change that closes it is proven by a deploy of `expedition` that resolves the reference.
 
 ##### 21 in `foundation`
 
@@ -933,8 +938,8 @@ Summary (ours): Use Microsoft-managed keys by default, and customer-managed keys
 
 #### What 24 means here
 
-Decided by [ADR-AZ-WAF-SE-SE07](../waf/security.md#rule-adr-az-waf-se-se07): storage service encryption and SQL transparent data encryption run with
-Microsoft-managed keys, the modules set no encryption key, and customer-managed keys are not adopted because the `confidential`
+Decided by [ADR-AZ-WAF-SE-SE07](../waf/security.md#rule-adr-az-waf-se-se07): storage service encryption and SQL transparent data encryption
+run with Microsoft-managed keys, the modules set no encryption key, and customer-managed keys are not adopted because the `confidential`
 classification does not require them.
 
 ##### 24 in `foundation`
@@ -1031,7 +1036,8 @@ Access, and signals from the user, device, location, and behaviour that feed aut
 #### What 27 means here
 
 Federation and Conditional Access are settings of the tenant's directory. The repository uses Entra ID identities
-([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)) and has no on-premises connectivity, so the plan has no part in its templates.
+([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)) and has no on-premises connectivity, so the plan has no part in its
+templates.
 
 ##### 27 status
 
@@ -1048,8 +1054,8 @@ Summary (ours): Deploy the landing zone with its own subscription for identity r
 #### What 28 means here
 
 The repository deploys no directory server or other identity resource; its identities live in Entra ID. The subscriptions in `azure.yml` are
-shared and customer subscriptions, one per tier ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), and an identity subscription
-would hold nothing.
+shared and customer subscriptions, one per tier ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), and an identity
+subscription would hold nothing.
 
 ##### 28 status
 
@@ -1066,9 +1072,9 @@ Summary (ours): Use Microsoft Entra managed identities wherever a service suppor
 #### What 29 means here
 
 `storage-account.bicep` and `sql-server.bicep` give each resource a system-assigned managed identity, and the storage account refuses
-shared-key access ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). The one credential that is not an identity is the break-glass
-SQL login ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The managed identities receive no role in code; granting them is part of the
-role assignments ADR-AZ-WAF-SE-SE05 plans.
+shared-key access ([ADR-AZ-WAF-SE-SE05](../waf/security.md#rule-adr-az-waf-se-se05)). The one credential that is not an identity is the
+break-glass SQL login ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The managed identities receive no
+role in code; granting them is part of the role assignments ADR-AZ-WAF-SE-SE05 plans.
 
 ##### 29 in `foundation`
 
@@ -1180,8 +1186,8 @@ Summary (ours): Use Microsoft Purview to govern data, protect it, and manage its
 #### What 35 means here
 
 Purview is a tenant-wide service for cataloguing and labelling data. The repository labels each resource, not the data inside it, with the
-CAF `data-classification` tag ([ADR-AZ-WAF-SE-SE03](../waf/security.md#rule-adr-az-waf-se-se03)); classification inside a database is the workload
-owner's.
+CAF `data-classification` tag ([ADR-AZ-WAF-SE-SE03](../waf/security.md#rule-adr-az-waf-se-se03)); classification inside a database is the
+workload owner's.
 
 ##### 35 status
 
@@ -1198,10 +1204,11 @@ Summary (ours): Apply the standard Azure landing zone policies, so non-compliant
 #### What 36 means here
 
 The CAF reference landing zone assigns a large policy set at its management groups. The repository owns no management group
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so its landing zone assigns its own guardrails at subscription level: three built-in
-policies — allowed locations, a required tag, no public IP address on a network interface — whose mode is `policy_enforcement` in
-`azure.yml` ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Logging
-is not enforced by policy but deployed by each template (rule 7). The Microsoft cloud security benchmark initiative in audit mode is planned
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so its landing zone assigns its own guardrails at subscription
+level: three built-in policies — allowed locations, a required tag, no public IP address on a network interface — whose mode is
+`policy_enforcement` in `azure.yml` ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Logging is not enforced by policy
+but deployed by each template (rule 7). The Microsoft cloud security benchmark initiative in audit mode is planned
 ([ADR-AZ-WAF-SE-SE01](../waf/security.md#rule-adr-az-waf-se-se01)), and the allowed-resource-types policy of rule 11 would join the three.
 
 ##### 36 in `foundation`
@@ -1214,7 +1221,8 @@ Assigns the three policies through `policy-assignment.bicep`. It should also ass
 
 ##### 36 in `expedition`
 
-Not applicable: a workload creates no policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); its resources meet the landing zone's.
+Not applicable: a workload creates no policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); its
+resources meet the landing zone's.
 
 ##### 36 status
 
@@ -1266,8 +1274,9 @@ Summary (ours): Plan how each workload is monitored and managed on its own.
 #### What 39 means here
 
 A workload's monitoring is part of its template: every resource it deploys sends its diagnostics to the subscription's workspace through a
-setting the same template deploys ([ADR-AZ-WAF-OE-OE07](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe07)), so a second workload brings its
-own. The `workload` and `owner` tags tell the workloads apart in the shared workspace. Alerts per workload are planned by ADR-AZ-WAF-OE-OE07.
+setting the same template deploys ([ADR-AZ-WAF-OE-OE07](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe07)), so a second workload
+brings its own. The `workload` and `owner` tags tell the workloads apart in the shared workspace. Alerts per workload are planned by
+ADR-AZ-WAF-OE-OE07.
 
 ##### 39 in `foundation`
 
@@ -1297,8 +1306,8 @@ Summary (ours): Deploy with the Zero Trust network variants of the landing-zone 
 #### What 40 means here
 
 The repository deploys its own landing zone, `discovery`, built from its shared modules and its network plan, at subscription level
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The accelerators assume management groups and a platform the repository does not own,
-so their Zero Trust variants are ideas, weighed in rules 14 and 42, not a deployment.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The accelerators assume management groups and a platform the
+repository does not own, so their Zero Trust variants are ideas, weighed in rules 14 and 42, not a deployment.
 
 ##### 40 status
 
@@ -1315,8 +1324,8 @@ Summary (ours): A pointer to the Zero Trust pattern for web applications, with A
 #### What 41 means here
 
 No workload has public ingress, so there is no application delivery to put a gateway and a firewall in front of
-([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The hub reserves `AzureFirewallSubnet` and deploys nothing into it; the first
-public endpoint makes the pattern apply.
+([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The hub reserves `AzureFirewallSubnet` and deploys nothing into it; the
+first public endpoint makes the pattern apply.
 
 ##### 41 status
 
@@ -1334,10 +1343,11 @@ Summary (ours): Plan each workload's networking with the Zero Trust deployment p
 
 Workload networking is planned once, in `pwsh/Catzc.Azure/configs/network.yml`: private ranges only, no overlap, and a subnet map per
 subscription ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan),
-[ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). The landing zone gives each workload subnet a network security group
-that denies inbound internet traffic, and the workload reaches its data only through private endpoints. What the Zero Trust plans add beyond
-that is decided in ADR-AZ-WAF-SE: narrower east-west rules ([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), egress through a
-firewall, and flow logs ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)).
+[ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). The landing zone gives each workload subnet a network
+security group that denies inbound internet traffic, and the workload reaches its data only through private endpoints. What the Zero Trust
+plans add beyond that is decided in ADR-AZ-WAF-SE: narrower east-west rules
+([ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)), egress through a firewall, and flow logs
+([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)).
 
 ##### 42 in `foundation`
 
@@ -1427,12 +1437,12 @@ diagnostics of each subscription in one workspace — and the configuration tree
 
 The repository adopts the CAF security design area as a review list for its platform templates, `foundation` and `discovery`, item by item,
 and records for each item what it does, what it plans, and what it does not adopt and why. Where the workload view decides an item, the rule
-cites ADR-AZ-WAF-SE and adds only what the landing zone changes. Every security control the landing zone owns is a resource of a template — a
-policy assignment, a diagnostic setting, a Defender for Cloud plan — never a deploy-if-not-exists policy
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Controls of the tenant (the directory, privileged access, conditional access, security
-operations) are not adopted, because the repository deploys into subscriptions and owns nothing above them
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Every `partly realised` or `planned` status names the module, template, or config that
-the change touches.
+cites ADR-AZ-WAF-SE and adds only what the landing zone changes. Every security control the landing zone owns is a resource of a template —
+a policy assignment, a diagnostic setting, a Defender for Cloud plan — never a deploy-if-not-exists policy
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Controls of the tenant (the directory,
+privileged access, conditional access, security operations) are not adopted, because the repository deploys into subscriptions and owns
+nothing above them ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Every `partly realised` or `planned` status
+names the module, template, or config that the change touches.
 
 ### How this is enforced
 

@@ -11,8 +11,10 @@ Returns every way a network plan is out of sync with the azure config's environm
 
 ### description
 
-The cross-asset join of [ADR-AZ-NETWORK-KEYEDBYENVIRONMENT](../../../../adr/azure/azure-network-model.md#rule-adr-az-network-keyedbyenvironment) and
-[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../../../adr/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription), over two already-typed configs.
+The cross-asset join of
+[ADR-AZ-NETWORK-KEYEDBYENVIRONMENT](../../../../adr/azure/azure-network-model.md#rule-adr-az-network-keyedbyenvironment) and
+[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../../../adr/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription), over two
+already-typed configs.
 
 Environments: every network environment is a defined azure.yml environment (no ghost plan), and every STANDARD azure.yml environment has a
 network entry. Per-subscription environments (nsub/psub) are exempt — they carry no vnet

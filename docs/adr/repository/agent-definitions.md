@@ -65,8 +65,8 @@ harness accepts in a skill name) that a robot preloads through its `skills` list
 head (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`,
 `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet` or `opus`, declared there once and nowhere else. The catzc
 head of a capability nests under `metadata`, the one front-matter key the editors that validate a skill file leave free, at the key path the
-carrier registry declares ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and the floor is the author's line in that head's
-`config` part, so every imprint keeps it.
+carrier registry declares ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and the floor is the author's
+line in that head's `config` part, so every imprint keeps it.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -101,8 +101,8 @@ pulls in work that belongs to a neighbour. The `Do NOT` clause is where each age
 
 An agent is code that runs with the session's permissions, so it answers to the domain rules like any function does. The registry records
 the reason for each agent as rule citations, the same `ADR-<CODE>#<n>` spelling a test tag uses
-([ADR-REPO-LINK-ONECITATIONSPELLING](markdown-links.md#rule-adr-repo-link-onecitationspelling)). It also records the gates and checks the agent runs or guards. A renumbered rule
-or a renamed quality gate then fails a check instead of leaving an agent that points at nothing.
+([ADR-REPO-LINK-ONECITATIONSPELLING](markdown-links.md#rule-adr-repo-link-onecitationspelling)). It also records the gates and checks the
+agent runs or guards. A renumbered rule or a renamed quality gate then fails a check instead of leaving an agent that points at nothing.
 
 ### Listed where sessions start
 
@@ -144,7 +144,8 @@ in capabilities under `.claude/skills/`, each registered in `capabilities.yml` a
   type, `AgentsConfig`, with one `AgentEntry` per agent ([ADR-CONF-LOADING](../configuration/module-config-loading.md)). The type rejects an
   unknown key, a malformed or repeated name, an empty `supported_by`, a citation without a rule number, a missing `checks` list, and a
   `standard` that names no entry, and reports every violation at once.
-- **`Test-AgentDefinitions`** is the quality gate ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)). It reports:
+- **`Test-AgentDefinitions`** is the quality gate
+  ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)). It reports:
   - an agent file with no registry entry, and an entry with no file;
   - front matter that does not parse, a `name` that differs from the file name, and a missing `description`, `Do NOT` clause, or `tools`;
   - a `supported_by` citation that names no rule (resolved through `Get-CatsAdrRuleIds`);

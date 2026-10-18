@@ -29,7 +29,8 @@ The build uses git for the history and plain file copies for the content:
    persists (a nested repository, a split index) then throws.
 
 A marker file inside the snapshot's .git folder records its provenance; Remove-RepositorySnapshot refuses any folder without it. The
-snapshot is announced once it is ready ([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
+snapshot is announced once it is ready
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 
 ### parameter `SourceRoot`
 

@@ -54,8 +54,8 @@ the shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTempla
 ### Rule ADR-AZ-CUSTOMER-KEYISSUBFOLDER
 
 The customer **key is the configuration subfolder name**: a template's customer configs live at `configuration/<key>/<env>[-<slot>].yml`,
-and a subfolder that is not a defined key is a discovery error ([data-model](azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)). The shortcode never
-names a folder — one spelling on disk, the canonical key.
+and a subfolder that is not a defined key is a discovery error ([data-model](azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)). The
+shortcode never names a folder — one spelling on disk, the canonical key.
 
 - [The catalogue](#the-catalogue)
 
@@ -74,8 +74,8 @@ catalogue of who the customers are.
 subscription may reference, and the name of the customer's `configuration/<key>/` subfolder in every template), with a 2-char
 **`shortcode`** (unique; the customer-segment of the restricted patterns) and optional `details`. This mirrors the name/shortcode split
 environments carry. Its config type, `CustomerConfig`, validates it at load: key format (`^[a-z][a-z0-9]+$`), shortcode format
-(`^[a-z]{2}$`), shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER-TWOBINDINGS). It is self-contained — it does not read
-`azure.yml`, so the customer catalogue sits below the subscriptions that reference it and validation stays one-directional.
+(`^[a-z]{2}$`), shortcode uniqueness, and the no-key-equals-a-shortcode rule (ADR-AZ-CUSTOMER-TWOBINDINGS). It is self-contained — it does
+not read `azure.yml`, so the customer catalogue sits below the subscriptions that reference it and validation stays one-directional.
 
 ### Two names, one binding
 

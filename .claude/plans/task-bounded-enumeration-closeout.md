@@ -17,8 +17,8 @@ The level-2 gate and the feature's three test files pass. The plan is deleted on
 1. The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; nothing here runs it earlier).
    Check: that run's report shows no finding from this feature.
 2. On green: `plan-bounded-folder-enumeration.md` and `prompt-bounded-folder-enumeration-continue.md` are deleted (their `git rm` lines in
-   `out/delete-done-plans.ps1`, the user's run; the row leaves value-of-plan.md); `out/run-folders-tests.ps1` and `run-folders-verify.ps1` listed for the next probe batch.
-   Check: both files gone; Test-Links clean on `.claude/plans`.
+   `out/delete-done-plans.ps1`, the user's run; the row leaves value-of-plan.md); `out/run-folders-tests.ps1` and `run-folders-verify.ps1`
+   listed for the next probe batch. Check: both files gone; Test-Links clean on `.claude/plans`.
 
 ## Report
 

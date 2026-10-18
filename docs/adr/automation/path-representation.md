@@ -5,9 +5,9 @@
 ### Rule ADR-AUTO-PATH-TWOFORMS
 
 A path value is in one of two forms, never a third. **Communication form** is repository-root-relative (or anchored on the output root,
-ADR-AUTO-PATH-OUTANCHOR, or the workspace, ADR-AUTO-PATH-WORKSPACEANCHOR), `/`-separated, and fully normalized — no `.` or `..` segments, no leading `./`, no
-backslashes, no duplicate separators. **Binding form** is a normalized absolute path that exists only transiently at the point of use. A
-hybrid such as `{root}/./sub` is neither and is always a bug.
+ADR-AUTO-PATH-OUTANCHOR, or the workspace, ADR-AUTO-PATH-WORKSPACEANCHOR), `/`-separated, and fully normalized — no `.` or `..` segments, no
+leading `./`, no backslashes, no duplicate separators. **Binding form** is a normalized absolute path that exists only transiently at the
+point of use. A hybrid such as `{root}/./sub` is neither and is always a bug.
 
 - [The two forms](#the-two-forms)
 
@@ -15,8 +15,8 @@ hybrid such as `{root}/./sub` is neither and is always a bug.
 
 A path that is stored or transported is in communication form: returned to a caller, held on a record, or written into an artifact or
 source-controlled config. The canonical representation a type holds and a record serializes is relative. `ConvertTo-RepoRelativePath`
-produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-AUTO-PATH-OUTPUTFORMATS), not a property of
-how it is stored.
+produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-AUTO-PATH-OUTPUTFORMATS), not a
+property of how it is stored.
 
 - [The two forms](#the-two-forms)
 - [The boundary, concretely](#the-boundary-concretely)
@@ -41,7 +41,8 @@ ad hoc with a string replace; both skip the normalization the converters guarant
 
 A path under neither the output root nor the repository root — the system temp directory, an unrelated absolute path, a foreign drive —
 degrades to a normalized absolute path, never to a hybrid. `ConvertTo-RepoRelativePath` does exactly this: a path under the output root
-comes back `out/`-anchored (ADR-AUTO-PATH-OUTANCHOR), a path under the repo root comes back repo-relative, a path under neither comes back absolute.
+comes back `out/`-anchored (ADR-AUTO-PATH-OUTANCHOR), a path under the repo root comes back repo-relative, a path under neither comes back
+absolute.
 
 - [Degradation](#degradation)
 
@@ -116,9 +117,9 @@ known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
 [never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never `$PWD`),
-[cross-platform-powershell](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (`Join-Path` and `[IO.Path]::GetFullPath`, forward
-slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths take the same relative
-form).
+[cross-platform-powershell](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (`Join-Path` and
+`[IO.Path]::GetFullPath`, forward slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root,
+whose paths take the same relative form).
 
 ### The two forms
 
@@ -205,11 +206,11 @@ paths, relative-only); the cross-stage artifact is the separate, dual-form case.
 
 Some config names a folder beside the repository rather than inside it, such as a sibling checkout read for ideas
 ([inspiration](../repository/inspiration.md)). Neither plain form fits: a repository-relative path would need a `..` segment, which
-communication form forbids, and an absolute path is machine-specific, which source-controlled config forbids (ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM). The
-`{workspace}` anchor names the one place siblings share, the folder that holds the repository, so `{workspace}/eac` means the `eac` checkout
-beside this one wherever the repository is checked out. It is spelled as a brace token, unlike `out/`, because `workspace` is an ordinary
-folder name and stays one. A sibling that is not checked out resolves to a path that does not exist, and the caller reports that rather than
-failing.
+communication form forbids, and an absolute path is machine-specific, which source-controlled config forbids
+(ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM). The `{workspace}` anchor names the one place siblings share, the folder that holds the repository,
+so `{workspace}/eac` means the `eac` checkout beside this one wherever the repository is checked out. It is spelled as a brace token, unlike
+`out/`, because `workspace` is an ordinary folder name and stays one. A sibling that is not checked out resolves to a path that does not
+exist, and the caller reports that rather than failing.
 
 ### Relative source, absolute artifact
 

@@ -76,10 +76,10 @@ parses each file in memory and dot-sources it into the module's session state
 ([dynamic-module-manifests](dynamic-module-manifests.md#regenerated-manifests)). In build mode `Build-Modules` concatenates the same files —
 `private/` first, then the root, each in ordinal order and each preceded by a `# source:` marker line naming its source path — into one
 `<Module>.functions.ps1`, and the built manifest lists that one file
-([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests)). The merged file is a `.ps1` too, so the module's public
-and private functions share one session state in both modes, and it is one module per folder, so each module keeps its own `$script:` scope.
-It is output, not source: it exists only in a build under `out/pwsh/built/` and the installs copied from it, is rewritten on every build,
-and the rules of this ADR apply to the files it is generated from
+([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests)). The merged file is a `.ps1` too, so
+the module's public and private functions share one session state in both modes, and it is one module per folder, so each module keeps its
+own `$script:` scope. It is output, not source: it exists only in a build under `out/pwsh/built/` and the installs copied from it, is
+rewritten on every build, and the rules of this ADR apply to the files it is generated from
 ([one-function-per-file](one-function-per-file.md#rule-adr-pwsh-onefunc-governssource)).
 
 ### How this is enforced

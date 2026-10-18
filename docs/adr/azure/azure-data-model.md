@@ -213,10 +213,10 @@ one key per environment class — `production` and `nonproduction` — each set 
 (enforce) or `DoNotEnforce` (audit only).
 
 The setting resolves in the one fixed order of a configurable setting
-([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the value in `azure.yml`, else the sensible default
-`{ production: Default, nonproduction: DoNotEnforce }`. The default is declared once, on `AzureConfig`, so an omitted map, a partial map,
-and a fresh checkout behave alike: the type fills each key the file omits, and every reader sees a complete map. An unknown key or mode is
-rejected at load, with every other violation of the file, in one error. A template reads the mode by config address
+([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the value in `azure.yml`, else the
+sensible default `{ production: Default, nonproduction: DoNotEnforce }`. The default is declared once, on `AzureConfig`, so an omitted map,
+a partial map, and a fresh checkout behave alike: the type fills each key the file omits, and every reader sees a complete map. An unknown
+key or mode is rejected at load, with every other violation of the file, in one error. A template reads the mode by config address
 (`global.azure.policy_enforcement.production`, see [Config-addressed parameters](#config-addressed-parameters)), so no template restates it
 and changing it is one edit to `azure.yml`.
 
@@ -347,15 +347,15 @@ ParametersFile:
 ```
 
 `Build-Bicep` resolves every address through `Get-ConfigValue` before the PrePost hook runs and renders it as `{ "value": <resolved> }`, so
-the hook, the parameters file, and the parameter contract (ADR-AZ-DATAMOD-PARAMETERCONTRACT) see only ARM entries. The resolution is generic: it serves any
-template and any config, with no per-template code, which is why a repository-wide value needs no PrePost hook to reach a template. A config
-value keeps one owner, and every template that needs it reads it there rather than holding a copy that drifts.
+the hook, the parameters file, and the parameter contract (ADR-AZ-DATAMOD-PARAMETERCONTRACT) see only ARM entries. The resolution is
+generic: it serves any template and any config, with no per-template code, which is why a repository-wide value needs no PrePost hook to
+reach a template. A config value keeps one owner, and every template that needs it reads it there rather than holding a copy that drifts.
 
 An address reaches only committed config, so nothing it names is a secret
-([config-value-addressing](../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)); a secure parameter takes a Key Vault
-`reference`, and the parameter contract rejects any literal for it, addressed or not. The build fails fast, with every violation of a config
-file in one error that names the file and each parameter: an `address` set together with `value`, `reference`, or any other key, an address
-that is not a string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
+([config-value-addressing](../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)); a secure parameter
+takes a Key Vault `reference`, and the parameter contract rejects any literal for it, addressed or not. The build fails fast, with every
+violation of a config file in one error that names the file and each parameter: an `address` set together with `value`, `reference`, or any
+other key, an address that is not a string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
 
 ### Runtime resolution (the joins)
 
@@ -400,11 +400,11 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 - The **cross-layer** link is enforced at **discovery** (`Get-BicepTemplates`) and collected by `Assert-BicepTemplate`, sharing the
   per-config rule `Get-BicepSubscriptionConfigViolations`: a configuration subfolder is a **defined customer key**, and every config's
   (customer?, env) coordinate resolves to **exactly one subscription id** (`Get-BicepConfigSubscriptionCandidates`).
-- The **parameter contract** (ADR-AZ-DATAMOD-PARAMETERCONTRACT) is checked against the compiler's view, not the source text. `Get-BicepParameterModel` reads
-  the parameters a template's compiled `main.json` declares — type, default, `@allowed` values, value and length bounds — and
-  `Get-BicepParameterViolations` checks every rendered `parameters.[<customer>.]<config>.json` against it, so a value the PrePost hook
-  merges in is checked like one the config carries. `Assert-BicepTemplate -Build` reports the violations, and an L2 integrity test
-  (`Get-BicepParameterModel.Shipped.Tests.ps1`) builds every shipped template and asserts there are none;
+- The **parameter contract** (ADR-AZ-DATAMOD-PARAMETERCONTRACT) is checked against the compiler's view, not the source text.
+  `Get-BicepParameterModel` reads the parameters a template's compiled `main.json` declares — type, default, `@allowed` values, value and
+  length bounds — and `Get-BicepParameterViolations` checks every rendered `parameters.[<customer>.]<config>.json` against it, so a value
+  the PrePost hook merges in is checked like one the config carries. `Assert-BicepTemplate -Build` reports the violations, and an L2
+  integrity test (`Get-BicepParameterModel.Shipped.Tests.ps1`) builds every shipped template and asserts there are none;
   `Test-Automation -Suite infrastructure` runs it, as part of the `infrastructure` globset's verify scope. `Assert-BicepTemplate` without
   `-Build` keeps a fast check that needs no compiler: a config sets only parameters `main.bicep` declares.
 

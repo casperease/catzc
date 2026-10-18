@@ -124,8 +124,9 @@ The [WAF reference](../../../references/waf/index.md) lists the five pillar reco
 cites.
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
-`discovery` (the landing zone, [ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and `expedition` (a workload that lands in it,
-[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every takeaway below points at what those three do, or say plainly what they do not.
+`discovery` (the landing zone, [ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and `expedition` (a workload that
+lands in it, [ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every takeaway below points at what those
+three do, or say plainly what they do not.
 
 ### CO:01 — Create a culture of financial responsibility
 
@@ -212,8 +213,9 @@ Summary (ours): Gather daily cost data, actual and amortized, into one central p
 
 Grouping cost needs tags, and the repository puts the CAF tags (`workload`, `environment`, `owner`, `cost-center`, `criticality`,
 `data-classification`) on every resource that takes tags. The landing zone's required-tag policy makes `cost-center` mandatory
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so Cost Management can group a subscription's spend by team. The budget module
-(`infrastructure/modules/budget.bicep`) alerts the holders of the subscription's `Owner` role at each threshold.
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so Cost Management can group a subscription's
+spend by team. The budget module (`infrastructure/modules/budget.bicep`) alerts the holders of the subscription's `Owner` role at each
+threshold.
 
 Three parts are missing. No cost export writes the daily data to storage. The budget compares against actual cost only, so there is no
 forecast alert, and there is no anomaly alert. And the resource groups that `Deploy-Bicep` creates for `foundation` and `expedition` carry
@@ -252,15 +254,17 @@ Summary (ours): Use automated controls, enforced by the platform rather than by 
 #### What CO:04 means here
 
 The landing zone carries the platform guardrails: allowed locations keeps every resource in its region, the required tag keeps every
-resource attributable, and the budget alerts before the money runs out ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Whether the
-policies deny or only audit is `policy_enforcement` in `azure.yml`, enforcing in production and auditing outside it by default
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). A budget alerts; it never stops a resource.
+resource attributable, and the budget alerts before the money runs out
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Whether the policies deny or only audit is
+`policy_enforcement` in `azure.yml`, enforcing in production and auditing outside it by default
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). A budget alerts; it never stops
+a resource.
 
 In code, the cost-bearing settings are typed parameters: `databaseTier` is `@allowed`, `databaseBackupRetentionDays` is bounded 1 to 35,
 `budgetAmount` has a minimum of 1, and every rendered parameters file is checked against those bounds
-([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). `Deploy-Bicep -DryRun` runs Azure's `--what-if` preview of a change. A CD
-pipeline deploys with one service connection per subscription and asserts the target with `-SubscriptionIdAssertIs`, so a deployment
-identity reaches only the subscription it is for.
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). `Deploy-Bicep -DryRun` runs Azure's
+`--what-if` preview of a change. A CD pipeline deploys with one service connection per subscription and asserts the target with
+`-SubscriptionIdAssertIs`, so a deployment identity reaches only the subscription it is for.
 
 Missing: no policy restricts resource types or SKUs, no check estimates the cost of a change before it deploys, and no release gate weighs a
 change against a cost model (CO:02 has none to weigh against).
@@ -298,9 +302,9 @@ Summary (ours): Lower the unit price of what the workload uses, without changing
 
 Reservations, savings plans, enterprise agreements, and dev/test pricing are bought or chosen at the billing account and in the subscription
 offer. The landing zone stops at the subscription and the repository holds no rights above it
-([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so the rate is whoever owns the billing account's decision. What the templates choose
-is the billing model per resource, and every one is pay-as-you-go. The SQL database module exposes no licence type, so Azure Hybrid Benefit
-cannot be selected.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so the rate is whoever owns the billing account's decision. What
+the templates choose is the billing model per resource, and every one is pay-as-you-go. The SQL database module exposes no licence type, so
+Azure Hybrid Benefit cannot be selected.
 
 ##### CO:05 in `foundation`
 
@@ -369,11 +373,11 @@ Summary (ours): Review the running workload for application features, platform f
 #### What CO:07 means here
 
 Tracking is structural: one config file is one resource group, and listing the configuration tree lists every resource group the repository
-deploys ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). Names are deterministic
-([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)) and every resource carries an `owner` tag, so a resource found in a
-subscription is traceable to its template and its team. Disaster recovery is a redeploy from the templates plus the database's backups,
-never a warm standby that idles. The deployment mode defaults to `Incremental`, so a resource removed from a template stays in Azure until
-someone deletes it; nothing finds such an orphan or a resource group with no config.
+deploys ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). Names are
+deterministic ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)) and every resource
+carries an `owner` tag, so a resource found in a subscription is traceable to its template and its team. Disaster recovery is a redeploy
+from the templates plus the database's backups, never a warm standby that idles. The deployment mode defaults to `Incremental`, so a
+resource removed from a template stays in Azure until someone deletes it; nothing finds such an orphan or a resource group with no config.
 
 ##### CO:07 in `foundation`
 
@@ -406,11 +410,12 @@ Summary (ours): Spend on each environment — production, pre-production, recove
 
 #### What CO:08 means here
 
-Environment class is a config decision. The modules hold the production-grade defaults ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)),
-and a non-production config turns them down where a fault would cost less. The SKU family and tier stay the same, so a database behaves
-alike in both classes and a problem shows before production. Policy enforcement audits outside production by default
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Off-hours shutdown is not needed for the database, because auto-pause
-stops its compute when idle; no environment is ephemeral.
+Environment class is a config decision. The modules hold the production-grade defaults
+([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)), and a non-production config turns them down where a fault would
+cost less. The SKU family and tier stay the same, so a database behaves alike in both classes and a problem shows before production. Policy
+enforcement audits outside production by default
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Off-hours shutdown is not needed
+for the database, because auto-pause stops its compute when idle; no environment is ephemeral.
 
 ##### CO:08 in `foundation`
 
@@ -575,10 +580,10 @@ Summary (ours): People are usually a workload's largest cost, so spend each hour
 The repository spends people's time on decisions and lets the tooling do the repetition. Every template composes the shared modules in
 `infrastructure/modules/`, so a secure or cheap default is written once. A config reads a shared value — a network range, a subscription id,
 the policy mode — by config address instead of a copy that must be kept in step
-([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)). A change triggers only the CD pipelines whose deployable units it
-touches ([durable-sha-globs](../../flow/durable-sha-globs.md)), and `ci-infrastructure.yaml` compiles every template and checks every
-parameters file before a deploy can fail on it. Budget alerts go to the `Owner` role, so no address list is maintained. This is the
-repository's general stance on waste ([reduce-waste](../../principles/reduce-waste.md)) applied to infrastructure.
+([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)). A change triggers only the CD pipelines whose
+deployable units it touches ([durable-sha-globs](../../flow/durable-sha-globs.md)), and `ci-infrastructure.yaml` compiles every template and
+checks every parameters file before a deploy can fail on it. Budget alerts go to the `Owner` role, so no address list is maintained. This is
+the repository's general stance on waste ([reduce-waste](../../principles/reduce-waste.md)) applied to infrastructure.
 
 ##### CO:13 in `foundation`
 
@@ -609,9 +614,10 @@ Summary (ours): Run more on fewer resources inside the workload, and use shared 
 #### What CO:14 means here
 
 The landing zone is a consolidation: what every workload of a subscription needs is deployed once for the subscription, not once per
-workload ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Across subscriptions, each tier's hub holds the private DNS zones once and
-links them to every spoke ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)), and it reserves the subnets a shared gateway or firewall
-would use. Production and non-production are never consolidated: each tier has its own hub, and each customer has a subscription per class.
+workload ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). Across subscriptions, each tier's hub holds the private
+DNS zones once and links them to every spoke ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)), and it reserves the
+subnets a shared gateway or firewall would use. Production and non-production are never consolidated: each tier has its own hub, and each
+customer has a subscription per class.
 
 ##### CO:14 in `foundation`
 
@@ -647,7 +653,8 @@ check, lifecycle tiering, and a storage SKU per class. The items about rates, fl
 - The budget's alerts reach the subscription's `Owner` role at each threshold.
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for every template, and the parameter-model test checks each
   rendered parameters file against the template's `@allowed` values and bounds
-  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), so an out-of-range SKU tier or retention fails the build.
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), so an out-of-range SKU tier or
+  retention fails the build.
 - `Deploy-Bicep -DryRun` runs Azure's `--what-if` preview of a deploy.
 - Planned (follow-up), not existing: a check over the compiled templates (`main.json`) that fails a missing tag or a production-grade
   setting in a non-production config, an allowed-SKU policy in `discovery`, a pre-deploy cost estimate, and an orphan check against the

@@ -6,8 +6,8 @@ manifest to edit, no export list to maintain.
 ## Steps
 
 1. Pick the right module folder under `pwsh/` (or [create a new module](../add-a-module.md) first).
-2. Create `pwsh/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one
-   function (see [one-function-per-file](../../../../adr/pwsh/one-function-per-file.md)).
+2. Create `pwsh/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one function (see
+   [one-function-per-file](../../../../adr/pwsh/one-function-per-file.md)).
 3. Create the paired test `pwsh/<Module>/tests/Verb-Noun.Tests.ps1`.
 4. Re-run the importer (`. ./importer.ps1`) and run `Test-Automation`.
 
@@ -106,7 +106,8 @@ function — see [test-automation](../../../../adr/automation/test-automation.md
 `Optionally cite the ADR rule a test enforces`
 
 A test may also declare the ADR rule(s) it enforces, as an **optional** third tag — so each test is traceable to the rule behind it and
-back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) as a `-Tag` beside the tier and category:
+back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) as a `-Tag` beside the tier and
+category:
 
 ```powershell
 Describe 'Invoke-Poetry' -Tag 'L1', 'logic', 'ADR-PWSH-ERROR-THROWNOTWRITEERROR' {   # this test pins "throw, never Write-Error"
@@ -115,9 +116,9 @@ Describe 'Invoke-Poetry' -Tag 'L1', 'logic', 'ADR-PWSH-ERROR-THROWNOTWRITEERROR'
 The citation is optional (absence is never a violation), but a **present** one is validated: it must be well-formed and name a real rule, or
 the run fails — so renumbering a rule turns its stale tags red. It is set-valued: put a broad rule on the `Describe` and a specific one on
 an inner `Context`/`It`, and both count (citations are unioned across the block chain, unlike the nearest-wins tier/category). Mind the two
-spellings of one rule: the **tag** uses `#` (`ADR-PWSH-ERROR-THROWNOTWRITEERROR`, the citation form), while the rule's **heading** in the ADR uses `:`
-(`### Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`). Each run then writes `rule-coverage.md`/`.csv` (rule → enforcers, and the uncovered), and `tests.csv` gains a
-`Rules` column you can filter by a citation to find every test that enforces it.
+spellings of one rule: the **tag** uses `#` (`ADR-PWSH-ERROR-THROWNOTWRITEERROR`, the citation form), while the rule's **heading** in the
+ADR uses `:` (`### Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`). Each run then writes `rule-coverage.md`/`.csv` (rule → enforcers, and the
+uncovered), and `tests.csv` gains a `Rules` column you can filter by a citation to find every test that enforces it.
 
 Citing is one of **two** ways a rule gets mechanical coverage; the other is a PSScriptAnalyzer rule. So when you add a **custom analyzer
 rule** (`pwsh/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`

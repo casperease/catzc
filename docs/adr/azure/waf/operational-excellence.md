@@ -125,9 +125,9 @@ governance verify.
 #### What OE:01 means here
 
 The repository's standard practices are its domain rules: the ADRs under `docs/adr/`, each rule cited by code and enforced, where a machine
-can enforce it, by a quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../automation/test-automation.md#rule-adr-auto-test-qualitygate)). How the team works is the
-process domain — agile values and principles ([ADR-PROC-AGILE](../../process/agile.md)), stopping the line when a gate fails
-([ADR-PROC-ANDON](../../process/holding-the-line.md)), and continuous improvement from evidence
+can enforce it, by a quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../automation/test-automation.md#rule-adr-auto-test-qualitygate)). How the
+team works is the process domain — agile values and principles ([ADR-PROC-AGILE](../../process/agile.md)), stopping the line when a gate
+fails ([ADR-PROC-ANDON](../../process/holding-the-line.md)), and continuous improvement from evidence
 ([ADR-PROC-KAIZEN](../../process/inspect-and-adapt.md)). A learning, blameless culture is the DORA capability
 [generative organizational culture](../../research/generative-organizational-culture.md). Compliance built in as guardrails is the landing
 zone's policy assignments ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
@@ -172,13 +172,16 @@ where they exist, keeps them under version control with an author and a review d
 
 Routine operations are automation, not documents: building, deploying, and validating a template are the `Build-Bicep`, `Deploy-Bicep`, and
 `Assert-BicepTemplate` functions, run the same way on a devbox and in a pipeline. A scheduled routine is a CRON pipeline invoking an
-idempotent function ([ADR-FLOW-CD-TYPE-CRONISSCHEDULER](../../flow/pipeline-types.md#rule-adr-flow-cd-type-cronisscheduler)). Operational state and runbooks never live
-outside version control ([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)), and the task guides under
-`docs/how-to/` — adding a deployable-unit, adding an infrastructure template — are the written procedures for the changes that recur.
+idempotent function ([ADR-FLOW-CD-TYPE-CRONISSCHEDULER](../../flow/pipeline-types.md#rule-adr-flow-cd-type-cronisscheduler)). Operational
+state and runbooks never live outside version control
+([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)), and
+the task guides under `docs/how-to/` — adding a deployable-unit, adding an infrastructure template — are the written procedures for the
+changes that recur.
 
 Two operations stay manual and have no written procedure: putting the break-glass SQL password into `foundation`'s vault before the first
-`expedition` deploy, and the three-step rollout of a new spoke (hub, spoke, hub again — [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)),
-which `cd-shared.yaml` and the customer CD pipelines leave to a person. There is no emergency-change procedure.
+`expedition` deploy, and the three-step rollout of a new spoke (hub, spoke, hub again —
+[ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)), which `cd-shared.yaml` and the customer CD
+pipelines leave to a person. There is no emergency-change procedure.
 
 ##### OE:02 in `foundation`
 
@@ -187,8 +190,8 @@ needs a how-to, or a pre-deploy hook that generates it.
 
 ##### OE:02 in `discovery`
 
-Deployed by a pipeline only. Adding a spoke runs across two pipelines in a fixed order; the order is stated in ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS and in the
-pipelines' comments, and needs a step-by-step how-to beside the other task guides.
+Deployed by a pipeline only. Adding a spoke runs across two pipelines in a fixed order; the order is stated in
+ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS and in the pipelines' comments, and needs a step-by-step how-to beside the other task guides.
 
 ##### OE:02 in `expedition`
 
@@ -215,10 +218,11 @@ artifacts, and traceability from production back to code — deliver quality and
 
 The branching strategy is trunk-based development on `main` ([trunk-based-development](../../research/trunk-based-development.md)). A pull
 request is the authenticated ingress to the server remote
-([ADR-DSGN-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-adr-dsgn-remote-pullrequestisingress)), and the build-validation policies in
-`build-validation.yml` bind each deployable-unit's and each track's globset to its pipeline as a blocking check on `main`. The CI engine
-builds and verifies inside the integration budget ([ADR-FLOW-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-shortintegrationcycle)), and
-static analysis is a set of quality gates (`Test-ScriptAnalyzer`, `Test-Markdownlint`, `Test-Spelling`, `Test-Formatting`).
+([ADR-DSGN-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-adr-dsgn-remote-pullrequestisingress)), and the
+build-validation policies in `build-validation.yml` bind each deployable-unit's and each track's globset to its pipeline as a blocking check
+on `main`. The CI engine builds and verifies inside the integration budget
+([ADR-FLOW-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-shortintegrationcycle)), and static
+analysis is a set of quality gates (`Test-ScriptAnalyzer`, `Test-Markdownlint`, `Test-Spelling`, `Test-Formatting`).
 
 Traceability is built into the deploy: after a successful deploy, `Deploy-Bicep` runs `Set-BicepTrackingTagSet`, which tags the target
 resource group or subscription with the commit, the build id, and the branch. Two practices are missing: a secret scan of every change, and
@@ -257,11 +261,11 @@ eases onboarding, and reduces defects.
 
 Tools are standard and pinned: the Bicep CLI, the az CLI ([ADR-AZ-CLI](../prefer-az-cli.md)), Pester, PSScriptAnalyzer, markdownlint, and
 Prettier, each locked to a version in `tools.yml` and installed by the same installer on a devbox and in a pipeline
-([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). Formatting is one standard per file language,
-configured in `languages.yml` and applied by `Format-Code` — Bicep by `bicep format`
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)). Every Azure name follows one deterministic naming
-standard ([ADR-AZ-NAMING](../azure-naming-standard.md)), every resource carries the CAF tags, and every decision is an ADR in the
-repository. The delivery metrics are DORA's ([metrics](../../../references/dora/metrics.md)).
+([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). Formatting is
+one standard per file language, configured in `languages.yml` and applied by `Format-Code` — Bicep by `bicep format`
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)). Every Azure name
+follows one deterministic naming standard ([ADR-AZ-NAMING](../azure-naming-standard.md)), every resource carries the CAF tags, and every
+decision is an ADR in the repository. The delivery metrics are DORA's ([metrics](../../../references/dora/metrics.md)).
 
 The gap is IaC linting as a gate: the repository has no `bicepconfig.json`, so `az bicep build` runs the Bicep linter with its default rule
 levels, and a linter warning does not fail the build.
@@ -296,14 +300,15 @@ change; the code is scanned for misconfiguration and secrets; and manual steps a
 
 #### What OE:05 means here
 
-Everything the infrastructure needs lives in version control ([ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-everythinginversioncontrol)):
+Everything the infrastructure needs lives in version control
+([ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-everythinginversioncontrol)):
 declarative Bicep under `infrastructure/`, shared modules under `infrastructure/modules/`, and one config per slot under each template's
-`configuration/` ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). One template serves every environment; only its config
-varies, and a value that another config owns is read by config address, never copied
-([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)). The three templates are the split by rate of change: `foundation`
-changes least, `discovery` rarely, `expedition` with its workload. Every rendered parameters file is checked against the compiled template's
-parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), and a secure parameter takes a Key Vault reference, so no
-secret sits in a config.
+`configuration/` ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). One template
+serves every environment; only its config varies, and a value that another config owns is read by config address, never copied
+([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)). The three templates are the split by rate of
+change: `foundation` changes least, `discovery` rarely, `expedition` with its workload. Every rendered parameters file is checked against
+the compiled template's parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)),
+and a secure parameter takes a Key Vault reference, so no secret sits in a config.
 
 Two practices are missing. No check scans the compiled templates for misconfiguration — public network access, a missing tag, a missing
 diagnostic setting. And every template deploys in `Incremental` mode (the default of `deployment_mode`), so a resource removed from a
@@ -343,20 +348,21 @@ split by what they deploy (landing zone, core infrastructure, workload).
 
 This is the repository's delivery flow. Each deployable-unit — the shared platform and each customer — has a globset in `globs.yml` that
 triggers its CD pipeline through the globset's native path filter
-([ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)). The CD pipeline runs the same CI engine as
-`ci-infrastructure.yaml` ([ADR-FLOW-CD-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-adr-flow-cd-type-oneciengine)), publishes one artifact per template,
-and its deploy stages consume those artifacts unchanged — build once, deploy many
-([ADR-FLOW-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)). The stages run `foundation`, then `discovery`, then
-`expedition`, the split by what they deploy, and each deploy asserts the subscription its service connection logs into
-(`-SubscriptionIdAssertIs`, [ADR-AZ-DATAMOD](../azure-data-model.md)). Configuration that reaches the cloud enters only through version
-control ([ADR-FLOW-CD-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-adr-flow-cd-type-configentersthroughinput)).
+([ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)). The CD pipeline runs the
+same CI engine as `ci-infrastructure.yaml` ([ADR-FLOW-CD-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-adr-flow-cd-type-oneciengine)),
+publishes one artifact per template, and its deploy stages consume those artifacts unchanged — build once, deploy many
+([ADR-FLOW-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)). The stages run
+`foundation`, then `discovery`, then `expedition`, the split by what they deploy, and each deploy asserts the subscription its service
+connection logs into (`-SubscriptionIdAssertIs`, [ADR-AZ-DATAMOD](../azure-data-model.md)). Configuration that reaches the cloud enters only
+through version control
+([ADR-FLOW-CD-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-adr-flow-cd-type-configentersthroughinput)).
 
 The shipped CD pipelines deploy non-production and production in the same stage: `cd-shared.yaml` deploys `nsub` and `psub` side by side,
 and `extends/cd-customer.yaml` deploys each customer's `dev` and `prod` side by side. The flow model keeps CD within non-production and
 reaches production through a DEPLOY pipeline behind a manual gate
 ([ADR-FLOW-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-cdstaysinnonprod),
-[ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-prodprogressionisdeploy)), and `pipelines/` holds no DEPLOY pipeline. Read-only
-standing access to the subscriptions is a tenant setting, outside the repository.
+[ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-prodprogressionisdeploy)), and
+`pipelines/` holds no DEPLOY pipeline. Read-only standing access to the subscriptions is a tenant setting, outside the repository.
 
 ##### OE:06 in `foundation`
 
@@ -394,8 +400,8 @@ Monitoring is part of the infrastructure, deployed by the same templates
 workspace, so telemetry is central per subscription and separate between non-production and production. Each template sends the diagnostics
 of the resources it deploys to that workspace through the `diagnostic-setting.bicep` module, and the subscription's activity log through
 `subscription-diagnostic-setting.bicep` ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
-[ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). A diagnostic setting in the template exists when the deploy succeeds, which a
-deploy-if-not-exists policy cannot promise.
+[ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). A diagnostic setting in the template exists when the deploy
+succeeds, which a deploy-if-not-exists policy cannot promise.
 
 What the stack lacks is the top half: no health model, no alert rule, no dashboard. The only alerts are the landing zone's budget
 thresholds, sent to the subscription's `Owner` role.
@@ -436,9 +442,9 @@ root cause analysis into improvements.
 
 The architecture carries the containment and recovery side. Workloads sit behind private endpoints with public access off, each subnet that
 carries workloads has a network security group that denies inbound traffic from the internet, and a SQL server keeps a break-glass login
-beside its Entra ID administrator group ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The activity log of every subscription is the
-audit trail, and the provenance tags of OE:03 name the commit behind any deployed resource, so a bad change is found and redeployed from the
-commit before it.
+beside its Entra ID administrator group ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The activity log of
+every subscription is the audit trail, and the provenance tags of OE:03 name the commit behind any deployed resource, so a bad change is
+found and redeployed from the commit before it.
 
 The process side is absent from the repository: no alert routes an incident to anyone, and no response plan, escalation path, or drill
 exists as a version-controlled procedure. Named roles belong to the operating organisation, like the roles of OE:01. A blameless review that
@@ -480,12 +486,14 @@ production-like or purpose-built environments.
 The test strategy is [ADR-AUTO-TEST](../../automation/test-automation.md): tests in tiers from L0 to L4, each tagged with its tier and its
 category, kept in the module they test and reviewed with it. For infrastructure, `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and
 `Build-Bicep` for every template and then `Test-Automation -Suite infrastructure`, whose L2 test builds every shipped template and checks
-each rendered parameters file against the compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). A
-build that leaves the literal `UNDEFINED` in a config fails.
+each rendered parameters file against the compiled parameter model
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). A build that leaves the literal
+`UNDEFINED` in a config fails.
 
 What the infrastructure lacks is the outer loop: no L3 system test deploys a template to an on-demand environment and checks the result
 ([ADR-FLOW-CD-INNERANDOUTERLOOP](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-innerandouterloop),
-[ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)), and no L4 test observes a deployed landing zone or workload
+[ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)), and no L4 test observes a
+deployed landing zone or workload
 ([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../automation/test-automation.md#rule-adr-auto-test-testinginproduction)).
 
 ##### OE:09 in `foundation`
@@ -522,9 +530,10 @@ with orchestration or policy tools.
 The automation is the catzc module system itself: every operation is a function in a module under `pwsh/`, tested by
 [ADR-AUTO-TEST](../../automation/test-automation.md), idempotent ([ADR-AUTO-IDEM](../../automation/idempotent-state-functions.md)),
 previewable with `-DryRun` ([ADR-AUTO-DRYRUN](../../automation/dry-run.md)), and bounded in time
-([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Pipelines call it through one runner and keep
-their YAML declarative ([ADR-FLOW-CD-TYPE-ALLTHROUGHRUNNER](../../flow/pipeline-types.md#rule-adr-flow-cd-type-allthroughrunner)), so the same function runs on a devbox
-and in a pipeline ([ADR-AUTO-PARITY](../../automation/devbox-pipeline-parity.md)). It drives Azure through the az CLI
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Pipelines call it
+through one runner and keep their YAML declarative
+([ADR-FLOW-CD-TYPE-ALLTHROUGHRUNNER](../../flow/pipeline-types.md#rule-adr-flow-cd-type-allthroughrunner)), so the same function runs on a
+devbox and in a pipeline ([ADR-AUTO-PARITY](../../automation/devbox-pipeline-parity.md)). It drives Azure through the az CLI
 ([ADR-AZ-CLI](../prefer-az-cli.md)).
 
 Desired state in Azure is held by the landing zone's policy assignments, which deny a resource that breaks them in production and audit it
@@ -562,11 +571,15 @@ still controlled protocols for emergencies.
 #### What OE:11 means here
 
 The flow model defines safe deployment: one tagged artifact, built once and never rebuilt
-([ADR-FLOW-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)), promoted through non-production behind the RC and RBC
-gates ([ADR-FLOW-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)), then staged inactive in pre-prod and activated to
-production ([ADR-FLOW-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-twoenvironmentactivation)). A gate that fails stops the line
-([ADR-PROC-ANDON-FAILINGGATESTOPSLINE](../../process/holding-the-line.md#rule-adr-proc-andon-failinggatestopsline)), and a DEPLOY pipeline deploys one pinned commit's artifact, so
-rolling back is deploying the commit before it ([ADR-FLOW-CD-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-adr-flow-cd-type-deployispinned)).
+([ADR-FLOW-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)), promoted
+through non-production behind the RC and RBC gates
+([ADR-FLOW-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)), then staged inactive in
+pre-prod and activated to production
+([ADR-FLOW-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-twoenvironmentactivation)). A gate
+that fails stops the line
+([ADR-PROC-ANDON-FAILINGGATESTOPSLINE](../../process/holding-the-line.md#rule-adr-proc-andon-failinggatestopsline)), and a DEPLOY pipeline
+deploys one pinned commit's artifact, so rolling back is deploying the commit before it
+([ADR-FLOW-CD-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-adr-flow-cd-type-deployispinned)).
 
 The shipped pipelines realise part of this: they deploy only on `main`, after the CI stage, in dependency order, each into an asserted
 subscription. They deploy non-production and production in the same stage with no bake time between them (see OE:06), and they do not run
@@ -608,7 +621,8 @@ Checks that exist:
 
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for every template on every change under `infrastructure/`, as a
   pull-request check and on the merged commit, then `Test-Automation -Suite infrastructure`, whose L2 test checks every rendered parameters
-  file against the compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
+  file against the compiled parameter model
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 - `build-validation.yml` binds each declared globset to its pipeline as a blocking build validation on `main`, and the drift quality gate
   `Test-AdoPipelineTriggerGlob` keeps each pipeline's trigger equal to its globset's projection
   ([ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)).

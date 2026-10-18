@@ -22,8 +22,9 @@ dependencies governed by `dependencies.yml`; and `<path>` is the path of the rea
 **target root**. A module's target root is the repository-relative folder that `contracts.yml` declares for it, a configured setting whose
 default, the repository root, is declared once on the contracts config type; so with `Catzc.Tooling.Github`'s target root `.github`, the
 asset `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/release-automation.yml` constrains `.github/workflows/release-automation.yml`
-([conventional-folders](conventional-folders.md#rule-adr-repo-folders-contractsfolder)). Provided and depended-on contracts both version with their unit.
-There is no repository-wide version: another unit that carries contracts gets its own `contracts/<unit>/`, with its own versions.
+([conventional-folders](conventional-folders.md#rule-adr-repo-folders-contractsfolder)). Provided and depended-on contracts both version
+with their unit. There is no repository-wide version: another unit that carries contracts gets its own `contracts/<unit>/`, with its own
+versions.
 
 An outside party's own file shape, such as a vendor's schema, is held in an **external unit**, `contracts/EXTERNAL-<moniker>/`, where
 `<moniker>` names the vendor (`EXTERNAL-azure`). It carries depended-on assets only, each a trimmed, linkable check of the shape the outside
@@ -39,9 +40,10 @@ is committed as two version folders: the draft `0.0.0`, the one that is checked 
 
 A released provided contract is kept while a consumer pins that version of its unit. This is the one sanctioned backwards-compatibility in
 the repository: external consumers genuinely exist at this boundary and cannot change in lockstep
-([ADR-PRIN-ONELIVE-PINNEDVERSIONNOTLEGACY](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)), and a released version folder is retired only when no
-consumer pins it — a deliberate, contract-driven deprecation, not a hedge. A depended-on contract follows its outside platform instead: a
-platform change is a new draft in its unit's `0.0.0`, never an old version kept beside the new one.
+([ADR-PRIN-ONELIVE-PINNEDVERSIONNOTLEGACY](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)), and a
+released version folder is retired only when no consumer pins it — a deliberate, contract-driven deprecation, not a hedge. A depended-on
+contract follows its outside platform instead: a platform change is a new draft in its unit's `0.0.0`, never an old version kept beside the
+new one.
 
 - [Where back-compat is owed](#where-back-compat-is-owed)
 
@@ -50,8 +52,8 @@ platform change is a new draft in its unit's `0.0.0`, never an old version kept 
 Contracts are **binding**, proven by tests: the owning module verifies that the repository honours every asset of its unit's current version
 folder, and the provided assets of every released version folder still in the tree — released folders are the pin record, so retiring a
 version means deleting its folder. The depended-on assets of an older release are not re-checked: they follow their platform
-(ADR-REPO-CONTRACT-KEPTWHILEPINNED). A change that breaks a contract fails CI here, not a consumer or a platform in production. This is what makes "kept
-for back-compat" a guarantee rather than a hope.
+(ADR-REPO-CONTRACT-KEPTWHILEPINNED). A change that breaks a contract fails CI here, not a consumer or a platform in production. This is what
+makes "kept for back-compat" a guarantee rather than a hope.
 
 - [Binding, by contract testing](#binding-by-contract-testing)
 - [How this is enforced](#how-this-is-enforced)
@@ -106,11 +108,11 @@ removes only pages it wrote, so a hand-written page in that folder is never touc
 ### Rule ADR-REPO-CONTRACT-NODOTFOLDERS
 
 `contracts/` holds no dot-prefixed folder at any depth. A dot prefix marks infrastructure at the repository root
-([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and every folder under `contracts/` is a unit, a version, a module,
-or a folder of an asset's path: content, never infrastructure. An asset whose target sits under a dot-prefixed root, such as `.github/`,
-reaches it through its module's target root (ADR-REPO-CONTRACT-LAYOUT) and never repeats the dot folder. The rule covers folders, not file names:
-the root's `.gitkeep`, a released folder's `.frozen` record, and an asset that pins a dotfile by its own name keep their names, because a
-target root relocates a folder but never renames a file. `Test-Contracts` reports each dot-prefixed folder.
+([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and every folder under `contracts/` is
+a unit, a version, a module, or a folder of an asset's path: content, never infrastructure. An asset whose target sits under a dot-prefixed
+root, such as `.github/`, reaches it through its module's target root (ADR-REPO-CONTRACT-LAYOUT) and never repeats the dot folder. The rule
+covers folders, not file names: the root's `.gitkeep`, a released folder's `.frozen` record, and an asset that pins a dotfile by its own
+name keep their names, because a target root relocates a folder but never renames a file. `Test-Contracts` reports each dot-prefixed folder.
 
 - [No dot-prefixed folder](#no-dot-prefixed-folder)
 - [How this is enforced](#how-this-is-enforced)
@@ -152,10 +154,10 @@ promises nothing to a consumer; it records what a platform requires, so the repo
 The first segment names the deployable-unit that carries the contracts, and the second is that unit's version, so one number tells a
 consumer which build of the unit and which contracts belong together, and the version folder is a self-contained snapshot of every contract
 of that unit at that version. The one such unit is `catzc`, the bundle: it is the one unit a consumer pins
-([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)), and the owning modules ship in it, so provided and
-depended-on contracts alike version with it. The repository is a product mono-repository, not one monolithic application: inside the trunk
-everything is at HEAD, and a version exists only where a unit crosses the boundary. So there is no repository-wide version, and another
-deployable-unit that carries contracts gets its own `contracts/<unit>/` beside `catzc/`, with versions of its own.
+([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)), and the owning modules ship in it, so
+provided and depended-on contracts alike version with it. The repository is a product mono-repository, not one monolithic application:
+inside the trunk everything is at HEAD, and a version exists only where a unit crosses the boundary. So there is no repository-wide version,
+and another deployable-unit that carries contracts gets its own `contracts/<unit>/` beside `catzc/`, with versions of its own.
 
 Inside a version folder, each owning module has its own folder: the module that talks to the outside party — `Catzc.Tooling.Github` for
 GitHub, `Catzc.Azure.DevOps` for Azure DevOps — is the one that holds the tests, and the module dependency graph governs it like any other
@@ -207,19 +209,19 @@ contracts/
 Most owning modules constrain files across the repository, so their assets' paths are repository-relative, and the default target root, the
 repository root, needs no declaration. A module whose files all sit under one folder, such as `Catzc.Tooling.Github` under `.github/`,
 declares that folder once in `contracts.yml`, and its assets' paths start below it. The target root is a configured setting resolved like
-any other ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so its default lives on the config type and no
-function restates it. One folder per module keeps the mapping as small as a mapping can be: the module folder and the path still find the
-real file with no per-asset declaration.
+any other ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so its
+default lives on the config type and no function restates it. One folder per module keeps the mapping as small as a mapping can be: the
+module folder and the path still find the real file with no per-asset declaration.
 
 ### No dot-prefixed folder
 
 `Infrastructure stays at the root`
 
-A leading dot means "infrastructure, not content" ([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and the
-dot-prefixed roots are infrastructure of the repository itself. Repeating `.github/` inside `contracts/` would put a dot-prefixed folder
-below the root, where it marks nothing: the folder holds contract assets, which are content. Tools also treat a dot-prefixed folder as
-hidden, so a listing skips the very assets a reviewer must see. The target root carries the dot instead, once, in `contracts.yml`, where it
-names the real folder.
+A leading dot means "infrastructure, not content"
+([ADR-REPO-FOLDERS-DOTMEANSTOOLING](conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)), and the dot-prefixed roots are
+infrastructure of the repository itself. Repeating `.github/` inside `contracts/` would put a dot-prefixed folder below the root, where it
+marks nothing: the folder holds contract assets, which are content. Tools also treat a dot-prefixed folder as hidden, so a listing skips the
+very assets a reviewer must see. The target root carries the dot instead, once, in `contracts.yml`, where it names the real folder.
 
 File names are different. A dotfile's name is the file's identity (`.gitignore` has no other spelling), so an asset that pins it repeats the
 name, and the `.gitkeep` and `.frozen` records are files the mechanism itself defines. A target root can stand in for a folder, never for a
@@ -244,17 +246,18 @@ with the unit's next release. An old expectation the platform has dropped protec
 
 A contract is only a promise if breaking it is caught. The owning module carries the tests that assert the repository satisfies its assets:
 every asset of its unit's current version folder (`0.0.0` on a devbox, the resolved version in a release build), and the provided assets of
-every released version a consumer pins. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change that violates a contract turns
-the test run red before it ships. Without the test, "we keep this working" is a hope; with it, it is enforced.
+every released version a consumer pins. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change that violates a
+contract turns the test run red before it ships. Without the test, "we keep this working" is a hope; with it, it is enforced.
 
 ### A released folder is frozen
 
 Once a unit is released, that version's folder is not edited — a consumer builds against exactly those bytes. A fix or an evolution that
 changes a contract lands in the unit's draft, `contracts/<unit>/0.0.0/`, and reaches the outside with that unit's next release; releasing
 one unit freezes only that unit's draft. The draft exists precisely so a contract can be shaped before it becomes a binding promise. A
-devbox build carries the `6.6.666` placeholder ([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)), which is a
-local convenience and not a release, so no `contracts/<unit>/6.6.666/` folder ever exists. This immutability is what lets a consumer pin a
-version and trust it does not move underneath them.
+devbox build carries the `6.6.666` placeholder
+([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)), which is a local convenience and not a
+release, so no `contracts/<unit>/6.6.666/` folder ever exists. This immutability is what lets a consumer pin a version and trust it does not
+move underneath them.
 
 ### The name picks the kind
 
@@ -291,10 +294,10 @@ such as a sample payload an outside platform requires of a call. It is part of t
 
 `Do the scan once the mode is known`
 
-By default an asset addresses exactly one real file: the one at its own path (ADR-REPO-CONTRACT-CONTRACTASSET). Constraining many files with one asset —
-by a manifest glob, by a per-folder file — is a configured mode, resolved like any setting
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A mode that is not built throws `NotImplemented` rather
-than half-working, and it is switched on by configuration only after it is proven from every engine
+By default an asset addresses exactly one real file: the one at its own path (ADR-REPO-CONTRACT-CONTRACTASSET). Constraining many files with
+one asset — by a manifest glob, by a per-folder file — is a configured mode, resolved like any setting
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A mode that is not
+built throws `NotImplemented` rather than half-working, and it is switched on by configuration only after it is proven from every engine
 ([ADR-AUTO-ENGINE](../automation/execution-engines.md)), since the mechanism runs under each of them. The match set is computed only once
 the configured mode says what to match, so no tree walk runs on speculation.
 
@@ -357,13 +360,14 @@ CI, not in production. Everything outside `contracts/` is internal and follows o
   one is stale (ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS).
 
 - **`.gitattributes`** marks every file in a version folder `catzc-contract`, generated from the `contract-asset` kind's `git` entry in the
-  file-kinds registry ([ADR-REPO-ROOTCFG-FULLYMANAGED](generated-root-configs.md#rule-adr-repo-rootcfg-fullymanaged)), so the link and Markdown-title tools leave
-  an asset as written: its bytes are what its check compares (ADR-REPO-CONTRACT-CONTRACTASSET), and a released folder stays byte-for-byte frozen
-  (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).
+  file-kinds registry ([ADR-REPO-ROOTCFG-FULLYMANAGED](generated-root-configs.md#rule-adr-repo-rootcfg-fullymanaged)), so the link and
+  Markdown-title tools leave an asset as written: its bytes are what its check compares (ADR-REPO-CONTRACT-CONTRACTASSET), and a released
+  folder stays byte-for-byte frozen (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).
 
-- **Code review** guards what the tests cannot phrase: that the boundary stays confined to `contracts/` (ADR-REPO-CONTRACT-BINDINGINTERFACE), that a
-  retirement is justified by the absence of a pinning consumer (ADR-REPO-CONTRACT-KEPTWHILEPINNED), and that a `contract.yml` override is the exception
-  the convention calls for (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION).
+- **Code review** guards what the tests cannot phrase: that the boundary stays confined to `contracts/`
+  (ADR-REPO-CONTRACT-BINDINGINTERFACE), that a retirement is justified by the absence of a pinning consumer
+  (ADR-REPO-CONTRACT-KEPTWHILEPINNED), and that a `contract.yml` override is the exception the convention calls for
+  (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION).
 
 ## Consequences
 

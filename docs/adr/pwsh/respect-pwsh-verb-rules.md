@@ -49,9 +49,9 @@ returns exactly one object (`Get-BicepTemplate`), so the cardinality is visible 
 ### Rule ADR-PWSH-VERBS-GATESARETEST
 
 The repository quality gates — `Test-Automation` and the `Test-*` gates it aggregates (`Test-Spelling`, `Test-ScriptAnalyzer`,
-`Test-Markdownlint`, `Test-Formatting`) — are the sanctioned exception to ADR-PWSH-VERBS-SEMANTICCONTRACT/ADR-PWSH-VERBS-TESTANDASSERT: each throws on failure so it
-can fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean
-condition; a plain predicate (`Test-Path`, `Test-Command`) returns `[bool]` and never throws.
+`Test-Markdownlint`, `Test-Formatting`) — are the sanctioned exception to ADR-PWSH-VERBS-SEMANTICCONTRACT/ADR-PWSH-VERBS-TESTANDASSERT: each
+throws on failure so it can fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and
+enforce, not a boolean condition; a plain predicate (`Test-Path`, `Test-Command`) returns `[bool]` and never throws.
 
 - [The quality-gate exception](#the-quality-gate-exception)
 
@@ -65,25 +65,25 @@ one of the language's true strengths.
 
 **Verbs are a shared vocabulary.** When a user sees `Get-`, they know it reads without modifying. When they see `Set-`, they know it writes.
 When they see `Test-`, they know it either answers a value or state question with a boolean, or is a quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate), ADR-PWSH-VERBS-GATESARETEST) that reports every issue and throws. When they
-see `Assert-`, they know it throws on failure. This contract is universal across every PowerShell module, every vendor, every team. A user
-who has never seen your code can predict what `Get-Config` does from the verb alone.
+([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate), ADR-PWSH-VERBS-GATESARETEST) that reports
+every issue and throws. When they see `Assert-`, they know it throws on failure. This contract is universal across every PowerShell module,
+every vendor, every team. A user who has never seen your code can predict what `Get-Config` does from the verb alone.
 
 **Verbs encode behavior guarantees.** The approved verbs are not just naming conventions — they carry semantic promises:
 
-| Verb                                       | Guarantee                                                                                          | Will not                                        |
-| ------------------------------------------ | -------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `Get-`                                     | Safe to call, read-only                                                                            | Change state                                    |
+| Verb                                       | Guarantee                                                                                                   | Will not                                        |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `Get-`                                     | Safe to call, read-only                                                                                     | Change state                                    |
 | `Test-`                                    | Returns `[bool]` — or, as a quality gate (`ADR-AUTO-TEST-QUALITYGATE`), reports every issue and throws once | Throw on the negative case (a value/state test) |
-| `Assert-`                                  | Throws on failure                                                                                  | Return false                                    |
-| `New-`                                     | Creates a resource                                                                                 | Update existing resources                       |
-| `Set-`                                     | Replaces data on existing, or creates if missing                                                   |                                                 |
-| `Remove-`                                  | Deletes a resource                                                                                 | Archive or soft-delete                          |
-| `Install-`                                 | Places a resource and initializes it                                                               |                                                 |
-| `Invoke-`                                  | Runs a command or method, transparent pass-through                                                 |                                                 |
-| `Update-`                                  | Brings an existing resource up-to-date                                                             | Create new resources                            |
-| `Build-`                                   | Creates an artifact from input files                                                               |                                                 |
-| `Convert-` / `ConvertTo-` / `ConvertFrom-` | Transforms data between representations                                                            |                                                 |
+| `Assert-`                                  | Throws on failure                                                                                           | Return false                                    |
+| `New-`                                     | Creates a resource                                                                                          | Update existing resources                       |
+| `Set-`                                     | Replaces data on existing, or creates if missing                                                            |                                                 |
+| `Remove-`                                  | Deletes a resource                                                                                          | Archive or soft-delete                          |
+| `Install-`                                 | Places a resource and initializes it                                                                        |                                                 |
+| `Invoke-`                                  | Runs a command or method, transparent pass-through                                                          |                                                 |
+| `Update-`                                  | Brings an existing resource up-to-date                                                                      | Create new resources                            |
+| `Build-`                                   | Creates an artifact from input files                                                                        |                                                 |
+| `Convert-` / `ConvertTo-` / `ConvertFrom-` | Transforms data between representations                                                                     |                                                 |
 
 **`New-` not `Create-`.** `Create` is not an approved verb. Use `New-` for all resource creation. This is the single most common mistake.
 
@@ -208,14 +208,14 @@ This is a deliberate clarity choice over PowerShell's default lean toward singul
 
 `The sanctioned quality-gate exception`
 
-Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-PWSH-VERBS-SEMANTICCONTRACT: they answer a
-boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`, `Test-ScriptAnalyzer`,
-`Test-Markdownlint`, and `Test-Formatting` each run a body of checks and exist to **fail the build** when those checks fail — throwing is
-their job, not a broken contract. They expose the boolean-shaped answer through `-PassThru`, which returns a result object (issue counts,
-report path) for a caller that wants to branch rather than break. The distinction is in the noun: `Test-Path` names a condition to evaluate;
-`Test-Spelling` names a corpus to verify and a gate to enforce. Naming these `Assert-` would be defensible, but `Test-<Area>` reads as the
-CI gate it is and keeps the gate family under one discoverable verb. This is the one place `Test-`-and-throw is correct; a genuine predicate
-that throws is a bug.
+Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-PWSH-VERBS-SEMANTICCONTRACT:
+they answer a boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`,
+`Test-ScriptAnalyzer`, `Test-Markdownlint`, and `Test-Formatting` each run a body of checks and exist to **fail the build** when those
+checks fail — throwing is their job, not a broken contract. They expose the boolean-shaped answer through `-PassThru`, which returns a
+result object (issue counts, report path) for a caller that wants to branch rather than break. The distinction is in the noun: `Test-Path`
+names a condition to evaluate; `Test-Spelling` names a corpus to verify and a gate to enforce. Naming these `Assert-` would be defensible,
+but `Test-<Area>` reads as the CI gate it is and keeps the gate family under one discoverable verb. This is the one place `Test-`-and-throw
+is correct; a genuine predicate that throws is a bug.
 
 ## Decision
 

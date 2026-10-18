@@ -11,14 +11,15 @@ Quality gate: the sub-agent definitions, their capabilities, both registries, an
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the sub-agent definitions
-`.claude/agents/*.md`, the capabilities `.claude/skills/*/SKILL.md`, the two registries (Get-Config -Config agents, an AgentsConfig;
-Get-Config -Config capabilities, a CapabilitiesConfig), and the `## Sub-agents` section of .claude/CLAUDE.md
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the sub-agent
+definitions `.claude/agents/*.md`, the capabilities `.claude/skills/*/SKILL.md`, the two registries (Get-Config -Config agents, an
+AgentsConfig; Get-Config -Config capabilities, a CapabilitiesConfig), and the `## Sub-agents` section of .claude/CLAUDE.md
 ([ADR-REPO-AGENTS](../../../adr/repository/agent-definitions.md)). It collects an issue when:
 
 - an agent file has no registry entry, or an entry has no agent file;
 - a file's front matter does not parse, its `name` differs from the file name, or it lacks a `description`, a `Do NOT` clause in that
-  description, or `tools` ([ADR-REPO-AGENTS-ONEFILEPERAGENT](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-onefileperagent));
+  description, or `tools`
+  ([ADR-REPO-AGENTS-ONEFILEPERAGENT](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-onefileperagent));
 - a `supported_by` citation names no rule (Get-CatsAdrRuleIds), or a `checks` entry names no command
   ([ADR-REPO-AGENTS-BACKEDBYRULE](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule));
 - a registered agent is not listed in the CLAUDE.md section, or a listed agent is not registered

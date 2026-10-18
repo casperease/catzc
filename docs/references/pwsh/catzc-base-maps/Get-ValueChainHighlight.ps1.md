@@ -14,9 +14,9 @@ Returns the value-chain map cells that ADR codes light.
 Builds the value-chain map (Get-ValueChainMap) and lights its cells with Catzc.Base.Maps.ValueChainHighlight: each code (`ADR-<CODE>`, or
 one rule as `ADR-<CODE>#n` or `ADR-<CODE>:n`) lights the cells its ADR sits in, its ADR domain's row crossed with each of its value-chain
 concerns ([ADR-DSGN-TRACK-LITCELL](../../../adr/design/tracks.md#rule-adr-dsgn-track-litcell),
-[ADR-DSGN-TRACK-VALUECHAINMAP](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)). A rule sits where its ADR sits, so a citation of one rule lights
-the same cells as its ADR. Each lit cell lists the requested ADRs that light it. It is the value-chain counterpart of Get-WorldMapHighlight
--Adr, which lights where the ADR's files sit.
+[ADR-DSGN-TRACK-VALUECHAINMAP](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)). A rule sits where its ADR sits, so a
+citation of one rule lights the same cells as its ADR. Each lit cell lists the requested ADRs that light it. It is the value-chain
+counterpart of Get-WorldMapHighlight -Adr, which lights where the ADR's files sit.
 
 ### parameter `Adr`
 

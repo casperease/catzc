@@ -12,9 +12,10 @@ Returns the folder the world-map PDFs are written to.
 ### description
 
 The world map writes recurring files, so they land in their own folder under the output root
-([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](../../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)): Get-OutputRoot joined with the
-output_folder of configs/maps.yml (read through Get-Config, typed as Catzc.Base.Maps.MapsConfig; default world-map). It is also the seam a
-test mocks to a folder of its own ([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
+([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](../../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)):
+Get-OutputRoot joined with the output_folder of configs/maps.yml (read through Get-Config, typed as Catzc.Base.Maps.MapsConfig; default
+world-map). It is also the seam a test mocks to a folder of its own
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
 
 ### parameter `EnsureExists`
 

@@ -12,8 +12,9 @@ Projects a globset's scan program into vendor-native pipeline path filters — t
 ### description
 
 The pipeline trigger: project the set's flattened scan program
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)/8) straight into the vendor's own `paths` filter, so
-the trigger fires — or does not start at all — on the real files, with no committed hash to go stale across a squash or concurrent merge.
+([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)/8) straight into the
+vendor's own `paths` filter, so the trigger fires — or does not start at all — on the real files, with no committed hash to go stale across
+a squash or concurrent merge.
 
 Two dialects, from the one program:
 

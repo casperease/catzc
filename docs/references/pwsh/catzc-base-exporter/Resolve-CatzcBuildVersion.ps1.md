@@ -11,8 +11,9 @@ Resolves the version a Catzc build carries — the devbox placeholder, a calcula
 
 ### description
 
-The one place a build version is decided ([ADR-AUTO-BUNDLE-AUTOVERSION](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)); every
-value comes from configs/exporter.yml (Get-Config -Config exporter):
+The one place a build version is decided
+([ADR-AUTO-BUNDLE-AUTOVERSION](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)); every value comes from
+configs/exporter.yml (Get-Config -Config exporter):
 
 ```text
 -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow

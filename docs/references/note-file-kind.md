@@ -23,15 +23,16 @@ ADR-DSGN-TRACK-UNORDEREDTRACK bolded **note** as the term, and the ModuleSystem 
 
 The unordered track is where imports land, not a shelf of frozen fragments, and the track is empty between imports, so no tracked file
 reaches the kind and the reachability test fails on it. A file under `.unordered/` is whatever its import brought: a PowerShell file is a
-PowerShell file, so a separate kind for "a file in this folder" says nothing the track does not say already.
-ADR-REPO-FILEMETA-ROLE holds the decision: the role registry has no such kind, and this page keeps its meaning.
+PowerShell file, so a separate kind for "a file in this folder" says nothing the track does not say already. ADR-REPO-FILEMETA-ROLE holds
+the decision: the role registry has no such kind, and this page keeps its meaning.
 
 ## Where it lives now
 
 - The exemption moved to the track: the `unordered` entry of `pwsh/Catzc.Base.Variants/configs/track-types.yml` declares
   `git: { attributes: [catzc-unordered], why: ... }`, and `New-GitAttributes` writes `.unordered/** catzc-unordered` for every place of
   every track of that type. `Get-ContentExemptPath` and `source-conventions.yml` name the `catzc-unordered` class.
-- The track and its terms (unordered track, import, landing address, sorting) are ADR-DSGN-TRACK-UNORDEREDTRACK and the ModuleSystem glossary.
+- The track and its terms (unordered track, import, landing address, sorting) are ADR-DSGN-TRACK-UNORDEREDTRACK and the ModuleSystem
+  glossary.
 - A file under `.unordered/` takes the kind its own name and language give it, as it will after sorting.
 
 When ADR-REPO-FILEMETA or ADR-DSGN-TRACK absorbs this account, this page is deleted (ADR-PRIN-ONELIVE).

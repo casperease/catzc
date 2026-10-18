@@ -85,8 +85,9 @@ drift, across templates. Config-value addressing turns any committed config node
 (`global.<config>.<key>`, [ADR-CONF-ADDRESSING](../configuration/config-value-addressing.md)) instead of a copied literal, keeping the
 documentation of "where a value comes from" next to the value rather than in a separate note. Module config loading's single reader and
 typed validation ([ADR-CONF-LOADING](../configuration/module-config-loading.md)) give every named config exactly one cache and one automated
-check — every shipped config has a C# config type ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype))
-that validates it once on load — rather than ad hoc, per-caller checks that drift apart over time.
+check — every shipped config has a C# config type
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)) that validates it
+once on load — rather than ad hoc, per-caller checks that drift apart over time.
 
 ## Common pitfalls
 

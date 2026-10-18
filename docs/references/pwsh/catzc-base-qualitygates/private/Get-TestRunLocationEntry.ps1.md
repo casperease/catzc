@@ -11,10 +11,10 @@ Resolves the entry script a test run's workers load, for the location the run ex
 
 ### description
 
-The run seam ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)) names the script each worker
-dot-sources to load the modules: empty for the source importer, the build's Import-Catzc.ps1 for the build run. A snapshot run
-(Enter-TestRunLocation) must load from the snapshot so that every path a worker resolves — out/, .compiled, git — lands inside it
-([ADR-AUTO-NOPWD](../../../../adr/automation/never-depend-on-pwd.md)):
+The run seam ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)) names
+the script each worker dot-sources to load the modules: empty for the source importer, the build's Import-Catzc.ps1 for the build run. A
+snapshot run (Enter-TestRunLocation) must load from the snapshot so that every path a worker resolves — out/, .compiled, git — lands inside
+it ([ADR-AUTO-NOPWD](../../../../adr/automation/never-depend-on-pwd.md)):
 
 - in place: the entry passes through unchanged;
 - snapshot, source run: the snapshot's own importer, without janitors;

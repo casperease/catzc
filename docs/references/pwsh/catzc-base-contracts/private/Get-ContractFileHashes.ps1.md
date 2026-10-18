@@ -11,9 +11,10 @@ Hashes every file of one contract version folder, the content a release freezes.
 
 ### description
 
-A released version folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)); its
-.frozen record holds the hashes this returns, so a later change to any file shows as a different hash. Every file under the folder counts,
-at any depth, contract.yml included; only the record itself, .frozen directly in the folder, does not.
+A released version folder is immutable
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)); its .frozen
+record holds the hashes this returns, so a later change to any file shows as a different hash. Every file under the folder counts, at any
+depth, contract.yml included; only the record itself, .frozen directly in the folder, does not.
 
 Each hash is the SHA-256 of the file's bytes with every CRLF read as LF. Contract assets are text, and a checkout with core.autocrlf
 materialises them with CRLF while another checkout of the same commit has LF; reading line endings as LF gives every checkout of one commit
@@ -26,8 +27,8 @@ The version folder's absolute path.
 ### outputs
 
 `[System.Collections.Specialized.OrderedDictionary]` The path under the folder, in communication form
-([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../../adr/automation/path-representation.md#rule-adr-auto-path-communicationform)), to its lowercase hex SHA-256, in ordinal order
-of path; keys compare ordinally.
+([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../../adr/automation/path-representation.md#rule-adr-auto-path-communicationform)), to its
+lowercase hex SHA-256, in ordinal order of path; keys compare ordinally.
 
 ### example 1
 

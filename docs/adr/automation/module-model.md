@@ -12,8 +12,8 @@ that track plus the module's name; its module type is one the track type admits
 returns, for each module, its name, track, root, shape (a folder or one file), files, languages and engines, as one native type
 ([ADR-AUTO-TYPES-NATIVETYPEDMODEL](BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)). No other command derives a module's
 name, root, languages or engines from a path or a folder listing, and no command spells a track's root: it reads the track. A place whose
-modules are internal declares `internal: true` in `module-types.yml` (public is the default on the type); the resolver returns those
-modules only when asked to include internal ones, and never infers internal from where a place sits.
+modules are internal declares `internal: true` in `module-types.yml` (public is the default on the type); the resolver returns those modules
+only when asked to include internal ones, and never infers internal from where a place sits.
 
 - [One resolver through the track](#one-resolver-through-the-track)
 
@@ -103,10 +103,10 @@ changes is a data edit. The module type registry names the module a path is plac
 the module's root. The resolver's answer is identity only. A module's needs are declared in `dependencies.yml`, which a module above the
 resolver owns, so the needs, the closure and the order are functions over module names, not members of the resolved type.
 
-Whether a place holds internal modules is a declared fact of the place, not a rule read from the tree. A rule such as "a place nested
-below the track's place is internal" makes a track whose places are split or moved change what the resolver returns, with nothing in the
-data saying so. A flag on the place keeps the answer in config ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)), so moving a
-place never turns its modules public or internal by accident.
+Whether a place holds internal modules is a declared fact of the place, not a rule read from the tree. A rule such as "a place nested below
+the track's place is internal" makes a track whose places are split or moved change what the resolver returns, with nothing in the data
+saying so. A flag on the place keeps the answer in config ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)), so moving a place
+never turns its modules public or internal by accident.
 
 ### Registration is placement
 

@@ -13,10 +13,10 @@ Renders a deck folder of slide files into the Slides artifact tree and a speaker
 
 Reads the deck file and every slide file of the deck folder, orders the slides by their head's order, renders each through its pattern from
 the slides kit, and always writes the result to the output folder: project/deck.json, one `project/slides/<id>.html` per slide,
-`<deck>.script.md` with the notes in order, and `<deck>.faults.md` with every fault found (ADR-REPO-SLIDES-FAILFORWARDRENDER). A missing field, an unknown
-pattern, a gap or a duplicate in the orders, an over-capacity field, a code the index does not know and a quoted rule that differs from the
-registry are each reported with the file and the field; nothing shrinks and nothing is guessed. It never publishes: publishing the project
-tree to the artifact is a step a person takes after reading the render.
+`<deck>.script.md` with the notes in order, and `<deck>.faults.md` with every fault found (ADR-REPO-SLIDES-FAILFORWARDRENDER). A missing
+field, an unknown pattern, a gap or a duplicate in the orders, an over-capacity field, a code the index does not know and a quoted rule that
+differs from the registry are each reported with the file and the field; nothing shrinks and nothing is guessed. It never publishes:
+publishing the project tree to the artifact is a step a person takes after reading the render.
 
 ### parameter `Deck`
 

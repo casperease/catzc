@@ -12,8 +12,8 @@ allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies 
 ### Rule ADR-AUTO-DEPS-TOOLTRIAD
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED): it is asserted, never
-installed by its own entry, so it has no triad.
+and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule
+ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED): it is asserted, never installed by its own entry, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 
@@ -35,8 +35,9 @@ Declare install-order dependencies in config. If a tool must be installed after 
 ### Rule ADR-AUTO-DEPS-CISAMEINSTALLERS
 
 CI provisions tools with the same per-tool `Install-*` functions against the same `tools.yml` — the installer side of the one code path
-([ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS](devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments)), with no separate CI setup script. It activates the agent's cached
-toolchains through native ADO version tasks first, and calls the per-tool functions rather than the `Install-DevBoxTools` orchestrator.
+([ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS](devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments)), with no separate CI
+setup script. It activates the agent's cached toolchains through native ADO version tasks first, and calls the per-tool functions rather
+than the `Install-DevBoxTools` orchestrator.
 
 - [5. CI uses the same functions](#5-ci-uses-the-same-functions)
 
@@ -218,9 +219,9 @@ Some tools the toolchain never installs through their own entry — the platform
 them. The platform is the operating system, or a base tool the devbox installs unpinned. winget (the Windows App Installer) is the first
 kind: it is the platform package manager the winget-based installs run against, so it cannot itself be a winget install. `bash` is both
 kinds: Linux ships it as `/bin/bash`, and on Windows it is Git Bash, which arrives with git — a base tool `Install-Git` installs at its
-latest release (Rule ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS), user-space on Windows. A second installer for Git Bash would be a second owner of git. Such a tool is
-declared with `system_provided: true` (and `windows_only: true` for winget, which exists only on Windows). It is a prerequisite, not a
-target:
+latest release (Rule ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS), user-space on Windows. A second installer for Git Bash would be a second owner of
+git. Such a tool is declared with `system_provided: true` (and `windows_only: true` for winget, which exists only on Windows). It is a
+prerequisite, not a target:
 
 - `Install-DevBoxTools` **asserts** it is present — with a clear message naming its remedy when it is missing (App Installer from the
   Microsoft Store for winget, `Install-Git` for Git Bash) — rather than installing it, and its entry has no `Install-*` / `Uninstall-*`

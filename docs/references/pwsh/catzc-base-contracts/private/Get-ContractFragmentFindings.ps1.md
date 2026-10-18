@@ -11,9 +11,9 @@ Checks that a fragment asset's target exists and contains the fragment, and retu
 
 ### description
 
-The fragment check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset). The target must first be
-present, with the exact case of its path (Get-ContractPresenceFindings); a missing target is the only finding, since there is nothing to
-compare. Then, by the target's format (Get-ContractDataFormat):
+The fragment check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset).
+The target must first be present, with the exact case of its path (Get-ContractPresenceFindings); a missing target is the only finding,
+since there is nothing to compare. Then, by the target's format (Get-ContractDataFormat):
 
 - Json or Yaml: both files are parsed and compared as a key subset (ContractFragment.MatchData: every key path of the fragment exists in the
   target, a scalar equals, an array element is matched by some target element, a null pins the key only). A file that does not parse is the

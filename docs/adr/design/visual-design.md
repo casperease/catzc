@@ -35,8 +35,8 @@ _project_ or _discard_ a copy, but the commit itself stays in history.
 
 The **commit-colour palette is fixed**:
 
-- **brown** — a development commit. Lives on topic branches; release branches may also carry brown (see ADR-DSGN-VISUAL-FIXFORWARDTHENCHERRYPICK). Never an
-  integrated mainline state.
+- **brown** — a development commit. Lives on topic branches; release branches may also carry brown (see
+  ADR-DSGN-VISUAL-FIXFORWARDTHENCHERRYPICK). Never an integrated mainline state.
 - **grey** — integrated onto `main` / `master` / `release`. Grey never appears on a topic branch (a topic commit that has not integrated is
   brown, not grey).
 - **ghost-grey** (faded, dashed) — a commit that exists in history but was silently ignored: no successor ever took it up. Still a real
@@ -51,8 +51,9 @@ The **commit-colour palette is fixed**:
 - **red** — rejected by any process and must not progress further. Red is the one colour allowed on **every** branch (topic, release, or
   mainline), because rejection can happen anywhere.
 
-The **pre-prod** rung (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG) has no hue of its own: its occupant is drawn green, the same bytes already validated for production,
-and the neutral environment box, not the colour, says which of the two it sits in (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
+The **pre-prod** rung (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG) has no hue of its own: its occupant is drawn green, the same bytes already
+validated for production, and the neutral environment box, not the colour, says which of the two it sits in
+(ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
 
 Every hue has one locked hex pair (fill / stroke); see [Canonical palette (locked)](#canonical-palette-locked). A commit drawn in any other
 hex for one of these meanings is a drift error.
@@ -151,11 +152,11 @@ that commit was discarded, abandoned, or promoted.
 
 **An environment box is a neutral container; the commit inside it is its occupant, in that commit's own state colour.** The hexagon is drawn
 as neutral chrome — its label names the environment (on-demand, main-UAT, release-uat, production) and it carries no per-stage tint and no
-state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's occupant (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT), coloured
-for whatever state that commit is in right now, not for a fixed property of the box. So production holds a **green** commit, release-uat a
-**light-green** one, main-UAT a **light-blue** one, and the on-demand L3 environment whatever it is hosting at the moment (a **yellow**
-commit mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently lives there; the
-label tells you where.
+state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's occupant
+(ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT), coloured for whatever state that commit is in right now, not for a fixed property of the box. So
+production holds a **green** commit, release-uat a **light-green** one, main-UAT a **light-blue** one, and the on-demand L3 environment
+whatever it is hosting at the moment (a **yellow** commit mid-verification, a **blue** one just verified). Reading the inner colour tells
+you the state of what currently lives there; the label tells you where.
 
 - [Environment boxes](#environment-boxes)
 
@@ -248,9 +249,11 @@ exception the contract names rather than hides. Because each stage emits exactly
 system: an arrow leaving L3 that is any colour but blue or red is a drawing error.
 
 The flow model defines what the stages are: the RC and RBC release gates
-([ADR-FLOW-CD-TWORELEASEGATES](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)), the `-uat` environments apart from the `-AT` testing drawn
-at those gates ([ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat)), and the DEPLOY stages
-([ADR-FLOW-CD-PREPRODRUNG](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-preprodrung)). This rule owns only how they are drawn.
+([ADR-FLOW-CD-TWORELEASEGATES](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)), the `-uat` environments apart
+from the `-AT` testing drawn at those gates
+([ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat)), and the
+DEPLOY stages ([ADR-FLOW-CD-PREPRODRUNG](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-preprodrung)). This rule owns only how
+they are drawn.
 
 ## Commit numbers
 
@@ -283,11 +286,12 @@ where it was discarded, abandoned, or promoted.
 
 An environment is not a commit, so it is drawn as a container — and the container itself is **neutral chrome**: it carries no state colour
 and no per-stage tint, only a label naming which environment it is. What it does carry is its **occupant**: the one commit deployed there
-right now (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box — it is
-whatever state the occupant is in: the production occupant is drawn green, the release-uat occupant light-green, the main-UAT occupant
-light-blue, and the on-demand L3 environment whatever it currently hosts. Reading the inner colour tells you the state of what lives there
-now; the label tells you where. This defers to `ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT` (each always-on environment hosts exactly one commit) rather than colouring
-the box by what it validates — an environment's picture is "what is deployed here", not "what this stage is for".
+right now (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT), drawn in that commit's own current state colour. So the inner colour is not a fixed
+property of the box — it is whatever state the occupant is in: the production occupant is drawn green, the release-uat occupant light-green,
+the main-UAT occupant light-blue, and the on-demand L3 environment whatever it currently hosts. Reading the inner colour tells you the state
+of what lives there now; the label tells you where. This defers to `ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT` (each always-on environment hosts
+exactly one commit) rather than colouring the box by what it validates — an environment's picture is "what is deployed here", not "what this
+stage is for".
 
 ## Canonical palette (locked)
 

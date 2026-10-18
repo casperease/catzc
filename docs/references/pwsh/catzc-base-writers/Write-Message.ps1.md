@@ -46,11 +46,11 @@ side-grades to its base colour rather than drawing a gradient (a gradient rule i
 ### parameter `Warning`
 
 Render the line yellow on the information stream
-([ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour) yellow = warning) — a non-fatal,
-attention-drawing status line, NOT the terminating Write-Warning stream. The importer sets $WarningPreference = 'Stop', so a real warning
-would halt (NoWriteErrorOrWarning rule, error-handling ADR); use throw for something that must stop and -Warning for something worth
-noticing that must not. Implies yellow, so it is mutually exclusive with -ForegroundColor, and does not apply on the verbose stream. Aliased
--Warn.
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour) yellow = warning) —
+a non-fatal, attention-drawing status line, NOT the terminating Write-Warning stream. The importer sets $WarningPreference = 'Stop', so a
+real warning would halt (NoWriteErrorOrWarning rule, error-handling ADR); use throw for something that must stop and -Warning for something
+worth noticing that must not. Implies yellow, so it is mutually exclusive with -ForegroundColor, and does not apply on the verbose stream.
+Aliased -Warn.
 
 ### example 1
 

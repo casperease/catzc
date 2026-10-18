@@ -63,8 +63,8 @@ against exactly the code that commit holds. An external dependency is pinned to 
 ### Rule ADR-AUTO-DEPM-INTERNALVENDORED
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
-`pwsh/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM-CODEBUILTFROM). The repository alone is the internal
-dependency set; there is nothing to fetch.
+`pwsh/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM-CODEBUILTFROM). The repository alone is the
+internal dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
 
@@ -117,9 +117,10 @@ A module's content is of two kinds — `pwsh` functions and C# types — but a d
 which kind carries it. A cross-module function call and a cross-module type reference both mean "module A needs module B," so they are
 unified in one graph rather than split across two declarations. `Get-ModuleDependency` extracts the function-call edges and
 `Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not — see
-[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types-referencesfollowdependencies)); `Test-ModuleDependency` unions the two sets and checks them against
-the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync. How the PowerShell function-call edges are
-extracted is [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-crossmodulecalls).
+[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types-referencesfollowdependencies)); `Test-ModuleDependency` unions the two
+sets and checks them against the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync. How the PowerShell
+function-call edges are extracted is
+[dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-crossmodulecalls).
 
 ### Groups and modules
 
@@ -142,10 +143,11 @@ The graph is checked at two moments, and both fail fast:
 - **At load** — the `DependenciesConfig` type (with `ModuleGroup` for each group) validates `dependencies.yml` itself, without reading the
   disk: every target resolves to a declared module or group; each group is closed over its members; and the module graph and each group's
   internal member→member graph are acyclic.
-- **Against the real repository** — the `Test-ModuleDependency` quality gate ([ADR-AUTO-TEST-QUALITYGATE](test-automation.md#rule-adr-auto-test-qualitygate))
-  reports every declared module and group member that does not exist on disk (`UnknownModule`), and compares the extracted edges
-  (`Get-ModuleDependency` + `Get-CSharpTypeDependency`) to the resolved allow-set: each actual edge must fall within it, and actual
-  intra-group edges must be a subset of the group's declared internal map. Its L1 integrity test fails on any finding.
+- **Against the real repository** — the `Test-ModuleDependency` quality gate
+  ([ADR-AUTO-TEST-QUALITYGATE](test-automation.md#rule-adr-auto-test-qualitygate)) reports every declared module and group member that does
+  not exist on disk (`UnknownModule`), and compares the extracted edges (`Get-ModuleDependency` + `Get-CSharpTypeDependency`) to the
+  resolved allow-set: each actual edge must fall within it, and actual intra-group edges must be a subset of the group's declared internal
+  map. Its L1 integrity test fails on any finding.
 
 ### Extend by declaring
 

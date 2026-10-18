@@ -4,8 +4,8 @@
 
 ### Rule ADR-PWSH-PREPOST-STARTERREFERENCE
 
-`Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under
-`pwsh/` (ADR-PWSH-USEPS-MODULEFILESRESERVED), but it is data authors copy, not an imported module.
+`Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under `pwsh/`
+(ADR-PWSH-USEPS-MODULEFILESRESERVED), but it is data authors copy, not an imported module.
 
 - [The copy-in starter](#the-copy-in-starter)
 - [No conflict with use-ps1-not-psm1](#no-conflict-with-use-ps1-not-psm1)
@@ -134,11 +134,11 @@ infrastructure/templates/<template>/
 hook the module does not export — or a template with no `PrePost.psm1` at all — is skipped (the step no-ops in code).
 
 Invoking through the module's exported command object (rather than a bare `Invoke-Bicep*` call) keeps the call dynamic: production code
-under `pwsh/` contains **no reference** to hook functions that live only in template folders, so static analysis
-(`Test-FunctionDependency`) stays clean.
+under `pwsh/` contains **no reference** to hook functions that live only in template folders, so static analysis (`Test-FunctionDependency`)
+stays clean.
 
-Per-template modules do NOT live under `pwsh/` and are NOT loaded by the bootstrap module. They are loaded on demand. The `.psm1`
-extension is exactly the right tool: an isolated scope that can be cleanly imported, expose any subset of three exports, and be discarded.
+Per-template modules do NOT live under `pwsh/` and are NOT loaded by the bootstrap module. They are loaded on demand. The `.psm1` extension
+is exactly the right tool: an isolated scope that can be cleanly imported, expose any subset of three exports, and be discarded.
 
 ### No conflict with use-ps1-not-psm1
 
@@ -146,8 +146,8 @@ extension is exactly the right tool: an isolated scope that can be cleanly impor
 Why this does not conflict with `use-ps1-not-psm1`
 ```
 
-[`use-ps1-not-psm1`](use-ps1-not-psm1.md) governs **function files inside `pwsh/`** that declare the module's regular per-function
-exports. Its goal is shared scope across one module's internals.
+[`use-ps1-not-psm1`](use-ps1-not-psm1.md) governs **function files inside `pwsh/`** that declare the module's regular per-function exports.
+Its goal is shared scope across one module's internals.
 
 Neither `assets/PrePost.psm1` nor `infrastructure/templates/<name>/PrePost.psm1` is a "function file inside a `pwsh/` module":
 

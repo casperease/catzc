@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ed01a2e3d282
+    with_body_sha: "2474f6ef1817"
     repo_status: locked
     path: docs/adr/design/.assets/sync-point/tree.md
     source: docs/adr/design/.assets/sync-point/diagram.drawio.png
@@ -59,12 +59,12 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
   18 (text), line 25 (text), line 61 (text), line 61 (text), line 69 (text), line 69 (text), line 77 (text) and line 77 (text).
 - [docs/adr/design/.assets/sync-point/grid.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18
   (text), line 25 (text), line 55 (text), line 56 (text), line 57 (text), line 64 (text), line 66 (text), line 70 (text), line 74 (text),
-  line 76 (text), line 79 (text), line 82 (text), line 83 (text), line 84 (text), line 85 (text), line 86 (text), line 93 (text), line 102
-  (text), line 103 (text) and line 104 (text).
+  line 76 (text), line 80 (text), line 84 (text), line 85 (text), line 86 (text), line 87 (text), line 88 (text), line 95 (text), line 104
+  (text), line 105 (text) and line 106 (text).
 - [docs/adr/design/.assets/sync-point/tree.md][7], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18
-  (text), line 25 (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 63 (text), line 66 (text),
-  line 67 (text), line 73 (text), line 75 (text), line 77 (text), line 83 (text), line 85 (text), line 91 (text), line 92 (text), line 99
-  (text), line 106 (text) and line 114 (text).
+  (text), line 25 (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 64 (text), line 68 (text),
+  line 69 (text), line 75 (text), line 77 (text), line 79 (text), line 85 (text), line 87 (text), line 93 (text), line 94 (text), line 101
+  (text), line 108 (text) and line 116 (text).
 - [docs/adr/design/commit-lifecycle.md][1], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
 - [docs/adr/design/dora-explains.md][8], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text).
 

@@ -23,8 +23,9 @@ prefix. A caller reads the property; it never restates a flag, a quote rule, or 
 ### Rule ADR-AUTO-ENGINE-LOCATEEXECUTABLE
 
 An engine's executable is located the way its model says, by `Resolve-EngineExecutable`: pwsh from the home folder of the running
-PowerShell, so a started engine is the caller's own PowerShell and never another one first on `PATH`; each POSIX engine (ADR-AUTO-ENGINE-IMPORTERENTRY)
-through its `tools.yml` entry and the existence check (ADR-AUTO-DEPS-ASSERTBEFOREINVOKE), never the WSL launcher.
+PowerShell, so a started engine is the caller's own PowerShell and never another one first on `PATH`; each POSIX engine
+(ADR-AUTO-ENGINE-IMPORTERENTRY) through its `tools.yml` entry and the existence check (ADR-AUTO-DEPS-ASSERTBEFOREINVOKE), never the WSL
+launcher.
 
 - [Locating an engine](#locating-an-engine)
 
@@ -33,8 +34,8 @@ through its `tools.yml` entry and the existence check (ADR-AUTO-DEPS-ASSERTBEFOR
 A black-box test in another language starts the engine from the **engine start environment** its runner sets, never from a hardcoded
 command: `CATZC_ENGINE` (the engine's name), `CATZC_ENGINE_EXECUTABLE`, `CATZC_ENGINE_ENTRY` (the script that loads catzc into the engine),
 and `CATZC_ENGINE_START`, the model's start arguments as a JSON array that loads the entry and ends in the command text, with `{command}`
-where the test's command goes (ADR-AUTO-GO-BLACKBOXTESTS, ADR-AUTO-PY-BLACKBOXTESTS, ADR-AUTO-BASH-BLACKBOXTESTS). Every Go and Python black-box test runs once per engine,
-three runs titled `<test> [pwsh]`, `<test> [bash]` and `<test> [zsh]`, unchanged between them.
+where the test's command goes (ADR-AUTO-GO-BLACKBOXTESTS, ADR-AUTO-PY-BLACKBOXTESTS, ADR-AUTO-BASH-BLACKBOXTESTS). Every Go and Python
+black-box test runs once per engine, three runs titled `<test> [pwsh]`, `<test> [bash]` and `<test> [zsh]`, unchanged between them.
 
 - [The engine start environment](#the-engine-start-environment)
 
@@ -61,8 +62,8 @@ catzc in that engine, so one test's command text is the same under every engine.
 ### Rule ADR-AUTO-ENGINE-AUTONAMESNOENGINE
 
 **auto** is the engine value that names no particular engine: a setting or argument that says `auto` takes whatever engine its sensible
-default resolves to (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER), and names pwsh, bash or zsh only when it needs that one. `auto` is not a fourth engine and never
-appears in the model's `Names`; it is a choice left open.
+default resolves to (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER), and names pwsh, bash or zsh only when it needs that one. `auto` is not a fourth
+engine and never appears in the model's `Names`; it is a choice left open.
 
 - [Leaving the engine open](#leaving-the-engine-open)
 
@@ -120,7 +121,8 @@ The engine a test starts should be the engine the caller runs, so pwsh comes fro
 than from `PATH`, where an older or a second PowerShell may come first. The POSIX engines have no such anchor: each is a tool, declared in
 `tools.yml` with sensible defaults per platform and found by the existence check, which excludes the WSL launcher that would run a different
 system's shell. On Windows the bash engine is Git Bash's, and zsh is the MSYS2 package installed into Git Bash's tree in user space
-(`Install-Zsh`), so the POSIX engines share one runtime and one code path (ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS); elsewhere each is the system's own.
+(`Install-Zsh`), so the POSIX engines share one runtime and one code path (ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS); elsewhere each is the
+system's own.
 
 ### The engine start environment
 
@@ -145,8 +147,8 @@ Two of bash's checks do not reach zsh, so zsh is verified another way:
 
 - **ShellCheck does not analyse zsh.** The shell-script checks give a `*.zsh` file the LF and executable-bit checks and a `zsh -n` syntax
   check in place of ShellCheck (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
-- **bats is bash-only.** zsh is verified through the per-engine Go and Python black-box runs (ADR-AUTO-ENGINE-STARTENVIRONMENT) and the engine-case tables
-  (ADR-AUTO-ENGINE-SIDEBYSIDETESTS), not through bats.
+- **bats is bash-only.** zsh is verified through the per-engine Go and Python black-box runs (ADR-AUTO-ENGINE-STARTENVIRONMENT) and the
+  engine-case tables (ADR-AUTO-ENGINE-SIDEBYSIDETESTS), not through bats.
 
 ### The cats dispatcher
 
@@ -166,15 +168,17 @@ as every `*.sh` is, and checked by `Test-ShellScripts` (ADR-AUTO-BASH-SHELLSCRIP
 
 Most work does not care which engine runs it; it only needs one. Naming pwsh, bash or zsh where any would do pins a choice the caller never
 made, and the pin outlives the reason. So a setting or argument that takes an engine accepts `auto`, the value that leaves the choice open:
-the caller gets whatever engine the setting's sensible default resolves to, declared once on its config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER). Naming an
-engine is for work that needs that one. `auto` is a value, not an engine: the model's three instances stay the only engines there are.
+the caller gets whatever engine the setting's sensible default resolves to, declared once on its config type
+(ADR-AUTO-DEFAULT-ONERESOLUTIONORDER). Naming an engine is for work that needs that one. `auto` is a value, not an engine: the model's three
+instances stay the only engines there are.
 
 ## Decision
 
-The repository runs its own code under three execution engines, declared once (ADR-AUTO-ENGINE-THREEENGINES), with everything that differs between them
-declared once on the model (ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE), located the way the model says (ADR-AUTO-ENGINE-LOCATEEXECUTABLE), started by black-box tests from the
-contract their runner sets (ADR-AUTO-ENGINE-STARTENVIRONMENT), tested side by side in per-engine fixture tables (ADR-AUTO-ENGINE-SIDEBYSIDETESTS), and reached from the
-POSIX engines through `importer.sh` and its `cats` dispatcher (ADR-AUTO-ENGINE-IMPORTERENTRY).
+The repository runs its own code under three execution engines, declared once (ADR-AUTO-ENGINE-THREEENGINES), with everything that differs
+between them declared once on the model (ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE), located the way the model says
+(ADR-AUTO-ENGINE-LOCATEEXECUTABLE), started by black-box tests from the contract their runner sets (ADR-AUTO-ENGINE-STARTENVIRONMENT),
+tested side by side in per-engine fixture tables (ADR-AUTO-ENGINE-SIDEBYSIDETESTS), and reached from the POSIX engines through `importer.sh`
+and its `cats` dispatcher (ADR-AUTO-ENGINE-IMPORTERENTRY).
 
 ### How this is enforced
 

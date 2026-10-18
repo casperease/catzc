@@ -11,12 +11,12 @@ Validates one JSON or YAML file against a JSON Schema file, or checks the schema
 
 ### description
 
-The schema check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset), shared by a schema asset and
-a sample payload with a schema beside it. Both files are parsed (Read-ContractData; YAML is parsed before it is validated) and the value
-validates against the bounded JSON Schema subset of ContractSchema, which ignores the annotation keywords and reports every other keyword
-outside the subset as unsupported. A file that does not parse, or is neither JSON nor YAML, is the finding. With no -InstancePath, only the
-schema is parsed and checked to be well-formed in the subset (ContractSchema.Inspect): a schema aimed at a sample payload is checked that
-way, since the sample's own check validates the sample, and a defect gives one finding, not two.
+The schema check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset),
+shared by a schema asset and a sample payload with a schema beside it. Both files are parsed (Read-ContractData; YAML is parsed before it is
+validated) and the value validates against the bounded JSON Schema subset of ContractSchema, which ignores the annotation keywords and
+reports every other keyword outside the subset as unsupported. A file that does not parse, or is neither JSON nor YAML, is the finding. With
+no -InstancePath, only the schema is parsed and checked to be well-formed in the subset (ContractSchema.Inspect): a schema aimed at a sample
+payload is checked that way, since the sample's own check validates the sample, and a defect gives one finding, not two.
 
 ### parameter `RepositoryRoot`
 

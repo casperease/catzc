@@ -86,8 +86,8 @@ Both entries are dot-sourced and run in the caller's scope. `importer.ps1` at th
 written by `Build-Modules`, which runs in a source-mode session — is entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot`
 set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build. An installed build is
 entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module dot-sources that file. Every
-entry point ends in the one living importer ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)), so the load
-sequence — preferences, vendored modules, types and accelerators, then modules — is the same in both modes.
+entry point ends in the one living importer ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)), so
+the load sequence — preferences, vendored modules, types and accelerators, then modules — is the same in both modes.
 
 Which mode a session is in is read from what actually loaded, never from a flag: `Get-CatzcRunMode` derives it from the code root
 ([Deriving the mode](#deriving-the-mode)), and a build's `build.json` names the version and the commit it was built from
@@ -120,8 +120,8 @@ validator in its owning module's scope ([module-config-loading](../configuration
 `Mock -ModuleName` or `InModuleScope` — resolves the same way in both modes.
 
 What makes this hold for content as well as code is that a module locates its own files only through the code root (`Get-CatzcModuleRoot`,
-[working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), never through the folder its source file sits in,
-and that every such lookup is inventoried and tested in both modes
+[working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), never through the folder its
+source file sits in, and that every such lookup is inventoried and tested in both modes
 ([internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Tools whose job is the source tree itself — formatters,
 dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert that they run in
 source mode (`Assert-SourceTree`) and fail fast in a build rather than reading the wrong tree.
@@ -141,9 +141,9 @@ other's value, in either mode, and a scope-isolation test proves it.
 `The mode is derived from the code root`
 
 There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point
-([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar-anchorssetonce)), and the mode follows from it: when the code root is
-the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag could disagree
-with the code actually loaded; a derived one cannot.
+([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar-anchorssetonce)), and the mode follows from it: when
+the code root is the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag
+could disagree with the code actually loaded; a derived one cannot.
 
 ### Switching modes in one session
 
@@ -171,11 +171,11 @@ importer enforces mutual exclusion:
 
 "Every module works in both modes" is a checked property, not a hope. The source run and the build run execute the **same** test files — no
 copy, no second set to drift — through the same harness, differing only in the entry script each worker loads
-([test-automation](../automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). Tests whose answer cannot depend on the mode, because they read
-only the repository's files, carry `source-only` and run once, in the source run
-([test-automation](../automation/test-automation.md#rule-adr-auto-test-sourceonlytag)); everything that exercises loaded code runs in both. Switching
-itself is tested by child-process sequences — source to build, build to source, each mode twice in a row, and a longer alternation — each
-asserting the derived mode, the exclusivity check, a call into each module, and a fresh script cache.
+([test-automation](../automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). Tests whose answer cannot depend on the mode,
+because they read only the repository's files, carry `source-only` and run once, in the source run
+([test-automation](../automation/test-automation.md#rule-adr-auto-test-sourceonlytag)); everything that exercises loaded code runs in both.
+Switching itself is tested by child-process sequences — source to build, build to source, each mode twice in a row, and a longer alternation
+— each asserting the derived mode, the exclusivity check, a call into each module, and a fresh script cache.
 
 ### How this is enforced
 

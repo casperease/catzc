@@ -23,8 +23,8 @@ The baseline, from three manifests before the pool (the 347 s run is 20261018-15
 | C: 7-20 as 7 greedy pairs, in series | 88 s     | 95 s     | 96 s     | Language.Bridge pairs 19+20 (19.2 s), 17+18 (14.3 s); Import-Catzc 13.4 s                      |
 
 Open for the user, outside any test file: one shared `az bicep build` per shipped template for the whole run, or the three builds of
-`Get-BicepParameterModel.Shipped.Tests.ps1` in parallel in `BeforeAll`; a cheaper `Test-BuildArtifact` (one type-set build shared by the
-two `Import-Catzc.Tests.ps1` calls).
+`Get-BicepParameterModel.Shipped.Tests.ps1` in parallel in `BeforeAll`; a cheaper `Test-BuildArtifact` (one type-set build shared by the two
+`Import-Catzc.Tests.ps1` calls).
 
 ## Steps
 

@@ -17,9 +17,10 @@ literal, a link target or #fragment that does not exist, an unknown citation cod
 .github/, and a docs path in a PowerShell string that names no file. A fixable violation is fixed by running Format-Links, and its issue
 says so; the rest need a person. Informational findings (a comment line that stays over its limit) are counted but never fail the gate.
 
-The string-citation check (`ADR-X:n` in a string literal, [ADR-REPO-LINK-ONECITATIONSPELLING](../../../adr/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling))
-takes its mode and exempt globs from links.yml's string_citations: in gate mode its findings are issues; in report mode they are printed as
-its work list and counted (ReportedCount), and never fail the gate.
+The string-citation check (`ADR-X:n` in a string literal,
+[ADR-REPO-LINK-ONECITATIONSPELLING](../../../adr/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)) takes its mode and
+exempt globs from links.yml's string_citations: in gate mode its findings are issues; in report mode they are printed as its work list and
+counted (ReportedCount), and never fail the gate.
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-links/, prints every issue, and throws once listing them all. Each issue reads

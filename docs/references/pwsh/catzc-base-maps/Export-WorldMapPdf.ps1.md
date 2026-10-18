@@ -12,7 +12,8 @@ Writes the world map as PDFs: the grid view, the tree view, or both, optionally 
 ### description
 
 Builds the world map (Get-WorldMap) and draws it with Catzc.Base.Maps.WorldMapPdf, one file per view under the world-map output folder
-(Get-WorldMapOutputRoot, [ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)):
+(Get-WorldMapOutputRoot,
+[ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)):
 
 ```text
 world-map.grid.pdf   rows are the tracks, columns the file languages, each cell shaded by its file count; the

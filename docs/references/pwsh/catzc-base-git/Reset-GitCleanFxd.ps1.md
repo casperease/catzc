@@ -21,7 +21,8 @@ out/, the IDE project's bin/obj, compiled-type scratch), deletes exactly the aut
 
 Everything deleted is rematerialised by the next import (dot-source importer.ps1) except out/, whose content is transient by contract
 (dedicated-output-directory) — gone means gone, by design. The authored plan files (`out/plan-*.md`,
-[ADR-REPO-OUTDIR-PLANNOTES](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)) are the exception: kept and reported.
+[ADR-REPO-OUTDIR-PLANNOTES](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)) are the exception: kept
+and reported.
 
 ### parameter `DryRun`
 

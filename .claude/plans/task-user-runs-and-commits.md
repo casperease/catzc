@@ -28,15 +28,16 @@ Order: the commits and git operations first, the remote runs next, the final ful
 ## Steps
 
 1. Run `out/delete-probes-batch1.ps1`, then delete batch two (`out/harvest-batch1-kept-young.txt`, 13 probes; decided yes by the
-   orchestrator on the user's delegation, 2026-10-18). Check: the listed files are gone, nothing in `out/harvest-keep.txt` is; task-out-artifacts steps 1 and 2 ticked.
+   orchestrator on the user's delegation, 2026-10-18). Check: the listed files are gone, nothing in `out/harvest-keep.txt` is;
+   task-out-artifacts steps 1 and 2 ticked.
 2. Bind a key to the "Push dirty" task (`workbench.action.tasks.runTask`, args `Push dirty`) and run `Push-Dirty` once against the real
    remote. Check: one real run reported; plan-fast-push-followups' last step ticked, the plan a closing-sweep candidate;
    task-root-config-fixtures step 1 ticked.
 3. `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`: list the approvers under `approver_group.members` (it holds the placeholder
    `prod-approver@example.com` until a real approver is listed), run `Sync-AdoEnvironmentApprovals -DryRun`, then without. The config lists
    11 environments (release-uat with RC and pre-prod with RBC for shared, apex, nova and flux, plus the three prod-tier ones), and the apply
-   creates a missing environment (Kind=Environment, Created). Check: a second apply reports Unchanged for the group, all three checks and all
-   11 environments, and a CD run to `shared-psub` waits for approval; task-explanation-drift-gaps step 3 ticked.
+   creates a missing environment (Kind=Environment, Created). Check: a second apply reports Unchanged for the group, all three checks and
+   all 11 environments, and a CD run to `shared-psub` waits for approval; task-explanation-drift-gaps step 3 ticked.
 4. One CD run on main touching only `apex`, one main run and one PR run of `pipelines/ci-automation.yaml`. Check: `AFFECTED=True` in
    `cd-apex`, `AFFECTED=False` in `cd-shared` with its deploy stages skipped; `BuildArtifact` runs on main and is skipped on the PR;
    task-explanation-drift-gaps steps 1 and 2 ticked.

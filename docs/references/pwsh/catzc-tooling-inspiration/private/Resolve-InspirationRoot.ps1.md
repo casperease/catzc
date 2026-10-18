@@ -12,7 +12,8 @@ Resolves an inspiration's stored root to its binding form, a normalized absolute
 ### description
 
 An inspiration's root is stored in communication form
-([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](../../../../adr/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)) and resolved only at the point of use
+([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](../../../../adr/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)) and
+resolved only at the point of use
 ([ADR-AUTO-PATH-BINDINGFORMONLYATBINDING](../../../../adr/automation/path-representation.md#rule-adr-auto-path-bindingformonlyatbinding)):
 
 - '`{workspace}/<folder>`' resolves against the workspace, the parent folder of the repository root

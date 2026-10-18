@@ -77,8 +77,9 @@ building a product for other teams, not a project delivered once and left alone.
 one the platform's own inspect-and-adapt loop applies ([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)): a change rests on signals
 observed in the real system, not on an assumption or on seniority, which is the "gather feedback, validate the problem" sequence this
 capability describes, applied to the platform's own process. The agile value of customer collaboration over contract negotiation
-([ADR-PROC-VALUES](../process/agile-values.md#rule-adr-proc-values-collaborationovercontracts)) is the standing commitment behind it: a continuing relationship with
-consuming teams, not a fixed specification agreed once, is what is allowed to steer what the platform builds next.
+([ADR-PROC-VALUES](../process/agile-values.md#rule-adr-proc-values-collaborationovercontracts)) is the standing commitment behind it: a
+continuing relationship with consuming teams, not a fixed specification agreed once, is what is allowed to steer what the platform builds
+next.
 
 ## Common pitfalls
 

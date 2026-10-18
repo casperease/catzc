@@ -427,7 +427,8 @@ kept for the items that bear on a template, a module, a config, or a check.
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
 `discovery` (the landing zone, with the network), and `expedition` (a workload that lands in it,
-[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every takeaway below points at what those three do, or says plainly what they do not.
+[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every takeaway below points at what those three do, or
+says plainly what they do not.
 
 ### 1 — Make ExpressRoute the primary link with VPN as backup
 
@@ -441,9 +442,9 @@ Summary (ours): Connect on-premises networks to Azure through ExpressRoute first
 
 The repository connects no on-premises site: workloads reach their data through private endpoints inside Azure, and the people who operate
 them work through Azure Resource Manager. The hub reserves `GatewaySubnet` in `network.yml` and deploys nothing into it
-([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), and `vnet-peering.bicep` exposes gateway transit for both sides, so a
-gateway in each hub could serve its spokes without renumbering. A customer that needs a link from its own sites makes this rule and the
-eleven after it apply.
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), and `vnet-peering.bicep`
+exposes gateway transit for both sides, so a gateway in each hub could serve its spokes without renumbering. A customer that needs a link
+from its own sites makes this rule and the eleven after it apply.
 
 ##### 1 status
 
@@ -511,8 +512,8 @@ Summary (ours): Deploy the ExpressRoute gateway zone-redundant in regions that o
 #### What 5 means here
 
 No gateway is deployed. Zone redundancy is the repository's default for the resources it does deploy (zone-redundant storage, and a
-zone-redundant database in production, [ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)), so a gateway module would take a zone-redundant
-SKU by default.
+zone-redundant database in production, [ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)), so a gateway module would
+take a zone-redundant SKU by default.
 
 ##### 5 status
 
@@ -598,7 +599,8 @@ Summary (ours): Use separate ExpressRoute circuits, for example for production a
 
 There is no circuit. The network is split the way the recommendation assumes: production and non-production subscriptions have their own
 hubs (`shared_prod` and `shared_nonprod` in `network.yml`), and no spoke peers across tiers
-([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). A connection per hub would therefore isolate the tiers with no further design.
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). A connection per hub would therefore isolate the tiers with no
+further design.
 
 ##### 10 status
 
@@ -652,10 +654,10 @@ Summary (ours): Deliver internal and external applications from the landing zone
 #### What 13 means here
 
 No workload is reached from the internet: `expedition`'s storage account and SQL server have public network access off and are reached only
-through private endpoints ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The recommendation's placement agrees with how the
-repository divides work: a workload lands in its landing zone and owns its own resources, and the landing zone owns only the shared network
-([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). So the first ingress gateway would be a resource of the workload template, in a subnet
-of its customer's spoke, and the hub would stay free of application components.
+through private endpoints ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The recommendation's placement agrees with how
+the repository divides work: a workload lands in its landing zone and owns its own resources, and the landing zone owns only the shared
+network ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). So the first ingress gateway would be a
+resource of the workload template, in a subnet of its customer's spoke, and the hub would stay free of application components.
 
 ##### 13 status
 
@@ -672,8 +674,9 @@ Summary (ours): Deliver HTTP and HTTPS applications through Application Gateway 
 #### What 14 means here
 
 No workload serves web traffic to the internet, so there is no web application firewall either; ADR-AZ-WAF-SE-SE06 and
-[ADR-AZ-CAF-SEC-ZEROTRUSTAPPLICATIONDELIVERY](landing-zone-security.md#rule-adr-az-caf-sec-zerotrustapplicationdelivery) reach the same conclusion. The first web workload would add a gateway
-module with its firewall policy on by default, placed as [13](#13--deliver-applications-from-their-own-landing-zone) says.
+[ADR-AZ-CAF-SEC-ZEROTRUSTAPPLICATIONDELIVERY](landing-zone-security.md#rule-adr-az-caf-sec-zerotrustapplicationdelivery) reach the same
+conclusion. The first web workload would add a gateway module with its firewall policy on by default, placed as
+[13](#13--deliver-applications-from-their-own-landing-zone) says.
 
 ##### 14 status
 
@@ -726,14 +729,15 @@ Summary (ours): Protect every public IP address in a landing zone with a DDoS Pr
 
 No template deploys a public IP address, so there is nothing for a DDoS Protection plan to cover. The landing zone keeps it that way: it
 assigns the built-in policy against public IP addresses on network interfaces, which denies one where `policy_enforcement` enforces
-(production, by default) and reports it where it audits ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+(production, by default) and reports it where it audits
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
 [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 
 One module contradicts the posture: `infrastructure/modules/vm.bicep` creates a Basic-SKU dynamic public IP address and attaches it to the
 virtual machine's network interface. No template uses the module; its hardening is planned under
-[ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08), and the follow-up here is the same: the module takes no public IP address. A plan
-becomes relevant with the first public endpoint, and it would be bought once for the tenant rather than per landing zone, since a plan
-covers many virtual networks.
+[ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08), and the follow-up here is the same: the module takes no public IP address.
+A plan becomes relevant with the first public endpoint, and it would be bought once for the tenant rather than per landing zone, since a
+plan covers many virtual networks.
 
 ##### 17 in `foundation`
 
@@ -834,9 +838,10 @@ Summary (ours): Make NAT Gateway the default for outbound internet traffic that 
 The workload subnets hold private endpoints and nothing that starts outbound connections: `expedition`'s services are platform services
 whose own outbound traffic does not leave through the spoke. Egress therefore has no current user, and the repository has chosen its path
 for when it does: through a firewall in the hub's `AzureFirewallSubnet`, with spoke routes towards it
-([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06), and [23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)). A NAT
-gateway on a spoke subnet would give that subnet a direct, unfiltered path instead. It can have a place behind the firewall, to give the
-firewall's own outbound traffic more ports and stable addresses; that choice belongs to the firewall follow-up.
+([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06), and
+[23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)). A NAT gateway on a spoke subnet would give that subnet a direct,
+unfiltered path instead. It can have a place behind the firewall, to give the firewall's own outbound traffic more ports and stable
+addresses; that choice belongs to the firewall follow-up.
 
 ##### 22 in `foundation`
 
@@ -849,8 +854,8 @@ routes.
 
 ##### 22 in `expedition`
 
-Not applicable: a workload creates no network resource ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)), and its private endpoints make
-no outbound connections.
+Not applicable: a workload creates no network resource ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)),
+and its private endpoints make no outbound connections.
 
 ##### 22 status
 
@@ -868,10 +873,11 @@ Summary (ours): Use Azure Firewall to control outbound internet traffic, inbound
 #### What 23 means here
 
 The hub reserves `AzureFirewallSubnet` (a /26 in each hub of `network.yml`) and deploys nothing into it, so a firewall can be added without
-renumbering ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). Until it is, egress is unfiltered and traffic between the
-hub and its spokes passes the peerings with only the network security groups between them. The decision to filter egress through the hub is
-ADR-AZ-WAF-SE-SE06's, and the zero-trust view of the same gap is [ADR-AZ-CAF-SEC-WORKLOADNETWORKINGPLANNEDZEROTRUST](landing-zone-security.md#rule-adr-az-caf-sec-workloadnetworkingplannedzerotrust); this rule
-records where the pieces go.
+renumbering ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)). Until it is,
+egress is unfiltered and traffic between the hub and its spokes passes the peerings with only the network security groups between them. The
+decision to filter egress through the hub is ADR-AZ-WAF-SE-SE06's, and the zero-trust view of the same gap is
+[ADR-AZ-CAF-SEC-WORKLOADNETWORKINGPLANNEDZEROTRUST](landing-zone-security.md#rule-adr-az-caf-sec-workloadnetworkingplannedzerotrust); this
+rule records where the pieces go.
 
 The follow-up touches three places. The hub deploys a firewall into `AzureFirewallSubnet` from a new shared module. Each spoke's route table
 gains a default route to the firewall's private address, and its peering to the hub accepts forwarded traffic (`allowForwardedTraffic` in
@@ -907,10 +913,10 @@ Summary (ours): Enable the firewall's management NIC: create AzureFirewallManage
 #### What 24 means here
 
 The hub reserves exactly `GatewaySubnet`, `AzureFirewallSubnet`, and `shared-services`, and `NetworkConfig` holds it to that set
-([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)); there is no `AzureFirewallManagementSubnet`. Because the management
-NIC can only be enabled when a firewall is created, the subnet belongs in the plan before the firewall of
-[23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall) is deployed. Each hub's address space has room for it beside the
-reserved ranges (for example `10.1.0.128/26` in `shared_prod`).
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)); there is no
+`AzureFirewallManagementSubnet`. Because the management NIC can only be enabled when a firewall is created, the subnet belongs in the plan
+before the firewall of [23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall) is deployed. Each hub's address space has room
+for it beside the reserved ranges (for example `10.1.0.128/26` in `shared_prod`).
 
 The management NIC also needs a public IP address. The no-public-IP policy targets network interfaces, not a firewall's management
 configuration, so the two do not collide, but the public address is the first in the landing zone and makes
@@ -981,8 +987,8 @@ Summary (ours): Where the same addresses and ranges recur in firewall rules, col
 #### What 27 means here
 
 There are no firewall rules. When there are, the ranges they name have one home, `network.yml`
-([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and a rule would read them by config address rather than repeat them;
-an IP Group would be built from the same addresses, never typed by hand.
+([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and a rule would read them by config address rather
+than repeat them; an IP Group would be built from the same addresses, never typed by hand.
 
 ##### 27 status
 
@@ -1002,8 +1008,8 @@ Summary (ours): In user-defined routes that steer traffic to Azure platform serv
 
 `route-table.bicep` takes its routes as a parameter, and the spoke's route table passes none. Platform services are reached through private
 endpoints, whose addresses lie inside the spoke, so no route points at a service's public addresses
-([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The recommendation would apply if a workload reached a service on its public
-endpoint through a firewall, which the private-only design rules out. The note on the management subnet matters for the follow-up of
+([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06)). The recommendation would apply if a workload reached a service on its
+public endpoint through a firewall, which the private-only design rules out. The note on the management subnet matters for the follow-up of
 [24](#24--deploy-azure-firewall-with-its-management-nic): `discovery` attaches its route table to spoke subnets only, never to a hub subnet,
 and that stays so.
 
@@ -1142,8 +1148,9 @@ Summary (ours): Never depend on Azure's default outbound internet access: it ris
 Default outbound access is what a virtual machine in a subnet gets when nothing else gives it a way out. No subnet here hosts one, so no
 traffic relies on it. The subnets do not switch it off either: `virtual-network.bicep` sets no `defaultOutboundAccess` on its subnets, and
 the spoke's route table carries no routes, so the first compute placed in a spoke would reach the internet directly. Turning default
-outbound access off on every subnet is a secure default the module should carry ([ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08));
-egress then exists only where the firewall of [23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall) provides it.
+outbound access off on every subnet is a secure default the module should carry
+([ADR-AZ-WAF-SE-SE08](../waf/security.md#rule-adr-az-waf-se-se08)); egress then exists only where the firewall of
+[23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall) provides it.
 
 ##### 35 in `foundation`
 
@@ -1174,8 +1181,8 @@ Summary (ours): Landing zones that are not connected to the hub use NAT Gateway 
 #### What 36 means here
 
 CAF's online landing zone stands apart from the hub. Here every customer spoke peers to the hub of its tier
-([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)), and `NetworkConfig` gives every subscription a hub or a spoke network, so there is no
-unconnected landing zone to apply this to. A workload that had to stand apart would make it apply.
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)), and `NetworkConfig` gives every subscription a hub or a spoke
+network, so there is no unconnected landing zone to apply this to. A workload that had to stand apart would make it apply.
 
 ##### 36 status
 
@@ -1231,9 +1238,10 @@ Summary (ours): Expose no management port of a virtual machine to the internet: 
 
 Two controls of the landing zone close the way in. Every workload subnet carries a network security group whose rules allow traffic inside
 the virtual networks and deny all inbound traffic from the internet, management ports included; the reserved hub subnets carry none and hold
-nothing ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). And the built-in "Network interfaces should not have public IPs" policy, the
-one the recommendation names, is assigned in every landing zone ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)): it denies such an
-interface where `policy_enforcement` enforces, by default in production, and reports it where it audits.
+nothing ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)). And the built-in "Network interfaces should not have
+public IPs" policy, the one the recommendation names, is assigned in every landing zone
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)): it denies such an interface where
+`policy_enforcement` enforces, by default in production, and reports it where it audits.
 
 No template deploys a virtual machine, so there is no jump host and no Bastion (see [45](#45--place-bastion-in-a-hub-and-spoke-topology)).
 The one gap is `vm.bicep`: an unused module that gives its virtual machine a public IP address, so a non-production deploy that used it
@@ -1288,9 +1296,10 @@ Summary (ours): Do not rebuild on-premises perimeter network and demilitarised-z
 
 The landing zone has no perimeter network and no tier of shared appliances that every flow passes. Its controls sit at each resource
 instead: a network security group per workload subnet, public network access off on each data service, and a private endpoint per service in
-the customer's own spoke ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06), [ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)).
-The planned hub firewall ([23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)) filters egress; it is not a perimeter
-network that workloads live behind.
+the customer's own spoke ([ADR-AZ-WAF-SE-SE06](../waf/security.md#rule-adr-az-waf-se-se06),
+[ADR-AZ-WAF-SE-SE04](../waf/security.md#rule-adr-az-waf-se-se04)). The planned hub firewall
+([23](#23--govern-outbound-and-east-west-traffic-with-azure-firewall)) filters egress; it is not a perimeter network that workloads live
+behind.
 
 ##### 41 in `foundation`
 
@@ -1374,8 +1383,9 @@ Summary (ours): In a hub-and-spoke topology, one Bastion in the hub serves the p
 
 No template deploys a virtual machine. The placement would fit the network: one Bastion per hub, serving the spokes peered to it. It would
 need an `AzureBastionSubnet` in each hub, which the hub does not reserve — the reserved set is fixed by
-[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription) and `NetworkConfig` — so the first virtual-machine workload would add it
-there, in the same way as the firewall's management subnet of [24](#24--deploy-azure-firewall-with-its-management-nic).
+[ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription) and `NetworkConfig` — so the
+first virtual-machine workload would add it there, in the same way as the firewall's management subnet of
+[24](#24--deploy-azure-firewall-with-its-management-nic).
 
 ##### 45 status
 
@@ -1515,8 +1525,8 @@ Summary (ours): Where traffic between virtual machines must be encrypted, inside
 Virtual network encryption protects traffic between virtual machines, and no template deploys one. The traffic that does cross the networks
 runs from a client to a data service's private endpoint, and the services encrypt it themselves: `storage-account.bicep` sets
 `minimumTlsVersion: 'TLS1_2'` and `supportsHttpsTrafficOnly: true`, and `sql-server.bicep` sets `minimalTlsVersion: '1.2'`, both fixed in
-the modules rather than offered as parameters ([ADR-AZ-WAF-SE-SE07](../waf/security.md#rule-adr-az-waf-se-se07)). Encryption in transit is therefore
-a property of each service, independent of the network it travels.
+the modules rather than offered as parameters ([ADR-AZ-WAF-SE-SE07](../waf/security.md#rule-adr-az-waf-se-se07)). Encryption in transit is
+therefore a property of each service, independent of the network it travels.
 
 Virtual network encryption would become relevant with virtual machines that talk to each other over a protocol without its own encryption.
 It would be a property of the virtual network, set by `virtual-network.bicep`.
@@ -1736,20 +1746,22 @@ subnet denies inbound internet traffic; and no network interface takes a public 
 Most of the area therefore does not apply, and each such rule says what would make it apply: a link from a customer's sites (rules 1–12 and
 52–57), a workload served to the internet (rules 13–21, 31–34, 40), or a virtual machine (rules 42–51, 61). The planned items close the gaps
 the repository does have: egress filtered through a firewall in each hub, with its management subnet in the plan (rules 23 and 24, the
-follow-up of ADR-AZ-WAF-SE-SE06); default outbound access off on every subnet (rule 35); virtual network flow logs with traffic analytics (rules
-58 and 59); and no public IP address in `vm.bicep` (rules 17, 39, 51).
+follow-up of ADR-AZ-WAF-SE-SE06); default outbound access off on every subnet (rule 35); virtual network flow logs with traffic analytics
+(rules 58 and 59); and no public IP address in `vm.bicep` (rules 17, 39, 51).
 
 ### How this is enforced
 
 - The landing zone's no-public-IP assignment is the enforcement for public addresses on network interfaces: Azure denies one where
-  `policy_enforcement` enforces and reports it where it audits ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
+  `policy_enforcement` enforces and reports it where it audits
+  ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 - `discovery/main.bicep` gives every subnet named in `networkSecurityGroupNames` a network security group with the `deny-internet-inbound`
   rule, and `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` on every change under `infrastructure/`, so the template
   that carries the rule compiles before it deploys.
 - `storage-account.bicep` and `sql-server.bicep` fix TLS 1.2 and public network access off as module defaults
   ([ADR-AZ-WAF-SE-SE07](../waf/security.md#rule-adr-az-waf-se-se07)).
 - `NetworkConfig` and `Test-AzureNetworkPlan` keep the reserved hub subnets in the plan and every range private and free of overlap
-  ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription), [ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)).
+  ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription),
+  [ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)).
 - Planned (follow-up), not existing: a check over the compiled templates (`main.json`) that fails a public IP address, public network
   access, a TLS minimum below 1.2, or a subnet with default outbound access; the hub firewall with spoke routes; and virtual network flow
   logs.

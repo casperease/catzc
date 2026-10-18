@@ -11,8 +11,9 @@ Writes a quality gate's report, prints it, and ends the gate: throws once with e
 
 ### description
 
-The one implementation of a quality gate's output ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)), so
-every gate reports the same way:
+The one implementation of a quality gate's output
+([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)), so every gate reports the same
+way:
 
 - a run folder `<output root>/<folder>/<stamp>/` holding `<report_file>` — a markdown report naming the gate, its facts, and every issue —
   and `<latest_file>` beside the stamped folders, naming the latest run;

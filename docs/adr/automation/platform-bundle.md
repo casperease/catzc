@@ -46,12 +46,12 @@ type sources follow that set, as the DLL does, and the build copies the source t
 it compiles only when that DLL is missing. Before it writes anything the build proves its selection closed against the code itself, not only
 against `dependencies.yml`: every call a selected module makes to a catzc function, and every config it reads by a literal name, lands in a
 selected module (an owner-scoped read, which reads only the owners present, is exempt), and every inventoried internal asset is present
-([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)). Each bundle carries a `build.json` provenance
-record (bundle, version, content hash, `typesHash`, the type-source list, source commit, whether the tree differed from that commit,
-modules); a pipeline refuses to build a tree that differs from its commit. `Assert-CatzcBundle` is the integrity guard: it re-verifies the
-recorded hash, that no `tests/` leaked in, that exactly one types DLL is present and its name matches `typesHash`, that every module has its
-manifest and its one merged function file, and that every manifest export resolves to a function in its merged file — collecting every
-violation. `Build-Modules` runs it as a self-check on its own output.
+([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)). Each bundle carries a
+`build.json` provenance record (bundle, version, content hash, `typesHash`, the type-source list, source commit, whether the tree differed
+from that commit, modules); a pipeline refuses to build a tree that differs from its commit. `Assert-CatzcBundle` is the integrity guard: it
+re-verifies the recorded hash, that no `tests/` leaked in, that exactly one types DLL is present and its name matches `typesHash`, that
+every module has its manifest and its one merged function file, and that every manifest export resolves to a function in its merged file —
+collecting every violation. `Build-Modules` runs it as a self-check on its own output.
 
 - [The verified artifact](#the-verified-artifact)
 
@@ -130,8 +130,8 @@ source tree assert that they run there (`Assert-SourceTree`) and say so in a bui
 The platform separates the **working root** from the **code root**. `RepositoryRoot` is where the user runs — the anchor for `out/`,
 repo-relative paths, and git. `CatzcModulesRoot` is where the loaded catzc code lives — the anchor every config, type, and vendor scan
 follows, through `Get-CatzcModulesRoot`, and the root `Get-CatzcModuleRoot` resolves a module's own content under. In the mono repo the
-importer derives `CatzcModulesRoot` as `<RepositoryRoot>/pwsh`, so the two coincide. In an install they diverge: the working root is
-the destination folder, and the code root is the installed build, which may sit anywhere. This split is the whole reason the platform can be
+importer derives `CatzcModulesRoot` as `<RepositoryRoot>/pwsh`, so the two coincide. In an install they diverge: the working root is the
+destination folder, and the code root is the installed build, which may sit anywhere. This split is the whole reason the platform can be
 relocated — a scan that anchored on `RepositoryRoot` would look in the wrong place the moment the code and the work were not the same tree.
 
 ### Booting through the importer
@@ -176,8 +176,8 @@ a pipeline refuses a dirty tree, so a released bundle is always exactly its comm
 DLL's name proves, which on a clean tree is the commit's. `Build-Modules` writes its generated output canonically — UTF-8 without BOM, LF,
 one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same
 copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use (the related flow rule is
-[ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)). The same commit therefore hashes the same on every OS, which
-the CI pipeline proves by building on each and comparing.
+[ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)). The same commit therefore
+hashes the same on every OS, which the CI pipeline proves by building on each and comparing.
 
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
 take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a
@@ -215,12 +215,13 @@ it as a local package. The vendored dependencies ride inside the build's own `.v
 
 A build on a devbox is a local convenience, not a release, so it carries the fixed `6.6.666` placeholder and overwrites in place — an
 obviously-unreal number that reads as "built locally" — and `Build-Modules` says so with a yellow `Write-Message` line. It is never a
-warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-BUNDLEISSESSION). A pipeline export gets a real version, and that version is **calculated,
-not chosen**: `MAJOR.MINOR` is the bundle's own reviewed `version` in `exporter.yml` — the repository is a mono repo, so each bundle has its
-own version line and no bundle's version moves another's — and `PATCH` is the first-parent commit count of the built commit
+warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-BUNDLEISSESSION). A pipeline export gets a real version, and that version is
+**calculated, not chosen**: `MAJOR.MINOR` is the bundle's own reviewed `version` in `exporter.yml` — the repository is a mono repo, so each
+bundle has its own version line and no bundle's version moves another's — and `PATCH` is the first-parent commit count of the built commit
 (`git rev-list --first-parent --count HEAD`, which needs the full history the pipelines fetch,
-[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit)). The same commit therefore always gets the same version — build
-once, version once ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)) — and versions
+[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit)). The same commit therefore always gets the
+same version — build once, version once
+([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)) — and versions
 increase monotonically along `main` without a counter to store. The placeholder never leaves a devbox: a pipeline build that names it
 explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is declared in one `exporter.yml` read through
 `Get-Config` — the single place the repository states how it wants to export itself, validated on load and substitutable by a fixture in

@@ -66,8 +66,8 @@ does not claim — tests, docs, editor droppings, a file dropped at a module's r
 Shipping code is therefore default-deny: a new file can only enter `live` by an explicit convention change, never by accident. A deployment
 track inverts the remainder: a template ships whole, so its `tests` is the closed, explicit head and `live` is the remainder. The two
 aspects partition the module exactly (ordered first-match with a `**` remainder guarantees it), and each carries an identity of its own: its
-live durable SHA ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)), folded into the module's protection identity
-([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob-compositeidentity)).
+live durable SHA ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)), folded into the module's
+protection identity ([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob-compositeidentity)).
 
 The convention lives in the `aspects` variant so the vocabulary can evolve (a future `config`/`docs` aspect is one more ordered rule, and
 each track still names its own remainder) without touching the engine. `Catzc.Base.Globs` reads it through `Get-Aspect` and compiles per
@@ -86,8 +86,8 @@ unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `<module>-live` / 
 
 ## Related
 
-- [durable-sha-globs](../flow/durable-sha-globs.md) — the live identity (`ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY`), the scan program (`ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY`),
-  and the layers (`ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER`)
+- [durable-sha-globs](../flow/durable-sha-globs.md) — the live identity (`ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY`), the scan program
+  (`ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY`), and the layers (`ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER`)
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-REPO-VARIANT`)
 - [protected-globs](../repository/protected-globs.md) — the `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate

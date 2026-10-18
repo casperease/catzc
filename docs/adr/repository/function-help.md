@@ -5,11 +5,12 @@
 ### Rule ADR-REPO-HELP-HELPONCOMMENTPAGE
 
 The help of a PowerShell function file or script is the `## help` section of the file's comment page
-([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), the page `comments.yml` names for the file's path. The file itself
-carries no help: no comment-based help block (no `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`, `.INPUTS`, `.OUTPUTS`, `.EXAMPLE` or `.NOTES`
-section anywhere) and no help in a head. The section comes first after the page's opening line and holds, in this order, `### synopsis`,
-`### description`, one ``### parameter `<Name>` `` for each parameter, its name written as code, `### inputs`, `### outputs`, one
-`### example <n>` for each example, and `### notes`. Every subsection but the synopsis is present only when it has text.
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), the page `comments.yml` names for the
+file's path. The file itself carries no help: no comment-based help block (no `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`, `.INPUTS`,
+`.OUTPUTS`, `.EXAMPLE` or `.NOTES` section anywhere) and no help in a head. The section comes first after the page's opening line and holds,
+in this order, `### synopsis`, `### description`, one ``### parameter `<Name>` `` for each parameter, its name written as code,
+`### inputs`, `### outputs`, one `### example <n>` for each example, and `### notes`. Every subsection but the synopsis is present only when
+it has text.
 
 - [The page holds the help](#the-page-holds-the-help)
 
@@ -24,8 +25,8 @@ the `param` block, and an example is one fenced `powershell` block. The tooling 
 ### Rule ADR-REPO-HELP-CITATIONINSENTENCE
 
 A citation may stand inside a help sentence, where it names the rule the sentence rests on. The ADR codes a function rests on are derived
-from the file and its page ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)), so the help never lists them. A line of the text
-made of nothing but a citation is reported.
+from the file and its page ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)), so the help never lists them. A
+line of the text made of nothing but a citation is reported.
 
 - [Citations are derived](#citations-are-derived)
 
@@ -40,9 +41,9 @@ differs from `[OutputType]`.
 ### Rule ADR-REPO-HELP-IMPRINTSTEP
 
 `Format-Code` checks rules 1 to 4 as an imprint step of the PowerShell language
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](uniform-formatting.md#rule-adr-repo-format-configuredformatters)), and `Test-Formatting` fails a file the step reports. No command and no
-check names the step. The step reads the file with the language's own parser, so a comment inside a string or a here-string is never
-mistaken for help, and reads the page with the Markdown parser.
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](uniform-formatting.md#rule-adr-repo-format-configuredformatters)), and `Test-Formatting` fails a
+file the step reports. No command and no check names the step. The step reads the file with the language's own parser, so a comment inside a
+string or a here-string is never mistaken for help, and reads the page with the Markdown parser.
 
 - [Hosted by Format-Code](#hosted-by-format-code)
 

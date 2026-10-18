@@ -78,11 +78,10 @@ are no per-module reader wrappers and no dependency guard. Only `Get-Config` is 
 
 `Discovery, not per-module wrappers`
 
-A config name is **global**. `Resolve-ConfigEntry` builds a one-time `name → entries` index by scanning every
-`pwsh/<module>/configs/*.yml`, then resolves the requested name to a single `@{ Name; Module; Path }`. The owning module is
-_discovered_ from where the file lives — not declared by a wrapper and not passed by the caller. `-Module` exists only to disambiguate the
-rare case of the same config name in two modules; the seam throws on an **unknown** name and on an **ambiguous** name (asking for
-`-Module`).
+A config name is **global**. `Resolve-ConfigEntry` builds a one-time `name → entries` index by scanning every `pwsh/<module>/configs/*.yml`,
+then resolves the requested name to a single `@{ Name; Module; Path }`. The owning module is _discovered_ from where the file lives — not
+declared by a wrapper and not passed by the caller. `-Module` exists only to disambiguate the rare case of the same config name in two
+modules; the seam throws on an **unknown** name and on an **ambiguous** name (asking for `-Module`).
 
 A few configs are shipped by several modules on purpose: each module opts in by shipping its own file, and a reader wants all of them — a
 module's `configs/glossary.yml` is one ([controlled-vocabulary](../repository/controlled-vocabulary.md)).
@@ -111,8 +110,8 @@ config, a type that does not resolve, and a shipped config that does not load ar
 
 `Invoke-ConfigValidator, for owners without a C# type`
 
-Not every owner of a config can ship a C# type: types compile only from `pwsh/<module>/types/`, and a track or deployable-unit that
-carries its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK-ONETECHSTACK`). For those, `Catzc.Base.ConfigExtensions`
+Not every owner of a config can ship a C# type: types compile only from `pwsh/<module>/types/`, and a track or deployable-unit that carries
+its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK-ONETECHSTACK`). For those, `Catzc.Base.ConfigExtensions`
 keeps the PowerShell validator form. `Invoke-ConfigValidator -Config <dict> -Name <name> -Module <owner>` finds the validator by convention
 (`Assert-<TitleCase(name)>Config`, so `widget-parts` → `Assert-WidgetPartsConfig`) or by `-Validator`, and runs it **in the owning module's
 scope** — `& (Get-Module $owner) { … }` — so a private validator resolves. A conventional validator that does not exist is a no-op; a named

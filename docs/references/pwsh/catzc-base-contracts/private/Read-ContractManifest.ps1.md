@@ -11,7 +11,8 @@ Reads a version folder's contract.yml, the direction overrides of its assets.
 
 ### description
 
-The per-version manifest of [ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention) sits at
+The per-version manifest of
+[ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention) sits at
 `contracts/<unit>/<version>/contract.yml`. Most version folders carry none, so an absent file is an empty manifest. The ContractManifest
 type validates what it reads and throws on a malformed file.
 

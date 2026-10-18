@@ -86,8 +86,8 @@ automated. Keeping deployability as the property CD protects, and the production
 [pipeline-types](../flow/pipeline-types.md) (ADR-FLOW-CD-TYPE) is the taxonomy underneath: one CI engine shared by CI and CD
 (ADR-FLOW-CD-TYPE-ONECIENGINE), a bounded pre-commit budget so slow verification is pushed into the deploy path rather than skipped
 (ADR-FLOW-CD-TYPE-PRECOMMITBUDGET), and a DEPLOY pipeline that never rebuilds, only promotes a pinned, already-verified artifact
-(ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL–ADR-FLOW-CD-TYPE-DEPLOYISPINNED). That build-once discipline is what keeps a continuously delivered system's non-prod certification
-meaningful when it reaches production.
+(ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL–ADR-FLOW-CD-TYPE-DEPLOYISPINNED). That build-once discipline is what keeps a continuously delivered
+system's non-prod certification meaningful when it reaches production.
 
 ## Common pitfalls
 

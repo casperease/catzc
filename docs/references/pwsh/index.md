@@ -1,8 +1,8 @@
 # Module reference
 
-One article per catzc module. Each is written **responsibilities-first**: it does not walk through individual functions — it declares
-the _responsibilities_ the module owns, explains the module in terms of those responsibilities, and only at the end sorts the module's
-functions and configuration into them.
+One article per catzc module. Each is written **responsibilities-first**: it does not walk through individual functions — it declares the
+_responsibilities_ the module owns, explains the module in terms of those responsibilities, and only at the end sorts the module's functions
+and configuration into them.
 
 ## How to read these articles
 

@@ -98,12 +98,12 @@ automation never calls it to generate identity at runtime, because a runtime-min
 
 `Get-RepositoryGuids` scans every tracked text file and returns one `@{ file; line; guid }` record per occurrence. Tracked files are the
 same universe a globset matches against; the related flow rule is
-[ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly). The `Test-ManagedGuids` quality gate, run by the managed-guid
-integrity test, reports every found guid that is not registered and every registry entry not found — with the registry file itself excluded
-from the scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file under every named root of the repository
-plus its own config, so it protects against the whole-repository `repository` globset, which covers both
-([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob-includesownconfig)): repeat local runs skip until a tracked file anywhere in the
-repository changes, and CI always scans. The same gate reports a scanned file, or the registry, outside `repository`.
+[ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly). The `Test-ManagedGuids` quality
+gate, run by the managed-guid integrity test, reports every found guid that is not registered and every registry entry not found — with the
+registry file itself excluded from the scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file under
+every named root of the repository plus its own config, so it protects against the whole-repository `repository` globset, which covers both
+([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob-includesownconfig)): repeat local runs skip until a tracked file
+anywhere in the repository changes, and CI always scans. The same gate reports a scanned file, or the registry, outside `repository`.
 
 ### Division of ownership
 
@@ -122,9 +122,9 @@ quality gate, and invisible to cspell.
 
 - **`GuidsConfig`** (the C# config type registered for `guids` in `configs.yml`) — validates the registry's shape, canonical guid form, guid
   uniqueness, and strict keys on every load.
-- **`Test-ManagedGuids`** — the quality gate ([ADR-AUTO-TEST-QUALITYGATE](test-automation.md#rule-adr-auto-test-qualitygate)) over the repository-wide scan
-  (`Get-RepositoryGuids`): every guid in tracked text is registered, none is denied, and every entry is referenced. The **managed-guid
-  integrity test** (`Get-RepositoryGuids.Tests.ps1`) runs it, protected-globs-wrapped for the local inner loop.
+- **`Test-ManagedGuids`** — the quality gate ([ADR-AUTO-TEST-QUALITYGATE](test-automation.md#rule-adr-auto-test-qualitygate)) over the
+  repository-wide scan (`Get-RepositoryGuids`): every guid in tracked text is registered, none is denied, and every entry is referenced. The
+  **managed-guid integrity test** (`Get-RepositoryGuids.Tests.ps1`) runs it, protected-globs-wrapped for the local inner loop.
 - **`Assert-ManagedGuid` / `Test-ManagedGuid`** — the one shared lookup (`Resolve-ManagedGuid`) behind the throwing and boolean checks, for
   any code or operator that needs to assert a GUID against the table.
 - **The cspell config** (`ignoreRegExpList`, in the source of the managed root `cspell.yml`) — keeps GUID fragments out of `Test-Spelling`,

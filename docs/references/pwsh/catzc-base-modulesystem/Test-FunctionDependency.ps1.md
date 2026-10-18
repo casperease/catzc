@@ -11,8 +11,8 @@ The function dependency quality gate: every function-to-function call resolves t
 
 ### description
 
-Parses every .ps1 file (excluding tests) under the modules root using AST, then checks each function call against: (a) the definitions
-map of module functions, and (b) Get-Command for built-ins, vendor modules, and other loaded commands.
+Parses every .ps1 file (excluding tests) under the modules root using AST, then checks each function call against: (a) the definitions map
+of module functions, and (b) Get-Command for built-ins, vendor modules, and other loaded commands.
 
 An issue is an unresolved call ('`<caller>` -> `<missing>` (`<module>/<file>:<line>`)') or two modules defining the same public
 (module-root) function name — exported names must be globally unique, mirroring the importer's Assert-UniqueModuleFunctionName. Duplicate

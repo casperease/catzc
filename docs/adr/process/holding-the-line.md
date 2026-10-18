@@ -51,8 +51,8 @@ When a gate fails, the line stops. Concretely:
 - No new work builds on the broken baseline. The fix goes in — or the offending change is reverted — before anything integrates on top.
 
 The mechanism is the same fail-fast jidoka the platform uses everywhere
-([ADR-PRIN-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-failfast)): stop the moment a defect is detected, fix it at the source,
-then resume. "Holding the line" is that principle applied to the mainline and the promotion flow
+([ADR-PRIN-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-failfast)): stop the moment a defect is detected, fix it at
+the source, then resume. "Holding the line" is that principle applied to the mainline and the promotion flow
 ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) rather than to a single function call [^2].
 
 ## Why

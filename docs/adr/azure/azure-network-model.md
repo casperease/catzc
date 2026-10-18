@@ -83,9 +83,9 @@ environment and by subscription.
 `configs/network.yml` declares two entities — a per-environment IP plan, keyed by environment **name** (the same keys as `azure.yml`'s
 `environments`), and a per-subscription network, keyed by subscription **name** (the same keys as `azure.yml`'s `subscriptions`). It is
 loaded by `Get-Config -Config network`, which constructs its C# config type, `NetworkConfig` (every shipped config has one,
-[ADR-CONF-LOADING-CSHARPCONFIGTYPE](../configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)), so a bad file throws at read time. A template's
-parameter file can reach the same ranges through a config address ([config-value-addressing](../configuration/config-value-addressing.md))
-instead of a prepare hook.
+[ADR-CONF-LOADING-CSHARPCONFIGTYPE](../configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)), so a bad file throws
+at read time. A template's parameter file can reach the same ranges through a config address
+([config-value-addressing](../configuration/config-value-addressing.md)) instead of a prepare hook.
 
 ```mermaid
 erDiagram
@@ -140,7 +140,8 @@ The `subscriptions` block is the IP plan of the hub-and-spoke topology the subsc
 - **A spoke** belongs to a customer subscription. It carries `private-endpoints`, where every workload in the spoke places its private
   endpoints, and one workload subnet per standard environment the subscription serves, named for that environment (`dev`, `test`, …), so a
   workload finds its subnet from its own environment with no lookup table. The per-subscription identity environment (`nsub`/`psub`) gets no
-  workload subnet, for the same reason it gets no environment entry ([ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK](#rule-adr-az-network-subscriptionenvironmentsnonetwork)).
+  workload subnet, for the same reason it gets no environment entry
+  ([ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK](#rule-adr-az-network-subscriptionenvironmentsnonetwork)).
 - **The kind is declared** (`kind: hub` or `kind: spoke`), even though it follows from `azure.yml`. A template reads it from the plan alone,
   and the gate checks that it agrees with the subscription, so the two can never silently disagree.
 
@@ -153,10 +154,12 @@ The `subscriptions` block is the IP plan of the hub-and-spoke topology the subsc
 - **Format.** Each environment and subscription name is a valid lower-snake_case identifier (`^[a-z][a-z0-9_]*$`); each range is an aligned
   IPv4 CIDR (`a.b.c.d/n`, `0 ≤ n ≤ 32`, no host bits set, because Azure rejects an address prefix with host bits set), validated with
   `[System.Net.IPAddress]`.
-- **Containment and overlap** ([ADR-AZ-NETWORK-NOOVERLAP](#rule-adr-az-network-nooverlap)). An environment's default subnet and every subscription subnet lie
-  inside their vnet; no two subnets of one vnet overlap; no two networks in the file overlap, whether environment or subscription.
-- **Kind** ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](#rule-adr-az-network-networkpersubscription)). A hub carries exactly `GatewaySubnet`, `AzureFirewallSubnet`, and `shared-services`;
-  a spoke carries `private-endpoints`, and every other spoke subnet is named as an environment (a lower-snake_case identifier).
+- **Containment and overlap** ([ADR-AZ-NETWORK-NOOVERLAP](#rule-adr-az-network-nooverlap)). An environment's default subnet and every
+  subscription subnet lie inside their vnet; no two subnets of one vnet overlap; no two networks in the file overlap, whether environment or
+  subscription.
+- **Kind** ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](#rule-adr-az-network-networkpersubscription)). A hub carries exactly `GatewaySubnet`,
+  `AzureFirewallSubnet`, and `shared-services`; a spoke carries `private-endpoints`, and every other spoke subnet is named as an environment
+  (a lower-snake_case identifier).
 - **Cross-asset integrity with `azure.yml`** (the join, checked by the quality gate `Test-AzureNetworkPlan`, not by the type):
   - every network environment is a **defined `azure.yml` environment** (no ghost entries);
   - every **standard** `azure.yml` environment has a network entry;

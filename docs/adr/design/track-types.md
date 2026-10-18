@@ -8,8 +8,8 @@ A **track type** is the sort of cluster a track is, and it is one of a closed se
 `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`, `contracts`, `documentation`, `verification` and `unordered`.
 Configuration is no track type: it is a file role (the `config` kind), static files kept in the repository inside a module or inside a
 vendor-settings track, and it follows its owner. A track has exactly one type. A new tech-stack that ships (a `services` or `frontend`
-track, [ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)) adds its type to the set in the same change that opens the track, never before
-it.
+track, [ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)) adds its type to the set in the same change that opens the
+track, never before it.
 
 - [Track types](#track-types)
 
@@ -17,9 +17,9 @@ it.
 
 A track type has one **role**. A **deployable track** (`modules`, `infrastructure`, and the future `services` and `frontend`) _owns_
 deployable-units: collections of the track's modules that the repository delivers through CI/CD
-([ADR-DSGN-TRACK-DEPLOYABLEUNIT](tracks.md#rule-adr-dsgn-track-deployableunit)). A **holder track** (every other type) _is_ a module more than it owns modules: it
-holds one vendor's or one tool's files for this repository, or one purpose's, and it ships nothing of its own. The role is declared on the
-track type, never on the track.
+([ADR-DSGN-TRACK-DEPLOYABLEUNIT](tracks.md#rule-adr-dsgn-track-deployableunit)). A **holder track** (every other type) _is_ a module more
+than it owns modules: it holds one vendor's or one tool's files for this repository, or one purpose's, and it ships nothing of its own. The
+role is declared on the track type, never on the track.
 
 - [Deployable and holder tracks](#deployable-and-holder-tracks)
 
@@ -39,11 +39,12 @@ the third party that wrote it.
 ### Rule ADR-DSGN-TRACKTYPE-DECLAREDONCE
 
 A track is **declared once**, in the `tracks` map of `variants.yml` (`Catzc.Base.Variants`, the repo-wide variants), as its name, its type,
-its places (the paths it covers), its vendor when it has one ([ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](#rule-adr-dsgn-tracktype-optionalvendor)) and its file languages
-([ADR-DSGN-TRACK-FILELANGUAGE](tracks.md#rule-adr-dsgn-track-filelanguage)). The track types are declared once, in `track-types.yml` of the same module, each with
-its definition, its role ([ADR-DSGN-TRACKTYPE-ONEROLE](#rule-adr-dsgn-tracktype-onerole)) and the module types it admits
-([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](module-types.md#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)). No other file lists a track, a track type or a place: a command, a gate and
-a globset read them through `Get-Track`.
+its places (the paths it covers), its vendor when it has one ([ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](#rule-adr-dsgn-tracktype-optionalvendor))
+and its file languages ([ADR-DSGN-TRACK-FILELANGUAGE](tracks.md#rule-adr-dsgn-track-filelanguage)). The track types are declared once, in
+`track-types.yml` of the same module, each with its definition, its role ([ADR-DSGN-TRACKTYPE-ONEROLE](#rule-adr-dsgn-tracktype-onerole))
+and the module types it admits
+([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](module-types.md#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)). No other file lists a
+track, a track type or a place: a command, a gate and a globset read them through `Get-Track`.
 
 - [Where the declarations live](#where-the-declarations-live)
 
@@ -68,8 +69,8 @@ file head never carries the track's role, places or languages: a reader looks th
 
 A track of **vendored code** holds code written by a third party that the repository does not author, such as `pwsh/.vendor` and
 `bash/.vendor`. It is nested under another track's root and gets its files by the longest place
-([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](#rule-adr-dsgn-tracktype-longestplacewins)), so the track beside it never holds them. Its files are never live
-([ADR-DSGN-TRACK-STACKVIOLATION](tracks.md#rule-adr-dsgn-track-stackviolation)).
+([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](#rule-adr-dsgn-tracktype-longestplacewins)), so the track beside it never holds them. Its files are
+never live ([ADR-DSGN-TRACK-STACKVIOLATION](tracks.md#rule-adr-dsgn-track-stackviolation)).
 
 - [Vendored code](#vendored-code)
 
@@ -87,8 +88,8 @@ for the type of track, declared once, makes that difference a fact a gate can ch
 definitions, Azure DevOps or GitHub Actions by vendor; `vendor-settings` holds the settings of one tool the repository configures;
 `vendored-code` holds code written by a third party; `contracts` holds the repository's boundary contracts, in both directions;
 `documentation` holds the ADRs, references and guides; `verification` holds the black-box test projects (Go, Python, Bash); `unordered` is
-where imports land ([ADR-DSGN-TRACK-UNORDEREDTRACK](tracks.md#rule-adr-dsgn-track-unorderedtrack)). Configuration is a file role, not a type: `configs/*.yml` belongs
-to its module's track and `settings.json` to its vendor-settings track.
+where imports land ([ADR-DSGN-TRACK-UNORDEREDTRACK](tracks.md#rule-adr-dsgn-track-unorderedtrack)). Configuration is a file role, not a
+type: `configs/*.yml` belongs to its module's track and `settings.json` to its vendor-settings track.
 
 ### Deployable and holder tracks
 
@@ -119,13 +120,14 @@ gives it its files without a list of exclusions.
 
 ## Decision
 
-Name the type of a track and declare it once. A track is a cluster of module contents ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](tracks.md#rule-adr-dsgn-track-trackisplacedcluster))
-with one of a closed set of types ([ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](#rule-adr-dsgn-tracktype-closedsetoftypes)), and a vendor when one platform reads it
-([ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](#rule-adr-dsgn-tracktype-optionalvendor)). A deployable track owns deployable-units and a holder track is a module of one vendor,
-one tool or one purpose ([ADR-DSGN-TRACKTYPE-ONEROLE](#rule-adr-dsgn-tracktype-onerole)). The `tracks` map and `track-types.yml` are the only
-declarations ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](#rule-adr-dsgn-tracktype-declaredonce)); the longest place resolves each file
-([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](#rule-adr-dsgn-tracktype-longestplacewins)); the head says `track`, `tracktype` and `vendor`
-([ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](#rule-adr-dsgn-tracktype-headreadsdeclaration)).
+Name the type of a track and declare it once. A track is a cluster of module contents
+([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](tracks.md#rule-adr-dsgn-track-trackisplacedcluster)) with one of a closed set of types
+([ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](#rule-adr-dsgn-tracktype-closedsetoftypes)), and a vendor when one platform reads it
+([ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](#rule-adr-dsgn-tracktype-optionalvendor)). A deployable track owns deployable-units and a holder track
+is a module of one vendor, one tool or one purpose ([ADR-DSGN-TRACKTYPE-ONEROLE](#rule-adr-dsgn-tracktype-onerole)). The `tracks` map and
+`track-types.yml` are the only declarations ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](#rule-adr-dsgn-tracktype-declaredonce)); the longest place
+resolves each file ([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](#rule-adr-dsgn-tracktype-longestplacewins)); the head says `track`, `tracktype`
+and `vendor` ([ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](#rule-adr-dsgn-tracktype-headreadsdeclaration)).
 
 ### How this is enforced
 
@@ -133,8 +135,8 @@ declarations ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](#rule-adr-dsgn-tracktype-declare
   a place under `out/`, an unknown key, a role outside the closed set, and a track type that admits a module type twice.
 - **`Test-TrackDeclaration`** reads the tracks, the track types, the vendors and the module types together and fails a track whose type or
   vendor is not declared, and a track type that admits a module type no registry declares.
-- **`Test-WorldMap`** fails a tracked file in no track and a stack violation ([ADR-DSGN-TRACK-STACKVIOLATION](tracks.md#rule-adr-dsgn-track-stackviolation)); its
-  rows are the tracks.
+- **`Test-WorldMap`** fails a tracked file in no track and a stack violation
+  ([ADR-DSGN-TRACK-STACKVIOLATION](tracks.md#rule-adr-dsgn-track-stackviolation)); its rows are the tracks.
 - **`Test-FileMeta`** compares `track`, `tracktype` and `vendor` in each head with the declaration.
 
 ## Consequences

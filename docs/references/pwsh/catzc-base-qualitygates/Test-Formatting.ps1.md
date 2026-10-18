@@ -11,9 +11,10 @@ Quality gate: checks that formatting would leave the repository unchanged.
 
 ### description
 
-One gate for every formatter's check ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). It keeps no list
-of formatters of its own: Format-Code -DryRun runs every engine the file-language registry (languages.yml) names, over every tracked file of
-each language, and every file an engine would change is one issue naming the file and the command that fixes it
+One gate for every formatter's check
+([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). It keeps no list of formatters of
+its own: Format-Code -DryRun runs every engine the file-language registry (languages.yml) names, over every tracked file of each language,
+and every file an engine would change is one issue naming the file and the command that fixes it
 ([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
 
 The C# file-scoped namespace is a repository content rule rather than a layout engine, so it is checked beside the engines: Format-Types

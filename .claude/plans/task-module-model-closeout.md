@@ -9,8 +9,8 @@ task:
 
 # Task: module model close-out
 
-The model, its decisions D01 to D05 and rule 6's enforcement (checks and tests resolved through `languages.yml`) are in the tree. Two real-repo
-failures an agent reported wait on the final full run.
+The model, its decisions D01 to D05 and rule 6's enforcement (checks and tests resolved through `languages.yml`) are in the tree. Two
+real-repo failures an agent reported wait on the final full run.
 
 ## Steps
 

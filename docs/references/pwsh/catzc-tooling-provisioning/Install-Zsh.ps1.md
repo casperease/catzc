@@ -13,27 +13,28 @@ Installs zsh (user-space on Windows, into Git Bash's tree; apt-get on Linux; the
 
 Windows: installs the MSYS2 zsh package that tools.yml pins (`zsh`: msys2_url and msys2_sha256) into the Git for Windows tree Install-Git
 provides (the entry's windows_install_dir), so zsh runs on Git Bash's own MSYS2 runtime. No admin required
-([ADR-AUTO-ENTERP-NOLOCALADMIN](../../../adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp-nolocaladmin)). The package is downloaded through
-Save-VerifiedDownload and its SHA-256 checked before anything is extracted
-([ADR-AUTO-PKGMGR-VERIFYDOWNLOADS](../../../adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-verifydownloads)); Windows' own tar reads the zstd
-archive. Only the files Git's tree lacks are copied, and their list is recorded in a manifest inside the tree before the copy starts, so
-Uninstall-Zsh removes exactly those ([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)). PATH is
-left alone: zsh is located by its tools.yml candidates.
+([ADR-AUTO-ENTERP-NOLOCALADMIN](../../../adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp-nolocaladmin)). The package is
+downloaded through Save-VerifiedDownload and its SHA-256 checked before anything is extracted
+([ADR-AUTO-PKGMGR-VERIFYDOWNLOADS](../../../adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-verifydownloads)); Windows'
+own tar reads the zstd archive. Only the files Git's tree lacks are copied, and their list is recorded in a manifest inside the tree before
+the copy starts, so Uninstall-Zsh removes exactly those
+([ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-uninstallmanagedonly)). PATH
+is left alone: zsh is located by its tools.yml candidates.
 
 Install-Git is a prerequisite, asserted and never run from here: without Git's tree the install stops and names Install-Git. Install-Git
 -Force replaces Git's whole tree, zsh included, so run Install-Zsh again after it (Install-DevBoxTools runs them in that order).
 
 Linux: installs the distribution's package that the entry's apt_package names, through Install-Tool (apt-get), when zsh is missing
 ([ADR-AUTO-PKGMGR-PLATFORMNATIVEMANAGERS](../../../adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-platformnativemanagers);
-[ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)). That needs root or passwordless sudo
-(Test-IsAdministrator), so tools.yml marks the entry linux_admin_only and a non-elevated Install-DevBoxTools skips it and says so. Either
-way it then asserts zsh at the pinned version.
+[ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
+That needs root or passwordless sudo (Test-IsAdministrator), so tools.yml marks the entry linux_admin_only and a non-elevated
+Install-DevBoxTools skips it and says so. Either way it then asserts zsh at the pinned version.
 
 macOS: zsh ships as /bin/zsh, so Install-Zsh asserts it is present at the pinned version and installs nothing.
 
-Idempotent ([ADR-AUTO-IDEM-CHECKBEFOREACTING](../../../adr/automation/idempotent-state-functions.md#rule-adr-auto-idem-checkbeforeacting)): skips when the pinned package is
-already installed, and on Linux when zsh is already present at the pinned version, with no root asked for. A zsh from another package
-(Windows) or at another version (Linux) stops the install unless -Force is passed.
+Idempotent ([ADR-AUTO-IDEM-CHECKBEFOREACTING](../../../adr/automation/idempotent-state-functions.md#rule-adr-auto-idem-checkbeforeacting)):
+skips when the pinned package is already installed, and on Linux when zsh is already present at the pinned version, with no root asked for.
+A zsh from another package (Windows) or at another version (Linux) stops the install unless -Force is passed.
 
 ### parameter `Force`
 

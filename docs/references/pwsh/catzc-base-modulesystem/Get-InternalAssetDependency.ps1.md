@@ -11,10 +11,11 @@ Lists every internal asset dependency in the module code — one record per Get-
 
 ### description
 
-The inventory of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath), derived from the
-code: the code is the registration, so there is no separate list to keep in step. Parses every module function file — the .ps1 files at a
-module folder's root and in its private/ folder, never tests/ or assets/ — and finds each call to Get-CatzcModuleRoot. Each call site
-becomes one record:
+The inventory of
+[ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath),
+derived from the code: the code is the registration, so there is no separate list to keep in step. Parses every module function file — the
+.ps1 files at a module folder's root and in its private/ folder, never tests/ or assets/ — and finds each call to Get-CatzcModuleRoot. Each
+call site becomes one record:
 
 ```text
 Module     the module whose folder the call resolves under: the -Module literal when the call passes
@@ -27,10 +28,10 @@ Line       the line of the call
 ```
 
 -ChildPath must be a string literal at every call site
-([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)), and so must -Module when it is
-passed. A call whose value is computed — a variable, an expandable string, a subexpression, or a splat that hides the arguments — cannot be
-inventoried. Such a call site is a violation: by default the command throws, naming every violating site, so the inventory is never silently
-partial. -Violation returns the violating sites instead of the inventory, without throwing.
+([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)), and
+so must -Module when it is passed. A call whose value is computed — a variable, an expandable string, a subexpression, or a splat that hides
+the arguments — cannot be inventoried. Such a call site is a violation: by default the command throws, naming every violating site, so the
+inventory is never silently partial. -Violation returns the violating sites instead of the inventory, without throwing.
 
 Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).

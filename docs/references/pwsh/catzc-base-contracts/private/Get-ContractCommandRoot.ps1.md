@@ -12,11 +12,13 @@ Returns the root folder of the module whose command contracts are being resolved
 ### description
 
 A command contract names its command by placement
-([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)): the module folder is the owner, and
-the command's file sits under the module's root beside its other public functions. The root comes from the one resolver of a module,
-Get-CatzcModule ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../../../adr/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule)), looked up by name in the code
-track; no module of that name throws, naming the module. A module whose languages do not include PowerShell throws NotImplemented: only the
-PowerShell checker exists ([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)).
+([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)): the
+module folder is the owner, and the command's file sits under the module's root beside its other public functions. The root comes from the
+one resolver of a module, Get-CatzcModule
+([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../../../adr/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule)), looked up
+by name in the code track; no module of that name throws, naming the module. A module whose languages do not include PowerShell throws
+NotImplemented: only the PowerShell checker exists
+([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)).
 
 ### parameter `Module`
 

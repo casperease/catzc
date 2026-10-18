@@ -11,7 +11,8 @@ Checks one contract asset against the repository by its kind, and returns the re
 
 ### description
 
-Runs the check of the asset's kind ([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)):
+Runs the check of the asset's kind
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)):
 
 - Presence: the target exists with the exact case of its path (Get-ContractPresenceFindings);
 - Fragment: the target exists and contains the fragment (Get-ContractFragmentFindings);

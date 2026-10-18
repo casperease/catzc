@@ -93,16 +93,16 @@ just cannot expect tooling to interact with it.
 ### Rule ADR-REPO-FOLDERS-CONTRACTSFOLDER
 
 Contracts live under the root `contracts/` folder, laid out as `contracts/<unit>/<version>/<module>/<path>`: `<unit>` is the deployable-unit
-that carries the contracts (`catzc`, the bundle, [ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)), `<version>` is that
-unit's version (`MAJOR.MINOR.PATCH`), `<module>` is the owning catzc module, and `<path>` is the path of the real file a contract asset
+that carries the contracts (`catzc`, the bundle, [ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)), `<version>` is
+that unit's version (`MAJOR.MINOR.PATCH`), `<module>` is the owning catzc module, and `<path>` is the path of the real file a contract asset
 constrains, relative to the owning module's target root — the repository root unless `contracts.yml` declares another folder
 ([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)) — and no folder under `contracts/` is dot-prefixed
-([ADR-REPO-CONTRACT-NODOTFOLDERS](api-contracts.md#rule-adr-repo-contract-nodotfolders)). There is no repository-wide version folder. Each unit's `0.0.0` is its
-one mutable draft, frozen only when that unit is released; every other version folder is frozen, a self-contained snapshot of that unit's
-contracts at that version — kept for a consumer that pins it, deliberately and equally live (see
-[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)), not legacy. The root carries a checked-in `.gitkeep`, so
-it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository boundary, in both
-directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
+([ADR-REPO-CONTRACT-NODOTFOLDERS](api-contracts.md#rule-adr-repo-contract-nodotfolders)). There is no repository-wide version folder. Each
+unit's `0.0.0` is its one mutable draft, frozen only when that unit is released; every other version folder is frozen, a self-contained
+snapshot of that unit's contracts at that version — kept for a consumer that pins it, deliberately and equally live (see
+[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)), not legacy. The root carries a
+checked-in `.gitkeep`, so it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository
+boundary, in both directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -110,7 +110,8 @@ directions, and their testing discipline — is the [api-contracts](api-contract
 
 A file name is a **stable locator**: it never encodes an order, a rank or a priority. Sorting is an overlay, an index or a head key, never a
 prefix, and the delivered default sort of any folder is the semantic name order. There is no exception: an execution order, such as the
-order of the plans folder's task files ([ADR-REPO-PLANS-MASTERANDTASKS](plans.md#rule-adr-repo-plans-masterandtasks)), is carried by the list that orders them.
+order of the plans folder's task files ([ADR-REPO-PLANS-MASTERANDTASKS](plans.md#rule-adr-repo-plans-masterandtasks)), is carried by the
+list that orders them.
 
 - [Stable locators](#stable-locators)
 
@@ -265,10 +266,10 @@ articles, including the sources the generated READMEs are copied from ([generate
 reference under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one
 diagram of how cats works and why, in a subfolder per ADR domain. These four are **markdown-only**; their subfolders are author-organized
 topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
-content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/` beside the
-page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram's companions
-under role names: its description, so its words travel with the slide; its verify record, so every drawn claim stays checkable against the
-code; and its minimap images, each with a sister `.md` that gives the reason for every lit cell.
+content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/`
+beside the page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram's
+companions under role names: its description, so its words travel with the slide; its verify record, so every drawn claim stays checkable
+against the code; and its minimap images, each with a sister `.md` that gives the reason for every lit cell.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
@@ -291,8 +292,8 @@ the module that talks to the outside party and holds the tests. The fourth repea
 asset and the file it constrains are found from each other without a mapping. Provided and depended-on contracts both version with their
 unit. A frozen version folder kept for a consumer that pins it is a separate, live set of contracts, not legacy: this is the one place the
 repo deliberately carries backwards compatibility, because here — unlike the internal code — external consumers genuinely exist (see
-[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)). The root carries a checked-in `.gitkeep`, so it stays
-tracked before any contract exists.
+[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)). The root carries a checked-in
+`.gitkeep`, so it stays tracked before any contract exists.
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
 ([go-test-artifacts](../automation/go/go-test-artifacts.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for
@@ -312,7 +313,8 @@ test-language root follows ([rule 7](#rule-adr-repo-folders-literalnames)); the 
 never ship ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)). It holds `tests/<module>/`, one Bash test folder per catzc
 module, named for that module in kebab case, and the vendored bats-core runner under `.vendor/bats-core/`, committed. A repository with no
 `bash/` folder keeps the same layout under the dot-prefixed `.bash/`, and `bash.yml`'s `root` places the Bash root elsewhere when declared,
-by the convention every test-language root follows ([rule 7](#rule-adr-repo-folders-literalnames)); the code that reads it is `BashConfig.ResolveRoot`.
+by the convention every test-language root follows ([rule 7](#rule-adr-repo-folders-literalnames)); the code that reads it is
+`BashConfig.ResolveRoot`.
 
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
@@ -460,10 +462,10 @@ task files of the plans folder hold to it too: each is named by its topic, and t
   `.yaml`); no module may have an `assets/config/` directory; and no module may have an `assets/test/` directory — test fixtures live in
   `tests/assets/`.
 
-- **Repo-wide conventions** — the closed root set (ADR-REPO-FOLDERS-CLOSEDROOTSET), the dot-prefixed roots (ADR-REPO-FOLDERS-DOTMEANSTOOLING), the markdown-only rule
-  for `docs/` (ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY), and the `contracts/<unit>/<version>/<module>/` layout with its root `.gitkeep` (ADR-REPO-FOLDERS-CONTRACTSFOLDER) —
-  are enforced by **code review** against this ADR; the deep `pwsh/` conventions above are additionally enforced mechanically by the tooling
-  listed here.
+- **Repo-wide conventions** — the closed root set (ADR-REPO-FOLDERS-CLOSEDROOTSET), the dot-prefixed roots
+  (ADR-REPO-FOLDERS-DOTMEANSTOOLING), the markdown-only rule for `docs/` (ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY), and the
+  `contracts/<unit>/<version>/<module>/` layout with its root `.gitkeep` (ADR-REPO-FOLDERS-CONTRACTSFOLDER) — are enforced by **code
+  review** against this ADR; the deep `pwsh/` conventions above are additionally enforced mechanically by the tooling listed here.
 
 - **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")
   are caught in review. The uniform structure makes deviations visually obvious.

@@ -20,7 +20,8 @@ Only genuine file references are returned: a value that is a template EXPRESSION
 skipped (its target is not statically known), and a value that does not end in `.yaml` is ignored (it is not a template path). Comment lines
 (`#`) never match.
 
-It rests on [ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH](../../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-absolutetemplatepath).
+It rests on
+[ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH](../../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-absolutetemplatepath).
 
 ### parameter `Path`
 

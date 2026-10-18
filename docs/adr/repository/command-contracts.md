@@ -22,9 +22,9 @@ value is one string, the type followed by `!` when the parameter is mandatory, b
 type, `void` when omitted, and a `default_set:` naming the set a call that fits several resolves to. The type set is closed: `string`,
 `int`, `bool`, `switch`, or the name of a `Catzc.*` type, each followed by `[]` for a list. A richer type, or a key beyond these three, is a
 change to this rule, never a value added to a list. The defaults are declared once on the `ContractCommand` type
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): a parameter is optional, has no default, is not fed
-from the pipeline and belongs to every set; the output is void; there is no default set. A parameter that is mandatory in one set and
-optional in another has no spec, so a command that declares one cannot be contracted.
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): a parameter is
+optional, has no default, is not fed from the pipeline and belongs to every set; the output is void; there is no default set. A parameter
+that is mandatory in one set and optional in another has no spec, so a command that declares one cannot be contracted.
 
 - [One string per parameter](#one-string-per-parameter)
 
@@ -42,9 +42,10 @@ interface and, where a signature does not say what the command promises, the hea
 
 One checker per implementation language compares a command contract with the command's file without loading the module: the PowerShell
 checker reads the parameter block and the output type from the parsed file. The check reports a missing command, a parameter the contract
-and the file disagree on, and a mandatory, switch, pipeline, type, default, parameter-set or output mismatch, each as one finding on the asset's result
-([ADR-REPO-CONTRACT-PROVENBYTESTS](api-contracts.md#rule-adr-repo-contract-provenbytests)). A language with no checker throws `NotImplemented` when a command of that
-language is contracted, the stance of [ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](api-contracts.md#rule-adr-repo-contract-configuredaddressing), and a contracted command is proven
+and the file disagree on, and a mandatory, switch, pipeline, type, default, parameter-set or output mismatch, each as one finding on the
+asset's result ([ADR-REPO-CONTRACT-PROVENBYTESTS](api-contracts.md#rule-adr-repo-contract-provenbytests)). A language with no checker throws
+`NotImplemented` when a command of that language is contracted, the stance of
+[ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](api-contracts.md#rule-adr-repo-contract-configuredaddressing), and a contracted command is proven
 from every engine: each engine's start resolves it ([execution-engines](../automation/execution-engines.md)).
 
 - [A checker per language](#a-checker-per-language)
@@ -52,19 +53,21 @@ from every engine: each engine's start resolves it ([execution-engines](../autom
 ### Rule ADR-REPO-CMDCONTRACT-ONEREADER
 
 One reader, `Get-CommandContract`, parses a command contract into the typed record of the contract language, and nothing else parses it. The
-contract reference page ([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)) shows a command asset's signature in a column of
-its own, from that reader. `cats` validates a call against a committed lookup generated from the command contracts before it starts an
-engine: an unknown parameter, a missing mandatory one or a value that is not of the stated type is rejected with the contract's message, and
-each accepted value reaches the command in the type the contract names ([poka-yoke](../principles/poka-yoke.md)).
+contract reference page ([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)) shows a
+command asset's signature in a column of its own, from that reader. `cats` validates a call against a committed lookup generated from the
+command contracts before it starts an engine: an unknown parameter, a missing mandatory one or a value that is not of the stated type is
+rejected with the contract's message, and each accepted value reaches the command in the type the contract names
+([poka-yoke](../principles/poka-yoke.md)).
 
 - [A language that is used](#a-language-that-is-used)
 
 ### Rule ADR-REPO-CMDCONTRACT-VERSIONSWITHUNIT
 
-A command contract versions with its unit ([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)): the draft `0.0.0` is where a
-signature is shaped, and a change to a contracted command's signature edits its asset in the same change, or the check fails. A released
-version folder pins the signature for every consumer of that version ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](api-contracts.md#rule-adr-repo-contract-keptwhilepinned)): the
-command keeps that call interface while the folder is in the tree, and the frozen asset's check fails the change that breaks it.
+A command contract versions with its unit ([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)): the draft `0.0.0` is
+where a signature is shaped, and a change to a contracted command's signature edits its asset in the same change, or the check fails. A
+released version folder pins the signature for every consumer of that version
+([ADR-REPO-CONTRACT-KEPTWHILEPINNED](api-contracts.md#rule-adr-repo-contract-keptwhilepinned)): the command keeps that call interface while
+the folder is in the tree, and the frozen asset's check fails the change that breaks it.
 
 - [Pinned by the unit](#pinned-by-the-unit)
 
@@ -81,11 +84,12 @@ it and a checker can prove it.
 
 `What is promised is what is written down`
 
-The provided contracts are the only public API of the repository ([ADR-REPO-CONTRACT-BINDINGINTERFACE](api-contracts.md#rule-adr-repo-contract-bindinginterface)), so a
-command without a contract is not public, however it is exported: exporting is a mechanism of the module system, and promising is an act at
-the boundary. Writing the contract is the act. It keeps the public set small and chosen, and it leaves every uncontracted function free to
-change in place, which is what one living version asks. A caller that reaches a function no contract names gets no promise, exactly as a
-consumer that reaches past a provided contract gets none.
+The provided contracts are the only public API of the repository
+([ADR-REPO-CONTRACT-BINDINGINTERFACE](api-contracts.md#rule-adr-repo-contract-bindinginterface)), so a command without a contract is not
+public, however it is exported: exporting is a mechanism of the module system, and promising is an act at the boundary. Writing the contract
+is the act. It keeps the public set small and chosen, and it leaves every uncontracted function free to change in place, which is what one
+living version asks. A caller that reaches a function no contract names gets no promise, exactly as a consumer that reaches past a provided
+contract gets none.
 
 ### One string per parameter
 
@@ -129,11 +133,11 @@ checker maps four base types and the `Catzc.*` type names, nothing more, and a t
 promise.
 
 A command with parameter sets takes one of several call shapes, and the shape is part of its interface: which parameters go together and
-which are mandatory in each. The set names ride on the parameter they belong to, so each parameter is still one string, and a parameter
-with no `in` belongs to every set, as it does in a PowerShell parameter block that names no set. The default set is the one key the
-command itself carries, because it belongs to no single parameter and may be a set no parameter names, the shape a call with none of the
-set-bound parameters takes. Mandatory stays one flag per parameter: a parameter that is mandatory in one set and optional in another would
-need a flag per set, and that shape is rare enough to be refused rather than given a grammar.
+which are mandatory in each. The set names ride on the parameter they belong to, so each parameter is still one string, and a parameter with
+no `in` belongs to every set, as it does in a PowerShell parameter block that names no set. The default set is the one key the command
+itself carries, because it belongs to no single parameter and may be a set no parameter names, the shape a call with none of the set-bound
+parameters takes. Mandatory stays one flag per parameter: a parameter that is mandatory in one set and optional in another would need a flag
+per set, and that shape is rare enough to be refused rather than given a grammar.
 
 ### Placement says the rest
 
@@ -164,8 +168,8 @@ reference page shows the signature beside the asset's module and direction, so a
 asset. And `cats` reads the generated lookup before it starts an engine: a wrong call is rejected in the shell, with the contract's message,
 instead of after a start and an import, and a value is passed in its stated type, so a switch is a flag and an integer is an integer rather
 than a quoted string. For a command with parameter sets, the call is held to the set its parameter names fit, the default set when they fit
-several, so a parameter from another set or a mandatory one missing from that set is rejected the same way. The lookup is generated from the contracts and committed beside the entry point's script, through the root-config
-generator, never edited by hand.
+several, so a parameter from another set or a mandatory one missing from that set is rejected the same way. The lookup is generated from the
+contracts and committed beside the entry point's script, through the root-config generator, never edited by hand.
 
 ### Pinned by the unit
 
@@ -174,7 +178,8 @@ generator, never edited by hand.
 Because the asset states the signature, a change to the signature is a change to the asset, in the same change, or the draft's check fails.
 That friction is the point: it makes a public signature change a reviewed, visible act. Once the unit is released, the frozen asset holds
 the signature a consumer of that version relies on, and the frozen folder's check fails any change that breaks it until the folder is
-retired, the one place backwards compatibility is owed ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](api-contracts.md#rule-adr-repo-contract-keptwhilepinned)).
+retired, the one place backwards compatibility is owed
+([ADR-REPO-CONTRACT-KEPTWHILEPINNED](api-contracts.md#rule-adr-repo-contract-keptwhilepinned)).
 
 ### Rejected alternatives
 
@@ -196,8 +201,8 @@ retired, the one place backwards compatibility is owed ([ADR-REPO-CONTRACT-KEPTW
 6. **Named error conditions** in the contract (`errors:`) — rejected: no checker can prove them from the command's file, so they would be
    prose dressed as a contract.
 
-7. **A `sets:` map** of set name to parameter names — rejected: it states a parameter's membership in a second place, away from its
-   spec, so one fact would have two places to drift apart in.
+7. **A `sets:` map** of set name to parameter names — rejected: it states a parameter's membership in a second place, away from its spec, so
+   one fact would have two places to drift apart in.
 
 8. **Reusing the fragment check** for a command asset — rejected: a fragment is contained by its target, and a signature is compared with a
    parsed file, a different relation with its own findings.
@@ -215,15 +220,16 @@ signature.
 ### How this is enforced
 
 - **`Catzc.Base.Contracts`** carries the kind `Command` in `ContractAssetKind`, picked from the `.command.yml` suffix by the name rule
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](api-contracts.md#rule-adr-repo-contract-contractasset)), the types `ContractCommand` and `ContractParameter` that parse the
-  contract language and hold its defaults, and `Get-ContractCommandFindings`, the PowerShell checker, run by `Test-Contracts` for every
-  command asset (ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE).
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](api-contracts.md#rule-adr-repo-contract-contractasset)), the types `ContractCommand` and
+  `ContractParameter` that parse the contract language and hold its defaults, and `Get-ContractCommandFindings`, the PowerShell checker, run
+  by `Test-Contracts` for every command asset (ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE).
 
 - **`ContractCommand`** is the one grammar of the contract language, so a value that does not parse is a finding on the asset and no schema
   restates the grammar (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE).
 
 - **The data-driven L1 test** of the contracts module generates one test per command asset from the same enumeration as every other kind
-  ([ADR-REPO-CONTRACT-PROVENBYTESTS](api-contracts.md#rule-adr-repo-contract-provenbytests)), and one per engine that the engine's start resolves the command.
+  ([ADR-REPO-CONTRACT-PROVENBYTESTS](api-contracts.md#rule-adr-repo-contract-provenbytests)), and one per engine that the engine's start
+  resolves the command.
 
 - **`Get-CommandContract`** is the one reader; `Build-ContractReference` fills the signature column from it, and `Test-GeneratedFiles` fails
   when the page is stale (ADR-REPO-CMDCONTRACT-ONEREADER).

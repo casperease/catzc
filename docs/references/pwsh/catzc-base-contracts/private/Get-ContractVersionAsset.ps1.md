@@ -13,14 +13,15 @@ Lists every contract asset of one unit version folder, with its contract.yml ove
 
 A version folder, `contracts/<unit>/<version>/`, holds one folder per owning module and, optionally, its contract.yml
 ([ADR-REPO-CONTRACT-LAYOUT](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout),
-[ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)). Every file under a module folder is an asset,
-at any depth. A released version folder also holds its .frozen record, the hash of each of its files that Publish-ContractRelease writes
-when it freezes the draft ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)); it is not an asset.
-Any other file at the version level, and a .frozen in the draft 0.0.0, has no owning module, and a contract.yml entry that names no asset
-overrides nothing; both throw, naming the file or the entry. Each asset's target sits under its module's target root, which
+[ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)). Every
+file under a module folder is an asset, at any depth. A released version folder also holds its .frozen record, the hash of each of its files
+that Publish-ContractRelease writes when it freezes the draft
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)); it is not an
+asset. Any other file at the version level, and a .frozen in the draft 0.0.0, has no owning module, and a contract.yml entry that names no
+asset overrides nothing; both throw, naming the file or the entry. Each asset's target sits under its module's target root, which
 ContractsConfig.ResolveTargetRoot picks from -TargetRoot
-([ADR-REPO-CONTRACT-LAYOUT](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)). Assets come in ordinal order of module, then
-path.
+([ADR-REPO-CONTRACT-LAYOUT](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)). Assets come in ordinal order of
+module, then path.
 
 ### parameter `Unit`
 

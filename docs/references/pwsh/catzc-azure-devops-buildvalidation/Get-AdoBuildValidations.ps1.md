@@ -12,10 +12,11 @@ Lists the build-validation branch policies of the repository, optionally for one
 ### description
 
 Queries the ADO Policy Configurations REST API and returns one object per build-validation policy (policy type 'Build') scoped to the
-repository — the server-side pre-commit gates ([ADR-FLOW-CD-TYPE-PRECOMMITBUDGET](../../../adr/flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)). Each
-result carries the policy id, display name, the guarded branch, the path filters (a globset-tied policy filters on its native path
-projection, [ADR-FLOW-CD-GLOBS](../../../adr/flow/durable-sha-globs.md)), the pipeline definition id it queues, the blocking/enabled bits,
-and the raw configuration.
+repository — the server-side pre-commit gates
+([ADR-FLOW-CD-TYPE-PRECOMMITBUDGET](../../../adr/flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)). Each result carries the
+policy id, display name, the guarded branch, the path filters (a globset-tied policy filters on its native path projection,
+[ADR-FLOW-CD-GLOBS](../../../adr/flow/durable-sha-globs.md)), the pipeline definition id it queues, the blocking/enabled bits, and the raw
+configuration.
 
 Read-only — registering and removing policies is Register-AdoBuildValidation / Unregister-AdoBuildValidation.
 

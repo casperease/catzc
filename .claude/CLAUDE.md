@@ -31,10 +31,10 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 ## ADRs
 
 Architecture Decision Records live under `docs/adr/`, grouped into the domains that `docs/adr/index.md` lists. The index also holds every
-rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The ADRs define the design principles behind this codebase
-and must be followed when writing or reviewing code. **Read `docs/adr/index.md` at the start of every session**, then read in full the ADRs
-that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context window, so never sweep it,
-and never sweep `research/`, which is reference material, not rules.
+rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The ADRs define the design principles
+behind this codebase and must be followed when writing or reviewing code. **Read `docs/adr/index.md` at the start of every session**, then
+read in full the ADRs that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context
+window, so never sweep it, and never sweep `research/`, which is reference material, not rules.
 
 ## Inspiration
 
@@ -119,8 +119,8 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 ### Time safeguard
 
 - **ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`,
-  [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Every Bash tool call — the main
-  session and every subagent — passes `timeout: 3000` (at most `limits.devbox.bash.foreground` in
+  [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Every Bash tool call —
+  the main session and every subagent — passes `timeout: 3000` (at most `limits.devbox.bash.foreground` in
   `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 3 s on a devbox). Longer work runs with `run_in_background: true` **and**
   starts with a GNU `timeout <seconds>` prefix around **one** command (at most `limits.devbox.bash.background`, currently 360 s): the Bash
   tool ignores its `timeout` parameter for background calls, so the prefix is the only bound. No `cd … &&`, pipes or `;` in a background

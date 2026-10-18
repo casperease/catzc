@@ -21,9 +21,10 @@ Zero ceremony ([ADR-AUTO-ZERO](../../../../adr/automation/zero-ceremony-poka-yok
   ([ADR-REPO-CONTRACT-LAYOUT](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)).
 - A command contract `<Verb-Noun>.command.yml` constrains the command's file under the module's root, `<CommandRoot>/<Verb-Noun>.ps1`
   ([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)).
-- Direction, by convention ([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)): an asset that
-  constrains a real repository file is DependedOn; a sample payload, the schema that applies to it, and a command contract are Provided. An
-  entry for `<module>/<path>` in -Override replaces the convention.
+- Direction, by convention
+  ([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)): an
+  asset that constrains a real repository file is DependedOn; a sample payload, the schema that applies to it, and a command contract are
+  Provided. An entry for `<module>/<path>` in -Override replaces the convention.
 
 ### parameter `Unit`
 
@@ -57,8 +58,8 @@ The version's contract.yml direction overrides, keyed by `<module>/<path>`. Defa
 ### parameter `CommandRoot`
 
 The module's root, repository-relative, where a command contract's command file sits as `<Verb-Noun>.ps1`
-([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)); a command contract is Provided and
-sits directly in its module folder. Required for a command contract, unused otherwise.
+([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)); a
+command contract is Provided and sits directly in its module folder. Required for a command contract, unused otherwise.
 
 ### outputs
 

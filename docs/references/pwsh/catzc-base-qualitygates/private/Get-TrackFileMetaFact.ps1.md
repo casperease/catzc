@@ -12,8 +12,8 @@ The track meta kind's fact: the track whose root folder holds the file.
 ### description
 
 The track is the one Get-Track names for the path, from the `tracks` registry
-([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](../../../../adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)). A root file, which no track holds, gets an empty value, so the
-key is left out of its head.
+([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](../../../../adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)). A root file, which no
+track holds, gets an empty value, so the key is left out of its head.
 
 ### parameter `State`
 

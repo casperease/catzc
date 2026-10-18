@@ -18,10 +18,10 @@ EXEMPT — its sets are cross-cutting check surfaces (a track's root concern, a 
 ([ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)).
 
 Evaluates the declared registry (Get-GlobSet) AND the derived module sets (Get-ModuleGlobSet,
-[ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)) against the tracked-file universe, collects one
-issue per violating pair ('`<layer>`: `<A>` `<->` `<B>` share N file(s), e.g. ...'), and ends with Write-QualityGateReport
-([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): the report lands in out/test-globset-independence/,
-and the gate throws once listing every pair (or returns the result with -PassThru).
+[ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)) against
+the tracked-file universe, collects one issue per violating pair ('`<layer>`: `<A>` `<->` `<B>` share N file(s), e.g. ...'), and ends with
+Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): the report
+lands in out/test-globset-independence/, and the gate throws once listing every pair (or returns the result with -PassThru).
 
 ### parameter `OutputFolder`
 

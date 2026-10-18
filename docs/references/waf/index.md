@@ -27,8 +27,8 @@ rule whose number is Microsoft's: RE:04 is `ADR-AZ-WAF-RE-RE04`. A rule says wha
 Microsoft's guide page, summarises the recommendation in our words, says what it means for the templates `foundation`, `discovery`, and
 `expedition`, and ends with a status: realised, partly realised, planned (follow-up), or not adopted, with the reason.
 
-| Pillar                 | ADR                                                                     | Code           |
-| ---------------------- | ----------------------------------------------------------------------- | -------------- |
+| Pillar                 | ADR                                                                     | Code            |
+| ---------------------- | ----------------------------------------------------------------------- | --------------- |
 | Reliability            | [reliability](../../adr/azure/waf/reliability.md)                       | `ADR-AZ-WAF-RE` |
 | Security               | [security](../../adr/azure/waf/security.md)                             | `ADR-AZ-WAF-SE` |
 | Cost Optimization      | [cost-optimization](../../adr/azure/waf/cost-optimization.md)           | `ADR-AZ-WAF-CO` |

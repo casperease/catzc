@@ -12,9 +12,9 @@ The file-name meta kind's facts: the folder of the file under its module, and it
 ### description
 
 The path under the module (the whole path for a file placed in no module) is split into an optional folder, a kebab-case name and the file
-type, which the file-type kind writes ([ADR-REPO-FILEMETA-ROLE](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-role)). The split
-asserts that the three build the path back, so a path that is not made of them stops the run. A file directly in its module has no folder,
-so that key is left out of its head.
+type, which the file-type kind writes ([ADR-REPO-FILEMETA-ROLE](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-role)). The
+split asserts that the three build the path back, so a path that is not made of them stops the run. A file directly in its module has no
+folder, so that key is left out of its head.
 
 ### parameter `State`
 

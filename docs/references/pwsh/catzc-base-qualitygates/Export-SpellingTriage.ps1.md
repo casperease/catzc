@@ -15,9 +15,10 @@ automatic acceptance.
 Runs the same cspell scan as Test-Spelling with --words-only, collecting every token the gate flags, and writes them as UNCATEGORIZED STUBS
 to a triage queue under out/ (terminology-triage.yml). Nothing here is accepted vocabulary: a flagged token joins the dictionary only when a
 human moves it into the terminology registry (configs/terminology.yml) with a real meaning and category, or spells the token out in the code
-([ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)). The queue is a to-do list, not a dictionary — cspell
-never reads it, so a token sitting in the queue is still flagged until promoted. It changes no repository file, so it is an export, not a
-formatter. The accepted-word list is generated from the registry (Build-TerminologyDictionary) and is never appended to by a tool
+([ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)). The queue is a
+to-do list, not a dictionary — cspell never reads it, so a token sitting in the queue is still flagged until promoted. It changes no
+repository file, so it is an export, not a formatter. The accepted-word list is generated from the registry (Build-TerminologyDictionary)
+and is never appended to by a tool
 ([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../../../adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)).
 
 Tokens already in the registry are skipped (cspell accepts them, so they are not flagged in the first place); only genuinely new, unaccepted

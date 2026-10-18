@@ -8,14 +8,14 @@ plan:
 
 # Explanation drift: the gaps between the code and the ADRs
 
-The explanation articles under `docs/explanation/` close with a "Where the code and the ADR differ" section. Every claim in them was
-checked against the tree and every decided fix landed; what is left is the proof on real pipeline runs, the user's approver list, and one
-article rename.
+The explanation articles under `docs/explanation/` close with a "Where the code and the ADR differ" section. Every claim in them was checked
+against the tree and every decided fix landed; what is left is the proof on real pipeline runs, the user's approver list, and one article
+rename.
 
 ## Why its value is high
 
-Until the approval apply runs, the CD runs deploy the prod tier with no gate (ADR-FLOW-CD-PRODAPPROVALGATE), the safety core of
-ADR-FLOW-CD. The pipeline wiring of the affected check and the post-merge BVT is proven only once a real run shows it.
+Until the approval apply runs, the CD runs deploy the prod tier with no gate (ADR-FLOW-CD-PRODAPPROVALGATE), the safety core of ADR-FLOW-CD.
+The pipeline wiring of the affected check and the post-merge BVT is proven only once a real run shows it.
 
 ## Decided
 
@@ -38,10 +38,10 @@ When a step lands, remove its claim from every article that states it (search `d
 - [x] Rename `docs/explanation/design/only-automation-compiles-its-aspects.md` to `only-pwsh-compiles-its-aspects.md` with its diagram
       folder, through `Move-Diagram`; the user runs the two `Move-Diagram` calls by hand (task-user-runs-and-commits step 5), and a session
       then re-points the links left over (check: `Build-Diagrams -Path` on the new folder clean; Test-Links over docs/explanation clean; a
-      grep for the old name over the tree finds only the plans' history). Done 2026-10-18 (the user's moves, `out/run-user-git.ps1`):
-      "BUILD docs/explanation/design/.assets/only-pwsh-compiles-its-aspects prepare=clean highlight=clean join=clean", which regenerated
-      the three pages that still named the old slug; Test-Links over docs/ issues=0 (`out/test-links/20261018-200355`); `git grep
-      only-automation-compiles-its-aspects` finds this plan only.
+      grep for the old name over the tree finds only the plans' history). Done 2026-10-18 (the user's moves, `out/run-user-git.ps1`): "BUILD
+      docs/explanation/design/.assets/only-pwsh-compiles-its-aspects prepare=clean highlight=clean join=clean", which regenerated the three
+      pages that still named the old slug; Test-Links over docs/ issues=0 (`out/test-links/20261018-200355`);
+      `git grep only-automation-compiles-its-aspects` finds this plan only.
 
 ## Refs
 

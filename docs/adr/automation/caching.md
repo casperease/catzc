@@ -122,8 +122,8 @@ inputs are stable, and the importer is the one knob.
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
 by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
 module to discover and import modules. It even **defers** expensive vendor modules (Pester, PSScriptAnalyzer) via lazy loading rather than
-pay for them at startup (see [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)), and it reports
-its own load time so regressions are visible.
+pay for them at startup (see [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)),
+and it reports its own load time so regressions are visible.
 
 This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
 `infrastructure/templates/`, or deriving any other config/information at import would tax every session for work most sessions never use.
@@ -152,7 +152,8 @@ The rule has a sharp boundary. Do **not** cache:
 
 - **Runtime / mutable state.** Anything not derived from the static repo: `az account show`, access tokens, deployment outputs, the current
   subscription context. These change _within_ a run, so a cached value would be wrong. (See
-  [dual-authentication](../pipelines/dual-authentication.md#rule-adr-pipe-auth-nostoredtokens): tokens are acquired fresh per call, never cached.)
+  [dual-authentication](../pipelines/dual-authentication.md#rule-adr-pipe-auth-nostoredtokens): tokens are acquired fresh per call, never
+  cached.)
 - **Objects that callers mutate.** The per-slot parameter set returned by `Get-BicepTemplateConfiguration` is read fresh per build and then
   **mutated** by the `Invoke-BicepPrepareParameterSet` merge hook (which writes resolved values into `ParametersFile.parameters`). Caching a
   caller-mutated object would leak one build's mutations into the next. It is also cheap (one small file per slot per build), so it stays
@@ -199,9 +200,10 @@ keyed on the file's content and every declared input of the check (ADR-AUTO-CACH
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function belong to the pwsh rules,
 [script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
 `Get-Config` and `Get-BicepTemplates` as the exemplars. Its rules map onto the ones here: the importer as the only invalidation
-(ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on re-import (ADR-PWSH-CACHE-SCRIPTSCOPESTATE), and the compiled-type prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by
-the bootstrap functions of ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD. How the prebuild is compiled and when a session must restart because a source changed live with
-the type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
+(ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on re-import (ADR-PWSH-CACHE-SCRIPTSCOPESTATE), and the compiled-type
+prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by the bootstrap functions of ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD. How the prebuild
+is compiled and when a session must restart because a source changed live with the type system,
+[native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
 
 ### How this is enforced
 

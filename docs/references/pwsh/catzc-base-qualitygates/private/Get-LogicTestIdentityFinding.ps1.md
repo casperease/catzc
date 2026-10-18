@@ -16,10 +16,10 @@ The PowerShell AST omits comments, here-doc trivia, and help entirely, so this r
 illustrating `[acme, globex]`, a `.EXAMPLE` help block, or demo data in a comment never reaches it.
 
 A live identity is legitimate ONLY inside an `integrity`-tagged block (binding the real config is an integrity test's job,
-[ADR-AUTO-TEST-ONECATEGORY](../../../../adr/automation/test-automation.md#rule-adr-auto-test-onecategory)); anywhere else in a logic-bearing test file it is a
-leak. So the scan EXCLUDES the script-block extent of every Describe/Context/It tagged `integrity`, and reports a match everywhere else —
-the shared setup, the logic Contexts, the unit tests. This makes a MIXED logic+integrity file work with no file split: the integrity
-Context's identities are carved out, the logic body is checked.
+[ADR-AUTO-TEST-ONECATEGORY](../../../../adr/automation/test-automation.md#rule-adr-auto-test-onecategory)); anywhere else in a logic-bearing
+test file it is a leak. So the scan EXCLUDES the script-block extent of every Describe/Context/It tagged `integrity`, and reports a match
+everywhere else — the shared setup, the logic Contexts, the unit tests. This makes a MIXED logic+integrity file work with no file split: the
+integrity Context's identities are carved out, the logic body is checked.
 
 Classification and exclusion are read from the AST `-Tag` values, never by running Pester. A file with no `logic` tag at all is not a logic
 surface and is skipped; a `*.Integrity.Tests.ps1` file is skipped by convention. Matching is EXACT (a literal that IS 'apex', not the

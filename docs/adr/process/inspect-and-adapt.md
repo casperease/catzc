@@ -39,8 +39,8 @@ in, one small adjustment at a time, driven by what actually happened.
 
 The Poppendiecks carry this into software as "create knowledge" and "amplify learning" [^1]: development is not manufacturing a known
 design, it is discovering the design, so the process must be a learning loop. Agile says the same in its twelfth principle — reflect at
-regular intervals and tune accordingly ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)). This article states the rule and ties it to the platform's
-mechanism: the gates that recompute on every push are a learning loop running at commit cadence.
+regular intervals and tune accordingly ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)). This article states the rule and ties it to the
+platform's mechanism: the gates that recompute on every push are a learning loop running at commit cadence.
 
 ## Decision
 

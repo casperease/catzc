@@ -12,8 +12,9 @@ is ordered after every module it may depend on.
 
 ### description
 
-The one function that sorts the graph ([ADR-AUTO-MODULE-TOPOLOGICALORDER](../../../adr/automation/module-model.md#rule-adr-auto-module-topologicalorder)); every command
-that needs modules in dependency order calls it and never sorts again.
+The one function that sorts the graph
+([ADR-AUTO-MODULE-TOPOLOGICALORDER](../../../adr/automation/module-model.md#rule-adr-auto-module-topologicalorder)); every command that
+needs modules in dependency order calls it and never sorts again.
 
 Builds the module -> dependencies map from the declared graph: each group's internal member -> member layering, plus each module's allowed
 dependencies (a group target expands to all the group's members). Then topologically sorts (Kahn's algorithm) with an ordinal-alphabetical

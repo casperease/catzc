@@ -72,9 +72,9 @@ test is whether the second instance of the same engine needs code too; under thi
 ### Defaults carry the common case
 
 A setting resolves through the caller's value, then the module's configuration, then the default declared on the config type
-(ADR-AUTO-DEFAULT-ONERESOLUTIONORDER). This principle adds the authoring discipline on top: a registry entry states only its deviations. An entry that
-repeats the default is noise that hides the entries that matter, and a default that is restated in many entries can no longer be changed in
-one place.
+(ADR-AUTO-DEFAULT-ONERESOLUTIONORDER). This principle adds the authoring discipline on top: a registry entry states only its deviations. An
+entry that repeats the default is noise that hides the entries that matter, and a default that is restated in many entries can no longer be
+changed in one place.
 
 ### Exceptions are entries
 
@@ -107,8 +107,8 @@ the default, not decided case by case.
 
 ### How this is enforced
 
-- **Strict config types** validate every registry at load and reject unknown keys (ADR-CONF-LOADING-CSHARPCONFIGTYPE), so an instance's behaviour is
-  limited to what the mechanism supports, and an exception is a typed key with a required reason.
+- **Strict config types** validate every registry at load and reject unknown keys (ADR-CONF-LOADING-CSHARPCONFIGTYPE), so an instance's
+  behaviour is limited to what the mechanism supports, and an exception is a typed key with a required reason.
 - **Integrity tests** check that the consumers read the registry instead of keeping their own list: for example, that every formatter a
   language names is one the formatting mechanism provides.
 - **Code review** rejects a new per-instance function, a hard-coded instance list, or a branch for one instance, against this ADR, and asks

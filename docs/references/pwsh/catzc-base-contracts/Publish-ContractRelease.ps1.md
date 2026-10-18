@@ -11,20 +11,22 @@ Freezes a unit's contract draft as a released version folder, with the .frozen r
 
 ### description
 
-Releasing a unit freezes its draft ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): this copies
+Releasing a unit freezes its draft
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): this copies
 `contracts/<unit>/0.0.0/` byte for byte to `contracts/<unit>/<version>/` and writes the folder's .frozen record, the SHA-256 of each copied
 file, line endings read as LF. Test-Contracts compares every released folder with its record, so a later edit fails the quality gate; the
 record is not an asset (Get-Contract skips it).
 
 It refuses, before writing anything: the draft 0.0.0 itself; the devbox build version (exporter.yml direct_install_version, 6.6.666), which
-names no release ([ADR-AUTO-BUNDLE-AUTOVERSION](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)); a target folder that already
-exists, since a released folder is never written again; a unit with no draft; and a draft that does not list (Get-Contract throws on it). A
-copy that fails part-way removes the target again.
+names no release ([ADR-AUTO-BUNDLE-AUTOVERSION](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)); a target
+folder that already exists, since a released folder is never written again; a unit with no draft; and a draft that does not list
+(Get-Contract throws on it). A copy that fails part-way removes the target again.
 
 It writes files only: it never commits, and it does not check the assets. A release build resolves the version (Resolve-CatzcBuildVersion),
 runs this, runs Test-Contracts -Version `<version>`, and commits the folder in its own step. Publish is the approved verb for making a
-resource available to others ([ADR-PWSH-VERBS-APPROVEDVERBS](../../../adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs)): the frozen folder is
-what a consumer pins.
+resource available to others
+([ADR-PWSH-VERBS-APPROVEDVERBS](../../../adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs)): the frozen folder is what
+a consumer pins.
 
 ### parameter `Unit`
 
@@ -41,7 +43,8 @@ The repository root that holds contracts/. Default: the loaded repository root.
 ### outputs
 
 `[string]` The frozen folder in communication form, `contracts/<unit>/<version>`
-([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../adr/automation/path-representation.md#rule-adr-auto-path-communicationform)); nothing under -WhatIf.
+([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../adr/automation/path-representation.md#rule-adr-auto-path-communicationform)); nothing under
+-WhatIf.
 
 ### example 1
 

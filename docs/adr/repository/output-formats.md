@@ -87,8 +87,8 @@ entry, not code, as long as an existing validator kind fits it.
 A person reviews PNG, PDF, and Markdown with the tools every machine has. HTML needs a browser opened on a local file, which not every
 reader has or wants; a page that needs a browser is published as a review page, where it opens from a link. A review page has its own name
 because "artifact" already means a file handed between pipeline stages
-([ADR-AUTO-PATH-PUBLISHEDARTIFACT](../automation/path-representation.md#rule-adr-auto-path-publishedartifact)), and one word carries one meaning
-([controlled-vocabulary](controlled-vocabulary.md)).
+([ADR-AUTO-PATH-PUBLISHEDARTIFACT](../automation/path-representation.md#rule-adr-auto-path-publishedartifact)), and one word carries one
+meaning ([controlled-vocabulary](controlled-vocabulary.md)).
 
 ### Validators
 

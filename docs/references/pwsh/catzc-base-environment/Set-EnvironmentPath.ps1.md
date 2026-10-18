@@ -17,8 +17,9 @@ broadcasts WM_SETTINGCHANGE). User/Machine scopes are a Windows concept; callers
 deliberately thin, un-mockable I/O boundary, so it has no unit test of its own.
 
 Because every persistent PATH write passes through here, this is also where it is announced
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)): one line names the scope and the entries
-added and removed. Writing the value the scope already holds is a no-op, so it neither writes nor announces.
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
+one line names the scope and the entries added and removed. Writing the value the scope already holds is a no-op, so it neither writes nor
+announces.
 
 ### parameter `Value`
 

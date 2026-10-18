@@ -11,9 +11,10 @@ Lists every place one file restates the engine set instead of reading it from th
 
 ### description
 
-The engine-set check of Test-SourceConventions ([ADR-AUTO-ENGINE-THREEENGINES](../../../../adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)):
-the execution engines are declared once, in `[Catzc.Base.Engines.ExecutionEngines]`, and every other list is read from it. The engine names
-and their count come from the caller, read from that model, so nothing here names an engine.
+The engine-set check of Test-SourceConventions
+([ADR-AUTO-ENGINE-THREEENGINES](../../../../adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)): the execution engines
+are declared once, in `[Catzc.Base.Engines.ExecutionEngines]`, and every other list is read from it. The engine names and their count come
+from the caller, read from that model, so nothing here names an engine.
 
 In prose — a markdown file's text, and the comments (help included) of a code file (CommentLexer) — a phrase from engine_set's count_phrases
 or name_phrases that miscounts the engines or names some but not all of them (EngineSetCheck.FindProse). In code:

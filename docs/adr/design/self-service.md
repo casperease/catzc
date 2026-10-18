@@ -98,8 +98,8 @@ create other long-lived development branches". The practices that matter here ar
 short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
 automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert
 (`ADR-AUTO-FAILFAST`), or leaves a generated file stale
-([generated-root-configs](../repository/generated-root-configs.md#rule-adr-repo-rootcfg-threewayagreement)). The branching discipline and the no-legacy rule
-(`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version, on trunk, always releasable.
+([generated-root-configs](../repository/generated-root-configs.md#rule-adr-repo-rootcfg-threewayagreement)). The branching discipline and
+the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version, on trunk, always releasable.
 
 ### Safe where control matters
 
@@ -109,17 +109,18 @@ The domains where self-service seems most dangerous — regulated, audited, comp
 it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`:
 every change is attributed, timestamped, and justified in its commit and review. The provenance record is the build's `build.json` with the
 content hash it carries: every deployed unit names its exact content and the commit it was built from
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). The change-approval control is the pull request: no change
-reaches trunk unreviewed. None of these is an extra step a busy engineer might skip under deadline — they are the only path, so the record
-is always complete. That is what "safe by construction" means: the fast path and the compliant path are the same path.
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). The change-approval control is the pull request:
+no change reaches trunk unreviewed. None of these is an extra step a busy engineer might skip under deadline — they are the only path, so
+the record is always complete. That is what "safe by construction" means: the fast path and the compliant path are the same path.
 
 ## Decision
 
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
-of truth** (ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI** (ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES), shipped as an **immutable, reproducibly-built
-artifact with provenance** (ADR-DSGN-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via **trunk-based development behind automated, mandatory guardrails**
-(ADR-DSGN-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes self-service and auditability the same mechanism rather than competing ones
-(ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
+of truth** (ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI**
+(ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES), shipped as an **immutable, reproducibly-built artifact with provenance**
+(ADR-DSGN-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via **trunk-based development behind automated, mandatory guardrails**
+(ADR-DSGN-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes self-service and auditability the same mechanism rather than
+competing ones (ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
 
 ### How this is enforced
 

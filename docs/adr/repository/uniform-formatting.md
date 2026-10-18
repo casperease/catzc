@@ -42,12 +42,12 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 Every git-tracked Markdown file opens — after any YAML front matter — with an H1 that is the document's title: words that say what it is,
 never its repository path. The path is a derived fact in the file's meta block (`path`,
-[ADR-REPO-FILEMETA-IMPRINTEDPARTS](file-meta.md#rule-adr-repo-filemeta-imprintedparts)), written by `Format-FileMeta`. `Test-MarkdownTitle` checks the title, and a
-file whose H1 is its own path, or that has no H1, is reported for its author to write, since no tool can invent a title. The scope follows
-the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
-`catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
-[ADR-REPO-CONTRACT-CONTRACTASSET](api-contracts.md#rule-adr-repo-contract-contractasset)). A new exception is declared in the `.gitattributes` source, never in a
-list of the gate's own.
+[ADR-REPO-FILEMETA-IMPRINTEDPARTS](file-meta.md#rule-adr-repo-filemeta-imprintedparts)), written by `Format-FileMeta`. `Test-MarkdownTitle`
+checks the title, and a file whose H1 is its own path, or that has no H1, is reported for its author to write, since no tool can invent a
+title. The scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks
+`linguist-vendored`, `linguist-generated`, `catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
+[ADR-REPO-CONTRACT-CONTRACTASSET](api-contracts.md#rule-adr-repo-contract-contractasset)). A new exception is declared in the
+`.gitattributes` source, never in a list of the gate's own.
 
 - [The H1 is the title](#the-h1-is-the-title)
 
@@ -66,27 +66,29 @@ checks it.
 Each file language's formatter is configured, not coded: its entry in the file-language registry (`languages.yml`) names the formatter
 engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
 vendored code, contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
-[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](api-contracts.md#rule-adr-repo-contract-releasedimmutable)), and the files `.gitattributes` marks `binary`, such as the generated
-output under `pwsh/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same entries — there is no formatting
-command per language and no list of formatters in a check (ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG). An engine's entry also lists its `settings:`, and those
-entries are its whole cache stamp: its own settings files and the `tools.yml` keys of the tools it runs, nothing else, so another tool's pin
-edit leaves its results warm ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). The registry lists, under `imprint:`,
-each **imprint step**: a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the top of the
-registry is global: it runs over every file whose carrier is not none ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)),
-whatever its language, as the meta block does ([ADR-REPO-CODEMETA-IMPRINTSTEP](code-file-meta.md#rule-adr-repo-codemeta-imprintstep)). A language's own entry
-lists the steps that concern only its files, such as the C# namespace. A step may also write a companion file that belongs to the file it
-formats: the `comments` step moves a file's long comments into the file's comment page
-([ADR-REPO-COMMENTS-MOVEDBYTOOL](comments-in-docs.md#rule-adr-repo-comments-movedbytool)), and that page carries its own meta block, whose `role` marks it as a
-comment page. `Test-Formatting` checks the same steps, and no check names one.
+[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](api-contracts.md#rule-adr-repo-contract-releasedimmutable)), and the files `.gitattributes` marks
+`binary`, such as the generated output under `pwsh/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same
+entries — there is no formatting command per language and no list of formatters in a check (ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG). An
+engine's entry also lists its `settings:`, and those entries are its whole cache stamp: its own settings files and the `tools.yml` keys of
+the tools it runs, nothing else, so another tool's pin edit leaves its results warm
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). The registry lists,
+under `imprint:`, each **imprint step**: a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the
+top of the registry is global: it runs over every file whose carrier is not none
+([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), whatever its language, as the meta block does
+([ADR-REPO-CODEMETA-IMPRINTSTEP](code-file-meta.md#rule-adr-repo-codemeta-imprintstep)). A language's own entry lists the steps that concern
+only its files, such as the C# namespace. A step may also write a companion file that belongs to the file it formats: the `comments` step
+moves a file's long comments into the file's comment page
+([ADR-REPO-COMMENTS-MOVEDBYTOOL](comments-in-docs.md#rule-adr-repo-comments-movedbytool)), and that page carries its own meta block, whose
+`role` marks it as a comment page. `Test-Formatting` checks the same steps, and no check names one.
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 
 ### Rule ADR-REPO-FORMAT-METAIMPRINT
 
-The `immutable` and `edges` parts of a file's meta block ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)) are formatter output
-like the title: `Format-FileMeta` writes it in canonical form the file's formatter leaves unchanged, byte-identical on every run, and
-`Test-FileMeta` checks it, over the files the scope rule selects ([ADR-REPO-FILEMETA-KINDSCOPE](file-meta.md#rule-adr-repo-filemeta-kindscope)). A hand edit
-to a derived value is overwritten.
+The `immutable` and `edges` parts of a file's meta block ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy))
+are formatter output like the title: `Format-FileMeta` writes it in canonical form the file's formatter leaves unchanged, byte-identical on
+every run, and `Test-FileMeta` checks it, over the files the scope rule selects
+([ADR-REPO-FILEMETA-KINDSCOPE](file-meta.md#rule-adr-repo-filemeta-kindscope)). A hand edit to a derived value is overwritten.
 
 - [File meta is imprinted](#file-meta-is-imprinted)
 
@@ -156,8 +158,8 @@ Some files are not hand-authored but generated by the build — the module manif
 `<module>.psd1` from the module's files on every import. Because the same commit is built repeatedly — on every machine and in CI — the
 generated bytes must be reproducible, so "let the tools format it" binds the generator too. The emitter produces canonical output directly —
 keys ordered deterministically, the `=` column computed rather than hand-padded, LF endings and a final newline — and that output is
-formatter-stable: running the formatter over it changes nothing. A hand-padded string template is the same hand-formatting ADR-REPO-FORMAT-TOOLSFORMAT
-forbids, merely moved into code; it drifts the moment a field is added and churns the diff on every build.
+formatter-stable: running the formatter over it changes nothing. A hand-padded string template is the same hand-formatting
+ADR-REPO-FORMAT-TOOLSFORMAT forbids, merely moved into code; it drifts the moment a field is added and churns the diff on every build.
 
 ### The H1 is the title
 

@@ -38,8 +38,8 @@ code: its "How this is enforced" section names the enforcing functions in code s
 
 ### Rule ADR-REPO-LINK-ONECITATIONSPELLING
 
-A citation is the code itself, spelled the same everywhere — code comments, test tags, configuration, and document prose, and the rule's
-own `### Rule` heading — and names a code in the ADR index or a rule that ADR declares. The code's grammar is ADR-REPO-ADRCODE.
+A citation is the code itself, spelled the same everywhere — code comments, test tags, configuration, and document prose, and the rule's own
+`### Rule` heading — and names a code in the ADR index or a rule that ADR declares. The code's grammar is ADR-REPO-ADRCODE.
 
 - [One citation spelling](#one-citation-spelling)
 
@@ -126,9 +126,9 @@ The leading `/` is link syntax meaning "the repository root"; the path after it 
 `The citation is the source of truth`
 
 The link text is the citation — `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, or `ADR-PWSH-ERROR` for a whole ADR — and the destination is derived
-from it through the ADR index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links` run re-points every
-link to it; when a link's destination disagrees with its citation, the citation wins. A link to an ADR-folder document with no code of its
-own (the index, a domain's `dora-explains`) takes the file name as its text.
+from it through the ADR index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links`
+run re-points every link to it; when a link's destination disagrees with its citation, the citation wins. A link to an ADR-folder document
+with no code of its own (the index, a domain's `dora-explains`) takes the file name as its text.
 
 ### Code links in the editor
 

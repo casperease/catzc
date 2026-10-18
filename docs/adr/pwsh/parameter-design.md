@@ -25,13 +25,14 @@ Use `[switch]`, not `[bool]`, for opt-in behavior that is off by default. Switch
 
 ### Rule ADR-PWSH-PARAM-RESOLUTIONORDER
 
-The resolution order of [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) is, in PowerShell, one parameter
-declaration: the default expression reads the configured value — `[LinkWrap] $Wrap = (Get-Config -Config links).wrap` — which PowerShell
-evaluates only when the caller omits the parameter, and which `Get-Help` shows. The function body never fills an empty parameter in. A
-default may derive from a parameter declared before it (`[string] $Label = (Split-Path $Path -Leaf)`). The body fills in only what a
-declaration cannot express, and says why at the fill-in: a value derived from pipeline-bound input (bound after defaults are evaluated), a
-value relative to a parameter declared after it, or a pass-through parameter many callers forward empty
-(`Write-QualityGateReport -OutputFolder`), where an explicit empty argument would override a declared default.
+The resolution order of [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)
+is, in PowerShell, one parameter declaration: the default expression reads the configured value —
+`[LinkWrap] $Wrap = (Get-Config -Config links).wrap` — which PowerShell evaluates only when the caller omits the parameter, and which
+`Get-Help` shows. The function body never fills an empty parameter in. A default may derive from a parameter declared before it
+(`[string] $Label = (Split-Path $Path -Leaf)`). The body fills in only what a declaration cannot express, and says why at the fill-in: a
+value derived from pipeline-bound input (bound after defaults are evaluated), a value relative to a parameter declared after it, or a
+pass-through parameter many callers forward empty (`Write-QualityGateReport -OutputFolder`), where an explicit empty argument would override
+a declared default.
 
 - [Configurable parameters](#configurable-parameters)
 
@@ -43,8 +44,9 @@ the common invocation reads naturally.
 
 The neighbouring parameter rules live where their hazards live: defaulting a `[string]` with `??` never works, and reassigning a
 `Validate*`-attributed parameter re-fires its validator ([automatic-variable-pitfalls](automatic-variable-pitfalls.md),
-`ADR-PWSH-AUTOVAR-NOCOALESCEONSTRINGS`/ `ADR-PWSH-AUTOVAR-NOVALIDATEDREASSIGNMENT`); the side-effect kill switch is an explicit `-DryRun` switch
-([dry-run](../automation/dry-run.md)); and inputs are asserted at entry ([fail-fast-with-asserts](../automation/fail-fast-with-asserts.md)).
+`ADR-PWSH-AUTOVAR-NOCOALESCEONSTRINGS`/ `ADR-PWSH-AUTOVAR-NOVALIDATEDREASSIGNMENT`); the side-effect kill switch is an explicit `-DryRun`
+switch ([dry-run](../automation/dry-run.md)); and inputs are asserted at entry
+([fail-fast-with-asserts](../automation/fail-fast-with-asserts.md)).
 
 ### Positional primary argument
 
@@ -93,8 +95,8 @@ all. A default expression may read an earlier parameter (`[string] $Version = (G
 keyed by its primary argument declares its default the same way. A wrapper that forwards the parameter declares the same default, because an
 explicit empty value passed down the chain would win over the callee's default. A value that is derived rather than configured stays in the
 body: one chosen from several sources in turn, or one that applies only when another argument is absent (`-ModuleProfile` when no `-Module`
-is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES`) — the same seam
-the function uses.
+is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES`)
+— the same seam the function uses.
 
 ## Decision
 
@@ -106,8 +108,8 @@ declares the configured value as its default. Secondary inputs are named paramet
 - **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../automation/sensible-defaults.md)
   (`ADR-AUTO-DEFAULT`); this ADR only fixes the parameter mechanics.
 - **Custom PSScriptAnalyzer rules** (`pwsh/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function whose
-  one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM-POSITIONALPRIMARY), and `Measure-ParameterFillIn` flags a body that fills an empty parameter
-  in (ADR-PWSH-PARAM-RESOLUTIONORDER).
+  one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM-POSITIONALPRIMARY), and `Measure-ParameterFillIn` flags a body that fills an
+  empty parameter in (ADR-PWSH-PARAM-RESOLUTIONORDER).
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.
 - **Code review** — a `[bool]` where a `[switch]` belongs is rejected against this ADR.
 

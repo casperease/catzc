@@ -12,7 +12,8 @@ inferred from memory or a status meeting.
 ### Rule ADR-PROC-OBSERVEWIP-GOANDSEE
 
 Go and see the real artifact. Decisions rest on the actual running software and real signals — genchi genbutsu, "go and see for yourself" —
-not on proxies like tasks-marked-done or hours spent; working software is the measure of progress ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)).
+not on proxies like tasks-marked-done or hours spent; working software is the measure of progress
+([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)).
 
 - [Decision](#decision)
 
@@ -50,8 +51,8 @@ Treat visibility of the work as a requirement, not a nicety, and treat direct ob
   change is. The states rendered are the commit's lifecycle states ([ADR-DSGN-LIFE](../design/commit-lifecycle.md)). The value stream is the
   visual factory.
 - **Go and see.** Judge progress from the real running artifact and real signals — a gate that passed, a deployed environment, a monitored
-  metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md),
-  working software is the measure).
+  metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked
+  ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md), working software is the measure).
 - **Announce, don't bury.** When something happens that a human needs to know — a slow step about to block, a problem detected — it is said
   plainly on the console at the moment it happens ([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)), not swallowed and
   discovered later.

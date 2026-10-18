@@ -16,7 +16,8 @@ declared closure + infra + runner, widened for integrity tests and unconstrained
 files are removed from the returned work-lists; unprotected units are returned as candidates for Protect-TestedModule after a green run. In
 a pipeline this returns the input unchanged without computing a single identity — CI pays nothing and skips nothing.
 
-It rests on [ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES](../../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-orchestratordecides).
+It rests on
+[ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES](../../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-orchestratordecides).
 
 ### parameter `ParallelFiles`
 

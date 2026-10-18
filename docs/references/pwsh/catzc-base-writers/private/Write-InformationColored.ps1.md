@@ -31,8 +31,8 @@ only not writing it does. Test-Automation sets $global:__PesterRunning,
 and this guard returns before writing. Tests that need to assert writer output lift the flag for their own scope.
 
 It is also the one way to write to the console at all
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)): nothing in the toolset calls Write-Host,
-`[Console]::Write` or
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)):
+nothing in the toolset calls Write-Host, `[Console]::Write` or
 $Host.UI. -NoNewline covers the one thing those were used for — an inline
 liveness dot
 ([ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). It wraps

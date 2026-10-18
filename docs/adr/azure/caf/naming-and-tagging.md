@@ -10,8 +10,8 @@ Microsoft's) and [`landing-zones`](../landing-zones.md) (the landing zone whose 
 ### Rule ADR-AZ-CAF-NAME-PUTONLYSTABLEFACTSNAME
 
 Adopted: a name holds only facts that never change for the resource — environment, configuration slot, region, organisation, template,
-customer, role, and type ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)); owner, cost centre, criticality, and data
-classification live in the CAF tags.
+customer, role, and type ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)); owner,
+cost centre, criticality, and data classification live in the CAF tags.
 
 - [1 — Put only stable facts in a name](#1--put-only-stable-facts-in-a-name)
 
@@ -88,9 +88,9 @@ in every config; a tag schema declared once and checked against every config is 
 
 ### Rule ADR-AZ-CAF-NAME-ENFORCETAGSAZUREPOLICY
 
-Partly adopted: one built-in policy per landing zone requires the `cost-center` tag ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies));
-requiring the other keys and checking their values is planned, and resource selectors are not adopted, because each landing zone has one
-region.
+Partly adopted: one built-in policy per landing zone requires the `cost-center` tag
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)); requiring the other keys and checking their
+values is planned, and resource selectors are not adopted, because each landing zone has one region.
 
 - [12 — Enforce the tags with Azure Policy](#12--enforce-the-tags-with-azure-policy)
 - [How this is enforced](#how-this-is-enforced)
@@ -184,9 +184,9 @@ copy it into a shared repository. Nothing is quoted.
 The [CAF reference](../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
-`discovery` (the landing zone, [ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and `expedition` (a workload that lands in it,
-[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Each config of each template writes its resource names and its CAF tags as values, so
-the takeaways below point at those configs.
+`discovery` (the landing zone, [ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), and `expedition` (a workload that
+lands in it, [ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Each config of each template writes its
+resource names and its CAF tags as values, so the takeaways below point at those configs.
 
 ### 1 — Put only stable facts in a name
 
@@ -200,10 +200,11 @@ Summary (ours): Most resource names cannot be changed once the resource exists, 
 #### What 1 means here
 
 The standard's components are all fixed for a resource's life: the environment, the configuration slot, the region, the organisation, the
-template's `short_name`, the customer, the role, and the type ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)). What can
-change — who owns the resource, who pays for it, how critical it is, how sensitive its data is — is a CAF tag (`owner`, `cost-center`,
-`criticality`, `data-classification`). The one component that could drift is `short_name`, derived from the template's folder name; each
-template pins it in its `options.yml`, so renaming a folder never re-spells a resource
+template's `short_name`, the customer, the role, and the type
+([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)). What can change — who owns the
+resource, who pays for it, how critical it is, how sensitive its data is — is a CAF tag (`owner`, `cost-center`, `criticality`,
+`data-classification`). The one component that could drift is `short_name`, derived from the template's folder name; each template pins it
+in its `options.yml`, so renaming a folder never re-spells a resource
 ([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](../azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)).
 
 ##### 1 in `foundation`
@@ -237,15 +238,17 @@ Summary (ours): Every resource type has its own rules: where its name must be un
 #### What 2 means here
 
 The type registry (`Get-AzureResourceTypeSet`) ties each type to a render pattern and, for the `long` pattern, to the type's Azure length
-limit; the `kv`, `storage`, and `vm` patterns carry their own caps ([ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype)).
-Every component is lowercase and checked case-sensitively ([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)), so a render
-holds only characters every registered type accepts, and a render over the limit throws instead of being cut short
+limit; the `kv`, `storage`, and `vm` patterns carry their own caps
+([ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype)). Every component is
+lowercase and checked case-sensitively
+([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)), so a render holds only characters
+every registered type accepts, and a render over the limit throws instead of being cut short
 ([ADR-AZ-NAMING-NEVERTRUNCATE](../azure-naming-standard.md#rule-adr-az-naming-nevertruncate)).
 
 The resource-group name of a template deployed into a resource group is derived by `Get-BicepResourceGroupName`
-([ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME](../azure-data-model.md#rule-adr-az-datamod-derivedresourcegroupname)). Every other name, and the resource group of the subscription-target
-`discovery`, is a literal value in a config. Nothing compares those literals with the namer's render, so a mistyped name passes the build
-and meets Azure's own rules only at deploy.
+([ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME](../azure-data-model.md#rule-adr-az-datamod-derivedresourcegroupname)). Every other name, and the
+resource group of the subscription-target `discovery`, is a literal value in a config. Nothing compares those literals with the namer's
+render, so a mistyped name passes the build and meets Azure's own rules only at deploy.
 
 ##### 2 in `foundation`
 
@@ -314,16 +317,16 @@ Summary (ours): Typical components are the resource-type abbreviation, the workl
 The standard uses all five of CAF's components, under its own names, and adds three
 ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)):
 
-| CAF component   | Standard component | Difference and why                                                                                                                                        |
-| --------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| resource type   | `type`             | Same; the token is CAF's abbreviation where CAF lists one (item 7).                                                                                       |
-| workload        | `short_name`       | The template is the workload; its 2–5 letter id keeps tight names short.                                                                                  |
-| environment     | `env`              | Same; the readable name in generous names, a 2-letter code in tight ones (ADR-AZ-NAMING-ENVIRONMENTFIRST).                                                               |
-| region          | `region`           | Same; a 3-letter code (`weu`) from `azure.yml`.                                                                                                           |
-| instance number | `slot`             | Optional: the base slot carries none, and a special slot may be a word (`blu`), because one config is one deployment.                                     |
-| —               | `org`              | Added: one organisation code per repository keeps global names apart between repositories.                                                                |
+| CAF component   | Standard component | Difference and why                                                                                                                                                                                       |
+| --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| resource type   | `type`             | Same; the token is CAF's abbreviation where CAF lists one (item 7).                                                                                                                                      |
+| workload        | `short_name`       | The template is the workload; its 2–5 letter id keeps tight names short.                                                                                                                                 |
+| environment     | `env`              | Same; the readable name in generous names, a 2-letter code in tight ones (ADR-AZ-NAMING-ENVIRONMENTFIRST).                                                                                               |
+| region          | `region`           | Same; a 3-letter code (`weu`) from `azure.yml`.                                                                                                                                                          |
+| instance number | `slot`             | Optional: the base slot carries none, and a special slot may be a word (`blu`), because one config is one deployment.                                                                                    |
+| —               | `org`              | Added: one organisation code per repository keeps global names apart between repositories.                                                                                                               |
 | —               | `customer`         | Added: derived from the subscription, so each customer's resources are named for it ([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](../azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)). |
-| —               | `role`             | Added: tells sibling resources of one type apart inside one slot (`blb` and `sql` private endpoints).                                                     |
+| —               | `role`             | Added: tells sibling resources of one type apart inside one slot (`blb` and `sql` private endpoints).                                                                                                    |
 
 A counter as the instance number would say nothing about why a second instance exists; a named special slot does, and the base slot needs no
 number at all.
@@ -356,10 +359,10 @@ Summary (ours): Decide once in which order the components appear, and keep to it
 
 The order is one repository-wide choice, the `ado_naming` variant in `variants.yml`
 ([ADR-AZ-NAMING-ORDERISVARIANT](../azure-naming-standard.md#rule-adr-az-naming-orderisvariant),
-[ADR-REPO-VARIANT-ADONAMING](../../repository/repo-variants.md#rule-adr-repo-variant-adonaming)), never a per-name argument. Its default, `standard`, puts
-the environment first and the type last, so an alphabetical list of resources groups them by environment, then slot, then region. CAF's
-examples put the type first; the `classic` order (`<type>-<org>-<short_name>[-<customer>]-<env>-<region>[-<slot>][-<role>]`) reproduces that
-shape for a repository that wants it. The repository ships with `standard`.
+[ADR-REPO-VARIANT-ADONAMING](../../repository/repo-variants.md#rule-adr-repo-variant-adonaming)), never a per-name argument. Its default,
+`standard`, puts the environment first and the type last, so an alphabetical list of resources groups them by environment, then slot, then
+region. CAF's examples put the type first; the `classic` order (`<type>-<org>-<short_name>[-<customer>]-<env>-<region>[-<slot>][-<role>]`)
+reproduces that shape for a repository that wants it. The repository ships with `standard`.
 
 ##### 5 in `foundation`
 
@@ -389,9 +392,9 @@ Summary (ours): Hyphens make names easier to read, but some types forbid them; c
 #### What 6 means here
 
 The standard takes both, per type: the render pattern of a type fixes its separator
-([ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype)). The `long` and `kv` patterns join segments with hyphens; the `storage`
-and `vm` patterns concatenate them, because a storage account forbids hyphens and a VM's computer name is capped at 15. The components are
-the same in both forms, so a hyphenated name and its concatenated sibling read alike.
+([ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype)). The `long` and `kv`
+patterns join segments with hyphens; the `storage` and `vm` patterns concatenate them, because a storage account forbids hyphens and a VM's
+computer name is capped at 15. The components are the same in both forms, so a hyphenated name and its concatenated sibling read alike.
 
 ##### 6 in `foundation`
 
@@ -494,8 +497,9 @@ Summary (ours): Azure does not treat names and tags as customer data, so neither
 #### What 9 means here
 
 A name is assembled from config codes that the standard validates by pattern: an environment name, a region code, the organisation code, the
-template's `short_name`, a customer key, a role ([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)). A customer key is a
-short code chosen in `customer.yml`, not the customer's legal name. Tag values are team and class codes. Item 13 covers the tags in detail.
+template's `short_name`, a customer key, a role
+([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)). A customer key is a short code
+chosen in `customer.yml`, not the customer's legal name. Tag values are team and class codes. Item 13 covers the tags in detail.
 
 ##### 9 in `foundation`
 
@@ -507,7 +511,8 @@ The same; budget alerts go to the subscription's `Owner` role, so no address app
 
 ##### 9 in `expedition`
 
-The same; the SQL break-glass password is a Key Vault reference, never a value ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
+The same; the SQL break-glass password is a Key Vault reference, never a value
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
 
 ##### 9 status
 
@@ -541,11 +546,12 @@ choices: the type comes last (item 5), and there is no instance counter (item 4)
 Subnets differ deliberately. Their names are the keys of the network plan in `network.yml` (`shared-services`, `private-endpoints`, one per
 environment such as `dev`), plus the names Azure fixes for `GatewaySubnet` and `AzureFirewallSubnet`. A subnet's name is unique only in its
 virtual network, the landing zone reads the subnet map by config address
-([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)), and `expedition` looks up `private-endpoints` by name, so the plan's
-key is the most useful name it can have.
+([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)), and `expedition` looks up `private-endpoints`
+by name, so the plan's key is the most useful name it can have.
 
-Management groups and subscriptions are not named here: the repository creates neither ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)).
-`azure.yml` keys its subscriptions (`shared_nonprod`, `apex_prod`); their display names are the tenant's.
+Management groups and subscriptions are not named here: the repository creates neither
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). `azure.yml` keys its subscriptions (`shared_nonprod`,
+`apex_prod`); their display names are the tenant's.
 
 ##### 10 in `foundation`
 
@@ -577,9 +583,10 @@ Summary (ours): Before tagging, line up with the existing naming and governance 
 
 The CAF tags are six keys, set on every resource that takes tags: `workload`, `environment`, `owner`, `cost-center`, `criticality`, and
 `data-classification`. Cost is split below the subscription by `cost-center` and `workload`
-([ADR-AZ-WAF-CO-CO03](../waf/cost-optimization.md#rule-adr-az-waf-co-co03)); tag inheritance is not used, because every template passes the tags to
-each resource itself. The mandatory key is `cost-center`, required by the landing zone's policy
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)); the other five are mandatory only by convention.
+([ADR-AZ-WAF-CO-CO03](../waf/cost-optimization.md#rule-adr-az-waf-co-co03)); tag inheritance is not used, because every template passes the
+tags to each resource itself. The mandatory key is `cost-center`, required by the landing zone's policy
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)); the other five are mandatory only by
+convention.
 
 The tag set is written out in full in each config — eighteen copies across the three templates — and no file declares the keys or their
 allowed values once. A config that drops a key or misspells a value passes the build. The schema belongs in one config (for example a tag
@@ -614,9 +621,10 @@ Summary (ours): Enforce one tagging schema everywhere with Azure Policy, using r
 #### What 12 means here
 
 Each landing zone assigns the built-in policy that requires a tag on resources, with `cost-center` as its tag
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). It enforces or audits by `policy_enforcement` in `azure.yml`, whose default enforces
-in production and audits outside it ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). It checks that the key is present,
-not its value, and the other five keys are not required by any policy.
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). It enforces or audits by `policy_enforcement`
+in `azure.yml`, whose default enforces in production and audits outside it
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). It checks that the key is
+present, not its value, and the other five keys are not required by any policy.
 
 Resource selectors are not used: each landing zone sits in one region, which the allowed-locations policy holds it to, so no tag rule varies
 by region.
@@ -631,7 +639,8 @@ The `requireTag` assignment (`nsub-weu-zct-disco-tag-pa` and its siblings), para
 
 ##### 12 in `expedition`
 
-Not applicable: it assigns no policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); its resources carry `cost-center`.
+Not applicable: it assigns no policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); its resources
+carry `cost-center`.
 
 ##### 12 status
 
@@ -682,7 +691,8 @@ Summary (ours): Tag keys are case-insensitive but values are case-sensitive, so 
 #### What 14 means here
 
 Every CAF tag key and value is lowercase, with hyphens between words (`cost-center`, `data-classification`, `landing-zone`), matching the
-lowercase rule of the naming standard ([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)). CAF's examples run the words
+lowercase rule of the naming standard
+([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)). CAF's examples run the words
 together (`costcenter`); the hyphen is kept for readability, and both are lowercase. The provenance tags differ: their keys are mixed case
 (`Deployed_From_Commit`, `discovery_Deployed_From_Commit`), from `Get-BicepTrackTagNameSet`. Nothing checks the casing of a key or a value.
 
@@ -714,9 +724,10 @@ Summary (ours): Add a tag naming the region, for reporting and compliance across
 #### What 15 means here
 
 Each environment maps to one region in `azure.yml` (`region`, `region_code`), the region code is a component of every name
-([ADR-AZ-NAMING-ENVIRONMENTFIRST](../azure-naming-standard.md#rule-adr-az-naming-environmentfirst)), and the allowed-locations policy keeps each landing zone's resources
-in its region ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A region tag would repeat what the name and the resource's own location
-state. A repository that spans regions within one environment would need the region modelled first, and would then add the tag.
+([ADR-AZ-NAMING-ENVIRONMENTFIRST](../azure-naming-standard.md#rule-adr-az-naming-environmentfirst)), and the allowed-locations policy keeps
+each landing zone's resources in its region ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). A
+region tag would repeat what the name and the resource's own location state. A repository that spans regions within one environment would
+need the region modelled first, and would then add the tag.
 
 ##### 15 in `foundation`
 
@@ -813,8 +824,8 @@ Summary (ours): Classification tags record sensitivity, compliance, and service 
 
 `criticality` (`low`, `medium`, `high`) and `data-classification` (`internal`, `confidential`) are the repository's classification tags,
 matching CAF's criticality and confidentiality examples. `data-classification` is the record of the data's sensitivity
-([ADR-AZ-WAF-SE-SE03](../waf/security.md#rule-adr-az-waf-se-se03)). No service-level tag is set, because no example workload declares a service
-level. The allowed values of both tags are a convention, checked by nothing until the planned tag schema (item 11).
+([ADR-AZ-WAF-SE-SE03](../waf/security.md#rule-adr-az-waf-se-se03)). No service-level tag is set, because no example workload declares a
+service level. The allowed values of both tags are a convention, checked by nothing until the planned tag schema (item 11).
 
 ##### 18 in `foundation`
 
@@ -844,11 +855,11 @@ Summary (ours): Accounting tags attribute cost to organisational units and proje
 
 #### What 19 means here
 
-`cost-center` is the repository's accounting tag and its one mandatory key ([ADR-AZ-CAF-NAME-ENFORCETAGSAZUREPOLICY](#rule-adr-az-caf-name-enforcetagsazurepolicy)); it names the
-customer or `platform`, so a subscription's spend groups by the customer that pays for it
-([ADR-AZ-WAF-CO-CO03](../waf/cost-optimization.md#rule-adr-az-waf-co-co03)). Department and program tags are not used, because the customer is the
-unit of cost. A budget tag is not used, because the budget is a resource: each landing zone deploys one per subscription, with its amount in
-config.
+`cost-center` is the repository's accounting tag and its one mandatory key
+([ADR-AZ-CAF-NAME-ENFORCETAGSAZUREPOLICY](#rule-adr-az-caf-name-enforcetagsazurepolicy)); it names the customer or `platform`, so a
+subscription's spend groups by the customer that pays for it ([ADR-AZ-WAF-CO-CO03](../waf/cost-optimization.md#rule-adr-az-waf-co-co03)).
+Department and program tags are not used, because the customer is the unit of cost. A budget tag is not used, because the budget is a
+resource: each landing zone deploys one per subscription, with its amount in config.
 
 ##### 19 in `foundation`
 
@@ -908,7 +919,8 @@ Summary (ours): Ownership tags name the business unit and the operations team re
 
 `owner` is the repository's ownership tag: one key for both of CAF's examples, because the customer that owns a subscription is also the
 party accountable for running it, and the shared platform is owned by `platform`. Budget alerts go to the subscription's `Owner` role, not
-to the tag ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so the tag records accountability and the role carries the notification.
+to the tag ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so the tag records accountability
+and the role carries the notification.
 
 The resource groups that `Deploy-AzureResourceGroup` creates for `foundation` and `expedition` carry only the provenance tags, so the
 ownership of those resource groups is read from their resources. Passing the CAF tags to the resource group it creates is planned.
@@ -967,8 +979,9 @@ declared once and checked, a name check over the template configs, the CAF tags 
 - The landing zone's required-tag policy denies a resource without `cost-center` where `policy_enforcement` enforces, and reports it where
   it audits ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for every template, and the parameter-model test checks each
-  rendered parameters file against the compiled template ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), so a config
-  without its `tags` object fails the build.
+  rendered parameters file against the compiled template
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), so a config without its `tags` object
+  fails the build.
 - Planned (follow-up), not existing: a tag schema declared once and checked against every template config (keys, allowed values, lowercase);
   a check that every name in a template config equals `Get-BicepResourceName`'s render; the other CAF keys required by policy.
 

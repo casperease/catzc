@@ -40,8 +40,9 @@ token alone. Every auth path proves itself against that config, so the keys that
 The **reverse lookup** adds a layer, the fourth: `Get-AzCliSessionSubscription` (in `Catzc.Azure.Cli`) reads the session's active
 subscription (`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml` identity — name, customer, tenant — throwing
 when the session targets a subscription azure.yml does not declare. It makes the session usable as a **selector** (the deploy target follows
-the service connection) while config stays the authority on what exists; it is read-only like every verification (ADR-AZ-SESSION-VERIFYISNOTCONNECT), and the
-`-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see [data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
+the service connection) while config stays the authority on what exists; it is read-only like every verification
+(ADR-AZ-SESSION-VERIFYISNOTCONNECT), and the `-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see
+[data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
 
 - [The reverse lookup](#the-reverse-lookup)
 
@@ -86,9 +87,9 @@ The layers that look forward answer "is the session pointed where config says it
 question — "WHERE is the session pointed, in config terms?" — and is what lets the session act as the deploy-target selector: in a pipeline
 the service connection logs the session into one subscription, and `Get-AzCliSessionSubscription` maps that back to the declared `azure.yml`
 identity (name, customer, tenant) so the rest of the platform reasons in config vocabulary. A session pointed at an undeclared subscription
-throws — config defines what exists (ADR-AZ-SESSION-CONFIGDEFINESCORRECT), so an unknown target is an error, never a fallback. The lookup is read-only
-(ADR-AZ-SESSION-VERIFYISNOTCONNECT); the explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard, mandatory in pipelines
-([data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
+throws — config defines what exists (ADR-AZ-SESSION-CONFIGDEFINESCORRECT), so an unknown target is an error, never a fallback. The lookup is
+read-only (ADR-AZ-SESSION-VERIFYISNOTCONNECT); the explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard,
+mandatory in pipelines ([data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
 
 ### Config defines correct
 

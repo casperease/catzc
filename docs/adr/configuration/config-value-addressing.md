@@ -13,9 +13,10 @@ reader and one config cache (ADR-CONF-LOADING-ONEREADER) — addressing is a wal
 
 ### Rule ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
 
-The first segment after `global.` is the config's global name (ADR-CONF-LOADING-EXISTENCEDISCOVERED — the name is global and the owning module is discovered,
-not part of the address); each following segment is a key walked into the parsed config. Traversal works uniformly over a raw ordered
-dictionary and a typed (C#/`Assert-…`-validated) object: each segment resolves as a key on a dictionary node, otherwise as a property.
+The first segment after `global.` is the config's global name (ADR-CONF-LOADING-EXISTENCEDISCOVERED — the name is global and the owning
+module is discovered, not part of the address); each following segment is a key walked into the parsed config. Traversal works uniformly
+over a raw ordered dictionary and a typed (C#/`Assert-…`-validated) object: each segment resolves as a key on a dictionary node, otherwise
+as a property.
 
 - [The address grammar](#the-address-grammar)
 - [Uniform traversal](#uniform-traversal)
@@ -38,18 +39,18 @@ by a `ValidatePattern`. There is no silent `$null` for a wrong path.
 
 ### Rule ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
 
-A resolved node is a **read**. The returned value may be a live reference into the config cache (ADR-CONF-LOADING-CACHEBYPATH) and must never be
-mutated — mutating it would corrupt the shared cached config for every later reader. An address is the by-reference form of a config value:
-usable anywhere a value is wanted without re-reading a file, and read-only like every other view of the cache.
+A resolved node is a **read**. The returned value may be a live reference into the config cache (ADR-CONF-LOADING-CACHEBYPATH) and must
+never be mutated — mutating it would corrupt the shared cached config for every later reader. An address is the by-reference form of a
+config value: usable anywhere a value is wanted without re-reading a file, and read-only like every other view of the cache.
 
 - [A read, not a copy](#a-read-not-a-copy)
 
 ## Context
 
-Configuration in this repo lives in `configs/*.yml`, read once through `Get-Config` and cached (ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-CACHEBYPATH). A
-caller that wants one value out of a config already has a way to get it: call `Get-Config -Config <name>` and index into the result. That is
-fine inside a function, but it does not give a config value a _name that can be written down_ — a stable, committable reference that says
-"this env var's value is that config node" without embedding the value itself.
+Configuration in this repo lives in `configs/*.yml`, read once through `Get-Config` and cached (ADR-CONF-LOADING-ONEREADER,
+ADR-CONF-LOADING-CACHEBYPATH). A caller that wants one value out of a config already has a way to get it: call `Get-Config -Config <name>`
+and index into the result. That is fine inside a function, but it does not give a config value a _name that can be written down_ — a stable,
+committable reference that says "this env var's value is that config node" without embedding the value itself.
 
 Several jobs want exactly that written-down reference. Preparing an environment for a container or CLI (see
 [environment-variables](../automation/environment-variables.md)) wants to say "`APP_NAME` comes from `global.myproperty.name`" and "expose
@@ -70,9 +71,9 @@ be dereferenced anywhere a value is wanted.
 
 - The literal prefix `global.` marks the string as an address (and lets a consumer such as `Write-EnvironmentSet` distinguish an address
   from a bare literal).
-- The next segment is the **config name** — the same global lowercase name `Get-Config` takes (kebab-case, ADR-CONF-LOADING-EXISTENCEDISCOVERED). The owning
-  module is discovered, never written into the address; `-Module` on `Get-ConfigValue` is a passthrough to `Get-Config` for the rare name
-  that exists in two modules.
+- The next segment is the **config name** — the same global lowercase name `Get-Config` takes (kebab-case,
+  ADR-CONF-LOADING-EXISTENCEDISCOVERED). The owning module is discovered, never written into the address; `-Module` on `Get-ConfigValue` is
+  a passthrough to `Get-Config` for the rare name that exists in two modules.
 - Each remaining segment is a **key** walked into the parsed config, in order. The key path is optional: `global.<config>` with no keys
   addresses the whole config as a subtree (its root node).
 
@@ -92,8 +93,8 @@ Get-ConfigValue -Address 'global.azure.environments.prod.region_code'   # deep l
 
 `Get-ConfigValue` strips `global.`, splits the rest into `<config>` plus a key path, calls `Get-Config -Config <config> -Module <module>`,
 and walks the key path with the private `Resolve-ConfigKeyPath`. It does not open a file or keep a cache of its own — it is a view over what
-`Get-Config` already loaded and validated (ADR-CONF-LOADING-ONEREADER). The traversal lives in `Resolve-ConfigKeyPath` alone so `Get-ConfigValue`
-stays a thin strip-split-walk and the walk is unit-testable in isolation.
+`Get-Config` already loaded and validated (ADR-CONF-LOADING-ONEREADER). The traversal lives in `Resolve-ConfigKeyPath` alone so
+`Get-ConfigValue` stays a thin strip-split-walk and the walk is unit-testable in isolation.
 
 ### Uniform traversal
 
@@ -112,8 +113,8 @@ config raw.
 An address only ever reaches into a `configs/*.yml` file, which is version-controlled (ADR-PRIN-EAC). It follows that nothing an address can
 name is a secret: if it were addressable it would be sitting in git. This is deliberate and load-bearing — it is why a consumer can treat an
 address-sourced value as non-secret and loggable, and why the secret channel is a wholly separate mechanism. Secrets have no address; they
-are handed to an external process as `[SecureString]` through `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS), never referenced by a `global.…`
-string.
+are handed to an external process as `[SecureString]` through `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS), never
+referenced by a `global.…` string.
 
 ### Fail fast, never silent null
 
@@ -131,8 +132,8 @@ that.
 
 `A resolved node is a read, not a copy`
 
-`Get-Config` returns the _same reference_ on every call (ADR-CONF-LOADING-CACHEBYPATH), and `Get-ConfigValue` walks into that reference — so a
-resolved subtree (or a leaf that is itself an object) may be a live view into the shared config cache. Callers treat a resolved node as
+`Get-Config` returns the _same reference_ on every call (ADR-CONF-LOADING-CACHEBYPATH), and `Get-ConfigValue` walks into that reference — so
+a resolved subtree (or a leaf that is itself an object) may be a live view into the shared config cache. Callers treat a resolved node as
 read-only, exactly as they must treat any value handed back by `Get-Config`. Mutating it would silently rewrite the config that every later
 reader sees. An address is a _reference_ to a config value, with the same discipline a reference implies: read it, do not write through it.
 

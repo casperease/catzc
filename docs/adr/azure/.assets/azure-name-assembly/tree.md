@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9ec13b3864a7"
+    with_body_sha: "23b307efddfa"
     repo_status: locked
     path: docs/adr/azure/.assets/azure-name-assembly/tree.md
     source: docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.png
@@ -82,13 +82,15 @@ The group holds the files of docs/adr/azure; each sits in its world-map cell and
 - [docs/adr/azure/.assets/azure-name-assembly/chain.md][17], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file cites it
   at line 18 (text), line 25 (text), line 58 (text) and line 58 (text).
 - [docs/adr/azure/.assets/azure-name-assembly/grid.md][18], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file cites it
-  at line 18 (text), line 25 (text), line 56 (text), line 57 (text), line 58 (text), line 59 (text), line 60 (text), line 62 (text), line 64
-  (text), line 66 (text), line 68 (text), line 70 (text), line 72 (text), line 74 (text), line 76 (text), line 78 (text), line 80 (text),
-  line 81 (text), line 82 (text), line 84 (text), line 92 (text), line 101 (text), line 109 (text) and line 110 (text).
+  at line 18 (text), line 25 (text), line 56 (text), line 58 (text), line 62 (text), line 66 (text), line 67 (text), line 68 (text), line 69
+  (text), line 70 (text), line 72 (text), line 74 (text), line 76 (text), line 78 (text), line 80 (text), line 82 (text), line 84 (text),
+  line 86 (text), line 88 (text), line 90 (text), line 91 (text), line 92 (text), line 94 (text), line 102 (text), line 111 (text), line 119
+  (text) and line 120 (text).
 - [docs/adr/azure/.assets/azure-name-assembly/tree.md][19], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file cites it
   at line 18 (text), line 25 (text), line 47 (text), line 50 (text), line 52 (text), line 54 (text), line 55 (text), line 58 (text), line 59
   (text), line 61 (text), line 64 (text), line 65 (text), line 67 (text), line 69 (text), line 71 (text), line 73 (text), line 75 (text),
-  line 82 (text), line 83 (text), line 89 (text), line 91 (text), line 98 (text), line 105 (text) and line 113 (text).
+  line 82 (text), line 84 (text), line 88 (text), line 92 (text), line 93 (text), line 99 (text), line 101 (text), line 108 (text), line 115
+  (text) and line 123 (text).
 - [docs/adr/azure/azure-naming-standard.md][1], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the ADR's own file.
 - [docs/adr/azure/dora-explains.md][20], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file cites it at line 43 (text).
 

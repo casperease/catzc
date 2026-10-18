@@ -11,8 +11,8 @@ The adr-defines meta kind's fact: the rules an ADR defines itself, spelled as ci
 
 ### description
 
-The rules come from the file's own rule headings, so the list is what the file declares and not what it cites. Each is its rule code, in
-the order the headings stand, with no group or glob.
+The rules come from the file's own rule headings, so the list is what the file declares and not what it cites. Each is its rule code, in the
+order the headings stand, with no group or glob.
 
 It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 

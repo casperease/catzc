@@ -11,13 +11,14 @@ Checks a command contract against the command's file and returns the findings.
 
 ### description
 
-The PowerShell checker of [ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage). The
+The PowerShell checker of
+[ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage). The
 command's file, the asset's target, must first be present with the exact case of its path (Get-ContractPresenceFindings); a missing file is
 the only finding, and when the same name sits in the module's private folder the finding says so, since a private function is no command.
 Then the asset parses as the contract language (ContractCommand,
-[ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)), the file's signature is read without
-loading it (Read-CommandSignature), and ContractCommand.Compare gives one finding per disagreement. A contract or a file that does not parse
-is the finding.
+[ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)), the
+file's signature is read without loading it (Read-CommandSignature), and ContractCommand.Compare gives one finding per disagreement. A
+contract or a file that does not parse is the finding.
 
 ### parameter `RepositoryRoot`
 

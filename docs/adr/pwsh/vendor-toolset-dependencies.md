@@ -40,8 +40,8 @@ reproducible.
 ### Rule ADR-PWSH-VENDOR-ONLYWHATLOADS
 
 A vendored module carries only what the toolset loads. Folders it never loads are pruned at install time by `Install-VendorModule`, never by
-hand, so a reinstall or upgrade (ADR-PWSH-VENDOR-DELIBERATEUPGRADE) reproduces the same trimmed copy. A folder comes back only by removing it from the prune
-list and reinstalling.
+hand, so a reinstall or upgrade (ADR-PWSH-VENDOR-DELIBERATEUPGRADE) reproduces the same trimmed copy. A folder comes back only by removing
+it from the prune list and reinstalling.
 
 - [Pruned folders](#pruned-folders)
 - [How this is enforced](#how-this-is-enforced)
@@ -56,8 +56,8 @@ dependencies are vendored, and the gallery (or the configured feed) is reached o
 
 ## Context
 
-[controlling-module-dependencies](../automation/controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal module
-dependency vendored and named, committed in the tree with nothing to fetch, and
+[controlling-module-dependencies](../automation/controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal
+module dependency vendored and named, committed in the tree with nothing to fetch, and
 [effective-in-enterprises](../automation/effective-in-enterprises.md) assumes a machine with no network access at runtime. This ADR is how
 the PowerShell modules the toolset depends on are vendored.
 
@@ -76,7 +76,8 @@ gallery resolved a different patch version on a different machine. This causes t
 ### Vendoring solves all three
 
 Vendoring means checking the module's files directly into the repository under `pwsh/.vendor/<ModuleName>/<Version>/`, committed as every
-internal dependency is (ADR-AUTO-DEPM-INTERNALVENDORED). The module loads from disk with no network call, no version resolution, and no surprises.
+internal dependency is (ADR-AUTO-DEPM-INTERNALVENDORED). The module loads from disk with no network call, no version resolution, and no
+surprises.
 
 - **Deterministic.** Every developer and every CI run uses exactly the same files. The version is locked by the commit, not by a gallery
   query.

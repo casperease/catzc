@@ -5,25 +5,27 @@
 ### Rule ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
 
 A **track** is a named, on-disk cluster of module contents: the tracked files of one concern, selected by the **place** or places the track
-declares ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](track-types.md#rule-adr-dsgn-tracktype-declaredonce)). A place is a root folder (`pwsh`), a path inside one
-(`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by the
-longest place that contains it ([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-adr-dsgn-tracktype-longestplacewins)), or is a root file (ADR-DSGN-TRACK-ROOTFILE);
-`out/` holds gitignored output and is in none. Tracks are what this mono repository is composed of.
+declares ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](track-types.md#rule-adr-dsgn-tracktype-declaredonce)). A place is a root folder (`pwsh`), a path
+inside one (`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track,
+found by the longest place that contains it
+([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-adr-dsgn-tracktype-longestplacewins)), or is a root file
+(ADR-DSGN-TRACK-ROOTFILE); `out/` holds gitignored output and is in none. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
 ### Rule ADR-DSGN-TRACK-ONETRACKTYPE
 
-Every track has exactly one **track type** ([ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-adr-dsgn-tracktype-closedsetoftypes)), stated once and carrying no
-second classification beside it: `modules` (`pwsh`, the core the other tracks rest on), `infrastructure`, `pipelines`, `vendor-settings`,
-`vendored-code`, `contracts`, `documentation`, `verification`, or `unordered` (`.unordered`, ADR-DSGN-TRACK-UNORDEREDTRACK). The type's role is
-deployable or holder ([ADR-DSGN-TRACKTYPE-ONEROLE](track-types.md#rule-adr-dsgn-tracktype-onerole)). A **verification track** is a test-only track: it
-verifies the core from outside, ships nothing, and is out of every bundle by construction, because it lies outside `pwsh/`, where the
-builder reads its modules. `go`, the Go black-box tests, is the first; a repository without a `go/` root keeps the same tests in the
-dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests, is the second, by the same convention: `.python` when
-the repository has no `python/` root. `bash`, the Bash black-box tests, is the third: `.bash` when the repository has no `bash/` root.
-Cross-cutting slices (e.g. the cats configs — every yml/config file across the modules track) are **scopes over tracks**, not tracks: they
-select through the roots rather than owning one.
+Every track has exactly one **track type** ([ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-adr-dsgn-tracktype-closedsetoftypes)),
+stated once and carrying no second classification beside it: `modules` (`pwsh`, the core the other tracks rest on), `infrastructure`,
+`pipelines`, `vendor-settings`, `vendored-code`, `contracts`, `documentation`, `verification`, or `unordered` (`.unordered`,
+ADR-DSGN-TRACK-UNORDEREDTRACK). The type's role is deployable or holder
+([ADR-DSGN-TRACKTYPE-ONEROLE](track-types.md#rule-adr-dsgn-tracktype-onerole)). A **verification track** is a test-only track: it verifies
+the core from outside, ships nothing, and is out of every bundle by construction, because it lies outside `pwsh/`, where the builder reads
+its modules. `go`, the Go black-box tests, is the first; a repository without a `go/` root keeps the same tests in the dot-prefixed `.go`,
+which is of the same class. `python`, the Python black-box tests, is the second, by the same convention: `.python` when the repository has
+no `python/` root. `bash`, the Bash black-box tests, is the third: `.bash` when the repository has no `bash/` root. Cross-cutting slices
+(e.g. the cats configs — every yml/config file across the modules track) are **scopes over tracks**, not tracks: they select through the
+roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
@@ -58,8 +60,8 @@ pipeline binds a track's source paths directly.
 ### Rule ADR-DSGN-TRACK-FILELANGUAGE
 
 A **file language** is the language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python,
-and so on — and every extension belongs to exactly one file language. A track's tech-stack (ADR-DSGN-TRACK-ONETECHSTACK) is the set of file languages
-it owns, so a file in a language outside that set is a second tech-stack inside the track.
+and so on — and every extension belongs to exactly one file language. A track's tech-stack (ADR-DSGN-TRACK-ONETECHSTACK) is the set of file
+languages it owns, so a file in a language outside that set is a second tech-stack inside the track.
 
 - [File languages](#file-languages)
 
@@ -80,27 +82,28 @@ file sits in its own column of the track-by-file-language map, never in a file l
 
 ### Rule ADR-DSGN-TRACK-WORLDMAP
 
-A **world map** is the repository drawn as its tracks crossed with its file languages: one row per track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER) and one for the
-root files (ADR-DSGN-TRACK-ROOTFILE), one column per file language (ADR-DSGN-TRACK-FILELANGUAGE) and one for the unlisted files (ADR-DSGN-TRACK-UNLISTEDFILE), and every
-tracked file counted in exactly one cell. It is computed from the track and file-language registries and the git index, never drawn by hand,
-so it is the same picture on every run of the same commit.
+A **world map** is the repository drawn as its tracks crossed with its file languages: one row per track
+(ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER) and one for the root files (ADR-DSGN-TRACK-ROOTFILE), one column per file language
+(ADR-DSGN-TRACK-FILELANGUAGE) and one for the unlisted files (ADR-DSGN-TRACK-UNLISTEDFILE), and every tracked file counted in exactly one
+cell. It is computed from the track and file-language registries and the git index, never drawn by hand, so it is the same picture on every
+run of the same commit.
 
 - [The world map](#the-world-map)
 
 ### Rule ADR-DSGN-TRACK-CELL
 
-A **cell** is one row crossed with one column of a map, the world map (ADR-DSGN-TRACK-WORLDMAP) or the value-chain map (ADR-DSGN-TRACK-VALUECHAINMAP). A
-world-map cell holds the tracked files whose track names its row and whose extension names its column, and its file count is how many there
-are; a value-chain map cell holds the ADRs whose ADR domain declares its row and whose value-chain concerns include its column. Every row
-meets every column, so an empty cell is still a cell of the map.
+A **cell** is one row crossed with one column of a map, the world map (ADR-DSGN-TRACK-WORLDMAP) or the value-chain map
+(ADR-DSGN-TRACK-VALUECHAINMAP). A world-map cell holds the tracked files whose track names its row and whose extension names its column, and
+its file count is how many there are; a value-chain map cell holds the ADRs whose ADR domain declares its row and whose value-chain concerns
+include its column. Every row meets every column, so an empty cell is still a cell of the map.
 
 - [The world map](#the-world-map)
 
 ### Rule ADR-DSGN-TRACK-STACKVIOLATION
 
 A **stack violation** is a cell that holds a live file whose file language its track does not declare: the second tech-stack
-ADR-DSGN-TRACK-ONETECHSTACK forbids, made visible. Test files, vendored files, and the files of a verification track are never live, so they never make
-one, and the root files' row has no track, so none of its cells is one.
+ADR-DSGN-TRACK-ONETECHSTACK forbids, made visible. Test files, vendored files, and the files of a verification track are never live, so they
+never make one, and the root files' row has no track, so none of its cells is one.
 
 - [The world map](#the-world-map)
 
@@ -146,10 +149,10 @@ resolves to one or more value-chain concerns, never to none and never to an unkn
 ### Rule ADR-DSGN-TRACK-VALUECHAINMAP
 
 The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns: one row per row of the stack
-(ADR-DSGN-TRACK-VALUECHAINSTACK) and one column per value-chain concern (ADR-DSGN-TRACK-VALUECHAINCONCERN), and an ADR lights the places where the row of the ADR domain
-that holds it meets each of its value-chain concerns. It is computed from `adrs.yml`, never drawn by hand, and every label it prints names a
-defined term in its head, as the world map's labels do (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS); its row names are the rows of the value-chain stack, and its
-column names are the value-chain concerns.
+(ADR-DSGN-TRACK-VALUECHAINSTACK) and one column per value-chain concern (ADR-DSGN-TRACK-VALUECHAINCONCERN), and an ADR lights the places
+where the row of the ADR domain that holds it meets each of its value-chain concerns. It is computed from `adrs.yml`, never drawn by hand,
+and every label it prints names a defined term in its head, as the world map's labels do (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS); its row
+names are the rows of the value-chain stack, and its column names are the value-chain concerns.
 
 - [The value-chain map](#the-value-chain-map)
 
@@ -165,9 +168,9 @@ generator, or agent reads, writes, or falls back to it unless a person names it,
 
 ### Rule ADR-DSGN-TRACK-PRIMARYLANGUAGE
 
-A track has one **primary language** by default: the first file language its tech-stack (ADR-DSGN-TRACK-ONETECHSTACK) declares, the one a track with a
-single language is written in (ADR-DSGN-TRACK-FILELANGUAGE). A second file language enters a track by being declared there, never by being tolerated,
-so a track's declared languages read as one primary language and the few others it admits on purpose.
+A track has one **primary language** by default: the first file language its tech-stack (ADR-DSGN-TRACK-ONETECHSTACK) declares, the one a
+track with a single language is written in (ADR-DSGN-TRACK-FILELANGUAGE). A second file language enters a track by being declared there,
+never by being tolerated, so a track's declared languages read as one primary language and the few others it admits on purpose.
 
 - [What a track is](#what-a-track-is)
 
@@ -262,19 +265,19 @@ languages, so a reader sees at a glance which track holds which kinds of text an
 language, and its shade says how many files sit there. A stack violation is marked on its cell, because the place is the finding: it says
 which track holds the second stack and in which language. A highlight lights the cells an ADR governs or a change touches, so the same
 picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms
-([ADR-REPO-VOCAB-DEFINEDTERM](../repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)): a label that names an undefined concept would teach its
-reader a word the repository never fixed, so every printed concept carries a rule here and a glossary entry, and the quality gate fails a
-label that names none.
+([ADR-REPO-VOCAB-DEFINEDTERM](../repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)): a label that names an undefined
+concept would teach its reader a word the repository never fixed, so every printed concept carries a rule here and a glossary entry, and the
+quality gate fails a label that names none.
 
 ### The unordered track
 
 An outside repository brought into this one arrives with a history worth keeping and a layout that matches none of this repository's
 modules. Importing it straight into a module would mix its files with code the gates hold to the domain rules before anyone has judged them;
 leaving the history behind would lose the record of why each file is the way it is. The unordered track is the place between: a root folder
-that git tracks and the world map counts, so the place rule (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER) holds, and each import lands whole at its own landing
-address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so `git log --follow` keeps
-every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name that is taken fails the
-import, so a second import of the same source is a decision, never an accident.
+that git tracks and the world map counts, so the place rule (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER) holds, and each import lands whole at its
+own landing address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so
+`git log --follow` keeps every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name
+that is taken fails the import, so a second import of the same source is a decision, never an accident.
 
 The track is where imports land, not a source: it has no tech-stack beyond what an import brings, no consumer, and no default. Anything that
 quietly read from it would make the system depend on files nobody has sorted yet, so the rule is stated as a prohibition, and every other
@@ -292,21 +295,23 @@ what the other cannot.
 
 The place is declared, never guessed. Every ADR domain names its row and a default set of value-chain concerns in `adrs.yml`, and an ADR
 that acts elsewhere declares its own, so the declaration is made once per ADR domain and repeated only where an ADR differs, the same
-resolution every setting follows ([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Both words are qualified
-on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so the
-value-chain forms keep each word to one meaning.
+resolution every setting follows ([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Both
+words are qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's
+tech-stack, so the value-chain forms keep each word to one meaning.
 
 ## Decision
 
-Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER), each of one track type
-(ADR-DSGN-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to (ADR-DSGN-TRACK-UNORDEREDTRACK), one tech-stack each (ADR-DSGN-TRACK-ONETECHSTACK) that
-defaults to one primary language (ADR-DSGN-TRACK-PRIMARYLANGUAGE), subscribable only via depms and globset projections (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED), and shipped
-through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK-DEPLOYABLEUNIT). A tech-stack is a set of file languages, each named by its extension
-(ADR-DSGN-TRACK-FILELANGUAGE). The world map crosses the tracks with the file languages (ADR-DSGN-TRACK-WORLDMAP), with a row for the root files and a column
-for the unlisted files (ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-UNLISTEDFILE); its cells (ADR-DSGN-TRACK-CELL) mark the stack violations (ADR-DSGN-TRACK-STACKVIOLATION) and
-light for a highlight (ADR-DSGN-TRACK-LITCELL), and every label it prints names a defined term (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain
-map (ADR-DSGN-TRACK-VALUECHAINMAP) crosses the value-chain stack (ADR-DSGN-TRACK-VALUECHAINSTACK) with the value-chain concerns (ADR-DSGN-TRACK-VALUECHAINCONCERN), both declared
-per ADR domain in `adrs.yml`, with a per-ADR override of the concerns.
+Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER),
+each of one track type (ADR-DSGN-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to
+(ADR-DSGN-TRACK-UNORDEREDTRACK), one tech-stack each (ADR-DSGN-TRACK-ONETECHSTACK) that defaults to one primary language
+(ADR-DSGN-TRACK-PRIMARYLANGUAGE), subscribable only via depms and globset projections (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED), and
+shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK-DEPLOYABLEUNIT). A tech-stack is a set of file languages, each
+named by its extension (ADR-DSGN-TRACK-FILELANGUAGE). The world map crosses the tracks with the file languages (ADR-DSGN-TRACK-WORLDMAP),
+with a row for the root files and a column for the unlisted files (ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-UNLISTEDFILE); its cells
+(ADR-DSGN-TRACK-CELL) mark the stack violations (ADR-DSGN-TRACK-STACKVIOLATION) and light for a highlight (ADR-DSGN-TRACK-LITCELL), and
+every label it prints names a defined term (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map
+(ADR-DSGN-TRACK-VALUECHAINMAP) crosses the value-chain stack (ADR-DSGN-TRACK-VALUECHAINSTACK) with the value-chain concerns
+(ADR-DSGN-TRACK-VALUECHAINCONCERN), both declared per ADR domain in `adrs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 
@@ -319,11 +324,13 @@ per ADR domain in `adrs.yml`, with a per-ADR override of the concerns.
   touches.
 - **depms and the dependency-graph quality gates** (`ADR-AUTO-DEPM`) enforce the declared subscription edges, including the one-directional
   core ← adapter/port dependency.
-- **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (ADR-DSGN-TRACK-STACKVIOLATION), a root folder with tracked
-  files that no track names (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER), and a printed label that names no defined term (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS).
+- **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (ADR-DSGN-TRACK-STACKVIOLATION), a root folder
+  with tracked files that no track names (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER), and a printed label that names no defined term
+  (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS).
 - **`Catzc.Base.Docs.AdrsConfig`**, the type of `adrs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
   order, and fails the load on an ADR domain without a row or a default, on a row or a value-chain concern outside them, and on an unknown
-  key, so every ADR resolves to its row and one or more value-chain concerns (ADR-DSGN-TRACK-VALUECHAINSTACK, ADR-DSGN-TRACK-VALUECHAINCONCERN).
+  key, so every ADR resolves to its row and one or more value-chain concerns (ADR-DSGN-TRACK-VALUECHAINSTACK,
+  ADR-DSGN-TRACK-VALUECHAINCONCERN).
 - **Code review** applies the taxonomy: a new track must name its type, its places and its tech-stack; a cross-cutting need becomes a scope
   globset, not a root.
 

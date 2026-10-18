@@ -9,8 +9,8 @@ task:
 
 # Task: the last gaps between the code and the ADRs
 
-Three proofs on real runs are left. When a step lands, the claim it closes leaves every article under `docs/explanation/` that states it,
-in the same change (search the function name).
+Three proofs on real runs are left. When a step lands, the claim it closes leaves every article under `docs/explanation/` that states it, in
+the same change (search the function name).
 
 ## Steps
 

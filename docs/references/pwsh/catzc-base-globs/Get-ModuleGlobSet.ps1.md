@@ -19,13 +19,13 @@ shippable surface (functions, private helpers, types, configs), 'tests' its veri
 `<root>/tests/<kebab>/` of each language root when they exist
 ([ADR-AUTO-GO-ONEGOROOT](../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot),
 [ADR-AUTO-PY-ONEPYTHONROOT](../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot),
-[ADR-AUTO-BASH-ONEBASHROOT](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)); the two are disjoint and cover the folder. The
-whole-module set is their union (a test-only change never re-keys live). Every internal shared module `pwsh/.internal/<Name>.psm1` derives a
-single-file set (no tests aspect) by the same kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap'). The reserved names
-cover the dot-prefixed infrastructure every module's test results also depend on: 'internal', 'vendor', 'compiled', 'scriptanalyzer'.
-Derived sets bound the scope of protection and blast radius
-([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)). A declared globset may not shadow a derived
-name; the collision throws here, naming both sides.
+[ADR-AUTO-BASH-ONEBASHROOT](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)); the two are disjoint and
+cover the folder. The whole-module set is their union (a test-only change never re-keys live). Every internal shared module
+`pwsh/.internal/<Name>.psm1` derives a single-file set (no tests aspect) by the same kebab convention (Catzc.Internal.Bootstrap ->
+'catzc-internal-bootstrap'). The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
+'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets bound the scope of protection and blast radius
+([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)). A
+declared globset may not shadow a derived name; the collision throws here, naming both sides.
 
 The derived sets are repository-relative globs over the source tree's module folders (git-tracked paths), so it stops with a named error in
 build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).

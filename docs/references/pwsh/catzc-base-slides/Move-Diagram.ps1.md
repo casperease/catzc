@@ -12,7 +12,8 @@ Moves a diagram folder, or one of its files, with git mv and re-points every rel
 ### description
 
 A diagram is one folder, `<article-folder>/.assets/<name>/`, so moving a diagram moves the folder. The command stages the move with `git mv`
-and keeps every relative link right ([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)): each link in a moved
+and keeps every relative link right
+([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)): each link in a moved
 `.md` file and in every page that links into the moved path is resolved to its repository path and recomputed from where the file now sits.
 A page that stays in place keeps every other link as it wrote it. The source must hold a tracked file, and the destination must not exist,
 so a move never merges into another diagram. It commits nothing.

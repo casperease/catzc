@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6f6dd56bff2
+    with_body_sha: cef5f5489db6
     repo_status: locked
     path: docs/explanation/design/.assets/10-commits-story/grid.md
     source: docs/explanation/design/.assets/10-commits-story/diagram.drawio.png
@@ -58,7 +58,7 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK-TRAC
 language markdown ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][4]) by:
 
 - [.claude/CLAUDE.md][5]: selected by [ADR-FLOW-CD][3]: the file cites it at line 55 (text) and line 56 (text).
-- [.claude/plans/plan-diagram-folders-rest.md][6]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 59 (text).
+- [.claude/plans/plan-diagram-folders-rest.md][6]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 66 (text).
 - [.claude/plans/plan-explanation-drift-gaps.md][7]: selected by [ADR-FLOW-CD][3]: the file cites it at line 17 (text) and line 18 (text).
 - [.claude/plans/plan-fast-push-followups.md][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 13 (text) and line 18 (text).
 - [.claude/plans/plan-promotion-ladder.md][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 11 (text) and line 38 (text);
@@ -75,20 +75,22 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][4]) b
   25 (text), line 61 (text), line 61 (text), line 69 (text), line 69 (text), line 77 (text) and line 77 (text).
 - [docs/adr/design/.assets/commit-lifecycle-states/grid.md][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line
   25 (text), line 55 (text), line 56 (text), line 57 (text), line 64 (text), line 66 (text), line 70 (text), line 74 (text), line 76 (text),
-  line 79 (text), line 82 (text), line 83 (text), line 84 (text), line 85 (text), line 86 (text), line 93 (text), line 102 (text), line 103
-  (text) and line 104 (text).
+  line 80 (text), line 84 (text), line 85 (text), line 86 (text), line 87 (text), line 88 (text), line 95 (text), line 104 (text), line 105
+  (text) and line 106 (text).
 - [docs/adr/design/.assets/commit-lifecycle-states/tree.md][13]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line
-  25 (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 63 (text), line 66 (text), line 67 (text),
-  line 73 (text), line 75 (text), line 77 (text), line 83 (text), line 85 (text), line 91 (text), line 92 (text), line 99 (text), line 106
-  (text) and line 114 (text).
+  25 (text), line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 64 (text), line 68 (text), line 69 (text),
+  line 75 (text), line 77 (text), line 79 (text), line 85 (text), line 87 (text), line 93 (text), line 94 (text), line 101 (text), line 108
+  (text) and line 116 (text).
 - [docs/adr/design/.assets/sync-point/chain.md][14]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25 (text),
   line 61 (text), line 61 (text), line 69 (text), line 69 (text), line 77 (text) and line 77 (text).
 - [docs/adr/design/.assets/sync-point/grid.md][15]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25 (text),
-  line 55 (text), line 56 (text), line 57 (text), line 64 (text), line 66 (text), line 69 (text), line 72 (text), line 73 (text), line 74
-  (text), line 75 (text), line 76 (text), line 83 (text), line 92 (text), line 93 (text) and line 94 (text).
+  line 55 (text), line 56 (text), line 57 (text), line 64 (text), line 66 (text), line 70 (text), line 74 (text), line 76 (text), line 80
+  (text), line 84 (text), line 85 (text), line 86 (text), line 87 (text), line 88 (text), line 95 (text), line 104 (text), line 105 (text)
+  and line 106 (text).
 - [docs/adr/design/.assets/sync-point/tree.md][16]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 18 (text), line 25 (text),
-  line 48 (text), line 50 (text), line 53 (text), line 56 (text), line 57 (text), line 63 (text), line 65 (text), line 67 (text), line 73
-  (text), line 75 (text), line 81 (text), line 82 (text), line 89 (text), line 96 (text) and line 104 (text).
+  line 48 (text), line 50 (text), line 54 (text), line 58 (text), line 60 (text), line 64 (text), line 68 (text), line 69 (text), line 75
+  (text), line 77 (text), line 79 (text), line 85 (text), line 87 (text), line 93 (text), line 94 (text), line 101 (text), line 108 (text)
+  and line 116 (text).
 - [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
 - [docs/adr/design/dora-explains.md][17]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text); selected by
   [ADR-DSGN-VISUAL][2]: the file cites it at line 63 (text).

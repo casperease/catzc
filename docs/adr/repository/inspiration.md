@@ -57,7 +57,8 @@ citing it as an authority puts a second set of rules beside the ADRs. Both turn 
 The ADRs are where catzc decides. An idea is a candidate, and the ADR of the aspect it touches judges it:
 
 - **Module and command design:** [ADR-PWSH-ONEFUNC](../pwsh/one-function-per-file.md), [ADR-PWSH-PARAM](../pwsh/parameter-design.md), and
-  the one resolution order of a setting, [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
+  the one resolution order of a setting,
+  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 - **Docs and ADR structure:** the [authoring conventions](../index.md#authoring-conventions).
 - **Contracts:** [ADR-REPO-CONTRACT](api-contracts.md).
 - **Testing:** [ADR-AUTO-TEST](../automation/test-automation.md).
@@ -76,8 +77,8 @@ version, so the idea lands as if catzc had always had it.
 ### Declared, not described
 
 A path written into prose drifts and differs per machine. Declaring each inspiration in config, its root on the workspace anchor
-([ADR-AUTO-PATH-WORKSPACEANCHOR](../automation/path-representation.md#rule-adr-auto-path-workspaceanchor)), gives one checked place to find it, and reporting
-availability as a value keeps the work going on a machine where the sibling is absent.
+([ADR-AUTO-PATH-WORKSPACEANCHOR](../automation/path-representation.md#rule-adr-auto-path-workspaceanchor)), gives one checked place to find
+it, and reporting availability as a value keeps the work going on a machine where the sibling is absent.
 
 ## Decision
 

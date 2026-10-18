@@ -38,62 +38,64 @@ one file across the repository, verified by an integrity test.
 
 ### Rule ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
 
-A bundle ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)) carries the **runtime payload in merged form**. Every
-selected module is its own folder holding a generated `<Module>.psd1` (`NestedModules` = the one merged file, `FunctionsToExport` = the
-module's public functions only), a generated `<Module>.functions.ps1` that merges the module's `private/` and root function files — named
-apart from the module, so the nested script module never shares the manifest module's name — and the module's side folders (`configs/`,
-`assets/`, and the `types/` sources) copied verbatim — never its `tests/`. Beside the modules sit the `.internal` loader, the vendored
-dependencies per policy under `.vendor/`, the **full** combined-types DLL under `.compiled/` with the unselected modules' type sources under
-`.compiled/types/<Module>/`, the top-level `Catzc.psd1`, `Catzc.psm1`, and `Import-Catzc.ps1`, and `build.json`. The payload is deliberately
-**broader** than the protection `live` aspect ([module-aspects](../design/module-aspects.md)) — that aspect excludes `assets/` to keep its
-identity isolated, but a running module needs its `assets/`. Shipping is default-deny: the `tests/` surface never travels.
+A bundle ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)) carries the **runtime payload in merged
+form**. Every selected module is its own folder holding a generated `<Module>.psd1` (`NestedModules` = the one merged file,
+`FunctionsToExport` = the module's public functions only), a generated `<Module>.functions.ps1` that merges the module's `private/` and root
+function files — named apart from the module, so the nested script module never shares the manifest module's name — and the module's side
+folders (`configs/`, `assets/`, and the `types/` sources) copied verbatim — never its `tests/`. Beside the modules sit the `.internal`
+loader, the vendored dependencies per policy under `.vendor/`, the **full** combined-types DLL under `.compiled/` with the unselected
+modules' type sources under `.compiled/types/<Module>/`, the top-level `Catzc.psd1`, `Catzc.psm1`, and `Import-Catzc.ps1`, and `build.json`.
+The payload is deliberately **broader** than the protection `live` aspect ([module-aspects](../design/module-aspects.md)) — that aspect
+excludes `assets/` to keep its identity isolated, but a running module needs its `assets/`. Shipping is default-deny: the `tests/` surface
+never travels.
 
 - [The merged module form](#the-merged-module-form)
 
 ### Rule ADR-PWSH-MANIFEST-ONEBUILDMODULE
 
 A build is one PowerShell module, `Catzc`: a generated top-level `Catzc.psd1` exporting the selected modules' public functions, whose
-`RootModule` is a generated one-line `Catzc.psm1` that dot-sources `Import-Catzc.ps1` ([pwsh-engine](pwsh-engine.md#rule-adr-pwsh-engine-buildentry)).
-That makes the placements of [platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-twoartifactinstall) ordinary PowerShell installs:
+`RootModule` is a generated one-line `Catzc.psm1` that dot-sources `Import-Catzc.ps1`
+([pwsh-engine](pwsh-engine.md#rule-adr-pwsh-engine-buildentry)). That makes the placements of
+[platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-twoartifactinstall) ordinary PowerShell installs:
 `Install-Catzc -Scope CurrentUser` copies the build into the user's module path, so `Import-Module Catzc` works from any shell, and
-`Export-Catzc -To nuget` packs it into `out/pwsh/packages/` for a local-path `Install-PSResource`, with the vendored dependencies
-riding inside its `.vendor/`, never as `RequiredModules`.
+`Export-Catzc -To nuget` packs it into `out/pwsh/packages/` for a local-path `Install-PSResource`, with the vendored dependencies riding
+inside its `.vendor/`, never as `RequiredModules`.
 
 - [The package module](#the-package-module)
 
 ### Rule ADR-PWSH-MANIFEST-CLOSEDINFRASTRUCTURE
 
-The infrastructure that stays closed (ADR-AUTO-EXTEND-ADDNOTEDIT) is, in PowerShell, the generated `importer.ps1` shim, the `pwsh/.internal/` modules
-— `Catzc.Internal.Importer` (the load sequence), `Catzc.Internal.Bootstrap` (`Import-AllModules`, `New-DynamicManifest`) and
-`Catzc.Internal.Vendor` (`Import-VendorModules`) — and the shared loader `Import-ModuleFiles.ps1`. A new function file, module folder, or
-vendored module is discovered by them; none of them is edited to admit it.
+The infrastructure that stays closed (ADR-AUTO-EXTEND-ADDNOTEDIT) is, in PowerShell, the generated `importer.ps1` shim, the
+`pwsh/.internal/` modules — `Catzc.Internal.Importer` (the load sequence), `Catzc.Internal.Bootstrap` (`Import-AllModules`,
+`New-DynamicManifest`) and `Catzc.Internal.Vendor` (`Import-VendorModules`) — and the shared loader `Import-ModuleFiles.ps1`. A new function
+file, module folder, or vendored module is discovered by them; none of them is edited to admit it.
 
 - [Conventions in PowerShell](#conventions-in-powershell)
 
 ### Rule ADR-PWSH-MANIFEST-NOMODULEIMPORTS
 
-No catzc module imports another. Dot-sourcing `importer.ps1` (ADR-PWSH-ENGINE-IMPORTERDOTSOURCED) imports every module into one global function namespace, so
-a function calls any catzc function by name — no `Import-Module`, no `using module`, no `RequiredModules`, no hand-written export list. This
-is zero ceremony (ADR-AUTO-ZERO-ZEROCEREMONYAUTOMATION) in PowerShell; which module may call which is the declared graph (ADR-AUTO-DEPM-CODEBUILTFROM), never an import
-statement.
+No catzc module imports another. Dot-sourcing `importer.ps1` (ADR-PWSH-ENGINE-IMPORTERDOTSOURCED) imports every module into one global
+function namespace, so a function calls any catzc function by name — no `Import-Module`, no `using module`, no `RequiredModules`, no
+hand-written export list. This is zero ceremony (ADR-AUTO-ZERO-ZEROCEREMONYAUTOMATION) in PowerShell; which module may call which is the
+declared graph (ADR-AUTO-DEPM-CODEBUILTFROM), never an import statement.
 
 - [Conventions in PowerShell](#conventions-in-powershell)
 - [One function namespace](#one-function-namespace)
 
 ### Rule ADR-PWSH-MANIFEST-VISIBILITYISLOCATION
 
-Visibility is location (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS, ADR-AUTO-ZERO-MISTAKESHARDTOMAKE). `New-DynamicManifest` exports every root `*.ps1` of a module, apart from
-`*.Tests.ps1`, under its file's base name, and loads every `private/*.ps1` without exporting it. No attribute, `Export-ModuleMember` call,
-or hand-written list decides what is public.
+Visibility is location (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS, ADR-AUTO-ZERO-MISTAKESHARDTOMAKE). `New-DynamicManifest` exports every root
+`*.ps1` of a module, apart from `*.Tests.ps1`, under its file's base name, and loads every `private/*.ps1` without exporting it. No
+attribute, `Export-ModuleMember` call, or hand-written list decides what is public.
 
 - [Regenerated manifests](#regenerated-manifests)
 
 ### Rule ADR-PWSH-MANIFEST-CROSSMODULECALLS
 
-Because every module shares one function namespace (ADR-PWSH-MANIFEST-NOMODULEIMPORTS), a cross-module call resolves at runtime whether its edge is
-declared or not, so the function-call edges of the module graph (ADR-AUTO-DEPM-UNIFIEDGRAPH) are read from the source: `Get-FunctionDependency` parses
-every non-test `.ps1` under `pwsh/` and maps each command call to the module that defines it, and `Get-ModuleDependency` collapses the
-cross-module calls into the module edges `Test-ModuleDependency` checks.
+Because every module shares one function namespace (ADR-PWSH-MANIFEST-NOMODULEIMPORTS), a cross-module call resolves at runtime whether its
+edge is declared or not, so the function-call edges of the module graph (ADR-AUTO-DEPM-UNIFIEDGRAPH) are read from the source:
+`Get-FunctionDependency` parses every non-test `.ps1` under `pwsh/` and maps each command call to the module that defines it, and
+`Get-ModuleDependency` collapses the cross-module calls into the module edges `Test-ModuleDependency` checks.
 
 - [Conventions in PowerShell](#conventions-in-powershell)
 
@@ -198,9 +200,9 @@ functions, same configs and assets, its own `$script:` scope ([run-modes](../des
 manifest and one merged function file instead of a folder of function files. For each selected module, `Build-Modules` merges the function
 files into one `<Module>.functions.ps1` — `private/*.ps1` in ordinal order, then the root `*.ps1` in ordinal order, the same order the
 source manifest's `PrivateData.CatzcFiles` lists, so load semantics are identical — each file verbatim behind a
-`# source: pwsh/<Module>/<path>` marker line, so an error line in the merged file maps back to its source file. The module's manifest
-is generated by the same canonical emitter that the source mode uses, listing that one file and exporting only the public functions;
-privates stay internal. The merged file keeps the `.ps1` extension, so the module's functions share one session state as they do in source
+`# source: pwsh/<Module>/<path>` marker line, so an error line in the merged file maps back to its source file. The module's manifest is
+generated by the same canonical emitter that the source mode uses, listing that one file and exporting only the public functions; privates
+stay internal. The merged file keeps the `.ps1` extension, so the module's functions share one session state as they do in source
 ([use-ps1-not-psm1](use-ps1-not-psm1.md)), and it is named apart from the module, so the nested script module and the manifest module never
 share a name.
 
@@ -212,10 +214,10 @@ keeps the verification surface out: no `tests/` tree travels.
 ### The package module
 
 The build's modules are not nested modules of one package manifest: the importer loads them one by one, in the order the types need
-([pwsh-engine](pwsh-engine.md#rule-adr-pwsh-engine-buildentry)), each with its own manifest and scope. The package manifest `Catzc.psd1` exists so the
-build is also an ordinary PowerShell module that the module path and PSResourceGet understand. Its `RootModule` is one line that dot-sources
-`Import-Catzc.ps1`, so `Import-Module Catzc` runs the one entry and there is no second loader. A NuGet package of the build declares no
-`RequiredModules`: its dependencies are the vendored copies inside it, so installing it fetches nothing.
+([pwsh-engine](pwsh-engine.md#rule-adr-pwsh-engine-buildentry)), each with its own manifest and scope. The package manifest `Catzc.psd1`
+exists so the build is also an ordinary PowerShell module that the module path and PSResourceGet understand. Its `RootModule` is one line
+that dot-sources `Import-Catzc.ps1`, so `Import-Module Catzc` runs the one entry and there is no second loader. A NuGet package of the build
+declares no `RequiredModules`: its dependencies are the vendored copies inside it, so installing it fetches nothing.
 
 ## Decision
 
