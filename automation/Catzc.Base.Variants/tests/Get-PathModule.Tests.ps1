@@ -51,10 +51,10 @@ Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
 
 Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
     It 'places a file in the module, and the module type, its folder names' -ForEach @(
-        @{ Path = 'automation/Catzc.Base.Variants/Get-Track.ps1'; Name = 'Catzc.Base.Variants'; Type = 'pwsh-folder' }
-        @{ Path = 'automation/.internal/Catzc.Internal.Types.psm1'; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1' }
-        @{ Path = 'automation/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1'; Name = 'Catzc.Internal.Tests'; Type = 'pwsh-folder' }
-        @{ Path = 'automation/.internal/assets/obj/Debug/x.cs'; Name = 'Catzc.Internal.Assets'; Type = 'pwsh-folder' }
+        @{ Path = "$(Get-CatzcModulesFolder)/Catzc.Base.Variants/Get-Track.ps1"; Name = 'Catzc.Base.Variants'; Type = 'pwsh-folder' }
+        @{ Path = "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1' }
+        @{ Path = "$(Get-CatzcModulesFolder)/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1"; Name = 'Catzc.Internal.Tests'; Type = 'pwsh-folder' }
+        @{ Path = "$(Get-CatzcModulesFolder)/.internal/assets/obj/Debug/x.cs"; Name = 'Catzc.Internal.Assets'; Type = 'pwsh-folder' }
         @{ Path = '.claude/agents/catzc-worker.md'; Name = '.claude'; Type = 'settings' }
         @{ Path = '.github/README.md'; Name = '.github'; Type = 'settings' }
         @{ Path = '.cspell/adr.txt'; Name = '.cspell'; Type = 'settings' }
@@ -75,8 +75,8 @@ Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic
         @{ Path = 'docs/adr/index.md' }
         @{ Path = 'contracts/catzc/0.0.0/contract.yml' }
         @{ Path = 'importer.ps1' }
-        @{ Path = 'automation/.vendor/Pester/Pester.psd1' }
-        @{ Path = 'automation/.scriptanalyzer/Rule.psm1' }
+        @{ Path = "$(Get-CatzcModulesFolder)/.vendor/Pester/Pester.psd1" }
+        @{ Path = "$(Get-CatzcModulesFolder)/.scriptanalyzer/Rule.psm1" }
     ) {
         @(Get-PathModule $Path).Count | Should -Be 0
     }

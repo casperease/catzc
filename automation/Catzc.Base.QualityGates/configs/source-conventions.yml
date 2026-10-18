@@ -46,6 +46,8 @@ track_root_literal:
     automation/Catzc.Base.Exporter/Install-Catzc.ps1:
       its out/ area automation/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
     automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1: it proves the resolver's fallback is the bootstrap constant
+    automation/Catzc.Base.Repository/tests/Get-CatzcOverlayRoot.Tests.ps1:
+      its consumer fixture is a source tree and an overlay named by the bootstrap constant, which the run mode and the overlay compare with
     automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1:
       it proves the run mode compares against the source modules folder, the same constant
     automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1: it asserts the out/automation/built area of its exempt code (Q6)

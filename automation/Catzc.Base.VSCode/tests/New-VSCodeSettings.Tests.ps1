@@ -6,7 +6,7 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
                     settings = [ordered]@{
                         'editor.tabSize' = 4
                         'search.exclude' = [ordered]@{
-                            'automation/.vendor'   = $true
+                            'widgets/.vendor'   = $true
                             'keep/searchable.psd1' = $false
                         }
                     }
@@ -26,7 +26,7 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
         $json.'search.exclude'.'.editorconfig' | Should -BeTrue
-        $json.'search.exclude'.'automation/.vendor' | Should -BeTrue
+        $json.'search.exclude'.'widgets/.vendor' | Should -BeTrue
     }
 
     It 'sets each language''s editor formatter, merged into an authored [language] block whose own keys win' -Tag 'ADR-REPO-FORMAT#8' {
@@ -70,11 +70,11 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
 
     It 'leaves the cached config untouched when it completes search.exclude' {
         $fixture = [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
-                settings = [ordered]@{ 'search.exclude' = [ordered]@{ 'automation/.vendor' = $true } }
+                settings = [ordered]@{ 'search.exclude' = [ordered]@{ 'widgets/.vendor' = $true } }
             })
         Mock Get-Config -ModuleName Catzc.Base.VSCode { $fixture }
         $null = New-VSCodeSettings -ManagedTarget 'importer.ps1'
-        @($fixture.settings['search.exclude'].Keys) | Should -Be @('automation/.vendor')
+        @($fixture.settings['search.exclude'].Keys) | Should -Be @('widgets/.vendor')
     }
 }
 
@@ -82,7 +82,8 @@ Describe 'New-VSCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
     It 'renders the shipped registry to valid settings JSON with the analyzer wiring intact' {
         $text = New-VSCodeSettings -ManagedTarget 'importer.ps1'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
-        $json.'powershell.scriptAnalysis.settingsPath' | Should -Be './automation/.internal/assets/PSScriptAnalyzerSettings.psd1'
+        $settings = "$(Get-CatzcModulesFolder)/.internal/assets/PSScriptAnalyzerSettings.psd1"
+        $json.'powershell.scriptAnalysis.settingsPath' | Should -Be "./$settings"
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
         # The authored un-exclude of the analyzer's settings file must survive rendering verbatim.
         $json.'search.exclude'.'automation/.internal/assets/PSScriptAnalyzerSettings.psd1' | Should -BeFalse
