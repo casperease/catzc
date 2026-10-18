@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "170fe3e76f4a"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Build-Modules builds, verifies, and leaves one folder that every target copies whole: the value-chain minimap
 
 ```text

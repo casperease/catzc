@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "31274db8eff6"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.chain.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Every managed root file has one source of truth, one writer, and one boolean that decides git membership: the value-chain minimap
 
 ```text

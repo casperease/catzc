@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "10ac8d2bdfae"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.chain.md
-    source: docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A repo-wide switch has one home, one read path and one guard vocabulary: the value-chain minimap
 
 ```text

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f94f21ee599b
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md
-    source: docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Three session caches back the one config reader: the value-chain minimap
 
 ```text

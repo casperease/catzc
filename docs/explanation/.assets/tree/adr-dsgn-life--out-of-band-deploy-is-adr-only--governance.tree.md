@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f1af7fa7750f
-    repo_status: locked
-    path: docs/explanation/.assets/tree/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.tree.md
-    source: docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only: the tree minimap
 
 ```text
@@ -35,8 +21,8 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - adr/dsgn (docs/adr/design): 3 lit files
 - .claude: 2 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
-- Git (automation/Catzc.Base.Git): 1 lit file
 - ModuleSystem (automation/Catzc.Base.ModuleSystem): 1 lit file
+- docs (docs/ outside docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
 ## Why each group is lit
@@ -46,19 +32,19 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  97 (text); selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 96 (text).
+  78 (text); selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 77 (text).
 - [automation/Catzc.Base.Docs/configs/agents.yml][4], in the cell automation × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites it at
-  line 47 (text), line 47 (body comment), line 53 (text) and line 58 (text).
+  line 28 (text), line 28 (body comment), line 34 (text) and line 39 (text).
 - [automation/Catzc.Base.Docs/configs/capabilities.yml][5], in the cell automation × yaml: selected by [ADR-DSGN-VISUAL][2]: the file cites
-  it at line 86 (text), line 91 (text), line 96 (text), line 96 (body comment) and line 101 (text).
+  it at line 67 (text), line 72 (text), line 77 (text), line 77 (body comment) and line 82 (text).
 
 ### adr/dsgn (docs/adr/design, 3 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
 - [docs/adr/design/commit-lifecycle.md][1], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
-- [docs/adr/design/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 121 (text);
-  selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 102 (text).
+- [docs/adr/design/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text);
+  selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 63 (text).
 - [docs/adr/design/visual-design.md][2], in the cell docs × markdown: selected by [ADR-DSGN-VISUAL][2]: the ADR's own file.
 
 ### .claude (2 lit files)
@@ -66,9 +52,8 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-fast-push-followups.md][7], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  26 (text) and line 47 (text).
-- [.claude/plans/value-of-plan.md][8], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 22 (text)
-  and line 63 (text).
+  12 (text) and line 37 (text).
+- [.claude/plans/value-of-plan.md][8], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 44 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
@@ -78,34 +63,33 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 - [docs/adr/index.md][10], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by
   [ADR-DSGN-VISUAL][2]: the file cites it at line 111 (text).
 
-### Git (automation/Catzc.Base.Git, 1 lit file)
-
-The group holds the files of automation/Catzc.Base.Git; each sits in its world-map cell and is lit by:
-
-- [automation/Catzc.Base.Git/Push-Dirty.ps1][11], in the cell automation × powershell: selected by [ADR-DSGN-LIFE][1]: the file cites it at
-  line 21 (header) and line 26 (header).
-
 ### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][12], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
-  cites it at line 68 (text).
+- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][11], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
+  cites it at line 49 (text).
+
+### docs (docs/ outside docs/adr/, 1 lit file)
+
+The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
+
+- [docs/references/automation/catzc-base-git/Push-Dirty.ps1.md][12], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
+  cites it at line 14 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][13], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
-  `automation/Catzc.Base.Git/Push-Dirty.ps1` line 21 (header), `automation/Catzc.Base.Git/Push-Dirty.ps1` line 26 (header) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 68 (text); selected by [ADR-DSGN-VISUAL][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 96 (text),
-  `automation/Catzc.Base.Docs/configs/agents.yml` line 47 (text), `automation/Catzc.Base.Docs/configs/agents.yml` line 47 (body comment),
-  `automation/Catzc.Base.Docs/configs/agents.yml` line 53 (text), `automation/Catzc.Base.Docs/configs/agents.yml` line 58 (text),
-  `automation/Catzc.Base.Docs/configs/capabilities.yml` line 86 (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 91
-  (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 96 (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line
-  96 (body comment) and `automation/Catzc.Base.Docs/configs/capabilities.yml` line 101 (text).
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
+  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-VISUAL][2]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 77 (text),
+  `automation/Catzc.Base.Docs/configs/agents.yml` line 28 (text), `automation/Catzc.Base.Docs/configs/agents.yml` line 28 (body comment),
+  `automation/Catzc.Base.Docs/configs/agents.yml` line 34 (text), `automation/Catzc.Base.Docs/configs/agents.yml` line 39 (text),
+  `automation/Catzc.Base.Docs/configs/capabilities.yml` line 67 (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 72
+  (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line
+  77 (body comment) and `automation/Catzc.Base.Docs/configs/capabilities.yml` line 82 (text).
 
 ## Keywords
 
@@ -120,7 +104,6 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipelines][20]: a track
 - [markdown][21]: a file language
 - [pipeline-yaml][21]: a file language
-- [powershell][21]: a file language
 - [yaml][21]: a file language
 
 Terms the cited ADRs define:
@@ -137,8 +120,8 @@ Terms the cited ADRs define:
 [8]: ../../../../.claude/plans/value-of-plan.md
 [9]: ../../../adr/glossary.md
 [10]: ../../../adr/index.md
-[11]: ../../../../automation/Catzc.Base.Git/Push-Dirty.ps1
-[12]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[11]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[12]: ../../../references/automation/catzc-base-git/Push-Dirty.ps1.md
 [13]: ../../../../pipelines/ci-automation.yaml
 [14]: ../../design/out-of-band-deploy-is-adr-only.md
 [15]: ../../../adr/glossary.md#world-map

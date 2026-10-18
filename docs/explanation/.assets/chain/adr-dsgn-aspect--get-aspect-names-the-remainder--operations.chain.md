@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c863ecabffa1
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads: the value-chain minimap
 
 ```text

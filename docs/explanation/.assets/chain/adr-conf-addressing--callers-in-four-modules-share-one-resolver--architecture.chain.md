@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "5b5bc0088317"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.chain.md
-    source: docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private: the value-chain minimap
 
 ```text

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: aa2709d519cf
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md
-    source: docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The CI budget is the only promotion rule a quality gate checks: the value-chain minimap
 
 ```text

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "2949c0eee0f9"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A config file that resolves to no subscription, or to two, stops discovery with one line: the value-chain minimap
 
 ```text

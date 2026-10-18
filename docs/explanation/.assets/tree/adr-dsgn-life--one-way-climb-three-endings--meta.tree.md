@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "7b898421bc4c"
-    repo_status: locked
-    path: docs/explanation/.assets/tree/adr-dsgn-life--one-way-climb-three-endings--meta.tree.md
-    source: docs/explanation/.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A commit only climbs, then ends in one of three ways: the tree minimap
 
 ```text
@@ -35,8 +21,8 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - adr/* (the files directly in docs/adr/): 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
 - Docs (automation/Catzc.Base.Docs): 1 lit file
-- Git (automation/Catzc.Base.Git): 1 lit file
 - ModuleSystem (automation/Catzc.Base.ModuleSystem): 1 lit file
+- docs (docs/ outside docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
 ## Why each group is lit
@@ -46,9 +32,8 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-fast-push-followups.md][2], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  26 (text) and line 47 (text).
-- [.claude/plans/value-of-plan.md][3], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 22 (text)
-  and line 63 (text).
+  12 (text) and line 37 (text).
+- [.claude/plans/value-of-plan.md][3], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 44 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
@@ -62,37 +47,36 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
 - [docs/adr/design/commit-lifecycle.md][1], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
-- [docs/adr/design/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 121 (text).
+- [docs/adr/design/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 82 (text).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  97 (text).
-
-### Git (automation/Catzc.Base.Git, 1 lit file)
-
-The group holds the files of automation/Catzc.Base.Git; each sits in its world-map cell and is lit by:
-
-- [automation/Catzc.Base.Git/Push-Dirty.ps1][8], in the cell automation × powershell: selected by [ADR-DSGN-LIFE][1]: the file cites it at
-  line 21 (header) and line 26 (header).
+  78 (text).
 
 ### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][9], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
-  cites it at line 68 (text).
+- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][8], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
+  cites it at line 49 (text).
+
+### docs (docs/ outside docs/adr/, 1 lit file)
+
+The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
+
+- [docs/references/automation/catzc-base-git/Push-Dirty.ps1.md][9], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
+  cites it at line 14 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][10], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
-  `automation/Catzc.Base.Git/Push-Dirty.ps1` line 21 (header), `automation/Catzc.Base.Git/Push-Dirty.ps1` line 26 (header) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 68 (text).
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
+  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text).
 
 ## Keywords
 
@@ -107,7 +91,6 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipelines][17]: a track
 - [markdown][18]: a file language
 - [pipeline-yaml][18]: a file language
-- [powershell][18]: a file language
 - [yaml][18]: a file language
 
 Terms the cited ADRs define:
@@ -121,8 +104,8 @@ Terms the cited ADRs define:
 [5]: ../../../adr/index.md
 [6]: ../../../adr/design/dora-explains.md
 [7]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[8]: ../../../../automation/Catzc.Base.Git/Push-Dirty.ps1
-[9]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[8]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[9]: ../../../references/automation/catzc-base-git/Push-Dirty.ps1.md
 [10]: ../../../../pipelines/ci-automation.yaml
 [11]: ../../design/one-way-climb-three-endings.md
 [12]: ../../../adr/glossary.md#world-map

@@ -50,3 +50,54 @@ setup() {
         return 1
     }
 }
+
+# A neutral lookup for the contract checks: each case fails before pwsh starts.
+_cats_fixture_lookup() {
+    CATZC_COMMAND_LOOKUP="$BATS_TEST_TMPDIR/importer-commands.sh"
+    export CATZC_COMMAND_LOOKUP
+    {
+        printf "_catzc_commands='\n"
+        printf 'Get-Widget\tCount\tint\t0\t1\t0\tcontracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml\n'
+        printf 'Get-Widget\tLoud\tswitch\t0\t0\t0\tcontracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml\n'
+        printf "'\n"
+    } >"$CATZC_COMMAND_LOOKUP"
+}
+
+@test "a contracted command refuses a parameter its contract does not name, naming the asset" {
+    _cats_fixture_lookup
+    run cats Get-Widget -Count 3 -Gadget x
+    [ "$status" -eq 2 ] || {
+        echo "cats Get-Widget -Gadget exited $status, want 2: $output" >&2
+        return 1
+    }
+    [[ "$output" == *"has no parameter -Gadget"*"Get-Widget.command.yml"* ]] || {
+        echo "cats Get-Widget -Gadget printed '$output', want the parameter and the asset named" >&2
+        return 1
+    }
+}
+
+@test "a contracted command refuses a call without a mandatory parameter" {
+    _cats_fixture_lookup
+    run cats Get-Widget -Loud
+    [ "$status" -eq 2 ] || {
+        echo "cats Get-Widget -Loud exited $status, want 2: $output" >&2
+        return 1
+    }
+    [[ "$output" == *"needs -Count"* ]] || {
+        echo "cats Get-Widget -Loud printed '$output', want it to name -Count" >&2
+        return 1
+    }
+}
+
+@test "a contracted int parameter refuses a value that is not a whole number" {
+    _cats_fixture_lookup
+    run cats Get-Widget -Count three
+    [ "$status" -eq 2 ] || {
+        echo "cats Get-Widget -Count three exited $status, want 2: $output" >&2
+        return 1
+    }
+    [[ "$output" == *"-Count takes an int, not 'three'"* ]] || {
+        echo "cats Get-Widget -Count three printed '$output', want the int refusal" >&2
+        return 1
+    }
+}

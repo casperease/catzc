@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "6a86d27c7c94"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it: the value-chain minimap
 
 ```text

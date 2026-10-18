@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: af0d63d4e281
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--two-forms-never-a-third--meta.chain.md
-    source: docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A path has two forms, never a third, and one pair of crossers moves it between them: the value-chain minimap
 
 ```text

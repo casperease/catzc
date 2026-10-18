@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c1398ad59b06
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-naming--names-are-pure-and-never-truncated--meta.chain.md
-    source: docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # An Azure name is a pure function of its components, and it is never truncated: the value-chain minimap
 
 ```text

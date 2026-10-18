@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c7aebc7bb436
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Catzc.Base.Globs owns the check, the loader names the context, and git names the change: the value-chain minimap
 
 ```text

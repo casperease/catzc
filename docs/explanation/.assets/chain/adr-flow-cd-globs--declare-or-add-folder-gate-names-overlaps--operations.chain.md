@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: bad1ba110a74
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Declare a unit or add a module folder, and the gate names every overlap: the value-chain minimap
 
 ```text

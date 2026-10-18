@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: bc3749e115f4
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-addressing--type-an-address-get-the-value--operations.chain.md
-    source: docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Type an address and get its value back; a wrong address throws its message at the call: the value-chain minimap
 
 ```text

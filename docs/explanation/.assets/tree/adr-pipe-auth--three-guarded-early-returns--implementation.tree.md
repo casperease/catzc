@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "66c205c696a2"
-    repo_status: locked
-    path: docs/explanation/.assets/tree/adr-pipe-auth--three-guarded-early-returns--implementation.tree.md
-    source: docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The header function is four checks and three returns, and none falls through on failure: the tree minimap
 
 ```text
@@ -42,7 +28,7 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/adr/pipelines; each sits in its world-map cell and is lit by:
 
-- [docs/adr/pipelines/dora-explains.md][2], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 39
+- [docs/adr/pipelines/dora-explains.md][2], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 11
   (text).
 - [docs/adr/pipelines/dual-authentication.md][1], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the ADR's own file.
 
@@ -51,7 +37,7 @@ The group holds the files of docs/adr/pipelines; each sits in its world-map cell
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-PIPE-AUTH][1]: the file cites it at line
-  242 (text).
+  223 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
@@ -64,7 +50,7 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][5], in the cell pipelines × pipeline-yaml: selected by [ADR-PIPE-AUTH][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 242 (text).
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 223 (text).
 
 ## Keywords
 

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "425227f90ef1"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Four pipeline kinds promote one artifact that CI built once: the value-chain minimap
 
 ```text

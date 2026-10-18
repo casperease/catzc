@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "070fca80ff80"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--every-code-root-is-a-copy--architecture.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One engine builds the bundle, and every code root is a copy of its output: the value-chain minimap
 
 ```text

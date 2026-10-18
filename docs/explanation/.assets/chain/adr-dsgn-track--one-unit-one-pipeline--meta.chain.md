@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: d8eeba9230be
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-track--one-unit-one-pipeline--meta.chain.md
-    source: docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A track ships through a deployable-unit, and each unit has one pipeline: the value-chain minimap
 
 ```text

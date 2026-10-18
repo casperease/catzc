@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "3dff518981d8"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The Azure DevOps step is named after its command, and its log echoes the command before it runs: the value-chain minimap
 
 ```text

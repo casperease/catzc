@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f302652b1e0e
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Check the name, pick the range per context, then diff git and match the paths: the value-chain minimap
 
 ```text

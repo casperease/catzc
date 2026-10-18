@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "360e1b0be6c8"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Module dependencies form three layers, and every edge points down: the value-chain minimap
 
 ```text

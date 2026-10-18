@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b0df5261e11e
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The runner is the only seam from pipeline YAML into PowerShell: the value-chain minimap
 
 ```text

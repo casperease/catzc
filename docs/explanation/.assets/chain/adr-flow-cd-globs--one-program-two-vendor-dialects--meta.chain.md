@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "93bc3983f36e"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps: the value-chain minimap
 
 ```text

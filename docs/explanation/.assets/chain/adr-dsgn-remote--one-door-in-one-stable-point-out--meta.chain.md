@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "70995c0e1b9f"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.chain.md
-    source: docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Changes enter through one door, and consumers build on one stable point: the value-chain minimap
 
 ```text

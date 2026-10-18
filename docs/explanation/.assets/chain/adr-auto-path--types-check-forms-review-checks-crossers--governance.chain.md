@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: a2e6db335781
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--types-check-forms-review-checks-crossers--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Three types check path forms at construction, and the crossing rules are left to review: the value-chain minimap
 
 ```text

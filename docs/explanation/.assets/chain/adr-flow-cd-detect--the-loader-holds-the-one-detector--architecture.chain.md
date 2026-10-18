@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "895412a7a040"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The detector lives in the loader, which both run modes import first and keep loaded: the value-chain minimap
 
 ```text

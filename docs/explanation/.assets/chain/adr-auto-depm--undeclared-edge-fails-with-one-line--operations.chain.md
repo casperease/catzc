@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f898d5febc88
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # An undeclared module edge fails the gate with one line per issue: the value-chain minimap
 
 ```text

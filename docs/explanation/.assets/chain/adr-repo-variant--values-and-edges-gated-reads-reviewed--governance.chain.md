@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "73f0ce95176b"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.chain.md
-    source: docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Values and module edges have a gate; the no-direct-read rule is left to review: the value-chain minimap
 
 ```text

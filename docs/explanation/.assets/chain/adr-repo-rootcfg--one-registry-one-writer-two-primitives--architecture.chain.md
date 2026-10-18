@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: dda98156e16d
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.chain.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One registry, one writer, two write primitives, two kinds of target: the value-chain minimap
 
 ```text

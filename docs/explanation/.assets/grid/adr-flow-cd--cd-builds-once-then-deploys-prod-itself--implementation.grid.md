@@ -1,49 +1,33 @@
----
-catzc:
-  immutable:
-    with_body_sha: e578dd32323b
-    repo_status: locked
-    path: docs/explanation/.assets/grid/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md
-    source: docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The customer CD pipeline builds once, then deploys the prod tier itself: the world-map minimap
 
 ```text
 Where the files that cite ADR-FLOW-CD sit in the repository: tracks down, file languages across.
-6 of 324 cells lit, holding 17 files.
+5 of 342 cells lit, holding 15 files.
 ```
 
 ![The world-map minimap of The customer CD pipeline builds once, then deploys the prod tier itself](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.png)
 
 This is the world-map minimap in the sidebar of the implementation diagram of [The customer CD pipeline builds once, then deploys the prod
-tier itself][21], which explains [ADR-FLOW-CD][1]. It lights every cell of the world map that holds a file citing those codes, so it shows
+tier itself][19], which explains [ADR-FLOW-CD][1]. It lights every cell of the world map that holds a file citing those codes, so it shows
 where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
-The grid crosses the 18 tracks (rows) with the 18 file languages (columns) of the world map and lights 6 cells, filled in ink. A cell lit
+The grid crosses the 18 tracks (rows) with the 19 file languages (columns) of the world map and lights 5 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (271 of the 324 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 1 lit of 91 files
-- automation × csharp: 2 lit of 286 files
-- automation × powershell: 3 lit of 1619 files
+- .claude × markdown: 1 lit of 90 files
+- automation × powershell: 1 lit of 1629 files
 - automation × yaml: 3 lit of 112 files
-- docs × markdown: 7 lit of 2220 files
+- docs × markdown: 9 lit of 2742 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
 
 A lit row prints its track's name; a lit column prints a short code, the first extension of its file language:
 
-- `.cs`: csharp
 - `.md`: markdown
 - `.yaml`: pipeline-yaml
 - `.ps1`: powershell
@@ -56,119 +40,104 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.claude/CLAUDE.md][5]: selected by [ADR-FLOW-CD][1]: the file cites it at line 52 (text).
+- [.claude/CLAUDE.md][5]: selected by [ADR-FLOW-CD][1]: the file cites it at line 55 (text).
 
-### automation × csharp (2 lit files)
-
-Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.cs` names the file language csharp
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
-
-- [automation/Catzc.Base.Docs/types/AdrsConfig.cs][6]: selected by [ADR-FLOW-CD][1]: the file cites it at line 28 (text).
-- [automation/Catzc.Base.Docs/types/GlossaryConcept.cs][7]: selected by [ADR-FLOW-CD][1]: the file cites it at line 23 (text).
-
-### automation × powershell (3 lit files)
+### automation × powershell (1 lit file)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 22 (header) and line
-  41 (header).
-- [automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 21 (header) and line 49
-  (header).
-- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][10]: selected by [ADR-FLOW-CD][1]: the file cites it at line 20
-  (header), line 93 (text) and line 94 (text).
+- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][6]: selected by [ADR-FLOW-CD][1]: the file cites it at line 70 (text)
+  and line 71 (text).
 
 ### automation × yaml (3 lit files)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][11]: selected by [ADR-FLOW-CD][1]: the file cites it at line 116 (text).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][12]: selected by [ADR-FLOW-CD][1]: the file cites it at line 37 (text).
-- [automation/Catzc.Base.QualityGates/configs/glossary.yml][13]: selected by [ADR-FLOW-CD][1]: the file cites it at line 77 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-FLOW-CD][1]: the file cites it at line 97 (text).
+- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 18 (text).
+- [automation/Catzc.Base.QualityGates/configs/glossary.yml][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 58 (text).
 
-### docs × markdown (7 lit files)
+### docs × markdown (9 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [docs/adr/flow/cd-discipline-and-promotion-flow.md][1]: selected by [ADR-FLOW-CD][1]: the ADR's own file.
-- [docs/adr/flow/dora-explains.md][14]: selected by [ADR-FLOW-CD][1]: the file cites it at line 42 (text).
-- [docs/adr/glossary.md][15]: selected by [ADR-FLOW-CD][1]: the file cites it at line 497 (text) and line 510 (text).
-- [docs/adr/index.md][16]: selected by [ADR-FLOW-CD][1]: the file cites it at line 129 (text).
-- [docs/references/automation/catzc-base-docs/configs/adrs.yml.md][17]: selected by [ADR-FLOW-CD][1]: the file cites it at line 59 (text).
-- [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][18]: selected by [ADR-FLOW-CD][1]: the file cites it at line 51
-  (text), line 52 (text), line 80 (text) and line 81 (text).
-- [docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md][19]: selected by [ADR-FLOW-CD][1]: the file cites it at line 20
-  (text) and line 57 (text).
+- [docs/adr/flow/dora-explains.md][10]: selected by [ADR-FLOW-CD][1]: the file cites it at line 11 (text).
+- [docs/adr/glossary.md][11]: selected by [ADR-FLOW-CD][1]: the file cites it at line 497 (text) and line 510 (text).
+- [docs/adr/index.md][12]: selected by [ADR-FLOW-CD][1]: the file cites it at line 129 (text).
+- [docs/references/automation/catzc-base-docs/configs/adrs.yml.md][13]: selected by [ADR-FLOW-CD][1]: the file cites it at line 40 (text).
+- [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][14]: selected by [ADR-FLOW-CD][1]: the file cites it at line 28
+  (text), line 29 (text), line 57 (text) and line 58 (text).
+- [docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md][15]: selected by [ADR-FLOW-CD][1]: the file cites it at line 34
+  (text).
+- [docs/references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md][16]: selected by [ADR-FLOW-CD][1]: the file cites it at line
+  37 (text).
+- [docs/references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md][17]: selected by [ADR-FLOW-CD][1]: the file cites it at line 54
+  (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/ci-automation.yaml][20]: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 116 (text), `automation/Catzc.Base.Docs/types/AdrsConfig.cs` line 28
-  (text), `automation/Catzc.Base.Docs/types/GlossaryConcept.cs` line 23 (text), `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1`
-  line 22 (header), `automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1` line 41 (header),
-  `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 21 (header), `automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1` line 49
-  (header), `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 20 (header),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 93 (text),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 94 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 37 (text) and `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-  line 77 (text).
+- [pipelines/ci-automation.yaml][18]: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing itself carries its globset's citations,
+  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
+  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
+  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
+  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+  line 58 (text).
 
 ## Keywords
 
-- [world map][22]
-- [track][23]
-- [file language][24]
-- [cell][25]
-- [lit cell][26]
-- [.claude][27]: a track
-- [automation][27]: a track
-- [docs][27]: a track
-- [pipelines][27]: a track
-- [csharp][28]: a file language
-- [markdown][28]: a file language
-- [pipeline-yaml][28]: a file language
-- [powershell][28]: a file language
-- [yaml][28]: a file language
+- [world map][20]
+- [track][21]
+- [file language][22]
+- [cell][23]
+- [lit cell][24]
+- [.claude][25]: a track
+- [automation][25]: a track
+- [docs][25]: a track
+- [pipelines][25]: a track
+- [markdown][26]: a file language
+- [pipeline-yaml][26]: a file language
+- [powershell][26]: a file language
+- [yaml][26]: a file language
 
 Terms the cited ADRs define:
 
-- [gate][29], defined by [ADR-FLOW-CD#13][30]
-- [release candidate][31], defined by [ADR-FLOW-CD#14][32]
+- [gate][27], defined by [ADR-FLOW-CD#13][28]
+- [release candidate][29], defined by [ADR-FLOW-CD#14][30]
 
 [1]: ../../../adr/flow/cd-discipline-and-promotion-flow.md
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [5]: ../../../../.claude/CLAUDE.md
-[6]: ../../../../automation/Catzc.Base.Docs/types/AdrsConfig.cs
-[7]: ../../../../automation/Catzc.Base.Docs/types/GlossaryConcept.cs
-[8]: ../../../../automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-[9]: ../../../../automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-[10]: ../../../../automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[11]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[12]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[13]: ../../../../automation/Catzc.Base.QualityGates/configs/glossary.yml
-[14]: ../../../adr/flow/dora-explains.md
-[15]: ../../../adr/glossary.md
-[16]: ../../../adr/index.md
-[17]: ../../../references/automation/catzc-base-docs/configs/adrs.yml.md
-[18]: ../../../references/automation/catzc-base-docs/types/AdrsConfig.cs.md
-[19]: ../../../references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
-[20]: ../../../../pipelines/ci-automation.yaml
-[21]: ../../flow/cd-builds-once-then-deploys-prod-itself.md
-[22]: ../../../adr/glossary.md#world-map
-[23]: ../../../adr/glossary.md#track
-[24]: ../../../adr/glossary.md#file-language
-[25]: ../../../adr/glossary.md#cell
-[26]: ../../../adr/glossary.md#lit-cell
-[27]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[28]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
-[29]: ../../../adr/glossary.md#gate
-[30]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[31]: ../../../adr/glossary.md#release-candidate
-[32]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[6]: ../../../../automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[7]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[8]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[9]: ../../../../automation/Catzc.Base.QualityGates/configs/glossary.yml
+[10]: ../../../adr/flow/dora-explains.md
+[11]: ../../../adr/glossary.md
+[12]: ../../../adr/index.md
+[13]: ../../../references/automation/catzc-base-docs/configs/adrs.yml.md
+[14]: ../../../references/automation/catzc-base-docs/types/AdrsConfig.cs.md
+[15]: ../../../references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
+[16]: ../../../references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[17]: ../../../references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+[18]: ../../../../pipelines/ci-automation.yaml
+[19]: ../../flow/cd-builds-once-then-deploys-prod-itself.md
+[20]: ../../../adr/glossary.md#world-map
+[21]: ../../../adr/glossary.md#track
+[22]: ../../../adr/glossary.md#file-language
+[23]: ../../../adr/glossary.md#cell
+[24]: ../../../adr/glossary.md#lit-cell
+[25]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[27]: ../../../adr/glossary.md#gate
+[28]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[29]: ../../../adr/glossary.md#release-candidate
+[30]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

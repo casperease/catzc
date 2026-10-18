@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b9dc562f534d
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--four-gates-hold-the-session-rule--governance.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Four gates hold the session rule; the customer and the name hold by construction: the value-chain minimap
 
 ```text

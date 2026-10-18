@@ -1,22 +1,8 @@
----
-catzc:
-  immutable:
-    with_body_sha: "80d00608b368"
-    repo_status: locked
-    path: docs/explanation/.assets/grid/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.grid.md
-    source: docs/explanation/.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The PAT proof and the empty-token assert have no gate: the world-map minimap
 
 ```text
 Where the files that cite ADR-PIPE-AUTH sit in the repository: tracks down, file languages across.
-3 of 324 cells lit, holding 5 files.
+3 of 342 cells lit, holding 5 files.
 ```
 
 ![The world-map minimap of The PAT proof and the empty-token assert have no gate](adr-pipe-auth--which-auth-rungs-have-a-gate--governance.grid.png)
@@ -27,13 +13,13 @@ lives in the repository. Each lit cell has its reason below, naming the code tha
 
 ## What the minimap shows
 
-The grid crosses the 18 tracks (rows) with the 18 file languages (columns) of the world map and lights 3 cells, filled in ink. A cell lit
+The grid crosses the 18 tracks (rows) with the 19 file languages (columns) of the world map and lights 3 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (271 of the 324 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - automation × yaml: 1 lit of 112 files
-- docs × markdown: 3 lit of 2220 files
+- docs × markdown: 3 lit of 2742 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -51,7 +37,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 242 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 223 (text).
 
 ### docs × markdown (3 lit files)
 
@@ -59,7 +45,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [docs/adr/index.md][6]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 250 (text).
-- [docs/adr/pipelines/dora-explains.md][7]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 39 (text).
+- [docs/adr/pipelines/dora-explains.md][7]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 11 (text).
 - [docs/adr/pipelines/dual-authentication.md][1]: selected by [ADR-PIPE-AUTH][1]: the ADR's own file.
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -68,7 +54,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][8]: selected by [ADR-PIPE-AUTH][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 242 (text).
+  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 223 (text).
 
 ## Keywords
 

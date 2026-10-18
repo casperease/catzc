@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: df02c5f0f49b
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Every load stage but the unload has an ADR rule and a gate: the value-chain minimap
 
 ```text

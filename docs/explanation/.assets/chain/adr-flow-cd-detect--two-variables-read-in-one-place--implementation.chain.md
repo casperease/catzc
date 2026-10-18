@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "17a1f11b2803"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Two variables, one reader, 24 callers, and one analyzer rule for every other read: the value-chain minimap
 
 ```text

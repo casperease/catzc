@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "744b412388c4"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Upstream integrators depend on the main-UAT occupant, never on the tip of main: the value-chain minimap
 
 ```text

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "21dc60389cf9"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A push starts only the pipelines whose globset it touches: the value-chain minimap
 
 ```text

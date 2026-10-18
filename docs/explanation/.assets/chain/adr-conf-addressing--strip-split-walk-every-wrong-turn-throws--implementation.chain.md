@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: deff46cd114e
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md
-    source: docs/explanation/.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Strip, split, read once, walk one segment at a time; every wrong turn throws: the value-chain minimap
 
 ```text

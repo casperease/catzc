@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "349801c00ac5"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.chain.md
-    source: docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The optIn filter, then link, copy or render, through two write primitives: the value-chain minimap
 
 ```text

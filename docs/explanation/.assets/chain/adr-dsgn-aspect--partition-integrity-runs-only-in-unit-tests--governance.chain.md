@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "650e2c4084d9"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Partition integrity runs only in unit tests: the value-chain minimap
 
 ```text

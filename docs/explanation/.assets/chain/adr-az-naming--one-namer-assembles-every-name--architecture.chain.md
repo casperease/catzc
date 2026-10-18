@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c48b8d1da699
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
-    source: docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One resolver gathers the components and one namer assembles every Azure name: the value-chain minimap
 
 ```text

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "4187dd95c09c"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Every globset carries one of three layers, and only two are declared: the value-chain minimap
 
 ```text

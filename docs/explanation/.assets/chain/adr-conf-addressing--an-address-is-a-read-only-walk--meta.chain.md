@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "49bbf01c3901"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-addressing--an-address-is-a-read-only-walk--meta.chain.md
-    source: docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A config address is a read-only walk over the one cached config, never a second reader: the value-chain minimap
 
 ```text

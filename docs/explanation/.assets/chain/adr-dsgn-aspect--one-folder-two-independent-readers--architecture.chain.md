@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "23ee8d142b31"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One module folder has two independent readers: the value-chain minimap
 
 ```text

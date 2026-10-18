@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8bb2dffe7ee1"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.chain.md
-    source: docs/explanation/.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A shell call carries its limit, or the hook denies it with a reason; it is never rewritten: the value-chain minimap
 
 ```text

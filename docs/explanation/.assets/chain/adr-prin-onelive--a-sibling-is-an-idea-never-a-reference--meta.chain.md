@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "9d0f5deecfbf"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.md
-    source: docs/explanation/.assets/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A sibling is an idea, never a reference: the value-chain minimap
 
 ```text

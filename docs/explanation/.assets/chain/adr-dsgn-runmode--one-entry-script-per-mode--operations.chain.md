@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f4bcbbcd9999
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Each run mode has one entry script, and a mixed session throws: the value-chain minimap
 
 ```text

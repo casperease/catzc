@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: a10efeb0a202
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.chain.md
-    source: docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it: the value-chain minimap
 
 ```text

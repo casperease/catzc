@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c394c2d2da81
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # You edit globs.yml, and every other step prints what cats derived from it: the value-chain minimap
 
 ```text

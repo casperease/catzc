@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: eb8283cc463a
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One function answers "am I in a pipeline?", and every branch on context asks it: the value-chain minimap
 
 ```text

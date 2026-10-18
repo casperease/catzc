@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: de2d292b3b29
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md
-    source: docs/explanation/.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The code carries both halves of ingress, but nothing finds the last verified commit: the value-chain minimap
 
 ```text

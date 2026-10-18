@@ -1,22 +1,8 @@
----
-catzc:
-  immutable:
-    with_body_sha: "950e5796e101"
-    repo_status: locked
-    path: docs/explanation/.assets/grid/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
-    source: docs/explanation/.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The code carries both halves of ingress, but nothing finds the last verified commit: the world-map minimap
 
 ```text
 Where the files that cite ADR-DSGN-REMOTE sit in the repository: tracks down, file languages across.
-3 of 324 cells lit, holding 5 files.
+3 of 342 cells lit, holding 5 files.
 ```
 
 ![The world-map minimap of The code carries both halves of ingress, but nothing finds the last verified commit](adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.png)
@@ -27,13 +13,13 @@ codes, so it shows where the decision lives in the repository. Each lit cell has
 
 ## What the minimap shows
 
-The grid crosses the 18 tracks (rows) with the 18 file languages (columns) of the world map and lights 3 cells, filled in ink. A cell lit
+The grid crosses the 18 tracks (rows) with the 19 file languages (columns) of the world map and lights 3 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (271 of the 324 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - automation × yaml: 1 lit of 112 files
-- docs × markdown: 3 lit of 2220 files
+- docs × markdown: 3 lit of 2742 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -51,14 +37,14 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 98 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 79 (text).
 
 ### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/design/dora-explains.md][6]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 142 (text).
+- [docs/adr/design/dora-explains.md][6]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 103 (text).
 - [docs/adr/design/server-remote-integration.md][1]: selected by [ADR-DSGN-REMOTE][1]: the ADR's own file.
 - [docs/adr/index.md][7]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 113 (text).
 
@@ -68,7 +54,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][8]: selected by [ADR-DSGN-REMOTE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 98 (text).
+  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
 
 ## Keywords
 

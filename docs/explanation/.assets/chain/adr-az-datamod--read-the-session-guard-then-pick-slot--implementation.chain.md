@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "70f0b7bdda00"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Get-BicepDeploymentContext reads the session, guards it, then picks the slot: the value-chain minimap
 
 ```text

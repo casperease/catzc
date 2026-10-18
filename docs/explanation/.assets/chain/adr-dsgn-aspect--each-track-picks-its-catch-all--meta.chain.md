@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: af4e162aaf72
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Each track picks its catch-all: a stray module file falls to tests, a stray template file to live: the value-chain minimap
 
 ```text

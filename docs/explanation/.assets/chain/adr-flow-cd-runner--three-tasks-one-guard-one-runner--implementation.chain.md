@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "3cb6072113ee"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Three tasks share one guard, and one runner imports, traps, sanitizes and invokes: the value-chain minimap
 
 ```text

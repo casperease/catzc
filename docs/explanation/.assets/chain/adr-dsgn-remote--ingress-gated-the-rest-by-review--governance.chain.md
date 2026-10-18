@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: ef57565e1281
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md
-    source: docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Only ingress is checked by gates; the source-of-truth and integration rules rest on code review: the value-chain minimap
 
 ```text

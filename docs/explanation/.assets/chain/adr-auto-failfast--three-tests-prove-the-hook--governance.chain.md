@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "96939e981fd9"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-failfast--three-tests-prove-the-hook--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only: the value-chain minimap
 
 ```text

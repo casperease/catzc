@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "49a30ab2d973"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam: the value-chain minimap
 
 ```text

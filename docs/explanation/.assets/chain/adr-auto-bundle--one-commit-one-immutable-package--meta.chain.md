@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: af2fb5a02194
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # One commit becomes one verified, immutable package, and every code root is a copy of it: the value-chain minimap
 
 ```text

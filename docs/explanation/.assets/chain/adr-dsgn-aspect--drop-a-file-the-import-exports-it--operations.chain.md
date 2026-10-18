@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b6742f809289
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Drop a file, and the next import exports it: the value-chain minimap
 
 ```text

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "5db80315b6ad"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.chain.md
-    source: docs/explanation/.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Where the code loads from decides the run mode: the value-chain minimap
 
 ```text

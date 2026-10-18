@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "58ad10815ca8"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.chain.md
-    source: docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Every Deploy stage in cats runs only from main, so no topic commit is deployed: the value-chain minimap
 
 ```text

@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "393fccdd9ff6"
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
-    kind: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Two sections of dependencies.yml are unioned into one allow-set per source module: the value-chain minimap
 
 ```text
