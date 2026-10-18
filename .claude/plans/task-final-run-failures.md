@@ -61,7 +61,11 @@ runs `Test-Automation`.
    every test kept, under Invoke-TestFile. **Verdict (2026-10-18, catzc-c4):** the enforced budget is 180 s (`TimeoutsConfig.cs:27`); 347 s
    is an older baseline. Get-AdrUsage.Tests 34 s to 15 s, 6 of 6 kept (`out/test-file/20261018-211459-238c40`); Invoke-TestFile's
    real-worker file left at 25 s (its cost is what it proves). The rest of the gap to 180 s is plan-test-run-budget's open box.
-7. The user's re-run of `Test-Automation` (task-user-runs-and-commits, its last step). Check: 0 failed; then the closing sweep.
+7. The user's re-run of `Test-Automation` (task-user-runs-and-commits, its last step). Check: 0 failed; then the closing sweep. **Run
+   2026-10-18 21:22 (`out/test-automation/20261018-212253`):** 7211 passed, 44 skipped, 1 failed, 188.0 s against the 180 s budget. The
+   failure, "Manual test plan covers every integrity check", came from step 2's new integrity Describe; catzc-c4 added its row to
+   `docs/how-to/pwsh/manual-test-plan/adr-registry.md`, ManualTestPlan-Coverage.Tests Passed (`out/test-file/20261018-212738-5f9f77`). The
+   next run should be 0 failed; the 8 s over budget is plan-test-run-budget's open box.
 
 ## Report
 
