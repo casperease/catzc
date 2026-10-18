@@ -50,11 +50,10 @@ is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines o
   form's retirement, on the day the user re-points the external definitions.
 - test-run-budget -> task-test-run-budget.md: read the next full run's wall clock against the 347 s table.
 - module-model-closeout -> task-module-model-closeout.md: closes on the final full run.
-- root-config-fixtures -> task-root-config-fixtures.md: closes on the user's Push-Dirty run.
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md: closes on the final full run, then the plan and its prompt are
   deleted.
-- user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them. Closes plan-fast-push-followups and the
-  user-owned steps of the plans above.
+- user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them. Closes the user-owned steps of the plans
+  above.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned.
 - final-full-run -> task-user-runs-and-commits.md, its last step, after every chunk above: a new session, `. ./importer.ps1`, then
   `Test-Automation` once over the whole repository, by hand; the one place the tree is tested. Closes plan-bounded-folder-enumeration,
