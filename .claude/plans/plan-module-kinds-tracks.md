@@ -1038,7 +1038,7 @@ for a module folder where none exists.
 A module is a unit placed in a track; its type comes from the registry (ADR-DSGN-MODTYPE#1, #2); its track type must admit it
 (ADR-DSGN-MODTYPE#3); a holder's module is the holder (ADR-DSGN-MODTYPE#4).
 
-### How this is enforced
+### How the module types are enforced
 
 - **The config types** fail the load on an unadmitted module type, an unknown key and a place two types claim.
 - **`Test-FileMeta`** compares `module`, `moduletype` and `catzc_bundle` in each head with the registry.

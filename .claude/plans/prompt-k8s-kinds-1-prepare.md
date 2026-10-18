@@ -18,9 +18,7 @@ catzc:
       - ADR-REPO-CONTRACT#3
 ---
 
-# .claude/plans/prompt-k8s-kinds-1-prepare.md
-
-`Prompt 1 of 2 for plan-module-kinds-tracks (k8s kinds): close the missing work and draft the ADR; paste as the first message`
+# Prompt 1 of 2 for plan-module-kinds-tracks (k8s kinds): close the missing work and draft the ADR; paste as the first message
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2, Q99): kinds belong to tracks, Module is one kind. Copy it and the plan into
 your scratchpad first (another session wiped `out/` once). Everything below the rule is the prompt.

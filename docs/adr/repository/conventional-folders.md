@@ -151,9 +151,8 @@ directions, and their testing discipline — is the [api-contracts](api-contract
 ### Rule ADR-REPO-FOLDERS:12
 
 A file name is a **stable locator**: it never encodes an order, a rank or a priority. Sorting is an overlay, an index or a head key, never a
-prefix, and the delivered default sort of any folder is the semantic name order. The one exception is a file whose name is an execution
-order by its own ADR: the task files of the plans folder ([ADR-REPO-PLANS#8](plans.md#rule-adr-repo-plans8)), which are derived and
-rebuilt, never authored.
+prefix, and the delivered default sort of any folder is the semantic name order. There is no exception: an execution order, such as the
+order of the plans folder's task files ([ADR-REPO-PLANS#8](plans.md#rule-adr-repo-plans8)), is carried by the list that orders them.
 
 - [Stable locators](#stable-locators)
 
@@ -481,8 +480,8 @@ folder must exist.
 A name that carries a rank, `01-first.md` or `plan-A-urgent.md`, is wrong the moment the order changes, and every link to it breaks with
 the rename. A name that says what the file is stays true for the file's whole life, and the order a reader wants today is a view: a table
 that sorts by value, an index, a head key a tool reads. The folders of this repository therefore sort by name, and the name means the
-thing. The task files of the plans folder are the deliberate exception: their number is the execution order of a derived list that is
-cleared and rebuilt, so no link and no author depends on it ([plans](plans.md#rule-adr-repo-plans8)).
+thing. The task files of the plans folder hold to it too: each is named by its topic, and the execution order is the master plan's list
+([plans](plans.md#rule-adr-repo-plans8)), so reordering the list renames nothing.
 
 ### How this is enforced
 

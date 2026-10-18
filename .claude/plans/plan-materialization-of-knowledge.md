@@ -61,7 +61,7 @@ generated heads. One word and one default prevent each of them from inventing it
   to on-demand with one announced line. Its own ADR, ADR-AUTO-MATERIAL, next to ADR-AUTO-CACHE, written now.
 - Scope (F7): generated tracked files and the analyzer cache become commit resources keyed by their globset; body_sha is that key's visible
   form; on-demand stays the default for everything else.
-- D16 (2026-10-18): the three choices stand, nothing reopens; T026 writes ADR-AUTO-MATERIAL as drafted.
+- D16 (2026-10-18): the three choices stand, nothing reopens; task-adr-auto-material writes ADR-AUTO-MATERIAL as drafted.
 
 ## Needed docs
 

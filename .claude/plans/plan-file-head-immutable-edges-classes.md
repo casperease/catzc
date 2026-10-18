@@ -66,19 +66,20 @@ each copy can drift. Below the module model plan because that plan decides what 
 ## Open steps
 
 - [x] Class selectors in file-meta.yml, one kind at a time, go now (Q50) (check: that kind's processor test; Test-FileMeta clean). Done
-      before task021 read it (2026-10-17): every kind selects by `classes` or `languages`, `files` is gone from type and config, and the
-      whole-tree `Format-FileMeta -DryRun` reports `changes=0` (`out/t021-dryrun-before.txt`).
+      before the selectors task read it (2026-10-17): every kind selects by `classes` or `languages`, `files` is gone from type and
+      config, and the whole-tree `Format-FileMeta -DryRun` reports `changes=0` (`out/t021-dryrun-before.txt`).
 - [x] Write the intended kind overlaps and strengthen FileKindReachability (Q41) (check: a shadowed kind fails the kinds tests). Done
-      2026-10-17 (task021): `overlaps:` in file-kinds.yml, `FileKindsConfig.Shadowing`, the L0 fixture tests and the L2 test; verdicts
+      2026-10-17 (selectors): `overlaps:` in file-kinds.yml, `FileKindsConfig.Shadowing`, the L0 fixture tests and the L2 test; verdicts
       `[Invoke-TestFile] Passed` (`out/test-file/20261017-194430-e95068`) and the L2 run `out/test-file/20261017-194437-5e8c36`.
-- [x] Add note as a glossary term (Q53) (check: Test-Glossary clean). Done 2026-10-17 (task022): bolded in ADR-DSGN-TRACK#17 as the
+- [x] Add note as a glossary term (Q53) (check: Test-Glossary clean). Done 2026-10-17 (leftovers): bolded in ADR-DSGN-TRACK#17 as the
       unordered track's frozen fragment, the file kind of everything that track holds; entry in the ModuleSystem glossary source.
-- [x] Re-read ADR-AUTO-ASSETDEP and confirm or move the asset kind (Q54) (check: the kinds tests). Decided 2026-10-17 (task022): the ADR
+- [x] Re-read ADR-AUTO-ASSETDEP and confirm or move the asset kind (Q54) (check: the kinds tests). Decided 2026-10-17 (leftovers): the ADR
       names `assets/` as a folder a module's code reads, not as a file kind, so `asset` stays a top-level kind of `file-kinds.yml`.
 - [x] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45). Done 2026-10-17
-      (task010): ADR-REPO-VOCAB#9 with its prose section (check: Test-Terminology clean, 2026-10-17).
+      (the plans ADR): ADR-REPO-VOCAB#9 with its prose section (check: Test-Terminology clean, 2026-10-17).
 - [ ] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended). Decided
-      2026-10-18 (D13): the folder is skipped as generated output and the ADR names that reading; the work is T022 step 3.
+      2026-10-18 (D13): the folder is skipped as generated output and the ADR names that reading; the work is
+      task-file-head-leftovers step 3.
 
 ## Decided in the questionnaire round of 2026-10-16 (Q39 to Q54)
 
@@ -154,8 +155,9 @@ approved list. That file continued out/continuation-prompt-markerless.md (marker
       against the head keys tracktype and vendor that landed with ADR-DSGN-TRACKTYPE (the contract regeneration is step 6 of the carried
       immutable and edges draft; Q39 keeps the schema hand-written) (check: Test-Markdownlint clean on file-meta.md and
       Format-FileMeta.Contract.Tests passes with the tracktype and vendor keys in head.schema.json and head.sample.yml). Done 2026-10-17
-      (task021): `MDLINT file-meta issues=0` (`out/test-markdownlint/20261017-193951`); the schema gained tracktype, vendor, with_inputs_sha
-      and repo_status, the sample tracktype and repo_status; `[Invoke-TestFile] Passed` (`out/test-file/20261017-193927-ff97c5`).
+      (selectors): `MDLINT file-meta issues=0` (`out/test-markdownlint/20261017-193951`); the schema gained tracktype, vendor,
+      with_inputs_sha and repo_status, the sample tracktype and repo_status; `[Invoke-TestFile] Passed`
+      (`out/test-file/20261017-193927-ff97c5`).
 
 ## Done, and why: head path split, module-type ids, catzc_bundle (2026-10-16)
 
@@ -176,7 +178,7 @@ ADR-PRIN-ONELIVE).
 ## Open leftovers from the path split (all optional, left open)
 
 - [x] Spelling gate: run it; add catzc_bundle to the coined words only if it flags it (check: the Test-Spelling report does not list
-      catzc_bundle). Done 2026-10-17 (task022): `SPELL issues=28`, none `catzc_bundle`, every finding a peer's (listed in task022 step 5).
+      catzc_bundle). Done 2026-10-17 (leftovers): `SPELL issues=28`, none `catzc_bundle`, every finding a peer's (leftovers step 5).
 - [ ] Test-FileMeta gate and the full Test-Automation: the user's runs (check: the user's reports in out/ show no finding from the path
       split).
 - Decided (Q43): generated-file heads stay minimal and do not carry folder and name.
@@ -188,19 +190,19 @@ ADR-PRIN-ONELIVE).
       the background with scripts under out/; report what is that work's. Not the full Test-Automation. Last known findings, none from that
       work: Spelling 5 (Unspan x3, nfunction x2 in CommentEngine files), ScriptAnalyzer about 37 (mostly .internal), markdownlint about 39
       (docs/explanation tables), Test-Formatting flagging .compiled/*.json (check: each of the five reports is read and its findings are
-      attributed to this work or to a peer). Done 2026-10-17 (task022, `out/t021-checks-c.ps1`, `out/t022-final.ps1`,
-      `out/t022-final-b.ps1`): Test-Spelling 28, all peers' (task022 step 5); Test-FileMeta 12 after the heads of this work's own files were
-      imprinted, all the Slides module and the thesis slides, a peer's; Test-Glossary 228, none in this work's files after "integrity
+      attributed to this work or to a peer). Done 2026-10-17 (leftovers, `out/t021-checks-c.ps1`, `out/t022-final.ps1`,
+      `out/t022-final-b.ps1`): Test-Spelling 28, all peers' (leftovers step 5); Test-FileMeta 12 after the heads of this work's own files
+      were imprinted, all the Slides module and the thesis slides, a peer's; Test-Glossary 228, none in this work's files after "integrity
       gates", "public slot" and "parsed source" were reworded, the rest the plans' carried text (G4 "full suite", G6 layer, phase, gate,
       slot and source forms), the Slides module and the thesis slides ("slides gate", "twelve domains"), the grid and tree asset pages
       ("assets-source") and `Test-Automation.ps1:121` ("tag gate"); Test-Contracts 0; Test-GeneratedFiles 0 apart from
-      `docs/adr/glossary.md`, whose committed head carries a body hash its body does not have, regenerated by its writer in task022's
+      `docs/adr/glossary.md`, whose committed head carries a body hash its body does not have, regenerated by its writer in the leftovers
       report.
 - Decided (Q45): PowerShell versus Powershell is the naming rule in the fifth open step above; the one literal Powershell is in the vendored
   dotnet-install.ps1:368 and stays.
 - [x] Typo: module-types.yml pwsh-folder definition reads "under ex. automation"; fixed by the next session that holds the file (Q46)
-      (check: a grep for "under ex." in module-types.yml finds nothing). Done 2026-10-17 (task022): "under the track folder"; the grep finds
-      nothing; ModuleTypesConfig.Tests `[Invoke-TestFile] Passed` (`out/test-file/20261017-194223-5a8293`).
+      (check: a grep for "under ex." in module-types.yml finds nothing). Done 2026-10-17 (leftovers): "under the track folder"; the grep
+      finds nothing; ModuleTypesConfig.Tests `[Invoke-TestFile] Passed` (`out/test-file/20261017-194223-5a8293`).
 - Done (Q51): the memory note file-head-vocabulary.md was checked; its one remaining "derived" is the English verb.
 - Not extended, by choice: glossary entries for individual kinds (only the concepts kind and subkind are terms); note becomes a term only if
   the user wants it. contracts/.gitkeep resolves to other and is left alone.

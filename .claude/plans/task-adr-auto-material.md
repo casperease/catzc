@@ -1,6 +1,5 @@
 ---
 task:
-  id: "026"
   status: open
   plans: [plan-materialization-of-knowledge]
   value: medium
@@ -9,9 +8,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task026.md"
+    path: ".claude/plans/task-adr-auto-material.md"
     folder: plans
-    name: task026
+    name: task-adr-auto-material
     filetype: md
     kind: other
     language: markdown
@@ -25,7 +24,7 @@ catzc:
       - ADR-AUTO-CACHE#5
 ---
 
-# task026: ADR-AUTO-MATERIAL
+# Task: ADR-AUTO-MATERIAL
 
 Decided (Q66 to Q70, F7, S4): materialization is the axis on-demand or commit with a default resolved from context, never stored; the commit
 key is the scoped sha of a deployable-module globset (globs.yml patterns, config variants possible); declared per resource kind with one
@@ -53,7 +52,7 @@ pinned on-demand. The draft is carried in the plan; it becomes the ADR in presen
    a commit-materialized resource, written where the plan lands when it is opened; until then a line in this plan's Decided. Check: the line
    exists.
 6. `plan-materialization-of-knowledge.md`: tick both steps; the carried draft is dropped (its data is in the ADR); the plan is deleted in
-   T036. Check: grep `- [ ]` counts zero.
+   task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report
 

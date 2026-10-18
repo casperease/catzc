@@ -18,9 +18,7 @@ catzc:
       - ADR-REPO-CONTRACT#3
 ---
 
-# .claude/plans/prompt-k8s-kinds-2-implement.md
-
-`Prompt 2 of 2 for plan-module-kinds-tracks (k8s kinds): implement the kind/role split and the per-track kinds; paste as the first message`
+# Prompt 2 of 2 for plan-module-kinds-tracks (k8s kinds): implement the kind/role split and the per-track kinds; paste as the first message
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2, Q99). Run only after `.claude/plans/prompt-k8s-kinds-1-prepare.md` produced
 its files **and** the Module kind (`.claude/plans/prompt-module-model-2-implement.md`) has landed, because the per-track kinds include

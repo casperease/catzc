@@ -19,7 +19,9 @@ catzc:
       - docs/adr/design/thin-platforms.md
       - docs/adr/design/tracks.md
       - docs/adr/index.md#design
+      - docs/adr/principles/one-living-version.md
       - docs/explanation/design/a-push-fires-only-touched-pipelines.md
+      - docs/explanation/design/a-sibling-is-an-idea-never-a-reference.md
       - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
       - docs/explanation/design/clients-bridge-to-one-server.md
       - docs/explanation/design/code-wires-only-the-first-rungs.md
@@ -73,6 +75,7 @@ The sync point              sync from the last certified commit, not from the ti
 Run modes                   where the code loads from decides the run mode
 Module folder layout        every module file is in exactly one aspect
 Tracks, units, pipelines    a track ships through a deployable-unit, one pipeline each
+The sibling model          catzc and eac compared model by model; an idea crosses by being rebuilt here
 The thin platform           consumers bind to one CLI; the rest is delegated to the vendor
 Server remote integration   one door in, one stable point out
 ```
@@ -160,6 +163,15 @@ A track ships through a deployable-unit, and each unit has one pipeline ([tracks
 | implementation | [One field in globs.yml, pipeline:, binds a set to its pipeline file](globs-yml-pipeline-field-is-the-binding.md)                                |
 | operations     | [A push starts only the pipelines whose globset it touches](a-push-fires-only-touched-pipelines.md)                                              |
 | governance     | [Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone](unit-to-pipeline-rule-is-review-only.md) |
+
+## The sibling model
+
+Catzc and eac, the same family in two engines, compared model by model ([tracks](../../adr/design/tracks.md),
+[one-living-version](../../adr/principles/one-living-version.md)). One article, one meta slide, no other lenses.
+
+| Picture      | Article                                                                              |
+| ------------ | ------------------------------------------------------------------------------------ |
+| the siblings | [A sibling is an idea, never a reference](a-sibling-is-an-idea-never-a-reference.md) |
 
 ## The thin platform
 

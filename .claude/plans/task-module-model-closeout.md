@@ -1,6 +1,5 @@
 ---
 task:
-  id: "011"
   status: "steps 3 (read), 4, 5, 6 and 8 done; the rest waits on the user's runs"
   plans: [plan-module-model-closeout, plan-module-kinds-tracks, plan-config-defaults, plan-layers-vocabulary-rename-contracts]
   value: high
@@ -16,9 +15,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task011.md"
+    path: ".claude/plans/task-module-model-closeout.md"
     folder: plans
-    name: task011
+    name: task-module-model-closeout
     filetype: md
     kind: other
     language: markdown
@@ -29,7 +28,7 @@ catzc:
     moduletype: settings
 ---
 
-# task011: module model close-out
+# Task: module model close-out
 
 The model landed on 2026-10-16 (Catzc.Base.Modules with Get-CatzcModule and Get-Aspect, Get-ModuleOrder in ModuleSystem, ADR-AUTO-MODULE
 with six rules). This closes what the implement run left open. Rule 6 today says a check and a test of a module are resolved by the file
@@ -85,7 +84,7 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
 10. Clear the module-model part of `waits_on` in `plan-config-defaults.md` and `plan-layers-vocabulary-rename-contracts.md`. Check: grep
     waits_on in `.claude/plans` names neither file for the module model.
 11. `plan-module-model-closeout.md`: tick each step; when all are ticked and the decisions are in ADR-AUTO-MODULE, the plan is deleted in
-    T036. Check: grep `- [ ]` counts zero.
+    task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report
 

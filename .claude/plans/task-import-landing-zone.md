@@ -1,10 +1,9 @@
 ---
 task:
-  id: "009"
   status: open
   plans: [plan-plans-body-sha-landing-zone]
   value: highest
-  blocked_on: task008 steps 1 and 4
+  blocked_on: nothing; the .unordered audit landed 2026-10-17
   targets:
     [
       automation/Catzc.Base.Git,
@@ -16,9 +15,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task009.md"
+    path: ".claude/plans/task-import-landing-zone.md"
     folder: plans
-    name: task009
+    name: task-import-landing-zone
     filetype: md
     kind: other
     language: markdown
@@ -34,7 +33,7 @@ catzc:
       - ADR-DSGN-TRACK#17
 ---
 
-# task009: the import tool and the landing-zone terms
+# Task: the import tool and the landing-zone terms
 
 Phase 1 of the plans plan. Decided: Q01 the history move method is chosen at the first real import, the tool's contract does not depend on
 it; Q02 optional `-Ref`, default the source's default branch; Q03 the sorting how-to lives in docs/how-to; the landing name defaults to the

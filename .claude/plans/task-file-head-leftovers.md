@@ -1,6 +1,5 @@
 ---
 task:
-  id: "022"
   status: open
   plans: [plan-file-head-immutable-edges-classes]
   value: medium-high
@@ -16,9 +15,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task022.md"
+    path: ".claude/plans/task-file-head-leftovers.md"
     folder: plans
-    name: task022
+    name: task-file-head-leftovers
     filetype: md
     kind: other
     language: markdown
@@ -32,7 +31,7 @@ catzc:
       - ADR-DSGN-TRACK#17
 ---
 
-# task022: file head leftovers
+# Task: file head leftovers
 
 Small items left by the registry, path-split and formatting sessions, each with a decision already taken (Q45 to Q54, D13). None needs the
 others; one file per step; gates in the background. Peers' files (the six Test-Comments findings) are context, not steps (Q48, Q49).
@@ -53,7 +52,7 @@ others; one file per step; gates in the background. Peers' files (the six Test-C
    formatting ADR names that reading in one sentence. Check: Test-Formatting names no `.compiled` file; Test-Links on the ADR.
 4. [x] `automation/Catzc.Base.Variants/configs/module-types.yml` line 22: "under ex. automation" becomes "under the track folder" (Q46; the
        user approved the next holder fixing it). Check: grep "under ex." finds nothing; the config tests pass. Done 2026-10-17: grep finds
-       nothing; the ModuleTypesConfig test verdict is in the task022 report.
+       nothing; the ModuleTypesConfig test verdict is in this task's report.
 5. [x] Test-Spelling in the background; add `catzc_bundle` to the coined words only if the report flags it. Check: the report does not list
        it. Done 2026-10-17: `SPELL issues=28`, none `catzc_bundle`; every finding is a peer's (watchpoint in Timeouts and QualityGates,
        vsixmanifest in VSCode, msbuild in two configs, apos in Slides, isinst, ints, ildasm and Diagnoser in reference-unboxing.md, CMDB in
@@ -65,9 +64,10 @@ others; one file per step; gates in the background. Peers' files (the six Test-C
 7. Context, no step: the six Test-Comments findings in peers' files (PropertyHead.cs.md, MarkdownMetaBlock.cs.md, file-meta.yml.md,
    PathParts.cs:67, ModulePlace.cs:68) are theirs; the untracked Get-AutomationSourceFiles.ps1.md page is the user's staging call.
 8. [x] Tick every leftover step in `plan-file-head-immutable-edges-classes.md`; the plan is then trimmed of its carried drafts (their data
-       is in the tree) and deleted in T036. Check: grep `- [ ]` counts zero. Done 2026-10-17 as far as the decisions allow: the grep counts
-       the two D13 items (step 3 here, Q47 there) and the user's own gate runs; the trim and the deletion stay with T036.
-9. The four QualityGates tool candidates of the out/ harvest (task028 step 7): `run-head-batch` (stamps heads and proves a set), `diff-one`
+       is in the tree) and deleted in task-closing-sweep. Check: grep `- [ ]` counts zero. Done 2026-10-17 as far as the decisions allow:
+       the grep counts the two D13 items (step 3 here, Q47 there) and the user's own gate runs; the trim and the deletion stay with
+       task-closing-sweep.
+9. The four QualityGates tool candidates of the out/ harvest (out-artifacts): `run-head-batch` (stamps heads and proves a set), `diff-one`
    (one file's head diff), `probe-corpus` (loads the git-HEAD version of a private function for a refactor-equivalence check) and
    `gates-module` (a per-module gate runner): each becomes a module function with tests, or is recorded here as not needed with the reason.
    Check: the four names are each a function with a Pester file, or a recorded line.

@@ -1,10 +1,9 @@
 ---
 task:
-  id: "020"
   status: open
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: C1 can start after task017; C2 to C6 entirely before or entirely after P4, never inside its window
+  blocked_on: C1 can start (the layers doctrine landed 2026-10-17); C2 to C6 entirely before or entirely after P4, never inside its window
   targets:
     [
       docs/adr/repository,
@@ -16,9 +15,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task020.md"
+    path: ".claude/plans/task-command-contracts.md"
     folder: plans
-    name: task020
+    name: task-command-contracts
     filetype: md
     kind: other
     language: markdown
@@ -32,7 +31,7 @@ catzc:
       - ADR-REPO-CONTRACT#6
 ---
 
-# task020: command contracts, P7
+# Task: command contracts, P7
 
 Decided (Q9, Q-C1 to Q-C6): `<Module>/<Verb-Noun>.command.yml` under `contracts/catzc/0.0.0`, grammar shape A (one string per parameter),
 closed type set (string, int, bool, switch, Catzc.* type, []; `path` later), pilot set first, `cats` validation in C5, no `errors:` key in
@@ -43,14 +42,14 @@ contracts plan).
 ## Steps
 
 1. [x] Prepare, read-only: `Get-ContractAssetKind`, `Get-ContractCheckResults`, the `ContractAsset*` types and the Test-Contracts tests;
-       what Test-Contracts reports for an unknown suffix today (on a copy under TestDrive); the handlers-by-language decision from task011
-       step 3. Record in the plan. Check: three facts recorded. Done 2026-10-17: the section "P7 prepare" of
+       what Test-Contracts reports for an unknown suffix today (on a copy under TestDrive); the handlers-by-language decision from
+       task-module-model-closeout step 3. Record in the plan. Check: three facts recorded. Done 2026-10-17: the section "P7 prepare" of
        plan-layers-vocabulary-rename-contracts holds the three facts; the copy read `kind=Fragment direction=DependedOn` and failed with
        `the target 'Get-Thing.command.yml' does not exist` (`out/t020-unknown-suffix.ps1`).
 2. [x] C1 `docs/adr/repository/command-contracts.md`, ADR-REPO-CMDCONTRACT: rules 1 a command is public exactly when a command contract
        names it; 2 the contract language and its closed types; 3 derived facts (placement says module, version, language; none stored); 4
        one checker per language; 5 use (reader, reference column, cats validation); 6 version and pinning. Amend ADR-REPO-CONTRACT#6 (fifth
-       kind) and #7 (direction by kind) and its enforcement list. Glossary: command contract, contract language (command is task017's).
+       kind) and #7 (direction by kind) and its enforcement list. Glossary: command contract, contract language (command is layers').
        `adrs.yml`, `Build-AdrIndex`, `Build-Glossary`. Check: Test-AdrRegistry, Test-Glossary, Test-Links clean. Done 2026-10-17:
        `ADRREG issues=0` (`out/test-adr-registry/20261017-190652`), `NEUTRAL issues=0`, Test-Glossary 222 issues none on the touched files
        (`out/test-glossary/20261017-190705`), Test-Links clean on the ADR and `[Untracked]` only on the two pages that link it (the user's
@@ -85,7 +84,7 @@ contracts plan).
    function without a contract becomes internal, one module per step, its `.psd1` export list regenerated. Check: Test-Contracts on the
    frozen set; the module's tests pass.
 8. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
-   in T036. Check: grep `- [ ]` counts zero.
+   in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report
 

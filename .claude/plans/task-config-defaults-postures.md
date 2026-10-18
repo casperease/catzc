@@ -1,10 +1,9 @@
 ---
 task:
-  id: "016"
   status: open
   plans: [plan-config-defaults]
   value: high
-  blocked_on: task015
+  blocked_on: task-config-defaults-fragment
   targets:
     [
       automation,
@@ -18,9 +17,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task016.md"
+    path: ".claude/plans/task-config-defaults-postures.md"
     folder: plans
-    name: task016
+    name: task-config-defaults-postures
     filetype: md
     kind: other
     language: markdown
@@ -36,7 +35,7 @@ catzc:
       - ADR-PRIN-CONFIG#3
 ---
 
-# task016: config defaults Phases 4 and 5, every typed config and the ADRs
+# Task: config defaults Phases 4 and 5, every typed config and the ADRs
 
 Decided (F5, Q101, S5): every config type is audited into a posture; every `-Default` literal in a getter goes; the contract folder gains
 one defaults file per overridable type; an analyzer rule flags a literal default in a function (ADR-PRIN-CONFIG#3 is its rule; the audit
@@ -51,7 +50,7 @@ ADR-AUTO-FAILFAST. One config per change; the user runs the full gate.
    its getters. Check: every row has a posture.
 3. One type per step, in worklist order: constants on the type, construction throws for required keys, getters lose literals, tests updated
    (fresh pwsh per C# edit). Sealed configs take defaults and no fragment and get no contract. Overridable types get their generated
-   defaults contract (Build-ConfigDefaultsContract from task015). Check: that config's tests; Test-Contracts after each contracted type.
+   defaults contract (Build-ConfigDefaultsContract). Check: that config's tests; Test-Contracts after each contracted type.
 4. `automation/.scriptanalyzer/NoLiteralDefault.psm1`, new rule: a `-Default` parameter or a literal fallback (`?? 'x'`,
    `if (-not $v) { $v = 'x' }`) inside a public getter that reads a registered config is a finding citing ADR-PRIN-CONFIG#3 and
    ADR-AUTO-DEFAULT#6; tests with fixtures; registered in `PSScriptAnalyzerSettings.psd1`. Check: its tests pass; Test-ScriptAnalyzer clean
@@ -66,8 +65,8 @@ ADR-AUTO-FAILFAST. One config per change; the user runs the full gate.
    constructor, Get-Config, cross-config validators, Test-Contracts, repo gates). Check: Test-Markdownlint, Test-Links.
 9. Glossary: `fragment`, `posture`, `contracted defaults`, defined by the rules above; Build-Glossary. Check: Test-Glossary clean.
 10. `Update-AdrCitation` and the reference-page generators in the background; `Test-Links` on the touched pages. Check: clean.
-11. `plan-config-defaults.md`: tick Phases 4 and 5; the plan is deleted in T036 once Test-Contracts is clean on every contracted type.
-    Check: grep `- [ ]` counts zero.
+11. `plan-config-defaults.md`: tick Phases 4 and 5; the plan is deleted in task-closing-sweep once Test-Contracts is clean on every
+    contracted type. Check: grep `- [ ]` counts zero.
 
 ## Report
 

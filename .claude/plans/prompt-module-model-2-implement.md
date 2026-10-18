@@ -15,9 +15,7 @@ catzc:
     moduletype: settings
 ---
 
-# .claude/plans/prompt-module-model-2-implement.md
-
-`Prompt 2 of 2 for plan-module-kinds-tracks: implement the Module kind, ADR first; paste as the first message, after prompt 1`
+# Prompt 2 of 2 for plan-module-kinds-tracks: implement the Module kind, ADR first; paste as the first message, after prompt 1
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2). Run only after `.claude/plans/prompt-module-model-1-prepare.md` produced
 its files and the user answered its open choices. Everything below the rule is the prompt.

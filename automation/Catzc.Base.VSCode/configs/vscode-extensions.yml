@@ -46,3 +46,5 @@ recommendations:
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf
   - DanLevett.regex-robin
+  # Source Tracker — shades uncommitted lines in the editor itself, which VS Code's own quick diff cannot.
+  - bitbased.bitbased-source-tracker

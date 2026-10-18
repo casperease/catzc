@@ -1,6 +1,5 @@
 ---
 task:
-  id: "029"
   status: open
   plans: [plan-test-run-budget]
   value: medium
@@ -15,9 +14,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task029.md"
+    path: ".claude/plans/task-test-run-budget.md"
     folder: plans
-    name: task029
+    name: task-test-run-budget
     filetype: md
     kind: other
     language: markdown
@@ -28,7 +27,7 @@ catzc:
     moduletype: settings
 ---
 
-# task029: the full test run under its 180 s roof
+# Task: the full test run under its 180 s roof
 
 Last measured 265.8 s. Landed: greedy groups and the decayed duration maximum. The largest lever left is the format cache stamp: every
 engine's stamp includes `tools.yml`, so any pin edit reformats the whole repository for every engine (PowerShell 58 to 76 s cold). The roof
@@ -48,7 +47,7 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
    recorded per file.
 5. Items 2 and 3 of the carried draft (the Invoke-TestFile snapshot test, the config conventions test at 0.77 s) stay as they are unless the
    user decides otherwise; one Decided line. The markdown title test re-measured once Get-MarkdownScope landed. Check: the lines exist.
-6. Tick the plan's steps; the carried draft goes; the plan is deleted in T036. Check: grep `- [ ]` counts zero.
+6. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report
 

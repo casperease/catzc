@@ -35,8 +35,8 @@ catzc:
           ([ADR-REPO-PLANS#3](/docs/adr/repository/plans.md#rule-adr-repo-plans3));
         - an open step, a `- [ ]` item with its continuation lines, that names no check
           ([ADR-REPO-PLANS#4](/docs/adr/repository/plans.md#rule-adr-repo-plans4));
-        - a task file whose `task:` head misses a key, whose id is not its file number, whose number is over the roof, or
-          which has no steps section, and a master plan without its own sections
+        - a task file whose `task:` head misses a key or which has no steps section, more task files than the roof, a line
+          in any file that names a task by a number, and a master plan without its own sections
           ([ADR-REPO-PLANS#8](/docs/adr/repository/plans.md#rule-adr-repo-plans8)).
       The folder, the sets and the patterns are the plans registry (configs/plans.yml), its defaults declared once on
       PlansConfig. A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it
@@ -99,7 +99,7 @@ function Test-Plans {
             $issues.Add("${where}:${Line} [ADR-REPO-PLANS#${Rule}] $Message")
         }
         if (-not $Config.Accepts($name)) {
-            & $add 1 1 'the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, taskNNN.md, …); a name never carries an order (ADR-REPO-FOLDERS#12)'
+            & $add 1 1 'the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS#12)'
             continue
         }
         $text = [System.IO.File]::ReadAllText($file)
@@ -110,13 +110,18 @@ function Test-Plans {
                 $headings.Add([pscustomobject]@{ Line = $i + 1; Text = $Matches['text'] })
             }
         }
+        for ($i = 0; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -cmatch '\b(task[0-9]{3}|T[0-9]{3})\b') {
+                & $add ($i + 1) 8 "'$($Matches[1])' names a task by a number; a task is named by its topic and the master's list carries the order"
+            }
+        }
         $hasHeading = {
             param([string] $Prefix)
             @($headings | Where-Object { $_.Text.StartsWith($Prefix, [System.StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
         }
 
         $isMaster = $name -ceq $Config.master_file
-        $isTask = $name -match '^task(?<number>[0-9]{3})\.md$'
+        $isTask = $name -like 'task-*.md'
         $isPlan = -not $isMaster -and -not $isTask -and $name -like 'plan-*.md'
         if (-not ($isMaster -or $isTask -or $isPlan)) {
             continue
@@ -147,9 +152,8 @@ function Test-Plans {
 
         if ($isTask) {
             $tasks++
-            $number = [int] $Matches['number']
-            if ($number -gt $Config.tasks_max) {
-                & $add 1 8 "task number $number is over the roof of $($Config.tasks_max)"
+            if ($tasks -eq $Config.tasks_max + 1) {
+                & $add 1 8 "the folder holds more than the roof of $($Config.tasks_max) task files"
             }
             $block = if ($frontMatter -is [System.Collections.IDictionary] -and $frontMatter.Contains('task')) {
                 $frontMatter['task']
@@ -158,13 +162,10 @@ function Test-Plans {
                 & $add 1 8 "the head has no 'task:' block"
             }
             else {
-                foreach ($key in 'id', 'status', 'plans', 'value', 'blocked_on', 'targets') {
+                foreach ($key in 'status', 'plans', 'value', 'blocked_on', 'targets') {
                     if (-not $block.Contains($key)) {
                         & $add 1 8 "the task head misses '$key'"
                     }
-                }
-                if ($block.Contains('id') -and "$($block['id'])" -cne $Matches['number']) {
-                    & $add 1 8 "the task id '$($block['id'])' is not the file number '$($Matches['number'])'"
                 }
             }
             if (-not (& $hasHeading 'Steps')) {

@@ -43,7 +43,7 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
     // The excludes every source carries, before its own.
     public static readonly IReadOnlyList<string> DefaultExclude = new[]
     {
-        "docs/adr/research/**", "docs/references/dora/**", "out/**", ".unordered/**", "automation/.vendor/**"
+        "docs/adr/research/**", "docs/references/dora/**", "out/**", ".unordered/**", "automation/.vendor/**", ".claude/plans/**"
     };
 
     private static readonly Regex DriveRe = new Regex("^[A-Za-z]:", RegexOptions.Compiled);

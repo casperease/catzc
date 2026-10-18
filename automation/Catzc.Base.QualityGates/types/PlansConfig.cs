@@ -61,7 +61,7 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
     public string master_file { get; } = "plan-master.md";
     public IReadOnlyList<string> master_sections { get; } = new[] { "Process", "Chunks" };
 
-    // The highest task number a task file may carry.
+    // The most task files the folder holds; a task is named by its topic, the master's list carries the order ([ADR-REPO-PLANS#8](/docs/adr/repository/plans.md#rule-adr-repo-plans8)).
     public int tasks_max { get; } = 50;
 
     // The file-name patterns the folder accepts; any other name is a finding.
@@ -69,7 +69,7 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
     {
         "^plan-[a-z][a-z0-9]*(-[a-z0-9]+)*\\.md$",
         "^prompt-[a-z][a-z0-9]*(-[a-z0-9]+)*\\.md$",
-        "^task[0-9]{3}\\.md$",
+        "^task-[a-z][a-z0-9]*(-[a-z0-9]+)*\\.md$",
         "^value-of-plan\\.md$",
         "^decisions-[0-9]{4}-[0-9]{2}-[0-9]{2}\\.md$",
         "^questionnaire-[a-z0-9]+(-[a-z0-9]+)*\\.md$",

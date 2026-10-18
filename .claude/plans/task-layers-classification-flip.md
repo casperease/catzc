@@ -1,17 +1,16 @@
 ---
 task:
-  id: "019"
   status: open
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: P3 after task018; P4 and P6 on the user's explicit go (D10), in a quiet window with no peer-dirty files
+  blocked_on: P3 after task-layers-funnel; P4 and P6 on the user's explicit go (D10), in a quiet window with no peer-dirty files
   targets: [docs/explanation/automation, docs/how-to/automation, docs/references/automation, automation, .catzc, out, .github, pipelines]
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task019.md"
+    path: ".claude/plans/task-layers-classification-flip.md"
     folder: plans
-    name: task019
+    name: task-layers-classification-flip
     filetype: md
     kind: other
     language: markdown
@@ -22,7 +21,7 @@ catzc:
     moduletype: settings
 ---
 
-# task019: layers P3 classification, then the flip P4 and the pipeline names P6
+# Task: layers P3 classification, then the flip P4 and the pipeline names P6
 
 P3 changes no path: it classifies pages and drafts ADR wording against the placeholder TRACK. P4 is the one phase that cannot be
 interleaved: `git mv automation pwsh` in the user's window, run by the user (a mutating git command). P6 renames the externally bound
@@ -49,7 +48,7 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
    `Test-GitHubWorkflowTriggerGlob` and `Register-AdoPipeline` examples. `invoke-automation` and `release-automation` stay (Q2). The user
    re-points the Azure DevOps definitions, GitHub required checks and bookmarks the same day. Check: triggers fire on the next push; the
    contract check is clean.
-8. Tick P3, P4, P5 and P6 in the plan as each lands. Check: grep `- [ ]` counts P7 (task020) only.
+8. Tick P3, P4, P5 and P6 in the plan as each lands. Check: grep `- [ ]` counts P7 (task-command-contracts) only.
 
 ## Report
 

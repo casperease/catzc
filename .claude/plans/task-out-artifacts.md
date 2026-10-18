@@ -1,6 +1,5 @@
 ---
 task:
-  id: "028"
   status: open
   plans: [plan-out-artifacts]
   value: medium
@@ -15,9 +14,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task028.md"
+    path: ".claude/plans/task-out-artifacts.md"
     folder: plans
-    name: task028
+    name: task-out-artifacts
     filetype: md
     kind: other
     language: markdown
@@ -31,7 +30,7 @@ catzc:
       - ADR-REPO-OUTDIR#12
 ---
 
-# task028: output artifacts registered, pruned, and the out/ harvest closed
+# Task: output artifacts registered, pruned, and the out/ harvest closed
 
 Decided (Q71 to Q74): the six out/ areas with their numbers are registered in output-formats.yml; sessions live under
 `out/sessions/<session>/`; `time-safeguard.log` is never pruned; only `Clear-Output` prunes. The harvest of 2026-10-16 judged 260 scripts:
@@ -67,10 +66,11 @@ config lives at `automation/Catzc.Base.Reports/configs/output-formats.yml` (the 
 6. Batch two: today's 13 probes in `harvest-batch1-kept-young.txt`, once their sessions are done; a yes, then the same. Check: gone. The
    list is gone with batch one; the user confirms.
 7. [x] The five tool candidates become open steps in their owning plans (task files): `run-head-batch`, `diff-one`, `probe-corpus`,
-   `gates-module` in the file-head and plans tasks (QualityGates); `tests-comments-rollout` in task027 step 9 (done). Add one step line to
-   task021 or task022 for the QualityGates four, each "becomes a module function with tests or is recorded as not needed". Check: a grep of
-   the task files finds each of the five names. Done 2026-10-17: task022 step 9 names the four; task027 step 9 names the fifth.
-8. Tick the plan's steps; the carried draft goes; the plan is deleted in T036. Check: grep `- [ ]` counts zero.
+   `gates-module` in the file-head and plans tasks (QualityGates); `tests-comments-rollout` in task-adr-link-cleanup step 9 (done). Add
+   one step line to task-file-head-leftovers for the QualityGates four, each "becomes a module function with tests or is recorded as not
+   needed". Check: a grep of the task files finds each of the five names. Done 2026-10-17: task-file-head-leftovers step 9 names the four;
+   task-adr-link-cleanup step 9 names the fifth.
+8. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report
 

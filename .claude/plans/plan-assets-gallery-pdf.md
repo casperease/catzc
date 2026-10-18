@@ -42,8 +42,8 @@ unchanged. The PDF is for a person in a PDF viewer (`review-pdf` in `output-form
 ## Open steps
 
 - [x] Name the mode in `.claude/skills/drawio-waves/SKILL.md` (it lists `gallery_pdf.py` as an on-ask tool) (check: the line says
-      `--assets`). Done 2026-10-17 (task023): the bundles line names `--assets <tree>/.assets`; `AGENTS issues=0` (Test-AgentDefinitions),
-      `SPELL issues=0` on the file.
+      `--assets`). Done 2026-10-17 (assets leftovers): the bundles line names `--assets <tree>/.assets`; `AGENTS issues=0`
+      (Test-AgentDefinitions), `SPELL issues=0` on the file.
 - [x] Decide whether a `--parts <n>` split belongs in the builder, so a file over a size cap needs no side script (check: a decision
       recorded here; if yes, a flag and a run that yields parts under 30 MiB). Decided 2026-10-18 (D07): no flag; the PDF is a review
       artifact and the cap is the chat's, so a side script splits when a review needs it.

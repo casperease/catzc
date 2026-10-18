@@ -1,10 +1,9 @@
 ---
 task:
-  id: "018"
   status: open
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: task011 (the module model gives the one resolver and deletes Get-AutomationModules and Get-BaseModule)
+  blocked_on: task-module-model-closeout (the module model gives the one resolver and deletes Get-AutomationModules and Get-BaseModule)
   targets:
     [
       automation/.internal/Catzc.Internal.Importer.psm1,
@@ -16,9 +15,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task018.md"
+    path: ".claude/plans/task-layers-funnel.md"
     folder: plans
-    name: task018
+    name: task-layers-funnel
     filetype: md
     kind: other
     language: markdown
@@ -29,7 +28,7 @@ catzc:
     moduletype: settings
 ---
 
-# task018: layers P2, the funnel
+# Task: layers P2, the funnel
 
 Behaviour-preserving: the folder is still `automation/` after this task, but the literal is spelled in as few places as possible and a guard
 keeps it so, which is also the regression net for the flip (ADR-PRIN-POKAYOKE). The worklist is section 3 to 5 of the carried rename
@@ -42,7 +41,7 @@ first; C# edits need a fresh pwsh.
    `importer.ps1` stops being a second place; `Build-RootConfig 'importer.ps1'` regenerates it). Check: `New-Importer.Tests.ps1` passes;
    Test-GeneratedFiles clean.
 2. The Bash hook keeps its own constant (`BashSafeguard.ConfigRelativePath` and the csproj, no importer there); try the csproj change on a
-   copy first and confirm the edge fact from task017 step 2 before touching the real one. Check: the hook builds; a denied call is still
+   copy first and confirm the layers doctrine's edge fact before touching the real one. Check: the hook builds; a denied call is still
    logged to out/time-safeguard.log.
 3. Registry bypasses (worklist section 4, about 45 sites): move each onto `Get-CatzcModulesRoot` or `Get-Track`, one file per step with its
    test; C# constants such as `GlobsConfig.ConfigPath` read the track root through the config type's resolver where one exists (`AdrsConfig`

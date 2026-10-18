@@ -34,13 +34,13 @@ skipped and named in the report.
 - 13 files carry an `out/plan-*.md` provenance path that no longer exists. Re-point or trim per `plan-shape`.
 - Three plans run over 400 lines: layers (890), module-kinds (956), file-head (365 with carried drafts).
 - `plan-minimal-robots.md` was not judged (dirty during the pass). Judge it first.
-- Correction (task001, 2026-10-17): the 32 links were already re-pointed in the tree when the task ran (`../../docs/adr/...` targets,
+- Correction (folder hygiene, 2026-10-17): the 32 links were already re-pointed in the tree when the task ran (`../../docs/adr/...` targets,
   sibling plan names); `Test-Links` reports "No links issues found." on all six files (reports `out/test-links/20261017-053922` and
   `20261017-054019` to `-6`). The remaining `out/plan-*.md` mentions are backticked provenance prose in the "Carried" headings, not links.
 
 ## Open steps
 
-- [x] `plan-minimal-robots.md`: judged 2026-10-17 (task002), verdict keep: head keys present (status, value, reviewed, targets, siblings),
+- [x] `plan-minimal-robots.md`: judged 2026-10-17 (hygiene), verdict keep: head keys present (status, value, reviewed, targets, siblings),
       three open steps each with a check, its one `out/` path (`out/drawio/token-count.md`) exists, no provenance path to an absent file;
       `reviewed` re-stamped. Check: `Test-Links` clean (`out/test-links/20261017-055215-2`).
 - [x] `plan-adr-link-cleanup-prose-to-pages.md`: re-point 15 dangling links. Check: `Test-Links` 0 dangling
@@ -57,7 +57,7 @@ skipped and named in the report.
 - [x] Open steps without a check (the verdict's `plan-layers-vocabulary-rename-contracts.md` line 88, `plan-module-kinds-tracks.md` line 85,
       `plan-bounded-folder-enumeration.md` line 50, `plan-out-artifacts.md` lines 62, 67, 69, 84, the 13 steps of
       `plan-file-head-immutable-edges-classes.md`): every one carries its "(check: ...)" on a wrapped continuation line already; the verdict
-      pass read single lines. Check: a grep over wrapped `- [ ]` items in those five files finds none without "check" (task002, 2026-10-17).
+      pass read single lines. Check: a grep over wrapped `- [ ]` items in those five files finds none without "check" (hygiene, 2026-10-17).
 - [x] `plan-plans-body-sha-landing-zone.md`: re-point 2 links (`file-meta.md`, `sensible-defaults.md`). Check: `Test-Links` 0 dangling
       (`out/test-links/20261017-054019-4`).
 - [x] `plan-materialization-of-knowledge.md`: say where the text of `adr-draft-materialization.md` now lives (its Refs line and the
@@ -68,16 +68,16 @@ skipped and named in the report.
       `Test-Links` 0 dangling, `out/test-links/20261017-054019-6`).
 - [ ] `plan-file-head-immutable-edges-classes.md`: trim "Done" sections whose data is in the tree; skip steps that sit in a peer's files.
       Check: `Test-Links` reports 0 dangling.
-- [x] `questionnaire-2026-10-16.md`: judged for a trim 2026-10-17 (task003): 740 lines, 140 items Q01 to Q140, every number cited by a
+- [x] `questionnaire-2026-10-16.md`: judged for a trim 2026-10-17 (hygiene): 740 lines, 140 items Q01 to Q140, every number cited by a
       `decisions-2026-10-16.md` row, one context paragraph per item and no duplicated paragraph (two repeated one-word lines only). A trim
       under the rule (never an item, its number or its context) removes nothing, so the file stays at 740 lines. Check: every Q number a
       decisions row cites resolves to a heading (grep of `Q[0-9]+` in decisions against `### Q` headings: all 140 present).
 - [x] `plan-adr-ai.md`: the repeated "plan-intake, plan-decide" dropped in both sentences. Check: `Test-Links` clean
       (`out/test-links/20261017-055215`).
-- [x] Plan-shape for the four numbered-step plans (task002): `plan-fast-push-followups.md` (4 steps, `out/test-links/20261017-055059-2`),
+- [x] Plan-shape for the four numbered-step plans (hygiene): `plan-fast-push-followups.md` (4 steps, `out/test-links/20261017-055059-2`),
       `plan-idle-compaction.md` (2, `20261017-055042`), `plan-csproj-xml-head.md` (2, `20261017-055059`),
       `plan-skip-unchanged-generators.md` (6, `20261017-055142`). Check: grep `- [ ]` counts as listed and `Test-Links` clean on each.
-- [x] Delete candidates, diffed line by line against `plan-file-head-immutable-edges-classes.md` (task003, 2026-10-17); each is now the
+- [x] Delete candidates, diffed line by line against `plan-file-head-immutable-edges-classes.md` (hygiene, 2026-10-17); each is now the
       user's `git rm`: `prompt-head-path-split-continue.md`: the spelling-gate run is the first step of "Open leftovers from the path
       split"; folder and name on generated heads is Decided (Q43) there. `prompt-file-kinds-registry-continue.md`: the memory-note check is
       Done (Q51), the five gates are the first step of "Open leftovers from the registry work", PowerShell versus Powershell is Decided
@@ -88,7 +88,7 @@ skipped and named in the report.
 - [x] `value-of-plan.md`: rows for the seven unlisted plans (plan-master, plan-fast-push-followups, plan-skip-unchanged-generators,
       plan-csproj-xml-head, plan-idle-compaction, plan-assets-gallery-pdf in the meta table; plan-assert-wait in the feature table), each
       head's `value` matching its row; the next-funnel line under "Decision round". Check: `ls plan-*.md` against the table finds no plan
-      without a row; `Test-Links` clean (report path in the git history of task003.md, deleted as done).
+      without a row; `Test-Links` clean (report path in the git history of the folder hygiene task file, deleted as done).
 - [ ] After the user's level-2 gate run: delete `plan-bounded-folder-enumeration.md` and `prompt-bounded-folder-enumeration-continue.md`
       (check: both files gone, `Test-Links` clean on `.claude/plans`).
 - [ ] `out/test-links/20261016-2012*`: the 36 report folders of the verdict pass are gate output; clear them when the user agrees (check:

@@ -65,7 +65,8 @@ Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEF
         @{ Name = 'plan-widget-gadget.md'; Accepted = $true }
         @{ Name = 'prompt-widget-continue.md'; Accepted = $true }
         @{ Name = 'prompt-widget-2-implement.md'; Accepted = $true }
-        @{ Name = 'task007.md'; Accepted = $true }
+        @{ Name = 'task-spin-widget.md'; Accepted = $true }
+        @{ Name = 'task007.md'; Accepted = $false }
         @{ Name = 'value-of-plan.md'; Accepted = $true }
         @{ Name = 'decisions-2026-10-16.md'; Accepted = $true }
         @{ Name = 'questionnaire-fundamental-2-2026-10-16.md'; Accepted = $true }

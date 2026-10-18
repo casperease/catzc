@@ -128,7 +128,8 @@ the registration ([zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yok
 has nothing checked on its behalf. Within a source, `options:` sets the checks its terms take part in (`checks`), where its avoided
 phrasings are scanned (`scope`, `exclude`), and which kinds of text are read there (`surfaces`). Every option has a default that suits most
 sources, so most sources carry no options at all ([sensible-defaults](../automation/sensible-defaults.md)). The default excludes — the DORA
-research text, generated output, vendored code — are always kept, because external language is not this repository's to correct.
+research text, generated output, vendored code, and the transient plans, which are deleted once done — are always kept, because external
+language is not this repository's to correct and a plan outlives no decision.
 
 ### Everything in the repository
 

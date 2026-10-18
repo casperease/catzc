@@ -78,10 +78,10 @@ carried verbatim, with a header that maps every path the paste names to where th
 
 ### Rule ADR-REPO-PLANS:8
 
-The **master plan**, `plan-master.md`, and the **task files**, `taskNNN.md` with NNN at most 050, are derived executables rebuilt from
-the plans: the master holds every open step of every plan in one executable order, a task file is one chunk of it, and the task number is
-that order, the one place a file name carries an order in this repository (ADR-REPO-FOLDERS#12). They are cleared and rebuilt; the plans
-are never deleted by a clear.
+The **master plan**, `plan-master.md`, and the **task files**, `task-<topic>.md` with at most 50 in the folder, are derived executables
+rebuilt from the plans: the master holds every open step of every plan in one executable order, and a task file is one chunk of it, named
+by its topic. The order is the master's list alone; no task name, head key or reference carries a number (ADR-REPO-FOLDERS#12). They are
+cleared and rebuilt; the plans are never deleted by a clear.
 
 - [Derived executables](#derived-executables)
 
@@ -139,8 +139,8 @@ drafts it was written for have moved into the plans.
 
 The plans are the durable record; an executor wants one ordered list. The master plan and the task files are that list, derived from the
 plans and disposable: a step leaves a plan only when its task file carries it, and the plan keeps the checkbox until the work is in the
-tree. Because they can be cleared and rebuilt at any time, a task number may carry the execution order that no other file name may carry
-([conventional-folders](conventional-folders.md#rule-adr-repo-folders12)).
+tree. A task is named by what it does, so a reference to it reads the same after the master reorders its list, and a reader never has to
+know where a task sits to find it ([conventional-folders](conventional-folders.md#rule-adr-repo-folders12)).
 
 ### Decisions become rules
 

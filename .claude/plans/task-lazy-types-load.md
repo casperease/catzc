@@ -1,6 +1,5 @@
 ---
 task:
-  id: "025"
   status: open
   plans: [plan-lazy-types-load]
   value: medium-high
@@ -16,9 +15,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task025.md"
+    path: ".claude/plans/task-lazy-types-load.md"
     folder: plans
-    name: task025
+    name: task-lazy-types-load
     filetype: md
     kind: other
     language: markdown
@@ -34,7 +33,7 @@ catzc:
       - ADR-AUTO-TYPES#{15,16}
 ---
 
-# task025: lazy types load, Phases 3 to 5
+# Task: lazy types load, Phases 3 to 5
 
 Phases 0 to 3 are in the tree (types-load.yml with its 27 L0 tests, Test-TypesAssemblyContent, the manifest beside the DLL,
 Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad). Warm timings: hash of 253 sources 155 ms, load 41 ms, drift compare 38
@@ -86,8 +85,8 @@ to ADR-AUTO-DEFAULT#6 that the ADR records. Only pwsh loads the DLL (ADR-AUTO-EN
        Check: grep for the old eager Add-Type path finds nothing outside the eager cells. Done 2026-10-17: the only `Add-Type` calls are the
        build (`Build-CombinedTypeAssembly`) and the one load (`Import-TypesAssembly`, in place or from the shadow copy); eager is
        `Initialize-Types` at import, no second path. `shadowCopy: false` on Unix stays unconfirmed, no Unix run exists.
-9. Tick the plan's steps; it is deleted in T036. Check: grep `- [ ]` counts zero. 2026-10-17: Phases 4 and 5 ticked; the Phase 3 leftover
-   waited for D09 (decided 2026-10-18), so the plan stays until the hook lands.
+9. Tick the plan's steps; it is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero. 2026-10-17: Phases 4 and 5 ticked; the
+   Phase 3 leftover waited for D09 (decided 2026-10-18), so the plan stays until the hook lands.
 
 ## Report
 

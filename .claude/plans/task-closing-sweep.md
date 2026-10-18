@@ -1,17 +1,16 @@
 ---
 task:
-  id: "036"
   status: open
   plans: [value-of-plan, plan-clear-actions, plan-master]
   value: highest
-  blocked_on: every earlier task that ticks a plan's last step
+  blocked_on: every other task that ticks a plan's last step
   targets: [.claude/plans]
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task036.md"
+    path: ".claude/plans/task-closing-sweep.md"
     folder: plans
-    name: task036
+    name: task-closing-sweep
     filetype: md
     kind: other
     language: markdown
@@ -25,9 +24,9 @@ catzc:
       - ADR-REPO-PLANS#5
 ---
 
-# task036: the closing sweep
+# Task: the closing sweep
 
-ADR-REPO-PLANS#5 (task010): a plan with no open step is deleted and value-of-plan.md keeps one "deleted, why" line. This task runs after any
+ADR-REPO-PLANS#5: a plan with no open step is deleted and value-of-plan.md keeps one "deleted, why" line. This task runs after any
 batch of tasks lands, as often as needed, and last of all. `git rm` is the user's; the sweep lists.
 
 ## Steps

@@ -25,8 +25,8 @@ catzc:
 # Questionnaire, 2026-10-18: the open decisions of the plans
 
 One item per open question, the context a reader needs, the options, and a Decision line filled in as the user answers. Items D01 to D16
-come from task004 (D14 was answered 2026-10-17); D17 to D20 are the questions the executions of 2026-10-17 raised. The first option of each
-is the recommendation.
+come from the decision round (D14 was answered 2026-10-17); D17 to D20 are the questions the executions of 2026-10-17 raised. The first
+option of each is the recommendation.
 
 ## Items
 
@@ -35,7 +35,8 @@ is the recommendation.
   the recommendation).
 - D02 Choice (b): the track key is `execution_engines`, the table is `layout`, "kind" stays out of the ADR text until the role rename.
   Options: confirm; rename now. Decision: confirm (2026-10-18, the recommendation).
-- D03 Choice (c): rule 6 covers check and test handlers only; `LoadedModule` dropped with `BaseModule`. T011 then builds the handler ids.
+- D03 Choice (c): rule 6 covers check and test handlers only; `LoadedModule` dropped with `BaseModule`. module-model-closeout then
+  builds the handler ids.
   Options: confirm; widen rule 6 to every handler. Decision: confirm (2026-10-18, the recommendation).
 - D04 `Copy-Automation` selects the full profile by default and no longer copies `.scriptanalyzer`. Options: confirm; copy the analyzer
   rules too. Decision: confirm (2026-10-18, the recommendation).
@@ -51,9 +52,10 @@ is the recommendation.
 - D09 Lazy types and the source-console janitors: the janitors trip the lookup hook at import, so lazy loading pays off only for bundle,
   -SkipJanitors and idle sessions. Options: run the janitors after the first prompt; keep them at import. Decision: run the janitors after
   the first prompt (2026-10-18, the recommendation).
-- D10 Layers P4, the folder move of `automation/` to `pwsh`, a `git mv` the user runs in a quiet window. T011 and T018 are still open, T017
-  is done. Options: hold until T011 and T018 are green, then the user names the window; name the window now. Decision: hold until T011 and
-  T018 are green (2026-10-18, the recommendation).
+- D10 Layers P4, the folder move of `automation/` to `pwsh`, a `git mv` the user runs in a quiet window. module-model-closeout and
+  layers-funnel are still open, the layers doctrine is done. Options: hold until module-model-closeout and layers-funnel are green, then
+  the user names the window; name the window now. Decision: hold until module-model-closeout and layers-funnel are green (2026-10-18, the
+  recommendation).
 - D11 Unboxing P4 (three-pass walk) and P5 (class-lookup GlobPattern objects built once), each with a 15 percent bar. Options: stay closed,
   the measured wins are in; go, measure first. Decision: stay closed (2026-10-18, the recommendation).
 - D12 `Build-Readme` on an unchanged tree: 304 ms first call, 109 ms warm; a stamp would add `with_inputs_sha` to about 55 committed README
@@ -63,8 +65,8 @@ is the recommendation.
 - D15 Test-Glossary's about 195 bare-term findings in plan text ("full suite", "gate", "phase", "layer", "source", "slot"). Options: fix per
   plan when next edited; exempt plan files from the vocabulary gate. Decision: fix per plan when next edited (2026-10-18, the
   recommendation).
-- D16 Materialization choices 1 to 3 were taken in Q66 to Q70; T026 writes ADR-AUTO-MATERIAL. Options: confirm, nothing reopens; reopen one
-  choice. Decision: confirm, nothing reopens (2026-10-18, the recommendation).
+- D16 Materialization choices 1 to 3 were taken in Q66 to Q70; adr-auto-material writes ADR-AUTO-MATERIAL. Options: confirm, nothing
+  reopens; reopen one choice. Decision: confirm, nothing reopens (2026-10-18, the recommendation).
 - D17 `Assert-Wait` throws only for a bad argument and otherwise lets go, while ADR-PWSH-VERBS#2 and #3 make an Assert- function one that
   stops the caller, and the file sits in the `assert` subkind. Options: rename to a watch verb, `Watch-Blocking`, assert subkind untouched;
   a VERBS#7 exemption for a watchpoint that never stops. Decision: rename to Watch-Blocking (2026-10-18, the recommendation).

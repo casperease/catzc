@@ -1,10 +1,9 @@
 ---
 task:
-  id: "012"
   status: open
   plans: [plan-module-kinds-tracks]
   value: high
-  blocked_on: task011 steps 1 to 4 (the model confirmed)
+  blocked_on: task-module-model-closeout steps 1 to 4 (the model confirmed)
   targets:
     [
       automation/Catzc.Base.Globs/configs/file-kinds.yml,
@@ -16,9 +15,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task012.md"
+    path: ".claude/plans/task-kind-becomes-role.md"
     folder: plans
-    name: task012
+    name: task-kind-becomes-role
     filetype: md
     kind: other
     language: markdown
@@ -29,7 +28,7 @@ catzc:
     moduletype: settings
 ---
 
-# task012: kind becomes role; the track rules
+# Task: kind becomes role; the track rules
 
 Decided (k8s plan, Q27 to Q38, Q98): Track is the root entity and Module one of its kinds; `kind` takes the Kubernetes-style object meaning,
 partitioned by track, and what the file-kinds registry calls kind today (readme, config, adr, agent) becomes `role`. The head key `kind` in

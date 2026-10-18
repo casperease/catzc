@@ -45,8 +45,8 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 
 | Value       | Plan                                    | Why                                                                                                                                          | Needed docs                                                                                                                | Needed tests                                                                                              | State                                                                           |
 | ----------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| highest     | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                                      | ADR-REPO-PLANS names the task files (T010)                                                                                 | Test-Plans over the folder (T010)                                                                         | T001 to T036 written; T001 and T002 done                                        |
-| highest     | plan-plans-body-sha-landing-zone        | Removes the drift finding on every ADR edit, makes plans survive agent death, unblocks the link cleanup.                                     | ADR-REPO-PLANS new (incl. stable locators rule); FILEMETA#3 #7; DSGN-TRACK#17; 4 glossary terms; CLAUDE.md; sorting how-to | Test-Plans; body_sha on generated heads; import tool on two temp repos; Publish-Plan                      | Phase 0 done (T007); Phases 1 and 2 open                                        |
+| highest     | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                                      | ADR-REPO-PLANS names the task files (the plans ADR)                                                                        | Test-Plans over the folder (the plans ADR)                                                                | every chunk a task file; folder hygiene done                                    |
+| highest     | plan-plans-body-sha-landing-zone        | Removes the drift finding on every ADR edit, makes plans survive agent death, unblocks the link cleanup.                                     | ADR-REPO-PLANS new (incl. stable locators rule); FILEMETA#3 #7; DSGN-TRACK#17; 4 glossary terms; CLAUDE.md; sorting how-to | Test-Plans; body_sha on generated heads; import tool on two temp repos; Publish-Plan                      | Phase 0 done; Phases 1 and 2 open                                               |
 | high        | plan-config-defaults                    | An existing rule (AUTO-DEFAULT#6) is broken and two defaults disagree today.                                                                 | amend AUTO-DEFAULT#6, OVERLAY#1 #8, CONTRACT#6, CONF-LOADING; assert ladder                                                | VariantsConfig and five getters; overlay source-mode; defaults contract gate; audit of every typed config | decided; prompt written; Phase 2 waits on module model                          |
 | high        | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                                  | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT new; glossary; ENGINE#4; four collisions                          | three terminology gates; guard rule; Test-Contracts; frozen P0 baseline                                   | Q1-Q11 decided; prompt written; waits on module model                           |
 | high        | plan-module-kinds-tracks                | One Module replaces seven views; kind and role split; tracks typed.                                                                          | ADR-AUTO-MODULE new; DSGN-TRACK extended (one primary language per track); glossary                                        | resolver tests; file-kinds by track; processor counts; track-type L0                                      | module model landed; kind to role next                                          |
@@ -59,7 +59,7 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 | medium      | plan-test-run-budget                    | 266 s against a 180 s roof; cache stamp needs an ADR decision.                                                                               | REPO-FORMAT stamp rule                                                                                                     | warm-cache and invalidation tests; two runs                                                               | two levers landed                                                               |
 | medium      | plan-materialization-of-knowledge       | One word and one default for cache versus commit, which several plans lean on.                                                               | ADR-AUTO-MATERIAL new; glossary; sha-marker plan                                                                           | registry, glossary, link gates; resolver tests later                                                      | draft; 3 choices to confirm                                                     |
 | medium      | plan-out-artifacts                      | 144 session scripts and 27 backups unregistered.                                                                                             | OUTDIR amendments                                                                                                          | Clear-Output and prune tests                                                                              | 4 decisions open                                                                |
-| medium      | plan-clear-actions                      | 32 broken links in 5 plans and three over-long plans, judged 2026-10-16 and acted on in none.                                                | none                                                                                                                       | Test-Links per file                                                                                       | links and plan-shape done (T001, T002); trims and deletions open                |
+| medium      | plan-clear-actions                      | 32 broken links in 5 plans and three over-long plans, judged 2026-10-16 and acted on in none.                                                | none                                                                                                                       | Test-Links per file                                                                                       | links and plan-shape done (folder hygiene); trims and deletions open            |
 | medium      | plan-fast-push-followups                | Four Build-RootConfig fixture-head tests fail and two unrelated findings have no owner yet.                                                  | none; ADR-DSGN-LIFE#11 and #12 landed                                                                                      | Build-RootConfig.Tests.ps1 green; Test-AdrRegistry; one real Push-Dirty run (the user's)                  | landed and tested; four steps open                                              |
 | low         | plan-csproj-xml-head                    | The generated csproj carries a head; its page and two help pages still describe the JSON form.                                               | PropertyHead page and the two help pages to the XML form                                                                   | the four Build-RootConfig fixture tests against a tree without the change                                 | landed; two steps open                                                          |
 | low         | plan-assets-gallery-pdf                 | One review PDF of every asset PNG with its companion text; the split flag is D07.                                                            | the drawio-waves skill line names --assets                                                                                 | a two-PNG fixture run if the kit gains a test home                                                        | mode landed and measured; three steps open                                      |
@@ -88,31 +88,31 @@ next:
 
 ## Deleted 2026-10-18, and why
 
-- task004 (the decision round): D01 to D20 answered, every recommendation taken; the record is decisions-2026-10-18.md and the
+- The decision round task: D01 to D20 answered, every recommendation taken; the record is decisions-2026-10-18.md and the
   questionnaire, folded into the owning plans the same day.
-- plan-idle-compaction and task035: D06 keeps `idleCompaction: false` in the gitignored local settings, a per-person preference; nothing is
+- plan-idle-compaction and its task: D06 keeps `idleCompaction: false` in the gitignored local settings, a per-person preference; nothing is
   left to do.
-- plan-skip-unchanged-generators and task031: every janitor is wired with its inputs proven, bounded or recorded as not skippable (D12); the
-  ten janitors measure 1.2 s on their first call and 0.4 s warm against the 2.6 s the plan started from.
-- task023: the assets leftovers landed 2026-10-17 and D07 settled the last step (no `--parts` flag); plan-assets-gallery-pdf keeps its one
+- plan-skip-unchanged-generators and its task: every janitor is wired with its inputs proven, bounded or recorded as not skippable (D12);
+  the ten janitors measure 1.2 s on their first call and 0.4 s warm against the 2.6 s the plan started from.
+- The assets leftovers task: landed 2026-10-17 and D07 settled the last step (no `--parts` flag); plan-assets-gallery-pdf keeps its one
   fixture line, which waits on a test home.
 
 ## Deleted 2026-10-17, and why
 
-- plan-format-step-moves-comments and task030 (closed by session catzc-6c): the step loop and the page entries for `.scriptanalyzer` and
+- plan-format-step-moves-comments and its task (closed by session catzc-6c): the step loop and the page entries for `.scriptanalyzer` and
   `.internal` were already in the tree, `.vendor` sits outside every pages source, both ADR sentences exist; two stale sections of the
   `.internal` pages deleted, `Test-Comments` 0 on both folders (`out/test-comments/20261017-202304`), `Export-Comments -DryRun` nothing to
   move in 70 files, CommentsConfig and New-Importer tests pass. No open step.
 - plan-assets-beside-articles: the move landed, the gallery reads the sidecar carrier for its descriptions, the carrier test passes as it
-  stands, and the old `docs/.assets/explanation` folder is gone. No open step (task023).
+  stands, and the old `docs/.assets/explanation` folder is gone. No open step (the assets leftovers task).
 - plan-adr-ai: ADR-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is folded
   into its Context; D14 kept the one-segment code. No open step.
 - plan-adr-cats: ADR-CATS with five rules in principles, the glossary terms cats and catzc, the decisions told to the two plans that waited.
   No open step.
 - prompt-file-kinds-and-formatting-continue, prompt-file-kinds-registry-continue, prompt-head-path-split-continue: continuation prompts of
   plans deleted on 2026-10-16; every item they named is a step of plan-file-head-immutable-edges-classes or done.
-- task001, task002, task003, task005, task006, task007, task008, task010, task013, task017, task021: done task files, disposable executables
-  (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in git.
+- The done task files of folder hygiene, ADR-AI, ADR-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal robots, layers
+  doctrine and class selectors: disposable executables (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in git.
 - plan-minimal-robots, plan-minimal-robots-agents, plan-minimal-robots-capabilities: the program landed (15 robots, 18 capabilities,
   ADR-REPO-AGENTS rules 6 to 10, the gate), and Phase 5 is measured in the program plan's own table (static context per robot from its
   files; no robot over 4,000 tokens). The three files are listed for the user's `git rm`; until then they hold no open step of their own.
@@ -138,7 +138,7 @@ next:
   next batch, run through the same funnel. New from the round: plan-adr-cats (Q18b); the rule that a track has one primary language (Q35);
   in-use files are out of scope for plans (Q49, saved as memory feedback). The planner's method is now the plan-intake and plan-decide
   robots with the plan-intake, plan-decide and plan-value capabilities (plan-minimal-robots-agents).
-- The next funnel batch is Q102 to Q126 plus the D-items D01 to D16 that task004 lists (the decision round of plan-master).
+- The next funnel batch is Q102 to Q126 plus the D-items D01 to D16 of the decision round of plan-master.
 
 ## Pastes processed
 

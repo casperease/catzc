@@ -38,8 +38,8 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         }
         $script:goodHead = @('---', 'plan:', '  status: active', '  value: medium', '  reviewed: 2026-10-17', '  targets: [widgets]', '---', '')
         $script:goodBody = @('# Widget', '', '## Open steps', '', '- [ ] Spin the widget (check: the widget spins).', '- [ ] Oil the gadget,', '      one drop (check: no squeak).')
-        $script:master = @('---', 'plan:', '  status: active', '  value: highest', '  reviewed: 2026-10-17', '  role: master', '  targets: [plans]', '---', '', '# Master', '', '## Process', '', 'rules', '', '## Chunks', '', '- T001 -> task001.md (open): widgets.')
-        $script:task = @('---', 'task:', '  id: "001"', '  status: open', '  plans: [plan-widget]', '  value: medium', '  blocked_on: nothing', '  targets: [plans]', '---', '', '# task001', '', '## Steps', '', '1. Spin.')
+        $script:master = @('---', 'plan:', '  status: active', '  value: highest', '  reviewed: 2026-10-17', '  role: master', '  targets: [plans]', '---', '', '# Master', '', '## Process', '', 'rules', '', '## Chunks', '', '- spin the widget -> task-spin-widget.md (open): widgets.')
+        $script:task = @('---', 'task:', '  status: open', '  plans: [plan-widget]', '  value: medium', '  blocked_on: nothing', '  targets: [plans]', '---', '', '# Spin the widget', '', '## Steps', '', '1. Spin.')
     }
 
     BeforeEach {
@@ -51,7 +51,7 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root 'plans'))
         Write-Plan 'plan-widget.md' ($script:goodHead + $script:goodBody)
         Write-Plan 'plan-master.md' $script:master
-        Write-Plan 'task001.md' $script:task
+        Write-Plan 'task-spin-widget.md' $script:task
         Write-Plan 'prompt-widget-continue.md' @('Paste this.')
         Write-Plan 'value-of-plan.md' @('# Value', '', '| Value | Plan |', '| --- | --- |')
     }
@@ -101,16 +101,29 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
         $result.Issues | Should -Be @('plans/plan-gadget.md:13 [ADR-REPO-PLANS#4] the open step names no check: "- [ ] Spin the gadget."')
     }
 
-    It 'holds a task file to its head, its number and its steps, and the master plan to its sections' -Tag 'ADR-REPO-PLANS#8' {
-        Write-Plan 'task002.md' @('---', 'task:', '  id: "003"', '  status: open', '  plans: [plan-widget]', '  value: low', '  targets: [plans]', '---', '', '# task002', '', 'no steps')
-        Write-Plan 'task099.md' $script:task
+    It 'holds a task file to its head and its steps, and the master plan to its sections' -Tag 'ADR-REPO-PLANS#8' {
+        Write-Plan 'task-oil-gadget.md' @('---', 'task:', '  status: open', '  plans: [plan-widget]', '  value: low', '  targets: [plans]', '---', '', '# Oil the gadget', '', 'no steps')
         Write-Plan 'plan-master.md' @('---', 'plan:', '  status: active', '  value: highest', '  reviewed: 2026-10-17', '  role: master', '  targets: [plans]', '---', '', '# Master', '', '## Chunks')
         $result = Invoke-Gate
-        $result.Issues | Should -Contain "plans/task002.md:1 [ADR-REPO-PLANS#8] the task head misses 'blocked_on'"
-        $result.Issues | Should -Contain "plans/task002.md:1 [ADR-REPO-PLANS#8] the task id '003' is not the file number '002'"
-        $result.Issues | Should -Contain "plans/task002.md:1 [ADR-REPO-PLANS#8] the task file has no '## Steps' section"
-        $result.Issues | Should -Contain 'plans/task099.md:1 [ADR-REPO-PLANS#8] task number 99 is over the roof of 50'
+        $result.Issues | Should -Contain "plans/task-oil-gadget.md:1 [ADR-REPO-PLANS#8] the task head misses 'blocked_on'"
+        $result.Issues | Should -Contain "plans/task-oil-gadget.md:1 [ADR-REPO-PLANS#8] the task file has no '## Steps' section"
         $result.Issues | Should -Contain "plans/plan-master.md:1 [ADR-REPO-PLANS#8] the master plan has no '## Process' section"
+    }
+
+    It 'never accepts a numbered task name, and names a line that points at a task by a number' -Tag 'ADR-REPO-PLANS#8', 'ADR-REPO-FOLDERS#12' {
+        Write-Plan 'task002.md' $script:task
+        Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '- [ ] Spin after task002 and T003 (check: spins).'))
+        $result = Invoke-Gate
+        $result.Issues | Should -Contain 'plans/task002.md:1 [ADR-REPO-PLANS#1] the name is not one the plans folder accepts (plan-<topic>.md, prompt-<topic>-continue.md, task-<topic>.md, …); a name never carries an order (ADR-REPO-FOLDERS#12)'
+        $result.Issues | Should -Contain "plans/plan-gadget.md:13 [ADR-REPO-PLANS#8] 'task002' names a task by a number; a task is named by its topic and the master's list carries the order"
+        $result.Issues | Should -HaveCount 2
+    }
+
+    It 'holds the folder to the roof of task files' -Tag 'ADR-REPO-PLANS#8' {
+        Write-Plan 'task-oil-gadget.md' $script:task
+        $roof = [Catzc.Base.QualityGates.PlansConfig]::new(@{ tasks = @{ max = 1 } })
+        $result = Test-Plans -Path $script:folder -Config $roof -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
+        $result.Issues | Should -Be @('plans/task-spin-widget.md:1 [ADR-REPO-PLANS#8] the folder holds more than the roof of 1 task files')
     }
 
     It 'throws once listing every issue without -PassThru' {

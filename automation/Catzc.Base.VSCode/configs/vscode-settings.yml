@@ -67,20 +67,21 @@ settings:
   scm.diffDecorations: all
   scm.diffDecorationsGutterVisibility: always
   workbench.colorCustomizations:
-    gitDecoration.modifiedResourceForeground: "#7a7a7a"
-    gitDecoration.stageModifiedResourceForeground: "#3fb950"
-    gitDecoration.addedResourceForeground: "#3fb950"
-    gitDecoration.stageDeletedResourceForeground: "#3fb950"
-    editorGutter.modifiedBackground: "#7a7a7a"
-    editorGutter.addedBackground: "#3fb950"
-    editorOverviewRuler.modifiedForeground: "#7a7a7a"
-    editorOverviewRuler.addedForeground: "#3fb950"
-    minimapGutter.modifiedBackground: "#7a7a7a"
-    minimapGutter.addedBackground: "#3fb950"
-    diffEditor.insertedLineBackground: "#8080801f"
-    diffEditor.insertedTextBackground: "#80808033"
-    diffEditor.removedLineBackground: "#8080801f"
-    diffEditor.removedTextBackground: "#80808033"
+    gitDecoration.modifiedResourceForeground: "#b8860b"
+    gitDecoration.stageModifiedResourceForeground: "#f5e17a"
+    gitDecoration.addedResourceForeground: "#f5e17a"
+    gitDecoration.untrackedResourceForeground: "#f5e17a"
+    gitDecoration.stageDeletedResourceForeground: "#f5e17a"
+    editorGutter.modifiedBackground: "#b8860b"
+    editorGutter.addedBackground: "#f5e17a"
+    editorOverviewRuler.modifiedForeground: "#b8860b"
+    editorOverviewRuler.addedForeground: "#f5e17a"
+    minimapGutter.modifiedBackground: "#b8860b"
+    minimapGutter.addedBackground: "#f5e17a"
+    diffEditor.insertedLineBackground: "#f5e17a26"
+    diffEditor.insertedTextBackground: "#f5e17a59"
+    diffEditor.removedLineBackground: "#b8860b26"
+    diffEditor.removedTextBackground: "#b8860b59"
 
   files.exclude:
     "**/tmp": true

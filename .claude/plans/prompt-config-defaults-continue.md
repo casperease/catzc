@@ -18,9 +18,7 @@ catzc:
       - ADR-REPO-CONTRACT#3
 ---
 
-# .claude/plans/prompt-config-defaults-continue.md
-
-`Continuation prompt for the config-defaults work: paste as the first message of a fresh session`
+# Continuation prompt for the config-defaults work: paste as the first message of a fresh session
 
 Written 2026-10-16. Copy this file and `.claude/plans/plan-config-defaults.md` into your scratchpad first (another session wiped `out/`
 once). Everything below the rule is the prompt.

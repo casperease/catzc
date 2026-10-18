@@ -1,10 +1,9 @@
 ---
 task:
-  id: "015"
   status: open
   plans: [plan-config-defaults]
   value: high
-  blocked_on: task006 (ADR-CATS#5 names the folder) and task014
+  blocked_on: task-config-defaults-variants (ADR-CATS#5, landed 2026-10-17, names the folder)
   targets:
     [
       automation/Catzc.Base.Config,
@@ -17,9 +16,9 @@ task:
 catzc:
   immutable:
     repo_status: clean
-    path: ".claude/plans/task015.md"
+    path: ".claude/plans/task-config-defaults-fragment.md"
     folder: plans
-    name: task015
+    name: task-config-defaults-fragment
     filetype: md
     kind: other
     language: markdown
@@ -34,10 +33,10 @@ catzc:
       - ADR-REPO-CONTRACT#9
 ---
 
-# task015: config defaults Phases 2 and 3, the repo fragment and the generated defaults contract
+# Task: config defaults Phases 2 and 3, the repo fragment and the generated defaults contract
 
 Decided: Q3 the shipped variants.yml is deleted and a typed config with no file is built from an empty map plus the fragment; Q5 source mode
-reads this repository's own config fragments only; the folder is `.catzc/` with no alias (ADR-CATS#5 from task006 supersedes Q6); Q4 a new
+reads this repository's own config fragments only; the folder is `.catzc/` with no alias (ADR-CATS#5 supersedes Q6); Q4 a new
 contract asset kind `defaults`; Q7 a required key is named in a header comment of the generated file, never given a value. The track folder
 is resolved through the one resolver (Get-Track or Get-CatzcModulesRoot), never an `automation` literal, so the later pwsh rename is a data
 edit.

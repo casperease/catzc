@@ -33,7 +33,7 @@ tasks:
 names:
   - '^plan-[a-z][a-z0-9]*(-[a-z0-9]+)*\.md$'
   - '^prompt-[a-z][a-z0-9]*(-[a-z0-9]+)*\.md$'
-  - '^task[0-9]{3}\.md$'
+  - '^task-[a-z][a-z0-9]*(-[a-z0-9]+)*\.md$'
   - '^value-of-plan\.md$'
   - '^decisions-[0-9]{4}-[0-9]{2}-[0-9]{2}\.md$'
   - '^questionnaire-[a-z0-9]+(-[a-z0-9]+)*\.md$'
