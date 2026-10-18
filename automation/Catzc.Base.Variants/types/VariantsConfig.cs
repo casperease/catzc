@@ -18,6 +18,7 @@ catzc:
     page: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
     test: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
     cites:
+      - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-ASPECT
       - ADR-DSGN-TRACK

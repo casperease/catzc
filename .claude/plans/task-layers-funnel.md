@@ -37,9 +37,13 @@ first; C# edits need a fresh pwsh.
 
 ## Steps
 
-1. Bootstrap constants: one constant in `Catzc.Internal.Importer.psm1` from which `New-Importer` writes the shim's line (the generated
-   `importer.ps1` stops being a second place; `Build-RootConfig 'importer.ps1'` regenerates it). Check: `New-Importer.Tests.ps1` passes;
-   Test-GeneratedFiles clean.
+1. [x] Bootstrap constants: one constant in `Catzc.Internal.Importer.psm1` from which `New-Importer` writes the shim's line (the
+   generated `importer.ps1` stops being a second place; `Build-RootConfig 'importer.ps1'` regenerates it). Check: `New-Importer.Tests.ps1`
+   passes; Test-GeneratedFiles clean. Done 2026-10-18: `$script:modulesFolder = 'automation'` at the module's top is the one constant;
+   Invoke-Importer and Invoke-ConsumerOverlay read it (the `.catzc/<folder>` overlay check too). New-Importer reads the folder back through
+   `Get-CatzcModulesRoot` relative to the root, finds the overlay with it and writes the shim's two `{{modules-folder}}` places from it, so
+   the shim spells no folder of its own. The shim it renders equals the committed `importer.ps1`; New-Importer 9/9, Write-ImporterMessage
+   5/5, `GENERATED issues=0`, `ANALYZER issues=0` on both files.
 2. The Bash hook keeps its own constant (`BashSafeguard.ConfigRelativePath` and the csproj, no importer there); try the csproj change on a
    copy first and confirm the layers doctrine's edge fact before touching the real one. Check: the hook builds; a denied call is still
    logged to out/time-safeguard.log.

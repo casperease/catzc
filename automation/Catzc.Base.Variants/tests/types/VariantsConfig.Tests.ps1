@@ -16,13 +16,25 @@ catzc:
     catzc_bundle: azure
   edges:
     cites:
+      - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-MODULE#4
 ---
 #>
 
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
-        $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Variants.VariantsConfig]::new($raw) }
+        # tracks is required, so a fixture that is about another key gets one neutral track; a fixture that states tracks keeps its own.
+        $script:make = {
+            param([System.Collections.IDictionary] $raw)
+            $full = [ordered]@{}
+            foreach ($key in $raw.Keys) {
+                $full[$key] = $raw[$key]
+            }
+            if (-not $full.Contains('tracks')) {
+                $full['tracks'] = [ordered]@{ widgets = [ordered]@{ places = @('widgetry'); type = 'modules' } }
+            }
+            [Catzc.Base.Variants.VariantsConfig]::new($full)
+        }
     }
 
     Context 'integrity (shipped variants.yml)' -Tag 'integrity' {
@@ -39,10 +51,34 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.Contains('have_customers') | Should -BeTrue
         }
 
-        It 'passes for an empty config (all keys default)' {
+        It 'gives every defaulted key its declared default when the config states only tracks' -Tag 'ADR-AUTO-DEFAULT#6' {
             $config = & $script:make ([ordered]@{})
-            $config.Keys.Count | Should -Be 0
-            $config.Contains('ado_naming') | Should -BeFalse
+            $config.ado_naming | Should -Be ([Catzc.Base.Variants.VariantsConfig]::DefaultAdoNaming)
+            $config.ado_naming | Should -Be 'standard'
+            $config.git_workspace | Should -Be 'main-direct'
+            $config.have_customers | Should -BeFalse
+            $config.aspects.Keys | Should -Be @('infrastructure')
+            $config.aspects['infrastructure'].Name | Should -Be @('tests', 'live')
+        }
+
+        It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT#6' {
+            $nulls = & $script:make ([ordered]@{ ado_naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
+            $omitted = & $script:make ([ordered]@{})
+            $nulls.ado_naming | Should -Be $omitted.ado_naming
+            $nulls.git_workspace | Should -Be $omitted.git_workspace
+            $nulls.have_customers | Should -Be $omitted.have_customers
+            $nulls.aspects.Keys | Should -Be $omitted.aspects.Keys
+        }
+
+        It 'throws when tracks is omitted or null, naming the key and where to add it' -Tag 'ADR-AUTO-DEFAULT#6' {
+            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } | Should -Throw '*declares no tracks; add tracks: to variants.yml*'
+            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = $null }) } | Should -Throw '*declares no tracks*'
+        }
+
+        It 'lays a declared convention over the built-in one, a declared track replacing its built-in' {
+            $config = & $script:make ([ordered]@{ aspects = [ordered]@{ infrastructure = @([ordered]@{ live = @('**') }); gizmos = @([ordered]@{ live = @('**') }) } })
+            $config.aspects['infrastructure'].Name | Should -Be @('live')
+            $config.aspects['gizmos'].Name | Should -Be @('live')
         }
 
         It 'accepts have_customers as the string all' {

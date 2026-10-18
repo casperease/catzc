@@ -16,6 +16,7 @@ catzc:
     catzc_bundle: azure
   edges:
     cites:
+      - ADR-AUTO-DEFAULT#6
       - ADR-DSGN-TRACK#17
 ---
 #>

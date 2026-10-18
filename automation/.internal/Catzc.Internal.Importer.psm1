@@ -24,7 +24,7 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 # The one bootstrap constant: the folder under the repository root that holds the modules. It is read before any registry
 # loads, so it cannot come from one; everything after the import reads it back through Get-CatzcModulesRoot, and
 # New-Importer writes the shim's loader line from that resolver (ADR-AUTO-LAYERS).
-$script:ModulesFolder = 'automation'
+$script:modulesFolder = 'automation'
 
 function Invoke-Importer {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Importer console output runs before the module system (Write-Message) is available')]
@@ -97,7 +97,7 @@ function Invoke-Importer {
             $modulesRoot = $env:CatzcModulesRoot
         }
         else {
-            $modulesRoot = Join-Path $repoRoot $script:ModulesFolder
+            $modulesRoot = Join-Path $repoRoot $script:modulesFolder
         }
         $env:CatzcModulesRoot = $modulesRoot
         Write-Verbose "CatzcModulesRoot: $modulesRoot"
@@ -234,11 +234,11 @@ function Invoke-ConsumerOverlay {
         [string] $RepositoryRoot
     )
 
-    if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc', $script:ModulesFolder))) {
+    if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc', $script:modulesFolder))) {
         return
     }
     if (-not (Get-Command Import-CatzcOverlay -ErrorAction Ignore)) {
-        throw "The working root '$RepositoryRoot' has a consumer overlay (.catzc/$($script:ModulesFolder)/), but this bundle does not carry Catzc.Base.Overlay, which applies it. Use a bundle whose profile includes Catzc.Base.Overlay, or remove the overlay."
+        throw "The working root '$RepositoryRoot' has a consumer overlay (.catzc/$($script:modulesFolder)/), but this bundle does not carry Catzc.Base.Overlay, which applies it. Use a bundle whose profile includes Catzc.Base.Overlay, or remove the overlay."
     }
     $applied = @(Import-CatzcOverlay)
     $overrides = @($applied | Where-Object { $_.Kind -eq 'FunctionOverride' }).Count
