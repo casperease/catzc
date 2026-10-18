@@ -62,6 +62,9 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
   the certifying CD run tags its own run `certified-<rung>`. The user is the one approver in `approver_group.members` (2026-10-18).
 - [ ] The DEPLOY pipeline: takes a CI run id, resolves that run's artifact, deploys it to prod; the certifying CD run records the run id
       (check: Test-Pipelines and the pipeline contract check clean; the first real run is the user's).
+- [ ] main-uat is `dev` (decided 2026-10-18: main-uat = dev, release-uat = test, pre-prod = preprod, prod = prod): rename each unit's
+      `<unit>-dev` ADO environment to `<unit>-main-uat` in the deploy lists and the ladder docs, so the rung has its own environment name
+      (check: Test-Pipelines clean; the rename in Azure DevOps itself is the user's).
 
 ## Open questions
 

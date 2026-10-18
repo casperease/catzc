@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9d0f5deecfbf"
+    with_body_sha: "3d145165de71"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.md
-    source: docs/explanation/.assets/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.drawio.png
+    path: docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference/chain.md
+    source: docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -33,7 +33,7 @@ is idle, a grey box: it holds ADRs the slide does not cite, or none, because no 
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
 - PRIN × release: 1 lit of 33 ADRs
-- AUTO × quality-control: 1 lit of 17 ADRs
+- AUTO × quality-control: 1 lit of 18 ADRs
 
 ## Key
 

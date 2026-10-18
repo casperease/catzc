@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e52fe47cd0c5
+    with_body_sha: d55bb523c0bc
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
+    path: docs/explanation/azure/.assets/two-layers-join-through-one-resolver/chain.md
+    source: docs/explanation/azure/.assets/two-layers-join-through-one-resolver/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

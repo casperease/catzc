@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: bb24f85f87e6
-    repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
-    role: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # Clients bridge to one server remote: in through a pull request, out from the verified point: the value-chain minimap
 
 ```text
@@ -101,6 +87,7 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 Terms the cited ADRs define:
 
 - [occupant][12], defined by [ADR-DSGN-LIFE#5][13]
+- [staging slot][14], defined by [ADR-DSGN-LIFE#5][13]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/design/server-remote-integration.md
@@ -115,3 +102,4 @@ Terms the cited ADRs define:
 [11]: ../../../../adr/glossary.md#lit-cell
 [12]: ../../../../adr/glossary.md#occupant
 [13]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[14]: ../../../../adr/glossary.md#staging-slot

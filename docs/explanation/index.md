@@ -32,9 +32,9 @@ Each diagram is drawn five times, through five lenses, so the same idea can be r
 Every diagram uses the same glyphs. The shape says what kind of thing an element is, and the colour says whether it is structure (dark, with
 white text) or state and outcome (light). Every diagram also carries its own legend panel.
 
-![The glyph library: one kind, one shape, one colour, one legend phrase](.assets/glyphs.drawio.png)
+![The glyph library: one kind, one shape, one colour, one legend phrase](.assets/glyphs/diagram.drawio.png)
 
-The glyph library is described element by element in [its asset description](glyphs.drawio.md).
+The glyph library is described element by element in [its asset description](.assets/glyphs/diagram.drawio.md).
 
 The sidebar of every diagram places it on three maps, each drawn small as a minimap:
 

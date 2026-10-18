@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "07e0a0c21ebb"
+    with_body_sha: "02e769ea1a5c"
     repo_status: locked
-    path: docs/explanation/.assets/grid/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md
-    source: docs/explanation/.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
+    path: docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest/grid.md
+    source: docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -32,9 +32,9 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- automation × yaml: 2 lit of 112 files
-- docs × markdown: 3 lit of 2742 files
-- pipelines × pipeline-yaml: 1 lit of 9 files
+- docs × markdown: 3 lit of 2761 files
+- pipelines × pipeline-yaml: 1 lit of 11 files
+- pwsh × yaml: 2 lit of 115 files
 
 ## Key
 
@@ -46,31 +46,31 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ## Why each cell is lit
 
-### automation × yaml (2 lit files)
-
-Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
-
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 75 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][6]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 657 (text).
-
 ### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/design/dora-explains.md][7]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 27 (text).
+- [docs/adr/design/dora-explains.md][5]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 27 (text).
 - [docs/adr/design/thin-platforms.md][1]: selected by [ADR-DSGN-THINPLAT][1]: the ADR's own file.
-- [docs/adr/index.md][8]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 109 (text).
+- [docs/adr/index.md][6]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 109 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/ci-automation.yaml][9]: selected by [ADR-DSGN-THINPLAT][1]: a pipeline that cites nothing itself carries its globset's
+- [pipelines/ci-automation.yaml][7]: selected by [ADR-DSGN-THINPLAT][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 661 (text).
+
+### pwsh × yaml (2 lit files)
+
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
+([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 75 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][9]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 661 (text).
 
 ## Keywords
 
@@ -79,9 +79,9 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 - [file language][13]
 - [cell][14]
 - [lit cell][15]
-- [automation][16]: a track
 - [docs][16]: a track
 - [pipelines][16]: a track
+- [pwsh][16]: a track
 - [markdown][17]: a file language
 - [pipeline-yaml][17]: a file language
 - [yaml][17]: a file language
@@ -90,11 +90,11 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
 [3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[6]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[7]: ../../../../adr/design/dora-explains.md
-[8]: ../../../../adr/index.md
-[9]: ../../../../../pipelines/ci-automation.yaml
+[5]: ../../../../adr/design/dora-explains.md
+[6]: ../../../../adr/index.md
+[7]: ../../../../../pipelines/ci-automation.yaml
+[8]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[9]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
 [10]: ../../bind-to-one-cli-delegate-the-rest.md
 [11]: ../../../../adr/glossary.md#world-map
 [12]: ../../../../adr/glossary.md#track

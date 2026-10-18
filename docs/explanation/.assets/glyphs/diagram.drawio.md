@@ -6,8 +6,8 @@ Structure is dark with white text: slate, mauve, olive. State and outcome are li
 Every diagram in docs/explanation uses these glyphs and these legend phrases.
 ```
 
-This describes what the [glyph library](.assets/glyphs.drawio.png) draws. Every explanation diagram is built from these glyphs, and each
-legend entry on a diagram uses the phrase given here. How to read a diagram with them is in [the explanation index](index.md).
+This describes what the [glyph library](diagram.drawio.png) draws. Every explanation diagram is built from these glyphs, and each
+legend entry on a diagram uses the phrase given here. How to read a diagram with them is in [the explanation index](../../index.md).
 
 ## Things
 
