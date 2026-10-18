@@ -17,9 +17,9 @@ A bundle is how cats leaves the repository it is developed in: the selected modu
 anywhere. The idea fits in one line. One build of one commit produces one package with one content hash, an integrity check proves the
 package is what the build wrote, and every place the package is installed holds a copy of those same bytes.
 
-![One commit, one verified, immutable package](../.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png)
+![One commit, one verified, immutable package](.assets/one-commit-one-immutable-package/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-commit-one-immutable-package.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-commit-one-immutable-package/diagram.drawio.md).
 
 ## Walkthrough
 

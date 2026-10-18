@@ -53,7 +53,7 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $result = Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')
         $result.Subject | Should -Be 'pipelines'
         $result.IssueCount | Should -Be 1
-        $result.Files | Should -Be 2
+        $result.Facts['Files'] | Should -Be 2
         $result.Issues[0] | Should -BeLike '`[ADR-PIPE-NAME#1`] pipelines/widget-thing.yaml: *'
     }
 

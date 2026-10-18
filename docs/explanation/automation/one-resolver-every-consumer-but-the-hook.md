@@ -19,9 +19,9 @@ every consumer in pwsh its limit, so tuning a limit is one edit to one file. The
 compiled program that runs before every shell call a coding agent makes; it compiles the resolver's own config type into itself, so the hook
 and the pwsh side share one parser and one set of defaults without sharing a process.
 
-![One resolver serves every consumer but the hook](../.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png)
+![One resolver serves every consumer but the hook](.assets/one-resolver-every-consumer-but-the-hook/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-resolver-every-consumer-but-the-hook.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-resolver-every-consumer-but-the-hook/diagram.drawio.md).
 
 ## Walkthrough
 

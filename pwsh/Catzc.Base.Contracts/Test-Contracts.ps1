@@ -1,6 +1,6 @@
 function Test-Contracts {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [ValidatePattern('^[0-9]+\.[0-9]+\.[0-9]+$')]
         [string] $Version = '0.0.0',

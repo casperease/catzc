@@ -17,9 +17,9 @@ call either carries its own limit, within the limits cats configures, or it does
 a call into a bounded one, because a hook that rewrites must also approve, and an approval skips the permission prompt that every other
 safeguard relies on.
 
-![A shell call carries its limit or is denied](../.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png)
+![A shell call carries its limit or is denied](.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](a-shell-call-carries-its-limit-or-is-denied.drawio.md).
+The diagram is described element by element in [its asset description](.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.md).
 
 ## Walkthrough
 

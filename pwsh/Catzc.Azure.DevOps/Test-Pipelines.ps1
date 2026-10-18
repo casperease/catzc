@@ -1,6 +1,6 @@
 function Test-Pipelines {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string] $Path,
 

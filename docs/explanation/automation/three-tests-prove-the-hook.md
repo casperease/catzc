@@ -18,9 +18,9 @@ One rule governs the whole path of an agent's shell call through cats: every wai
 denies a call outside them. A second rule fixes where the defaults live. Three tests, one per tier, prove that the hook keeps to the rule as
 published, not just as written. One route the rule offers, exempting slow work by its budget GUID, has no code behind it for a Bash call.
 
-![Three tests prove the hook](../.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png)
+![Three tests prove the hook](.assets/three-tests-prove-the-hook/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](three-tests-prove-the-hook.drawio.md).
+The diagram is described element by element in [its asset description](.assets/three-tests-prove-the-hook/diagram.drawio.md).
 
 ## Walkthrough
 

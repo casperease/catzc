@@ -16,7 +16,7 @@ Describe 'Sync-AdoEnvironmentApprovals' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Action = 'Create'; Name = $Name; Descriptor = 'vssgp.g1'; IdentityId = 'group-1' }
         }
         Mock Sync-AdoGraphGroupMembers -ModuleName Catzc.Azure.DevOps { [pscustomobject]@{ Added = @($Member); Removed = @() } }
-        Mock Sync-AdoEnvironmentCheck -ModuleName Catzc.Azure.DevOps { 'Create' }
+        Mock Sync-AdoEnvironmentCheck -ModuleName Catzc.Azure.DevOps { [pscustomobject]@{ Environment = 'Unchanged'; Check = 'Create' } }
     }
 
     It 'applies the group, its members and one check per environment, in that order, and reports each' {
@@ -30,6 +30,16 @@ Describe 'Sync-AdoEnvironmentApprovals' -Tag 'L0', 'logic' {
         Should -Invoke Sync-AdoEnvironmentCheck -ModuleName Catzc.Azure.DevOps -Times 2 -Exactly -ParameterFilter {
             $ApproverId -eq 'group-1' -and $TimeoutMinutes -eq 480
         }
+    }
+
+    It 'reports an environment it creates before that environment''s check' {
+        Mock Sync-AdoEnvironmentCheck -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Environment -eq 'widget-prod' } {
+            [pscustomobject]@{ Environment = 'Create'; Check = 'Create' }
+        }
+        $result = @(Sync-AdoEnvironmentApprovals)
+        $result.Kind | Should -Be @('Group', 'Check', 'Environment', 'Check')
+        $result[2].Target | Should -Be 'widget-prod'
+        $result[2].Action | Should -Be 'Create'
     }
 
     It 'passes -DryRun to every step' {

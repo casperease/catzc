@@ -1,7 +1,9 @@
 # Apply the prod-tier approvals
 
-A CD run must not reach a prod-tier environment unattended ([ADR-FLOW-CD](../../adr/flow/cd-discipline-and-promotion-flow.md)). Every
-prod-tier Azure DevOps environment therefore carries one **Approval** check, approved by one **approver group** of named people. All of it
+A CD run must not reach a prod-tier environment unattended, and a commit climbs past the RC and RBC gates only when a person certifies it
+([ADR-FLOW-CD](../../adr/flow/cd-discipline-and-promotion-flow.md)). Every prod-tier Azure DevOps environment, and each unit's
+`release-uat` (RC) and `pre-prod` (RBC) environment, therefore carries one **Approval** check, approved by one **approver group** of named
+people. All of it
 is declared in one config, `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`, and one command applies the config to Azure DevOps.
 Nothing is set by hand in the Azure DevOps portal: the config is the truth, and the apply makes the organization match it.
 
@@ -44,11 +46,12 @@ The apply works in a fixed order, and each step reads the organization before it
 1. **The group.** It finds `[<project>]\<name>` among the project's groups and creates it when it is missing.
 2. **The members.** It resolves each configured member to an Azure DevOps user, adds the ones the group lacks, and removes every member the
    config does not list.
-3. **The checks.** For each environment, it creates the Approval check when there is none, updates it when its approver or timeout differs
-   from the config, and leaves it alone otherwise.
+3. **The checks.** For each environment, it creates the environment when it does not exist yet (reported as an `Environment` record), then
+   creates the Approval check when there is none, updates it when its approver or timeout differs from the config, and leaves it alone
+   otherwise.
 
-A missing environment, an approver who is not a user of the organization, or an organization URL that is not `https://dev.azure.com/<org>`
-stops the apply with a message naming it. A CD run creates its environments on its first deploy, so run the apply after that first run.
+An approver who is not a user of the organization, or an organization URL that is not `https://dev.azure.com/<org>`, stops the apply with a
+message naming it.
 
 ## Run it again
 

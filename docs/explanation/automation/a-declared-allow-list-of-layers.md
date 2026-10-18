@@ -16,9 +16,9 @@ The module dependency declaration is one file that says which module may depend 
 the other way round. The declaration is the allow-list: it lets each layer depend only on the layers below it, and a real edge it does not
 list fails the build. Stripped of every module and function name, the whole idea is three layers and one failure.
 
-![A declared allow-list whose edges point down](../.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png)
+![A declared allow-list whose edges point down](.assets/a-declared-allow-list-of-layers/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](a-declared-allow-list-of-layers.drawio.md).
+The diagram is described element by element in [its asset description](.assets/a-declared-allow-list-of-layers/diagram.drawio.md).
 
 ## Walkthrough
 

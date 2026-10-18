@@ -1,9 +1,18 @@
-# Prod-tier approvals, applied by Sync-AdoEnvironmentApprovals (docs/how-to/automation/apply-environment-approvals.md).
+# Approval checks, applied by Sync-AdoEnvironmentApprovals (docs/how-to/automation/apply-environment-approvals.md): each unit's
+# release-uat (RC) and pre-prod (RBC) gate, then the prod-tier environments. The apply creates an environment that does not exist yet.
 approver_group:
   name: Prod Approvers
   members: []
 timeout_hours: 24
 environments:
+  - shared-release-uat
+  - shared-pre-prod
+  - apex-release-uat
+  - apex-pre-prod
+  - nova-release-uat
+  - nova-pre-prod
+  - flux-release-uat
+  - flux-pre-prod
   - shared-psub
   - apex-psub
   - apex-prod

@@ -19,9 +19,9 @@ Building and placing the bundle takes two commands at the prompt. In a source-mo
 own output and prints where the build went, and then one command places it: `Install-Catzc -Scope CurrentUser`, `Export-Catzc -Root <dir>`,
 or `Export-Catzc -To nuget`. A build that fails its integrity check throws with the whole list of what is wrong.
 
-![Build, then place with one command](../.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png)
+![Build, then place with one command](.assets/build-then-place-with-one-command/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](build-then-place-with-one-command.drawio.md).
+The diagram is described element by element in [its asset description](.assets/build-then-place-with-one-command/diagram.drawio.md).
 
 ## Walkthrough
 

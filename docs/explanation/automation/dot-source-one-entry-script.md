@@ -19,9 +19,9 @@ A person starts cats by dot-sourcing one entry script, one per run mode, and see
 stop it: an old PowerShell, a function-name clash or an incomplete bundle, and a module left over from the other run mode. Each stop names
 what is wrong. Otherwise a console session ends on one "Loaded in N seconds" line.
 
-![Dot-source one entry script; a failed check stops it](../.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png)
+![Dot-source one entry script; a failed check stops it](.assets/dot-source-one-entry-script/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](dot-source-one-entry-script.drawio.md).
+The diagram is described element by element in [its asset description](.assets/dot-source-one-entry-script/diagram.drawio.md).
 
 ## Walkthrough
 

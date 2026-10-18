@@ -19,9 +19,9 @@ The cats load sequence runs in six stages, from the generated shim to the final 
 is constrained by at least one ADR rule, and each of those stages is checked by a gate: a test for four of them, and code review for the
 session set-up. The unload has neither a rule nor a gate, and two things the run-modes ADR names do not exist in code.
 
-![Every load stage but the unload has an ADR rule](../.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png)
+![Every load stage but the unload has an ADR rule](.assets/rule-and-gate-per-load-stage/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](rule-and-gate-per-load-stage.drawio.md). Each stage has its own band,
+The diagram is described element by element in [its asset description](.assets/rule-and-gate-per-load-stage/diagram.drawio.md). Each stage has its own band,
 and a stage's gate sits in its band beside the rules it checks.
 
 ## Walkthrough

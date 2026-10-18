@@ -22,9 +22,9 @@ of their tests is the whole contract. Converting a path tries the output root be
 path when neither applies; resolving a path re-anchors `out/` on `Get-OutputRoot`, passes a rooted path through and joins everything else
 onto the repository root. Across a stage boundary `ArtifactRef` does the same job against the artifact root.
 
-![The output root is tried first, then the repository root](../.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png)
+![The output root is tried first, then the repository root](.assets/output-root-first-then-repo-root/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](output-root-first-then-repo-root.drawio.md).
+The diagram is described element by element in [its asset description](.assets/output-root-first-then-repo-root/diagram.drawio.md).
 
 ## Walkthrough
 

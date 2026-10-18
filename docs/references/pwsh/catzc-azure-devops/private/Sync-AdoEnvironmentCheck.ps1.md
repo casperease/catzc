@@ -11,11 +11,11 @@ Keeps one Approval check on one Azure DevOps environment, with the configured ap
 
 ### description
 
-The third step of the environment-approvals apply, once per environment. It finds the environment by name, reads its checks, and picks the
-Approval check by its well-known check-type id (`ado_approval_check_type` in guids.yml). It creates the check when there is none, updates it
-when its approver or timeout differs from the config, and leaves it alone otherwise. A missing environment throws, naming it; a CD run
-creates its environments on its first deploy. With `-DryRun` the action is reported and nothing is written, so a dry run needs no approver
-id yet.
+The third step of the environment-approvals apply, once per environment. It finds the environment by name and creates it when it does not
+exist, so an RC or RBC gate's environment carries its check before any pipeline deploys there. It reads the checks of an environment that
+existed and picks the Approval check by its well-known check-type id (`ado_approval_check_type` in guids.yml). It creates the check when
+there is none, updates it when its approver or timeout differs from the config, and leaves it alone otherwise. With `-DryRun` both actions
+are reported and nothing is written, so a dry run needs no approver id yet.
 
 ### parameter `Context`
 
@@ -39,7 +39,8 @@ Report the action without writing it.
 
 ### outputs
 
-`[string]` The action: Create, Update or Unchanged.
+`[pscustomobject]` `Environment`, the environment's action (Create or Unchanged), and `Check`, the check's action (Create, Update or
+Unchanged).
 
 ### example 1
 

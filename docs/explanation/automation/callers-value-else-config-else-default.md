@@ -18,9 +18,9 @@ under is a configurable setting that resolves the same way as every other settin
 configuration, else the sensible default declared once on the config type. An exemption can raise that limit to a ceiling while slow work is
 tuned, and nothing removes it, because there is no "no limit" value.
 
-![Every wait is bounded: the caller's value, else the config, else the default](../.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png)
+![Every wait is bounded: the caller's value, else the config, else the default](.assets/callers-value-else-config-else-default/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](callers-value-else-config-else-default.drawio.md).
+The diagram is described element by element in [its asset description](.assets/callers-value-else-config-else-default/diagram.drawio.md).
 
 ## Walkthrough
 

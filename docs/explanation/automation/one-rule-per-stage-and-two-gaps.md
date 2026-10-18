@@ -19,9 +19,9 @@ Two rules decide how a time limit is found in cats. ADR-AUTO-FAILFAST#7 says wha
 raise one; ADR-AUTO-DEFAULT#6 says in which order a configurable setting resolves and where its default is declared. Two L0 test files and
 the Bash hook check them, and the checks leave two gaps: an exemption the hook never reads, and one mode that no gate bounds.
 
-![Two rules govern every stage, tests and the hook check them, and two gaps remain](../.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png)
+![Two rules govern every stage, tests and the hook check them, and two gaps remain](.assets/one-rule-per-stage-and-two-gaps/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-rule-per-stage-and-two-gaps.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-rule-per-stage-and-two-gaps/diagram.drawio.md).
 
 ## Walkthrough
 

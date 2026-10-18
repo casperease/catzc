@@ -20,9 +20,9 @@ says how long it ran, what the limit was, and where to change it. The limits are
 for a foreground bash call, so that a call which legitimately needs longer shows up as a blocker to tune rather than a limit raised quietly
 in code.
 
-![A run past its limit stops with a message that names the limit](../.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png)
+![A run past its limit stops with a message that names the limit](.assets/a-stopped-run-names-its-limit/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](a-stopped-run-names-its-limit.drawio.md).
+The diagram is described element by element in [its asset description](.assets/a-stopped-run-names-its-limit/diagram.drawio.md).
 
 ## Walkthrough
 

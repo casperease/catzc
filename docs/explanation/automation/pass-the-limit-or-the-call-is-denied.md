@@ -17,9 +17,9 @@ An agent working at a devbox in cats passes `timeout: 3000` on every foreground 
 shape is denied before it starts, with a message that says what was wrong and the exact form to re-issue it in, and the denial is written to
 a log so the limits can be tuned together instead of worked around.
 
-![Pass the limit or the call is denied](../.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png)
+![Pass the limit or the call is denied](.assets/pass-the-limit-or-the-call-is-denied/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](pass-the-limit-or-the-call-is-denied.drawio.md).
+The diagram is described element by element in [its asset description](.assets/pass-the-limit-or-the-call-is-denied/diagram.drawio.md).
 
 ## Walkthrough
 

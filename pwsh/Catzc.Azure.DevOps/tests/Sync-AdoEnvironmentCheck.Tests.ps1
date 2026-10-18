@@ -16,7 +16,7 @@ Describe 'Sync-AdoEnvironmentCheck' -Tag 'L0', 'logic' {
             [pscustomobject]@{ id = 42; name = $name }
         }
         Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/checks/configurations?resourceType=*' } { $script:existing }
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Method -in 'Post', 'Patch' } { [pscustomobject]@{ id = 43; name = $Body.name } }
+        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Method -in 'Post', 'Patch' } { [pscustomobject]@{ id = 43; name = $Body['name'] } }
     }
 
     It 'creates the check when the environment has none' {
@@ -58,7 +58,7 @@ Describe 'Sync-AdoEnvironmentCheck' -Tag 'L0', 'logic' {
             $result.Environment | Should -Be 'Create'
             $result.Check | Should -Be 'Create'
             Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -Times 1 -Exactly -ParameterFilter {
-                $Method -eq 'Post' -and $Uri -like '*/distributedtask/environments?api-version=*' -and $Body.name -eq 'widget-release-uat'
+                $Method -eq 'Post' -and $Uri -like '*/distributedtask/environments?api-version=*' -and $Body['name'] -eq 'widget-release-uat'
             }
             Should -Invoke Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -Times 1 -Exactly -ParameterFilter {
                 $Method -eq 'Post' -and $Uri -like '*/checks/configurations?api-version=*' -and $Body.resource.id -eq '43'

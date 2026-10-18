@@ -38,11 +38,20 @@ function Sync-AdoEnvironmentApprovals {
             TimeoutMinutes = $config.timeout_hours * 60
             DryRun         = $DryRun
         }
-        $action = Sync-AdoEnvironmentCheck @check
+        $synced = Sync-AdoEnvironmentCheck @check
+        if ($synced.Environment -ne 'Unchanged') {
+            [pscustomobject]@{
+                Kind    = 'Environment'
+                Target  = $name
+                Action  = $synced.Environment
+                Details = 'the environment did not exist'
+                DryRun  = [bool]$DryRun
+            }
+        }
         [pscustomobject]@{
             Kind    = 'Check'
             Target  = $name
-            Action  = $action
+            Action  = $synced.Check
             Details = "approver $groupName, timeout $($config.timeout_hours) h"
             DryRun  = [bool]$DryRun
         }

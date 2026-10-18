@@ -19,7 +19,7 @@ Where the files that cite ADR-AUTO-DEPM sit in the repository: tracks down, file
 4 of 342 cells lit, holding 15 files.
 ```
 
-![The world-map minimap of One declared allow-list says what may depend on what, and every edge points down](adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.png)
+![The world-map minimap of One declared allow-list says what may depend on what, and every edge points down](grid.png)
 
 This is the world-map minimap in the sidebar of the meta diagram of [One declared allow-list says what may depend on what, and every edge
 points down][19], which explains [ADR-AUTO-DEPM][1]. It lights every cell of the world map that holds a file citing those codes, so it shows
@@ -108,29 +108,29 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 - [pipeline-yaml][26]: a file language
 - [yaml][26]: a file language
 
-[1]: ../../../adr/automation/controlling-module-dependencies.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
-[6]: ../../../../.claude/plans/plan-assert-wait.md
-[7]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[8]: ../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
-[9]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[10]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[11]: ../../../adr/automation/dora-explains.md
-[12]: ../../../adr/index.md
-[13]: ../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[14]: ../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-[15]: ../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[16]: ../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[17]: ../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
-[18]: ../../../../pipelines/ci-automation.yaml
-[19]: ../../automation/a-declared-allow-list-of-layers.md
-[20]: ../../../adr/glossary.md#world-map
-[21]: ../../../adr/glossary.md#track
-[22]: ../../../adr/glossary.md#file-language
-[23]: ../../../adr/glossary.md#cell
-[24]: ../../../adr/glossary.md#lit-cell
-[25]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[26]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/automation/controlling-module-dependencies.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
+[6]: ../../../../../.claude/plans/plan-assert-wait.md
+[7]: ../../../../../.claude/plans/plan-module-kinds-tracks.md
+[8]: ../../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
+[9]: ../../../../../.claude/plans/prompt-module-model-1-prepare.md
+[10]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[11]: ../../../../adr/automation/dora-explains.md
+[12]: ../../../../adr/index.md
+[13]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+[14]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[15]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[16]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[17]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[18]: ../../../../../pipelines/ci-automation.yaml
+[19]: ../../a-declared-allow-list-of-layers.md
+[20]: ../../../../adr/glossary.md#world-map
+[21]: ../../../../adr/glossary.md#track
+[22]: ../../../../adr/glossary.md#file-language
+[23]: ../../../../adr/glossary.md#cell
+[24]: ../../../../adr/glossary.md#lit-cell
+[25]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

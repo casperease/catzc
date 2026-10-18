@@ -39,7 +39,7 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     It 'returns the result and counts every validator under -PassThru' {
         $result = Test-ConfigValidators -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'config-validators'
-        $result.Validators | Should -Be 3
+        $result.Facts['Validators'] | Should -Be 3
         $result.Issues | Should -HaveCount 1
     }
 

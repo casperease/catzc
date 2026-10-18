@@ -65,8 +65,8 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Azure -ParameterFilter { $Config -eq 'network' } { & $script:plan 'alpha', 'beta' }
         $result = Test-AzureNetworkPlan -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
-        $result.Environments | Should -Be 2
-        $result.Subscriptions | Should -Be 2
+        $result.Facts['Environments'] | Should -Be 2
+        $result.Facts['Subscriptions'] | Should -Be 2
     }
 
     It 'throws once listing a ghost plan and a standard environment with no plan' -Tag 'ADR-AZ-NETWORK#2' {
@@ -115,8 +115,8 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
 Describe 'Azure network plan sync' -Tag 'L0', 'integrity', 'ADR-AZ-NETWORK#2', 'ADR-AZ-NETWORK#5' {
     It 'the shipped network.yml and azure.yml environments and subscriptions are in sync' {
         $result = Test-AzureNetworkPlan -PassThru -OutputFolder (Join-Path $TestDrive 'azure-network-plan')
-        $result.Environments | Should -BeGreaterThan 0
-        $result.Subscriptions | Should -BeGreaterThan 0
+        $result.Facts['Environments'] | Should -BeGreaterThan 0
+        $result.Facts['Subscriptions'] | Should -BeGreaterThan 0
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

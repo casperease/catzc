@@ -18,9 +18,9 @@ declared up front in one file, `dependencies.yml`, and the declaration is the al
 Seen from far enough away, the declared graph has a simple shape. The modules sit in three layers, and every allowed dependency points down
 to a lower one.
 
-![Module dependencies form three layers, and every edge points down](../.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png)
+![Module dependencies form three layers, and every edge points down](.assets/three-layers-edges-point-down/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](three-layers-edges-point-down.drawio.md).
+The diagram is described element by element in [its asset description](.assets/three-layers-edges-point-down/diagram.drawio.md).
 
 ## Walkthrough
 

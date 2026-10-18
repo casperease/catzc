@@ -19,9 +19,9 @@ coding agent's shell calls. They cannot share a process, because the hook runs b
 PowerShell session. They share the source instead. The hook's project compiles the `Catzc.Base.Timeouts` module's own types straight from
 their files, so the limits it reads and the verdict it gives are the ones `Get-TimeoutSeconds` resolves and the module's tests check.
 
-![The hook compiles the module's own verdict and limits](../.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png)
+![The hook compiles the module's own verdict and limits](.assets/hook-compiles-module-verdict-and-limits/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](hook-compiles-module-verdict-and-limits.drawio.md).
+The diagram is described element by element in [its asset description](.assets/hook-compiles-module-verdict-and-limits/diagram.drawio.md).
 
 ## Walkthrough
 

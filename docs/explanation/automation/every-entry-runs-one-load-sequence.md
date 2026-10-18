@@ -16,9 +16,9 @@ Cats loads through the same five stages in the same order, whatever the entry po
 then tidy up and leave. There is one living importer, never a forked copy, so a session loaded from the repository and a session loaded from
 a build are set up the same way.
 
-![Every entry runs one load sequence](../.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png)
+![Every entry runs one load sequence](.assets/every-entry-runs-one-load-sequence/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](every-entry-runs-one-load-sequence.drawio.md).
+The diagram is described element by element in [its asset description](.assets/every-entry-runs-one-load-sequence/diagram.drawio.md).
 
 ## Walkthrough
 
