@@ -69,8 +69,9 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
        files. After Phase 1: `Get-AdrCodesFileMetaFact` drops unregistered codes from held lists (the seven placeholder heads). Check: the
        counts in the plan. Done 2026-10-18 for the first slice: `Get-AdrUsage` 7,473 rows before and 7,474 after (5,657 rule, 1,817 whole;
        head 5,190, link 2,284), the one new row the page head's rule citation that the narrow produced; unregistered codes 0 before and
-       after. The `Get-AdrCodesFileMetaFact` change is in a file session catzc-e5 holds, so it waits for that session. After slices 2 and 3:
-       7,473 rows (5,655 rule, 1,818 whole), the two dropped duplicates gone from the count; unregistered codes 0.
+       after. The `Get-AdrCodesFileMetaFact` change is moot: the processor reads cites from the file's text and its comment page only
+       (ADR-REPO-FILEMETA#14), with no held list to drop a code from, checked in the tree 2026-10-18. After slices 2 and 3: 7,473 rows
+       (5,655 rule, 1,818 whole), the two dropped duplicates gone from the count; unregistered codes 0.
 8. Phase 2 per D1 to D5: Step 2.0 inventory (`out/measure-text-in-source.ps1` writes `out/source-text-ledger.csv`; the threshold setting
    with its default on the config type); 2.1 verdicts; 2.2 review in slices (every delete verdict read first); 2.3 apply one file at a time;
    2.4 verify. Check: Test-Comments, Test-FileMeta clean per file; the ledger complete. Step 2.0 done 2026-10-18 by

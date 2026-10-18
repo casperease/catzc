@@ -113,16 +113,16 @@ the user's own and changes what every head's track key means. The config default
       dependencies.yml edges land.
 - [x] ADR-DSGN-TRACK gains the rule that a track has one primary language by default (check: Test-AdrRegistry, Test-Links). In the tree as
       ADR-DSGN-TRACK#18, "A track has one primary language by default", so the task's "rule 19" is that rule; `ADRREG issues=0`.
-- [ ] Namespace follow-up after kinds land (check: a decided section here). Open question for the next decision round: is a module's
-      namespace its track's name, which keeps `Catzc.Base.*` for the pwsh track (the recommendation), and does a step follow?
+- [x] Namespace follow-up after kinds land (check: a decided section here). Decided 2026-10-18 (D29, delegated by the user): a module's
+      namespace is its track's name, so `Catzc.Base.*` stays for the pwsh track, and no step follows.
 - [x] Tell plan-config-defaults and plan-layers-vocabulary-rename-contracts when implemented (check: the waits_on line in both heads is
       gone). Done 2026-10-18 by task-module-model-closeout step 10.
 
 ## Refs
 
 - carried below: the k8s kinds draft (decisions in its section 6), which the kind-to-role task still reads; the module-model, track-type,
-  track-structure and tracks-modules-types drafts are in the tree as ADR-AUTO-MODULE, ADR-DSGN-TRACKTYPE and ADR-DSGN-MODTYPE, so they are gone
-  (git keeps them)
+  track-structure and tracks-modules-types drafts are in the tree as ADR-AUTO-MODULE, ADR-DSGN-TRACKTYPE and ADR-DSGN-MODTYPE, so they are
+  gone (git keeps them)
 
 ## Carried: out/plan-k8s-kinds.md (verbatim, absorbed 2026-10-16; headings below are the draft's own)
 
@@ -263,4 +263,3 @@ borrow names, not a runtime. Not a repo-wide version (mono repo, not monolith): 
 
 Note (parallel sessions): `FileMetaConfig.cs` and `FileSelector.cs` have uncommitted edits from another session. Message before touching
 them.
-

@@ -23,11 +23,16 @@ named in the report.
 
 ## Open steps
 
-- [ ] `plan-adr-link-cleanup-prose-to-pages.md`: trim the carried draft (434 lines) when catzc-cc releases the file. Check: `Test-Links`
-      reports 0 dangling.
-- [ ] `plan-layers-vocabulary-rename-contracts.md`: trim the 890-line file after its data is in the tree, when catzc-cc releases it. Check:
-      `Test-Links` reports 0 dangling.
-- [ ] `plan-module-kinds-tracks.md`: trim (956 lines) when catzc-cc releases it. Check: `Test-Links` reports 0 dangling.
+- [x] `plan-adr-link-cleanup-prose-to-pages.md`: trim the carried draft when catzc-cc releases the file. Check: `Test-Links` reports 0
+      dangling. Done 2026-10-18: Phase 1 is done (its placeholder fix moot since the held-codes merge went), so the draft's Phase 1 half is
+      cut and its Phase 2 half, the open step's spec, stays; 450 to 222 lines.
+- [x] `plan-layers-vocabulary-rename-contracts.md`: trim after its data is in the tree. Check: `Test-Links` reports 0 dangling. Judged
+      2026-10-18, verdict keep: its four carried drafts (the rename map and phases, the layer vocabulary, the command contracts, the rename
+      worklist) are the specs of the open phases P2 to P8, so none is in the tree yet; trim each as its phase lands.
+- [x] `plan-module-kinds-tracks.md`: trim. Check: `Test-Links` reports 0 dangling. Done 2026-10-18: the module-model, track-type,
+      track-structure and tracks-modules-types drafts are in the tree (ADR-AUTO-MODULE, ADR-DSGN-TRACKTYPE, ADR-DSGN-MODTYPE; the track-type
+      Q1 to Q5 answered by its rules, LoadedModule dropped by D03) and are cut; the k8s kinds draft stays for the kind-to-role task; 1,062 to
+      266 lines. plan-config-defaults keeps its draft too: Phases 2, 4 and 5 are open.
 - [x] The topic prompts superseded by task files (prompt-automation-layers-continue, prompt-config-defaults-continue,
       prompt-k8s-kinds-1-prepare, prompt-k8s-kinds-2-implement, prompt-adr-links-and-plans-continue) and the landed module-model prompts
       (prompt-module-model-1-prepare, prompt-module-model-2-implement): delete each once no plan links it. Check: `Test-Links` clean on

@@ -81,7 +81,7 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
     It 'excludes the out-of-scope trees via negation globs by default' {
         Test-Markdownlint -OutputFolder $script:reportBase | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -match '!out' -and $Command -match '!docs/notes' -and $Command -match '!automation/\.vendor'
+            $Command -match '!out' -and $Command -match '!docs/notes' -and $Command -match '!\*\*/\.vendor'
         }
     }
 

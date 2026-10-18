@@ -19,7 +19,7 @@ public static class AssertBashTimeout
         try
         {
             string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
-            TimeoutsConfig config = new TimeoutsConfig(LoadYaml(Path.Combine(repositoryRoot, BashSafeguard.ConfigRelativePath)));
+            TimeoutsConfig config = new TimeoutsConfig(LoadYaml(BashSafeguard.FindConfig(repositoryRoot)));
             string environment = BashSafeguard.EnvironmentOf(
                 Environment.GetEnvironmentVariable("TF_BUILD"), Environment.GetEnvironmentVariable("GITHUB_ACTIONS"));
 

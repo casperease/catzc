@@ -1,12 +1,35 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Text.Json;
 
 namespace Catzc.Base.Timeouts;
 
 public static class BashSafeguard
 {
-    public const string ConfigRelativePath = "automation/Catzc.Base.Timeouts/configs/timeouts.yml";
+    public const string ConfigModulePath = "Catzc.Base.Timeouts/configs/timeouts.yml";
+
+    // The hook runs outside cats, so it finds the modules folder by the one top-level folder that holds this config (ADR-AUTO-LAYERS).
+    public static string FindConfig(string repositoryRoot)
+    {
+        if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentNullException("repositoryRoot"); }
+        string found = null;
+        foreach (string folder in Directory.GetDirectories(repositoryRoot))
+        {
+            string candidate = Path.Combine(folder, ConfigModulePath);
+            if (!File.Exists(candidate)) { continue; }
+            if (found != null)
+            {
+                throw new InvalidOperationException("More than one top-level folder of " + repositoryRoot + " holds " + ConfigModulePath + ": " + found + ", " + candidate + ".");
+            }
+            found = candidate;
+        }
+        if (found == null)
+        {
+            throw new FileNotFoundException("No top-level folder of " + repositoryRoot + " holds " + ConfigModulePath + ".");
+        }
+        return found;
+    }
 
     public static string EnvironmentOf(string tfBuild, string githubActions)
     {
@@ -81,9 +104,9 @@ public static class BashSafeguard
         }
 
         string escalation = actor == "pipeline"
-            ? "In a pipeline nobody tunes it live: fix the call, or its limit in " + ConfigRelativePath + "."
+            ? "In a pipeline nobody tunes it live: fix the call, or its limit in " + ConfigModulePath + "."
             : actor == "main"
-                ? "If the work legitimately needs longer, raise it with the user as a blocker to tune in " + ConfigRelativePath + "; never work around the safeguard."
+                ? "If the work legitimately needs longer, raise it with the user as a blocker to tune in " + ConfigModulePath + "; never work around the safeguard."
                 : "You are a subagent: report the blocker to your coordinator rather than retrying with a larger limit.";
 
         string snippet = (command ?? "").Replace('\t', ' ').Replace('\r', ' ').Replace('\n', ' ');
@@ -92,7 +115,7 @@ public static class BashSafeguard
             background ? "background" : "foreground", requested, limitSeconds + " s", snippet);
 
         return "Bash time safeguard (" + environment + ", " + (background ? "background" : "foreground") + "): " + problem +
-            " (limits in " + ConfigRelativePath + "). " + fix + " " + escalation;
+            " (limits in " + ConfigModulePath + "). " + fix + " " + escalation;
     }
 
     // The PreToolUse output that denies the call with a reason.

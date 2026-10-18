@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-module-kinds-tracks]
   value: high
-  blocked_on: step 9, the namespace question, waits for the next decision round
+  blocked_on: nothing; step 10's last open line, plan-module-kinds-tracks step 10 (the infrastructure track), is that plan's own design step
   targets:
     [
       automation/Catzc.Base.Globs/configs/file-kinds.yml,
@@ -59,10 +59,11 @@ through the generators, never by sweep: change the source once, regenerate, veri
 8. [x] `Test-ShippedTypes` in a fresh process: `TrackTypeEntry` and `VendorEntry` resolve after import, or the reason is fixed in the type
        (Q88). Check: the gate is clean on Catzc.Base.Variants. 2026-10-18: `SHIPPEDTYPES issues=0`
        (`out/test-shipped-types/20261018-122129`).
-9. Namespace follow-up (Q36): one Decided line in the plan stating what the namespace of a module is once kinds land (recommendation: the
-   track name, so `Catzc.Base.*` stays for the pwsh track) and whether a step follows. Check: the line exists. 2026-10-18: nobody has
-   decided it, so the plan carries it as an open question for the next decision round, with the recommendation, not as a Decided line.
-10. Tick the plan's five open steps. Check: grep `- [ ]` in `plan-module-kinds-tracks.md` counts zero; the plan then holds only its carried
+9. [x] Namespace follow-up (Q36): one Decided line in the plan stating what the namespace of a module is once kinds land and whether a
+       step follows. Check: the line exists. Done 2026-10-18: D29, the track name, so `Catzc.Base.*` stays, and no step follows; the Decided
+       line is in plan-module-kinds-tracks.
+10. [x] Tick the plan's five open steps. Done 2026-10-18 apart from the plan's step 10, the infrastructure track, which is a design step of
+    its own and stays open there. Check: grep `- [ ]` in `plan-module-kinds-tracks.md` counts zero; the plan then holds only its carried
     drafts and is trimmed by plan-clear (Q11: carried text goes when its data is in the tree).
 
 ## Report

@@ -110,6 +110,8 @@ configs:
     type: Catzc.Azure.NetworkConfig
   pipeline-env:
     type: Catzc.Azure.DevOps.PipelineEnvConfig
+  environment-approvals:
+    type: Catzc.Azure.DevOps.EnvironmentApprovalsConfig
   artifacts:
     type: Catzc.Base.ModuleSystem.ArtifactsConfig
   vscode-settings:

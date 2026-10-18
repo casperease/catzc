@@ -56,11 +56,10 @@ first; C# edits need a fresh pwsh.
    (Get-CatzcModulesRoot, Get-CatzcRunMode), the three Exporter tests (Q6 out/ areas), PipelineTrigger-Integrity (the real globset key, S6).
    Code sites the guard cannot see (the place inside a regex or a here-string) were fixed on the way: Get-ChangeTestFile,
    Get-ImprintStepFile, Test-InIsolation, Test-Markdownlint. Still open: types/CommentsConfig.Tests.ps1 lines 11 and 42-55 test the C#
-   default `automation/*` and move with the C# constants (step 3); messages that name the folder in prose (Builder, Get-ModuleGlobSet,
-   Get-FileLanguage, Get-Track, Assert-ManagedGuid, Export-SpellingTriage, Clear-ModuleTypeCache, Get-UncoveredInternalAssetDependency,
-   Get-ReadmeMappings) read `Get-CatzcModulesFolder` before P4; Variants, VSCode and Get-CatzcOverlayRoot's test wait for their holding
-   sessions. Original step: Test fixtures that bake `<root>/automation`: a root from the resolver or a neutral root (widget/gadget). Check:
-   the fixture's tests pass.
+   default `automation/*` and move with the C# constants (step 3); the messages that named the folder in prose now name the module and
+   config, or the resolved path (a message must not call `Get-CatzcModulesFolder`, which throws outside the source tree); Variants, VSCode
+   and Get-CatzcOverlayRoot's test wait for their holding sessions. Original step: Test fixtures that bake `<root>/automation`: a root from
+   the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.
 5. S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment page regenerated. Check: Test-Links,
    Test-Comments on the touched files.
 6. [x] Guard, built first (the user's choice 2026-10-18, so its report is step 3's exact worklist):
