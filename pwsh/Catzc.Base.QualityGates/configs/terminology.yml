@@ -734,6 +734,8 @@ terms:
       meaning: "ADO predefined variable System.PipelineStartTime"
     - term: pullrequests
       meaning: "ADO 'pullrequests' REST area name"
+    - term: vssps
+      meaning: "the ADO Graph service host vssps.dev.azure.com (groups, memberships, users)"
     - term: pullrequest
       meaning: "ADO predefined-variable segment System.PullRequest.* (e.g. SYSTEM_PULLREQUEST_PULLREQUESTID)"
     - term: pullrequestid

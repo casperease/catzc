@@ -160,7 +160,7 @@ def add_sidebar_backing(model):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
+    parser = argparse.ArgumentParser(description=(__doc__ or "").split("\n", 1)[0])
     parser.add_argument("--slides", required=True, help="the slide list (JSON: slides[] with id, stem, lens, adrs, xml)")
     parser.add_argument("--data", default="out/minimaps", help="the folder highlights.ps1 wrote (palette, value-chain map)")
     parser.add_argument("--start", type=int, default=0)

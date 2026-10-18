@@ -305,11 +305,7 @@ def group_of(f, track):
         return (track, track)
     parts = f.split("/")
     if parts[0] == "pwsh":
-        return (
-            ("pwsh", "pwsh/" + parts[1])
-            if len(parts) > 2
-            else ("pwsh", "pwsh")
-        )
+        return ("pwsh", "pwsh/" + parts[1]) if len(parts) > 2 else ("pwsh", "pwsh")
     if parts[0] == "docs":
         if len(parts) > 2 and parts[1] == "adr":
             return (
@@ -422,7 +418,8 @@ def group_label(g):
 
 def mini_label(g):
     if g.startswith("docs/adr/"):
-        return "adr/" + ADR_SHORT.get(g.split("/")[2], g.split("/")[2])
+        area = g.split("/")[2]
+        return "adr/" + (ADR_SHORT[area] if area in ADR_SHORT else area)
     return group_label(g)
 
 
@@ -578,7 +575,7 @@ def render_overview(layout, path):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
+    parser = argparse.ArgumentParser(description=(__doc__ or "").split("\n", 1)[0])
     parser.add_argument(
         "--slides",
         required=True,
@@ -633,8 +630,8 @@ def main():
         files = lit_files(world_lit)
         groups = lit_groups(layout, files)
         (REPO / slide["folder"]).mkdir(parents=True, exist_ok=True)
-        png = lambda view: describe.view_file(slide, view, "png")
-        md = lambda view: describe.view_file(slide, view, "md")
+        png = lambda view, slide=slide: describe.view_file(slide, view, "png")
+        md = lambda view, slide=slide: describe.view_file(slide, view, "md")
         render_grid(world, world_lit, extensions, slide["badge"], png("grid"))
         render_tree(layout, files, mentions_only(world_lit), adr_files, png("tree"))
         render_chain(chain, chain_lit, png("chain"))
