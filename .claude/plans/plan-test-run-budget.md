@@ -102,6 +102,12 @@ none.
   - Run 2026-10-18 21:22 (`out/test-automation/20261018-212253`): 188.0 s against 180 s. Decided by the user: close the last 8 s by
     scheduling, not by raising the budget: the long proving files (the Invoke-TestFile real worker 25 s, the markdownlint run 13 s, the
     full-build load 11 s) start first in shards of their own so they overlap the rest; no test weakened, no limit raised.
+  - Landed 2026-10-18 (catzc-c4): the pool is the parallel shards plus min(greedy_group_size, greedy files) (`Get-TestPoolSize`), so the
+    longest greedy files start at t=0 beside the 5 shards; a one-file greedy shard keys its duration history by its own file
+    (`Get-TestDurationKey`), so the bridged go/python shards stop sharing one zero-weight key; ADR-AUTO-TEST's greedy rule describes the
+    extra workers. Both new test files failed first and Passed; Test-Links, Test-Glossary, Test-GeneratedFiles, Test-Comments,
+    Test-AdrRegistry and Test-FunctionDependency 0; ManualTestPlan-Coverage Passed. Modelled 119 s (about 140 s with the model's gap); the
+    user's next full run is the proof. The bridged shards get their own weight from the run after next.
 
 ## Refs
 

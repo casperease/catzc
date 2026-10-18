@@ -42,24 +42,18 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. Nothing below is held by a session; every chunk that an agent can take without the user has landed, and done work
 is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts.
 
-- final-run-failures -> task-final-run-failures.md: the 13 failures of the final full run (221 s), five agent chunks, then the user's
-  re-run.
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs; the `only-pwsh-compiles-its-aspects`
   rename once the user has run its two `Move-Diagram` calls (a session then re-points what is left and runs the checks).
 - promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying record, after the user's CD
   proof run.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
   form's retirement, on the day the user re-points the external definitions.
-- test-run-budget -> task-test-run-budget.md: bring the full run under its 180 s budget (221 s on 2026-10-18).
-- module-model-closeout -> task-module-model-closeout.md: closes on the final full run.
-- bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md: closes on the final full run, then the plan and its prompt are
-  deleted.
+- test-run-budget -> task-test-run-budget.md: bring the full run under its 180 s budget (214 s, 0 failed, on 2026-10-18).
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them. Closes the user-owned steps of the plans
   above.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned.
-- final-full-run -> task-user-runs-and-commits.md, its last step, after every chunk above: a new session, `. ./importer.ps1`, then
-  `Test-Automation` once over the whole repository, by hand; the one place the tree is tested. Closes plan-bounded-folder-enumeration,
-  plan-file-head-immutable-edges-classes, plan-module-model-closeout and plan-test-run-budget's shard check.
+- final-full-run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the next full run, after the user's steps, proves the
+  run budget.
 - closing-sweep, last -> task-closing-sweep.md, its last step: the plans that closed on green deleted; the master and the task files deleted
   when every chunk is done.
 

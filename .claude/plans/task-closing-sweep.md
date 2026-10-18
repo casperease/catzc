@@ -1,7 +1,7 @@
 ---
 task:
   status: open
-  plans: [value-of-plan, plan-clear-actions, plan-master]
+  plans: [value-of-plan, plan-master]
   value: highest
   blocked_on: every other task that ticks a plan's last step
   targets: [.claude/plans]

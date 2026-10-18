@@ -35,12 +35,8 @@ Order: the commits and git operations first, the remote runs next, the final ful
    task-explanation-drift-gaps steps 1 and 2 ticked.
 3. After task-layers-classification-flip step 1 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
-4. The final full run, last of all, after every other task has landed: a new `pwsh` session, `. ./importer.ps1`, then `Test-Automation` once
-   over the whole repository, by hand. Read its report in `out/test-automation` for the two real-repo failures reported earlier (the
-   drawio.yml live-yaml test, RootConfig New-GitAttributes) and for any finding in the head shape, the class selectors, the path split
-   (plan-file-head-immutable-edges-classes), the folder walker (plan-bounded-folder-enumeration) and the module model
-   (plan-module-model-closeout). Its shard manifest is the one task-test-run-budget step 1 reads. Check: the report lists no finding from
-   those plans; each is then a closing-sweep candidate, and the last closing sweep follows.
+4. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 7212 passed, 0 failed); its run budget stays open in
+   plan-test-run-budget, and the next run after the steps above is its proof.
 
 ## Report
 

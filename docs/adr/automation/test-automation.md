@@ -197,10 +197,11 @@ so one tagged test moves its whole file (serial wins over greedy):
   another.
 - **`greedy`** — the test consumes the machine beyond its own process (`Test-ScriptAnalyzer`'s background-process pool, tests that spawn
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase**, a single-file shard
-  queued behind the parallel shards in the same pool: it takes the first slot a shard frees, so the pool never runs more workers than the
-  parallel phase, and the serial phase waits for it. At most `greedy_group_size` greedy files run at once, and of the files `greedy_apart`
-  names (the ones that run real builds) one at a time, both in `test-policy.yml` with their defaults on `TestPolicyConfig`. A greedy file
-  can overlap the last parallel shards and inflate their L0/L1 timings, so over-limit timings stay report-only in a full run.
+  queued in the same pool beside the parallel shards: the pool holds one slot per parallel shard and up to `greedy_group_size` slots more,
+  so the longest greedy files (heaviest measured duration first) start with the run and overlap the shards, and the serial phase waits for
+  them. At most `greedy_group_size` greedy files run at once, and of the files `greedy_apart` names (the ones that run real builds) one at a
+  time, both in `test-policy.yml` with their defaults on `TestPolicyConfig`. A greedy file can overlap the last parallel shards and inflate
+  their L0/L1 timings, so over-limit timings stay report-only in a full run.
 
 A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the run's location decides
 whether it runs (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE).

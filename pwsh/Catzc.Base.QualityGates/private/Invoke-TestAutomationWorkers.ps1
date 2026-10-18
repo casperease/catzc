@@ -51,6 +51,7 @@ function Invoke-TestAutomationWorkers {
     $greedyShards = [System.Collections.Generic.List[object]]::new()
     $serialShard = $null
     $shardFileCounts = @{}
+    $greedyShardFile = @{}
     $serialPhaseOffsetMs = 0
 
     $repositoryRoot = Get-RepositoryRoot
@@ -133,6 +134,7 @@ function Invoke-TestAutomationWorkers {
                     'greedy'
                 }))
         $shardFileCounts[$shard.Label] = 1
+        $greedyShardFile[$shard.Label] = $greedyFile
         $nextShardIndex++
     }
 
@@ -160,7 +162,7 @@ function Invoke-TestAutomationWorkers {
                 }) + @(foreach ($cap in $greedyCaps) {
                     , $cap
                 }))
-        $poolSize = [Math]::Max([Math]::Max($shards.Count, $greedyGroupSize), 1)
+        $poolSize = Get-TestPoolSize -ParallelShardCount $shards.Count -GreedyFileCount $greedyShards.Count -GreedyGroupSize $greedyGroupSize
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
             [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps, @{ greedy = $greedyGroupSize; apart = 1 },
             $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false)
@@ -243,9 +245,16 @@ function Invoke-TestAutomationWorkers {
     $fileEntries = [System.Collections.Generic.List[object]]::new()
     foreach ($shard in $allShards) {
         if ([System.IO.File]::Exists($shard.FilesPath)) {
-            foreach ($entry in @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)) {
+            $shardEntries = @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
+            $shardSource = if ($greedyShardFile.ContainsKey($shard.Label) -and $shardEntries.Count -eq 1) {
+                Convert-TestRunLocationPath -Location $Location -Path $greedyShardFile[$shard.Label] -ToSource
+            }
+            else {
+                ''
+            }
+            foreach ($entry in $shardEntries) {
                 $source = Convert-TestRunLocationPath -Location $Location -Path $entry.File -ToSource
-                $measured[([System.IO.Path]::GetRelativePath($repositoryRoot, $source) -replace '\\', '/')] = $entry.DurationMs
+                $measured[(Get-TestDurationKey -File $source -ShardFile $shardSource -RepositoryRoot $repositoryRoot)] = $entry.DurationMs
                 $entry.File = $source
                 $fileEntries.Add($entry)
             }
