@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f83607184f32
-    with_inputs_sha: aae914b3ef5e76515adbd729c0541f61b22143f64245e0b1473b8cebdcf5b5e5
+    with_body_sha: "34e47539008d"
+    with_inputs_sha: "1c877f507858eb35475be6906bb62a22d0f0a859cc80d02f552999e016b554ec"
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -203,6 +203,28 @@ A track that is itself a module more than it owns modules — one vendor's, one 
   - [deployable track](#deployable-track): A deployable track owns deployable-units delivered through CI/CD; a holder track holds files a
     platform or tool reads.
 
+### import
+
+Bringing an outside repository into this one with its full history, at one landing address.
+
+- **Defined by:** [ADR-DSGN-TRACK#17](design/tracks.md#rule-adr-dsgn-track17)
+- **Realized by:** function `Import-RepositoryWithHistory`
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [importer](#importer): The importer brings catzc's modules into a session; an import brings an outside repository's files and history
+    into this repository.
+
+### landing address
+
+The folder `.unordered/<name>` an import lands at, named by a short kebab word unique among the addresses.
+
+- **Defined by:** [ADR-DSGN-TRACK#17](design/tracks.md#rule-adr-dsgn-track17)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [landing zone](#landing-zone): A landing zone is the Azure network and guardrails a workload lands in; a landing address is the folder
+    an import lands at.
+
 ### lit cell
 
 A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells an
@@ -245,8 +267,7 @@ its module.
 
 ### note
 
-A fragment frozen at the moment it was committed, kept in the unordered track and no part of the system — the file kind of everything that
-track holds.
+The file kind of everything the unordered track holds; no part of the system until it is sorted.
 
 - **Defined by:** [ADR-DSGN-TRACK#17](design/tracks.md#rule-adr-dsgn-track17)
 - **Realized by:** config-key `automation/Catzc.Base.Globs/configs/file-kinds.yml`
@@ -302,6 +323,14 @@ How the toolset is loaded, source mode from a repository root or build mode from
 - **Contrasts:**
   - [importer](#importer): The importer decides which modules, languages and engines a session loads; a run mode says where it reads the
     modules from.
+
+### sorting
+
+Moving a file from its landing address to its module or track with `git mv`, so its history follows.
+
+- **Defined by:** [ADR-DSGN-TRACK#17](design/tracks.md#rule-adr-dsgn-track17)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
 ### stack violation
 
@@ -370,6 +399,15 @@ A tracked file no file language names — no extension, or one no entry lists �
     file whose extension none of them lists.
   - [root file](#root-file): A root file is a tracked file outside every track; an unlisted file is a tracked file outside every file
     language, whatever its track.
+
+### unordered track
+
+The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads or falls
+back to it.
+
+- **Defined by:** [ADR-DSGN-TRACK#17](design/tracks.md#rule-adr-dsgn-track17)
+- **Realized by:** config-key `automation/Catzc.Base.Variants/configs/variants.yml`
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
 ### value-chain concern
 

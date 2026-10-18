@@ -78,6 +78,8 @@ settings:
     editorOverviewRuler.addedForeground: "#f5e17a"
     minimapGutter.modifiedBackground: "#b8860b"
     minimapGutter.addedBackground: "#f5e17a"
+    catzc.gitChanges.stagedBackground: "#f5e17a26"
+    catzc.gitChanges.unstagedBackground: "#b8860b40"
     diffEditor.insertedLineBackground: "#f5e17a26"
     diffEditor.insertedTextBackground: "#f5e17a59"
     diffEditor.removedLineBackground: "#b8860b26"

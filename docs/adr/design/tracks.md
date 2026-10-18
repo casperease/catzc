@@ -187,8 +187,8 @@ column names are the value-chain concerns.
 
 ### Rule ADR-DSGN-TRACK:17
 
-The **unordered track** (`.unordered`, class `unordered`) is the import landing zone, and the unordered part of the repository is whatever
-is still under `.unordered/`. An **import** brings an outside repository into this one with its full history; it lands at a **landing
+The **unordered track** (`.unordered`, class `unordered`) is where imports land, and the unordered part of the repository is whatever is
+still under `.unordered/`. An **import** brings an outside repository into this one with its full history; it lands at a **landing
 address**, `.unordered/<name>`, where the name is a short kebab word unique among the addresses. **Sorting** moves a file from its landing
 address to its module or track with `git mv`, so its history follows. A **note** is the file kind of everything the track holds, and the
 track is not part of the system: no command, default, glob, gate, generator, or agent reads, writes, or falls back to it unless a person
@@ -308,7 +308,7 @@ landing address. Sorting then moves the files one at a time into the modules and
 --follow` keeps every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name that is
 taken fails the import, so a second import of the same source is a decision, never an accident.
 
-The track is a landing zone, not a source: it has no tech-stack beyond what an import brings, no consumer, and no default. Anything that
+The track is where imports land, not a source: it has no tech-stack beyond what an import brings, no consumer, and no default. Anything that
 quietly read from it would make the system depend on files nobody has sorted yet, so the rule is stated as a prohibition, and every other
 track keeps its own reason to exist. What stays under `.unordered/` is exactly the work still to sort.
 
@@ -331,7 +331,7 @@ value-chain forms keep each word to one meaning.
 ## Decision
 
 Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (ADR-DSGN-TRACK#1), each of one track type
-(ADR-DSGN-TRACK#2), including the unordered shelf that nothing defaults to (ADR-DSGN-TRACK#17), one tech-stack each (ADR-DSGN-TRACK#3) that
+(ADR-DSGN-TRACK#2), including the unordered track that nothing defaults to (ADR-DSGN-TRACK#17), one tech-stack each (ADR-DSGN-TRACK#3) that
 defaults to one primary language (ADR-DSGN-TRACK#18), subscribable only via depms and globset projections (ADR-DSGN-TRACK#4), and shipped
 through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK#5). A tech-stack is a set of file languages, each named by its extension
 (ADR-DSGN-TRACK#6). The world map crosses the tracks with the file languages (ADR-DSGN-TRACK#9), with a row for the root files and a column

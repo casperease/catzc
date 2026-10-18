@@ -79,10 +79,41 @@ concepts:
     key: note
     domain: design
     defined_by: ADR-DSGN-TRACK#17
-    short:
-      A fragment frozen at the moment it was committed, kept in the unordered track and no part of the system — the file kind of everything
-      that track holds.
+    short: The file kind of everything the unordered track holds; no part of the system until it is sorted.
     realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Globs/configs/file-kinds.yml" }
+  unordered track:
+    key: unordered_track
+    domain: design
+    defined_by: ADR-DSGN-TRACK#17
+    short:
+      The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads
+      or falls back to it.
+    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Variants/configs/variants.yml" }
+  import:
+    key: import
+    domain: design
+    defined_by: ADR-DSGN-TRACK#17
+    short: Bringing an outside repository into this one with its full history, at one landing address.
+    realized_by: { kind: function, pattern: "Import-RepositoryWithHistory" }
+    contrasts:
+      importer:
+        The importer brings catzc's modules into a session; an import brings an outside repository's files and history into this
+        repository.
+  landing address:
+    key: landing_address
+    domain: design
+    defined_by: ADR-DSGN-TRACK#17
+    short: The folder `.unordered/<name>` an import lands at, named by a short kebab word unique among the addresses.
+    realized_by: { kind: prose-only }
+    contrasts:
+      landing zone:
+        A landing zone is the Azure network and guardrails a workload lands in; a landing address is the folder an import lands at.
+  sorting:
+    key: sorting
+    domain: design
+    defined_by: ADR-DSGN-TRACK#17
+    short: Moving a file from its landing address to its module or track with `git mv`, so its history follows.
+    realized_by: { kind: prose-only }
   track:
     key: track
     domain: design

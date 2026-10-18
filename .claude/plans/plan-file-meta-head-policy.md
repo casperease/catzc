@@ -81,8 +81,10 @@ on whether a file was imprinted. The policy removes heads from authored source a
 
 ### Phase 1: the rules
 
-- [ ] `docs/adr/repository/file-meta.md`: restate rule 1 to the head policy and add the no-read-back rule, with Context and Decision
-      sections for both. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/file-meta.md`)
+- [x] `docs/adr/repository/file-meta.md`: restate rule 1 to the head policy and add the no-read-back rule, with Context and Decision
+      sections for both. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/file-meta.md`) — 2026-10-18: rule 1 restated,
+      rule 14 added with "A head shows the facts, never holds them" and "Head policy", rule 7 tells generated files by the writer registry
+      and `linguist-generated`; Test-AdrRegistry, Test-Links, Test-FileMeta, Test-Markdownlint, Test-Spelling, Test-Glossary all pass.
 - [ ] `docs/adr/repository/code-file-meta.md`: say help lives in the `## help` section of the comment page, not in the head's `config` part.
       (check: `Test-Links -Path docs/adr/repository/code-file-meta.md`)
 - [ ] `docs/adr/repository/comments-in-docs.md`: rule 1 finds the page through `comments.yml`, not a head edge; a new rule makes the page an
@@ -90,7 +92,9 @@ on whether a file was imprinted. The policy removes heads from authored source a
       `kind` from its meta block. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/comments-in-docs.md`)
 - [ ] `automation/Catzc.Base.QualityGates/configs/file-meta.yml`: remove `comment-page` from `locked_classes`, from the `body-sha` selection
       and from the `generator` kind (which then selects nothing and goes, with `Get-GeneratorFileMetaFact.ps1` and its test, per
-      ADR-REPO-FILEMETA#4). (check: `Test-FileMetaProcessors`, `tests/Get-RepoStatusFileMetaFact.Tests.ps1`)
+      ADR-REPO-FILEMETA#4); in the same change, `docs/adr/repository/file-meta.md` drops the comment page as the one generated page the
+      engine imprints (rules 3, 7 and 13). (check: `Test-FileMetaProcessors`, `tests/Get-RepoStatusFileMetaFact.Tests.ps1`,
+      `Test-AdrRegistry`)
 
 ### Phase 2: remove the read-backs, one file at a time
 

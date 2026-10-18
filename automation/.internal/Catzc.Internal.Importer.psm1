@@ -312,6 +312,25 @@ function Invoke-AgentHookJanitor {
     }
 }
 
+# Installs the repository's own editor extensions whose installed copy is missing or stale, so loading the repo is the whole setup.
+function Invoke-EditorExtensionJanitor {
+    [CmdletBinding()]
+    param()
+
+    if (-not (Get-Command Install-VSCodeExtension -ErrorAction Ignore) -or (Get-SessionActor) -eq 'Pipeline' -or
+        -not (Get-Command code -ErrorAction Ignore)) {
+        return
+    }
+    try {
+        foreach ($packagePath in @(Install-VSCodeExtension)) {
+            Write-ImporterMessage "Editor extension installed: $(Split-Path $packagePath -Leaf) — reload the VS Code window to load it." -ForegroundColor Yellow
+        }
+    }
+    catch {
+        Write-ImporterMessage "Editor extensions were not installed — $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
 function Invoke-ImporterJanitors {
     [CmdletBinding()]
     param(
@@ -366,6 +385,8 @@ function Invoke-ImporterJanitors {
 
     # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
     Invoke-AgentHookJanitor
+
+    Invoke-EditorExtensionJanitor
 
 }
 

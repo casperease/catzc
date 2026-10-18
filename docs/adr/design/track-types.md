@@ -117,7 +117,7 @@ for the type of track, declared once, makes that difference a fact a gate can ch
 definitions, Azure DevOps or GitHub Actions by vendor; `vendor-settings` holds the settings of one tool the repository configures;
 `vendored-code` holds code written by a third party; `contracts` holds the repository's boundary contracts, in both directions;
 `documentation` holds the ADRs, references and guides; `verification` holds the black-box test projects (Go, Python, Bash); `unordered` is
-the frozen shelf ([ADR-DSGN-TRACK#17](tracks.md#rule-adr-dsgn-track17)). Configuration is a file role, not a type: `configs/*.yml` belongs
+where imports land ([ADR-DSGN-TRACK#17](tracks.md#rule-adr-dsgn-track17)). Configuration is a file role, not a type: `configs/*.yml` belongs
 to its module's track and `settings.json` to its vendor-settings track.
 
 ### Deployable and holder tracks

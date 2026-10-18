@@ -12,7 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     defines:
-      - ADR-REPO-FILEMETA#{1-13}
+      - ADR-REPO-FILEMETA#{1-14}
     cites:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
@@ -53,8 +53,9 @@ meta-kind registry, with the defaults declared once on the policy's type
 ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). By default a tracked generated file and a file whose
 front matter another tool reads, such as an agent or capability definition, are `required`, an authored file is `forbidden`, and a file git
 does not track is `optional`. A file whose block disagrees with its policy, absent where required or present where forbidden, is a finding.
-The block holds the facts the tooling owns about the file, written into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under
-`edges` ([ADR-REPO-FILEMETA#13](#rule-adr-repo-filemeta13)) and its authored config contributions under `config`
+The block holds the facts the tooling owns about the file, written into the file's carrier. A Markdown file's carrier is the reserved
+front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under `edges`
+([ADR-REPO-FILEMETA#13](#rule-adr-repo-filemeta13)) and its authored config contributions under `config`
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)). The key sits at the top
 level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign data, nests under
 that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own key is `catzc`
@@ -131,11 +132,11 @@ out for a file that has none, and what only a composed file has: `generator` (th
 command that composed the file) and `source` (the authored file or files it comes from). The head opens with `with_body_sha`, the hash of
 the content below it, whatever the file's language and carrier, so a tracked generated file says which text its writer composed and the
 drift check compares the stamp with the hash of the content below it before it compares the content. A generated file is told from an
-authored one by its writer's entry in the writer registry (`generated-files.yml`) and its `linguist-generated` attribute, never by a kind
-of its own and never by its head ([ADR-REPO-FILEMETA#14](#rule-adr-repo-filemeta14)). No writer hand-words a banner. The imprint engine leaves these files alone
-([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one generated item whose
-block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path of the comment
-exporter.
+authored one by its writer's entry in the writer registry (`generated-files.yml`) and its `linguist-generated` attribute, never by a kind of
+its own and never by its head ([ADR-REPO-FILEMETA#14](#rule-adr-repo-filemeta14)). No writer hand-words a banner. The imprint engine leaves
+these files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them. A comment page is the one
+generated item whose block the engine imprints, and it names its writer the same way: the `generator` kind of the registry gives it the path
+of the comment exporter.
 
 - [Generated files](#generated-files)
 
@@ -404,10 +405,10 @@ remove blocks freely. The imprint reads the block only to say that it differs fr
 `A head where a reader needs one, none where it only repeats`
 
 A block is worth its bytes where a reader cannot easily derive what it says. A generated file names the command that writes it and the
-source to edit instead, and stamps the body its writer composed, so a tracked generated file requires one. A file whose front matter
-another tool reads, such as an agent definition the editor loads, cannot work without its front matter, so it requires one too. An authored
-file's facts are all derivable, so a block on it is a second statement that can drift and adds a diff to every move, and it carries none.
-The policy is one setting per file class with its default declared once, so a repository that wants blocks on its authored files changes a
+source to edit instead, and stamps the body its writer composed, so a tracked generated file requires one. A file whose front matter another
+tool reads, such as an agent definition the editor loads, cannot work without its front matter, so it requires one too. An authored file's
+facts are all derivable, so a block on it is a second statement that can drift and adds a diff to every move, and it carries none. The
+policy is one setting per file class with its default declared once, so a repository that wants blocks on its authored files changes a
 setting, never code.
 
 ### How this is enforced

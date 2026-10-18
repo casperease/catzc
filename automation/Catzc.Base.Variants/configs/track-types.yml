@@ -49,7 +49,7 @@ track_types:
     role: holder
     admits: [python, go, bash]
   unordered:
-    definition: The frozen shelf of finished fragments that nothing reads or depends on.
+    definition: Where imports land with their history, one landing address each, until sorted; nothing reads or depends on it.
     role: holder
     admits: []
 

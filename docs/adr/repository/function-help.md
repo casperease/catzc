@@ -14,49 +14,54 @@ catzc:
     defines:
       - ADR-REPO-HELP#{1-5}
     cites:
-      - ADR-REPO-CODEMETA#{1,2}
+      - ADR-REPO-COMMENTS#3
+      - ADR-REPO-FILEMETA#14
       - ADR-REPO-FORMAT#8
     links:
       - docs/adr/repository/code-file-meta.md
-      - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
-      - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta2
+      - docs/adr/repository/comments-in-docs.md
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3
       - docs/adr/repository/file-meta.md
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta14
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
 ---
 
-# ADR: Function help — the help of a PowerShell file is the config part of its meta head
+# ADR: Function help — the help of a PowerShell file is the help section of its comment page
 
 ## Rules: ADR-REPO-HELP
 
 ### Rule ADR-REPO-HELP:1
 
-The help of a PowerShell function file or script is the `config` part of its meta head
-([ADR-REPO-CODEMETA#1](code-file-meta.md#rule-adr-repo-codemeta1)), and the file carries no comment-based help block: no `.SYNOPSIS`,
-`.DESCRIPTION`, `.PARAMETER`, `.INPUTS`, `.OUTPUTS`, `.EXAMPLE` or `.NOTES` section anywhere. The keys are `synopsis`, `description`,
-`parameters`, `inputs`, `outputs`, `examples` and `notes`, always in that order.
+The help of a PowerShell function file or script is the `## help` section of the file's comment page
+([ADR-REPO-COMMENTS#3](comments-in-docs.md#rule-adr-repo-comments3)), the page `comments.yml` names for the file's path. The file itself
+carries no help: no comment-based help block (no `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`, `.INPUTS`, `.OUTPUTS`, `.EXAMPLE` or `.NOTES`
+section anywhere) and no help in a head. The section comes first after the page's opening line and holds, in this order, `### synopsis`,
+`### description`, one `### parameter <Name>` for each parameter, `### inputs`, `### outputs`, one `### example <n>` for each example, and
+`### notes`. Every subsection but the synopsis is present only when it has text.
 
-- [The head holds the help](#the-head-holds-the-help)
+- [The page holds the help](#the-page-holds-the-help)
 
 ### Rule ADR-REPO-HELP:2
 
-A value is a string. A value of one line is a plain or a single-quoted YAML string, and a value of several lines is a literal block, so the
-text is carried as written and the head never rewraps prose. `parameters` is a map from each parameter name, in the order of the `param`
-block, to its string, and `examples` is a list of strings. The tooling reads these keys and never writes prose into them.
+The text of a subsection is Markdown, kept as the author wrote it. The synopsis is one line. The parameter subsections follow the order of
+the `param` block, and an example is one fenced `powershell` block. The tooling reads the section and never writes prose into it, and
+`Export-Comments`, which appends the page's `## comment:<n>` sections, never writes, moves or reorders it.
 
-- [Strings, written once](#strings-written-once)
+- [Text as written](#text-as-written)
 
 ### Rule ADR-REPO-HELP:3
 
-A citation may stand inside a help sentence, where it names the rule the sentence rests on. The ADR codes a function rests on are the head's
-derived `adrs` ([ADR-REPO-CODEMETA#2](code-file-meta.md#rule-adr-repo-codemeta2)), and the page of a moved comment is a relative of the
-file, not a line of its help. A line of the text made of nothing but a citation is reported.
+A citation may stand inside a help sentence, where it names the rule the sentence rests on. The ADR codes a function rests on are derived
+from the file and its page ([ADR-REPO-FILEMETA#14](file-meta.md#rule-adr-repo-filemeta14)), so the help never lists them. A line of the text
+made of nothing but a citation is reported.
 
 - [Citations are derived](#citations-are-derived)
 
 ### Rule ADR-REPO-HELP:4
 
-Five faults are reported and never rewritten: a config that does not parse as YAML, a parameter with no entry in `parameters`, an entry for
-a name the function does not declare, an `outputs` string whose first type differs from `[OutputType]`, and a file with no `synopsis`.
+Five faults are reported and never rewritten: a file with no page or a page with no synopsis, a subsection the shape does not name or one
+out of order, a parameter with no subsection, a subsection for a name the function does not declare, and an `outputs` text whose first type
+differs from `[OutputType]`.
 
 - [Mismatches are reported](#mismatches-are-reported)
 
@@ -65,66 +70,69 @@ a name the function does not declare, an `outputs` string whose first type diffe
 `Format-Code` checks rules 1 to 4 as an imprint step of the PowerShell language
 ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)), and `Test-Formatting` fails a file the step reports. No command and no
 check names the step. The step reads the file with the language's own parser, so a comment inside a string or a here-string is never
-mistaken for help.
+mistaken for help, and reads the page with the Markdown parser.
 
 - [Hosted by Format-Code](#hosted-by-format-code)
 
 ## Context
 
-A function's help was written as a comment block in the file, then moved in part to a comment page, with its citations at the tail of the
-description and its parameters described once in a section and sometimes again above the parameter. Each of those places is text a tool has
-to find by its position in a comment, and a comment is the one part of a file that no parser owns. The meta head is already front matter
-that a parser reads ([file-meta](file-meta.md)), and it is where the facts about the file live, so the help belongs beside them.
+A function's help is prose an author writes: a synopsis, a description, a sentence per parameter, examples. A comment block in the file is
+text a tool finds only by its position in a comment, the one part of a file no parser owns, and a head is the picture of a file's derived
+facts, which no command reads back ([file-meta](file-meta.md)). A code file already has one place for its prose that outgrew a line, its
+comment page ([comments-in-docs](comments-in-docs.md)), found from the file's path alone and read by a Markdown parser.
 
 ## Decision
 
-The help is data in the head, with one shape, and a check reads it as data.
+The help is one section of the comment page, with one shape, and a check reads it by its headings.
 
-### The head holds the help
+### The page holds the help
 
-`One place for what a file says about itself`
+`One place for the prose a file has`
 
-The synopsis, the description, the parameters, the outputs and the examples are keys of the head's `config` part, so a tool that reads the
-head reads the help, and `Get-Help` is not the way to read a catzc function. A file has no comment block that a person must keep in step
-with the head.
+The synopsis, the description, the parameters, the outputs and the examples are subsections of the page's `## help`, so a reader who opens
+the page finds the function's help and its long comments together, and a tool finds the page from the path without reading the code. An
+authored code file carries no head, so the help cannot live in one, and a comment block would be a second place a person keeps in step with
+the page. `Get-Help` is not the way to read a catzc function.
 
-### Strings, written once
+### Text as written
 
-`Text as written`
+`The author's Markdown, in a fixed order`
 
-A literal block keeps every line break, so a description with a list or an aligned table stays as it was written. A single-line string is
-plain when YAML reads it back as the same string, and single-quoted otherwise, because a quoted string can hold any single line.
+A subsection is ordinary Markdown, so a description with a list or a table stays as it was written and renders where the page renders. The
+fixed headings and their order are the shape a check reads, and they keep the page's own sections apart: the exporter owns the
+`## comment:<n>` sections and only appends them, and the help section is the author's.
 
 ### Citations are derived
 
-`The head already lists them`
+`The tooling already finds them`
 
-The citations a function rests on are a list the formatter derives from the file and its page and keeps true, so a second copy in the
-description would drift from it. A page link stands for prose moved out of the file and is derived the same way.
+The citations a function rests on are found from the file and its page every time they are needed, so a second copy in the help would drift
+from them.
 
 ### Mismatches are reported
 
 `A check, never a guess`
 
-A missing entry, an entry for a name that is gone and a type that disagrees with `[OutputType]` each need a sentence only an author can
-write, so they are findings. A config the YAML parser rejects, most often a plain value that holds a colon and a space, is the same kind of
-fault: the finding names the file and the parser's message, so the whole run never stops on one head.
+A missing subsection, a subsection for a name that is gone and a type that disagrees with `[OutputType]` each need a sentence only an author
+can write, so they are findings. A file with no page has no help at all, which is the same kind of fault: the finding names the file and the
+page it expects, so the whole run never stops on one file.
 
 ### Hosted by Format-Code
 
 `A configured step, not a new command`
 
-The step is one line in the file-language registry, as the namespace step and the meta head are ([code-file-meta](code-file-meta.md)). It
-runs after the formatter and the meta head.
+The step is one line in the file-language registry, as the namespace step is ([code-file-meta](code-file-meta.md)). It runs after the
+formatter.
 
 ### How this is enforced
 
 - **`Format-Code`** checks the help through the `ps-help` step, and **`Test-Formatting`** fails any file it reports.
-- **`Test-FileMeta`** fails a head whose imprinted parts differ from what the formatter would write.
+- **`Test-Comments`** fails a page whose `## comment:<n>` sections no longer match the file, and leaves the help section alone.
 - **`PSProvideCommentHelp`** is off in the analyzer settings, because no function carries a comment-based help block.
 
 ## Consequences
 
-- A function's help is read the same way as the rest of its meta, as data, and a diff of it shows only the text that changed.
+- A function's help is read where its long comments are, as Markdown, and a diff of it shows only the text that changed.
 - A parameter is described once, and a difference between the declaration and the description is a finding.
-- `Get-Help` shows no catzc help, so the help is read from the head or the generated reference pages.
+- A code file holds only code and one-line comments.
+- `Get-Help` shows no catzc help, so the help is read from the comment page.
