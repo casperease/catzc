@@ -23,7 +23,8 @@ See [dual-authentication](../../adr/pipelines/dual-authentication.md).
 ### responsibility:2 — Azure DevOps REST operations
 
 Acting on the organization through its REST API: issuing an authenticated request, opening a pull request, registering or updating a
-pipeline definition, and reading the pipeline definitions the organization already has. This is the outward, state-changing surface.
+pipeline definition, reading the pipeline definitions the organization already has, and keeping an approval check on every prod-tier
+environment that `environment-approvals.yml` lists. This is the outward, state-changing surface.
 
 ### responsibility:3 — Pipeline YAML discovery and classification
 
@@ -68,6 +69,8 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                               | `New-AdoPullRequest`             |
 |                                                               | `Register-AdoPipeline`           |
 |                                                               | `Get-AdoPipelineDefinitions`     |
+|                                                               | `Sync-AdoEnvironmentApprovals` |
+| config                                                        | `environment-approvals.yml` |
 | responsibility:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                               | `Get-AdoYamlInventory`           |
 |                                                               | `Test-Pipelines`                 |

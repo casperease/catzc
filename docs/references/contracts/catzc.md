@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a7e2375ff9b"
-    with_inputs_sha: "699825160715500dd81e586ff3598f84ec3dd8ff6511407079f98838189d6515"
+    with_body_sha: "72c3cd515c33"
+    with_inputs_sha: a149144af8fa8655c4063425601c2bb320786cf7f8e7f8da51e5ae14865fc163
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
@@ -61,6 +61,7 @@ The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repos
 | `Catzc.Base.QualityGates`    | `head.sample.yml`                                | none                                                              | provided                | sample payload   | none                                                                                                                                                        |
 | `Catzc.Base.QualityGates`    | `head.schema.json`                               | `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml`   | provided                | schema           | none                                                                                                                                                        |
 | `Catzc.Tooling.Github`       | `README.md`                                      | `.github/README.md`                                               | depended-on             | presence         | none                                                                                                                                                        |
+| `Catzc.Tooling.Github`       | `Remove-TokenFromHistory.command.yml`            | `automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1`     | provided                | command contract | `Token: string!, ReplaceWith: string = ***REMOVED***, SkipMessages: switch, RepositoryPath: string, DryRun: switch`                                         |
 | `Catzc.Tooling.Github`       | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`                             | depended-on             | fragment         | none                                                                                                                                                        |
 | `Catzc.Tooling.Github`       | `workflows/release-automation.yml`               | `.github/workflows/release-automation.yml`                        | depended-on             | fragment         | none                                                                                                                                                        |
 | `Catzc.Tooling.Node`         | `Install-Cspell.command.yml`                     | `automation/Catzc.Tooling.Node/Install-Cspell.ps1`                | provided                | command contract | `Version: string, Force: switch`                                                                                                                            |
@@ -179,6 +180,10 @@ Notes:
   (ADR-REPO-CONTRACT#6): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may rely on. A
   fact a file has no value for is left out, so only path and role are required. The role is the name of the file-kinds entry that selects
   the file; the kind of the object the file belongs to is its track's type, tracktype.
+- `Catzc.Tooling.Github/Remove-TokenFromHistory.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Remove-TokenFromHistory, which scrubs a token from a git history's blob content and commit messages. RepositoryPath defaults to the
+  repository root, a computed default the contract does not restate; SkipMessages leaves the commit messages alone, and DryRun reports what
+  would change.
 - `Catzc.Tooling.Github/workflows/ci-automation.yml`: Depended-on fragment of .github/workflows/ci-automation.yml
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the keys GitHub Actions requires to run the
   workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only that the key exists.

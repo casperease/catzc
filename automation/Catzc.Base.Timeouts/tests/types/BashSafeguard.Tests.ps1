@@ -158,3 +158,36 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
         }
     }
 }
+
+Describe 'BashSafeguard.FindConfig' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS#3' {
+    BeforeEach {
+        $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        function script:New-Config {
+            param([string] $Folder)
+            $path = Join-Path $script:root "$Folder/Catzc.Base.Timeouts/configs/timeouts.yml"
+            [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path))
+            [System.IO.File]::WriteAllText($path, 'limits: {}')
+            $path
+        }
+    }
+
+    It 'finds the config in the one top-level folder that holds it, whatever that folder is named' {
+        $expected = [System.IO.Path]::GetFullPath((New-Config 'widget-modules'))
+        [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs'))
+        [System.IO.Path]::GetFullPath([Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root)) | Should -Be $expected
+    }
+
+    It 'looks one level down only, so a deeper copy (a built bundle under out/) is never read' {
+        $expected = [System.IO.Path]::GetFullPath((New-Config 'widget-modules'))
+        New-Config 'out/built/gadget' | Out-Null
+        [System.IO.Path]::GetFullPath([Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root)) | Should -Be $expected
+    }
+
+    It 'throws when no folder or more than one folder holds it' {
+        [void][System.IO.Directory]::CreateDirectory($script:root)
+        { [Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root) } | Should -Throw '*No top-level folder*'
+        New-Config 'widget-modules' | Out-Null
+        New-Config 'gadget-modules' | Out-Null
+        { [Catzc.Base.Timeouts.BashSafeguard]::FindConfig($script:root) } | Should -Throw '*More than one top-level folder*'
+    }
+}

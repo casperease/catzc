@@ -16,7 +16,7 @@ Describe 'Sync-AdoEnvironmentApprovals' -Tag 'L0', 'logic' {
             $name = [uri]::UnescapeDataString(($Uri -split 'name=')[1].Split('&')[0])
             [pscustomobject]@{ id = "env-$name"; name = $name }
         }
-        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Method -eq 'Get' -and $Uri -like '*/checks/configurations?resourceType=*' } {
+        Mock Invoke-AdoRestMethod -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Uri -like '*/checks/configurations?resourceType=*' } {
             $id = ($Uri -split 'resourceId=')[1].Split('&')[0]
             $script:existingChecks[$id]
         }

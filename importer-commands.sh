@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "367ce1dd912c"
+#     with_body_sha: "82983807706f"
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
@@ -88,6 +88,11 @@ Remove-NodeJs	InstallDir	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/R
 Remove-NodeJs	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Node/Remove-NodeJs.command.yml
 Remove-Python	InstallDir	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Remove-Python.command.yml
 Remove-Python	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Remove-Python.command.yml
+Remove-TokenFromHistory	Token	string	0	1	0	contracts/catzc/0.0.0/Catzc.Tooling.Github/Remove-TokenFromHistory.command.yml
+Remove-TokenFromHistory	ReplaceWith	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Github/Remove-TokenFromHistory.command.yml
+Remove-TokenFromHistory	SkipMessages	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Github/Remove-TokenFromHistory.command.yml
+Remove-TokenFromHistory	RepositoryPath	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Github/Remove-TokenFromHistory.command.yml
+Remove-TokenFromHistory	DryRun	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Github/Remove-TokenFromHistory.command.yml
 Test-GeneratedFileCurrent	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Test-GeneratedFileCurrent.command.yml
 Test-GeneratedFileCurrent	InputsSha	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Test-GeneratedFileCurrent.command.yml
 Uninstall-AzCli	Remove	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Uninstall-AzCli.command.yml
