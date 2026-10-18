@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/configs.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: configs
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-MODULE#2
-      - ADR-CONF-LOADING#{4,5}
-      - ADR-REPO-CONTRACT#8
-      - ADR-REPO-FILEMETA#{1,5}
-      - ADR-REPO-FORMAT#8
-    links:
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Configs
 
 Config discovery, the config registry, and the shipped configs that are not Azure-specific. Part of the

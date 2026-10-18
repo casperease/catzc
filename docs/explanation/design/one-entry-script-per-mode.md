@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/one-entry-script-per-mode.md
-    folder: docs/explanation/design
-    name: one-entry-script-per-mode
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-RUNMODE#{1,2,5,7}
-    links:
-      - docs/adr/design/run-modes.md
-      - docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-entry-script-per-mode.drawio.md
-      - docs/explanation/design/shims-set-roots-mode-read-back.md
-      - docs/explanation/design/two-roots-one-importer-same-modules.md
-      - docs/explanation/design/where-code-loads-from-decides-the-mode.md
-      - docs/explanation/design/which-run-mode-rules-have-a-gate.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Each run mode has one entry script, and a mixed session throws
 
 ```text

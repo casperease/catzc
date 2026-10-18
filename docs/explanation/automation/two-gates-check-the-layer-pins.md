@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-gates-check-the-layer-pins.md
-    folder: docs/explanation/automation
-    name: two-gates-check-the-layer-pins
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#{1-6}
-      - ADR-AUTO-TEST#35
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/automation/test-automation.md
-      - docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
-      - docs/explanation/automation/a-declared-allow-list-of-layers.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/three-layers-edges-point-down.md
-      - docs/explanation/automation/two-gates-check-the-layer-pins.drawio.md
-      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
-      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Two gates check the layer pins, and one rule is left to review
 
 ```text

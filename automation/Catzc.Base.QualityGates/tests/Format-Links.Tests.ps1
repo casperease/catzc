@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
-    folder: tests
-    name: format-links-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-PWSH-PARAM#4
-      - ADR-REPO-CODEMETA#2
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-LINK#{1-3,5-8}
----
-#>
-
 Describe 'Format-Links' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

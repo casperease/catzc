@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
-    folder: tests/types
-    name: timeouts-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-PWSH-ASSERT#1
----
-#>
-
 Describe 'TimeoutsConfig' -Tag 'L0' {
 
     Context 'integrity (shipped timeouts.yml)' -Tag 'integrity' {

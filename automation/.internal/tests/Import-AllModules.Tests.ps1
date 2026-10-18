@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Import-AllModules.Tests.ps1
-    name: import-all-modules-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CONSOLE#11
-      - ADR-AUTO-TEST#26
----
-#>
-
 BeforeAll {
     $sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "bootstrap-test-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $sandbox 'automation'

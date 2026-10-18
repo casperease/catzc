@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/what-keeps-the-platform-thin.md
-    folder: docs/explanation/design
-    name: what-keeps-the-platform-thin
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-CLI#{1-3}
-      - ADR-DSGN-THINPLAT
-    links:
-      - docs/adr/azure/prefer-az-cli.md
-      - docs/adr/design/thin-platforms.md
-      - docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
-      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
-      - docs/explanation/design/deploy-bicep-delegates-to-az.md
-      - docs/explanation/design/every-vendor-call-leaves-through-az.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
-      - docs/explanation/design/what-keeps-the-platform-thin.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Three gates guard the CLI and az, but nothing checks that cats stays thin
 
 ```text

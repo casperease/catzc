@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "855b897c8e12"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-execution/configs/tools.yml.md
-    folder: docs/references/automation/catzc-base-execution/configs
-    name: tools-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-BASH#6
----
-
 # automation/Catzc.Base.Execution/configs/tools.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

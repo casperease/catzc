@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
-    folder: tests
-    name: new-repository-snapshot-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md
----
-#>
-
 Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Git

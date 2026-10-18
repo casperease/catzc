@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
-    name: new-importer
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md
-    test: automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#11
-      - ADR-DSGN-RUNMODE
-      - ADR-PWSH-ANNOUNCE#6
----
-#>
-
 function New-Importer {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "2b6b9c64aeea"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestRuleTags.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: get-test-rule-tags-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

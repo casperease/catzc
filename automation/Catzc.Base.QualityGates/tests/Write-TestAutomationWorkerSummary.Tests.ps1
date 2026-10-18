@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
-    folder: tests
-    name: write-test-automation-worker-summary-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Write-TestAutomationWorkerSummary' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Header -ModuleName Catzc.Base.QualityGates { }

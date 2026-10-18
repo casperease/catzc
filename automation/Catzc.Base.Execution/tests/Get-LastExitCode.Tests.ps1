@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/Get-LastExitCode.Tests.ps1
-    folder: tests
-    name: get-last-exit-code-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-LastExitCode' -Tag 'L0', 'logic' {
     It 'returns the exit code value' {
         $global:LASTEXITCODE = 42

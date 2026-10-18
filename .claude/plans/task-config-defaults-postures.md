@@ -14,25 +14,6 @@ task:
       docs/adr/repository/api-contracts.md,
       docs/adr/automation/fail-fast-with-asserts.md,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-config-defaults-postures.md"
-    folder: plans
-    name: task-config-defaults-postures
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-CATS#5
-      - ADR-PRIN-CONFIG#3
 ---
 
 # Task: config defaults Phases 4 and 5, every typed config and the ADRs

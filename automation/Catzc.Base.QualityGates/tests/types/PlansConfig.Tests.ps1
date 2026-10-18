@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/PlansConfig.Tests.ps1
-    folder: tests/types
-    name: plans-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-PLANS#{2,8}
----
-#>
-
 Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT#6' {
     BeforeAll {
         function Get-ViolationMessage {

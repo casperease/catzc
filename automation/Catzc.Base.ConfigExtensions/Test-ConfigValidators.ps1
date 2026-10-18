@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-    name: test-config-validators
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-RUNMODE#2
----
-#>
-
 function Test-ConfigValidators {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

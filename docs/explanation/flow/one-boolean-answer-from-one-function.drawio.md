@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-boolean-answer-from-one-function.drawio.md
-    folder: docs/explanation/flow
-    name: one-boolean-answer-from-one-function-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.tree.md
-      - docs/explanation/flow/one-boolean-answer-from-one-function.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One function answers "am I in a pipeline?", and every branch on context asks it: the diagram described
 
 ```text

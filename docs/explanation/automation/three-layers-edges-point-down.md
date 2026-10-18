@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/three-layers-edges-point-down.md
-    folder: docs/explanation/automation
-    name: three-layers-edges-point-down
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#{1,3,4}
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
-      - docs/explanation/automation/a-declared-allow-list-of-layers.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/three-layers-edges-point-down.drawio.md
-      - docs/explanation/automation/two-gates-check-the-layer-pins.md
-      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
-      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Module dependencies form three layers, and every edge points down
 
 ```text

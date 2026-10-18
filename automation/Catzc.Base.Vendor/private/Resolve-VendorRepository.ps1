@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
-    folder: private
-    name: resolve-vendor-repository
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
----
-#>
-
 function Resolve-VendorRepository {
     [CmdletBinding()]
     [OutputType([string])]

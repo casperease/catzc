@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
-    name: get-changed-glob-set
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
-    cites:
-      - ADR-FLOW-CD-GLOBS#{1,4}
----
-#>
-
 function Get-ChangedGlobSet {
     [CmdletBinding(DefaultParameterSetName = 'ByRange')]
     [OutputType([Catzc.Base.Globs.GlobSet])]

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/announce-state-changes.md
-    folder: docs/adr/pwsh
-    name: announce-state-changes
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-ANNOUNCE#{1,4-11}
-    cites:
-      - ADR-AUTO-CONSOLE#{4,5,8,11,12}
-      - ADR-AUTO-PRELOG#{2,4,5}
-    links:
-      - docs/adr/automation/console-output-matters.md
-      - docs/adr/automation/log-before-invoke.md
-      - docs/adr/pwsh/error-handling.md
----
-
 # ADR: Announce every state change on the information stream
 
 ## Rules: ADR-PWSH-ANNOUNCE

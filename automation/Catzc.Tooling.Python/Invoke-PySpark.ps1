@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Python/Invoke-PySpark.ps1
-    name: invoke-py-spark
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Python/tests/Invoke-PySpark.Tests.ps1
----
-#>
-
 function Invoke-PySpark {
     [CmdletBinding()]
     param(

@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/note-file-kind.md
-    folder: docs/references
-    name: note-file-kind
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#17
----
-
 # The `note` file kind: what it said, and where it lives now
 
 ## What the key said

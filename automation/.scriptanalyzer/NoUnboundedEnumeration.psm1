@@ -1,19 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/NoUnboundedEnumeration.psm1
-    folder: automation/.scriptanalyzer
-    name: no-unbounded-enumeration
-    filetype: psm1
-    kind: analyzer-rule
-    language: powershell
-    track: automation
-    tracktype: modules
----
-#>
-
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#

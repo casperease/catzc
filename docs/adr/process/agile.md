@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/agile.md
-    folder: docs/adr/process
-    name: agile
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-AGILE#{1-4}
-    links:
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/agile-principles.md
-      - docs/adr/process/agile-values.md
-      - "https://agilemanifesto.org"
----
-
 # ADR: Agile — defined by the manifesto, measured by responsiveness
 
 ## Rules: ADR-PROC-AGILE

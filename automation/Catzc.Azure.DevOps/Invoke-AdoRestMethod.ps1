@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
-    name: invoke-ado-rest-method
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
----
-#>
-
 function Invoke-AdoRestMethod {
     [CmdletBinding()]
     param(

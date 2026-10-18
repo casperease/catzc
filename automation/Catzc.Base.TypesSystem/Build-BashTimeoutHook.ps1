@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
-    name: build-bash-timeout-hook
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
-    test: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
-    cites:
-      - ADR-AUTO-FAILFAST#7
-      - ADR-DSGN-RUNMODE
----
-#>
-
 function Build-BashTimeoutHook {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
-    folder: tests
-    name: set-file-link-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-files/tests/Set-FileLink.Tests.ps1.md
-    cites:
-      - ADR-AUTO-RETRY#1
----
-#>
-
 Describe 'Set-FileLink' -Tag 'L1', 'logic' {
     BeforeAll {
         $probeSource = Join-Path $TestDrive 'probe-source.txt'

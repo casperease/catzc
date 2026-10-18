@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-    folder: tests
-    name: test-pipelines-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-devops/tests/Test-Pipelines.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-PIPE-NAME
-      - ADR-PWSH-PESTER#2
----
-#>
-
 Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     BeforeAll {
         # Build a classifier record like Get-AdoYamlFiles emits (string props stand in for the C# record).

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/three-guarded-early-returns.md
-    folder: docs/explanation/pipelines
-    name: three-guarded-early-returns
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PIPE-AUTH#{1-3,5}
-    links:
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/pipelines/configured-credential-proves-its-org.md
-      - docs/explanation/pipelines/index.md
-      - docs/explanation/pipelines/one-header-function-owns-precedence.md
-      - docs/explanation/pipelines/three-guarded-early-returns.drawio.md
-      - docs/explanation/pipelines/what-you-set-decides-the-credential.md
-      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
----
-
 # The header function is four checks and three returns, and none falls through on failure
 
 ```text

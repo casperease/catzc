@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/private/Get-BicepParameterViolations.ps1
-    folder: private
-    name: get-bicep-parameter-violations
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
----
-#>
-
 function Get-BicepParameterViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

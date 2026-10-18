@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/a-type-keyed-reflection-table-is-not-a-session-cache.md
-    folder: docs/explanation/automation
-    name: a-type-keyed-reflection-table-is-not-a-session-cache
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-CACHE
-      - ADR-AUTO-TYPES#7
-      - ADR-PWSH-CACHE#1
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/caching.md
-      - docs/adr/pwsh/script-scope-caching.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
----
-
 # A static table keyed by Type is not a session cache, so ADR-AUTO-CACHE does not govern it
 
 ```text

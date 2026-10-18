@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/fail-fast-with-asserts.md
-    folder: docs/adr/automation
-    name: fail-fast-with-asserts
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-FAILFAST#{1-7}
-    cites:
-      - ADR-AUTO-ENGINE#1
-    links:
-      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine1
-      - docs/adr/automation/managed-guids.md
-      - docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert6
----
-
 # ADR: Fail fast with inline assertions
 
 ## Rules: ADR-AUTO-FAILFAST

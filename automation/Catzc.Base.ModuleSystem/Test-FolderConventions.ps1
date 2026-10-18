@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
-    name: test-folder-conventions
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md
-    test: automation/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-FOLDERS
----
-#>
-
 function Test-FolderConventions {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "08bdadd3ea73"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: spelling-oracle-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-SPELL#{2,6}
-      - ADR-AUTO-TYPES#9
----
-
 # automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

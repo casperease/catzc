@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-tooling-provisioning
-    name: tools-yml-install-dispatch-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-BASH#6
-      - ADR-AUTO-DEPS#4
----
-
 # out/diagrams/wave-9/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
 
 `Verification: tools.yml is the one locked list; dispatch is by key name (source lens, Catzc.Tooling.Provisioning)`

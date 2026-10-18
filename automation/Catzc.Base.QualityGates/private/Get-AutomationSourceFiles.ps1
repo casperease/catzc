@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1
-    folder: private
-    name: get-automation-source-files
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
----
-#>
-
 function Get-AutomationSourceFiles {
     [CmdletBinding()]
     [OutputType([string[]])]

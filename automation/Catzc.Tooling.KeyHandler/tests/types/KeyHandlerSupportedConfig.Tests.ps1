@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
-    folder: tests/types
-    name: key-handler-supported-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
----
-#>
-
 Describe 'Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

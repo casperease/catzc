@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/sync-from-the-last-certified-commit.drawio.md
-    folder: docs/explanation/design
-    name: sync-from-the-last-certified-commit-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
-      - docs/explanation/design/sync-from-the-last-certified-commit.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Sync from the last certified commit, not from the tip of main: the diagram described
 
 ```text

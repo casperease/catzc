@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Assert-NotNullOrWhitespace.Tests.ps1
-    folder: tests
-    name: assert-not-null-or-whitespace-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Assert-NotNullOrWhitespace' -Tag 'L0', 'logic' {
     It 'passes when value is a non-empty string' {
         { Assert-NotNullOrWhitespace 'hello' } | Should -Not -Throw

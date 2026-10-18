@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/internal/catzc-internal-vendor.md
-    folder: docs/references/automation/internal
-    name: catzc-internal-vendor
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
-      - docs/references/automation/catzc-base-vendor.md
-      - docs/references/automation/internal/index.md
----
-
 # Catzc.Internal.Vendor
 
 The shared vendored-module loader. It imports the third-party modules under `automation/.vendor/<Name>/<Version>/` into the session, and it

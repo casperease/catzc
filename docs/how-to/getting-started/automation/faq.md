@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/faq.md
-    folder: docs/how-to/getting-started/automation
-    name: faq
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
----
-
 # FAQ
 
 ## Doesn't importing everything waste time?

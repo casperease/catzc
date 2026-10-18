@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "21766fca03aa"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
-    folder: docs/references/automation/catzc-base-timeouts/types
-    name: test-tiers-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{13,41}
----
-
 # automation/Catzc.Base.Timeouts/types/TestTiers.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

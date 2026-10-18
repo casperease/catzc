@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
-    folder: tests
-    name: invoke-config-validator-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-configextensions/tests/Invoke-ConfigValidator.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Invoke-ConfigValidator' -Tag 'L0', 'logic' {
     BeforeAll {
         New-Module -Name TstWidget -ScriptBlock {

@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
-    folder: docs/explanation/flow
-    name: pipeline-kinds-keyed-by-one-artifact
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD#{3-5,7,9,11}
-    links:
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/pipeline-types.md
-      - docs/explanation/.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
-      - docs/explanation/flow/a-merge-runs-cd-to-prod.md
-      - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
-      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-artifact-climbs-unchanged.md
-      - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact
 
 ```text

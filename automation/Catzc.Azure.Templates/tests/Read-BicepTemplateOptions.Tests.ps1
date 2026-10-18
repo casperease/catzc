@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1
-    folder: tests
-    name: read-bicep-template-options-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # cspell:ignore ndeployment nresource nsubscription toolong
 Describe 'Read-BicepTemplateOptions' -Tag 'L0', 'logic' {
     BeforeAll {

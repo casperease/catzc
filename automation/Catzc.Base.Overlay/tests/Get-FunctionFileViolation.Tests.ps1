@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1
-    folder: tests
-    name: get-function-file-violation-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Overlay
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-FunctionFileViolation' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:check = {

@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-base-qualitygates
-    name: test-automation-one-run-pipeline-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{13,26}
-      - ADR-REPO-PROTGLOB#9
----
-
 # out/diagrams/dark-sample/test-automation-one-run-pipeline.drawio.verify.md
 
 `Verification: One discovery feeds three phases; finally stamps run.json (source lens, Catzc.Base.QualityGates)`

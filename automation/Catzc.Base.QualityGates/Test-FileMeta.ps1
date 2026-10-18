@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-FileMeta.ps1
-    name: test-file-meta
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 function Test-FileMeta {
     [CmdletBinding()]
     param(

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1
-    folder: tests
-    name: get-config-integrity-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md
----
-#>
-
 Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {
 
     It 'the shipped azure.yml loads and passes its AzureConfig type' {

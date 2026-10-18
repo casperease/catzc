@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
-    folder: private
-    name: invoke-imprint-step
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
-    cites:
-      - ADR-PRIN-CONFIG#2
-      - ADR-REPO-FORMAT#8
----
-#>
-
 function Invoke-ImprintStep {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

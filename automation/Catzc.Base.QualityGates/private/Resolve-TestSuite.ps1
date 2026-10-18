@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-    folder: private
-    name: resolve-test-suite
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#37
-      - ADR-FLOW-CD-GLOBS#7
----
-#>
-
 function Resolve-TestSuite {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Test-TypesAssemblyContent.Tests.ps1
-    name: test-types-assembly-content-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Test-TypesAssemblyContent' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:space = 'Fixture' + [guid]::NewGuid().ToString('N').Substring(0, 8)

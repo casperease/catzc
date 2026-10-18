@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c7880f07478b
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-maps/tests
-    name: test-value-chain-map-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{3,35}
-      - ADR-DSGN-TRACK#{14-16}
----
-
 # automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

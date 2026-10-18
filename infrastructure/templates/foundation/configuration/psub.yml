@@ -1,21 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/foundation/configuration/psub.yml
-#     folder: configuration
-#     name: psub
-#     filetype: yml
-#     kind: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: foundation
-#     moduletype: bicep
-# ---
-
 # foundation, shared prod subscription (env psub). One config file ⟷ one resource group.
 ParametersFile:
   parameters:

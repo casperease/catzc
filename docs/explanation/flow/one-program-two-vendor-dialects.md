@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-program-two-vendor-dialects.md
-    folder: docs/explanation/flow
-    name: one-program-two-vendor-dialects
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#{4,6,8}
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
-      - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
-      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
-      - docs/explanation/flow/globs-projects-and-three-consumers-read.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-program-two-vendor-dialects.drawio.md
-      - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
 
 ```text

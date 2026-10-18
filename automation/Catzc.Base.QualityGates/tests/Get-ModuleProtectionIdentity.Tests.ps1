@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
-    folder: tests
-    name: get-module-protection-identity-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md
-    cites:
-      - ADR-REPO-PROTGLOB#8
----
-#>
-
 Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:dependencies = [Catzc.Base.ModuleSystem.DependenciesConfig]::new([ordered]@{

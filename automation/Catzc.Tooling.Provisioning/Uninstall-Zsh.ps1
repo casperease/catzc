@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
-    name: uninstall-zsh
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
-    test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
-    cites:
-      - ADR-AUTO-IDEM#2
-      - ADR-AUTO-REMOVE#{2,6}
----
-#>
-
 function Uninstall-Zsh {
     [CmdletBinding()]
     param()

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Slides/tests/types/SlideSource.Tests.ps1
-    folder: tests/types
-    name: slide-source-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-SLIDES#1
----
-#>
-
 Describe 'SlideSource' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#1' {
     BeforeAll {
         $script:body = @'

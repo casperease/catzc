@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
-    folder: tests
-    name: split-test-automation-files-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TEST#26
----
-#>
-
 Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fake discovery objects — the same Pester test shape Get-TestBlockTag walks.

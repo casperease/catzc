@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-    folder: tests/types
-    name: reports-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 Describe 'Catzc.Base.Reports.ReportsConfig' -Tag 'L0', 'logic' {
     It 'defaults every key, so an empty file gives the test-subject folder, the subject report, and latest.txt' -Tag 'ADR-AUTO-TEST#35' {
         $config = [Catzc.Base.Reports.ReportsConfig]::new(@{})

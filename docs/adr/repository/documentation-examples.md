@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/documentation-examples.md
-    folder: docs/adr/repository
-    name: documentation-examples
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-EXAMPLE#{1,2}
-    links:
-      - docs/adr/azure/landing-zones.md
----
-
 # ADR: Documentation examples — the discovery theme
 
 ## Rules: ADR-REPO-EXAMPLE

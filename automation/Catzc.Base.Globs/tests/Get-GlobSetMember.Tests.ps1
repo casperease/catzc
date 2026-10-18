@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
-    folder: tests
-    name: get-glob-set-member-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-GLOBS#4
----
-#>
-
 Describe 'Get-GlobSetMember' -Tag 'L0', 'logic' {
     It 'returns tracked files the set matches, ordinal-sorted (case-sensitive)' {
         Mock Get-TrackedFile { @('src/b.cs', 'src/a.cs', 'other/x.cs', 'src/B.cs') } -ModuleName Catzc.Base.Globs

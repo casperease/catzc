@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-environment.md
-    folder: docs/references/automation
-    name: catzc-base-environment
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/effective-in-enterprises.md
-      - docs/adr/automation/environment-variables.md
-      - docs/adr/pwsh/module-path-hygiene.md
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-repository.md
----
-
 # Catzc.Base.Environment
 
 The host environment and PATH module. It owns reading and writing the **persistent PATH** — the durable, system-level value that survives a

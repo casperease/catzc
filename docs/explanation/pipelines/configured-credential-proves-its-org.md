@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/configured-credential-proves-its-org.md
-    folder: docs/explanation/pipelines
-    name: configured-credential-proves-its-org
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PIPE-AUTH#{1,2,5}
-    links:
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/explanation/.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/pipelines/configured-credential-proves-its-org.drawio.md
-      - docs/explanation/pipelines/index.md
-      - docs/explanation/pipelines/one-header-function-owns-precedence.md
-      - docs/explanation/pipelines/three-guarded-early-returns.md
-      - docs/explanation/pipelines/what-you-set-decides-the-credential.md
-      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
----
-
 # The first configured credential wins, and it must prove its org
 
 ```text

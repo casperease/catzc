@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/FileKindReachability.Tests.ps1
-    folder: tests
-    name: file-kind-reachability-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#{2,11}
----
-#>
-
 Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic', 'ADR-REPO-FILEMETA#2' {
     # Read at discovery: -ForEach needs the declared classes before any BeforeAll runs.
     $declared = foreach ($entry in (Get-Config -Config file-kinds).kinds) {

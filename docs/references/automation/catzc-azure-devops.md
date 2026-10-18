@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure-devops.md
-    folder: docs/references/automation
-    name: catzc-azure-devops
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/adr/pipelines/pipeline-naming-and-placement.md
-      - docs/adr/pipelines/pipeline-variables.md
----
-
 # Catzc.Azure.DevOps
 
 The Azure DevOps integration module. It is the boundary between the automation layer and an Azure DevOps organization: authenticating to it,

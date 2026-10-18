@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-BuildArtifactProbe.ps1
-    folder: private
-    name: invoke-build-artifact-probe
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-AUTO-TEST#30
----
-#>
-
 function Invoke-BuildArtifactProbe {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Environment/Sync-SessionPath.ps1
-    name: sync-session-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
-    test: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#11
----
-#>
-
 function Sync-SessionPath {
     param()
 

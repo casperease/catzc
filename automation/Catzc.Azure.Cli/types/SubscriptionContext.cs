@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/types/SubscriptionContext.cs
-    folder: types
-    name: subscription-context
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Azure.Cli;

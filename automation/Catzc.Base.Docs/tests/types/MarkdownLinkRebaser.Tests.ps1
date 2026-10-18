@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
-    folder: tests/types
-    name: markdown-link-rebaser-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/MarkdownLinkRebaser.Tests.ps1.md
-    cites:
-      - ADR-REPO-README#6
----
-#>
-
 Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README#6' {
     BeforeAll {
         # The article lives in docs/references/widget/ and is copied into the widget/ folder at the root.

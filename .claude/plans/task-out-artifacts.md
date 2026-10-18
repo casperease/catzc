@@ -11,23 +11,6 @@ task:
       docs/adr/repository/dedicated-output-directory.md,
       out,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-out-artifacts.md"
-    folder: plans
-    name: task-out-artifacts
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-OUTDIR#12
 ---
 
 # Task: output artifacts registered, pruned, and the out/ harvest closed

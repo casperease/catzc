@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
-    folder: tests
-    name: update-bats-vendor-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-PWSH-ENUM#3
----
-#>
-
 Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"

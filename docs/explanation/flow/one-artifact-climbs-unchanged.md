@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-artifact-climbs-unchanged.md
-    folder: docs/explanation/flow
-    name: one-artifact-climbs-unchanged
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD#{2,3,5,6,9,13}
-    links:
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
-      - docs/explanation/flow/a-merge-runs-cd-to-prod.md
-      - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
-      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-artifact-climbs-unchanged.drawio.md
-      - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One artifact is built once and climbs to production unchanged
 
 ```text

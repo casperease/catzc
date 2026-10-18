@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-typessystem.md
-    folder: docs/references/automation
-    name: catzc-base-typessystem
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST#7
-      - ADR-AUTO-TYPES#15
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/catzc-base-qualitygates.md
----
-
 # Catzc.Base.TypesSystem
 
 The native C# type system's support layer: it keeps the single committed combined type assembly under `automation/.compiled/` clean,

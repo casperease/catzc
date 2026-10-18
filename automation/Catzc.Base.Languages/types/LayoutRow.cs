@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/types/LayoutRow.cs
-    folder: types
-    name: layout-row
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-languages/types/LayoutRow.cs.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-MODULE#2
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections.Generic;
 

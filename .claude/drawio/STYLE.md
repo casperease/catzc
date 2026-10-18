@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/drawio/STYLE.md"
-    folder: drawio
-    name: style
-    filetype: md
-    kind: drawio-kit
-    language: markdown
-    track: ".claude-kits"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#1
-      - ADR-DSGN-TRACK#{1,7-9,12,14-16}
-      - ADR-DSGN-VISUAL#{4,13}
-      - ADR-FLOW-CD#3
-      - ADR-REPO-FORMAT#6
-    links:
-      - ".claude/drawio/glyphs.xml"
----
-
 # Maker kit: style for new docs/.assets diagrams
 
 <!-- cspell:ignore mxGraphModel mxCell guillemets minimap minimaps treemap worldmap mapkey lede weudiscvm nfig -->

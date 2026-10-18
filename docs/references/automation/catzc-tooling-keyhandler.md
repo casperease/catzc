@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-keyhandler.md
-    folder: docs/references/automation
-    name: catzc-tooling-keyhandler
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/automation/dry-run.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/references/automation/catzc-tooling-core.md
-      - docs/references/automation/catzc-tooling-github.md
----
-
 # Catzc.Tooling.KeyHandler
 
 The PSReadLine key-binding module of the Tooling group. PSReadLine on Linux defaults to bash-style line editing, so a developer moving

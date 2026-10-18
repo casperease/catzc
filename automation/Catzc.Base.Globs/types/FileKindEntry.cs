@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/types/FileKindEntry.cs
-    folder: types
-    name: file-kind-entry
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#2
----
-*/
-
 using System.Collections.Generic;
 using System.Linq;
 

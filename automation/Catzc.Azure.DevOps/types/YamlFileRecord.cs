@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs
-    folder: types
-    name: yaml-file-record
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Azure.DevOps;

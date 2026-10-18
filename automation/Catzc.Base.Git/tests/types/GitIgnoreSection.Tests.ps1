@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1
-    folder: tests/types
-    name: git-ignore-section-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'GitIgnoreSection' -Tag 'L0', 'logic' {
     It 'constructs a static section with mixed bare and noted patterns' {
         $s = [Catzc.Base.Git.GitIgnoreSection]::new(@{

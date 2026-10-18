@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-forms-never-a-third.drawio.md
-    folder: docs/explanation/automation
-    name: two-forms-never-a-third-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-path--two-forms-never-a-third--meta.chain.md
-      - docs/explanation/.assets/grid/adr-auto-path--two-forms-never-a-third--meta.grid.md
-      - docs/explanation/.assets/tree/adr-auto-path--two-forms-never-a-third--meta.tree.md
-      - docs/explanation/automation/two-forms-never-a-third.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A path has two forms, never a third, and one pair of crossers moves it between them: the diagram described
 
 ```text

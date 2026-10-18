@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-docs.md
-    folder: docs/references/automation
-    name: catzc-base-docs
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/repository/agent-definitions.md
-      - docs/adr/repository/controlled-vocabulary.md
-      - docs/adr/repository/generated-readmes.md
-      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/catzc-base-qualitygates.md
----
-
 # Catzc.Base.Docs
 
 The generated-README module. It owns the rule that a `README.md` in a conventional folder is a **generated copy** of one authored docs

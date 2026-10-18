@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b84f310f3209
-    repo_status: locked
-    path: docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md
-    folder: docs/references/infrastructure/templates/expedition/configuration/apex
-    name: dev-blu-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # infrastructure/templates/expedition/configuration/apex/dev-blu.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,32 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
-    folder: private
-    name: get-language-test-outcomes
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
-    cites:
-      - ADR-AUTO-BASH#2
-      - ADR-AUTO-ENGINE
-      - ADR-AUTO-GO#2
-      - ADR-AUTO-MODULE#6
-      - ADR-AUTO-PY#2
-      - ADR-AUTO-TEST#8
----
-#>
-
 function Get-LanguageTestOutcomes {
     [CmdletBinding()]
     [OutputType([hashtable])]

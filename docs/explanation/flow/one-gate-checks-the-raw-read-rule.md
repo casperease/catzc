@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
-    folder: docs/explanation/flow
-    name: one-gate-checks-the-raw-read-rule
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PARITY#3
-      - ADR-FLOW-CD-DETECT
-    links:
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/explanation/.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-boolean-answer-from-one-function.md
-      - docs/explanation/flow/one-gate-checks-the-raw-read-rule.drawio.md
-      - docs/explanation/flow/the-analyzer-names-the-raw-read.md
-      - docs/explanation/flow/the-loader-holds-the-one-detector.md
-      - docs/explanation/flow/two-variables-read-in-one-place.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate
 
 ```text

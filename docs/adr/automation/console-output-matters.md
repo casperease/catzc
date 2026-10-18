@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/console-output-matters.md
-    folder: docs/adr/automation
-    name: console-output-matters
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-CONSOLE#{1,3-12}
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types14
-      - docs/adr/automation/log-before-invoke.md
-      - docs/adr/automation/log-before-invoke.md#rule-adr-auto-prelog1
-      - docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce4
----
-
 # ADR: Console output matters
 
 ## Rules: ADR-AUTO-CONSOLE

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.Tests.ps1
-    folder: tests
-    name: invoke-dotnet-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-Dotnet' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-Dotnet 'build' -DryRun | Should -Be 'dotnet build'

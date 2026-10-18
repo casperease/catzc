@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/configuration/dora-explains.md
-    folder: docs/adr/configuration
-    name: dora-explains
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/adr/configuration/markdown-config-contributions.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/references/dora/capabilities.md#code-maintainability
-      - docs/references/dora/capabilities.md#pervasive-security
-      - docs/references/dora/capabilities.md#trunk-based-development
-      - docs/references/dora/capabilities.md#version-control
-      - docs/references/dora/index.md
----
-
 # DORA explanations — configuration
 
 The `Dora explains` rationale for the ADRs in the `configuration/` domain, consolidated in one place. Each entry names its ADR and rule

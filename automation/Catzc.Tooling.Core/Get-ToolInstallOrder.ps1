@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1
-    name: get-tool-install-order
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
----
-#>
-
 function Get-ToolInstallOrder {
     [OutputType([string[]])]
     param()

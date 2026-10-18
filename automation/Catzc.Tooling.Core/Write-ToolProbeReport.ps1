@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
-    name: write-tool-probe-report
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
-    cites:
-      - ADR-PWSH-ANNOUNCE#7
----
-#>
-
 function Write-ToolProbeReport {
     [CmdletBinding()]
     param(

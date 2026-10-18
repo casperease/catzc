@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-AdrUsage.Tests.ps1
-    folder: tests
-    name: get-adr-usage-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#3
----
-#>
-
 Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:rows = @(Get-AdrUsage)

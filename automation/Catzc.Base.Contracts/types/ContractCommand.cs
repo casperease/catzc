@@ -1,29 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/types/ContractCommand.cs
-    folder: types
-    name: contract-command
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-contracts/types/ContractCommand.cs.md
-    test: automation/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-CMDCONTRACT#{2-4}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

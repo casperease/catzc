@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/the-runner-is-the-only-seam.drawio.md
-    folder: docs/explanation/flow
-    name: the-runner-is-the-only-seam-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.tree.md
-      - docs/explanation/flow/the-runner-is-the-only-seam.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The runner is the only seam from pipeline YAML into PowerShell: the diagram described
 
 ```text

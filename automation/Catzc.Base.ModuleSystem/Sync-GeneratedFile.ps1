@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
-    name: sync-generated-file
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
-    test: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE#8
-      - ADR-AUTO-TYPES#13
-      - ADR-DSGN-RUNMODE
-      - ADR-REPO-VARIANT#6
----
-#>
-
 function Sync-GeneratedFile {
     [CmdletBinding()]
     [OutputType([string])]

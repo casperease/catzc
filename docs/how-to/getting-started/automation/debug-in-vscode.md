@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/debug-in-vscode.md
-    folder: docs/how-to/getting-started/automation
-    name: debug-in-vscode
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/effective-in-enterprises.md
-      - docs/adr/pwsh/module-path-hygiene.md
-      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
----
-
 # Debug in VS Code
 
 The recommended workflow is to drive the **PowerShell Integrated Console** directly: dot-source the importer once, set breakpoints in the

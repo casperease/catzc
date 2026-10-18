@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "10884b0778d0"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-modulesystem/tests
-    name: test-internal-asset-dependency-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

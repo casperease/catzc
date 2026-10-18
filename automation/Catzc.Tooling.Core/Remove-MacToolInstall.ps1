@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
-    name: remove-mac-tool-install
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
-    cites:
-      - ADR-AUTO-REMOVE#{6,7}
----
-#>
-
 function Remove-MacToolInstall {
     [CmdletBinding()]
     [OutputType([bool])]

@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
-    folder: types
-    name: reports-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
-    test: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

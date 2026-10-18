@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/the-session-is-the-deploy-target.drawio.md
-    folder: docs/explanation/azure
-    name: the-session-is-the-deploy-target-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-az-datamod--the-session-is-the-deploy-target--meta.chain.md
-      - docs/explanation/.assets/grid/adr-az-datamod--the-session-is-the-deploy-target--meta.grid.md
-      - docs/explanation/.assets/tree/adr-az-datamod--the-session-is-the-deploy-target--meta.tree.md
-      - docs/explanation/azure/the-session-is-the-deploy-target.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The az session is the deploy target, and the guard only checks it: the diagram described
 
 ```text

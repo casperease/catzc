@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
-    folder: docs/explanation/repository
-    name: five-keys-one-reader-twelve-primitives
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PWSH-VERBS#6
-      - ADR-REPO-VARIANT#{1,2,4-6}
-    links:
-      - docs/adr/repository/repo-variants.md
-      - docs/explanation/.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
-      - docs/explanation/repository/an-edit-lands-at-the-next-import.md
-      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.drawio.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
-      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
----
-
 # Five keys, one private reader, twelve exported primitives
 
 ```text

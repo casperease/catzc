@@ -10,20 +10,6 @@ plan:
       automation/Catzc.Base.Languages/configs/file-carriers.yml,
       automation/Catzc.Base.CodeMeta/types/PropertyHead.cs,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-csproj-xml-head.md"
-    folder: plans
-    name: plan-csproj-xml-head
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Catzc.Types.csproj: a generated file with a head

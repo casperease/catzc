@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/one-unit-one-pipeline.drawio.md
-    folder: docs/explanation/design
-    name: one-unit-one-pipeline-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-track--one-unit-one-pipeline--meta.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-track--one-unit-one-pipeline--meta.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-track--one-unit-one-pipeline--meta.tree.md
-      - docs/explanation/design/one-unit-one-pipeline.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A track ships through a deployable-unit, and each unit has one pipeline: the diagram described
 
 ```text

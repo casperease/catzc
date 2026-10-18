@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/two-layers-join-through-one-resolver.md
-    folder: docs/explanation/azure
-    name: two-layers-join-through-one-resolver
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-DATAMOD#{1,3,8}
-    links:
-      - docs/adr/azure/azure-customer-model.md
-      - docs/adr/azure/azure-data-model.md
-      - docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
-      - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
-      - docs/explanation/azure/config-path-is-a-coordinate.md
-      - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
-      - docs/explanation/azure/coordinate-rules-and-their-gates.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/two-layers-join-through-one-resolver.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Templating and identity join through one shared check and one resolver
 
 ```text

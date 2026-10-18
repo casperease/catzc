@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/build-verify-then-copy-the-folder.drawio.md
-    folder: docs/explanation/automation
-    name: build-verify-then-copy-the-folder-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.tree.md
-      - docs/explanation/automation/build-verify-then-copy-the-folder.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Build-Modules builds, verifies, and leaves one folder that every target copies whole: the diagram described
 
 ```text

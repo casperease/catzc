@@ -1,39 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/pervasive-security.md
-    folder: docs/adr/research
-    name: pervasive-security
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-SECURITY#{1-5}
-    links:
-      - docs/adr/automation/use-proper-package-managers.md
-      - docs/adr/azure/az-session-verification.md
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/references/dora/capabilities.md#continuous-integration
-      - docs/references/dora/capabilities.md#deployment-automation
-      - docs/references/dora/capabilities.md#fast-feedback
-      - docs/references/dora/capabilities.md#pervasive-security
-      - docs/references/dora/capabilities.md#working-in-small-batches
-      - docs/references/dora/core-model.md#fast-feedback
-      - docs/references/dora/core-model.md#organizational-performance
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/core-model.md#well-being
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2016-state-of-devops-report
-      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
-      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
-      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
-      - "https://dora.dev/capabilities/pervasive-security/"
----
-
 # ADR: DORA — Pervasive security
 
 ## Rules: ADR-DORA-SECURITY

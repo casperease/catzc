@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
-    folder: docs/explanation/flow
-    name: tests-pin-the-throw-and-fail-open-no-caller
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST#4
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-GLOBS#9
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
-      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
-      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/range-per-context-then-diff-and-match.md
-      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
-      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it
 
 ```text

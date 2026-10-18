@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/add-a-cli-tool.md
-    folder: docs/how-to/getting-started/automation
-    name: add-a-cli-tool
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-UVPY#4
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/log-before-invoke.md
-      - docs/adr/automation/use-proper-package-managers.md
-      - docs/adr/automation/uv-python-handler.md
-      - docs/adr/azure/prefer-az-cli.md
----
-
 # Add a CLI tool
 
 System CLI tools (Python, .NET, Azure CLI, Terraform, …) are version-locked in one config file and installed by a generic, platform-aware

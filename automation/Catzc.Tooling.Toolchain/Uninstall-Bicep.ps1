@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Uninstall-Bicep.ps1
-    name: uninstall-bicep
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
----
-#>
-
 function Uninstall-Bicep {
     [CmdletBinding()]
     param(

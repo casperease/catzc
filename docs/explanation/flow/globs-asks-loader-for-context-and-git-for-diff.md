@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
-    folder: docs/explanation/flow
-    name: globs-asks-loader-for-context-and-git-for-diff
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-GLOBS#{1,9}
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
-      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
-      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.drawio.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/range-per-context-then-diff-and-match.md
-      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
-      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Catzc.Base.Globs owns the check, the loader names the context, and git names the change
 
 ```text

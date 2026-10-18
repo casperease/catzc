@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
-    folder: tests
-    name: remove-repository-snapshot-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Remove-RepositorySnapshot' -Tag 'L0', 'logic' {
     It 'refuses a folder that carries no snapshot marker and leaves it in place' {
         $folder = Join-Path $TestDrive 'not-a-snapshot'

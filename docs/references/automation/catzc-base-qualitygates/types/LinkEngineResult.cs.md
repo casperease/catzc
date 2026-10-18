@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: afb136929daa
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: link-engine-result-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.QualityGates/types/LinkEngineResult.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/dot-source-one-entry-script.drawio.md
-    folder: docs/explanation/automation
-    name: dot-source-one-entry-script-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md
-      - docs/explanation/.assets/grid/adr-auto-bundle--dot-source-one-entry-script--operations.grid.md
-      - docs/explanation/.assets/tree/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md
-      - docs/explanation/automation/dot-source-one-entry-script.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Dot-source one entry script, and a failed check stops the load with a named error: the diagram described
 
 ```text

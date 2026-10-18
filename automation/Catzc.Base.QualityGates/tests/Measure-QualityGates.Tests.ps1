@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
-    folder: tests
-    name: measure-quality-gates-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Measure-QualityGates.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture gates declare the parameters a real quality gate takes; what they return does not depend on them')]
 param()
 

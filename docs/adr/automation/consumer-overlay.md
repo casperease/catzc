@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/consumer-overlay.md
-    folder: docs/adr/automation
-    name: consumer-overlay
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-OVERLAY#{1-9}
-    links:
-      - docs/adr/automation/internal-asset-dependencies.md
-      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/design/run-modes.md
-      - docs/adr/principles/one-living-version.md
----
-
 # ADR: Consumer overlay — a consumer changes a built bundle only through .catzc/
 
 ## Rules: ADR-AUTO-OVERLAY

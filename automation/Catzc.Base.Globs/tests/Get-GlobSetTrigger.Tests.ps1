@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
-    folder: tests
-    name: get-glob-set-trigger-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-GLOBS#1
----
-#>
-
 Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     It 'projects a simple single-include set to both dialects' {
         $t = & (Get-Module Catzc.Base.Globs) {

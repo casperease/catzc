@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-#     folder: configs
-#     name: glossary
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.ModuleSystem
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-modulesystem/configs/glossary.yml.md
-# ---
-
 concepts:
   deployable-unit:
     key: deployable_unit

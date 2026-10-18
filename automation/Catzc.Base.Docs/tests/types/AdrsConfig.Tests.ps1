@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
-    folder: tests/types
-    name: adrs-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-LAYERS#6
-      - ADR-AUTO-TYPES#9
-      - ADR-DSGN-TRACK#{14,15}
-      - ADR-REPO-LANG
----
-#>
-
 Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
         function New-ValidRaw {

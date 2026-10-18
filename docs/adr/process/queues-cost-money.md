@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/queues-cost-money.md
-    folder: docs/adr/process
-    name: queues-cost-money
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-QUEUECOST#{1-5}
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/lean.md
-      - docs/adr/process/observe-work.md
-      - docs/adr/process/pull-work.md
----
-
 # ADR: The money is lost in the queues — Little's Law and the cost of delay
 
 ## Rules: ADR-PROC-QUEUECOST

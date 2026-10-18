@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Get-Glossary.ps1
-    name: get-glossary
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md
-    test: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
-    cites:
-      - ADR-PWSH-CACHE
-      - ADR-REPO-VOCAB#2
----
-#>
-
 function Get-Glossary {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Docs.GlossaryEntry[]])]

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/output-root-first-then-repo-root.drawio.md
-    folder: docs/explanation/automation
-    name: output-root-first-then-repo-root-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-auto-path--output-root-first-then-repo-root--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md
-      - docs/explanation/automation/output-root-first-then-repo-root.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root: the diagram described
 
 ```text

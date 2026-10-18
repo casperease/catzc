@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "566571b5acf9"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
-    folder: docs/references/automation/catzc-tooling-toolchain/tests
-    name: install-uv-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PWSH-ENV#4
----
-
 # automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

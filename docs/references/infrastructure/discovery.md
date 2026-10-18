@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/discovery.md
-    folder: docs/references/infrastructure
-    name: discovery
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-network-model.md
-      - docs/references/infrastructure/foundation.md
-      - docs/references/infrastructure/modules.md
----
-
 # discovery
 
 The CAF application landing zone of one subscription. `discovery` deploys the network, the guardrails, and the cost control a workload lands

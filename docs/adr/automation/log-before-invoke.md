@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/log-before-invoke.md
-    folder: docs/adr/automation
-    name: log-before-invoke
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-PRELOG#{1,2,4,5}
-    cites:
-      - ADR-AUTO-CONSOLE#3
-    links:
-      - docs/adr/automation/console-output-matters.md#rule-adr-auto-console3
-      - docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce10
----
-
 # ADR: Log the exact command before every invocation
 
 ## Rules: ADR-AUTO-PRELOG

@@ -1,21 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/foundation/configuration/apex/psub.yml
-#     folder: configuration/apex
-#     name: psub
-#     filetype: yml
-#     kind: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: foundation
-#     moduletype: bicep
-# ---
-
 # foundation, apex prod subscription (env psub, customer apex).
 ParametersFile:
   parameters:

@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/caching.md
-    folder: docs/adr/automation
-    name: caching
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-CACHE#{1,2,4-10}
-    cites:
-      - ADR-AUTO-TEST#10
-      - ADR-PWSH-CACHE#{1,5}
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/effective-in-enterprises.md
-      - docs/adr/automation/tracked-files-from-the-index.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/pipelines/dual-authentication.md#rule-adr-pipe-auth7
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/pwsh/script-scope-caching.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5
-      - docs/adr/repository/conventional-folders.md
----
-
 # ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)
 
 ## Rules: ADR-AUTO-CACHE

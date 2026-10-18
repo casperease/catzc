@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/Catzc.Internal.Builder.psm1
-    name: catzc-internal-builder
-    filetype: psm1
-    kind: module
-    subkind: internal
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Builder
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/Catzc.Internal.Builder.psm1.md
----
-#>
-
 Set-StrictMode -Version Latest
 
 $script:testToolVendorModules = @('Pester', 'PSScriptAnalyzer')

@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
-    name: assert-az-cli-subscription-accessible
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.Cli/tests/Assert-AzCliSubscriptionAccessible.Tests.ps1
-    cites:
-      - ADR-AUTO-FAILFAST
-      - ADR-AZ-CLI#1
----
-#>
-
 function Assert-AzCliSubscriptionAccessible {
     [CmdletBinding()]
     param(

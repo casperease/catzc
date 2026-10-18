@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
-    folder: private
-    name: get-uncovered-internal-asset-dependency
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#{3,4}
-      - ADR-AUTO-TEST#13
-      - ADR-PWSH-PESTER#5
----
-#>
-
 function Get-UncoveredInternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

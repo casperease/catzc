@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Invoke-Uv.ps1
-    name: invoke-uv
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
----
-#>
-
 function Invoke-Uv {
     [CmdletBinding()]
     param(

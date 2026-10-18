@@ -1,20 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/data-factory.bicep
-//     name: data-factory
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: data-factory
-//     moduletype: bicep
-// ---
-
 @description('Data Factory name (3-24 lowercase alphanumeric, globally unique).')
 param name string
 

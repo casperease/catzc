@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
-    folder: tests
-    name: invoke-go-test-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#6
----
-#>
-
 Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/server-remote-integration.md
-    folder: docs/adr/design
-    name: server-remote-integration
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-REMOTE#{1-4}
-    cites:
-      - ADR-DSGN-LIFE#{1,2,6,7}
-      - ADR-PRIN-ONELIVE#4
-      - ADR-REPO-VARIANT#6
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/self-service.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/repository/repo-variants.md
-      - docs/adr/repository/repo-variants.md#rule-adr-repo-variant6
----
-
 # ADR: The audited server git remote — verified integration and PR ingress
 
 The mainline lives on an **audited server git remote** (Azure DevOps or GitHub); every developer box and CI agent is a client that bridges

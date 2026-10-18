@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/lookup-form-check-render-in-order.drawio.md
-    folder: docs/explanation/azure
-    name: lookup-form-check-render-in-order-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-az-naming--lookup-form-check-render-in-order--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-az-naming--lookup-form-check-render-in-order--implementation.tree.md
-      - docs/explanation/azure/lookup-form-check-render-in-order.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The namer looks up, forms, checks and renders a name in that order: the diagram described
 
 ```text

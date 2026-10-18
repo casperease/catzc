@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
-    folder: tests
-    name: test-function-dependency-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' {
     It 'the real repository dependency graph is satisfied' {
         $result = Test-FunctionDependency -PassThru -OutputFolder (Join-Path $TestDrive 'function-dependency')

@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.ModuleSystem/configs/files.yml
-#     folder: configs
-#     name: files
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.ModuleSystem
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-modulesystem/configs/files.yml.md
-# ---
-
 modules:
   .internal:
     packages:

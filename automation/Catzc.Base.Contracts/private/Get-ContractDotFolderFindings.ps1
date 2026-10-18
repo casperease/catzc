@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
-    folder: private
-    name: get-contract-dot-folder-findings
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
-    cites:
-      - ADR-PWSH-ENUM#3
-      - ADR-REPO-CONTRACT#{2,10}
-      - ADR-REPO-FOLDERS#4
----
-#>
-
 function Get-ContractDotFolderFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

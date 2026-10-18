@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/build-quality-in.md
-    folder: docs/adr/process
-    name: build-quality-in
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-BUILTIN#{1-4}
-    links:
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/principles/reduce-variability.md
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/holding-the-line.md
-      - docs/adr/process/lean.md
----
-
 # ADR: Build quality in — you cannot inspect it in at the end
 
 ## Rules: ADR-PROC-BUILTIN

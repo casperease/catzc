@@ -12,24 +12,6 @@ task:
       automation/Catzc.Base.Languages,
       docs/adr/repository/uniform-formatting.md,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-file-head-leftovers.md"
-    folder: plans
-    name: task-file-head-leftovers
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#17
-      - ADR-REPO-FORMAT#8
 ---
 
 # Task: file head leftovers

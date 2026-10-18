@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1
-    name: invoke-test-file
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
-    cites:
-      - ADR-AUTO-NOPWD
-      - ADR-AUTO-TEST#{25,32-34,41}
-      - ADR-PWSH-ASSERT#1
----
-#>
-
 function Invoke-TestFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,21 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/foundation/configuration/apex/nsub.yml
-#     folder: configuration/apex
-#     name: nsub
-#     filetype: yml
-#     kind: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: foundation
-#     moduletype: bicep
-# ---
-
 # foundation, apex nonprod subscription (env nsub, customer apex).
 ParametersFile:
   parameters:

@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
-    folder: private
-    name: assert-remote-matches-branch
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: private
----
-#>
-
 function Assert-RemoteMatchesBranch {
     [OutputType([string])]
     param(

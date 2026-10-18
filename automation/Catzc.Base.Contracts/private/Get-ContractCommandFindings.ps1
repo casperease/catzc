@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/private/Get-ContractCommandFindings.ps1
-    folder: private
-    name: get-contract-command-findings
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-REPO-CMDCONTRACT#{1,2,4}
----
-#>
-
 function Get-ContractCommandFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

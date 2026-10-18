@@ -1,21 +1,2 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/expedition/options.yml
-#     name: options
-#     filetype: yml
-#     kind: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: expedition
-#     moduletype: bicep
-#   edges:
-#     page: docs/references/infrastructure/templates/expedition/options.yml.md
-# ---
-
 short_name: exped
 environment_kind: standard

@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/pipelines/template-folders.md
-    folder: docs/references/pipelines
-    name: template-folders
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/pipelines/custom-template-discipline.md
-      - docs/adr/pipelines/pipeline-naming-and-placement.md
----
-
 # A pipeline template-kind folder
 
 This folder holds Azure DevOps template fragments of exactly one kind — the folder name is the include-kind contract: `steps/` templates

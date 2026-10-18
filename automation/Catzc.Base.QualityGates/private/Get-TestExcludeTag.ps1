@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-TestExcludeTag.ps1
-    folder: private
-    name: get-test-exclude-tag
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
----
-#>
-
 function Get-TestExcludeTag {
     [OutputType([string[]])]
     param(

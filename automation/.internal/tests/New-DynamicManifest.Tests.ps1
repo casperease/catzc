@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/New-DynamicManifest.Tests.ps1
-    name: new-dynamic-manifest-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    cites:
-      - ADR-AUTO-MODULE#2
----
-#>
-
 # The loader runs before the types load, so it cannot read the layout. This test holds it to the layout instead.
 Describe 'New-DynamicManifest against the layout' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE#2' {
     BeforeAll {

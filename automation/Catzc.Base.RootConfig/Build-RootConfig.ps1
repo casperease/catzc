@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
-    name: build-root-config
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md
-    test: automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN
-      - ADR-DSGN-RUNMODE
-      - ADR-REPO-ROOTCFG
----
-#>
-
 function Build-RootConfig {
     [CmdletBinding()]
     [OutputType([string[]])]

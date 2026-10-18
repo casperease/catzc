@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/bounded-enumeration.md
-    folder: docs/adr/pwsh
-    name: bounded-enumeration
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-ENUM#{1-6}
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TRACKED#1
-      - ADR-PWSH-PARAM#4
-      - ADR-PWSH-PESTER#9
-    links:
-      - docs/adr/automation/tracked-files-from-the-index.md
----
-
 # ADR: Bounded enumeration
 
 ## Rules: ADR-PWSH-ENUM

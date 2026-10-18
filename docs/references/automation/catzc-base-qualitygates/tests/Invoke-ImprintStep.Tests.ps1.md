@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: aba8ec1b0c8a
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-ImprintStep.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: invoke-imprint-step-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-FORMAT#8
----
-
 # automation/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

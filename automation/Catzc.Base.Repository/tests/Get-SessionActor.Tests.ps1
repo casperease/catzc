@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
-    folder: tests
-    name: get-session-actor-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#13
----
-#>
-
 Describe 'Get-SessionActor' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#13' {
     It 'is a person when neither a pipeline nor an agent is detected' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository

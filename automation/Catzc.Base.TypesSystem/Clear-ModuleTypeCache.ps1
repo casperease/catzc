@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
-    name: clear-module-type-cache
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md
-    test: automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE#8
-      - ADR-DSGN-RUNMODE
----
-#>
-
 function Clear-ModuleTypeCache {
     param(
         [string] $AutomationRoot = (Get-CatzcModulesRoot),

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
-    folder: tests/types
-    name: ado-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'AdoConfig' -Tag 'L0' {
     BeforeAll {
         $script:baseConfig = @{

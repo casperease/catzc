@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
-    folder: types
-    name: markdown-meta-block
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
-    test: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,31 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1
-    name: publish-contract-release
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
-    test: automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE#7
-      - ADR-AUTO-PATH#2
-      - ADR-PWSH-ENUM#3
-      - ADR-PWSH-VERBS#1
-      - ADR-REPO-CONTRACT#5
----
-#>
-
 function Publish-ContractRelease {
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([string])]

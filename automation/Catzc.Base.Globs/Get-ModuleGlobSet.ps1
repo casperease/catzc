@@ -1,33 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-    name: get-module-glob-set
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-    test: automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-    cites:
-      - ADR-AUTO-BASH#2
-      - ADR-AUTO-GO#2
-      - ADR-AUTO-PY#2
-      - ADR-DSGN-ASPECT
-      - ADR-DSGN-RUNMODE
-      - ADR-FLOW-CD-GLOBS#{7,10}
-      - ADR-REPO-PROTGLOB
----
-#>
-
 function Get-ModuleGlobSet {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Globs.GlobSet])]

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-toolchain.md
-    folder: docs/references/automation
-    name: catzc-tooling-toolchain
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/bash/bash-test-artifacts.md
-      - docs/adr/automation/cross-platform.md
-      - docs/adr/automation/use-proper-package-managers.md
-      - docs/adr/automation/uv-python-handler.md
-      - docs/adr/azure/az-session-verification.md
-      - docs/adr/azure/prefer-az-cli.md
-      - docs/references/automation/catzc-azure-cli.md
-      - docs/references/automation/catzc-tooling-core.md
----
-
 # Catzc.Tooling.Toolchain
 
 The build-toolchain module of the Tooling group. It owns the compiled-language and infrastructure build tools — the .NET SDK, the Java

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
-    name: assert-az-cli-is-connected
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.Cli/tests/Assert-AzCliIsConnected.Tests.ps1
-    cites:
-      - ADR-AZ-DATAMOD
----
-#>
-
 function Assert-AzCliIsConnected {
     [CmdletBinding()]
     param(

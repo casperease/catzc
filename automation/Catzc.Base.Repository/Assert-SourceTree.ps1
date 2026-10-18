@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/Assert-SourceTree.ps1
-    name: assert-source-tree
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
-    cites:
-      - ADR-DSGN-RUNMODE
----
-#>
-
 function Assert-SourceTree {
     [CmdletBinding()]
     param(

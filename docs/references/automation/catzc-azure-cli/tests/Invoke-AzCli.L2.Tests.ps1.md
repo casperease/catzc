@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b758fcb9129b
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md
-    folder: docs/references/automation/catzc-azure-cli/tests
-    name: invoke-az-cli-l2-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure.Cli/tests/Invoke-AzCli.L2.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

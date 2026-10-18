@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "99b7f70d0893"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/private
-    name: invoke-test-run-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{26,44}
-      - ADR-PWSH-ANNOUNCE#6
-      - ADR-REPO-PROTGLOB#9
----
-
 # automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

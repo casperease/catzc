@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/four-domains-promote-one-artifact.md
-    folder: docs/explanation/design
-    name: four-domains-promote-one-artifact
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#{5-8}
-      - ADR-FLOW-CD#{3,4}
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
-      - docs/explanation/design/code-wires-only-the-first-rungs.md
-      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
-      - docs/explanation/design/four-domains-promote-one-artifact.drawio.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-way-climb-three-endings.md
-      - docs/explanation/design/which-rung-gates-exist-in-code.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Four pipeline kinds promote one artifact that CI built once
 
 ```text

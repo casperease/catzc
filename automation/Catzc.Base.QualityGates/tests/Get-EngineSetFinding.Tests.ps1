@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
-    folder: tests
-    name: get-engine-set-finding-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-EngineSetFinding.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:check = [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{

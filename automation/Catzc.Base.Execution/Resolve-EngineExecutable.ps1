@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/Resolve-EngineExecutable.ps1
-    name: resolve-engine-executable
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE
----
-#>
-
 function Resolve-EngineExecutable {
     [CmdletBinding()]
     [OutputType([string])]

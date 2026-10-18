@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
-    folder: tests
-    name: resolve-test-run-max-level-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates

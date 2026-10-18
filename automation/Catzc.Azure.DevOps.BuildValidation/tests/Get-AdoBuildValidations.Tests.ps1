@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
-    folder: tests
-    name: get-ado-build-validations-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Get-AdoBuildValidations.Tests.ps1.md
----
-#>
-
 Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith {

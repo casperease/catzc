@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-FileMetaFact.Tests.ps1
-    folder: tests
-    name: get-file-meta-fact-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#4
----
-#>
-
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     BeforeAll {
         # The one code the fixture cites, registered with ten rules, so the adr-codes kind keeps it.

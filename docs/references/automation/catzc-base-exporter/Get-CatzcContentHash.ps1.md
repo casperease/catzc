@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "6ac5479d2df8"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
-    folder: docs/references/automation/catzc-base-exporter
-    name: get-catzc-content-hash-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PWSH-ENUM#3
----
-
 # automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

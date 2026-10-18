@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1
-    folder: tests/types
-    name: bash-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'BashConfig' -Tag 'L0' {
 
     Context 'integrity (shipped bash.yml)' -Tag 'integrity' {

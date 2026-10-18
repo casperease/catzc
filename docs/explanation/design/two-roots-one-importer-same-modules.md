@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/two-roots-one-importer-same-modules.md
-    folder: docs/explanation/design
-    name: two-roots-one-importer-same-modules
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-RUNMODE#{1-3,7}
-    links:
-      - docs/adr/design/run-modes.md
-      - docs/explanation/.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-entry-script-per-mode.md
-      - docs/explanation/design/shims-set-roots-mode-read-back.md
-      - docs/explanation/design/two-roots-one-importer-same-modules.drawio.md
-      - docs/explanation/design/where-code-loads-from-decides-the-mode.md
-      - docs/explanation/design/which-run-mode-rules-have-a-gate.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Two code roots feed one importer, which loads the same modules
 
 ```text

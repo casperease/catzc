@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/two-variables-read-in-one-place.drawio.md
-    folder: docs/explanation/flow
-    name: two-variables-read-in-one-place-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.tree.md
-      - docs/explanation/flow/two-variables-read-in-one-place.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Two variables, one reader, 24 callers, and one analyzer rule for every other read: the diagram described
 
 ```text

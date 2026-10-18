@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/root-config-and-editor.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: root-config-and-editor
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Root config and editor
 
 The managed root config files, the importer drift guard, `.gitignore`, and the VS Code registries. Part of the

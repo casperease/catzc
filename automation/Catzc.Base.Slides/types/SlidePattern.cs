@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Slides/types/SlidePattern.cs
-    folder: types
-    name: slide-pattern
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Slides/tests/types/SlidePattern.Tests.ps1
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

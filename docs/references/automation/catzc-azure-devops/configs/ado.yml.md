@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e619b9b777fc
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
-    folder: docs/references/automation/catzc-azure-devops/configs
-    name: ado-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure.DevOps/configs/ado.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

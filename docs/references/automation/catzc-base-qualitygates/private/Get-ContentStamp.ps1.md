@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e041f22782a3
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/private
-    name: get-content-stamp-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.QualityGates/private/Get-ContentStamp.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/prompt-bounded-folder-enumeration-continue.md"
-    folder: plans
-    name: prompt-bounded-folder-enumeration-continue
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST#1
-      - ADR-CONF-ADDRESSING#1
-      - ADR-PWSH-ERROR#3
----
-
 # Continuation prompt: bounded folder enumeration (paste into a new session)
 
 You are continuing in `C:\projects\catzc`. Read `.claude/CLAUDE.md` and `docs/adr/index.md` first, then in full only the ADRs that govern

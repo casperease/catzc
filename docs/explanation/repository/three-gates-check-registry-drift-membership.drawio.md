@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/three-gates-check-registry-drift-membership.drawio.md
-    folder: docs/explanation/repository
-    name: three-gates-check-registry-drift-membership-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.chain.md
-      - docs/explanation/.assets/grid/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.grid.md
-      - docs/explanation/.assets/tree/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.tree.md
-      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Three gates check the registry, the drift and the git membership; one rule has no gate: the diagram described
 
 ```text

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownDocument.Tests.ps1
-    folder: tests/types
-    name: markdown-document-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#1
----
-#>
-
 Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
     BeforeAll {
         $script:withMeta = "---`nname: widget`ncatzc:`n  immutable:`n    kind: gadget`nother: 1`n---`n# docs/widget.md`n`nbody text`n"

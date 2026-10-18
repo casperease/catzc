@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/types/TrackTypesConfig.cs
-    folder: types
-    name: track-types-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Variants/tests/types/TrackTypesConfig.Tests.ps1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

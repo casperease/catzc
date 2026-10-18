@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
-    name: test-catzc-build
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#{30,31,33}
-      - ADR-DSGN-RUNMODE#6
----
-#>
-
 function Test-CatzcBuild {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]

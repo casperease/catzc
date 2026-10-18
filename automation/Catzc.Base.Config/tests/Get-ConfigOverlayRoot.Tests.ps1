@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
-    folder: tests
-    name: get-config-overlay-root-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalRepositoryRoot = $env:RepositoryRoot

@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/parameter-design.md
-    folder: docs/adr/pwsh
-    name: parameter-design
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-PARAM#{1-4}
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-PWSH-AUTOVAR#{6,7}
-      - ADR-PWSH-PESTER#3
-    links:
-      - docs/adr/automation/dry-run.md
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/adr/automation/sensible-defaults.md#one-resolution-order
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/pwsh/automatic-variable-pitfalls.md
----
-
 # ADR: Parameter design — the PowerShell layer over sensible-defaults
 
 ## Rules: ADR-PWSH-PARAM

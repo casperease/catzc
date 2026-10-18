@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/clients-bridge-to-one-server.drawio.md
-    folder: docs/explanation/design
-    name: clients-bridge-to-one-server-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-remote--clients-bridge-to-one-server--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-remote--clients-bridge-to-one-server--architecture.tree.md
-      - docs/explanation/design/clients-bridge-to-one-server.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Clients bridge to one server remote: in through a pull request, out from the verified point: the diagram described
 
 ```text

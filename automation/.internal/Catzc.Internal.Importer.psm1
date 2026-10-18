@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/Catzc.Internal.Importer.psm1
-    name: catzc-internal-importer
-    filetype: psm1
-    kind: module
-    subkind: internal
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Importer
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/Catzc.Internal.Importer.psm1.md
----
-#>
-
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 # The one bootstrap constant: the folder under the repository root that holds the modules. It is read before any registry

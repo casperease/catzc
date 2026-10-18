@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "43ca183e1145"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md
-    folder: docs/references/automation/catzc-base-qualitygates/configs
-    name: terminology-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-SPELL#{5,8}
----
-
 # automation/Catzc.Base.QualityGates/configs/terminology.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

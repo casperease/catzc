@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
-    folder: docs/explanation/repository
-    name: an-edit-lands-at-the-next-import
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#6
-      - ADR-REPO-VARIANT#{1,2,5,6}
-    links:
-      - docs/adr/repository/repo-variants.md
-      - docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
-      - docs/explanation/repository/an-edit-lands-at-the-next-import.drawio.md
-      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
-      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
----
-
 # An edit to a variant lands at the next import, and a wrong value fails once, at load
 
 ```text

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-base-execution
-    name: invoke-executable-two-paths-one-bounded-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DRYRUN#2
-      - ADR-AUTO-FAILFAST#7
-      - ADR-PWSH-ASSERT#1
----
-
 # out/diagrams/wave-9/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
 
 `Verification: Invoke-Executable: only the streamed path is time-bounded (source lens, Catzc.Base.Execution)`

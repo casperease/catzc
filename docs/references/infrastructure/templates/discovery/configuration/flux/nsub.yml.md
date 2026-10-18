@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "787adf66f7bc"
-    repo_status: locked
-    path: docs/references/infrastructure/templates/discovery/configuration/flux/nsub.yml.md
-    folder: docs/references/infrastructure/templates/discovery/configuration/flux
-    name: nsub-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # infrastructure/templates/discovery/configuration/flux/nsub.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

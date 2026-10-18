@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1
-    name: get-repository-guids
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
----
-#>
-
 function Get-RepositoryGuids {
     [CmdletBinding()]
     param()

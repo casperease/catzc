@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/hosting-csharp-types.md
-    folder: docs/adr/pwsh
-    name: hosting-csharp-types
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-TYPES#{1-7}
-    cites:
-      - ADR-AUTO-TYPES#{2-4,7,9,14,15}
-      - ADR-FLOW-CD-DETECT#1
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1
----
-
 # ADR: Hosting C# types in pwsh — the compiler, the reference set, accelerators, and stale types
 
 ## Rules: ADR-PWSH-TYPES

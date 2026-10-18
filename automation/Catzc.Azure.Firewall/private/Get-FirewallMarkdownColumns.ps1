@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
-    folder: private
-    name: get-firewall-markdown-columns
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
-    test: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
----
-#>
-
 function Get-FirewallMarkdownColumns {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.List[object]])]

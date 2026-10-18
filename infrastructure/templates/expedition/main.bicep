@@ -1,21 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/templates/expedition/main.bicep
-//     name: main
-//     filetype: bicep
-//     kind: template
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: expedition
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/templates/expedition/main.bicep.md
-// ---
-
 @description('Azure region. Defaults to the resource group location; it must match the region of the network.')
 param location string = resourceGroup().location
 

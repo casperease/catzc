@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Assert-PsModule.Tests.ps1
-    folder: tests
-    name: assert-ps-module-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Assert-PsModule' -Tag 'L0', 'logic' {
     It 'passes for an available module' {
         { Assert-PsModule 'Microsoft.PowerShell.Utility' } | Should -Not -Throw

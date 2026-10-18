@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f61e2a4e3bac
-    repo_status: locked
-    path: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
-    folder: docs/references/automation/catzc-base-timeouts/types
-    name: bash-safeguard-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST#7
----
-
 # automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

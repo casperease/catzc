@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-variants.md
-    folder: docs/references/automation
-    name: catzc-base-variants
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/design/module-aspects.md
-      - docs/adr/repository/repo-variants.md
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-globs.md
-      - docs/references/automation/catzc-base-objects.md
----
-
 # Catzc.Base.Variants
 
 The repo-wide variants module — the single home for settings that are **fixed for the importer session** and read the same everywhere. A

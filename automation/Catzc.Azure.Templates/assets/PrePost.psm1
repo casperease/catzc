@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/assets/PrePost.psm1
-    folder: assets
-    name: pre-post
-    filetype: psm1
-    kind: asset
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) —
 # [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
 Set-StrictMode -Version Latest

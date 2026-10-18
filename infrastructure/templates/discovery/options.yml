@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/discovery/options.yml
-#     name: options
-#     filetype: yml
-#     kind: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: discovery
-#     moduletype: bicep
-#   edges:
-#     page: docs/references/infrastructure/templates/discovery/options.yml.md
-# ---
-
 short_name: disco
 deployment_target: Subscription
 environment_kind: subscription

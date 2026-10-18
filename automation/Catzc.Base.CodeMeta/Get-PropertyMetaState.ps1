@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
-    name: get-property-meta-state
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#8
----
-#>
-
 function Get-PropertyMetaState {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

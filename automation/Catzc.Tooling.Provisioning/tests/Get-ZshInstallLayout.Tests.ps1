@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
-    folder: tests
-    name: get-zsh-install-layout-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{1,3}
----
-#>
-
 Describe 'Get-ZshInstallLayout' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = [pscustomobject]@{

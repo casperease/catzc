@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/dedicated-output-directory.md
-    folder: docs/adr/repository
-    name: dedicated-output-directory
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-OUTDIR#{1-12}
-    cites:
-      - ADR-AUTO-SPELL#5
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5
----
-
 # ADR: Dedicated output directory
 
 ## Rules: ADR-REPO-OUTDIR

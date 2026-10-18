@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/the-step-is-named-after-its-command.md
-    folder: docs/explanation/flow
-    name: the-step-is-named-after-its-command
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-RUNNER#{3,4}
-    links:
-      - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
-      - docs/explanation/flow/a-step-only-names-a-command.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
-      - docs/explanation/flow/the-runner-is-the-only-seam.md
-      - docs/explanation/flow/the-step-is-named-after-its-command.drawio.md
-      - docs/explanation/flow/three-tasks-one-guard-one-runner.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # The Azure DevOps step is named after its command, and its log echoes the command before it runs
 
 ```text

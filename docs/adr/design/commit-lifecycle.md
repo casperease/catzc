@@ -1,38 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/commit-lifecycle.md
-    folder: docs/adr/design
-    name: commit-lifecycle
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-LIFE#{1-12}
-    cites:
-      - ADR-DSGN-REMOTE#{2-4}
-      - ADR-DSGN-VISUAL#{12,13}
-      - ADR-FLOW-CD#{9,10,14}
-      - ADR-REPO-VARIANT#6
-    links:
-      - docs/.assets/commits-quality/commit-lifecycle-states.drawio.png
-      - docs/.assets/commits-quality/sync-point.drawio.png
-      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote2
-      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote3
-      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote4
-      - docs/adr/design/visual-design.md
-      - docs/adr/design/visual-design.md#rule-adr-dsgn-visual12
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
-      - docs/adr/repository/repo-variants.md#rule-adr-repo-variant6
----
-
 # ADR: The commit lifecycle — states, environment occupancy, and the stable sync point
 
 The value-chain diagrams under `docs/.assets/commits-quality` — the `value-chain` promotion diagram and its `state-changes` flow-variant

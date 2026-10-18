@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-FormatterEngine.ps1
-    folder: private
-    name: invoke-formatter-engine
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-PRIN-CONFIG#2
----
-#>
-
 function Invoke-FormatterEngine {
     [CmdletBinding()]
     [OutputType([string[]])]

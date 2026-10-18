@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/controlling-systemwide-deps.md
-    folder: docs/adr/automation
-    name: controlling-systemwide-deps
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-DEPS#{1-8}
-    cites:
-      - ADR-AUTO-PARITY#1
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/automation/devbox-pipeline-parity.md#rule-adr-auto-parity1
-      - docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1
-      - docs/adr/automation/tool-removal-lifecycle.md
-      - docs/adr/automation/uv-python-handler.md
----
-
 # ADR: Controlling system-wide dependencies
 
 ## Rules: ADR-AUTO-DEPS

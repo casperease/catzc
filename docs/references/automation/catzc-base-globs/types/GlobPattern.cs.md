@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "87088394ff85"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md
-    folder: docs/references/automation/catzc-base-globs/types
-    name: glob-pattern-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#{2,3}
----
-
 # automation/Catzc.Base.Globs/types/GlobPattern.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

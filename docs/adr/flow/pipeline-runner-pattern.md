@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/flow/pipeline-runner-pattern.md
-    folder: docs/adr/flow
-    name: pipeline-runner-pattern
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-FLOW-CD-RUNNER#{1-4}
----
-
 # ADR: Pipeline runner pattern — how pipelines invoke automation
 
 ## Rules: ADR-FLOW-CD-RUNNER

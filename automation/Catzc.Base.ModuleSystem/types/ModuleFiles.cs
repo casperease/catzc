@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/types/ModuleFiles.cs
-    folder: types
-    name: module-files
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/types/ModuleFiles.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

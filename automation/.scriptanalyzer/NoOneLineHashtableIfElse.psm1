@@ -1,19 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/NoOneLineHashtableIfElse.psm1
-    folder: automation/.scriptanalyzer
-    name: no-one-line-hashtable-if-else
-    filetype: psm1
-    kind: analyzer-rule
-    language: powershell
-    track: automation
-    tracktype: modules
----
-#>
-
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 function Measure-NoOneLineHashtableIfElse {

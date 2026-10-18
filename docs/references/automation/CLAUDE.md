@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/CLAUDE.md
-    folder: docs/references/automation
-    name: claude
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-FORMAT#6
-    links:
-      - ".claude/CLAUDE.md#time-safeguard"
-      - docs/adr/repository/uniform-formatting.md
----
-
 # Authoring a module reference
 
 This directory holds one **responsibilities-first** reference article per automation module, named `<module-in-kebab>.md` (`Catzc.Azure.Cli`

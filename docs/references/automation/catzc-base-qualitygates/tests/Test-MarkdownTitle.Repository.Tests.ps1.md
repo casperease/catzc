@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: a855d34cd38a
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Test-MarkdownTitle.Repository.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: test-markdown-title-repository-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-FORMAT#6
----
-
 # automation/Catzc.Base.QualityGates/tests/Test-MarkdownTitle.Repository.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

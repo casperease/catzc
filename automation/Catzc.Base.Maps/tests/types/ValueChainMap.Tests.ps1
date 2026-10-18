@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
-    folder: tests/types
-    name: value-chain-map-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-DSGN-TRACK#{15,16}
-      - ADR-THES-ONETRUTH#3
----
-#>
-
 Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adr = {

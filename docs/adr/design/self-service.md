@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/self-service.md
-    folder: docs/adr/design
-    name: self-service
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-SELFSERV#{1-5}
-    links:
-      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5
-      - docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg6
-      - "https://reproducible-builds.org/"
-      - "https://slsa.dev/"
-      - "https://trunkbaseddevelopment.com/"
----
-
 # ADR: Self-service — safe by construction in controlled settings
 
 ## Rules: ADR-DSGN-SELFSERV

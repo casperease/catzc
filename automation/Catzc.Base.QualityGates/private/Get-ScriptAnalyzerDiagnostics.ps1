@@ -1,33 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1
-    folder: private
-    name: get-script-analyzer-diagnostics
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-CACHE#10
-      - ADR-AUTO-CONSOLE#8
-      - ADR-AUTO-RETRY#1
-      - ADR-PWSH-ANNOUNCE#1
-      - ADR-PWSH-PWD#{2,3}
----
-#>
-
 function Get-ScriptAnalyzerDiagnostics {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The analyzer import runs inside each background Start-Job shard process, never in this session')]
     [CmdletBinding()]

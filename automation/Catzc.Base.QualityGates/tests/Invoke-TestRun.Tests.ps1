@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
-    folder: tests
-    name: invoke-test-run-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestRun.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{30,31,33,34,36,37}
----
-#>
-
 Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:testsDir = Join-Path $TestDrive 'widget/tests'

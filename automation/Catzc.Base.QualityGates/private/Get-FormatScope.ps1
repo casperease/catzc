@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-FormatScope.ps1
-    folder: private
-    name: get-format-scope
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
-    cites:
-      - ADR-PRIN-CONFIG#{1,4}
-      - ADR-REPO-CONTRACT#{5,6}
----
-#>
-
 function Get-FormatScope {
     [CmdletBinding()]
     [OutputType([string[]])]

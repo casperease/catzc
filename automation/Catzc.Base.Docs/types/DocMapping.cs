@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/DocMapping.cs
-    folder: types
-    name: doc-mapping
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/DocMapping.cs.md
-    test: automation/Catzc.Base.Docs/tests/types/DocMapping.Tests.ps1
-    cites:
-      - ADR-AUTO-PATH
----
-*/
-
 using System;
 using System.Collections;
 

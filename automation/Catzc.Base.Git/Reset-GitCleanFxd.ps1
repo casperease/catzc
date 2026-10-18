@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
-    name: reset-git-clean-fxd
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md
-    test: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN#2
-      - ADR-REPO-OUTDIR#10
----
-#>
-
 function Reset-GitCleanFxd {
     [CmdletBinding()]
     param(

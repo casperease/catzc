@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/types/ExporterConfig.cs
-    folder: types
-    name: exporter-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-exporter/types/ExporterConfig.cs.md
-    test: automation/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

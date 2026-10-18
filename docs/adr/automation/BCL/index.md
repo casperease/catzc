@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/BCL/index.md
-    folder: docs/adr/automation/BCL
-    name: index
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
----
-
 # BCL (C# / .NET types) automation ADRs
 
 The ADRs here govern the native C# types the automation platform compiles and loads — the `types/*.cs` sources; see

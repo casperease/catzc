@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-Prettier.ps1
-    folder: private
-    name: invoke-prettier
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Invoke-Prettier.Tests.ps1
-    cites:
-      - ADR-PRIN-CONFIG#2
----
-#>
-
 function Invoke-Prettier {
     [CmdletBinding()]
     [OutputType([string[]])]

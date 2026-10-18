@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Test-NotNullOrWhitespace.Tests.ps1
-    folder: tests
-    name: test-not-null-or-whitespace-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Test-NotNullOrWhitespace' -Tag 'L0', 'logic' {
     It 'returns $true for non-empty string' {
         Test-NotNullOrWhitespace 'hello' | Should -BeTrue

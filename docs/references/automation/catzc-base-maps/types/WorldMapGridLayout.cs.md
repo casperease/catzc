@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "076ae86c8b69"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
-    folder: docs/references/automation/catzc-base-maps/types
-    name: world-map-grid-layout-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#{7,8}
----
-
 # automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

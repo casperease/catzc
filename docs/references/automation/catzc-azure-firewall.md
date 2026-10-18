@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure-firewall.md
-    folder: docs/references/automation
-    name: catzc-azure-firewall
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/principles/everything-as-code.md
----
-
 # Catzc.Azure.Firewall
 
 The firewall-rule module. It is a small, focused converter: it takes firewall rules authored in a spreadsheet and renders them into the

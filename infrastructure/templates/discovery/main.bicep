@@ -1,21 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/templates/discovery/main.bicep
-//     name: main
-//     filetype: bicep
-//     kind: template
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: discovery
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/templates/discovery/main.bicep.md
-// ---
-
 targetScope = 'subscription'
 
 @description('A virtual network on the far side of a peering, in its own subscription.')

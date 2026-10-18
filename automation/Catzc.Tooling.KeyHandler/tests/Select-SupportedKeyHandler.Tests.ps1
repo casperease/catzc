@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-    folder: tests
-    name: select-supported-key-handler-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,22}
----
-#>
-
 Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#22' {
 
     It 'marks a binding supported only when its function is in the allow-list' {

@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.drawio.md
-    folder: docs/explanation/flow
-    name: drift-is-gated-generation-is-adr-only-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.tree.md
-      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone: the diagram described
 
 ```text

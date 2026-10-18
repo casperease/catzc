@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
-    folder: private
-    name: assert-bundle-footprint
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
-    test: automation/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE
-      - ADR-PWSH-ENUM#3
----
-#>
-
 function Assert-BundleFootprint {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

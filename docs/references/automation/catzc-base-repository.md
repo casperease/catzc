@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-repository.md
-    folder: docs/references/automation
-    name: catzc-base-repository
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/never-depend-on-pwd.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/adr/repository/dedicated-output-directory.md
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/internal/catzc-internal-loader.md
----
-
 # Catzc.Base.Repository
 
 The path-anchor module. It is the **single source of truth for where files live** — locating the repository root, resolving repo-relative

@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/inspect-and-adapt.md
-    folder: docs/adr/process
-    name: inspect-and-adapt
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-KAIZEN#{1-4}
-    links:
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/agile-principles.md
-      - docs/adr/process/holding-the-line.md
-      - docs/adr/process/lean.md
-      - docs/adr/process/observe-work.md
-      - docs/adr/process/queues-cost-money.md
----
-
 # ADR: Inspect and adapt — kaizen built into the process
 
 ## Rules: ADR-PROC-KAIZEN

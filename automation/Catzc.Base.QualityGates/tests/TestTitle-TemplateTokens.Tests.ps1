@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
-    folder: tests
-    name: test-title-template-tokens-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/TestTitle-TemplateTokens.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{25,35}
----
-#>
-
 Describe 'Test titles use angle-bracket templates only on data-driven tests' -Tag 'L1', 'integrity', 'source-only' {
     It 'finds no template-shaped token in a title without -ForEach data' {
         $result = Test-TestTitles -PassThru -OutputFolder (Join-Path $TestDrive 'test-titles')

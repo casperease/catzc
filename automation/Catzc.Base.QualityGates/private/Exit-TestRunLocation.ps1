@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
-    folder: private
-    name: exit-test-run-location
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE#10
----
-#>
-
 function Exit-TestRunLocation {
     [CmdletBinding()]
     param(

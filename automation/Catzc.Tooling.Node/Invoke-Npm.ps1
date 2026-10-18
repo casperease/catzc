@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Node/Invoke-Npm.ps1
-    name: invoke-npm
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Node
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
----
-#>
-
 function Invoke-Npm {
     [CmdletBinding()]
     param(

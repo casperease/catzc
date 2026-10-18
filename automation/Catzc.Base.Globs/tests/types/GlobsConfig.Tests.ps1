@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-    folder: tests/types
-    name: globs-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,37}
-      - ADR-DSGN-TRACK#5
-      - ADR-FLOW-CD-GLOBS#{4,7,8}
----
-#>
-
 # cspell:ignore dedupe
 Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     BeforeAll {

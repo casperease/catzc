@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Select-TestShardAssignment.ps1
-    folder: private
-    name: select-test-shard-assignment
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
----
-#>
-
 function Select-TestShardAssignment {
     [CmdletBinding()]
     [OutputType([string[]])]

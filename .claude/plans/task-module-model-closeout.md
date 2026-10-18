@@ -12,20 +12,6 @@ task:
       docs/adr/automation/module-model.md,
       docs/references/automation,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-module-model-closeout.md"
-    folder: plans
-    name: task-module-model-closeout
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Task: module model close-out

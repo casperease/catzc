@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/cross-platform.md
-    folder: docs/adr/automation
-    name: cross-platform
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-XPLAT#{3,6,7,9}
-    cites:
-      - ADR-PWSH-XPLAT#{2,4,6-8}
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/devbox-pipeline-parity.md#rule-adr-auto-parity1
-      - docs/adr/pwsh/cross-platform-powershell.md
----
-
 # ADR: Must be cross-platform
 
 ## Rules: ADR-AUTO-XPLAT

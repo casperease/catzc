@@ -3,24 +3,6 @@ plan:
   status: active
   reviewed: 2026-10-17
   rule: value first, then needed docs and tests; job size never ranks
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/value-of-plan.md"
-    folder: plans
-    name: value-of-plan
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#11
-      - ADR-REPO-PLANS#8
 ---
 
 # Value of each plan

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-GeneratorFileMetaFact.Tests.ps1
-    folder: tests
-    name: get-generator-file-meta-fact-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#7
----
-#>
-
 Describe 'Get-GeneratorFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#7' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

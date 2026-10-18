@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/tool-removal-lifecycle.md
-    folder: docs/adr/automation
-    name: tool-removal-lifecycle
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-REMOVE#{1-8}
-    cites:
-      - ADR-AUTO-DEPS#2
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/dry-run.md
-      - docs/adr/automation/idempotent-state-functions.md
-      - docs/adr/automation/use-proper-package-managers.md
-      - docs/adr/automation/uv-python-handler.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/pwsh/respect-pwsh-verb-rules.md
----
-
 # ADR: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation
 
 ## Rules: ADR-AUTO-REMOVE

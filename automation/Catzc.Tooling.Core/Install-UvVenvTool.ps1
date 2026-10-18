@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
-    name: install-uv-venv-tool
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
----
-#>
-
 function Install-UvVenvTool {
     [CmdletBinding()]
     param(

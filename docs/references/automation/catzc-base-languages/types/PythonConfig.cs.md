@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: caeab4608db0
-    repo_status: locked
-    path: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
-    folder: docs/references/automation/catzc-base-languages/types
-    name: python-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-FOLDERS#7
----
-
 # automation/Catzc.Base.Languages/types/PythonConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

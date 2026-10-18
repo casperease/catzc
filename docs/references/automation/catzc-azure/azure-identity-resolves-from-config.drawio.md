@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
-    folder: docs/references/automation/catzc-azure
-    name: azure-identity-resolves-from-config-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-DATAMOD#4
-      - ADR-AZ-SESSION#5
-    links:
-      - docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png
----
-
 # Azure identities resolve from config; session must match one: the diagram described
 
 ```text

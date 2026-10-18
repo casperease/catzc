@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: cb6b02e0845f
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
-    folder: docs/references/automation/catzc-tooling-core
-    name: install-uv-tool-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Core/Install-UvTool.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

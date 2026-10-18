@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/deploy-bicep-delegates-to-az.drawio.md
-    folder: docs/explanation/design
-    name: deploy-bicep-delegates-to-az-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.tree.md
-      - docs/explanation/design/deploy-bicep-delegates-to-az.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az: the diagram described
 
 ```text

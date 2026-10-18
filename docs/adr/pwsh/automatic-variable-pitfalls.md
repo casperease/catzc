@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/automatic-variable-pitfalls.md
-    folder: docs/adr/pwsh
-    name: automatic-variable-pitfalls
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-AUTOVAR#{1-7}
-    links:
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error1
-      - "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables"
----
-
 # ADR: Automatic variable pitfalls
 
 ## Rules: ADR-PWSH-AUTOVAR

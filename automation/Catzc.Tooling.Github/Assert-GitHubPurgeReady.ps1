@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
-    name: assert-git-hub-purge-ready
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
----
-#>
-
 function Assert-GitHubPurgeReady {
     [CmdletBinding()]
     param(

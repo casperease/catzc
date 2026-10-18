@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-markdownmeta.md
-    folder: docs/references/automation
-    name: catzc-base-markdownmeta
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/repository/file-meta.md
-      - docs/references/automation/catzc-base-config.md
----
-
 # Catzc.Base.MarkdownMeta
 
 The pure core of the Markdown meta block: the one reserved `catzc` front-matter key of a tracked Markdown file, at the top level or nested

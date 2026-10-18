@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/az-session-verification.md
-    folder: docs/adr/azure
-    name: az-session-verification
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-SESSION#{1-5}
-    links:
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7
-      - docs/adr/azure/prefer-az-cli.md
-      - docs/adr/pipelines/dual-authentication.md
----
-
 # ADR: Az CLI session verification — three layers, and verify is not connect
 
 ## Rules: ADR-AZ-SESSION

@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
-    folder: tests
-    name: get-language-test-outcomes-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestOutcomes.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-MODULE#6
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:package = 'catzc/go/tests/catzc-widget'

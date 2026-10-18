@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/types/ConnectionState.cs
-    folder: types
-    name: connection-state
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Azure.Cli;

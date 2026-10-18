@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "778706f0dcc0"
-    repo_status: locked
-    path: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
-    folder: docs/references/automation/internal
-    name: catzc-internal-vendor-psm1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CONSOLE#11
-      - ADR-PWSH-ANNOUNCE#6
-      - ADR-PWSH-ENUM#6
----
-
 # automation/.internal/Catzc.Internal.Vendor.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
-    folder: tests
-    name: invoke-file-meta-engine-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-CODEMETA#3
-      - ADR-REPO-FILEMETA#{1,3}
----
-#>
-
 Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-REPO-CODEMETA#3' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'engine-repository'

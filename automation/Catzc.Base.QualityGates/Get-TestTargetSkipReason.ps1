@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
-    name: get-test-target-skip-reason
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#{8,41}
----
-#>
-
 function Get-TestTargetSkipReason {
     [CmdletBinding()]
     [OutputType([string])]

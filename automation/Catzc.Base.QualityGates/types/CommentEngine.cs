@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/CommentEngine.cs
-    folder: types
-    name: comment-engine
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-    cites:
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-ONELIVE#1
-      - ADR-REPO-FORMAT#5
----
-*/
-
 // Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
 
 using System;

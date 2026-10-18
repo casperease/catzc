@@ -11,24 +11,6 @@ plan:
       automation/.compiled,
       docs/adr/automation/BCL/native-csharp-types.md,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-lazy-types-load.md"
-    folder: plans
-    name: plan-lazy-types-load
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#{15,16}
 ---
 
 # Find the types DLL fast, load it only on first use

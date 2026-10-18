@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/drop-a-file-the-import-exports-it.md
-    folder: docs/explanation/design
-    name: drop-a-file-the-import-exports-it
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-ASPECT#{1,2}
-      - ADR-REPO-FOLDERS#10
-    links:
-      - docs/adr/design/module-aspects.md
-      - docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
-      - docs/explanation/design/drop-a-file-the-import-exports-it.drawio.md
-      - docs/explanation/design/every-file-in-exactly-one-aspect.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
-      - docs/explanation/design/one-folder-two-independent-readers.md
-      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Drop a file, and the next import exports it
 
 ```text

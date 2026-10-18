@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "4cc432932323"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md
-    folder: docs/references/automation/catzc-base-variants/types
-    name: variant-aspect-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
----
-
 # automation/Catzc.Base.Variants/types/VariantAspect.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

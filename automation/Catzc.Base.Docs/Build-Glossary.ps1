@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Build-Glossary.ps1
-    name: build-glossary
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-docs/Build-Glossary.ps1.md
-    test: automation/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
-    cites:
-      - ADR-REPO-README#7
-      - ADR-REPO-VOCAB
----
-#>
-
 function Build-Glossary {
     [CmdletBinding()]
     [OutputType([string], [pscustomobject])]

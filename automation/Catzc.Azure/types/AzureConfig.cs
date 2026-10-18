@@ -1,31 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/types/AzureConfig.cs
-    folder: types
-    name: azure-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/types/AzureConfig.cs.md
-    test: automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
-      - ADR-AZ-DATAMOD
-      - ADR-AZ-NAMING#6
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

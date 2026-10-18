@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/principles/dora-explains.md
-    folder: docs/adr/principles
-    name: dora-explains
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/principles/cats-and-catzc.md
-      - docs/adr/principles/configure-not-program.md
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/principles/reduce-variability.md
-      - docs/adr/principles/reduce-waste.md
-      - docs/references/dora/capabilities.md#code-maintainability
-      - docs/references/dora/capabilities.md#documentation-quality
-      - docs/references/dora/capabilities.md#platform-engineering
-      - docs/references/dora/capabilities.md#streamlining-change-approval
-      - docs/references/dora/capabilities.md#trunk-based-development
-      - docs/references/dora/capabilities.md#version-control
-      - docs/references/dora/capabilities.md#working-in-small-batches
-      - docs/references/dora/index.md
----
-
 # DORA explanations — principles
 
 The `Dora explains` rationale for the ADRs in the `principles/` domain, consolidated in one place. Each entry names its ADR and rule code,

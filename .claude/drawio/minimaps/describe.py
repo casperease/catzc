@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/minimaps/describe.py"
-#     folder: drawio/minimaps
-#     name: describe
-#     filetype: py
-#     kind: drawio-kit
-#     language: python
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # cspell:ignore minimaps
 """The sister .md of every minimap PNG, written by render.py from the same data the PNG is drawn from.
 

@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/types/VariantTrack.cs
-    folder: types
-    name: variant-track
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK
-      - ADR-DSGN-TRACKTYPE#1
----
-*/
-
 using System;
 using System.Collections.Generic;
 

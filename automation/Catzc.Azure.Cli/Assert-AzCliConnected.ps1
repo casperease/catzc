@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
-    name: assert-az-cli-connected
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.Cli/tests/Assert-AzCliConnected.Tests.ps1
----
-#>
-
 function Assert-AzCliConnected {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]
     param(

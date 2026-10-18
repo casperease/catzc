@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
-    folder: private
-    name: find-windows-git-credential-manager
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
----
-#>
-
 function Find-WindowsGitCredentialManager {
     [CmdletBinding()]
     [OutputType([string])]

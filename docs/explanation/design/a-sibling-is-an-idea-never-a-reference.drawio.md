@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/a-sibling-is-an-idea-never-a-reference.drawio.md
-    folder: docs/explanation/design
-    name: a-sibling-is-an-idea-never-a-reference-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.md
-      - docs/explanation/.assets/grid/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.grid.md
-      - docs/explanation/.assets/tree/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.tree.md
-      - docs/explanation/design/a-sibling-is-an-idea-never-a-reference.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A sibling is an idea, never a reference: the diagram described
 
 ```text

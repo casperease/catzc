@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
-    name: test-pipelines
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
-    test: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-PIPE-NAME
----
-#>
-
 function Test-Pipelines {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

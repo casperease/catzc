@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
-    folder: tests
-    name: clear-temp-folders-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md
----
-#>
-
 Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
     # Always target a fixture folder under $TestDrive via -Path — never the real temp.
 

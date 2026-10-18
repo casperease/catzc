@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/CommentLexer.cs
-    folder: types
-    name: comment-lexer
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/CommentLexer.Tests.ps1
-    cites:
-      - ADR-REPO-LINK#{1,6}
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.IO;

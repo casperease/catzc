@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/tracks.md
-    folder: docs/adr/design
-    name: tracks
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-TRACK#{1-18}
-    cites:
-      - ADR-DSGN-TRACKTYPE#{1,2,4,5}
-      - ADR-REPO-VOCAB#1
-    links:
-      - docs/adr/automation/bash/bash-test-artifacts.md
-      - docs/adr/automation/go/go-test-artifacts.md
-      - docs/adr/automation/python/python-test-artifacts.md
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/design/track-types.md
-      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype1
-      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype2
-      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype4
-      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype5
-      - docs/adr/design/visual-design.md
-      - docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1
----
-
 # ADR: Tracks — the repository's root concerns
 
 ## Rules: ADR-DSGN-TRACK

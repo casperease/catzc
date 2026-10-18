@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: eb80f2153485
-    repo_status: locked
-    path: docs/references/infrastructure/templates/expedition/options.yml.md
-    folder: docs/references/infrastructure/templates/expedition
-    name: options-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # infrastructure/templates/expedition/options.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

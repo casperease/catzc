@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/types/Aspect.cs
-    folder: types
-    name: aspect
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/types/Aspect.cs.md
-    test: automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
-    cites:
-      - ADR-DSGN-ASPECT
-      - ADR-FLOW-CD-GLOBS#4
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-    name: test-glob-set-trigger-coverage
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#1
----
-#>
-
 function Test-GlobSetTriggerCoverage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

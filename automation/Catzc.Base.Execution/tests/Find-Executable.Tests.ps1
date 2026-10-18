@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
-    folder: tests
-    name: find-executable-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-PWSH-PESTER#3
----
-#>
-
 Describe 'Find-Executable' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'executables'

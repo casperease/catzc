@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/principles/poka-yoke.md
-    folder: docs/adr/principles
-    name: poka-yoke
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PRIN-POKAYOKE#{1-5}
----
-
 # Principle: Poka-yoke — make mistakes impossible
 
 ## Rules: ADR-PRIN-POKAYOKE

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/names-are-pure-and-never-truncated.md
-    folder: docs/explanation/azure
-    name: names-are-pure-and-never-truncated
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-NAMING#{1,3,7,8}
-    links:
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
-      - docs/explanation/azure/how-each-naming-rule-is-held.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/lookup-form-check-render-in-order.md
-      - docs/explanation/azure/names-are-derived-never-typed.md
-      - docs/explanation/azure/names-are-pure-and-never-truncated.drawio.md
-      - docs/explanation/azure/one-namer-assembles-every-name.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # An Azure name is a pure function of its components, and it is never truncated
 
 <!-- cspell:ignore weufindiscxaphotst weudiscvm -->

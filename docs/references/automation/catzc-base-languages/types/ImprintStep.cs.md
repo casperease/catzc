@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "57156afc1717"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md
-    folder: docs/references/automation/catzc-base-languages/types
-    name: imprint-step-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-FORMAT#8
----
-
 # automation/Catzc.Base.Languages/types/ImprintStep.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
-    folder: tests
-    name: assert-yml-naming-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Assert-YmlNaming' -Tag 'L0', 'logic' {
     It 'passes for valid snake_case keys' {
         $yaml = [ordered]@{ foo_bar = 'value'; baz = [ordered]@{ nested_key = 1 } }

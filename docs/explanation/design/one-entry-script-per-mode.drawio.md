@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/one-entry-script-per-mode.drawio.md
-    folder: docs/explanation/design
-    name: one-entry-script-per-mode-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md
-      - docs/explanation/design/one-entry-script-per-mode.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Each run mode has one entry script, and a mixed session throws: the diagram described
 
 ```text

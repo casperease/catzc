@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/storage-account.bicep
-//     name: storage-account
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: storage-account
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/storage-account.bicep.md
-// ---
-
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')
 param name string
 

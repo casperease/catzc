@@ -3,25 +3,6 @@ plan:
   status: active
   kind: questionnaire
   reviewed: 2026-10-16
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/questionnaire-2026-10-16.md"
-    folder: plans
-    name: questionnaire-2026-10-16
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-AGENTS#4
-      - ADR-REPO-CONTRACT#9
-      - ADR-REPO-HELP#3
 ---
 
 # Questionnaire, 2026-10-16: every open decision in the plans

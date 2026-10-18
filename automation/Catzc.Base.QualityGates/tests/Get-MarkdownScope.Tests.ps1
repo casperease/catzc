@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-MarkdownScope.Tests.ps1
-    folder: tests
-    name: get-markdown-scope-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#5
-      - ADR-REPO-FORMAT#6
----
-#>
-
 Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6', 'ADR-REPO-FILEMETA#5' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

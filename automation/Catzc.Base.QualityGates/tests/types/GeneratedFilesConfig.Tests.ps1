@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/GeneratedFilesConfig.Tests.ps1
-    folder: tests/types
-    name: generated-files-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/domain-language-separation.md
-    folder: docs/adr/repository
-    name: domain-language-separation
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-LANG#{1-7}
-    cites:
-      - ADR-AUTO-TEST#{1,3}
-    links:
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test1
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test3
-      - docs/adr/azure/azure-customer-model.md
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/principles/reduce-variability.md
-      - docs/adr/repository/documentation-examples.md
----
-
 # ADR: Language-zone separation — three zones, three terminologies
 
 ## Rules: ADR-REPO-LANG

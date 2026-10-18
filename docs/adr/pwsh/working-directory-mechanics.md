@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/working-directory-mechanics.md
-    folder: docs/adr/pwsh
-    name: working-directory-mechanics
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-PWD#{1-7}
-    cites:
-      - ADR-AUTO-ASSETDEP#{1,2}
-      - ADR-AUTO-NOPWD
-    links:
-      - docs/adr/automation/environment-variables.md
-      - docs/adr/automation/internal-asset-dependencies.md
-      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1
-      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2
-      - docs/adr/automation/never-depend-on-pwd.md
-      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1
-      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd4
-      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd6
-      - docs/adr/automation/path-representation.md
-      - docs/adr/design/run-modes.md
-      - docs/adr/pwsh/cross-platform-powershell.md
----
-
 # ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd
 
 ## Rules: ADR-PWSH-PWD

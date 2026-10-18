@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.drawio.md
-    folder: docs/explanation/automation
-    name: two-sections-unioned-into-one-allow-set-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md
-      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Two sections of dependencies.yml are unioned into one allow-set per source module: the diagram described
 
 ```text

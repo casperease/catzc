@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/internal/catzc-internal-types.md
-    folder: docs/references/automation/internal
-    name: catzc-internal-types
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/caching.md
-      - docs/adr/principles/one-living-version.md
-      - docs/references/automation/BCL/types-system.md
-      - docs/references/automation/catzc-base-typessystem.md
-      - docs/references/automation/internal/catzc-internal-bootstrap.md
-      - docs/references/automation/internal/index.md
----
-
 # Catzc.Internal.Types
 
 The single implementation of the combined C# type-source hash. Its one export, `Get-CombinedTypeHash`, enumerates, orders, and hashes every

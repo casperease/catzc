@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/types/ImprintStep.cs
-    folder: types
-    name: imprint-step
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md
-    cites:
-      - ADR-REPO-FORMAT#8
----
-*/
-
 using System;
 using System.Collections.Generic;
 

@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "68c5f14d3870"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
-    folder: docs/references/automation/catzc-base-docs/types
-    name: agents-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-AGENTS#{2,4,6,8}
----
-
 # automation/Catzc.Base.Docs/types/AgentsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

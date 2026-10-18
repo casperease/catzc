@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/types/PdfPage.Tests.ps1
-    folder: tests/types
-    name: pdf-page-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'PdfPage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:page = { [Catzc.Base.Maps.PdfPage]::new(200, 100) }

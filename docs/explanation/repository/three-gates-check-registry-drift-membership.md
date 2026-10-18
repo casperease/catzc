@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
-    folder: docs/explanation/repository
-    name: three-gates-check-registry-drift-membership
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-ROOTCFG
-    links:
-      - docs/adr/automation/test-automation.md
-      - docs/adr/repository/generated-root-configs.md
-      - docs/explanation/.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
-      - docs/explanation/repository/one-source-one-writer-one-boolean.md
-      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
-      - docs/explanation/repository/three-gates-check-registry-drift-membership.drawio.md
----
-
 # Three gates check the registry, the drift and the git membership; one rule has no gate
 
 ```text

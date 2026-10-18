@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
-    folder: tests
-    name: get-glob-set-file-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-GLOBS#{4,5}
----
-#>
-
 Describe 'Get-GlobSetFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{

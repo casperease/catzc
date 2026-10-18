@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-modulesystem.md
-    folder: docs/references/automation
-    name: catzc-base-modulesystem
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/automation/internal-asset-dependencies.md
-      - docs/adr/automation/open-closed-architecture.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/repository/conventional-folders.md
-      - docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
-      - docs/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-      - docs/references/automation/catzc-base-typessystem.md
-      - docs/references/automation/catzc-base-vendor.md
----
-
 # Catzc.Base.ModuleSystem
 
 The module-system introspection module: the one place the platform turns to reason about its own shape — which modules and functions exist

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "000e07c88ba1"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md
-    folder: docs/references/automation/catzc-base-execution
-    name: invoke-executable-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DRYRUN#2
----
-
 # automation/Catzc.Base.Execution/Invoke-Executable.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

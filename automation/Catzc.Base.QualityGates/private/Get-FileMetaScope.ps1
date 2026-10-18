@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-FileMetaScope.ps1
-    folder: private
-    name: get-file-meta-scope
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
----
-#>
-
 function Get-FileMetaScope {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -44,14 +22,21 @@ function Get-FileMetaScope {
     $given = @($lookup | Where-Object { $_ -ne '.' -and [System.IO.File]::Exists((Join-Path $root $_)) })
     $folders = @($lookup | Where-Object { $_ -notin $given })
     if ($given.Count -gt 0) {
-        $quoted = foreach ($file in $given) {
-            "`"$file`""
+        $ignored = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        # Batches keep each command line short: one call with hundreds of paths overflows the OS command-line limit.
+        $batchSize = 50
+        for ($start = 0; $start -lt $given.Count; $start += $batchSize) {
+            $quoted = foreach ($file in $given[$start..([Math]::Min($start + $batchSize, $given.Count) - 1)]) {
+                "`"$file`""
+            }
+            # Exit 0: some paths are ignored, 1: none are; anything else is a git failure.
+            $ignoredRun = Invoke-Executable "git -C `"$root`" -c core.quotepath=off check-ignore --no-index -- $($quoted -join ' ')" -PassThru -Silent -NoAssert
+            Assert-True ($ignoredRun.ExitCode -le 1) -ErrorText "Get-FileMetaScope: git check-ignore failed ($($ignoredRun.ExitCode)): $($ignoredRun.Errors)"
+            foreach ($line in @($ignoredRun.Output -split "`r?`n" | Where-Object { $_ })) {
+                [void] $ignored.Add($line.Trim())
+            }
         }
-        # Exit 0: some paths are ignored, 1: none are; anything else is a git failure.
-        $ignoredRun = Invoke-Executable "git -C `"$root`" -c core.quotepath=off check-ignore --no-index -- $($quoted -join ' ')" -PassThru -Silent -NoAssert
-        Assert-True ($ignoredRun.ExitCode -le 1) -ErrorText "Get-FileMetaScope: git check-ignore failed ($($ignoredRun.ExitCode)): $($ignoredRun.Errors)"
-        $ignored = @($ignoredRun.Output -split "`r?`n" | Where-Object { $_ } | ForEach-Object { $_.Trim() })
-        $given = @($given | Where-Object { $_ -notin $ignored })
+        $given = @($given | Where-Object { -not $ignored.Contains($_) })
     }
     $paths = @($given) + @(if ($folders.Count -gt 0) {
             Get-GitTrackedPath ([string[]] $folders)

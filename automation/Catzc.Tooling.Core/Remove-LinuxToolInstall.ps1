@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
-    name: remove-linux-tool-install
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
-    cites:
-      - ADR-AUTO-REMOVE#{6,7}
----
-#>
-
 function Remove-LinuxToolInstall {
     [CmdletBinding()]
     [OutputType([bool])]

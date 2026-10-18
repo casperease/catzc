@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
-    folder: tests
-    name: sync-session-tools-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#10
----
-#>
-
 Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:origPath = $env:PATH

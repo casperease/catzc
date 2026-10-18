@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Assert-Tool.ps1
-    name: assert-tool
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
----
-#>
-
 function Assert-Tool {
     [CmdletBinding()]
     param(

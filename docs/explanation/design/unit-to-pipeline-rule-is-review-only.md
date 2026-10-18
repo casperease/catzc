@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
-    folder: docs/explanation/design
-    name: unit-to-pipeline-rule-is-review-only
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{1-6}
-      - ADR-FLOW-CD-GLOBS#{7,8}
-      - ADR-REPO-FOLDERS#{1,3}
-    links:
-      - docs/adr/design/tracks.md
-      - docs/explanation/.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png
-      - docs/explanation/design/a-push-fires-only-touched-pipelines.md
-      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-unit-one-pipeline.md
-      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.drawio.md
-      - docs/explanation/design/units-not-tracks-own-the-pipelines.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone
 
 ```text

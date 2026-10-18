@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/tests/Get-InputStamp.Tests.ps1
-    folder: tests
-    name: get-input-stamp-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:widget = Join-Path $TestDrive 'widget.txt'

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/names-are-pure-and-never-truncated.drawio.md
-    folder: docs/explanation/azure
-    name: names-are-pure-and-never-truncated-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-az-naming--names-are-pure-and-never-truncated--meta.chain.md
-      - docs/explanation/.assets/grid/adr-az-naming--names-are-pure-and-never-truncated--meta.grid.md
-      - docs/explanation/.assets/tree/adr-az-naming--names-are-pure-and-never-truncated--meta.tree.md
-      - docs/explanation/azure/names-are-pure-and-never-truncated.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # An Azure name is a pure function of its components, and it is never truncated: the diagram described
 
 ```text

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
-    name: get-bicep-template-configuration
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
-    test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
-    cites:
-      - ADR-AZ-DATAMOD
----
-#>
-
 function Get-BicepTemplateConfiguration {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]

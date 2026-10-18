@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/environment-variables.md
-    folder: docs/adr/automation
-    name: environment-variables
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-ENVVAR#{1-7}
-    cites:
-      - ADR-FLOW-CD-DETECT#1
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1
-      - docs/adr/pwsh/environment-variable-mechanics.md
-      - docs/adr/pwsh/environment-variable-mechanics.md#the-secret-hand-off
----
-
 # ADR: Environment variables are for external boundaries, not internal state
 
 ## Rules: ADR-AUTO-ENVVAR

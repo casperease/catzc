@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/gallery_pdf.py"
-#     folder: drawio
-#     name: gallery-pdf
-#     filetype: py
-#     kind: drawio-kit
-#     language: python
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # cspell:ignore minimaps consola cour arialbd textlength
 """Write a gallery PDF: every diagram output as image pages, for readers without an HTML viewer.
 

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-    name: write-environment-set
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
-    test: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
-    cites:
-      - ADR-AUTO-ENVVAR#7
----
-#>
-
 function Write-EnvironmentSet {
     [CmdletBinding(DefaultParameterSetName = 'Scoped')]
     param(

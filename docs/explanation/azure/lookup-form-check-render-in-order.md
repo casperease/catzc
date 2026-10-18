@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/lookup-form-check-render-in-order.md
-    folder: docs/explanation/azure
-    name: lookup-form-check-render-in-order
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-NAMING#{4-7}
-    links:
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/explanation/.assets/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
-      - docs/explanation/azure/how-each-naming-rule-is-held.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/lookup-form-check-render-in-order.drawio.md
-      - docs/explanation/azure/names-are-derived-never-typed.md
-      - docs/explanation/azure/names-are-pure-and-never-truncated.md
-      - docs/explanation/azure/one-namer-assembles-every-name.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # The namer looks up, forms, checks and renders a name in that order
 
 ```text

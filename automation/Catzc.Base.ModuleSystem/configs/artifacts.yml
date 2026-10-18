@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.ModuleSystem/configs/artifacts.yml
-#     folder: configs
-#     name: artifacts
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.ModuleSystem
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-modulesystem/configs/artifacts.yml.md
-# ---
-
 ado: { enabled: false, organization: "", project: "", feed: "" }
 github: { enabled: false, owner: "", repository: "", feed: "" }
 artifactory: { enabled: false, url: "", repository: "" }

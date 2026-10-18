@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
-    folder: tests
-    name: uninstall-node-js-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Node
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-REMOVE#{4,5}
----
-#>
-
 Describe 'Uninstall-NodeJs' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Uninstall-Tool { } -ModuleName Catzc.Tooling.Node

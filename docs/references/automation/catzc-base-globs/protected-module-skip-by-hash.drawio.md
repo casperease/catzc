@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-    folder: docs/references/automation/catzc-base-globs
-    name: protected-module-skip-by-hash-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-PWSH-CACHE#4
-      - ADR-REPO-PROTGLOB#{4,9}
-    links:
-      - docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
----
-
 # Skip a module only if its folded hash matches its last green: the diagram described
 
 ```text

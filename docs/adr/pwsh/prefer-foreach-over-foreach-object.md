@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/prefer-foreach-over-foreach-object.md
-    folder: docs/adr/pwsh
-    name: prefer-foreach-over-foreach-object
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-FOREACH#{1-4}
----
-
 # ADR: Prefer foreach over ForEach-Object
 
 ## Rules: ADR-PWSH-FOREACH

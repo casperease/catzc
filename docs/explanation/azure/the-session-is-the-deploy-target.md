@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/the-session-is-the-deploy-target.md
-    folder: docs/explanation/azure
-    name: the-session-is-the-deploy-target
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-DATAMOD#7
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/explanation/.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
-      - docs/explanation/azure/four-gates-hold-the-session-rule.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
-      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
-      - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
-      - docs/explanation/azure/the-session-is-the-deploy-target.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # The az session is the deploy target, and the guard only checks it
 
 ```text

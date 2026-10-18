@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
-    folder: tests
-    name: install-bicep-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md
----
-#>
-
 Describe 'Install-Bicep' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Install-Tool -ModuleName Catzc.Tooling.Toolchain { }

@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/CommentBlock.cs
-    folder: types
-    name: comment-block
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#9
----
-*/
-
 // Every property is fixed at construction and the engine is pure over text, so a block is a value the caller can keep.
 
 using System;

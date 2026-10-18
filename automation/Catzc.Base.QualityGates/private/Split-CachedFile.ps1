@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Split-CachedFile.ps1
-    folder: private
-    name: split-cached-file
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE#10
----
-#>
-
 function Split-CachedFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

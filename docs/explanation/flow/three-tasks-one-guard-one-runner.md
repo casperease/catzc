@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/three-tasks-one-guard-one-runner.md
-    folder: docs/explanation/flow
-    name: three-tasks-one-guard-one-runner
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-RUNNER#{1-3}
-    links:
-      - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/explanation/.assets/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
-      - docs/explanation/flow/a-step-only-names-a-command.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
-      - docs/explanation/flow/the-runner-is-the-only-seam.md
-      - docs/explanation/flow/the-step-is-named-after-its-command.md
-      - docs/explanation/flow/three-tasks-one-guard-one-runner.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
 
 ```text

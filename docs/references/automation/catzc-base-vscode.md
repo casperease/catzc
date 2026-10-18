@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-vscode.md
-    folder: docs/references/automation
-    name: catzc-base-vscode
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/repository/generated-root-configs.md
-      - docs/references/automation/catzc-base-git.md
-      - docs/references/automation/catzc-base-rootconfig.md
----
-
 # Catzc.Base.VSCode
 
 The declarative editor-config module. It owns the rule that **the editor is glued to the tooling**: every file in `.vscode/` —

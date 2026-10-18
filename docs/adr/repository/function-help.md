@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/function-help.md
-    folder: docs/adr/repository
-    name: function-help
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-HELP#{1-5}
-    cites:
-      - ADR-REPO-COMMENTS#3
-      - ADR-REPO-FILEMETA#14
-      - ADR-REPO-FORMAT#8
-    links:
-      - docs/adr/repository/code-file-meta.md
-      - docs/adr/repository/comments-in-docs.md
-      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3
-      - docs/adr/repository/file-meta.md
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta14
-      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
----
-
 # ADR: Function help — the help of a PowerShell file is the help section of its comment page
 
 ## Rules: ADR-REPO-HELP

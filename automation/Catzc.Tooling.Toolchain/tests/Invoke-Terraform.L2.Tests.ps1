@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.L2.Tests.ps1
-    folder: tests
-    name: invoke-terraform-l2-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-Terraform' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'terraform'

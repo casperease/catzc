@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: bfb5c9d1fb41
-    repo_status: locked
-    path: docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md
-    folder: docs/references/automation/catzc-base-globs
-    name: protect-glob-set-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PWSH-CACHE#4
----
-
 # automation/Catzc.Base.Globs/Protect-GlobSet.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

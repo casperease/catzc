@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
-    folder: tests/types
-    name: python-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'PythonConfig' -Tag 'L0' {
 
     Context 'integrity (shipped python.yml)' -Tag 'integrity' {

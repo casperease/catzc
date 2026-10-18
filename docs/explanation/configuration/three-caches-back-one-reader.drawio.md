@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/three-caches-back-one-reader.drawio.md
-    folder: docs/explanation/configuration
-    name: three-caches-back-one-reader-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-conf-loading--three-caches-back-one-reader--implementation.tree.md
-      - docs/explanation/configuration/three-caches-back-one-reader.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Three session caches back the one config reader: the diagram described
 
 ```text

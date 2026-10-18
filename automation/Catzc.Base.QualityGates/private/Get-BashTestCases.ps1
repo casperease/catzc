@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-BashTestCases.ps1
-    folder: private
-    name: get-bash-test-cases
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-BashTestCases.Tests.ps1
----
-#>
-
 function Get-BashTestCases {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

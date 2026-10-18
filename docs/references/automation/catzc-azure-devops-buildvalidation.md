@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure-devops-buildvalidation.md
-    folder: docs/references/automation
-    name: catzc-azure-devops-buildvalidation
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/idempotent-state-functions.md
-      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/pipeline-types.md
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/adr/principles/everything-as-code.md
-      - docs/references/automation/catzc-base-globs.md
----
-
 # Catzc.Azure.DevOps.BuildValidation
 
 The build-validation policy module. It owns the server-side pre-commit half of a deployable unit's CI binding: the ADO build-validation

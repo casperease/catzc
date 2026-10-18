@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1
-    folder: tests/types
-    name: timeout-exemptions-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'TimeoutExemptionsConfig' -Tag 'L0' {
 
     Context 'integrity (shipped timeout-exemptions.yml)' -Tag 'integrity' {

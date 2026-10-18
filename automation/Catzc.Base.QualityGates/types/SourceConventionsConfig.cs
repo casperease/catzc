@@ -1,30 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
-    folder: types
-    name: source-conventions-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections;
 using System.Globalization;

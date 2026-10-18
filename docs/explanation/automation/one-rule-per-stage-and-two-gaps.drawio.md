@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.drawio.md
-    folder: docs/explanation/automation
-    name: one-rule-per-stage-and-two-gaps-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.tree.md
-      - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Two rules govern every stage, tests and the hook check them, and two gaps remain: the diagram described
 
 ```text

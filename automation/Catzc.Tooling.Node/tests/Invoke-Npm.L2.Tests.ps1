@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Node/tests/Invoke-Npm.L2.Tests.ps1
-    folder: tests
-    name: invoke-npm-l2-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Node
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-Npm' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'node_js'

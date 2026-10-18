@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/type-an-address-get-the-value.drawio.md
-    folder: docs/explanation/configuration
-    name: type-an-address-get-the-value-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-addressing--type-an-address-get-the-value--operations.chain.md
-      - docs/explanation/.assets/grid/adr-conf-addressing--type-an-address-get-the-value--operations.grid.md
-      - docs/explanation/.assets/tree/adr-conf-addressing--type-an-address-get-the-value--operations.tree.md
-      - docs/explanation/configuration/type-an-address-get-the-value.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Type an address and get its value back; a wrong address throws its message at the call: the diagram described
 
 ```text

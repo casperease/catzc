@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
-    folder: tests
-    name: get-module-type-file-meta-fact-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#3
----
-#>
-
 Describe 'Get-ModuleTypeFileMetaFact' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#3' {
     BeforeAll {
         $script:types = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{

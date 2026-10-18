@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Save-ResultCache.Tests.ps1
-    folder: tests
-    name: save-result-cache-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # L1: real files in TestDrive — the cache file another process saved, and one held open by another process.
 Describe 'Save-ResultCache' -Tag 'L1', 'logic' {
     BeforeEach {

@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "59aaebf1313b"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestSkipReason.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: get-test-skip-reason-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

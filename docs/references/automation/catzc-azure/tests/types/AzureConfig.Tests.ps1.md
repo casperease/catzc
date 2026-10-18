@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "9ceab45a98b1"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
-    folder: docs/references/automation/catzc-azure/tests/types
-    name: azure-config-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{1,3}
----
-
 # automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
 
 <!-- cspell:ignore toolong -->

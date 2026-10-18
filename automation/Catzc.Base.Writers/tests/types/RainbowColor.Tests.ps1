@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
-    folder: tests/types
-    name: rainbow-color-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CONSOLE#7
----
-#>
-
 Describe 'RainbowColor' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:green = [Catzc.Base.Writers.RainbowColor]::new([System.ConsoleColor]::Green)

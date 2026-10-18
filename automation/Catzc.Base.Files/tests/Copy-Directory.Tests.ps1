@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
-    folder: tests
-    name: copy-directory-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Copy-Directory' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:src = Join-Path $TestDrive ([Guid]::NewGuid())

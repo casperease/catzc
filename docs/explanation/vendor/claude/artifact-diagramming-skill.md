@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/vendor/claude/artifact-diagramming-skill.md
-    folder: docs/explanation/vendor/claude
-    name: artifact-diagramming-skill
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
----
-
 # The artifact-diagramming skill, met by the drawio.png kit
 
 ```text

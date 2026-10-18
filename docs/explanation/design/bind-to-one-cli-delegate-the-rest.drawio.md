@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.drawio.md
-    folder: docs/explanation/design
-    name: bind-to-one-cli-delegate-the-rest-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md
-      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Consumers bind to one CLI, and everything behind it is delegated to the vendor: the diagram described
 
 ```text

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/undeclared-edge-fails-with-one-line.md
-    folder: docs/explanation/automation
-    name: undeclared-edge-fails-with-one-line
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#{3-5}
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
-      - docs/explanation/automation/a-declared-allow-list-of-layers.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/three-layers-edges-point-down.md
-      - docs/explanation/automation/two-gates-check-the-layer-pins.md
-      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
-      - docs/explanation/automation/undeclared-edge-fails-with-one-line.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # An undeclared module edge fails the gate with one line per issue
 
 ```text

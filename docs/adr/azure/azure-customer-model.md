@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/azure-customer-model.md
-    folder: docs/adr/azure
-    name: azure-customer-model
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-CUSTOMER#{1-6}
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod3
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/azure/azure-network-model.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/repository/repo-variants.md
----
-
 # ADR: Customer model (customer.yml) — catalogue, two-name binding, and the template switch
 
 Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md); the

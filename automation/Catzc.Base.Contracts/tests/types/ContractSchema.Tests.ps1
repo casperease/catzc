@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
-    folder: tests/types
-    name: contract-schema-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-contracts/tests/types/ContractSchema.Tests.ps1.md
-    cites:
-      - ADR-REPO-CONTRACT#6
----
-#>
-
 Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     BeforeAll {
         function Get-SchemaFinding {

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/build-then-place-with-one-command.drawio.md
-    folder: docs/explanation/automation
-    name: build-then-place-with-one-command-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md
-      - docs/explanation/.assets/grid/adr-auto-bundle--build-then-place-with-one-command--operations.grid.md
-      - docs/explanation/.assets/tree/adr-auto-bundle--build-then-place-with-one-command--operations.tree.md
-      - docs/explanation/automation/build-then-place-with-one-command.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Build the bundle once, then place it with one command: the diagram described
 
 ```text

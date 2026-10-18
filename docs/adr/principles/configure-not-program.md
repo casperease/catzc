@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/principles/configure-not-program.md
-    folder: docs/adr/principles
-    name: configure-not-program
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PRIN-CONFIG#{1-5}
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-CONF-LOADING#4
----
-
 # Principle: Configure, don't program — one mechanism per kind, one config entry per instance
 
 ## Rules: ADR-PRIN-CONFIG

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/range-per-context-then-diff-and-match.drawio.md
-    folder: docs/explanation/flow
-    name: range-per-context-then-diff-and-match-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.tree.md
-      - docs/explanation/flow/range-per-context-then-diff-and-match.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Check the name, pick the range per context, then diff git and match the paths: the diagram described
 
 ```text

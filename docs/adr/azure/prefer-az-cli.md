@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/prefer-az-cli.md
-    folder: docs/adr/azure
-    name: prefer-az-cli
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-CLI#{1-6}
----
-
 # ADR: Prefer Az CLI over Az PowerShell modules
 
 ## Rules: ADR-AZ-CLI

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/types-check-forms-review-checks-crossers.drawio.md
-    folder: docs/explanation/automation
-    name: types-check-forms-review-checks-crossers-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-path--types-check-forms-review-checks-crossers--governance.chain.md
-      - docs/explanation/.assets/grid/adr-auto-path--types-check-forms-review-checks-crossers--governance.grid.md
-      - docs/explanation/.assets/tree/adr-auto-path--types-check-forms-review-checks-crossers--governance.tree.md
-      - docs/explanation/automation/types-check-forms-review-checks-crossers.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Three types check path forms at construction, and the crossing rules are left to review: the diagram described
 
 ```text

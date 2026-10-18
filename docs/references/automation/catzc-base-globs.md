@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-globs.md
-    folder: docs/references/automation
-    name: catzc-base-globs
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/repository/protected-globs.md
-      - docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
-      - docs/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
----
-
 # Catzc.Base.Globs
 
 The globset primitive: the single source of truth (`globs.yml`) mapping every deployable unit onto its files under version control, the

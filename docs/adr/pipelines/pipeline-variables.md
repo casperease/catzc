@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pipelines/pipeline-variables.md
-    folder: docs/adr/pipelines
-    name: pipeline-variables
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PIPE-VAR#{1-6}
-    links:
-      - docs/adr/flow/pipeline-detection.md
----
-
 # ADR: Pipeline variable interface — setting ADO output variables from PowerShell
 
 ## Rules: ADR-PIPE-VAR

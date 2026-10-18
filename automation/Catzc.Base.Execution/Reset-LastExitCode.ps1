@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
-    name: reset-last-exit-code
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
----
-#>
-
 function Reset-LastExitCode {
     param()
 

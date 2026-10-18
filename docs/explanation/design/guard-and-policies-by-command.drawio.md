@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/guard-and-policies-by-command.drawio.md
-    folder: docs/explanation/design
-    name: guard-and-policies-by-command-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-remote--guard-and-policies-by-command--operations.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-remote--guard-and-policies-by-command--operations.tree.md
-      - docs/explanation/design/guard-and-policies-by-command.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A person turns on the local guard with one variant; an admin syncs the server policies with one command: the diagram described
 
 ```text

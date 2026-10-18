@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
-    folder: tests
-    name: convert-to-yaml-safe-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'ConvertTo-YamlSafe' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:module = Get-Module Catzc.Base.Objects

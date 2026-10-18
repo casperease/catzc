@@ -1,21 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: pipelines/cd-shared.yaml
-#     name: cd-shared
-#     filetype: yaml
-#     kind: pipeline
-#     language: pipeline-yaml
-#     track: pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
-#   edges:
-#     page: docs/references/pipelines/cd-shared.yaml.md
-# ---
-
 trigger:
   branches:
     include: [main]

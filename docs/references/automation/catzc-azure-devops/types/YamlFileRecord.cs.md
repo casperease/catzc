@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "5f49b3c80d14"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
-    folder: docs/references/automation/catzc-azure-devops/types
-    name: yaml-file-record-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/shims-set-roots-mode-read-back.md
-    folder: docs/explanation/design
-    name: shims-set-roots-mode-read-back
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-RUNMODE#{1,4,5,7}
-    links:
-      - docs/adr/design/run-modes.md
-      - docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-entry-script-per-mode.md
-      - docs/explanation/design/shims-set-roots-mode-read-back.drawio.md
-      - docs/explanation/design/two-roots-one-importer-same-modules.md
-      - docs/explanation/design/where-code-loads-from-decides-the-mode.md
-      - docs/explanation/design/which-run-mode-rules-have-a-gate.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it
 
 ```text

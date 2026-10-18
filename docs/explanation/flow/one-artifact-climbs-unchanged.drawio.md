@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-artifact-climbs-unchanged.drawio.md
-    folder: docs/explanation/flow
-    name: one-artifact-climbs-unchanged-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd--one-artifact-climbs-unchanged--meta.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd--one-artifact-climbs-unchanged--meta.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd--one-artifact-climbs-unchanged--meta.tree.md
-      - docs/explanation/flow/one-artifact-climbs-unchanged.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One artifact is built once and climbs to production unchanged: the diagram described
 
 ```text

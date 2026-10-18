@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1
-    folder: tests/types
-    name: exporter-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'ExporterConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         # One valid config; each case breaks exactly one thing in a copy of it.

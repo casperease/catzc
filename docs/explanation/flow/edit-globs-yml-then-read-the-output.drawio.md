@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/edit-globs-yml-then-read-the-output.drawio.md
-    folder: docs/explanation/flow
-    name: edit-globs-yml-then-read-the-output-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.tree.md
-      - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # You edit globs.yml, and every other step prints what cats derived from it: the diagram described
 
 ```text

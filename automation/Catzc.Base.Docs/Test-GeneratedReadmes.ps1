@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
-    name: test-generated-readmes
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-README
----
-#>
-
 function Test-GeneratedReadmes {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

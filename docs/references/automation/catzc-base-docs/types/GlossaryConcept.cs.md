@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: cbcfa138b727
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
-    folder: docs/references/automation/catzc-base-docs/types
-    name: glossary-concept-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
-      - ADR-FLOW-CD#2
-      - ADR-REPO-VOCAB#{1,4,5,8}
----
-
 # automation/Catzc.Base.Docs/types/GlossaryConcept.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

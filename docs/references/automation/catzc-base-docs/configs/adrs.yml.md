@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "741669a27f5c"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/configs/adrs.yml.md
-    folder: docs/references/automation/catzc-base-docs/configs
-    name: adrs-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{14,15}
----
-
 # automation/Catzc.Base.Docs/configs/adrs.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

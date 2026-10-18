@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "76e59be618a5"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-contracts/tests
-    name: build-contract-reference-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-README#7
----
-
 # automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

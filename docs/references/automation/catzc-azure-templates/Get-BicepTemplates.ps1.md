@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e3acb8a92042
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
-    folder: docs/references/automation/catzc-azure-templates
-    name: get-bicep-templates-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AZ-NAMING#2
-      - ADR-PWSH-CACHE#4
----
-
 # automation/Catzc.Azure.Templates/Get-BicepTemplates.ps1
 
 <!-- cspell:ignore etlco -->

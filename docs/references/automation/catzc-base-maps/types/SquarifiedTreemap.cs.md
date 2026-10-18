@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "726fe6f1b591"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md
-    folder: docs/references/automation/catzc-base-maps/types
-    name: squarified-treemap-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PWSH-TYPES#1
----
-
 # automation/Catzc.Base.Maps/types/SquarifiedTreemap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

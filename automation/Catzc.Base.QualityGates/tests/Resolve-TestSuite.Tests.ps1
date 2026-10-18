@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
-    folder: tests
-    name: resolve-test-suite-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TEST#37
----
-#>
-
 Describe 'Resolve-TestSuite' -Tag 'L0', 'logic' {
     It 'returns the test suite''s verify modules and level' -Tag 'ADR-AUTO-TEST#37' {
         Mock Get-GlobSet {

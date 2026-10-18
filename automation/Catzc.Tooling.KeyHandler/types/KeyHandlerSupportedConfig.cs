@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
-    folder: types
-    name: key-handler-supported-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
-    test: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

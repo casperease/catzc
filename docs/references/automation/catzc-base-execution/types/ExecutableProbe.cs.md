@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8457dfdf5b65"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
-    folder: docs/references/automation/catzc-base-execution/types
-    name: executable-probe-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Execution/types/ExecutableProbe.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

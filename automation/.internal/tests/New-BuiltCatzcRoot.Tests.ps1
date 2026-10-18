@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
-    name: new-built-catzc-root-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#30
----
-#>
-
 Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     BeforeAll {
         Import-InternalModule TestKit

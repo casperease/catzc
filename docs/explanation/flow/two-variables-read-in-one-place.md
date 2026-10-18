@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/two-variables-read-in-one-place.md
-    folder: docs/explanation/flow
-    name: two-variables-read-in-one-place
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-DETECT#{1,4,5}
-    links:
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/explanation/.assets/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-boolean-answer-from-one-function.md
-      - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
-      - docs/explanation/flow/the-analyzer-names-the-raw-read.md
-      - docs/explanation/flow/the-loader-holds-the-one-detector.md
-      - docs/explanation/flow/two-variables-read-in-one-place.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Two variables, one reader, 24 callers, and one analyzer rule for every other read
 
 ```text

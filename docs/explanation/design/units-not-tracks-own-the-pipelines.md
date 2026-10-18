@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/units-not-tracks-own-the-pipelines.md
-    folder: docs/explanation/design
-    name: units-not-tracks-own-the-pipelines
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{2-5}
-    links:
-      - docs/adr/design/tracks.md
-      - docs/explanation/.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
-      - docs/explanation/design/a-push-fires-only-touched-pipelines.md
-      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-unit-one-pipeline.md
-      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
-      - docs/explanation/design/units-not-tracks-own-the-pipelines.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
 
 ```text

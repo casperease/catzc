@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/types/CustomerConfig.cs
-    folder: types
-    name: customer-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
-    test: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

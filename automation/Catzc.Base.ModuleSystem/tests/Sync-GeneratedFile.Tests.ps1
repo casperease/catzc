@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
-    folder: tests
-    name: sync-generated-file-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CACHE#8
-      - ADR-AUTO-TYPES#13
----
-#>
-
 Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     BeforeEach {
         # Source mode unless a test flips it, so the cases run the same in the source and build runs.

@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1
-    name: test-glob-set-affected
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
-    cites:
-      - ADR-AUTO-FAILFAST
-      - ADR-FLOW-CD-GLOBS#1
-      - ADR-REPO-PROTGLOB#5
----
-#>
-
 function Test-GlobSetAffected {
     [CmdletBinding()]
     [OutputType([bool])]

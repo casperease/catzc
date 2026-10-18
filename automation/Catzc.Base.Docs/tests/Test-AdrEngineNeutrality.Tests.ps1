@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-    folder: tests
-    name: test-adr-engine-neutrality-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#{3,35}
-      - ADR-PRIN-CONFIG#1
----
-#>
-
 Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR-AUTO-ENGINE#1' {
     BeforeAll {
         $script:adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

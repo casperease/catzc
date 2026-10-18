@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-core.md
-    folder: docs/references/automation
-    name: catzc-tooling-core
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/idempotent-state-functions.md
-      - docs/adr/automation/use-proper-package-managers.md
-      - docs/adr/automation/uv-python-handler.md
-      - docs/references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png
-      - docs/references/automation/catzc-base-execution.md
-      - docs/references/automation/catzc-base-objects.md
-      - docs/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
-      - docs/references/automation/catzc-tooling-node.md
-      - docs/references/automation/catzc-tooling-provisioning.md
-      - docs/references/automation/catzc-tooling-python.md
-      - docs/references/automation/catzc-tooling-toolchain.md
----
-
 # Catzc.Tooling.Core
 
 The foundation of the Tooling group. It owns the generic, tool-agnostic engine that reads the single source of truth for which external

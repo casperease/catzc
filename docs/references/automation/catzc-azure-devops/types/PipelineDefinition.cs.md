@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "4963c5eed1a0"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md
-    folder: docs/references/automation/catzc-azure-devops/types
-    name: pipeline-definition-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure.DevOps/types/PipelineDefinition.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

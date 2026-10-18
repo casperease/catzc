@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.drawio.md
-    folder: docs/explanation/design
-    name: globs-yml-pipeline-field-is-the-binding-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.tree.md
-      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One field in globs.yml, pipeline:, binds a set to its pipeline file: the diagram described
 
 ```text

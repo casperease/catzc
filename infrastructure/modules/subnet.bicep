@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/subnet.bicep
-//     name: subnet
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: subnet
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/subnet.bicep.md
-// ---
-
 @description('Name of the existing virtual network (in the deployment resource group).')
 param virtualNetworkName string
 

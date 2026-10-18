@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/types/GlobSet.cs
-    folder: types
-    name: glob-set
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
-    test: automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
-    cites:
-      - ADR-FLOW-CD-GLOBS
-      - ADR-REPO-PROTGLOB
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

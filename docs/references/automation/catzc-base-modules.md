@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-modules.md
-    folder: docs/references/automation
-    name: catzc-base-modules
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-MODULE#1
-    links:
-      - docs/adr/automation/module-model.md
-      - docs/adr/design/module-aspects.md
-      - docs/references/automation/catzc-base-languages.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/catzc-base-variants.md
----
-
 # Catzc.Base.Modules
 
 The one resolver of a module: for every deployable track it finds the modules the track's places hold, and returns each as one

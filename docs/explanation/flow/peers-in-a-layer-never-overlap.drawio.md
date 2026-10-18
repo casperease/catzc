@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/peers-in-a-layer-never-overlap.drawio.md
-    folder: docs/explanation/flow
-    name: peers-in-a-layer-never-overlap-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.tree.md
-      - docs/explanation/flow/peers-in-a-layer-never-overlap.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Peers in a layer never share a file, except in the loose-fileset layer: the diagram described
 
 ```text

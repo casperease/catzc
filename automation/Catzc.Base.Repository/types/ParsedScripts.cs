@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
-    folder: types
-    name: parsed-scripts
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
----
-*/
-
 // One call's parse of each script: a file is parsed once however many checks read it, and the holder dies with the call that made it.
 
 using System;

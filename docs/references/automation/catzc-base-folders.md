@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-folders.md
-    folder: docs/references/automation
-    name: catzc-base-folders
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/catzc-base-git.md
----
-
 # Catzc.Base.Folders
 
 The folder-listing module. It owns the one way to list the files and folders below a folder, to a bounded depth, without loading the tree: a

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-crossers-and-three-anchors.md
-    folder: docs/explanation/automation
-    name: two-crossers-and-three-anchors
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PATH#{4,7,9,10}
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-out-string-two-places.md
-      - docs/explanation/automation/output-root-first-then-repo-root.md
-      - docs/explanation/automation/two-crossers-and-three-anchors.drawio.md
-      - docs/explanation/automation/two-forms-never-a-third.md
-      - docs/explanation/automation/types-check-forms-review-checks-crossers.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Two crossers anchor on two roots, and a published artifact anchors on its artifact root
 
 ```text

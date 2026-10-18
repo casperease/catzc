@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
-    folder: tests/types
-    name: git-ignore-pattern-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'GitIgnorePattern' -Tag 'L0', 'logic' {
     It 'constructs from a bare string' {
         $p = [Catzc.Base.Git.GitIgnorePattern]::new('out/*')

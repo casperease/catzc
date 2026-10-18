@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
-    folder: tests
-    name: get-world-map-output-root-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-WorldMapOutputRoot' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:outputRoot = Join-Path $TestDrive 'widget-out'

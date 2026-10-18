@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/a-merge-runs-cd-to-prod.md
-    folder: docs/explanation/flow
-    name: a-merge-runs-cd-to-prod
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD#{5,6,9}
-    links:
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/explanation/.assets/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png
-      - docs/explanation/flow/a-merge-runs-cd-to-prod.drawio.md
-      - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
-      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-artifact-climbs-unchanged.md
-      - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A merge to main runs the CD pipeline all the way to prod, with no approval
 
 ```text

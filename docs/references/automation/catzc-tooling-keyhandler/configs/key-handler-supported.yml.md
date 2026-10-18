@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "76df95b93b6e"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
-    folder: docs/references/automation/catzc-tooling-keyhandler/configs
-    name: key-handler-supported-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
 
 <!-- cspell:ignore begining -->

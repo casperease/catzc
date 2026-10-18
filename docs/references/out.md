@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/out.md
-    folder: docs/references
-    name: out
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/adr/repository/dedicated-output-directory.md
----
-
 # The output directory
 
 Every generated and transient file the automation produces lands here — reports, exports, build artifacts, test results, plans. The folder

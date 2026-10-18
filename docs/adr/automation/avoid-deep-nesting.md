@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/avoid-deep-nesting.md
-    folder: docs/adr/automation
-    name: avoid-deep-nesting
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-NONEST#{1-5}
-    cites:
-      - ADR-PWSH-FORMAT#{8,9}
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/pwsh/powershell-formatting.md
----
-
 # ADR: Avoid deep nesting in statements and expressions
 
 ## Rules: ADR-AUTO-NONEST

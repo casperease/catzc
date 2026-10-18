@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "0f2f92a434c5"
-    repo_status: locked
-    path: docs/references/pipelines/cd-shared.yaml.md
-    folder: docs/references/pipelines
-    name: cd-shared-yaml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AZ-LZ#7
----
-
 # pipelines/cd-shared.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

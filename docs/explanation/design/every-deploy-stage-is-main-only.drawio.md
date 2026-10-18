@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/every-deploy-stage-is-main-only.drawio.md
-    folder: docs/explanation/design
-    name: every-deploy-stage-is-main-only-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.tree.md
-      - docs/explanation/design/every-deploy-stage-is-main-only.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every Deploy stage in cats runs only from main, so no topic commit is deployed: the diagram described
 
 ```text

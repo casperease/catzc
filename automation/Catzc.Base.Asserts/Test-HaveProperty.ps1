@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/Test-HaveProperty.ps1
-    name: test-have-property
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
----
-#>
-
 function Test-HaveProperty {
     [OutputType([bool])]
     [CmdletBinding()]

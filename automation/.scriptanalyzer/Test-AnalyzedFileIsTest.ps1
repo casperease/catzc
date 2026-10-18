@@ -1,19 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
-    folder: automation/.scriptanalyzer
-    name: test-analyzed-file-is-test
-    filetype: ps1
-    kind: analyzer-rule
-    language: powershell
-    track: automation
-    tracktype: modules
----
-#>
-
 function Test-AnalyzedFileIsTest {
     [CmdletBinding()]
     [OutputType([bool])]

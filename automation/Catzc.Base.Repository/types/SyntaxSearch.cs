@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
-    folder: types
-    name: syntax-search
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
----
-*/
-
 // A scriptblock handed to FindAll runs once per node and allocates about 2 KB each time; these compiled walks allocate almost nothing.
 
 using System;

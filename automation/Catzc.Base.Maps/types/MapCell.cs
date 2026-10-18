@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/types/MapCell.cs
-    folder: types
-    name: map-cell
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/types/MapCell.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#{1,3,6}
----
-*/
-
 namespace Catzc.Base.Maps;
 
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Track), nameof(FileLanguage), nameof(FileCount), nameof(StackViolation))]

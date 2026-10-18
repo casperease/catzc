@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/agile-values.md
-    folder: docs/adr/process
-    name: agile-values
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-VALUES#{1-4}
-    links:
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/agile-principles.md
-      - docs/adr/process/agile.md
-      - "https://agilemanifesto.org"
----
-
 # ADR: Agile values — the four preferences of the manifesto
 
 ## Rules: ADR-PROC-VALUES

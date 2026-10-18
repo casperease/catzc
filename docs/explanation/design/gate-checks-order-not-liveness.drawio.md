@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/gate-checks-order-not-liveness.drawio.md
-    folder: docs/explanation/design
-    name: gate-checks-order-not-liveness-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.tree.md
-      - docs/explanation/design/gate-checks-order-not-liveness.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call: the diagram described
 
 ```text

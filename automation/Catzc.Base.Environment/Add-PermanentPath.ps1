@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Environment/Add-PermanentPath.ps1
-    name: add-permanent-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
-    test: automation/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
----
-#>
-
 function Add-PermanentPath {
     [CmdletBinding()]
     param(

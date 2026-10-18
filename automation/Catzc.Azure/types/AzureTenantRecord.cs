@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/types/AzureTenantRecord.cs
-    folder: types
-    name: azure-tenant-record
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-DATAMOD
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

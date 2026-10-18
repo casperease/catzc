@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
-    folder: types
-    name: csv-export-ref
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Azure.Firewall;

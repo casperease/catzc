@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/every-entry-runs-one-load-sequence.drawio.md
-    folder: docs/explanation/automation
-    name: every-entry-runs-one-load-sequence-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.chain.md
-      - docs/explanation/.assets/grid/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.grid.md
-      - docs/explanation/.assets/tree/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.tree.md
-      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every entry runs one load sequence: the diagram described
 
 ```text

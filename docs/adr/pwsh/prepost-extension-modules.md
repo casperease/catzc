@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/prepost-extension-modules.md
-    folder: docs/adr/pwsh
-    name: prepost-extension-modules
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-PREPOST#{2-6}
-    cites:
-      - ADR-PWSH-USEPS#2
-    links:
-      - docs/adr/pwsh/use-ps1-not-psm1.md
----
-
 # ADR: PrePost extension modules
 
 ## Rules: ADR-PWSH-PREPOST

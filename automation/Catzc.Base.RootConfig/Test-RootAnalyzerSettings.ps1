@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
-    name: test-root-analyzer-settings
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-ROOTCFG
----
-#>
-
 function Test-RootAnalyzerSettings {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

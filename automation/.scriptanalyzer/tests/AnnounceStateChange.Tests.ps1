@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: announce-state-change-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#33
-      - ADR-PWSH-ANNOUNCE#8
----
-#>
-
 Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic', 'ADR-PWSH-ANNOUNCE#8' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/AnnounceStateChange.psm1') -Force

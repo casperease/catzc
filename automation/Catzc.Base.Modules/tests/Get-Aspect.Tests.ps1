@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-    folder: tests
-    name: get-aspect-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Modules
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-MODULE#2
-      - ADR-DSGN-ASPECT
----
-#>
-
 # Rests on [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md).
 Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#2' {
     BeforeAll {

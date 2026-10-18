@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Firewall/Get-FirewallCsv.ps1
-    name: get-firewall-csv
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
-    test: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
----
-#>
-
 function Get-FirewallCsv {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'TimestampPattern/TimestampFormat are consumed inside the $parseStamp nested scriptblock, which this rule does not trace')]
     [CmdletBinding()]

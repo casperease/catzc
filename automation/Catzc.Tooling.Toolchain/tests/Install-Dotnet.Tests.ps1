@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
-    folder: tests
-    name: install-dotnet-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP#3
----
-#>
-
 Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:installDirectory = Join-Path $TestDrive 'dotnet-widget'

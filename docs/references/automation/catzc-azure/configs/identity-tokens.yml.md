@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "52298307f3b5"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/configs/identity-tokens.yml.md
-    folder: docs/references/automation/catzc-azure/configs
-    name: identity-tokens-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Azure/configs/identity-tokens.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
-    folder: tests
-    name: install-az-cli-bicep-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Install-AzCliBicep' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Cli

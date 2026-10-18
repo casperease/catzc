@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Assert-Command.Tests.ps1
-    folder: tests
-    name: assert-command-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Assert-Command' -Tag 'L0', 'logic' {
     It 'passes for an installed command' {
         { Assert-Command 'pwsh' } | Should -Not -Throw

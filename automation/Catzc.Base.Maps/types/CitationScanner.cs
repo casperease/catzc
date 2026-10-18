@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/types/CitationScanner.cs
-    folder: types
-    name: citation-scanner
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md
-    test: automation/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
-    cites:
-      - ADR-REPO-LINK#3
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

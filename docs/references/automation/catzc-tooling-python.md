@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-python.md
-    folder: docs/references/automation
-    name: catzc-tooling-python
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/cross-platform.md
-      - docs/adr/automation/uv-python-handler.md
-      - docs/references/automation/catzc-tooling-core.md
----
-
 # Catzc.Tooling.Python
 
 The Python ecosystem module of the Tooling group. It owns the Python interpreter — provisioned by uv — and the Python tooling layered on it:

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Get-CatsAdrIndex.Tests.ps1
-    folder: tests
-    name: get-cats-adr-index-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-CatsAdrIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:indexPath = Join-Path $TestDrive 'index.md'

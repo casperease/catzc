@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-crossers-and-three-anchors.drawio.md
-    folder: docs/explanation/automation
-    name: two-crossers-and-three-anchors-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-path--two-crossers-and-three-anchors--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-auto-path--two-crossers-and-three-anchors--architecture.tree.md
-      - docs/explanation/automation/two-crossers-and-three-anchors.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Two crossers anchor on two roots, and a published artifact anchors on its artifact root: the diagram described
 
 ```text

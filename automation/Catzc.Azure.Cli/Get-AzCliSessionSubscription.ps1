@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
-    name: get-az-cli-session-subscription
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
-    cites:
-      - ADR-AZ-SESSION
----
-#>
-
 function Get-AzCliSessionSubscription {
     [CmdletBinding()]
     param()

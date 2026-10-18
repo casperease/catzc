@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
-    folder: tests
-    name: get-glob-set-change-range-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-DETECT
----
-#>
-
 Describe 'Get-GlobSetChangeRange' -Tag 'L0', 'logic' {
     BeforeEach {
         # A clean, deterministic env regardless of where the tests run (a real pipeline sets some of these).

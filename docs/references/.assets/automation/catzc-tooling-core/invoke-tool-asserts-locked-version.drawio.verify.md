@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-tooling-core
-    name: invoke-tool-asserts-locked-version-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-BASH#6
-      - ADR-AUTO-DEPS#{2,3}
-      - ADR-AUTO-DRYRUN#2
-      - ADR-CONF-LOADING#6
-      - ADR-PWSH-CACHE#4
----
-
 # Verification: Each `Invoke-<Tool>` asserts the locked version before it runs (source lens, Catzc.Tooling.Core)
 
 Every line below was re-read on 2026-10-15 after the comment export. The scout's line numbers had moved (`Assert-Tool.ps1:30,36,55` is now

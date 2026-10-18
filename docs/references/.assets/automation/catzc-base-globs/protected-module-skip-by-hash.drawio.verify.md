@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-base-globs
-    name: protected-module-skip-by-hash-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-GLOBS#5
-      - ADR-PWSH-CACHE#4
-      - ADR-REPO-PROTGLOB#4
----
-
 # out/diagrams/wave-9/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
 
 `Verification: Skip a module only if its folded hash matches its last green (source lens, Catzc.Base.Globs)`

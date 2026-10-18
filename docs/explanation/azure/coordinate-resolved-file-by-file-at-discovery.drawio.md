@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.drawio.md
-    folder: docs/explanation/azure
-    name: coordinate-resolved-file-by-file-at-discovery-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.tree.md
-      - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Discovery resolves every config file's coordinate through one shared check: the diagram described
 
 ```text

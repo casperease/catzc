@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-base-modulesystem
-    name: module-graph-declared-vs-observed-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#2
-      - ADR-AUTO-DEPM#4
-      - ADR-AUTO-TEST#4
-      - ADR-PWSH-CACHE#4
-      - ADR-PWSH-PESTER#9
----
-
 # out/diagrams/wave-9/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
 
 `Verification: Declared graph orders and closes; observed graph is checked (source lens, Catzc.Base.ModuleSystem)`

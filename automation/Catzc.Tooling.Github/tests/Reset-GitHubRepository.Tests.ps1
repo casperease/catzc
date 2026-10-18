@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
-    folder: tests
-    name: reset-git-hub-repository-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
----
-#>
-
 Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
     BeforeAll {
         # A local checkout written by hand: main at a made-up commit, read in-process by the remote check.

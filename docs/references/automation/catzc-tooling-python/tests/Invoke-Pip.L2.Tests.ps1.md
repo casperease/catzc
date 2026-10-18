@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: aa4f92977a14
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md
-    folder: docs/references/automation/catzc-tooling-python/tests
-    name: invoke-pip-l2-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Python/tests/Invoke-Pip.L2.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

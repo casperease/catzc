@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
-    folder: private
-    name: write-information-colored
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md
-    test: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#8
-      - ADR-PWSH-ANNOUNCE#1
----
-#>
-
 function Write-InformationColored {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) is read to suppress host output during test runs; Pester captures the information stream regardless of $InformationPreference, so a guard — not a preference — is what silences it; global is required to cross module session-state boundaries')]
     [CmdletBinding()]

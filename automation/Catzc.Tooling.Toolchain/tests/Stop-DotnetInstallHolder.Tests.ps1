@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Stop-DotnetInstallHolder.Tests.ps1
-    folder: tests
-    name: stop-dotnet-install-holder-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:installDir = Join-Path $TestDrive 'widget-dotnet'

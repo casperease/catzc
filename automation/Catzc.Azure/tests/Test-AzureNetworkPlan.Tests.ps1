@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
-    folder: tests
-    name: test-azure-network-plan-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-AZ-NETWORK#{2,4,5}
----
-#>
-
 Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         $environment = { param($code) [ordered]@{ shortcode = $code; region = 'westeurope'; region_code = 'weu' } }

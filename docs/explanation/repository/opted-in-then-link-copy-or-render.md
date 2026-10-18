@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
-    folder: docs/explanation/repository
-    name: opted-in-then-link-copy-or-render
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-ROOTCFG#{2,4,5,7,8}
-    links:
-      - docs/adr/repository/generated-root-configs.md
-      - docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
-      - docs/explanation/repository/one-source-one-writer-one-boolean.md
-      - docs/explanation/repository/opted-in-then-link-copy-or-render.drawio.md
-      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
----
-
 # The optIn filter, then link, copy or render, through two write primitives
 
 ```text

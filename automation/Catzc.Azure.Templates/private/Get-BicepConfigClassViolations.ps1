@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/private/Get-BicepConfigClassViolations.ps1
-    folder: private
-    name: get-bicep-config-class-violations
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-AZ-DATAMOD#8
----
-#>
-
 function Get-BicepConfigClassViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

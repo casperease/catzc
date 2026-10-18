@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/types/HeadForm.cs
-    folder: types
-    name: head-form
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-codemeta/types/HeadForm.cs.md
-    test: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
-    cites:
-      - ADR-REPO-CODEMETA#1
----
-*/
-
 using System;
 using System.Collections.Generic;
 

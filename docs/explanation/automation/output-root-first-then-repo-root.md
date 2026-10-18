@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/output-root-first-then-repo-root.md
-    folder: docs/explanation/automation
-    name: output-root-first-then-repo-root
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PATH#{4,5,9,10}
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-out-string-two-places.md
-      - docs/explanation/automation/output-root-first-then-repo-root.drawio.md
-      - docs/explanation/automation/two-crossers-and-three-anchors.md
-      - docs/explanation/automation/two-forms-never-a-third.md
-      - docs/explanation/automation/types-check-forms-review-checks-crossers.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root
 
 ```text

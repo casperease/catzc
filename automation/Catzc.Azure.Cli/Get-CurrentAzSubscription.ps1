@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Get-CurrentAzSubscription.ps1
-    name: get-current-az-subscription
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
----
-#>
-
 function Get-CurrentAzSubscription {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

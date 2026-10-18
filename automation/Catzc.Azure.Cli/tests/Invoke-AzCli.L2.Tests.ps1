@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.L2.Tests.ps1
-    folder: tests
-    name: invoke-az-cli-l2-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md
----
-#>
-
 Describe 'Invoke-AzCli' -Tag 'L2', 'logic' {
     It 'returns version as JSON with accessible properties' {
         if (-not (Get-Command az -ErrorAction Ignore)) {

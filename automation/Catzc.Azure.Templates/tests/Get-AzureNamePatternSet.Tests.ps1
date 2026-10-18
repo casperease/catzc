@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1
-    folder: tests
-    name: get-azure-name-pattern-set-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-AzureNamePatternSet' -Tag 'L0', 'logic' {
     It 'defines the four patterns: long, kv, storage, vm' {
         $p = Get-AzureNamePatternSet

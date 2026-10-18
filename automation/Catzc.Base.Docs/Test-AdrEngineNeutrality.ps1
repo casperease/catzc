@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
-    name: test-adr-engine-neutrality
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#35
----
-#>
-
 function Test-AdrEngineNeutrality {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

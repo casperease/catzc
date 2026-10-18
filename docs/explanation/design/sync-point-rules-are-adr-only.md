@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/sync-point-rules-are-adr-only.md
-    folder: docs/explanation/design
-    name: sync-point-rules-are-adr-only
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#{2,5-8}
-      - ADR-FLOW-CD#{5,9,11}
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/explanation/.assets/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
-      - docs/explanation/design/index.md
-      - docs/explanation/design/integrators-depend-on-an-occupant.md
-      - docs/explanation/design/sync-from-the-last-certified-commit.md
-      - docs/explanation/design/sync-point-rules-are-adr-only.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Only BVT has a gate in code; the sync-point rules are ADR-only
 
 ```text

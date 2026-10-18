@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
-    folder: tests
-    name: get-module-dependency-closure-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md
----
-#>
-
 Describe 'Get-ModuleDependencyClosure' -Tag 'L0', 'logic' {
     BeforeAll {
         # A -> B, C ; B -> C ; C -> (none) ; D -> (none)

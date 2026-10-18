@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: no-script-root-anchor-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP#1
----
-#>
-
 Describe 'Measure-NoScriptRootAnchor' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoScriptRootAnchor.psm1') -Force

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/one-door-in-one-stable-point-out.md
-    folder: docs/explanation/design
-    name: one-door-in-one-stable-point-out
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-REMOTE
-    links:
-      - docs/adr/design/server-remote-integration.md
-      - docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
-      - docs/explanation/design/clients-bridge-to-one-server.md
-      - docs/explanation/design/guard-and-policies-by-command.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/ingress-gated-the-rest-by-review.md
-      - docs/explanation/design/local-guard-and-server-policies.md
-      - docs/explanation/design/one-door-in-one-stable-point-out.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Changes enter through one door, and consumers build on one stable point
 
 ```text

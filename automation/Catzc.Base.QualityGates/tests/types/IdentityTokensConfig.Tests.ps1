@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/IdentityTokensConfig.Tests.ps1
-    folder: tests/types
-    name: identity-tokens-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'IdentityTokensConfig' -Tag 'L0', 'logic' {
     It 'maps each rule, defaulting take to value and match to exact' {
         $config = [Catzc.Base.QualityGates.IdentityTokensConfig]::new([ordered]@{

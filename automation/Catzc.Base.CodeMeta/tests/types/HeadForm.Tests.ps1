@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
-    folder: tests/types
-    name: head-form-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-CODEMETA#1
----
-#>
-
 Describe 'HeadForm' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1' {
     It 'is a line-comment form or a block-comment form, anchored at the start by default' {
         $line = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#')

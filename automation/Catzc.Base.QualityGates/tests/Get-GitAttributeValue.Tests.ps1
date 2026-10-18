@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
-    folder: tests
-    name: get-git-attribute-value-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-GitAttributeValue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

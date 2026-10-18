@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/CapabilityEntry.cs
-    folder: types
-    name: capability-entry
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-AGENTS#{9,10}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

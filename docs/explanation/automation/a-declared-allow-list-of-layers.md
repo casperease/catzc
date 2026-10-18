@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/a-declared-allow-list-of-layers.md
-    folder: docs/explanation/automation
-    name: a-declared-allow-list-of-layers
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#{1,3-5}
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
-      - docs/explanation/automation/a-declared-allow-list-of-layers.drawio.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/three-layers-edges-point-down.md
-      - docs/explanation/automation/two-gates-check-the-layer-pins.md
-      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
-      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One declared allow-list says what may depend on what, and every edge points down
 
 ```text

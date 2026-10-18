@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "5266d45b219c"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-timeouts/tests/types
-    name: bounded-command-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

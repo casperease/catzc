@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/Assert-Wait.ps1
-    name: assert-wait
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-timeouts/Assert-Wait.ps1.md
-    test: automation/Catzc.Base.Timeouts/tests/Assert-Wait.Tests.ps1
-    cites:
-      - ADR-AUTO-FAILFAST#{5,7}
----
-#>
-
 function Assert-Wait {
     [CmdletBinding()]
     param(

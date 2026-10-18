@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/thesis/one-source-of-truth.md
-    folder: docs/adr/thesis
-    name: one-source-of-truth
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-THES-ONETRUTH#{1-6}
-    cites:
-      - ADR-FLOW-CD#14
-      - ADR-PRIN-EAC
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/design/tracks.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/repository/inspiration.md
-      - docs/adr/research/continuous-delivery.md
----
-
 # Thesis: One source of truth — delivery collapsed into one repository with one change process
 
 ## Rules: ADR-THES-ONETRUTH

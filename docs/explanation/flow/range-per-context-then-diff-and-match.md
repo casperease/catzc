@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/range-per-context-then-diff-and-match.md
-    folder: docs/explanation/flow
-    name: range-per-context-then-diff-and-match
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-FLOW-CD-GLOBS#9
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
-      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
-      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/range-per-context-then-diff-and-match.drawio.md
-      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
-      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Check the name, pick the range per context, then diff git and match the paths
 
 ```text

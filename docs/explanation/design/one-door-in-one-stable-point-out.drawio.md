@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/one-door-in-one-stable-point-out.drawio.md
-    folder: docs/explanation/design
-    name: one-door-in-one-stable-point-out-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.tree.md
-      - docs/explanation/design/one-door-in-one-stable-point-out.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Changes enter through one door, and consumers build on one stable point: the diagram described
 
 ```text

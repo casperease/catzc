@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/an-address-is-a-read-only-walk.drawio.md
-    folder: docs/explanation/configuration
-    name: an-address-is-a-read-only-walk-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-addressing--an-address-is-a-read-only-walk--meta.chain.md
-      - docs/explanation/.assets/grid/adr-conf-addressing--an-address-is-a-read-only-walk--meta.grid.md
-      - docs/explanation/.assets/tree/adr-conf-addressing--an-address-is-a-read-only-walk--meta.tree.md
-      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A config address is a read-only walk over the one cached config, never a second reader: the diagram described
 
 ```text

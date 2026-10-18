@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/one-reader-one-cache-per-session.drawio.md
-    folder: docs/explanation/configuration
-    name: one-reader-one-cache-per-session-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md
-      - docs/explanation/.assets/grid/adr-conf-loading--one-reader-one-cache-per-session--meta.grid.md
-      - docs/explanation/.assets/tree/adr-conf-loading--one-reader-one-cache-per-session--meta.tree.md
-      - docs/explanation/configuration/one-reader-one-cache-per-session.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every config read goes through one reader and one session cache: the diagram described
 
 ```text

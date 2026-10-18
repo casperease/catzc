@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
-    folder: tests
-    name: deploy-azure-resource-group-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Deploy-AzureResourceGroup.Tests.ps1.md
----
-#>
-
 # cspell:ignore nproperties
 Describe 'Deploy-AzureResourceGroup' -Tag 'L0', 'logic' {
     BeforeAll {

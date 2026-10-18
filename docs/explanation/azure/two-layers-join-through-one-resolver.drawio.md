@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/two-layers-join-through-one-resolver.drawio.md
-    folder: docs/explanation/azure
-    name: two-layers-join-through-one-resolver-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-az-datamod--two-layers-join-through-one-resolver--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-az-datamod--two-layers-join-through-one-resolver--architecture.tree.md
-      - docs/explanation/azure/two-layers-join-through-one-resolver.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Templating and identity join through one shared check and one resolver: the diagram described
 
 ```text

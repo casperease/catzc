@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/internal/catzc-internal-testkit.md
-    folder: docs/references/automation/internal
-    name: catzc-internal-testkit
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/test-automation.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/references/automation/internal/catzc-internal-loader.md
-      - docs/references/automation/internal/index.md
----
-
 # Catzc.Internal.TestKit
 
 An on-demand Pester fixture library. Many tests stand up a synthetic repository on disk — a temp root, an `automation/<module>` tree, and

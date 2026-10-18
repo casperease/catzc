@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
-    folder: tests
-    name: invoke-test-file-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{23,25,32,33}
----
-#>
-
 Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
     BeforeAll {
         # The seams every case below shares, mocked once; a case that differs re-mocks its own.

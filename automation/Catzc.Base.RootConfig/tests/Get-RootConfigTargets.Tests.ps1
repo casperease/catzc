@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
-    folder: tests
-    name: get-root-config-targets-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-RootConfigTargets' -Tag 'L0', 'logic' {
     It 'returns only the opted-in entries, in registry order' {
         $config = [pscustomobject]@{

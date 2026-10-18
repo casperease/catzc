@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-exporter.md
-    folder: docs/references/automation
-    name: catzc-base-exporter
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/design/run-modes.md
-      - docs/adr/design/self-service.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/github/github-release.md
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/catzc-base-globs.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/catzc-base-repository.md
-      - docs/references/automation/catzc-base-writers.md
----
-
 # Catzc.Base.Exporter
 
 The module that builds the catzc platform into one installable, versioned, content-addressed `Catzc` module — build mode's code root

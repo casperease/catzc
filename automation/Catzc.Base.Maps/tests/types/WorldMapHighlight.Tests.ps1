@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
-    folder: tests/types
-    name: world-map-highlight-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{7,12}
----
-#>
-
 Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $tracks = @(

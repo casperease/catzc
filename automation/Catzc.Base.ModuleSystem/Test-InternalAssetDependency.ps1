@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
-    name: test-internal-asset-dependency
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#{2-4}
-      - ADR-AUTO-TEST#35
----
-#>
-
 function Test-InternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

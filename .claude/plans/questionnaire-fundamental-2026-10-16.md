@@ -4,23 +4,6 @@ plan:
   kind: questionnaire
   reviewed: 2026-10-16
   funnel: 20 items -> 10 fundamental questions -> 5 -> 2 -> end
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/questionnaire-fundamental-2026-10-16.md"
-    folder: plans
-    name: questionnaire-fundamental-2026-10-16
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-HELP#3
 ---
 
 # Fundamental questions, 2026-10-16: what changes for the repository

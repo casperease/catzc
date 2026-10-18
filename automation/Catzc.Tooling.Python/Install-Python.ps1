@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Python/Install-Python.ps1
-    name: install-python
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
-    test: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
----
-#>
-
 function Install-Python {
     [CmdletBinding()]
     param(

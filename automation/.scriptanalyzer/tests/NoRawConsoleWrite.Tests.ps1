@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: no-raw-console-write-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md
----
-#>
-
 Describe 'Measure-NoRawConsoleWrite' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoRawConsoleWrite.psm1') -Force

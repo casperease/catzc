@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-azure-templates
-    name: bicep-template-is-a-folder-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#9
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-NAMING#2
-      - ADR-CONF-ADDRESSING#1
-      - ADR-PWSH-CACHE#4
-      - ADR-PWSH-ERROR#8
----
-
 # Verification: A template is a folder; options.yml overrides five defaults (source lens, Catzc.Azure.Templates)
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused (for example the `allowedKeys`

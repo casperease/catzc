@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: db19b4249f72
-    repo_status: locked
-    path: docs/references/pipelines/extends/cd-customer.yaml.md
-    folder: docs/references/pipelines/extends
-    name: cd-customer-yaml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AZ-LZ#7
----
-
 # pipelines/extends/cd-customer.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

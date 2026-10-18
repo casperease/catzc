@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/overview.md
-    folder: docs/references/infrastructure
-    name: overview
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/
-      - docs/adr/azure/landing-zones.md
-      - docs/references/automation/catzc-azure-templates.md
-      - docs/references/infrastructure/discovery.md
-      - docs/references/infrastructure/expedition.md
-      - docs/references/infrastructure/foundation.md
-      - docs/references/infrastructure/modules.md
----
-
 # infrastructure
 
 Bicep for the templating system, in two folders:

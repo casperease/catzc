@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
-    name: test-shipped-types
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 function Test-ShippedTypes {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

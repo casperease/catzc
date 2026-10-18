@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
-    folder: tests
-    name: convert-to-module-dependency-diagram-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'ConvertTo-ModuleDependencyDiagram' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:edges = @(

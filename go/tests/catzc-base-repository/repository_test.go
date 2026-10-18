@@ -1,19 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: go/tests/catzc-base-repository/repository_test.go
-//     folder: tests/catzc-base-repository
-//     name: repository-test
-//     filetype: go
-//     kind: test
-//     language: go
-//     track: go
-//     tracktype: verification
-//     module: go
-//     moduletype: go
-// ---
-
 // Black-box tests of Catzc.Base.Repository: each test starts the engine as its own process the way the run's engine
 // contract says — CATZC_ENGINE_EXECUTABLE, with the CATZC_ENGINE_START arguments, which load the run's entry (the
 // repository's importer.ps1 in a source run, the build's Import-Catzc.ps1 in a build run) — and asserts on what the

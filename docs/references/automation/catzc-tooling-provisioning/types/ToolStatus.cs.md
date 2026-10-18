@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: eb3eafc450df
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-provisioning/types/ToolStatus.cs.md
-    folder: docs/references/automation/catzc-tooling-provisioning/types
-    name: tool-status-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Provisioning/types/ToolStatus.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

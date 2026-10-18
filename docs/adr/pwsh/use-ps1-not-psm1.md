@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/use-ps1-not-psm1.md
-    folder: docs/adr/pwsh
-    name: use-ps1-not-psm1
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-USEPS#{1,2}
-    links:
-      - docs/adr/design/run-modes.md
-      - docs/adr/pwsh/dynamic-module-manifests.md#regenerated-manifests
-      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5
-      - docs/adr/pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc3
-      - docs/adr/pwsh/prepost-extension-modules.md
----
-
 # ADR: Use .ps1 for function files, not .psm1
 
 ## Rules: ADR-PWSH-USEPS

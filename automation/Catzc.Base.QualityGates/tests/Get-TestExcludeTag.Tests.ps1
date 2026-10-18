@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
-    folder: tests
-    name: get-test-exclude-tag-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-TestExcludeTag.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#41
----
-#>
-
 Describe 'Get-TestExcludeTag' -Tag 'L0', 'logic' {
     It 'a Logic L0/L1 run excludes the higher tiers and integrity' {
         InModuleScope Catzc.Base.QualityGates {

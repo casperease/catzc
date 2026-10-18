@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/prompt-adr-links-and-plans-continue.md"
-    folder: plans
-    name: prompt-adr-links-and-plans-continue
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-PIPE-NAME#{1,4}
-      - ADR-REPO-HELP#3
----
-
 # Continuation prompt (2026-10-16)
 
 Paste this into a new session in `C:\projects\catzc`.

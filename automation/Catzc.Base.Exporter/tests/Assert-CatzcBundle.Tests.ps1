@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
-    folder: tests
-    name: assert-catzc-bundle-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     BeforeAll {

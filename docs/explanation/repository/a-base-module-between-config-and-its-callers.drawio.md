@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/a-base-module-between-config-and-its-callers.drawio.md
-    folder: docs/explanation/repository
-    name: a-base-module-between-config-and-its-callers-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.tree.md
-      - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Catzc.Base.Variants sits in Base, over Config, under every real caller: the diagram described
 
 ```text

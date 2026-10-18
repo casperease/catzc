@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/types/NetworkConfig.cs
-    folder: types
-    name: network-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
-    test: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-NETWORK
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

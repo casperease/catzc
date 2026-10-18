@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/one-namer-assembles-every-name.drawio.md
-    folder: docs/explanation/azure
-    name: one-namer-assembles-every-name-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-az-naming--one-namer-assembles-every-name--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-az-naming--one-namer-assembles-every-name--architecture.tree.md
-      - docs/explanation/azure/one-namer-assembles-every-name.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One resolver gathers the components and one namer assembles every Azure name: the diagram described
 
 ```text

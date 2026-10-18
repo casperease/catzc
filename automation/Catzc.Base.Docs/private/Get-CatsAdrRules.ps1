@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/private/Get-CatsAdrRules.ps1
-    folder: private
-    name: get-cats-adr-rules
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1
-    cites:
-      - ADR-REPO-VOCAB#1
----
-#>
-
 function Get-CatsAdrRules {
     [OutputType([object[]])]
     [CmdletBinding()]

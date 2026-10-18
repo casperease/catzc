@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
-    folder: tests/types
-    name: gzip-text-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'GzipText' -Tag 'L0', 'logic' {
     It 'round-trips UTF-8 text through compress/decompress' {
         $text = "the quick brown fox`n" + "ÆØÅ`n" + "rule collection group`n"

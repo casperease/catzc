@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/observe-work.md
-    folder: docs/adr/process
-    name: observe-work
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-OBSERVEWIP#{1-4}
-    links:
-      - docs/adr/automation/console-output-matters.md
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/visual-design.md
-      - docs/adr/process/agile-principles.md
-      - docs/adr/process/inspect-and-adapt.md
-      - docs/adr/process/lean.md
-      - docs/adr/process/queues-cost-money.md
----
-
 # ADR: Observe the work — make it visible, and go and see
 
 ## Rules: ADR-PROC-OBSERVEWIP

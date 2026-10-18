@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
-    folder: tests
-    name: split-cached-file-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Split-CachedFile.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Split-CachedFile' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
     BeforeEach {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"))

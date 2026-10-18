@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "436b6c1a68a9"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/private
-    name: new-test-automation-shard-script-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#25
----
-
 # automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

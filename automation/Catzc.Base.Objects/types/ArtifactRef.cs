@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/types/ArtifactRef.cs
-    folder: types
-    name: artifact-ref
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
-    test: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
-    cites:
-      - ADR-AUTO-PATH#10
----
-*/
-
 using System;
 using System.IO;
 

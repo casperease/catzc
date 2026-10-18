@@ -5,23 +5,6 @@ task:
   value: highest
   blocked_on: every other task that ticks a plan's last step
   targets: [.claude/plans]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-closing-sweep.md"
-    folder: plans
-    name: task-closing-sweep
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-PLANS#5
 ---
 
 # Task: the closing sweep

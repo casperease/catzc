@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/what-you-set-decides-the-credential.drawio.md
-    folder: docs/explanation/pipelines
-    name: what-you-set-decides-the-credential-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md
-      - docs/explanation/.assets/grid/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md
-      - docs/explanation/.assets/tree/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
-      - docs/explanation/pipelines/what-you-set-decides-the-credential.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # What you set decides the credential, and each wrong setup stops with its own message: the diagram described
 
 ```text

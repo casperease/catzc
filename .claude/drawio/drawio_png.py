@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/drawio_png.py"
-#     folder: drawio
-#     name: drawio-png
-#     filetype: py
-#     kind: drawio-kit
-#     language: python
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo prel segoeui segoeuib textbbox
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 

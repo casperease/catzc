@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
-    folder: tests
-    name: test-build-artifact-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Test-BuildArtifact.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
     BeforeAll {
         # A clean observation of a two-module build at <root>: every facet passes.

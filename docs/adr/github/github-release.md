@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/github/github-release.md
-    folder: docs/adr/github
-    name: github-release
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-GH-RELEASE#{1-5}
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
----
-
 # ADR: GitHub release flow — publishing the Catzc package
 
 ## Rules: ADR-GH-RELEASE

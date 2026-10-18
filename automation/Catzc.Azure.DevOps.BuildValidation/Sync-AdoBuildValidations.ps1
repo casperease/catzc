@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
-    name: sync-ado-build-validations
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
----
-#>
-
 function Sync-AdoBuildValidations {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

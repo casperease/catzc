@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/add-an-infrastructure-template.md
-    folder: docs/how-to/getting-started/automation
-    name: add-an-infrastructure-template
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/azure/azure-network-model.md
-      - docs/adr/pwsh/prepost-extension-modules.md
----
-
 # Add an infrastructure template
 
 <!-- cspell:ignore deweuzctsurvecorst deweuzctsurvestast deweuzctsurvemaadf -->

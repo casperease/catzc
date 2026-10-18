@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
-    folder: tests
-    name: get-pipeline-trigger-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-GLOBS#1
----
-#>
-
 Describe 'Get-PipelineTrigger' -Tag 'L0', 'logic' {
     It 'extracts ADO trigger and pr include/exclude path filters' {
         $script:yaml = @'

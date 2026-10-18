@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
-    folder: tests
-    name: resolve-inspiration-root-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
-    cites:
-      - ADR-AUTO-PATH#11
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'widgets'))

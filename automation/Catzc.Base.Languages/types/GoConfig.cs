@@ -1,29 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/types/GoConfig.cs
-    folder: types
-    name: go-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-languages/types/GoConfig.cs.md
-    test: automation/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-FOLDERS#4
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

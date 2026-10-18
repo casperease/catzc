@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
-    name: get-file-language
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-    cites:
-      - ADR-DSGN-TRACK#6
----
-#>
-
 function Get-FileLanguage {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([Catzc.Base.Languages.FileLanguage])]

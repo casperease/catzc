@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: ac306dc20239
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: language-bridge-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-TEST#{8,9,26}
----
-
 # automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/opted-in-then-link-copy-or-render.drawio.md
-    folder: docs/explanation/repository
-    name: opted-in-then-link-copy-or-render-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
-      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The optIn filter, then link, copy or render, through two write primitives: the diagram described
 
 ```text

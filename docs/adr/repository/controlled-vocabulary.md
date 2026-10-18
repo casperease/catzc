@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/controlled-vocabulary.md
-    folder: docs/adr/repository
-    name: controlled-vocabulary
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-VOCAB#{1-9}
-    cites:
-      - ADR-AUTO-TEST#9
-    links:
-      - docs/adr/automation/sensible-defaults.md
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/automation/zero-ceremony-poka-yoke.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/design/module-aspects.md
-      - docs/adr/index.md#authoring-conventions
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/process/process-terms.md
-      - docs/adr/repository/domain-language-separation.md
----
-
 # ADR: Controlled vocabulary — one definition per term, opt-in glossary sources
 
 ## Rules: ADR-REPO-VOCAB

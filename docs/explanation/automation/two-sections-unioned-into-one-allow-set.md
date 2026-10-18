@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
-    folder: docs/explanation/automation
-    name: two-sections-unioned-into-one-allow-set
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#{2-4}
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
-      - docs/explanation/automation/a-declared-allow-list-of-layers.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/three-layers-edges-point-down.md
-      - docs/explanation/automation/two-gates-check-the-layer-pins.md
-      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.drawio.md
-      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Two sections of dependencies.yml are unioned into one allow-set per source module
 
 ```text

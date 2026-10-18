@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
-    folder: tests/types
-    name: inspiration-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-PATH#6
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-INSPIRE#5
----
-#>
-
 Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE#5' {
     BeforeAll {
         function New-Entry {

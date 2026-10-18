@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
-    folder: tests
-    name: install-pip-tool-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-UVPY#2
----
-#>
-
 Describe 'Install-PipTool' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib'; version = '4.1'; version_command = 'widget --version' } } -ParameterFilter { $Tool -eq 'widget' } -ModuleName Catzc.Tooling.Python

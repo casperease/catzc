@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/two-test-files-check-the-address-rules.md
-    folder: docs/explanation/configuration
-    name: two-test-files-check-the-address-rules
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ENVVAR#7
-      - ADR-CONF-ADDRESSING
-    links:
-      - docs/adr/automation/environment-variables.md
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
-      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
-      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
-      - docs/explanation/configuration/index.md
-      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
-      - docs/explanation/configuration/two-test-files-check-the-address-rules.drawio.md
-      - docs/explanation/configuration/type-an-address-get-the-value.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Two L0 test files check the address rules; read-only and committed-only rest on convention
 
 ```text

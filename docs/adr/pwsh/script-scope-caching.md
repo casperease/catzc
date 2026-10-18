@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/script-scope-caching.md
-    folder: docs/adr/pwsh
-    name: script-scope-caching
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-CACHE#{1,2,4,5}
-    cites:
-      - ADR-AUTO-CACHE#{6,8}
-      - ADR-PWSH-PESTER#3
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/caching.md#rule-adr-auto-cache6
-      - docs/adr/automation/caching.md#rule-adr-auto-cache8
-      - docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5
-      - docs/adr/automation/test-automation.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/pwsh/environment-variable-mechanics.md
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/pwsh/hosting-csharp-types.md
-      - docs/adr/pwsh/one-function-per-file.md
-      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3
----
-
 # ADR: Script-scope caching — the PowerShell layer over caching
 
 ## Rules: ADR-PWSH-CACHE

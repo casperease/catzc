@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/types/HighlightedCell.cs
-    folder: types
-    name: highlighted-cell
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections.Generic;
 

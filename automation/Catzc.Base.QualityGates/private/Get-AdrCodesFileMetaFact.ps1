@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
-    folder: private
-    name: get-adr-codes-file-meta-fact
-    filetype: ps1
-    kind: function
-    subkind: fact
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
-    cites:
-      - ADR-REPO-LINK#5
----
-#>
-
 function Get-AdrCodesFileMetaFact {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

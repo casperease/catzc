@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
-    folder: tests/types
-    name: slides-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-PATH#1
-      - ADR-REPO-SLIDES#6
----
-#>
-
 Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
     It 'takes the declared default kit folder for an omitted key' -Tag 'ADR-AUTO-DEFAULT#6' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{})).kit | Should -Be '.claude/slides'

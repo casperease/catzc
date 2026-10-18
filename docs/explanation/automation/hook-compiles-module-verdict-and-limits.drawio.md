@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.drawio.md
-    folder: docs/explanation/automation
-    name: hook-compiles-module-verdict-and-limits-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.tree.md
-      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree: the diagram described
 
 ```text

@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/visual-management.md
-    folder: docs/adr/research
-    name: visual-management
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-VISUAL#{1-5}
-    links:
-      - docs/adr/automation/console-output-matters.md
-      - docs/adr/design/visual-design.md
-      - docs/adr/process/observe-work.md
-      - docs/references/dora/capabilities.md#fast-flow
-      - docs/references/dora/capabilities.md#monitoring-and-observability
-      - docs/references/dora/capabilities.md#monitoring-systems
-      - docs/references/dora/capabilities.md#visual-management
-      - docs/references/dora/capabilities.md#wip-limits
-      - docs/references/dora/capabilities.md#work-visibility-in-value-stream
-      - docs/references/dora/core-model.md#core-tag-in-the-capability-catalogue
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2015-state-of-devops-report
-      - "https://dora.dev/capabilities/visual-management/"
----
-
 # ADR: DORA — Visual management
 
 ## Rules: ADR-DORA-VISUAL

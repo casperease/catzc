@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b6e27572ebcf
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: test-spelling-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{8,14}
----
-
 # automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
 
 <!-- cspell:ignore mispeld -->

@@ -4,20 +4,6 @@ plan:
   value: medium
   reviewed: 2026-10-17
   targets: [.claude/plans]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-clear-actions.md"
-    folder: plans
-    name: plan-clear-actions
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Acting on the plan-clear verdicts of 2026-10-16

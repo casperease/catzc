@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-AdrUsageRow.Tests.ps1
-    folder: tests
-    name: get-adr-usage-row-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:map = [Catzc.Base.Docs.AdrCitationMap]::new(

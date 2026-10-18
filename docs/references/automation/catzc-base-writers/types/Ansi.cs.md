@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "3377702bc161"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-writers/types/Ansi.cs.md
-    folder: docs/references/automation/catzc-base-writers/types
-    name: ansi-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CONSOLE#7
----
-
 # automation/Catzc.Base.Writers/types/Ansi.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

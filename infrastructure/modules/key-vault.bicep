@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/key-vault.bicep
-//     name: key-vault
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: key-vault
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/key-vault.bicep.md
-// ---
-
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')
 param name string
 

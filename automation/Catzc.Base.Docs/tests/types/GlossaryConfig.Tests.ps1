@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
-    folder: tests/types
-    name: glossary-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-VOCAB#{1-6,8}
----
-#>
-
 Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

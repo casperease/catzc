@@ -1,30 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/types/MapsConfig.cs
-    folder: types
-    name: maps-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md
-    test: automation/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-OUTDIR#2
-      - ADR-WIDGET-GADGET#3
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

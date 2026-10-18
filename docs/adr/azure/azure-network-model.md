@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/azure-network-model.md
-    folder: docs/adr/azure
-    name: azure-network-model
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-NETWORK#{1-6}
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-CONF-LOADING#4
-    links:
-      - docs/adr/automation/test-automation.md
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
-      - docs/adr/pwsh/prepost-extension-modules.md
----
-
 # ADR: Network model (network.yml)
 
 This ADR covers the cross-cutting IP plan, which the data model deliberately leaves out of its two layers.

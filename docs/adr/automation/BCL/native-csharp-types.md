@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/BCL/native-csharp-types.md
-    folder: docs/adr/automation/BCL
-    name: native-csharp-types
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-TYPES#{1-4,7-9,11-16}
-    cites:
-      - ADR-AUTO-CACHE#8
-      - ADR-AUTO-DEFAULT#6
-    links:
-      - docs/adr/automation/caching.md#rule-adr-auto-cache8
-      - docs/adr/automation/console-output-matters.md#rule-adr-auto-console1
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/pwsh/hosting-csharp-types.md
-      - docs/adr/repository/conventional-folders.md
----
-
 # ADR: Native C# types — one combined assembly, namespace per module
 
 ## Rules: ADR-AUTO-TYPES

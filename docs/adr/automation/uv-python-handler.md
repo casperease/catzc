@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/uv-python-handler.md
-    folder: docs/adr/automation
-    name: uv-python-handler
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-UVPY#{1-5}
-    links:
-      - docs/adr/azure/prefer-az-cli.md
----
-
 # ADR: uv is the standard Python handler; tools install user-space
 
 ## Rules: ADR-AUTO-UVPY

@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/comments-in-docs.md
-    folder: docs/adr/repository
-    name: comments-in-docs
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-COMMENTS#{1-6}
-    cites:
-      - ADR-REPO-CODEMETA#1
-      - ADR-REPO-FILEMETA#{11,14}
-      - ADR-REPO-FORMAT#8
-      - ADR-REPO-HELP#1
-    links:
-      - docs/adr/principles/configure-not-program.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta11
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta14
-      - docs/adr/repository/function-help.md#rule-adr-repo-help1
-      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
----
-
 # ADR: Comments in docs — only a one-line comment stays in the file, the rest lives in its comment page
 
 ## Rules: ADR-REPO-COMMENTS

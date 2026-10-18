@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-inspiration.md
-    folder: docs/references/automation
-    name: catzc-tooling-inspiration
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/repository/inspiration.md
-      - docs/references/automation/catzc-tooling-keyhandler.md
----
-
 # Catzc.Tooling.Inspiration
 
 The inspiration module of the Tooling group: one checked way to find the sibling repositories catzc reads for ideas, never as a reference

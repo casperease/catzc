@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Test-Command.Tests.ps1
-    folder: tests
-    name: test-command-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Test-Command' -Tag 'L0', 'logic' {
     It 'returns $true for an existing command' {
         Test-Command 'pwsh' | Should -BeTrue

@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
-    folder: docs/how-to/getting-started/automation/BCL
-    name: add-a-dotnet-type
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/how-to/getting-started/automation/add-a-module.md#declaring-dependencies
----
-
 # Add a C# type
 
 Some logic is better as a native .NET type than as PowerShell — a process runner, or a validated data record that replaces a loose

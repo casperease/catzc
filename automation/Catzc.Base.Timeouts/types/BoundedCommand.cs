@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/types/BoundedCommand.cs
-    folder: types
-    name: bounded-command
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
-    test: automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE#2
----
-*/
-
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;

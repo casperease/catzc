@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: no-env-repository-root-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md
-    cites:
-      - ADR-AUTO-NOPWD#6
----
-#>
-
 Describe 'Measure-NoEnvRepositoryRoot' -Tag 'L0', 'logic', 'ADR-AUTO-NOPWD#6' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1') -Force

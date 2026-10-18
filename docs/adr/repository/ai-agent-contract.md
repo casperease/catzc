@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/ai-agent-contract.md
-    folder: docs/adr/repository
-    name: ai-agent-contract
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AI#{1-13}
-    cites:
-      - ADR-AUTO-FAILFAST#7
-      - ADR-REPO-AGENTS#{4,6}
-      - ADR-REPO-LINK#5
----
-
 # ADR-AI: the agent contract
 
 Every agent and every skill reads this first, at every start and after every clear. One line to act on per rule, then the why.

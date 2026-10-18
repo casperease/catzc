@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: fa34b9ef9840
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
-    folder: docs/references/automation/catzc-base-qualitygates/configs
-    name: guids-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.QualityGates/configs/guids.yml
 
 <!-- cspell:ignore oilzstgq -->

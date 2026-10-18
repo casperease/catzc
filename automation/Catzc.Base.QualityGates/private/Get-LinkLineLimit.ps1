@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-LinkLineLimit.ps1
-    folder: private
-    name: get-link-line-limit
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
----
-#>
-
 function Get-LinkLineLimit {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.Dictionary[string, int]])]

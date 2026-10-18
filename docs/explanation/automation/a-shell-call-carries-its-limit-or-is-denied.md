@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
-    folder: docs/explanation/automation
-    name: a-shell-call-carries-its-limit-or-is-denied
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST#7
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/explanation/.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
-      - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.drawio.md
-      - docs/explanation/automation/decide-returns-null-or-a-reason.md
-      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
-      - docs/explanation/automation/three-tests-prove-the-hook.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A shell call carries its limit, or the hook denies it with a reason; it is never rewritten
 
 ```text

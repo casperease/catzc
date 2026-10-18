@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/DocPattern.Tests.ps1
-    folder: tests/types
-    name: doc-pattern-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/DocPattern.Tests.ps1.md
----
-#>
-
 Describe 'DocPattern' -Tag 'L0', 'logic' {
     It 'constructs and exposes glob + source' {
         $p = [Catzc.Base.Docs.DocPattern]::new(@{ glob = 'automation/*'; source = 'docs/references/automation/{kebab}.md' })

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
-    folder: tests/types
-    name: test-tiers-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'TestTiers' -Tag 'L0', 'logic' {
     It 'lists the tiers lowest first, L0 to L4' {
         [Catzc.Base.Timeouts.TestTiers]::Names | Should -Be @('L0', 'L1', 'L2', 'L3', 'L4')

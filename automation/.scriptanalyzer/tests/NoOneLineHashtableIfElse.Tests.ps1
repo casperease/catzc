@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/NoOneLineHashtableIfElse.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: no-one-line-hashtable-if-else-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    cites:
-      - ADR-PWSH-FORMAT#10
----
-#>
-
 Describe 'Measure-NoOneLineHashtableIfElse' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT#10' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoOneLineHashtableIfElse.psm1') -Force

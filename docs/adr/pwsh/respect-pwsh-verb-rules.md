@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/respect-pwsh-verb-rules.md
-    folder: docs/adr/pwsh
-    name: respect-pwsh-verb-rules
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-VERBS#{1-7}
-    cites:
-      - ADR-AUTO-TEST#35
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
----
-
 # ADR: Respect PowerShell approved verbs
 
 ## Rules: ADR-PWSH-VERBS

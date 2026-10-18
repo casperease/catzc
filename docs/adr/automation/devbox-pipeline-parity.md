@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/devbox-pipeline-parity.md
-    folder: docs/adr/automation
-    name: devbox-pipeline-parity
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-PARITY#{1-4}
-    links:
-      - docs/adr/automation/test-automation.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/principles/reduce-variability.md
----
-
 # ADR: Devbox and pipeline parity — one CLI, two environments, one seam
 
 ## Rules: ADR-AUTO-PARITY

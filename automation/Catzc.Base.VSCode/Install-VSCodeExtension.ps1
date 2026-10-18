@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/Install-VSCodeExtension.ps1
-    name: install-vs-code-extension
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.VSCode/tests/Install-VSCodeExtension.Tests.ps1
----
-#>
-
 function Install-VSCodeExtension {
     [CmdletBinding()]
     [OutputType([string[]])]

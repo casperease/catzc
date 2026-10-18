@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
-    folder: tests
-    name: exit-test-run-location-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # L1: a real named mutex, checked from a thread job — the snapshot removal itself is mocked.
 Describe 'Exit-TestRunLocation' -Tag 'L1', 'logic' {
     BeforeEach {

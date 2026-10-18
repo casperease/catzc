@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
-    name: get-markdown-meta-state
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#{1,3}
----
-#>
-
 function Get-MarkdownMetaState {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Write-TypesAssemblyManifest.Tests.ps1
-    name: write-types-assembly-manifest-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Write-TypesAssemblyManifest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:dll = Join-Path $TestDrive 'Catzc.Types.abcd1234.dll'

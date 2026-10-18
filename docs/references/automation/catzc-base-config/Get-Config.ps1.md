@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "454974e7bbc0"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-config/Get-Config.ps1.md
-    folder: docs/references/automation/catzc-base-config
-    name: get-config-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PWSH-CACHE#4
----
-
 # automation/Catzc.Base.Config/Get-Config.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

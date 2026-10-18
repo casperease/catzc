@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
-    folder: tests/types
-    name: capabilities-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-AGENTS#{9,10}
----
-#>
-
 # Rests on [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3) and [ADR-REPO-AGENTS#9](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents9).
 Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#10' {
     BeforeAll {

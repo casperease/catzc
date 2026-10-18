@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-files.md
-    folder: docs/references/automation
-    name: catzc-base-files
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TRACKED#9
-    links:
-      - docs/adr/automation/open-closed-architecture.md
-      - docs/adr/automation/tracked-files-from-the-index.md
-      - docs/references/automation/catzc-base-git.md
----
-
 # Catzc.Base.Files
 
 The filesystem and source-control module. It owns the shared write primitives every generated-artifact builder shares —

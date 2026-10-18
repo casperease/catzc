@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8ea95b0c48c2"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-languages/tests
-    name: get-file-language-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#3
----
-
 # automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

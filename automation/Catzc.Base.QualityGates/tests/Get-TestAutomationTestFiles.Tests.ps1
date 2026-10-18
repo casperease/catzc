@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestFiles.Tests.ps1
-    folder: tests
-    name: get-test-automation-test-files-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widget = Join-Path $TestDrive 'widget/tests'

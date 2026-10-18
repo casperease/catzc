@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
-    folder: tests
-    name: install-java-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
----
-#>
-
 Describe 'Install-Java' -Tag 'L1', 'logic' {
     BeforeAll {
         # The managed body sets the session JAVA_HOME — restore it so the test leaves the process as it found it.

@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/effective-in-enterprises.md
-    folder: docs/adr/automation
-    name: effective-in-enterprises
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-ENTERP#4
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm8
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/design/run-modes.md
-      - docs/adr/pwsh/module-path-hygiene.md
-      - docs/adr/pwsh/one-function-per-file.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
----
-
 # ADR: Effective in enterprise environments
 
 ## Rules: ADR-AUTO-ENTERP

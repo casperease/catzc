@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Assert-ManagedGuid.Tests.ps1
-    folder: tests
-    name: assert-managed-guid-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Assert-ManagedGuid' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

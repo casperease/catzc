@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
-    folder: docs/explanation/repository
-    name: import-materialises-two-gates-name-the-fix
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-ROOTCFG#{4,6}
-    links:
-      - docs/adr/repository/generated-root-configs.md
-      - docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.drawio.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
-      - docs/explanation/repository/one-source-one-writer-one-boolean.md
-      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
-      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
----
-
 # The import materialises every root file; two gates catch drift and name the fix
 
 ```text

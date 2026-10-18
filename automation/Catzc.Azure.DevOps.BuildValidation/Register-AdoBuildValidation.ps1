@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
-    name: register-ado-build-validation
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
-    test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
-    cites:
-      - ADR-AUTO-IDEM
-      - ADR-FLOW-CD-GLOBS
-      - ADR-FLOW-CD-TYPE#4
----
-#>
-
 function Register-AdoBuildValidation {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-Pipeline resolves from two sources keyed by -GlobSet (its build-validation.yml entry, then the globset annotation), and the body reads the same entry for -blocking; one lookup in the body beats a duplicated one in the declaration')]
     [CmdletBinding()]

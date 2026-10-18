@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/which-run-mode-rules-have-a-gate.drawio.md
-    folder: docs/explanation/design
-    name: which-run-mode-rules-have-a-gate-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.tree.md
-      - docs/explanation/design/which-run-mode-rules-have-a-gate.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the diagram described
 
 ```text

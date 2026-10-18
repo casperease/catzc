@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Resolve-TestRunMaxLevel.ps1
-    folder: private
-    name: resolve-test-run-max-level
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#10
-      - ADR-AUTO-TEST#{33,41}
----
-#>
-
 function Resolve-TestRunMaxLevel {
     [CmdletBinding()]
     [OutputType([int])]

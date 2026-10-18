@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "407e748d1a27"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
-    folder: docs/references/automation/catzc-base-modulesystem
-    name: sync-generated-file-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#8
----
-
 # automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

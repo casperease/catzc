@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
-    name: sync-session-tools
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
----
-#>
-
 function Sync-SessionTools {
     [CmdletBinding()]
     param(

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/tests/Test-IsWslSession.Tests.ps1
-    folder: tests
-    name: test-is-wsl-session-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-IsWslSession' -Tag 'L0', 'logic' {
     It 'is false outside Linux' {
         if ($IsLinux) {

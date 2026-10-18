@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/New-PesterRunConfiguration.Tests.ps1
-    folder: tests
-    name: new-pester-run-configuration-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'New-PesterRunConfiguration' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {}

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1
-    folder: tests
-    name: export-catzc-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Export-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:buildRoot = Join-Path $TestDrive 'out/automation/built/widgets/Catzc/6.6.666'

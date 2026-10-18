@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/DocumentLinks.cs
-    folder: types
-    name: document-links
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/types/DocumentLinks.Tests.ps1
----
-*/
-
 // A link inside the document stays internal and is not listed: an anchor in the same file, the file itself, and its own comment page.
 
 using System;

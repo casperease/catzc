@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/managed-guids.md
-    folder: docs/adr/automation
-    name: managed-guids
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-GUIDS#{1-6}
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#4
-    links:
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6
----
-
 # ADR: Managed GUIDs — every GUID literal is a registered, described identity
 
 ## Rules: ADR-AUTO-GUIDS

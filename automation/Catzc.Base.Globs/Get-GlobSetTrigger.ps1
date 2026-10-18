@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
-    name: get-glob-set-trigger
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
-    cites:
-      - ADR-FLOW-CD-GLOBS#{1,4}
----
-#>
-
 function Get-GlobSetTrigger {
     [CmdletBinding(DefaultParameterSetName = 'ByName')]
     [OutputType([pscustomobject])]

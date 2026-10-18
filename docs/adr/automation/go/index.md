@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/go/index.md
-    folder: docs/adr/automation/go
-    name: index
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/go/go-test-artifacts.md
----
-
 # Go automation ADRs
 
 The ADRs here govern the repository's Go code, which is test artifacts only — black-box tests of the engine that never ship; see

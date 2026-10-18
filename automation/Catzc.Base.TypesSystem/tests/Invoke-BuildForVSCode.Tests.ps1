@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
-    folder: tests
-    name: invoke-build-for-vs-code-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-BuildForVSCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.

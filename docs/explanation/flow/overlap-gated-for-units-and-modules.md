@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/overlap-gated-for-units-and-modules.md
-    folder: docs/explanation/flow
-    name: overlap-gated-for-units-and-modules
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#{7,10}
-      - ADR-REPO-PROTGLOB#7
-    links:
-      - docs/adr/automation/test-automation.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/repository/protected-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png
-      - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
-      - docs/explanation/flow/independence-check-groups-by-layer.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/overlap-gated-for-units-and-modules.drawio.md
-      - docs/explanation/flow/peers-in-a-layer-never-overlap.md
-      - docs/explanation/flow/two-declared-layers-one-derived.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A gate checks overlap for units and modules, and loose-filesets are exempt
 
 ```text

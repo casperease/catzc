@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
-    folder: tests/types
-    name: parsed-scripts-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-repository/tests/types/ParsedScripts.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'ParsedScripts' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widget = Join-Path $TestDrive 'Get-Widget.ps1'

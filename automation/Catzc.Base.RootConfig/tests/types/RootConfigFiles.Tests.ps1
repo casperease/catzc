@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
-    folder: tests/types
-    name: root-config-files-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'RootConfigFiles' -Tag 'L0', 'logic' {
     It 'constructs and exposes valid entries in registry order' {
         $c = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{

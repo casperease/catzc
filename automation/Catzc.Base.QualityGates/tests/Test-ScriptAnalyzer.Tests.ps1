@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
-    folder: tests
-    name: test-script-analyzer-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-NOPWD#1
-      - ADR-AUTO-TEST#35
----
-#>
-
 Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:targetFile = Join-Path $TestDrive 'subject.ps1'

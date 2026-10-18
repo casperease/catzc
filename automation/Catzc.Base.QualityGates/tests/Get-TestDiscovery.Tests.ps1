@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-TestDiscovery.Tests.ps1
-    folder: tests
-    name: get-test-discovery-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-TestDiscovery.Tests.ps1.md
----
-#>
-
 Describe 'Get-TestDiscovery' -Tag 'L1', 'logic' {
     It 'discovers every test in the given folders without running any' {
         $testsFolder = Join-Path $TestDrive 'tests'

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
-    folder: tests
-    name: sync-session-path-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md
----
-#>
-
 # cspell:ignore machinebin userbin
 Describe 'Sync-SessionPath' -Tag 'L0', 'logic' {
     BeforeEach {

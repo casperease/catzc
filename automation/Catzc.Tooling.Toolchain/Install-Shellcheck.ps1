@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
-    name: install-shellcheck
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE
----
-#>
-
 function Install-Shellcheck {
     [CmdletBinding()]
     param(

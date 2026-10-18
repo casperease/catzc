@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
-    folder: private
-    name: resolve-config-key-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-CONF-ADDRESSING#{2,4,5}
----
-#>
-
 function Resolve-ConfigKeyPath {
     [CmdletBinding()]
     param(

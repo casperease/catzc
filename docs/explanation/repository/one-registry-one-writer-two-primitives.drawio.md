@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/one-registry-one-writer-two-primitives.drawio.md
-    folder: docs/explanation/repository
-    name: one-registry-one-writer-two-primitives-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.tree.md
-      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One registry, one writer, two write primitives, two kinds of target: the diagram described
 
 ```text

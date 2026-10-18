@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
-    folder: tests
-    name: get-analyzer-adr-coverage-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{28,35}
-      - ADR-PWSH-FORMAT#7
----
-#>
-
 Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     It 'flattens the map into one pssa-rule row per (analyzer, ADR id)' {
         InModuleScope Catzc.Base.QualityGates {

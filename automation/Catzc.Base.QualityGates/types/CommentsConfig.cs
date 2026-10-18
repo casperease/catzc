@@ -1,31 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
-    folder: types
-    name: comments-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-ONELIVE#1
-      - ADR-REPO-OUTDIR#1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

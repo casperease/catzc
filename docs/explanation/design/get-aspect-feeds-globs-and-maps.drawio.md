@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/get-aspect-feeds-globs-and-maps.drawio.md
-    folder: docs/explanation/design
-    name: get-aspect-feeds-globs-and-maps-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.tree.md
-      - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live: the diagram described
 
 ```text

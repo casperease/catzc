@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/types/PythonTestResult.Tests.ps1
-    folder: tests/types
-    name: python-test-result-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'PythonTestResult' -Tag 'L0', 'logic' {
     It 'derives the category from the name: test_integrity* is integrity, the rest logic' {
         [Catzc.Base.Languages.PythonTestResult]::new('test_widget', 'test_integrity_widget_ships', 'pass', 0.5, '').Category | Should -Be 'integrity'

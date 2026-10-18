@@ -14,23 +14,6 @@ task:
       docs/adr/design/tracks.md,
       docs/adr/automation/module-model.md,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-kind-becomes-role.md"
-    folder: plans
-    name: task-kind-becomes-role
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-PLANS#3
 ---
 
 # Task: kind becomes role; the track rules

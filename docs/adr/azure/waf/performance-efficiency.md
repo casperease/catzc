@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/waf/performance-efficiency.md
-    folder: docs/adr/azure/waf
-    name: performance-efficiency
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-WAFPE#{1-12}
-    cites:
-      - ADR-AUTO-TEST#41
-      - ADR-AZ-DATAMOD#{2,9,10}
-      - ADR-AZ-LZ
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test41
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
-      - docs/adr/azure/landing-zones.md
-      - docs/references/waf/index.md
-      - "https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist"
----
-
 # ADR: Performance efficiency — the Well-Architected checklist PE:01 to PE:12, rule by rule, against foundation, discovery and expedition
 
 Pairs with [`landing-zones`](../landing-zones.md) (ADR-AZ-LZ#5 names the performance-efficiency line of the workload) and

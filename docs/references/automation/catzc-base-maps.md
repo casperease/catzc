@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-maps.md
-    folder: docs/references/automation
-    name: catzc-base-maps
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{3,13,15}
-    links:
-      - docs/adr/design/tracks.md
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track13
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track15
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track16
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track9
-      - docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2
-      - docs/references/automation/catzc-base-docs.md
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/catzc-base-globs.md
-      - docs/references/automation/catzc-base-languages.md
-      - docs/references/automation/catzc-base-variants.md
----
-
 # Catzc.Base.Maps
 
 The maps module. It **computes the world map**: every tracked file placed in exactly one cell of the repository's tracks crossed with its

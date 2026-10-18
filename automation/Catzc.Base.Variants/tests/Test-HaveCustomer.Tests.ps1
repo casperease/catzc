@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/tests/Test-HaveCustomer.Tests.ps1
-    folder: tests
-    name: test-have-customer-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-HaveCustomer' -Tag 'L0', 'logic' {
 
     It 'is true when the single customer is enabled' {

@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e9d35d2769c6
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: file-meta-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-FILEMETA#2
----
-
 # automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

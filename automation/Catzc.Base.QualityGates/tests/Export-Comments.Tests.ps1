@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
-    folder: tests
-    name: export-comments-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DRYRUN#1
-      - ADR-AUTO-IDEM#1
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-ONELIVE#1
-      - ADR-REPO-COMMENTS#{1,3}
----
-#>
-
 # cspell:ignore ngadget  -- the escape-sequence artifact in the "`ngadget" fixture strings
 Describe 'Export-Comments' -Tag 'L0', 'logic' {
     BeforeAll {

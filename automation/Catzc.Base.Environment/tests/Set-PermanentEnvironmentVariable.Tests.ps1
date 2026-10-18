@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
-    folder: tests
-    name: set-permanent-environment-variable-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#39
----
-#>
-
 Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)' -Tag 'L3', 'logic', 'ADR-AUTO-TEST#39' {
     BeforeAll {
         $script:name = 'CATZC_L3_WIDGET_' + [guid]::NewGuid().ToString('N')

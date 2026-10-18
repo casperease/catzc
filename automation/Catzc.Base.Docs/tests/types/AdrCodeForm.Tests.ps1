@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
-    folder: tests/types
-    name: adr-code-form-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#9
----
-#>
-
 Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
         $script:form = [Catzc.Base.Docs.AdrCodeForm]

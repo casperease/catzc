@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
-    folder: types
-    name: code-meta-head
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
-    test: automation/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
-    cites:
-      - ADR-REPO-CODEMETA#1
-      - ADR-REPO-FILEMETA#6
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

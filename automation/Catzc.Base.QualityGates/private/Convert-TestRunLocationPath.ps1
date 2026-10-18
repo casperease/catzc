@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Convert-TestRunLocationPath.ps1
-    folder: private
-    name: convert-test-run-location-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1
----
-#>
-
 function Convert-TestRunLocationPath {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/index.md
-    folder: docs/references/infrastructure
-    name: index
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/
-      - docs/references/infrastructure/discovery.md
-      - docs/references/infrastructure/expedition.md
-      - docs/references/infrastructure/foundation.md
-      - docs/references/infrastructure/modules.md
-      - docs/references/infrastructure/overview.md
----
-
 # Infrastructure reference
 
 One article per infrastructure unit — the templating-system overview, the shared bicep modules, and one per deployable template. Each

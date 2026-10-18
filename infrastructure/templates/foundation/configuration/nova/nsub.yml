@@ -1,21 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/foundation/configuration/nova/nsub.yml
-#     folder: configuration/nova
-#     name: nsub
-#     filetype: yml
-#     kind: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: foundation
-#     moduletype: bicep
-# ---
-
 # foundation, nova nonprod subscription (env nsub, customer nova). nova is dev-only -> nonprod only.
 ParametersFile:
   parameters:

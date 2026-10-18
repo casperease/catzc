@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/AgentEntry.cs
-    folder: types
-    name: agent-entry
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md
-    test: automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-AGENTS#{2,7}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

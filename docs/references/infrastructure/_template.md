@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/_template.md
-    folder: docs/references/infrastructure
-    name: template
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/references/infrastructure/modules.md
----
-
 # `<name>`
 
 One or two sentences: what `<name>` deploys and its single responsibility; what it deliberately does not own; and any cross-template

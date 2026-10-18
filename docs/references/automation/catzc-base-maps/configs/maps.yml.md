@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "936cd8ed35f6"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/configs/maps.yml.md
-    folder: docs/references/automation/catzc-base-maps/configs
-    name: maps-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-DSGN-TRACK#{7,8,13,16}
-      - ADR-REPO-OUTDIR#2
----
-
 # automation/Catzc.Base.Maps/configs/maps.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

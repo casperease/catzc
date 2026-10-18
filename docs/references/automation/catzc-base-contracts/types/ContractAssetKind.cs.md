@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "0b9b2ec58aa7"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-contracts/types/ContractAssetKind.cs.md
-    folder: docs/references/automation/catzc-base-contracts/types
-    name: contract-asset-kind-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT#6
----
-
 # automation/Catzc.Base.Contracts/types/ContractAssetKind.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

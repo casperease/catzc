@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.KeyHandler/tests/Save-PSReadLineKeyHandlerSet.Tests.ps1
-    folder: tests
-    name: save-ps-read-line-key-handler-set-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
----
-#>
-
 Describe 'Save-PSReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-PsModule { } -ModuleName Catzc.Tooling.KeyHandler

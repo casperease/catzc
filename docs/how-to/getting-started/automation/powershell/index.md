@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/powershell/index.md
-    folder: docs/how-to/getting-started/automation/powershell
-    name: index
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
----
-
 # PowerShell how-to guides
 
 Guides for writing PowerShell automation. Language-agnostic getting-started guides live one level up, under `automation/`.

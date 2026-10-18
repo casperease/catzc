@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1
-    folder: tests
-    name: test-track-declaration-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-DSGN-MODTYPE#3
-      - ADR-DSGN-TRACKTYPE#4
----
-#>
-
 # Rests on [ADR-DSGN-TRACKTYPE#4](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype4).
 Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'ADR-DSGN-MODTYPE#3' {
     BeforeAll {

@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
-    folder: types
-    name: python-workspace-file
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-ROOTCFG
----
-*/
-
 using System;
 
 namespace Catzc.Base.Languages;

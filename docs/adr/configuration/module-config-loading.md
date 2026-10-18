@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/configuration/module-config-loading.md
-    folder: docs/adr/configuration
-    name: module-config-loading
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-CONF-LOADING#{1-6}
-    cites:
-      - ADR-DSGN-TRACK#3
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/repository/controlled-vocabulary.md
-      - docs/adr/repository/conventional-folders.md
----
-
 # ADR: Module config loading — one reader (Get-Config), typed configs
 
 ## Rules: ADR-CONF-LOADING

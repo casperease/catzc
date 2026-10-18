@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Build-GitKeep.ps1
-    name: build-git-keep
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md
-    test: automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN
-      - ADR-PWSH-PESTER#9
-      - ADR-REPO-README
----
-#>
-
 function Build-GitKeep {
     [CmdletBinding()]
     [OutputType([string[]])]

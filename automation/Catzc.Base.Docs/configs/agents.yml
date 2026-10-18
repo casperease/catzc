@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.Docs/configs/agents.yml
-#     folder: configs
-#     name: agents
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.Docs
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-docs/configs/agents.yml.md
-# ---
-
 standard: catzc-worker
 # The roofs Test-AgentDefinitions holds every robot and capability under; the defaults are declared once on AgentsConfig.
 roofs:

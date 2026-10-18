@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "5f6b556bb267"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md
-    folder: docs/references/automation/catzc-tooling-toolchain
-    name: remove-dotnet-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-REMOVE#{3,6,7}
----
-
 # automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

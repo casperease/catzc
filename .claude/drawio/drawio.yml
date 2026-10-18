@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/drawio.yml"
-#     folder: drawio
-#     name: drawio
-#     filetype: yml
-#     kind: drawio-kit
-#     language: yaml
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # The draw.io kit's sensible defaults, declared once; a script parameter overrides an entry for one run, never the file.
 # Two-level mapping only: a section, then key: value. drawio_png.py reads it without a YAML library.
 renderer:

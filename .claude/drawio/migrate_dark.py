@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/migrate_dark.py"
-#     folder: drawio
-#     name: migrate-dark
-#     filetype: py
-#     kind: drawio-kit
-#     language: python
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # cspell:ignore mxfile pnginfo IEND FAFAFA
 """Migrate a light-era slide to the dark tokens and re-render it, keeping the raster and the embedded model honest to each other.
 

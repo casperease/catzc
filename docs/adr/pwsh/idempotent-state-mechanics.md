@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/idempotent-state-mechanics.md
-    folder: docs/adr/pwsh
-    name: idempotent-state-mechanics
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-IDEM#{1-6}
-    cites:
-      - ADR-AUTO-IDEM
-      - ADR-AUTO-REMOVE#4
-    links:
-      - docs/adr/automation/idempotent-state-functions.md
-      - docs/adr/automation/idempotent-state-functions.md#where-it-applies
-      - docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4
-      - docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param3
-      - docs/adr/pwsh/pester-testing.md#gotchas
----
-
 # ADR: Idempotent state mechanics — the PowerShell layer over idempotent-state-functions
 
 ## Rules: ADR-PWSH-IDEM

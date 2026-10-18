@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/read-the-session-guard-then-pick-slot.md
-    folder: docs/explanation/azure
-    name: read-the-session-guard-then-pick-slot
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-DATAMOD#{4,5,7}
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
-      - docs/explanation/azure/four-gates-hold-the-session-rule.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
-      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
-      - docs/explanation/azure/read-the-session-guard-then-pick-slot.drawio.md
-      - docs/explanation/azure/the-session-is-the-deploy-target.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Get-BicepDeploymentContext reads the session, guards it, then picks the slot
 
 ```text

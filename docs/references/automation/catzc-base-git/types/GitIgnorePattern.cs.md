@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "3d4d7a256c9c"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md
-    folder: docs/references/automation/catzc-base-git/types
-    name: git-ignore-pattern-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Git/types/GitIgnorePattern.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/one-source-one-writer-one-boolean.drawio.md
-    folder: docs/explanation/repository
-    name: one-source-one-writer-one-boolean-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.chain.md
-      - docs/explanation/.assets/grid/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.grid.md
-      - docs/explanation/.assets/tree/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.tree.md
-      - docs/explanation/repository/one-source-one-writer-one-boolean.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every managed root file has one source of truth, one writer, and one boolean that decides git membership: the diagram described
 
 ```text

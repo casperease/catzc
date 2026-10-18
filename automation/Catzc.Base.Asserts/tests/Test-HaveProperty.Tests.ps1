@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
-    folder: tests
-    name: test-have-property-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 BeforeAll {
     $script:object = [pscustomobject]@{ Name = 'test'; Value = 42 }
     $script:nested = [pscustomobject]@{

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-rootconfig.md
-    folder: docs/references/automation
-    name: catzc-base-rootconfig
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-ROOTCFG#{6,7}
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/repository/generated-root-configs.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-docs.md
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/catzc-base-languages.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/catzc-base-qualitygates.md
----
-
 # Catzc.Base.RootConfig
 
 The managed root-config module. It owns the rule that an opted-in repository-root configuration file is **fully managed by the

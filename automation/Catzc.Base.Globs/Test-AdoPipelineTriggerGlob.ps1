@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
-    name: test-ado-pipeline-trigger-glob
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#1
----
-#>
-
 function Test-AdoPipelineTriggerGlob {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

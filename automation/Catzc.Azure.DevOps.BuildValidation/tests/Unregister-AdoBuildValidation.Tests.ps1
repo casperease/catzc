@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
-    folder: tests
-    name: unregister-ado-build-validation-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DRYRUN
-      - ADR-AUTO-IDEM#2
----
-#>
-
 Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

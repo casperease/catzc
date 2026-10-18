@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Write-LoadTime.Tests.ps1
-    name: write-load-time-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    cites:
-      - ADR-PWSH-CACHE#4
----
-#>
-
 BeforeAll {
     # The transient importer modules are removed after every import, so this test file loads its own copies.
     Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force

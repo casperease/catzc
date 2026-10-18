@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Environment/Remove-PermanentPath.ps1
-    name: remove-permanent-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md
-    test: automation/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
-    cites:
-      - ADR-PWSH-DRYRUN#1
----
-#>
-
 function Remove-PermanentPath {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Does not use ShouldProcess by design — see ADR-PWSH-DRYRUN#1')]
     [CmdletBinding()]

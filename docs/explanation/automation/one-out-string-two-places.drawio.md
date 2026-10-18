@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/one-out-string-two-places.drawio.md
-    folder: docs/explanation/automation
-    name: one-out-string-two-places-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-path--one-out-string-two-places--operations.chain.md
-      - docs/explanation/.assets/grid/adr-auto-path--one-out-string-two-places--operations.grid.md
-      - docs/explanation/.assets/tree/adr-auto-path--one-out-string-two-places--operations.tree.md
-      - docs/explanation/automation/one-out-string-two-places.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline: the diagram described
 
 ```text

@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/CheckModes.cs
-    folder: types
-    name: check-modes
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
-    test: automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-PRIN-ONELIVE#1
----
-*/
-
 using System;
 using System.Collections;
 using System.Globalization;

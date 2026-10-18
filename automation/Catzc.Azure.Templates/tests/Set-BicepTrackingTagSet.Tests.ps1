@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
-    folder: tests
-    name: set-bicep-tracking-tag-set-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Set-BicepTrackingTagSet.Tests.ps1.md
-    cites:
-      - ADR-PWSH-PESTER#3
----
-#>
-
 Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
     BeforeEach {
         # Discover from the test fixtures, never the shipped infrastructure/templates.

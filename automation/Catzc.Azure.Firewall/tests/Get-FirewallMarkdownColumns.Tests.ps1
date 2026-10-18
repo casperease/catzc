@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
-    folder: tests
-    name: get-firewall-markdown-columns-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # Get-FirewallMarkdownColumns is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-FirewallMarkdownColumns' -Tag 'L0', 'logic' {
     BeforeAll {

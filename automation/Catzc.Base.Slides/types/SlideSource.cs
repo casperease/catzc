@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Slides/types/SlideSource.cs
-    folder: types
-    name: slide-source
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Slides/tests/types/SlideSource.Tests.ps1
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

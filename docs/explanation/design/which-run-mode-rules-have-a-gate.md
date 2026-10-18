@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/which-run-mode-rules-have-a-gate.md
-    folder: docs/explanation/design
-    name: which-run-mode-rules-have-a-gate
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-DSGN-RUNMODE
-    links:
-      - docs/adr/design/run-modes.md
-      - docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-entry-script-per-mode.md
-      - docs/explanation/design/shims-set-roots-mode-read-back.md
-      - docs/explanation/design/two-roots-one-importer-same-modules.md
-      - docs/explanation/design/where-code-loads-from-decides-the-mode.md
-      - docs/explanation/design/which-run-mode-rules-have-a-gate.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none
 
 ```text

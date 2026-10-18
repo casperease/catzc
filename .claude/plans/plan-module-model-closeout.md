@@ -6,20 +6,6 @@ plan:
   next: the handler ids for rule 6 (task-module-model-closeout)
   targets:
     [automation/Catzc.Base.Modules, automation/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/automation]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-module-model-closeout.md"
-    folder: plans
-    name: plan-module-model-closeout
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Module model: close-out after the implement run

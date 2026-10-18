@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/types/GoTestResult.Tests.ps1
-    folder: tests/types
-    name: go-test-result-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'GoTestResult' -Tag 'L0', 'logic' {
     It 'carries its fields and derives the logic category' {
         $result = [Catzc.Base.Languages.GoTestResult]::new('p/widget', 'TestWidget', 'pass', 0.5, "ok`n")

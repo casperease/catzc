@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: test-analyzed-file-is-test-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md
----
-#>
-
 Describe 'Test-AnalyzedFileIsTest' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1')

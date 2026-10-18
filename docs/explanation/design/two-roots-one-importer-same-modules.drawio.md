@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/two-roots-one-importer-same-modules.drawio.md
-    folder: docs/explanation/design
-    name: two-roots-one-importer-same-modules-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.tree.md
-      - docs/explanation/design/two-roots-one-importer-same-modules.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Two code roots feed one importer, which loads the same modules: the diagram described
 
 ```text

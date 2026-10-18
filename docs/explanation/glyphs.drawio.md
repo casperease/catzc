@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/glyphs.drawio.md
-    folder: docs/explanation
-    name: glyphs-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-VISUAL#4
-    links:
-      - docs/explanation/.assets/glyphs.drawio.png
-      - docs/explanation/index.md
----
-
 # The glyph library described
 
 ```text

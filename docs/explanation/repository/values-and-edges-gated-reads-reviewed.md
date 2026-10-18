@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
-    folder: docs/explanation/repository
-    name: values-and-edges-gated-reads-reviewed
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#4
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-VARIANT
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/repository/repo-variants.md
-      - docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
-      - docs/explanation/repository/an-edit-lands-at-the-next-import.md
-      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
-      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.drawio.md
----
-
 # Values and module edges have a gate; the no-direct-read rule is left to review
 
 ```text

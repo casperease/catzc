@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
-    folder: tests/types
-    name: azure-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{1,3}
-      - ADR-AZ-CUSTOMER
-      - ADR-AZ-DATAMOD
----
-#>
-
 # cspell:ignore toolong
 Describe 'AzureConfig' -Tag 'L0' {
     BeforeAll {

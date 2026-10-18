@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/private/Get-AdrFileIndex.ps1
-    folder: private
-    name: get-adr-file-index
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Docs/tests/Get-AdrFileIndex.Tests.ps1
----
-#>
-
 function Get-AdrFileIndex {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

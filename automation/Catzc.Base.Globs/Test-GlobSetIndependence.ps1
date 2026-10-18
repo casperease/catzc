@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-    name: test-glob-set-independence
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md
-    test: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#{7,10}
-      - ADR-REPO-PROTGLOB#7
----
-#>
-
 function Test-GlobSetIndependence {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

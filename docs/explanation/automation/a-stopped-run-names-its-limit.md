@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/a-stopped-run-names-its-limit.md
-    folder: docs/explanation/automation
-    name: a-stopped-run-names-its-limit
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-FAILFAST#7
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
-      - docs/explanation/automation/a-stopped-run-names-its-limit.drawio.md
-      - docs/explanation/automation/callers-value-else-config-else-default.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
-      - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
-      - docs/explanation/automation/resolve-one-limit-in-code-order.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A run past its limit stops with a message that names the limit and where to change it
 
 ```text

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
-    folder: tests
-    name: set-c-sharp-file-scoped-namespace-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # cspell:ignore nnamespace npublic nusing
 # Set-CSharpFileScopedNamespace is private (non-exported), so it is invoked via InModuleScope.
 Describe 'Set-CSharpFileScopedNamespace' -Tag 'L0', 'logic' {

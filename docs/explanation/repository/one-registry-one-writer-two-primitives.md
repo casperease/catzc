@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/one-registry-one-writer-two-primitives.md
-    folder: docs/explanation/repository
-    name: one-registry-one-writer-two-primitives
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-ROOTCFG#{2,4,7}
-    links:
-      - docs/adr/repository/generated-root-configs.md
-      - docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-registry-one-writer-two-primitives.drawio.md
-      - docs/explanation/repository/one-source-one-writer-one-boolean.md
-      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
-      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
----
-
 # One registry, one writer, two write primitives, two kinds of target
 
 ```text

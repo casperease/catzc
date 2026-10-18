@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/callers-value-else-config-else-default.drawio.md
-    folder: docs/explanation/automation
-    name: callers-value-else-config-else-default-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--callers-value-else-config-else-default--meta.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--callers-value-else-config-else-default--meta.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--callers-value-else-config-else-default--meta.tree.md
-      - docs/explanation/automation/callers-value-else-config-else-default.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it: the diagram described
 
 ```text

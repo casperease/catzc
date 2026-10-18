@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/private/Get-CatsModules.ps1
-    folder: private
-    name: get-cats-modules
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md
-    test: automation/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
-    cites:
-      - ADR-DSGN-RUNMODE#2
-      - ADR-REPO-FOLDERS#4
----
-#>
-
 function Get-CatsModules {
     [OutputType([object[]])]
     [CmdletBinding()]

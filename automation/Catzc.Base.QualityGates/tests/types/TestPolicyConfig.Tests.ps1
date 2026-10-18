@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
-    folder: tests/types
-    name: test-policy-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
     It 'defaults every environment to read-only' {
         $config = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{})

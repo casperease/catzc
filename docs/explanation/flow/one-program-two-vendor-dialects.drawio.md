@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-program-two-vendor-dialects.drawio.md
-    folder: docs/explanation/flow
-    name: one-program-two-vendor-dialects-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.tree.md
-      - docs/explanation/flow/one-program-two-vendor-dialects.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps: the diagram described
 
 ```text

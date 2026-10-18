@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/dora/metrics.md
-    folder: docs/references/dora
-    name: metrics
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/references/dora/capabilities.md#working-in-small-batches
-      - docs/references/dora/core-model.md#reliability
-      - "https://dora.dev/faq/"
-      - "https://dora.dev/guides/dora-metrics/"
-      - "https://dora.dev/insights/dora-2025-year-in-review/"
-      - "https://dora.dev/insights/dora-metrics-history/"
-      - "https://dora.dev/insights/quickcheck-updates/"
-      - "https://dora.dev/quickcheck/"
-      - "https://dora.dev/research/2015/"
-      - "https://dora.dev/research/2016/"
-      - "https://dora.dev/research/2018/"
-      - "https://dora.dev/research/2018/dora-report/"
-      - "https://dora.dev/research/2021/"
-      - "https://dora.dev/research/2022/"
-      - "https://dora.dev/vc/"
-      - "https://github.com/dora-team/dora.dev/blob/main/svelte/quick-check/src/lib/data/metrics_details.json"
-      - "https://github.com/dora-team/dora.dev/blob/main/svelte/quick-check/src/lib/data/metrics_question_responses.json"
----
-
 # DORA software delivery performance metrics
 
 DORA measures the outcome of the software delivery process with **five software delivery performance metrics** in two families,

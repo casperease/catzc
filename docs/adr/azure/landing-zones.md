@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/landing-zones.md
-    folder: docs/adr/azure
-    name: landing-zones
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-LZ#{1-7}
-    cites:
-      - ADR-AZ-DATAMOD#{9-11}
-      - ADR-AZ-NETWORK#{1,5,6}
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
-      - docs/adr/azure/azure-network-model.md
-      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
-      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
-      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
-      - docs/adr/flow/durable-sha-globs.md
----
-
 # ADR: Landing zones — a CAF landing zone per subscription and the Well-Architected workload in it
 
 Pairs with [`network-model`](azure-network-model.md) (the IP plan the landing zone deploys) and [`data-model`](azure-data-model.md) (the

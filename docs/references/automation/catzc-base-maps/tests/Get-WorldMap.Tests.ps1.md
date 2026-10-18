@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e36637796aaa
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-maps/tests
-    name: get-world-map-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#3
----
-
 # automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

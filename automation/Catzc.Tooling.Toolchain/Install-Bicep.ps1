@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Install-Bicep.ps1
-    name: install-bicep
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
-    cites:
-      - ADR-AUTO-PKGMGR
-      - ADR-REPO-FORMAT#8
----
-#>
-
 function Install-Bicep {
     [CmdletBinding()]
     param(

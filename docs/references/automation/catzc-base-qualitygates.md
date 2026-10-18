@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-qualitygates.md
-    folder: docs/references/automation
-    name: catzc-base-qualitygates
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/bash/bash-test-artifacts.md
-      - docs/adr/automation/go/go-test-artifacts.md
-      - docs/adr/automation/managed-guids.md
-      - docs/adr/automation/python/python-test-artifacts.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
-      - docs/adr/principles/configure-not-program.md
-      - docs/adr/repository/comments-in-docs.md
-      - docs/adr/repository/markdown-links.md
-      - docs/references/.assets/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
-      - docs/references/automation/catzc-base-languages.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
-      - docs/references/automation/catzc-base-reports.md
----
-
 # Catzc.Base.QualityGates
 
 The quality-gate module. It **runs every check the repository applies to itself** — all tests (with tag-enforcement and timestamped

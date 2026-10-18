@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8f4bc427df64"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modules/types/Module.cs.md
-    folder: docs/references/automation/catzc-base-modules/types
-    name: module-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Modules/types/Module.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

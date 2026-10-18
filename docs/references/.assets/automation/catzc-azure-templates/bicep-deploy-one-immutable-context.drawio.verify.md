@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-azure-templates
-    name: bicep-deploy-one-immutable-context-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PWSH-DRYRUN#1
----
-
 # out/diagrams/wave-9/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md
 
 `Verification: One immutable context, resolved from the az session (source lens, Catzc.Azure.Templates)`

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1
-    name: test-markdown-title
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-FORMAT#{6,7}
----
-#>
-
 function Test-MarkdownTitle {
     [CmdletBinding()]
     param(

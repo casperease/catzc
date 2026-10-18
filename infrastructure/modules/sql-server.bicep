@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/sql-server.bicep
-//     name: sql-server
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: sql-server
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/sql-server.bicep.md
-// ---
-
 @description('SQL logical server name (1-63 lowercase, globally unique).')
 param name string
 

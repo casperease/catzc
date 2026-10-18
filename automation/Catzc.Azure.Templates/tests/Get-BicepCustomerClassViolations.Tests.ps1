@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
-    folder: tests
-    name: get-bicep-customer-class-violations-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md
----
-#>
-
 Describe 'Get-BicepCustomerClassViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:check = {

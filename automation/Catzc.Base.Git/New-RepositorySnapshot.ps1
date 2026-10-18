@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/New-RepositorySnapshot.ps1
-    name: new-repository-snapshot
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md
-    test: automation/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#10
----
-#>
-
 function New-RepositorySnapshot {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

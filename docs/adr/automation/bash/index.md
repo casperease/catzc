@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/bash/index.md
-    folder: docs/adr/automation/bash
-    name: index
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/bash/bash-test-artifacts.md
-      - docs/adr/automation/execution-engines.md
----
-
 # Bash automation ADRs
 
 The ADRs here govern the repository's Bash code, which is test artifacts only — black-box tests of the engine that reach catzc through the

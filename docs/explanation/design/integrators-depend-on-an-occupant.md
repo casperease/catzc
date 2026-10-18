@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/integrators-depend-on-an-occupant.md
-    folder: docs/explanation/design
-    name: integrators-depend-on-an-occupant
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#{5-8}
-      - ADR-DSGN-VISUAL#13
-      - ADR-FLOW-CD#{9,11}
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
-      - docs/explanation/design/index.md
-      - docs/explanation/design/integrators-depend-on-an-occupant.drawio.md
-      - docs/explanation/design/sync-from-the-last-certified-commit.md
-      - docs/explanation/design/sync-point-rules-are-adr-only.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Upstream integrators depend on the main-UAT occupant, never on the tip of main
 
 ```text

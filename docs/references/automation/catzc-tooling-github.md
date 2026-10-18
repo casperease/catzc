@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-github.md
-    folder: docs/references/automation
-    name: catzc-tooling-github
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT#{1-3,6}
-    links:
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract1
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract2
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract3
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract6
-      - docs/references/automation/catzc-base-execution.md
-      - docs/references/automation/catzc-base-git.md
----
-
 # Catzc.Tooling.Github
 
 The repository's GitHub integration: everything that faces GitHub, as a platform that reads our files and as a remote that stores our

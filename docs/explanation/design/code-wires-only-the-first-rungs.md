@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/code-wires-only-the-first-rungs.md
-    folder: docs/explanation/design
-    name: code-wires-only-the-first-rungs
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#8
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/explanation/.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
-      - docs/explanation/design/code-wires-only-the-first-rungs.drawio.md
-      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
-      - docs/explanation/design/four-domains-promote-one-artifact.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-way-climb-three-endings.md
-      - docs/explanation/design/which-rung-gates-exist-in-code.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # The pipelines wire only topic, landed and BVT; past BVT there is no ladder
 
 ```text

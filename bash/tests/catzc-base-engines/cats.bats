@@ -1,19 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: bash/tests/catzc-base-engines/cats.bats
-#     folder: tests/catzc-base-engines
-#     name: cats
-#     filetype: bats
-#     kind: test
-#     language: bash
-#     track: bash
-#     tracktype: verification
-#     module: bash
-#     moduletype: bash
-# ---
-
 # Black-box tests of the bash engine's entry, importer.sh, and its cats dispatcher (Catzc.Base.Engines).
 #
 # Each test uses importer.sh the way a Bash user does (ADR-AUTO-BASH#3): setup sources the engine's entry

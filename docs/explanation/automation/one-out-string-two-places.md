@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/one-out-string-two-places.md
-    folder: docs/explanation/automation
-    name: one-out-string-two-places
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PATH#{3,9}
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-out-string-two-places.drawio.md
-      - docs/explanation/automation/output-root-first-then-repo-root.md
-      - docs/explanation/automation/two-crossers-and-three-anchors.md
-      - docs/explanation/automation/two-forms-never-a-third.md
-      - docs/explanation/automation/types-check-forms-review-checks-crossers.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline
 
 ```text

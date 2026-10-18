@@ -1,22 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/assets/extensions/catzc-compiled-info.js
-    folder: assets/extensions
-    name: catzc-compiled-info
-    filetype: js
-    kind: asset
-    language: javascript
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-*/
-
 // A read-only editor for the committed automation/.compiled/Catzc.Types.<hash>.dll: a short note instead of the binary screen.
 // The current hash is computed from automation/<module>/types/*.cs with the algorithm of Import-CSharpTypes (ADR-AUTO-CACHE#8):
 // per file the SHA-256 of the bytes without CR, upper-hex; one "<module>/<type>|<hex>\n" line per file in ordinal order;

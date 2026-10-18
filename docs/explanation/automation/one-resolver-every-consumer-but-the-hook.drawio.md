@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.drawio.md
-    folder: docs/explanation/automation
-    name: one-resolver-every-consumer-but-the-hook-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.tree.md
-      - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One resolver serves every consumer but the hook, which compiles the same config type: the diagram described
 
 ```text

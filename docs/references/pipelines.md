@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/pipelines.md
-    folder: docs/references
-    name: pipelines
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/landing-zones.md
-      - docs/adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger
-      - docs/adr/flow/pipeline-types.md
-      - docs/adr/pipelines/custom-template-discipline.md
-      - docs/adr/pipelines/pipeline-naming-and-placement.md
-      - docs/how-to/getting-started/automation/add-a-deployable-unit.md
----
-
 # pipelines
 
 Azure DevOps pipelines and the templates they include. Two ADRs govern this folder:

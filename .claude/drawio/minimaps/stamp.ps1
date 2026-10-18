@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/drawio/minimaps/stamp.ps1"
-    folder: drawio/minimaps
-    name: stamp
-    filetype: ps1
-    kind: drawio-kit
-    language: powershell
-    track: ".claude-kits"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
----
-#>
-
 # cspell:ignore minimaps
 param(
     [Parameter(Mandatory)]

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1
-    folder: private
-    name: enter-system-test-lock
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#{32,33}
----
-#>
-
 function Enter-SystemTestLock {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/Get-ConfigValue.ps1
-    name: get-config-value
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
-    cites:
-      - ADR-AUTO-ENVVAR#7
-      - ADR-CONF-ADDRESSING#{3-5}
-      - ADR-CONF-LOADING#{1,2}
----
-#>
-
 function Get-ConfigValue {
     [CmdletBinding()]
     param(

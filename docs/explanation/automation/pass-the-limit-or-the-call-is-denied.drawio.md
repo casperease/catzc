@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.drawio.md
-    folder: docs/explanation/automation
-    name: pass-the-limit-or-the-call-is-denied-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.tree.md
-      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A call inside the limit runs; outside it, the hook denies it and says how to re-issue it: the diagram described
 
 ```text

@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/process-terms.md
-    folder: docs/adr/process
-    name: process-terms
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-LEANTERMS#{1-5}
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/zero-ceremony-poka-yoke.md
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/lean.md
-      - docs/adr/process/observe-work.md
-      - docs/adr/process/pull-work.md
-      - docs/adr/process/queues-cost-money.md
----
-
 # ADR: Process terms — the foundational vocabulary of flow
 
 ## Rules: ADR-PROC-LEANTERMS

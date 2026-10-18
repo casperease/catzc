@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
-    name: test-azure-network-plan
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-AZ-NETWORK#{2,5}
----
-#>
-
 function Test-AzureNetworkPlan {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

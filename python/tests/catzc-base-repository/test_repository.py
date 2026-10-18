@@ -1,19 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: python/tests/catzc-base-repository/test_repository.py
-#     folder: tests/catzc-base-repository
-#     name: test-repository
-#     filetype: py
-#     kind: test
-#     language: python
-#     track: python
-#     tracktype: verification
-#     module: python
-#     moduletype: python
-# ---
-
 """Black-box tests of Catzc.Base.Repository.
 
 Each test starts the engine as its own process the way the run's engine contract says — CATZC_ENGINE_EXECUTABLE, with

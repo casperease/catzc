@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/module-aspects.md
-    folder: docs/adr/design
-    name: module-aspects
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-ASPECT#{1-5}
-    cites:
-      - ADR-FLOW-CD-GLOBS#{4,5,7}
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5
-      - docs/adr/repository/protected-globs.md
-      - docs/adr/repository/protected-globs.md#rule-adr-repo-protglob8
-      - docs/adr/repository/repo-variants.md
----
-
 # ADR: Module aspects — a unit's files partition into live and tests
 
 ## Rules: ADR-DSGN-ASPECT

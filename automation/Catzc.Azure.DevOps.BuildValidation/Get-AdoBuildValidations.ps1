@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
-    name: get-ado-build-validations
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
-    cites:
-      - ADR-FLOW-CD-GLOBS
-      - ADR-FLOW-CD-TYPE#4
----
-#>
-
 function Get-AdoBuildValidations {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

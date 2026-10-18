@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
-    folder: docs/explanation/flow
-    name: every-doubt-fails-open-to-proceed
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#9
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
-      - docs/explanation/flow/every-doubt-fails-open-to-proceed.drawio.md
-      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/range-per-context-then-diff-and-match.md
-      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
-      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed
 
 ```text

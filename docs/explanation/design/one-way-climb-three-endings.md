@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/one-way-climb-three-endings.md
-    folder: docs/explanation/design
-    name: one-way-climb-three-endings
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#{1-4,8}
-      - ADR-DSGN-VISUAL#14
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/visual-design.md
-      - docs/explanation/.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
-      - docs/explanation/design/code-wires-only-the-first-rungs.md
-      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
-      - docs/explanation/design/four-domains-promote-one-artifact.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-way-climb-three-endings.drawio.md
-      - docs/explanation/design/which-rung-gates-exist-in-code.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A commit only climbs, then ends in one of three ways
 
 ```text

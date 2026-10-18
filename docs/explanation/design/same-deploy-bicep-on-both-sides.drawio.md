@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/same-deploy-bicep-on-both-sides.drawio.md
-    folder: docs/explanation/design
-    name: same-deploy-bicep-on-both-sides-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.tree.md
-      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription: the diagram described
 
 ```text

@@ -4,30 +4,6 @@ plan:
   value: highest
   reviewed: 2026-10-16
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Languages, docs/adr/repository, .claude/CLAUDE.md, .unordered]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-plans-body-sha-landing-zone.md"
-    folder: plans
-    name: plan-plans-body-sha-landing-zone
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-DSGN-TRACK#17
-      - ADR-REPO-FILEMETA#{3,7}
-      - ADR-REPO-FOLDERS#12
-      - ADR-REPO-VOCAB#{1,9}
-    links:
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7
 ---
 
 # Plans that stay true, body-sha only where it earns it, .unordered as the import landing zone

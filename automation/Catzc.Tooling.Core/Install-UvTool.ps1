@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Install-UvTool.ps1
-    name: install-uv-tool
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
----
-#>
-
 function Install-UvTool {
     [CmdletBinding()]
     param(

@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/protected-globs.md
-    folder: docs/adr/repository
-    name: protected-globs
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-PROTGLOB#{1-9}
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/principles/reduce-waste.md
----
-
 # ADR: Protected globs — session-memory skip of repeated scans over an unchanged globset
 
 ## Rules: ADR-REPO-PROTGLOB

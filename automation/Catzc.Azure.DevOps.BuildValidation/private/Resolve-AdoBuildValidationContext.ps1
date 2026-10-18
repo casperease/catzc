@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1
-    folder: private
-    name: resolve-ado-build-validation-context
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: private
----
-#>
-
 function Resolve-AdoBuildValidationContext {
     [CmdletBinding()]
     [OutputType([hashtable])]

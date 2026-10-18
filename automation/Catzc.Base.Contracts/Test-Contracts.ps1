@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/Test-Contracts.ps1
-    name: test-contracts
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-CONTRACT#{2-6,10}
----
-#>
-
 function Test-Contracts {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

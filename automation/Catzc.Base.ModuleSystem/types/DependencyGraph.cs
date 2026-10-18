@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
-    folder: types
-    name: dependency-graph
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
-    cites:
-      - ADR-AUTO-DEPM#4
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

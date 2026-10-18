@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/budget.bicep
-//     name: budget
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: budget
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/budget.bicep.md
-// ---
-
 targetScope = 'subscription'
 
 @description('Budget name (1-63 characters: letters, digits, underscores, and hyphens; unique within the subscription).')

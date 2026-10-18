@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/proactive-failure-notification.md
-    folder: docs/adr/research
-    name: proactive-failure-notification
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-FAILALERT#{1-5}
-    links:
-      - docs/adr/automation/console-output-matters.md#rule-adr-auto-console7
-      - docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry5
-      - docs/adr/research/monitoring-and-observability.md
-      - docs/references/dora/capabilities.md#continuous-delivery
-      - docs/references/dora/capabilities.md#deployment-automation
-      - docs/references/dora/capabilities.md#fast-feedback
-      - docs/references/dora/capabilities.md#monitoring-and-observability
-      - docs/references/dora/capabilities.md#proactive-failure-notification
-      - docs/references/dora/core-model.md#organizational-performance
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/core-model.md#well-being
-      - docs/references/dora/index.md
-      - docs/references/dora/metrics.md
-      - docs/references/dora/publications.md#2014-state-of-devops-report
-      - "https://dora.dev/capabilities/proactive-failure-notification/"
----
-
 # ADR: DORA — Proactive failure notification
 
 ## Rules: ADR-DORA-FAILALERT

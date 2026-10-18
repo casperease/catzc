@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
-    folder: tests
-    name: format-code-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-CACHE
-      - ADR-AUTO-TEST#{3,6,8}
-      - ADR-PRIN-CONFIG#{1,2,4}
-      - ADR-REPO-FORMAT#8
----
-#>
-
 Describe 'Format-Code' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{

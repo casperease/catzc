@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c1c1106a80c5
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md
-    folder: docs/references/automation/catzc-tooling-provisioning/tests
-    name: assert-dev-box-tools-status-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

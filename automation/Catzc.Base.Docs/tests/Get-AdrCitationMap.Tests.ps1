@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
-    folder: tests
-    name: get-adr-citation-map-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-LINK#{3,5}
----
-#>
-
 Describe 'Get-AdrCitationMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

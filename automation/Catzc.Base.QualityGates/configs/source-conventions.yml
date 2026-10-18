@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.QualityGates/configs/source-conventions.yml
-#     folder: configs
-#     name: source-conventions
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
-# ---
-
 engine_set:
   exempt:
     automation/Catzc.Base.Engines/types/**: the model itself, the one place the engines are declared

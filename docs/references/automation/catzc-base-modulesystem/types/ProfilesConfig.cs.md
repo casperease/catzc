@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "00f0c5f499f9"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
-    folder: docs/references/automation/catzc-base-modulesystem/types
-    name: profiles-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
----
-
 # automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

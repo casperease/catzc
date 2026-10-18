@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/resolve-one-limit-in-code-order.md
-    folder: docs/explanation/automation
-    name: resolve-one-limit-in-code-order
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-FAILFAST#7
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/explanation/.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
-      - docs/explanation/automation/a-stopped-run-names-its-limit.md
-      - docs/explanation/automation/callers-value-else-config-else-default.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
-      - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
-      - docs/explanation/automation/resolve-one-limit-in-code-order.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order
 
 ```text

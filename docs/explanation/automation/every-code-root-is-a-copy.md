@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/every-code-root-is-a-copy.md
-    folder: docs/explanation/automation
-    name: every-code-root-is-a-copy
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-BUNDLE#{1-3,6}
-      - ADR-DSGN-RUNMODE#7
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/design/run-modes.md
-      - docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
-      - docs/explanation/automation/build-then-place-with-one-command.md
-      - docs/explanation/automation/build-verify-then-copy-the-folder.md
-      - docs/explanation/automation/every-code-root-is-a-copy.drawio.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-commit-one-immutable-package.md
-      - docs/explanation/automation/what-gates-each-bundle-stage.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One engine builds the bundle, and every code root is a copy of its output
 
 ```text

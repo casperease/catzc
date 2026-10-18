@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1
-    folder: private
-    name: install-uv-standalone
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md
-    cites:
-      - ADR-AUTO-PKGMGR
-      - ADR-AUTO-UVPY
----
-#>
-
 function Install-UvStandalone {
     [CmdletBinding()]
     param(

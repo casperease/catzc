@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/expedition.md
-    folder: docs/references/infrastructure
-    name: expedition
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/references/infrastructure/discovery.md
-      - docs/references/infrastructure/foundation.md
-      - docs/references/infrastructure/modules.md
----
-
 # expedition
 
 A Well-Architected workload: a storage account and a SQL database, reached only through private endpoints, landing in the `discovery`

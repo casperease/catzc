@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-configextensions.md
-    folder: docs/references/automation
-    name: catzc-base-configextensions
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/configuration/module-config-loading.md
-      - docs/references/automation/catzc-base-config.md
----
-
 # Catzc.Base.ConfigExtensions
 
 The PowerShell extension point for config validation. Core configs validate through their C# config type when `Get-Config` loads them (see

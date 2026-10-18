@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/GeneratedFilesConfig.cs
-    folder: types
-    name: generated-files-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/types/GeneratedFilesConfig.Tests.ps1
----
-*/
-
 // The registry of writers Test-GeneratedFiles checks; the generators of the managed root files come from the root-config registry, not from here.
 
 using System;

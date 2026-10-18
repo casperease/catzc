@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
-    folder: tests
-    name: merge-config-fragment-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Merge-ConfigFragment' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:merge = {

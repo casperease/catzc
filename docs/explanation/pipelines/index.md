@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/index.md
-    folder: docs/explanation/pipelines
-    name: index
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/index.md#pipelines
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/explanation/index.md
-      - docs/explanation/pipelines/configured-credential-proves-its-org.md
-      - docs/explanation/pipelines/one-header-function-owns-precedence.md
-      - docs/explanation/pipelines/three-guarded-early-returns.md
-      - docs/explanation/pipelines/what-you-set-decides-the-credential.md
-      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
----
-
 # Pipelines explanations
 
 ```text

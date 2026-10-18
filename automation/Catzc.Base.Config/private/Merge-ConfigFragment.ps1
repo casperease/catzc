@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
-    folder: private
-    name: merge-config-fragment
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
-    cites:
-      - ADR-AUTO-OVERLAY
----
-#>
-
 function Merge-ConfigFragment {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

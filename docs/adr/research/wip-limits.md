@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/wip-limits.md
-    folder: docs/adr/research
-    name: wip-limits
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-WIP#{1-5}
-    links:
-      - docs/adr/process/observe-work.md#rule-adr-proc-observewip1
-      - docs/adr/process/pull-work.md#rule-adr-proc-pullwork4
-      - docs/adr/process/queues-cost-money.md#rule-adr-proc-queuecost2
-      - docs/references/dora/capabilities.md#fast-flow
-      - docs/references/dora/capabilities.md#monitoring-systems
-      - docs/references/dora/capabilities.md#visual-management
-      - docs/references/dora/capabilities.md#wip-limits
-      - docs/references/dora/capabilities.md#work-visibility-in-value-stream
-      - docs/references/dora/capabilities.md#working-in-small-batches
-      - docs/references/dora/core-model.md#core-tag-in-the-capability-catalogue
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2015-state-of-devops-report
-      - "https://dora.dev/capabilities/wip-limits/"
----
-
 # ADR: DORA — Work in process limits
 
 ## Rules: ADR-DORA-WIP

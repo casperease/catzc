@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/GlossaryEntry.cs
-    folder: types
-    name: glossary-entry
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md
-    test: automation/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-VOCAB
----
-*/
-
 using System;
 using System.Text.RegularExpressions;
 

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c88a4eeb03e7
-    repo_status: locked
-    path: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
-    folder: docs/references/automation/catzc-base-engines/configs
-    name: glossary-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-VOCAB#2
----
-
 # automation/Catzc.Base.Engines/configs/glossary.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

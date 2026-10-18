@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/Test-TrackDeclaration.ps1
-    name: test-track-declaration
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1
-    cites:
-      - ADR-DSGN-MODTYPE#3
-      - ADR-DSGN-TRACKTYPE#4
----
-#>
-
 function Test-TrackDeclaration {
     [CmdletBinding()]
     [OutputType([void])]

@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/path-representation.md
-    folder: docs/adr/automation
-    name: path-representation
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-PATH#{1-11}
-    cites:
-      - ADR-PWSH-XPLAT#10
-    links:
-      - docs/adr/automation/never-depend-on-pwd.md
-      - docs/adr/pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat2
-      - docs/adr/repository/dedicated-output-directory.md
-      - docs/adr/repository/inspiration.md
-      - docs/adr/repository/markdown-links.md
----
-
 # ADR: Path representation — relative across boundaries, absolute only at the bind
 
 ## Rules: ADR-AUTO-PATH

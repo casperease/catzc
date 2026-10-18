@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
-    folder: tests
-    name: build-bicep-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{4,19,26}
----
-#>
-
 # cspell:ignore alweutstsmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     BeforeAll {

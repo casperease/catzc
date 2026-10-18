@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-LinksFileMetaFact.ps1
-    folder: private
-    name: get-links-file-meta-fact
-    filetype: ps1
-    kind: function
-    subkind: fact
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-LinksFileMetaFact.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#3
----
-#>
-
 function Get-LinksFileMetaFact {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

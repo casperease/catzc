@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
-    name: test-script-analyzer-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-PWSH-FORMAT#5
----
-#>
-
 Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'

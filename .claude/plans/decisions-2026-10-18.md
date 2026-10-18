@@ -3,28 +3,6 @@ plan:
   status: active
   kind: decisions
   reviewed: 2026-10-18
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/decisions-2026-10-18.md"
-    folder: plans
-    name: decisions-2026-10-18
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-MODULE#6
-      - ADR-AUTO-TYPES#16
-      - ADR-DSGN-TRACK#17
-      - ADR-PWSH-VERBS#2
-      - ADR-REPO-FILEMETA#11
 ---
 
 # Decisions of the 2026-10-18 questionnaire round

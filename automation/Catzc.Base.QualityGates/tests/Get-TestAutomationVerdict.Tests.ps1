@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationVerdict.Tests.ps1
-    folder: tests
-    name: get-test-automation-verdict-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-TestAutomationVerdict' -Tag 'L0', 'logic' {
     It 'reads Passed with an invariant counts-in-time summary when nothing failed' {
         $verdict = InModuleScope Catzc.Base.QualityGates {

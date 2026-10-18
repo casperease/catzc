@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/type-an-address-get-the-value.md
-    folder: docs/explanation/configuration
-    name: type-an-address-get-the-value
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ENVVAR#7
-      - ADR-CONF-ADDRESSING#{1,3,4}
-    links:
-      - docs/adr/automation/environment-variables.md
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
-      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
-      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
-      - docs/explanation/configuration/index.md
-      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
-      - docs/explanation/configuration/two-test-files-check-the-address-rules.md
-      - docs/explanation/configuration/type-an-address-get-the-value.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Type an address and get its value back; a wrong address throws its message at the call
 
 ```text

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
-    folder: tests
-    name: assert-bundle-footprint-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Assert-BundleFootprint' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:run = {

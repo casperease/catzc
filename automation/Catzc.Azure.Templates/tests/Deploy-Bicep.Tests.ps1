@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
-    folder: tests
-    name: deploy-bicep-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{4,19}
-      - ADR-PWSH-PESTER#9
----
-#>
-
 Describe 'Deploy-Bicep' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-deploy-' + [Guid]::NewGuid())

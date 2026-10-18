@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/prompt-module-model-2-implement.md"
-    folder: plans
-    name: prompt-module-model-2-implement
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
----
-
 # Prompt 2 of 2 for plan-module-kinds-tracks: implement the Module kind, ADR first; paste as the first message, after prompt 1
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2). Run only after `.claude/plans/prompt-module-model-1-prepare.md` produced

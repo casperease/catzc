@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/types/ConsoleText.cs
-    folder: types
-    name: console-text
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md
-    test: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

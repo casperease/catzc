@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/principles/reduce-variability.md
-    folder: docs/adr/principles
-    name: reduce-variability
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PRIN-REDUCEVAR#{1-3}
----
-
 # Principle: Reduce variability
 
 ## Rules: ADR-PRIN-REDUCEVAR

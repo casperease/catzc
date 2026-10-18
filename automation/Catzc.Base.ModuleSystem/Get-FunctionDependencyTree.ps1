@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/Get-FunctionDependencyTree.ps1
-    name: get-function-dependency-tree
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
----
-#>
-
 function Get-FunctionDependencyTree {
     [CmdletBinding()]
     param(

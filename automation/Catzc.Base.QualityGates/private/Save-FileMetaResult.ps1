@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Save-FileMetaResult.ps1
-    folder: private
-    name: save-file-meta-result
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Save-FileMetaResult.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#3
----
-#>
-
 function Save-FileMetaResult {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

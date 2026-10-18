@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.drawio.md
-    folder: docs/explanation/configuration
-    name: strip-split-walk-every-wrong-turn-throws-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md
-      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Strip, split, read once, walk one segment at a time; every wrong turn throws: the diagram described
 
 ```text

@@ -5,20 +5,6 @@ plan:
   reviewed: 2026-10-17
   blocked_on: nothing; the first three steps are checks and fixes, the last is the user's
   targets: [automation/Catzc.Base.Git/Push-Dirty.ps1, automation/Catzc.Base.VSCode, docs/adr/design/commit-lifecycle.md]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-fast-push-followups.md"
-    folder: plans
-    name: plan-fast-push-followups
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Fast push to main: what is left

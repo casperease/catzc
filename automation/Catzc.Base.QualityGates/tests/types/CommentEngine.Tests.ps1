@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-    folder: tests/types
-    name: comment-engine-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-IDEM#1
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-ONELIVE#1
-      - ADR-REPO-CODEMETA#5
-      - ADR-REPO-COMMENTS
----
-#>
-
 # Rests on [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1).
 # cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -- escape-sequence artifacts in the "`n…" fixture strings, and the deliberate misspelling a kept cspell directive covers
 Describe 'CommentEngine' -Tag 'L0', 'logic' {

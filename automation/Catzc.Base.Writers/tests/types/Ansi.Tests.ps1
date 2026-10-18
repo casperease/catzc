@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
-    folder: tests/types
-    name: ansi-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-writers/tests/types/Ansi.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CONSOLE#7
----
-#>
-
 Describe 'Ansi' -Tag 'L0', 'logic' {
     It 'maps <color> to its SGR foreground escape' -ForEach @(
         @{ color = 'Red'; code = "`e[91m" }

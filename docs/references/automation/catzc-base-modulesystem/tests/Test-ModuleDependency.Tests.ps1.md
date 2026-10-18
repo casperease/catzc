@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "01bdca0596e3"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-modulesystem/tests
-    name: test-module-dependency-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
----
-
 # automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
 
 <!-- cspell:ignore tpols -->

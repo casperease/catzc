@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/types/ModuleTypeEntry.cs
-    folder: types
-    name: module-type-entry
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#3
----
-*/
-
 using System.Collections.Generic;
 
 namespace Catzc.Base.Variants;

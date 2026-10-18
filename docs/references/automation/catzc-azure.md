@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure.md
-    folder: docs/references/automation
-    name: catzc-azure
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-network-model.md
-      - docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png
-      - docs/references/automation/catzc-azure-templates.md
-      - docs/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
----
-
 # Catzc.Azure
 
 The Azure identity module. It owns the _model_ behind every Azure deployment — the tenants, customers, environments, and subscriptions the

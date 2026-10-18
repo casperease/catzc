@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
-    folder: tests
-    name: test-ado-naming-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-AdoNaming' -Tag 'L0', 'logic' {
 
     It 'returns true for -Standard when the repo is standard' {

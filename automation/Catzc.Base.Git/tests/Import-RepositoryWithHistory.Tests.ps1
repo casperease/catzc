@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
-    folder: tests
-    name: import-repository-with-history-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#17
----
-#>
-
 Describe 'Import-RepositoryWithHistory' -Tag 'L2', 'logic', 'ADR-DSGN-TRACK#17' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Git

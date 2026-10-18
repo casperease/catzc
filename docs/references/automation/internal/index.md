@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/internal/index.md
-    folder: docs/references/automation/internal
-    name: index
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PWSH-USEPS#2
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/caching.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/references/automation/BCL/index.md
-      - docs/references/automation/index.md
-      - docs/references/automation/internal/catzc-internal-bootstrap.md
-      - docs/references/automation/internal/catzc-internal-importer.md
-      - docs/references/automation/internal/catzc-internal-loader.md
-      - docs/references/automation/internal/catzc-internal-testkit.md
-      - docs/references/automation/internal/catzc-internal-types.md
-      - docs/references/automation/internal/catzc-internal-vendor.md
----
-
 # Internal (.psm1 shared infrastructure) — automation reference
 
 `.internal` is the home of the loader and the shared libraries, under `automation/.internal/`. It holds the sanctioned `.psm1` modules that

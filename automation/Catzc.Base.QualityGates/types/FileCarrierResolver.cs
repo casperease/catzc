@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
-    folder: types
-    name: file-carrier-resolver
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#5
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

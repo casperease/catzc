@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
-    folder: tests
-    name: resolve-tool-executable-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:windows = [bool]$IsWindows

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Python/tests/Invoke-Pip.L2.Tests.ps1
-    folder: tests
-    name: invoke-pip-l2-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md
----
-#>
-
 Describe 'Invoke-Pip' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:uvAvailable = Test-Tool 'uv'

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
-    name: get-engine-case-table
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE#1
----
-#>
-
 function Get-EngineCaseTable {
     [CmdletBinding()]
     [OutputType([hashtable])]

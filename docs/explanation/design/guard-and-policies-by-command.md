@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/guard-and-policies-by-command.md
-    folder: docs/explanation/design
-    name: guard-and-policies-by-command
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-REMOTE#{2,4}
-      - ADR-REPO-VARIANT#6
-    links:
-      - docs/adr/design/server-remote-integration.md
-      - docs/adr/repository/repo-variants.md
-      - docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
-      - docs/explanation/design/clients-bridge-to-one-server.md
-      - docs/explanation/design/guard-and-policies-by-command.drawio.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/ingress-gated-the-rest-by-review.md
-      - docs/explanation/design/local-guard-and-server-policies.md
-      - docs/explanation/design/one-door-in-one-stable-point-out.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A person turns on the local guard with one variant; an admin syncs the server policies with one command
 
 ```text

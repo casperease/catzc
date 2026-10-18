@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/contracts.md
-    folder: docs/references
-    name: contracts
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/repository/api-contracts.md
-      - docs/adr/repository/conventional-folders.md
-      - docs/references/contracts/catzc.md
----
-
 # The contracts surface
 
 This folder holds the repository's binding interfaces at its boundary, in both directions: the **only public API** an outside consumer is

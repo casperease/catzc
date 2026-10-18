@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-ImprintStepFile.ps1
-    folder: private
-    name: get-imprint-step-file
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-ImprintStepFile.Tests.ps1
-    cites:
-      - ADR-REPO-FORMAT#8
----
-#>
-
 function Get-ImprintStepFile {
     [CmdletBinding()]
     [OutputType([string[]])]

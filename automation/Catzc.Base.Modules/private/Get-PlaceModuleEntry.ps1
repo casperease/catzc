@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Modules/private/Get-PlaceModuleEntry.ps1
-    folder: private
-    name: get-place-module-entry
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Modules
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-AUTO-MODULE#1
----
-#>
-
 function Get-PlaceModuleEntry {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

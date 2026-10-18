@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.drawio.md
-    folder: docs/explanation/repository
-    name: values-and-edges-gated-reads-reviewed-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.chain.md
-      - docs/explanation/.assets/grid/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.grid.md
-      - docs/explanation/.assets/tree/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.tree.md
-      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Values and module edges have a gate; the no-direct-read rule is left to review: the diagram described
 
 ```text

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
-    folder: tests
-    name: export-spelling-triage-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Export-SpellingTriage.Tests.ps1.md
----
-#>
-
 Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:queuePath = Join-Path $TestDrive 'terminology-triage.yml'

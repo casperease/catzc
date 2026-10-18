@@ -1,30 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/GlossaryConcept.cs
-    folder: types
-    name: glossary-concept
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
-    cites:
-      - ADR-AUTO-TEST#30
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
-      - ADR-FLOW-CD#2
-      - ADR-REPO-VOCAB#{1,4,5,8}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

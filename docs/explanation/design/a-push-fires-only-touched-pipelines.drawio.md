@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md
-    folder: docs/explanation/design
-    name: a-push-fires-only-touched-pipelines-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.tree.md
-      - docs/explanation/design/a-push-fires-only-touched-pipelines.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A push starts only the pipelines whose globset it touches: the diagram described
 
 ```text

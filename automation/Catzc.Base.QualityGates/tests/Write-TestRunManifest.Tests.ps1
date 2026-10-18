@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Write-TestRunManifest.Tests.ps1
-    folder: tests
-    name: write-test-run-manifest-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Write-TestRunManifest' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:runDirectory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

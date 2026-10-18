@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/Test-WorldMap.ps1
-    name: test-world-map
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#{1,3,6,13}
-      - ADR-REPO-OUTDIR
----
-#>
-
 function Test-WorldMap {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

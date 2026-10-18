@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/Push-Dirty.ps1
-    name: push-dirty
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Git/tests/Push-Dirty.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN#2
-      - ADR-DSGN-LIFE#11
----
-#>
-
 function Push-Dirty {
     [CmdletBinding()]
     param(

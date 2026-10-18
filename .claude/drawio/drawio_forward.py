@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/drawio_forward.py"
-#     folder: drawio
-#     name: drawio-forward
-#     filetype: py
-#     kind: drawio-kit
-#     language: python
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH
 """Fail-forward render of a .drawio.png: always a source copy and a result PNG, warnings forwarded, never a silent stop.
 

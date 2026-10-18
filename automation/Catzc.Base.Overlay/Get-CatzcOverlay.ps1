@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
-    name: get-catzc-overlay
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Overlay
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md
-    test: automation/Catzc.Base.Overlay/tests/Get-CatzcOverlay.Tests.ps1
-    cites:
-      - ADR-AUTO-OVERLAY
-      - ADR-PWSH-ENUM#3
----
-#>
-
 function Get-CatzcOverlay {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

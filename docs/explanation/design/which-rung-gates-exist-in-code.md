@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/which-rung-gates-exist-in-code.md
-    folder: docs/explanation/design
-    name: which-rung-gates-exist-in-code
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#24
-      - ADR-DSGN-LIFE#{1-6,8,9}
-      - ADR-DSGN-VISUAL#4
-      - ADR-FLOW-CD#{5,8,9,12}
-    links:
-      - docs/adr/automation/test-automation.md
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/visual-design.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/explanation/.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
-      - docs/explanation/design/code-wires-only-the-first-rungs.md
-      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
-      - docs/explanation/design/four-domains-promote-one-artifact.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-way-climb-three-endings.md
-      - docs/explanation/design/which-rung-gates-exist-in-code.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Only PR build validation, the BVT and the failure stop are checked in code
 
 ```text

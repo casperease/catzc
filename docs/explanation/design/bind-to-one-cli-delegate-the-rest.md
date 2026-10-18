@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
-    folder: docs/explanation/design
-    name: bind-to-one-cli-delegate-the-rest
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-THINPLAT#{1-3,5}
-    links:
-      - docs/adr/design/thin-platforms.md
-      - docs/explanation/.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
-      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.drawio.md
-      - docs/explanation/design/deploy-bicep-delegates-to-az.md
-      - docs/explanation/design/every-vendor-call-leaves-through-az.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
-      - docs/explanation/design/what-keeps-the-platform-thin.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Consumers bind to one CLI, and everything behind it is delegated to the vendor
 
 ```text

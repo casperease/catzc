@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Remove-Java.ps1
-    name: remove-java
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
-    cites:
-      - ADR-AUTO-REMOVE#{3,6}
----
-#>
-
 function Remove-Java {
     [CmdletBinding()]
     param(

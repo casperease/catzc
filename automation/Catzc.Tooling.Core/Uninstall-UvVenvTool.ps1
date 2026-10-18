@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Uninstall-UvVenvTool.ps1
-    name: uninstall-uv-venv-tool
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
----
-#>
-
 function Uninstall-UvVenvTool {
     [CmdletBinding()]
     param(

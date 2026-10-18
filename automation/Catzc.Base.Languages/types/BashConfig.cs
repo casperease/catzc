@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/types/BashConfig.cs
-    folder: types
-    name: bash-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-languages/types/BashConfig.cs.md
-    test: automation/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-FOLDERS#7
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

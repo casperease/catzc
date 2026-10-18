@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-    folder: tests
-    name: test-ado-pipeline-trigger-glob-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot { 'X:/repo' } -ModuleName Catzc.Base.Globs

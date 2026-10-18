@@ -12,23 +12,6 @@ task:
       docs/adr/automation/fail-fast-with-asserts.md,
       docs/adr/pwsh/assert-idioms.md,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-assert-wait.md"
-    folder: plans
-    name: task-assert-wait
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-HELP#1
 ---
 
 # Task: Assert-Wait, the config read, the measured run, the ADR pair

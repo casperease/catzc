@@ -1,37 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/command-contracts.md
-    folder: docs/adr/repository
-    name: command-contracts
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-CMDCONTRACT#{1-6}
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-CONTRACT#{1-4,6,8,9}
-    links:
-      - docs/adr/automation/execution-engines.md
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/automation/zero-ceremony-poka-yoke.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/repository/api-contracts.md
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract1
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract2
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract3
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract4
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract6
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract8
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract9
----
-
 # ADR-REPO-CMDCONTRACT: command contracts and the contract language
 
 ## Rules: ADR-REPO-CMDCONTRACT

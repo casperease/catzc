@@ -1,23 +1,4 @@
 /*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
-    folder: assets
-    name: markdown-preview-dark
-    filetype: css
-    kind: asset
-    language: css
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-*/
-
-/*
   MANAGED at .vscode/markdown-preview-dark.css — the file the editor reads is linked to THIS file
   (automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css) on every import by Build-RootConfig
   (rootconfig.yml; see docs/adr/repository/generated-root-configs.md). The two are one file; edits land

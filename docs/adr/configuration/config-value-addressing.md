@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/configuration/config-value-addressing.md
-    folder: docs/adr/configuration
-    name: config-value-addressing
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-CONF-ADDRESSING#{1-5}
-    cites:
-      - ADR-AUTO-ENVVAR#7
-      - ADR-CONF-LOADING#{1-3}
-    links:
-      - docs/adr/automation/environment-variables.md
-      - docs/adr/configuration/module-config-loading.md
----
-
 # ADR: Config value addressing — a by-reference handle into a named config
 
 ## Rules: ADR-CONF-ADDRESSING

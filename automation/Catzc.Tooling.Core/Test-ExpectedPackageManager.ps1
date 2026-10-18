@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
-    name: test-expected-package-manager
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
-    cites:
-      - ADR-AUTO-REMOVE#3
----
-#>
-
 function Test-ExpectedPackageManager {
     [OutputType([bool])]
     [CmdletBinding()]

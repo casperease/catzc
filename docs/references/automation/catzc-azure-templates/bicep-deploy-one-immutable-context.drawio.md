@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
-    folder: docs/references/automation/catzc-azure-templates
-    name: bicep-deploy-one-immutable-context-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-DATAMOD#4
-      - ADR-PWSH-DRYRUN#1
-      - ADR-PWSH-ERROR#8
-    links:
-      - docs/references/.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png
----
-
 # One immutable context, resolved from the az session: the diagram described
 
 ```text

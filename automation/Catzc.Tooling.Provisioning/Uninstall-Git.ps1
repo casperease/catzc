@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/Uninstall-Git.ps1
-    name: uninstall-git
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1
----
-#>
-
 function Uninstall-Git {
     [CmdletBinding()]
     param()

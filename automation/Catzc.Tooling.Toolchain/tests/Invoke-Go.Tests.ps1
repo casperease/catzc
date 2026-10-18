@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Go.Tests.ps1
-    folder: tests
-    name: invoke-go-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-Go' -Tag 'L0', 'logic' {
     It 'builds the command via -DryRun' {
         Invoke-Go 'version' -DryRun | Should -Be 'go version'

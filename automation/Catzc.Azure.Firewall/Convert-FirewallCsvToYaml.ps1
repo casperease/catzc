@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
-    name: convert-firewall-csv-to-yaml
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md
-    test: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
-    cites:
-      - ADR-PWSH-PARAM#4
----
-#>
-
 function Convert-FirewallCsvToYaml {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM#4)')]
     [CmdletBinding(DefaultParameterSetName = 'Path')]

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/units-not-tracks-own-the-pipelines.drawio.md
-    folder: docs/explanation/design
-    name: units-not-tracks-own-the-pipelines-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md
-      - docs/explanation/design/units-not-tracks-own-the-pipelines.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly: the diagram described
 
 ```text

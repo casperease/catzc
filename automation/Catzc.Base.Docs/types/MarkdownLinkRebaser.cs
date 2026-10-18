@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
-    folder: types
-    name: markdown-link-rebaser
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md
-    test: automation/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
-    cites:
-      - ADR-REPO-README#6
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Text;

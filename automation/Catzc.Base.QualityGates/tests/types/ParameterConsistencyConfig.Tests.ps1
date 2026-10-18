@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
-    folder: tests/types
-    name: parameter-consistency-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'ParameterConsistencyConfig' -Tag 'L0' {
     Context 'integrity (shipped parameter-consistency.yml)' -Tag 'integrity' {
         It 'loads, and gives every exempt name a reason' {

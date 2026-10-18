@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: df56639377f4
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/types/HighlightReason.cs.md
-    folder: docs/references/automation/catzc-base-maps/types
-    name: highlight-reason-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
----
-
 # automation/Catzc.Base.Maps/types/HighlightReason.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/markdown-links.md
-    folder: docs/adr/repository
-    name: markdown-links
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-LINK#{1-8}
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-PWSH-ERROR#3
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/adr/repository/comments-in-docs.md
-      - docs/adr/repository/generated-readmes.md
----
-
 # ADR: Markdown links — relative in documents, repository-rooted out of code
 
 ## Rules: ADR-REPO-LINK

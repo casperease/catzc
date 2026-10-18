@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/Publish-CleanHistory.ps1
-    name: publish-clean-history
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
----
-#>
-
 function Publish-CleanHistory {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]

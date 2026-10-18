@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-scan-program-feeds-three-roles.drawio.md
-    folder: docs/explanation/flow
-    name: one-scan-program-feeds-three-roles-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.tree.md
-      - docs/explanation/flow/one-scan-program-feeds-three-roles.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One method, GlobSet.ScanProgram(), feeds all three globset role functions: the diagram described
 
 ```text

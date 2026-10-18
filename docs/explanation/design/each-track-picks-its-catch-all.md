@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/each-track-picks-its-catch-all.md
-    folder: docs/explanation/design
-    name: each-track-picks-its-catch-all
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-ASPECT#{1-3}
-    links:
-      - docs/adr/design/module-aspects.md
-      - docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
-      - docs/explanation/design/each-track-picks-its-catch-all.drawio.md
-      - docs/explanation/design/gate-checks-order-not-liveness.md
-      - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
-      - docs/explanation/design/get-aspect-names-the-remainder.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/only-automation-compiles-its-aspects.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Each track picks its catch-all: a stray module file falls to tests, a stray template file to live
 
 ```text

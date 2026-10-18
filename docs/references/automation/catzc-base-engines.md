@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-engines.md
-    folder: docs/references/automation
-    name: catzc-base-engines
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/execution-engines.md
-      - docs/references/automation/catzc-base-execution.md
----
-
 # Catzc.Base.Engines
 
 Owns the model of the repository's three execution engines, pwsh, bash and zsh: the one declaration of everything that differs between them,

@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/vendor-toolset-dependencies.md
-    folder: docs/adr/pwsh
-    name: vendor-toolset-dependencies
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-VENDOR#{1,3-8}
-    cites:
-      - ADR-AUTO-DEPM#8
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm8
-      - docs/adr/automation/effective-in-enterprises.md
-      - docs/adr/azure/prefer-az-cli.md
-      - docs/adr/pwsh/module-path-hygiene.md
-      - docs/adr/repository/protected-globs.md
----
-
 # ADR: Vendor toolset dependencies
 
 ## Rules: ADR-PWSH-VENDOR

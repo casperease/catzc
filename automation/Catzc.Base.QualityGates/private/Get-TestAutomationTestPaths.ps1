@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1
-    folder: private
-    name: get-test-automation-test-paths
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1
----
-#>
-
 function Get-TestAutomationTestPaths {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
-    folder: tests
-    name: write-environment-set-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md
----
-#>
-
 Describe 'Write-EnvironmentSet' -Tag 'L0' {
     BeforeEach {
         # Mock the I/O boundary so tests never mutate the real process environment.

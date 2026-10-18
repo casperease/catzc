@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
-    folder: tests
-    name: test-logic-test-identity-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Test-LogicTestIdentity.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{1,3,35}
-      - ADR-REPO-LANG
----
-#>
-
 Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {
     It 'the automation test tree is free of live-identity leaks in logic tests' {
         $result = Test-LogicTestIdentity -PassThru -OutputFolder (Join-Path $TestDrive 'logic-test-identity')

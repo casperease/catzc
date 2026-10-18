@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationEntry.Tests.ps1
-    folder: tests
-    name: get-test-run-location-entry-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-TestRunLocationEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:inPlace = [pscustomobject]@{ Mode = 'in-place'; SourceRoot = 'C:\widget'; Root = 'C:\widget' }

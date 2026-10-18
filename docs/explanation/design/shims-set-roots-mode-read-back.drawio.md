@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/shims-set-roots-mode-read-back.drawio.md
-    folder: docs/explanation/design
-    name: shims-set-roots-mode-read-back-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.tree.md
-      - docs/explanation/design/shims-set-roots-mode-read-back.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it: the diagram described
 
 ```text

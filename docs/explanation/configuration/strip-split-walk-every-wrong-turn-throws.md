@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
-    folder: docs/explanation/configuration
-    name: strip-split-walk-every-wrong-turn-throws
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-CONF-ADDRESSING#{1,2,4}
-    links:
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/explanation/.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
-      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
-      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
-      - docs/explanation/configuration/index.md
-      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.drawio.md
-      - docs/explanation/configuration/two-test-files-check-the-address-rules.md
-      - docs/explanation/configuration/type-an-address-get-the-value.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Strip, split, read once, walk one segment at a time; every wrong turn throws
 
 ```text

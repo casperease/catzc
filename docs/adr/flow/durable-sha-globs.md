@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/flow/durable-sha-globs.md
-    folder: docs/adr/flow
-    name: durable-sha-globs
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-FLOW-CD-GLOBS#{1-10}
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-TRACK#5
-      - ADR-REPO-PROTGLOB#7
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/design/tracks.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/adr/flow/pipeline-types.md
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/principles/reduce-variability.md
-      - docs/adr/repository/protected-globs.md
-      - docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7
----
-
 # ADR: Globset triggers — areas-of-control projected to native filters and reflected from git
 
 ## Rules: ADR-FLOW-CD-GLOBS

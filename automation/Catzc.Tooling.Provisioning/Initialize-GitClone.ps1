@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
-    name: initialize-git-clone
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
-    test: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN#2
----
-#>
-
 function Initialize-GitClone {
     [CmdletBinding()]
     param(

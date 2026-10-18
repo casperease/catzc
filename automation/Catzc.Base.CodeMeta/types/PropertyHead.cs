@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/types/PropertyHead.cs
-    folder: types
-    name: property-head
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md
-    test: automation/Catzc.Base.CodeMeta/tests/types/PropertyHead.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#8
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

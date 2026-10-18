@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
-    folder: tests/types
-    name: variants-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-MODULE#4
----
-#>
-
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
         # tracks is required, so a fixture that is about another key gets one neutral track; a fixture that states tracks keeps its own.

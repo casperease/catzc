@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/tests/Get-ContractAssetKind.Tests.ps1
-    folder: tests
-    name: get-contract-asset-kind-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-contracts/tests/Get-ContractAssetKind.Tests.ps1.md
-    cites:
-      - ADR-REPO-CONTRACT#6
----
-#>
-
 Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     It 'reads <Name> (empty: <IsEmpty>) as <Kind>' -ForEach @(
         @{ Name = 'widget.yml'; IsEmpty = $false; Kind = 'Fragment' }

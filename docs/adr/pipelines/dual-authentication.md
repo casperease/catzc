@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pipelines/dual-authentication.md
-    folder: docs/adr/pipelines
-    name: dual-authentication
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PIPE-AUTH#{1-7}
----
-
 # ADR: Dual authentication — pipeline system token vs. local Az token
 
 ## Rules: ADR-PIPE-AUTH

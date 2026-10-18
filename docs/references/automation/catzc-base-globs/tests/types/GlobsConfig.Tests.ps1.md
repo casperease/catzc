@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "116b4fb7f05e"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-globs/tests/types
-    name: globs-config-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-FLOW-CD-GLOBS#{4,7,8}
----
-
 # automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
 
 <!-- cspell:ignore dedupe -->

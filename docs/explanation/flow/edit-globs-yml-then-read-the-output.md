@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/edit-globs-yml-then-read-the-output.md
-    folder: docs/explanation/flow
-    name: edit-globs-yml-then-read-the-output
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#{5,6,9}
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
-      - docs/explanation/flow/edit-globs-yml-then-read-the-output.drawio.md
-      - docs/explanation/flow/gates-check-source-and-trigger.md
-      - docs/explanation/flow/globs-module-owns-config-and-types.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-scan-program-feeds-three-roles.md
-      - docs/explanation/flow/three-views-derived-live-from-one-program.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # You edit globs.yml, and every other step prints what cats derived from it
 
 ```text

@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/sql-database.bicep
-//     name: sql-database
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: sql-database
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/sql-database.bicep.md
-// ---
-
 @description('Name of the existing SQL logical server that hosts this database.')
 param serverName string
 

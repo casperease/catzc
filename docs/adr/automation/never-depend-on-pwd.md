@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/never-depend-on-pwd.md
-    folder: docs/adr/automation
-    name: never-depend-on-pwd
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-NOPWD#{1,4,6}
-    cites:
-      - ADR-PWSH-PWD#{1,4-6}
-    links:
-      - docs/adr/automation/internal-asset-dependencies.md
-      - docs/adr/design/run-modes.md
-      - docs/adr/pwsh/working-directory-mechanics.md
-      - docs/adr/pwsh/working-directory-mechanics.md#the-code-root
----
-
 # ADR: Never depend on $PWD
 
 ## Rules: ADR-AUTO-NOPWD

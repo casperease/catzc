@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-Spelling.ps1
-    name: test-spelling
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#6
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-README#7
----
-#>
-
 function Test-Spelling {
     [CmdletBinding()]
     param(

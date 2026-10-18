@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/use-proper-package-managers.md
-    folder: docs/adr/automation
-    name: use-proper-package-managers
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-PKGMGR#{1-6}
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - "https://docs.chocolatey.org/en-us/information/security/"
-      - "https://www.bleepingcomputer.com/news/security/serpent-malware-campaign-abuses-chocolatey-windows-package-manager/"
----
-
 # ADR: Use proper package managers
 
 ## Rules: ADR-AUTO-PKGMGR

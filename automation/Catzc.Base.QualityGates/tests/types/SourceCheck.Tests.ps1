@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
-    folder: tests/types
-    name: source-check-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-PRIN-CONFIG#4
----
-#>
-
 Describe 'SourceCheck' -Tag 'L0', 'logic' {
     It 'takes gate mode and no exemptions when nothing is given' -Tag 'ADR-AUTO-DEFAULT#6' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', $null)

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/three-views-derived-live-from-one-program.drawio.md
-    folder: docs/explanation/flow
-    name: three-views-derived-live-from-one-program-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.tree.md
-      - docs/explanation/flow/three-views-derived-live-from-one-program.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A globset is one ordered program, and its three views are derived live, never committed: the diagram described
 
 ```text

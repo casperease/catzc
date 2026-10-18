@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Format-FileMeta.ps1
-    name: format-file-meta
-    filetype: ps1
-    kind: function
-    subkind: formatter
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN#2
-      - ADR-REPO-FILEMETA#3
-      - ADR-REPO-FORMAT#9
----
-#>
-
 function Format-FileMeta {
     [CmdletBinding()]
     [OutputType([string[]])]

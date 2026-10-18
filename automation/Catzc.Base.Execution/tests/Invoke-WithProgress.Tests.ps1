@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
-    folder: tests
-    name: invoke-with-progress-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-WithProgress' -Tag 'L0', 'logic' {
     It 'returns the scriptblock''s value untouched by the dots' {
         $result = Invoke-WithProgress { Start-Sleep -Milliseconds 150; 'widget' } -Message 'Working' -IntervalMs 20

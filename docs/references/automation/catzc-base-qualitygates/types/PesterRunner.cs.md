@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "17dc9d5925fa"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: pester-runner-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.QualityGates/types/PesterRunner.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

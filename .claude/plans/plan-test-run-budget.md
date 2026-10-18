@@ -4,24 +4,6 @@ plan:
   value: medium
   reviewed: 2026-10-18
   targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Engines, automation/Catzc.Base.Timeouts/configs]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-test-run-budget.md"
-    folder: plans
-    name: plan-test-run-budget
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-REPO-FORMAT#8
 ---
 
 # The full test run under its 180 s roof

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
-    folder: tests
-    name: invoke-java-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-Java' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-Java '--version' -DryRun | Should -Be 'java --version'

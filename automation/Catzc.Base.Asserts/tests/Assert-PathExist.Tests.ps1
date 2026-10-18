@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
-    folder: tests
-    name: assert-path-exist-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Assert-PathExist' -Tag 'L0', 'logic' {
     It 'passes for an existing path' {
         { Assert-PathExist $PSScriptRoot } | Should -Not -Throw

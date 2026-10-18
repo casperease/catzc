@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
-    folder: tests
-    name: test-module-dependency-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 # cspell:ignore tpols
 Describe 'Test-ModuleDependency' {
     Context 'logic (mocked boundaries)' -Tag 'L0', 'logic' {

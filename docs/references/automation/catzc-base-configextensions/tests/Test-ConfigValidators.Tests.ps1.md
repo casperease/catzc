@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "4cfc0a909c6d"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-configextensions/tests
-    name: test-config-validators-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

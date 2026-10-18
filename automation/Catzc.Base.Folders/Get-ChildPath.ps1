@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Folders/Get-ChildPath.ps1
-    name: get-child-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Folders
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
----
-#>
-
 function Get-ChildPath {
     [CmdletBinding()]
     [OutputType([string[]])]

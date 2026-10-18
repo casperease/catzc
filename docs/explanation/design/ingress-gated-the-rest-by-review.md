@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/ingress-gated-the-rest-by-review.md
-    folder: docs/explanation/design
-    name: ingress-gated-the-rest-by-review
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#6
-      - ADR-DSGN-REMOTE
-      - ADR-REPO-VARIANT#6
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/server-remote-integration.md
-      - docs/adr/repository/repo-variants.md
-      - docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
-      - docs/explanation/design/clients-bridge-to-one-server.md
-      - docs/explanation/design/guard-and-policies-by-command.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/ingress-gated-the-rest-by-review.drawio.md
-      - docs/explanation/design/local-guard-and-server-policies.md
-      - docs/explanation/design/one-door-in-one-stable-point-out.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Only ingress is checked by gates; the source-of-truth and integration rules rest on code review
 
 ```text

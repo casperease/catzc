@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/Invoke-GoTest.ps1
-    name: invoke-go-test
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
-    test: automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE
-      - ADR-AUTO-ENVVAR#1
-      - ADR-AUTO-GO#6
----
-#>
-
 function Invoke-GoTest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.GoTestResult])]

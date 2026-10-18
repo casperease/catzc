@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/Export-Catzc.ps1
-    name: export-catzc
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE#6
----
-#>
-
 function Export-Catzc {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
-    folder: private
-    name: test-tool-location-managed
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md
-    test: automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
----
-#>
-
 function Test-ToolLocationManaged {
     [OutputType([bool])]
     [CmdletBinding()]

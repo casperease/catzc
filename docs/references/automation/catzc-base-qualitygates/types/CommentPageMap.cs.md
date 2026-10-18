@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "5cad299b80d8"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: comment-page-map-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-PRIN-ONELIVE#1
-      - ADR-REPO-README#7
----
-
 # automation/Catzc.Base.QualityGates/types/CommentPageMap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
-    folder: tests
-    name: get-test-block-tag-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-TestBlockTag.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#42
-      - ADR-PWSH-PESTER#8
----
-#>
-
 Describe 'Get-TestBlockTag' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeTest {

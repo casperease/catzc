@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/ingress-gated-the-rest-by-review.drawio.md
-    folder: docs/explanation/design
-    name: ingress-gated-the-rest-by-review-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.tree.md
-      - docs/explanation/design/ingress-gated-the-rest-by-review.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Only ingress is checked by gates; the source-of-truth and integration rules rest on code review: the diagram described
 
 ```text

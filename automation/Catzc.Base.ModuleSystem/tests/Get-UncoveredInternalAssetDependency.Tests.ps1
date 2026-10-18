@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
-    folder: tests
-    name: get-uncovered-internal-asset-dependency-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Get-UncoveredInternalAssetDependency' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

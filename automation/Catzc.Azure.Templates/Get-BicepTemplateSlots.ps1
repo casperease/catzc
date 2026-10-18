@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/Get-BicepTemplateSlots.ps1
-    name: get-bicep-template-slots
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md
-    test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
----
-#>
-
 function Get-BicepTemplateSlots {
     [CmdletBinding()]
     [OutputType([string[]])]

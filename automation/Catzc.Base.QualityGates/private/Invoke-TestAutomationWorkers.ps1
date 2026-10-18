@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-TestAutomationWorkers.ps1
-    folder: private
-    name: invoke-test-automation-workers
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md
-    cites:
-      - ADR-AUTO-CONSOLE#10
-      - ADR-AUTO-TEST#32
----
-#>
-
 function Invoke-TestAutomationWorkers {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

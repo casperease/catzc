@@ -1,21 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: pipelines/ci-automation-expected-failures.yaml
-#     name: ci-automation-expected-failures
-#     filetype: yaml
-#     kind: pipeline
-#     language: pipeline-yaml
-#     track: pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
-#   edges:
-#     page: docs/references/pipelines/ci-automation-expected-failures.yaml.md
-# ---
-
 trigger:
   branches:
     include: [main]

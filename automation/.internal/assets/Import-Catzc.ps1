@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/assets/Import-Catzc.ps1
-    name: import-catzc
-    filetype: ps1
-    kind: asset
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Assets
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Invoke-Importer announces RepositoryRoot and CatzcModulesRoot on its Roots line, the first point a writer is loaded')]
 param(
     [string] $RepositoryRoot,

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/single-responsibility-functions.md
-    folder: docs/adr/automation
-    name: single-responsibility-functions
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-ONEJOB#{1-6}
-    links:
-      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error9
----
-
 # ADR: Single-responsibility functions
 
 ## Rules: ADR-AUTO-ONEJOB

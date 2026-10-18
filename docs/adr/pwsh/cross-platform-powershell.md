@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/cross-platform-powershell.md
-    folder: docs/adr/pwsh
-    name: cross-platform-powershell
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-XPLAT#{1-4,6-10}
-    cites:
-      - ADR-AUTO-DEPS#5
-      - ADR-AUTO-PARITY#1
-      - ADR-AUTO-PATH#4
-      - ADR-AUTO-XPLAT
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps5
-      - docs/adr/automation/cross-platform.md
-      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat3
-      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6
-      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat7
-      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat9
-      - docs/adr/automation/devbox-pipeline-parity.md#rule-adr-auto-parity1
-      - docs/adr/automation/path-representation.md#rule-adr-auto-path4
----
-
 # ADR: Cross-platform PowerShell — the language layer over cross-platform
 
 ## Rules: ADR-PWSH-XPLAT

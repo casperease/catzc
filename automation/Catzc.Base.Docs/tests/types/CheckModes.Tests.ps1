@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
-    folder: tests/types
-    name: check-modes-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TEST#3
-      - ADR-PRIN-ONELIVE#1
----
-#>
-
 Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE#1' {
     It 'returns the default, gate, with no error when the mode is omitted' -Tag 'ADR-AUTO-DEFAULT#6' {
         foreach ($raw in @($null, [ordered]@{}, [ordered]@{ mode = $null })) {

@@ -5,24 +5,6 @@ task:
   value: medium
   blocked_on: nothing; D16 confirmed 2026-10-18
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/adrs.yml, automation/Catzc.Base.Docs/configs/glossary.yml]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-adr-auto-material.md"
-    folder: plans
-    name: task-adr-auto-material
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#5
-      - ADR-AUTO-MATERIAL#1
 ---
 
 # Task: ADR-AUTO-MATERIAL

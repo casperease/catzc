@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1
-    folder: tests
-    name: build-bicep-sample-customer-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleCustomer.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{4,19,26}
-      - ADR-PWSH-PESTER#2
----
-#>
-
 # cspell:ignore alweutstscusst alweutstscusacst
 Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
     BeforeAll {

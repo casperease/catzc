@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "9bd38d6287bb"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md
-    folder: docs/references/automation/catzc-base-modulesystem/private
-    name: get-module-dependency-map-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs
-    folder: types
-    name: file-meta-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
-    cites:
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-FILEMETA#2
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

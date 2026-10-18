@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/a-merge-runs-cd-to-prod.drawio.md
-    folder: docs/explanation/flow
-    name: a-merge-runs-cd-to-prod-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd--a-merge-runs-cd-to-prod--operations.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd--a-merge-runs-cd-to-prod--operations.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd--a-merge-runs-cd-to-prod--operations.tree.md
-      - docs/explanation/flow/a-merge-runs-cd-to-prod.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A merge to main runs the CD pipeline all the way to prod, with no approval: the diagram described
 
 ```text

@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pipelines/custom-template-discipline.md
-    folder: docs/adr/pipelines
-    name: custom-template-discipline
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PIPE-TEMPLATE#{1-7}
-    links:
-      - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/adr/principles/everything-as-code.md
-      - "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/template-parameters?view=azure-devops"
-      - "https://richardwbown.com/azure-devops-yaml-pipelines-the-land-of-confusion/"
----
-
 # ADR: Custom template discipline — when and how to use ADO templates
 
 ## Rules: ADR-PIPE-TEMPLATE

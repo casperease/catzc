@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "3f293549ae3b"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md
-    folder: docs/references/automation/catzc-azure/types
-    name: azure-tenant-record-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
----
-
 # automation/Catzc.Azure/types/AzureTenantRecord.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

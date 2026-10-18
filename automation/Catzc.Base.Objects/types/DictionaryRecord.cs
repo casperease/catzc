@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
-    folder: types
-    name: dictionary-record
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
-    test: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

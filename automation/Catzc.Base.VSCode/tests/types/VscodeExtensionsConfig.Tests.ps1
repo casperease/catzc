@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
-    folder: tests/types
-    name: vscode-extensions-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

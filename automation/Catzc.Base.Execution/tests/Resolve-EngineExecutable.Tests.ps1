@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
-    folder: tests
-    name: resolve-engine-executable-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Resolve-EngineExecutable' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('bash', 'C:\widget\bin\bash.exe', 'probe', '5.2.37', '5', $true, 1, 0, 'Agent')

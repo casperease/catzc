@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/DocPattern.cs
-    folder: types
-    name: doc-pattern
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/DocPattern.cs.md
-    test: automation/Catzc.Base.Docs/tests/types/DocPattern.Tests.ps1
-    cites:
-      - ADR-AUTO-PATH
----
-*/
-
 using System;
 using System.Collections;
 

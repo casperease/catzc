@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/add-a-deployable-unit.md
-    folder: docs/how-to/getting-started/automation
-    name: add-a-deployable-unit
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger
-      - docs/adr/repository/protected-globs.md
----
-
 # Add a deployable unit (a globset and its triggers)
 
 A deployable unit is defined exactly once, as a **globset** in `automation/Catzc.Base.Globs/configs/globs.yml` — a named set of glob

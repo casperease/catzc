@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "21cbd7522c30"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
-    folder: docs/references/automation/catzc-base-modulesystem
-    name: get-function-dependency-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#{2,4-6}
-      - ADR-AUTO-TEST#4
-      - ADR-PWSH-CACHE#4
-      - ADR-PWSH-PESTER#9
----
-
 # automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

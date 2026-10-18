@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/internal/catzc-internal-importer.md
-    folder: docs/references/automation/internal
-    name: catzc-internal-importer
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#13
-    links:
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/internal/catzc-internal-bootstrap.md
-      - docs/references/automation/internal/catzc-internal-types.md
-      - docs/references/automation/internal/catzc-internal-vendor.md
-      - docs/references/automation/internal/index.md
----
-
 # Catzc.Internal.Importer
 
 The importer overlay — the single living copy of the toolset's whole load sequence. It exports one function, `Invoke-Importer`, whose

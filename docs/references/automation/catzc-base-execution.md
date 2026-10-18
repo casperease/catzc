@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-execution.md
-    folder: docs/references/automation
-    name: catzc-base-execution
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/execution-engines.md
-      - docs/adr/automation/log-before-invoke.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/pwsh/script-scope-caching.md
-      - docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
-      - docs/references/automation/catzc-base-repository.md
-      - docs/references/automation/catzc-base-writers.md
-      - docs/references/automation/catzc-tooling-core.md
----
-
 # Catzc.Base.Execution
 
 The external-process boundary module. It **owns the complete lifecycle of running an external tool from PowerShell** — logging the exact

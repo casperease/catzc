@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/CustomRuleWiring.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: custom-rule-wiring-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '', Justification = 'Fixture intentionally contains a raw ##vso[task.*] string to prove the rule fires through the engine.')]
 param()
 

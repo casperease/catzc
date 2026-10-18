@@ -12,35 +12,6 @@ plan:
       docs/adr/automation,
       docs/adr/design,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-module-kinds-tracks.md"
-    folder: plans
-    name: plan-module-kinds-tracks
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-DEPM#{1,2,5,6}
-      - ADR-AUTO-ENGINE#{1,4,6,7}
-      - ADR-AUTO-TYPES#{1,3,9}
-      - ADR-DSGN-ASPECT#{1,2,5}
-      - ADR-DSGN-TRACK#{1-3,5-7,11,17,18}
-      - ADR-PWSH-MANIFEST#{3-5}
-      - ADR-REPO-CONTRACT#{3,6}
-      - ADR-REPO-FILEMETA#12
-      - ADR-REPO-VOCAB#1
-    links:
-      - ".claude/plans/plan-config-defaults.md"
-      - ".claude/plans/plan-layers-vocabulary-rename-contracts.md"
 ---
 
 # Module as the one generic model; object kinds owned by tracks; a type for each track

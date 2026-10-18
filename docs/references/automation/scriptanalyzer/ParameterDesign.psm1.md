@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8960d512cee8"
-    repo_status: locked
-    path: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
-    folder: docs/references/automation/scriptanalyzer
-    name: parameter-design-psm1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PWSH-FORMAT#6
-      - ADR-PWSH-PARAM#4
----
-
 # automation/.scriptanalyzer/ParameterDesign.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

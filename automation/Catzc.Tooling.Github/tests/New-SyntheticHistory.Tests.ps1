@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
-    folder: tests
-    name: new-synthetic-history-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
----
-#>
-
 Describe 'New-SyntheticHistory' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:repo = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-synth-' + [guid]::NewGuid().ToString('N').Substring(0, 12))

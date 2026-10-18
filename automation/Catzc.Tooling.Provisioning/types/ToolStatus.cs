@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/types/ToolStatus.cs
-    folder: types
-    name: tool-status
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/types/ToolStatus.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Tooling.Provisioning;

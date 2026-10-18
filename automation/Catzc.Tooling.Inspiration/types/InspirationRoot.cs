@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
-    folder: types
-    name: inspiration-root
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
-    test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
-    cites:
-      - ADR-AUTO-PATH#{3,6,11}
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

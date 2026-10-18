@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1
-    folder: tests
-    name: test-links-repository-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Repository.Tests.ps1.md
-    cites:
-      - ADR-REPO-LINK
----
-#>
-
 Describe 'Repository code links (automation comments)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:result = Test-Links -Path (Join-Path (Get-RepositoryRoot) 'automation') -Kind Code -PassThru `

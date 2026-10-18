@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: no-unbounded-enumeration-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md
-    cites:
-      - ADR-PWSH-ENUM#{1,3}
----
-#>
-
 Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1', 'ADR-PWSH-ENUM#3' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoUnboundedEnumeration.psm1') -Force

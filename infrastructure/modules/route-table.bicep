@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/route-table.bicep
-//     name: route-table
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: route-table
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/route-table.bicep.md
-// ---
-
 @description('Route table name (1-80 characters, unique within the resource group).')
 param name string
 

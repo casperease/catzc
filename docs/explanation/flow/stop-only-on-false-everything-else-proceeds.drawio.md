@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.drawio.md
-    folder: docs/explanation/flow
-    name: stop-only-on-false-everything-else-proceeds-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.tree.md
-      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A stage returns only on $false; a doubt prints a message and proceeds; a typo throws: the diagram described
 
 ```text

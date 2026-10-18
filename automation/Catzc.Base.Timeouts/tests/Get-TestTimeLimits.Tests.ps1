@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/Get-TestTimeLimits.Tests.ps1
-    folder: tests
-    name: get-test-time-limits-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-TestTimeLimits' -Tag 'L0', 'logic' {
     It 'returns the configured tier limits and run budget' {
         Mock Get-Config -ModuleName Catzc.Base.Timeouts {

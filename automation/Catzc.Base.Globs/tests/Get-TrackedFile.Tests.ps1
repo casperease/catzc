@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
-    folder: tests
-    name: get-tracked-file-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-GLOBS#4
----
-#>
-
 Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {
     It "returns the whole repository's tracked set from Get-GitTrackedPath" {
         Mock Get-GitTrackedPath { @('a.txt', 'src/b.cs') } -ModuleName Catzc.Base.Globs

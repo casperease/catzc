@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/index.md
-    folder: docs/explanation/repository
-    name: index
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/index.md#repository
-      - docs/explanation/index.md
----
-
 # Repository explanations
 
 ```text

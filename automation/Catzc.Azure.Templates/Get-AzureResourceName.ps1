@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/Get-AzureResourceName.ps1
-    name: get-azure-resource-name
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
-    test: automation/Catzc.Azure.Templates/tests/Get-AzureResourceName.Tests.ps1
-    cites:
-      - ADR-AZ-NAMING
----
-#>
-
 # cspell:ignore weuzctsmplst
 function Get-AzureResourceName {
     [CmdletBinding()]

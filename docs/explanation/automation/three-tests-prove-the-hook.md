@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/three-tests-prove-the-hook.md
-    folder: docs/explanation/automation
-    name: three-tests-prove-the-hook
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-FAILFAST#7
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/explanation/.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
-      - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
-      - docs/explanation/automation/decide-returns-null-or-a-reason.md
-      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
-      - docs/explanation/automation/three-tests-prove-the-hook.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only
 
 ```text

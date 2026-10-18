@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
-    folder: private
-    name: resolve-writer-color
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
----
-#>
-
 function Resolve-WriterColor {
     [CmdletBinding()]
     [OutputType([hashtable])]

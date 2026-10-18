@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/tests/New-VSCodeExtensionFolder.Tests.ps1
-    folder: tests
-    name: new-vs-code-extension-folder-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-PWSH-PESTER#2
----
-#>
-
 # Rests on [ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2).
 Describe 'New-VSCodeExtensionFolder' -Tag 'L0', 'logic' {
     BeforeAll {

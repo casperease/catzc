@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
-    folder: tests/types
-    name: win-ansi-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'WinAnsi' -Tag 'L0', 'logic' {
     It 'gives ASCII and Latin-1 characters their own code' {
         [Catzc.Base.Maps.WinAnsi]::CodeOf('W') | Should -Be 0x57

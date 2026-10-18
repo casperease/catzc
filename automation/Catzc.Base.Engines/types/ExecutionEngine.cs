@@ -1,29 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
-    folder: types
-    name: execution-engine
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Engines
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
-    test: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE
-      - ADR-AUTO-FAILFAST#7
-      - ADR-AUTO-TYPES#8
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

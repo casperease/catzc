@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/local-guard-and-server-policies.drawio.md
-    folder: docs/explanation/design
-    name: local-guard-and-server-policies-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md
-      - docs/explanation/design/local-guard-and-server-policies.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The code carries both halves of ingress, but nothing finds the last verified commit: the diagram described
 
 ```text

@@ -1,37 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/internal-asset-dependencies.md
-    folder: docs/adr/automation
-    name: internal-asset-dependencies
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-ASSETDEP#{1-5}
-    cites:
-      - ADR-AUTO-NOPWD#1
-      - ADR-AUTO-TEST#1
-      - ADR-PWSH-PWD#{4,7}
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/automation/never-depend-on-pwd.md
-      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1
-      - docs/adr/automation/open-closed-architecture.md
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5
-      - docs/adr/automation/test-automation.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test31
-      - docs/adr/design/run-modes.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4
-      - docs/adr/repository/conventional-folders.md
----
-
 # ADR: Internal asset dependencies — located through one helper, tested in both run modes
 
 ## Rules: ADR-AUTO-ASSETDEP

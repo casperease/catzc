@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/flow/pipeline-detection.md
-    folder: docs/adr/flow
-    name: pipeline-detection
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-FLOW-CD-DETECT#{1-5}
-    links:
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/adr/pipelines/pipeline-variables.md
----
-
 # ADR: Pipeline detection — how functions adapt to their execution context
 
 ## Rules: ADR-FLOW-CD-DETECT

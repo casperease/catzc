@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/prompt-automation-layers-continue.md"
-    folder: plans
-    name: prompt-automation-layers-continue
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-ENGINE#4
----
-
 # Continuation prompt for the automation layers + pwsh rename work: paste as the first message of a fresh session
 
 Written 2026-10-16. Named `prompt-*`; copy it, the four `plan-*` files named below and `prompt-module-model-*` into your scratchpad first

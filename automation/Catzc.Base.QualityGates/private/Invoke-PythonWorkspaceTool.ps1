@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1
-    folder: private
-    name: invoke-python-workspace-tool
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Invoke-PythonWorkspaceTool.Tests.ps1
-    cites:
-      - ADR-AUTO-PY#8
----
-#>
-
 function Invoke-PythonWorkspaceTool {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Execution.CliResult])]

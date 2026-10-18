@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
-    folder: tests
-    name: assert-vendor-module-available-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Assert-VendorModuleAvailable' -Tag 'L0', 'logic' {
     It 'does not throw when the module is available' {
         Mock Test-VendorModuleAvailable -ModuleName Catzc.Base.Vendor { $true }

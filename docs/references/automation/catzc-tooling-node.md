@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-node.md
-    folder: docs/references/automation
-    name: catzc-tooling-node
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/cross-platform.md
-      - docs/adr/automation/use-proper-package-managers.md
-      - docs/references/automation/catzc-base-qualitygates.md
-      - docs/references/automation/catzc-tooling-core.md
----
-
 # Catzc.Tooling.Node
 
 The Node.js ecosystem module of the Tooling group. It owns the Node runtime and npm, and the npm-delivered quality tools the repository's

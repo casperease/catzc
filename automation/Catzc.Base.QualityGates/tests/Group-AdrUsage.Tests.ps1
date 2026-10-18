@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
-    folder: tests
-    name: group-adr-usage-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Group-AdrUsage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:rows = @(

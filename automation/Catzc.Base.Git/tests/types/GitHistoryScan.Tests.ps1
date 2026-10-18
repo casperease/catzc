@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
-    folder: tests/types
-    name: git-history-scan-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md
----
-#>
-
 Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-ObjectId {

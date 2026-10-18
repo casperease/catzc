@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/tooling.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: tooling
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Tooling
 
 The shipped `tools.yml` and the tool install machinery. Part of the [manual test plan](../manual-test-plan.md), which says how to run a

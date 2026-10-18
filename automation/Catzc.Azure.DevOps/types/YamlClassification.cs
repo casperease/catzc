@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/types/YamlClassification.cs
-    folder: types
-    name: yaml-classification
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md
----
-*/
-
 namespace Catzc.Azure.DevOps;
 
 public enum YamlClassification

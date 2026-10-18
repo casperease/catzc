@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b2ac99e2051e
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md
-    folder: docs/references/automation/catzc-base-qualitygates/configs
-    name: generated-files-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
----
-
 # automation/Catzc.Base.QualityGates/configs/generated-files.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

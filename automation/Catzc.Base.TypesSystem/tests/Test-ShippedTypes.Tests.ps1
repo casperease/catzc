@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
-    folder: tests
-    name: test-shipped-types-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-typessystem/tests/Test-ShippedTypes.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'automation'

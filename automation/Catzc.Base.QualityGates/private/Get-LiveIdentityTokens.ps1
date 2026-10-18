@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
-    folder: private
-    name: get-live-identity-tokens
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-CONF-LOADING
-      - ADR-REPO-LANG
----
-#>
-
 function Get-LiveIdentityTokens {
     [CmdletBinding()]
     [OutputType([object[]])]

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
-    folder: tests/types
-    name: aspect-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
-    cites:
-      - ADR-DSGN-ASPECT
----
-#>
-
 Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:convention = {

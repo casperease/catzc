@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
-    folder: types
-    name: git-ignore-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
-    test: automation/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
-    cites:
-      - ADR-CONF-LOADING
-      - ADR-REPO-ROOTCFG
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

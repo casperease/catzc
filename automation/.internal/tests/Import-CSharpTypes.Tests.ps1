@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Import-CSharpTypes.Tests.ps1
-    name: import-c-sharp-types-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/tests/Import-CSharpTypes.Tests.ps1.md
-    cites:
-      - ADR-PWSH-PESTER#9
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests read $global:__CatzcDeferredTypes, the session-global pending record of the deferred types load')]
 param()
 

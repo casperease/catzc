@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-SourceConventions.ps1
-    name: test-source-conventions
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#{3,35}
-      - ADR-PWSH-PESTER#{5,9}
----
-#>
-
 function Test-SourceConventions {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

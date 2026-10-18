@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/private/Test-ToolHomeProbe.ps1
-    folder: private
-    name: test-tool-home-probe
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
----
-#>
-
 function Test-ToolHomeProbe {
     [OutputType([bool])]
     [CmdletBinding()]

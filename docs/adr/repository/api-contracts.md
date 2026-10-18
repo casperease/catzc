@@ -1,37 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/api-contracts.md
-    folder: docs/adr/repository
-    name: api-contracts
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-CONTRACT#{1-10}
-    cites:
-      - ADR-AUTO-BUNDLE#7
-      - ADR-AUTO-DEFAULT#6
-      - ADR-PRIN-ONELIVE#7
-      - ADR-REPO-FOLDERS#4
-      - ADR-REPO-ROOTCFG#1
-    links:
-      - docs/adr/automation/execution-engines.md
-      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/automation/zero-ceremony-poka-yoke.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive7
-      - docs/adr/repository/command-contracts.md
-      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders11
-      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4
-      - docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg1
----
-
 # ADR: Contracts at the repository boundary — both directions, versioned with their unit, proven by tests
 
 ## Rules: ADR-REPO-CONTRACT

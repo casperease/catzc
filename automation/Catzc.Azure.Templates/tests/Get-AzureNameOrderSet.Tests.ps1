@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1
-    folder: tests
-    name: get-azure-name-order-set-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-AzureNameOrderSet' -Tag 'L0', 'logic' {
     It 'exposes the standard and classic orders' {
         $orders = Get-AzureNameOrderSet

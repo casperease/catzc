@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/track-types.md
-    folder: docs/adr/design
-    name: track-types
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-TRACKTYPE#{1-7}
-    cites:
-      - ADR-DSGN-MODTYPE#3
-      - ADR-DSGN-TRACK#{1,3,5,6,11,17}
-    links:
-      - docs/adr/design/module-aspects.md
-      - docs/adr/design/module-types.md#rule-adr-dsgn-modtype3
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track1
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track11
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track17
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track5
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track6
-      - docs/adr/principles/configure-not-program.md
----
-
 # ADR: Track types — what a track owns, and where tracks are declared
 
 ## Rules: ADR-DSGN-TRACKTYPE

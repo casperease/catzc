@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/gates-check-source-and-trigger.drawio.md
-    folder: docs/explanation/flow
-    name: gates-check-source-and-trigger-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md
-      - docs/explanation/flow/gates-check-source-and-trigger.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Gates check the source of each globset and the trigger, but not the git reflection or the identity: the diagram described
 
 ```text

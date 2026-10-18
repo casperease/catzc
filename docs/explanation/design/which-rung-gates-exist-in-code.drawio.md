@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/which-rung-gates-exist-in-code.drawio.md
-    folder: docs/explanation/design
-    name: which-rung-gates-exist-in-code-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md
-      - docs/explanation/design/which-rung-gates-exist-in-code.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Only PR build validation, the BVT and the failure stop are checked in code: the diagram described
 
 ```text

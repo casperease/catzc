@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e64e7a761816
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md
-    folder: docs/references/automation/catzc-base-modulesystem/types
-    name: ado-artifacts-target-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.ModuleSystem/types/AdoArtifactsTarget.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

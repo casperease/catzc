@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/LinkEngine.cs
-    folder: types
-    name: link-engine
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md
-    cites:
-      - ADR-REPO-LINK#{1,5,6,8}
-      - ADR-X
----
-*/
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

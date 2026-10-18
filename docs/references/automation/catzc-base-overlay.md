@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-overlay.md
-    folder: docs/references/automation
-    name: catzc-base-overlay
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/consumer-overlay.md
-      - docs/adr/automation/platform-bundle.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-repository.md
----
-
 # Catzc.Base.Overlay
 
 The consumer overlay module. It **applies a consumer's changes to a built bundle** — the overlay, the `.catzc/` folder in the consumer's own

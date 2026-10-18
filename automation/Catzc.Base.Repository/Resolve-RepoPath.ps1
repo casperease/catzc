@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/Resolve-RepoPath.ps1
-    name: resolve-repo-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Repository/tests/Resolve-RepoPath.Tests.ps1
-    cites:
-      - ADR-AUTO-PATH
----
-#>
-
 function Resolve-RepoPath {
     [CmdletBinding()]
     [OutputType([string])]

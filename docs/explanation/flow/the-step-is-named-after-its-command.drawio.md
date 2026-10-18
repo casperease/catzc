@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/the-step-is-named-after-its-command.drawio.md
-    folder: docs/explanation/flow
-    name: the-step-is-named-after-its-command-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
-      - docs/explanation/flow/the-step-is-named-after-its-command.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The Azure DevOps step is named after its command, and its log echoes the command before it runs: the diagram described
 
 ```text

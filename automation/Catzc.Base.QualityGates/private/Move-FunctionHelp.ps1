@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Move-FunctionHelp.ps1
-    folder: private
-    name: move-function-help
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
----
-#>
-
 function Move-FunctionHelp {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

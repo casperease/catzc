@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleOrder.Tests.ps1
-    folder: tests
-    name: get-module-order-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-MODULE#5
----
-#>
-
 Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#5' {
     It 'orders each module after its declared module dependencies (dependencies-first)' {
         Mock Get-ModuleGroupConfig { [ordered]@{} } -ModuleName Catzc.Base.ModuleSystem

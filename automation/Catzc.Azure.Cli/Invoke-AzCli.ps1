@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Invoke-AzCli.ps1
-    name: invoke-az-cli
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
-    test: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
----
-#>
-
 function Invoke-AzCli {
     [CmdletBinding()]
     param(

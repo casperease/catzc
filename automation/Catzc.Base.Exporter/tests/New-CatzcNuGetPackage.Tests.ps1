@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
-    folder: tests
-    name: new-catzc-nu-get-package-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,20}
----
-#>
-
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 InModuleScope Catzc.Base.Exporter {
     Describe 'New-CatzcNuGetPackage' -Tag 'L0', 'logic' {

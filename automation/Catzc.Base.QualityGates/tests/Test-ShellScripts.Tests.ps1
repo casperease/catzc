@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
-    folder: tests
-    name: test-shell-scripts-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,8,35}
----
-#>
-
 Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

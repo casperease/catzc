@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.drawio.md
-    folder: docs/explanation/design
-    name: deploy-and-integrate-share-only-the-topic-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.tree.md
-      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Deploying a topic commit and integrating it share only the topic commit: the diagram described
 
 ```text

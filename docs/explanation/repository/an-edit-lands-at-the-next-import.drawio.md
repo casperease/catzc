@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/an-edit-lands-at-the-next-import.drawio.md
-    folder: docs/explanation/repository
-    name: an-edit-lands-at-the-next-import-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-variant--an-edit-lands-at-the-next-import--operations.chain.md
-      - docs/explanation/.assets/grid/adr-repo-variant--an-edit-lands-at-the-next-import--operations.grid.md
-      - docs/explanation/.assets/tree/adr-repo-variant--an-edit-lands-at-the-next-import--operations.tree.md
-      - docs/explanation/repository/an-edit-lands-at-the-next-import.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # An edit to a variant lands at the next import, and a wrong value fails once, at load: the diagram described
 
 ```text

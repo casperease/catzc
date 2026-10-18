@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "90add94c66ec"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-typessystem/tests/Assert-LoadedTypesCurrent.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-typessystem/tests
-    name: assert-loaded-types-current-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{3,6}
-      - ADR-AUTO-TYPES#15
----
-
 # automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

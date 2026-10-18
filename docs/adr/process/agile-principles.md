@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/agile-principles.md
-    folder: docs/adr/process
-    name: agile-principles
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PRIN-PROCESS#{1-12}
-    links:
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/agile-values.md
-      - docs/adr/process/agile.md
-      - "https://agilemanifesto.org"
-      - "https://agilemanifesto.org/principles.html"
----
-
 # ADR: Agile principles — the twelve principles behind the manifesto
 
 ## Rules: ADR-PRIN-PROCESS

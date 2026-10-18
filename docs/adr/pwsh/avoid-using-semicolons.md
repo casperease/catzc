@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/avoid-using-semicolons.md
-    folder: docs/adr/pwsh
-    name: avoid-using-semicolons
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-NOSEMI#{1-4}
----
-
 # ADR: Avoid using semicolons
 
 ## Rules: ADR-PWSH-NOSEMI

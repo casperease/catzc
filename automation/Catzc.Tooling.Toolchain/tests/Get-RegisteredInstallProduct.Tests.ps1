@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
-    folder: tests
-    name: get-registered-install-product-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md
-    cites:
-      - ADR-AUTO-REMOVE#7
----
-#>
-
 Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#7' {
     BeforeEach {
         $script:entries = @{

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/test-harness.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: test-harness
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#25
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Test harness
 
 The test runner, its vendored Pester, fixture-identity hygiene, and this plan's own drift guard. Part of the

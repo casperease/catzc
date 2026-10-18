@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-provisioning.md
-    folder: docs/references/automation
-    name: catzc-tooling-provisioning
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/automation/cross-platform.md
-      - docs/adr/automation/dry-run.md
-      - docs/adr/automation/idempotent-state-functions.md
-      - docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png
-      - docs/references/automation/catzc-tooling-core.md
-      - docs/references/automation/catzc-tooling-node.md
-      - docs/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
-      - docs/references/automation/catzc-tooling-python.md
-      - docs/references/automation/catzc-tooling-toolchain.md
----
-
 # Catzc.Tooling.Provisioning
 
 The orchestration module of the Tooling group. It converges a whole development workstation to the complete locked tool set in dependency

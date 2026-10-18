@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/deploying-is-not-integrating.md
-    folder: docs/explanation/design
-    name: deploying-is-not-integrating
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#{1,9}
-      - ADR-DSGN-VISUAL#{4,13}
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/visual-design.md
-      - docs/explanation/.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
-      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
-      - docs/explanation/design/deploying-is-not-integrating.drawio.md
-      - docs/explanation/design/every-deploy-stage-is-main-only.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/merging-to-main-is-what-deploys.md
-      - docs/explanation/design/out-of-band-deploy-is-adr-only.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Deploying a topic commit is not integrating it
 
 ```text

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
-    folder: tests/types
-    name: dictionary-record-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TYPES#9
----
-#>
-
 Describe 'DictionaryRecord' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'DictionaryRecordWidgetProbe').Type) {

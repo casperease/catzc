@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.drawio.md
-    folder: docs/explanation/flow
-    name: one-gate-checks-the-raw-read-rule-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.tree.md
-      - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate: the diagram described
 
 ```text

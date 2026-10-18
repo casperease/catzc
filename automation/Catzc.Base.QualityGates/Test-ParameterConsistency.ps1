@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
-    name: test-parameter-consistency
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-PWSH-PARAM
----
-#>
-
 function Test-ParameterConsistency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

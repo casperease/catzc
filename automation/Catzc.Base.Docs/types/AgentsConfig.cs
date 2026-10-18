@@ -1,30 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/AgentsConfig.cs
-    folder: types
-    name: agents-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
-    test: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
-    cites:
-      - ADR-AI
-      - ADR-AUTO-TYPES#8
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-AGENTS#{2,4,6,8}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

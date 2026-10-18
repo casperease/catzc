@@ -5,25 +5,6 @@ plan:
   reviewed: 2026-10-18
   role: master
   targets: [.claude/plans]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-master.md"
-    folder: plans
-    name: plan-master
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-FOLDERS#12
-      - ADR-REPO-PLANS#8
-      - ADR-REPO-VOCAB#9
 ---
 
 # Master: every open step of every plan, in one executable order

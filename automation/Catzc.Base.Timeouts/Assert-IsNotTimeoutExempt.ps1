@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1
-    name: assert-is-not-timeout-exempt
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Timeouts/tests/Assert-IsNotTimeoutExempt.Tests.ps1
----
-#>
-
 function Assert-IsNotTimeoutExempt {
     [CmdletBinding()]
     param(

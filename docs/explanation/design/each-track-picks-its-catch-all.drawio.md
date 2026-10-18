@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/each-track-picks-its-catch-all.drawio.md
-    folder: docs/explanation/design
-    name: each-track-picks-its-catch-all-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.tree.md
-      - docs/explanation/design/each-track-picks-its-catch-all.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Each track picks its catch-all: a stray module file falls to tests, a stray template file to live: the diagram described
 
 ```text

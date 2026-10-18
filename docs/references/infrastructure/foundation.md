@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/foundation.md
-    folder: docs/references/infrastructure
-    name: foundation
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/references/infrastructure/discovery.md
-      - docs/references/infrastructure/expedition.md
-      - docs/references/infrastructure/modules.md
----
-
 # foundation
 
 The once-per-subscription baseline. `foundation` deploys the shared services every other template in the subscription depends on — a Log

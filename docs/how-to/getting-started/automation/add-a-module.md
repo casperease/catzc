@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/add-a-module.md
-    folder: docs/how-to/getting-started/automation
-    name: add-a-module
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-CONF-LOADING#4
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/open-closed-architecture.md
-      - docs/adr/automation/zero-ceremony-poka-yoke.md
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
-      - docs/adr/repository/conventional-folders.md
-      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
-      - docs/how-to/getting-started/automation/powershell/add-a-function.md
----
-
 # Add a module
 
 A module is just a folder. Create a non-dot directory under `automation/`, drop `.ps1` files in it, and the importer discovers it — no

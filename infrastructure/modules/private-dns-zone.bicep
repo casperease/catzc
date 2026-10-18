@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/private-dns-zone.bicep
-//     name: private-dns-zone
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: private-dns-zone
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/private-dns-zone.bicep.md
-// ---
-
 @description('Zone name, e.g. privatelink.database.windows.net.')
 param name string
 

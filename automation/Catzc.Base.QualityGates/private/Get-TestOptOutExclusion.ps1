@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-TestOptOutExclusion.ps1
-    folder: private
-    name: get-test-opt-out-exclusion
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#31
----
-#>
-
 function Get-TestOptOutExclusion {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

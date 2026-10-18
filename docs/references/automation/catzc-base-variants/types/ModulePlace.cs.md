@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: d856825e05ee
-    repo_status: locked
-    path: docs/references/automation/catzc-base-variants/types/ModulePlace.cs.md
-    folder: docs/references/automation/catzc-base-variants/types
-    name: module-place-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Variants/types/ModulePlace.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

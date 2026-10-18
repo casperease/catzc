@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
-    folder: tests
-    name: get-contract-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEFAULT#{1,6}
-      - ADR-AUTO-PATH#2
-      - ADR-REPO-CMDCONTRACT#3
-      - ADR-REPO-CONTRACT
----
-#>
-
 Describe 'Get-Contract' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-Asset {

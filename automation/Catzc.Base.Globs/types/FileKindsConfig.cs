@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/types/FileKindsConfig.cs
-    folder: types
-    name: file-kinds-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/types/FileKindsConfig.cs.md
-    test: automation/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
-    cites:
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-FILEMETA#2
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

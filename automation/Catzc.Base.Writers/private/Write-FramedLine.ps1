@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Writers/private/Write-FramedLine.ps1
-    folder: private
-    name: write-framed-line
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
----
-#>
-
 function Write-FramedLine {
     [CmdletBinding()]
     param(

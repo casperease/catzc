@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
-    folder: tests
-    name: build-root-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-AUTO-TEST#{3,14}
-      - ADR-PWSH-PESTER#2
----
-#>
-
 # cspell:ignore nbeta nmodule  -- the escape-sequence artifacts in the "alpha`nbeta" and "`nmodule …" fixture strings
 Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     BeforeAll {

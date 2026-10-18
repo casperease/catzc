@@ -11,24 +11,6 @@ task:
       automation/Catzc.Base.Engines,
       automation/Catzc.Base.Timeouts/configs/timeouts.yml,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-test-run-budget.md"
-    folder: plans
-    name: task-test-run-budget
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-REPO-FORMAT#8
 ---
 
 # Task: the full test run under its 180 s roof

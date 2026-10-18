@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/open-closed-architecture.md
-    folder: docs/adr/automation
-    name: open-closed-architecture
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-EXTEND#{1,3-5}
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/design/tracks.md
-      - docs/adr/pwsh/dynamic-module-manifests.md
-      - docs/adr/pwsh/dynamic-module-manifests.md#one-function-namespace
-      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest9
-      - docs/adr/pwsh/one-function-per-file.md
-      - docs/adr/pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc1
-      - docs/adr/repository/conventional-folders.md
----
-
 # ADR: Open/closed architecture
 
 ## Rules: ADR-AUTO-EXTEND

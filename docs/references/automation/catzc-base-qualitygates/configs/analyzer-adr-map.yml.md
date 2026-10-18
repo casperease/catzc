@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "44eac6826be0"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
-    folder: docs/references/automation/catzc-base-qualitygates/configs
-    name: analyzer-adr-map-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AZ-CUSTOMER#3
----
-
 # automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

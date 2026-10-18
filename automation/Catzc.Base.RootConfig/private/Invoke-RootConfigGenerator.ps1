@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
-    folder: private
-    name: invoke-root-config-generator
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
-    cites:
-      - ADR-AUTO-GO#6
-      - ADR-AUTO-PY#4
-      - ADR-REPO-FORMAT#8
----
-#>
-
 function Invoke-RootConfigGenerator {
     [OutputType([string], [object[]])]
     param(

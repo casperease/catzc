@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: pipelines-and-globs
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#10
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Pipelines and globs
 
 The Azure DevOps configs, the pipelines tree, and the globset projections that drive pipeline triggers. Part of the

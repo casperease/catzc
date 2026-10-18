@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
-    folder: types
-    name: bicep-short-name
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md
-    test: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#9
-      - ADR-AZ-NAMING
----
-*/
-
 using System;
 using System.Text;
 

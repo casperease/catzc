@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/deployment-automation.md
-    folder: docs/adr/research
-    name: deployment-automation
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-DEPLOY#{1-5}
-    links:
-      - docs/adr/automation/idempotent-state-functions.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/references/dora/capabilities.md#continuous-delivery
-      - docs/references/dora/capabilities.md#continuous-integration
-      - docs/references/dora/capabilities.md#deployment-automation
-      - docs/references/dora/capabilities.md#fast-flow
-      - docs/references/dora/capabilities.md#streamlining-change-approval
-      - docs/references/dora/capabilities.md#version-control
-      - docs/references/dora/core-model.md#fast-flow
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2017-state-of-devops-report
-      - "https://dora.dev/capabilities/deployment-automation/"
----
-
 # ADR: DORA — Deployment automation
 
 ## Rules: ADR-DORA-DEPLOY

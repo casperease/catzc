@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/every-vendor-call-leaves-through-az.drawio.md
-    folder: docs/explanation/design
-    name: every-vendor-call-leaves-through-az-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md
-      - docs/explanation/design/every-vendor-call-leaves-through-az.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every vendor call leaves cats through the az CLI: the diagram described
 
 ```text

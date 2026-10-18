@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/types/TestTiers.cs
-    folder: types
-    name: test-tiers
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
-    test: automation/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#{13,41}
----
-*/
-
 namespace Catzc.Base.Timeouts;
 
 public static class TestTiers

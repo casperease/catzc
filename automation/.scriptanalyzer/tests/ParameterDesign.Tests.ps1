@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/ParameterDesign.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: parameter-design-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md
-    cites:
-      - ADR-PWSH-PARAM#{2-4}
----
-#>
-
 BeforeAll {
     Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/ParameterDesign.psm1') -Force
     if (-not (Get-Module PSScriptAnalyzer)) {

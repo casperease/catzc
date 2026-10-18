@@ -12,20 +12,6 @@ task:
       automation/.scriptanalyzer,
       .claude/hooks/Assert-BashTimeout,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-layers-funnel.md"
-    folder: plans
-    name: task-layers-funnel
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Task: layers P2, the funnel

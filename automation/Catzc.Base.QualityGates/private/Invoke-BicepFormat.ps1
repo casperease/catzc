@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-BicepFormat.ps1
-    folder: private
-    name: invoke-bicep-format
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
-    cites:
-      - ADR-PRIN-CONFIG#2
----
-#>
-
 function Invoke-BicepFormat {
     [CmdletBinding()]
     [OutputType([string[]])]

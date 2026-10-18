@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/NoRawInformationStream.psm1
-    folder: automation/.scriptanalyzer
-    name: no-raw-information-stream
-    filetype: psm1
-    kind: analyzer-rule
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md
----
-#>
-
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 function Measure-NoRawInformationStream {

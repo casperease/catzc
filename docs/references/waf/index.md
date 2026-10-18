@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/waf/index.md
-    folder: docs/references/waf
-    name: index
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-WAFRE#4
-    links:
-      - docs/adr/azure/landing-zones.md
-      - docs/adr/azure/waf/
-      - docs/adr/azure/waf/cost-optimization.md
-      - docs/adr/azure/waf/operational-excellence.md
-      - docs/adr/azure/waf/performance-efficiency.md
-      - docs/adr/azure/waf/reliability.md
-      - docs/adr/azure/waf/security.md
-      - docs/references/dora/index.md
-      - "https://learn.microsoft.com/en-us/azure/well-architected/"
-      - "https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/checklist"
-      - "https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist"
-      - "https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist"
-      - "https://learn.microsoft.com/en-us/azure/well-architected/reliability/checklist"
-      - "https://learn.microsoft.com/en-us/azure/well-architected/security/checklist"
-      - "https://learn.microsoft.com/en-us/legal/termsofuse"
----
-
 # Azure Well-Architected Framework reference
 
 This folder is the repository's local entry point to Microsoft's

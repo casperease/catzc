@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
-    folder: tests
-    name: convert-to-dictionary-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'ConvertTo-Dictionary' -Tag 'L0', 'logic' {
     It 'converts a typed class into a mutable nested ordered dictionary' {
         $result = [Catzc.Base.Execution.CliResult]::new("hello`r`n", 'oops', 3)

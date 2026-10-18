@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/BCL/index.md
-    folder: docs/references/automation/BCL
-    name: index
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PWSH-TYPES#1
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/pwsh/hosting-csharp-types.md
-      - docs/references/automation/BCL/types-system.md
-      - docs/references/automation/catzc-base-objects.md
-      - docs/references/automation/catzc-base-typessystem.md
-      - "https://learn.microsoft.com/en-us/dotnet/api/"
-      - "https://learn.microsoft.com/en-us/dotnet/standard/class-library-overview"
-      - "https://learn.microsoft.com/en-us/dotnet/standard/glossary#bcl"
-      - "https://learn.microsoft.com/en-us/dotnet/standard/runtime-libraries-overview"
-      - "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/add-type"
----
-
 # BCL (C# / .NET types) — automation reference
 
 **BCL** is the .NET **Base Class Library** — the standard set of libraries built into the .NET runtime, spanning the `System.*` (and, to a

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/tests/Get-RootConfigInputStamp.Tests.ps1
-    folder: tests
-    name: get-root-config-input-stamp-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#10
----
-#>
-
 Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
     BeforeAll {
         Import-InternalModule TestKit

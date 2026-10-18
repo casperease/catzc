@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
-    name: ps-script-analyzer-settings
-    filetype: psd1
-    kind: asset
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Assets
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 @{
     Severity            = @('Error', 'Warning', 'Information')
 

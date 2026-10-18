@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
-    folder: tests
-    name: get-generator-path-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#7
----
-#>
-
 Describe 'Get-GeneratorPath' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#7' {
     It 'names the file a loaded function is defined in, relative to the root the code lives in, with forward slashes' {
         InModuleScope Catzc.Base.Languages {

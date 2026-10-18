@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
-    folder: tests
-    name: test-markdownlint-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Test-Markdownlint.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{8,14,35}
-      - ADR-REPO-PROTGLOB
----
-#>
-
 Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:markdownlintExit = 0

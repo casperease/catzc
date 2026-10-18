@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/docs-and-links.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: docs-and-links
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#3
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Docs and links
 
 Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository links. Part of the

@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
-    folder: types
-    name: bash-safeguard
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
-    test: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
-    cites:
-      - ADR-AUTO-FAILFAST#7
----
-*/
-
 using System;
 using System.Globalization;
 using System.Text.Json;

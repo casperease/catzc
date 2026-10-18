@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.drawio.md
-    folder: docs/explanation/flow
-    name: globs-asks-loader-for-context-and-git-for-diff-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.tree.md
-      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Catzc.Base.Globs owns the check, the loader names the context, and git names the change: the diagram described
 
 ```text

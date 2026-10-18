@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-writers.md
-    folder: docs/references/automation
-    name: catzc-base-writers
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/console-output-matters.md
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-objects.md
----
-
 # Catzc.Base.Writers
 
 The console output module. It owns the **one colour-aware writer family** the entire platform logs through — every status line, header,

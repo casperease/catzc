@@ -1,30 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/LinksConfig.cs
-    folder: types
-    name: links-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/LinksConfig.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-PWSH-PARAM#4
-      - ADR-REPO-LINK#{5,8}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

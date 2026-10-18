@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
-    folder: tests/types
-    name: console-text-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TYPES#9
----
-#>
-
 Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleTextWidgetProbe').Type) {

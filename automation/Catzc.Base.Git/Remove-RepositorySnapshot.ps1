@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/Remove-RepositorySnapshot.ps1
-    name: remove-repository-snapshot
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
-    test: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
-    cites:
-      - ADR-PWSH-ENUM#3
----
-#>
-
 function Remove-RepositorySnapshot {
     [CmdletBinding()]
     param(

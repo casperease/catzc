@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Writers/Write-Message.ps1
-    name: write-message
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
-    test: automation/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#{7,8}
----
-#>
-
 function Write-Message {
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     param(

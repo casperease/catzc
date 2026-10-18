@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1
-    folder: private
-    name: assert-test-tag-gate
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#13
----
-#>
-
 function Assert-TestTagGate {
     [CmdletBinding()]
     param(

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
-    folder: tests
-    name: build-slide-deck-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST#1
-      - ADR-REPO-SLIDES#{1-4}
----
-#>
-
 Describe 'Build-SlideDeck' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#1', 'ADR-REPO-SLIDES#3', 'ADR-REPO-SLIDES#4' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

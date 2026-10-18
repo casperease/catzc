@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/azure.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: azure
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#37
-      - ADR-AZ-DATAMOD#9
-      - ADR-AZ-NETWORK#2
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Azure
 
 The shipped Azure configs and bicep templates. Part of the [manual test plan](../manual-test-plan.md), which says how to run a check.

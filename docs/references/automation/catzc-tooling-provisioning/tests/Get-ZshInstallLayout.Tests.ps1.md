@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "49e2849deee3"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md
-    folder: docs/references/automation/catzc-tooling-provisioning/tests
-    name: get-zsh-install-layout-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{1,3}
----
-
 # automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

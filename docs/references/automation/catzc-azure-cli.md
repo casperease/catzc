@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure-cli.md
-    folder: docs/references/automation
-    name: catzc-azure-cli
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/az-session-verification.md
-      - docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png
-      - docs/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
-      - docs/references/automation/catzc-azure.md
-      - docs/references/automation/catzc-base-execution.md
-      - docs/references/automation/catzc-tooling-core.md
-      - docs/references/automation/catzc-tooling-toolchain.md
----
-
 # Catzc.Azure.Cli
 
 The Azure CLI module. It **encapsulates every interaction with the `az` CLI** — issuing commands, establishing and selecting the session,

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1
-    folder: tests/types
-    name: dependencies-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Catzc.Base.ModuleSystem.DependenciesConfig' -Tag 'L0' {
     BeforeAll {
         # Constructs the type; a violation surfaces as the inner ArgumentException's message.

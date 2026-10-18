@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
-    folder: tests
-    name: get-bicep-deployment-name-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentName.Tests.ps1.md
----
-#>
-
 Describe 'Get-BicepDeploymentName' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-BicepTemplatesRoot {

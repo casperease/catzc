@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
-    folder: types
-    name: build-validation-entry
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
-      - ADR-FLOW-CD-TYPE#4
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

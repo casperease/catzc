@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/one-scan-program-feeds-three-roles.md
-    folder: docs/explanation/flow
-    name: one-scan-program-feeds-three-roles
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#{4-6,9}
-      - ADR-REPO-PROTGLOB#5
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
-      - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
-      - docs/explanation/flow/gates-check-source-and-trigger.md
-      - docs/explanation/flow/globs-module-owns-config-and-types.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-scan-program-feeds-three-roles.drawio.md
-      - docs/explanation/flow/three-views-derived-live-from-one-program.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One method, GlobSet.ScanProgram(), feeds all three globset role functions
 
 ```text

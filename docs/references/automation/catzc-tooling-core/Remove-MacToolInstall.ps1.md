@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "7c353656a0e1"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md
-    folder: docs/references/automation/catzc-tooling-core
-    name: remove-mac-tool-install-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

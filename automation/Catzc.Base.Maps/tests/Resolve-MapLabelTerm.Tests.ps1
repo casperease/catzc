@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
-    folder: tests
-    name: resolve-map-label-term-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Resolve-MapLabelTerm' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:terms = @('widget', 'gadget box', 'sprocket')

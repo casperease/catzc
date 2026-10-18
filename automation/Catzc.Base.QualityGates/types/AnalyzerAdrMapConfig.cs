@@ -1,29 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
-    folder: types
-    name: analyzer-adr-map-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
-      - ADR-PWSH-ERROR#3
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

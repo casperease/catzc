@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
-    folder: private
-    name: get-overlay-contract-violation
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Overlay
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-AUTO-OVERLAY
----
-#>
-
 function Get-OverlayContractViolation {
     [CmdletBinding()]
     [OutputType([string])]

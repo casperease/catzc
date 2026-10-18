@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
-    folder: tests
-    name: assert-have-customers-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Assert-HaveCustomers' -Tag 'L0', 'logic' {
 
     It 'passes (no -Name) when enabled' {

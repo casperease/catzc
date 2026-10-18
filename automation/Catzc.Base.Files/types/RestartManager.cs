@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/types/RestartManager.cs
-    folder: types
-    name: restart-manager
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-files/types/RestartManager.cs.md
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Get-TypesLoadPolicy.Tests.ps1
-    name: get-types-load-policy-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:shipped = [System.IO.Path]::Combine((Split-Path $PSScriptRoot -Parent), 'assets', 'types-load.yml')

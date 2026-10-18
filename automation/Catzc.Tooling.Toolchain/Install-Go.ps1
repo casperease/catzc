@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Install-Go.ps1
-    name: install-go
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
-    test: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
----
-#>
-
 function Install-Go {
     [CmdletBinding()]
     param(

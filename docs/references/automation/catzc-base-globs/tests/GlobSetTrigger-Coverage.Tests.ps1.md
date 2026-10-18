@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: d6378d1c74a8
-    repo_status: locked
-    path: docs/references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-globs/tests
-    name: glob-set-trigger-coverage-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS#1
----
-
 # automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

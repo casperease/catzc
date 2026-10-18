@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
-    folder: tests/types
-    name: output-formats-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-OUTFMT#{1,3,5}
----
-#>
-
 Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-Format {

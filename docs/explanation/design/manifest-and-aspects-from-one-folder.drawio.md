@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/manifest-and-aspects-from-one-folder.drawio.md
-    folder: docs/explanation/design
-    name: manifest-and-aspects-from-one-folder-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md
-      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The manifest and the aspects both come from one folder: the diagram described
 
 ```text

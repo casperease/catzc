@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
-    folder: tests
-    name: test-automation-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Test-Automation.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-TEST#{35,43}
-      - ADR-PWSH-PESTER#5
----
-#>
-
 Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
         $script:result = Test-SourceConventions -PassThru -OutputFolder (Join-Path $TestDrive 'source-conventions')

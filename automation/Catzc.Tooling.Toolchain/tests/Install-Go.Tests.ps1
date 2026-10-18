@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
-    folder: tests
-    name: install-go-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md
----
-#>
-
 Describe 'Install-Go' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:goHome = Join-Path $TestDrive 'go-home'

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
-    folder: tests/types
-    name: time-limit-attribute-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-PWSH-ASSERT#1
----
-#>
-
 Describe 'TimeLimitAttribute' -Tag 'L0', 'logic', 'ADR-PWSH-ASSERT#1' {
     It 'carries a devbox limit and defaults the pipeline limit to it' {
         $limit = [Catzc.Base.Timeouts.TimeLimitAttribute]::new(360)

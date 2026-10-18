@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
-    folder: tests
-    name: test-git-path-changed-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-GitPathChanged' -Tag 'L0', 'logic' {
     It 'is true when git status reports an entry under the paths' {
         Mock Invoke-Executable {

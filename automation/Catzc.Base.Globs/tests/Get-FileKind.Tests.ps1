@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-FileKind.Tests.ps1
-    folder: tests
-    name: get-file-kind-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#2
----
-#>
-
 Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     It 'names the role of a file in the shipped registry' -ForEach @(
         @{ Path = 'automation/Catzc.Base.Variants/Get-Track.ps1'; Class = 'function' }

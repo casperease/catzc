@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.QualityGates/configs/plans.yml
-#     folder: configs
-#     name: plans
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-# ---
-
 # The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/adr/repository/plans.md)); the defaults are declared once on PlansConfig.
 folder: .claude/plans
 statuses: [active, blocked]

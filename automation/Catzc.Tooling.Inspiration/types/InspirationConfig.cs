@@ -1,29 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
-    folder: types
-    name: inspiration-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md
-    test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-INSPIRE
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

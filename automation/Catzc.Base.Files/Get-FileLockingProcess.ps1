@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/Get-FileLockingProcess.ps1
-    name: get-file-locking-process
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
----
-#>
-
 function Get-FileLockingProcess {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Files.FileLockingProcess])]

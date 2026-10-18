@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-    folder: tests
-    name: test-world-map-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,35}
-      - ADR-DSGN-TRACK#{1,3,6,13}
----
-#>
-
 Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     BeforeAll {
         # Each row: path, track, file language, stack violation; every file is live.

@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
-    folder: docs/explanation/design
-    name: same-deploy-bicep-on-both-sides
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PARITY#3
-      - ADR-DSGN-THINPLAT#{2,3}
-    links:
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/design/thin-platforms.md
-      - docs/explanation/.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
-      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
-      - docs/explanation/design/deploy-bicep-delegates-to-az.md
-      - docs/explanation/design/every-vendor-call-leaves-through-az.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/same-deploy-bicep-on-both-sides.drawio.md
-      - docs/explanation/design/what-keeps-the-platform-thin.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription
 
 ```text

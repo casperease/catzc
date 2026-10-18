@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
-    folder: tests/types
-    name: agents-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md
-    cites:
-      - ADR-AI
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-AGENTS#{2,6-8}
----
-#>
-
 Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#2' {
     BeforeAll {
         $script:widget = [ordered]@{ name = 'widget'; supported_by = @('ADR-WI-ONE#1'); checks = @('Test-Widget') }

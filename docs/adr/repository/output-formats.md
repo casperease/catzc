@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/output-formats.md
-    folder: docs/adr/repository
-    name: output-formats
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-OUTFMT#{1-7}
-    cites:
-      - ADR-AUTO-PATH#10
-    links:
-      - docs/adr/automation/path-representation.md#rule-adr-auto-path10
-      - docs/adr/automation/uv-python-handler.md
-      - docs/adr/repository/controlled-vocabulary.md
-      - docs/adr/repository/dedicated-output-directory.md
----
-
 # ADR: Output formats — one catalogue of what lands under the output root
 
 ## Rules: ADR-REPO-OUTFMT

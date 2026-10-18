@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
-    name: set-bicep-template-configuration
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
-    test: automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN
-      - ADR-AZ-DATAMOD
-      - ADR-FLOW-CD-TYPE
-      - ADR-PWSH-DRYRUN#1
----
-#>
-
 function Set-BicepTemplateConfiguration {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]

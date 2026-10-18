@@ -1,39 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/code-file-meta.md
-    folder: docs/adr/repository
-    name: code-file-meta
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-CODEMETA#{1-5}
-    cites:
-      - ADR-AUTO-TYPES#1
-      - ADR-REPO-COMMENTS#3
-      - ADR-REPO-FILEMETA#{1-3,5,7,10,13,14}
-      - ADR-REPO-FORMAT#8
-      - ADR-REPO-HELP#1
-    links:
-      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3
-      - docs/adr/repository/file-meta.md
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta10
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta13
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta14
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7
-      - docs/adr/repository/function-help.md#rule-adr-repo-help1
-      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
----
-
 # ADR: Code file meta — a derived head in the first comment of every tracked code file
 
 ## Rules: ADR-REPO-CODEMETA

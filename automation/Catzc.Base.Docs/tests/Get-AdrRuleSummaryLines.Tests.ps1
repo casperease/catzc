@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
-    folder: tests
-    name: get-adr-rule-summary-lines-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-LINK#5
----
-#>
-
 Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {
     BeforeAll {
         $path = Join-Path $TestDrive 'widget-one.md'

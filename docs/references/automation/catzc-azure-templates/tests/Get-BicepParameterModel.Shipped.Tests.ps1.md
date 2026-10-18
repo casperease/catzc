@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "449c3741c093"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
-    folder: docs/references/automation/catzc-azure-templates/tests
-    name: get-bicep-parameter-model-shipped-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{8,17,19,26,37}
-      - ADR-AZ-DATAMOD#9
-      - ADR-PWSH-PESTER#2
----
-
 # automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

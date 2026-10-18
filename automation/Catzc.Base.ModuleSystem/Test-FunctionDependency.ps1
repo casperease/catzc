@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
-    name: test-function-dependency
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
-    test: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-RUNMODE
-      - ADR-PWSH-PESTER#9
----
-#>
-
 function Test-FunctionDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

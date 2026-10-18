@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
-    folder: tests
-    name: new-test-automation-run-directory-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'New-TestAutomationRunDirectory' -Tag 'L0', 'logic' {
     It 'creates a timestamped run directory under the base' {
         $base = Join-Path $TestDrive 'reports'

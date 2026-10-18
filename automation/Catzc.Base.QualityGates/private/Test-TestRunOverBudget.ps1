@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
-    folder: private
-    name: test-test-run-over-budget
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
-    cites:
-      - ADR-AUTO-FAILFAST#7
-      - ADR-AUTO-TEST#44
----
-#>
-
 function Test-TestRunOverBudget {
     [CmdletBinding()]
     [OutputType([bool])]

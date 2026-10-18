@@ -1,31 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/Get-BicepTemplates.ps1
-    name: get-bicep-templates
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
-    test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE
-      - ADR-AZ-CUSTOMER
-      - ADR-AZ-DATAMOD
-      - ADR-AZ-NAMING#2
-      - ADR-PWSH-CACHE#4
----
-#>
-
 # cspell:ignore etlco
 function Get-BicepTemplates {
     param()

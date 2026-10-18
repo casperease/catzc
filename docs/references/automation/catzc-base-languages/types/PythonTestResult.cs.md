@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8cbea2bb6980"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md
-    folder: docs/references/automation/catzc-base-languages/types
-    name: python-test-result-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#1
-      - ADR-AUTO-TYPES#8
----
-
 # automation/Catzc.Base.Languages/types/PythonTestResult.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

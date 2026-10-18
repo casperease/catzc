@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Write-TestRunContext.Tests.ps1
-    folder: tests
-    name: write-test-run-context-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # Write-TestRunContext renders a fixture context record: one line per fact, under the banner.
 Describe 'Write-TestRunContext' -Tag 'L0', 'logic' {
     BeforeEach {

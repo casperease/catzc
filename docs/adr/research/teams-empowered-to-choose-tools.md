@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/teams-empowered-to-choose-tools.md
-    folder: docs/adr/research
-    name: teams-empowered-to-choose-tools
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-TOOLCHOICE#{1-4}
-    links:
-      - docs/adr/automation/controlling-systemwide-deps.md
-      - docs/adr/design/thin-platforms.md
-      - docs/references/dora/capabilities.md#climate-for-learning
-      - docs/references/dora/capabilities.md#continuous-delivery
-      - docs/references/dora/capabilities.md#job-satisfaction
-      - docs/references/dora/capabilities.md#loosely-coupled-teams
-      - docs/references/dora/capabilities.md#platform-engineering
-      - docs/references/dora/capabilities.md#teams-empowered-to-choose-tools
-      - docs/references/dora/core-model.md#climate-for-learning
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/core-model.md#well-being
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2017-state-of-devops-report
-      - "https://dora.dev/capabilities/teams-empowered-to-choose-tools/"
----
-
 # ADR: DORA — Empowering teams to choose tools
 
 ## Rules: ADR-DORA-TOOLCHOICE

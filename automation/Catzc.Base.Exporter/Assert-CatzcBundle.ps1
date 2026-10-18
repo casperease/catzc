@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
-    name: assert-catzc-bundle
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md
-    test: automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE#5
-      - ADR-PWSH-ENUM#3
----
-#>
-
 function Assert-CatzcBundle {
     [CmdletBinding()]
     param(

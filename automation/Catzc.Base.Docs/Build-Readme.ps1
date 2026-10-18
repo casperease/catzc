@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Build-Readme.ps1
-    name: build-readme
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-docs/Build-Readme.ps1.md
-    test: automation/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
-    cites:
-      - ADR-AUTO-DRYRUN
-      - ADR-CONF-LOADING
-      - ADR-REPO-README
----
-#>
-
 function Build-Readme {
     [CmdletBinding()]
     [OutputType([string[]])]

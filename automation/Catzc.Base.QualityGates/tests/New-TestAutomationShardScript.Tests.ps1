@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
-    folder: tests
-    name: new-test-automation-shard-script-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP#3
-      - ADR-AUTO-TEST#25
----
-#>
-
 Describe 'New-TestAutomationShardScript' {
     Context 'script generation' -Tag 'L0', 'logic' {
         BeforeAll {

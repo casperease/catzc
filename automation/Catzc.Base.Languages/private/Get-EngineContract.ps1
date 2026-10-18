@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
-    folder: private
-    name: get-engine-contract
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md
-    test: automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE
-      - ADR-AUTO-GO#3
-      - ADR-AUTO-PY#3
----
-#>
-
 function Get-EngineContract {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

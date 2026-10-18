@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
-    folder: tests
-    name: export-world-map-pdf-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # cspell:ignore startxref
 BeforeAll {
     # The PDF structure every written file must have: the header, an xref table where startxref points, and %%EOF.

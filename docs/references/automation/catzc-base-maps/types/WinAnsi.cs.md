@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "5930dcf03e2c"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
-    folder: docs/references/automation/catzc-base-maps/types
-    name: win-ansi-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Maps/types/WinAnsi.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: be996c2a037b
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
-    folder: docs/references/automation/catzc-azure-templates/types
-    name: bicep-deployment-plan-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

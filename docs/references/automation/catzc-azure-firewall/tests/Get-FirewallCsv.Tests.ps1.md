@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "71e1b2a9c4e2"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md
-    folder: docs/references/automation/catzc-azure-firewall/tests
-    name: get-firewall-csv-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
 
 <!-- cspell:ignore etwork -->

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/tests/New-GitAttributes.Tests.ps1
-    folder: tests
-    name: new-git-attributes-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#3
----
-#>
-
 Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-Registry {

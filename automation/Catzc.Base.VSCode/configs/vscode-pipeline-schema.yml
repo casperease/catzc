@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
-#     folder: configs
-#     name: vscode-pipeline-schema
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.VSCode
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
-# ---
-
 $schema: http://json-schema.org/draft-07/schema#
 title: Azure Pipelines (catzc, relaxed)
 type: object

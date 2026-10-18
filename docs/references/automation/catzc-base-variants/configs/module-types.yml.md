@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "494be9a602b7"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-variants/configs/module-types.yml.md
-    folder: docs/references/automation/catzc-base-variants/configs
-    name: module-types-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Variants/configs/module-types.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

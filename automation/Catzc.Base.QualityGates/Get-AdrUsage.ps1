@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Get-AdrUsage.ps1
-    name: get-adr-usage
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-AdrUsage.Tests.ps1
----
-#>
-
 function Get-AdrUsage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

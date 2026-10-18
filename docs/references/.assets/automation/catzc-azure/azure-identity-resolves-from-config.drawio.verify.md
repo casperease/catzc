@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-azure
-    name: azure-identity-resolves-from-config-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#2
-      - ADR-AZ-DATAMOD#4
-      - ADR-AZ-NAMING#6
-      - ADR-AZ-SESSION#5
-      - ADR-PWSH-CACHE#4
----
-
 # out/diagrams/wave-9/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
 
 `Verification: Azure identities resolve from config; session must match one (source lens, Catzc.Azure)`

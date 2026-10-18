@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/powershell/add-a-function.md
-    folder: docs/how-to/getting-started/automation/powershell
-    name: add-a-function
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PWSH-ERROR#3
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/never-depend-on-pwd.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/adr/automation/single-responsibility-functions.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/pwsh/one-function-per-file.md
-      - docs/adr/pwsh/parameter-design.md
-      - docs/adr/pwsh/pester-testing.md
-      - docs/adr/pwsh/powershell-formatting.md
-      - docs/adr/pwsh/respect-pwsh-verb-rules.md
-      - docs/how-to/getting-started/automation/add-a-module.md
-      - docs/how-to/getting-started/automation/run-tests-and-checks.md
----
-
 # Add a function
 
 Adding a public function is a one-step operation: **create the file**. The bootstrap module discovers it on the next importer run — no

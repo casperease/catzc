@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/AdrCitationRewrite.cs
-    folder: types
-    name: adr-citation-rewrite
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md
-    cites:
-      - ADR-AUTO-TYPES#9
----
-*/
-
 using System;
 using System.Collections.Generic;
 

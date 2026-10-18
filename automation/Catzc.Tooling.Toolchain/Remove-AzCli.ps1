@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Remove-AzCli.ps1
-    name: remove-az-cli
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
-    test: automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
-    cites:
-      - ADR-AUTO-REMOVE
----
-#>
-
 function Remove-AzCli {
     [CmdletBinding()]
     param(

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
-    folder: tests
-    name: install-python-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Install-Python' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Tooling.Python

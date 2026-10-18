@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/types/GitIndex.cs
-    folder: types
-    name: git-index
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
-    test: automation/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
-    cites:
-      - ADR-AUTO-TRACKED
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.IO;

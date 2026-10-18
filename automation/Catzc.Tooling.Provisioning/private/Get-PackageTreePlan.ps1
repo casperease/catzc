@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
-    folder: private
-    name: get-package-tree-plan
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
-    test: automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
-    cites:
-      - ADR-AUTO-REMOVE#2
-      - ADR-PWSH-ENUM#3
----
-#>
-
 function Get-PackageTreePlan {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/slides/slides.yml"
-#     folder: slides
-#     name: slides
-#     filetype: yml
-#     kind: slides-kit
-#     language: yaml
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # The slides kit's sensible defaults, declared once ([ADR-REPO-SLIDES#2](/docs/adr/repository/slides-as-markdown.md#rule-adr-repo-slides2));
 # a pattern reads them as {{@token.*}}, {{@face.*}}, {{@scale.*}}
 # and {{@layout.*}} placeholders, and a slide file never repeats them. Two-level mapping only: a section, then key: value.

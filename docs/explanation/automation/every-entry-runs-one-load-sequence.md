@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
-    folder: docs/explanation/automation
-    name: every-entry-runs-one-load-sequence
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-BUNDLE#{3,8}
-      - ADR-DSGN-RUNMODE#5
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
-      - docs/explanation/automation/dot-source-one-entry-script.md
-      - docs/explanation/automation/every-entry-runs-one-load-sequence.drawio.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/invoke-importer-in-code-order.md
-      - docs/explanation/automation/rule-and-gate-per-load-stage.md
-      - docs/explanation/automation/two-entries-feed-one-importer.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Every entry runs one load sequence
 
 ```text

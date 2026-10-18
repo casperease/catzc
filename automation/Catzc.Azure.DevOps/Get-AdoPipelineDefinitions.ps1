@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1
-    name: get-ado-pipeline-definitions
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md
----
-#>
-
 function Get-AdoPipelineDefinitions {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

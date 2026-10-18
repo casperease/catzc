@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/internal/catzc-internal-loader.md
-    folder: docs/references/automation/internal
-    name: catzc-internal-loader
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/references/automation/internal/catzc-internal-bootstrap.md
-      - docs/references/automation/internal/catzc-internal-testkit.md
-      - docs/references/automation/internal/catzc-internal-types.md
-      - docs/references/automation/internal/catzc-internal-vendor.md
-      - docs/references/automation/internal/index.md
----
-
 # Catzc.Internal.Loader
 
 The always-loaded entry point for `.internal` shared code. It is the one thing the generated `importer.ps1` shim imports unconditionally,

@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: a58f4c2dca6d
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/types/AzureSubscriptionRecord.cs.md
-    folder: docs/references/automation/catzc-azure/types
-    name: azure-subscription-record-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
----
-
 # automation/Catzc.Azure/types/AzureSubscriptionRecord.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

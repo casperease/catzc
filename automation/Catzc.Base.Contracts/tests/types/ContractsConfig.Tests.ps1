@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1
-    folder: tests/types
-    name: contracts-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-CONTRACT#{2,8}
----
-#>
-
 Describe 'ContractsConfig' -Tag 'L0', 'logic' {
     It 'takes full-path for an omitted addressing' -Tag 'ADR-AUTO-DEFAULT#6' {
         [Catzc.Base.Contracts.ContractsConfig]::new(@{}).addressing | Should -Be 'full-path'

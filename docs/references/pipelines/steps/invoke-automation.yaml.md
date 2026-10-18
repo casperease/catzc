@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "16fc292a209a"
-    repo_status: locked
-    path: docs/references/pipelines/steps/invoke-automation.yaml.md
-    folder: docs/references/pipelines/steps
-    name: invoke-automation-yaml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # pipelines/steps/invoke-automation.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

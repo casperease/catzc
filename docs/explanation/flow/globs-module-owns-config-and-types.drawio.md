@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/globs-module-owns-config-and-types.drawio.md
-    folder: docs/explanation/flow
-    name: globs-module-owns-config-and-types-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.tree.md
-      - docs/explanation/flow/globs-module-owns-config-and-types.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Catzc.Base.Globs computes every globset role from one typed registry: the diagram described
 
 ```text

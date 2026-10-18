@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-RepositoryWebUrl.ps1
-    folder: private
-    name: get-repository-web-url
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-REPO-LINK#7
----
-#>
-
 function Get-RepositoryWebUrl {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
-    folder: docs/explanation/flow
-    name: peers-in-a-layer-never-overlap
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#{7,10}
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
-      - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
-      - docs/explanation/flow/independence-check-groups-by-layer.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/overlap-gated-for-units-and-modules.md
-      - docs/explanation/flow/peers-in-a-layer-never-overlap.drawio.md
-      - docs/explanation/flow/two-declared-layers-one-derived.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Peers in a layer never share a file, except in the loose-fileset layer
 
 ```text

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/Assert-CompletesWithin.Tests.ps1
-    folder: tests
-    name: assert-completes-within-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Assert-CompletesWithin' -Tag 'L0', 'logic' {
     It 'passes, with no output, when the block finishes in time' {
         Assert-CompletesWithin { 'widget' } -Seconds 5 | Should -BeNullOrEmpty

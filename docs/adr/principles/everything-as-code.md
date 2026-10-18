@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/principles/everything-as-code.md
-    folder: docs/adr/principles
-    name: everything-as-code
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PRIN-EAC#{1-3}
-    cites:
-      - ADR-THES-ONETRUTH#2
-    links:
-      - docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth2
-      - docs/references/dora/capabilities.md#version-control
----
-
 # Principle: Everything as code
 
 ## Rules: ADR-PRIN-EAC

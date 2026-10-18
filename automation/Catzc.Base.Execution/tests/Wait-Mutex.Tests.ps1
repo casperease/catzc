@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
-    folder: tests
-    name: wait-mutex-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/tests/Wait-Mutex.Tests.ps1.md
-    cites:
-      - ADR-PWSH-PESTER#3
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The contended-hold helper''s Mutex/HeldSignal/HoldMilliseconds parameters are consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
 param()
 

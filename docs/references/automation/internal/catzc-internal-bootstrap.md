@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/internal/catzc-internal-bootstrap.md
-    folder: docs/references/automation/internal
-    name: catzc-internal-bootstrap
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PWSH-ANNOUNCE#6
-      - ADR-REPO-FORMAT#1
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/caching.md
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/adr/repository/uniform-formatting.md
-      - docs/references/automation/BCL/types-system.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/internal/catzc-internal-importer.md
-      - docs/references/automation/internal/catzc-internal-types.md
-      - docs/references/automation/internal/index.md
----
-
 # Catzc.Internal.Bootstrap
 
 The import-time engine. It does the heavy lifting the [Importer overlay](catzc-internal-importer.md) delegates to: discovering the modules

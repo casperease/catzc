@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
-    folder: tests/types
-    name: network-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{1,3}
-      - ADR-AZ-NETWORK#{5,6}
----
-#>
-
 Describe 'NetworkConfig' -Tag 'L0' {
     BeforeAll {
         $script:baseConfig = [ordered]@{

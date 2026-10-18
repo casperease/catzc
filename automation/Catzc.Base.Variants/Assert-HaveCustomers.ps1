@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/Assert-HaveCustomers.ps1
-    name: assert-have-customers
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
----
-#>
-
 function Assert-HaveCustomers {
     [CmdletBinding()]
     param(

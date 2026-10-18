@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/Wait-Mutex.ps1
-    name: wait-mutex
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
-    test: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#{8,10}
-      - ADR-PWSH-ANNOUNCE#1
----
-#>
-
 function Wait-Mutex {
     [CmdletBinding()]
     param(

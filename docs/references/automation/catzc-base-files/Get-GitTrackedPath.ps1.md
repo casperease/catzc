@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: a926a158f7d0
-    repo_status: locked
-    path: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
-    folder: docs/references/automation/catzc-base-files
-    name: get-git-tracked-path-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#9
-      - ADR-PWSH-CACHE#4
----
-
 # automation/Catzc.Base.Files/Get-GitTrackedPath.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

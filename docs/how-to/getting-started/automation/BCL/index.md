@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/BCL/index.md
-    folder: docs/how-to/getting-started/automation/BCL
-    name: index
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
-      - docs/references/automation/BCL/index.md
----
-
 # BCL (C# / .NET types) how-to guides
 
 Guides for working with the native C# types the automation platform loads. Language-agnostic getting-started guides live one level up, under

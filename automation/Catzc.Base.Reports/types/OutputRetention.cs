@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/types/OutputRetention.cs
-    folder: types
-    name: output-retention
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
----
-*/
-
 // Pure: it reads no disk and no clock, so which stamps and files a retention pass removes is provable on fixtures.
 
 using System;

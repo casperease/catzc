@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/one-unit-one-pipeline.md
-    folder: docs/explanation/design
-    name: one-unit-one-pipeline
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{1,2,4,5}
-    links:
-      - docs/adr/design/tracks.md
-      - docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
-      - docs/explanation/design/a-push-fires-only-touched-pipelines.md
-      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-unit-one-pipeline.drawio.md
-      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
-      - docs/explanation/design/units-not-tracks-own-the-pipelines.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A track ships through a deployable-unit, and each unit has one pipeline
 
 ```text

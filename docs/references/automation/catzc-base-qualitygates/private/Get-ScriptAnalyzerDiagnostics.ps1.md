@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "0aee62528ccd"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/private
-    name: get-script-analyzer-diagnostics-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-CACHE#10
-      - ADR-AUTO-CONSOLE#8
-      - ADR-AUTO-RETRY#1
-      - ADR-PWSH-ANNOUNCE#1
----
-
 # automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

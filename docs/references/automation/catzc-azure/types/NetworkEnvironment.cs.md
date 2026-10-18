@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "77ff15dce0c0"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md
-    folder: docs/references/automation/catzc-azure/types
-    name: network-environment-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
----
-
 # automation/Catzc.Azure/types/NetworkEnvironment.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

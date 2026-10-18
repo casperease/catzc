@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
-    folder: types
-    name: generated-head-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
----
-*/
-
 // The keys of the generated-file head, in the order they are written; a key a file has no value for is left out.
 
 using System;

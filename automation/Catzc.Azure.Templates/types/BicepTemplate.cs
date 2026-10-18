@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/types/BicepTemplate.cs
-    folder: types
-    name: bicep-template
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md
-    cites:
-      - ADR-AZ-CUSTOMER
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

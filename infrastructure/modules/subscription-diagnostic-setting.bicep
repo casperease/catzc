@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/subscription-diagnostic-setting.bicep
-//     name: subscription-diagnostic-setting
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: subscription-diagnostic-setting
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
-// ---
-
 targetScope = 'subscription'
 
 @description('Resource id of the Log Analytics workspace that receives the activity log.')

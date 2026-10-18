@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
-    folder: tests/types
-    name: pdf-number-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'PdfNumber' -Tag 'L0', 'logic' {
     It 'writes at most three decimals, without trailing zeros' {
         [Catzc.Base.Maps.PdfNumber]::Format(12) | Should -Be '12'

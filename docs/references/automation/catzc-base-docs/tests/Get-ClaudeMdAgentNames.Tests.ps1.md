@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "584009f6737e"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-docs/tests
-    name: get-claude-md-agent-names-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-AGENTS#3
----
-
 # automation/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

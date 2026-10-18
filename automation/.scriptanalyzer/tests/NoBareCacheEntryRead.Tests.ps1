@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: no-bare-cache-entry-read-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md
-    cites:
-      - ADR-PWSH-CACHE#4
----
-#>
-
 Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoBareCacheEntryRead.psm1') -Force

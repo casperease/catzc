@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.QualityGates/configs/terminology.yml
-#     folder: configs
-#     name: terminology
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md
-# ---
-
 categories:
   product:
     description: "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."

@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/types/AzureSubscriptionRecord.cs
-    folder: types
-    name: azure-subscription-record
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/types/AzureSubscriptionRecord.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
-      - ADR-AZ-DATAMOD
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

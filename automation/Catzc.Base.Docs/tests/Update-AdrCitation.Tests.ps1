@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
-    folder: tests
-    name: update-adr-citation-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DRYRUN#2
-      - ADR-AUTO-IDEM#1
-      - ADR-AUTO-TEST#3
-      - ADR-REPO-LINK#{2,3}
----
-#>
-
 Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

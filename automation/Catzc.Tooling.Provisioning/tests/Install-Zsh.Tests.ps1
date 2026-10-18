@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
-    folder: tests
-    name: install-zsh-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/tests/Install-Zsh.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,9}
----
-#>
-
 Describe 'Install-Zsh' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:gitHome = Join-Path $TestDrive 'git'

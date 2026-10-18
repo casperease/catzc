@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "210a68586055"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-languages/configs/languages.yml.md
-    folder: docs/references/automation/catzc-base-languages/configs
-    name: languages-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-DSGN-TRACK#6
-      - ADR-PIPE-NAME#6
-      - ADR-PRIN-CONFIG#1
-      - ADR-REPO-FORMAT#8
----
-
 # automation/Catzc.Base.Languages/configs/languages.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

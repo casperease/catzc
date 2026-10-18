@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Show-Cats.ps1
-    name: show-cats
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-docs/Show-Cats.ps1.md
-    test: automation/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE
-      - ADR-AUTO-CONSOLE
----
-#>
-
 function Show-Cats {
     [CmdletBinding()]
     [OutputType([void])]

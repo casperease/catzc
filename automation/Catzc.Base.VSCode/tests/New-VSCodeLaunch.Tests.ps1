@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
-    folder: tests
-    name: new-vs-code-launch-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-vscode/tests/New-VSCodeLaunch.Tests.ps1.md
-    cites:
-      - ADR-PWSH-PESTER#2
----
-#>
-
 Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {

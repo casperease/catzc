@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1
-    folder: tests
-    name: convert-to-guid-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'ConvertTo-Guid' -Tag 'L0', 'logic' {
     It 'returns a [guid], positionally' {
         $result = ConvertTo-Guid 'sample test data'

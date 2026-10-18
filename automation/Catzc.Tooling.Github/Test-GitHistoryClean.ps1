@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1
-    name: test-git-history-clean
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
----
-#>
-
 function Test-GitHistoryClean {
     [CmdletBinding()]
     param(

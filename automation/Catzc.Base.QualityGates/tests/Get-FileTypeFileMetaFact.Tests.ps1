@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
-    folder: tests
-    name: get-file-type-file-meta-fact-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#6
----
-#>
-
 Describe 'Get-FileTypeFileMetaFact' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#6' {
     BeforeAll {
         $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-type' = @{ keys = @('filetype') } } }).kinds[0]

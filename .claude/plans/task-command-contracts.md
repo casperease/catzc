@@ -12,24 +12,6 @@ task:
       automation/Catzc.Base.RootConfig,
       automation/Catzc.Base.Languages,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-command-contracts.md"
-    folder: plans
-    name: task-command-contracts
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-CMDCONTRACT#2
-      - ADR-REPO-CONTRACT#6
 ---
 
 # Task: command contracts, P7

@@ -1,37 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/index.md
-    folder: docs/how-to/getting-started/automation
-    name: index
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/zero-ceremony-poka-yoke.md
-      - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/adr/index.md
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/repository/conventional-folders.md
-      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
-      - docs/how-to/getting-started/automation/add-a-cli-tool.md
-      - docs/how-to/getting-started/automation/add-a-deployable-unit.md
-      - docs/how-to/getting-started/automation/add-a-doc-chapter.md
-      - docs/how-to/getting-started/automation/add-a-module.md
-      - docs/how-to/getting-started/automation/add-an-infrastructure-template.md
-      - docs/how-to/getting-started/automation/debug-in-vscode.md
-      - docs/how-to/getting-started/automation/faq.md
-      - docs/how-to/getting-started/automation/powershell/add-a-function.md
-      - docs/how-to/getting-started/automation/run-tests-and-checks.md
-      - docs/how-to/getting-started/automation/vendor-a-module.md
-      - docs/references/automation/index.md
----
-
 # Getting started with the automation system
 
 A PowerShell 7.4+ module system for this monorepo. **Drop a file, get a function** — no manifests, no installers, no registration.

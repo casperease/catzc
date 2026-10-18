@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/identifier-names.md
-    folder: docs/adr/pwsh
-    name: identifier-names
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-NAMES#{1-6}
-    cites:
-      - ADR-AUTO-SPELL#{1,2,4,6,7}
-    links:
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell1
-      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2
-      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell4
-      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6
-      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7
-      - docs/adr/pwsh/respect-pwsh-verb-rules.md
----
-
 # ADR: Identifier names — the PowerShell layer over spell-out-names
 
 ## Rules: ADR-PWSH-NAMES

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pipelines/pipeline-naming-and-placement.md
-    folder: docs/adr/pipelines
-    name: pipeline-naming-and-placement
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PIPE-NAME#{1-7}
-    cites:
-      - ADR-AUTO-TEST#35
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/flow/pipeline-types.md
-      - docs/adr/pipelines/custom-template-discipline.md
-      - docs/adr/repository/conventional-folders.md
----
-
 # ADR: Pipeline naming and placement
 
 ## Rules: ADR-PIPE-NAME

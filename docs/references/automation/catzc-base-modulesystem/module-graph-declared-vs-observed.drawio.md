@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-    folder: docs/references/automation/catzc-base-modulesystem
-    name: module-graph-declared-vs-observed-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#2
-      - ADR-AUTO-DEPM#4
-      - ADR-AUTO-TEST#{4,35}
-      - ADR-PWSH-CACHE#4
-      - ADR-PWSH-PESTER#9
-    links:
-      - docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
----
-
 # Declared graph orders and closes; observed graph is checked: the diagram described
 
 ```text

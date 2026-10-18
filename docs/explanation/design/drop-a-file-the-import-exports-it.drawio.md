@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/drop-a-file-the-import-exports-it.drawio.md
-    folder: docs/explanation/design
-    name: drop-a-file-the-import-exports-it-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.tree.md
-      - docs/explanation/design/drop-a-file-the-import-exports-it.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Drop a file, and the next import exports it: the diagram described
 
 ```text

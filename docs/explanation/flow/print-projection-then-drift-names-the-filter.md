@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/print-projection-then-drift-names-the-filter.md
-    folder: docs/explanation/flow
-    name: print-projection-then-drift-names-the-filter
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#6
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
-      - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
-      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
-      - docs/explanation/flow/globs-projects-and-three-consumers-read.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-program-two-vendor-dialects.md
-      - docs/explanation/flow/print-projection-then-drift-names-the-filter.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Print the projection, and a drifted pipeline fails naming the filter that differs
 
 ```text

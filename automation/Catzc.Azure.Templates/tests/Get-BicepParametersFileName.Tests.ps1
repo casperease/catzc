@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Get-BicepParametersFileName.Tests.ps1
-    folder: tests
-    name: get-bicep-parameters-file-name-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-BicepParametersFileName' -Tag 'L0', 'logic' {
     It 'names a configuration-root artifact by config alone (parameters.CONFIG.json)' {
         & (Get-Module Catzc.Azure.Templates) { Get-BicepParametersFileName -Environment alpha } |

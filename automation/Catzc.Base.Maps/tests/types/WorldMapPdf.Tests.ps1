@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/types/WorldMapPdf.Tests.ps1
-    folder: tests/types
-    name: world-map-pdf-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # cspell:ignore startxref
 Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
     BeforeAll {

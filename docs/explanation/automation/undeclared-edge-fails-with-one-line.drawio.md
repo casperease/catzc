@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/undeclared-edge-fails-with-one-line.drawio.md
-    folder: docs/explanation/automation
-    name: undeclared-edge-fails-with-one-line-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md
-      - docs/explanation/.assets/grid/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
-      - docs/explanation/.assets/tree/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.tree.md
-      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # An undeclared module edge fails the gate with one line per issue: the diagram described
 
 ```text

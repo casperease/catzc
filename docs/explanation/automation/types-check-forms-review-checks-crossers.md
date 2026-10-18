@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/types-check-forms-review-checks-crossers.md
-    folder: docs/explanation/automation
-    name: types-check-forms-review-checks-crossers
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PATH#{1-4,6,7,9-11}
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-out-string-two-places.md
-      - docs/explanation/automation/output-root-first-then-repo-root.md
-      - docs/explanation/automation/two-crossers-and-three-anchors.md
-      - docs/explanation/automation/two-forms-never-a-third.md
-      - docs/explanation/automation/types-check-forms-review-checks-crossers.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Three types check path forms at construction, and the crossing rules are left to review
 
 ```text

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/private/ConvertFrom-GoTestJson.ps1
-    folder: private
-    name: convert-from-go-test-json
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
----
-#>
-
 function ConvertFrom-GoTestJson {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.GoTestResult])]

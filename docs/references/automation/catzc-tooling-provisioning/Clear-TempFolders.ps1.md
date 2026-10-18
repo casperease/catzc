@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f5aa324dbea0
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
-    folder: docs/references/automation/catzc-tooling-provisioning
-    name: clear-temp-folders-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

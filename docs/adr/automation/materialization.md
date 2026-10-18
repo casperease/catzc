@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/materialization.md
-    folder: docs/adr/automation
-    name: materialization
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-MATERIAL#{1-7}
-    cites:
-      - ADR-AUTO-CACHE#{5,6,9}
-      - ADR-AUTO-DEFAULT#6
-      - ADR-DSGN-TRACK#5
-      - ADR-PRIN-CONFIG#3
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/automation/caching.md#rule-adr-auto-cache5
-      - docs/adr/automation/caching.md#rule-adr-auto-cache6
-      - docs/adr/automation/caching.md#rule-adr-auto-cache9
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track5
-      - docs/adr/principles/configure-not-program.md
-      - docs/adr/principles/configure-not-program.md#rule-adr-prin-config3
-      - docs/adr/principles/one-living-version.md
----
-
 # ADR: Materialization — when a knowledge resource comes into being and how long it holds
 
 ## Rules: ADR-AUTO-MATERIAL

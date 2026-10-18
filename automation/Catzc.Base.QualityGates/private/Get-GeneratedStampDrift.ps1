@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1
-    folder: private
-    name: get-generated-stamp-drift
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-GeneratedStampDrift.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#7
----
-#>
-
 function Get-GeneratedStampDrift {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/slides/STYLE.md"
-    folder: slides
-    name: style
-    filetype: md
-    kind: slides-kit
-    language: markdown
-    track: ".claude-kits"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-PRIN-EAC#2
-    links:
-      - docs/adr/repository/slides-as-markdown.md
----
-
 # Slides kit: patterns, fields and the writing rules for a deck
 
 The kit that `Build-SlideDeck` renders a deck from ([ADR-REPO-SLIDES](../../docs/adr/repository/slides-as-markdown.md)). A deck is a folder

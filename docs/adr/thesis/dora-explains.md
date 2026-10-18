@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/thesis/dora-explains.md
-    folder: docs/adr/thesis
-    name: dora-explains
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/thesis/one-source-of-truth.md
-      - docs/references/dora/capabilities.md#streamlining-change-approval
-      - docs/references/dora/capabilities.md#trunk-based-development
-      - docs/references/dora/capabilities.md#version-control
-      - docs/references/dora/index.md
----
-
 # DORA explanations — thesis
 
 The `Dora explains` rationale for the ADRs in the `thesis/` folder, consolidated in one place. Each entry names its ADR and rule code, then

@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/tests/types/PropertyHead.Tests.ps1
-    folder: tests/types
-    name: property-head-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#3
----
-#>
-
 Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         # '~' stands for a real line end in the single-quoted JSON below, so a JSON '\n' escape stays a backslash and an n.

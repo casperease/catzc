@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/github/dora-explains.md
-    folder: docs/adr/github
-    name: dora-explains
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/github/github-release.md
-      - docs/references/dora/capabilities.md#continuous-delivery
-      - docs/references/dora/capabilities.md#deployment-automation
-      - docs/references/dora/capabilities.md#version-control
-      - docs/references/dora/index.md
----
-
 # DORA explanations — github
 
 The `Dora explains` rationale for the ADRs in the `github/` domain, consolidated in one place. Each entry names its ADR and rule code, then

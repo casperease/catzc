@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/pester-testing.md
-    folder: docs/adr/pwsh
-    name: pester-testing
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-PESTER#{1-20}
-    cites:
-      - ADR-AUTO-BASH#5
-      - ADR-AUTO-GO#7
-      - ADR-AUTO-PY#7
-      - ADR-AUTO-TEST#{1,3,4,8,13,15-17,19-21,25,27,28,30,40,42,43}
-      - ADR-PWSH-FORMAT#7
-    links:
-      - docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry2
-      - docs/adr/automation/test-automation.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test25
-      - docs/adr/pwsh/automatic-variable-pitfalls.md#rule-adr-pwsh-autovar6
-      - docs/adr/pwsh/bounded-enumeration.md
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/pwsh/one-function-per-file.md
-      - docs/adr/pwsh/script-scope-caching.md
-      - docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir3
----
-
 # ADR: Pester testing — the language layer over test-automation
 
 ## Rules: ADR-PWSH-PESTER

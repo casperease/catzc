@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-asserts.md
-    folder: docs/references/automation
-    name: catzc-base-asserts
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/pwsh/respect-pwsh-verb-rules.md
----
-
 # Catzc.Base.Asserts
 
 The assertion library. It is the vocabulary every other module uses to state a precondition and stop the moment it is violated. It owns no

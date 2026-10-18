@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/agent-definitions.md
-    folder: docs/adr/repository
-    name: agent-definitions
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-AGENTS#{1-10}
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-FILEMETA#1
-      - ADR-REPO-LINK#5
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/design/visual-design.md
-      - docs/adr/principles/configure-not-program.md
-      - docs/adr/principles/reduce-variability.md
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
-      - docs/adr/repository/markdown-links.md#rule-adr-repo-link5
----
-
 # ADR: Agent definitions — every sub-agent rests on a rule and maps to its checks
 
 ## Rules: ADR-REPO-AGENTS

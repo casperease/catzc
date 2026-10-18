@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "9ea854734dbc"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-files/types/InputStamp.cs.md
-    folder: docs/references/automation/catzc-base-files/types
-    name: input-stamp-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Files/types/InputStamp.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

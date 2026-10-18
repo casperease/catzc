@@ -1,31 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
-    folder: private
-    name: invoke-test-run
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#{26,30,31,44}
-      - ADR-PWSH-ANNOUNCE#6
-      - ADR-PWSH-PARAM#4
-      - ADR-REPO-PROTGLOB#9
----
-#>
-
 function Invoke-TestRun {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-PWSH-PARAM#4)')]
     [CmdletBinding()]

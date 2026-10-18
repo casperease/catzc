@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Invoke-ModuleBuild.Tests.ps1
-    name: invoke-module-build-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md
-    cites:
-      - ADR-PWSH-ENUM#3
----
-#>
-
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 BeforeAll {
     Import-InternalModule TestKit

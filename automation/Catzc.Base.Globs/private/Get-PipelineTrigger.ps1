@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-    folder: private
-    name: get-pipeline-trigger
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
-    cites:
-      - ADR-FLOW-CD-GLOBS
----
-#>
-
 function Get-PipelineTrigger {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

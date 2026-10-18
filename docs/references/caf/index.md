@@ -1,37 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/caf/index.md
-    folder: docs/references/caf
-    name: index
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/caf/
-      - docs/adr/azure/caf/billing-and-tenant.md
-      - docs/adr/azure/caf/design-principles.md
-      - docs/adr/azure/caf/governance.md
-      - docs/adr/azure/caf/identity-and-access.md
-      - docs/adr/azure/caf/landing-zone-security.md
-      - docs/adr/azure/caf/management.md
-      - docs/adr/azure/caf/naming-and-tagging.md
-      - docs/adr/azure/caf/network-connectivity.md
-      - docs/adr/azure/caf/network-private-access.md
-      - docs/adr/azure/caf/network-topology.md
-      - docs/adr/azure/caf/platform-automation-and-devops.md
-      - docs/adr/azure/caf/resource-organization.md
-      - docs/adr/azure/landing-zones.md
-      - docs/references/dora/index.md
-      - docs/references/waf/index.md
-      - "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/"
-      - "https://learn.microsoft.com/en-us/legal/termsofuse"
----
-
 # Cloud Adoption Framework reference
 
 This folder is the repository's local entry point to Microsoft's

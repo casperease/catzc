@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "493ae25d0dbc"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-rootconfig/tests
-    name: build-root-config-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{3,14}
-      - ADR-PWSH-PESTER#2
----
-
 # automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
 
 <!-- cspell:ignore nbeta nmodule -->

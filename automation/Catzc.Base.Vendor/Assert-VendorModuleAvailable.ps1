@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
-    name: assert-vendor-module-available
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
----
-#>
-
 function Assert-VendorModuleAvailable {
     [CmdletBinding()]
     param(

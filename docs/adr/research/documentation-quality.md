@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/documentation-quality.md
-    folder: docs/adr/research
-    name: documentation-quality
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-DOCS#{1-5}
-    links:
-      - docs/adr/repository/documentation-examples.md
-      - docs/adr/repository/generated-readmes.md
-      - docs/references/dora/capabilities.md#climate-for-learning
-      - docs/references/dora/capabilities.md#code-maintainability
-      - docs/references/dora/capabilities.md#continuous-integration
-      - docs/references/dora/capabilities.md#documentation-quality
-      - docs/references/dora/capabilities.md#trunk-based-development
-      - docs/references/dora/core-model.md#climate-for-learning
-      - docs/references/dora/core-model.md#organizational-performance
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
-      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
-      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
-      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
-      - "https://dora.dev/capabilities/documentation-quality/"
----
-
 # ADR: DORA — Documentation quality
 
 ## Rules: ADR-DORA-DOCS

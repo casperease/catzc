@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/minimaps/join.py"
-#     folder: drawio/minimaps
-#     name: join
-#     filetype: py
-#     kind: drawio-kit
-#     language: python
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # cspell:ignore minimaps mapkey
 """Join the three minimaps into each slide: lay out the sidebar, embed the PNGs, and rebuild the slide.
 

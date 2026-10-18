@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
-    folder: private
-    name: get-registered-install-product
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
-    cites:
-      - ADR-AUTO-REMOVE#7
----
-#>
-
 function Get-RegisteredInstallProduct {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoUnboundedEnumeration', '', Justification = 'It lists the registry provider (HKLM Uninstall keys), not the filesystem; the path sits in a variable the rule cannot read')]
     [CmdletBinding()]

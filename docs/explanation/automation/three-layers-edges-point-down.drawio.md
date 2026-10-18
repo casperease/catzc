@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/three-layers-edges-point-down.drawio.md
-    folder: docs/explanation/automation
-    name: three-layers-edges-point-down-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-auto-depm--three-layers-edges-point-down--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-auto-depm--three-layers-edges-point-down--architecture.tree.md
-      - docs/explanation/automation/three-layers-edges-point-down.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Module dependencies form three layers, and every edge points down: the diagram described
 
 ```text

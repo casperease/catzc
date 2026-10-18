@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
-    folder: tests
-    name: get-azure-customers-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{4,19}
----
-#>
-
 Describe 'Get-AzureCustomers' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {

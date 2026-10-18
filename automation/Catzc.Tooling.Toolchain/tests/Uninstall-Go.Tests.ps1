@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
-    folder: tests
-    name: uninstall-go-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 # Hermetic logic (L1): the managed home is a fixture folder under $TestDrive; the persistent PATH seam is mocked.
 Describe 'Uninstall-Go' -Tag 'L1', 'logic' {
     BeforeAll {

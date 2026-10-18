@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/independence-check-groups-by-layer.drawio.md
-    folder: docs/explanation/flow
-    name: independence-check-groups-by-layer-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.tree.md
-      - docs/explanation/flow/independence-check-groups-by-layer.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Test-GlobSetIndependence groups every set by layer and tests each same-layer pair: the diagram described
 
 ```text

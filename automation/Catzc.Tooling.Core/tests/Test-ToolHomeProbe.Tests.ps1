@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
-    folder: tests
-    name: test-tool-home-probe-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-ToolHomeProbe' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:toolHome = Join-Path $TestDrive ([Guid]::NewGuid())

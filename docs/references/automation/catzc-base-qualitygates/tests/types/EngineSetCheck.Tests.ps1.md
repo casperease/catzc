@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8f72f4b324da"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/types/EngineSetCheck.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests/types
-    name: engine-set-check-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-ENGINE#1
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

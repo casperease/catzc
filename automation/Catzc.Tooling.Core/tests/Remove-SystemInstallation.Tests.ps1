@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
-    folder: tests
-    name: remove-system-installation-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#33
----
-#>
-
 Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#33' {
     BeforeAll {
         $script:installDir = if ($IsWindows) {

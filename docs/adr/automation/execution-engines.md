@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/execution-engines.md
-    folder: docs/adr/automation
-    name: execution-engines
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-ENGINE#{1-7}
-    cites:
-      - ADR-AUTO-BASH#{3,6}
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-DEPS#3
-      - ADR-AUTO-GO#3
-      - ADR-AUTO-PARITY#1
-      - ADR-AUTO-PY#3
-    links:
-      - docs/adr/automation/bash/bash-test-artifacts.md
----
-
 # ADR: Execution engines — pwsh, bash and zsh, declared once
 
 ## Rules: ADR-AUTO-ENGINE

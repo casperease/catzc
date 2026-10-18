@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/retry-as-last-resort.md
-    folder: docs/adr/automation
-    name: retry-as-last-resort
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-RETRY#{1-6}
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/single-responsibility-functions.md
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error10
----
-
 # ADR: Retry is a last resort — lowest level only, never in tests
 
 ## Rules: ADR-AUTO-RETRY

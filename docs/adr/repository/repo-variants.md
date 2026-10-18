@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/repo-variants.md
-    folder: docs/adr/repository
-    name: repo-variants
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-VARIANT#{1-6}
-    cites:
-      - ADR-AUTO-CACHE#6
-      - ADR-CONF-LOADING#1
-      - ADR-PWSH-CACHE#1
-      - ADR-PWSH-VERBS#6
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/azure/azure-customer-model.md
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/design/module-aspects.md
-      - docs/adr/design/tracks.md
-      - docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6
----
-
 # ADR: Repo-wide variants — session-fixed settings behind Test-/Assert- primitives
 
 ## Rules: ADR-REPO-VARIANT

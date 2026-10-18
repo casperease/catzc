@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/deploy-bicep-delegates-to-az.md
-    folder: docs/explanation/design
-    name: deploy-bicep-delegates-to-az
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-CLI#1
-      - ADR-DSGN-THINPLAT#{2,3}
-    links:
-      - docs/adr/azure/prefer-az-cli.md
-      - docs/adr/design/thin-platforms.md
-      - docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
-      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
-      - docs/explanation/design/deploy-bicep-delegates-to-az.drawio.md
-      - docs/explanation/design/every-vendor-call-leaves-through-az.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
-      - docs/explanation/design/what-keeps-the-platform-thin.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az
 
 ```text

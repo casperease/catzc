@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
-    name: get-inspiration
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-INSPIRE#{1,2}
----
-#>
-
 function Get-Inspiration {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([Catzc.Tooling.Inspiration.Inspiration])]

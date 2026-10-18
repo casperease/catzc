@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/BCL/types-system.md
-    folder: docs/references/automation/BCL
-    name: types-system
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/automation/caching.md#rule-adr-auto-cache8
-      - docs/references/automation/catzc-base-objects.md
-      - docs/references/automation/catzc-base-typessystem.md
----
-
 # The BCL type system
 
 The automation platform compiles every module's `types/*.cs` sources into **one** combined assembly for the whole repository, loaded at

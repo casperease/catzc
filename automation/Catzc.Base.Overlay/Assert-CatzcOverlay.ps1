@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
-    name: assert-catzc-overlay
-    filetype: ps1
-    kind: function
-    subkind: assert
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Overlay
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
-    cites:
-      - ADR-AUTO-OVERLAY
----
-#>
-
 function Assert-CatzcOverlay {
     [CmdletBinding()]
     param(

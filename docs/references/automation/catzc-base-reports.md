@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-reports.md
-    folder: docs/references/automation
-    name: catzc-base-reports
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/test-automation.md
----
-
 # Catzc.Base.Reports
 
 Owns the one output shape every quality gate shares: a report written under the output root, the issues printed, and a single verdict — a

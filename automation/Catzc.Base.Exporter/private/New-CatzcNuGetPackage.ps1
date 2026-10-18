@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
-    folder: private
-    name: new-catzc-nu-get-package
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE#6
-      - ADR-GH-RELEASE
----
-#>
-
 function New-CatzcNuGetPackage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

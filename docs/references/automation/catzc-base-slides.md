@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-slides.md
-    folder: docs/references/automation
-    name: catzc-base-slides
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/repository/slides-as-markdown.md
----
-
 # Catzc.Base.Slides
 
 The slides module. It owns the render of a deck from its slide files through the patterns of the slides kit, and the gate that checks every

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/index.md
-    folder: docs/adr/pwsh
-    name: index
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/execution-engines.md
-      - docs/adr/index.md
-      - docs/adr/pwsh/pwsh-engine.md
----
-
 # PowerShell engine ADRs
 
 The ADRs here govern PowerShell 7 as one of catzc's execution engines ([execution-engines](../automation/execution-engines.md)): how the

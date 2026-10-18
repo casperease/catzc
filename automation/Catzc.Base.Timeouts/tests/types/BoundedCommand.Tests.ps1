@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
-    folder: tests/types
-    name: bounded-command-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md
----
-#>
-
 Describe 'BoundedCommand' -Tag 'L0', 'logic' {
     BeforeDiscovery {
         $script:cases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/bounded-command.yml') -Applicable)

@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-tooling-environment.md
-    folder: docs/references/automation
-    name: catzc-tooling-environment
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ENVVAR#{1,7}
-    links:
-      - docs/adr/automation/cross-platform.md
-      - docs/adr/automation/environment-variables.md
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-objects.md
----
-
 # Catzc.Tooling.Environment
 
 The seam that prepares a process's environment before launching a child or external tool. It is the one sanctioned way to hand a secret to

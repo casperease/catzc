@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "3b6725043936"
-    repo_status: locked
-    path: docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md
-    folder: docs/references/automation/internal/tests
-    name: set-redirected-output-encoding-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

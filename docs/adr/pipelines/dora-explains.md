@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pipelines/dora-explains.md
-    folder: docs/adr/pipelines
-    name: dora-explains
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/pipelines/custom-template-discipline.md
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/adr/pipelines/pipeline-naming-and-placement.md
-      - docs/adr/pipelines/pipeline-variables.md
-      - docs/references/dora/capabilities.md#code-maintainability
-      - docs/references/dora/capabilities.md#continuous-delivery
-      - docs/references/dora/capabilities.md#continuous-integration
-      - docs/references/dora/capabilities.md#documentation-quality
-      - docs/references/dora/capabilities.md#monitoring-and-observability
-      - docs/references/dora/capabilities.md#pervasive-security
-      - docs/references/dora/capabilities.md#streamlining-change-approval
-      - docs/references/dora/index.md
----
-
 # DORA explanations — pipelines
 
 The `Dora explains` rationale for the ADRs in the `pipelines/` domain, consolidated in one place. Each entry names its ADR and rule code,

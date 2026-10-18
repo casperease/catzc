@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Inspiration/types/Inspiration.cs
-    folder: types
-    name: inspiration
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-inspiration/types/Inspiration.cs.md
-    cites:
-      - ADR-AUTO-PATH#5
-      - ADR-REPO-INSPIRE#1
----
-*/
-
 using System;
 
 namespace Catzc.Tooling.Inspiration;

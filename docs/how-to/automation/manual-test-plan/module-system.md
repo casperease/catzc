@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/module-system.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: module-system
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#{3,4}
-      - ADR-AUTO-MODULE#{1-3,5}
-      - ADR-DSGN-MODTYPE#1
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Module system
 
 The module and function dependency graphs against real code, test order, profiles, internal asset dependencies, and the built bundle. Part

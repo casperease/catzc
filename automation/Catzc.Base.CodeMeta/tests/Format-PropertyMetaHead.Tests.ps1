@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
-    folder: tests
-    name: format-property-meta-head-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#3
----
-#>
-
 Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     It 'imprints the facts as the first property, and a second run changes nothing' {
         $facts = [ordered]@{ path = 'widget/gadget.json'; kind = 'other' }

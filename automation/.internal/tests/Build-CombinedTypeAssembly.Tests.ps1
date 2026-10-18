@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1
-    name: build-combined-type-assembly-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    page: docs/references/automation/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md
----
-#>
-
 # cspell:ignore npublic  -- the escape-sequence artifact in the "namespace X;`npublic class" fixture strings
 Describe 'Get-CombinedTypeHash module selection' -Tag 'L0', 'logic' {
     BeforeAll {

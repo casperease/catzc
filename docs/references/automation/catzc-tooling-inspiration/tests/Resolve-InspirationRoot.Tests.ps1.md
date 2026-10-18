@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "686ba78a627b"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
-    folder: docs/references/automation/catzc-tooling-inspiration/tests
-    name: resolve-inspiration-root-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-PATH#11
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

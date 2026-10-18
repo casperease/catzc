@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "0c7e93cf776e"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: identity-token-rule-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Base.QualityGates/types/IdentityTokenRule.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

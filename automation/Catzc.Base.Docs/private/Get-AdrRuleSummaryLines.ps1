@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/private/Get-AdrRuleSummaryLines.ps1
-    folder: private
-    name: get-adr-rule-summary-lines
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
-    cites:
-      - ADR-REPO-LINK#5
----
-#>
-
 function Get-AdrRuleSummaryLines {
     [OutputType([pscustomobject[]])]
     [CmdletBinding()]

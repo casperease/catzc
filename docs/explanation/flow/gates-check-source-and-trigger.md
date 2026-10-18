@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/gates-check-source-and-trigger.md
-    folder: docs/explanation/flow
-    name: gates-check-source-and-trigger
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-FLOW-CD-GLOBS
-      - ADR-REPO-PROTGLOB#5
-    links:
-      - docs/adr/automation/test-automation.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/repository/protected-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
-      - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
-      - docs/explanation/flow/gates-check-source-and-trigger.drawio.md
-      - docs/explanation/flow/globs-module-owns-config-and-types.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-scan-program-feeds-three-roles.md
-      - docs/explanation/flow/three-views-derived-live-from-one-program.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Gates check the source of each globset and the trigger, but not the git reflection or the identity
 
 ```text

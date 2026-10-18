@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/vendor-a-module.md
-    folder: docs/how-to/getting-started/automation
-    name: vendor-a-module
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/prefer-az-cli.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
-      - docs/how-to/getting-started/automation/add-a-cli-tool.md
----
-
 # Vendor a module
 
 Third-party PowerShell modules are **vendored** — checked into `automation/.vendor/<Name>/<Version>/` — so the repository alone guarantees

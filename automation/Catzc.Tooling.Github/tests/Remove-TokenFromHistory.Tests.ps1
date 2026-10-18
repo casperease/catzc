@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
-    folder: tests
-    name: remove-token-from-history-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
----
-#>
-
 Describe 'Remove-TokenFromHistory' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock -ModuleName Catzc.Tooling.Github Assert-Command {}

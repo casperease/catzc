@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
-    folder: tests
-    name: get-git-current-commit-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-GitCurrentCommit' -Tag 'L0', 'logic' {
     BeforeEach {
         # A checkout written by hand: HEAD on main, main at a made-up commit. No git process starts.

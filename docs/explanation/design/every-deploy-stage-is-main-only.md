@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/every-deploy-stage-is-main-only.md
-    folder: docs/explanation/design
-    name: every-deploy-stage-is-main-only
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#9
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
-      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
-      - docs/explanation/design/deploying-is-not-integrating.md
-      - docs/explanation/design/every-deploy-stage-is-main-only.drawio.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/merging-to-main-is-what-deploys.md
-      - docs/explanation/design/out-of-band-deploy-is-adr-only.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Every Deploy stage in cats runs only from main, so no topic commit is deployed
 
 ```text

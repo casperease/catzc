@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/private/New-VSCodeExtensionFolder.ps1
-    folder: private
-    name: new-vs-code-extension-folder
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.VSCode/tests/New-VSCodeExtensionFolder.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#1
----
-#>
-
 function New-VSCodeExtensionFolder {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes generated output under the output root; the folder is replaced on every render')]
     [CmdletBinding()]

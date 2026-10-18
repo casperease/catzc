@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.drawio.md
-    folder: docs/explanation/flow
-    name: cd-builds-once-then-deploys-prod-itself-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.tree.md
-      - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The customer CD pipeline builds once, then deploys the prod tier itself: the diagram described
 
 ```text

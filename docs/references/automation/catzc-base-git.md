@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-git.md
-    folder: docs/references/automation
-    name: catzc-base-git
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test32
-      - docs/adr/automation/tracked-files-from-the-index.md
-      - docs/adr/repository/generated-root-configs.md
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/catzc-base-rootconfig.md
-      - docs/references/automation/catzc-tooling-github.md
----
-
 # Catzc.Base.Git
 
 The declarative git-configuration module. It owns the rule that **what git ignores is declared, explained, and generated**: the

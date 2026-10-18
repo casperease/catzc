@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
-    folder: tests
-    name: test-plans-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-FOLDERS#12
-      - ADR-REPO-PLANS#{1-4,8}
----
-#>
-
 Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'

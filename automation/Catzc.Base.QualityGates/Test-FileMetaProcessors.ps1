@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
-    name: test-file-meta-processors
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-FILEMETA#4
----
-#>
-
 function Test-FileMetaProcessors {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

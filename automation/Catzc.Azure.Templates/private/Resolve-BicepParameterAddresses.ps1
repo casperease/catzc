@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
-    folder: private
-    name: resolve-bicep-parameter-addresses
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
-    cites:
-      - ADR-AZ-DATAMOD#10
-      - ADR-CONF-ADDRESSING#{1,3}
----
-#>
-
 function Resolve-BicepParameterAddresses {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

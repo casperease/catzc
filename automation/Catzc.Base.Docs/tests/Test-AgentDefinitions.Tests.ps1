@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-    folder: tests
-    name: test-agent-definitions-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,35}
-      - ADR-REPO-AGENTS
----
-#>
-
 Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:out = Join-Path $TestDrive 'out'

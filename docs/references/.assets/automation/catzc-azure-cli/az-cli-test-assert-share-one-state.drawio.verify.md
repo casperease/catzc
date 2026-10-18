@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-azure-cli
-    name: az-cli-test-assert-share-one-state-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PRELOG#5
-      - ADR-AZ-CLI#1
-      - ADR-AZ-DATAMOD#4
----
-
 # out/diagrams/wave-9/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
 
 `Verification: Three az checks: Test and Assert share one state call (source lens, Catzc.Azure.Cli)`

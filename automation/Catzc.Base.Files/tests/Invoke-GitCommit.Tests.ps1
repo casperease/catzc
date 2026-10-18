@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
-    folder: tests
-    name: invoke-git-commit-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-GitCommit' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable {

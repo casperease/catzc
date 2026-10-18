@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/dynamic-module-manifests.md
-    folder: docs/adr/pwsh
-    name: dynamic-module-manifests
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-MANIFEST#{1-10}
-    cites:
-      - ADR-AUTO-DEPM#{1,2}
-      - ADR-AUTO-EXTEND#{1,4}
-      - ADR-AUTO-ZERO#{2,3}
-      - ADR-PWSH-ENGINE#4
-    links:
-      - docs/adr/automation/open-closed-architecture.md
-      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1
-      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6
-      - docs/adr/design/module-aspects.md
-      - docs/adr/design/run-modes.md
-      - docs/adr/pwsh/pwsh-engine.md#rule-adr-pwsh-engine5
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
----
-
 # ADR: Dynamic module manifests — the PowerShell layer over open-closed-architecture
 
 ## Rules: ADR-PWSH-MANIFEST

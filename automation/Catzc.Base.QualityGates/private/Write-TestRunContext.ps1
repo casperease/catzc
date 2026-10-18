@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Write-TestRunContext.ps1
-    folder: private
-    name: write-test-run-context
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Write-TestRunContext.Tests.ps1
----
-#>
-
 function Write-TestRunContext {
     [CmdletBinding()]
     param(

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/a-declared-allow-list-of-layers.drawio.md
-    folder: docs/explanation/automation
-    name: a-declared-allow-list-of-layers-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
-      - docs/explanation/.assets/grid/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
-      - docs/explanation/.assets/tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
-      - docs/explanation/automation/a-declared-allow-list-of-layers.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One declared allow-list says what may depend on what, and every edge points down: the diagram described
 
 ```text

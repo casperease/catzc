@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
-    name: format-generated-file-head
-    filetype: ps1
-    kind: function
-    subkind: formatter
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#7
----
-#>
-
 function Format-GeneratedFileHead {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1
-    folder: tests
-    name: measure-no-automatic-variable-misuse-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1.md
----
-#>
-
 BeforeAll {
     $rulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\..' -AdditionalChildPath '.scriptanalyzer', 'NoAutomaticVariableMisuse.psm1' | Resolve-Path
     Import-Module $rulePath -Force

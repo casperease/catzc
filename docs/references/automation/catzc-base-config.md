@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-config.md
-    folder: docs/references/automation
-    name: catzc-base-config
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/adr/configuration/module-config-loading.md
-      - docs/references/.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
-      - docs/references/automation/catzc-base-configextensions.md
-      - docs/references/automation/catzc-base-objects.md
-      - docs/references/automation/catzc-base-repository.md
----
-
 # Catzc.Base.Config
 
 The single config reader for the platform. It owns `Get-Config` — the one public function every module calls to find, parse, validate, and

@@ -1,19 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: bash/tests/catzc-base-repository/repository.bats
-#     folder: tests/catzc-base-repository
-#     name: repository
-#     filetype: bats
-#     kind: test
-#     language: bash
-#     track: bash
-#     tracktype: verification
-#     module: bash
-#     moduletype: bash
-# ---
-
 # Black-box tests of Catzc.Base.Repository, in Bash.
 #
 # Each test calls catzc the way a Bash user does: setup loads the engine's entry, the repository's importer.sh

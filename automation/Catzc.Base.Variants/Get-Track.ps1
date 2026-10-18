@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/Get-Track.ps1
-    name: get-track
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-    cites:
-      - ADR-DSGN-TRACK
----
-#>
-
 function Get-Track {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([Catzc.Base.Variants.VariantTrack])]

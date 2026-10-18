@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "75f2fa107539"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md
-    folder: docs/references/automation/catzc-tooling-toolchain/tests
-    name: install-shellcheck-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

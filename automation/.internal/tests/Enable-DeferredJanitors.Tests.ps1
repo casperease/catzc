@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/Enable-DeferredJanitors.Tests.ps1
-    name: enable-deferred-janitors-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#16
----
-#>
-
 Describe 'Enable-DeferredJanitors' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#16' {
     BeforeEach {
         $script:savedPrompt = (Get-Command prompt -CommandType Function -ErrorAction Ignore).ScriptBlock

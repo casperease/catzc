@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
-    folder: tests/types
-    name: repo-relative-path-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md
----
-#>
-
 Describe 'RepoRelativePath' -Tag 'L0', 'logic' {
     It 'strips a leading ./ from a relative path' {
         [Catzc.Base.Objects.RepoRelativePath]::new('./automation/mod/file.ps1').Relative | Should -Be 'automation/mod/file.ps1'

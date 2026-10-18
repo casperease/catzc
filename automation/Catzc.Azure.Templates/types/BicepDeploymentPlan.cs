@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
-    folder: types
-    name: bicep-deployment-plan
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Azure.Templates;

@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "254b38dd639b"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
-    folder: docs/references/automation/catzc-base-timeouts/types
-    name: pipeline-watchdog-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

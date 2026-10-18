@@ -11,31 +11,6 @@ plan:
       automation/Catzc.Base.Config,
       docs/adr/automation,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-config-defaults.md"
-    folder: plans
-    name: plan-config-defaults
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#{5,6}
-      - ADR-AUTO-OVERLAY#{1,4,8}
-      - ADR-CATS#5
-      - ADR-PRIN-CONFIG#3
-      - ADR-REPO-CONTRACT#{3,6,9}
-    links:
-      - ".claude/plans/plan-layers-vocabulary-rename-contracts.md"
-      - ".claude/plans/plan-module-kinds-tracks.md"
-      - ".claude/plans/prompt-config-defaults-continue.md"
 ---
 
 # Config defaults: declared once on the type, overridden by a repo fragment, pinned by a contract

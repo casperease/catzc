@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "9aff26768daf"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md
-    folder: docs/references/automation/catzc-base-writers/types
-    name: rainbow-color-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CONSOLE#7
----
-
 # automation/Catzc.Base.Writers/types/RainbowColor.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

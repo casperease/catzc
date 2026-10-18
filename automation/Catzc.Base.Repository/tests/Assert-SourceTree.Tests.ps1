@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
-    folder: tests
-    name: assert-source-tree-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Assert-SourceTree' -Tag 'L0', 'logic' {
     It 'is silent in source mode' {
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.Repository

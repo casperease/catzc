@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "2da8d16357ce"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md
-    folder: docs/references/automation/catzc-base-docs
-    name: build-adr-index-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-FORMAT#5
----
-
 # automation/Catzc.Base.Docs/Build-AdrIndex.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

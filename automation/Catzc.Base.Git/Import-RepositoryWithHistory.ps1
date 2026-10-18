@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-    name: import-repository-with-history
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-DRYRUN#2
-      - ADR-AUTO-FAILFAST#3
-      - ADR-DSGN-TRACK#17
----
-#>
-
 function Import-RepositoryWithHistory {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/one-gate-guards-the-read-path.drawio.md
-    folder: docs/explanation/configuration
-    name: one-gate-guards-the-read-path-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-loading--one-gate-guards-the-read-path--governance.chain.md
-      - docs/explanation/.assets/grid/adr-conf-loading--one-gate-guards-the-read-path--governance.grid.md
-      - docs/explanation/.assets/tree/adr-conf-loading--one-gate-guards-the-read-path--governance.tree.md
-      - docs/explanation/configuration/one-gate-guards-the-read-path.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One quality gate guards the config read path, and it checks only the typed step: the diagram described
 
 ```text

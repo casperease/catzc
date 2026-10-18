@@ -11,20 +11,6 @@ task:
       docs/references/automation/catzc-base-codemeta,
       automation/Catzc.Base.Git/Push-Dirty.ps1,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-root-config-fixtures.md"
-    folder: plans
-    name: task-root-config-fixtures
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Task: the root-config fixture tests and the PropertyHead docs

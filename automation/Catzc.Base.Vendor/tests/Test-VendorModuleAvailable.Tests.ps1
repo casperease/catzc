@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1
-    folder: tests
-    name: test-vendor-module-available-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-VendorModuleAvailable' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Resolve-VendorRepository -ModuleName Catzc.Base.Vendor { 'PSGallery' }

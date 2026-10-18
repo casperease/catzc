@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Connect-AzCli.ps1
-    name: connect-az-cli
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
----
-#>
-
 function Connect-AzCli {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The -ServicePrincipal/-ManagedIdentity/-DeviceCode switches are parameter-set discriminators consumed by PowerShell parameter binding (the body branches on $PSCmdlet.ParameterSetName), not referenced directly')]
     [CmdletBinding(DefaultParameterSetName = 'Interactive')]

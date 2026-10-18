@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/types/ToolConfig.cs
-    folder: types
-    name: tool-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md
-    test: automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEPS#1
-      - ADR-AUTO-PKGMGR#6
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

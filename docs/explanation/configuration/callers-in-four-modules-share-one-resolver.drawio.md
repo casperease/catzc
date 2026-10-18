@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.drawio.md
-    folder: docs/explanation/configuration
-    name: callers-in-four-modules-share-one-resolver-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.tree.md
-      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private: the diagram described
 
 ```text

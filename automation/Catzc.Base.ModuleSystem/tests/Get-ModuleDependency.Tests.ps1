@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
-    folder: tests
-    name: get-module-dependency-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependency.Tests.ps1.md
----
-#>
-
 Describe 'Get-ModuleDependency' -Tag 'integrity', 'source-only' {
     BeforeAll {
         $script:edges = Get-ModuleDependency

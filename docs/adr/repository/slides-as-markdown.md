@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/slides-as-markdown.md
-    folder: docs/adr/repository
-    name: slides-as-markdown
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-SLIDES#{1-6}
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-PRIN-CONFIG#{1-3}
-      - ADR-PRIN-EAC#3
-      - ADR-PRIN-ONELIVE#1
-      - ADR-PRIN-POKAYOKE#2
-      - ADR-REPO-FOLDERS#12
-    links:
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test3
-      - docs/adr/principles/configure-not-program.md#rule-adr-prin-config1
-      - docs/adr/principles/configure-not-program.md#rule-adr-prin-config2
-      - docs/adr/principles/configure-not-program.md#rule-adr-prin-config3
-      - docs/adr/principles/everything-as-code.md#rule-adr-prin-eac3
-      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1
-      - docs/adr/principles/poka-yoke.md#rule-adr-prin-pokayoke2
-      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders12
----
-
 # ADR-REPO-SLIDES: slides as markdown files, rendered through patterns
 
 ## Rules: ADR-REPO-SLIDES

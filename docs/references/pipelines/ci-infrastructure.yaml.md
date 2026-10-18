@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f4fb119b9079
-    repo_status: locked
-    path: docs/references/pipelines/ci-infrastructure.yaml.md
-    folder: docs/references/pipelines
-    name: ci-infrastructure-yaml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#37
-      - ADR-AZ-DATAMOD#9
----
-
 # pipelines/ci-infrastructure.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

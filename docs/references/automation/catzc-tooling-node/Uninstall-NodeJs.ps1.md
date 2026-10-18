@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "6bb2016d2353"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md
-    folder: docs/references/automation/catzc-tooling-node
-    name: uninstall-node-js-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-ONEJOB#5
-      - ADR-AUTO-REMOVE#5
----
-
 # automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

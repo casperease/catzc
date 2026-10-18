@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
-    folder: tests
-    name: test-expected-package-manager-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-core/tests/Test-ExpectedPackageManager.Tests.ps1.md
-    cites:
-      - ADR-AUTO-REMOVE#3
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
     BeforeEach {
         $script:managedDir = Join-Path $TestDrive 'widget-managed'

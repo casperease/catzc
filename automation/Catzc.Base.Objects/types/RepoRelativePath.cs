@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/types/RepoRelativePath.cs
-    folder: types
-    name: repo-relative-path
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md
-    test: automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
-    cites:
-      - ADR-AUTO-PATH
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.IO;

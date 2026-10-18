@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8238d511e41c"
-    repo_status: locked
-    path: docs/references/pipelines/cd-nova.yaml.md
-    folder: docs/references/pipelines
-    name: cd-nova-yaml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # pipelines/cd-nova.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

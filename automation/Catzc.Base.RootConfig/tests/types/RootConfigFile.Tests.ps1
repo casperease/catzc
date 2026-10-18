@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1
-    folder: tests/types
-    name: root-config-file-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'RootConfigFile' -Tag 'L0', 'logic' {
     It 'constructs a source copy-in and exposes its fields with defaults' {
         $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = '.editorconfig'; source = 'a/b/.editorconfig' })

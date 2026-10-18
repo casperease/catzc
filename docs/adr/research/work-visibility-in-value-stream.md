@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/work-visibility-in-value-stream.md
-    folder: docs/adr/research
-    name: work-visibility-in-value-stream
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-WORKVIS#{1-5}
-    links:
-      - docs/adr/design/visual-design.md
-      - docs/adr/process/observe-work.md
-      - docs/references/dora/capabilities.md#customer-feedback
-      - docs/references/dora/capabilities.md#fast-feedback
-      - docs/references/dora/capabilities.md#visual-management
-      - docs/references/dora/capabilities.md#wip-limits
-      - docs/references/dora/capabilities.md#work-visibility-in-value-stream
-      - docs/references/dora/capabilities.md#working-in-small-batches
-      - docs/references/dora/core-model.md#organizational-performance
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2016-state-of-devops-report
-      - "https://dora.dev/capabilities/work-visibility-in-value-stream/"
----
-
 # ADR: DORA — Visibility of work in the value stream
 
 ## Rules: ADR-DORA-WORKVIS

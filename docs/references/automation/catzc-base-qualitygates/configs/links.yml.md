@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: db7980c5beb3
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/configs/links.yml.md
-    folder: docs/references/automation/catzc-base-qualitygates/configs
-    name: links-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-PWSH-PARAM#4
-      - ADR-REPO-LINK#{5,8}
----
-
 # automation/Catzc.Base.QualityGates/configs/links.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

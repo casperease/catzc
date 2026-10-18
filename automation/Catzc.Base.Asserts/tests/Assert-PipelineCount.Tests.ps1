@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
-    folder: tests
-    name: assert-pipeline-count-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Assert-PipelineCount' -Tag 'L0', 'logic' {
     Context 'Equals' {
         It 'passes when count matches' {

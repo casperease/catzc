@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Vendor/private/Get-VendoredModule.ps1
-    folder: private
-    name: get-vendored-module
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
----
-#>
-
 function Get-VendoredModule {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

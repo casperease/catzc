@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/deck.md
-    folder: docs/explanation/thesis/product-thesis
-    name: deck
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/index.md
-      - docs/adr/thesis/one-source-of-truth.md
----
-
 # Cats product thesis
 
 ## Sections

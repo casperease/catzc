@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
-    name: test-root-config-files
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-ROOTCFG
----
-#>
-
 function Test-RootConfigFiles {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

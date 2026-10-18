@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "207896489921"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-exporter/tests
-    name: new-catzc-nu-get-package-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{3,20}
----
-
 # automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
 
 <!-- cspell:ignore nfunction -->

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
-    name: resolve-catzc-build-version
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE#7
-      - ADR-PWSH-ERROR#2
----
-#>
-
 function Resolve-CatzcBuildVersion {
     [CmdletBinding()]
     [OutputType([string])]

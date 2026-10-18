@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f694fa908eab
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md
-    folder: docs/references/automation/catzc-azure
-    name: get-azure-subscription-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure/Get-AzureSubscription.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

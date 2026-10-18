@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
-    folder: tests/types
-    name: adr-checks-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TEST#3
-      - ADR-AUTO-TYPES#9
-      - ADR-PRIN-CONFIG#1
----
-#>
-
 Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     Context 'defaults' -Tag 'ADR-AUTO-DEFAULT#6' {
         It 'gives every check the gate mode and empty lists when the file states nothing' {

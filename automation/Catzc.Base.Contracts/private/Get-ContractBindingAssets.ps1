@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
-    folder: private
-    name: get-contract-binding-assets
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT#{3,4}
----
-#>
-
 function Get-ContractBindingAssets {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractAsset[]])]

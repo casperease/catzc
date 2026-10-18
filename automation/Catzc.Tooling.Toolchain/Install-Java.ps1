@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Install-Java.ps1
-    name: install-java
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md
-    test: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#11
----
-#>
-
 function Install-Java {
     [CmdletBinding()]
     param(

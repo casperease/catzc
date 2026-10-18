@@ -1,31 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Variants/types/VariantsConfig.cs
-    folder: types
-    name: variants-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
-    test: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-DSGN-ASPECT
-      - ADR-DSGN-TRACK
-      - ADR-REPO-VARIANT
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

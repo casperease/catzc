@@ -3,23 +3,6 @@ plan:
   status: active
   kind: questionnaire
   reviewed: 2026-10-18
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/questionnaire-2026-10-18.md"
-    folder: plans
-    name: questionnaire-2026-10-18
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-PWSH-VERBS#2
 ---
 
 # Questionnaire, 2026-10-18: the open decisions of the plans

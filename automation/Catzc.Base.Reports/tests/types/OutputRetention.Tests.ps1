@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
-    folder: tests/types
-    name: output-retention-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-OUTDIR#7
----
-#>
-
 Describe 'Catzc.Base.Reports.OutputRetention' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#7' {
     BeforeAll {
         $script:now = [datetime]::new(2026, 10, 15, 12, 0, 0, [System.DateTimeKind]::Utc)

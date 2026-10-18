@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure-templates.md
-    folder: docs/references/automation
-    name: catzc-azure-templates
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/adr/pwsh/prepost-extension-modules.md
-      - docs/references/.assets/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png
-      - docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
-      - docs/references/automation/catzc-azure-cli.md
-      - docs/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
-      - docs/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
-      - docs/references/automation/catzc-azure.md
----
-
 # Catzc.Azure.Templates
 
 The Bicep templating module. It is the top of the Azure stack: it discovers the deployable templates in the repository, derives the names

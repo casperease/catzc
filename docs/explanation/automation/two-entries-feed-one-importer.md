@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-entries-feed-one-importer.md
-    folder: docs/explanation/automation
-    name: two-entries-feed-one-importer
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-BUNDLE#{2,3}
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/explanation/.assets/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
-      - docs/explanation/automation/dot-source-one-entry-script.md
-      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/invoke-importer-in-code-order.md
-      - docs/explanation/automation/rule-and-gate-per-load-stage.md
-      - docs/explanation/automation/two-entries-feed-one-importer.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Two entry scripts feed one importer, and the importer leaves once the load is done
 
 ```text

@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/error-handling.md
-    folder: docs/adr/pwsh
-    name: error-handling
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-ERROR#{1-3,5,7-11}
-    cites:
-      - ADR-AUTO-FAILFAST#4
-      - ADR-AUTO-ONEJOB#6
-      - ADR-AUTO-RETRY#{1,5,6}
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast4
-      - docs/adr/automation/retry-as-last-resort.md
-      - docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5
-      - docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob6
-      - docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert4
-      - docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4
----
-
 # ADR: Error handling — fail immediately, no warnings
 
 ## Rules: ADR-PWSH-ERROR

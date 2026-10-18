@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
-    name: get-catzc-module-root
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Repository/tests/Get-CatzcModuleRoot.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#{1,2}
-      - ADR-AUTO-OVERLAY
-      - ADR-DSGN-RUNMODE
----
-#>
-
 function Get-CatzcModuleRoot {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
-    folder: tests/types
-    name: folder-walker-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Folders
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-FAILFAST
----
-#>
-
 # FolderWalker lists below a folder to a bounded depth, prunes named folders while it walks, and never follows a link.
 Describe 'FolderWalker' -Tag 'L0', 'logic' {
     BeforeAll {

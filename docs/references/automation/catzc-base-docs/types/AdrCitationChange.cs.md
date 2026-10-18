@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "0f6989f73de2"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/types/AdrCitationChange.cs.md
-    folder: docs/references/automation/catzc-base-docs/types
-    name: adr-citation-change-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#9
----
-
 # automation/Catzc.Base.Docs/types/AdrCitationChange.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

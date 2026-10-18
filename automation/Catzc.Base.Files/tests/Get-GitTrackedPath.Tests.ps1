@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
-    folder: tests
-    name: get-git-tracked-path-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md
----
-#>
-
 Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     BeforeAll {
         function Set-GitIndexFile {

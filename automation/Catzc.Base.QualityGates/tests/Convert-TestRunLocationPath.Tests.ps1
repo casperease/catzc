@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1
-    folder: tests
-    name: convert-test-run-location-path-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Convert-TestRunLocationPath' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:snapshotLocation = [pscustomobject]@{ SourceRoot = 'C:\widget'; Root = 'C:\tmp\catzc-run-gadget' }

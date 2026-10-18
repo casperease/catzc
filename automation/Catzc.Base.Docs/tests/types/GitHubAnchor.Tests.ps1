@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
-    folder: tests/types
-    name: git-hub-anchor-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md
-    cites:
-      - ADR-REPO-LINK#2
----
-#>
-
 Describe 'GitHubAnchor' -Tag 'L0', 'logic' {
     It 'slugs a rule heading to rule- plus the lowercased code and number' -Tag 'ADR-REPO-LINK#2' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('Rule ADR-TST-WIDGET:1') | Should -BeExactly 'rule-adr-tst-widget1'

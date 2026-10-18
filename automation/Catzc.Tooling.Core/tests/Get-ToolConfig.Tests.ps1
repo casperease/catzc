@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
-    folder: tests
-    name: get-tool-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Get-ToolConfig' -Tag 'L0' {
     $script:configPath = (Get-Config -Config tools -ListOwners).Path
     $script:allTools = Get-Content $configPath -Raw | ConvertFrom-Yaml

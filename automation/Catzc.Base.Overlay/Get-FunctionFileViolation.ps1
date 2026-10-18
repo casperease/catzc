@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
-    name: get-function-file-violation
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Overlay
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-OVERLAY
-      - ADR-PWSH-MANIFEST#5
----
-#>
-
 function Get-FunctionFileViolation {
     [CmdletBinding()]
     [OutputType([string])]

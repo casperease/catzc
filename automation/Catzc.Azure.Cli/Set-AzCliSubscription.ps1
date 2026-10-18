@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Set-AzCliSubscription.ps1
-    name: set-az-cli-subscription
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
----
-#>
-
 function Set-AzCliSubscription {
     [CmdletBinding()]
     param(

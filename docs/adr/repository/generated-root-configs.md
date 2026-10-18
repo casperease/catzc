@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/generated-root-configs.md
-    folder: docs/adr/repository
-    name: generated-root-configs
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-ROOTCFG#{1-8}
-    cites:
-      - ADR-REPO-FILEMETA#7
-    links:
-      - docs/adr/automation/caching.md#rule-adr-auto-cache6
-      - docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go4
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7
-      - docs/adr/repository/generated-readmes.md
----
-
 # ADR: Generated root configs — every managed root file from one in-repo source of truth
 
 ## Rules: ADR-REPO-ROOTCFG

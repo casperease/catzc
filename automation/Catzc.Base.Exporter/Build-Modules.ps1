@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/Build-Modules.ps1
-    name: build-modules
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md
-    test: automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
-    cites:
-      - ADR-AUTO-BUNDLE#1
-      - ADR-AUTO-DRYRUN#2
----
-#>
-
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE#1)')]
     [CmdletBinding()]

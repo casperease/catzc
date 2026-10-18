@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/integrators-depend-on-an-occupant.drawio.md
-    folder: docs/explanation/design
-    name: integrators-depend-on-an-occupant-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.tree.md
-      - docs/explanation/design/integrators-depend-on-an-occupant.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Upstream integrators depend on the main-UAT occupant, never on the tip of main: the diagram described
 
 ```text

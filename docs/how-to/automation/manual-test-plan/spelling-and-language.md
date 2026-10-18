@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/spelling-and-language.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: spelling-and-language
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Spelling and language
 
 Spell-checking, the terminology registry and dictionaries, and the glossary. Part of the [manual test plan](../manual-test-plan.md), which

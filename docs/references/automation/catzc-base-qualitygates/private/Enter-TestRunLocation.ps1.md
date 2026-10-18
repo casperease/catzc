@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: fcca4c9c5e1b
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/private
-    name: enter-test-run-location-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-AUTO-ENGINE#2
----
-
 # automation/Catzc.Base.QualityGates/private/Enter-TestRunLocation.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

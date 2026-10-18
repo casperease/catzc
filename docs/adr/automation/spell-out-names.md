@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/spell-out-names.md
-    folder: docs/adr/automation
-    name: spell-out-names
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-SPELL#{1-8}
-    cites:
-      - ADR-PWSH-NAMES#1
-      - ADR-REPO-OUTDIR#5
-    links:
-      - docs/adr/pwsh/identifier-names.md
-      - docs/adr/pwsh/identifier-names.md#rule-adr-pwsh-names1
-      - docs/adr/pwsh/identifier-names.md#rule-adr-pwsh-names6
-      - docs/adr/pwsh/respect-pwsh-verb-rules.md
----
-
 # ADR: Spell out names — no invented abbreviations
 
 ## Rules: ADR-AUTO-SPELL

@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs
-    folder: types
-    name: tool-status-kind
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md
----
-*/
-
 namespace Catzc.Tooling.Provisioning;
 
 public enum ToolStatusKind

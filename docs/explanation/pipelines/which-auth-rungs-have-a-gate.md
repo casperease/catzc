@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
-    folder: docs/explanation/pipelines
-    name: which-auth-rungs-have-a-gate
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-DETECT#1
-      - ADR-PIPE-AUTH
-    links:
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/explanation/.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/pipelines/configured-credential-proves-its-org.md
-      - docs/explanation/pipelines/index.md
-      - docs/explanation/pipelines/one-header-function-owns-precedence.md
-      - docs/explanation/pipelines/three-guarded-early-returns.md
-      - docs/explanation/pipelines/what-you-set-decides-the-credential.md
-      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.drawio.md
----
-
 # The PAT proof and the empty-token assert have no gate
 
 ```text

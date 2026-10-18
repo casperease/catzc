@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Files/Get-RepoStatus.ps1
-    name: get-repo-status
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Files/tests/Get-RepoStatus.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#13
----
-#>
-
 function Get-RepoStatus {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/one-header-function-owns-precedence.drawio.md
-    folder: docs/explanation/pipelines
-    name: one-header-function-owns-precedence-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-pipe-auth--one-header-function-owns-precedence--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-pipe-auth--one-header-function-owns-precedence--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-pipe-auth--one-header-function-owns-precedence--architecture.tree.md
-      - docs/explanation/pipelines/one-header-function-owns-precedence.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One function owns the credential precedence, and ado.yml anchors every proof: the diagram described
 
 ```text

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
-    folder: tests
-    name: get-glob-set-hash-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-GLOBS#5
----
-#>
-
 # cspell:ignore ntwo  -- the escape-sequence artifact in the "one`ntwo" CRLF/LF fixture strings
 Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
     BeforeAll {

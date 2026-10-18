@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.drawio.md
-    folder: docs/explanation/design
-    name: unit-to-pipeline-rule-is-review-only-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.tree.md
-      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone: the diagram described
 
 ```text

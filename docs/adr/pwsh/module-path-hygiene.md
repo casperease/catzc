@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/module-path-hygiene.md
-    folder: docs/adr/pwsh
-    name: module-path-hygiene
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-MODPATH#{1-3}
-    links:
-      - docs/adr/automation/effective-in-enterprises.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor8
----
-
 # ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises
 
 ## Rules: ADR-PWSH-MODPATH

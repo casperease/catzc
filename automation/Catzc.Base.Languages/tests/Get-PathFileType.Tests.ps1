@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
-    folder: tests
-    name: get-path-file-type-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#6
----
-#>
-
 Describe 'Get-PathFileType' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK#6' {
     It 'returns the extension of the file name without its dot' -ForEach @(
         @{ Path = 'widgetry/Catzc.Widget/Get-Gadget.ps1'; Expected = 'ps1' }

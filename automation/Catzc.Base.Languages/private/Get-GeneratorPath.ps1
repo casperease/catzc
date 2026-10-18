@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
-    folder: private
-    name: get-generator-path
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#7
----
-#>
-
 function Get-GeneratorPath {
     [CmdletBinding()]
     [OutputType([string])]

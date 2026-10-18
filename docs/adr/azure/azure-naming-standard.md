@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/azure-naming-standard.md
-    folder: docs/adr/azure
-    name: azure-naming-standard
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-NAMING#{1-8}
-    links:
-      - docs/.assets/azure/azure-name-assembly.drawio.png
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/repository/repo-variants.md
----
-
 # ADR: Azure resource naming standard
 
 <!-- cspell:ignore weuwkspvm prweufindiscaphotst weufindiscxaphotst weudiscvm etlco -->

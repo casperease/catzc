@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
-    name: install-dotnet
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
-    test: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-CONSOLE#11
-      - ADR-AUTO-IDEM#1
----
-#>
-
 function Install-Dotnet {
     [CmdletBinding()]
     param(

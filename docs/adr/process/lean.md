@@ -1,35 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/lean.md
-    folder: docs/adr/process
-    name: lean
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-LEAN#{1-5}
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/principles/poka-yoke.md
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/agile-principles.md
-      - docs/adr/process/agile-values.md
-      - docs/adr/process/agile.md
-      - docs/adr/process/build-quality-in.md
-      - docs/adr/process/holding-the-line.md
-      - docs/adr/process/inspect-and-adapt.md
-      - docs/adr/process/observe-work.md
-      - docs/adr/process/process-terms.md
-      - docs/adr/process/pull-work.md
-      - docs/adr/process/queues-cost-money.md
----
-
 # ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks
 
 ## Rules: ADR-PROC-LEAN

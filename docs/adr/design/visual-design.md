@@ -1,29 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/visual-design.md
-    folder: docs/adr/design
-    name: visual-design
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-VISUAL#{1-14}
-    cites:
-      - ADR-DSGN-LIFE#{1,5}
-      - ADR-FLOW-CD#{9-11}
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd11
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
----
-
 # ADR: Visual design of the value-chain diagrams — branch geometry and commit-colour semantics
 
 The value-chain / promotion diagrams under `docs/.assets/commits-quality` are a domain language: a reader must be able to decode a commit's

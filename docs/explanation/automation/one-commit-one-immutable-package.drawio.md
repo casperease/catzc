@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/one-commit-one-immutable-package.drawio.md
-    folder: docs/explanation/automation
-    name: one-commit-one-immutable-package-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
-      - docs/explanation/.assets/grid/adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md
-      - docs/explanation/.assets/tree/adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md
-      - docs/explanation/automation/one-commit-one-immutable-package.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One commit becomes one verified, immutable package, and every code root is a copy of it: the diagram described
 
 ```text

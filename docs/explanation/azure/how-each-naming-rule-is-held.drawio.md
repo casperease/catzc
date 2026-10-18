@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/how-each-naming-rule-is-held.drawio.md
-    folder: docs/explanation/azure
-    name: how-each-naming-rule-is-held-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
-      - docs/explanation/.assets/grid/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md
-      - docs/explanation/.assets/tree/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md
-      - docs/explanation/azure/how-each-naming-rule-is-held.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Code holds all eight naming rules, seven of them behind a check that throws: the diagram described
 
 ```text

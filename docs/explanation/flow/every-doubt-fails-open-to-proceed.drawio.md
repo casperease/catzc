@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/every-doubt-fails-open-to-proceed.drawio.md
-    folder: docs/explanation/flow
-    name: every-doubt-fails-open-to-proceed-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.tree.md
-      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed: the diagram described
 
 ```text

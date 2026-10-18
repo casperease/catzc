@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/sync-from-the-last-certified-commit.md
-    folder: docs/explanation/design
-    name: sync-from-the-last-certified-commit
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#{6-8}
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
-      - docs/explanation/design/index.md
-      - docs/explanation/design/integrators-depend-on-an-occupant.md
-      - docs/explanation/design/sync-from-the-last-certified-commit.drawio.md
-      - docs/explanation/design/sync-point-rules-are-adr-only.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Sync from the last certified commit, not from the tip of main
 
 ```text

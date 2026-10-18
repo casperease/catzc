@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: bbdebac4eda9
-    repo_status: locked
-    path: docs/references/infrastructure/modules/sql-server.bicep.md
-    folder: docs/references/infrastructure/modules
-    name: sql-server-bicep
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # infrastructure/modules/sql-server.bicep
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

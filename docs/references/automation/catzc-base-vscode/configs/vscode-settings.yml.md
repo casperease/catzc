@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "0a1e6f35b439"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
-    folder: docs/references/automation/catzc-base-vscode/configs
-    name: vscode-settings-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-GO#6
-      - ADR-AUTO-PY#4
-      - ADR-REPO-FORMAT#8
-      - ADR-REPO-LINK#{2,3}
----
-
 # automation/Catzc.Base.VSCode/configs/vscode-settings.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

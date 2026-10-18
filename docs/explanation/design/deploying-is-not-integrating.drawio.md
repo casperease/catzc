@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/deploying-is-not-integrating.drawio.md
-    folder: docs/explanation/design
-    name: deploying-is-not-integrating-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md
-      - docs/explanation/design/deploying-is-not-integrating.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Deploying a topic commit is not integrating it: the diagram described
 
 ```text

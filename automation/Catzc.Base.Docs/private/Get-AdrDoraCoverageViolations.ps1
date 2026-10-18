@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1
-    folder: private
-    name: get-adr-dora-coverage-violations
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
----
-#>
-
 function Get-AdrDoraCoverageViolations {
     [OutputType([string[]])]
     [CmdletBinding()]

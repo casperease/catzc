@@ -1,31 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
-    name: get-function-dependency
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
-    test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE#{2,4-6}
-      - ADR-AUTO-TEST#4
-      - ADR-DSGN-RUNMODE
-      - ADR-PWSH-CACHE#4
-      - ADR-PWSH-PESTER#9
----
-#>
-
 function Get-FunctionDependency {
     param(
         [string] $AutomationRoot = (Get-CatzcModulesRoot),

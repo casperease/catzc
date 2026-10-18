@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/CLAUDE.md
-    folder: docs/references/infrastructure
-    name: claude
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - ".claude/CLAUDE.md#time-safeguard"
-      - docs/adr/repository/generated-readmes.md
-      - docs/references/infrastructure/modules.md
----
-
 # Authoring an infrastructure reference
 
 This directory holds one reference article per infrastructure unit: the templating-system `overview.md`, the shared-bicep `modules.md`, and

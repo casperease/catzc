@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/types/ValueChainReason.cs
-    folder: types
-    name: value-chain-reason
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#{14,15}
----
-*/
-
 using System;
 using System.Collections.Generic;
 

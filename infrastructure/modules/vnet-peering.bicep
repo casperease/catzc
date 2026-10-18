@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/vnet-peering.bicep
-//     name: vnet-peering
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: vnet-peering
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/vnet-peering.bicep.md
-// ---
-
 @description('Name of the existing local virtual network (in the deployment resource group).')
 param virtualNetworkName string
 

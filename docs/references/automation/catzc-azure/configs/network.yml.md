@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: cdc1a6c15994
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/configs/network.yml.md
-    folder: docs/references/automation/catzc-azure/configs
-    name: network-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure/configs/network.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

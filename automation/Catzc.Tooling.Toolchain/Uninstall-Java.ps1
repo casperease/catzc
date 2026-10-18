@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Uninstall-Java.ps1
-    name: uninstall-java
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md
-    test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
-    cites:
-      - ADR-AUTO-CONSOLE#11
-      - ADR-AUTO-ONEJOB#5
-      - ADR-AUTO-REMOVE#{4,5}
----
-#>
-
 function Uninstall-Java {
     [CmdletBinding()]
     param(

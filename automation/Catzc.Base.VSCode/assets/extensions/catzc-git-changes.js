@@ -1,22 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.VSCode/assets/extensions/catzc-git-changes.js
-    folder: assets/extensions
-    name: catzc-git-changes
-    filetype: js
-    kind: asset
-    language: javascript
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-*/
-
 // Shades the lines a file changes against HEAD inside the editor, which the editor's own quick diff only marks in the gutter.
 // Both diffs number their added lines in the working tree: HEAD..worktree gives every changed line, index..worktree the unstaged
 // ones, so a line in the first and not the second is staged. A pure deletion has no line to shade; an untracked file has no diff.

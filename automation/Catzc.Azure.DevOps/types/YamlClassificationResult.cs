@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/types/YamlClassificationResult.cs
-    folder: types
-    name: yaml-classification-result
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-devops/types/YamlClassificationResult.cs.md
----
-*/
-
 // The outcome of classifying one ADO YAML file: the coarse kind plus, for templates, the body sub-kind.
 
 using System;

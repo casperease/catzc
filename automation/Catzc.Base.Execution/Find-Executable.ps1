@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/Find-Executable.ps1
-    name: find-executable
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
-    cites:
-      - ADR-PWSH-CACHE
----
-#>
-
 function Find-Executable {
     [OutputType([Catzc.Base.Execution.ExecutableProbe])]
     [CmdletBinding()]

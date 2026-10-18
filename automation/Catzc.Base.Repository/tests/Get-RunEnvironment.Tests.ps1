@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/tests/Get-RunEnvironment.Tests.ps1
-    folder: tests
-    name: get-run-environment-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-RunEnvironment' -Tag 'L0', 'logic' {
     It 'is a devbox outside a pipeline' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository

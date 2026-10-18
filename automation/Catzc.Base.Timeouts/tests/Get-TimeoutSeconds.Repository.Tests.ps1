@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
-    folder: tests
-    name: get-timeout-seconds-repository-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md
-    cites:
-      - ADR-PWSH-ASSERT#1
----
-#>
-
 Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT#1' {
     It 'no function defaults a TimeoutSeconds parameter to a number literal above zero' {
         $root = Get-CatzcModulesRoot

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
-    folder: tests
-    name: build-bash-timeout-hook-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-typessystem/tests/Build-BashTimeoutHook.Tests.ps1.md
----
-#>
-
 Describe 'Build-BashTimeoutHook' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {

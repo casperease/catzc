@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
-    folder: types
-    name: vendor-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
-    test: automation/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-PWSH-VENDOR
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

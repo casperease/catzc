@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/csharp-types.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: csharp-types
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — C# types
 
 The shipped C# types: they parse, compile, resolve, and the committed combined assembly stays current. Part of the

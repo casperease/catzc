@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/Test-IsTimeoutExempt.ps1
-    name: test-is-timeout-exempt
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1
----
-#>
-
 function Test-IsTimeoutExempt {
     [CmdletBinding()]
     [OutputType([bool])]

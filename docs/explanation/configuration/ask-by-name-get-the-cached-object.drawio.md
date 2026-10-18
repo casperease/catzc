@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/ask-by-name-get-the-cached-object.drawio.md
-    folder: docs/explanation/configuration
-    name: ask-by-name-get-the-cached-object-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md
-      - docs/explanation/.assets/grid/adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md
-      - docs/explanation/.assets/tree/adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md
-      - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Ask for a config by name and get the cached object back: the diagram described
 
 ```text

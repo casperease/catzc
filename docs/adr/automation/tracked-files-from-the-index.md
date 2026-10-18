@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/tracked-files-from-the-index.md
-    folder: docs/adr/automation
-    name: tracked-files-from-the-index
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-TRACKED#{1-11}
-    cites:
-      - ADR-AUTO-CACHE#9
-      - ADR-AUTO-FAILFAST#7
-      - ADR-AUTO-TEST#10
-    links:
-      - docs/adr/automation/caching.md#rule-adr-auto-cache6
-      - docs/adr/automation/managed-guids.md
-      - docs/adr/flow/durable-sha-globs.md
----
-
 # ADR: Tracked files are read from the git index, in-process, through one seam
 
 ## Rules: ADR-AUTO-TRACKED

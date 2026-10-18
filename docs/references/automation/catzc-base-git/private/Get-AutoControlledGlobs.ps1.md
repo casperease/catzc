@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e4018128b6cc
-    repo_status: locked
-    path: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
-    folder: docs/references/automation/catzc-base-git/private
-    name: get-auto-controlled-globs-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-OUTDIR#{8,10}
----
-
 # automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

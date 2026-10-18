@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/thin-platforms.md
-    folder: docs/adr/design
-    name: thin-platforms
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-THINPLAT#{1-5}
-    links:
-      - "https://architectelevator.com"
-      - "https://teamtopologies.com/key-concepts-content/what-is-a-thinnest-viable-platform-tvp"
----
-
 # ADR: Thin platforms — an API/CLI abstraction over a vendor layer
 
 ## Rules: ADR-DSGN-THINPLAT

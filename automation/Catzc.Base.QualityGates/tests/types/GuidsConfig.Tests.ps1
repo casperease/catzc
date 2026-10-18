@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
-    folder: tests/types
-    name: guids-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/types/GuidsConfig.Tests.ps1.md
----
-#>
-
 Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:zeroGuid = "$([guid]::Empty)"

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1
-    folder: tests
-    name: get-inspiration-shipped-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-tooling-inspiration/tests/Get-Inspiration.Shipped.Tests.ps1.md
-    cites:
-      - ADR-REPO-INSPIRE#1
----
-#>
-
 Describe 'Get-Inspiration over the shipped inspiration.yml' -Tag 'L1', 'integrity' {
     It 'loads the shipped config as its typed model' {
         Get-Config -Config inspiration | Should -BeOfType ([Catzc.Tooling.Inspiration.InspirationConfig])

@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "19b4d0c959ec"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md
-    folder: docs/references/automation/catzc-base-maps/types
-    name: maps-labels-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#{7,8,16}
----
-
 # automation/Catzc.Base.Maps/types/MapsLabels.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

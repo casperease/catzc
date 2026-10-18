@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/rule-and-gate-per-load-stage.drawio.md
-    folder: docs/explanation/automation
-    name: rule-and-gate-per-load-stage-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
-      - docs/explanation/.assets/grid/adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md
-      - docs/explanation/.assets/tree/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
-      - docs/explanation/automation/rule-and-gate-per-load-stage.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every load stage but the unload has an ADR rule and a gate: the diagram described
 
 ```text

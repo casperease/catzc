@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
-    name: test-adr-registry
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md
-    test: automation/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-PRIN-CONFIG#1
----
-#>
-
 function Test-AdrRegistry {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

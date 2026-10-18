@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: d51bad6c5a97
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md
-    folder: docs/references/automation/catzc-azure-templates/types
-    name: bicep-short-name-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#9
-      - ADR-AZ-NAMING#{2,6}
----
-
 # automation/Catzc.Azure.Templates/types/BicepShortName.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

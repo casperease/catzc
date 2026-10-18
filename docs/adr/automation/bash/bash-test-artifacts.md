@@ -1,38 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/bash/bash-test-artifacts.md
-    folder: docs/adr/automation/bash
-    name: bash-test-artifacts
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-BASH#{1-6}
-    cites:
-      - ADR-AUTO-ENGINE#{4,6}
-      - ADR-AUTO-GO#7
-      - ADR-AUTO-PY#7
-      - ADR-AUTO-TEST#{8,9,42}
-    links:
-      - docs/adr/automation/execution-engines.md
-      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine3
-      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine4
-      - docs/adr/automation/go/go-test-artifacts.md
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/automation/python/python-test-artifacts.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/design/run-modes.md
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track2
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
-      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester20
-      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7
----
-
 # ADR: Bash test artifacts — black-box tests of the engine through cats, run by a vendored bats
 
 ## Rules: ADR-AUTO-BASH

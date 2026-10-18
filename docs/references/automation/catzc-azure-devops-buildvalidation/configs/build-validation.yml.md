@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: dbac6d937338
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
-    folder: docs/references/automation/catzc-azure-devops-buildvalidation/configs
-    name: build-validation-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AZ-CUSTOMER#3
-      - ADR-FLOW-CD-TYPE#4
----
-
 # automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

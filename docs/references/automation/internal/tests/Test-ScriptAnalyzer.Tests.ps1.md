@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "3df484ba0b86"
-    repo_status: locked
-    path: docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md
-    folder: docs/references/automation/internal/tests
-    name: test-script-analyzer-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-PWSH-FORMAT#5
----
-
 # automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

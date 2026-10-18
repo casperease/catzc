@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-codemeta.md
-    folder: docs/references/automation
-    name: catzc-base-codemeta
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/repository/code-file-meta.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-markdownmeta.md
----
-
 # Catzc.Base.CodeMeta
 
 The pure core of the code meta head: the leading comment of a C# type file, a PowerShell function file or any other code file whose carrier

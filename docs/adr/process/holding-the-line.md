@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/holding-the-line.md
-    folder: docs/adr/process
-    name: holding-the-line
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-ANDON#{1-4}
-    cites:
-      - ADR-PRIN-POKAYOKE#3
-    links:
-      - docs/adr/automation/devbox-pipeline-parity.md
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/visual-design.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/principles/poka-yoke.md#rule-adr-prin-pokayoke3
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/lean.md
-      - docs/adr/pwsh/error-handling.md
----
-
 # ADR: Holding the line — a gate that fails stops the flow until it is green
 
 ## Rules: ADR-PROC-ANDON

@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/four-gates-hold-the-session-rule.md
-    folder: docs/explanation/azure
-    name: four-gates-hold-the-session-rule
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-DATAMOD#{4,5,7}
-      - ADR-AZ-NAMING#8
-    links:
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/explanation/.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
-      - docs/explanation/azure/four-gates-hold-the-session-rule.drawio.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
-      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
-      - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
-      - docs/explanation/azure/the-session-is-the-deploy-target.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Four gates hold the session rule; the customer and the name hold by construction
 
 ```text

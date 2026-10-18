@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/five-keys-one-reader-twelve-primitives.drawio.md
-    folder: docs/explanation/repository
-    name: five-keys-one-reader-twelve-primitives-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.tree.md
-      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Five keys, one private reader, twelve exported primitives: the diagram described
 
 ```text

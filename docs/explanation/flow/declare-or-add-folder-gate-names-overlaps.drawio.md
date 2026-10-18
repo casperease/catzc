@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.drawio.md
-    folder: docs/explanation/flow
-    name: declare-or-add-folder-gate-names-overlaps-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.tree.md
-      - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Declare a unit or add a module folder, and the gate names every overlap: the diagram described
 
 ```text

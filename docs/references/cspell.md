@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/cspell.md
-    folder: docs/references
-    name: cspell
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - automation/Catzc.Base.QualityGates/configs/terminology.yml
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/repository/dedicated-output-directory.md
-      - docs/adr/repository/generated-readmes.md
-      - docs/adr/repository/generated-root-configs.md
----
-
 # The cspell dictionary folder
 
 Generated cspell word lists — **do not edit, do not commit.**

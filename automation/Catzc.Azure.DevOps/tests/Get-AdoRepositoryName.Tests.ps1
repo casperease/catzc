@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
-    folder: tests
-    name: get-ado-repository-name-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-PWSH-PARAM#4
----
-#>
-
 Describe 'Get-AdoRepositoryName' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#4' {
     BeforeEach {
         $script:originalName = $env:BUILD_REPOSITORY_NAME

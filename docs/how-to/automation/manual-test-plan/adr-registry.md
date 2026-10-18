@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/adr-registry.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: adr-registry
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#3
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — ADR registry
 
 The ADR rule-sets, the domain graph, the generated ADR index, and the rule enforcers. Part of the

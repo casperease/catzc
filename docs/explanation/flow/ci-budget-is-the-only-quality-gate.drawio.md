@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.drawio.md
-    folder: docs/explanation/flow
-    name: ci-budget-is-the-only-quality-gate-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md
-      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The CI budget is the only promotion rule a quality gate checks: the diagram described
 
 ```text

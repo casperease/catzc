@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1
-    folder: automation/.scriptanalyzer/tests
-    name: spell-out-identifiers-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-  edges:
-    page: docs/references/automation/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md
-    cites:
-      - ADR-AUTO-SPELL#{2,4}
----
-#>
-
 Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/SpellOutIdentifiers.psm1') -Force

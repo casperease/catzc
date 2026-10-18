@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/one-header-function-owns-precedence.md
-    folder: docs/explanation/pipelines
-    name: one-header-function-owns-precedence
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PIPE-AUTH#{1,2,4,6}
-    links:
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/explanation/.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/pipelines/configured-credential-proves-its-org.md
-      - docs/explanation/pipelines/index.md
-      - docs/explanation/pipelines/one-header-function-owns-precedence.drawio.md
-      - docs/explanation/pipelines/three-guarded-early-returns.md
-      - docs/explanation/pipelines/what-you-set-decides-the-credential.md
-      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
----
-
 # One function owns the credential precedence, and ado.yml anchors every proof
 
 ```text

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/code-wires-only-the-first-rungs.drawio.md
-    folder: docs/explanation/design
-    name: code-wires-only-the-first-rungs-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.tree.md
-      - docs/explanation/design/code-wires-only-the-first-rungs.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The pipelines wire only topic, landed and BVT; past BVT there is no ladder: the diagram described
 
 ```text

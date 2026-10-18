@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1
-    name: get-az-cli-connection-state
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
----
-#>
-
 function Get-AzCliConnectionState {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]
     param(

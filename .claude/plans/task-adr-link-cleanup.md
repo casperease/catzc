@@ -5,27 +5,6 @@ task:
   value: medium
   blocked_on: nothing; body-sha Phase 0 and the .unordered audit landed 2026-10-17
   targets: [docs, automation/Catzc.Base.QualityGates, automation/Catzc.Base.Docs, out/adr-link-ledger.csv]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-adr-link-cleanup.md"
-    folder: plans
-    name: task-adr-link-cleanup
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#1
-      - ADR-PIPE-NAME#{1,4}
-      - ADR-REPO-AGENTS#6
-      - ADR-REPO-HELP#3
-      - ADR-REPO-VOCAB#1
 ---
 
 # Task: the ADR link cleanup, Phase 1 applied and Phase 2 started

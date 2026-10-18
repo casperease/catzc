@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/prompt-config-defaults-continue.md"
-    folder: plans
-    name: prompt-config-defaults-continue
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT#3
----
-
 # Continuation prompt for the config-defaults work: paste as the first message of a fresh session
 
 Written 2026-10-16. Copy this file and `.claude/plans/plan-config-defaults.md` into your scratchpad first (another session wiped `out/`

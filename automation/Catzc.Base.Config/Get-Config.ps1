@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/Get-Config.ps1
-    name: get-config
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-config/Get-Config.ps1.md
-    test: automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
-    cites:
-      - ADR-AUTO-OVERLAY
-      - ADR-PWSH-CACHE#4
----
-#>
-
 function Get-Config {
     [CmdletBinding(DefaultParameterSetName = 'Load')]
     param(

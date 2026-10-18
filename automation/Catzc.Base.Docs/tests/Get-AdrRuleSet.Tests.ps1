@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
-    folder: tests
-    name: get-adr-rule-set-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,35}
-      - ADR-CONF-LOADING#4
----
-#>
-
 Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

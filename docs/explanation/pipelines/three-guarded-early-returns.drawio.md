@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/three-guarded-early-returns.drawio.md
-    folder: docs/explanation/pipelines
-    name: three-guarded-early-returns-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-pipe-auth--three-guarded-early-returns--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-pipe-auth--three-guarded-early-returns--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-pipe-auth--three-guarded-early-returns--implementation.tree.md
-      - docs/explanation/pipelines/three-guarded-early-returns.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The header function is four checks and three returns, and none falls through on failure: the diagram described
 
 ```text

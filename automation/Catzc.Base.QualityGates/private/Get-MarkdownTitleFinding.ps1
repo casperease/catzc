@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-MarkdownTitleFinding.ps1
-    folder: private
-    name: get-markdown-title-finding
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Get-MarkdownTitleFinding.Tests.ps1
----
-#>
-
 function Get-MarkdownTitleFinding {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

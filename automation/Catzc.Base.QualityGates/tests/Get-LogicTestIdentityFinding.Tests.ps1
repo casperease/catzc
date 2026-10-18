@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
-    folder: tests
-    name: get-logic-test-identity-finding-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-LogicTestIdentityFinding.Tests.ps1.md
----
-#>
-
 Describe 'Get-LogicTestIdentityFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:live = @{

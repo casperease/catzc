@@ -4,25 +4,6 @@ plan:
   value: medium
   reviewed: 2026-10-18
   targets: [docs/adr/automation, automation/Catzc.Base.Docs/configs/glossary.yml, automation/Catzc.Base.Docs/configs/adrs.yml]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/plan-materialization-of-knowledge.md"
-    folder: plans
-    name: plan-materialization-of-knowledge
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#5
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-MATERIAL#3
 ---
 
 # Materialization: when a knowledge resource comes into being and how long it holds

@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/dry-run.md
-    folder: docs/adr/automation
-    name: dry-run
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-DRYRUN#{1-4}
-    links:
-      - docs/adr/automation/console-output-matters.md
-      - docs/adr/automation/idempotent-state-functions.md
-      - docs/adr/automation/test-automation.md
----
-
 # ADR: An explicit dry-run parameter on every side-effecting function
 
 ## Rules: ADR-AUTO-DRYRUN

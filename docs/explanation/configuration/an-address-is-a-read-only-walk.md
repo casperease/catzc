@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
-    folder: docs/explanation/configuration
-    name: an-address-is-a-read-only-walk
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-CONF-ADDRESSING#{1,4,5}
-    links:
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
-      - docs/explanation/configuration/an-address-is-a-read-only-walk.drawio.md
-      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
-      - docs/explanation/configuration/index.md
-      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
-      - docs/explanation/configuration/two-test-files-check-the-address-rules.md
-      - docs/explanation/configuration/type-an-address-get-the-value.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A config address is a read-only walk over the one cached config, never a second reader
 
 ```text

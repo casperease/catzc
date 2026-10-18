@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.verify.md
-    folder: docs/references/.assets/automation/catzc-base-config
-    name: get-config-merge-seal-type-drawio-verify
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-OVERLAY#7
-      - ADR-PWSH-CACHE#4
----
-
 # Verification: Overlay merges unless sealed; the registered type builds it (source lens, Catzc.Base.Config)
 
 Every line below was re-read on 2026-10-17 against the files as they stand; none of the scout's line numbers is reused (for example the

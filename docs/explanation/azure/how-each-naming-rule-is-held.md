@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/how-each-naming-rule-is-held.md
-    folder: docs/explanation/azure
-    name: how-each-naming-rule-is-held
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-NAMING
-    links:
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
-      - docs/explanation/azure/how-each-naming-rule-is-held.drawio.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/lookup-form-check-render-in-order.md
-      - docs/explanation/azure/names-are-derived-never-typed.md
-      - docs/explanation/azure/names-are-pure-and-never-truncated.md
-      - docs/explanation/azure/one-namer-assembles-every-name.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Code holds all eight naming rules, seven of them behind a check that throws
 
 ```text

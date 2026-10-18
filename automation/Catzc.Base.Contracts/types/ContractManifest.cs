@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/types/ContractManifest.cs
-    folder: types
-    name: contract-manifest
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md
-    test: automation/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-CONTRACT#7
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

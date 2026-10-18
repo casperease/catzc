@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/Install-Git.ps1
-    name: install-git
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
-    test: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
----
-#>
-
 function Install-Git {
     [CmdletBinding()]
     param(

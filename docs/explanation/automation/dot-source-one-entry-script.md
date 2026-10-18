@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/dot-source-one-entry-script.md
-    folder: docs/explanation/automation
-    name: dot-source-one-entry-script
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-BUNDLE#{3,8}
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
-      - docs/explanation/automation/dot-source-one-entry-script.drawio.md
-      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/invoke-importer-in-code-order.md
-      - docs/explanation/automation/rule-and-gate-per-load-stage.md
-      - docs/explanation/automation/two-entries-feed-one-importer.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Dot-source one entry script, and a failed check stops the load with a named error
 
 ```text

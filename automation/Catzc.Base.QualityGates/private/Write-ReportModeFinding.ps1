@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Write-ReportModeFinding.ps1
-    folder: private
-    name: write-report-mode-finding
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
-    cites:
-      - ADR-PRIN-CONFIG#4
----
-#>
-
 function Write-ReportModeFinding {
     [CmdletBinding()]
     param(

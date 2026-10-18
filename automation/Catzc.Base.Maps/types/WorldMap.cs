@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/types/WorldMap.cs
-    folder: types
-    name: world-map
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-maps/types/WorldMap.cs.md
-    cites:
-      - ADR-DSGN-TRACK#{1,6}
-      - ADR-THES-ONETRUTH#3
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

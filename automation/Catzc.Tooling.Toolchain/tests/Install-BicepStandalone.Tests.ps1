@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
-    folder: tests
-    name: install-bicep-standalone-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#6
----
-#>
-
 Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:fakeHome = Join-Path $TestDrive "home-$([guid]::NewGuid().ToString('N'))"

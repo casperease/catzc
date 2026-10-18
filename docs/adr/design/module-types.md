@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/design/module-types.md
-    folder: docs/adr/design
-    name: module-types
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DSGN-MODTYPE#{1-4}
-    cites:
-      - ADR-DSGN-TRACK#3
-      - ADR-DSGN-TRACKTYPE#4
-    links:
-      - docs/adr/design/track-types.md#rule-adr-dsgn-tracktype4
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
----
-
 # ADR: Module types — what a module is placed as
 
 ## Rules: ADR-DSGN-MODTYPE

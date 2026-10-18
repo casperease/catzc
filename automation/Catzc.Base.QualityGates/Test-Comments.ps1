@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-Comments.ps1
-    name: test-comments
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-ONELIVE#1
----
-#>
-
 function Test-Comments {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

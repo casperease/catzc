@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: b5b1dc793a03
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
-    folder: docs/references/automation/catzc-base-qualitygates/configs
-    name: source-conventions-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-ENGINE#{1,6}
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Base.QualityGates/configs/source-conventions.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

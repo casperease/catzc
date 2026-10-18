@@ -1,21 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-objects.md
-    folder: docs/references/automation
-    name: catzc-base-objects
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/automation/BCL/native-csharp-types.md
-      - docs/references/automation/catzc-base-asserts.md
----
-
 # Catzc.Base.Objects
 
 The object-shaping and serialization module. It owns the conversions between the typed object model and the mutable, flat, sorted, or

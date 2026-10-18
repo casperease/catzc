@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-gates-check-the-layer-pins.drawio.md
-    folder: docs/explanation/automation
-    name: two-gates-check-the-layer-pins-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md
-      - docs/explanation/.assets/grid/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
-      - docs/explanation/.assets/tree/adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md
-      - docs/explanation/automation/two-gates-check-the-layer-pins.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Two gates check the layer pins, and one rule is left to review: the diagram described
 
 ```text

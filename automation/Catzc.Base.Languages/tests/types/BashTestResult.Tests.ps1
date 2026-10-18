@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/types/BashTestResult.Tests.ps1
-    folder: tests/types
-    name: bash-test-result-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'BashTestResult' -Tag 'L0', 'logic' {
     It 'derives the category from the name: "integrity:" is integrity, the rest logic' {
         [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'integrity: widget ships', 'pass', 0.5, '').Category | Should -Be 'integrity'

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
-    folder: tests
-    name: show-cats-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Show-Cats' -Tag 'L0', 'logic' {
     It 'prints the overview with no argument, without reading the getters' {
         Mock Get-CatsAdrIndex -ModuleName Catzc.Base.Docs

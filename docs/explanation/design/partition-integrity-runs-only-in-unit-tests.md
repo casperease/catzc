@@ -1,38 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
-    folder: docs/explanation/design
-    name: partition-integrity-runs-only-in-unit-tests
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-ASPECT#{2,4,5}
-      - ADR-FLOW-CD-GLOBS#9
-      - ADR-PWSH-MANIFEST#{2-4}
-      - ADR-PWSH-ONEFUNC#1
-      - ADR-REPO-FOLDERS#{6,10}
-    links:
-      - docs/adr/design/module-aspects.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/pwsh/dynamic-module-manifests.md
-      - docs/adr/pwsh/one-function-per-file.md
-      - docs/adr/repository/conventional-folders.md
-      - docs/explanation/.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
-      - docs/explanation/design/drop-a-file-the-import-exports-it.md
-      - docs/explanation/design/every-file-in-exactly-one-aspect.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
-      - docs/explanation/design/one-folder-two-independent-readers.md
-      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Partition integrity runs only in unit tests
 
 ```text

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/idempotent-state-functions.md
-    folder: docs/adr/automation
-    name: idempotent-state-functions
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-IDEM#{1-5}
-    links:
-      - docs/adr/pwsh/idempotent-state-mechanics.md
----
-
 # ADR: State-changing functions must be idempotent
 
 ## Rules: ADR-AUTO-IDEM

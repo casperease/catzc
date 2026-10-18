@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
-    name: get-azure-subscription-environment
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1
-    cites:
-      - ADR-AZ-DATAMOD
----
-#>
-
 function Get-AzureSubscriptionEnvironment {
     [CmdletBinding()]
     [OutputType([string])]

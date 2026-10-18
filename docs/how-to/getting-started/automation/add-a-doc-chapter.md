@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
-    folder: docs/how-to/getting-started/automation
-    name: add-a-doc-chapter
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PWSH-ERROR#3
-    links:
-      - docs/adr/index.md
-      - docs/adr/repository/conventional-folders.md
-      - docs/adr/repository/uniform-formatting.md
-      - docs/index.md
----
-
 # Add a doc chapter
 
 The repository has five kinds of prose, each with a home and a format:

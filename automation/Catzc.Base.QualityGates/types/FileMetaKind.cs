@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/FileMetaKind.cs
-    folder: types
-    name: file-meta-kind
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-FILEMETA#{2,4,13}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

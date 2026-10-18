@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/print-projection-then-drift-names-the-filter.drawio.md
-    folder: docs/explanation/flow
-    name: print-projection-then-drift-names-the-filter-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.tree.md
-      - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Print the projection, and a drifted pipeline fails naming the filter that differs: the diagram described
 
 ```text

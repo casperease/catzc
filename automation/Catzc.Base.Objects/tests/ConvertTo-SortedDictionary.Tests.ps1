@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
-    folder: tests
-    name: convert-to-sorted-dictionary-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'ConvertTo-SortedDictionary' -Tag 'L0', 'logic' {
     It 'preserves order of OrderedDictionary' {
         $source = [ordered]@{ z = 1; a = 2; m = 3 }

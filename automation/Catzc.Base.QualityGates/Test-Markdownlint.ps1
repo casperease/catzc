@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-Markdownlint.ps1
-    name: test-markdownlint
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-README#7
----
-#>
-
 function Test-Markdownlint {
     [CmdletBinding()]
     param(

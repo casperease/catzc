@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/getting-started/automation/run-tests-and-checks.md
-    folder: docs/how-to/getting-started/automation
-    name: run-tests-and-checks
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TEST#37
-    links:
-      - docs/adr/automation/retry-as-last-resort.md
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test37
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/repository/protected-globs.md
----
-
 # Run tests and checks
 
 `Test-Automation` is the single entry point for all tests. It discovers every `tests/*.Tests.ps1` file across all modules, runs them through

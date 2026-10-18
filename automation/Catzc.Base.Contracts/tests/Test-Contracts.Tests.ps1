@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-    folder: tests
-    name: test-contracts-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,35}
-      - ADR-REPO-CONTRACT#{2-5,10}
----
-#>
-
 Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {

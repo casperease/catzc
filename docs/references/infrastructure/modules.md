@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/infrastructure/modules.md
-    folder: docs/references/infrastructure
-    name: modules
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/references/automation/catzc-azure-templates.md
----
-
 # infrastructure/modules
 
 Reusable bicep modules, shared across templates in `infrastructure/templates/`.

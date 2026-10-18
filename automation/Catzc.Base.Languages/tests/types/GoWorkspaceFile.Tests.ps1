@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/tests/types/GoWorkspaceFile.Tests.ps1
-    folder: tests/types
-    name: go-workspace-file-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'GoWorkspaceFile' -Tag 'L0', 'logic' {
     It 'carries its target and content' {
         $file = [Catzc.Base.Languages.GoWorkspaceFile]::new('go/tests/catzc-widget/go.mod', "module widget`n")

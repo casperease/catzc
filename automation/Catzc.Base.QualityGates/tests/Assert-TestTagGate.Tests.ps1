@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
-    folder: tests
-    name: assert-test-tag-gate-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-TEST#15
----
-#>
-
 Describe 'Assert-TestTagGate' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#15' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

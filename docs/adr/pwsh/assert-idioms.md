@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/assert-idioms.md
-    folder: docs/adr/pwsh
-    name: assert-idioms
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-ASSERT#{1-6}
-    cites:
-      - ADR-AUTO-FAILFAST#{1,2,4,5,7}
-      - ADR-PWSH-AUTOVAR#2
-      - ADR-PWSH-ERROR#3
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7
-      - docs/adr/pwsh/automatic-variable-pitfalls.md#rule-adr-pwsh-autovar7
-      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3
-      - docs/adr/pwsh/pester-testing.md
----
-
 # ADR: Assert idioms — failing fast in pwsh
 
 ## Rules: ADR-PWSH-ASSERT

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
-    folder: tests
-    name: get-c-sharp-type-dependency-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md
-    cites:
-      - ADR-PWSH-PESTER#9
----
-#>
-
 # Source-tree tooling (Assert-SourceTree): its scans need the per-module types/*.cs, so this test file is source-only.
 Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
     BeforeEach {

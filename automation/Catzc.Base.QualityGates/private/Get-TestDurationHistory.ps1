@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-TestDurationHistory.ps1
-    folder: private
-    name: get-test-duration-history
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
----
-#>
-
 function Get-TestDurationHistory {
     [CmdletBinding()]
     [OutputType([hashtable])]

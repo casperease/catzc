@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "4de5e814cbcc"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-modulesystem/tests/types
-    name: artifacts-config-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

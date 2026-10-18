@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Repository/tests/Test-IsRunningAsAgent.Tests.ps1
-    folder: tests
-    name: test-is-running-as-agent-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-IsRunningAsAgent' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalClaudeCode = $env:CLAUDECODE

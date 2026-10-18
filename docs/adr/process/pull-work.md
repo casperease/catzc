@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/process/pull-work.md
-    folder: docs/adr/process
-    name: pull-work
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PROC-PULLWORK#{1-4}
-    links:
-      - docs/adr/principles/reduce-waste.md
-      - docs/adr/process/agile-values.md
-      - docs/adr/process/lean.md
-      - docs/adr/process/queues-cost-money.md
----
-
 # ADR: Pull work through the system — do not push it
 
 ## Rules: ADR-PROC-PULLWORK

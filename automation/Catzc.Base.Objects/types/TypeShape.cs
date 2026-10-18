@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/types/TypeShape.cs
-    folder: types
-    name: type-shape
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/types/TypeShape.cs.md
-    cites:
-      - ADR-AUTO-CACHE
-      - ADR-AUTO-TYPES#7
----
-*/
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

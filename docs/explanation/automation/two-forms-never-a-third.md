@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/two-forms-never-a-third.md
-    folder: docs/explanation/automation
-    name: two-forms-never-a-third
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PATH#{1-4,10}
-    links:
-      - docs/adr/automation/path-representation.md
-      - docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/one-out-string-two-places.md
-      - docs/explanation/automation/output-root-first-then-repo-root.md
-      - docs/explanation/automation/two-crossers-and-three-anchors.md
-      - docs/explanation/automation/two-forms-never-a-third.drawio.md
-      - docs/explanation/automation/types-check-forms-review-checks-crossers.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A path has two forms, never a third, and one pair of crossers moves it between them
 
 ```text

@@ -1,34 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/flow/dora-explains.md
-    folder: docs/adr/flow
-    name: dora-explains
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/adr/flow/pipeline-types.md
-      - docs/references/dora/capabilities.md#code-maintainability
-      - docs/references/dora/capabilities.md#continuous-delivery
-      - docs/references/dora/capabilities.md#continuous-integration
-      - docs/references/dora/capabilities.md#deployment-automation
-      - docs/references/dora/capabilities.md#streamlining-change-approval
-      - docs/references/dora/capabilities.md#test-automation
-      - docs/references/dora/capabilities.md#trunk-based-development
-      - docs/references/dora/capabilities.md#version-control
-      - docs/references/dora/capabilities.md#working-in-small-batches
-      - docs/references/dora/index.md
----
-
 # DORA explanations — flow
 
 The `Dora explains` rationale for the ADRs in the `flow/` domain, consolidated in one place. Each entry names its ADR and rule code, then

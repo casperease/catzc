@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: fc1ddbd83ee9
-    repo_status: locked
-    path: docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md
-    folder: docs/references/automation/catzc-base-modulesystem/types
-    name: function-call-collector-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

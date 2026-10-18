@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/globs-module-owns-config-and-types.md
-    folder: docs/explanation/flow
-    name: globs-module-owns-config-and-types
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#{1,5,6,9}
-    links:
-      - docs/adr/flow/durable-sha-globs.md
-      - docs/explanation/.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
-      - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
-      - docs/explanation/flow/gates-check-source-and-trigger.md
-      - docs/explanation/flow/globs-module-owns-config-and-types.drawio.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-scan-program-feeds-three-roles.md
-      - docs/explanation/flow/three-views-derived-live-from-one-program.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Catzc.Base.Globs computes every globset role from one typed registry
 
 ```text

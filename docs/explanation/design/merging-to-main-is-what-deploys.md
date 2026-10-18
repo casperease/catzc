@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/merging-to-main-is-what-deploys.md
-    folder: docs/explanation/design
-    name: merging-to-main-is-what-deploys
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#9
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
-      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
-      - docs/explanation/design/deploying-is-not-integrating.md
-      - docs/explanation/design/every-deploy-stage-is-main-only.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/merging-to-main-is-what-deploys.drawio.md
-      - docs/explanation/design/out-of-band-deploy-is-adr-only.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Merging to main is what deploys; there is no run that deploys a topic
 
 ```text

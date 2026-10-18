@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "870806179829"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
-    folder: docs/references/automation/catzc-base-maps/types
-    name: value-chain-highlight-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{12,16}
-      - ADR-THES-ONETRUTH#3
----
-
 # automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

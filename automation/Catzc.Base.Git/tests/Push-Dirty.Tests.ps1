@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/Push-Dirty.Tests.ps1
-    folder: tests
-    name: push-dirty-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Push-Dirty' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Base.Git

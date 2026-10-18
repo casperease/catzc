@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
-    folder: docs/explanation/repository
-    name: one-home-one-read-path-one-vocabulary
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#6
-      - ADR-PWSH-CACHE#1
-      - ADR-REPO-VARIANT#{1,2}
-    links:
-      - docs/adr/repository/repo-variants.md
-      - docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
-      - docs/explanation/repository/an-edit-lands-at-the-next-import.md
-      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.drawio.md
-      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
----
-
 # A repo-wide switch has one home, one read path and one guard vocabulary
 
 ```text

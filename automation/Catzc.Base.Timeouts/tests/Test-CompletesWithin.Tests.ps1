@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
-    folder: tests
-    name: test-completes-within-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Test-CompletesWithin' -Tag 'L0', 'logic' {
     It 'returns $true, with no other output, when the block finishes in time' {
         $result = @(Test-CompletesWithin { 'widget' } -Seconds 5)

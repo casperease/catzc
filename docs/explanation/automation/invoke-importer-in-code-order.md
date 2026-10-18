@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/invoke-importer-in-code-order.md
-    folder: docs/explanation/automation
-    name: invoke-importer-in-code-order
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-BUNDLE#{2,3,8}
-    links:
-      - docs/adr/automation/platform-bundle.md
-      - docs/explanation/.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
-      - docs/explanation/automation/dot-source-one-entry-script.md
-      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/invoke-importer-in-code-order.drawio.md
-      - docs/explanation/automation/rule-and-gate-per-load-stage.md
-      - docs/explanation/automation/two-entries-feed-one-importer.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain
 
 ```text

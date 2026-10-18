@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "164526347027"
-    repo_status: locked
-    path: docs/references/automation/catzc-azure/types/AzureConfig.cs.md
-    folder: docs/references/automation/catzc-azure/types
-    name: azure-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-CUSTOMER#3
-      - ADR-AZ-DATAMOD#{7,8,11}
-      - ADR-AZ-NAMING#6
----
-
 # automation/Catzc.Azure/types/AzureConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

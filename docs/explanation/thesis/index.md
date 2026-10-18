@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/index.md
-    folder: docs/explanation/thesis
-    name: index
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/index.md#thesis
-      - docs/adr/repository/slides-as-markdown.md
-      - docs/explanation/index.md
-      - docs/explanation/thesis/product-thesis/deck.md
----
-
 # Thesis explanations
 
 ```text

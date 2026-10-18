@@ -1,38 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/ai-accessible-internal-data.md
-    folder: docs/adr/research
-    name: ai-accessible-internal-data
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-AIDATA#{1-5}
-    links:
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/repository/generated-readmes.md
-      - docs/references/dora/ai.md#ai-capabilities-model
-      - docs/references/dora/ai.md#code-quality
-      - docs/references/dora/ai.md#individual-effectiveness
-      - docs/references/dora/ai.md#product-performance
-      - docs/references/dora/capabilities.md#ai
-      - docs/references/dora/capabilities.md#ai-accessible-internal-data
-      - docs/references/dora/capabilities.md#documentation-quality
-      - docs/references/dora/capabilities.md#version-control
-      - docs/references/dora/capabilities.md#working-in-small-batches
-      - docs/references/dora/index.md
-      - docs/references/dora/metrics.md#instability
-      - docs/references/dora/publications.md#2025-dora-ai-capabilities-model
-      - docs/references/dora/publications.md#2025-state-of-ai-assisted-software-development
-      - "https://dora.dev/capabilities/ai-accessible-internal-data/"
----
-
 # ADR: DORA — AI-accessible internal data
 
 ## Rules: ADR-DORA-AIDATA

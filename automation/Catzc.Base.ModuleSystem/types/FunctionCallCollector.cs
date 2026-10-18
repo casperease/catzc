@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
-    folder: types
-    name: function-call-collector
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md
-    test: automation/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Management.Automation.Language;

@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
-    folder: tests/types
-    name: file-meta-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-REPO-FILEMETA#{2,4,13}
----
-#>
-
 Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     It 'lists the keys the imprint kinds write under each part, in registry order' -Tag 'ADR-REPO-FILEMETA#13' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{

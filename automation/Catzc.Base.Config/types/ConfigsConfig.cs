@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
-    folder: types
-    name: configs-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md
-    cites:
-      - ADR-AUTO-OVERLAY
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

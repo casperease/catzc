@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "1401e7b358d1"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md
-    folder: docs/references/automation/catzc-base-codemeta/types
-    name: property-head-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#8
----
-
 # automation/Catzc.Base.CodeMeta/types/PropertyHead.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/principles/one-living-version.md
-    folder: docs/adr/principles
-    name: one-living-version
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PRIN-ONELIVE#{1-8}
-    cites:
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-CONTRACT#2
-      - ADR-THES-ONETRUTH#4
-    links:
-      - docs/adr/index.md
-      - docs/adr/principles/everything-as-code.md
-      - docs/adr/principles/reduce-variability.md
-      - docs/adr/repository/api-contracts.md
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract2
-      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders11
-      - docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth4
----
-
 # Principle: One living version — no legacy, no back-compat, history in git
 
 ## Rules: ADR-PRIN-ONELIVE

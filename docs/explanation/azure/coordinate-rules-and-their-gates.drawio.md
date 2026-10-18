@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/coordinate-rules-and-their-gates.drawio.md
-    folder: docs/explanation/azure
-    name: coordinate-rules-and-their-gates-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.md
-      - docs/explanation/.assets/grid/adr-az-datamod--coordinate-rules-and-their-gates--governance.grid.md
-      - docs/explanation/.assets/tree/adr-az-datamod--coordinate-rules-and-their-gates--governance.tree.md
-      - docs/explanation/azure/coordinate-rules-and-their-gates.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Two ADRs rule the coordinate; one shared check and the integrity tests hold them: the diagram described
 
 ```text

@@ -1,20 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: ".claude/drawio/catalogue.py"
-#     folder: drawio
-#     name: catalogue
-#     filetype: py
-#     kind: drawio-kit
-#     language: python
-#     track: ".claude-kits"
-#     tracktype: vendor-settings
-#     vendor: claude
-#     module: ".claude"
-#     moduletype: settings
-# ---
-
 # cspell:ignore lstrip makedirs pathlib setdefault startswith
 """Inventory the review drawings on disk for the Diagram Waves Review page.
 

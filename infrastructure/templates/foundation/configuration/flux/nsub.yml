@@ -1,21 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/foundation/configuration/flux/nsub.yml
-#     folder: configuration/flux
-#     name: nsub
-#     filetype: yml
-#     kind: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: foundation
-#     moduletype: bicep
-# ---
-
 # foundation, flux nonprod subscription (env nsub, customer flux). flux is dev-only -> nonprod only.
 ParametersFile:
   parameters:

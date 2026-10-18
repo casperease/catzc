@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/IdentityTokenRule.cs
-    folder: types
-    name: identity-token-rule
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

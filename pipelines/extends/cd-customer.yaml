@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: pipelines/extends/cd-customer.yaml
-#     folder: extends
-#     name: cd-customer
-#     filetype: yaml
-#     kind: pipeline-template
-#     language: pipeline-yaml
-#     track: pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
-#   edges:
-#     page: docs/references/pipelines/extends/cd-customer.yaml.md
-# ---
-
 parameters:
   - name: Customer
     type: string

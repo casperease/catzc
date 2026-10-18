@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Sync-FileMeta.ps1
-    name: sync-file-meta
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
----
-#>
-
 function Sync-FileMeta {
     [CmdletBinding()]
     [OutputType([string])]

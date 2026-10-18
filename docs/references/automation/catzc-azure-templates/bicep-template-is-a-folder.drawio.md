@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
-    folder: docs/references/automation/catzc-azure-templates
-    name: bicep-template-is-a-folder-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#9
-      - ADR-AZ-DATAMOD#10
-      - ADR-AZ-NAMING#2
-      - ADR-CONF-ADDRESSING#1
-      - ADR-PWSH-CACHE#4
-      - ADR-PWSH-ERROR#8
-    links:
-      - docs/references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
----
-
 # A template is a folder; options.yml overrides five defaults: the diagram described
 
 ```text

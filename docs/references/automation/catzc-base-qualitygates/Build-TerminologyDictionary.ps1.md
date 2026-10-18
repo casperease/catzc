@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e2f11e10d89e
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates
-    name: build-terminology-dictionary-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-SPELL#6
-      - ADR-REPO-OUTDIR#8
----
-
 # automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

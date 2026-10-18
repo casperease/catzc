@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "6571b4f09ece"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-globs/tests
-    name: get-changed-file-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#4
----
-
 # automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
 
 <!-- cspell:ignore nsrc -->

@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
-    folder: tests
-    name: get-readme-mappings-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md
-    cites:
-      - ADR-PWSH-PESTER#4
----
-#>
-
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
         # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run mode.

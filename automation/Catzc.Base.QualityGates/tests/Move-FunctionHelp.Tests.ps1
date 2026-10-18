@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
-    folder: tests
-    name: move-function-help-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-DRYRUN#2
-      - ADR-REPO-COMMENTS#6
-      - ADR-REPO-FILEMETA#14
-      - ADR-REPO-HELP#1
----
-#>
-
 Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'help-repository'

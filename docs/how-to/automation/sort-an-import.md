@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/sort-an-import.md
-    folder: docs/how-to/automation
-    name: sort-an-import
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#17
-    links:
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track17
----
-
 # Sort an import into the modules
 
 An **import** brings an outside repository into this one with its full history, at a **landing address** under the unordered track

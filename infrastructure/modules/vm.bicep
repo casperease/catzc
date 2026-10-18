@@ -1,22 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/vm.bicep
-//     name: vm
-//     filetype: bicep
-//     kind: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: vm
-//     moduletype: bicep
-//   edges:
-//     page: docs/references/infrastructure/modules/vm.bicep.md
-// ---
-
 @description('VM name. Also used as the Windows computer name, so keep it <= 15 chars.')
 param name string
 

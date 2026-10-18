@@ -1,26 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/types/BicepParameter.cs
-    folder: types
-    name: bicep-parameter
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md
-    cites:
-      - ADR-AUTO-TYPES#{8,9}
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

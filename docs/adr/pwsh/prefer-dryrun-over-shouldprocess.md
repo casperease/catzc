@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
-    folder: docs/adr/pwsh
-    name: prefer-dryrun-over-shouldprocess
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-DRYRUN#{1-5}
-    cites:
-      - ADR-AUTO-DRYRUN
-    links:
-      - docs/adr/automation/dry-run.md
----
-
 # ADR: Prefer an explicit -DryRun switch over the ShouldProcess subsystem
 
 ## Rules: ADR-PWSH-DRYRUN

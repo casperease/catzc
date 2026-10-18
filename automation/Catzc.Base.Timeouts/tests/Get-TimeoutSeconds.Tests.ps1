@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
-    folder: tests
-    name: get-timeout-seconds-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-PWSH-ASSERT#1
----
-#>
-
 Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Timeouts {

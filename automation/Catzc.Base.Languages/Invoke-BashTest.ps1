@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/Invoke-BashTest.ps1
-    name: invoke-bash-test
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
-    test: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
----
-#>
-
 function Invoke-BashTest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.BashTestResult])]

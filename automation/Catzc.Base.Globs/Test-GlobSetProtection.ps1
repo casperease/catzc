@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1
-    name: test-glob-set-protection
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md
-    test: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
-    cites:
-      - ADR-PWSH-CACHE#4
-      - ADR-REPO-PROTGLOB
----
-#>
-
 function Test-GlobSetProtection {
     [CmdletBinding()]
     [OutputType([bool])]

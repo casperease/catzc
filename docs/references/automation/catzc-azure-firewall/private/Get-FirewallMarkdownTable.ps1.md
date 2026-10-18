@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: fc9d82aa260d
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
-    folder: docs/references/automation/catzc-azure-firewall/private
-    name: get-firewall-markdown-table-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

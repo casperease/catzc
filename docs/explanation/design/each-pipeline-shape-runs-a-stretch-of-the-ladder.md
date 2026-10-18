@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
-    folder: docs/explanation/design
-    name: each-pipeline-shape-runs-a-stretch-of-the-ladder
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-LIFE#{1,2,8}
-      - ADR-FLOW-CD#{9,10}
-    links:
-      - docs/.assets/commits-quality/state-changes.drawio.png
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life1
-      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life2
-      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life8
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
-      - docs/explanation/design/index.md
-      - docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Each pipeline shape runs a stretch of the same ladder
 
 ```text

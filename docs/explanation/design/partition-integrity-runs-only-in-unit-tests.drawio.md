@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md
-    folder: docs/explanation/design
-    name: partition-integrity-runs-only-in-unit-tests-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.tree.md
-      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Partition integrity runs only in unit tests: the diagram described
 
 ```text

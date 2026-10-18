@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1
-    folder: tests
-    name: invoke-with-timeout-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
     It "returns the block's output and sees the caller's variables" {
         $widget = 'widget'

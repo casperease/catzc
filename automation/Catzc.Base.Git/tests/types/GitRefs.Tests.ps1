@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
-    folder: tests/types
-    name: git-refs-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'GitRefs' -Tag 'L0', 'logic' {
     BeforeAll {
         # A git directory written by hand: the reader only reads ref files, so no git is needed.

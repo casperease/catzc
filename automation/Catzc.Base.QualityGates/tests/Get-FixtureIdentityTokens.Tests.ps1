@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
-    folder: tests
-    name: get-fixture-identity-tokens-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:config = Join-Path $TestDrive 'repo/automation/Catzc.Widget/tests/assets/config'

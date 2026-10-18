@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/globs-projects-and-three-consumers-read.drawio.md
-    folder: docs/explanation/flow
-    name: globs-projects-and-three-consumers-read-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.tree.md
-      - docs/explanation/flow/globs-projects-and-three-consumers-read.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it: the diagram described
 
 ```text

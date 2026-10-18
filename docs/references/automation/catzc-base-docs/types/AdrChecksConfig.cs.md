@@ -1,26 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c2d0a9b81cc6
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
-    folder: docs/references/automation/catzc-base-docs/types
-    name: adr-checks-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-TEST#35
-      - ADR-AUTO-TYPES#8
-      - ADR-CONF-LOADING#4
-      - ADR-PRIN-CONFIG#{1,3}
----
-
 # automation/Catzc.Base.Docs/types/AdrChecksConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
-    folder: tests
-    name: get-firewall-csv-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md
----
-#>
-
 # cspell:ignore etwork
 Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
     BeforeAll {

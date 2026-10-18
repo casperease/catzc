@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c448ff6d5893
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: export-comments-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PRIN-CONFIG#1
-      - ADR-PRIN-ONELIVE#1
----
-
 # automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
 
 <!-- cspell:ignore ngadget -->

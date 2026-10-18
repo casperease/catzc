@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.drawio.md
-    folder: docs/explanation/azure
-    name: one-reverse-lookup-feeds-every-module-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.tree.md
-      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One reverse lookup in Catzc.Azure.Cli hands the session to every module: the diagram described
 
 ```text

@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/types/GithubArtifactsTarget.cs
-    folder: types
-    name: github-artifacts-target
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-modulesystem/types/GithubArtifactsTarget.cs.md
----
-*/
-
 namespace Catzc.Base.ModuleSystem;
 
 public sealed class GithubArtifactsTarget : ArtifactsTarget

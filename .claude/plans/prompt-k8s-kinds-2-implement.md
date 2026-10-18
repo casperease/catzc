@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/prompt-k8s-kinds-2-implement.md"
-    folder: plans
-    name: prompt-k8s-kinds-2-implement
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT#3
----
-
 # Prompt 2 of 2 for plan-module-kinds-tracks (k8s kinds): implement the kind/role split and the per-track kinds; paste as the first message
 
 Rewritten 2026-10-16 on the Track-as-root premise (Q98, F2, S2, Q99). Run only after `.claude/plans/prompt-k8s-kinds-1-prepare.md` produced

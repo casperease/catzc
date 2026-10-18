@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/private/Read-ContractData.ps1
-    folder: private
-    name: read-contract-data
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md
-    cites:
-      - ADR-REPO-CONTRACT#6
----
-#>
-
 function Read-ContractData {
     [CmdletBinding()]
     [OutputType([object])]

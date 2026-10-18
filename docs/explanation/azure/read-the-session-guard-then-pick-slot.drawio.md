@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/read-the-session-guard-then-pick-slot.drawio.md
-    folder: docs/explanation/azure
-    name: read-the-session-guard-then-pick-slot-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.tree.md
-      - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Get-BicepDeploymentContext reads the session, guards it, then picks the slot: the diagram described
 
 ```text

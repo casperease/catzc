@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Set-AbandonedTestRun.ps1
-    folder: private
-    name: set-abandoned-test-run
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
----
-#>
-
 function Set-AbandonedTestRun {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Rewrites run records under out/ only — the gitignored output folder — as an automatic step of starting a run; nothing user-owned changes.')]
     [OutputType([string])]

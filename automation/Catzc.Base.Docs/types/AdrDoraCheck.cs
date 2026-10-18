@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/AdrDoraCheck.cs
-    folder: types
-    name: adr-dora-check
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-PRIN-CONFIG#4
----
-*/
-
 using System.Collections;
 using System.Collections.Generic;
 

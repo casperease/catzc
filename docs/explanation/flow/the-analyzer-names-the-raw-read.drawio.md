@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/the-analyzer-names-the-raw-read.drawio.md
-    folder: docs/explanation/flow
-    name: the-analyzer-names-the-raw-read-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.chain.md
-      - docs/explanation/.assets/grid/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.grid.md
-      - docs/explanation/.assets/tree/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.tree.md
-      - docs/explanation/flow/the-analyzer-names-the-raw-read.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam: the diagram described
 
 ```text

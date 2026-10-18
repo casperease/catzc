@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/types/CliRunner.cs
-    folder: types
-    name: cli-runner
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
-    test: automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

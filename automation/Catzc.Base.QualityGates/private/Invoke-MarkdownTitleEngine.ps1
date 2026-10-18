@@ -1,23 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-MarkdownTitleEngine.ps1
-    folder: private
-    name: invoke-markdown-title-engine
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
----
-#>
-
 function Invoke-MarkdownTitleEngine {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

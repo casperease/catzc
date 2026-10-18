@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
-    folder: tests
-    name: copy-object-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Copy-Object' -Tag 'L0', 'logic' {
 
     Context 'null and scalar values' {

@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
-    folder: tests
-    name: set-bicep-template-configuration-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md
-    cites:
-      - ADR-AUTO-CACHE#6
-      - ADR-AUTO-TEST#19
-      - ADR-REPO-OUTDIR#3
----
-#>
-
 # cspell:ignore toolong gmweutstsmplst alweutstsmplst
 Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     BeforeAll {

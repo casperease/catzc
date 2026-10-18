@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
-    name: test-module-cycles
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
----
-#>
-
 function Test-ModuleCycles {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

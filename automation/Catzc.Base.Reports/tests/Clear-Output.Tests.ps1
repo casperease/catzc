@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/tests/Clear-Output.Tests.ps1
-    folder: tests
-    name: clear-output-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-OUTDIR#{7,12}
----
-#>
-
 Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#12' {
     BeforeAll {
         function script:Add-Output {

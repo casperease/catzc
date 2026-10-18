@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
-    folder: tests
-    name: assert-bicep-template-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#19
-      - ADR-REPO-OUTDIR#3
----
-#>
-
 # cspell:ignore brkn
 Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     BeforeAll {

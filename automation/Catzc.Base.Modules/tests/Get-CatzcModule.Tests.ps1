@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-    folder: tests
-    name: get-catzc-module-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Modules
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-MODULE#{1-4}
-      - ADR-AUTO-TEST
-      - ADR-DSGN-MODTYPE#1
----
-#>
-
 # Rests on [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
 Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE#1' {
     BeforeAll {

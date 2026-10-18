@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
-    folder: docs/references/automation/catzc-base-execution
-    name: invoke-executable-two-paths-one-bounded-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DRYRUN#2
-      - ADR-AUTO-FAILFAST#7
-      - ADR-PWSH-ASSERT#1
-    links:
-      - docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.png
----
-
 # Invoke-Executable: only the streamed path is time-bounded: the diagram described
 
 ```text

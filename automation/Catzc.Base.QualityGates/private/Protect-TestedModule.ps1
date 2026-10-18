@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1
-    folder: private
-    name: protect-tested-module
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-REPO-PROTGLOB#{4,9}
----
-#>
-
 function Protect-TestedModule {
     [CmdletBinding()]
     param(

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.drawio.md
-    folder: docs/explanation/automation
-    name: a-shell-call-carries-its-limit-or-is-denied-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.tree.md
-      - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A shell call carries its limit, or the hook denies it with a reason; it is never rewritten: the diagram described
 
 ```text

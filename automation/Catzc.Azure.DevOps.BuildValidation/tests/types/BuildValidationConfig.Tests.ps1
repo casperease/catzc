@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
-    folder: tests/types
-    name: build-validation-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-  edges:
-    page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-AZ-CUSTOMER#3
----
-#>
-
 Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

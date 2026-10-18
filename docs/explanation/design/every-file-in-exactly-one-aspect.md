@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/every-file-in-exactly-one-aspect.md
-    folder: docs/explanation/design
-    name: every-file-in-exactly-one-aspect
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-ASPECT#{1,2,4,5}
-      - ADR-FLOW-CD-GLOBS#9
-    links:
-      - docs/adr/design/module-aspects.md
-      - docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
-      - docs/explanation/design/drop-a-file-the-import-exports-it.md
-      - docs/explanation/design/every-file-in-exactly-one-aspect.drawio.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
-      - docs/explanation/design/one-folder-two-independent-readers.md
-      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Every module file is in exactly one aspect
 
 ```text

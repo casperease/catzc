@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
-    folder: docs/explanation/pipelines
-    name: what-you-set-decides-the-credential
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PIPE-AUTH#{1,2,5,6}
-    links:
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/pipelines/configured-credential-proves-its-org.md
-      - docs/explanation/pipelines/index.md
-      - docs/explanation/pipelines/one-header-function-owns-precedence.md
-      - docs/explanation/pipelines/three-guarded-early-returns.md
-      - docs/explanation/pipelines/what-you-set-decides-the-credential.drawio.md
-      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
----
-
 # What you set decides the credential, and each wrong setup stops with its own message
 
 ```text

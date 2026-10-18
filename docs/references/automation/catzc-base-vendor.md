@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-vendor.md
-    folder: docs/references/automation
-    name: catzc-base-vendor
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-repository.md
-      - docs/references/automation/catzc-base-writers.md
----
-
 # Catzc.Base.Vendor
 
 Owns the vendored third-party PowerShell modules under `automation/.vendor/` — adding them, removing them, and proving they can be restored

@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
-    folder: private
-    name: new-test-automation-shard-script
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
-    test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-TEST#{25,30}
----
-#>
-
 function New-TestAutomationShardScript {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

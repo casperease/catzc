@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: e957048a989c
-    repo_status: locked
-    path: docs/references/infrastructure/modules/vm.bicep.md
-    folder: docs/references/infrastructure/modules
-    name: vm-bicep
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # infrastructure/modules/vm.bicep
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

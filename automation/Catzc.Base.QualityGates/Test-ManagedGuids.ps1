@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
-    name: test-managed-guids
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Test-ManagedGuids.Tests.ps1
-    cites:
-      - ADR-AUTO-GUIDS
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-PROTGLOB#6
----
-#>
-
 function Test-ManagedGuids {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

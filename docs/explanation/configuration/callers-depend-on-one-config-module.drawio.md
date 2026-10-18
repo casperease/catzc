@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/callers-depend-on-one-config-module.drawio.md
-    folder: docs/explanation/configuration
-    name: callers-depend-on-one-config-module-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-conf-loading--callers-depend-on-one-config-module--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-conf-loading--callers-depend-on-one-config-module--architecture.tree.md
-      - docs/explanation/configuration/callers-depend-on-one-config-module.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Callers in any module read config through one module: the diagram described
 
 ```text

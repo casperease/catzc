@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "22c1658729e5"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
-    folder: docs/references/automation/catzc-tooling-keyhandler/types
-    name: key-handler-supported-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
----
-
 # automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

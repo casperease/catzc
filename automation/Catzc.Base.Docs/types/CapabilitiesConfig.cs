@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/CapabilitiesConfig.cs
-    folder: types
-    name: capabilities-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    test: automation/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-CONF-LOADING#4
-      - ADR-REPO-AGENTS#{9,10}
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
-    folder: types
-    name: engine-case-table
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
-    test: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE#1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

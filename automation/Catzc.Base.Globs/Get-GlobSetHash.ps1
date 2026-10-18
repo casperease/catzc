@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/Get-GlobSetHash.ps1
-    name: get-glob-set-hash
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
-    cites:
-      - ADR-FLOW-CD-GLOBS#{5,9}
----
-#>
-
 function Get-GlobSetHash {
     [CmdletBinding(DefaultParameterSetName = 'ByName')]
     [OutputType([string])]

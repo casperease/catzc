@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
-    folder: tests
-    name: install-vendor-module-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
     BeforeEach {
         # The run-mode guard is its own boundary (covered in the build-mode block below).

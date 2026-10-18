@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
-    folder: tests
-    name: find-windows-git-credential-manager-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Find-WindowsGitCredentialManager' -Tag 'L0', 'logic' {
     It 'returns the first candidate path that exists' {
         InModuleScope Catzc.Tooling.Provisioning {

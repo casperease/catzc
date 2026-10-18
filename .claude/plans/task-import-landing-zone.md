@@ -12,27 +12,6 @@ task:
       docs/adr/design/track-types.md,
       docs/how-to,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-import-landing-zone.md"
-    folder: plans
-    name: task-import-landing-zone
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-FAILFAST#5
-      - ADR-AUTO-TEST#10
-      - ADR-AZ-LZ#1
-      - ADR-DSGN-TRACK#17
 ---
 
 # Task: the import tool and the landing-zone terms

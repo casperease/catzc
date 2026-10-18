@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1
-    name: update-bats-vendor
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md
-    test: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
-    cites:
-      - ADR-AUTO-BASH
----
-#>
-
 function Update-BatsVendor {
     [CmdletBinding()]
     param()

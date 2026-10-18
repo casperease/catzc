@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
-    name: format-markdown-paragraph
-    filetype: ps1
-    kind: function
-    subkind: formatter
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
-    cites:
-      - ADR-REPO-FORMAT#5
----
-#>
-
 function Format-MarkdownParagraph {
     [CmdletBinding()]
     [OutputType([string[]])]

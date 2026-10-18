@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8058b5d5a3d1"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: terminology-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-SPELL#{5,8}
----
-
 # automation/Catzc.Base.QualityGates/types/TerminologyConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

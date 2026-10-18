@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/Install-Tool.ps1
-    name: install-tool
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
-    cites:
-      - ADR-AUTO-UVPY
----
-#>
-
 function Install-Tool {
     [CmdletBinding()]
     param(

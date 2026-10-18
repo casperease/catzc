@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
-    folder: tests
-    name: get-module-dependency-edges-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-ModuleDependencyEdges' -Tag 'L0', 'logic' {
     It 'returns typed actual edges from Get-ModuleDependency' {
         Mock Get-ModuleDependency {

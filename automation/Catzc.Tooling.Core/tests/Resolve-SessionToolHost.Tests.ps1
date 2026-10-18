@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
-    folder: tests
-    name: resolve-session-tool-host-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Resolve-SessionToolHost' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:origPath = $env:PATH

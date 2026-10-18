@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
-    folder: docs/explanation/flow
-    name: ci-budget-is-the-only-quality-gate
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD#{2,3,5,9,11-13}
-      - ADR-FLOW-CD-TYPE#{4,8,11}
-    links:
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/pipeline-types.md
-      - docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
-      - docs/explanation/flow/a-merge-runs-cd-to-prod.md
-      - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
-      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.drawio.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/one-artifact-climbs-unchanged.md
-      - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # The CI budget is the only promotion rule a quality gate checks
 
 ```text

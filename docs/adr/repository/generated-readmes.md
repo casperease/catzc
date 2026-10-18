@@ -1,28 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/repository/generated-readmes.md
-    folder: docs/adr/repository
-    name: generated-readmes
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-REPO-README#{1-7}
-    cites:
-      - ADR-PWSH-MANIFEST#3
-      - ADR-REPO-FILEMETA#1
-    links:
-      - docs/adr/automation/caching.md
-      - docs/adr/pwsh/dynamic-module-manifests.md
-      - docs/adr/repository/dedicated-output-directory.md
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
----
-
 # ADR: Generated READMEs — one authored source, copied out per conventional folder with its links rebased
 
 ## Rules: ADR-REPO-README

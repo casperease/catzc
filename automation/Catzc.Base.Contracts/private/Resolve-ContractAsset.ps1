@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/private/Resolve-ContractAsset.ps1
-    folder: private
-    name: resolve-contract-asset
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-AUTO-ZERO
-      - ADR-REPO-CMDCONTRACT#3
-      - ADR-REPO-CONTRACT#{2,6,7}
----
-#>
-
 function Resolve-ContractAsset {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractAsset])]

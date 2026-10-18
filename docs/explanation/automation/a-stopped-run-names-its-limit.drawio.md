@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/a-stopped-run-names-its-limit.drawio.md
-    folder: docs/explanation/automation
-    name: a-stopped-run-names-its-limit-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--a-stopped-run-names-its-limit--operations.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--a-stopped-run-names-its-limit--operations.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--a-stopped-run-names-its-limit--operations.tree.md
-      - docs/explanation/automation/a-stopped-run-names-its-limit.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A run past its limit stops with a message that names the limit and where to change it: the diagram described
 
 ```text

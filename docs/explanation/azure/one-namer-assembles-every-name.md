@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/one-namer-assembles-every-name.md
-    folder: docs/explanation/azure
-    name: one-namer-assembles-every-name
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AZ-NAMING#{1,4,5,8}
-    links:
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
-      - docs/explanation/azure/how-each-naming-rule-is-held.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/azure/lookup-form-check-render-in-order.md
-      - docs/explanation/azure/names-are-derived-never-typed.md
-      - docs/explanation/azure/names-are-pure-and-never-truncated.md
-      - docs/explanation/azure/one-namer-assembles-every-name.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # One resolver gathers the components and one namer assembles every Azure name
 
 ```text

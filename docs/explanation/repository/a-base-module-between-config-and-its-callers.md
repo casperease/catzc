@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
-    folder: docs/explanation/repository
-    name: a-base-module-between-config-and-its-callers
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEPM#1
-      - ADR-CONF-LOADING#1
-      - ADR-REPO-VARIANT#{1,3}
-    links:
-      - docs/adr/automation/controlling-module-dependencies.md
-      - docs/adr/repository/repo-variants.md
-      - docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
-      - docs/explanation/index.md#how-to-read-the-diagrams
-      - docs/explanation/repository/a-base-module-between-config-and-its-callers.drawio.md
-      - docs/explanation/repository/an-edit-lands-at-the-next-import.md
-      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
-      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
----
-
 # Catzc.Base.Variants sits in Base, over Config, under every real caller
 
 ```text

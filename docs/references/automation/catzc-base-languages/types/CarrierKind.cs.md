@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: d531d05fa3d2
-    repo_status: locked
-    path: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
-    folder: docs/references/automation/catzc-base-languages/types
-    name: carrier-kind-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#1
----
-
 # automation/Catzc.Base.Languages/types/CarrierKind.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

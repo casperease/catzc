@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: fe00a5aa2d65
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/tests/Get-FormatEngineStamp.Tests.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/tests
-    name: get-format-engine-stamp-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-AUTO-TEST#3
----
-
 # automation/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

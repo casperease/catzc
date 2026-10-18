@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Test-Plans.ps1
-    name: test-plans
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#35
-      - ADR-REPO-FOLDERS#12
-      - ADR-REPO-PLANS#{1-4,8}
----
-#>
-
 function Test-Plans {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

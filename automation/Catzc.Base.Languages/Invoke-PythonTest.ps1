@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/Invoke-PythonTest.ps1
-    name: invoke-python-test
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md
-    test: automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
-    cites:
-      - ADR-AUTO-ENGINE
-      - ADR-AUTO-ENVVAR#1
-      - ADR-AUTO-PY#6
----
-#>
-
 function Invoke-PythonTest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.PythonTestResult])]

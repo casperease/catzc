@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/automation/sensible-defaults.md
-    folder: docs/adr/automation
-    name: sensible-defaults
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AUTO-DEFAULT#{1,2,5,6}
-    cites:
-      - ADR-PWSH-PARAM#4
-    links:
-      - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay4
-      - docs/adr/automation/never-depend-on-pwd.md
-      - docs/adr/automation/test-automation.md#rule-adr-auto-test33
-      - docs/adr/configuration/module-config-loading.md
-      - docs/adr/principles/one-living-version.md
-      - docs/adr/pwsh/parameter-design.md
-      - docs/adr/pwsh/parameter-design.md#configurable-parameters
----
-
 # ADR: Sensible defaults for all parameters
 
 ## Rules: ADR-AUTO-DEFAULT

@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8333c7b0fe8a"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md
-    folder: docs/references/automation/catzc-base-qualitygates/types
-    name: link-kind-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-LINK#1
----
-
 # automation/Catzc.Base.QualityGates/types/LinkKind.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

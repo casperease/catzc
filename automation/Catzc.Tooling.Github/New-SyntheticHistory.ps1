@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
-    name: new-synthetic-history
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
-  edges:
-    test: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
----
-#>
-
 function New-SyntheticHistory {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]

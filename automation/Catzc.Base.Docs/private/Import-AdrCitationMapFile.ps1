@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
-    folder: private
-    name: import-adr-citation-map-file
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
----
-#>
-
 function Import-AdrCitationMapFile {
     [CmdletBinding()]
     [OutputType([hashtable[]])]

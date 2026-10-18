@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/SentenceGuid.cs
-    folder: types
-    name: sentence-guid
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md
-    test: automation/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
-    cites:
-      - ADR-PWSH-TYPES#1
----
-*/
-
 namespace Catzc.Base.QualityGates;
 
 using System;

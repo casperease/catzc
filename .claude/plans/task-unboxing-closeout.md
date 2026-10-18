@@ -11,20 +11,6 @@ task:
       automation/Catzc.Base.Objects/types,
       docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md,
     ]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-unboxing-closeout.md"
-    folder: plans
-    name: task-unboxing-closeout
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # Task: unboxing closed

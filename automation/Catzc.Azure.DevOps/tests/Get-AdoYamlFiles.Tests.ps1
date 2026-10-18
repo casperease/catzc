@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
-    folder: tests
-    name: get-ado-yaml-files-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#20
----
-#>
-
 Describe 'Resolve-AdoYamlClassification' -Tag 'L0' {
     InModuleScope 'Catzc.Azure.DevOps' {
         Context 'null and non-dictionary input' -Tag 'logic' {

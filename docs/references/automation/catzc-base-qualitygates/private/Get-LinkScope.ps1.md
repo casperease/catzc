@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: aa98ed33c436
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
-    folder: docs/references/automation/catzc-base-qualitygates/private
-    name: get-link-scope-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Base.QualityGates/private/Get-LinkScope.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

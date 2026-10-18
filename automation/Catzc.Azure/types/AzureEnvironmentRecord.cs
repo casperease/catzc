@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/types/AzureEnvironmentRecord.cs
-    folder: types
-    name: azure-environment-record
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-AZ-DATAMOD
-      - ADR-AZ-NAMING
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

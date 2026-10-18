@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f22626a5ce7c
-    repo_status: locked
-    path: docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md
-    folder: docs/references/automation/catzc-base-globs
-    name: test-glob-set-independence-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-FLOW-CD-GLOBS#{7,10}
----
-
 # automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,31 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/pwsh/one-function-per-file.md
-    folder: docs/adr/pwsh
-    name: one-function-per-file
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PWSH-ONEFUNC#{1-3}
-    cites:
-      - ADR-AUTO-EXTEND#4
-      - ADR-PWSH-USEPS#1
-    links:
-      - docs/adr/automation/effective-in-enterprises.md
-      - docs/adr/automation/open-closed-architecture.md#rule-adr-auto-extend4
-      - docs/adr/automation/platform-bundle.md
-      - docs/adr/automation/zero-ceremony-poka-yoke.md#rule-adr-auto-zero2
-      - docs/adr/design/run-modes.md
-      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5
-      - docs/adr/pwsh/use-ps1-not-psm1.md#source-and-the-generated-build
----
-
 # ADR: One function per file
 
 ## Rules: ADR-PWSH-ONEFUNC

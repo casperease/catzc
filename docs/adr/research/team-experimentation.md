@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/research/team-experimentation.md
-    folder: docs/adr/research
-    name: team-experimentation
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-DORA-EXPERIMENT#{1-4}
-    links:
-      - docs/adr/design/self-service.md
-      - docs/adr/design/thin-platforms.md
-      - docs/adr/process/agile-values.md
-      - docs/references/dora/capabilities.md#climate-for-learning
-      - docs/references/dora/capabilities.md#customer-feedback
-      - docs/references/dora/capabilities.md#generative-organizational-culture
-      - docs/references/dora/capabilities.md#learning-culture
-      - docs/references/dora/capabilities.md#team-experimentation
-      - docs/references/dora/capabilities.md#transformational-leadership
-      - docs/references/dora/core-model.md#organizational-performance
-      - docs/references/dora/core-model.md#software-delivery-performance
-      - docs/references/dora/index.md
-      - docs/references/dora/publications.md#2016-state-of-devops-report
-      - docs/references/dora/publications.md#2017-state-of-devops-report
-      - "https://dora.dev/capabilities/team-experimentation/"
----
-
 # ADR: DORA — Team experimentation
 
 ## Rules: ADR-DORA-EXPERIMENT

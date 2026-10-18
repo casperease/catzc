@@ -1,25 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/how-to/automation/manual-test-plan/repository-conventions.md
-    folder: docs/how-to/automation/manual-test-plan
-    name: repository-conventions
-    filetype: md
-    kind: how-to
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-DSGN-TRACK#{1,3,6,12,14-17}
-      - ADR-REPO-CONTRACT#{2,4,5,9}
-      - ADR-REPO-FILEMETA#4
-    links:
-      - docs/how-to/automation/manual-test-plan.md
----
-
 # Manual test plan — Repository conventions
 
 Folder, file, and naming conventions, the repository path helpers, the git index, and the managed-GUID registry. Part of the

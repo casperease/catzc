@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
-    folder: tests
-    name: install-uv-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
-    cites:
-      - ADR-PWSH-ENV#4
----
-#>
-
 Describe 'Install-Uv' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'uv'; version = '0.11' } } -ModuleName Catzc.Tooling.Toolchain

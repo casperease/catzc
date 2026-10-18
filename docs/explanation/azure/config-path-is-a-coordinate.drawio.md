@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/azure/config-path-is-a-coordinate.drawio.md
-    folder: docs/explanation/azure
-    name: config-path-is-a-coordinate-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-az-datamod--config-path-is-a-coordinate--meta.chain.md
-      - docs/explanation/.assets/grid/adr-az-datamod--config-path-is-a-coordinate--meta.grid.md
-      - docs/explanation/.assets/tree/adr-az-datamod--config-path-is-a-coordinate--meta.tree.md
-      - docs/explanation/azure/config-path-is-a-coordinate.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # A config file's path is a coordinate that resolves to one subscription and one resource group: the diagram described
 
 ```text

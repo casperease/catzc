@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Split-CommandLineBatch.Tests.ps1
-    folder: tests
-    name: split-command-line-batch-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Split-CommandLineBatch' -Tag 'L0', 'logic' {
     It 'keeps every batch under the limit, counting the quotes and the separator, in order' {
         $batches = InModuleScope Catzc.Base.QualityGates {

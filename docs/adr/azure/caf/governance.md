@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/caf/governance.md
-    folder: docs/adr/azure/caf
-    name: governance
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-CAFGOV#{1-10}
-    cites:
-      - ADR-AZ-DATAMOD#{9,11}
-      - ADR-AZ-LZ#{1,3,4}
-      - ADR-AZ-WAFCO#3
-    links:
-      - docs/adr/automation/managed-guids.md
-      - docs/adr/azure/azure-data-model.md
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
-      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
-      - docs/adr/azure/landing-zones.md
-      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
-      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
-      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
-      - docs/adr/azure/waf/cost-optimization.md#rule-adr-az-wafco3
-      - docs/adr/principles/one-living-version.md
-      - docs/references/caf/index.md
----
-
 # ADR: CAF governance — what the repository does about each of Microsoft's governance design recommendations
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that assigns the policies and carries the budget) and

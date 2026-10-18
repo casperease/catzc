@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "10a3bd2e098c"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
-    folder: docs/references/automation/catzc-base-docs
-    name: get-cats-adr-rule-ids-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-PWSH-CACHE#4
----
-
 # automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/get-aspect-names-the-remainder.drawio.md
-    folder: docs/explanation/design
-    name: get-aspect-names-the-remainder-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.tree.md
-      - docs/explanation/design/get-aspect-names-the-remainder.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads: the diagram described
 
 ```text

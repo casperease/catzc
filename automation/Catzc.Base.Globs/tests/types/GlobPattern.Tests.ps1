@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
-    folder: tests/types
-    name: glob-pattern-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
-    cites:
-      - ADR-FLOW-CD-GLOBS#{2,3}
----
-#>
-
 Describe 'GlobPattern' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:match = {

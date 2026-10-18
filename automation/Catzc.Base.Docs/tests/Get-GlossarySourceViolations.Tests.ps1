@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
-    folder: tests
-    name: get-glossary-source-violations-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
-      - ADR-PWSH-PESTER#4
-      - ADR-REPO-VOCAB#{1,3-5}
----
-#>
-
 Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } -MockWith {

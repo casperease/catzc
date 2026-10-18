@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-timeouts.md
-    folder: docs/references/automation
-    name: catzc-base-timeouts
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-execution.md
-      - docs/references/automation/catzc-base-objects.md
-      - docs/references/automation/catzc-base-repository.md
----
-
 # Catzc.Base.Timeouts
 
 Owns the time safeguards: how long a call may run before it is stopped, and the means to stop it. One config (`timeouts.yml`) holds every

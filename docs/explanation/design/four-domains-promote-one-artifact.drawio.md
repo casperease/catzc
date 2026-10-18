@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/four-domains-promote-one-artifact.drawio.md
-    folder: docs/explanation/design
-    name: four-domains-promote-one-artifact-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md
-      - docs/explanation/design/four-domains-promote-one-artifact.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Four pipeline kinds promote one artifact that CI built once: the diagram described
 
 ```text

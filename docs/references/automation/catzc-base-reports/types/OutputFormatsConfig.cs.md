@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "8d1262066552"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md
-    folder: docs/references/automation/catzc-base-reports/types
-    name: output-formats-config-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-OUTFMT#1
----
-
 # automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

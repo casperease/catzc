@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Contracts/Get-CommandContract.ps1
-    name: get-command-contract
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Contracts/tests/Get-CommandContract.Tests.ps1
-    cites:
-      - ADR-REPO-CMDCONTRACT#{1,5}
----
-#>
-
 function Get-CommandContract {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractCommand[]])]

@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.RootConfig/private/Get-RootConfigInputStamp.ps1
-    folder: private
-    name: get-root-config-input-stamp
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigInputStamp.Tests.ps1
-    cites:
-      - ADR-AUTO-CACHE#10
-      - ADR-PWSH-ENUM#1
----
-#>
-
 function Get-RootConfigInputStamp {
     [CmdletBinding()]
     [OutputType([string])]

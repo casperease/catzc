@@ -1,22 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Slides/types/SlideFault.cs
-    folder: types
-    name: slide-fault
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-*/
-
 using System;
 
 namespace Catzc.Base.Slides;

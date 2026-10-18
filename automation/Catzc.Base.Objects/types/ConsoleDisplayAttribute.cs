@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs
-    folder: types
-    name: console-display-attribute
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Base.Objects;

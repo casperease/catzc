@@ -1,36 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/configuration/markdown-config-contributions.md
-    folder: docs/adr/configuration
-    name: markdown-config-contributions
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-CONF-MDCONTRIB#{1-7}
-    cites:
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-EXTEND#3
-      - ADR-AUTO-OVERLAY#{4,7}
-      - ADR-CONF-ADDRESSING#3
-      - ADR-CONF-LOADING#{1,3-5}
-    links:
-      - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay4
-      - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay7
-      - docs/adr/automation/open-closed-architecture.md#rule-adr-auto-extend3
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing3
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading3
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
-      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
----
-
 # ADR: Markdown config contributions — config values stated in a source-controlled Markdown file
 
 ## Rules: ADR-CONF-MDCONTRIB

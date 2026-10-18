@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
-    folder: tests/types
-    name: tools-config-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md
-    cites:
-      - ADR-AUTO-DEPS#4
-      - ADR-AUTO-TEST#{3,14}
----
-#>
-
 Describe 'ToolsConfig' -Tag 'L0' {
     Context 'integrity (shipped tools.yml)' -Tag 'integrity' {
         It 'accepts the shipped tools.yml (all snake_case)' {

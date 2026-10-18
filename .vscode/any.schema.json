@@ -1,5 +1,4 @@
 {
-  "//": "catzc:\n  immutable:\n    repo_status: clean\n    path: \".vscode/any.schema.json\"\n    name: any-schema\n    filetype: json\n    kind: other\n    language: json\n    track: \".vscode\"\n    tracktype: vendor-settings\n    vendor: vscode\n    module: \".vscode\"\n    moduletype: settings",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Any YAML",
   "description": "No constraints. A catzc config is validated by its config type, so an editor schema from SchemaStore that matches only its file name, such as the azd azure.yaml schema that requires a name, is held off."

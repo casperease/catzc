@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
-    folder: tests
-    name: get-catzc-content-hash-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Get-CatzcContentHash' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:tree = Join-Path $TestDrive ([System.Guid]::NewGuid())

@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/every-file-in-exactly-one-aspect.drawio.md
-    folder: docs/explanation/design
-    name: every-file-in-exactly-one-aspect-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.tree.md
-      - docs/explanation/design/every-file-in-exactly-one-aspect.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Every module file is in exactly one aspect: the diagram described
 
 ```text

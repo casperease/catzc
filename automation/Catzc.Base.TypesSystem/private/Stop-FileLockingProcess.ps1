@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.TypesSystem/private/Stop-FileLockingProcess.ps1
-    folder: private
-    name: stop-file-locking-process
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
----
-#>
-
 function Stop-FileLockingProcess {
     [CmdletBinding()]
     param(

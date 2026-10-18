@@ -1,28 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
-    folder: types
-    name: output-formats-config
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md
-    test: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-OUTFMT#1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

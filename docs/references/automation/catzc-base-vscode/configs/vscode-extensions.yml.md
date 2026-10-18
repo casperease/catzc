@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "7ac511f16380"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
-    folder: docs/references/automation/catzc-base-vscode/configs
-    name: vscode-extensions-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-REPO-FORMAT#8
-      - ADR-REPO-LINK#3
----
-
 # automation/Catzc.Base.VSCode/configs/vscode-extensions.yml
 
 <!-- cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett -->

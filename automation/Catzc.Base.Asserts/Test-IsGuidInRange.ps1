@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1
-    name: test-is-guid-in-range
-    filetype: ps1
-    kind: function
-    subkind: gate
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.Asserts/tests/Test-IsGuidInRange.Tests.ps1
----
-#>
-
 function Test-IsGuidInRange {
     [OutputType([bool])]
     [CmdletBinding()]

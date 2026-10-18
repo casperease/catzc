@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/out-of-band-deploy-is-adr-only.drawio.md
-    folder: docs/explanation/design
-    name: out-of-band-deploy-is-adr-only-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.tree.md
-      - docs/explanation/design/out-of-band-deploy-is-adr-only.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only: the diagram described
 
 ```text

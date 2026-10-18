@@ -6,23 +6,6 @@ task:
   blocked_on:
     nothing; task-module-model-closeout no longer edits VariantsConfig.cs or VariantTrack.cs (2026-10-18), only the user's run is left there
   targets: [automation/Catzc.Base.Variants, automation/Catzc.Base.Modules]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/plans/task-config-defaults-variants.md"
-    folder: plans
-    name: task-config-defaults-variants
-    filetype: md
-    kind: other
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
 ---
 
 # Task: config defaults Phase 1, the variants type carries its defaults

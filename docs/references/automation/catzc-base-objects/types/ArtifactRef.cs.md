@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "60145a2c5c62"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
-    folder: docs/references/automation/catzc-base-objects/types
-    name: artifact-ref-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-PATH#10
----
-
 # automation/Catzc.Base.Objects/types/ArtifactRef.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

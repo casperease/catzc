@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Save-TestDurationHistory.ps1
-    folder: private
-    name: save-test-duration-history
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
----
-#>
-
 function Save-TestDurationHistory {
     [CmdletBinding()]
     param(

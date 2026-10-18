@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/agent-contracts.md
-    folder: docs/references
-    name: agent-contracts
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-AGENTS#6
----
-
 # Agent contracts: what `contracts: [ADR-AI]` said, and where it lives now
 
 ## What the key said

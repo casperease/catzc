@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/merging-to-main-is-what-deploys.drawio.md
-    folder: docs/explanation/design
-    name: merging-to-main-is-what-deploys-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-dsgn-life--merging-to-main-is-what-deploys--operations.chain.md
-      - docs/explanation/.assets/grid/adr-dsgn-life--merging-to-main-is-what-deploys--operations.grid.md
-      - docs/explanation/.assets/tree/adr-dsgn-life--merging-to-main-is-what-deploys--operations.tree.md
-      - docs/explanation/design/merging-to-main-is-what-deploys.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Merging to main is what deploys; there is no run that deploys a topic: the diagram described
 
 ```text

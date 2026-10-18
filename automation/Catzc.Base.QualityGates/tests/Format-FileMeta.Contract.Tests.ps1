@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Contract.Tests.ps1
-    folder: tests
-    name: format-file-meta-contract-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT#4
----
-#>
-
 # The provided head contract names the keys of a file's meta head; this proves they are the keys the code writes, so neither can drift.
 Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT#4' {
     BeforeAll {

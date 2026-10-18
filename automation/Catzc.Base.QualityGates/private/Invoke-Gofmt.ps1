@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-Gofmt.ps1
-    folder: private
-    name: invoke-gofmt
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1
-    cites:
-      - ADR-AUTO-GO
-      - ADR-PRIN-CONFIG#2
----
-#>
-
 function Invoke-Gofmt {
     [CmdletBinding()]
     [OutputType([string[]])]

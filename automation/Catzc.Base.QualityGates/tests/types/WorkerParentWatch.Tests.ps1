@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
-    folder: tests/types
-    name: worker-parent-watch-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/tests/types/WorkerParentWatch.Tests.ps1.md
-    cites:
-      - ADR-PWSH-ENV#4
----
-#>
-
 Describe 'WorkerParentWatch' -Tag 'logic' {
     Context 'liveness check' -Tag 'L0' {
         It 'reports this process alive at its own start time' {

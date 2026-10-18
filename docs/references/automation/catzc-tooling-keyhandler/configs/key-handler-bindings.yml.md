@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "29e8bb3da3b6"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md
-    folder: docs/references/automation/catzc-tooling-keyhandler/configs
-    name: key-handler-bindings-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

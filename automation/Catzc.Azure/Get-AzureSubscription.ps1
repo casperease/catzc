@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure/Get-AzureSubscription.ps1
-    name: get-azure-subscription
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md
-    test: automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
-    cites:
-      - ADR-AZ-CUSTOMER
-      - ADR-AZ-DATAMOD#4
----
-#>
-
 function Get-AzureSubscription {
     [CmdletBinding()]
     param(

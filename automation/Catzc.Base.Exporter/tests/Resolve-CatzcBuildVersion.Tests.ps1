@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
-    folder: tests
-    name: resolve-catzc-build-version-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

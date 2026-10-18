@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
-    name: deploy-azure-resource-group
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
----
-#>
-
 function Deploy-AzureResourceGroup {
     [CmdletBinding()]
     param(

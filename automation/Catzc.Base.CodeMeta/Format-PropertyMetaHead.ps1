@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
-    name: format-property-meta-head
-    filetype: ps1
-    kind: function
-    subkind: formatter
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
-    cites:
-      - ADR-REPO-FILEMETA#8
----
-#>
-
 function Format-PropertyMetaHead {
     [CmdletBinding()]
     [OutputType([string])]

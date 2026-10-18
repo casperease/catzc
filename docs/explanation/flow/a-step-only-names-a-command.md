@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/flow/a-step-only-names-a-command.md
-    folder: docs/explanation/flow
-    name: a-step-only-names-a-command
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-FLOW-CD-RUNNER#{1,4}
-    links:
-      - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
-      - docs/explanation/flow/a-step-only-names-a-command.drawio.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/flow/no-gate-checks-rules-one-and-four.md
-      - docs/explanation/flow/the-runner-is-the-only-seam.md
-      - docs/explanation/flow/the-step-is-named-after-its-command.md
-      - docs/explanation/flow/three-tasks-one-guard-one-runner.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A pipeline step only names a command that a developer can run locally
 
 ```text

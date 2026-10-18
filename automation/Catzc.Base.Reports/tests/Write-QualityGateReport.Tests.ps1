@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-    folder: tests
-    name: write-quality-gate-report-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#{3,35}
----
-#>
-
 Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Reports -ParameterFilter { $Config -eq 'reports' } -MockWith {

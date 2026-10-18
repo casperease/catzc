@@ -1,25 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Globs/types/FileKindShadow.cs
-    folder: types
-    name: file-kind-shadow
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA#11
----
-*/
-
 namespace Catzc.Base.Globs;
 
 // A kind mostly shadowed by an earlier one that the registry's overlaps do not list: the finding of FileKindsConfig.Shadowing ([ADR-REPO-FILEMETA#11](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta11)).

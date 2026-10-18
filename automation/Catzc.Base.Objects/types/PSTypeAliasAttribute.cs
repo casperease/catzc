@@ -1,24 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
-    folder: types
-    name: ps-type-alias-attribute
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
----
-*/
-
 using System;
 
 namespace Catzc.Base.Objects;

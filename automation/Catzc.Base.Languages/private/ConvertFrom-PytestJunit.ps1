@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1
-    folder: private
-    name: convert-from-pytest-junit
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
----
-#>
-
 function ConvertFrom-PytestJunit {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.PythonTestResult])]

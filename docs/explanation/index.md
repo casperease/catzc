@@ -1,37 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/index.md
-    folder: docs/explanation
-    name: index
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-DSGN-TRACK#{9,12,16}
-    links:
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track12
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track16
-      - docs/adr/design/tracks.md#rule-adr-dsgn-track9
-      - docs/adr/index.md
-      - docs/explanation/.assets/glyphs.drawio.png
-      - docs/explanation/automation/index.md
-      - docs/explanation/azure/index.md
-      - docs/explanation/configuration/index.md
-      - docs/explanation/design/index.md
-      - docs/explanation/flow/index.md
-      - docs/explanation/glyphs.drawio.md
-      - docs/explanation/pipelines/index.md
-      - docs/explanation/repository/index.md
-      - docs/explanation/thesis/index.md
-      - docs/how-to/getting-started/automation/index.md
-      - docs/references/automation/index.md
----
-
 # Explanation
 
 ```text

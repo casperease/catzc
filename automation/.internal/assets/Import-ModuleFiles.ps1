@@ -1,21 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/assets/Import-ModuleFiles.ps1
-    name: import-module-files
-    filetype: ps1
-    kind: asset
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Assets
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 # The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/adr/pwsh/dynamic-module-manifests.md)): every
 # derived <Module>.psd1 names this script as its one NestedModule and lists the module's function files in
 # PrivateData.CatzcFiles (private/ first, then the root, each group ordinal, relative to the module folder). As a

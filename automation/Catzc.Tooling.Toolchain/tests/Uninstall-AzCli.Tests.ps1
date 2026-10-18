@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
-    folder: tests
-    name: uninstall-az-cli-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-AUTO-REMOVE#{4,5}
----
-#>
-
 Describe 'Uninstall-AzCli' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Uninstall-UvVenvTool { } -ModuleName Catzc.Tooling.Toolchain

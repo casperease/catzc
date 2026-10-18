@@ -1,26 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
-    folder: tests
-    name: get-executable-version-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
-    cites:
-      - ADR-AUTO-TEST#3
----
-#>
-
 Describe 'Get-ExecutableVersion' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable { [Catzc.Base.Execution.CliResult]::new('widget version 5.2.37', '', 0) } -ModuleName Catzc.Base.Execution

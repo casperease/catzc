@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/configuration/three-caches-back-one-reader.md
-    folder: docs/explanation/configuration
-    name: three-caches-back-one-reader
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-CONF-LOADING#{1-4}
-    links:
-      - docs/adr/configuration/module-config-loading.md
-      - docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
-      - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
-      - docs/explanation/configuration/callers-depend-on-one-config-module.md
-      - docs/explanation/configuration/index.md
-      - docs/explanation/configuration/one-gate-guards-the-read-path.md
-      - docs/explanation/configuration/one-reader-one-cache-per-session.md
-      - docs/explanation/configuration/three-caches-back-one-reader.drawio.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # Three session caches back the one config reader
 
 ```text

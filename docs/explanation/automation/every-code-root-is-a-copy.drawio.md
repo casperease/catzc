@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/every-code-root-is-a-copy.drawio.md
-    folder: docs/explanation/automation
-    name: every-code-root-is-a-copy-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-bundle--every-code-root-is-a-copy--architecture.chain.md
-      - docs/explanation/.assets/grid/adr-auto-bundle--every-code-root-is-a-copy--architecture.grid.md
-      - docs/explanation/.assets/tree/adr-auto-bundle--every-code-root-is-a-copy--architecture.tree.md
-      - docs/explanation/automation/every-code-root-is-a-copy.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # One engine builds the bundle, and every code root is a copy of its output: the diagram described
 
 ```text

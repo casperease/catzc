@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Languages/New-PythonProject.ps1
-    name: new-python-project
-    filetype: ps1
-    kind: function
-    subkind: writer
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    page: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
-    test: automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
-    cites:
-      - ADR-AUTO-PY
-      - ADR-CONF-ADDRESSING
----
-#>
-
 function New-PythonProject {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.PythonWorkspaceFile])]

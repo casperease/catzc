@@ -1,20 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/principles/reduce-waste.md
-    folder: docs/adr/principles
-    name: reduce-waste
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-PRIN-NOWASTE#{1-3}
----
-
 # Principle: Reduce waste
 
 ## Rules: ADR-PRIN-NOWASTE

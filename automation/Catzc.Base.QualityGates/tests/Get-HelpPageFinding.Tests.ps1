@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/Get-HelpPageFinding.Tests.ps1
-    folder: tests
-    name: get-help-page-finding-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-HELP#4
----
-#>
-
 Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
     BeforeAll {
         $script:code = "function Get-Widget {`n    [CmdletBinding()]`n    [OutputType([string])]`n    param(`n        [string] `$Name,`n        [switch] `$Force`n    )`n}`n"

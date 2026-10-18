@@ -1,24 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
-    folder: docs/references/automation/catzc-base-config
-    name: get-config-merge-seal-type-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-OVERLAY#7
-      - ADR-PWSH-CACHE#4
-    links:
-      - docs/references/.assets/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
----
-
 # Overlay merges unless sealed; the registered type builds it: the diagram described
 
 ```text

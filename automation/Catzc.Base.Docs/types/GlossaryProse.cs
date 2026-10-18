@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Docs/types/GlossaryProse.cs
-    folder: types
-    name: glossary-prose
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
-    cites:
-      - ADR-REPO-FORMAT#6
-      - ADR-REPO-VOCAB#5
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.IO;

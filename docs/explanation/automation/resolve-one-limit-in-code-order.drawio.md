@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/resolve-one-limit-in-code-order.drawio.md
-    folder: docs/explanation/automation
-    name: resolve-one-limit-in-code-order-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
-      - docs/explanation/.assets/chain/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.chain.md
-      - docs/explanation/.assets/grid/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.grid.md
-      - docs/explanation/.assets/tree/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.tree.md
-      - docs/explanation/automation/resolve-one-limit-in-code-order.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order: the diagram described
 
 ```text

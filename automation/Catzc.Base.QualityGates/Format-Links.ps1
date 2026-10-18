@@ -1,28 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/Format-Links.ps1
-    name: format-links
-    filetype: ps1
-    kind: function
-    subkind: formatter
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
-    cites:
-      - ADR-REPO-LINK
-      - ADR-X
----
-#>
-
 function Format-Links {
     [CmdletBinding()]
     [OutputType([string[]])]

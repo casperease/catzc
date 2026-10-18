@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
-    folder: tests
-    name: initialize-git-clone-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md
----
-#>
-
 Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning

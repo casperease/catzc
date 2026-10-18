@@ -1,19 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "66bfe3570d10"
-    repo_status: locked
-    path: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
-    folder: docs/references/automation/catzc-tooling-provisioning
-    name: install-zsh-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
----
-
 # automation/Catzc.Tooling.Provisioning/Install-Zsh.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

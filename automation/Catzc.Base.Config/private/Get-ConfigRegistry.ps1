@@ -1,29 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
-    folder: private
-    name: get-config-registry
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md
-    test: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-PWSH-CACHE#4
----
-#>
-
 function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()

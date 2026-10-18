@@ -1,33 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
-    folder: docs/explanation/design
-    name: engineer-merges-pipelines-do-the-rest
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-PARITY#2
-      - ADR-DSGN-LIFE#{1,8}
-      - ADR-FLOW-CD#8
-    links:
-      - docs/adr/design/commit-lifecycle.md
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/explanation/.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
-      - docs/explanation/design/code-wires-only-the-first-rungs.md
-      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.drawio.md
-      - docs/explanation/design/four-domains-promote-one-artifact.md
-      - docs/explanation/design/index.md
-      - docs/explanation/design/one-way-climb-three-endings.md
-      - docs/explanation/design/which-rung-gates-exist-in-code.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # An engineer runs the tests and merges; pipelines do the rest
 
 ```text

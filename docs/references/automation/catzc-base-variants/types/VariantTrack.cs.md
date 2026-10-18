@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: c77d074b1dc0
-    repo_status: locked
-    path: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
-    folder: docs/references/automation/catzc-base-variants/types
-    name: variant-track-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-DSGN-TRACK#6
----
-
 # automation/Catzc.Base.Variants/types/VariantTrack.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

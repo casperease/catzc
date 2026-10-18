@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Split-TestAutomationFiles.ps1
-    folder: private
-    name: split-test-automation-files
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
-    cites:
-      - ADR-AUTO-TEST#{26,33}
----
-#>
-
 function Split-TestAutomationFiles {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

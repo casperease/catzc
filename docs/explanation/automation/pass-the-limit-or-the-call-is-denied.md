@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
-    folder: docs/explanation/automation
-    name: pass-the-limit-or-the-call-is-denied
-    filetype: md
-    kind: explanation
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST#7
-    links:
-      - docs/adr/automation/fail-fast-with-asserts.md
-      - docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
-      - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
-      - docs/explanation/automation/decide-returns-null-or-a-reason.md
-      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
-      - docs/explanation/automation/index.md
-      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.drawio.md
-      - docs/explanation/automation/three-tests-prove-the-hook.md
-      - docs/explanation/index.md#how-to-read-the-diagrams
----
-
 # A call inside the limit runs; outside it, the hook denies it and says how to re-issue it
 
 ```text

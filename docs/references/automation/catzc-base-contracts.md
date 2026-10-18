@@ -1,32 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/references/automation/catzc-base-contracts.md
-    folder: docs/references/automation
-    name: catzc-base-contracts
-    filetype: md
-    kind: reference
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT#{3,5,9}
-    links:
-      - docs/adr/repository/api-contracts.md
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract3
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract4
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract5
-      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract9
-      - docs/adr/repository/command-contracts.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-exporter.md
-      - docs/references/automation/catzc-base-reports.md
-      - docs/references/automation/catzc-tooling-github.md
-      - docs/references/contracts.md
----
-
 # Catzc.Base.Contracts
 
 The contracts module. It **makes the repository's contracts binding**: every contract asset under `contracts/` is checked against the real

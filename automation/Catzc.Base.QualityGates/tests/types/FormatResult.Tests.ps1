@@ -1,25 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/tests/types/FormatResult.Tests.ps1
-    folder: tests/types
-    name: format-result-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    cites:
-      - ADR-REPO-FORMAT#8
----
-#>
-
 Describe 'FormatResult' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     It 'carries the language, engine, checked and changed files, and the dry-run flag' {
         $result = [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @('a.wdg', 'b.wdg'), [string[]] @('a.wdg'), $true)

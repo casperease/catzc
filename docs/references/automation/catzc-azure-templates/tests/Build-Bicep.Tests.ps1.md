@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: f0827ce54949
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md
-    folder: docs/references/automation/catzc-azure-templates/tests
-    name: build-bicep-tests-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TEST#{4,19,26}
----
-
 # automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
 
 <!-- cspell:ignore alweutstsmplst -->

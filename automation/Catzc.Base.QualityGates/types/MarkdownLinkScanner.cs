@@ -1,27 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs
-    folder: types
-    name: markdown-link-scanner
-    filetype: cs
-    kind: type
-    language: csharp
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md
-    cites:
-      - ADR-REPO-LINK#2
-      - ADR-X
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

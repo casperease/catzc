@@ -1,30 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1
-    folder: private
-    name: invoke-ps-script-analyzer-format
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    page: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
-    cites:
-      - ADR-AUTO-ASSETDEP#1
-      - ADR-AUTO-CONSOLE#10
-      - ADR-PRIN-CONFIG#2
-      - ADR-REPO-FORMAT#3
----
-#>
-
 function Invoke-PSScriptAnalyzerFormat {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The shard worker''s analyzer import runs inside each background Start-Job process, never in this session')]
     [CmdletBinding()]

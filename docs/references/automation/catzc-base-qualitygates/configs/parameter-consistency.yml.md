@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "2a5f985b2258"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
-    folder: docs/references/automation/catzc-base-qualitygates/configs
-    name: parameter-consistency-yml
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT#6
----
-
 # automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

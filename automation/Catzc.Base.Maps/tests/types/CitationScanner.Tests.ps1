@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
-    folder: tests/types
-    name: citation-scanner-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
----
-#>
-
 Describe 'CitationScanner' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:index = [Catzc.Base.Maps.CitationScanner]::Index([ordered]@{

@@ -1,22 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
-    folder: tests
-    name: assert-last-exit-code-was-zero-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
----
-#>
-
 Describe 'Assert-LastExitCodeWasZero' -Tag 'L0', 'logic' {
     It 'passes when LASTEXITCODE is 0' {
         $global:LASTEXITCODE = 0

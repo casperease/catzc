@@ -1,23 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "93e86afe9fa8"
-    repo_status: locked
-    path: docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md
-    folder: docs/references/automation/catzc-base-docs/types
-    name: glossary-avoid-cs
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AUTO-TYPES#8
-      - ADR-REPO-VOCAB#5
----
-
 # automation/Catzc.Base.Docs/types/GlossaryAvoid.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

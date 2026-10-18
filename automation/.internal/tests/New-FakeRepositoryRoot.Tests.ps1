@@ -1,24 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
-    name: new-fake-repository-root-tests
-    filetype: ps1
-    kind: test
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-  edges:
-    cites:
-      - ADR-DSGN-RUNMODE#4
----
-#>
-
 Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE#4' {
     BeforeAll {
         Import-InternalModule TestKit

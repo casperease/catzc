@@ -1,27 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.drawio.md
-    folder: docs/explanation/repository
-    name: import-materialises-two-gates-name-the-fix-drawio
-    filetype: md
-    kind: asset-description
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    links:
-      - docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
-      - docs/explanation/.assets/chain/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.chain.md
-      - docs/explanation/.assets/grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md
-      - docs/explanation/.assets/tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md
-      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
-      - docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-      - docs/references/automation/catzc-base-maps.md
-      - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
----
-
 # The import materialises every root file; two gates catch drift and name the fix: the diagram described
 
 ```text

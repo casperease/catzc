@@ -1,22 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: d42f84b1340a
-    repo_status: locked
-    path: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
-    folder: docs/references/automation/catzc-azure-templates
-    name: get-azure-resource-name-ps1
-    filetype: md
-    kind: comment-page
-    language: markdown
-    track: docs
-    tracktype: documentation
-    generator: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-  edges:
-    cites:
-      - ADR-AZ-NAMING#{4,6}
----
-
 # automation/Catzc.Azure.Templates/Get-AzureResourceName.ps1
 
 <!-- cspell:ignore weuzctsmplst -->

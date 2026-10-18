@@ -1,27 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: automation/Catzc.Base.QualityGates/private/Get-RepointedMarkdownText.ps1
-    folder: private
-    name: get-repointed-markdown-text
-    filetype: ps1
-    kind: function
-    language: powershell
-    track: automation
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
-  edges:
-    test: automation/Catzc.Base.QualityGates/tests/Get-RepointedMarkdownText.Tests.ps1
-    cites:
-      - ADR-REPO-FORMAT#7
----
-#>
-
 function Get-RepointedMarkdownText {
     [CmdletBinding()]
     [OutputType([string])]

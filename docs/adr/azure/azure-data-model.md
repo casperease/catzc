@@ -1,30 +1,3 @@
----
-catzc:
-  immutable:
-    repo_status: clean
-    path: docs/adr/azure/azure-data-model.md
-    folder: docs/adr/azure
-    name: azure-data-model
-    filetype: md
-    kind: adr
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    defines:
-      - ADR-AZ-DATAMOD#{1-11}
-    links:
-      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
-      - docs/adr/azure/azure-customer-model.md
-      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3
-      - docs/adr/azure/azure-naming-standard.md
-      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2
-      - docs/adr/azure/azure-network-model.md
-      - docs/adr/configuration/config-value-addressing.md
-      - docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing3
-      - docs/adr/repository/repo-variants.md
----
-
 # ADR: Templating data model (azure.yml+infrastructure/**)
 
 Pairs with [`naming-standard`](azure-naming-standard.md), which defines the resource-name components this model feeds.

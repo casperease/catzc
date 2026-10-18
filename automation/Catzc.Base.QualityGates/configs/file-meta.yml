@@ -1,22 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     repo_status: clean
-#     path: automation/Catzc.Base.QualityGates/configs/file-meta.yml
-#     folder: configs
-#     name: file-meta
-#     filetype: yml
-#     kind: config
-#     language: yaml
-#     track: automation
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
-#   edges:
-#     page: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
-# ---
-
 # Whether a file of a class must, may or must not carry a block; the first class that matches decides, else the default (forbidden on the type).
 head_policy:
   classes:
