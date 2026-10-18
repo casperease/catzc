@@ -50,7 +50,7 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
        bolds it. Check: Test-Links on the touched pages. Corrected 2026-10-17: ADR-REPO-HELP#1 makes the head's `config` part the whole
        help, so there is nothing beyond it; the head's parameter entries now name the registry defaults (step 3), and `watchpoint` waits for
        step 7.
-7. After the first measured run (`importer.ps1 -DiagnoseBlocking`, the user's, task-user-runs-and-commits step 6; the Test-Automation
+7. After the first measured run (`importer.ps1 -DiagnoseBlocking`, the user's, task-user-runs-and-commits step 5; the Test-Automation
    points are read only if the final full run carries the switch, and nothing waits on that): `ADR-AUTO-FAILFAST#8`
    (mark a suspected block with a watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`;
    present tense. In the same change, D17 (2026-10-18): `Assert-Wait.ps1` becomes `Watch-Blocking.ps1` with its test file, the `.psd1`

@@ -18,6 +18,9 @@ named in the report.
   each. The carried drafts whose data is in the tree were cut from plan-bounded-folder-enumeration (435 to 45 lines),
   plan-file-head-immutable-edges-classes (401 to 47), plan-plans-body-sha-landing-zone (266 to 44), plan-out-artifacts (215 to 44) and
   plan-test-run-budget (119 to 57); the ticked history of this file went too. git keeps every cut line.
+- 2026-10-18, second pass: plan-unboxing and task-unboxing-closeout deleted (no open step once the user ruled the typed DLL ignored);
+  value-of-plan.md lost its rows for plan-assets-beside-articles, plan-adr-ai, plan-adr-cats and plan-unboxing, all deleted earlier, and
+  its State column re-read against the plans; the vocabulary list below lost the files that no longer exist.
 - Kept on purpose: the 2026-10-16 questionnaires (decisions rows cite their Q numbers, and the questions live nowhere else) and the
   2026-10-18 round files (answers the user still owes).
 
@@ -51,9 +54,7 @@ file is fixed when it is next edited for its own reason (D15: no exemption for p
 - [ ] Fix the flagged wording file by file, each when that file is next edited, and strike the file from the list below (check: the next
       `Test-Glossary` run names no line in the struck file; the list below is empty when the step is done).
 
-The files: `plan-layers-vocabulary-rename-contracts.md`, `questionnaire-2026-10-16.md`, `plan-module-kinds-tracks.md`,
-`decisions-2026-10-16.md`, `plan-config-defaults.md`, `value-of-plan.md`, `questionnaire-fundamental-2026-10-16.md`,
-`questionnaire-fundamental-2-2026-10-16.md`, `plan-adr-link-cleanup-prose-to-pages.md`, `plan-assert-wait.md`,
-`prompt-module-model-2-implement.md`, `prompt-k8s-kinds-2-implement.md`, `prompt-bounded-folder-enumeration-continue.md`,
-`plan-unboxing.md`, `prompt-module-model-1-prepare.md`, `prompt-config-defaults-continue.md`, `prompt-automation-layers-continue.md`,
-`plan-module-model-closeout.md`.
+The files: `plan-layers-vocabulary-rename-contracts.md`, `questionnaire-2026-10-16.md`, `decisions-2026-10-16.md`, `value-of-plan.md`,
+`questionnaire-fundamental-2026-10-16.md`, `questionnaire-fundamental-2-2026-10-16.md`, `plan-assert-wait.md`,
+`prompt-bounded-folder-enumeration-continue.md`, `plan-module-model-closeout.md`. Struck 2026-10-18 as deleted files: plan-module-kinds-tracks,
+plan-config-defaults, plan-adr-link-cleanup-prose-to-pages, plan-unboxing and the five topic prompts.

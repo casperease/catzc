@@ -39,24 +39,24 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Chunks
 
-Done, task files deleted or awaiting the user's `git rm` (task-user-runs-and-commits step 4):
+Done, task files deleted:
 
 - Plans-folder hygiene, the decision round of 2026-10-18, ADR-AI, ADR-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal
   robots, layers doctrine, class selectors, assets leftovers, comment pages, skip unchanged generators, idle compaction: done 2026-10-17
   and 2026-10-18, as the plans' Done sections and value-of-plan.md record.
 - import-landing-zone, kind-becomes-role, config-defaults-variants, config-defaults-fragment, config-defaults-postures, layers-funnel,
-  file-head-leftovers, lazy-types-load, adr-auto-material, adr-link-cleanup: every step in the tree by 2026-10-18; the task files still
-  present go with the user's `git rm`.
+  file-head-leftovers, lazy-types-load, adr-auto-material, adr-link-cleanup, unboxing-closeout: every step in the tree or closed by
+  2026-10-18; value-of-plan.md records each deletion.
 
 Open, in execution order:
 
 - decision-round -> task-decision-round.md (open; nothing blocks it): one `plan-decide` round over the six plans with a question only the
   user can answer: the promotion ladder Q1 to Q4, the command-contracts freeze (twelve exported functions nothing calls, 139 only docs
   name), the diagram-folders pilot approval, the out/test-links clearance, probe batch two, a test home for the drawio kit.
-- user-runs-and-commits -> task-user-runs-and-commits.md (open; the user's ten steps, in the order they depend on each other; steps 1 to 9
-  run early, step 10 is the last chunk of this list): the gitattributes template commit, the `git mv` of the reachability test, the
-  `git rm` of done task files, the probe deletions, the keybinding and real Push-Dirty run, the cheap measured watchpoint run of the
-  importer, the environment-approvals apply, the CD and CI proof runs, the external re-pointing after P6. Closes
+- user-runs-and-commits -> task-user-runs-and-commits.md (open; the user's nine steps, in the order they depend on each other; steps 1 to 8
+  run early, step 9 is the last chunk of this list): the gitattributes template commit, the `git mv` of the reachability test, the probe
+  deletions, the keybinding and real Push-Dirty run, the cheap measured watchpoint run of the importer, the environment-approvals apply,
+  the CD and CI proof runs, the external re-pointing after P6. Closes
   plan-plans-body-sha-landing-zone and plan-fast-push-followups and the user-owned steps of five more.
 - explanation-drift-gaps -> task-explanation-drift-gaps.md (open; step 1 and the slides brief can start now, the three proofs are the
   user's runs): the Get-Aspect move into Catzc.Base.Variants, the Q1 to Q3 proofs read from the run logs, the brief for the five slides
@@ -64,7 +64,7 @@ Open, in execution order:
 - layers-classification-flip -> task-layers-classification-flip.md (open; P3 to P5's ADR edits done 2026-10-18; steps 6 and 7 next): P5 the
   avoid-phrasings for the retired layer forms and the rewording of the 68 pages that still say "automation layer", "implementation layer"
   or "PowerShell layer"; P6 the pipeline rename `ci-automation` to `ci-pwsh` as one atomic set, scheduled on a day the user re-points the
-  external definitions (task-user-runs-and-commits step 12).
+  external definitions (task-user-runs-and-commits step 8).
 - command-contracts -> task-command-contracts.md (open; 65 commands contracted; after the decision round's freeze call): the frozen set
   contracted, made internal or deleted as decided, Test-Contracts clean; the later language step for gate results and parameter sets.
 - assert-wait -> task-assert-wait.md (open; steps 1 to 6 done; steps 7 and 8 after the user's cheap importer watchpoint run): the ADR pair
@@ -79,8 +79,6 @@ Open, in execution order:
   README for the ladder with its ADR rules.
 - module-model-closeout -> task-module-model-closeout.md (open; closes on the final full run and the loose-ends comment step).
 - root-config-fixtures -> task-root-config-fixtures.md (open; closes on the user's Push-Dirty run).
-- unboxing-closeout -> task-unboxing-closeout.md (closed 2026-10-18; the DLL step is ignored by the user's rule, so plan-unboxing has no
-  open step and both go with the next closing sweep).
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md (open; closes on the final full run, then the plan and its prompt
   are deleted).
 - out-artifacts -> task-out-artifacts.md (open; closes on the user's two probe deletions).

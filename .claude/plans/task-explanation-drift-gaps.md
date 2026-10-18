@@ -29,10 +29,10 @@ real runs, and five slides that still draw retired claims. When a step lands, th
    `docs/explanation/repository/` and its slide follow. Check: the Variants, Modules and Maps L0 files pass; a grep for
    `Get-Config -Config variants` over `pwsh/**/*.ps1` hits only Catzc.Base.Variants; `Test-Links` on the edited pages; the final full run
    is the tree-wide proof.
-2. Q1 proof: the user's CD run (task-user-runs-and-commits step 11). Check: the two run logs show `AFFECTED` true in `cd-apex` and false
+2. Q1 proof: the user's CD run (task-user-runs-and-commits step 7). Check: the two run logs show `AFFECTED` true in `cd-apex` and false
    in `cd-shared`; the globset articles lose their "no caller" wording.
 3. Q2 proof: the user's main and PR runs of `ci-automation.yaml` (the same step). Check: `BuildArtifact` ran on main, skipped on the PR.
-4. Q3 apply: the user's `Sync-AdoEnvironmentApprovals` run (task-user-runs-and-commits step 10). Check: a second apply reports Unchanged;
+4. Q3 apply: the user's `Sync-AdoEnvironmentApprovals` run (task-user-runs-and-commits step 6). Check: a second apply reports Unchanged;
    the lifecycle articles under `docs/explanation/design/` and `docs/explanation/flow/` drop the "prod with no gate" claims.
 5. Q4 slides, a brief for the user to approve before any cell changes (cell removal is diagram work, not `write-drawio-files`): for each of
    `rule-and-gate-per-load-stage` (markers 7, 8), `what-gates-each-bundle-stage` (marker 6), `which-run-mode-rules-have-a-gate` (marker
