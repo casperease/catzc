@@ -3,7 +3,7 @@ plan:
   status: active
   value: medium-high
   reviewed: 2026-10-18
-  waits_on: the user's Test-FileMeta and full Test-Automation runs
+  waits_on: the final session's full run (task-user-runs-and-commits, last step)
   targets:
     [
       pwsh/Catzc.Base.QualityGates/configs/file-meta.yml,
@@ -37,8 +37,9 @@ The head is the carrier every other plan writes into; this plan settled its shap
 
 ## Open steps
 
-- [ ] Test-FileMeta gate and the full Test-Automation: the user's runs (check: the user's reports in out/ show no finding from the head
-      shape, the class selectors or the path split).
+- [ ] The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; no earlier step runs it
+      or Test-FileMeta over the tree) (check: that run's report in out/ shows no finding from the head shape, the class selectors or the
+      path split).
 - Context, not a step: glossary entries for individual kinds are not written (only the concepts kind and subkind are terms), and
   contracts/.gitkeep resolves to `other` and is left alone.
 

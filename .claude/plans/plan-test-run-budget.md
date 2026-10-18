@@ -43,8 +43,9 @@ so the value is a suite that proves the same in less time. The user runs full su
       lists `tools.yml#<tool>` keys and `Get-FormatEngineStamp` hashes each key alone (ADR-AUTO-CACHE#10); its 13 tests hold both cases and
       pass, and ADR-REPO-FORMAT#8 states the stamp. `Test-Formatting.Tests.ps1` is 4 of 5 cold and warm; its integrity case fails on
       unformatted working-tree files only.
-- [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting after two runs (check: the shard manifests of two runs
-      place them apart).
+- [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting, read from the shard manifest of the final session's full
+      run (task-user-runs-and-commits, last step) and of any run the user made on their own; this plan starts none (check: the manifests
+      in out/test-automation place them apart).
 - [x] Next three files by cost, one at a time via the test-optimization agent (check: same assertions, lower time). Done 2026-10-18 with no
       edit: each file is about 14 s alone (14.3, 13.9 and 14.8 s against 33.6, 32.9 and 31.3 s in the full run), each test is one real build
       the test exists to prove, so no file has a lever inside it; about half of each full-run figure is contention between build-heavy

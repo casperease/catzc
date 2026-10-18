@@ -1,15 +1,13 @@
 ---
 plan:
-  status: blocked
+  status: active
   class: feature
   value: low-medium
-  reviewed: 2026-10-16
-  blocked_on: the commit of the changed types
+  reviewed: 2026-10-18
   targets:
     [
       pwsh/Catzc.Base.Contracts/types,
       pwsh/Catzc.Base.Objects/types,
-      pwsh/.compiled,
       docs/explanation/pwsh/unboxing-is-cheap-and-crossings-are-not.md,
     ]
 ---
@@ -66,7 +64,6 @@ allocation, else it is reverted.
 
 ## Needed tests
 
-- pwsh/.compiled holds exactly one Catzc.Types.*.dll after the user commits it.
 - Gate findings peer sessions reported in this work's files (2026-10-16 15:03 and 15:14), not fixed by anyone yet: the Test-Glossary finding
   is the phrase "full suite" in the unboxing article (the sanctioned form is "all tests", as the earlier dora-explains fix shows);
   Test-Markdownlint findings in the same article; Test-Links bare citations in TypeShape.cs (Format-Links aligns them).
@@ -75,8 +72,9 @@ allocation, else it is reverted.
 
 ## Open steps
 
-- [ ] The user runs Clear-ModuleTypeCache so .compiled holds one DLL, then commits types, tests, docs and that DLL (check: one
-      Catzc.Types.*.dll; git status clean for them).
+- [x] Closed 2026-10-18 by the user: the typed DLL under `pwsh/.compiled` changes as many agents work in the repository and is ignored; no
+      step depends on which pair is there or on its commit. The types, tests and docs go with the user's other commits (check: none; the
+      step is closed, not done). This plan has no open step left and is a closing-sweep candidate.
 - [x] A fresh session runs the three leftover checks in the prompt (check: its report). Done 2026-10-17 (closeout, session catzc-6c
       read-only): `.compiled` holds one DLL pair; `Test-ShippedTypes` is clean in a fresh process
       (`out/test-shipped-types/20261017-210518`), so the `Catzc.Base.Variants` findings once attributed to kind-becomes-role (Q88) are gone;

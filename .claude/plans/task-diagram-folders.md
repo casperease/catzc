@@ -49,7 +49,8 @@ change is `write-drawio-files`.
 7. `glyphs.drawio.png` and `glyphs.drawio.md` into `docs/explanation/.assets/glyphs/` under role names. Check: every page that links it
    resolves (`Test-Links` over docs/explanation).
 8. Delete the emptied `docs/explanation/.assets/{grid,tree,chain}/`; `Build-Diagrams.ps1.md` help and `catzc-base-slides.md`
-   responsibility:4 follow the parameter. Check: `git ls-files docs/explanation/.assets` lists only `glyphs/`; `Test-GeneratedFiles` 0.
+   responsibility:4 follow the parameter. Check: `git ls-files docs/explanation/.assets` lists only `glyphs/`; `Test-Links` on the two
+   edited pages; the final full run is the tree-wide proof.
 9. Tick the plan's steps as each lands; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero in plan-diagram-folders.
 
 ## Report

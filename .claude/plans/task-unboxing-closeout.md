@@ -3,10 +3,9 @@ task:
   status: open
   plans: [plan-unboxing]
   value: low-medium
-  blocked_on: step 1 is the user's commit
+  blocked_on: nothing; every step is closed, the task goes with the closing sweep
   targets:
     [
-      pwsh/.compiled,
       pwsh/Catzc.Base.Contracts/types,
       pwsh/Catzc.Base.Objects/types,
       docs/explanation/pwsh/unboxing-is-cheap-and-crossings-are-not.md,
@@ -21,7 +20,9 @@ leftover checks in prompt-unboxing-continue.md, two gate findings in this work's
 
 ## Steps
 
-1. The user commits the types, tests, docs and the one DLL. Check: `git status` clean for them; `.compiled` still holds one DLL.
+1. [x] Closed 2026-10-18 by the user: the typed DLL under `pwsh/.compiled` changes as many agents work in the repository and is ignored;
+       no step depends on which DLL pair is there or on its commit. The types, tests and docs are committed with the user's other work.
+       Check: none; the step is closed, not done.
 2. [x] The three leftover checks from `prompt-unboxing-continue.md` lines 40 to 46 (the "check the leftovers" block): run each in the
        background as the prompt says, report only. Check: the report lists each with its verdict. Done 2026-10-17, read-only by session
        catzc-6c: (1) `pwsh/.compiled` holds exactly one pair, `Catzc.Types.c4b1ec93.dll` and its manifest (the hash moved with today's

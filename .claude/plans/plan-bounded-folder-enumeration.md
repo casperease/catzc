@@ -4,7 +4,7 @@ plan:
   class: feature
   value: medium
   reviewed: 2026-10-18
-  waits_on: the user's full test run, which confirms the level-2 rerun of 2026-10-17
+  waits_on: the final session's full run (task-user-runs-and-commits, last step), which confirms the level-2 rerun of 2026-10-17
   targets: [pwsh/Catzc.Base.Folders, pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 ---
 
@@ -33,8 +33,9 @@ The value is delivered; what is left is the proof.
       shows the three tags accepted). Done 2026-10-17 (task-bounded-enumeration-closeout): the three Folders test files pass with their tags
       (`out/test-file/20261017-210740-a00b00`) and the eight gates of `out/run-folders-verify.ps1` report nothing; verdicts in
       task-bounded-enumeration-closeout.
-- [ ] On green, the user runs all tests in their own time; then delete this plan and its prompt (the plans plan's rule) (check: the user's
-      report shows no finding from this feature; both files are gone).
+- [ ] The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; no earlier step runs it)
+      confirms this feature; then this plan and its prompt are deleted (the plans plan's rule) (check: that run's report shows no finding
+      from this feature; both files are gone).
 
 ## Refs
 

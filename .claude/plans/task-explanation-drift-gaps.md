@@ -27,7 +27,8 @@ real runs, and five slides that still draw retired claims. When a step lands, th
    private `Get-Variant`, so `aspects` has one read path (ADR-REPO-VARIANT); their tests, the `.psd1` export lists, `Get-WorldMap`'s call,
    the Modules reference page (`docs/references/pwsh/catzc-base-modules.md`, one responsibility left) and the Variants count in
    `docs/explanation/repository/` and its slide follow. Check: the Variants, Modules and Maps L0 files pass; a grep for
-   `Get-Config -Config variants` over `pwsh/**/*.ps1` hits only Catzc.Base.Variants; `Test-Links` and `Test-GeneratedFiles` clean.
+   `Get-Config -Config variants` over `pwsh/**/*.ps1` hits only Catzc.Base.Variants; `Test-Links` on the edited pages; the final full run
+   is the tree-wide proof.
 2. Q1 proof: the user's CD run (task-user-runs-and-commits step 11). Check: the two run logs show `AFFECTED` true in `cd-apex` and false
    in `cd-shared`; the globset articles lose their "no caller" wording.
 3. Q2 proof: the user's main and PR runs of `ci-automation.yaml` (the same step). Check: `BuildArtifact` ran on main, skipped on the PR.

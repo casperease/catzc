@@ -24,6 +24,9 @@ tasks lands, as often as needed, and last of all. `git rm` is the user's; the sw
    Test-Links clean on the folder.
 5. `plan-clear-actions.md`: its last verdict lines ticked (the out/test-links report folders cleared with the user's yes). Check: grep
    `- [ ]` counts zero, then it is itself a candidate of step 1.
+6. The last sweep runs only after the final session's full run (task-user-runs-and-commits, last step), since the plans that close on
+   green close on that run alone; it is the one place the whole repository is tested. Check: that run's report exists in
+   `out/test-automation` and is newer than every task file.
 
 ## Report
 

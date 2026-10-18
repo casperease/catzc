@@ -53,8 +53,9 @@ verification found.
       `out/test-markdownlint/20261017-175756`); index.md's link to it reports `[Untracked]` until the page is committed.
 - [x] Clear the waits_on lines in plan-config-defaults and plan-layers-vocabulary-rename-contracts once the first two steps are done (check:
       grep waits_on in .claude/plans shows neither file). Done 2026-10-18: config-defaults has none; layers waits only on the P4 go (D10).
-- [ ] The user runs the whole Test-Automation and reads the two real-repo failures an agent reported (the drawio.yml live-yaml test and
-      RootConfig New-GitAttributes) (check: the run's report lists neither).
+- [ ] The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; no earlier step runs it)
+      reads the two real-repo failures an agent reported (the drawio.yml live-yaml test and RootConfig New-GitAttributes) (check: that
+      run's report lists neither).
 - [x] The head of pwsh/.internal/assets/Catzc.Types.csproj. Done 2026-10-17 (its task): the file no longer carries a processing
       instruction; its head is the CDATA `CatzcMeta` property of the `msbuild-project` carrier (plan-csproj-xml-head), and its first line is
       the IDE comment `<!--`. Format-FileMeta then Format-Code both left that first line as it was (`out/t011-csproj-first-line.ps1`).

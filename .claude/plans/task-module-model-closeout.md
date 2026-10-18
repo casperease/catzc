@@ -3,7 +3,7 @@ task:
   status: "steps 3 (read), 4, 5, 6 and 8 done; the rest waits on the user's runs"
   plans: [plan-module-model-closeout, plan-layers-vocabulary-rename-contracts]
   value: high
-  blocked_on: "the user's Test-Automation run (step 9); D01 to D05 were confirmed 2026-10-18"
+  blocked_on: "step 9 is the final session's full run (task-user-runs-and-commits, last step); D01 to D05 were confirmed 2026-10-18"
   targets:
     [
       pwsh/Catzc.Base.Modules,
@@ -77,8 +77,9 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
 8. [x] The 36 Test-Comments issues and the Test-Glossary bare terms in plan text: list each file with its owning plan in that plan's open
        steps (one line each); none fixed here (D15 for the plan text). Check: Test-Comments and Test-Glossary findings each appear in
        exactly one plan.
-9. The user runs the whole Test-Automation and reads the drawio.yml live-yaml test and RootConfig New-GitAttributes failures. Check: the
-   run's report lists neither; recorded in the plan.
+9. The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; this task runs nothing
+   larger than one test file) reads the drawio.yml live-yaml test and RootConfig New-GitAttributes failures. Check: that run's report lists
+   neither; recorded in the plan.
 10. [x] Clear the module-model part of `waits_on` in `plan-config-defaults.md` and `plan-layers-vocabulary-rename-contracts.md`. Check: grep
         waits_on in `.claude/plans` names neither file for the module model. Done 2026-10-18: plan-config-defaults has no `waits_on`, and
         plan-layers-vocabulary-rename-contracts waits only on the P4 go (D10).

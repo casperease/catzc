@@ -56,7 +56,9 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
        source-mode sentence now matching rule 8), ADR-AUTO-PARITY#1; ADR-DSGN-TRACK#5 waits for P6. `ADRREG issues=0`,
        `ADR-NEUTRALITY issues=0`, Test-Links, Test-Glossary, Test-Markdownlint and Test-Spelling clean on the eight ADRs.
 6. P5 guards: avoid-phrasings for the retired uses ("automation folder", "automation track", "automation modules", "automation layer",
-   "PowerShell automation") in `glossary.yml`; the P2 analyzer rule stays. Check: Test-Glossary clean; G4 reports none in tracked prose.
+   "PowerShell automation") in `glossary.yml`; the P2 analyzer rule stays; the 68 pages that still say "automation layer", "implementation
+   layer" or "PowerShell layer" reworded one file at a time. Check: Test-Glossary on each edited file reports none; the final full run is
+   the tree-wide proof.
 7. P6, one atomic set: `ci-automation` to `ci-pwsh`, `ci-automation-expected-failures` to `ci-pwsh-expected-failures`, the globset and
    `pipeline:` key, workflow and pipeline files, their file-name-keyed contract fragments, `docs/references/pipelines/*`, the README badge,
    `Test-GitHubWorkflowTriggerGlob` and `Register-AdoPipeline` examples. `invoke-automation` and `release-automation` stay (Q2). The user
