@@ -6,9 +6,9 @@
 
 A consumer's **overlay** is the `.catzc/` folder at its `RepositoryRoot`: the only place a consumer changes what a built bundle does. The
 bundle it runs is read-only and never edited. The overlay is optional, and so is every file in it; with none, the bundle runs exactly as
-built. The overlay is the consumer's source — committed and reviewed by the consumer, and never written by catzc. The catzc repository is
-its own first consumer: its own config fragments sit in the same folder, `.catzc/<modules folder>/`, with no other name for it
-([ADR-CATS#5](../principles/cats-and-catzc.md#rule-adr-cats5)).
+built. The overlay is the consumer's source — committed and reviewed by the consumer, and never written by catzc. The folder has one name,
+`.catzc/` ([ADR-CATS#5](../principles/cats-and-catzc.md#rule-adr-cats5)), in a consumer and in the catzc repository alike, so every bundle
+loaded against a root reads that root's `.catzc/` as its overlay; a fragment there may name only modules each such bundle carries.
 
 - [The overlay](#the-overlay)
 
@@ -30,9 +30,9 @@ rejected. A folder that names no bundled module is a local module ([ADR-AUTO-OVE
 
 ### Rule ADR-AUTO-OVERLAY:4
 
-A config fragment states only the keys that differ, and is merged onto the bundled config before the config's own type validates the result:
-a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's declared
-default applies. In build mode a setting therefore resolves the caller's explicit value, then the overlay fragment, then the config
+A **config fragment** states only the keys that differ, and is merged onto the bundled config before the config's own type validates the
+result: a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's
+declared default applies. In build mode a setting therefore resolves the caller's explicit value, then the overlay fragment, then the config
 contributions gathered from Markdown files, then the bundled config, then the type's default
 ([sensible-defaults](sensible-defaults.md#rule-adr-auto-default6)). A fragment merges only onto a config the module ships.
 

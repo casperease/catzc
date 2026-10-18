@@ -153,6 +153,15 @@ run — CD's post-commit system test (ADR-FLOW-CD#5, ADR-FLOW-CD#8).
 
 - [RC and RBC](#rc-and-rbc)
 
+### Rule ADR-FLOW-CD:15
+
+Every prod-tier environment a pipeline deploys to carries an **approval gate**: an Approval check by one named approver group, so a run that
+reaches it waits for a person. The gate is configuration, never a portal setting: `environment-approvals.yml` declares the approver group,
+its members, the timeout and the environments, and one deterministic apply, `Sync-AdoEnvironmentApprovals`, makes the organization match it.
+An environment a pipeline deploys the prod tier to is listed there.
+
+- [The prod approval gate](#the-prod-approval-gate)
+
 ## Context
 
 [pipeline-types](../flow/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is the
@@ -385,6 +394,21 @@ version occupying both `pre-prod` and `production` at the moment of cutover, and
 a human-triggered DEPLOY (delivery) or an automated continuation (CDe, deployment) is the posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7; either way
 the mechanic — stage inactive, validate, activate live — is the same.
 
+### The prod approval gate
+
+`Prod waits for a person, and the config says who`
+
+Whatever posture a unit is under, a run must not reach a prod-tier environment unattended. Azure DevOps holds that stop as an Approval check
+on the environment, and a check set by hand in the portal drifts: nobody can review it, rebuild it or see who may approve. So the gate is
+configuration. `environment-approvals.yml` (in `Catzc.Azure.DevOps`) names the approver group and its members, the timeout a pending
+approval waits, and the environments that carry the gate; its config type declares the defaults once (`Prod Approvers`, 24 hours). One
+apply, `Sync-AdoEnvironmentApprovals`, makes the organization match the file in a fixed order — the group, then exactly its configured
+members, then one check per environment — and reports each step, so a second run changes nothing. The procedure is
+[Apply the prod-tier approvals](../../how-to/automation/apply-environment-approvals.md).
+
+The gate is the stop the promotion ladder does not yet have rungs for: until main-uat, RC, RBC and DEPLOY exist in code, it is what stands
+between a merge and production. It stays when the ladder lands, as the CDe's internal approval gate (ADR-FLOW-CD#7) or DEPLOY's.
+
 ## How this is enforced
 
 - **The pipeline taxonomy carries the mechanics.** The 5–10 minute budget, the CI-engine sharing, and the DEPLOY governance rules are
@@ -404,6 +428,9 @@ the mechanic — stage inactive, validate, activate live — is the same.
 - **CI+ and the release gates are review-checked.** Review confirms the slow system tests live in the CI+ outer loop, never the inner CI
   gate (ADR-FLOW-CD#2/ADR-FLOW-CD#8), and that a promotion to prod passes a named manual gate — RC at main-UAT or RBC at release-uat
   (ADR-FLOW-CD#9) — with DEPLOY as the actuator, not a human cutover fused into CD under another label.
+- **The prod approval gate is applied, not hand-set.** `EnvironmentApprovalsConfig` validates `environment-approvals.yml` when it loads, an
+  integrity test loads the shipped file, and `Sync-AdoEnvironmentApprovals` applies it; review checks that a pipeline deploying a new
+  prod-tier environment lists it there (ADR-FLOW-CD#15).
 
 ## Consequences
 

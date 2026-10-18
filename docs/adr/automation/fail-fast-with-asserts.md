@@ -17,6 +17,7 @@ Assert after every external call. After running an external tool, reading a file
 world, assert the result meets expectations before passing it downstream.
 
 - [Why every fifth line](#why-every-fifth-line)
+- [The assert ladder](#the-assert-ladder)
 - [In practice](#in-practice)
 
 ### Rule ADR-AUTO-FAILFAST:3
@@ -180,6 +181,25 @@ gets a `timeouts.yml` entry; an exemption never applies to it.
 
 The hook compiles the module's own config and verdict types (`TimeoutsConfig`, `BashSafeguard`), so its limits and decisions are the ones
 `Get-TimeoutSeconds` resolves and the L0 tests check; an integrity test runs the published hook against the shipped config to prove it.
+
+### The assert ladder
+
+`A configuration is checked at five levels, each at the earliest point it can be`
+
+A configuration value is asserted at the first level that can see what is wrong, so each level checks only what the ones before it cannot:
+
+1. **Construct-time**, the config type's constructor: the shape, the enums and patterns, and each key's posture, so a required key that is
+   missing throws naming the key and where to add it ([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)).
+2. **Load-time**, `Get-Config`: the fragment merged onto the shipped file, and a sealed config refusing one
+   ([ADR-AUTO-OVERLAY#4](consumer-overlay.md#rule-adr-auto-overlay4)).
+3. **Cross-config**, the PowerShell validators and `Test-ConfigValidators`: what holds across configs, such as a name one config declares
+   and another uses.
+4. **Contract-time**, `Test-Contracts`: a provided asset against what the code takes and gives.
+5. **Repo-time**, the gates over the whole tree: `Test-ShippedConfigs`, which also holds each shipped file to its type's defaults, and the
+   rest of the quality gates.
+
+A check placed one level too late lets a wrong value travel further before it stops the run, and a check placed one level too early cannot
+see what it needs, so the ladder is where a new check is placed, not a list of extra checks.
 
 ## Decision
 

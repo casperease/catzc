@@ -71,8 +71,8 @@ Open, in execution order:
   posture, the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
 - layers-funnel -> task-layers-funnel.md (done 2026-10-18; delete once committed): layers P2 funnel: one bootstrap constant, about 45 sites
   onto the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
-- layers-classification-flip -> task-layers-classification-flip.md (open; the user gave the go for P4 and P6, D24; P4 runs once
-  layers-funnel lands, D10's order, and layers-funnel is mid-way in session catzc-0a): P3 classification table and ADR wording drafts; P4
+- layers-classification-flip -> task-layers-classification-flip.md (open; P3 done 2026-10-18; the user gave the go for P4 and P6, D24;
+  P4 waits for no peer-dirty file and the user's window, task step 3): P3 classification table and ADR wording drafts; P4
   the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.
 - command-contracts -> task-command-contracts.md (open; C1, C2 and C4 done 2026-10-17, C3 the 12 pilot assets, C5 the cats lookup and the C6
   widening, F6 under D21 and the D26 and D27 calls done 2026-10-18, 65 contracted commands; open: a later language step for gate results and

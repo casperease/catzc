@@ -1,0 +1,23 @@
+concepts:
+  posture:
+    key: config_posture
+    domain: automation
+    defined_by: ADR-AUTO-DEFAULT#6
+    short:
+      What a config key does when its file states nothing, one of three, defaulted to the type's constant, empty and still valid, or
+      required, so the type's constructor throws naming the key and where to add it.
+    realized_by: { kind: prose-only }
+    contrasts:
+      config fragment:
+        A config fragment is a file that changes a few keys of a shipped config; a posture is what one key does when no file states it.
+  config fragment:
+    key: config_fragment
+    domain: automation
+    defined_by: ADR-AUTO-OVERLAY#4
+    short:
+      A file in an overlay that states only the keys of one config that differ, merged onto the bundled config before its type validates
+      the result.
+    realized_by: { kind: prose-only }
+    contrasts:
+      posture:
+        A posture is what one config key does when no file states it; a config fragment is a file that changes a few keys of a shipped config.

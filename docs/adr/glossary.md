@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ae408ce5b4b5
-    with_inputs_sha: "34ee75a732d3fa53644c9b2a4d9452b91d8878c4769cda878b2baed9d5c99fcd"
+    with_body_sha: "685f8abf1838"
+    with_inputs_sha: ecde0f8e005d06c04ca63084b1d71b6f46ba553fff6956592748a23bf1f0f69f
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -624,6 +624,18 @@ One public function of the module system, the unit a contract describes, written
   - [command contract](#command-contract): A command contract is the asset that states a command's call interface at the boundary; the
     command is the function that implements it.
 
+### config fragment
+
+A file in an overlay that states only the keys of one config that differ, merged onto the bundled config before its type validates the
+result.
+
+- **Defined by:** [ADR-AUTO-OVERLAY#4](automation/consumer-overlay.md#rule-adr-auto-overlay4)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Config/configs/glossary.yml`
+- **Contrasts:**
+  - [posture](#posture): A posture is what one config key does when no file states it; a config fragment is a file that changes a few keys
+    of a shipped config.
+
 ### engine start environment
 
 The CATZC_ENGINE variables a test runner sets so a black-box test starts the engine from them and never from a hardcoded command, the
@@ -744,6 +756,18 @@ System.Collections.Specialized.OrderedDictionary
 - **Contrasts:**
   - [execution engine](#execution-engine): An execution engine is any one of the shells the code runs under; the POSIX engines are those of
     them that load importer.sh.
+
+### posture
+
+What a config key does when its file states nothing, one of three, defaulted to the type's constant, empty and still valid, or required, so
+the type's constructor throws naming the key and where to add it.
+
+- **Defined by:** [ADR-AUTO-DEFAULT#6](automation/sensible-defaults.md#rule-adr-auto-default6)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Config/configs/glossary.yml`
+- **Contrasts:**
+  - [config fragment](#config-fragment): A config fragment is a file that changes a few keys of a shipped config; a posture is what one key
+    does when no file states it.
 
 ### published artifact
 

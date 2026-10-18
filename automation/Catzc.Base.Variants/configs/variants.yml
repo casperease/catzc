@@ -38,4 +38,5 @@ tracks:
       vendor: claude,
       languages: [yaml, markdown, python, html, xml, powershell],
     }
-  .vscode: { places: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }  .unordered: { places: [.unordered], type: unordered, languages: [markdown] }
+  .vscode: { places: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }
+  .unordered: { places: [.unordered], type: unordered, languages: [markdown] }
