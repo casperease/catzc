@@ -1071,7 +1071,7 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 
 ### command contract
 
-A provided contract asset, <\module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
+A provided contract asset, <\module>/<\Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
 contract language; a command is public exactly when one names it.
 
 - **Defined by:** [ADR-REPO-CMDCONTRACT#1](repository/command-contracts.md#rule-adr-repo-cmdcontract1)
