@@ -117,7 +117,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [4]: ../../../../adr/configuration/dora-explains.md
 [5]: ../../../../adr/index.md
 [6]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[7]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[7]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [8]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [9]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [10]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md

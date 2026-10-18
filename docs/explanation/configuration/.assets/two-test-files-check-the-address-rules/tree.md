@@ -156,7 +156,7 @@ The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map
 [1]: ../../../../adr/automation/environment-variables.md
 [2]: ../../../../adr/configuration/config-value-addressing.md
 [3]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
-[4]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[4]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [5]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [6]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [7]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md

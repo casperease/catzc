@@ -145,7 +145,7 @@ The group holds the files of pwsh/Catzc.Azure.Templates; each sits in its world-
 [6]: ../../../../references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
 [7]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
 [8]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
-[9]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[9]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [10]: ../../../../references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
 [11]: ../../../../references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
 [12]: ../../../../references/pwsh/catzc-azure/configs/azure.yml.md

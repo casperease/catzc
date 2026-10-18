@@ -209,7 +209,7 @@ The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its worl
 [4]: ../../../../how-to/pwsh/manual-test-plan/configs.md
 [5]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
 [6]: ../../../../references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
-[7]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[7]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [8]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [9]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [10]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
@@ -231,7 +231,7 @@ The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its worl
 [26]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
 [27]: ../../../../references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md
 [28]: ../../../../references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md
-[29]: ../../../../references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+[29]: ../../../../references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.md
 [30]: ../../../../references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
 [31]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [32]: ../../../../../pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1

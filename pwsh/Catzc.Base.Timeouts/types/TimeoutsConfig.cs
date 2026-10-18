@@ -8,7 +8,7 @@ namespace Catzc.Base.Timeouts;
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait" };
-    private static readonly string[] TestKeys = { "level_ms", "run_seconds" };
+    private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds" };
 
     // The default Watch-Blocking: one second and one millisecond, one pair for every environment.
     private static readonly string[] WaitKeys = { "seconds", "milliseconds" };
@@ -25,6 +25,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         { "L4", 600000 },
     };
     private const int TestRunDefaultSeconds = 180;
+    // One engine start of a black-box test: the import plus one command, so two starts and a margin fit under the pwsh limit.
+    private const int EngineStartDefaultSeconds = 150;
     private static readonly string[] Environments = { "devbox", "pipeline" };
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
@@ -52,7 +54,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // Per-command limits in seconds, keyed by the function name (case-insensitive). Empty when the file declares none.
     public IReadOnlyDictionary<string, int> commands { get; }
 
-    // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds].
+    // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds], tests[engine_start_seconds].
     public IDictionary tests { get; }
 
     // The Watch-Blocking defaults, defaults filled in: wait[seconds], wait[milliseconds].
@@ -60,6 +62,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
     private int testRunSeconds = TestRunDefaultSeconds;
+    private int engineStartSeconds = EngineStartDefaultSeconds;
     private int waitSeconds = WaitDefaultSeconds;
     private int waitMilliseconds = WaitDefaultMilliseconds;
 
@@ -193,6 +196,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         {
             { "level_ms", TestLevelLimitsMs() },
             { "run_seconds", testRunSeconds },
+            { "engine_start_seconds", engineStartSeconds },
         };
 
         wait = new Hashtable(StringComparer.OrdinalIgnoreCase)
@@ -238,12 +242,18 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         return testRunSeconds;
     }
 
+    // The most seconds one engine start of a black-box test may take: the entry's import plus one command.
+    public int EngineStartSeconds()
+    {
+        return engineStartSeconds;
+    }
+
     private void ReadTests(object value, List<string> errors)
     {
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid tests (must be a map of level_ms, run_seconds)");
+            errors.Add("invalid tests (must be a map of level_ms, run_seconds, engine_start_seconds)");
             return;
         }
         CheckKeys(map, TestKeys, "tests.", errors);
@@ -280,6 +290,16 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
                 errors.Add(string.Format("invalid tests.run_seconds '{0}' (must be a positive whole number)", map["run_seconds"]));
             }
             else { testRunSeconds = seconds.Value; }
+        }
+
+        if (map.Contains("engine_start_seconds") && map["engine_start_seconds"] != null)
+        {
+            int? seconds = PositiveSeconds(map["engine_start_seconds"]);
+            if (seconds == null)
+            {
+                errors.Add(string.Format("invalid tests.engine_start_seconds '{0}' (must be a positive whole number)", map["engine_start_seconds"]));
+            }
+            else { engineStartSeconds = seconds.Value; }
         }
     }
 

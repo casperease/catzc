@@ -83,7 +83,7 @@ Two goals shape the standard:
 
 ## Decision
 
-![Every Azure name is assembled from fixed components — an over-limit name throws, never truncated](../../.assets/azure/azure-name-assembly.drawio.png)
+![Every Azure name is assembled from fixed components — an over-limit name throws, never truncated](.assets/azure-name-assembly/diagram.drawio.png)
 
 ### Two identifiers per template
 

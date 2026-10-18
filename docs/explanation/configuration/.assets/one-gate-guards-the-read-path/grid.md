@@ -1221,7 +1221,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRAC
 [35]: ../../../../references/pwsh/catzc-azure-devops/configs/identity-tokens.yml.md
 [36]: ../../../../references/pwsh/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
 [37]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md
-[38]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[38]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [39]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [40]: ../../../../references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md
 [41]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
@@ -1330,7 +1330,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRAC
 [144]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
 [145]: ../../../../references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
 [146]: ../../../../references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md
-[147]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[147]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [148]: ../../../../references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
 [149]: ../../../../references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
 [150]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
@@ -1393,7 +1393,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRAC
 [207]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md
 [208]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
 [209]: ../../../../references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md
-[210]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[210]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [211]: ../../../../references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md
 [212]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
 [213]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
@@ -1462,7 +1462,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRAC
 [276]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md
 [277]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
 [278]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
-[279]: ../../../../references/pwsh/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+[279]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md
 [280]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md
 [281]: ../../../../references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
 [282]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md
@@ -1560,7 +1560,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRAC
 [374]: ../../../../references/pwsh/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
 [375]: ../../../../references/pwsh/catzc-base-typessystem/tests/Test-ShippedTypes.Tests.ps1.md
 [376]: ../../../../references/pwsh/catzc-tooling-core/Remove-SystemInstallation.ps1.md
-[377]: ../../../../references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+[377]: ../../../../references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.md
 [378]: ../../../../references/pwsh/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md
 [379]: ../../../../references/pwsh/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
 [380]: ../../../../references/pwsh/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md

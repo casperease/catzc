@@ -138,7 +138,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [7]: ../../../../adr/index.md
 [8]: ../../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
 [9]: ../../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[10]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[10]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [11]: ../../../../references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
 [12]: ../../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
 [13]: ../../../../references/pwsh/catzc-base-modules/Get-Aspect.ps1.md

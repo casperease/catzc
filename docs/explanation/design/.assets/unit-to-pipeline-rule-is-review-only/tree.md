@@ -687,7 +687,7 @@ The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its worl
 [48]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
 [49]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
 [50]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[51]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[51]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [52]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
 [53]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
 [54]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md

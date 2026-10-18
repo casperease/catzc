@@ -133,7 +133,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [14]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md
 [15]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
 [16]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
-[17]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[17]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
 [18]: ../../../../../pipelines/ci-automation.yaml
 [19]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [20]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml

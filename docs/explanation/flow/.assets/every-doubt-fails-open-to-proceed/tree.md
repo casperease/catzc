@@ -335,7 +335,7 @@ The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its worl
 [37]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
 [38]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
 [39]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[40]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[40]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [41]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
 [42]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
 [43]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md

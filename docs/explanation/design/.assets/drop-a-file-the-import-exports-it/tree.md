@@ -141,7 +141,7 @@ The group holds the files of pwsh/Catzc.Base.Modules; each sits in its world-map
 [1]: ../../../../adr/design/module-aspects.md
 [2]: ../../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
 [3]: ../../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[4]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[4]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [5]: ../../../../references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
 [6]: ../../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
 [7]: ../../../../references/pwsh/catzc-base-modules/Get-Aspect.ps1.md

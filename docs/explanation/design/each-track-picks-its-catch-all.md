@@ -57,7 +57,7 @@ The diagram is described element by element in [its asset description](.assets/e
 ## See also
 
 - [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains.
-- The other lenses on the same catch-all: [architecture](only-automation-compiles-its-aspects.md),
+- The other lenses on the same catch-all: [architecture](only-pwsh-compiles-its-aspects.md),
   [implementation](get-aspect-feeds-globs-and-maps.md), [operations](get-aspect-names-the-remainder.md) and
   [governance](gate-checks-order-not-liveness.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

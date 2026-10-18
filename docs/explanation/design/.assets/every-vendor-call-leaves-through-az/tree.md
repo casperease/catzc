@@ -148,7 +148,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 [9]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md
 [10]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
 [11]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
-[12]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[12]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
 [13]: ../../../../adr/azure/dora-explains.md
 [14]: ../../../../adr/design/dora-explains.md
 [15]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml

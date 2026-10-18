@@ -188,12 +188,12 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [2]: ../../../../references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
 [3]: ../../../../references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
 [4]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
-[5]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[5]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
 [6]: ../../../../references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
 [7]: ../../../../references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
 [8]: ../../../../references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
 [9]: ../../../../references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
-[10]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[10]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [11]: ../../../../references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
 [12]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
 [13]: ../../../../references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md

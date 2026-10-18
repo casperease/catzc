@@ -200,7 +200,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [9]: ../../../../how-to/pwsh/manual-test-plan/configs.md
 [10]: ../../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
 [11]: ../../../../references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
-[12]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[12]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [13]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [14]: ../../../../references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
 [15]: ../../../../references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
@@ -222,7 +222,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [31]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
 [32]: ../../../../references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md
 [33]: ../../../../references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md
-[34]: ../../../../references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+[34]: ../../../../references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.md
 [35]: ../../../../references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
 [36]: ../../../../../pipelines/ci-automation.yaml
 [37]: ../../../../../pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs

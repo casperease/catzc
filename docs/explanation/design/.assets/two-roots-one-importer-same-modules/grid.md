@@ -204,7 +204,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRAC
 [17]: ../../../../references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md
 [18]: ../../../../references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
 [19]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
-[20]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[20]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [21]: ../../../../references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md
 [22]: ../../../../references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
 [23]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md

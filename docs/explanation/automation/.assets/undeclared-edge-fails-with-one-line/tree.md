@@ -109,7 +109,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 
 [1]: ../../../../adr/automation/controlling-module-dependencies.md
 [2]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[3]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[3]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [4]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
 [5]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
 [6]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md

@@ -91,7 +91,7 @@ runs against.
 
 The diagram below draws the two dependency graphs from the source. The declared graph in `dependencies.yml` orders the test run and closes
 each profile. The graph observed from the parsed code is checked against it for cycles and for undeclared edges. Its
-[description](catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md) walks it step by step, including the one place the test
+[description](.assets/module-graph-declared-vs-observed/diagram.drawio.md) walks it step by step, including the one place the test
 order falls back instead of failing.
 
 ![Declared graph orders and closes; observed graph is checked](../.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png)

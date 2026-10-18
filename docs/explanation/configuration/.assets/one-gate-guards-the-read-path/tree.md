@@ -1351,7 +1351,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [19]: ../../../../references/pwsh/catzc-azure-devops/configs/identity-tokens.yml.md
 [20]: ../../../../references/pwsh/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
 [21]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md
-[22]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[22]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [23]: ../../../../references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
 [24]: ../../../../references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md
 [25]: ../../../../references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
@@ -1460,7 +1460,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [128]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
 [129]: ../../../../references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
 [130]: ../../../../references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md
-[131]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[131]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [132]: ../../../../references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
 [133]: ../../../../references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
 [134]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
@@ -1523,7 +1523,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [191]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md
 [192]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
 [193]: ../../../../references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md
-[194]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[194]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [195]: ../../../../references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md
 [196]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
 [197]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
@@ -1592,7 +1592,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [260]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md
 [261]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
 [262]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
-[263]: ../../../../references/pwsh/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+[263]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md
 [264]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md
 [265]: ../../../../references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
 [266]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md
@@ -1690,7 +1690,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [358]: ../../../../references/pwsh/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
 [359]: ../../../../references/pwsh/catzc-base-typessystem/tests/Test-ShippedTypes.Tests.ps1.md
 [360]: ../../../../references/pwsh/catzc-tooling-core/Remove-SystemInstallation.ps1.md
-[361]: ../../../../references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+[361]: ../../../../references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.md
 [362]: ../../../../references/pwsh/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md
 [363]: ../../../../references/pwsh/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
 [364]: ../../../../references/pwsh/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md

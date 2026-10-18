@@ -237,7 +237,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [18]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
 [19]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
 [20]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
-[21]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[21]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
 [22]: ../../../../references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md
 [23]: ../../../../references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md
 [24]: ../../../../references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
@@ -246,8 +246,8 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [27]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
 [28]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
 [29]: ../../../../references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
-[30]: ../../../../references/pwsh/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
-[31]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[30]: ../../../../references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.md
+[31]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [32]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md
 [33]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md
 [34]: ../../../../references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
@@ -259,7 +259,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [40]: ../../../../references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md
 [41]: ../../../../references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md
 [42]: ../../../../references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
-[43]: ../../../../references/pwsh/catzc-azure/azure-identity-resolves-from-config.drawio.md
+[43]: ../../../../references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.md
 [44]: ../../../../references/pwsh/catzc-azure/configs/azure.yml.md
 [45]: ../../../../references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
 [46]: ../../../../references/pwsh/catzc-azure/types/AzureConfig.cs.md

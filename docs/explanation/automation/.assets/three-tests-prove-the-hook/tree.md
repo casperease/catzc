@@ -494,7 +494,7 @@ The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map 
 [5]: ../../../../references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
 [6]: ../../../../references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
 [7]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
-[8]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[8]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
 [9]: ../../../../references/pwsh/catzc-azure/types/AzureConfig.cs.md
 [10]: ../../../../references/pwsh/catzc-base-contracts/configs/contracts.yml.md
 [11]: ../../../../references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md
@@ -508,7 +508,7 @@ The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map 
 [19]: ../../../../references/pwsh/catzc-base-docs/types/CheckMode.cs.md
 [20]: ../../../../references/pwsh/catzc-base-docs/types/CheckModes.cs.md
 [21]: ../../../../references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
-[22]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[22]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [23]: ../../../../references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
 [24]: ../../../../references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
 [25]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md

@@ -1358,7 +1358,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [112]: ../../../../references/pwsh/catzc-base-docs/types/CheckMode.cs.md
 [113]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
 [114]: ../../../../references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
-[115]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[115]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [116]: ../../../../references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
 [117]: ../../../../references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
 [118]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
@@ -1416,7 +1416,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [170]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md
 [171]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
 [172]: ../../../../references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md
-[173]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[173]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [174]: ../../../../references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md
 [175]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
 [176]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
@@ -1488,7 +1488,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [242]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md
 [243]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
 [244]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
-[245]: ../../../../references/pwsh/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+[245]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md
 [246]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md
 [247]: ../../../../references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
 [248]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md

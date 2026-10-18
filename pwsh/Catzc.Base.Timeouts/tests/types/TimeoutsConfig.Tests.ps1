@@ -118,6 +118,8 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             @($levels.Keys | Sort-Object) | Should -Be ([Catzc.Base.Timeouts.TestTiers]::Names)
             $config.TestRunSeconds() | Should -Be 180
             $config.tests.run_seconds | Should -Be 180
+            $config.EngineStartSeconds() | Should -Be 150
+            $config.tests.engine_start_seconds | Should -Be 150
         }
 
         It 'overrides one test tier and the run budget, keeping the other defaults' {
@@ -125,6 +127,13 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.TestLevelLimitsMs()['L3'] | Should -Be 150000
             $config.TestLevelLimitsMs()['L2'] | Should -Be 30000
             $config.TestRunSeconds() | Should -Be 240
+            $config.EngineStartSeconds() | Should -Be 150
+        }
+
+        It 'overrides the engine start bound alone' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+            $config = New-TimeoutsConfig ([ordered]@{ tests = @{ engine_start_seconds = 90 } })
+            $config.EngineStartSeconds() | Should -Be 90
+            $config.TestRunSeconds() | Should -Be 180
         }
 
         It 'throws on a bad tests section: <case>' -ForEach @(
@@ -133,6 +142,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             @{ case = 'an unknown tier'; data = @{ tests = @{ level_ms = @{ L5 = 1 } } }; expected = "*unknown key 'tests.level_ms.L5'*" }
             @{ case = 'a zero tier limit'; data = @{ tests = @{ level_ms = @{ L0 = 0 } } }; expected = "*invalid tests.level_ms.L0 '0'*" }
             @{ case = 'a quoted run budget'; data = @{ tests = @{ run_seconds = '180' } }; expected = "*invalid tests.run_seconds '180'*" }
+            @{ case = 'a zero engine start bound'; data = @{ tests = @{ engine_start_seconds = 0 } }; expected = "*invalid tests.engine_start_seconds '0'*" }
         ) {
             { New-TimeoutsConfig $data } | Should -Throw $expected
         }

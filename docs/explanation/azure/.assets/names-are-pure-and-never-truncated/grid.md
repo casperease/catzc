@@ -146,7 +146,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [10]: ../../../../references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
 [11]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
 [12]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
-[13]: ../../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[13]: ../../../../references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.md
 [14]: ../../../../references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
 [15]: ../../../../references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
 [16]: ../../../../references/pwsh/catzc-azure/configs/azure.yml.md

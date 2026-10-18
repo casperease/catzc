@@ -396,7 +396,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [31]: ../../../../references/pipelines/ci-infrastructure.yaml.md
 [32]: ../../../../references/pipelines/github-workflows/ci-automation.yml.md
 [33]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
-[34]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[34]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
 [35]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
 [36]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
 [37]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md
@@ -409,7 +409,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [44]: ../../../../references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
 [45]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
 [46]: ../../../../references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
-[47]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[47]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [48]: ../../../../references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
 [49]: ../../../../references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
 [50]: ../../../../references/pwsh/catzc-base-globs.md
@@ -432,7 +432,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][4]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [67]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
 [68]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
 [69]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[70]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[70]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [71]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
 [72]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
 [73]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md

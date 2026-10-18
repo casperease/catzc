@@ -433,7 +433,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [24]: ../../../../references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
 [25]: ../../../../references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
 [26]: ../../../../references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
-[27]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[27]: ../../../../references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.md
 [28]: ../../../../references/pwsh/catzc-azure/types/AzureConfig.cs.md
 [29]: ../../../../references/pwsh/catzc-base-contracts/configs/contracts.yml.md
 [30]: ../../../../references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md
@@ -447,7 +447,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [38]: ../../../../references/pwsh/catzc-base-docs/types/CheckMode.cs.md
 [39]: ../../../../references/pwsh/catzc-base-docs/types/CheckModes.cs.md
 [40]: ../../../../references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
-[41]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[41]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [42]: ../../../../references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
 [43]: ../../../../references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
 [44]: ../../../../references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md

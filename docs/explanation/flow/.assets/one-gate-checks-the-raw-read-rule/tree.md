@@ -154,7 +154,7 @@ The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its worl
 [5]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
 [6]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
 [7]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
-[8]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[8]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [9]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
 [10]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
 [11]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md

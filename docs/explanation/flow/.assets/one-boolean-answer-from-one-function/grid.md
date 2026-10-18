@@ -152,7 +152,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [15]: ../../../../references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
 [16]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
 [17]: ../../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
-[18]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[18]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [19]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
 [20]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
 [21]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md

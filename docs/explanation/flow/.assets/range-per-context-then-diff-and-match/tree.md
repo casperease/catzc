@@ -356,7 +356,7 @@ The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map ce
 [39]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
 [40]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
 [41]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[42]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[42]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [43]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
 [44]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
 [45]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md

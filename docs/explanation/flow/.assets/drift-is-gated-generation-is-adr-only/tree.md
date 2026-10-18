@@ -1531,7 +1531,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [127]: ../../../../references/pwsh/catzc-base-docs/types/CheckMode.cs.md
 [128]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
 [129]: ../../../../references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
-[130]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[130]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [131]: ../../../../references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
 [132]: ../../../../references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
 [133]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
@@ -1565,7 +1565,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [161]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
 [162]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
 [163]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[164]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[164]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [165]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
 [166]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
 [167]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md
@@ -1623,7 +1623,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [219]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md
 [220]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
 [221]: ../../../../references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md
-[222]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[222]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [223]: ../../../../references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md
 [224]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
 [225]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
@@ -1694,7 +1694,7 @@ The group holds the files of pwsh/Catzc.Tooling.KeyHandler; each sits in its wor
 [290]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md
 [291]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
 [292]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
-[293]: ../../../../references/pwsh/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+[293]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md
 [294]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md
 [295]: ../../../../references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
 [296]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md

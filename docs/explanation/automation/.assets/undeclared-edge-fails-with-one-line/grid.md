@@ -109,7 +109,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [4]: ../../../../adr/automation/dora-explains.md
 [5]: ../../../../adr/index.md
 [6]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[7]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[7]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [8]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
 [9]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
 [10]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md

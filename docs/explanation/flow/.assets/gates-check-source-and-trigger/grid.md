@@ -1401,7 +1401,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRAC
 [147]: ../../../../references/pwsh/catzc-base-docs/types/CheckMode.cs.md
 [148]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
 [149]: ../../../../references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
-[150]: ../../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[150]: ../../../../references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.md
 [151]: ../../../../references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
 [152]: ../../../../references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
 [153]: ../../../../references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md
@@ -1435,7 +1435,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRAC
 [181]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
 [182]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
 [183]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[184]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[184]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [185]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
 [186]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
 [187]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md
@@ -1493,7 +1493,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRAC
 [239]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md
 [240]: ../../../../references/pwsh/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
 [241]: ../../../../references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md
-[242]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[242]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [243]: ../../../../references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md
 [244]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
 [245]: ../../../../references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
@@ -1564,7 +1564,7 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRAC
 [310]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md
 [311]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
 [312]: ../../../../references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md
-[313]: ../../../../references/pwsh/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+[313]: ../../../../references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.md
 [314]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md
 [315]: ../../../../references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
 [316]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md

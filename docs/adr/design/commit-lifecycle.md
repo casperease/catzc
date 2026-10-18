@@ -139,7 +139,7 @@ The RC and RBC gates and the acceptance testing that clears them belong to the f
 [ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat) separates the acceptance testing from the environment it
 runs in.
 
-![A commit only climbs — it ends discarded, retired or superseded](../../.assets/commits-quality/commit-lifecycle-states.drawio.png)
+![A commit only climbs — it ends discarded, retired or superseded](.assets/commit-lifecycle-states/diagram.drawio.png)
 
 ## Discard
 
@@ -186,7 +186,7 @@ precisely the `main-UAT` occupant. The tip of main is younger and less proven; b
 rule "sync from `main-UAT`" gives every upstream consumer one well-defined, continuously-updated, already-certified commit to depend on,
 decoupling their stability from the churn at HEAD.
 
-![Upstream consumers sync from the main-UAT occupant, never from HEAD](../../.assets/commits-quality/sync-point.drawio.png)
+![Upstream consumers sync from the main-UAT occupant, never from HEAD](.assets/sync-point/diagram.drawio.png)
 
 ## The dirty HEAD
 

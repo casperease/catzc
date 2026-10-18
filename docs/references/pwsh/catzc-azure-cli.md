@@ -92,7 +92,7 @@ version-locking dependency, not a reimplementation of tool management.
 
 The diagram below draws session verification from the source. Each of the three az checks (connection, subscription access and Bicep) has
 one state call that its query form and its throwing form share, so the two cannot drift. The config-aware wrappers add only the `azure.yml`
-lookup. Its [description](catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md) walks it step by step.
+lookup. Its [description](.assets/az-cli-test-assert-share-one-state/diagram.drawio.md) walks it step by step.
 
 ![Three az checks: Test and Assert share one state call](../.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png)
 

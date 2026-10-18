@@ -186,7 +186,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][2]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [23]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
 [24]: ../../../../references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md
 [25]: ../../../../references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md
-[26]: ../../../../references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+[26]: ../../../../references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.md
 [27]: ../../../../../pipelines/ci-automation.yaml
 [28]: ../../../../../pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
 [29]: ../../../../../pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs

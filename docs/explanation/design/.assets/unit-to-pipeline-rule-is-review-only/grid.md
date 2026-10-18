@@ -630,7 +630,7 @@ language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][1]). Lit ([ADR-DSGN-TRACK-LITCELL][
 [70]: ../../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
 [71]: ../../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
 [72]: ../../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[73]: ../../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[73]: ../../../../references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.md
 [74]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
 [75]: ../../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
 [76]: ../../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md

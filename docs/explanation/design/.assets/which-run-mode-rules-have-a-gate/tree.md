@@ -207,7 +207,7 @@ The group holds the files of pwsh/.internal; each sits in its world-map cell and
 [10]: ../../../../references/pwsh/catzc-base-modulesystem/New-Importer.ps1.md
 [11]: ../../../../references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
 [12]: ../../../../references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
-[13]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[13]: ../../../../references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.md
 [14]: ../../../../references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md
 [15]: ../../../../references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
 [16]: ../../../../references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md

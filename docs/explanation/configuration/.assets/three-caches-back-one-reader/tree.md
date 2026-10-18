@@ -185,7 +185,7 @@ The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its worl
 [19]: ../../../../references/pwsh/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
 [20]: ../../../../references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md
 [21]: ../../../../references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md
-[22]: ../../../../references/pwsh/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+[22]: ../../../../references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.md
 [23]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [24]: ../../../../../pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
 [25]: ../../../../../pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs

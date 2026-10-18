@@ -85,8 +85,8 @@ The first diagram below draws template discovery and the build from the source. 
 only five derived defaults, under a strict schema. The build writes one parameters file per slot and then compiles the template once. The
 second diagram draws a deployment. It works on one immutable context (the plan, the artifacts and the environment), resolved from the live
 az session against `azure.yml`. A dry run stops at the what-if; otherwise the deployment is created. Each slide has a description:
-[template discovery](catzc-azure-templates/bicep-template-is-a-folder.drawio.md) and
-[deployment](catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md).
+[template discovery](.assets/bicep-template-is-a-folder/diagram.drawio.md) and
+[deployment](.assets/bicep-deploy-one-immutable-context/diagram.drawio.md).
 
 ![A template is a folder; options.yml overrides five defaults](../.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png)
 
