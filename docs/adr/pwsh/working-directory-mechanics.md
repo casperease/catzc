@@ -33,7 +33,7 @@ Module code locates its own content — its `configs/`, its `assets/`, another m
 `.vendor/`, `.compiled/`), the internal asset dependencies of
 [ADR-AUTO-ASSETDEP#1](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1) — only through
 `Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
-`Get-RepositoryRoot`, or a `Join-Path` over a hand-built `automation/...` path. `$PSScriptRoot` is banned in module function files (a
+`Get-RepositoryRoot`, or a `Join-Path` over a hand-built `pwsh/...` path. `$PSScriptRoot` is banned in module function files (a
 module's root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule `Measure-NoScriptRootAnchor`
 enforces the ban.
 
@@ -92,7 +92,7 @@ cmdlet argument resolves against `$PWD` and is exactly the dependence the doctri
 `The code root, not the script's folder`
 
 `$PSScriptRoot` is the folder of the file that is executing, which makes it an anchor for the file's location rather than for the module.
-The toolset runs in two modes ([run-modes](../design/run-modes.md)): in source mode a function file sits in `automation/<Module>/` or its
+The toolset runs in two modes ([run-modes](../design/run-modes.md)): in source mode a function file sits in `pwsh/<Module>/` or its
 `private/` folder, and in build mode the same function sits inside one merged `<Module>.functions.ps1` in the build. A
 `$PSScriptRoot`-relative lookup gives a different answer in each mode — and even within source mode it differs between a root file and a
 `private/` file, which is why such lookups carry `../` fragments. `Get-CatzcModuleRoot` answers with the module's folder under the active

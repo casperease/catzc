@@ -301,14 +301,20 @@ its prose only, never the generated sidebar.
       the track: the page's file name is the user's call, the prose changes)
 - [ ] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/partition-integrity-runs-only-in-unit-tests.drawio.md` (check: no folder-meaning line; Test-Links clean)
+  Explanation batch 3, session catzc-59, 2026-10-18, each Test-Links ok. Ticked: which-run-mode-rules-have-a-gate, ci-budget,
+  declare-or-add-folder. Kept open for the slide migration: `two-roots-one-importer-same-modules.md` text block 7 and marker label 32
+  (`<RepositoryRoot>/automation`); `the-runner-is-the-only-seam.md` text block 10 (line 16 "its automation" means the layer and stays).
 - [ ] `docs/explanation/design/two-roots-one-importer-same-modules.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/design/which-run-mode-rules-have-a-gate.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/flow/ci-budget-is-the-only-quality-gate.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/design/which-run-mode-rules-have-a-gate.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/flow/ci-budget-is-the-only-quality-gate.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/flow/the-runner-is-the-only-seam.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/flow/two-declared-layers-one-derived.md` (check: no folder-meaning line; Test-Links clean)
+  Explanation batch 4, session catzc-59, 2026-10-18, each Test-Links ok; every docs/explanation page of this section is reworded. Ticked:
+  two-declared-layers (line 31's `automation` is the globset key, kept until P6), one-source (line 35 means the layer). Kept open:
+  `one-registry-one-writer-two-primitives.md` text block 6 (slide label).
+- [x] `docs/explanation/flow/two-declared-layers-one-derived.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/repository/one-registry-one-writer-two-primitives.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/repository/one-source-one-writer-one-boolean.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/repository/one-source-one-writer-one-boolean.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/how-to/getting-started/pwsh/BCL/index.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/how-to/getting-started/pwsh/add-a-module.md` (check: no folder-meaning line; Test-Links clean)

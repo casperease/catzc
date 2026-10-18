@@ -49,8 +49,8 @@ changes the scan's outcome must re-key the set.
 
 ### Rule ADR-REPO-PROTGLOB:7
 
-Module globsets are derived, never declared: every module folder under `automation/` derives a set named by the readme-kebab convention
-(`Catzc.Base.Globs` → `catzc-base-globs`, include `automation/<Module>/**`), every internal shared module `pwsh/.internal/<Name>.psm1`
+Module globsets are derived, never declared: every module folder under `pwsh/` derives a set named by the readme-kebab convention
+(`Catzc.Base.Globs` → `catzc-base-globs`, include `pwsh/<Module>/**`), every internal shared module `pwsh/.internal/<Name>.psm1`
 derives a single-file set by the same convention (`Catzc.Internal.Bootstrap` → `catzc-internal-bootstrap`), and the reserved names
 `internal`, `vendor`, `compiled`, and `scriptanalyzer` cover the dot-prefixed infrastructure. Derived and declared sets share one name space
 — a declared set that shadows a derived name is rejected. Derived sets set the scope of protection and blast-radius exactly as declared sets
@@ -125,7 +125,7 @@ scan's green never skips another.
 
 The module folders already say what a module is; writing thirty registry entries would duplicate that and drift as modules come and go. So
 per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = module = set, named by the readme-kebab convention, including
-`automation/<Module>/**` — the module's functions, private helpers, native types, configs, and its own tests, so editing a test re-keys its
+`pwsh/<Module>/**` — the module's functions, private helpers, native types, configs, and its own tests, so editing a test re-keys its
 module. Each internal shared module `pwsh/.internal/<Name>.psm1` derives a single-file set the same way — the file is the registration, as
 the folder is for a module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the scopes for the dot-prefixed
 infrastructure, which all tests also depend on. Derived and declared sets share one name space — a shadowing declared name is rejected at

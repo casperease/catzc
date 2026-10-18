@@ -6,7 +6,7 @@ is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.m
 
 ## Steps
 
-1. Create `automation/<Module>/types/<TypeName>.cs`.
+1. Create `pwsh/<Module>/types/<TypeName>.cs`.
 2. Name the file for the **bare type** it declares, and give it a file-scoped **`namespace <Module>;`** matching the module — `Format-Types`
    writes and repairs this line from the file's `types/` folder, so you rarely type it by hand. The fully-qualified name is
    `<Module>.<TypeName>`.

@@ -145,7 +145,7 @@ boundary. Pester's NUnit output stays per shard (`results-shard-<N>.xml`).
 
 A shard worker's entry script is the one difference between the two test runs of ADR-AUTO-TEST#30: the source run's workers dot-source
 `<repo>/importer.ps1`, the build run's dot-source `<build>/Import-Catzc.ps1 -RepositoryRoot <repo>`, and both run the same
-`automation/<Module>/tests/*.Tests.ps1` files. `Mock -ModuleName`, `InModuleScope`, and `Get-Module` resolve the same in both, because a
+`pwsh/<Module>/tests/*.Tests.ps1` files. `Mock -ModuleName`, `InModuleScope`, and `Get-Module` resolve the same in both, because a
 built module keeps its name, its functions, and its `$script:` scope.
 
 - [The harness in Pester](#the-harness-in-pester)

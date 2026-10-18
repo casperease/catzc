@@ -11,7 +11,7 @@ to resolve, not a seventh type to invent.
 
 ### Rule ADR-FLOW-CD-TYPE:2
 
-All six types invoke automation through the runner (`Invoke-AdoScript.ps1`); YAML stays declarative and logic lives in `automation/`. (One
+All six types invoke automation through the runner (`Invoke-AdoScript.ps1`); YAML stays declarative and logic lives in `pwsh/`. (One
 sanctioned exception: the `ci-automation-expected-failures` guardrail pipeline.)
 
 - [Decision](#decision)
@@ -177,7 +177,7 @@ and deploys nothing. It invokes one automation function on a clock.
 
 - **Trigger:** a schedule.
 - **Contract:** it is a thin scheduled invocation of an automation-layer function through the runner (see
-  [pipeline-runner-pattern](pipeline-runner-pattern.md)). The logic lives in an idempotent `automation/` function (see
+  [pipeline-runner-pattern](pipeline-runner-pattern.md)). The logic lives in an idempotent `pwsh/` function (see
   [idempotent-state-functions](../automation/idempotent-state-functions.md)), not in YAML. The pipeline names a `RunCommand` and a schedule;
   nothing more.
 

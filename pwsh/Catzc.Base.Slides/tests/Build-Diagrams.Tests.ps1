@@ -54,7 +54,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
     It 'reports an orphan and still renders it: the locality gate finds no article for a folder its page embeds from elsewhere' {
         $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/gizmo'; Stage = 'prepare' })
         $runs.Status | Should -Be @('clean')
-        $runs.Article | Should -BeNullOrEmpty
+        $runs[0].Article | Should -BeNullOrEmpty
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning -and $Message -like '*docs/gizmos/.assets/gizmo is an orphan*' } -Times 1 -Exactly
     }
 

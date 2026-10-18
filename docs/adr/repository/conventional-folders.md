@@ -42,8 +42,8 @@ Documentation folders are markdown-only. `docs/` organizes its subfolders freely
 pages that embed its diagrams and holds one folder per diagram, `<page-folder>/.assets/<name>/`, whose name is the diagram's only name. The
 folder holds everything the diagram owns under role names: the slide `diagram.drawio.png`, its description `diagram.drawio.md` (what it
 draws in words), the minimaps `grid.png`, `tree.png` and `chain.png` each beside its own `.md` naming why every lit cell is lit, and a
-`diagram.drawio.verify.md` record where the diagram has one (each drawn claim, the `file:line` that backs it, and its status). Each subfolder of `docs/adr/` is
-an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
+`diagram.drawio.verify.md` record where the diagram has one (each drawn claim, the `file:line` that backs it, and its status). Each
+subfolder of `docs/adr/` is an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 

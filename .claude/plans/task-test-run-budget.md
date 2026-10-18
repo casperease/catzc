@@ -33,7 +33,22 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
        the missing-input and never-the-whole-registry cases; 13 of 13 pass. `Test-Formatting.Tests.ps1` passes 4 of 5 cold and warm (15.2 s,
        then 10.2 s); the failure is its integrity case, "formatting leaves the repository unchanged", over 18 unformatted working-tree
        files, none of them a stamp file.
-3. From the shard manifest of the final session's full run (and of any earlier run the user made on their own; this task asks for none):
+3. [x] Landed 2026-10-18 by session catzc-93, verdict: "Invoke-TestFile.Tests (shard 6, alone) and Test-Formatting.Tests (shard 0) are
+   apart in all three manifests; the 347 s run is 81 s over the ~265 s runs, almost all in wave B, where Test-ScriptAnalyzer.Tests ran
+   134.2 s against 34.2 s and 3.7 s; no run started". No manifest holds 265.8 s; compared against 20261018-130623 (264.55 s, snapshot)
+   and 20261018-115412 (266.42 s, in-place); the 347 s run is 20261018-153550 (347.47 s, snapshot, -Isolated).
+
+   | Phase (shards)                       | 347.47 s | 264.55 s | 266.42 s | Driver in the 347 s run                                             |
+   | ------------------------------------ | -------- | -------- | -------- | ------------------------------------------------------------------- |
+   | A: 0-4 in parallel                   | 114 s    | 113 s    | 129 s    | shard 1, 112.2 s (Get-AdrUsage.Tests 49.7 s); Test-Formatting 50.9 s |
+   | B: 5 and 6 in parallel               | 135 s    | 46 s     | 30 s     | shard 5 Test-ScriptAnalyzer.Tests 134.2 s (34.2 / 3.7 s); shard 6 Invoke-TestFile.Tests 52.8 s |
+   | C: 7-20 as 7 greedy pairs, in series | 88 s     | 95 s     | 96 s     | Language.Bridge pairs 19+20 (19.2 s), 17+18 (14.3 s); Import-Catzc 13.4 s |
+
+   Phase A (~113 s) plus phase C (~90 s) exceed 180 s alone in every run, so phase B is pure overrun; in the 347 s run B is a cold
+   Test-ScriptAnalyzer (cause not dug into). The structural levers are the serial phases (C's seven pairs in series; B and C could start
+   beside A's tail). The import-race crash does not reproduce in these manifests; the one observation is
+   `out/test-file/20261018-160653-ad3359` and `-160656-e57894` (crashed in 2.7 s, shard exit 1, no rows). Original step: From the shard
+   manifest of the final session's full run (and of any earlier run the user made on their own; this task asks for none):
    `Invoke-TestFile.Tests.ps1` no longer shares a shard with `Test-Formatting.Tests.ps1`; record the shard table and wall clock against the
    265.8 s run in the plan. Check: the table in the plan, read from `out/test-automation`, no run started for it. Reported 2026-10-18 by
    session catzc-93: the user's last full run took 347 s against the 180 s `tests.run_seconds` budget; that run's manifest is one this

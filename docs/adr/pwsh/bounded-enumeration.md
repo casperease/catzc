@@ -97,7 +97,7 @@ nobody noticed.
 
 ### Pruned, and never through a link
 
-A search for `*.yml` below `automation/` should not return the vendored modules' files, and a search below the repository root should not
+A search for `*.yml` below `pwsh/` should not return the vendored modules' files, and a search below the repository root should not
 enter `.git`. Pruning by folder name, before descending, is far cheaper than filtering a full listing afterwards.
 
 Vendor pruning is a global config value rather than a list entry or a parameter default, because the same repository question, "do searches

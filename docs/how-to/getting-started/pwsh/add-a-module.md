@@ -1,11 +1,11 @@
 # Add a module
 
-A module is just a folder. Create a non-dot directory under `automation/`, drop `.ps1` files in it, and the importer discovers it — no
+A module is just a folder. Create a non-dot directory under `pwsh/`, drop `.ps1` files in it, and the importer discovers it — no
 registration, no manifest, no edit to any loader (see [open-closed-architecture](../../../adr/automation/open-closed-architecture.md)).
 
 ## Steps
 
-1. Create `automation/<ModuleName>/`. The folder name **is** the module name. Follow the existing dotted PascalCase convention
+1. Create `pwsh/<ModuleName>/`. The folder name **is** the module name. Follow the existing dotted PascalCase convention
    (`Catzc.<Area>.<Thing>`, e.g. `Catzc.Azure.Storage`).
 2. Add public functions as `Verb-Noun.ps1` files at the module root (see [Add a function](powershell/add-a-function.md)).
 3. Add the optional well-known subfolders only as needed (table below).
@@ -67,7 +67,7 @@ unconstrained; once you list it, it is policed — so list it.
 
 ## Module config (optional)
 
-If the module needs its own settings, drop `automation/<Module>/configs/<name>.yml` and read it anywhere with `Get-Config -Config <name>` —
+If the module needs its own settings, drop `pwsh/<Module>/configs/<name>.yml` and read it anywhere with `Get-Config -Config <name>` —
 one reader, cached per session, validated on load. Every shipped config has a C# config type
 ([ADR-CONF-LOADING#4](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading4)): add one to the module's `types/` (see
 [add-a-dotnet-type](BCL/add-a-dotnet-type.md)) and register it in `Catzc.Base.Config/configs/configs.yml` as `<name>: { type: <FQN> }`;

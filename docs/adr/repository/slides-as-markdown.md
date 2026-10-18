@@ -63,8 +63,8 @@ run on neutral fixture decks, never on a real one ([ADR-AUTO-TEST#3](../automati
 Every draw.io slide renders from the tree by one command on its diagram folder, `Build-Diagrams -Path <folder>`; the whole tree is that
 command repeated over every diagram folder found under `docs/**/.assets/**`, so no setting lists the folders. Its inputs are the model
 embedded in the folder's `diagram.drawio.png`, the one article beside the folder's `.assets` that embeds it, and the repository's maps, and
-no step of it asks a session or a model to decide anything ([ADR-PRIN-EAC#3](../principles/everything-as-code.md#rule-adr-prin-eac3)). A raster is never drawn by hand or by
-the draw.io CLI: a session edits a model, and the kit renders it.
+no step of it asks a session or a model to decide anything ([ADR-PRIN-EAC#3](../principles/everything-as-code.md#rule-adr-prin-eac3)). A
+raster is never drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
 
 - [One command renders every diagram](#one-command-renders-every-diagram)
 
@@ -144,7 +144,8 @@ gives the same slides, a changed map or a changed rule reaches every slide that 
 - **`Build-SlideDeck`** renders a deck forward into `out/slides/<deck>/` and reports every fault (rule 3).
 - **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break rules 1, 2 and 4.
 - **`Get-FileKind`** places slide files and the kit by rule 6, and the file-kind reachability test keeps both kinds reachable.
-- **`Build-Diagrams`** renders every slide of the `diagram_folders` from the tree through the kit's renderer, stage by stage (rule 7).
+- **`Build-Diagrams`** rebuilds one diagram folder, or every diagram folder it finds under `docs/**/.assets/**`, through the kit's renderer,
+  stage by stage, and stops on a folder two articles embed (rule 7); **`Move-Diagram`** moves a folder with its links re-pointed.
 
 ## Consequences
 

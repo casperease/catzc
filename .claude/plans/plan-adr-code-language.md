@@ -222,3 +222,6 @@ Recorded 2026-10-18 with the user:
    derived from `adrs.yml` and the registries at run time, and the hand entries for code bodies go in the same change. Needed before step 2.
    Decided 2026-10-18 by the orchestrator on the user's delegation: the recommendation, as one mechanism read from the registry
    (ADR-PRIN-ONELIVE: the hand entries are deleted in the same change, no fallback).
+2. **WAF and CAF rule names** (found in step 2): WAF rules carry Microsoft's ids (`RE:01`), CAF rules carry none in the tree. Decided by
+   the orchestrator on the user's delegation, 2026-10-18: the WAF ADR segment is the short pillar code (`RE`, `SE`, `CO`, `OE`, `PE`) and a
+   rule is the vendor id without the colon (`ADR-AZ-WAF-RE-RE01`); CAF rules take spelled-out names (the plan's fallback).

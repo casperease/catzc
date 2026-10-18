@@ -5,16 +5,16 @@ manifest to edit, no export list to maintain.
 
 ## Steps
 
-1. Pick the right module folder under `automation/` (or [create a new module](../add-a-module.md) first).
-2. Create `automation/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one
+1. Pick the right module folder under `pwsh/` (or [create a new module](../add-a-module.md) first).
+2. Create `pwsh/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one
    function (see [one-function-per-file](../../../../adr/pwsh/one-function-per-file.md)).
-3. Create the paired test `automation/<Module>/tests/Verb-Noun.Tests.ps1`.
+3. Create the paired test `pwsh/<Module>/tests/Verb-Noun.Tests.ps1`.
 4. Re-run the importer (`. ./importer.ps1`) and run `Test-Automation`.
 
 ## The shape of a function
 
 ```powershell
-# automation/<Module>/Get-Widgets.ps1
+# pwsh/<Module>/Get-Widgets.ps1
 function Get-Widgets {
     [CmdletBinding()]
     [OutputType([object[]])]
@@ -78,7 +78,7 @@ Before writing a helper, reach for what already exists in `Catzc.Base.*` and `Ca
 ## Call a private helper
 
 A `.ps1` in the module root is exported; a `.ps1` in `private/` is loaded into the same module scope but **not** exported. Public functions
-call private helpers directly — no import, no qualification. To add one, drop `automation/<Module>/private/Verb-Noun.ps1` (same
+call private helpers directly — no import, no qualification. To add one, drop `pwsh/<Module>/private/Verb-Noun.ps1` (same
 one-function-per-file rule).
 
 ## The paired test
@@ -87,7 +87,7 @@ Every function file pairs one-to-one with a test file. Every test carries **two 
 category (`logic`/`integrity`). A run fails fast if either is missing.
 
 ```powershell
-# automation/<Module>/tests/Get-Widgets.Tests.ps1
+# pwsh/<Module>/tests/Get-Widgets.Tests.ps1
 Describe 'Get-Widgets' -Tag 'L1', 'logic' {
     It 'returns the trimmed widgets, capped at -Limit' {
         $fixture = Join-Path $PSScriptRoot 'assets/widgets.json'

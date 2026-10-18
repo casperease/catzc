@@ -86,7 +86,7 @@ exactly one. A wildcard is for a generator only, since a `source` entry has one 
 
 The repository root carries configuration files for git, editors, and quality-gate tools. Kept by hand, each is a source of truth of its
 own, with its own drift risk, and the tool-specific quirks (a `.psd1` that must be a literal hashtable, a JSON manifest with no comment
-syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth under `automation/`, one writer — not a path constraint: the
+syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth under `pwsh/`, one writer — not a path constraint: the
 managed set covers the repository root and, below it, the `.vscode/` editor files (settings, extension recommendations, launch profiles, the
 Azure Pipelines schema, and the preview CSS) and `.cspell/.gitignore` — all of those `committed: false`, so the editor greys them and a
 fresh clone materialises them on its first import — the same contract as the generated cspell dictionaries
@@ -173,7 +173,7 @@ names the remediation — re-run the importer), and no other managed target is a
 
 ## Consequences
 
-- A root config is authored once — in its source under `automation/` (or rendered by its generator) — and cannot drift from a second
+- A root config is authored once — in its source under `pwsh/` (or rendered by its generator) — and cannot drift from a second
   hand-kept root copy.
 - Taking over a root file is one registry entry plus its source; opting out is the default, so an unregistered file is simply not touched.
 - The root analyzer settings are an ordinary `source` entry with no bespoke builder, and `importer.ps1` is a `generator` entry whose

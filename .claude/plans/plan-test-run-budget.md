@@ -43,7 +43,8 @@ so the value is a suite that proves the same in less time. The user runs full su
       lists `tools.yml#<tool>` keys and `Get-FormatEngineStamp` hashes each key alone (ADR-AUTO-CACHE#10); its 13 tests hold both cases and
       pass, and ADR-REPO-FORMAT#8 states the stamp. `Test-Formatting.Tests.ps1` is 4 of 5 cold and warm; its integrity case fails on
       unformatted working-tree files only.
-- [ ] Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting, read from the shard manifest of the final session's full
+- [x] Done 2026-10-18 by session catzc-93 from three manifests, no run started: apart in all three (shard table in
+      task-test-run-budget step 3). Original: Re-check that Invoke-TestFile no longer shares a shard with Test-Formatting, read from the shard manifest of the final session's full
       run (task-user-runs-and-commits, last step) and of any run the user made on their own; this plan starts none (check: the manifests in
       out/test-automation place them apart). Watch, reported 2026-10-18 by session catzc-93: a first Invoke-TestFile of
       Get-TimeoutSeconds.Repository.Tests and Get-EngineCaseTable.Tests crashed after 3 s with empty stderr before any test ran; the shard
