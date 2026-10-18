@@ -19,9 +19,9 @@ Supports ADR-FLOW-CD-GLOBS#5, #6 and #9 (operations lens).
 prints what it derived: a projection, a list of touched sets, or a skip line. Knowing what each command prints lets an operator check a
 globset edit before any pipeline runs.
 
-![Edit globs.yml, then read the output](../.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png)
+![Edit globs.yml, then read the output](.assets/edit-globs-yml-then-read-the-output/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](edit-globs-yml-then-read-the-output.drawio.md).
+The diagram is described element by element in [its asset description](.assets/edit-globs-yml-then-read-the-output/diagram.drawio.md).
 
 ## Walkthrough
 

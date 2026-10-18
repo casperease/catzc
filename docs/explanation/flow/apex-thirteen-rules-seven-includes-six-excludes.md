@@ -22,9 +22,9 @@ of 13 rules. `Get-GlobSetTrigger` walks that program once: the GitHub list is th
 13 rules to 7 includes and 6 excludes because the same pattern is never selected twice. `pipelines/cd-apex.yaml` declares exactly those 13
 patterns, and `Test-AdoPipelineTriggerGlob` is the quality gate that proves it.
 
-![apex: 13 rules, 13 GitHub paths, 7 ADO includes and 6 excludes](../.assets/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png)
+![apex: 13 rules, 13 GitHub paths, 7 ADO includes and 6 excludes](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](apex-thirteen-rules-seven-includes-six-excludes.drawio.md).
+The diagram is described element by element in [its asset description](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.md).
 
 ## Walkthrough
 

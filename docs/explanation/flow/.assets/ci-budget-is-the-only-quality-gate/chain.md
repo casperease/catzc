@@ -19,7 +19,7 @@ Where ADR-FLOW-CD and ADR-FLOW-CD-TYPE sit in the value chain: value-chain stack
 4 of 25 cells lit.
 ```
 
-![The value-chain minimap of The CI budget is the only promotion rule a quality gate checks](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.png)
+![The value-chain minimap of The CI budget is the only promotion rule a quality gate checks](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [The CI budget is the only promotion rule a quality gate
 checks][6], which explains [ADR-FLOW-CD][1] and [ADR-FLOW-CD-TYPE][2]. It lights the cells of the value-chain map where the cited ADRs'
@@ -112,18 +112,18 @@ Terms the cited ADRs define:
 - [gate][12], defined by [ADR-FLOW-CD#13][13]
 - [release candidate][14], defined by [ADR-FLOW-CD#14][15]
 
-[1]: ../../../adr/flow/cd-discipline-and-promotion-flow.md
-[2]: ../../../adr/flow/pipeline-types.md
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../flow/ci-budget-is-the-only-quality-gate.md
-[7]: ../../../adr/glossary.md#value-chain-map
-[8]: ../../../adr/glossary.md#value-chain-stack
-[9]: ../../../adr/glossary.md#value-chain-concern
-[10]: ../../../adr/glossary.md#cell
-[11]: ../../../adr/glossary.md#lit-cell
-[12]: ../../../adr/glossary.md#gate
-[13]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[14]: ../../../adr/glossary.md#release-candidate
-[15]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[1]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
+[2]: ../../../../adr/flow/pipeline-types.md
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[6]: ../../ci-budget-is-the-only-quality-gate.md
+[7]: ../../../../adr/glossary.md#value-chain-map
+[8]: ../../../../adr/glossary.md#value-chain-stack
+[9]: ../../../../adr/glossary.md#value-chain-concern
+[10]: ../../../../adr/glossary.md#cell
+[11]: ../../../../adr/glossary.md#lit-cell
+[12]: ../../../../adr/glossary.md#gate
+[13]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[14]: ../../../../adr/glossary.md#release-candidate
+[15]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

@@ -19,7 +19,7 @@ Where ADR-FLOW-CD-RUNNER sits in the value chain: value-chain stack down, value-
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of A pipeline step only names a command that a developer can run locally](adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.png)
+![The value-chain minimap of A pipeline step only names a command that a developer can run locally](chain.png)
 
 This is the value-chain minimap in the sidebar of the meta diagram of [A pipeline step only names a command that a developer can run
 locally][2], which explains [ADR-FLOW-CD-RUNNER][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
@@ -55,10 +55,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-[1]: ../../../adr/flow/pipeline-runner-pattern.md
-[2]: ../../flow/a-step-only-names-a-command.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
+[1]: ../../../../adr/flow/pipeline-runner-pattern.md
+[2]: ../../a-step-only-names-a-command.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell

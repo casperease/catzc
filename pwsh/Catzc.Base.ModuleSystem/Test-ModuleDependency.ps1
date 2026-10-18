@@ -1,5 +1,6 @@
 function Test-ModuleDependency {
     [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     [OutputType([pscustomobject])]
     param(
         [string] $OutputFolder,

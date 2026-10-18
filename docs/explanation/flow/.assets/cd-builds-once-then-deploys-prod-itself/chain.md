@@ -19,7 +19,7 @@ Where ADR-FLOW-CD sits in the value chain: value-chain stack down, value-chain c
 4 of 25 cells lit.
 ```
 
-![The value-chain minimap of The customer CD pipeline builds once, then deploys the prod tier itself](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.chain.png)
+![The value-chain minimap of The customer CD pipeline builds once, then deploys the prod tier itself](chain.png)
 
 This is the value-chain minimap in the sidebar of the implementation diagram of [The customer CD pipeline builds once, then deploys the prod
 tier itself][5], which explains [ADR-FLOW-CD][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
@@ -99,17 +99,17 @@ Terms the cited ADRs define:
 - [gate][11], defined by [ADR-FLOW-CD#13][12]
 - [release candidate][13], defined by [ADR-FLOW-CD#14][14]
 
-[1]: ../../../adr/flow/cd-discipline-and-promotion-flow.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../flow/cd-builds-once-then-deploys-prod-itself.md
-[6]: ../../../adr/glossary.md#value-chain-map
-[7]: ../../../adr/glossary.md#value-chain-stack
-[8]: ../../../adr/glossary.md#value-chain-concern
-[9]: ../../../adr/glossary.md#cell
-[10]: ../../../adr/glossary.md#lit-cell
-[11]: ../../../adr/glossary.md#gate
-[12]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[13]: ../../../adr/glossary.md#release-candidate
-[14]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[1]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[5]: ../../cd-builds-once-then-deploys-prod-itself.md
+[6]: ../../../../adr/glossary.md#value-chain-map
+[7]: ../../../../adr/glossary.md#value-chain-stack
+[8]: ../../../../adr/glossary.md#value-chain-concern
+[9]: ../../../../adr/glossary.md#cell
+[10]: ../../../../adr/glossary.md#lit-cell
+[11]: ../../../../adr/glossary.md#gate
+[12]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[13]: ../../../../adr/glossary.md#release-candidate
+[14]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

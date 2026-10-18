@@ -862,7 +862,7 @@ Summary (ours): Use public repositories only for material that is not confidenti
 #### What 20 means here
 
 What the repository publishes is the catzc package, built by `Export-Catzc` and released by a manually started GitHub workflow
-([ADR-GH-RELEASE#1](../../github/github-release.md#rule-adr-gh-release1)). It carries the built automation modules, not the
+([ADR-GH-RELEASE#1](../../github/github-release.md#rule-adr-gh-release1)). It carries the built catzc modules, not the
 `infrastructure/` templates and the configuration tree that describe a tenant's subscriptions.
 
 ##### 20 status

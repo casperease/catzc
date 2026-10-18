@@ -19,8 +19,6 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     $fullRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
-    # Two passes, each cached on its own inputs: the spelling entry rule reads the dictionaries, every other rule does not, so a dictionary
-    # edit re-runs the spelling pass alone ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)).
     $spellingRule = 'Measure-CatzcSpelling'
     $passes = @(
         [pscustomobject]@{ Label = 'rules'; Cache = 'script-analyzer.json'; IncludeRule = @(); ExcludeRule = @($spellingRule) }

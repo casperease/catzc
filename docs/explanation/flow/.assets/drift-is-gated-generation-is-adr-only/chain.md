@@ -19,7 +19,7 @@ Where ADR-FLOW-CD-GLOBS sits in the value chain: value-chain stack down, value-c
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone](adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.chain.png)
+![The value-chain minimap of Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Three gates check the projection, while generation and the
 in-pipeline backstop are held by the ADR alone][2], which explains [ADR-FLOW-CD-GLOBS][1]. It lights the cells of the value-chain map where
@@ -56,10 +56,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-[1]: ../../../adr/flow/durable-sha-globs.md
-[2]: ../../flow/drift-is-gated-generation-is-adr-only.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
+[1]: ../../../../adr/flow/durable-sha-globs.md
+[2]: ../../drift-is-gated-generation-is-adr-only.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell

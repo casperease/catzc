@@ -19,7 +19,7 @@ Where the files that cite ADR-FLOW-CD sit in the repository: tracks down, file l
 5 of 342 cells lit, holding 15 files.
 ```
 
-![The world-map minimap of The customer CD pipeline builds once, then deploys the prod tier itself](adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.png)
+![The world-map minimap of The customer CD pipeline builds once, then deploys the prod tier itself](grid.png)
 
 This is the world-map minimap in the sidebar of the implementation diagram of [The customer CD pipeline builds once, then deploys the prod
 tier itself][19], which explains [ADR-FLOW-CD][1]. It lights every cell of the world map that holds a file citing those codes, so it shows
@@ -122,33 +122,33 @@ Terms the cited ADRs define:
 - [gate][27], defined by [ADR-FLOW-CD#13][28]
 - [release candidate][29], defined by [ADR-FLOW-CD#14][30]
 
-[1]: ../../../adr/flow/cd-discipline-and-promotion-flow.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../.claude/CLAUDE.md
-[6]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[7]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[8]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[9]: ../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-[10]: ../../../adr/flow/dora-explains.md
-[11]: ../../../adr/glossary.md
-[12]: ../../../adr/index.md
-[13]: ../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
-[14]: ../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-[15]: ../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
-[16]: ../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-[17]: ../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-[18]: ../../../../pipelines/ci-automation.yaml
-[19]: ../../flow/cd-builds-once-then-deploys-prod-itself.md
-[20]: ../../../adr/glossary.md#world-map
-[21]: ../../../adr/glossary.md#track
-[22]: ../../../adr/glossary.md#file-language
-[23]: ../../../adr/glossary.md#cell
-[24]: ../../../adr/glossary.md#lit-cell
-[25]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[26]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[27]: ../../../adr/glossary.md#gate
-[28]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[29]: ../../../adr/glossary.md#release-candidate
-[30]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[1]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../../../../.claude/CLAUDE.md
+[6]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[7]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[8]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[9]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+[10]: ../../../../adr/flow/dora-explains.md
+[11]: ../../../../adr/glossary.md
+[12]: ../../../../adr/index.md
+[13]: ../../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
+[14]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+[15]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+[16]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[17]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+[18]: ../../../../../pipelines/ci-automation.yaml
+[19]: ../../cd-builds-once-then-deploys-prod-itself.md
+[20]: ../../../../adr/glossary.md#world-map
+[21]: ../../../../adr/glossary.md#track
+[22]: ../../../../adr/glossary.md#file-language
+[23]: ../../../../adr/glossary.md#cell
+[24]: ../../../../adr/glossary.md#lit-cell
+[25]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[27]: ../../../../adr/glossary.md#gate
+[28]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[29]: ../../../../adr/glossary.md#release-candidate
+[30]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

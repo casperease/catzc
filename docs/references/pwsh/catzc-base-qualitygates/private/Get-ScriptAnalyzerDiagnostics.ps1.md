@@ -125,3 +125,12 @@ Above `if ($job.State -ne 'Completed') {`, written with `#`.
 A silently-failed shard would drop its files' diagnostics and let violations pass unnoticed —
 fail loudly instead.
 ```
+
+## comment:8
+
+Above `$spellingRule = 'Measure-CatzcSpelling'`, written with `#`.
+
+```text
+Two passes, each cached on its own inputs: the spelling entry rule reads the dictionaries, every other rule does not, so a dictionary
+edit re-runs the spelling pass alone ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)).
+```

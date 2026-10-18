@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6db3aa7063eb"
+    with_body_sha: "436bf6327bed"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
+    path: docs/explanation/automation/.assets/invoke-importer-in-code-order/chain.md
+    source: docs/explanation/automation/.assets/invoke-importer-in-code-order/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

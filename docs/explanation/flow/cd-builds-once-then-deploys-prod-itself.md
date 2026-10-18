@@ -18,9 +18,9 @@ Every customer CD pipeline in cats extends one template, `pipelines/extends/cd-c
 assert. In code order, the template runs one CI stage that builds and publishes three artifacts, then three deploy stages that apply them in
 dependency order. In `cd-apex`, each deploy stage reaches the non-prod and the prod tier in the same run.
 
-![The customer CD pipeline builds once, then deploys the prod tier itself](../.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png)
+![The customer CD pipeline builds once, then deploys the prod tier itself](.assets/cd-builds-once-then-deploys-prod-itself/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](cd-builds-once-then-deploys-prod-itself.drawio.md).
+The diagram is described element by element in [its asset description](.assets/cd-builds-once-then-deploys-prod-itself/diagram.drawio.md).
 
 ## Walkthrough
 

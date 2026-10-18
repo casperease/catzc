@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af2fb5a02194
+    with_body_sha: ba7986fa9272
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
+    path: docs/explanation/automation/.assets/one-commit-one-immutable-package/chain.md
+    source: docs/explanation/automation/.assets/one-commit-one-immutable-package/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

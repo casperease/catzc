@@ -18,9 +18,9 @@ Changing what cats maps takes either an edit to `globs.yml` or a new folder. Dep
 `pwsh/Catzc.Base.Globs/configs/globs.yml`; a module is added by adding its folder under `pwsh/`. One run of `Test-GlobSetIndependence`
 then either passes or names every same-layer pair that shares a file.
 
-![Declare or add a folder, and the gate names overlaps](../.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png)
+![Declare or add a folder, and the gate names overlaps](.assets/declare-or-add-folder-gate-names-overlaps/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](declare-or-add-folder-gate-names-overlaps.drawio.md).
+The diagram is described element by element in [its asset description](.assets/declare-or-add-folder-gate-names-overlaps/diagram.drawio.md).
 
 ## Walkthrough
 

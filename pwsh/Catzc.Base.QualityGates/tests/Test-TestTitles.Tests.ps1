@@ -29,7 +29,7 @@ Describe 'Test-TestTitles' -Tag 'L0', 'logic' {
     It 'passes data-driven template titles and skips vendored and unparseable files' {
         $result = Test-TestTitles -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.TestFiles | Should -Be 2
+        $result.Facts['TestFiles'] | Should -Be 2
     }
 
     It 'throws once naming every template title without data, single- or double-quoted' {

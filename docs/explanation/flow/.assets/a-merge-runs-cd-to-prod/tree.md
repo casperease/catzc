@@ -19,7 +19,7 @@ Which files cite ADR-FLOW-CD: every file of the world map is a tile, grouped by 
 15 files lit in 9 groups.
 ```
 
-![The tree minimap of A merge to main runs the CD pipeline all the way to prod, with no approval](adr-flow-cd--a-merge-runs-cd-to-prod--operations.tree.png)
+![The tree minimap of A merge to main runs the CD pipeline all the way to prod, with no approval](tree.png)
 
 This is the tree minimap in the sidebar of the operations diagram of [A merge to main runs the CD pipeline all the way to prod, with no
 approval][16], which explains [ADR-FLOW-CD][1]. It lights every file that cites those codes, grouped by folder, so it shows which files
@@ -138,30 +138,30 @@ Terms the cited ADRs define:
 - [gate][24], defined by [ADR-FLOW-CD#13][25]
 - [release candidate][26], defined by [ADR-FLOW-CD#14][27]
 
-[1]: ../../../adr/flow/cd-discipline-and-promotion-flow.md
-[2]: ../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
-[3]: ../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-[4]: ../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
-[5]: ../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-[6]: ../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-[7]: ../../../adr/glossary.md
-[8]: ../../../adr/index.md
-[9]: ../../../adr/flow/dora-explains.md
-[10]: ../../../../.claude/CLAUDE.md
-[11]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[12]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[13]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[14]: ../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-[15]: ../../../../pipelines/ci-automation.yaml
-[16]: ../../flow/a-merge-runs-cd-to-prod.md
-[17]: ../../../adr/glossary.md#world-map
-[18]: ../../../adr/glossary.md#track
-[19]: ../../../adr/glossary.md#file-language
-[20]: ../../../adr/glossary.md#cell
-[21]: ../../../adr/glossary.md#lit-cell
-[22]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[23]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[24]: ../../../adr/glossary.md#gate
-[25]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[26]: ../../../adr/glossary.md#release-candidate
-[27]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[1]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
+[2]: ../../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
+[3]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+[4]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+[5]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[6]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+[7]: ../../../../adr/glossary.md
+[8]: ../../../../adr/index.md
+[9]: ../../../../adr/flow/dora-explains.md
+[10]: ../../../../../.claude/CLAUDE.md
+[11]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[12]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[13]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[14]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+[15]: ../../../../../pipelines/ci-automation.yaml
+[16]: ../../a-merge-runs-cd-to-prod.md
+[17]: ../../../../adr/glossary.md#world-map
+[18]: ../../../../adr/glossary.md#track
+[19]: ../../../../adr/glossary.md#file-language
+[20]: ../../../../adr/glossary.md#cell
+[21]: ../../../../adr/glossary.md#lit-cell
+[22]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[23]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[24]: ../../../../adr/glossary.md#gate
+[25]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[26]: ../../../../adr/glossary.md#release-candidate
+[27]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

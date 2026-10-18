@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 namespace Catzc.Base.Reports;
 
 // Rests on [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9) and [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6).
-// What a quality gate returns under -PassThru: its subject, its issues, where its report lies, and the facts it counted, in its order.
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Subject), nameof(IssueCount), nameof(ReportPath))]
 public sealed class QualityGateResult
 {

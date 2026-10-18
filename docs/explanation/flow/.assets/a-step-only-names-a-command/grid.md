@@ -19,7 +19,7 @@ Where the files that cite ADR-FLOW-CD-RUNNER sit in the repository: tracks down,
 4 of 342 cells lit, holding 7 files.
 ```
 
-![The world-map minimap of A pipeline step only names a command that a developer can run locally](adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.png)
+![The world-map minimap of A pipeline step only names a command that a developer can run locally](grid.png)
 
 This is the world-map minimap in the sidebar of the meta diagram of [A pipeline step only names a command that a developer can run
 locally][11], which explains [ADR-FLOW-CD-RUNNER][1]. It lights every cell of the world map that holds a file citing those codes, so it
@@ -94,21 +94,21 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 - [pipeline-yaml][18]: a file language
 - [yaml][18]: a file language
 
-[1]: ../../../adr/flow/pipeline-runner-pattern.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../.claude/CLAUDE.md
-[6]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[7]: ../../../adr/flow/dora-explains.md
-[8]: ../../../adr/index.md
-[9]: ../../../references/pipelines/steps/invoke-automation.yaml.md
-[10]: ../../../../pipelines/ci-automation.yaml
-[11]: ../../flow/a-step-only-names-a-command.md
-[12]: ../../../adr/glossary.md#world-map
-[13]: ../../../adr/glossary.md#track
-[14]: ../../../adr/glossary.md#file-language
-[15]: ../../../adr/glossary.md#cell
-[16]: ../../../adr/glossary.md#lit-cell
-[17]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[18]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/flow/pipeline-runner-pattern.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../../../../.claude/CLAUDE.md
+[6]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[7]: ../../../../adr/flow/dora-explains.md
+[8]: ../../../../adr/index.md
+[9]: ../../../../references/pipelines/steps/invoke-automation.yaml.md
+[10]: ../../../../../pipelines/ci-automation.yaml
+[11]: ../../a-step-only-names-a-command.md
+[12]: ../../../../adr/glossary.md#world-map
+[13]: ../../../../adr/glossary.md#track
+[14]: ../../../../adr/glossary.md#file-language
+[15]: ../../../../adr/glossary.md#cell
+[16]: ../../../../adr/glossary.md#lit-cell
+[17]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[18]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

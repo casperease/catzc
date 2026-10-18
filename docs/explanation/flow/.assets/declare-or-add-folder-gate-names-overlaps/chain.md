@@ -19,7 +19,7 @@ Where ADR-FLOW-CD-GLOBS sits in the value chain: value-chain stack down, value-c
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Declare a unit or add a module folder, and the gate names every overlap](adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.png)
+![The value-chain minimap of Declare a unit or add a module folder, and the gate names every overlap](chain.png)
 
 This is the value-chain minimap in the sidebar of the operations diagram of [Declare a unit or add a module folder, and the gate names every
 overlap][2], which explains [ADR-FLOW-CD-GLOBS][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
@@ -55,10 +55,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-[1]: ../../../adr/flow/durable-sha-globs.md
-[2]: ../../flow/declare-or-add-folder-gate-names-overlaps.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
+[1]: ../../../../adr/flow/durable-sha-globs.md
+[2]: ../../declare-or-add-folder-gate-names-overlaps.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell

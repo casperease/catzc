@@ -19,7 +19,7 @@ Which files cite ADR-FLOW-CD-RUNNER: every file of the world map is a tile, grou
 7 files lit in 6 groups.
 ```
 
-![The tree minimap of A pipeline step only names a command that a developer can run locally](adr-flow-cd-runner--a-step-only-names-a-command--meta.tree.png)
+![The tree minimap of A pipeline step only names a command that a developer can run locally](tree.png)
 
 This is the tree minimap in the sidebar of the meta diagram of [A pipeline step only names a command that a developer can run locally][8],
 which explains [ADR-FLOW-CD-RUNNER][1]. It lights every file that cites those codes, grouped by folder, so it shows which files carry the
@@ -96,18 +96,18 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipeline-yaml][15]: a file language
 - [yaml][15]: a file language
 
-[1]: ../../../adr/flow/pipeline-runner-pattern.md
-[2]: ../../../adr/flow/dora-explains.md
-[3]: ../../../../.claude/CLAUDE.md
-[4]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[5]: ../../../adr/index.md
-[6]: ../../../references/pipelines/steps/invoke-automation.yaml.md
-[7]: ../../../../pipelines/ci-automation.yaml
-[8]: ../../flow/a-step-only-names-a-command.md
-[9]: ../../../adr/glossary.md#world-map
-[10]: ../../../adr/glossary.md#track
-[11]: ../../../adr/glossary.md#file-language
-[12]: ../../../adr/glossary.md#cell
-[13]: ../../../adr/glossary.md#lit-cell
-[14]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[15]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/flow/pipeline-runner-pattern.md
+[2]: ../../../../adr/flow/dora-explains.md
+[3]: ../../../../../.claude/CLAUDE.md
+[4]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[5]: ../../../../adr/index.md
+[6]: ../../../../references/pipelines/steps/invoke-automation.yaml.md
+[7]: ../../../../../pipelines/ci-automation.yaml
+[8]: ../../a-step-only-names-a-command.md
+[9]: ../../../../adr/glossary.md#world-map
+[10]: ../../../../adr/glossary.md#track
+[11]: ../../../../adr/glossary.md#file-language
+[12]: ../../../../adr/glossary.md#cell
+[13]: ../../../../adr/glossary.md#lit-cell
+[14]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[15]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

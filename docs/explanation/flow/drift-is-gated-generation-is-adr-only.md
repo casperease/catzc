@@ -20,9 +20,9 @@ check that every bound workflow and pipeline declares its projection and that th
 ADR states around the projection have no code behind them: that the YAML filters are generated rather than written by hand, and that
 `Test-GlobSetAffected` runs first in every pipeline as the exact backstop. Both are worth knowing before relying on them.
 
-![Three gates check the projection; generation and the backstop are ADR-only](../.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png)
+![Three gates check the projection; generation and the backstop are ADR-only](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](drift-is-gated-generation-is-adr-only.drawio.md).
+The diagram is described element by element in [its asset description](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.md).
 
 ## Walkthrough
 

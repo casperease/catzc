@@ -16,9 +16,9 @@ A pipeline step in cats does not hold PowerShell. It names a command, and one ru
 in a terminal. YAML declares, PowerShell executes, and the string in the step is exactly what a developer types after loading the modules.
 That one invariant is what makes every pipeline step reproducible by hand.
 
-![A pipeline step only names a command you can run locally](../.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png)
+![A pipeline step only names a command you can run locally](.assets/a-step-only-names-a-command/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](a-step-only-names-a-command.drawio.md).
+The diagram is described element by element in [its asset description](.assets/a-step-only-names-a-command/diagram.drawio.md).
 
 ## Walkthrough
 

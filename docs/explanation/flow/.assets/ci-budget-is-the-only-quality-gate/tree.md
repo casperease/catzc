@@ -19,7 +19,7 @@ Which files cite ADR-FLOW-CD and ADR-FLOW-CD-TYPE: every file of the world map i
 27 files lit in 9 groups.
 ```
 
-![The tree minimap of The CI budget is the only promotion rule a quality gate checks](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.png)
+![The tree minimap of The CI budget is the only promotion rule a quality gate checks](tree.png)
 
 This is the tree minimap in the sidebar of the governance diagram of [The CI budget is the only promotion rule a quality gate checks][28],
 which explains [ADR-FLOW-CD][1] and [ADR-FLOW-CD-TYPE][2]. It lights every file that cites those codes, grouped by folder, so it shows which
@@ -164,42 +164,42 @@ Terms the cited ADRs define:
 - [gate][36], defined by [ADR-FLOW-CD#13][37]
 - [release candidate][38], defined by [ADR-FLOW-CD#14][39]
 
-[1]: ../../../adr/flow/cd-discipline-and-promotion-flow.md
-[2]: ../../../adr/flow/pipeline-types.md
-[3]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
-[4]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
-[5]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
-[6]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
-[7]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
-[8]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
-[9]: ../../../references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md
-[10]: ../../../references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
-[11]: ../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
-[12]: ../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-[13]: ../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
-[14]: ../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-[15]: ../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-[16]: ../../../references/pipelines/cd-shared.yaml.md
-[17]: ../../../references/pipelines/ci-infrastructure.yaml.md
-[18]: ../../../adr/flow/dora-explains.md
-[19]: ../../../../.claude/CLAUDE.md
-[20]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[21]: ../../../adr/glossary.md
-[22]: ../../../adr/index.md
-[23]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[24]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[25]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[26]: ../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-[27]: ../../../../pipelines/ci-automation.yaml
-[28]: ../../flow/ci-budget-is-the-only-quality-gate.md
-[29]: ../../../adr/glossary.md#world-map
-[30]: ../../../adr/glossary.md#track
-[31]: ../../../adr/glossary.md#file-language
-[32]: ../../../adr/glossary.md#cell
-[33]: ../../../adr/glossary.md#lit-cell
-[34]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[35]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[36]: ../../../adr/glossary.md#gate
-[37]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[38]: ../../../adr/glossary.md#release-candidate
-[39]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[1]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
+[2]: ../../../../adr/flow/pipeline-types.md
+[3]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
+[4]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
+[5]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
+[6]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
+[7]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
+[8]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
+[9]: ../../../../references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md
+[10]: ../../../../references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+[11]: ../../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
+[12]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+[13]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+[14]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[15]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+[16]: ../../../../references/pipelines/cd-shared.yaml.md
+[17]: ../../../../references/pipelines/ci-infrastructure.yaml.md
+[18]: ../../../../adr/flow/dora-explains.md
+[19]: ../../../../../.claude/CLAUDE.md
+[20]: ../../../../../.claude/plans/plan-module-kinds-tracks.md
+[21]: ../../../../adr/glossary.md
+[22]: ../../../../adr/index.md
+[23]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[24]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[25]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[26]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+[27]: ../../../../../pipelines/ci-automation.yaml
+[28]: ../../ci-budget-is-the-only-quality-gate.md
+[29]: ../../../../adr/glossary.md#world-map
+[30]: ../../../../adr/glossary.md#track
+[31]: ../../../../adr/glossary.md#file-language
+[32]: ../../../../adr/glossary.md#cell
+[33]: ../../../../adr/glossary.md#lit-cell
+[34]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[35]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[36]: ../../../../adr/glossary.md#gate
+[37]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[38]: ../../../../adr/glossary.md#release-candidate
+[39]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
