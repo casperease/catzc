@@ -50,7 +50,7 @@ Above `if ($null -eq...`, written with `#`.
 ```text
 Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation
 root
-([ADR-AUTO-CACHE#2](/docs/adr/automation/caching.md#rule-adr-auto-cache2)/[ADR-AUTO-CACHE#4](/docs/adr/automation/caching.md#rule-adr-auto-cache4)). The expensive AST walk runs once and Get-ModuleDependency / Get-AutomationFunctions
+([ADR-AUTO-CACHE#2](/docs/adr/automation/caching.md#rule-adr-auto-cache2)/[ADR-AUTO-CACHE#4](/docs/adr/automation/caching.md#rule-adr-auto-cache4)). The expensive AST walk runs once and Get-ModuleDependency / Get-ModuleFunction
 / Get-FunctionDependencyTree (and the integrity tests) all reuse it. Re-running the importer resets the
 $script: state — the only invalidation ([ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6)).
 A fixture root passed by a test gets its own entry, so it

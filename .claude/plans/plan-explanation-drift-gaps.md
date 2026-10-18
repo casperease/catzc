@@ -67,6 +67,10 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
     articles lost those claims. Refined against the decision: `TimeoutExemptionsConfig` keeps its shell axis, since it is the engine list
     (`ExecutionEngines.Names`) for budgeted code, one mechanism per kind; cutting `bash` from it would special-case one engine, and no agent
     call can match an exemption anyway.
+  - Q3: `Sync-AdoEnvironmentApprovals` (Catzc.Azure.DevOps) keeps one Approval check on every environment `environment-approvals.yml` lists
+    (`shared-psub`, `apex-psub`, `apex-prod`), approved by `[<project>]\Prod Approvers` with a 24-hour timeout, both defaults declared once
+    on `EnvironmentApprovalsConfig` (the user's choices: a dedicated group, 24 h, a new config). Its L0 file and the config type's L0 file
+    passed; the analyzer, title, link and markdownlint gates report 0. The ladder itself is `plan-promotion-ladder`.
 
 ## Decided (2026-10-18, the user took every recommendation)
 
@@ -105,11 +109,9 @@ When a step lands, remove its claim from every article that states it (search `d
       gates on pipeline triggers pass, and a CD run log shows the check line).
 - [ ] Q2 `pipelines/cd-shared.yaml` and the other CD pipelines: the post-merge BVT runs `Test-BuildArtifact` on the CI artifact (check: a
       post-merge run on main shows it passing).
-- [ ] Q3 `automation/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1` (new): register an approval check on every prod-tier environment
-      the CD pipelines name (`*-psub`, apex `prod`), declared once in a config entry, the way `Sync-AdoBuildValidations` syncs policies
-      (check: its L0 test file passes, and a dry run lists the environments).
-- [ ] Q3 `.claude/plans/plan-promotion-ladder.md` (new): one plan for main-uat, release-uat, RC/RBC, pre-prod staging and DEPLOY (check:
-      plan-clear's verdict is keep).
+- [ ] Q3 the Azure DevOps project: the user creates the `Prod Approvers` group, runs `Sync-AdoEnvironmentApprovals -DryRun`, then the sync
+      itself; once it reports each environment Unchanged, the lifecycle articles drop the "prod with no gate" claims (check: a second run
+      reports Unchanged for all three, and a CD run to `shared-psub` waits for approval).
 - [ ] Q4 the three slides that draw what the run-modes ADR no longer names: `rule-and-gate-per-load-stage` (`build-catzc.ps1` and
       `Write-CatzcLoadBanner` as markers 7 and 8), `what-gates-each-bundle-stage` (the cached root, marker 6) and
       `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Each needs those elements removed or relabelled, with its article,

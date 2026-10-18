@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1
+# automation/Catzc.Base.QualityGates/private/Get-ModuleSourceFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -28,7 +28,7 @@ matched, and tests/assets/ holds no test files, so this picks up real test code 
 
 ## comment:2
 
-Above `$analyzerRoot = Join-Path $automationRoot '.scriptanalyzer'`, written with `#`.
+Above `$analyzerRoot = Join-Path $modulesRoot '.scriptanalyzer'`, written with `#`.
 
 ```text
 Dot-prefixed folders are skipped by the module loop above because they are not modules, but .internal and
@@ -40,7 +40,7 @@ stay excluded.)
 
 ## comment:3
 
-Above `$internalRoot = Join-Path $automationRoot '.internal'`, written with `#`.
+Above `$internalRoot = Join-Path $modulesRoot '.internal'`, written with `#`.
 
 ```text
 .internal holds the shared code the bootstrap and the Catzc modules both call (the loader, the bootstrap,

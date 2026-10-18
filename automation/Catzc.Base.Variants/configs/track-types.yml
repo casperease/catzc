@@ -54,3 +54,5 @@ vendors:
     definition: The cspell spell checker, which reads the dictionaries under .cspell.
   vscode:
     definition: Visual Studio Code, which reads the workspace settings under .vscode.
+  catzc:
+    definition: catzc itself, which reads this repository's own config fragments under .catzc.

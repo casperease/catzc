@@ -12,8 +12,8 @@ plan:
 ADR-DSGN-LIFE and ADR-FLOW-CD describe a ladder a commit climbs one rung at a time: main-uat, then release-uat behind an RC (release
 candidate) gate, then pre-prod staging behind an RBC gate, then production through a separate DEPLOY pipeline. The CD pipelines today deploy
 a stage's non-prod and prod-tier targets in one run (`nsub` and `psub`, apex's `dev` and `prod`). The prod-tier environments now carry an
-approval check (`Sync-AdoEnvironmentApprovals`, plan-explanation-drift-gaps Q3), which stops an unattended prod deploy; this plan builds
-the rest of the ladder.
+approval check (`Sync-AdoEnvironmentApprovals`, plan-explanation-drift-gaps Q3), which stops an unattended prod deploy; this plan builds the
+rest of the ladder.
 
 ## Why its value is high
 

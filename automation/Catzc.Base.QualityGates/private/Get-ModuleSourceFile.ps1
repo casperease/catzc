@@ -1,4 +1,4 @@
-function Get-AutomationSourceFiles {
+function Get-ModuleSourceFile {
     [CmdletBinding()]
     [OutputType([string[]])]
     param()
@@ -6,10 +6,10 @@ function Get-AutomationSourceFiles {
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
-    $automationRoot = Join-Path $root (Get-CatzcModulesFolder)
+    $modulesRoot = Join-Path $root (Get-CatzcModulesFolder)
     $files = [System.Collections.Generic.List[string]]::new()
 
-    $modules = Get-ChildPath $automationRoot -Directory -Depth 1 |
+    $modules = Get-ChildPath $modulesRoot -Directory -Depth 1 |
         Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }
     foreach ($moduleDir in $modules) {
         foreach ($script in Get-ChildPath $moduleDir -File -Filter '*.ps1' -Depth 1) {
@@ -33,7 +33,7 @@ function Get-AutomationSourceFiles {
         }
     }
 
-    $analyzerRoot = Join-Path $automationRoot '.scriptanalyzer'
+    $analyzerRoot = Join-Path $modulesRoot '.scriptanalyzer'
     if (Test-Path $analyzerRoot) {
         foreach ($script in Get-ChildPath $analyzerRoot -File -Filter '*.psm1' -Depth 1) {
             $files.Add($script)
@@ -46,7 +46,7 @@ function Get-AutomationSourceFiles {
         }
     }
 
-    $internalRoot = Join-Path $automationRoot '.internal'
+    $internalRoot = Join-Path $modulesRoot '.internal'
     if (Test-Path $internalRoot) {
         foreach ($script in Get-ChildPath $internalRoot -File -Filter '*.psm1' -Depth 1) {
             $files.Add($script)
@@ -63,7 +63,7 @@ function Get-AutomationSourceFiles {
     if (Test-Path $importerPath) {
         $files.Add($importerPath)
     }
-    $settingsPath = Join-Path $automationRoot '.internal/assets/PSScriptAnalyzerSettings.psd1'
+    $settingsPath = Join-Path $modulesRoot '.internal/assets/PSScriptAnalyzerSettings.psd1'
     if (Test-Path $settingsPath) {
         $files.Add($settingsPath)
     }
