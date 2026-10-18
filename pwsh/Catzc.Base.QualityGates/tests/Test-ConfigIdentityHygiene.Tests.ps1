@@ -71,8 +71,8 @@ Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
         $result = Test-ConfigIdentityHygiene -Path $script:clean, $script:leaky -OutputFolder $script:reportBase -PassThru
         $result.Subject | Should -Be 'config-identity-hygiene'
         $result.IssueCount | Should -Be 2
-        $result.FileCount | Should -Be 2
-        $result.LiveTokens | Should -Be 1
+        $result.Facts['FileCount'] | Should -Be 2
+        $result.Facts['LiveTokens'] | Should -Be 1
         Test-Path (Join-Path $result.ReportPath 'config-identity-hygiene.md') | Should -BeTrue
     }
 }

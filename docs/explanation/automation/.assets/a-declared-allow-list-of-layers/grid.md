@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "278656405a7c"
+    repo_status: locked
+    path: docs/explanation/automation/.assets/a-declared-allow-list-of-layers/grid.md
+    source: docs/explanation/automation/.assets/a-declared-allow-list-of-layers/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One declared allow-list says what may depend on what, and every edge points down: the world-map minimap
 
 ```text

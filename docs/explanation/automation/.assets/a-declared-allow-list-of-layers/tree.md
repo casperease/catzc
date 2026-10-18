@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: bd4a37496efd
+    repo_status: locked
+    path: docs/explanation/automation/.assets/a-declared-allow-list-of-layers/tree.md
+    source: docs/explanation/automation/.assets/a-declared-allow-list-of-layers/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # One declared allow-list says what may depend on what, and every edge points down: the tree minimap
 
 ```text
