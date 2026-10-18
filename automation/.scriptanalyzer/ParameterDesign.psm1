@@ -6,7 +6,8 @@ function Test-ModuleFunctionFile {
     if (-not $file) {
         return $false
     }
-    $file.Replace('\', '/') -match '/automation/[^/.][^/]*/(private/)?[^/]+\.ps1$'
+    $modulesFolder = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($PSScriptRoot))
+    $file.Replace('\', '/') -match ('/' + [regex]::Escape($modulesFolder) + '/[^/.][^/]*/(private/)?[^/]+\.ps1$')
 }
 
 function Get-ParameterFunction {

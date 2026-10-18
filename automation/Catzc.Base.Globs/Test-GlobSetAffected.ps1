@@ -8,9 +8,7 @@ function Test-GlobSetAffected {
     )
 
     $config = Get-Config -Config globs
-    if (-not $config.Contains($Name)) {
-        throw "Test-GlobSetAffected: '$Name' is not a declared globset (globs.yml)."
-    }
+    Assert-True $config.Contains($Name) -ErrorText "Test-GlobSetAffected: '$Name' is not a declared globset (globs.yml)."
 
     $range = Get-GlobSetChangeRange
     if ($null -eq $range) {

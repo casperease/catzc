@@ -14,7 +14,8 @@ function Measure-NoScriptRootAnchor {
         return @()
     }
     $normalizedPath = $file.Replace('\', '/')
-    $functionFilePattern = '/automation/[^/.][^/]*/(private/)?[^/]+\.ps1$'
+    $modulesFolder = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($PSScriptRoot))
+    $functionFilePattern = '/' + [regex]::Escape($modulesFolder) + '/[^/.][^/]*/(private/)?[^/]+\.ps1$'
     if ($normalizedPath -notmatch $functionFilePattern) {
         return @()
     }

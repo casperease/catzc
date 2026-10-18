@@ -5,7 +5,7 @@
 #     repo_status: locked
 #     path: importer.sh
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
-#     kind: script
+#     role: script
 #     language: bash
 #     filetype: sh
 #     generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1

@@ -5,7 +5,7 @@
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
-#     kind: script
+#     role: script
 #     language: bash
 #     filetype: sh
 #     generator: automation/Catzc.Base.Contracts/New-CatsCommandLookup.ps1

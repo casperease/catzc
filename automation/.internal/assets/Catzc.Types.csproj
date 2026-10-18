@@ -23,7 +23,7 @@
     repo_status: locked
     path: automation/.internal/assets/Catzc.Types.csproj
     source: automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
-    kind: asset
+    role: asset
     language: xml
     filetype: csproj
     track: automation

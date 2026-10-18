@@ -7,7 +7,7 @@
 #     source:
 #       - automation/Catzc.Base.Git/configs/gitignore.yml
 #       - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
-#     kind: other
+#     role: other
 #     generator: automation/Catzc.Base.Git/New-GitIgnore.ps1
 # ---
 

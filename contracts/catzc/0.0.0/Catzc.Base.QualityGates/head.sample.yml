@@ -1,15 +1,16 @@
 # Provided sample of a file's meta head
 # ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): the shape a tool may rely on when it reads the
 # `catzc.immutable` and `catzc.edges` parts of a head, written by Format-FileMeta in the carrier of the file (a comment head, or Markdown
-# front matter). Every key is optional except `path` and `kind`, and a fact a file has no value for is left out. Its schema,
-# head.schema.json, lists the keys.
+# front matter). Every key is optional except `path` and `role`, and a fact a file has no value for is left out. The role is the
+# name of the file-kinds entry that selects the file; the kind of the object it belongs to is its track's type, `tracktype`. Its
+# schema, head.schema.json, lists the keys.
 catzc:
   immutable:
     repo_status: clean
     path: automation/Catzc.Widget/Get-Gadget.ps1
     name: get-gadget
     filetype: ps1
-    kind: function
+    role: function
     subkind: gate
     language: powershell
     track: automation

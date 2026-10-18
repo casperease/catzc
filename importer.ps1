@@ -6,7 +6,7 @@ catzc:
     repo_status: locked
     path: importer.ps1
     source: automation/.internal/Catzc.Internal.Importer.psm1
-    kind: script
+    role: script
     language: powershell
     filetype: ps1
     generator: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
