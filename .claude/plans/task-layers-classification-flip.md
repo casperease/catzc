@@ -4,7 +4,7 @@ task:
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
   blocked_on: P3 after task-layers-funnel; P4 and P6 on the user's explicit go (D10), in a quiet window with no peer-dirty files
-  targets: [docs/explanation/automation, docs/how-to/automation, docs/references/pwsh, automation, .catzc, out, .github, pipelines]
+  targets: [docs/explanation/automation, docs/how-to/automation, docs/references/pwsh, pwsh, out, .github, pipelines]
 ---
 
 # Task: layers P3 classification, then the flip P4 and the pipeline names P6
