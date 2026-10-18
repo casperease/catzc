@@ -52,10 +52,6 @@ The diagram is described element by element in [its asset description](names-are
 An external name collision on a globally unique type also fails the deploy. That is Azure's behaviour, which the ADR states: the fix is the
 same, adjust the slot or the `short_name`, and there is no automatic hash.
 
-## Where the code and the ADR differ
-
-The ADR says the limit throw names which components to shorten; the code always lists the same four.
-
 ## See also
 
 - [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — the decision this article explains.

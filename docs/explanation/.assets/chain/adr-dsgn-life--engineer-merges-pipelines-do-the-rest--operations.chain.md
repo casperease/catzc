@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.chain.md
     source: docs/explanation/.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

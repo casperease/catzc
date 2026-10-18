@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.chain.md
     source: docs/explanation/.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

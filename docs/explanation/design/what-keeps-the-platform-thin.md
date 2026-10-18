@@ -28,7 +28,7 @@ The diagram is described element by element in [its asset description](what-keep
 
 1. **NoAzModuleNaming.** A custom PSScriptAnalyzer rule that flags any function named like an Az PowerShell cmdlet (`Verb-Az<Noun>`),
    allowing only the `Azure`, `AzCli` and `AzBicep` prefixes. It runs inside `Test-Automation` on every devbox run and in CI, and the
-   analyzer map credits it to ADR-AZ-CLI#3.
+   analyzer map credits it to ADR-AZ-CLI#7.
 2. **Verb-Noun functions.** The CLI surface: the public functions are the only thing a consumer binds to. The code delivers that surface,
    but no gate checks that consumers bind to nothing else.
 3. **Config validation.** The configuration the functions read is checked before they act. The `AzureConfig` type validates `azure.yml` when
@@ -59,13 +59,10 @@ The diagram is described element by element in [its asset description](what-keep
 
 ## Where the code and the ADR differ
 
-- The analyzer map credits `NoAzModuleNaming` to ADR-AZ-CLI#3, which forbids `Import-Module Az.*`, but the rule checks function names, not
-  imports.
 - The pipeline step template still offers `Mode: azps` (AzurePowerShell@5), and the CI pipeline exercises it, beside ADR-AZ-CLI's az-first
   rule.
 - The ADR says consumers call `Get-Azure*` and `New-*` verbs; the only `New-*` function in the Azure modules is `New-AdoPullRequest`, and
   the deploy verbs are `Build-Bicep` and `Deploy-Bicep`.
-- `Get-AdoAuthorizationHeader` calls az without asserting `Assert-Tool 'az_cli'`, which ADR-AZ-CLI#2 asks of every function that calls az.
 
 ## See also
 

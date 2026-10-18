@@ -59,11 +59,6 @@ for `rg`, 64 for `vnet` and 63 for `sql`.
 - Every component is lowercase and validated case-sensitively (ADR-AZ-NAMING#6).
 - A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING#7).
 
-## Where the code and the ADR differ
-
-The ADR says the limit throw names which components to shorten; the code always lists the same four, `short_name`, slot, customer and role,
-and the namer's help text repeats the ADR's wording.
-
 ## See also
 
 - [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — the decision this article explains.

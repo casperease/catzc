@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md
     source: docs/explanation/.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

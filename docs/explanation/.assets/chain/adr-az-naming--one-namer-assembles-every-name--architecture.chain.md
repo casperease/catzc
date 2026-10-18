@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
     source: docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
     source: docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

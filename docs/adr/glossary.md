@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e2cb9426eaef
-    with_inputs_sha: "68d2547906cd1f16c864cd67cac1ed19c991dba96b8da37919ab359ab0749e97"
+    with_body_sha: ae408ce5b4b5
+    with_inputs_sha: "9bca7d29e3d8c90de6be7c66605b562c5997f24e21710f1f0ca47805dc5a1f08"
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -184,9 +184,9 @@ set of them.
   - [file type](#file-type): A file type is the single extension of one file; a file language groups the extensions of one kind of text.
   - [implementation language](#implementation-language): An implementation language is a file language a command is written in; a file
     language is any language the registry names by extension.
-  - [kind](#kind): A kind is the role a file plays, what it is for; a file language is the kind of text it holds.
   - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; a file language is the
     kind of text one file holds.
+  - [role](#role): A role is the part a file plays, what it is for; a file language is the sort of text it holds.
   - [track](#track): A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it
     lives.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file
@@ -351,11 +351,11 @@ type.
     the cluster of module contents itself.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the cluster the
     file lives in, and its tech-stack is a set of file languages.
-  - [kind](#kind): A kind is the role a file plays, wherever it lives; a track is the cluster the file lives in.
   - [module](#module): A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
   - [module type](#module-type): A module type is the sort of module found at a place; a track is a cluster of places and the concern it
     holds.
   - [place](#place): A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
+  - [role](#role): A role is the part a file plays, wherever it lives; a track is the cluster the file lives in.
   - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of
     places and every file under them.
   - [track type](#track-type): A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
@@ -373,9 +373,9 @@ documentation, verification, or unordered.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [kind](#kind): A kind is the role a file plays; a track type is the sort of cluster the file lives in.
   - [module type](#module-type): A module type is the sort of module placed in a track; a track type is the sort of track, and admits module
     types.
+  - [role](#role): A role is the part a file plays; a track type is the sort of cluster the file lives in.
   - [track](#track): A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that
     sort.
 
@@ -1228,7 +1228,7 @@ The extension of a file's name, which tells the sorts of file inside one languag
 - **Contrasts:**
   - [file language](#file-language): A file language groups the extensions of one kind of text; a file type is the single extension of one
     file.
-  - [kind](#kind): A kind is the role a file plays; a file type is how its name ends.
+  - [role](#role): A role is the part a file plays; a file type is how its name ends.
   - [subkind](#subkind): A subkind is a narrower role, whatever the name; a file type is how a file's name ends.
 
 ### imprint step
@@ -1251,24 +1251,6 @@ A sibling repository declared in inspiration.yml and read for ideas, never as a 
 | Avoid                | Say instead |
 | -------------------- | ----------- |
 | `inspiration source` | inspiration |
-
-### kind
-
-The role a file plays, such as a test, a function, a config or a decision record, named by the file-kinds registry and never by the file's
-language, track or module.
-
-- **Defined by:** [ADR-REPO-FILEMETA#11](repository/file-meta.md#rule-adr-repo-filemeta11)
-- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Contrasts:**
-  - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a kind is what the file is
-    for.
-  - [file type](#file-type): A file type is how a file's name ends; a kind is the role the file plays.
-  - [meta kind](#meta-kind): A meta kind is a registry entry that says which derived fact goes into a head; a kind is the role one file
-    plays.
-  - [subkind](#subkind): A subkind is one narrower role under a kind, and a file has at most one; a kind is the role itself.
-  - [track](#track): A track is the cluster a file lives in; a kind is the role it plays, wherever it lives.
-  - [track type](#track-type): A track type is the sort of cluster a file lives in; a kind is the role the file plays, wherever it lives.
 
 ### language zone
 
@@ -1346,9 +1328,9 @@ files, with the files it applies to, the keys it owns and, for a gather kind, th
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [kind](#kind): A kind is the role one file plays; a meta kind is a registry entry that says which derived fact goes into a head.
   - [meta block](#meta-block): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
     across files.
+  - [role](#role): A role is the part one file plays; a meta kind is a registry entry that says which derived fact goes into a head.
 
 ### model floor
 
@@ -1401,6 +1383,24 @@ carrying it.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 
+### role
+
+The part a file plays, such as a test, a function, a config or a decision record, named by the file-kinds registry and never by the file's
+language, track or module.
+
+- **Defined by:** [ADR-REPO-FILEMETA#11](repository/file-meta.md#rule-adr-repo-filemeta11)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [file language](#file-language): A file language is the sort of text a file holds, named by its extension; a role is what the file is
+    for.
+  - [file type](#file-type): A file type is how a file's name ends; a role is the part the file plays.
+  - [meta kind](#meta-kind): A meta kind is a registry entry that says which derived fact goes into a head; a role is the part one file
+    plays.
+  - [subkind](#subkind): A subkind is one narrower role under a role, and a file has at most one; a role is the part itself.
+  - [track](#track): A track is the cluster a file lives in; a role is the part it plays, wherever it lives.
+  - [track type](#track-type): A track type is the sort of cluster a file lives in; a role is the part the file plays, wherever it lives.
+
 ### scope
 
 What something reaches, always qualified — a PowerShell scope (module, script, global), an install scope (user, machine), or a selection
@@ -1445,14 +1445,14 @@ Where something comes from, always qualified — a source mode, run, or tree; a 
 
 ### subkind
 
-The narrowing of a kind, such as a gate among the functions, written under its kind in the file-kinds registry.
+The narrowing of a role, such as a gate among the functions, written under its role in the file-kinds registry.
 
 - **Defined by:** [ADR-REPO-FILEMETA#11](repository/file-meta.md#rule-adr-repo-filemeta11)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
   - [file type](#file-type): A file type is how a file's name ends; a subkind is a narrower role, whatever the name.
-  - [kind](#kind): A kind is the role a file plays; a subkind is one narrower role under it, and a file has at most one.
+  - [role](#role): A role is the part a file plays; a subkind is one narrower role under it, and a file has at most one.
 
 ### workstream
 

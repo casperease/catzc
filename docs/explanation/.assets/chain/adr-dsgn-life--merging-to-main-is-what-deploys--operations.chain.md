@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-life--merging-to-main-is-what-deploys--operations.chain.md
     source: docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

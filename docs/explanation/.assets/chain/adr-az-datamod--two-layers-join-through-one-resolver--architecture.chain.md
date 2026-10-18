@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-az-datamod--two-layers-join-through-one-resolver--architecture.chain.md
     source: docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

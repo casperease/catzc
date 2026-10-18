@@ -49,11 +49,6 @@ The diagram is described element by element in [its asset description](every-ven
 - az is the default for every Azure operation, called through `Invoke-Executable` (ADR-AZ-CLI#1); a function that calls az asserts it with
   `Assert-Tool 'az_cli'` first (ADR-AZ-CLI#2); and automation code never imports `Az.*` (ADR-AZ-CLI#3).
 
-## Where the code and the ADR differ
-
-`Get-AdoAuthorizationHeader` in `Catzc.Azure.DevOps` calls az directly and never asserts `Assert-Tool 'az_cli'`, which ADR-AZ-CLI#2 asks of
-every function that calls az. It still leaves through az, so the finding holds.
-
 ## See also
 
 - [Thin platforms](../../adr/design/thin-platforms.md) — the decision this article explains.

@@ -1,8 +1,8 @@
 Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic', 'ADR-PWSH-ANNOUNCE#8' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/AnnounceStateChange.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/AnnounceStateChange.psm1') -Force
         if (-not (Get-Module PSScriptAnalyzer)) {
-            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+            Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }
 
         function Test-StateChange {
@@ -146,9 +146,9 @@ function Invoke-Widget {
 
 Describe 'Measure-PersistentWriteThroughSeam' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#33' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/AnnounceStateChange.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/AnnounceStateChange.psm1') -Force
         if (-not (Get-Module PSScriptAnalyzer)) {
-            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+            Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }
 
         function Test-PersistentWrite {

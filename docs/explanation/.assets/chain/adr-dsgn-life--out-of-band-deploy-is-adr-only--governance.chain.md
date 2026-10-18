@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.chain.md
     source: docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

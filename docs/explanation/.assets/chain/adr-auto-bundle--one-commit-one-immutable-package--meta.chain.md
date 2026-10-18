@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
     source: docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

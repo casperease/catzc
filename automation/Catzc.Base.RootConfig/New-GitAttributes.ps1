@@ -6,7 +6,7 @@ function New-GitAttributes {
     $placeholder = '{{file-kind-attributes}}'
     $width = 118
 
-    $templatePath = Get-CatzcModuleRoot 'assets/root/gitattributes.template'
+    $templatePath = Get-CatzcModuleRoot 'assets/root/.gitattributes-template'
     Assert-PathExist $templatePath
     $template = [System.IO.File]::ReadAllText($templatePath) -replace "`r`n", "`n"
 

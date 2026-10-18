@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md
     source: docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

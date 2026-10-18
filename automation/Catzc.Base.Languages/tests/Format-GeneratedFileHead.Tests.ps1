@@ -27,7 +27,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'writes the unified head with the generator and the source, in the comment style of the file language' {
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Generator New-Widget -Source 'docs/widget.yml' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     role:widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     tracktype: documentation`n#     generator: widgets/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     role: widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     tracktype: documentation`n#     generator: widgets/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
     }
 
     It 'writes the inputs stamp right after the body hash when given, and leaves it out otherwise' {
@@ -40,10 +40,10 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'leaves the generator and the source out when the file has none, and lists several sources' {
         $bare = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $bare | Should -BeExactly "/*`n---`ncatzc:`n  immutable:`n    with_body_sha: `"9e2ec912af5d`"`n    repo_status: locked`n    path: docs/gen.gdg`n    role:widget`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n---`n*/`n`nbody`n"
+        $bare | Should -BeExactly "/*`n---`ncatzc:`n  immutable:`n    with_body_sha: `"9e2ec912af5d`"`n    repo_status: locked`n    path: docs/gen.gdg`n    role: widget`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n---`n*/`n`nbody`n"
 
         $many = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -Generator New-Gadget -Source 'a/one.yml', 'a/two.yml' -FileKind $script:narrowRole -Carriers $script:carriers -Languages $script:languages
-        $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    role:gadget`n    subkind: cog`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n    generator: widgets/Catzc.Widget/New-Gadget.ps1`n---*"
+        $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    role: gadget`n    subkind: cog`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n    generator: widgets/Catzc.Widget/New-Gadget.ps1`n---*"
     }
 
     It 'leaves the language, the track and the module out for a root file no language lists' {
@@ -63,10 +63,10 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'writes the role the caller names, and the subkind only when the file has one' {
         $plain = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $plain | Should -BeLike "*#     role:widget`n#     language:*"
+        $plain | Should -BeLike "*#     role: widget`n#     language:*"
         $plain | Should -Not -BeLike '*subkind:*'
         $sub = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.wdg' -FileKind $script:narrowRole -Carriers $script:carriers -Languages $script:languages
-        $sub | Should -BeLike "*#     role:gadget`n#     subkind: cog`n#     language:*"
+        $sub | Should -BeLike "*#     role: gadget`n#     subkind: cog`n#     language:*"
     }
 
     It 'opens the head with the hash of the body, which the head itself and the line endings never move' {
@@ -96,7 +96,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $bare = Format-PropertyMetaHead -Text $json -Property '$comment' -Strip @('GENERATED FILE') -Immutable ([ordered]@{})
         $hash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($bare)
         $text = Format-GeneratedFileHead -Text $json -Path 'docs/gen.schema.dat' -Carrier schema -Generator New-Schema -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    with_body_sha: \`"$hash\`"\n    repo_status: locked\n    path: docs/gen.schema.dat\n    role:widget\n    language: data\n    filetype: dat\n    track: docs\n    tracktype: documentation\n    generator: widgets/Catzc.Widget/New-Schema.ps1`",`n  `"type`": `"object`"`n}`n"
+        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    with_body_sha: \`"$hash\`"\n    repo_status: locked\n    path: docs/gen.schema.dat\n    role: widget\n    language: data\n    filetype: dat\n    track: docs\n    tracktype: documentation\n    generator: widgets/Catzc.Widget/New-Schema.ps1`",`n  `"type`": `"object`"`n}`n"
     }
 
     It 'refuses a carrier that holds no head, and an undeclared carrier' {

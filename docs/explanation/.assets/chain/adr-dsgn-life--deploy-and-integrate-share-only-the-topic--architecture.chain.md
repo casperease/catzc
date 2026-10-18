@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.chain.md
     source: docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

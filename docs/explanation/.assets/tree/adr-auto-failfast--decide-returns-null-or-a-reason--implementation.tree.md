@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-naming--names-are-derived-never-typed--operations.tree.md
     source: docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

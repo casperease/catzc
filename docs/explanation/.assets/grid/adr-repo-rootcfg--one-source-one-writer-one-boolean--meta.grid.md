@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.grid.md
     source: docs/explanation/.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

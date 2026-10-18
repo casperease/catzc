@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md
     source: docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

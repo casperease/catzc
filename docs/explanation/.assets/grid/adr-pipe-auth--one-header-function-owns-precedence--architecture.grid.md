@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-pipe-auth--one-header-function-owns-precedence--architecture.grid.md
     source: docs/explanation/.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md
     source: docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

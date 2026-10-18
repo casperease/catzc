@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

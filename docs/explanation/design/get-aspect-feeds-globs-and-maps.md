@@ -48,8 +48,8 @@ The diagram is described element by element in [its asset description](get-aspec
    plus the aspect: `catzc-base-globs-live` includes the five patterns under `automation/Catzc.Base.Globs/` and excludes nothing.
 8. **The tests set.** `catzc-base-globs-tests` includes `automation/Catzc.Base.Globs/**` and excludes the live patterns, so it is the
    remainder. Three more includes reach outside the module root: the module's Go, Python and Bash test folders.
-9. **Get-WorldMap.** The world-map entry point of `Catzc.Base.Maps`. It reads the `aspects` map from the variants config and calls
-   `Get-Aspect -Track <track>` for every track that has an entry, infrastructure included, then hands the lists to the builder.
+9. **Get-WorldMap.** The world-map entry point of `Catzc.Base.Maps`. It asks `Test-AspectDeclaration` which tracks have an entry and calls
+   `Get-Aspect -Track <track>` for each of them, infrastructure included, then hands the lists to the builder.
 10. **WorldMapBuilder.IsLive.** The builder's classifier. A file of a verification track or under a `.vendor/` folder is not live; a track
     without an entry is live throughout; otherwise the unit-relative path is tried against the track's aspects in order, and the first
     pattern that matches decides: live exactly when that aspect is named `live`. The patterns are compiled as plain `GlobPattern`s, not as a

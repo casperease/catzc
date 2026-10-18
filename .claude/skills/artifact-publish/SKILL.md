@@ -14,7 +14,7 @@ metadata:
       folder: skills/artifact-publish
       name: skill
       filetype: md
-      kind: capability
+      role: capability
       language: markdown
       track: ".claude"
       tracktype: vendor-settings

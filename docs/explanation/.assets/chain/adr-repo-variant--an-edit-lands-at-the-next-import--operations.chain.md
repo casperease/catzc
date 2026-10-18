@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-repo-variant--an-edit-lands-at-the-next-import--operations.chain.md
     source: docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

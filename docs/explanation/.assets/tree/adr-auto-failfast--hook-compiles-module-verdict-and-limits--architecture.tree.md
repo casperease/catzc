@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

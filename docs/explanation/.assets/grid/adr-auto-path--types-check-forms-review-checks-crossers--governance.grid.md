@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-path--types-check-forms-review-checks-crossers--governance.grid.md
     source: docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.grid.md
     source: docs/explanation/.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

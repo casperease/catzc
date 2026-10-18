@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.tree.md
     source: docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

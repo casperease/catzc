@@ -4,10 +4,10 @@ param()
 Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
     BeforeAll {
         if (-not (Get-Module PSScriptAnalyzer)) {
-            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+            Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }
         # The shipped wiring: exactly what the settings file hands the engine.
-        $settings = Import-PowerShellDataFile (Join-Path $env:RepositoryRoot 'automation/.internal/assets/PSScriptAnalyzerSettings.psd1')
+        $settings = Import-PowerShellDataFile (Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1')
         $script:rulePaths = @($settings.CustomRulePath | ForEach-Object { Join-Path $env:RepositoryRoot $_ })
         $script:analyzerSettings = @{ CustomRulePath = [string[]] $script:rulePaths; IncludeRules = [string[]] @('Measure-*') }
 

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.tree.md
     source: docs/explanation/.assets/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

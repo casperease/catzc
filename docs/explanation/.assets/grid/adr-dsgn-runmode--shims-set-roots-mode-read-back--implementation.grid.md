@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

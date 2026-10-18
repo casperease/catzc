@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-conf-addressing--type-an-address-get-the-value--operations.tree.md
     source: docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

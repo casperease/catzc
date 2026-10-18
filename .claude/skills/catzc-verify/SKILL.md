@@ -13,7 +13,7 @@ metadata:
       folder: skills/catzc-verify
       name: skill
       filetype: md
-      kind: capability
+      role: capability
       language: markdown
       track: ".claude"
       tracktype: vendor-settings

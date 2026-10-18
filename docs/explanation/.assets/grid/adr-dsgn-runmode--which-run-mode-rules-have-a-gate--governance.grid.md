@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.grid.md
     source: docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

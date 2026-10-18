@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-bundle--two-entries-feed-one-importer--architecture.grid.md
     source: docs/explanation/.assets/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

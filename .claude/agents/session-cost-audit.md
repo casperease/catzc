@@ -20,7 +20,7 @@ catzc:
     folder: agents
     name: session-cost-audit
     filetype: md
-    kind: agent
+    role: agent
     language: markdown
     track: ".claude"
     tracktype: vendor-settings

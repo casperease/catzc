@@ -132,15 +132,16 @@ its own in its code: the head is the one place a code file names its relatives.
 
 ### Rule ADR-REPO-FILEMETA:11
 
-The **kind** of a file is the role it plays, such as a test, a function, a config or a decision record, and never its language, track or
-module, which are facts of their own. A **subkind** narrows a kind, such as a gate among the functions, and a **file type** is the extension
-of the file's name, which tells the sorts of file inside one language apart. The path of a file under its module (the whole path for a file
-in no module) is made of exactly three parts, written as `folder` (optional, left out for a file directly in the module), `name` (the file's
-name without its file type, in kebab case) and `filetype`, and reading them asserts that they build the path back, so a path made of
-anything else stops the run. The kinds, their one-sentence definitions and the globs that select them are one registry, `file-kinds.yml`,
-local to catzc and global to every file: the first kind whose globs match a path names it, a path no kind selects is `other`, an earlier
-kind that takes most of a later kind's files is an overlap the registry lists on purpose, a meta kind selects files by their kind and
-subkind and never by glob, and a consumer extends the registry with a config fragment. A provided contract pins the kind and subkind names.
+The **role** of a file is the part it plays, such as a test, a function, a config or a decision record, and never its language, track or
+module, which are facts of their own; a head writes it as `role`. A **subkind** narrows a role, such as a gate among the functions, and a
+**file type** is the extension of the file's name, which tells the sorts of file inside one language apart. The path of a file under its
+module (the whole path for a file in no module) is made of exactly three parts, written as `folder` (optional, left out for a file directly
+in the module), `name` (the file's name without its file type, in kebab case) and `filetype`, and reading them asserts that they build the
+path back, so a path made of anything else stops the run. The roles, their one-sentence definitions and the globs that select them are the
+entries of one registry, `file-kinds.yml`, local to catzc and global to every file: the first entry whose globs match a path names its role,
+a path no entry selects is `other`, an earlier entry that takes most of a later entry's files is an overlap the registry lists on purpose, a
+meta kind selects files by their role and subkind and never by glob, and a consumer extends the registry with a config fragment. A provided
+contract pins the role and subkind names.
 
 - [File kinds](#file-kinds)
 
@@ -331,12 +332,12 @@ whose file does not exist is not written, so an entry in the head is always a wo
 
 ### File kinds
 
-`A file's kind is its role, and one registry names every kind`
+`A file's role is one fact, and one registry names every role`
 
 A file has a language, a track, a module and a role, and each is a fact of its own. Folding the language into the role, a Python script and
-a PowerShell script as two kinds, makes the same fact twice and a head that disagrees with itself. So the kind says only what the file is
-for: a test, a function, a config, a decision record. The registry holds each kind with a one-sentence definition and the globs that select
-it, in the order they are checked, with the subkinds of a kind written under it, and it is the one place a glob for a file's role is
+a PowerShell script as two roles, makes the same fact twice and a head that disagrees with itself. So the role says only what the file is
+for: a test, a function, a config, a decision record. The registry holds each role with a one-sentence definition and the globs that select
+it, in the order they are checked, with the subkinds of a role written under it, and it is the one place a glob for a file's role is
 written. It is local to catzc and global to every file, so a head and every gate say the same thing about a file, and a consumer extends it
 with a config fragment instead of editing it. A provided contract pins the names, so a tool that reads a head may rely on them.
 

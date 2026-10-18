@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-pipe-auth--configured-credential-proves-its-org--meta.chain.md
     source: docs/explanation/.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

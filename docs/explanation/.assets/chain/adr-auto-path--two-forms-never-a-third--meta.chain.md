@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-auto-path--two-forms-never-a-third--meta.chain.md
     source: docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

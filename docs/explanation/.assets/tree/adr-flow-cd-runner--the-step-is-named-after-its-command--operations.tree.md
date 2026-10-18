@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
     source: docs/explanation/.assets/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

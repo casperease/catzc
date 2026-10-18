@@ -51,8 +51,8 @@ letter — only `slot` may be all-digit.
 
 ### Rule ADR-AZ-NAMING:7
 
-Never truncate to fit — the namer computes the render and throws at deploy time if it exceeds the type's limit, naming which components to
-shorten (silent truncation collides on globally-unique types).
+Never truncate to fit — the namer computes the render and throws at deploy time if it exceeds the type's limit, listing the components that
+can be shortened (silent truncation collides on globally-unique types).
 
 - [Length budget](#length-budget)
 
@@ -165,8 +165,8 @@ customer shortcode is what buys this — a 4-char customer code would push the s
 (hyphenated, 24) carries a customer comfortably (~22) but cannot also take the slot + role segments at `short_name`=5. The **`vm`** pattern
 (15) **omits** `org`, `customer`, and `role` (the resource group already encodes them), so it renders
 `<env_sc>[<slot>]<region><short_name>vm` — e.g. `de001weuwkspvm` (14) — and fits 15 even with a slot. A customer therefore never appears in
-a VM name. The namer computes the render and **throws at deploy time** if it exceeds the target type's limit, naming which components to
-shorten. Never truncate silently (truncation collides on globally-unique types).
+a VM name. The namer computes the render and **throws at deploy time** if it exceeds the target type's limit, listing the components that
+can be shortened. Never truncate silently (truncation collides on globally-unique types).
 
 ### Character & case rules
 

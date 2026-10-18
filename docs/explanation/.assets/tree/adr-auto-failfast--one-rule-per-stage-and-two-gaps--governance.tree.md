@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

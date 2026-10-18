@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.tree.md
     source: docs/explanation/.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

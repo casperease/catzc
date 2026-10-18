@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--every-code-root-is-a-copy--architecture.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

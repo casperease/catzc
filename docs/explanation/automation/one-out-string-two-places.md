@@ -52,8 +52,7 @@ operates that type today, because no production code calls it.
 
 ## Where the code and the ADR differ
 
-- The ADR names `ArtifactRef` the primary enforcement of the cross-stage rule; today only its tests call it.
-- The ADR defines binding form as normalized; a rooted input to `Resolve-RepoPath` is returned exactly as given.
+The ADR names `ArtifactRef` the primary enforcement of the cross-stage rule; today only its tests call it.
 
 ## See also
 

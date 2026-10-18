@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.chain.md
     source: docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

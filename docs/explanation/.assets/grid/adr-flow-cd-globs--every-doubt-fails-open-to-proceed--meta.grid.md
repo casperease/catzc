@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

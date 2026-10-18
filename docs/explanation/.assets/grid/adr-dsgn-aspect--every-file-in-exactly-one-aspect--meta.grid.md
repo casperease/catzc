@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.grid.md
     source: docs/explanation/.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

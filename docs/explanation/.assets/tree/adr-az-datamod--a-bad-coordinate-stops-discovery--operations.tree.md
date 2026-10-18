@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.tree.md
     source: docs/explanation/.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

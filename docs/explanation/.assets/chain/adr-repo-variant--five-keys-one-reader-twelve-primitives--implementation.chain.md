@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.chain.md
     source: docs/explanation/.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

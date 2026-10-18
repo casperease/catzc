@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.tree.md
     source: docs/explanation/.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

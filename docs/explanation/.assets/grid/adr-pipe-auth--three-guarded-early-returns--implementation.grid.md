@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-pipe-auth--three-guarded-early-returns--implementation.grid.md
     source: docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

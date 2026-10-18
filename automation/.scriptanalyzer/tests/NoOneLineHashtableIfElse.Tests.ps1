@@ -1,9 +1,9 @@
 Describe 'Measure-NoOneLineHashtableIfElse' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT#10' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoOneLineHashtableIfElse.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoOneLineHashtableIfElse.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.
         if (-not (Get-Module PSScriptAnalyzer)) {
-            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+            Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }
 
         function Test-HashtableCode {

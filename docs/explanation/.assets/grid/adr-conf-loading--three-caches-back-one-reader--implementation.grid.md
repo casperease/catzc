@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
     source: docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
     source: docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

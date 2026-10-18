@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

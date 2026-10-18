@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-naming--names-are-pure-and-never-truncated--meta.grid.md
     source: docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

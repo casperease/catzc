@@ -11,7 +11,7 @@ metadata:
       folder: skills/report-fixed
       name: skill
       filetype: md
-      kind: capability
+      role: capability
       language: markdown
       track: ".claude"
       tracktype: vendor-settings

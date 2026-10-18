@@ -30,8 +30,8 @@ The diagram is described element by element in [its asset description](values-an
    `have_customers` that is not a boolean, `all` or a list of unique names, and an `aspects` or `tracks` map of the wrong shape. Every
    violation goes into one throw. An integrity test loads the shipped file through it.
 3. **Get-Variant.** Rule 2 makes the private reader the single access point, and no gate checks it: nothing asserts that the function stays
-   private, and nothing scans the modules for a direct read of the loaded config. Today one caller, `Get-WorldMap` in `Catzc.Base.Maps`,
-   reads the `aspects` key straight off `Get-Config -Config variants`, and nothing catches it.
+   private, and nothing scans the modules for a direct read of the loaded config. Today `Get-Aspect` and `Test-AspectDeclaration` in
+   `Catzc.Base.Modules` read the `aspects` key straight off `Get-Config -Config variants`, and nothing catches it.
 4. **Code review.** The ADR's enforcement section names a third mechanism beside the two gates: review keeps new repo-wide switches in this
    module, as variants with their own primitives, rather than as ad-hoc config reads or environment variables. It stands alone: no code runs
    or checks it.
@@ -53,7 +53,8 @@ The diagram is described element by element in [its asset description](values-an
 
 ## Where the code and the ADR differ
 
-- The ADR makes `Get-Variant` the single access point; `Get-WorldMap` reads the loaded config directly, and no gate catches it.
+- The ADR makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the loaded
+  config directly, and no gate catches it.
 - The ADR promises `Test-`/`Assert-` guards for each variant; `git_workspace` has no `Assert-`, `aspects` and `tracks` have only `Get-`, and
   no gate checks the set of primitives either.
 

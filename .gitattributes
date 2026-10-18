@@ -5,7 +5,7 @@
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
-#       - automation/Catzc.Base.RootConfig/assets/root/gitattributes.template
+#       - automation/Catzc.Base.RootConfig/assets/root/.gitattributes-template
 #       - automation/Catzc.Base.Globs/configs/file-kinds.yml
 #     role: other
 #     generator: automation/Catzc.Base.RootConfig/New-GitAttributes.ps1

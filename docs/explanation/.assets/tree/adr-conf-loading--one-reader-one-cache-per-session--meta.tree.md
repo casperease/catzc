@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-conf-loading--one-reader-one-cache-per-session--meta.tree.md
     source: docs/explanation/.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

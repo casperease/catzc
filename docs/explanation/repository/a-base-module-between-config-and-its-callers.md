@@ -57,8 +57,8 @@ The diagram is described element by element in [its asset description](a-base-mo
 ## Where the code and the ADR differ
 
 - The ADR lists Tooling among the real consumers; the declaration allows it, and no Tooling module calls a primitive.
-- The ADR makes `Get-Variant` the single access point; `Get-WorldMap` in Maps reads the `aspects` key straight off the loaded config, beside
-  its `Get-Track` and `Get-Aspect` calls.
+- The ADR makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the `aspects`
+  key straight off the loaded config.
 
 ## See also
 

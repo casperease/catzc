@@ -7,7 +7,7 @@ catzc:
     folder: docs
     name: index
     filetype: md
-    kind: index
+    role: index
     language: markdown
     track: docs
     tracktype: documentation

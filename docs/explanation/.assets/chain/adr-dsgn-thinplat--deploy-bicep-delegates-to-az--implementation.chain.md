@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.chain.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -30,9 +30,10 @@ that stamps no head leaves its output unprovable.
 - [ ] Phase 0, the unstamped writers: every generated file's writer stamps its head through the one head function (check:
       Test-GeneratedFiles reports Unstamped 0). 2026-10-18: the minimaps are stamped by `.claude/drawio/minimaps/stamp.ps1` (447 pages), the
       compiled-types manifest takes `carrier: none` (the user's decision), and the RootConfig template is renamed
-      `assets/root/gitattributes.template` (the user's choice); `Unstamped: 2`, `importer.ps1` and `importer.sh`, because git falls back to
-      the index copy of a `.gitattributes` missing from the working tree and the old template is still staged. The count reaches 0 once the
-      user commits the rename; then this step is ticked with the re-run's verdict and the plan is deleted.
+      `assets/root/.gitattributes-template` (the user's choice; a dotfile has no extension, so the world map's stack check passes);
+      `Unstamped: 2`, `importer.ps1` and `importer.sh`, because git falls back to the index copy of a `.gitattributes` missing from the
+      working tree and the old template is still staged. The count reaches 0 once the user commits the rename; then this step is ticked with
+      the re-run's verdict and the plan is deleted.
 
 ## Refs
 

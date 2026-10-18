@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

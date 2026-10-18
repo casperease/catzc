@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md
     source: docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

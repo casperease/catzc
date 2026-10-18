@@ -1,6 +1,6 @@
 Describe 'Test-AnalyzedFileIsTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        . (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1')
+        . (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/Test-AnalyzedFileIsTest.ps1')
         $script:fromFile = {
             param([string] $Name, [string] $Code)
             $path = Join-Path $TestDrive $Name

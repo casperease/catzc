@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.grid.md
     source: docs/explanation/.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-depm--three-layers-edges-point-down--architecture.grid.md
     source: docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

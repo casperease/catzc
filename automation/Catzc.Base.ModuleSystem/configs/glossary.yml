@@ -110,7 +110,7 @@ concepts:
         under them.
       value-chain concern:
         A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster where files live.
-      kind: A kind is the role a file plays, wherever it lives; a track is the cluster the file lives in.
+      role: A role is the part a file plays, wherever it lives; a track is the cluster the file lives in.
       module type: A module type is the sort of module found at a place; a track is a cluster of places and the concern it holds.
       track type: A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
       place: A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
@@ -145,7 +145,7 @@ concepts:
     contrasts:
       track: A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that sort.
       module type: A module type is the sort of module placed in a track; a track type is the sort of track, and admits module types.
-      kind: A kind is the role a file plays; a track type is the sort of cluster the file lives in.
+      role: A role is the part a file plays; a track type is the sort of cluster the file lives in.
   deployable track:
     key: deployable_track
     domain: design
@@ -226,7 +226,7 @@ concepts:
       unlisted file:
         An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file language is a registered
         kind of text, named by its extensions.
-      kind: A kind is the role a file plays, what it is for; a file language is the kind of text it holds.
+      role: A role is the part a file plays, what it is for; a file language is the sort of text it holds.
       file type: A file type is the single extension of one file; a file language groups the extensions of one kind of text.
   unlisted file:
     key: unlisted_file

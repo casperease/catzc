@@ -1,8 +1,8 @@
 Describe 'Measure-NoAzModuleNaming' -Tag 'L0', 'logic' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoAzModuleNaming.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoAzModuleNaming.psm1') -Force
         if (-not (Get-Module PSScriptAnalyzer)) {
-            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+            Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }
 
         function Test-AzureNaming {

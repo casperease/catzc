@@ -54,11 +54,6 @@ The diagram is described element by element in [its asset description](how-each-
 - A name is never truncated to fit; the namer throws instead (ADR-AZ-NAMING#7).
 - The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING#8).
 
-## Where the code and the ADR differ
-
-- The ADR says the limit throw names which components to shorten; the code always lists `short_name`, slot, customer and role.
-- The ADR makes `options.yml` optional; the integrity test's message says `options.yml` must declare a `short_name`.
-
 ## See also
 
 - [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — the decision this article explains.

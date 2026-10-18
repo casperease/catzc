@@ -17,7 +17,7 @@ catzc:
     folder: agents
     name: plan-clear
     filetype: md
-    kind: agent
+    role: agent
     language: markdown
     track: ".claude"
     tracktype: vendor-settings

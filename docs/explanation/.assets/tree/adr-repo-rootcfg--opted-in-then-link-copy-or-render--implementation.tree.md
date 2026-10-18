@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
     source: docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

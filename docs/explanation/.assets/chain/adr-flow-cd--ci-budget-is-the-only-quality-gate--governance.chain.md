@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md
     source: docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

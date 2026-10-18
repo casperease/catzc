@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.tree.md
     source: docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

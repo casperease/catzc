@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md
     source: docs/explanation/.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

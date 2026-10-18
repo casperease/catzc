@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.chain.md
     source: docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -1,9 +1,9 @@
 Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1', 'ADR-PWSH-ENUM#3' {
     BeforeAll {
-        Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoUnboundedEnumeration.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoUnboundedEnumeration.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.
         if (-not (Get-Module PSScriptAnalyzer)) {
-            Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
+            Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }
 
         function Test-EnumerationFile {

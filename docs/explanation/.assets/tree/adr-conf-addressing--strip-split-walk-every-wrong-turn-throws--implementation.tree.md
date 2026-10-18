@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.tree.md
     source: docs/explanation/.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

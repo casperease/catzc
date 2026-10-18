@@ -49,7 +49,8 @@ test holds the loader's own folder rules to the same layout.
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                           | Function          |
-| ---------------------------------------- | ----------------- |
-| responsibility:1 — Module resolution     | `Get-CatzcModule` |
-| responsibility:2 — Aspect classification | `Get-Aspect`      |
+| Responsibility                           | Function                 |
+| ---------------------------------------- | ------------------------ |
+| responsibility:1 — Module resolution     | `Get-CatzcModule`        |
+| responsibility:2 — Aspect classification | `Get-Aspect`             |
+|                                          | `Test-AspectDeclaration` |

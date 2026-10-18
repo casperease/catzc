@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-datamod--config-path-is-a-coordinate--meta.grid.md
     source: docs/explanation/.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

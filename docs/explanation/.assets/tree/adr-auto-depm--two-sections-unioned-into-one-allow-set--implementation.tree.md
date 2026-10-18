@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md
     source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -43,8 +43,8 @@ The diagram is described element by element in [its asset description](one-home-
 
 ## Where the code and the ADR differ
 
-One reader is the rule, and one caller breaks it: `Get-WorldMap` in `Catzc.Base.Maps` reads the `aspects` key straight off the loaded
-variants config instead of asking `Get-Aspect`, so the file has a second read path today.
+One reader is the rule, and one module breaks it: `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the `aspects` key
+straight off the loaded variants config instead of through `Get-Variant`, so the file has a second read path today.
 
 ## See also
 

@@ -14,7 +14,7 @@ metadata:
       folder: skills/drawio-model-edit
       name: skill
       filetype: md
-      kind: capability
+      role: capability
       language: markdown
       track: ".claude"
       tracktype: vendor-settings

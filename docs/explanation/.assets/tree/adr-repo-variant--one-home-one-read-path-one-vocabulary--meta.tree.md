@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.tree.md
     source: docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

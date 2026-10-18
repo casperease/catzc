@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

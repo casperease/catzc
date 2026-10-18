@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.chain.md
     source: docs/explanation/.assets/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

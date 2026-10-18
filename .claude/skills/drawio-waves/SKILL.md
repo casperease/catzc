@@ -14,7 +14,7 @@ metadata:
       folder: skills/drawio-waves
       name: skill
       filetype: md
-      kind: capability
+      role: capability
       language: markdown
       track: ".claude"
       tracktype: vendor-settings

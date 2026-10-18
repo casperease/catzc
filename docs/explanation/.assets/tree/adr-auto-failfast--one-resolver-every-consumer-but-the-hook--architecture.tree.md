@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

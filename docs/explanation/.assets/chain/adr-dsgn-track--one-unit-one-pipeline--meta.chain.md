@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-track--one-unit-one-pipeline--meta.chain.md
     source: docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

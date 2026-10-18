@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-auto-failfast--a-stopped-run-names-its-limit--operations.chain.md
     source: docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

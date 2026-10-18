@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

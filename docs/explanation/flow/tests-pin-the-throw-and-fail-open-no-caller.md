@@ -27,8 +27,8 @@ The diagram is described element by element in [its asset description](tests-pin
 ## Walkthrough
 
 1. **Test-GlobSetAffected.** The check carries two rules. The globset-trigger rule says it throws on an undeclared unit name and fails open
-   on any doubt. The fail-fast rule says an error like that throw is raised through the assertion library; the function raises it from an
-   inline check instead, and no gate flags that.
+   on any doubt. The fail-fast rule says an error like that throw is raised through the assertion library, and the function raises it with
+   `Assert-True`.
 2. **Test-GlobSetAffected.Tests.** An L0 logic test with neutral fixture names. It pins true when the set is touched, false when it is not,
    true when the resolver returns null without the diff being asked, true when the diff throws, and the throw on an undeclared name.
 3. **Get-GlobSetChangeRange.** The resolver carries the same globset-trigger rule: post-commit first parent, pull-request merge base, local
@@ -54,9 +54,7 @@ The diagram is described element by element in [its asset description](tests-pin
 
 ## Where the code and the ADR differ
 
-The fail-fast rule says to use the assertion library; `Test-GlobSetAffected` raises its throw from an inline check, and its function help
-cites the fail-fast decision for it. No pipeline or workflow calls `Test-GlobSetAffected`, and no Azure DevOps pipeline sets
-`fetchDepth: 0`.
+No pipeline or workflow calls `Test-GlobSetAffected`, and no Azure DevOps pipeline sets `fetchDepth: 0`.
 
 ## See also
 

@@ -19,7 +19,7 @@ catzc:
     folder: agents
     name: build-inspiration-module
     filetype: md
-    kind: agent
+    role: agent
     language: markdown
     track: ".claude"
     tracktype: vendor-settings

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.tree.md
     source: docs/explanation/.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

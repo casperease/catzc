@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.tree.md
     source: docs/explanation/.assets/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

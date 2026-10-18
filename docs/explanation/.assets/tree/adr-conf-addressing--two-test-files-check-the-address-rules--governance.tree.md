@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-conf-addressing--two-test-files-check-the-address-rules--governance.tree.md
     source: docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

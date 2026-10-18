@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

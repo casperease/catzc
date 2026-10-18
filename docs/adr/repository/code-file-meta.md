@@ -16,9 +16,9 @@ into the head's code.
 ### Rule ADR-REPO-CODEMETA:2
 
 A head holds only facts the repository can compute and that change when the file's place or tier changes: `path` (the repository-relative
-path), `role` (the class of the file, the name of the file-kinds registry entry that selects it, never its language, track or module:
-a `type`, a `test`, a `gate`, a `function`), `language` (the file language, from the languages registry), `track` (the root concern that
-holds the file), `module` (the folder under `automation/`, when the file is placed in one), for a PowerShell file `visibility` (`private` or
+path), `role` (the class of the file, the name of the file-kinds registry entry that selects it, never its language, track or module: a
+`type`, a `test`, a `gate`, a `function`), `language` (the file language, from the languages registry), `track` (the root concern that holds
+the file), `module` (the folder under `automation/`, when the file is placed in one), for a PowerShell file `visibility` (`private` or
 `public`, from the folder), all place facts under `immutable`, and the edges under `edges`: `cites`, the ADR codes that bind the file,
 sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`, and `page` and `test`
 ([ADR-REPO-FILEMETA#10](file-meta.md#rule-adr-repo-filemeta10)). For a C# type file, a PowerShell function file and a PowerShell test file

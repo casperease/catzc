@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

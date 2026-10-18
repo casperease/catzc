@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md
     source: docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

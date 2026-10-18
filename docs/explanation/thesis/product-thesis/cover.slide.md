@@ -6,7 +6,7 @@ catzc:
     folder: docs/explanation/thesis/product-thesis
     name: cover-slide
     filetype: md
-    kind: slide
+    role: slide
     language: markdown
     track: docs
     tracktype: documentation

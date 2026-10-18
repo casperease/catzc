@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md
     source: docs/explanation/.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

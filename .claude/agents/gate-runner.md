@@ -18,7 +18,7 @@ catzc:
     folder: agents
     name: gate-runner
     filetype: md
-    kind: agent
+    role: agent
     language: markdown
     track: ".claude"
     tracktype: vendor-settings

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

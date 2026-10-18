@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.tree.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

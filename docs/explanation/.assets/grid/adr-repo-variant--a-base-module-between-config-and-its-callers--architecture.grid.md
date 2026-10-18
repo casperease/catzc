@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.grid.md
     source: docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

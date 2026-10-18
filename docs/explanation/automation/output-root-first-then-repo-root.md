@@ -61,8 +61,6 @@ The diagram is described element by element in [its asset description](output-ro
 
 ## Where the code and the ADR differ
 
-- The ADR defines binding form as a normalized absolute path, and `Resolve-RepoPath` promises a full path for every result; a rooted input
-  is returned exactly as given, so `C:\x\.\y` passes through un-normalized.
 - The ADR says `ExistsAt` asserts that the file exists; the method returns a Boolean.
 - The ADR says a path-bearing type converts once in its constructor and exposes both forms; `RepoRelativePath` stores only the relative form
   and derives the absolute on demand. `ArtifactRef` holds both.

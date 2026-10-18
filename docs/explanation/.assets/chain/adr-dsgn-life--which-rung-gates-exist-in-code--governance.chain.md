@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md
     source: docs/explanation/.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

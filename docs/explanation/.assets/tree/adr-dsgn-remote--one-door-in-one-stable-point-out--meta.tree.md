@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.tree.md
     source: docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

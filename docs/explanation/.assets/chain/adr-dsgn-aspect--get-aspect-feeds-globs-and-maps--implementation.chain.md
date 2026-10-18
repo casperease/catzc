@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.chain.md
     source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

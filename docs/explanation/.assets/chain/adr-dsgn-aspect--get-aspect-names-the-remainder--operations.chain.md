@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.chain.md
     source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

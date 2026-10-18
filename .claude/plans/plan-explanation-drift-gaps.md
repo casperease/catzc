@@ -42,6 +42,17 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
 - 2026-10-18: 254 claims triaged; 8 dropped, 16 reworded, and 18 more dropped after their help texts were fixed on the reference pages
   (config addressing, globset hash, Bicep context path, name patterns, `Get-AdoNaming`, `Get-BicepResourceName`, `Register-AdoPipeline`, the
   fail-open and projection citations). Test-MarkdownTitle, Test-Links and Test-Markdownlint report 0 on every edited file.
+- 2026-10-18, the small code fixes, each with its article claims removed:
+  - `Get-AdoAuthorizationHeader` gets its token through `Invoke-AzCli`, which asserts `az_cli` (ADR-AZ-CLI#2); its L0 file passed.
+  - `Get-WorldMap` asks the new `Test-AspectDeclaration` (Catzc.Base.Modules, beside `Get-Aspect`) instead of reading the config; the
+    `Test-AspectDeclaration` L0 file passed, and `Get-WorldMap.Tests` passed but for one real-tree failure that is not this change (the
+    `gitattributes.template` stack violation from catzc-0a's RootConfig rename, reported to it). The read itself moved, not closed: see the
+    open step on `Get-Aspect`.
+  - `Test-GlobSetAffected` raises its unknown-name throw through `Assert-True` (ADR-AUTO-FAILFAST); its L0 file passed.
+  - `Build-Bicep.Integrity.Tests` checks that a template resolves a `short_name`, worded as such; the file passed.
+  - Q7: `Resolve-RepoPath` normalizes a rooted input; its L0 file passed with a new `.`/`..` case.
+  - Q8: ADR-AZ-NAMING#7 says the throw lists the components that can be shortened; ADR-AZ-CLI#7 (new) holds the `Verb-Azure<Noun>` naming
+    rule and `analyzer-adr-map.yml` credits `Measure-NoAzModuleNaming` to it. Test-AdrRegistry 0 issues; Test-AnalyzerAdrMap.Tests passed.
 
 ## Decided (2026-10-18, the user took every recommendation)
 
@@ -71,15 +82,10 @@ Each decision becomes an ADR rule, or an ADR amendment, in the change that lands
 
 When a step lands, remove its claim from every article that states it (search `docs/explanation` for the function name) in the same change.
 
-- [ ] `automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1`: assert `az_cli` with `Assert-Tool` before the az token call, as
-      ADR-AZ-CLI#2 asks of every function that calls az (check: its L0 test file passes).
-- [ ] `automation/Catzc.Base.Maps/Get-WorldMap.ps1`: read the aspects through `Get-Aspect` instead of
-      `(Get-Config -Config variants).aspects`, so the variants file keeps one read path (ADR-REPO-VARIANT) (check: the Catzc.Base.Maps L0
-      tests pass).
-- [ ] `automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1`: raise the unknown-name throw through the assertion library instead of an
-      inline check (ADR-AUTO-FAILFAST) (check: its L0 test file passes and still pins the throw).
-- [ ] `automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`: reword the `-Because` message so it no longer says
-      `options.yml` must exist, since ADR-AZ-NAMING makes it optional (check: the test file passes).
+- [ ] `automation/Catzc.Base.Modules/Get-Aspect.ps1` and `Test-AspectDeclaration.ps1`: move both into `Catzc.Base.Variants` and read through
+      the private `Get-Variant`, so `aspects` has one read path like every other variant (ADR-REPO-VARIANT); the Variants count of exported
+      primitives in `docs/explanation/repository/` and its slide changes with it (check: the Variants and Maps L0 tests pass, and no file
+      outside Catzc.Base.Variants reads `(Get-Config -Config variants)`).
 - [ ] Q1 `pipelines/cd-shared.yaml`, `pipelines/cd-apex.yaml` and the other CD pipelines: a first step in each `Deploy_*` stage runs
       `Test-GlobSetAffected` for the stage's unit and skips the stage on `$false`, and every checkout sets `fetchDepth: 0` (check: the drift
       gates on pipeline triggers pass, and a CD run log shows the check line).
@@ -100,14 +106,8 @@ When a step lands, remove its claim from every article that states it (search `d
       the `shell: bash` scope (check: the Timeouts L0 tests pass).
 - [ ] Q6 `docs/adr/design/tracks.md`: a CI pipeline may bind a loose-fileset track set directly, as ADR-FLOW-CD-GLOBS says (check:
       Test-AdrRegistry and Test-Links pass).
-- [ ] Q7 `automation/Catzc.Base.Repository/Resolve-RepoPath.ps1`: return `[IO.Path]::GetFullPath($Path)` for a rooted input (check: its L0
-      test file passes, with a case for `C:\x\.\y`).
 - [ ] Q7 `docs/adr/automation/path-representation.md`: `ExistsAt` returns a Boolean, `RepoRelativePath` derives the absolute form, and
       `ArtifactRef` is the published-artifact type, not the primary enforcement (check: Test-AdrRegistry and Test-Links pass).
-- [ ] Q8 `docs/adr/azure/azure-naming-standard.md`: the length throw lists the components that can be shortened (check: Test-AdrRegistry
-      passes).
-- [ ] Q8 `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`: credit `Measure-NoAzModuleNaming` to the function-naming rule,
-      adding it to `docs/adr/azure/prefer-az-cli.md` when none exists (check: Test-AnalyzerAdrMap passes).
 
 ## Refs
 

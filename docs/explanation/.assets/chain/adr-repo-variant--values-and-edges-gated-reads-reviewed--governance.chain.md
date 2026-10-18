@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.chain.md
     source: docs/explanation/.assets/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

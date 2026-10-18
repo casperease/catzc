@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

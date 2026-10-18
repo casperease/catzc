@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.tree.md
     source: docs/explanation/.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

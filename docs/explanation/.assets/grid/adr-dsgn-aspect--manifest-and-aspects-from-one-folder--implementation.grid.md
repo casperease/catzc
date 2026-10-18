@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -23,7 +23,7 @@ catzc:
     folder: agents
     name: catzc-worker
     filetype: md
-    kind: agent
+    role: agent
     language: markdown
     track: ".claude"
     tracktype: vendor-settings

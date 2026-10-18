@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md
     source: docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

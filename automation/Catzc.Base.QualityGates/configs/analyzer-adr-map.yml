@@ -4,7 +4,7 @@ analyzers:
   Measure-NeverDependOnPwd: [ADR-AUTO-NOPWD#1, ADR-PWSH-PWD#2]
   Measure-FunctionLength: [ADR-AUTO-ONEJOB#4]
   Measure-NoWriteErrorOrWarning: [ADR-PWSH-ERROR#3, ADR-PWSH-ERROR#5]
-  Measure-NoAzModuleNaming: [ADR-AZ-CLI#3]
+  Measure-NoAzModuleNaming: [ADR-AZ-CLI#7]
   Measure-NoAutomaticVariableMisuse: [ADR-PWSH-AUTOVAR#1]
   Measure-NoForEachObjectControlFlow: [ADR-PWSH-FOREACH#3]
   Measure-NoRawVsoCommand: [ADR-PIPE-VAR#1]

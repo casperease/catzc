@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-conf-addressing--an-address-is-a-read-only-walk--meta.chain.md
     source: docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.grid.md
     source: docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

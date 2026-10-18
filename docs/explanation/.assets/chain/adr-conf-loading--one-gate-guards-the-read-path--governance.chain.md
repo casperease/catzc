@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-conf-loading--one-gate-guards-the-read-path--governance.chain.md
     source: docs/explanation/.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

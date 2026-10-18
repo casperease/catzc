@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.chain.md
     source: docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

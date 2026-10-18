@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
     source: docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs

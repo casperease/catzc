@@ -5,7 +5,7 @@ catzc:
     repo_status: locked
     path: docs/explanation/.assets/chain/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
     source: docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
-    kind: asset-description
+    role: asset-description
     language: markdown
     filetype: md
     track: docs
