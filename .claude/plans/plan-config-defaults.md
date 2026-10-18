@@ -100,11 +100,11 @@ It generalises to every typed config in configs.yml.
 - [x] Q2 reopened for the user (2026-10-18): closed by D22 (decisions-2026-10-18.md, the user: sensible defaults live in the config assets
       and at code level, and most of the time they match): the tree's aspects default stands, the infrastructure built-in on the type and
       the code convention for any other track without an entry, and the shipped file shows it.
-- [ ] Phase 2 repo fragment and source-mode overlay (check: overlay root tests pass; the shipped file shows the type's defaults and this
-      repository's own values sit in its fragment). 2026-10-18 (task-config-defaults-fragment steps 1 and 2): source mode reads
-      `.catzc/<modules folder>` through `Get-ConfigOverlayRoot`, and a registered type with no shipped file builds from `{}` plus the
-      fragment; tests pass. D22 keeps the shipped file (Q3's deletion is dropped). Open: the user chooses the `.catzc` track's type and
-      vendor (the world map fails a tracked file in no track), then the fragment is written and the shipped file reduced to the defaults.
+- [x] Phase 2 repo fragment and source-mode overlay (check: overlay root tests pass; the shipped file shows the type's defaults and this
+      repository's own values sit in its fragment). Done 2026-10-18 (task-config-defaults-fragment steps 1 to 4): source mode reads
+      `.catzc/<modules folder>` through `Get-ConfigOverlayRoot`, a registered type with no shipped file builds from `{}` plus the fragment,
+      `.catzc` is a vendor-settings track of vendor catzc (D28), and its variants fragment holds `have_customers: all` while the shipped
+      file shows `false`. `tracks` stays shipped: it has no default, and build mode reads no `.catzc` fragment.
 - [x] Phase 3 the defaults check (check: its Pester file passes; Test-ShippedConfigs lists each difference with its reason). Done 2026-10-18
       with the ADR-AUTO-DEFAULT#6 amendment (verdicts in task-config-defaults-fragment steps 5 and 6). D22 replaces the generated defaults
       contract and its three design questions: the shipped config asset is the published default, and a case of Test-ShippedConfigs compares

@@ -13,6 +13,8 @@ groups:
     Catzc.Base.Slides:
       [
         Catzc.Base.Docs,
+        Catzc.Base.Execution,
+        Catzc.Base.Files,
         Catzc.Base.MarkdownMeta,
         Catzc.Base.Config,
         Catzc.Base.Repository,

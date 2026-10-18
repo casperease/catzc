@@ -1,4 +1,4 @@
-function Copy-Automation {
+function Copy-CatzcModule {
     [CmdletBinding(DefaultParameterSetName = 'Modules')]
     [OutputType([string[]])]
     param(
@@ -85,7 +85,7 @@ function Copy-Automation {
     if (-not $Force) {
         if ($EmptyDestination) {
             if ([System.IO.Directory]::Exists($destinationRoot) -and [System.IO.Directory]::EnumerateFileSystemEntries($destinationRoot).GetEnumerator().MoveNext()) {
-                throw "Copy-Automation: -EmptyDestination requires an empty target, but '$destinationRoot' is not empty."
+                throw "Copy-CatzcModule: -EmptyDestination requires an empty target, but '$destinationRoot' is not empty."
             }
         }
         else {
@@ -105,7 +105,7 @@ function Copy-Automation {
             }
             if ($conflicts.Count -gt 0) {
                 $shown = ($conflicts | Select-Object -First 20) -join "`n"
-                throw ("Copy-Automation: $($conflicts.Count) file(s) already exist at the destination — pass " +
+                throw ("Copy-CatzcModule: $($conflicts.Count) file(s) already exist at the destination — pass " +
                     "-Force to overwrite, or -EmptyDestination for a clean copy:`n$shown")
             }
         }

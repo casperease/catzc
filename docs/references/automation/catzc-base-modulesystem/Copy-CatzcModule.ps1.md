@@ -1,4 +1,4 @@
-# automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
+# automation/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -77,13 +77,13 @@ Report what would be copied (and any conflicts) without writing anything.
 ### example 1
 
 ```powershell
-Copy-Automation -Destination $tmp -ModuleNames Catzc.Base.Config -EmptyDestination
+Copy-CatzcModule -Destination $tmp -ModuleNames Catzc.Base.Config -EmptyDestination
 ```
 
 ### example 2
 
 ```powershell
-Copy-Automation -Destination ./vendor/catzc -ExcludePackages gitignore -DryRun
+Copy-CatzcModule -Destination ./vendor/catzc -ExcludePackages gitignore -DryRun
 ```
 
 ## comment:1
