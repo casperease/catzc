@@ -15,7 +15,7 @@ Supports ADR-FLOW-CD-GLOBS#7, #8 and #10 (architecture lens).
 
 Each globset in cats maps an area-of-control onto its tracked files, and every globset carries a layer that says what kind of thing it maps.
 Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. The third, `module`, is derived from the folders under
-`automation/` and is never declared. Knowing which layer a set sits in tells you where it comes from and whether its peers may overlap it.
+`pwsh/` and is never declared. Knowing which layer a set sits in tells you where it comes from and whether its peers may overlap it.
 
 ![Two layers declared, the third derived](../.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png)
 
@@ -31,11 +31,11 @@ The diagram is described element by element in [its asset description](two-decla
 3. **Declared loose-filesets.** Five cross-cutting surfaces are declared in `globs.yml`: the track roots `automation` and `infrastructure`,
    the all-templates surface `templates`, and the scan scopes `markdown-scope` and `repository`. The two track roots bind `ci-automation`
    and `ci-infrastructure`, because `pipeline:` and `verify:` are valid on any layer.
-4. **Reserved umbrellas.** `internal`, `vendor`, `compiled` and `scriptanalyzer` cover the dot-folders under `automation/`.
+4. **Reserved umbrellas.** `internal`, `vendor`, `compiled` and `scriptanalyzer` cover the dot-folders under `pwsh/`.
    `Get-ModuleGlobSet` builds them with the layer `loose-fileset`, so they sit in this layer although nobody declares them.
 5. **Module sets.** Each of the 40 module folders derives two aspect sets, `<kebab>-live` and `<kebab>-tests`, and each of the 7 internal
    shared modules under `pwsh/.internal/` derives one single-file set: 87 sets in all. The folder, or the file, is the registration.
-6. **module-leftovers.** The catch-all holds every tracked file under `automation/` that no module folder and no dot-folder owns. It is the
+6. **module-leftovers.** The catch-all holds every tracked file under `pwsh/` that no module folder and no dot-folder owns. It is the
    complement of the explicit module sets, so it is disjoint from them by construction, and it holds no files in today's tree.
 
 ## Why it holds
@@ -53,7 +53,7 @@ The diagram is described element by element in [its asset description](two-decla
 
 - The ADR lists a reserved umbrella among the kinds of declared loose-fileset; the code derives the four umbrellas and rejects them as
   declared names.
-- The ADR describes one module set per folder (`catzc-base-globs`, include `automation/<Module>/**`); the code derives two aspect sets per
+- The ADR describes one module set per folder (`catzc-base-globs`, include `pwsh/<Module>/**`); the code derives two aspect sets per
   folder and no whole-module set.
 
 ## See also

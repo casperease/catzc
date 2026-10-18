@@ -28,8 +28,8 @@ The diagram is described element by element in [its asset description](two-roots
 
 1. **importer.ps1.** The source-mode entry script sits at the repository root and is dot-sourced (`. ./importer.ps1`). It is a small
    generated shim: it sets `$env:RepositoryRoot` to its own folder and hands the whole load to the importer, which takes that folder's
-   `automation/` as the code root.
-2. **`<RepositoryRoot>/automation`.** The source-mode code root is the repository's `automation/` folder, where each module is a folder of
+   `pwsh/` as the code root.
+2. **`<RepositoryRoot>/automation`.** The source-mode code root is the repository's `pwsh/` folder, where each module is a folder of
    one-function `.ps1` files. When nothing presets the code root, the importer sets `CatzcModulesRoot` to this folder.
 3. **Import-Catzc.ps1.** The build-mode entry script ships inside every package. It sets `CatzcModulesRoot` to its own folder and runs the
    importer in its bundle mode. The package's `Catzc.psm1` dot-sources this file, so `Import-Module Catzc` and dot-sourcing the file set up
@@ -49,7 +49,7 @@ The diagram is described element by element in [its asset description](two-roots
 
 ## Why it holds
 
-- Cats runs in exactly two modes: source mode loads from `automation/` and is entered by `importer.ps1`, and build mode loads from a built
+- Cats runs in exactly two modes: source mode loads from `pwsh/` and is entered by `importer.ps1`, and build mode loads from a built
   package and is entered by its `Import-Catzc.ps1` (ADR-DSGN-RUNMODE#1).
 - Every module works in both modes and is the same module in both; only its form on disk differs (ADR-DSGN-RUNMODE#2).
 - The package `Catzc` is a container, not a scope, so no module ever shares `$script:` state with another (ADR-DSGN-RUNMODE#3).

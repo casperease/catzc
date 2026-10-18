@@ -15,7 +15,7 @@ Root config materialisation is one registry, one writer, two write primitives an
 Supports ADR-REPO-ROOTCFG#2, #4 and #7 (architecture lens).
 ```
 
-Root config materialisation in cats has four parts and one direction. Sources of truth sit under `automation/`; the registry in
+Root config materialisation in cats has four parts and one direction. Sources of truth sit under `pwsh/`; the registry in
 `Catzc.Base.RootConfig` says how each one lands; the writer in the same module reproduces every target through two primitives that
 `Catzc.Base.Files` owns; and the targets fall into two kinds that differ by one boolean. The dependency edges point one way, from the
 RootConfig module to the Files module and to the modules that hold the generators, and nothing reads the registry back.
@@ -26,7 +26,7 @@ The diagram is described element by element in [its asset description](one-regis
 
 ## Walkthrough
 
-1. **Authored source files.** A `source` entry names a config file kept under `automation/`, most of them in
+1. **Authored source files.** A `source` entry names a config file kept under `pwsh/`, most of them in
    `Catzc.Base.RootConfig/assets/root/`. The root path is reproduced from it, as a copy with a generated-file header or as a link.
 2. **Generator functions.** A `generator` entry names a function that renders the whole file, header included: `New-Importer`,
    `New-GitIgnore`, the four `New-VSCode*` writers, `New-GoWorkspace` and `New-PythonProject`. `Invoke-RootConfigGenerator` is the one place

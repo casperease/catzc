@@ -33,7 +33,7 @@ The diagram is described element by element in [its asset description](the-runne
    authentication, taking the service connection as their `azureSubscription`; the runner only logs which connection it ran under.
 4. **Invoke-AdoScript.ps1.** The runner is the only seam between YAML and PowerShell. It imports the module system once, sanitizes the
    command string with `ConvertFrom-AdoPipelineCommand`, and runs it in the same scope as the import.
-5. **importer.ps1.** The importer loads the modules under `automation/`, so every function a `RunCommand` names is available without
+5. **importer.ps1.** The importer loads the modules under `pwsh/`, so every function a `RunCommand` names is available without
    qualification.
 6. **Developer.** A developer dot-sources the importer in a terminal and types the same command, with no YAML, no task and no runner in
    between.

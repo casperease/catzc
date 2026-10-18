@@ -40,7 +40,7 @@ The diagram is described element by element in [its asset description](ci-budget
 6. **RBC.** Release Branch Certification is the manual gate at release-uat, cleared when release-AT is verified. Only the ADR states it.
 7. **DEPLOY-Prod.** DEPLOY-Prod stages the artifact inactive in pre-prod, validates the exact bytes, then activates them live in production.
    Only the ADR states it.
-8. **Reviewer.** Code review is the only enforcer the ADR names for the whole flow. No test or analyzer rule in `automation/` checks an
+8. **Reviewer.** Code review is the only enforcer the ADR names for the whole flow. No test or analyzer rule in `pwsh/` checks an
    ADR-FLOW-CD rule; the code cites the ADR only in the ADR registry, two glossary entries and comments.
 
 ## Why it holds

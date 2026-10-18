@@ -11,19 +11,19 @@ Rebuilds diagram folders from their source: the model embedded in each `diagram.
 
 ### description
 
-One command on one diagram folder, `<article-folder>/.assets/<name>/`, which holds a diagram's slide, its description and its three
-minimaps under role names; with no `-Path` it repeats that for every diagram folder found under `docs/**/.assets/**`, so a folder is found,
-never listed. For each folder it runs the draw.io kit's renderer (`drawio_forward.py --all <folder>`, through uv with Pillow) stage by stage:
-`prepare` extracts the slide's model and writes its slide list; `highlight` runs the map processors and renders the three minimaps and
-their stamped sister pages; `join` lays out the sidebar and rebuilds the slide in place. A slide whose model names no ADR code has no
-minimaps and is left as it is.
+One command on one diagram folder, `<article-folder>/.assets/<name>/`, which holds a diagram's slide, its description and its three minimaps
+under role names; with no `-Path` it repeats that for every diagram folder found under `docs/**/.assets/**`, so a folder is found, never
+listed. For each folder it runs the draw.io kit's renderer (`drawio_forward.py --all <folder>`, through uv with Pillow) stage by stage:
+`prepare` extracts the slide's model and writes its slide list; `highlight` runs the map processors and renders the three minimaps and their
+stamped sister pages; `join` lays out the sidebar and rebuilds the slide in place. A slide whose model names no ADR code has no minimaps and
+is left as it is.
 
 Before it renders, each folder passes the locality gate: its article is the one page beside the folder's `.assets` that embeds its
 `diagram.drawio.png`. A folder no page there embeds is an orphan, reported and still rendered; a folder two pages embed stops the run.
 
 The renderer's exit codes decide the result: 0 is clean, 2 is warnings with every artifact delivered (reported, the run goes on), 3 is
-nothing to render, and anything else stops the run with the renderer's last lines. The kit is `drawio_kit` of `slides.yml`, with its
-default on `SlidesConfig`.
+nothing to render, and anything else stops the run with the renderer's last lines. The kit is `drawio_kit` of `slides.yml`, with its default
+on `SlidesConfig`.
 
 ### parameter `Path`
 

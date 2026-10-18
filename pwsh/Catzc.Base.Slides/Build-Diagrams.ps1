@@ -23,16 +23,16 @@ function Build-Diagrams {
     # A diagram folder is `<article-folder>/.assets/<name>/` holding a tracked diagram.drawio.png; it is found, never listed.
     $tracked = @(Get-GitTrackedPath '.')
     $found = @($tracked | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.png$' } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) })
-    $folders = if ($Path) {
-        @(foreach ($folderPath in $Path) {
-                $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/').TrimEnd('/')
-                Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram folder (<article-folder>/.assets/<name>/ holding a tracked diagram.drawio.png)."
-                $relative
-            })
-    }
-    else {
-        $found
-    }
+    $folders = @(if ($Path) {
+            @(foreach ($folderPath in $Path) {
+                    $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/').TrimEnd('/')
+                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram folder (<article-folder>/.assets/<name>/ holding a tracked diagram.drawio.png)."
+                    $relative
+                })
+        }
+        else {
+            $found
+        })
 
     # The locality gate: a folder's article is the one page beside its .assets that embeds its diagram.drawio.png.
     $articles = @{}

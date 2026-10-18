@@ -278,11 +278,22 @@ its prose only, never the generated sidebar.
 - [ ] `docs/adr/repository/generated-readmes.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/adr/repository/generated-root-configs.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/adr/repository/protected-globs.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/configuration/callers-depend-on-one-config-module.md` (check: no folder-meaning line; Test-Links clean)
-- [ ] `docs/explanation/configuration/three-caches-back-one-reader.md` (check: no folder-meaning line; Test-Links clean)
+  Explanation batch 1, session catzc-59, 2026-10-18, each Test-Links ok. Ticked: the two configuration pages. Free prose done but kept open
+  for the slide migration (slide-label lines are changed with their slides, never ahead): `a-push-fires-only-touched-pipelines.drawio.md`
+  line 32 (the slide's named-set label `automation/**`); `get-aspect-feeds-globs-and-maps.md` text block lines 6, 9, 10;
+  `manifest-and-aspects-from-one-folder.md` text block lines 6, 10 and marker label 30. Their `aspects.automation` / `-Track automation`
+  lines are the open drift step in plan-explanation-drift-gaps.
+- [x] `docs/explanation/configuration/callers-depend-on-one-config-module.md` (check: no folder-meaning line; Test-Links clean)
+- [x] `docs/explanation/configuration/three-caches-back-one-reader.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/a-push-fires-only-touched-pipelines.drawio.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/manifest-and-aspects-from-one-folder.md` (check: no folder-meaning line; Test-Links clean)
+  Explanation batch 2, session catzc-59, 2026-10-18, each Test-Links ok; free prose done, all kept open for the slide migration:
+  `manifest-and-aspects-from-one-folder.drawio.md` 21, 32, 43 and `one-folder-two-independent-readers.drawio.md` 21, 32, 43 (slide
+  labels, no edit); `one-folder-two-independent-readers.md` text block 6, marker label 28; `only-automation-compiles-its-aspects.md`
+  title, lines 1, 4, 22 (slide title and slug), text block 8, plus its "automation track/convention" drift at 18, 29, 33 (the drift step
+  in plan-explanation-drift-gaps); `partition-integrity-runs-only-in-unit-tests.md` text block 6, marker label 29 and its `.drawio.md` 21,
+  33, 42 (no edit).
 - [ ] `docs/explanation/design/manifest-and-aspects-from-one-folder.drawio.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/one-folder-two-independent-readers.md` (check: no folder-meaning line; Test-Links clean)
 - [ ] `docs/explanation/design/one-folder-two-independent-readers.drawio.md` (check: no folder-meaning line; Test-Links clean)

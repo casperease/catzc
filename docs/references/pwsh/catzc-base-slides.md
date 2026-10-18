@@ -58,4 +58,4 @@ The functions the module exports, indexed by the responsibility each serves, and
 | responsibility:2 — The slides quality gate    | `Test-Slides`     |
 | responsibility:3 — Reading the kit            | `slides.yml`      |
 | responsibility:4 — Diagram render from source | `Build-Diagrams`  |
-| | `Move-Diagram` |
+|                                               | `Move-Diagram`    |

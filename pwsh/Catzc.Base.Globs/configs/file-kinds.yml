@@ -119,14 +119,12 @@ kinds:
   # The diagram kinds come before the two trees they live in, so the first match names a diagram or a description, not a page.
   diagram:
     definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.
-    files: ["docs/.assets/**/*.png", "docs/explanation/.assets/**/*.png", "docs/references/.assets/**/*.png"]
+    files: ["docs/**/.assets/**/*.png"]
   asset-description:
-    definition: The description of a diagram, beside the article it illustrates, and the pages of its minimaps.
+    definition: The description of a diagram and the pages of its minimaps, in the diagram's folder under .assets or beside its article.
     files:
-      - "docs/.assets/**/*.md"
-      - "docs/explanation/.assets/**/*.md"
+      - "docs/**/.assets/**/*.md"
       - "docs/explanation/**/*.drawio.md"
-      - "docs/references/.assets/**/*.md"
       - "docs/references/**/*.drawio.md"
   slide:
     definition: One slide of a deck, rendered through a pattern of the slides kit.

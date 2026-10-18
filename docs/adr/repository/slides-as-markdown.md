@@ -60,9 +60,10 @@ run on neutral fixture decks, never on a real one ([ADR-AUTO-TEST#3](../automati
 
 ### Rule ADR-REPO-SLIDES:7
 
-Every draw.io slide renders from the tree by one command, `Build-Diagrams`. Its inputs are the model embedded in each tracked `.drawio.png`
-and the repository's maps, the folders it covers and its slice size are settings of `slides.yml`, and no step of it asks a session or a
-model to decide anything ([ADR-PRIN-EAC#3](../principles/everything-as-code.md#rule-adr-prin-eac3)). A raster is never drawn by hand or by
+Every draw.io slide renders from the tree by one command on its diagram folder, `Build-Diagrams -Path <folder>`; the whole tree is that
+command repeated over every diagram folder found under `docs/**/.assets/**`, so no setting lists the folders. Its inputs are the model
+embedded in the folder's `diagram.drawio.png`, the one article beside the folder's `.assets` that embeds it, and the repository's maps, and
+no step of it asks a session or a model to decide anything ([ADR-PRIN-EAC#3](../principles/everything-as-code.md#rule-adr-prin-eac3)). A raster is never drawn by hand or by
 the draw.io CLI: a session edits a model, and the kit renders it.
 
 - [One command renders every diagram](#one-command-renders-every-diagram)

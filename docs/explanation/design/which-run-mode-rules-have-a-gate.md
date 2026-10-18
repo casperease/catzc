@@ -40,7 +40,7 @@ The diagram is described element by element in [its asset description](which-run
    `Import-Module Catzc` enters the same way.
 6. **Assert-SourceTree.** Tools that work on the source tree call this assert first. It calls `Get-CatzcRunMode` and throws in a build, so
    such a tool fails fast instead of reading the wrong tree.
-7. **Get-CatzcRunMode.** The mode is derived from the code root: `source` when it is the repository's `automation/` folder, `build` anywhere
+7. **Get-CatzcRunMode.** The mode is derived from the code root: `source` when it is the repository's `pwsh/` folder, `build` anywhere
    else. Its tests run in both runs.
 8. **Build kind.** The ADR names four kinds of build root (temporary, cached, installed and saved) and says the kind is derived from the
    code root like the mode itself. No code derives a kind, and no gate checks one.

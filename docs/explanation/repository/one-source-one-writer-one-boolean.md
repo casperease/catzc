@@ -13,7 +13,7 @@ Supports ADR-REPO-ROOTCFG#1, #2, #3 and #4 (meta lens).
 ```
 
 The repository root carries configuration files for git, editors and quality-gate tools. Cats does not keep them by hand: each one that is
-opted in is reproduced from one source of truth inside `automation/`, by one writer, on every import. Whether the reproduced file is
+opted in is reproduced from one source of truth inside `pwsh/`, by one writer, on every import. Whether the reproduced file is
 gitignored or stays tracked is one boolean per entry, not a second system.
 
 ![Every managed root file has one source of truth, one writer, and one boolean that decides git membership](../.assets/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png)

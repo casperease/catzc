@@ -38,11 +38,11 @@ by `Import-AllModules` (dot-prefixed directories are excluded from module discov
 ### Rule ADR-REPO-FOLDERS:5
 
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
-`.md` files — except the dot-prefixed `.assets/` folders (`docs/.assets/`, `docs/explanation/.assets/`, `docs/references/.assets/`), which
-hold the binary diagram assets the markdown embeds and their companions: a diagram's `<name>.drawio.verify.md` record (each drawn claim, the
-`file:line` that backs it, and its status), and its minimap images in one sub-folder per minimap (`grid/<name>.grid.png`,
-`tree/<name>.tree.png`, `chain/<name>.chain.png`), each beside its own `.md` naming why every lit cell is lit. A diagram's description
-(`.drawio.md`, what it draws in words) sits beside the article or reference page that embeds the diagram. Each subfolder of `docs/adr/` is
+`.md` files — except the dot-prefixed `.assets/` folders, which hold the diagrams the markdown embeds. An `.assets/` folder sits beside the
+pages that embed its diagrams and holds one folder per diagram, `<page-folder>/.assets/<name>/`, whose name is the diagram's only name. The
+folder holds everything the diagram owns under role names: the slide `diagram.drawio.png`, its description `diagram.drawio.md` (what it
+draws in words), the minimaps `grid.png`, `tree.png` and `chain.png` each beside its own `.md` naming why every lit cell is lit, and a
+`diagram.drawio.verify.md` record where the diagram has one (each drawn claim, the `file:line` that backs it, and its status). Each subfolder of `docs/adr/` is
 an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
@@ -265,12 +265,10 @@ articles, including the sources the generated READMEs are copied from ([generate
 reference under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one
 diagram of how cats works and why, in a subfolder per ADR domain. These four are **markdown-only**; their subfolders are author-organized
 topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
-content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4). The explanation articles and the reference pages own
-their own `.assets/` (`explanation/.assets/`, `references/.assets/`). A diagram's companions sit beside it: its `<name>.drawio.verify.md`
-record, so every drawn claim stays checkable against the code; and its minimap images, each with a sister `.md` that gives the reason for
-every lit cell. Its `<name>.drawio.md` description sits beside the article or reference page that embeds it, so its words travel with the
-page. Diagrams drawn from a module's source sit under `references/.assets/automation/<module>/`, with their descriptions in
-`references/pwsh/<module>/`, next to the module's reference article that embeds them.
+content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4). A diagram is one folder in the `.assets/` beside the
+page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram's companions
+under role names: its description, so its words travel with the slide; its verify record, so every drawn claim stays checkable against the
+code; and its minimap images, each with a sister `.md` that gives the reason for every lit cell.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's

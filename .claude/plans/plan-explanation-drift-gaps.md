@@ -154,7 +154,8 @@ When a step lands, remove its claim from every article that states it (search `d
       Also for step 6: the "Where the code and the ADR differ" section of `which-run-mode-rules-have-a-gate.md` still holds the retired
       build kind, `build-catzc.ps1` and `Write-CatzcLoadBanner` bullets.
 - [ ] The declared `aspects.automation` entry: `docs/explanation/design/get-aspect-feeds-globs-and-maps.md` and
-      `manifest-and-aspects-from-one-folder.md` describe a declared `aspects.automation` entry and `Get-Aspect -Track automation`; the tree
+      `manifest-and-aspects-from-one-folder.md` (and `only-automation-compiles-its-aspects.md` lines 18, 29, 33, the "automation
+      track/convention") describe a declared `aspects.automation` entry and `Get-Aspect -Track automation`; the tree
       has neither (the code track is `pwsh`, its aspects derive from `languages.yml`, as `variants.yml:7` says), so a word swap would be
       as wrong. Found 2026-10-18 by session catzc-59 during the word residue; the articles and their slides are corrected together, after
       the diagram-folders migration (check: each article's text blocks match its slide; Test-Links on the touched pages).
