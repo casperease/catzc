@@ -10,22 +10,24 @@ the embedded model on the chosen page, or the source copy again when no model ca
 decoded model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded
 one 100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66
 lines) must appear in some cell label, whitespace-folded and case-folded. With --minimaps the slide's three minimaps are
-regenerated from the map processors (minimaps/highlights.ps1, render.py, stamp.ps1, join.py) into <out_dir>/<name>/, the slide
-list derived from the slide itself: id and stem from the file name, lens from the last `--` segment, ADR codes from the
-model's labels and the file name, the model from <name>.model.xml; the joined slide is <out_dir>/<name>/<name>.drawio.png.
+regenerated from the map processors (minimaps/highlights.ps1, render.py, stamp.ps1, join.py) into <out_dir>/<name>/, a
+diagram folder of its own: ADR codes and lens from the model's `subtitle` cell (`<codes> · <lens>`, the lens one of
+drawio.yml `lenses`), the article the one page beside the source's `.assets` that embeds it; the joined slide is
+<out_dir>/<name>/diagram.drawio.png. A slide named diagram.drawio.png is named <name> by its folder.
 Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source file,
 nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`, `slide`), one per warning (`warn`),
 then `status`.
 
-bulk:  uv run --with pillow python drawio_forward.py --all <folder> [--stage prepare|highlight|join|all] [--migrate]
+bulk:  uv run --with pillow python drawio_forward.py --all <root> [--stage prepare|highlight|join|all] [--migrate]
                                                       [--start A --end B]
 
-Rebuilds every <stem>.drawio.png of a folder in place with fresh minimaps, in stages that each fit the time safeguard:
-`prepare` (optionally migrates each slide to the dark tokens, extracts its model to out/drawio/<folder>/models/, and
-writes the slide list, skipping a sheet with no ADR code); `highlight` (the map processors once for every listed slide,
-then the three minimaps and their sister .md files into the folder, each page given its generated head by stamp.ps1);
-`join` (the sidebar laid out, the minimaps embedded, the slide rebuilt); `all` runs the three. --start/--end slice the
-per-slide stages. Same exit codes; the report is out/drawio/<folder>/bulk.md.
+Rebuilds every diagram folder under <root> in place (`<article-folder>/.assets/<name>/` holding diagram.drawio.png; the
+root itself when it is one), in stages that each fit the time safeguard: `prepare` (optionally migrates each slide to the
+dark tokens, extracts its model to out/drawio/bulk/<root>/models/, reads its subtitle, checks the article's Supports line,
+and writes the slide list, skipping a slide with no ADR code); `highlight` (the map processors for the listed slides, then
+grid, tree and chain as .png and .md beside each slide, each page given its generated head by stamp.ps1); `join` (the
+sidebar laid out, the minimaps embedded, the slide rebuilt); `all` runs the three. --start/--end slice the slide list of
+the per-slide stages. Same exit codes; the report is out/drawio/bulk/<root>/bulk.md.
 """
 
 import json
@@ -56,6 +58,8 @@ FORWARD = (
 KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
 ADR_CODE = re.compile(r"ADR-[A-Z]+(?:-[A-Z]+)*")
+RULE_COLON = re.compile(r"ADR-[A-Z]+(?:-[A-Z]+)*:\d")
+SLIDE = "diagram.drawio.png"  # a diagram folder's slide; its minimaps are <view>.png and <view>.md beside it
 
 
 def normalise(text):
@@ -103,45 +107,97 @@ def run(cmd, seconds):
     return done.stdout.strip()
 
 
-def slide_adrs(name, model):
-    """The ADR codes a slide supports: every code a cell label that opens with `ADR-` names (the subtitle and the Supports
-    chips), plus the code its file name opens with (`adr-<domain>-<name>--…`). Never the sister .md's own citations."""
-    codes = set()
-    for c in ET.fromstring(model).iter("mxCell"):
-        value = plain(c.get("value") or "").strip()
-        if value.startswith("ADR-"):
-            codes.update(ADR_CODE.findall(value))
-    if name.startswith("adr-"):
-        codes.add("ADR-" + name[4:].split("--", 1)[0].upper())
+def slide_facts(model):
+    """What a slide says it supports, from its `subtitle` cell alone (`<codes> · <lens>`): the ADR codes the index knows, the
+    lens, and every problem with the line. The sidebar's chips, badge and page name are outputs of these, never inputs."""
+    subtitle = next(
+        (
+            plain(c.get("value") or "").strip()
+            for c in ET.fromstring(model).iter("mxCell")
+            if c.get("id") == "subtitle"
+        ),
+        None,
+    )
+    if subtitle is None:
+        return [], None, ["the model has no subtitle cell"]
+    problems = []
+    lens = re.sub(r"\s+lens$", "", subtitle.rsplit("·", 1)[-1].strip())
+    if lens not in DEFAULTS["lenses"]:
+        problems.append(
+            f"the subtitle ends with '{lens}', not a lens of drawio.yml ({', '.join(DEFAULTS['lenses'])})"
+        )
+        lens = None
+    if RULE_COLON.search(subtitle):
+        problems.append(
+            f"the subtitle cites rules in the ':' form, a citation is ADR-<CODE>#<n> (ADR-REPO-LINK#5): {subtitle!r}"
+        )
     known = set(
         re.findall(
             r"`(ADR-[A-Z]+(?:-[A-Z]+)*)`",
             (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8"),
         )
     )
+    return sorted(set(ADR_CODE.findall(subtitle)) & known), lens, problems
+
+
+def supports_drift(folder, adrs, lens):
+    """The article's `Supports … (<lens> lens)` line against the subtitle: the article is the one page beside the folder's
+    `.assets` that embeds the slide. Returns the warning, or None when they agree or no article line exists."""
+    slide = (folder / SLIDE).resolve()
+    for page in sorted(folder.parent.parent.glob("*.md")):
+        text = page.read_text(encoding="utf-8")
+        targets = re.findall(r"!\[[^\]]*\]\(([^)\s]+\.drawio\.png)\)", text)
+        if not any((page.parent / t).resolve() == slide for t in targets):
+            continue
+        line = re.search(r"^Supports (.+?) \((\w+) lens\)\.?$", text, flags=re.MULTILINE)
+        if line is None:
+            return None
+        said = (sorted(set(ADR_CODE.findall(line.group(1)))), line.group(2))
+        if said != (adrs, lens):
+            return f"{page.relative_to(REPO).as_posix()} says Supports {said[0]} ({said[1]} lens), the subtitle {adrs} ({lens} lens)"
+        return None
+    return None
+
+
+def slide_entry(folder, source, model_file, adrs, lens):
+    """One slide of the list the map processors read: its diagram folder is its id and where every output lands."""
+    rel = lambda p: str(Path(p).resolve().relative_to(REPO)).replace("\\", "/")
+    return {
+        "id": rel(folder),
+        "stem": Path(folder).name,
+        "folder": rel(folder),
+        "source": rel(source),
+        "lens": lens,
+        "badge": DEFAULTS["lenses"][lens],
+        "adrs": adrs,
+        "xml": rel(model_file),
+    }
+
+
+def diagram_folders(root):
+    """The diagram folders under a root, or the root itself when it is one: each `<article-folder>/.assets/<name>/` that
+    holds a diagram.drawio.png."""
+    root = root.resolve()
+    if (root / SLIDE).is_file():
+        return [root]
     return sorted(
-        codes & known
-    )  # a label such as "ADR-only …" is prose, not a code of the index
+        p.parent for p in root.rglob(SLIDE) if p.parent.parent.name == ".assets"
+    )
 
 
 def minimaps(src, name, model_file, out_dir):
-    """Regenerate the slide's three minimaps and the joined slide into out_dir/name; returns the joined slide path."""
-    adrs = slide_adrs(name, model_file.read_text(encoding="utf-8"))
-    if not adrs:
+    """Regenerate the slide's three minimaps and the joined slide into out_dir/name, a diagram folder of its own; the
+    article is the source slide's. Returns the joined slide path."""
+    adrs, lens, problems = slide_facts(model_file.read_text(encoding="utf-8"))
+    if problems or not adrs:
         raise RuntimeError(
-            "no ADR code in the slide's labels or file name to light the minimaps from"
+            "; ".join(problems) or "the subtitle names no ADR code to light the minimaps from"
         )
     target = out_dir / name
     data = target / "minimaps-data"
     target.mkdir(parents=True, exist_ok=True)
     slides = target / "slides.json"
-    slide = {
-        "id": name,
-        "stem": name,
-        "lens": name.rsplit("--", 1)[-1],
-        "adrs": adrs,
-        "xml": str(model_file.resolve()),
-    }
+    slide = slide_entry(target, src, model_file, adrs, lens)
     slides.write_text(
         json.dumps({"slides": [slide]}, indent=1) + "\n", encoding="utf-8"
     )
@@ -167,8 +223,6 @@ def minimaps(src, name, model_file, out_dir):
             rel(slides),
             "--data",
             rel(data),
-            "--target",
-            rel(target),
         ],
         60,
     )
@@ -178,8 +232,8 @@ def minimaps(src, name, model_file, out_dir):
             "-NoProfile",
             "-File",
             str(KIT / "minimaps" / "stamp.ps1"),
-            "-Target",
-            rel(target),
+            "-Slides",
+            rel(slides),
         ],
         240,
     )
@@ -191,66 +245,59 @@ def minimaps(src, name, model_file, out_dir):
             rel(slides),
             "--data",
             rel(data),
-            "--target",
-            rel(target),
         ],
         60,
     )
-    joined = target / f"{name}.drawio.png"
+    joined = target / SLIDE
     if not joined.is_file():
         raise RuntimeError("join.py ended without the joined slide")
     return joined
 
 
-def bulk(folder, stage, migrate, start, end):
-    """Rebuild a folder of slides in place, by stage; returns the exit code after printing the lines and the report."""
-    folder = folder.resolve()
-    work = REPO / DEFAULTS["renderer"]["out"] / folder.name
-    models, data, slides_json = work / "models", work / "data", work / "slides.json"
+def bulk(root, stage, migrate, start, end):
+    """Rebuild every diagram folder under a root in place, by stage; returns the exit code after printing the lines and the
+    report. The per-slide stages take the slice start..end of the folder list."""
+    root = root.resolve()
     rel = lambda p: str(Path(p).resolve().relative_to(REPO)).replace("\\", "/")
-    pngs = sorted(folder.glob("*.drawio.png"))
+    work = REPO / DEFAULTS["renderer"]["out"] / "bulk" / rel(root).replace("/", "--")
+    models, data = work / "models", work / "data"
+    slides_json, slice_json = work / "slides.json", work / "slice.json"
+    folders = diagram_folders(root)
     warnings, counts = [], {}
-    if not pngs:
-        print(f"warn E_SOURCE no .drawio.png in {folder}")
+    if not folders:
+        print(f"warn E_SOURCE no diagram folder (.assets/<name>/{SLIDE}) under {root}")
         print("status error")
         return 3
+    model_of = lambda f: models / (rel(f).replace("/", "--") + ".model.xml")
     if stage in ("prepare", "all"):
         models.mkdir(parents=True, exist_ok=True)
         done = 0
-        for p in pngs[start:end]:
+        for f in folders:
             try:
                 if migrate:
                     run(
-                        [sys.executable, str(KIT / "migrate_dark.py"), str(p), str(p)],
+                        [sys.executable, str(KIT / "migrate_dark.py"), str(f / SLIDE), str(f / SLIDE)],
                         120,
                     )
-                models.joinpath(
-                    p.name.replace(".drawio.png", "") + ".model.xml"
-                ).write_text(
-                    decode(Image.open(p).text["mxfile"]).strip(), encoding="utf-8"
+                model_of(f).write_text(
+                    decode(Image.open(f / SLIDE).text["mxfile"]).strip(), encoding="utf-8"
                 )
                 done += 1
             except FORWARD as e:
-                warnings.append(f"W_PREPARE {p.name}: {e}")
+                warnings.append(f"W_PREPARE {rel(f)}: {e}")
         slides, skipped = [], []
-        for p in pngs:
-            stem = p.name.replace(".drawio.png", "")
-            model_file = models / f"{stem}.model.xml"
-            if not model_file.is_file():
+        for f in folders:
+            if not model_of(f).is_file():
                 continue
-            adrs = slide_adrs(stem, model_file.read_text(encoding="utf-8"))
-            if not adrs:
-                skipped.append(stem)
+            adrs, lens, problems = slide_facts(model_of(f).read_text(encoding="utf-8"))
+            warnings += [f"W_SUBTITLE {rel(f)}: {p}" for p in problems]
+            if not adrs or lens is None:
+                skipped.append(rel(f))
                 continue
-            slides.append(
-                {
-                    "id": stem,
-                    "stem": stem,
-                    "lens": stem.rsplit("--", 1)[-1],
-                    "adrs": adrs,
-                    "xml": rel(model_file),
-                }
-            )
+            drift = supports_drift(f, adrs, lens)
+            if drift:
+                warnings.append(f"W_SUPPORTS {drift}")
+            slides.append(slide_entry(f, f / SLIDE, model_of(f), adrs, lens))
         slides_json.write_text(
             json.dumps({"slides": slides}, indent=1) + "\n", encoding="utf-8"
         )
@@ -258,6 +305,10 @@ def bulk(folder, stage, migrate, start, end):
         print(f"slides {slides_json} listed={len(slides)} skipped={skipped}")
     if stage in ("highlight", "all"):
         try:
+            listed = json.loads(slides_json.read_text(encoding="utf-8"))["slides"]
+            slice_json.write_text(
+                json.dumps({"slides": listed[start:end]}, indent=1) + "\n", encoding="utf-8"
+            )
             run(
                 [
                     "pwsh",
@@ -265,7 +316,7 @@ def bulk(folder, stage, migrate, start, end):
                     "-File",
                     str(KIT / "minimaps" / "highlights.ps1"),
                     "-Slides",
-                    rel(slides_json),
+                    rel(slice_json),
                     "-Data",
                     rel(data),
                 ],
@@ -276,11 +327,9 @@ def bulk(folder, stage, migrate, start, end):
                     sys.executable,
                     str(KIT / "minimaps" / "render.py"),
                     "--slides",
-                    rel(slides_json),
+                    rel(slice_json),
                     "--data",
                     rel(data),
-                    "--target",
-                    rel(folder),
                 ],
                 120,
             )
@@ -291,8 +340,8 @@ def bulk(folder, stage, migrate, start, end):
                     "-NoProfile",
                     "-File",
                     str(KIT / "minimaps" / "stamp.ps1"),
-                    "-Target",
-                    rel(folder),
+                    "-Slides",
+                    rel(slice_json),
                 ],
                 300,
             )
@@ -308,8 +357,6 @@ def bulk(folder, stage, migrate, start, end):
                 rel(slides_json),
                 "--data",
                 rel(data),
-                "--target",
-                rel(folder),
                 "--start",
                 str(start),
             ]
@@ -325,11 +372,11 @@ def bulk(folder, stage, migrate, start, end):
     work.mkdir(parents=True, exist_ok=True)
     report = work / "bulk.md"
     lines = [
-        f"# {folder.name}: bulk rebuild, stage {stage}",
+        f"# {rel(root)}: bulk rebuild, stage {stage}",
         "",
-        f"- folder: `{folder}`",
-        f"- slides on disk: {len(pngs)}",
-        f"- slice: {start}..{end if end is not None else len(pngs)}",
+        f"- root: `{root}`",
+        f"- diagram folders: {len(folders)}",
+        f"- slice: {start}..{end if end is not None else len(folders)}",
         f"- status: {status}",
     ]
     lines += [f"- {k}: {v}" for k, v in counts.items()] + [
@@ -392,7 +439,8 @@ def main():
         print("status error")
         raise SystemExit(3)
     out_dir.mkdir(parents=True, exist_ok=True)
-    name = src.name.replace(".drawio.png", "")
+    # A diagram folder's slide is named by its folder; any other .drawio.png by its own stem.
+    name = src.parent.name if src.name == SLIDE else src.name.replace(".drawio.png", "")
     src_copy = out_dir / f"{name}.src.drawio.png"
     result = out_dir / f"{name}.out.drawio.png"
     model_file = out_dir / f"{name}.model.xml"
