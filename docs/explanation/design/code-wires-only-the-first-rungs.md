@@ -41,9 +41,8 @@ The diagram is described element by element in [its asset description](code-wire
    no pipeline passes it.
 7. **Deploy_Foundation.** The first deploy stage depends on `CI`, and each later stage depends on the one before: `Deploy_Foundation`,
    `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when the
-   previous stage succeeded and the source branch is `refs/heads/main`; `Deploy_Foundation` also needs the CI stage's
-   `Test-GlobSetAffected` answer to be true, so an untouched unit skips every deploy. Every deploy calls `Deploy-Bicep` with
-   `-SubscriptionIdAssertIs`.
+   previous stage succeeded and the source branch is `refs/heads/main`; `Deploy_Foundation` also needs the CI stage's `Test-GlobSetAffected`
+   answer to be true, so an untouched unit skips every deploy. Every deploy calls `Deploy-Bicep` with `-SubscriptionIdAssertIs`.
 8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, `nsub` and `psub` side by side as
    parallel jobs. Counted as foundation, discovery and expedition jobs, apex has 2, 2 and 3 (expedition `dev`, `dev-blu` and `prod`),
    `cd-shared` has 2, 2 and 2, nova has 1, 1 and 1, and flux has 1, 1 and none.

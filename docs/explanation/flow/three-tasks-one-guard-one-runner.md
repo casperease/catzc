@@ -29,9 +29,9 @@ The diagram is described element by element in [its asset description](three-tas
 1. **ci-automation.yaml.** A root pipeline names the template and passes a command, for example
    `RunCommand: "Test-Automation -Level 2 -EnforceTimings"`.
 2. **invoke-automation.yaml.** The template takes seven parameters: `RunCommand`, `Mode` (`none`, `azcli` or `azps`, default `none`),
-   `ExposeAccessToken`, `ServiceConnection`, `AllowWarnings`, `DisplayName` and `StepName`. `Mode` picks one of three tasks,
-   `PowerShell@2`, `AzureCLI@2` or `AzurePowerShell@5`; each task's `displayName` is `coalesce(DisplayName, RunCommand)`, a set `StepName`
-   names the task so a later stage can read its output variables, and `ExposeAccessToken` maps `SYSTEM_ACCESSTOKEN` on any of them.
+   `ExposeAccessToken`, `ServiceConnection`, `AllowWarnings`, `DisplayName` and `StepName`. `Mode` picks one of three tasks, `PowerShell@2`,
+   `AzureCLI@2` or `AzurePowerShell@5`; each task's `displayName` is `coalesce(DisplayName, RunCommand)`, a set `StepName` names the task so
+   a later stage can read its output variables, and `ExposeAccessToken` maps `SYSTEM_ACCESSTOKEN` on any of them.
 3. **Inline guard.** All three tasks run `Set-StrictMode -Version Latest`, then check that a multiline `RunCommand` has a `DisplayName`.
    When it passes, the task dot-sources the runner with `-Command`, `-Mode`, `-ExposeAccessToken`, `-ServiceConnection` and
    `-AllowWarnings`.

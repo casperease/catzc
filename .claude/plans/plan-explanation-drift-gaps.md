@@ -76,6 +76,15 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
     empty member list is refused. Documented in `docs/how-to/automation/apply-environment-approvals.md`. Six L0 files passed, the analyzer
     reports 0 over the 11 files, and the manual-test-plan row and coverage test passed. The group's description is written at creation only,
     since a Graph group patch needs a JSON-patch content type the REST caller does not send. The ladder itself is `plan-promotion-ladder`.
+    ADR-FLOW-CD#15 (new) makes the gate a rule and links the how-to.
+  - Q1, wired in YAML: `invoke-automation.yaml` takes a `StepName`, so a step can publish output variables; the CI stage of `cd-shared.yaml`
+    and of `extends/cd-customer.yaml` checks out with `fetchDepth: 0` and runs
+    `Set-AdoPipelineVariable AFFECTED (Test-GlobSetAffected <unit>) -IsOutput` as step `Changes`; `Deploy_Foundation` also needs `AFFECTED`
+    true, and the later deploy stages chain on it, so an untouched unit skips every deploy. The check runs once per pipeline, not once per
+    stage, and `fetchDepth: 0` is set on the checkouts that diff, not on deploy-job checkouts, which diff nothing. Test-Pipelines and
+    Test-AdoPipelineTriggerGlob report 0, and the four files parse.
+  - Q2, wired in YAML: `ci-automation.yaml` has a `BuildArtifact` job that runs `Test-BuildArtifact` only on main, the post-merge BVT.
+  - Five articles lost the "no pipeline calls it / runs it / sets fetchDepth" claims, and the step-template article counts seven parameters.
 
 ## Decided (2026-10-18, the user took every recommendation)
 
@@ -120,10 +129,10 @@ When a step lands, remove its claim from every article that states it (search `d
       `Write-CatzcLoadBanner` as markers 7 and 8), `what-gates-each-bundle-stage` (the cached root, marker 6) and
       `which-run-mode-rules-have-a-gate` (four build kinds, marker 8); and, since Q1, the two globset slides whose titles say the
       in-pipeline check has no caller: `drift-is-gated-generation-is-adr-only` (the "in-pipeline exact backstop" ADR-only box, marker 8, and
-      its title) and `tests-pin-the-throw-and-fail-open-no-caller` (the `fetchDepth: 0` ADR-only glyph, marker 7, and its title "…no pipeline
-      calls it"). Each needs those elements removed or relabelled, and the two globset articles a new title, with the article, `.drawio.md`
-      and minimaps following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check: the articles' text
-      blocks match their slides, and Test-Links passes).
+      its title) and `tests-pin-the-throw-and-fail-open-no-caller` (the `fetchDepth: 0` ADR-only glyph, marker 7, and its title "…no
+      pipeline calls it"). Each needs those elements removed or relabelled, and the two globset articles a new title, with the article,
+      `.drawio.md` and minimaps following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check: the
+      articles' text blocks match their slides, and Test-Links passes).
 
 ## Refs
 
