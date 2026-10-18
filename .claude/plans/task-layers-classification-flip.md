@@ -55,16 +55,16 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
        its Level 2 heading and anchor, ADR-REPO-CODEMETA#2 (folder-free), ADR-AUTO-BUNDLE#1, ADR-AUTO-OVERLAY#2, #3 and #9 (and the
        source-mode sentence now matching rule 8), ADR-AUTO-PARITY#1; ADR-DSGN-TRACK#5 waits for P6. `ADRREG issues=0`,
        `ADR-NEUTRALITY issues=0`, Test-Links, Test-Glossary, Test-Markdownlint and Test-Spelling clean on the eight ADRs.
-6. [x] Landed 2026-10-18 by session catzc-fb, verdict: "Test-Glossary: 0 G-issues on each of the 25 edited files (glossary.yml + 24
-   pages); tree G4=31, all residue meanings outside this step". Five avoid-phrasings under the `automation` concept in
-   `pwsh/Catzc.Base.Docs/configs/glossary.yml`; the real count was 24 pages, not 68; `docs/adr/glossary.md` is generated and left to
-   Build-Glossary. The 31 G4 hits left are folder, track and modules meanings in plan-automation-word-residue (tracks.md:53 waits for P6).
-   Decided 2026-10-18 by the orchestrator on the user's delegation: the forms `PowerShell` and `implementation` leave the layer family
-   now (no page uses them any more); `automation` stays until P6, where the 31 residue hits and `ci-automation` go. Handed to catzc-fb.
-   Original step: P5 guards: avoid-phrasings for the retired uses ("automation folder", "automation track", "automation modules", "automation layer",
-   "PowerShell automation") in `glossary.yml`; the P2 analyzer rule stays; the 68 pages that still say "automation layer", "implementation
-   layer" or "PowerShell layer" reworded one file at a time. Check: Test-Glossary on each edited file reports none; the final full run is
-   the tree-wide proof.
+6. [x] Landed 2026-10-18 by session catzc-fb, verdict: "Test-Glossary: 0 G-issues on each of the 25 edited files (glossary.yml + 24 pages);
+       tree G4=31, all residue meanings outside this step". Five avoid-phrasings under the `automation` concept in
+       `pwsh/Catzc.Base.Docs/configs/glossary.yml`; the real count was 24 pages, not 68; `docs/adr/glossary.md` is generated and left to
+       Build-Glossary. The 31 G4 hits left are folder, track and modules meanings in plan-automation-word-residue (tracks.md:53 waits for
+       P6). Decided 2026-10-18 by the orchestrator on the user's delegation: the forms `PowerShell` and `implementation` leave the layer
+       family now (no page uses them any more); `automation` stays until P6, where the 31 residue hits and `ci-automation` go. Handed to
+       catzc-fb. Original step: P5 guards: avoid-phrasings for the retired uses ("automation folder", "automation track", "automation
+       modules", "automation layer", "PowerShell automation") in `glossary.yml`; the P2 analyzer rule stays; the 68 pages that still say
+       "automation layer", "implementation layer" or "PowerShell layer" reworded one file at a time. Check: Test-Glossary on each edited
+       file reports none; the final full run is the tree-wide proof.
 7. P6, one atomic set: `ci-automation` to `ci-pwsh`, `ci-automation-expected-failures` to `ci-pwsh-expected-failures`, the globset and
    `pipeline:` key, workflow and pipeline files, their file-name-keyed contract fragments, `docs/references/pipelines/*`, the README badge,
    `Test-GitHubWorkflowTriggerGlob` and `Register-AdoPipeline` examples. `invoke-automation` and `release-automation` stay (Q2). The user

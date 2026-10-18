@@ -5,12 +5,7 @@ task:
   value: medium
   blocked_on: nothing; the probe deletions (steps 5 and 6) are the user's runs
   targets:
-    [
-      pwsh/Catzc.Base.Reports/configs/output-formats.yml,
-      pwsh/Catzc.Base.Reports,
-      docs/adr/repository/dedicated-output-directory.md,
-      out,
-    ]
+    [pwsh/Catzc.Base.Reports/configs/output-formats.yml, pwsh/Catzc.Base.Reports, docs/adr/repository/dedicated-output-directory.md, out]
 ---
 
 # Task: output artifacts registered, pruned, and the out/ harvest closed

@@ -18,7 +18,7 @@ function Get-Aspect {
     }
 
     # The type holds the declared conventions over its built-in ones (VariantsConfig.DefaultAspects), so one lookup covers both.
-    $aspects = (Get-Config -Config variants).aspects
+    $aspects = Get-AspectDeclaration
     if ($aspects.ContainsKey($Track)) {
         $aspects[$Track]
         return

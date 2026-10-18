@@ -10,8 +10,8 @@ prompt:
 You work in `C:\projects\catzc`. Read `.claude/CLAUDE.md`, then `docs/adr/index.md` (cite rules by code, never sweep the corpus), then
 `docs/adr/repository/ai-agent-contract.md`, then `.claude/plans/task-decision-round.md` and the six plans it names.
 
-Run the `plan-decide` round exactly as that task says: `questionnaire-2026-10-19.md` with one item per question, the recommendation
-first; ask four items at a time; record every answer with its projected outcome in `decisions-2026-10-19.md` (the table form of
+Run the `plan-decide` round exactly as that task says: `questionnaire-2026-10-19.md` with one item per question, the recommendation first;
+ask four items at a time; record every answer with its projected outcome in `decisions-2026-10-19.md` (the table form of
 `decisions-2026-10-18.md`); fold each decision into its owning plan one file at a time with `Test-Links -Path <file>` after each. This
 session may edit `.claude/plans`; the parallel sessions may not. Where the user does not answer, write "stays open; the recommendation is
 the working assumption" so the parallel sessions can proceed on it. Every Bash call runs under the time safeguard (foreground

@@ -4,14 +4,7 @@ task:
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
   blocked_on: C1 can start (the layers doctrine landed 2026-10-17); C2 to C6 entirely before or entirely after P4, never inside its window
-  targets:
-    [
-      docs/adr/repository,
-      pwsh/Catzc.Base.Contracts,
-      contracts/catzc/0.0.0,
-      pwsh/Catzc.Base.RootConfig,
-      pwsh/Catzc.Base.Languages,
-    ]
+  targets: [docs/adr/repository, pwsh/Catzc.Base.Contracts, contracts/catzc/0.0.0, pwsh/Catzc.Base.RootConfig, pwsh/Catzc.Base.Languages]
 ---
 
 # Task: command contracts, P7

@@ -19,8 +19,8 @@ named in the report.
   plan-file-head-immutable-edges-classes (401 to 47), plan-plans-body-sha-landing-zone (266 to 44), plan-out-artifacts (215 to 44) and
   plan-test-run-budget (119 to 57); the ticked history of this file went too. git keeps every cut line.
 - 2026-10-18, second pass: plan-unboxing and task-unboxing-closeout deleted (no open step once the user ruled the typed DLL ignored);
-  value-of-plan.md lost its rows for plan-assets-beside-articles, plan-adr-ai, plan-adr-cats and plan-unboxing, all deleted earlier, and
-  its State column re-read against the plans; the vocabulary list below lost the files that no longer exist.
+  value-of-plan.md lost its rows for plan-assets-beside-articles, plan-adr-ai, plan-adr-cats and plan-unboxing, all deleted earlier, and its
+  State column re-read against the plans; the vocabulary list below lost the files that no longer exist.
 - Kept on purpose: the 2026-10-16 questionnaires (decisions rows cite their Q numbers, and the questions live nowhere else) and the
   2026-10-18 round files (answers the user still owes).
 
@@ -41,8 +41,8 @@ named in the report.
       (prompt-module-model-1-prepare, prompt-module-model-2-implement): delete each once no plan links it. Check: `Test-Links` clean on
       `.claude/plans`. Done 2026-10-18: catzc-cc dropped their links; the seven are deleted, two Refs lines that named them removed; the
       mentions left are history in ticked steps. The minimap pages under docs/explanation/.assets name them until their next render.
-- [ ] After the final session's full run (task-user-runs-and-commits, last step): delete `plan-bounded-folder-enumeration.md` and `prompt-bounded-folder-enumeration-continue.md`
-      (check: both files gone, `Test-Links` clean on `.claude/plans`).
+- [ ] After the final session's full run (task-user-runs-and-commits, last step): delete `plan-bounded-folder-enumeration.md` and
+      `prompt-bounded-folder-enumeration-continue.md` (check: both files gone, `Test-Links` clean on `.claude/plans`).
 - [ ] `out/test-links/20261016-2012*`: the 36 report folders of the verdict pass are gate output; clear them when the user agrees (check:
       `ls out/test-links` lists no `20261016-2012*` folder).
 
@@ -56,5 +56,5 @@ file is fixed when it is next edited for its own reason (D15: no exemption for p
 
 The files: `plan-layers-vocabulary-rename-contracts.md`, `questionnaire-2026-10-16.md`, `decisions-2026-10-16.md`, `value-of-plan.md`,
 `questionnaire-fundamental-2026-10-16.md`, `questionnaire-fundamental-2-2026-10-16.md`, `plan-assert-wait.md`,
-`prompt-bounded-folder-enumeration-continue.md`, `plan-module-model-closeout.md`. Struck 2026-10-18 as deleted files: plan-module-kinds-tracks,
-plan-config-defaults, plan-adr-link-cleanup-prose-to-pages, plan-unboxing and the five topic prompts.
+`prompt-bounded-folder-enumeration-continue.md`, `plan-module-model-closeout.md`. Struck 2026-10-18 as deleted files:
+plan-module-kinds-tracks, plan-config-defaults, plan-adr-link-cleanup-prose-to-pages, plan-unboxing and the five topic prompts.

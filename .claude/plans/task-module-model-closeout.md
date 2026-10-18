@@ -30,10 +30,10 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
   up in plan-module-model-closeout and follows D03, since it is the rule 6 scope the user confirms.
 - Step 4: `Get-CatzcModule -TrackType infrastructure` returns no module; the reason (places below the track root count as internal) and the
   decision it needs are recorded as an open step in plan-module-kinds-tracks.
-- Step 5: the reference page `docs/references/pwsh/catzc-base-modules.md` written in the five-part shape and listed in index.md;
-  Format-Code run on it (a dry run changes nothing more), index.md dry run unchanged; `No spelling issues found.`
-  (`out/test-spelling/20261017-175756`), `No markdownlint issues found.` (`out/test-markdownlint/20261017-175756`), `No links issues found.`
-  on the page; index.md's link to it is `[Untracked]` until the commit.
+- Step 5: the reference page `docs/references/pwsh/catzc-base-modules.md` written in the five-part shape and listed in index.md; Format-Code
+  run on it (a dry run changes nothing more), index.md dry run unchanged; `No spelling issues found.` (`out/test-spelling/20261017-175756`),
+  `No markdownlint issues found.` (`out/test-markdownlint/20261017-175756`), `No links issues found.` on the page; index.md's link to it is
+  `[Untracked]` until the commit.
 - Step 6, corrected: the csproj carries no processing instruction any more (its head is the CDATA property of plan-csproj-xml-head), so the
   step's premise is gone; Format-FileMeta then Format-Code both leave its first line, the IDE comment, as it is.
 - Step 8: Test-Comments has 11 findings, not 36, all comment pages whose section names a code line the source no longer has; listed with
@@ -77,8 +77,8 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
 8. [x] The 36 Test-Comments issues and the Test-Glossary bare terms in plan text: list each file with its owning plan in that plan's open
        steps (one line each); none fixed here (D15 for the plan text). Check: Test-Comments and Test-Glossary findings each appear in
        exactly one plan.
-9. The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; this task runs nothing
-   larger than one test file) reads the drawio.yml live-yaml test and RootConfig New-GitAttributes failures. Check: that run's report lists
+9. The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; this task runs nothing larger
+   than one test file) reads the drawio.yml live-yaml test and RootConfig New-GitAttributes failures. Check: that run's report lists
    neither; recorded in the plan.
 10. [x] Clear the module-model part of `waits_on` in `plan-config-defaults.md` and `plan-layers-vocabulary-rename-contracts.md`. Check: grep
         waits_on in `.claude/plans` names neither file for the module model. Done 2026-10-18: plan-config-defaults has no `waits_on`, and

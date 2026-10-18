@@ -5,12 +5,7 @@ plan:
   reviewed: 2026-10-16
   blocked_on:
     nothing; Q1-Q5 are answered below, and the open steps are the config move, a green Test-Automation file and the first measured run
-  targets:
-    [
-      pwsh/Catzc.Base.Timeouts,
-      pwsh/.internal/Catzc.Internal.Importer.psm1,
-      pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1,
-    ]
+  targets: [pwsh/Catzc.Base.Timeouts, pwsh/.internal/Catzc.Internal.Importer.psm1, pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1]
 ---
 
 # Assert-Wait: a watchpoint for a suspected block
@@ -131,11 +126,11 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       exemption for a watchpoint that never stops (check: a Decided line, then the rename or the exemption in the same change as the ADR
       pair of Q5). Decided 2026-10-18 (D17): the rename to `Watch-Blocking`, the assert subkind untouched; it lands with the Q5 pair.
 - [ ] Q5: after the first measured run (`importer.ps1 -DiagnoseBlocking`, four seconds, the user's; the Test-Automation points are read only
-      if the final full run carries the switch, and nothing waits on that), write `ADR-AUTO-FAILFAST#8` and `ADR-PWSH-ASSERT#7` with the
-      D17 rename to `Watch-Blocking` (check: `Build-AdrIndex`, `Test-Links` and the ADR gates on the touched pages; the renamed test file
-      passes under `Invoke-TestFile`).
-- [ ] After that run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check: a grep finds
-      no watchpoint call left without a finding).
+      if the final full run carries the switch, and nothing waits on that), write `ADR-AUTO-FAILFAST#8` and `ADR-PWSH-ASSERT#7` with the D17
+      rename to `Watch-Blocking` (check: `Build-AdrIndex`, `Test-Links` and the ADR gates on the touched pages; the renamed test file passes
+      under `Invoke-TestFile`).
+- [ ] After that run: replace each watchpoint that found a block with a limit in `timeouts.yml`, and delete the rest (check: a grep finds no
+      watchpoint call left without a finding).
 
 ## Refs
 

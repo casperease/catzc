@@ -20,15 +20,15 @@ task:
 
 Seven plans hold a question only the user can answer, and two of them (plan-promotion-ladder, plan-diagram-folders) are blocked on nothing
 else. One round through `plan-decide` asks them all: a questionnaire file, four items per ask with the recommendation first, every answer
-recorded with its projected outcome, then folded into the owning plan (ADR-REPO-PLANS#9: a constraining decision becomes an ADR rule in
-the change that lands it). The questions, with the plan that owns each:
+recorded with its projected outcome, then folded into the owning plan (ADR-REPO-PLANS#9: a constraining decision becomes an ADR rule in the
+change that lands it). The questions, with the plan that owns each:
 
 - plan-promotion-ladder Q1 to Q4: where main-uat lives; what certifies RC and RBC; pre-prod a new subscription or a staging slot; whether
   DEPLOY takes the CI artifact by run id or tag.
 - plan-layers-vocabulary-rename-contracts P7: the twelve exported functions nothing calls and the 139 only docs name: contract, make
   internal, or delete each set (the frozen set then holds Test-Contracts clean).
-- plan-diagram-folders: approve the out/ pilot (`out/diagram-pilot/configuration/.assets/`, `out/diagram-pilot/sidebar-old-vs-new.png`)
-  so the 150 diagrams move; or name what the pilot must change first.
+- plan-diagram-folders: approve the out/ pilot (`out/diagram-pilot/configuration/.assets/`, `out/diagram-pilot/sidebar-old-vs-new.png`) so
+  the 150 diagrams move; or name what the pilot must change first.
 - plan-clear-actions: a yes to clear the 36 `out/test-links/20261016-2012*` report folders.
 - plan-out-artifacts: a yes for probe batch two (13 files), if not already given in task-user-runs-and-commits step 3.
 - plan-assets-gallery-pdf: whether the drawio kit gets a test home (`.claude/drawio/tests/`) so the two-PNG fixture step can land, or the

@@ -46,7 +46,6 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
     BeforeAll {
         $script:tracked = @(Get-GitTrackedPath '.')
         $script:tracks = @(Get-Track)
-        $script:aspectTracks = (Get-Config -Config variants).aspects
 
         $script:globRegex = {
             param([string] $Glob)
@@ -87,7 +86,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                 return $false
             }
             $relative = $File.Substring($Track.PlaceLengthOf($File) + 1)
-            if ($Track.type -ne 'modules' -and ($null -eq $script:aspectTracks -or -not $script:aspectTracks.ContainsKey($Track.name))) {
+            if ($Track.type -ne 'modules' -and -not (Test-AspectDeclaration -Track $Track.name)) {
                 return $true
             }
             $slash = $relative.IndexOf('/')

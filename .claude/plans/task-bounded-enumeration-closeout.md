@@ -21,8 +21,8 @@ Three bad ADR test tags were fixed on 2026-10-16 and the level-2 gate was not re
        (`out/test-file/20261017-210740-a00b00`, the three tags accepted), and `No ... issues found.` for Test-Comments, Test-FileMeta,
        Test-Links, Test-Spelling, Test-Markdownlint, Test-ShippedConfigs, Test-ModuleDependency and Test-ShippedTypes (reports
        `out/test-*/20261017-2107..`). Nothing to fix.
-2. The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; nothing here runs it
-   earlier). Check: that run's report shows no finding from this feature.
+2. The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; nothing here runs it earlier).
+   Check: that run's report shows no finding from this feature.
 3. On green: `plan-bounded-folder-enumeration.md` and `prompt-bounded-folder-enumeration-continue.md` are deleted (`git rm` is the user's);
    one "deleted, why" line in value-of-plan.md; `out/run-folders-tests.ps1` and `run-folders-verify.ps1` listed for the next probe batch.
    Check: both files gone; Test-Links clean on `.claude/plans`.

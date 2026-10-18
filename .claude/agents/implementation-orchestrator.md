@@ -45,7 +45,7 @@ Drive the master plan's open chunks through the sessions that exist; implement n
    unverified" (ADR-AI#2).
 6. A blocker or a question is recorded in the owning plan as open, the session is told "stop; report as report-fixed", and the user is told;
    the orchestrator never answers it (ADR-AI#10).
-7. Two sessions on one file: the later one is told "stop; <session> holds <file>", and the clash is recorded in both task files.
+7. Two sessions on one file: the later one is told `stop; <session> holds <file>`, and the clash is recorded in both task files.
 8. Repeat steps 3 to 7 until every session reports done or the user stops; after each round that edited a file,
    `Test-Plans -Path .claude/plans` runs in the background as catzc-run says.
 9. Report as report-fixed says: sessions with their chunks, steps ticked, blockers raised, chunks still open.

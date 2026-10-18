@@ -22,8 +22,8 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
 
 ## Steps
 
-1. [x] `pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs`: a `wait` map with `seconds` (default 1) and `millisecs` (default 1), one
-       pair, not keyed by environment; an unknown key under `wait` and a zero or negative value are rejected at construction naming the key.
+1. [x] `pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs`: a `wait` map with `seconds` (default 1) and `millisecs` (default 1), one pair,
+       not keyed by environment; an unknown key under `wait` and a zero or negative value are rejected at construction naming the key.
        Check: the file compiles in a fresh pwsh. Done 2026-10-17: `wait`, `WaitDefaultSeconds`, `WaitDefaultMillisecs`, `ReadWait`; compiled
        by the import of `out/t024-a.ps1`.
 2. [x] `tests/types/TimeoutsConfig.Tests.ps1`: defaults when the key is absent; an override read; unknown key rejected; zero and negative
@@ -50,12 +50,12 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
        bolds it. Check: Test-Links on the touched pages. Corrected 2026-10-17: ADR-REPO-HELP#1 makes the head's `config` part the whole
        help, so there is nothing beyond it; the head's parameter entries now name the registry defaults (step 3), and `watchpoint` waits for
        step 7.
-7. After the first measured run (`importer.ps1 -DiagnoseBlocking`, the user's, task-user-runs-and-commits step 5; the Test-Automation
-   points are read only if the final full run carries the switch, and nothing waits on that): `ADR-AUTO-FAILFAST#8`
-   (mark a suspected block with a watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`;
-   present tense. In the same change, D17 (2026-10-18): `Assert-Wait.ps1` becomes `Watch-Blocking.ps1` with its test file, the `.psd1`
-   export, every call site and the help, the assert subkind of file-kinds.yml untouched. Check: Test-AdrRegistry, Test-Links clean; the
-   function head cites #8; `Watch-Blocking.Tests.ps1` passes 16 of 16; a grep for `Assert-Wait` over the tree finds nothing.
+7. After the first measured run (`importer.ps1 -DiagnoseBlocking`, the user's, task-user-runs-and-commits step 5; the Test-Automation points
+   are read only if the final full run carries the switch, and nothing waits on that): `ADR-AUTO-FAILFAST#8` (mark a suspected block with a
+   watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`; present tense. In the same
+   change, D17 (2026-10-18): `Assert-Wait.ps1` becomes `Watch-Blocking.ps1` with its test file, the `.psd1` export, every call site and the
+   help, the assert subkind of file-kinds.yml untouched. Check: Test-AdrRegistry, Test-Links clean; the function head cites #8;
+   `Watch-Blocking.Tests.ps1` passes 16 of 16; a grep for `Assert-Wait` over the tree finds nothing.
 8. After that run: each watchpoint that found a block becomes a `timeouts.yml` limit with `Invoke-WithTimeout`; every other `Assert-Wait`
    call is deleted; the `-DiagnoseBlocking` switch stays. Check: grep `Assert-Wait` outside its own module and tests finds no call without a
    recorded finding.

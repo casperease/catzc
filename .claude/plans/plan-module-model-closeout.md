@@ -4,8 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-17
   next: the handler ids for rule 6 (task-module-model-closeout)
-  targets:
-    [pwsh/Catzc.Base.Modules, pwsh/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/pwsh]
+  targets: [pwsh/Catzc.Base.Modules, pwsh/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/pwsh]
 ---
 
 # Module model: close-out after the implement run
@@ -54,19 +53,19 @@ verification found.
 - [x] Clear the waits_on lines in plan-config-defaults and plan-layers-vocabulary-rename-contracts once the first two steps are done (check:
       grep waits_on in .claude/plans shows neither file). Done 2026-10-18: config-defaults has none; layers waits only on the P4 go (D10).
 - [ ] The final session's full run (`. ./importer.ps1` then `Test-Automation`, by hand, after every other task; no earlier step runs it)
-      reads the two real-repo failures an agent reported (the drawio.yml live-yaml test and RootConfig New-GitAttributes) (check: that
-      run's report lists neither).
-- [x] The head of pwsh/.internal/assets/Catzc.Types.csproj. Done 2026-10-17 (its task): the file no longer carries a processing
-      instruction; its head is the CDATA `CatzcMeta` property of the `msbuild-project` carrier (plan-csproj-xml-head), and its first line is
-      the IDE comment `<!--`. Format-FileMeta then Format-Code both left that first line as it was (`out/t011-csproj-first-line.ps1`).
+      reads the two real-repo failures an agent reported (the drawio.yml live-yaml test and RootConfig New-GitAttributes) (check: that run's
+      report lists neither).
+- [x] The head of pwsh/.internal/assets/Catzc.Types.csproj. Done 2026-10-17 (its task): the file no longer carries a processing instruction;
+      its head is the CDATA `CatzcMeta` property of the `msbuild-project` carrier (plan-csproj-xml-head), and its first line is the IDE
+      comment `<!--`. Format-FileMeta then Format-Code both left that first line as it was (`out/t011-csproj-first-line.ps1`).
 - [x] Decide the minimaps of the other slides: keep the rebuild or revert it (check: git status under docs/.assets/explanation lists only
       the slides meant to change). Decided 2026-10-18 (D05): keep the rebuild.
 - [ ] Test-Comments lists 36 issues in files outside this change and Test-Glossary flags bare terms in plan text; clear them in their
       owners' plans (check: Test-Comments and Test-Glossary report none). 2026-10-18: a peer re-pointed the PropertyHead, MarkdownDocument,
       MarkdownMetaBlock and file-meta.yml sections and moved the ConsoleText and DictionaryRecord orphans to `TypeShape.cs.md`; reported
-      left, not re-run here: `Get-ModuleGlobSet.ps1.md` comment:4 (its `$internalRoot` line is gone) and `variants.yml.md` comment:4,
-      each a section naming a code line the file no longer has; the fix is Export-Comments by whoever next holds each source. The
-      glossary findings are one step of plan-clear-actions, file by file.
+      left, not re-run here: `Get-ModuleGlobSet.ps1.md` comment:4 (its `$internalRoot` line is gone) and `variants.yml.md` comment:4, each a
+      section naming a code line the file no longer has; the fix is Export-Comments by whoever next holds each source. The glossary findings
+      are one step of plan-clear-actions, file by file.
 - [ ] Delete this plan when the steps above are done and the decisions live in ADR-AUTO-MODULE (check: no file in .claude/plans names it).
 
 ## Refs

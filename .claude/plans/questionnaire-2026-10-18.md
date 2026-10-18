@@ -42,8 +42,8 @@ option of each is the recommendation.
   the measured wins are in; go, measure first. Decision: stay closed (2026-10-18, the recommendation).
 - D12 `Build-Readme` on an unchanged tree: 304 ms first call, 109 ms warm; a stamp would add `with_inputs_sha` to about 55 committed README
   copies. Options: record not skippable; stamp the README meta block. Decision: record not skippable (2026-10-18, the recommendation).
-- D13 `Format-Code` and `pwsh/.compiled`: Test-Formatting flags the compiled types `.json`. Options: skip the folder as generated
-  output; amend the formatting ADR to cover it. Decision: skip the folder (2026-10-18, the recommendation).
+- D13 `Format-Code` and `pwsh/.compiled`: Test-Formatting flags the compiled types `.json`. Options: skip the folder as generated output;
+  amend the formatting ADR to cover it. Decision: skip the folder (2026-10-18, the recommendation).
 - D15 Test-Glossary's about 195 bare-term findings in plan text ("full suite", "gate", "phase", "layer", "source", "slot"). Options: fix per
   plan when next edited; exempt plan files from the vocabulary gate. Decision: fix per plan when next edited (2026-10-18, the
   recommendation).

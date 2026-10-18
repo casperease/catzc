@@ -21,12 +21,12 @@ task:
 
 # Task: the user's commits, git operations, remote runs, and the one final full run
 
-Every step here is one the user does by hand, because agents never run mutating git, never run all tests, and never touch a remote
-(ADR-AI; `.claude/CLAUDE.md`, No mutating git operations). No task packs an expensive run into a step: a check is one test file under
-`Invoke-TestFile`, one gate on named paths, a grep or a file read. The one full-repo proof is the last step here, a final new session
-that dot-sources `importer.ps1` and runs `Test-Automation` once over the whole repository; every plan that "closes on green" closes on
-that run and on nothing earlier. The typed DLL under `pwsh/.compiled` changes as many agents work in the repository and is ignored by
-every step. Order: the commits and git operations first, the remote runs next, the final full run last.
+Every step here is one the user does by hand, because agents never run mutating git, never run all tests, and never touch a remote (ADR-AI;
+`.claude/CLAUDE.md`, No mutating git operations). No task packs an expensive run into a step: a check is one test file under
+`Invoke-TestFile`, one gate on named paths, a grep or a file read. The one full-repo proof is the last step here, a final new session that
+dot-sources `importer.ps1` and runs `Test-Automation` once over the whole repository; every plan that "closes on green" closes on that run
+and on nothing earlier. The typed DLL under `pwsh/.compiled` changes as many agents work in the repository and is ignored by every step.
+Order: the commits and git operations first, the remote runs next, the final full run last.
 
 ## Steps
 
@@ -40,9 +40,9 @@ every step. Order: the commits and git operations first, the remote runs next, t
 4. Bind a key to the "Push dirty" task (`workbench.action.tasks.runTask`, args `Push dirty`) and run `Push-Dirty` once against the real
    remote. Check: one real run reported; plan-fast-push-followups' last step ticked, the plan a closing-sweep candidate;
    task-root-config-fixtures step 5 ticked.
-5. The first measured watchpoint run, cheap and direct: `importer.ps1 -DiagnoseBlocking` once, its four watchpoint lines kept in `out/`.
-   The Test-Automation watchpoints are read only if the final session (step 9) adds `-DiagnoseBlocking`; nothing waits on that. Check:
-   each importer watchpoint's worst tick is in the report; task-assert-wait steps 7 and 8 unblock.
+5. The first measured watchpoint run, cheap and direct: `importer.ps1 -DiagnoseBlocking` once, its four watchpoint lines kept in `out/`. The
+   Test-Automation watchpoints are read only if the final session (step 9) adds `-DiagnoseBlocking`; nothing waits on that. Check: each
+   importer watchpoint's worst tick is in the report; task-assert-wait steps 7 and 8 unblock.
 6. `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`: list the approvers under `approver_group.members`, run
    `Sync-AdoEnvironmentApprovals -DryRun`, then without. Check: a second apply reports Unchanged for the group and all three checks, and a
    CD run to `shared-psub` waits for approval; task-explanation-drift-gaps step 4 ticked.
@@ -51,12 +51,12 @@ every step. Order: the commits and git operations first, the remote runs next, t
    task-explanation-drift-gaps steps 2 and 3 ticked.
 8. After task-layers-classification-flip step 7 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
-9. The final full run, last of all, after every other task has landed: a new `pwsh` session, `. ./importer.ps1`, then `Test-Automation`
-   once over the whole repository, by hand. Read its report in `out/test-automation` for the two real-repo failures reported earlier
-   (the drawio.yml live-yaml test, RootConfig New-GitAttributes) and for any finding in the head shape, the class selectors, the path
-   split (plan-file-head-immutable-edges-classes), the folder walker (plan-bounded-folder-enumeration) and the module model
-   (plan-module-model-closeout step 9). Its shard manifest is the one task-test-run-budget step 3 reads. Check: the report lists no
-   finding from those plans; each is then a closing-sweep candidate, and the last closing sweep follows.
+9. The final full run, last of all, after every other task has landed: a new `pwsh` session, `. ./importer.ps1`, then `Test-Automation` once
+   over the whole repository, by hand. Read its report in `out/test-automation` for the two real-repo failures reported earlier (the
+   drawio.yml live-yaml test, RootConfig New-GitAttributes) and for any finding in the head shape, the class selectors, the path split
+   (plan-file-head-immutable-edges-classes), the folder walker (plan-bounded-folder-enumeration) and the module model
+   (plan-module-model-closeout step 9). Its shard manifest is the one task-test-run-budget step 3 reads. Check: the report lists no finding
+   from those plans; each is then a closing-sweep candidate, and the last closing sweep follows.
 
 ## Report
 

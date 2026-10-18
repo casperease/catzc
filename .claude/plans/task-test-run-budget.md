@@ -34,8 +34,8 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
        then 10.2 s); the failure is its integrity case, "formatting leaves the repository unchanged", over 18 unformatted working-tree
        files, none of them a stamp file.
 3. From the shard manifest of the final session's full run (and of any earlier run the user made on their own; this task asks for none):
-   `Invoke-TestFile.Tests.ps1` no longer shares a shard with `Test-Formatting.Tests.ps1`; record the shard table and wall clock against
-   the 265.8 s run in the plan. Check: the table in the plan, read from `out/test-automation`, no run started for it.
+   `Invoke-TestFile.Tests.ps1` no longer shares a shard with `Test-Formatting.Tests.ps1`; record the shard table and wall clock against the
+   265.8 s run in the plan. Check: the table in the plan, read from `out/test-automation`, no run started for it.
 4. [x] Next three files by cost (Get-BicepParameterModel.Shipped 33.6 s, Import-Catzc 32.9 s, Build-Bicep.L2 31.3 s, then the
        Test-BuildArtifact files), one at a time through the `test-optimization` robot, each measured against the new balance. Check: same
        assertions, lower time, recorded per file.

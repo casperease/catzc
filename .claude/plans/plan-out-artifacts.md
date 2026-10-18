@@ -4,12 +4,7 @@ plan:
   value: medium
   reviewed: 2026-10-18
   waits_on: the user's run of out/delete-probes-batch1.ps1, and a yes for batch two
-  targets:
-    [
-      pwsh/Catzc.Base.Reports/configs/output-formats.yml,
-      pwsh/Catzc.Base.Reports,
-      docs/adr/repository/dedicated-output-directory.md,
-    ]
+  targets: [pwsh/Catzc.Base.Reports/configs/output-formats.yml, pwsh/Catzc.Base.Reports, docs/adr/repository/dedicated-output-directory.md]
 ---
 
 # Configurable output artifacts with sensible defaults

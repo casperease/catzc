@@ -2,7 +2,13 @@
 task:
   status: open
   plans:
-    [plan-module-model-closeout, plan-layers-vocabulary-rename-contracts, plan-clear-actions, plan-assets-gallery-pdf, plan-promotion-ladder]
+    [
+      plan-module-model-closeout,
+      plan-layers-vocabulary-rename-contracts,
+      plan-clear-actions,
+      plan-assets-gallery-pdf,
+      plan-promotion-ladder,
+    ]
   value: medium
   blocked_on: step 4 on the decision round (test home); step 5 on the decision round (Q1 to Q4)
   targets:
@@ -22,15 +28,20 @@ Five plans each hold one step that fits no larger chunk. Each is one file and on
 
 ## Steps
 
-In hand 2026-10-18: session catzc-fb holds steps 1 and 2 (orchestrator).
-
-1. The two stale comment-page sections (plan-module-model-closeout): `Get-ModuleGlobSet.ps1.md` comment:4 and `variants.yml.md` comment:4
-   each name a code line the source no longer has; `Export-Comments` on each source re-points or drops the section. Check: `Test-Comments`
-   reports 0 on both sources.
-2. The `executable` flag (plan-layers-vocabulary-rename-contracts, the last open step): `languages.yml` gains `executable: true` on the
-   languages a command is implemented in, read by `LanguagesConfig` with its default declared once on the type and a test for the key;
-   ADR-AUTO-LAYERS rule 2 (`docs/adr/automation/layers.md`) names the flag instead of "the file languages its track declares". Check: the
-   LanguagesConfig test file passes; `Test-AdrRegistry` and `Test-Links` clean on the ADR; the plan's step ticked.
+1. [x] Landed 2026-10-18 by session catzc-fb with no edit needed, verdict: "Test-Comments 0 on both sources; Export-Comments dry run moves
+       nothing (both comment:4 sections already name live code lines: Get-ModuleGlobSet.ps1:80, variants.yml:5)". Original step: The two
+       stale comment-page sections (plan-module-model-closeout): `Get-ModuleGlobSet.ps1.md` comment:4 and `variants.yml.md` comment:4 each
+       name a code line the source no longer has; `Export-Comments` on each source re-points or drops the section. Check: `Test-Comments`
+       reports 0 on both sources.
+2. [x] Landed 2026-10-18 by session catzc-fb, committed by the user in dcc194abd, verdict: "LanguagesConfig.Tests.ps1 Passed 35/35
+       failures=0; ADRREG issues=0; LINKS issues=0 on layers.md". `executable` on FileLanguage.cs (default false once on the type),
+       validated in LanguagesConfig, set on powershell, csharp, python, go and bash; ADR-AUTO-LAYERS#2 names the flag. Naming note for a
+       later look: the `tests:` block already has an `executable` key meaning a parameter name (GoExecutable), so one entry uses the word
+       twice. Original step: The `executable` flag (plan-layers-vocabulary-rename-contracts, the last open step): `languages.yml` gains
+       `executable: true` on the languages a command is implemented in, read by `LanguagesConfig` with its default declared once on the type
+       and a test for the key; ADR-AUTO-LAYERS rule 2 (`docs/adr/automation/layers.md`) names the flag instead of "the file languages its
+       track declares". Check: the LanguagesConfig test file passes; `Test-AdrRegistry` and `Test-Links` clean on the ADR; the plan's step
+       ticked.
 3. The vocabulary findings (plan-clear-actions): each flagged plan file is fixed when a task edits it for its own reason, never swept. The
    files this execution edits (plan-layers-vocabulary-rename-contracts, plan-assert-wait, plan-unboxing, plan-module-model-closeout,
    value-of-plan.md) lose their bare terms in that edit. Check: `Test-Glossary` on each edited file names no line; the file is struck from

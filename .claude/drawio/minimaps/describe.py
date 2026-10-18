@@ -411,7 +411,7 @@ def tree_shows(ctx, links, highlight, extras):
     groups = extras["groups"]
     lit = sum(len(g["files"]) for g in groups)
     lines = para(
-        f"The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under "
+        f"The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under "
         f"`docs/adr/` by ADR domain), and lights {plural(lit, 'file')} in {plural(len(groups), 'group')}, filled in ink. A lit ADR "
         "file has a white rim; a file lit only by passing mentions is a lighter ink. Every other tile is idle, a grey box: a file the "
         "slide's ADR codes do not select."

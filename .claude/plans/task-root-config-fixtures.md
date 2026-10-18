@@ -30,9 +30,9 @@ user's.
        expectations gain the keys; if the head is wrong for fixture files, the generator is fixed. One file. Check:
        `Build-RootConfig.Tests.ps1` passes. 2026-10-18: `[Invoke-TestFile] Passed` (`out/test-file/20261018-120150-e2c30e`); neither side
        changed.
-3. [x] `docs/references/pwsh/catzc-base-codemeta/types/PropertyHead.md` (or its generated source): describe the XML form (a CDATA
-       property `CatzcMeta` in the first `PropertyGroup Label="catzc"`) beside the JSON form. If the page is generated from the type's
-       comments, edit the comment in `PropertyHead.cs` and regenerate. Check: Test-Links, Test-GeneratedFiles clean. In the tree: the page
+3. [x] `docs/references/pwsh/catzc-base-codemeta/types/PropertyHead.md` (or its generated source): describe the XML form (a CDATA property
+       `CatzcMeta` in the first `PropertyGroup Label="catzc"`) beside the JSON form. If the page is generated from the type's comments, edit
+       the comment in `PropertyHead.cs` and regenerate. Check: Test-Links, Test-GeneratedFiles clean. In the tree: the page
        (`PropertyHead.cs.md`, generated from the type's comments) already names the CDATA property of the labelled first PropertyGroup.
 4. [x] `Format-PropertyMetaHead` and `Get-PropertyMetaState` help: the head block names both carriers. Check: Test-Links on their pages;
        Test-Help clean. Done 2026-10-18: both heads name both carriers and `CatzcMeta`. Correction: there is no `Test-Help`; the help check

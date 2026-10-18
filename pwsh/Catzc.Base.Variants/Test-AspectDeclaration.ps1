@@ -6,6 +6,6 @@ function Test-AspectDeclaration {
         [string] $Track
     )
 
-    $aspects = (Get-Config -Config variants).aspects
+    $aspects = Get-AspectDeclaration
     $null -ne $aspects -and $aspects.ContainsKey($Track)
 }

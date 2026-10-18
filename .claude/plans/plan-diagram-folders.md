@@ -31,13 +31,13 @@ Recorded 2026-10-18 with the user:
 - ADR codes and lens come from the model's `subtitle` cell only (`<codes> · <lens>`, on all 151 models); the sidebar chips, the lens badge
   and the page name are outputs. The lens is a closed set of six in `drawio.yml` (today `LENS_BADGE` in render.py); a lens outside it fails
   the render. The article's `Supports … (<lens> lens)` line is checked against the subtitle and warns on drift, never parsed as the source.
-- A folder finds its article among the pages of the folder that holds its `.assets`: the one page that embeds its `diagram.drawio.png`.
-  None is an orphan, reported with every other artifact delivered; two fail. Locality is the search space, so a folder moved away from its
+- A folder finds its article among the pages of the folder that holds its `.assets`: the one page that embeds its `diagram.drawio.png`. None
+  is an orphan, reported with every other artifact delivered; two fail. Locality is the search space, so a folder moved away from its
   article is reported as an orphan.
 - The render reads the article for its title (minimap links), its text (`--assert`) and the `Supports` line check.
 - The pilot runs in `out/` only: a copy of `docs/explanation/configuration/` in the new layout, rendered by the new kit, for the user's
-  review. Nothing in `docs/` moves until the user approves; then all 150 move in one change, so the kit only ever supports one layout in
-  the tree (ADR-PRIN-ONELIVE).
+  review. Nothing in `docs/` moves until the user approves; then all 150 move in one change, so the kit only ever supports one layout in the
+  tree (ADR-PRIN-ONELIVE).
 
 ## Needed docs
 
