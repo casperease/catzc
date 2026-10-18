@@ -36,9 +36,10 @@ rebases.
 - [ ] **Unrelated, found on the way: the registry.** `Test-AdrRegistry` reports `ai-agent-contract.md` declares `ADR-AI` but no `adrs.yml`
       rule set registers it (check: `Test-AdrRegistry` no longer names `ADR-AI`).
 - [ ] **Unrelated, found on the way: the vocabulary.** `Test-Glossary` reports about 195 vocabulary findings in other plans and docs ("full
-      suite", "gate", "phase", "layer", "source", "slot") (check: every finding is assigned to the plan that owns its file, as a step there).
-- [ ] **By hand, once; the user's.** Bind a key to the task in the user keybindings (`workbench.action.tasks.runTask`, args `Push dirty`), and
-      run `Push-Dirty` against the real remote once; the tests mock every git call (check: one real `Push-Dirty` run reported).
+      suite", "gate", "phase", "layer", "source", "slot") (check: every finding is assigned to the plan that owns its file, as a step
+      there).
+- [ ] **By hand, once; the user's.** Bind a key to the task in the user keybindings (`workbench.action.tasks.runTask`, args `Push dirty`),
+      and run `Push-Dirty` against the real remote once; the tests mock every git call (check: one real `Push-Dirty` run reported).
 
 ## Not in this plan
 

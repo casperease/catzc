@@ -51,4 +51,5 @@ catzc:
 - [ ] Four tests in `Build-RootConfig.Tests.ps1` compare an exact head text and fail; they are about fixture files. Run them against the
       tree without this change to learn whether they failed before it (check: the four tests run against a tree without the change and the
       result is recorded here).
-- Context: the index holds one `automation/.compiled/Catzc.Types.<hash>.dll`; it goes stale at every `types/*.cs` edit, and staging it is the user's.
+- Context: the index holds one `automation/.compiled/Catzc.Types.<hash>.dll`; it goes stale at every `types/*.cs` edit, and staging it is
+  the user's.

@@ -92,9 +92,9 @@ sessions; run-clear-output.ps1 was judged by reading, never run. Probe deletions
       finds each of the five names in an open step). Done 2026-10-17 (its task): task-file-head-leftovers step 9 carries the four,
       task-adr-link-cleanup step 9 the fifth.
 - [x] Register the six out/ areas with their numbers in output-formats.yml (Q71); sessions under `out/sessions/<session>/` (Q72);
-      time-safeguard.log never pruned (Q73); only Clear-Output prunes (Q74) (check: the config tests; Test-Links). Done 2026-10-17:
-      the areas and `sessions/**` were registered; `session-log` gained `max_age: none` so the safeguard log never ages out; config tests
-      pass, Test-Links clean (verdicts in task-out-artifacts).
+      time-safeguard.log never pruned (Q73); only Clear-Output prunes (Q74) (check: the config tests; Test-Links). Done 2026-10-17: the
+      areas and `sessions/**` were registered; `session-log` gained `max_age: none` so the safeguard log never ages out; config tests pass,
+      Test-Links clean (verdicts in task-out-artifacts).
 
 ## Needed docs
 

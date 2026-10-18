@@ -146,8 +146,8 @@ capability reads the AI agent contract first, [ADR-AI](../docs/adr/repository/ai
   to" notes (docs read present-tense too).
 - **Plans are authored in `.claude/plans/plan-<topic>.md`** (`ADR-REPO-PLANS`, [plans](../docs/adr/repository/plans.md)): when asked to
   "make a plan", write that file — do not use plan mode or show a selection menu; the user wants a file to review. A plan holds the delta
-  only, `plan-master.md` and the `task-<topic>.md` files are derived from the plans (the master's list carries the order, never a name),
-  and a done plan is deleted.
+  only, `plan-master.md` and the `task-<topic>.md` files are derived from the plans (the master's list carries the order, never a name), and
+  a done plan is deleted.
 - **Run PowerShell yourself — and actually run a gate before claiming it passed**: `pwsh` (7.4+) is available and permitted via the Bash
   tool, so run the importer, Pester, `Test-Automation`, and any `.ps1` directly — e.g. `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"`
   or `pwsh -NoProfile -File out/<name>.ps1`. Remember the importer is **dot-sourced** and C# type edits need a fresh `pwsh` process to

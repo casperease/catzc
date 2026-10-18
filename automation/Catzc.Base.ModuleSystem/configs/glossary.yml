@@ -211,7 +211,8 @@ concepts:
     contrasts:
       track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
       implementation language:
-        An implementation language is a file language a command is written in; a file language is any language the registry names by extension.
+        An implementation language is a file language a command is written in; a file language is any language the registry names by
+        extension.
       contract language:
         The contract language is a notation inside one YAML file, the one a command contract is written in; a file language is the kind of
         text a whole file holds, named by its extension.
@@ -337,5 +338,6 @@ concepts:
       and modules the session loads.
     realized_by: { kind: prose-only }
     contrasts:
-      automation: Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and modules into a session.
+      automation:
+        Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and modules into a session.
       run mode: A run mode says where the importer reads the modules from; the importer decides which modules, languages and engines load.

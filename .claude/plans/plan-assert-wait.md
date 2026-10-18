@@ -145,9 +145,9 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
       comes from (check: the cause is named here, or the tick no longer reports it). Done 2026-10-17 (task-assert-wait,
       `out/t024-diag.ps1`): it was never the first tick. Each `Start-Sleep -Milliseconds 100` overruns by about 9 ms (a bare session
       measures 107 ms, the first call 148 ms), and the loop slept the full slice every tick, so the overrun accumulated: ticks late by 3,
-      15, 22, 30, 42, 49, 65, 72, 79, 86 ms, the worst always the last. The loop now sleeps until the tick is due; the same four
-      importer watchpoints then report a worst tick of 13 to 14 ms and 1.002 to 1.012 s measured for 1.001 s asked. `-DiagnoseLoadTime`
-      shows no phase that hides a block (types 203 ms, the largest module imports 56 to 66 ms).
+      15, 22, 30, 42, 49, 65, 72, 79, 86 ms, the worst always the last. The loop now sleeps until the tick is due; the same four importer
+      watchpoints then report a worst tick of 13 to 14 ms and 1.002 to 1.012 s measured for 1.001 s asked. `-DiagnoseLoadTime` shows no
+      phase that hides a block (types 203 ms, the largest module imports 56 to 66 ms).
 - [x] Function help beyond the head blocks (check: `Test-Links` on the touched pages). Corrected 2026-10-17 (task-assert-wait): the head's
       config part is the whole help (ADR-REPO-HELP#1), and it now names the registry defaults.
 - [ ] Q6, raised by the read-only review of 2026-10-17 (session catzc-6c): `Assert-Wait` throws only for a bad argument and otherwise lets

@@ -133,8 +133,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-CATS](cats-and-catzc.md)
 
 > DORA ties code maintainability and documentation quality to how easily a reader finds and understands what a name means. One name per
-> audience, each with a home and a rule for where they meet, removes a source of variability in how the system is spoken of and written,
-> so code, docs and conversation stay legible to the reader each is for.
+> audience, each with a home and a rule for where they meet, removes a source of variability in how the system is spoken of and written, so
+> code, docs and conversation stay legible to the reader each is for.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one reserved token in every namespace, prefix and
   path means a search for catzc finds the system and nothing else.

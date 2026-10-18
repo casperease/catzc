@@ -609,8 +609,8 @@ contracts beyond the pilot; c) the services track; d) none planned, let the past
 
 ### Q119 The user as the only mutating-git actor
 
-No session commits; the user commits and runs all tests. Options: a) confirm; b) allow a session to commit with an explicit go per
-commit; c) allow commits in a session's own branch. Decision:
+No session commits; the user commits and runs all tests. Options: a) confirm; b) allow a session to commit with an explicit go per commit;
+c) allow commits in a session's own branch. Decision:
 
 ### Q120 This questionnaire's method
 

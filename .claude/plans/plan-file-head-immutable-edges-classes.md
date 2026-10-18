@@ -66,8 +66,8 @@ each copy can drift. Below the module model plan because that plan decides what 
 ## Open steps
 
 - [x] Class selectors in file-meta.yml, one kind at a time, go now (Q50) (check: that kind's processor test; Test-FileMeta clean). Done
-      before the selectors task read it (2026-10-17): every kind selects by `classes` or `languages`, `files` is gone from type and
-      config, and the whole-tree `Format-FileMeta -DryRun` reports `changes=0` (`out/t021-dryrun-before.txt`).
+      before the selectors task read it (2026-10-17): every kind selects by `classes` or `languages`, `files` is gone from type and config,
+      and the whole-tree `Format-FileMeta -DryRun` reports `changes=0` (`out/t021-dryrun-before.txt`).
 - [x] Write the intended kind overlaps and strengthen FileKindReachability (Q41) (check: a shadowed kind fails the kinds tests). Done
       2026-10-17 (selectors): `overlaps:` in file-kinds.yml, `FileKindsConfig.Shadowing`, the L0 fixture tests and the L2 test; verdicts
       `[Invoke-TestFile] Passed` (`out/test-file/20261017-194430-e95068`) and the L2 run `out/test-file/20261017-194437-5e8c36`.
@@ -78,8 +78,8 @@ each copy can drift. Below the module model plan because that plan decides what 
 - [x] Naming rule: prose may say PowerShell; identifiers use only pwsh (engine, folder) or powershell (language id) (Q45). Done 2026-10-17
       (the plans ADR): ADR-REPO-VOCAB#9 with its prose section (check: Test-Terminology clean, 2026-10-17).
 - [ ] Read the formatting ADR on automation/.compiled and follow it (Q47) (check: Test-Formatting clean or the ADR amended). Decided
-      2026-10-18 (D13): the folder is skipped as generated output and the ADR names that reading; the work is
-      task-file-head-leftovers step 3.
+      2026-10-18 (D13): the folder is skipped as generated output and the ADR names that reading; the work is task-file-head-leftovers
+      step 3.
 
 ## Decided in the questionnaire round of 2026-10-16 (Q39 to Q54)
 

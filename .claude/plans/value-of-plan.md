@@ -88,8 +88,8 @@ next:
 
 ## Deleted 2026-10-18, and why
 
-- The decision round task: D01 to D20 answered, every recommendation taken; the record is decisions-2026-10-18.md and the
-  questionnaire, folded into the owning plans the same day.
+- The decision round task: D01 to D20 answered, every recommendation taken; the record is decisions-2026-10-18.md and the questionnaire,
+  folded into the owning plans the same day.
 - plan-idle-compaction and its task: D06 keeps `idleCompaction: false` in the gitignored local settings, a per-person preference; nothing is
   left to do.
 - plan-skip-unchanged-generators and its task: every janitor is wired with its inputs proven, bounded or recorded as not skippable (D12);

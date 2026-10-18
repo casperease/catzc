@@ -206,8 +206,8 @@ POSIX engines through `importer.sh` and its `cats` dispatcher (ADR-AUTO-ENGINE#6
 
 - **`ExecutionEngines`** (`Catzc.Base.Engines`) is the only place the engines are constructed; `Get-ExecutionEngine` returns them.
 - **`Resolve-EngineExecutable`** (`Catzc.Base.Execution`) locates an engine's executable by its model.
-- **`Get-EngineContract`** (`Catzc.Base.Languages`) builds the engine start environment `Invoke-GoTest`, `Invoke-PythonTest` and `Invoke-BashTest`
-  set, and the language bridge runs every Go and Python test once per engine.
+- **`Get-EngineContract`** (`Catzc.Base.Languages`) builds the engine start environment `Invoke-GoTest`, `Invoke-PythonTest` and
+  `Invoke-BashTest` set, and the language bridge runs every Go and Python test once per engine.
 - **`importer.sh`** is a generated root-config file (`Build-RootConfig`, drift-checked by `Test-GeneratedFiles`), and the Bash tests
   exercise its `cats` dispatcher in both run modes.
 - **The fixture tables** `engine-start.yml` and `engine-locator.yml` check the model under every engine, and the shape of every engine case

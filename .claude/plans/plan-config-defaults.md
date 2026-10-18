@@ -291,8 +291,8 @@ regenerate pages.
   defaults on the type and gets the same three postures and a contracted-defaults file; it is Phase 4 material.
 - **Contracts** (`.unordered/15-10-2026/plan-contracts.md`): the "defaults as contract YAML: not adopted" row is superseded by the
   generated, one-declaration form in section 1.
-- **Memory-recorded rules that bind this plan:** configure, don't program; strict-mode compliance; one living version; the user runs
-  all tests and handles commits; no mutating git; time safeguard on every Bash call.
+- **Memory-recorded rules that bind this plan:** configure, don't program; strict-mode compliance; one living version; the user runs all
+  tests and handles commits; no mutating git; time safeguard on every Bash call.
 
 ## 8. Risks
 

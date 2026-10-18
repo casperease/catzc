@@ -36,10 +36,9 @@ catzc:
 # Task: config defaults Phases 2 and 3, the repo fragment and the generated defaults contract
 
 Decided: Q3 the shipped variants.yml is deleted and a typed config with no file is built from an empty map plus the fragment; Q5 source mode
-reads this repository's own config fragments only; the folder is `.catzc/` with no alias (ADR-CATS#5 supersedes Q6); Q4 a new
-contract asset kind `defaults`; Q7 a required key is named in a header comment of the generated file, never given a value. The track folder
-is resolved through the one resolver (Get-Track or Get-CatzcModulesRoot), never an `automation` literal, so the later pwsh rename is a data
-edit.
+reads this repository's own config fragments only; the folder is `.catzc/` with no alias (ADR-CATS#5 supersedes Q6); Q4 a new contract asset
+kind `defaults`; Q7 a required key is named in a header comment of the generated file, never given a value. The track folder is resolved
+through the one resolver (Get-Track or Get-CatzcModulesRoot), never an `automation` literal, so the later pwsh rename is a data edit.
 
 ## Steps
 

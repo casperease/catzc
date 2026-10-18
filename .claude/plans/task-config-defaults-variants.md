@@ -47,9 +47,9 @@ the rule being repaired. C# edits need a fresh pwsh; tests in the background.
    passes.
 6. The private variant reader (`Get-Variant` or its successor): drop `-Default`; it returns the typed property. Check: its test passes.
 7. One getter per step, each with its test: `Get-AdoNaming`, `Get-GitWorkspace`, `Get-EnabledCustomers` (have_customers false means none;
-   this repo's fragment will say all, until then the shipped variants.yml keeps `all`), `Get-Aspect` (Catzc.Base.Modules),
-   `Get-Track` (if not dirty). Each loses its literal and reads the type. Check: each getter's Pester file passes; `have_customers` agrees
-   across the getter and the type test.
+   this repo's fragment will say all, until then the shipped variants.yml keeps `all`), `Get-Aspect` (Catzc.Base.Modules), `Get-Track` (if
+   not dirty). Each loses its literal and reads the type. Check: each getter's Pester file passes; `have_customers` agrees across the getter
+   and the type test.
 8. `plan-config-defaults.md`: tick the Phase 1 step with the test counts; the scratchpad-copy and paste steps are superseded by this task
    (record that under Done, and why). Check: grep `- [ ]` counts the Phase 2 to 5 steps only.
 

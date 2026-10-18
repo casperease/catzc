@@ -35,9 +35,8 @@ option of each is the recommendation.
   the recommendation).
 - D02 Choice (b): the track key is `execution_engines`, the table is `layout`, "kind" stays out of the ADR text until the role rename.
   Options: confirm; rename now. Decision: confirm (2026-10-18, the recommendation).
-- D03 Choice (c): rule 6 covers check and test handlers only; `LoadedModule` dropped with `BaseModule`. module-model-closeout then
-  builds the handler ids.
-  Options: confirm; widen rule 6 to every handler. Decision: confirm (2026-10-18, the recommendation).
+- D03 Choice (c): rule 6 covers check and test handlers only; `LoadedModule` dropped with `BaseModule`. module-model-closeout then builds
+  the handler ids. Options: confirm; widen rule 6 to every handler. Decision: confirm (2026-10-18, the recommendation).
 - D04 `Copy-Automation` selects the full profile by default and no longer copies `.scriptanalyzer`. Options: confirm; copy the analyzer
   rules too. Decision: confirm (2026-10-18, the recommendation).
 - D05 The run-mode slides' minimap rebuild redrew every slide's minimaps; Test-Links and Test-GeneratedFiles are clean. Options: keep the
@@ -53,8 +52,8 @@ option of each is the recommendation.
   -SkipJanitors and idle sessions. Options: run the janitors after the first prompt; keep them at import. Decision: run the janitors after
   the first prompt (2026-10-18, the recommendation).
 - D10 Layers P4, the folder move of `automation/` to `pwsh`, a `git mv` the user runs in a quiet window. module-model-closeout and
-  layers-funnel are still open, the layers doctrine is done. Options: hold until module-model-closeout and layers-funnel are green, then
-  the user names the window; name the window now. Decision: hold until module-model-closeout and layers-funnel are green (2026-10-18, the
+  layers-funnel are still open, the layers doctrine is done. Options: hold until module-model-closeout and layers-funnel are green, then the
+  user names the window; name the window now. Decision: hold until module-model-closeout and layers-funnel are green (2026-10-18, the
   recommendation).
 - D11 Unboxing P4 (three-pass walk) and P5 (class-lookup GlobPattern objects built once), each with a 15 percent bar. Options: stay closed,
   the measured wins are in; go, measure first. Decision: stay closed (2026-10-18, the recommendation).

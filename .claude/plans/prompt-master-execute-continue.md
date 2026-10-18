@@ -26,9 +26,9 @@ corpus), then `docs/adr/repository/ai-agent-contract.md` (ADR-AI). Then read `.c
 method, its Chunks section is the order. Each pointer line names a `task-<topic>.md` in the same folder.
 
 Pick the first task whose `blocked_on` is satisfied, in the order of the Chunks list; a decision round runs only when the user is present to
-answer. Read that task file in full before any edit. Read the plans its head names, head first, then the sections the task cites. Trust
-the tree over the task text: if a step's premise is contradicted by a read, record the correction in the owning plan and in the task
-file, then continue with the next step.
+answer. Read that task file in full before any edit. Read the plans its head names, head first, then the sections the task cites. Trust the
+tree over the task text: if a step's premise is contradicted by a read, record the correction in the owning plan and in the task file, then
+continue with the next step.
 
 Rules that bind every step:
 

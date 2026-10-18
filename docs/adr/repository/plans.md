@@ -50,8 +50,8 @@ content. There is no line roof: the cleaner shortens a plan only after its data 
 
 ### Rule ADR-REPO-PLANS:4
 
-An **open step** is a checkbox line that names one file, the edit, and the check that proves it, `(check: ...)` on the same item, in
-present tense. A step done is ticked with its check's verdict line, and only when the tree holds the work.
+An **open step** is a checkbox line that names one file, the edit, and the check that proves it, `(check: ...)` on the same item, in present
+tense. A step done is ticked with its check's verdict line, and only when the tree holds the work.
 
 - [The shape](#the-shape)
 
@@ -71,16 +71,16 @@ names such a file.
 
 ### Rule ADR-REPO-PLANS:7
 
-A **continuation prompt** is `prompt-<topic>-continue.md`, or `prompt-<topic>-<n>-<step>.md` for a numbered series, beside its plan,
-carried verbatim, with a header that maps every path the paste names to where the text now lives.
+A **continuation prompt** is `prompt-<topic>-continue.md`, or `prompt-<topic>-<n>-<step>.md` for a numbered series, beside its plan, carried
+verbatim, with a header that maps every path the paste names to where the text now lives.
 
 - [Prompts beside their plans](#prompts-beside-their-plans)
 
 ### Rule ADR-REPO-PLANS:8
 
 The **master plan**, `plan-master.md`, and the **task files**, `task-<topic>.md` with at most 50 in the folder, are derived executables
-rebuilt from the plans: the master holds every open step of every plan in one executable order, and a task file is one chunk of it, named
-by its topic. The order is the master's list alone; no task name, head key or reference carries a number (ADR-REPO-FOLDERS#12). They are
+rebuilt from the plans: the master holds every open step of every plan in one executable order, and a task file is one chunk of it, named by
+its topic. The order is the master's list alone; no task name, head key or reference carries a number (ADR-REPO-FOLDERS#12). They are
 cleared and rebuilt; the plans are never deleted by a clear.
 
 - [Derived executables](#derived-executables)
@@ -121,8 +121,8 @@ a sub-agent can take one step cold. Carried text, a draft or a paste kept verbat
 ### Done is deleted
 
 Keeping a finished plan "for the record" is the habit this repository does not have
-([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive3)). The one line in `value-of-plan.md` says what was
-deleted and why, so a reader who misses a plan finds the reason in one place and the text in git.
+([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive3)). The one line in `value-of-plan.md` says what was deleted
+and why, so a reader who misses a plan finds the reason in one place and the text in git.
 
 ### In-use files
 

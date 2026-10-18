@@ -49,8 +49,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
 
 ## Decided, and why (all took the recommendation, 2026-10-16)
 
-- D10 (2026-10-18): P4, the folder move, holds until task-module-model-closeout and task-layers-funnel are green; the user names
-  the quiet window then and runs the move.
+- D10 (2026-10-18): P4, the folder move, holds until task-module-model-closeout and task-layers-funnel are green; the user names the quiet
+  window then and runs the move.
 - Q1 folder and track are pwsh; rejected powershell, modules, catzc. A track is named by its stack, parallel to go, python, bash.
 - Q2 keep invoke-automation.yaml and release-automation.yml: they invoke and release the automation, the abstract thing.
 - Q3 keep Test-Automation, its 16 helpers and test-automation/: the name is already accurate; a 470-line rename buys nothing.
@@ -125,10 +125,10 @@ by naming which of the 439 public functions are contracted. Every later plan spe
   `kind=Fragment direction=DependedOn target=Get-Thing.command.yml`, and the check fails it with
   `the target 'Get-Thing.command.yml' does not exist: the repository root holds no 'Get-Thing.command.yml'.`
   (`out/t020-unknown-suffix.ps1`). The kind lands before any asset.
-- Handlers by language (task-module-model-closeout step 3): the checks of a changed file are resolved through the registry,
-  `languages.yml` `checks:`, and the tests side still branches on the language, whose funnel follows D03. The command checker therefore
-  registers nothing in `languages.yml` in C2: it selects by the command's file language, builds the PowerShell checker, and throws
-  NotImplemented for any other language; the registry key for it is D03's scope.
+- Handlers by language (task-module-model-closeout step 3): the checks of a changed file are resolved through the registry, `languages.yml`
+  `checks:`, and the tests side still branches on the language, whose funnel follows D03. The command checker therefore registers nothing in
+  `languages.yml` in C2: it selects by the command's file language, builds the PowerShell checker, and throws NotImplemented for any other
+  language; the registry key for it is D03's scope.
 - Correction (C1, read from `ContractSchema`): the bounded JSON Schema subset has no `pattern` keyword and takes `additionalProperties` as a
   boolean only, so a `command.schema.json` cannot hold the value grammar. The `ContractCommand` type is the one grammar (ADR-PRIN-ONELIVE),
   a value that does not parse is a finding, and no schema asset is written in C2.
@@ -166,8 +166,8 @@ by naming which of the 439 public functions are contracted. Every later plan spe
       ADR-AUTO-ENGINE#4 and its section renamed in the engine ADR and the three test-artifact ADRs, `languages.yml` `engines:` renamed
       `formatters:` with LanguagesConfig, Format-Code, the root-config generator and their tests; Test-AdrEngineNeutrality gained the
       pipeline and item cmdlets and the engine's common parameters as tokens. Check: Test-AdrRegistry, Test-AdrEngineNeutrality,
-      Test-Terminology clean; Test-Glossary reports no finding on the touched files (verdicts in the git history of the layers doctrine
-      task file, deleted as done).
+      Test-Terminology clean; Test-Glossary reports no finding on the touched files (verdicts in the git history of the layers doctrine task
+      file, deleted as done).
 - [ ] P2 (check: guard rule gate). P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
 - [ ] P7 command contracts, task-command-contracts: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed

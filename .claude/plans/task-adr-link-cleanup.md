@@ -51,8 +51,8 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
 4. Rebuild the ledger without .unordered rows: `out/build-adr-link-ledger.ps1` then `out/prepass-adr-link-ledger.ps1` in the background;
    keys are stable so verdicts survive. Check: about 4,900 rows; the pilot's 88 verdicts still attached.
 5. F8: every rule statement in the principles ADRs becomes bold, one ADR per step (everything-as-code, configure-not-program,
-   one-living-version, poka-yoke, reduce-variability, reduce-waste, plus cats-and-catzc). Check: Test-Glossary finds every
-   defining rule; Test-Markdownlint clean.
+   one-living-version, poka-yoke, reduce-variability, reduce-waste, plus cats-and-catzc). Check: Test-Glossary finds every defining rule;
+   Test-Markdownlint clean.
 6. Step 1.3 apply, one slice per step, one file at a time with Edit: Format-Links, Format-FileMeta, Test-Links and Test-FileMeta on the
    file, the ledger row marked applied. First slice: the two narrow fixes at `docs/explanation/flow/no-gate-checks-rules-one-and-four.md`
    lines 62 and 63. Peer-dirty files skipped and named. Check: Test-Links clean per file; `out/apply-verdicts.ps1` marks the rows.

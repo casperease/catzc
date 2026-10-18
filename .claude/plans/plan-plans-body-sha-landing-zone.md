@@ -118,10 +118,9 @@ Markdown mentions, 299 files on 2026-10-17 (`grep -rl .unordered docs automation
 | `docs/adr/design`          | 1     | `tracks.md`, authored                                                                     |
 
 No comment page names it. The authored pages that state the old meaning, "frozen fragments, finished plans", and that the import task
-rewrites: `docs/adr/design/tracks.md` (rule 17 and the section "The unordered track"), `docs/adr/design/track-types.md` ("the frozen
-shelf", line 119), and `automation/Catzc.Base.Globs/configs/file-kinds.yml` (the `note` kind's definition, which the glossary and the
-file-kinds page carry). `automation/Catzc.Base.ModuleSystem/configs/glossary.yml:130` lists `unordered` only as a track type, no old
-meaning.
+rewrites: `docs/adr/design/tracks.md` (rule 17 and the section "The unordered track"), `docs/adr/design/track-types.md` ("the frozen shelf",
+line 119), and `automation/Catzc.Base.Globs/configs/file-kinds.yml` (the `note` kind's definition, which the glossary and the file-kinds
+page carry). `automation/Catzc.Base.ModuleSystem/configs/glossary.yml:130` lists `unordered` only as a track type, no old meaning.
 
 ## Decided in the questionnaire round of 2026-10-16 (decisions-2026-10-16.md, Q01 to Q12)
 

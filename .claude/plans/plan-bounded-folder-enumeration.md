@@ -68,9 +68,9 @@ The value is delivered; what is left is the proof at level 2.
 ## Open steps
 
 - [x] Rerun the level-2 gate in the background; fix only findings in this feature, report the rest (check: its report in out/test-automation
-      shows the three tags accepted). Done 2026-10-17 (task-bounded-enumeration-closeout): the three Folders test
-      files pass with their tags (`out/test-file/20261017-210740-a00b00`) and the eight gates of `out/run-folders-verify.ps1` report
-      nothing; verdicts in task-bounded-enumeration-closeout.
+      shows the three tags accepted). Done 2026-10-17 (task-bounded-enumeration-closeout): the three Folders test files pass with their tags
+      (`out/test-file/20261017-210740-a00b00`) and the eight gates of `out/run-folders-verify.ps1` report nothing; verdicts in
+      task-bounded-enumeration-closeout.
 - [ ] On green, the user runs all tests in their own time; then delete this plan and its prompt (the plans plan's rule) (check: the user's
       report shows no finding from this feature; both files are gone).
 

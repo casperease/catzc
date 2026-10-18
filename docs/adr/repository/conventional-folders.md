@@ -477,10 +477,10 @@ folder must exist.
 
 ### Stable locators
 
-A name that carries a rank, `01-first.md` or `plan-A-urgent.md`, is wrong the moment the order changes, and every link to it breaks with
-the rename. A name that says what the file is stays true for the file's whole life, and the order a reader wants today is a view: a table
-that sorts by value, an index, a head key a tool reads. The folders of this repository therefore sort by name, and the name means the
-thing. The task files of the plans folder hold to it too: each is named by its topic, and the execution order is the master plan's list
+A name that carries a rank, `01-first.md` or `plan-A-urgent.md`, is wrong the moment the order changes, and every link to it breaks with the
+rename. A name that says what the file is stays true for the file's whole life, and the order a reader wants today is a view: a table that
+sorts by value, an index, a head key a tool reads. The folders of this repository therefore sort by name, and the name means the thing. The
+task files of the plans folder hold to it too: each is named by its topic, and the execution order is the master plan's list
 ([plans](plans.md#rule-adr-repo-plans8)), so reordering the list renames nothing.
 
 ### How this is enforced

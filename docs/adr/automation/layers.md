@@ -47,8 +47,8 @@ sentence that means the PowerShell code names its track, a sentence that means a
 
 ### Rule ADR-AUTO-LAYERS:2
 
-A **command** is one public function of the module system, the unit a contract describes. A command is written in one
-**implementation language**: one of the file languages of `languages.yml` that its track declares
+A **command** is one public function of the module system, the unit a contract describes. A command is written in one **implementation
+language**: one of the file languages of `languages.yml` that its track declares
 ([ADR-DSGN-TRACK#3](../design/tracks.md#rule-adr-dsgn-track3), [ADR-AUTO-MODULE#3](module-model.md#rule-adr-auto-module3)); PowerShell with
 the C# types it hosts is one such language, Bash, Python and Go are the others.
 
@@ -87,8 +87,8 @@ the `layer` key of its entry in `adrs.yml`, which defaults to `automation`; the 
 ### Rule ADR-AUTO-LAYERS:7
 
 `auto` leaves a layer's choice open: for the engine it is the value that names none
-([ADR-AUTO-ENGINE#7](execution-engines.md#rule-adr-auto-engine7)), for the languages it is the languages of the loaded modules, and in
-every case it resolves in the one resolution order of a setting ([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)).
+([ADR-AUTO-ENGINE#7](execution-engines.md#rule-adr-auto-engine7)), for the languages it is the languages of the loaded modules, and in every
+case it resolves in the one resolution order of a setting ([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)).
 
 - [Five layers, one word each](#five-layers-one-word-each)
 
@@ -97,8 +97,8 @@ every case it resolves in the one resolution order of a setting ([ADR-AUTO-DEFAU
 One word, automation, carried four meanings: the doctrine of the `ADR-AUTO-*` rules, the value-chain row and concern, the folder that holds
 the PowerShell modules, and the layer those modules form. A reader could not tell from a sentence which was meant, and a rule that said
 "automation" bound either everything or one folder. The repository runs under three engines and tests in four languages, so the PowerShell
-code is one implementation of the abstract, not the abstract itself ([execution-engines](execution-engines.md)). Naming the layers once,
-and giving each its own word, lets every later rule say which one it binds.
+code is one implementation of the abstract, not the abstract itself ([execution-engines](execution-engines.md)). Naming the layers once, and
+giving each its own word, lets every later rule say which one it binds.
 
 ### Five layers, one word each
 
@@ -126,8 +126,8 @@ carries the old name; moving it is a single change, made in one quiet window, an
 ### Layer membership is data
 
 The ADRs of the automation domain are not regrouped into folders by layer, because a folder move changes every link and buys only a view.
-The `layer` key of each registry entry gives the same view as data, defaults to `automation` so that only the exceptions are written, and
-is validated against the five names by the registry's config type.
+The `layer` key of each registry entry gives the same view as data, defaults to `automation` so that only the exceptions are written, and is
+validated against the five names by the registry's config type.
 
 ## Decision
 
@@ -136,9 +136,9 @@ importer how a session is assembled. The track is named by its stack. Layer memb
 
 ## Consequences
 
-- The glossary carries automation, command, implementation language and pwsh as defined terms, each by its rule here; the layer family
-  gains contract, engine and importer as its forms.
+- The glossary carries automation, command, implementation language and pwsh as defined terms, each by its rule here; the layer family gains
+  contract, engine and importer as its forms.
 - `adrs.yml` carries a `layer` per automation ADR, validated by `AdrsConfig`; the index and the codes are unchanged.
-- The code track's folder is renamed to `pwsh` in one quiet window; every root is read through the track registry, so the rename is the
-  only change.
+- The code track's folder is renamed to `pwsh` in one quiet window; every root is read through the track registry, so the rename is the only
+  change.
 - `languages.yml` names its formatter tools `formatters`, so engine means an execution engine and nothing else.

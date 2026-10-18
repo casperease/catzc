@@ -704,8 +704,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-AUTO-LAYERS](layers.md)
 
 > DORA ties loosely coupled teams and maintainable code to delivery performance, and both rest on a vocabulary that says which part of a
-> system a rule binds. Naming the five layers once, and recording an ADR's layer as data beside a stable code, lets a reader tell the doctrine
-> from one implementation of it without a folder move or a renumbered citation.
+> system a rule binds. Naming the five layers once, and recording an ADR's layer as data beside a stable code, lets a reader tell the
+> doctrine from one implementation of it without a folder move or a renumbered citation.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a rule that names its layer binds that layer and no
   other, so the PowerShell code can change without the doctrine moving.

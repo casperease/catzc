@@ -189,10 +189,7 @@
     {
       "name": "Catzc.Base.CodeMeta.CodeMetaHead",
       "aliases": [],
-      "display": [
-        "HasHead",
-        "NewLine"
-      ]
+      "display": ["HasHead", "NewLine"]
     },
     {
       "name": "Catzc.Base.CodeMeta.HeadAnchor",
@@ -202,23 +199,12 @@
     {
       "name": "Catzc.Base.CodeMeta.HeadForm",
       "aliases": [],
-      "display": [
-        "Line",
-        "BlockOpen",
-        "BlockClose",
-        "Anchor",
-        "PreambleLines"
-      ]
+      "display": ["Line", "BlockOpen", "BlockClose", "Anchor", "PreambleLines"]
     },
     {
       "name": "Catzc.Base.CodeMeta.PropertyHead",
       "aliases": [],
-      "display": [
-        "Property",
-        "IsObject",
-        "HasHead",
-        "Foreign"
-      ]
+      "display": ["Property", "IsObject", "HasHead", "Foreign"]
     },
     {
       "name": "Catzc.Base.Config.ConfigsConfig",
@@ -228,12 +214,7 @@
     {
       "name": "Catzc.Base.Contracts.ContractAsset",
       "aliases": [],
-      "display": [
-        "AssetPath",
-        "Kind",
-        "Direction",
-        "Target"
-      ]
+      "display": ["AssetPath", "Kind", "Direction", "Target"]
     },
     {
       "name": "Catzc.Base.Contracts.ContractAssetKind",
@@ -243,19 +224,12 @@
     {
       "name": "Catzc.Base.Contracts.ContractCheckResult",
       "aliases": [],
-      "display": [
-        "Passed",
-        "Asset",
-        "Findings"
-      ]
+      "display": ["Passed", "Asset", "Findings"]
     },
     {
       "name": "Catzc.Base.Contracts.ContractCommand",
       "aliases": [],
-      "display": [
-        "Name",
-        "Signature"
-      ]
+      "display": ["Name", "Signature"]
     },
     {
       "name": "Catzc.Base.Contracts.ContractDirection",
@@ -275,10 +249,7 @@
     {
       "name": "Catzc.Base.Contracts.ContractParameter",
       "aliases": [],
-      "display": [
-        "Name",
-        "Spec"
-      ]
+      "display": ["Name", "Spec"]
     },
     {
       "name": "Catzc.Base.Contracts.ContractSchema",
@@ -488,9 +459,7 @@
     {
       "name": "Catzc.Base.Execution.CliRunner",
       "aliases": [],
-      "display": [
-        "ExitCode"
-      ]
+      "display": ["ExitCode"]
     },
     {
       "name": "Catzc.Base.Execution.ExecutableProbe",
@@ -550,9 +519,7 @@
     {
       "name": "Catzc.Base.Git.GitHistoryScan",
       "aliases": [],
-      "display": [
-        "Clean"
-      ]
+      "display": ["Clean"]
     },
     {
       "name": "Catzc.Base.Git.GitIgnoreConfig",
@@ -617,12 +584,7 @@
     {
       "name": "Catzc.Base.Globs.FileKindShadow",
       "aliases": [],
-      "display": [
-        "By",
-        "Hidden",
-        "Taken",
-        "Matched"
-      ]
+      "display": ["By", "Hidden", "Taken", "Matched"]
     },
     {
       "name": "Catzc.Base.Globs.FileKindsConfig",
@@ -742,12 +704,7 @@
     {
       "name": "Catzc.Base.Maps.CitationSite",
       "aliases": [],
-      "display": [
-        "Path",
-        "Line",
-        "Kind",
-        "Citation"
-      ]
+      "display": ["Path", "Line", "Kind", "Citation"]
     },
     {
       "name": "Catzc.Base.Maps.HelveticaMetrics",
@@ -757,42 +714,22 @@
     {
       "name": "Catzc.Base.Maps.HighlightReason",
       "aliases": [],
-      "display": [
-        "Path",
-        "Basis",
-        "Requested",
-        "Mention"
-      ]
+      "display": ["Path", "Basis", "Requested", "Mention"]
     },
     {
       "name": "Catzc.Base.Maps.HighlightedCell",
       "aliases": [],
-      "display": [
-        "Track",
-        "FileLanguage",
-        "FileCount",
-        "Sources"
-      ]
+      "display": ["Track", "FileLanguage", "FileCount", "Sources"]
     },
     {
       "name": "Catzc.Base.Maps.MapCell",
       "aliases": [],
-      "display": [
-        "Track",
-        "FileLanguage",
-        "FileCount",
-        "StackViolation"
-      ]
+      "display": ["Track", "FileLanguage", "FileCount", "StackViolation"]
     },
     {
       "name": "Catzc.Base.Maps.MapPlacement",
       "aliases": [],
-      "display": [
-        "Path",
-        "Track",
-        "FileLanguage",
-        "Basis"
-      ]
+      "display": ["Path", "Track", "FileLanguage", "Basis"]
     },
     {
       "name": "Catzc.Base.Maps.MapsConfig",
@@ -822,18 +759,12 @@
     {
       "name": "Catzc.Base.Maps.MapsPin",
       "aliases": [],
-      "display": [
-        "adr",
-        "track",
-        "file_language"
-      ]
+      "display": ["adr", "track", "file_language"]
     },
     {
       "name": "Catzc.Base.Maps.PdfDocument",
       "aliases": [],
-      "display": [
-        "PageCount"
-      ]
+      "display": ["PageCount"]
     },
     {
       "name": "Catzc.Base.Maps.PdfFont",
@@ -848,11 +779,7 @@
     {
       "name": "Catzc.Base.Maps.PdfPage",
       "aliases": [],
-      "display": [
-        "Width",
-        "Height",
-        "OperationCount"
-      ]
+      "display": ["Width", "Height", "OperationCount"]
     },
     {
       "name": "Catzc.Base.Maps.SquarifiedTreemap",
@@ -862,50 +789,27 @@
     {
       "name": "Catzc.Base.Maps.TreemapRect",
       "aliases": [],
-      "display": [
-        "Key",
-        "Weight",
-        "X",
-        "Y",
-        "Width",
-        "Height"
-      ]
+      "display": ["Key", "Weight", "X", "Y", "Width", "Height"]
     },
     {
       "name": "Catzc.Base.Maps.ValueChainCell",
       "aliases": [],
-      "display": [
-        "Stack",
-        "Concern",
-        "AdrCount"
-      ]
+      "display": ["Stack", "Concern", "AdrCount"]
     },
     {
       "name": "Catzc.Base.Maps.ValueChainHighlight",
       "aliases": [],
-      "display": [
-        "Requested",
-        "Cells"
-      ]
+      "display": ["Requested", "Cells"]
     },
     {
       "name": "Catzc.Base.Maps.ValueChainMap",
       "aliases": [],
-      "display": [
-        "Stacks",
-        "Concerns",
-        "AdrCount"
-      ]
+      "display": ["Stacks", "Concerns", "AdrCount"]
     },
     {
       "name": "Catzc.Base.Maps.ValueChainReason",
       "aliases": [],
-      "display": [
-        "Adr",
-        "Stack",
-        "Concern",
-        "Override"
-      ]
+      "display": ["Adr", "Stack", "Concern", "Override"]
     },
     {
       "name": "Catzc.Base.Maps.WinAnsi",
@@ -915,11 +819,7 @@
     {
       "name": "Catzc.Base.Maps.WorldMap",
       "aliases": [],
-      "display": [
-        "Tracks",
-        "FileLanguages",
-        "FileCount"
-      ]
+      "display": ["Tracks", "FileLanguages", "FileCount"]
     },
     {
       "name": "Catzc.Base.Maps.WorldMapBuilder",
@@ -929,21 +829,12 @@
     {
       "name": "Catzc.Base.Maps.WorldMapGridLayout",
       "aliases": [],
-      "display": [
-        "Rows",
-        "Columns",
-        "CellWidth",
-        "CellHeight"
-      ]
+      "display": ["Rows", "Columns", "CellWidth", "CellHeight"]
     },
     {
       "name": "Catzc.Base.Maps.WorldMapHighlight",
       "aliases": [],
-      "display": [
-        "Kind",
-        "Requested",
-        "Cells"
-      ]
+      "display": ["Kind", "Requested", "Cells"]
     },
     {
       "name": "Catzc.Base.Maps.WorldMapPdf",
@@ -953,12 +844,7 @@
     {
       "name": "Catzc.Base.MarkdownMeta.MarkdownDocument",
       "aliases": [],
-      "display": [
-        "HasFrontMatter",
-        "HasMetaBlock",
-        "Key",
-        "NewLine"
-      ]
+      "display": ["HasFrontMatter", "HasMetaBlock", "Key", "NewLine"]
     },
     {
       "name": "Catzc.Base.MarkdownMeta.MarkdownMetaBlock",
@@ -1022,9 +908,7 @@
     },
     {
       "name": "Catzc.Base.ModuleSystem.ModuleDependencyFormat",
-      "aliases": [
-        "Catzc.Module.Depm"
-      ],
+      "aliases": ["Catzc.Module.Depm"],
       "display": []
     },
     {
@@ -1155,20 +1039,12 @@
     {
       "name": "Catzc.Base.QualityGates.FileMetaKind",
       "aliases": [],
-      "display": [
-        "id",
-        "direction",
-        "keys",
-        "target"
-      ]
+      "display": ["id", "direction", "keys", "target"]
     },
     {
       "name": "Catzc.Base.QualityGates.FileSelector",
       "aliases": [],
-      "display": [
-        "classes",
-        "languages"
-      ]
+      "display": ["classes", "languages"]
     },
     {
       "name": "Catzc.Base.QualityGates.FormatResult",

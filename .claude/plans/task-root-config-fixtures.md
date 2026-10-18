@@ -39,9 +39,8 @@ user's.
 1. Run the four tests against a tree without the csproj change (`git stash` is the user's; instead read `git log -p` of `generated-head.yml`
    and `Format-GeneratedFileHead.ps1` since 2026-10-16 to find the change that added the two keys). Record which change moved the head in
    both plans. Check: the commit or change is named.
-2. Fix one side: if the head is right (body-sha Phase 0 makes `with_body_sha` required on generated files), the four fixture
-   expectations gain the keys; if the head is wrong for fixture files, the generator is fixed. One file. Check:
-   `Build-RootConfig.Tests.ps1` passes.
+2. Fix one side: if the head is right (body-sha Phase 0 makes `with_body_sha` required on generated files), the four fixture expectations
+   gain the keys; if the head is wrong for fixture files, the generator is fixed. One file. Check: `Build-RootConfig.Tests.ps1` passes.
 3. `docs/references/automation/catzc-base-codemeta/types/PropertyHead.md` (or its generated source): describe the XML form (a CDATA property
    `CatzcMeta` in the first `PropertyGroup Label="catzc"`) beside the JSON form. If the page is generated from the type's comments, edit the
    comment in `PropertyHead.cs` and regenerate. Check: Test-Links, Test-GeneratedFiles clean.
