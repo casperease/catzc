@@ -1,14 +1,7 @@
 ---
 task:
   status: open
-  plans:
-    [
-      plan-bounded-folder-enumeration,
-      plan-file-head-immutable-edges-classes,
-      plan-module-model-closeout,
-      plan-test-run-budget,
-      plan-explanation-drift-gaps,
-    ]
+  plans: [plan-test-run-budget, plan-explanation-drift-gaps]
   value: highest
   blocked_on: nothing; every step is the user's own commit, git operation or remote run, and the last is the final session's full run
   targets: [.claude/plans, out, pipelines]

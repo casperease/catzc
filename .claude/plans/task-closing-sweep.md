@@ -26,8 +26,7 @@ as needed, and last of all. `git rm` is the user's (the permission layer blocks 
 4. `plan-master.md`: each pointer line whose task is complete is marked (done); when every chunk is done, the master itself has no open
    chunk and is deleted with the task files, leaving the plans folder with only live plans and value-of-plan.md. Check: Test-Plans and
    Test-Links clean on the folder.
-5. `plan-clear-actions.md`: its last verdict lines ticked (the out/test-links report folders cleared with the user's yes). Check: grep
-   `- [ ]` counts zero, then it is itself a candidate of step 1.
+5. Retired 2026-10-18: plan-clear-actions closed on the user's green full run.
 6. The last sweep runs only after the final session's full run (task-user-runs-and-commits, last step), since the plans that close on green
    close on that run alone; it is the one place the whole repository is tested. Check: that run's report exists in `out/test-automation` and
    is newer than every task file.

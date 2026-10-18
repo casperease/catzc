@@ -33,7 +33,7 @@ plans stay the durable record; task files and this master are derived from them 
   task-user-runs-and-commits: a final new session dot-sources `importer.ps1` and runs `Test-Automation` once, by hand; every plan that
   closes on green closes on that run and on nothing earlier.
 - The typed DLL under `pwsh/.compiled` changes as many agents work in the repository; no plan, step or check depends on it or on its commit.
-- A plan file edited by a task for its own reason loses its bare vocabulary terms in that edit (plan-clear-actions, D15); no sweep.
+- A plan file edited by a task for its own reason loses its bare vocabulary terms in that edit (D15); no sweep.
 - The order below: first the decision round that unblocks the most, then the user's commits and runs that close the most plans, then the
   agent work by value (value-of-plan.md), dependencies first, the closing sweep after every batch and last.
 
