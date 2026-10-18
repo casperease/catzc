@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b7df48a20809
+    with_body_sha: "9e067d23fe80"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--output-root-first-then-repo-root--implementation.chain.md
-    source: docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
+    path: docs/explanation/automation/.assets/output-root-first-then-repo-root/chain.md
+    source: docs/explanation/automation/.assets/output-root-first-then-repo-root/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

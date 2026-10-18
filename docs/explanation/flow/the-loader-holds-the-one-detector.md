@@ -20,9 +20,9 @@ single cats module has loaded. So cats keeps `Test-IsRunningInPipeline` in `Catz
 modes import first and never remove. Everything above the loader calls that function. Only one piece of code outside PowerShell, the
 time-safeguard hook, repeats the test on its own.
 
-![The detector lives in the loader](../.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png)
+![The detector lives in the loader](.assets/the-loader-holds-the-one-detector/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](the-loader-holds-the-one-detector.drawio.md).
+The diagram is described element by element in [its asset description](.assets/the-loader-holds-the-one-detector/diagram.drawio.md).
 
 ## Walkthrough
 

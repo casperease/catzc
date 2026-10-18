@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e2c8ec642141
+    with_body_sha: "24624984fbce"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-path--one-out-string-two-places--operations.chain.md
-    source: docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png
+    path: docs/explanation/automation/.assets/one-out-string-two-places/chain.md
+    source: docs/explanation/automation/.assets/one-out-string-two-places/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

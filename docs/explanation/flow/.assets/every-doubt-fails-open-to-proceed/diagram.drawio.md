@@ -6,8 +6,8 @@ Glyphs: 1 store (slate), 1 gate, 2 results, 1 failure; 3 flow edges, 1 failure p
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](../.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](every-doubt-fails-open-to-proceed.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../every-doubt-fails-open-to-proceed.md).
 
 ## At a glance
 
@@ -62,14 +62,14 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 The sidebar is generated, never described here. It holds three minimaps and the map key, lit for the ADR codes this slide supports
 (ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
-([Catzc.Base.Maps](../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
-[Get-WorldMap](../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
+([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
+[Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
 minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
 highlights, draws the three minimaps and writes their sister descriptions,
-[world map](../.assets/grid/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.grid.md),
-[tree](../.assets/tree/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.tree.md) and
-[value-chain map](../.assets/chain/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.chain.md), which hold the reason for every lit
+[world map](grid.md),
+[tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit
 cell or group as of that build.
 
 - **Lens badge:** META, with "Supports ADR-FLOW-CD-GLOBS" beneath it.

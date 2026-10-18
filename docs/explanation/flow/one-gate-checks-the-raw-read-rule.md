@@ -16,9 +16,9 @@ Five rules govern pipeline detection in cats, and one gate carries most of the w
 variables directly, on every PowerShell file; an L0 test pins the fourth, that the answer is a plain boolean. The other three rules, and the
 one reader outside PowerShell, rest on the ADR alone.
 
-![One gate checks the raw-read rule](../.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png)
+![One gate checks the raw-read rule](.assets/one-gate-checks-the-raw-read-rule/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-gate-checks-the-raw-read-rule.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-gate-checks-the-raw-read-rule/diagram.drawio.md).
 
 ## Walkthrough
 

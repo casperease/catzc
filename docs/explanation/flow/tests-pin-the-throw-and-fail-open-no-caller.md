@@ -20,9 +20,9 @@ name, the fail-open on an unresolved range or a failed diff, and the range chose
 test run. The context detection is pinned by a custom analyzer rule. What the decision asks of the pipeline side, a deep checkout and a
 stage that runs the check first, has no gate and no caller in the repository.
 
-![Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it](../.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png)
+![Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it](.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](tests-pin-the-throw-and-fail-open-no-caller.drawio.md).
+The diagram is described element by element in [its asset description](.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.md).
 
 ## Walkthrough
 

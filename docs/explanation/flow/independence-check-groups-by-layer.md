@@ -19,9 +19,9 @@ The gate `Test-GlobSetIndependence` takes every declared and derived globset, co
 skips the `loose-fileset` group, and tests every pair inside the other groups for a shared file. Where a set's layer comes from therefore
 decides whether it is ever compared with anything. All paths below are under `pwsh/Catzc.Base.Globs/`.
 
-![Test-GlobSetIndependence groups by layer](../.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png)
+![Test-GlobSetIndependence groups by layer](.assets/independence-check-groups-by-layer/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](independence-check-groups-by-layer.drawio.md).
+The diagram is described element by element in [its asset description](.assets/independence-check-groups-by-layer/diagram.drawio.md).
 
 ## Walkthrough
 

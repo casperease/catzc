@@ -19,9 +19,9 @@ for the `deployable-unit` and `module` layers, config-load validation keeps the 
 is exempt by design. Two prohibitions in the same ADR, the phantom unit and the loose-fileset without a demonstrated use, have no check
 behind them: they hold only as ADR rules.
 
-![A gate on overlap for units and modules](../.assets/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png)
+![A gate on overlap for units and modules](.assets/overlap-gated-for-units-and-modules/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](overlap-gated-for-units-and-modules.drawio.md).
+The diagram is described element by element in [its asset description](.assets/overlap-gated-for-units-and-modules/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -18,9 +18,9 @@ and then let into production by a manual gate. Because nothing downstream rebuil
 certified. The flow splits into an automated side and a governed side, and the CD pipelines in the repository today take a shortcut past the
 governed one.
 
-![One artifact is built once and climbs to production unchanged](../.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png)
+![One artifact is built once and climbs to production unchanged](.assets/one-artifact-climbs-unchanged/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-artifact-climbs-unchanged.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-artifact-climbs-unchanged/diagram.drawio.md).
 
 ## Walkthrough
 

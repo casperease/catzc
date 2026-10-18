@@ -20,9 +20,9 @@ trigger. Every globset flows from one registry through a validated load into a f
 the ADR rules constrain each stage. The git reflection and the live identity are held by ADR rules alone: no gate checks them, which is
 worth knowing before relying on either.
 
-![Gates check the source of each globset and the trigger only](../.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png)
+![Gates check the source of each globset and the trigger only](.assets/gates-check-source-and-trigger/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](gates-check-source-and-trigger.drawio.md).
+The diagram is described element by element in [its asset description](.assets/gates-check-source-and-trigger/diagram.drawio.md).
 
 ## Walkthrough
 

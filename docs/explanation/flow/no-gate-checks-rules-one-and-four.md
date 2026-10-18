@@ -19,9 +19,9 @@ the command. The stages run left to right, each calling the next, and the arrows
 rules hold today with no gate behind them, the step template contradicts the rule written for it, and the gates that do touch these stages
 check something nearby rather than the rule itself.
 
-![No gate checks rules 1 or 4; the template breaks 3](../.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png)
+![No gate checks rules 1 or 4; the template breaks 3](.assets/no-gate-checks-rules-one-and-four/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](no-gate-checks-rules-one-and-four.drawio.md).
+The diagram is described element by element in [its asset description](.assets/no-gate-checks-rules-one-and-four/diagram.drawio.md).
 
 ## Walkthrough
 

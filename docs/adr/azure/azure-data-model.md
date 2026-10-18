@@ -226,10 +226,10 @@ and changing it is one edit to `azure.yml`.
 
 A release goes live in two moves: the exact artifact is first deployed to a production-grade environment that serves no traffic, then
 activated there as production ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)). That staging environment
-lives in the production subscription, so it needs no subscription of its own, and the relation between the two is data: `staging_for` on
-the staging environment names the one it stages. Whether the slot is active is a fact of the running deployment, changed by the cutover, so
-the config states only which environment stages which. Keeping both environments in the same subscriptions means a staged release meets the
-same identity, network and policy as the live one.
+lives in the production subscription, so it needs no subscription of its own, and the relation between the two is data: `staging_for` on the
+staging environment names the one it stages. Whether the slot is active is a fact of the running deployment, changed by the cutover, so the
+config states only which environment stages which. Keeping both environments in the same subscriptions means a staged release meets the same
+identity, network and policy as the live one.
 
 ### Layer 2 — Templating
 

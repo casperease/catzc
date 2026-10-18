@@ -26,8 +26,8 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#4' {
         { Test-Slides -Path 'docs/decks/gadget-deck/one.slide.md' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Not -Throw
         $report = Test-Slides -Path 'docs/decks/gadget-deck' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
         $report.IssueCount | Should -Be 0
-        $report.FileCount | Should -Be 2
-        $report.PatternCount | Should -Be 1
+        $report.Facts['FileCount'] | Should -Be 2
+        $report.Facts['PatternCount'] | Should -Be 1
     }
 
     It 'fails a slide whose pattern the kit does not hold, naming the file and the field' {

@@ -20,9 +20,9 @@ Supports ADR-FLOW-CD-GLOBS#9 and ADR-FLOW-CD-DETECT#1 (implementation lens).
 current context measures a change against, diffs that range, matches the changed paths against the registry, and reports whether the named
 globset is among the matches. Two places in that order can be in doubt, the range and the diff, and both resolve to true.
 
-![Check the name, pick the range per context, then diff git and match the paths](../.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png)
+![Check the name, pick the range per context, then diff git and match the paths](.assets/range-per-context-then-diff-and-match/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](range-per-context-then-diff-and-match.drawio.md).
+The diagram is described element by element in [its asset description](.assets/range-per-context-then-diff-and-match/diagram.drawio.md).
 
 ## Walkthrough
 

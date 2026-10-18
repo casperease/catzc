@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: df02c5f0f49b
+    with_body_sha: "4a26706ab11e"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
+    path: docs/explanation/automation/.assets/rule-and-gate-per-load-stage/chain.md
+    source: docs/explanation/automation/.assets/rule-and-gate-per-load-stage/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "47c23b5be5d5"
+    with_body_sha: c890a576d8c9
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.chain.md
-    source: docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
+    path: docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps/chain.md
+    source: docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -56,6 +56,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][7]
 - [lit cell][8]
 
+Terms the cited ADRs define:
+
+- [posture][9], defined by [ADR-AUTO-DEFAULT#6][10]
+
 [1]: ../../../../adr/automation/sensible-defaults.md
 [2]: ../../../../adr/automation/fail-fast-with-asserts.md
 [3]: ../../one-rule-per-stage-and-two-gaps.md
@@ -64,3 +68,5 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 [6]: ../../../../adr/glossary.md#value-chain-concern
 [7]: ../../../../adr/glossary.md#cell
 [8]: ../../../../adr/glossary.md#lit-cell
+[9]: ../../../../adr/glossary.md#posture
+[10]: ../../../../adr/automation/sensible-defaults.md#rule-adr-auto-default6

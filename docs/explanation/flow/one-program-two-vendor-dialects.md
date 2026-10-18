@@ -17,9 +17,9 @@ and a configured unit composes a base unit by putting the base's program first a
 of that one flattened program, but only one of the two dialects can carry its order: GitHub paths reproduce it exactly, while Azure DevOps
 keeps just each pattern's last select.
 
-![One flattened scan program, two vendor dialects](../.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png)
+![One flattened scan program, two vendor dialects](.assets/one-program-two-vendor-dialects/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-program-two-vendor-dialects.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-program-two-vendor-dialects/diagram.drawio.md).
 
 ## Walkthrough
 

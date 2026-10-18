@@ -34,8 +34,6 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
     // How long a pending approval waits, in hours.
     public int timeout_hours { get; }
 
-    // The ADO environments that need an approval before a run deploys to them, in file order: each unit's release-uat (RC) and pre-prod
-    // (RBC), and the prod-tier environments. The apply creates one that does not exist yet.
     public string[] environments { get; }
 
     public EnvironmentApprovalsConfig(IDictionary d)

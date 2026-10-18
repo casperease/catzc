@@ -20,9 +20,9 @@ governance and history, and they compose into one promotion flow because they sh
 component builds once and every downstream kind consumes unchanged. Read from left to right, the flow puts the two release gates between the
 kinds rather than inside them, and it shows the path the CD pipelines in the repository take today.
 
-![CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](../.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png)
+![CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](.assets/pipeline-kinds-keyed-by-one-artifact/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](pipeline-kinds-keyed-by-one-artifact.drawio.md).
+The diagram is described element by element in [its asset description](.assets/pipeline-kinds-keyed-by-one-artifact/diagram.drawio.md).
 
 ## Walkthrough
 

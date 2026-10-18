@@ -138,8 +138,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // A staging environment is its target's inactive slot: the target exists, neither is per-subscription, and every subscription that
-    // serves the staging environment serves its target too.
     private void CheckStaging(List<string> errors)
     {
         foreach (AzureEnvironmentRecord environment in environments.Values)

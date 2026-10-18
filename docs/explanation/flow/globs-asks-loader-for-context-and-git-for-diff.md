@@ -20,9 +20,9 @@ query that answers whether a change touches a unit. The query itself depends on 
 execution context it runs in, because the reference commit differs between a developer's machine, a post-commit build and a pull request.
 And it asks git for the diff, because the changed paths are read from the repository at real refs, never from a committed marker.
 
-![Globs asks the loader for the context and git for the diff](../.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png)
+![Globs asks the loader for the context and git for the diff](.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](globs-asks-loader-for-context-and-git-for-diff.drawio.md).
+The diagram is described element by element in [its asset description](.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.md).
 
 ## Walkthrough
 

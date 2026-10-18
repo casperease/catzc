@@ -89,3 +89,12 @@ Above `private static List<KeyValuePair<string, IDictionary>> Entries(object val
 The entries of a required, non-empty top-level map (name -> mapping); a non-mapping entry passes null so the
 record reports it.
 ```
+
+## comment:7
+
+Above `private void CheckStaging(List<string> errors)`, written with `//`.
+
+```text
+A staging environment is its target's inactive slot: the target exists, neither is per-subscription, and every subscription that
+serves the staging environment serves its target too.
+```

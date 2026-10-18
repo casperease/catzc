@@ -18,9 +18,9 @@ cats gives it exactly one crossing: pipeline YAML calls one step template, the t
 script, which loads the module system. A developer reaches the same module system from a terminal without passing through the YAML, the
 template or the task.
 
-![The runner is the only seam into PowerShell](../.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png)
+![The runner is the only seam into PowerShell](.assets/the-runner-is-the-only-seam/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](the-runner-is-the-only-seam.drawio.md).
+The diagram is described element by element in [its asset description](.assets/the-runner-is-the-only-seam/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -20,9 +20,9 @@ Supports ADR-FLOW-CD-GLOBS#4, #5, #6 and #9 (implementation lens).
 `globs.yml` through the validating load to that method, then to the three role functions and the function that reads each one's output.
 Knowing that one method sits behind all three roles tells a reader where a change to the dialect or to compose lands.
 
-![ScanProgram() feeds three role functions](../.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png)
+![ScanProgram() feeds three role functions](.assets/one-scan-program-feeds-three-roles/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-scan-program-feeds-three-roles.drawio.md).
+The diagram is described element by element in [its asset description](.assets/one-scan-program-feeds-three-roles/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -17,9 +17,9 @@ A deployable unit's pipeline stage opens with one line: `if (-not (Test-GlobSetA
 observe from that line is a boolean, at most one printed message, and one possible throw. The boolean is asymmetric on purpose: false is a
 positive confirmation that there is nothing to process, and every other outcome, touched or in doubt, proceeds.
 
-![A stage returns only on $false](../.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png)
+![A stage returns only on $false](.assets/stop-only-on-false-everything-else-proceeds/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](stop-only-on-false-everything-else-proceeds.drawio.md).
+The diagram is described element by element in [its asset description](.assets/stop-only-on-false-everything-else-proceeds/diagram.drawio.md).
 
 ## Walkthrough
 
