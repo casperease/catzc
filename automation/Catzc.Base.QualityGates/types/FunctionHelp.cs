@@ -8,8 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
-// The help of a PowerShell function file or script, as the `## help` section of its comment page holds it
-// ([ADR-REPO-HELP#1](/docs/adr/repository/function-help.md#rule-adr-repo-help1)).
+// A file's help, as its comment page's help section holds it ([ADR-REPO-HELP#1](/docs/adr/repository/function-help.md#rule-adr-repo-help1)).
 public sealed class FunctionHelp
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

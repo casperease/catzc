@@ -1,5 +1,7 @@
 # .claude/drawio/minimaps/highlights.ps1
 
+<!-- cspell:ignore minimaps -->
+
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
@@ -38,4 +40,23 @@ The folder the data files go to; created when missing. Default: out/minimaps und
 
 ```powershell
 pwsh -NoProfile -File .claude/drawio/minimaps/highlights.ps1 -Slides out/diagrams/k4/slides.docs.json
+```
+
+## comment:1
+
+Above `$printed = [ordered]@{`, written with `#`.
+
+```text
+The printed labels: a bucket key prints as its defined term
+([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), #8, #13), the value-chain map as its
+value_chain_* labels.
+```
+
+## comment:2
+
+Above `$citations = Get-AdrCitationMap`, written with `#`.
+
+```text
+The link targets of the sister .md files: every ADR code's file (the link engine's own map), and every glossary term
+with the rule that defines it.
 ```

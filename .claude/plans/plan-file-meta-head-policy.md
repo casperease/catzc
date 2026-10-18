@@ -148,7 +148,7 @@ of them MD033 for placeholders such as `<build>`), because the help was written 
       preview from 856 errors on 243 pages to 39 on 26.
 - [x] Rerun the preview with the URL and spaced-placeholder rules and Prettier's prose wrap, and list what still fails for its author.
       (check: `out/help-preview-lint.txt` lists only author faults) — 2026-10-18 (`out/help-preview-only.sh`): 755 files move, 4 errors
-      on 3 pages remain: `Get-ClaudeMdAgentNames.ps1` and `Get-AdrDoraCoverageViolations.ps1` write the code span `## ` with its space
+      on 3 pages remain: `Get-ClaudeMdAgentNames.ps1` and `Get-AdrDoraCoverageViolations.ps1` write a heading code span with its trailing space
       (MD038), and `Test-ConsoleReadyType.ps1`'s description gives one MD038 and one MD013 whose cause is not yet found. Prettier
       renumbers `Deploy-Bicep.ps1`'s flow, which skips 2.
 - [x] Settle the 113 held-only citations. (check: every one is a real link or recorded as dropped) — 2026-10-18 the user decided: keep
