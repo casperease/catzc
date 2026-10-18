@@ -49,7 +49,7 @@ domains:
     rulesets:
       agile: { external: ADR-PROC-AGILE }
       agile-values: { external: ADR-PROC-VALUES }
-      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES }
+      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES, terminology: agileprinciples }
       process-terms: { external: ADR-PROC-LEANTERMS, terminology: leanterms }
       lean: { external: ADR-PROC-LEAN }
       holding-the-line: { external: ADR-PROC-ANDON, terminology: andon, concern: [quality-control] }
@@ -267,10 +267,10 @@ domains:
       design-principles: { external: ADR-AZ-CAF-PRIN, terminology: cafprin }
       billing-and-tenant: { external: ADR-AZ-CAF-BILL, terminology: cafbill }
       identity-and-access: { external: ADR-AZ-CAF-IAM, terminology: cafiam }
-      resource-organization: { external: ADR-AZ-CAF-RESORG, terminology: cafresorg }
-      network-topology: { external: ADR-AZ-CAF-NETTOP, terminology: cafnettop }
-      network-connectivity: { external: ADR-AZ-CAF-NETCON, terminology: cafnetcon }
-      network-private-access: { external: ADR-AZ-CAF-NETPRV, terminology: cafnetprv }
+      resource-organization: { external: ADR-AZ-CAF-RESORG, terminology: resorg }
+      network-topology: { external: ADR-AZ-CAF-NETTOP, terminology: nettop }
+      network-connectivity: { external: ADR-AZ-CAF-NETCON, terminology: netcon }
+      network-private-access: { external: ADR-AZ-CAF-NETPRV, terminology: netprv }
       landing-zone-security: { external: ADR-AZ-CAF-SEC, terminology: cafsec }
       management: { external: ADR-AZ-CAF-MGMT, terminology: cafmgmt }
       governance: { external: ADR-AZ-CAF-GOV, terminology: cafgov }

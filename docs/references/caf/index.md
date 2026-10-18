@@ -24,18 +24,18 @@ says why it does not apply.
 
 | Design area                        | ADR                                                                                     | Code               |
 | ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------ |
-| Design principles                  | [design-principles](../../adr/azure/caf/design-principles.md)                           | `ADR-AZ-CAFPRIN`   |
-| Billing and Microsoft Entra tenant | [billing-and-tenant](../../adr/azure/caf/billing-and-tenant.md)                         | `ADR-AZ-CAFBILL`   |
-| Identity and access management     | [identity-and-access](../../adr/azure/caf/identity-and-access.md)                       | `ADR-AZ-CAFIAM`    |
-| Resource organization              | [resource-organization](../../adr/azure/caf/resource-organization.md)                   | `ADR-AZ-CAFRESORG` |
-| Network topology                   | [network-topology](../../adr/azure/caf/network-topology.md)                             | `ADR-AZ-CAFNETTOP` |
-| Network connectivity               | [network-connectivity](../../adr/azure/caf/network-connectivity.md)                     | `ADR-AZ-CAFNETCON` |
-| Private access to PaaS and DNS     | [network-private-access](../../adr/azure/caf/network-private-access.md)                 | `ADR-AZ-CAFNETPRV` |
-| Security                           | [landing-zone-security](../../adr/azure/caf/landing-zone-security.md)                   | `ADR-AZ-CAFSEC`    |
-| Management                         | [management](../../adr/azure/caf/management.md)                                         | `ADR-AZ-CAFMGMT`   |
-| Governance                         | [governance](../../adr/azure/caf/governance.md)                                         | `ADR-AZ-CAFGOV`    |
-| Platform automation and DevOps     | [platform-automation-and-devops](../../adr/azure/caf/platform-automation-and-devops.md) | `ADR-AZ-CAFDEVOPS` |
-| Naming and tagging                 | [naming-and-tagging](../../adr/azure/caf/naming-and-tagging.md)                         | `ADR-AZ-CAFNAME`   |
+| Design principles                  | [design-principles](../../adr/azure/caf/design-principles.md)                           | `ADR-AZ-CAF-PRIN`   |
+| Billing and Microsoft Entra tenant | [billing-and-tenant](../../adr/azure/caf/billing-and-tenant.md)                         | `ADR-AZ-CAF-BILL`   |
+| Identity and access management     | [identity-and-access](../../adr/azure/caf/identity-and-access.md)                       | `ADR-AZ-CAF-IAM`    |
+| Resource organization              | [resource-organization](../../adr/azure/caf/resource-organization.md)                   | `ADR-AZ-CAF-RESORG` |
+| Network topology                   | [network-topology](../../adr/azure/caf/network-topology.md)                             | `ADR-AZ-CAF-NETTOP` |
+| Network connectivity               | [network-connectivity](../../adr/azure/caf/network-connectivity.md)                     | `ADR-AZ-CAF-NETCON` |
+| Private access to PaaS and DNS     | [network-private-access](../../adr/azure/caf/network-private-access.md)                 | `ADR-AZ-CAF-NETPRV` |
+| Security                           | [landing-zone-security](../../adr/azure/caf/landing-zone-security.md)                   | `ADR-AZ-CAF-SEC`    |
+| Management                         | [management](../../adr/azure/caf/management.md)                                         | `ADR-AZ-CAF-MGMT`   |
+| Governance                         | [governance](../../adr/azure/caf/governance.md)                                         | `ADR-AZ-CAF-GOV`    |
+| Platform automation and DevOps     | [platform-automation-and-devops](../../adr/azure/caf/platform-automation-and-devops.md) | `ADR-AZ-CAF-DEVOPS` |
+| Naming and tagging                 | [naming-and-tagging](../../adr/azure/caf/naming-and-tagging.md)                         | `ADR-AZ-CAF-NAME`   |
 
 The landing-zone decision record ([landing-zones](../../adr/azure/landing-zones.md), `ADR-AZ-LZ`) is this repository's own decision; the CAF
 ADRs account for each vendor recommendation against it. The workload-side counterpart is the

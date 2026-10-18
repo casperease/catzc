@@ -62,6 +62,9 @@ dictionaryDefinitions:
     path: ./.cspell/adr-example.txt
   - name: catzc-terms-adr
     path: ./.cspell/adr.txt
+  # Every segment of every ADR code and rule heading, generated from the ADR registry by Build-AdrCodeDictionary.
+  - name: catzc-adr-codes
+    path: ./.cspell/adr-codes.txt
   - name: catzc-terms-ado
     path: ./.cspell/ado.txt
   - name: catzc-terms-azure
@@ -83,6 +86,7 @@ dictionaries:
   - catzc-terms-azure-live
   - catzc-terms-adr-example
   - catzc-terms-adr
+  - catzc-adr-codes
   - catzc-terms-ado
   - catzc-terms-azure
   - catzc-terms-tool

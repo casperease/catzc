@@ -631,14 +631,16 @@ terms:
       meaning: "body of the ADR-AZ-CAF-BILL code (CAF billing and tenant)"
     - term: cafiam
       meaning: "body of the ADR-AZ-CAF-IAM code (CAF identity and access)"
-    - term: cafresorg
-      meaning: "body of the ADR-AZ-CAF-RESORG code (CAF resource organization)"
-    - term: cafnettop
-      meaning: "body of the ADR-AZ-CAF-NETTOP code (CAF network topology)"
-    - term: cafnetcon
-      meaning: "body of the ADR-AZ-CAF-NETCON code (CAF network connectivity)"
-    - term: cafnetprv
-      meaning: "body of the ADR-AZ-CAF-NETPRV code (CAF network private access)"
+    - term: resorg
+      meaning: "segment of the ADR-AZ-CAF-RESORG code (CAF resource organization)"
+    - term: nettop
+      meaning: "segment of the ADR-AZ-CAF-NETTOP code (CAF network topology)"
+    - term: netcon
+      meaning: "segment of the ADR-AZ-CAF-NETCON code (CAF network connectivity)"
+    - term: netprv
+      meaning: "segment of the ADR-AZ-CAF-NETPRV code (CAF network private access)"
+    - term: agileprinciples
+      meaning: "segment of the ADR-PROC-AGILEPRINCIPLES code (agile-principles)"
     - term: cafsec
       meaning: "body of the ADR-AZ-CAF-SEC code (CAF landing-zone security)"
     - term: cafdevops

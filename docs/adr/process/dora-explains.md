@@ -42,7 +42,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Agile principles — the twelve principles behind the manifesto`
 
-[ADR-PRIN-PROCESS](agile-principles.md)
+[ADR-PROC-AGILEPRINCIPLES](agile-principles.md)
 
 > DORA's technical and management capabilities are, in large part, measurable realisations of these principles — frequent delivery, low
 > change-cost, team autonomy, and continuous improvement.

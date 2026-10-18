@@ -27,7 +27,7 @@ Test-AgentDefinitions.
 
 ## comment:2
 
-Above `public IReadOnlyList<string> contracts { get; } = new[] { "ADR-AI" };`, written with `//`.
+Above `public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };`, written with `//`.
 
 ```text
 The contracts every robot and capability names in its front matter under `contracts`, the default declared once here

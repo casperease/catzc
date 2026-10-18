@@ -5,7 +5,7 @@
 ### Rule ADR-PROC-AGILE:1
 
 Agile is defined by the Agile Manifesto — its four values ([ADR-PROC-VALUES](agile-values.md)) and twelve principles
-([ADR-PRIN-PROCESS](agile-principles.md)) — not by any framework, ceremony, role, or tool.
+([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)) — not by any framework, ceremony, role, or tool.
 
 - [Decision](#decision)
 
@@ -72,8 +72,9 @@ When a process decision is in question, do not ask "does the framework say to do
 change, and which value or principle does it serve?" If a practice serves none of them, it is ceremony and can be dropped
 ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)). If a practice contradicts a value, change the practice, not the value.
 
-Treat the values ([ADR-PROC-VALUES](agile-values.md)) and principles ([ADR-PRIN-PROCESS](agile-principles.md)) as the two companion articles
-that carry the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process rules.
+Treat the values ([ADR-PROC-VALUES](agile-values.md)) and principles ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)) as the two companion
+articles that carry the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process
+rules.
 
 ## References
 

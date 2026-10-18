@@ -24,7 +24,7 @@ model, [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-c
   - each ruleset external is ADR-<NAME> or ADR-<code>-<NAME>… (^ADR-[A-Z]+(-[A-Z]+)*$, one or more uppercase
     segments), the leaf code (if any) matches the domain-code pattern, and when the external has a domain
     segment the EFFECTIVE code (leaf override else domain code) is that segment — the external is
-    'ADR-<effective>' or begins 'ADR-<effective>-' (a one-segment external such as ADR-AI has none to match; so a
+    'ADR-<effective>' or begins 'ADR-<effective>-' (a one-segment external such as ADR-REPO-AI has none to match; so a
     compound-code domain cites its root ADR as [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and the rest as
 [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
     external is unique;

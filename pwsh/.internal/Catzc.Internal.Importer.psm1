@@ -353,6 +353,10 @@ function Invoke-ImporterJanitors {
         Build-TerminologyDictionary -Silent | Out-Null
     }
 
+    if (Get-Command Build-AdrCodeDictionary -ErrorAction Ignore) {
+        Build-AdrCodeDictionary -Silent | Out-Null
+    }
+
     if (Get-Command Build-RootConfig -ErrorAction Ignore) {
         Build-RootConfig -Silent | Out-Null
     }

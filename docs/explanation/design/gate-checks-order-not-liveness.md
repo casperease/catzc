@@ -3,8 +3,8 @@
 ```text
 The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call.
 
-1  live                      automation's closed convention: no gate checks that it stays closed
-2  tests                     automation's remainder: that it is the non-live one is the track's call
+1  live                      pwsh's closed convention: no gate checks that it stays closed
+2  tests                     pwsh's remainder: that it is the non-live one is the track's call
 3  VariantsConfig            the gate: the last aspect is the bare **, and no earlier aspect uses it
 4  AspectPartition.Validate  the partition check: unit tests on fixtures are its only callers
 5  tests                     infrastructure's closed head: the explicit tests/ folders
@@ -24,9 +24,9 @@ The diagram is described element by element in [its asset description](.assets/g
 
 ## Walkthrough
 
-1. **live, in the automation track.** The closed convention of ADR-DSGN-ASPECT#2: folder-scoped patterns that never reach `tests/`. The rule
+1. **live, in the pwsh track.** The closed convention of ADR-DSGN-ASPECT#2: folder-scoped patterns that never reach `tests/`. The rule
    is ADR-only in this respect: no gate checks that the patterns stay closed, and a pattern that reached `tests/` would load.
-2. **tests, in the automation track.** The remainder. That the code track's remainder is the non-live aspect, so that a stray file never
+2. **tests, in the pwsh track.** The remainder. That the code track's remainder is the non-live aspect, so that a stray file never
    ships, is the track's own declaration in its `aspects` entry. A unit test proves it on a fixture module; no gate checks the real
    convention for it.
 3. **VariantsConfig.** The gate, run per track entry when the config loads. The last aspect must be the single pattern `**`, and no earlier
@@ -37,7 +37,7 @@ The diagram is described element by element in [its asset description](.assets/g
    the real tree it is ADR-only.
 5. **tests, in the infrastructure track.** The deployment track's closed head, `**/tests/**`. Only the gate's structural checks apply to it.
 6. **live, in the infrastructure track.** The deployment track's remainder, and the one that ships. Its liveness is a declaration like the
-   automation one, unchecked by any gate; and no code derives an infrastructure globset from it, so the partition check could not run there
+   pwsh one, unchecked by any gate; and no code derives an infrastructure globset from it, so the partition check could not run there
    even if it were wired.
 
 ## Why it holds

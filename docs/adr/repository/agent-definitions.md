@@ -46,7 +46,7 @@ once on `AgentsConfig` and set in `agents.yml`), a line being one that starts so
 the line it continues and a blank or comment line counts as nothing; its front matter carries only the robot keys in their fixed order
 (`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `maxTurns`, `skills`, then the catzc head); and its body is one job
 line, numbered steps of one action each, and the report line. The contracts every robot reads first (`agents.yml` `contracts`, today
-`ADR-AI`) are named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
+`ADR-REPO-AI`) are named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
 
 - [Robots and capabilities](#robots-and-capabilities)
 

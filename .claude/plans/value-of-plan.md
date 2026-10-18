@@ -31,7 +31,6 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 | highest     | plan-plans-body-sha-landing-zone        | Removes the drift finding on every ADR edit, makes plans survive agent death, unblocks the link cleanup.                             | ADR-REPO-PLANS new (incl. stable locators rule); FILEMETA#3 #7; DSGN-TRACK#17; 4 glossary terms; CLAUDE.md; sorting how-to | Test-Plans; body_sha on generated heads; import tool on two temp repos; Publish-Plan      | landed; Phase 0's count closes on the user's template commit                |
 | high        | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                          | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT new; glossary; ENGINE#4; four collisions                          | three terminology gates; guard rule; Test-Contracts; frozen P0 baseline                   | P0 to P4 landed; P5, P6, the P7 freeze call and the executable flag open    |
 | high        | plan-module-model-closeout              | The model landed with open choices, a rule without code and stale pages; the close-out keeps them from being lost.                   | ADR-AUTO-MODULE rule 6 or its narrowing; Catzc.Base.Modules reference page                                                 | Copy-CatzcModule test; Test-AdrRegistry; Test-Links, Test-Comments                        | closes on the final full run and two comment pages                          |
-| high        | plan-diagram-folders                    | A diagram's nine files sit in five places under two names; one folder per diagram makes it movable and rebuildable as one thing.     | ADR-REPO-FOLDERS `.assets` paragraph; ADR-REPO-SLIDES#7; file-kinds.yml                                                    | Build-Diagrams L0; kit subtitle and lens checks; Test-Links per moved folder              | kit and out/ pilot done 2026-10-18; the user's pilot review next            |
 | high        | plan-explanation-drift-gaps             | CD deploys the prod tier with no gate today (Q3), and the ADRs promise deploy-path, run-mode and safeguard behaviour the code lacks. | six ADR amendments (RUNMODE, FAILFAST, TRACK, PATH, AZ-NAMING, AZ-CLI); the articles' drift sections                       | L0 for the fixed functions, the new sync command and Resolve-RepoPath; the hook's L2 deny | 5 open: Q1/Q2 pipelines, the approval sync run, the Get-Aspect move, slides |
 | high        | plan-promotion-ladder                   | The ADRs' ladder (main-uat, release-uat, RC/RBC, pre-prod, DEPLOY) has no code; prod waits only on the new approval check.           | ADR-DSGN-LIFE, ADR-FLOW-CD as the answers decide                                                                           | per pipeline, a run that shows the rung                                                   | blocked on Q1-Q4                                                            |
 | high        | plan-adr-code-language                  | Rule numbers say nothing; one ADR string language of named segments replaces ADR-X#n and its group grammar.                          | the ADR code grammar in docs/adr/index.md; adrs.yml rule names; every citation re-cited                                    | Test-AdrRegistry; Test-Links citations; the code-form parser L0                           | decided 2026-10-18; in hand with catzc-f3                                   |
@@ -41,7 +40,6 @@ done. Nothing in a paste is discarded; a stale or superseded item is recorded as
 | medium      | plan-out-artifacts                      | 144 session scripts and 27 backups unregistered.                                                                                     | OUTDIR amendments                                                                                                          | Clear-Output and prune tests                                                              | landed; two probe batches wait on the user                                  |
 | medium      | plan-clear-actions                      | The cleaner's open verdicts: the bounded-enumeration delete, the out/test-links clearance, the vocabulary list.                      | none                                                                                                                       | Test-Links per file                                                                       | three steps open                                                            |
 | medium      | plan-fast-push-followups                | Four Build-RootConfig fixture-head tests fail and two unrelated findings have no owner yet.                                          | none; ADR-DSGN-LIFE#11 and #12 landed                                                                                      | Build-RootConfig.Tests.ps1 green; Test-AdrRegistry; one real Push-Dirty run (the user's)  | landed and tested; the user's Push-Dirty run open                           |
-| low         | plan-assets-gallery-pdf                 | One review PDF of every asset PNG with its companion text; the split flag is D07.                                                    | the drawio-waves skill line names --assets                                                                                 | a two-PNG fixture run if the kit gains a test home                                        | mode landed and measured; the fixture waits on a test home                  |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
@@ -95,6 +93,12 @@ shortens a plan only after its data is in the tree, never by dropping a signal.
   the ten janitors measure 1.2 s on their first call and 0.4 s warm against the 2.6 s the plan started from.
 - The assets leftovers task: landed 2026-10-17 and D07 settled the last step (no `--parts` flag); plan-assets-gallery-pdf keeps its one
   fixture line, which waits on a test home.
+- plan-assets-gallery-pdf: the mode landed and is named in the waves skill, D07 decided against a split flag, and the fixture run landed
+  once the kit got its test home (`.claude/drawio/tests/test_gallery_pdf.py`, three pages). No open step, no open question.
+- plan-diagram-folders and task-diagram-folders: every diagram moved into its own folder beside its article (149 and the glyph legend), the
+  kit, `Move-Diagram` and `Build-Diagrams -Path` landed with their tests, the ADRs were restated, and `docs/explanation/.assets` holds only
+  `glyphs/`. The pilot was approved by the user. Its prompts go with it: prompt-diagram-folders-1-kit-and-commands,
+  prompt-diagram-folders-2-adrs and prompt-diagram-folders-3-migration.
 
 ## Deleted 2026-10-17, and why
 
@@ -104,14 +108,15 @@ shortens a plan only after its data is in the tree, never by dropping a signal.
   move in 70 files, CommentsConfig and New-Importer tests pass. No open step.
 - plan-assets-beside-articles: the move landed, the gallery reads the sidecar carrier for its descriptions, the carrier test passes as it
   stands, and the old `docs/.assets/explanation` folder is gone. No open step (the assets leftovers task).
-- plan-adr-ai: ADR-REPO-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is folded
-  into its Context; D14 kept the one-segment code. No open step.
-- plan-adr-cats: ADR-PRIN-CATS with five rules in principles, the glossary terms cats and catzc, the decisions told to the two plans that waited.
-  No open step.
+- plan-adr-ai: ADR-REPO-AI is written, registered and named once (agents.yml `contracts`, the CLAUDE.md line); the agent-contracts page is
+  folded into its Context; D14 kept the one-segment code. No open step.
+- plan-adr-cats: ADR-PRIN-CATS with five rules in principles, the glossary terms cats and catzc, the decisions told to the two plans that
+  waited. No open step.
 - prompt-file-kinds-and-formatting-continue, prompt-file-kinds-registry-continue, prompt-head-path-split-continue: continuation prompts of
   plans deleted on 2026-10-16; every item they named is a step of plan-file-head-immutable-edges-classes or done.
-- The done task files of folder hygiene, ADR-REPO-AI, ADR-PRIN-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal robots, layers
-  doctrine and class selectors: disposable executables (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in git.
+- The done task files of folder hygiene, ADR-REPO-AI, ADR-PRIN-CATS, body-sha Phase 0, the .unordered audit, the plans ADR, minimal robots,
+  layers doctrine and class selectors: disposable executables (ADR-REPO-PLANS#8); their verdict lines live in the plans they ticked and in
+  git.
 - plan-minimal-robots, plan-minimal-robots-agents, plan-minimal-robots-capabilities: the program landed (15 robots, 18 capabilities,
   ADR-REPO-AGENTS rules 6 to 10, the gate), and Phase 5 is measured in the program plan's own table (static context per robot from its
   files; no robot over 4,000 tokens). The three files are listed for the user's `git rm`; until then they hold no open step of their own.

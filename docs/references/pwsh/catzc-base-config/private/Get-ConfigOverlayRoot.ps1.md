@@ -34,5 +34,5 @@ Above `$fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryR
 
 ```text
 Source mode reads only this repository's own config fragments, under .catzc/<the modules folder>
-([ADR-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-cats5)).
+([ADR-PRIN-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats5)).
 ```

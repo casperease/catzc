@@ -51,6 +51,6 @@ file of a consumer module is classified, so nothing is pruned.
 Above `$prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\',...`, written with `#`.
 
 ```text
-The overlay root is .catzc/<track folder> ([ADR-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-cats5))
+The overlay root is .catzc/<track folder> ([ADR-PRIN-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats5))
 and names its own folder, so the records spell no track folder of their own.
 ```

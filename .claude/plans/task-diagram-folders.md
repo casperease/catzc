@@ -37,7 +37,7 @@ round's test home for the kit.
        Original step: Kit tests: subtitle parsing (both code forms reported, the canonical accepted), the closed lens set, the
        `Supports (<lens> lens)` drift warning, under the test home the decision round names (`.claude/drawio/tests/`) and run with `uv run`
        under the time safeguard. Check: the tests pass; `Test-FileMeta` clean on the new files.
-2. The two subtitles still in the `:1,2,3` form (`adr-dsgn-aspect--each-track-picks-its-catch-all--meta`,
+2. [x] Closed 2026-10-18 by session catzc-f3 with nothing to change (see the plan). Original step: The two subtitles still in the `:1,2,3` form (`adr-dsgn-aspect--each-track-picks-its-catch-all--meta`,
    `adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`) normalised through `write-drawio-files`. Check: the subtitle parser
    reports none; the two rasters re-rendered from their models.
 3. [x] Landed 2026-10-18 by session catzc-fb, verdict: "Move-Diagram.Tests.ps1 Passed (4 cases: folder move with links in and into it plus
@@ -93,7 +93,7 @@ round's test home for the kit.
        `docs/explanation/.assets/{grid,tree,chain}/`; `Build-Diagrams.ps1.md` help and `catzc-base-slides.md` responsibility:4 follow the
        parameter. Check: `git ls-files docs/explanation/.assets` lists only `glyphs/`; `Test-Links` on the two edited pages; the final full
        run is the tree-wide proof.
-9. Tick the plan's steps as each lands; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero in plan-diagram-folders.
+9. [x] Done 2026-10-18: every step of plan-diagram-folders ticked. Original step: Tick the plan's steps as each lands; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero in plan-diagram-folders.
 
 ## Report
 

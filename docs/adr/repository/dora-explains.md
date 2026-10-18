@@ -334,7 +334,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `The agent contract — every agent and skill reads it first, at every start`
 
-[ADR-AI](ai-agent-contract.md)
+[ADR-REPO-AI](ai-agent-contract.md)
 
 > DORA finds that small batches and fast feedback move delivery performance, and that a clear, communicated stance on AI tools is what makes
 > them pay off. One short contract that every agent reads first keeps its changes small and reviewable: it runs no suite while working,

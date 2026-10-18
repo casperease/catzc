@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9480da19a2a1"
-    with_inputs_sha: "5776f6eb2f88af7313270d6264fb1ebbbe7df7dad348e7bdee827df7a26529b8"
+    with_body_sha: "1abb7da09c2e"
+    with_inputs_sha: "7013110d61f208ebad623b429b9c89d9a504a71223a3972b331e9b04299886e4"
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -982,7 +982,7 @@ The one SQL login beside a server's Entra ID admin group, its password a Key Vau
 The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
 required by policy.
 
-- **Defined by:** `ADR-AZ-CAFNAME#11`
+- **Defined by:** [ADR-AZ-CAF-NAME#11](azure/caf/naming-and-tagging.md#rule-adr-az-caf-name11)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 
@@ -1071,7 +1071,7 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the subscription
 itself is created outside the repository.
 
-- **Defined by:** `ADR-AZ-CAFRESORG#19`
+- **Defined by:** [ADR-AZ-CAF-RESORG#19](azure/caf/resource-organization.md#rule-adr-az-caf-resorg19)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 

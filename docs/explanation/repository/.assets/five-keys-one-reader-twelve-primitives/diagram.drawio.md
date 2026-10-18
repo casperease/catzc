@@ -1,4 +1,4 @@
-# Five keys, one private reader, twelve exported primitives: the diagram described
+# Five keys, one private reader, fifteen exported primitives: the diagram described
 
 ```text
 A 1572 x 688 diagram, read top to bottom through four bands.
@@ -22,7 +22,7 @@ lands first on the olive file at the top of the column.
 1. Marker 1, top band: the file `variants.yml`, centred.
 2. Down one edge to marker 2, second band: the code unit `Get-Config -Config variants`; down again to marker 3, `Get-Variant`.
 3. Down one edge to the top of the frame in the third band, then left to right along the row: marker 4 `Get-AdoNaming`, marker 5
-   `Get-GitWorkspace`, marker 6 `Get-EnabledCustomers`, marker 7 `Get-Aspect · Get-Track`.
+   `Get-GitWorkspace`, marker 6 `Get-EnabledCustomers`, marker 7 `Get-AspectDeclaration · Get-Track`.
 4. Down the three vertical edges to the bottom band, left to right: marker 8 `Test-/Assert-AdoNaming`, marker 9 `Test-GitWorkspace`, marker
    10 `Test-/Assert-HaveCustomer(s)`. The fourth column of the bottom band is empty.
 
@@ -31,7 +31,7 @@ lands first on the olive file at the top of the column.
 | Glyph (legend phrase) | Count | Where                                                                                                                                                                                                                                                                     |
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | file                  | 1     | `variants.yml` (top band)                                                                                                                                                                                                                                                 |
-| code unit             | 9     | `Get-Config -Config variants`, `Get-Variant` (second band); `Get-AdoNaming`, `Get-GitWorkspace`, `Get-EnabledCustomers`, `Get-Aspect · Get-Track` (third band, in the frame); `Test-/Assert-AdoNaming`, `Test-GitWorkspace`, `Test-/Assert-HaveCustomer(s)` (bottom band) |
+| code unit             | 9     | `Get-Config -Config variants`, `Get-Variant` (second band); `Get-AdoNaming`, `Get-GitWorkspace`, `Get-EnabledCustomers`, `Get-AspectDeclaration · Get-Track` (third band, in the frame); `Test-/Assert-AdoNaming`, `Test-GitWorkspace`, `Test-/Assert-HaveCustomer(s)` (bottom band) |
 
 The file is olive and the code units slate, all with light names. The frame around the accessor row is chrome: no fill, a thin dark rim.
 

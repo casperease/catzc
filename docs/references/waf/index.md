@@ -23,17 +23,17 @@ and records the trade-offs between pillars.
 ## How the repository answers it
 
 Each pillar is one ADR in the `azure` domain, under [docs/adr/azure/waf/](../../adr/azure/waf/), and each checklist item is one numbered
-rule whose number is Microsoft's: RE:04 is `ADR-AZ-WAFRE#4`. A rule says what this repository does about the item; its section cites
+rule whose number is Microsoft's: RE:04 is `ADR-AZ-WAF-RE#4`. A rule says what this repository does about the item; its section cites
 Microsoft's guide page, summarises the recommendation in our words, says what it means for the templates `foundation`, `discovery`, and
 `expedition`, and ends with a status: realised, partly realised, planned (follow-up), or not adopted, with the reason.
 
 | Pillar                 | ADR                                                                     | Code           |
 | ---------------------- | ----------------------------------------------------------------------- | -------------- |
-| Reliability            | [reliability](../../adr/azure/waf/reliability.md)                       | `ADR-AZ-WAFRE` |
-| Security               | [security](../../adr/azure/waf/security.md)                             | `ADR-AZ-WAFSE` |
-| Cost Optimization      | [cost-optimization](../../adr/azure/waf/cost-optimization.md)           | `ADR-AZ-WAFCO` |
-| Operational Excellence | [operational-excellence](../../adr/azure/waf/operational-excellence.md) | `ADR-AZ-WAFOE` |
-| Performance Efficiency | [performance-efficiency](../../adr/azure/waf/performance-efficiency.md) | `ADR-AZ-WAFPE` |
+| Reliability            | [reliability](../../adr/azure/waf/reliability.md)                       | `ADR-AZ-WAF-RE` |
+| Security               | [security](../../adr/azure/waf/security.md)                             | `ADR-AZ-WAF-SE` |
+| Cost Optimization      | [cost-optimization](../../adr/azure/waf/cost-optimization.md)           | `ADR-AZ-WAF-CO` |
+| Operational Excellence | [operational-excellence](../../adr/azure/waf/operational-excellence.md) | `ADR-AZ-WAF-OE` |
+| Performance Efficiency | [performance-efficiency](../../adr/azure/waf/performance-efficiency.md) | `ADR-AZ-WAF-PE` |
 
 The landing-zone decision record ([landing-zones](../../adr/azure/landing-zones.md), `ADR-AZ-LZ`) carries the one-line-per-pillar summary of
 how `expedition` realises the framework; the pillar ADRs are the item-by-item account behind it.

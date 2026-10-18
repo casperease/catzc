@@ -3,7 +3,7 @@
 ```text
 Partition integrity runs only in unit tests, and the per-aspect sha lock has no mechanism.
 
-1  automation/<Module>/          the module folder every stage starts from
+1  pwsh/<Module>/                the module folder every stage starts from
 2  Test-SourceConventions        quality gate: one function per file, one definition per name
 3  Test-FolderConventions        quality gate: only conventional module subfolders
 4  Assert-Unique...FunctionName  import guard: unique exported names, fails fast
@@ -26,7 +26,7 @@ The diagram is described element by element in [its asset description](.assets/p
 
 ## Walkthrough
 
-1. **automation/&lt;Module&gt;/.** The module folder every stage starts from. Two quality gates read it, and the import guard reads it
+1. **pwsh/&lt;Module&gt;/.** The module folder every stage starts from. Two quality gates read it, and the import guard reads it
    before anything loads.
 2. **Test-SourceConventions.** A quality gate. It checks that each source file holds exactly one top-level function named for the file
    (ADR-PWSH-ONEFUNC#1), and that every function name, public or private, is defined in exactly one file, the integrity half of

@@ -3,7 +3,7 @@
 ```text
 Root config materialisation is one registry, one writer, two write primitives and two kinds of target.
 
-1  authored source files   the config files under automation/ that a source entry copies or links out
+1  authored source files   the config files under pwsh/ that a source entry copies or links out
 2  generator functions     the eight functions a generator entry names, bound in one dispatch
 3  rootconfig.yml          the registry: 23 entries, each with one source of truth and three booleans
 4  Build-RootConfig        the single writer, in Catzc.Base.RootConfig, run by the importer tail

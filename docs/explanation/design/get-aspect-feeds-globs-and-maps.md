@@ -3,22 +3,22 @@
 ```text
 Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live.
 
-1   variants.yml                  the aspects entry: automation live then tests, infrastructure tests then live
+1   variants.yml                  the aspects entry: infrastructure tests then live
 2   VariantsConfig                the config type: validates the map when the variants config loads
 3   the last aspect must be '**'  the throw for a track whose last aspect is not the bare **
-4   Get-Aspect                    returns one track's ordered aspects; unknown track -> the automation convention
-5   Get-ModuleGlobSet             asks for the automation convention and walks every module folder
+4   Get-Aspect                    returns one track's ordered aspects; the code track's from languages.yml
+5   Get-ModuleGlobSet             asks for the pwsh convention and walks every module folder
 6   AspectPartition.Compile       aspect k = its own patterns, minus every earlier aspect's, under the unit root
 7   catzc-base-globs-live         the derived live set of Catzc.Base.Globs, its own GlobSet
 8   catzc-base-globs-tests        the derived tests set, the remainder plus the language test folders
 9   Get-WorldMap                  asks for the convention of every track that has an entry
 10  WorldMapBuilder.IsLive        first match over the track's aspects; live when that aspect is named live
 
-Supports ADR-DSGN-ASPECT#2, #3 and #4, ADR-FLOW-CD-GLOBS#4, ADR-REPO-VARIANT#1 and #2, and ADR-DSGN-TRACK#3 (implementation lens).
+Supports ADR-DSGN-ASPECT#2, #3 and #4 (implementation lens).
 ```
 
-One function, `Get-Aspect`, is the only way a convention leaves `variants.yml`, and two callers take it in different directions. In
-`Catzc.Base.Globs`, `Get-ModuleGlobSet` compiles the automation convention onto every module folder, so each aspect becomes a globset with a
+One function, `Get-Aspect`, is the only way a convention reaches a caller, and two callers take it in different directions. In
+`Catzc.Base.Globs`, `Get-ModuleGlobSet` compiles the pwsh convention onto every module folder, so each aspect becomes a globset with a
 scan program. In `Catzc.Base.Maps`, `Get-WorldMap` reads the convention of every track and the builder answers one question per file: is it
 live? The code that validates the order sits in the config type, before either caller sees a list.
 
@@ -28,18 +28,18 @@ The diagram is described element by element in [its asset description](.assets/g
 
 ## Walkthrough
 
-1. **variants.yml.** The `aspects` entry of the repo-wide variants: `automation` lists `live` with five patterns (`*.ps1`, `private/**`,
-   `types/**`, `configs/**`, `assets/**`) and then `tests: ["**"]`; `infrastructure` lists `tests: ["**/tests/**"]` and then `live: ["**"]`.
-   Patterns are relative to the unit root.
+1. **variants.yml.** The `aspects` entry of the repo-wide variants: `infrastructure` lists `tests: ["**/tests/**"]` and then
+   `live: ["**"]`. Patterns are relative to the unit root. The code track `pwsh` declares no entry: its convention is the layout of
+   `languages.yml`, `live` with five patterns (`*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**`) and then `tests: ["**"]`.
 2. **VariantsConfig.** The config type that `Get-Config -Config variants` builds. For every track entry it checks each aspect name is
    kebab-case and unique, each has at least one non-empty pattern, the last aspect is the bare `**`, and no earlier aspect uses it.
 3. **The last aspect must be `**`.** The throw when a track's final aspect is not the remainder, naming the track and the aspect:
-   `aspects['automation']: the last aspect ('live') must be the '**' catch-all remainder`. An earlier aspect that uses the bare `**` fails
+   `aspects['infrastructure']: the last aspect ('tests') must be the '**' catch-all remainder`. An earlier aspect that uses the bare `**` fails
    with its own message. Either stops the config from loading at all.
-4. **Get-Aspect.** The public reader in `Catzc.Base.Variants`. It reads the variant through the private `Get-Variant`, carries the same
-   two-track convention as its default, and returns the requested track's list in declared order. A track with no entry gets the automation
-   convention.
-5. **Get-ModuleGlobSet.** The derived-globset function of `Catzc.Base.Globs`. It calls `Get-Aspect -Track automation` once, turns each
+4. **Get-Aspect.** The public reader in `Catzc.Base.Modules`. For a track of type `modules` it derives the convention from the layout of
+   `languages.yml`; for any other track it returns the declared list, which it reads through `Get-AspectDeclaration` in
+   `Catzc.Base.Variants`, in declared order. A track with no entry gets the layout's convention.
+5. **Get-ModuleGlobSet.** The derived-globset function of `Catzc.Base.Globs`. It calls `Get-Aspect -Track pwsh` once, turns each
    `VariantAspect` into an `Aspect`, and then visits every non-dot folder under `pwsh/`.
 6. **AspectPartition.Compile.** For one unit root such as `pwsh/Catzc.Base.Globs`, aspect _k_ becomes a `CompiledAspect` whose include
    patterns are its own, prefixed by the root, and whose exclude patterns are every earlier aspect's. A leaf scan program runs the includes

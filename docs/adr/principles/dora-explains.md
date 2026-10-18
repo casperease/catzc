@@ -99,7 +99,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `cats and catzc — two names, two audiences, used across each other on purpose`
 
-[ADR-CATS](cats-and-catzc.md)
+[ADR-PRIN-CATS](cats-and-catzc.md)
 
 > DORA ties code maintainability and documentation quality to how easily a reader finds and understands what a name means. One name per
 > audience, each with a home and a rule for where they meet, removes a source of variability in how the system is spoken of and written, so

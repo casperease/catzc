@@ -9,15 +9,13 @@ Every load stage but the unload has an ADR rule and a gate.
 4  Run mode                run modes never coexist; gate Assert-CatzcRunModeExclusive.Tests
 5  Janitors                idempotent, actor-aware; gate Invoke-TypeCacheJanitor.Tests
 6  Unload                  the import-time helpers removed; no rule and no gate
-7  build-catzc.ps1         a build-mode entry the run-modes ADR names; no such file
-8  Write-CatzcLoadBanner   a load banner the run-modes ADR names; no such function
 
 Supports ADR-AUTO-BUNDLE#2, #3 and #8 (governance lens).
 ```
 
 The cats load sequence runs in six stages, from the generated shim to the final unload of the import-time helpers. Each stage but the last
 is constrained by at least one ADR rule, and each of those stages is checked by a gate: a test for four of them, and code review for the
-session set-up. The unload has neither a rule nor a gate, and two things the run-modes ADR names do not exist in code.
+session set-up. The unload has neither a rule nor a gate.
 
 ![Every load stage but the unload has an ADR rule](.assets/rule-and-gate-per-load-stage/diagram.drawio.png)
 
@@ -44,10 +42,6 @@ and a stage's gate sits in its band beside the rules it checks.
 6. **Unload.** `Invoke-Importer` removes `Catzc.Internal.Bootstrap`, and the entry script's `finally` removes `Catzc.Internal.Importer`. No
    ADR rule states this, and no test checks it; only the code comments and the project instructions describe it. That is why its band holds
    no rule and no gate.
-7. **build-catzc.ps1.** The run-modes ADR names a root script that builds the selected modules and then enters build mode
-   (ADR-DSGN-RUNMODE#1). There is no such file at the repository root.
-8. **Write-CatzcLoadBanner.** The run-modes ADR describes a shared load banner that ends both modes, under the same rule. No function of
-   that name is defined in `automation/`; the code prints only the console "Loaded in N seconds" line.
 
 Beyond the gate at each stage, `Test-Automation` and `Test-CatzcBuild` run the same tests in both modes, `Assert-CatzcBundle` checks every
 build, and code review rejects a bundle loader that forks the importer.
@@ -67,9 +61,6 @@ build, and code review rejects a bundle loader that forks the importer.
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-RUNMODE#1 names `build-catzc.ps1` as a build-mode entry at the repository root; the repository has no such file.
-- The run-modes ADR says both modes end with `Write-CatzcLoadBanner`; no such function exists, and the code prints only the console load
-  line.
 - No ADR rule covers removing the Bootstrap and the importer after the load, although the code does it on every load.
 
 ## See also

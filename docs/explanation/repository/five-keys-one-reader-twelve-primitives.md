@@ -1,7 +1,7 @@
-# Five keys, one private reader, twelve exported primitives
+# Five keys, one private reader, fifteen exported primitives
 
 ```text
-Five keys in variants.yml reach twelve exported primitives through one private reader.
+Five keys in variants.yml reach fifteen exported primitives through one private reader.
 
 1   variants.yml                  five keys: ado_naming, git_workspace, have_customers, aspects, tracks
 2   Get-Config -Config variants   loads the file as a VariantsConfig and caches it for the session
@@ -9,7 +9,7 @@ Five keys in variants.yml reach twelve exported primitives through one private r
 4   Get-AdoNaming                 ado_naming, default standard
 5   Get-GitWorkspace              git_workspace, default main-direct
 6   Get-EnabledCustomers          have_customers normalised to @(), all, or a name list
-7   Get-Aspect · Get-Track        aspects and tracks, the two keys with an accessor only
+7   Get-AspectDeclaration · Get-Track  aspects and tracks, the two keys with no Assert- guard
 8   Test-/Assert-AdoNaming        -Standard or -Classic over Get-AdoNaming
 9   Test-GitWorkspace             -MainDirect or -MainViaPr over Get-GitWorkspace
 10  Test-/Assert-HaveCustomer(s)  the plural forms over Get-EnabledCustomers; the singular forms cover them
@@ -21,7 +21,7 @@ Supports ADR-REPO-VARIANT#1, #2, #4, #5 and #6 (implementation lens).
 fifteen public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
 the accessor to the `Test-` and `Assert-` guards that answer a question or stop the run.
 
-![Five keys, one private reader, twelve exported primitives](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png)
+![Five keys, one private reader, fifteen exported primitives](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png)
 
 The diagram is described element by element in [its asset description](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.md).
 

@@ -4,7 +4,7 @@
 Two code roots feed one importer, which loads the same modules.
 
 1  importer.ps1                  the source-mode entry script at the repository root
-2  <RepositoryRoot>/automation   the source-mode code root
+2  <RepositoryRoot>/pwsh   the source-mode code root
 3  Import-Catzc.ps1              the build-mode entry script inside every package
 4  Catzc.Base.Exporter           builds the package from the source tree, before any load
 5  Catzc/<v>                     the build-mode code root, a versioned package folder
@@ -29,7 +29,7 @@ The diagram is described element by element in [its asset description](.assets/t
 1. **importer.ps1.** The source-mode entry script sits at the repository root and is dot-sourced (`. ./importer.ps1`). It is a small
    generated shim: it sets `$env:RepositoryRoot` to its own folder and hands the whole load to the importer, which takes that folder's
    `pwsh/` as the code root.
-2. **`<RepositoryRoot>/automation`.** The source-mode code root is the repository's `pwsh/` folder, where each module is a folder of
+2. **`<RepositoryRoot>/pwsh`.** The source-mode code root is the repository's `pwsh/` folder, where each module is a folder of
    one-function `.ps1` files. When nothing presets the code root, the importer sets `CatzcModulesRoot` to this folder.
 3. **Import-Catzc.ps1.** The build-mode entry script ships inside every package. It sets `CatzcModulesRoot` to its own folder and runs the
    importer in its bundle mode. The package's `Catzc.psm1` dot-sources this file, so `Import-Module Catzc` and dot-sourcing the file set up

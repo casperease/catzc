@@ -21,7 +21,7 @@ Single source of truth for how the decision space is organised and cited. It dec
             [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14) and
             [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15).
   rulesets: within a domain, keyed by INTERNAL kebab name (= the ADR file slug). Each declares its full
-            EXTERNAL citation code (`ADR-<DC>-<NAME>`, or a one-segment `ADR-<NAME>` such as `ADR-AI`, fully
+            EXTERNAL citation code (`ADR-<DC>-<NAME>`, or a one-segment `ADR-<NAME>` such as `ADR-REPO-AI`, fully
             spelled) and, when the code body is a registered spelling token, its `terminology` link into the
             `adr:` category of terminology.yml. `code` may be set on a LEAF to OVERRIDE the domain default; the
             validator asserts a two-segment external's DC-segment equals the effective code (`^[A-Z]{2,4}$`),
@@ -43,7 +43,7 @@ rest `ADR-FLOW-CD-<NAME>`
 
 ## comment:3
 
-Above `reliability: { external: ADR-AZ-WAFRE, terminology: wafre }`, written with `#`.
+Above `reliability: { external: ADR-AZ-WAF-RE, terminology: wafre }`, written with `#`.
 
 ```text
 Vendor recommendation, one rule per vendor item: the Well-Architected Framework pillars (azure/waf/) and the Cloud Adoption

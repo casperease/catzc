@@ -3,7 +3,7 @@
 ```text
 One module folder has two independent readers: the loader and the globs engine.
 
-1  automation/<Module>/       the folder that is the module
+1  pwsh/<Module>/             the folder that is the module
 2  Catzc.Internal.Bootstrap   the loader: derives the manifest on every import
 3  <Module>.psd1              the derived manifest: generated, gitignored
 4  Catzc.Base.Variants        holds the aspects variant, read through Get-Aspect
@@ -25,7 +25,7 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Walkthrough
 
-1. **automation/&lt;Module&gt;/.** The folder is the module. Both readers start from it, and the location of each file inside it is all
+1. **pwsh/&lt;Module&gt;/.** The folder is the module. Both readers start from it, and the location of each file inside it is all
    either of them needs.
 2. **Catzc.Internal.Bootstrap.** The loader. On every import its `Import-AllModules` derives each module's manifest from the folder. It
    never reads the `aspects` variant.

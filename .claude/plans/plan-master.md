@@ -75,9 +75,8 @@ Open, in execution order:
   contracted, made internal or deleted as decided, Test-Contracts clean; the later language step for gate results and parameter sets.
 - assert-wait -> task-assert-wait.md (open; steps 1 to 6 done; steps 7 and 8 after the user's cheap importer watchpoint run): the ADR pair
   with the D17 rename to Watch-Blocking, then each watchpoint that found a block becomes a timeouts.yml limit and the rest are deleted.
-- diagram-folders -> task-diagram-folders.md (open; kit tests and the two subtitle fixes can start now; the move command, the migration of
-  all 150 diagrams one article folder at a time, `Build-Diagrams -Path`, the ADR restatements and the emptied folders after the pilot's
-  approval).
+- diagram-folders -> task-diagram-folders.md (done 2026-10-18: every step landed; the plan, the task and its three prompts are in
+  `out/delete-done-plans.ps1` for the user's `git rm`, with plan-assets-gallery-pdf).
 - test-run-budget -> task-test-run-budget.md (open; step 3 reads the final full run's shard manifest, it starts no run): the shard re-check
   that Invoke-TestFile and Test-Formatting no longer share a shard, then the scheduling option step 4 names.
 - loose-ends -> task-loose-ends.md (open; steps 1 to 3 now, 4 and 5 after the decision round): the two stale comment-page sections, the

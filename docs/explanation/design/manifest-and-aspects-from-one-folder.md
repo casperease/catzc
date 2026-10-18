@@ -3,11 +3,11 @@
 ```text
 The manifest and the aspects both come from one folder, by two code paths in call order.
 
-1  automation/<Module>/          the unit root both paths read
+1  pwsh/<Module>/                the unit root both paths read
 2  Assert-Unique...FunctionName  the import guard: unique function names
 3  New-DynamicManifest           turns the folder's .ps1 files into a manifest
 4  <Module>.psd1                 the manifest: written on drift, gitignored
-5  variants.yml                  the aspects.automation entry: live, then tests
+5  languages.yml                 the layout: its live rows, then the tests remainder
 6  Get-Aspect                    reads the aspect convention for the track
 7  AspectPartition.Compile       each aspect minus every earlier one, per root
 8  <kebab>-live                  the live set
@@ -27,7 +27,7 @@ The diagram is described element by element in [its asset description](.assets/m
 
 ## Walkthrough
 
-1. **automation/&lt;Module&gt;/.** The unit root both paths read. The import walks every module folder, and the aspects compile per folder
+1. **pwsh/&lt;Module&gt;/.** The unit root both paths read. The import walks every module folder, and the aspects compile per folder
    with `pwsh/<Module>` as the root.
 2. **Assert-UniqueModuleFunctionName.** Shown shortened as `Assert-Unique…FunctionName`. `Import-AllModules` calls it before any module or
    C# type loads, reached from `importer.ps1` through `Invoke-Importer`. A duplicate name throws "Function name collision(s) detected before
@@ -36,14 +36,15 @@ The diagram is described element by element in [its asset description](.assets/m
    files join the nested modules, private first, each group sorted ordinally.
 4. **&lt;Module&gt;.psd1.** The manifest is written only when its content differs, and `pwsh/**/*.psd1` is gitignored. A module with no
    `.ps1` left gets no manifest, and `Import-AllModules` deletes a stale one.
-5. **variants.yml.** The `aspects.automation` entry: `live` is `*.ps1`, `private/**`, `types/**` and `configs/**`; `tests` is `**`.
-6. **Get-Aspect.** `Get-ModuleGlobSet` calls `Get-Aspect -Track automation`. The `VariantsConfig` type has already required the last aspect
-   to be the bare `**` and no earlier aspect to use it.
+5. **languages.yml.** The code track declares no `aspects` entry; its convention is the layout of `languages.yml`. `live` is the layout's
+   live rows, `*.ps1`, `private/**`, `types/**`, `configs/**` and `assets/**`, and `tests` is the `**` remainder.
+6. **Get-Aspect.** `Get-ModuleGlobSet` calls `Get-Aspect -Track pwsh`. For a track of type `modules` it derives the convention from that
+   layout; a track with its own `aspects` entry in `variants.yml`, as `infrastructure` has, is read through `Get-AspectDeclaration` instead.
 7. **AspectPartition.Compile.** Called per module with the root `pwsh/<Module>`: aspect _k_ gets its own patterns, prefixed by the
    root, and excludes every earlier aspect's patterns.
 8. **&lt;kebab&gt;-live.** The live set, named for the folder lower-cased with dots turned to dashes, plus `-live`.
-9. **&lt;kebab&gt;-tests.** The tests set. It also takes `<go|python|bash root>/tests/<kebab>/**`. `assets/`, `tests/` and `README.md` match
-   no live pattern, so they fall to this `**` remainder.
+9. **&lt;kebab&gt;-tests.** The tests set. It also takes `<go|python|bash root>/tests/<kebab>/**`. `tests/` and `README.md` match no live
+   pattern, so they fall to this `**` remainder.
 
 ## Why it holds
 

@@ -6,6 +6,7 @@ writers:
   Build-ContractReference:
   Build-GitKeep:
   Build-TerminologyDictionary:
+  Build-AdrCodeDictionary:
   Build-EnglishDictionary:
     check: english-dictionary
   Build-RootConfig:

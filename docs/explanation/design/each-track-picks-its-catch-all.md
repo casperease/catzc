@@ -26,16 +26,16 @@ The diagram is described element by element in [its asset description](.assets/e
 1. **A tracked file of a unit.** Any file git tracks under a module folder of the pwsh track, or under a template of the infrastructure
    track. Each track declares its own ordered list of aspects in the `aspects` variant, and the file is tried against that list from the
    top. The first aspect whose pattern matches claims it.
-2. **live, in the automation track.** The first aspect of a code track is a closed convention: `*.ps1`, `private/**`, `types/**`,
+2. **live, in the pwsh track.** The first aspect of a code track is a closed convention: `*.ps1`, `private/**`, `types/**`,
    `configs/**` and `assets/**`, folder-scoped patterns that never reach `tests/`. A `*` inside a segment never crosses a `/`, so `*.ps1`
    claims the module's root files only. This is what the builder ships, and a new kind of file enters it only through an explicit change to
    the convention.
-3. **tests, in the automation track.** The last aspect of a code track is the `**` remainder: every file `live` did not claim. Tests, docs,
+3. **tests, in the pwsh track.** The last aspect of a code track is the `**` remainder: every file `live` did not claim. Tests, docs,
    a file dropped at the module root, all land here, and none of it ships. Shipping code is default-deny.
 4. **tests, in the infrastructure track.** A deployment track puts the non-live part first and keeps it closed: `**/tests/**`, an explicit
    `tests/` folder anywhere under the template, is the only part that does not deploy.
 5. **live, in the infrastructure track.** The last aspect of a deployment track is `live`, the `**` remainder. Everything else under a
-   template deploys, so a stray template file ships. The track's class backs the choice: automation is the core, infrastructure an adapter
+   template deploys, so a stray template file ships. The track's class backs the choice: the pwsh track is the core, infrastructure an adapter
    to a delivery target.
 
 ## Why it holds

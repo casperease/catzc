@@ -33,7 +33,7 @@ wins over adherence to the plan.
 ## Context
 
 The Agile Manifesto ([ADR-PROC-AGILE](agile.md)) opens with four value statements, each of the form "_A_ over _B_". They are the top of the
-definition of agile: the twelve principles ([ADR-PRIN-PROCESS](agile-principles.md)) elaborate them, and every agile framework claims to
+definition of agile: the twelve principles ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)) elaborate them, and every agile framework claims to
 serve them. A recurring misreading treats each value as "_A_, not _B_" — as a licence to abandon documentation, plans, or contracts — which
 inverts the manifesto's own words.
 

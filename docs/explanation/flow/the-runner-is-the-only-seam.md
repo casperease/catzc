@@ -7,7 +7,7 @@ The runner is the only seam from pipeline YAML into PowerShell.
 2  invoke-automation.yaml  the one step template every step goes through
 3  task by Mode            PowerShell@2, AzureCLI@2 or AzurePowerShell@5; owns the auth
 4  Invoke-AdoScript.ps1    the runner: imports once, sanitizes, runs in the same scope
-5  importer.ps1            loads the modules under automation/
+5  importer.ps1            loads the modules under pwsh/
 6  developer               dot-sources the importer and types the same command
 
 Supports ADR-FLOW-CD-RUNNER#1, #2 and #3 (architecture lens).

@@ -83,7 +83,7 @@ this repository's rules:
 5. **Deliver fast.** Short lead time is a competitive advantage and a prerequisite for deferring commitment; speed comes from draining
    queues ([ADR-PROC-QUEUECOST](queues-cost-money.md)).
 6. **Respect people.** The people doing the work design the work; the system supports them ([ADR-PROC-VALUES](agile-values.md),
-   [ADR-PRIN-PROCESS](agile-principles.md)).
+   [ADR-PROC-AGILEPRINCIPLES](agile-principles.md)).
 7. **Optimise the whole.** Improve the end-to-end value stream, not a local step; a local optimum that starves the whole is a loss
    ([ADR-PROC-OBSERVEWIP](observe-work.md)).
 
