@@ -14,7 +14,22 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
         $config.Allows('widget', 'synthetic') | Should -BeFalse
     }
 
-    It 'runs greedy files in pairs unless the config says otherwise' {
+    It 'keeps the build files apart by the declared list unless the config names its own' {
+        $default = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{})
+        $default.greedy_apart | Should -Be ([Catzc.Base.QualityGates.TestPolicyConfig]::DefaultGreedyApart)
+        $default.IsApart('C:\widget\pwsh\Catzc.Widget\tests\Import-Catzc.Tests.ps1') | Should -BeTrue
+        $default.IsApart('C:\widget\pwsh\Catzc.Widget\tests\Get-Widget.Tests.ps1') | Should -BeFalse
+        $own = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_apart = @('Get-Gadget') })
+        $own.IsApart('C:\widget\tests\get-gadget.Tests.ps1') | Should -BeTrue
+        $own.IsApart('C:\widget\tests\Import-Catzc.Tests.ps1') | Should -BeFalse
+    }
+
+    It 'throws on a greedy_apart entry that names the file with its suffix' {
+        { [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_apart = @('Get-Gadget.Tests.ps1') }) } |
+            Should -Throw "*greedy_apart entry 'Get-Gadget.Tests.ps1'*"
+    }
+
+    It 'runs greedy files two at a time unless the config says otherwise' {
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{}).greedy_group_size | Should -Be 2
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 1 }).greedy_group_size | Should -Be 1
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 3 }).greedy_group_size | Should -Be 3

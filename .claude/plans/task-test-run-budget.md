@@ -85,6 +85,9 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
    file and so re-analyzes all ~1630 files (~130 s; 15:36 run: only `vssps` added, 637d66ca9). Decided by the orchestrator on the user's
    delegation: `Get-ScriptAnalyzerDiagnostics` runs two cached passes, the spelling rule keyed on the dictionaries and its own files,
    every other rule on settings, rules and manifest only; an L0 case proves a dictionary-only change re-runs only the spelling pass.
+   The scheduler, decided by the orchestrator on the user's delegation: one PesterRunner pool with a per-class cap (greedy files start in
+   any slot a parallel shard frees, at most `greedy_group_size` at once, serial last and alone); "build-heavy apart" is a `greedy_apart`
+   list in `test-policy.yml` with its default declared once on TestPolicyConfig; ADR-AUTO-TEST#26 is reworded to the pool.
 7. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report

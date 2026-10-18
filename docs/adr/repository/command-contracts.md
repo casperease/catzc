@@ -17,12 +17,14 @@ module, a group of modules with a lifetime and rules of its own.
 ### Rule ADR-REPO-CMDCONTRACT:2
 
 The **contract language** is the notation a command contract is written in: YAML with a `parameters:` map, one entry per parameter whose
-value is one string, the type followed by `!` when the parameter is mandatory, by `= <literal>` when it has a constant default, and by
-`pipeline` when its value comes from the pipeline, and an `output:` type, `void` when omitted. The type set is closed: `string`, `int`,
-`bool`, `switch`, or the name of a `Catzc.*` type, each followed by `[]` for a list. A richer type, or a key beyond these two, is a change
-to this rule, never a value added to a list. The defaults are declared once on the `ContractCommand` type
-([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)): a parameter is optional, has no default and is not fed
-from the pipeline; the output is void.
+value is one string, the type followed by `!` when the parameter is mandatory, by `= <literal>` when it has a constant default, by
+`pipeline` when its value comes from the pipeline, and by `in <Set>[,<Set>]` when it belongs to named parameter sets only, an `output:`
+type, `void` when omitted, and a `default_set:` naming the set a call that fits several resolves to. The type set is closed: `string`,
+`int`, `bool`, `switch`, or the name of a `Catzc.*` type, each followed by `[]` for a list. A richer type, or a key beyond these three, is a
+change to this rule, never a value added to a list. The defaults are declared once on the `ContractCommand` type
+([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)): a parameter is optional, has no default, is not fed
+from the pipeline and belongs to every set; the output is void; there is no default set. A parameter that is mandatory in one set and
+optional in another has no spec, so a command that declares one cannot be contracted.
 
 - [One string per parameter](#one-string-per-parameter)
 
@@ -40,7 +42,7 @@ interface and, where a signature does not say what the command promises, the hea
 
 One checker per implementation language compares a command contract with the command's file without loading the module: the PowerShell
 checker reads the parameter block and the output type from the parsed file. The check reports a missing command, a parameter the contract
-and the file disagree on, and a mandatory, switch, pipeline, type, default or output mismatch, each as one finding on the asset's result
+and the file disagree on, and a mandatory, switch, pipeline, type, default, parameter-set or output mismatch, each as one finding on the asset's result
 ([ADR-REPO-CONTRACT#4](api-contracts.md#rule-adr-repo-contract4)). A language with no checker throws `NotImplemented` when a command of that
 language is contracted, the stance of [ADR-REPO-CONTRACT#8](api-contracts.md#rule-adr-repo-contract8), and a contracted command is proven
 from every engine: each engine's start resolves it ([execution-engines](../automation/execution-engines.md)).
@@ -99,11 +101,25 @@ parameters:
 output: Catzc.Base.Widgets.Widget
 ```
 
+```yaml
+# contracts/catzc/0.0.0/Catzc.Base.Widgets/Find-Gadget.command.yml
+parameters:
+  Id: string! in Id # only in the set Id, mandatory there
+  Count: int! in Random
+  Seed: int in Random
+  Spare: switch in All,Random # in two of the sets
+  Quiet: switch # in every set
+default_set: All
+output: Catzc.Base.Widgets.Gadget
+```
+
 ```text
-spec    = type [ "!" ] [ "=" literal ] [ "pipeline" ]
-type    = base [ "[]" ]
-base    = "string" | "int" | "bool" | "switch" | TypeName      # TypeName is a Catzc.* type
-output  = type | "void"
+spec        = type [ "!" ] [ "=" literal ] [ "pipeline" ] [ "in" sets ]
+sets        = SetName { "," SetName }
+type        = base [ "[]" ]
+base        = "string" | "int" | "bool" | "switch" | TypeName      # TypeName is a Catzc.* type
+output      = type | "void"
+default_set = SetName
 ```
 
 One string per parameter is the least ceremony a signature can take, and a map keyed by parameter name is order-free, so the existing
@@ -111,6 +127,13 @@ key-subset readers of the contracts module read it unchanged. The cost is a smal
 holds that grammar, the one place it is written, and a value that does not parse is a finding. The type set is closed on purpose: every
 checker maps four base types and the `Catzc.*` type names, nothing more, and a type nobody can prove from a file is a type nobody can
 promise.
+
+A command with parameter sets takes one of several call shapes, and the shape is part of its interface: which parameters go together and
+which are mandatory in each. The set names ride on the parameter they belong to, so each parameter is still one string, and a parameter
+with no `in` belongs to every set, as it does in a PowerShell parameter block that names no set. The default set is the one key the
+command itself carries, because it belongs to no single parameter and may be a set no parameter names, the shape a call with none of the
+set-bound parameters takes. Mandatory stays one flag per parameter: a parameter that is mandatory in one set and optional in another would
+need a flag per set, and that shape is rare enough to be refused rather than given a grammar.
 
 ### Placement says the rest
 
@@ -140,7 +163,8 @@ A command contract earns its place by being read in three places. The reader is 
 reference page shows the signature beside the asset's module and direction, so a reader finds a command's interface without opening the
 asset. And `cats` reads the generated lookup before it starts an engine: a wrong call is rejected in the shell, with the contract's message,
 instead of after a start and an import, and a value is passed in its stated type, so a switch is a flag and an integer is an integer rather
-than a quoted string. The lookup is generated from the contracts and committed beside the entry point's script, through the root-config
+than a quoted string. For a command with parameter sets, the call is held to the set its parameter names fit, the default set when they fit
+several, so a parameter from another set or a mandatory one missing from that set is rejected the same way. The lookup is generated from the contracts and committed beside the entry point's script, through the root-config
 generator, never edited by hand.
 
 ### Pinned by the unit
@@ -172,7 +196,10 @@ retired, the one place backwards compatibility is owed ([ADR-REPO-CONTRACT#3](ap
 6. **Named error conditions** in the contract (`errors:`) — rejected: no checker can prove them from the command's file, so they would be
    prose dressed as a contract.
 
-7. **Reusing the fragment check** for a command asset — rejected: a fragment is contained by its target, and a signature is compared with a
+7. **A `sets:` map** of set name to parameter names — rejected: it states a parameter's membership in a second place, away from its
+   spec, so one fact would have two places to drift apart in.
+
+8. **Reusing the fragment check** for a command asset — rejected: a fragment is contained by its target, and a signature is compared with a
    parsed file, a different relation with its own findings.
 
 ## Decision

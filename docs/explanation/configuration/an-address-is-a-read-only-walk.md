@@ -17,9 +17,9 @@ inside a named config. Cats resolves it without adding a second way to read conf
 reader has already loaded and cached, so the value a caller gets back is the cached config's own node, read-only, and a wrong address throws
 at the call that made it.
 
-![A config address is a read-only walk over the one cached config](../.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png)
+![A config address is a read-only walk over the one cached config](.assets/an-address-is-a-read-only-walk/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](an-address-is-a-read-only-walk.drawio.md).
+The diagram is described element by element in [its asset description](.assets/an-address-is-a-read-only-walk/diagram.drawio.md).
 
 ## Walkthrough
 

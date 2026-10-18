@@ -39,6 +39,7 @@ public class PesterRunner
         public int StdoutEchoed;      // chars of Stdout already written to the console
         public int StderrEchoed;
         public bool Live;             // readers write through to the console when set
+        public string[] Caps = Array.Empty<string>();  // the named limits this worker counts against
         public Process Process;
         public Thread StdoutReader;
         public Thread StderrReader;
@@ -52,6 +53,14 @@ public class PesterRunner
 
     public static PesterRunner Run(string[] runnerScripts, string[] labels, int maxParallel,
         IDictionary environment, int timeoutSeconds, bool silent)
+    {
+        return Run(runnerScripts, labels, null, null, maxParallel, environment, timeoutSeconds, silent);
+    }
+
+    // One pool with named limits: a worker starts, in submission order, once a slot is free and each of its caps
+    // (workerCaps[i], names into capLimits) runs fewer workers than its limit; a worker held only by a cap never holds back the ones after it.
+    public static PesterRunner Run(string[] runnerScripts, string[] labels, string[][] workerCaps, IDictionary capLimits,
+        int maxParallel, IDictionary environment, int timeoutSeconds, bool silent)
     {
         if (runnerScripts == null || runnerScripts.Length == 0)
         {
@@ -71,15 +80,45 @@ public class PesterRunner
             throw new ArgumentException("timeoutSeconds must be at least 1.");
         }
 
+        if (workerCaps != null && workerCaps.Length != runnerScripts.Length)
+        {
+            throw new ArgumentException(
+                $"workerCaps must have one entry per runner script (expected {runnerScripts.Length}, got {workerCaps.Length}).");
+        }
+        var limits = new Dictionary<string, int>(StringComparer.Ordinal);
+        if (capLimits != null)
+        {
+            foreach (DictionaryEntry entry in capLimits)
+            {
+                int limit = Convert.ToInt32(entry.Value, CultureInfo.InvariantCulture);
+                if (limit < 1)
+                {
+                    throw new ArgumentException($"cap '{entry.Key}' must allow at least 1 worker (got {limit}).");
+                }
+                limits[entry.Key.ToString()] = limit;
+            }
+        }
+
         var workers = new Worker[runnerScripts.Length];
         for (int i = 0; i < runnerScripts.Length; i++)
         {
             workers[i] = new Worker { Label = labels[i], ScriptPath = runnerScripts[i] };
+            if (workerCaps != null && workerCaps[i] != null)
+            {
+                foreach (string cap in workerCaps[i])
+                {
+                    if (!limits.ContainsKey(cap))
+                    {
+                        throw new ArgumentException($"worker '{labels[i]}' names the cap '{cap}', which capLimits does not declare.");
+                    }
+                }
+                workers[i].Caps = workerCaps[i];
+            }
         }
 
         if (silent)
         {
-            Execute(workers, maxParallel, environment, timeoutSeconds, silent);
+            Execute(workers, limits, maxParallel, environment, timeoutSeconds, silent);
         }
         else
         {
@@ -88,7 +127,7 @@ public class PesterRunner
             try
             {
                 Console.OutputEncoding = Encoding.UTF8;
-                Execute(workers, maxParallel, environment, timeoutSeconds, silent);
+                Execute(workers, limits, maxParallel, environment, timeoutSeconds, silent);
             }
             finally
             {
@@ -113,12 +152,11 @@ public class PesterRunner
         return new PesterRunner { Results = results };
     }
 
-    private static void Execute(Worker[] workers, int maxParallel, IDictionary environment,
+    private static void Execute(Worker[] workers, Dictionary<string, int> limits, int maxParallel, IDictionary environment,
         int timeoutSeconds, bool silent)
     {
         long poolStart = Environment.TickCount64;
         long deadline = poolStart + (long)timeoutSeconds * 1000;
-        int nextToStart = 0;
         int liveIndex = 0;
 
         try
@@ -143,13 +181,17 @@ public class PesterRunner
                     }
                 }
 
-                // Start the next workers in submission order while a worker is free.
-                while (nextToStart < workers.Length && running < maxParallel)
+                // Start the next workers in submission order while a slot is free, skipping any whose cap is full.
+                while (running < maxParallel)
                 {
-                    Start(workers[nextToStart], environment);
-                    workers[nextToStart].StartedTick = Environment.TickCount64;
-                    workers[nextToStart].StartOffsetMs = workers[nextToStart].StartedTick - poolStart;
-                    nextToStart++;
+                    int next = NextStartable(workers, limits);
+                    if (next < 0)
+                    {
+                        break;
+                    }
+                    Start(workers[next], environment);
+                    workers[next].StartedTick = Environment.TickCount64;
+                    workers[next].StartOffsetMs = workers[next].StartedTick - poolStart;
                     running++;
                 }
 
@@ -203,6 +245,40 @@ public class PesterRunner
             KillAll(workers);
             throw;
         }
+    }
+
+    // The first worker not yet started whose every cap has room, or -1.
+    private static int NextStartable(Worker[] workers, Dictionary<string, int> limits)
+    {
+        for (int i = 0; i < workers.Length; i++)
+        {
+            if (workers[i].Started)
+            {
+                continue;
+            }
+            bool fits = true;
+            foreach (string cap in workers[i].Caps)
+            {
+                int inUse = 0;
+                foreach (var other in workers)
+                {
+                    if (other.Started && !other.Completed && Array.IndexOf(other.Caps, cap) >= 0)
+                    {
+                        inUse++;
+                    }
+                }
+                if (inUse >= limits[cap])
+                {
+                    fits = false;
+                    break;
+                }
+            }
+            if (fits)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static void Start(Worker worker, IDictionary environment)

@@ -29,13 +29,18 @@ function Read-CommandSignature {
     if ($block) {
         foreach ($parameter in $block.Parameters) {
             $typeName = 'object'
-            $mandatory = $false
             $pipeline = $false
+            $mandatoryBySet = [System.Collections.Generic.List[bool]]::new()
+            $sets = [System.Collections.Generic.List[string]]::new()
+            $withoutSet = $false
+            $hasParameterAttribute = $false
             foreach ($attribute in $parameter.Attributes) {
                 if ($attribute -is [System.Management.Automation.Language.TypeConstraintAst]) {
                     $typeName = $attribute.TypeName.FullName
                 }
                 elseif ($attribute -is [System.Management.Automation.Language.AttributeAst] -and $attribute.TypeName.Name -cin 'Parameter', 'ParameterAttribute') {
+                    $mandatory = $false
+                    $setName = $null
                     foreach ($argument in $attribute.NamedArguments) {
                         $isOn = $argument.ExpressionOmitted -or
                         ($argument.Argument -is [System.Management.Automation.Language.VariableExpressionAst] -and $argument.Argument.VariablePath.UserPath -ieq 'true')
@@ -43,10 +48,27 @@ function Read-CommandSignature {
                             $mandatory = $isOn
                         }
                         elseif ($argument.ArgumentName -ieq 'ValueFromPipeline') {
-                            $pipeline = $isOn
+                            $pipeline = $pipeline -or $isOn
+                        }
+                        elseif ($argument.ArgumentName -ieq 'ParameterSetName' -and $argument.Argument -is [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                            $setName = $argument.Argument.Value
                         }
                     }
+                    $mandatoryBySet.Add($mandatory)
+                    if ($setName) {
+                        $sets.Add($setName)
+                    }
+                    else {
+                        $withoutSet = $true
+                    }
+                    $hasParameterAttribute = $true
                 }
+            }
+            # A parameter with no [Parameter()], or one without a set name, belongs to every set, as PowerShell binds it.
+            $inEverySet = $withoutSet -or -not $hasParameterAttribute
+            $mandatory = $mandatoryBySet.Count -gt 0 -and $mandatoryBySet[0]
+            if (@($mandatoryBySet | Select-Object -Unique).Count -gt 1) {
+                throw "parameter '$($parameter.Name.VariablePath.UserPath)' of '$Name' is mandatory in some parameter sets and optional in others, which a command contract cannot state (ADR-REPO-CMDCONTRACT#2)"
             }
             $isList = $false
             $type = [Catzc.Base.Contracts.ContractParameter]::NormalizeType($typeName, [ref] $isList)

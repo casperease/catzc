@@ -185,8 +185,8 @@ report folder (`Set-AbandonedTestRun`), never left `running`.
 
 ### Rule ADR-AUTO-TEST:26
 
-A **phase** is one of a test run's three scheduling stages, run in order: the parallel shards, then the greedy phase, then the serial phase.
-Two phase tags, both optional (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`), name tests that must not share
+A **phase** is one of a test run's three scheduling stages: the parallel shards and the greedy phase share one worker pool, and the serial
+phase runs after both. Two phase tags, both optional (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`), name tests that must not share
 the machine with the parallel pool; `Split-TestAutomationFiles` owns the split, and a file is the scheduling unit, so one tagged test moves
 its whole file (serial wins over greedy):
 
@@ -194,9 +194,11 @@ its whole file (serial wins over greedy):
   both write (e.g. the `out/template/<name>` build folders). Its file runs in the final **one-worker phase**, strictly alone, one file after
   another.
 - **`greedy`** — the test consumes the machine beyond its own process (`Test-ScriptAnalyzer`'s background-process pool, tests that spawn
-  importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the parallel
-  shards and the serial phase: single-file shards through the worker pool, one file per worker, so greedy files overlap each other (their
-  tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
+  importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase**, a single-file shard
+  queued behind the parallel shards in the same pool: it takes the first slot a shard frees, so the pool never runs more workers than the
+  parallel phase, and the serial phase waits for it. At most `greedy_group_size` greedy files run at once, and of the files `greedy_apart`
+  names (the ones that run real builds) one at a time, both in `test-policy.yml` with their defaults on `TestPolicyConfig`. A greedy file
+  can overlap the last parallel shards and inflate their L0/L1 timings, so over-limit timings stay report-only in a full run.
 
 A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the run's location decides
 whether it runs (ADR-AUTO-TEST#33).

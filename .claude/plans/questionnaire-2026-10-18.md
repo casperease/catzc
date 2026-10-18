@@ -20,7 +20,7 @@ option of each is the recommendation.
   Options: confirm; rename now. Decision: confirm (2026-10-18, the recommendation).
 - D03 Choice (c): rule 6 covers check and test handlers only; `LoadedModule` dropped with `BaseModule`. module-model-closeout then builds
   the handler ids. Options: confirm; widen rule 6 to every handler. Decision: confirm (2026-10-18, the recommendation).
-- D04 `Copy-Automation` selects the full profile by default and no longer copies `.scriptanalyzer`. Options: confirm; copy the analyzer
+- D04 `Copy-CatzcModule` selects the full profile by default and no longer copies `.scriptanalyzer`. Options: confirm; copy the analyzer
   rules too. Decision: confirm (2026-10-18, the recommendation).
 - D05 The run-mode slides' minimap rebuild redrew every slide's minimaps; Test-Links and Test-GeneratedFiles are clean. Options: keep the
   rebuild; revert to the committed minimaps. Decision: keep the rebuild (2026-10-18, the recommendation).
@@ -37,7 +37,7 @@ option of each is the recommendation.
 - D10 Layers P4, the folder move of `automation/` to `pwsh`, a `git mv` the user runs in a quiet window. module-model-closeout and
   layers-funnel are still open, the layers doctrine is done. Options: hold until module-model-closeout and layers-funnel are green, then the
   user names the window; name the window now. Decision: hold until module-model-closeout and layers-funnel are green (2026-10-18, the
-  recommendation).
+  recommendation). Outcome: the user named the window, and P4 landed 2026-10-18.
 - D11 Unboxing P4 (three-pass walk) and P5 (class-lookup GlobPattern objects built once), each with a 15 percent bar. Options: stay closed,
   the measured wins are in; go, measure first. Decision: stay closed (2026-10-18, the recommendation).
 - D12 `Build-Readme` on an unchanged tree: 304 ms first call, 109 ms warm; a stamp would add `with_inputs_sha` to about 55 committed README

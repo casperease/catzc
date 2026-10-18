@@ -51,7 +51,6 @@ function Invoke-TestAutomationWorkers {
     $greedyShards = [System.Collections.Generic.List[object]]::new()
     $serialShard = $null
     $shardFileCounts = @{}
-    $greedyOffsetMs = @{}
     $serialPhaseOffsetMs = 0
 
     $repositoryRoot = Get-RepositoryRoot
@@ -109,19 +108,30 @@ function Invoke-TestAutomationWorkers {
         $shards.Add($shard)
         $shardFileCounts[$shard.Label] = $shardFiles[$shardIndex].Count
     }
+    $policy = if ($GreedyFiles.Count -gt 0) {
+        Get-Config -Config test-policy
+    }
     $greedyGroupSize = if ($GreedyGroupSize -gt 0) {
         $GreedyGroupSize
     }
-    elseif ($GreedyFiles.Count -gt 0) {
-        (Get-Config -Config test-policy).greedy_group_size
+    elseif ($policy) {
+        $policy.greedy_group_size
     }
     else {
         1
     }
+    # A greedy file counts against the greedy cap; one the policy keeps apart (it runs real builds) also against the one-at-a-time cap.
+    $greedyCaps = [System.Collections.Generic.List[string[]]]::new()
     $nextShardIndex = $workerCount
     foreach ($greedyFile in $GreedyFiles) {
         $shard = New-TestAutomationShardScript -ShardIndex $nextShardIndex -TestPath @($greedyFile) @shardArguments
         $greedyShards.Add($shard)
+        $greedyCaps.Add([string[]] @(if ($policy.IsApart($greedyFile)) {
+                    'greedy', 'apart'
+                }
+                else {
+                    'greedy'
+                }))
         $shardFileCounts[$shard.Label] = 1
         $nextShardIndex++
     }
@@ -139,32 +149,23 @@ function Invoke-TestAutomationWorkers {
     }
     $WorkerEnvironment['CATZC_TEST_RUN_LOCATION_HELD'] = '1'
 
-    Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", then $($GreedyFiles.Count) greedy file(s) in groups of $greedyGroupSize" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
+    Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", with $($GreedyFiles.Count) greedy file(s) taking slots as they free, up to $greedyGroupSize at once" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 
     $stopwatch.Start()
-    if ($shards.Count -gt 0) {
+    $pooled = @($shards) + @($greedyShards)
+    if ($pooled.Count -gt 0) {
+        # One pool: the parallel shards first, then each greedy file in the first slot a shard frees, under its caps.
+        $caps = [string[][]] @(@(foreach ($shard in $shards) {
+                    , [string[]] @()
+                }) + @(foreach ($cap in $greedyCaps) {
+                    , $cap
+                }))
+        $poolSize = [Math]::Max([Math]::Max($shards.Count, $greedyGroupSize), 1)
         $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($shards.ScriptPath), [string[]] @($shards.Label), $shards.Count,
-            $WorkerEnvironment, $TimeoutSeconds, $false)
+            [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps, @{ greedy = $greedyGroupSize; apart = 1 },
+            $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false)
         $workerResults.AddRange($runner.Results)
-        $allShards.AddRange($shards)
-    }
-
-    if ($greedyShards.Count -gt 0) {
-        $groupCount = [Math]::Ceiling($greedyShards.Count / $greedyGroupSize)
-        Write-Message "Greedy phase: $($greedyShards.Count) file(s) in $groupCount group(s) of up to $greedyGroupSize, one group after another..." -NoHeader
-        for ($groupStart = 0; $groupStart -lt $greedyShards.Count; $groupStart += $greedyGroupSize) {
-            $group = @($greedyShards.GetRange($groupStart, [Math]::Min($greedyGroupSize, $greedyShards.Count - $groupStart)))
-            $groupOffsetMs = $stopwatch.ElapsedMilliseconds
-            foreach ($member in $group) {
-                $greedyOffsetMs[$member.Label] = $groupOffsetMs
-            }
-            $greedyRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-                [string[]] @($group.ScriptPath), [string[]] @($group.Label), $group.Count,
-                $WorkerEnvironment, $TimeoutSeconds, $false)
-            $workerResults.AddRange($greedyRunner.Results)
-            $allShards.AddRange($group)
-        }
+        $allShards.AddRange([object[]] $pooled)
     }
 
     if ($serialShard) {
@@ -209,11 +210,9 @@ function Invoke-TestAutomationWorkers {
         $isSerial = $serialShard -and $shard.Label -eq $serialShard.Label
         # ForEach-Object, not .Label: member enumeration on an empty list throws under strict mode (no greedy files).
         $isGreedy = -not $isSerial -and $shard.Label -in @($greedyShards | ForEach-Object { $_.Label })
+        # The pool's workers carry their own start offset from the run's start; only the serial phase starts later.
         $phaseOffsetMs = if ($isSerial) {
             $serialPhaseOffsetMs
-        }
-        elseif ($isGreedy) {
-            $greedyOffsetMs[$shard.Label]
         }
         else {
             0

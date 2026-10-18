@@ -20,9 +20,9 @@ the value the address names, and a message at the call when the address is wrong
 `Write-EnvironmentSet` puts it into a child process's environment next to secrets it masks, and `Build-Bicep` writes it into a template's
 parameters file.
 
-![Type an address and get its value back](../.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png)
+![Type an address and get its value back](.assets/type-an-address-get-the-value/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](type-an-address-get-the-value.drawio.md).
+The diagram is described element by element in [its asset description](.assets/type-an-address-get-the-value/diagram.drawio.md).
 
 ## Walkthrough
 

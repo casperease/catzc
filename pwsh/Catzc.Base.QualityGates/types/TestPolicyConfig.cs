@@ -15,9 +15,17 @@ public sealed class TestPolicyConfig
     // The mode of an environment the config does not list.
     public const string DefaultMutation = "read-only";
 
-    // How many greedy files run side by side: 1 runs them one after another, 2 in pairs, 3 in triplets. The groups themselves run serially.
+    // How many greedy files run at once in the pool: 1 runs them one after another, 2 two at a time, 3 three at a time.
     public const int DefaultGreedyGroupSize = 2;
     public const int MaxGreedyGroupSize = 64;
+
+    // The greedy files that each run real builds, named by their test file without '.Tests.ps1': at most one of them runs at a time.
+    public static readonly string[] DefaultGreedyApart =
+    {
+        "Import-Catzc", "Test-CatzcBuild.Parity", "Test-CatzcBuild.ScopeIsolation", "Build-Bicep.L2", "Get-BicepParameterModel.Shipped"
+    };
+
+    public IReadOnlyList<string> greedy_apart { get; }
 
     public IReadOnlyDictionary<string, string> l4_mutation { get; }
 
@@ -33,15 +41,35 @@ public sealed class TestPolicyConfig
         var mutation = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         int groupSize = DefaultGreedyGroupSize;
         double decay = DefaultDurationDecay;
+        var apart = new List<string>(DefaultGreedyApart);
         if (raw != null)
         {
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "l4_mutation" && name != "greedy_group_size" && name != "duration_decay")
+                if (name != "l4_mutation" && name != "greedy_group_size" && name != "greedy_apart" && name != "duration_decay")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "test-policy config: unknown key '{0}' (allowed: l4_mutation, greedy_group_size, duration_decay)", name));
+                        "test-policy config: unknown key '{0}' (allowed: l4_mutation, greedy_group_size, greedy_apart, duration_decay)", name));
+                }
+            }
+
+            if (raw.Contains("greedy_apart") && raw["greedy_apart"] != null)
+            {
+                if (!(raw["greedy_apart"] is IEnumerable list) || raw["greedy_apart"] is string)
+                {
+                    throw new ArgumentException("test-policy config: greedy_apart must be a list of test file names without '.Tests.ps1'");
+                }
+                apart.Clear();
+                foreach (object item in list)
+                {
+                    string file = Convert.ToString(item, CultureInfo.InvariantCulture);
+                    if (string.IsNullOrWhiteSpace(file) || file.EndsWith(".ps1", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                            "test-policy config: greedy_apart entry '{0}' must name a test file without '.Tests.ps1'", file));
+                    }
+                    apart.Add(file);
                 }
             }
 
@@ -85,7 +113,27 @@ public sealed class TestPolicyConfig
         }
         l4_mutation = mutation;
         greedy_group_size = groupSize;
+        greedy_apart = apart.AsReadOnly();
         duration_decay = decay;
+    }
+
+    // Whether a greedy test file is one of the build files that run one at a time.
+    public bool IsApart(string testFilePath)
+    {
+        string name = System.IO.Path.GetFileName(testFilePath ?? string.Empty);
+        const string suffix = ".Tests.ps1";
+        if (name.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
+        {
+            name = name.Substring(0, name.Length - suffix.Length);
+        }
+        foreach (string entry in greedy_apart)
+        {
+            if (string.Equals(entry, name, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     // The mode an environment allows L4 tests: its entry, or read-only.

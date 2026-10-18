@@ -70,7 +70,8 @@ Open, in execution order:
 - adr-code-language -> plan-adr-code-language.md (open; no task file yet, seven steps, design decided by the user 2026-10-18, nothing built;
   held by session catzc-f3 from step 1, the new ADR-REPO-ADRCODE and report-only Test-AdrRegistry checks): ADR codes become segment paths
   `ADR-DOMAIN-ADR-RULESLUG`, with no rule numbers or `#{}` groups.
-- command-contracts -> task-command-contracts.md (open; 65 commands contracted; after the decision round's freeze call): the frozen set
+- command-contracts -> task-command-contracts.md (2026-10-18: the freeze is decided and applied, step 7; the language step 8 is held
+  by session catzc-f3) (open; 65 commands contracted; after the decision round's freeze call): the frozen set
   contracted, made internal or deleted as decided, Test-Contracts clean; the later language step for gate results and parameter sets.
 - assert-wait -> task-assert-wait.md (open; steps 1 to 6 done; steps 7 and 8 after the user's cheap importer watchpoint run): the ADR pair
   with the D17 rename to Watch-Blocking, then each watchpoint that found a block becomes a timeouts.yml limit and the rest are deleted.

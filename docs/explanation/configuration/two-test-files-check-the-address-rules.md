@@ -19,9 +19,9 @@ carries the rules that govern it, set against what checks them. No quality gate 
 grammar, the reader and the walk, and one for the secret hand-off. Two rules rest on convention: that a resolved node is never written
 through, and that nothing an address can reach is a secret.
 
-![Two L0 test files check the address rules](../.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png)
+![Two L0 test files check the address rules](.assets/two-test-files-check-the-address-rules/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](two-test-files-check-the-address-rules.drawio.md). Rule chips name
+The diagram is described element by element in [its asset description](.assets/two-test-files-check-the-address-rules/diagram.drawio.md). Rule chips name
 the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
 
 ## Walkthrough

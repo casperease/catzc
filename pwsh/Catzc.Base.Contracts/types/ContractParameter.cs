@@ -16,7 +16,8 @@ public sealed class ContractParameter
     public static readonly string[] BaseTypes = { "string", "int", "bool", "switch" };
 
     private static readonly Regex SpecRe = new Regex(
-        "^(?<type>[A-Za-z][A-Za-z0-9_.]*)(?<list>\\[\\])?(?<mandatory>!)?(?:\\s*=\\s*(?<default>'[^']*'|\\S+))?(?:\\s+(?<pipeline>pipeline))?\\s*$");
+        "^(?<type>[A-Za-z][A-Za-z0-9_.]*)(?<list>\\[\\])?(?<mandatory>!)?(?:\\s*=\\s*(?<default>'[^']*'|\\S+))?(?:\\s+(?<pipeline>pipeline))?" +
+        "(?:\\s+in\\s+(?<sets>[A-Za-z][A-Za-z0-9_]*(?:,[A-Za-z][A-Za-z0-9_]*)*))?\\s*$");
     private static readonly Regex NameRe = new Regex("^[A-Za-z][A-Za-z0-9_]*$");
     private static readonly Regex CatzcType = new Regex("^Catzc\\.[A-Za-z][A-Za-z0-9_]*(\\.[A-Za-z][A-Za-z0-9_]*)+$");
 
@@ -34,6 +35,9 @@ public sealed class ContractParameter
     public bool Mandatory { get; }
     public string Default { get; }
     public bool Pipeline { get; }
+
+    // The parameter sets the parameter belongs to, sorted; empty when it belongs to every set, the default.
+    public IReadOnlyList<string> Sets { get; }
 
     // The spec text the parameter reads back as, in the contract language.
     public string Spec
@@ -57,11 +61,16 @@ public sealed class ContractParameter
             {
                 text.Append(" pipeline");
             }
+            if (Sets.Count > 0)
+            {
+                text.Append(" in ").Append(string.Join(",", Sets));
+            }
             return text.ToString();
         }
     }
 
-    public ContractParameter(string name, string type, bool isList = false, bool mandatory = false, string defaultValue = null, bool pipeline = false)
+    public ContractParameter(string name, string type, bool isList = false, bool mandatory = false, string defaultValue = null, bool pipeline = false,
+        IEnumerable<string> sets = null)
     {
         if (name == null || !NameRe.IsMatch(name))
         {
@@ -78,7 +87,24 @@ public sealed class ContractParameter
         // PowerShell binds $null to a string parameter as "", so an empty default is no default, on both sides.
         Default = string.IsNullOrEmpty(defaultValue) ? null : defaultValue;
         Pipeline = pipeline;
+        var setList = new List<string>();
+        foreach (string set in sets ?? Array.Empty<string>())
+        {
+            if (set == null || !NameRe.IsMatch(set))
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "parameter '{0}': the set '{1}' is not an identifier", name, set));
+            }
+            if (!setList.Contains(set))
+            {
+                setList.Add(set);
+            }
+        }
+        setList.Sort(StringComparer.Ordinal);
+        Sets = setList;
     }
+
+    // Whether the parameter takes part in a call shaped by the set: it names that set, or it names none and so belongs to every set.
+    public bool IsInSet(string set) => Sets.Count == 0 || (set != null && Sets.Contains(set));
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
@@ -93,7 +119,7 @@ public sealed class ContractParameter
         if (!match.Success)
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                "parameter '{0}': '{1}' is not a spec of the form type[[]][!][= literal][ pipeline]", name, spec));
+                "parameter '{0}': '{1}' is not a spec of the form type[[]][!][= literal][ pipeline][ in Set[,Set]]", name, spec));
         }
         string type = match.Groups["type"].Value;
         if (!IsContractType(type))
@@ -106,8 +132,9 @@ public sealed class ContractParameter
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "parameter '{0}': a switch has no default", name));
         }
+        string[] sets = match.Groups["sets"].Success ? match.Groups["sets"].Value.Split(',') : null;
         return new ContractParameter(name, type, match.Groups["list"].Success, match.Groups["mandatory"].Success, defaultValue,
-            match.Groups["pipeline"].Success);
+            match.Groups["pipeline"].Success, sets);
     }
 
     // Whether a type name is in the closed set: a base type or a Catzc.* type name.

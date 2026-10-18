@@ -339,12 +339,18 @@ its prose only, never the generated sidebar.
 
 ### Plans that still say P4 waits or name removed functions
 
-- [ ] `plan-clear` over `plan-layers-vocabulary-rename-contracts.md`: about 40 lines name `Get-AutomationModules`, `Copy-Automation`,
+- [x] `plan-clear` over `plan-layers-vocabulary-rename-contracts.md`: about 40 lines name `Get-AutomationModules`, `Copy-Automation`,
       `-AutomationRoot` or P2 and P4 work as present or pending, line 58 names a prompt file that is gone, and three link labels name the
-      absorbed `plan-automation-layers-rename.md`. (check: `Test-Plans` clean on the file)
-- [ ] `plan-clear` over `decisions-2026-10-18.md` (line 24 says P4 waits), `task-layers-classification-flip.md` (lines 13, 38),
+      absorbed `plan-automation-layers-rename.md`. (check: `Test-Plans` clean on the file) Done 2026-10-18 (catzc-59): the head and the
+      top sections say P0 to P4 landed, the gone prompt file and the stale memory note are out, the link labels name the file itself, and
+      the carried drafts are trimmed from 860 lines to what is still open (P6 and its edges, the stray pwsh rules, L3 to L5 with Q-L1 to
+      Q-L5, C7 and contract use 4 with their traps, the do-not-sweep list); 1,034 lines to 264. Test-Plans 0 issues on the file.
+- [x] `plan-clear` over `decisions-2026-10-18.md` (line 24 says P4 waits), `task-layers-classification-flip.md` (lines 13, 38),
       `questionnaire-2026-10-18.md` (lines 23, 37), `plan-module-model-closeout.md` (lines 28, 34, 35), `task-module-model-closeout.md`
-      (lines 48, 49), `value-of-plan.md` (line 33). (check: `Test-Plans` clean on each)
+      (lines 48, 49), `value-of-plan.md` (line 33). (check: `Test-Plans` clean on each) Done 2026-10-18 (catzc-59): D10's outcome says
+      P4 landed (row width kept); the flip task's head, intro, steps 3 and 4 and report are present tense (the obj/bin unstage signal was
+      closed, 0 tracked); Copy-Automation is Copy-CatzcModule in the questionnaire, both module-model-closeout files and value-of-plan.
+      Test-Plans 0 issues on each of the six.
 
 ### Close
 

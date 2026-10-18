@@ -20,9 +20,9 @@ in an integrity test. Each stage of the read path carries the rules that govern 
 `Test-ShippedConfigs`, guards the read path, and it looks only at the typed step; the one-reader rule and the read-only rule rest on
 convention.
 
-![One quality gate guards the config read path](../.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png)
+![One quality gate guards the config read path](.assets/one-gate-guards-the-read-path/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](one-gate-guards-the-read-path.drawio.md). Rule chips name the rules:
+The diagram is described element by element in [its asset description](.assets/one-gate-guards-the-read-path/diagram.drawio.md). Rule chips name the rules:
 `L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST.
 
 ## Walkthrough

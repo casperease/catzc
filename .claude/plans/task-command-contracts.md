@@ -107,7 +107,19 @@ contracts plan).
    commands, `[Invoke-TestFile] Passed` for Get-ContractCheckResults.Assets.Tests and New-CatsCommandLookup.Tests
    (`out/test-file/20261018-135212-cc0b32`, `-135236-24560e`). Open, for a later language step: a type for gate results and a way to state
    parameter sets, which together would let the gates and the two set-based commands be contracted.
-8. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
+8. Parameter sets in the contract language, held 2026-10-18 by session catzc-f3 (orchestrator). Decided by the orchestrator on the user's
+   delegation: a spec suffix ` in <Set>[,<Set>]` (none = every set) and a top-level `default_set:` key (omitted = one set); mandatory stays
+   per parameter, and a parameter mandatory in one set but optional in another is a finding; the checker reads ParameterSetName and
+   DefaultParameterSetName; the `cats` lookup gains a sets column and importer.sh picks the set the given names fit, the default when
+   several fit. ADR-REPO-CMDCONTRACT#2 states it; then Get-Inspiration and Export-WorldMapPdf get their contracts. Check:
+   Test-AdrRegistry and Test-Links on the ADR; the ContractCommand, Read-CommandSignature, Get-ContractCheckResults.Assets and
+   New-CatsCommandLookup test files pass; the cats.bats cases pass; `CONTRACTS issues=0`; Test-GeneratedFiles clean.
+9. The gate result type, decided the same way: a C# `Catzc.Base.Reports.QualityGateResult` (Subject, IssueCount, Issues, ReportPath,
+   Facts as an ordered dictionary) returned by `Write-QualityGateReport -PassThru`; each gate declares it as its OutputType, one gate file
+   at a time with its tests and every caller reading a flattened fact moved to `.Facts[...]` in the same change (one living version); no
+   grammar change (a Catzc.* type); then the gates get contracts. Starts after task-test-run-budget step 6 (catzc-93 edits QualityGates
+   files). Check per gate: its test file and its callers' test files pass; `CONTRACTS issues=0` at the end.
+10. Tick P7 in `plan-layers-vocabulary-rename-contracts.md`; when every phase is ticked the plan is trimmed of its carried drafts and deleted
    in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report

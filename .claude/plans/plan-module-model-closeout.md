@@ -24,14 +24,14 @@ verification found.
 
 - Tests of the new files pass (Module, Get-Aspect, Get-CatzcModule, Get-ModuleOrder); Test-FileMeta, Test-ScriptAnalyzer and Test-Links are
   clean on them; the Test-InIsolation mock carries the full profile.
-- Test-GeneratedFiles is clean after Build-Readme; Export-Comments moved the last two comments of Module.cs and Copy-Automation.ps1.
+- Test-GeneratedFiles is clean after Build-Readme; Export-Comments moved the last two comments of Module.cs and Copy-CatzcModule.ps1.
 
 ## Open steps
 
 - [x] The user confirms the three choices recorded in plan-module-kinds-tracks (resolver module, execution_engines key, rule 6 scope)
       (check: the "user not yet confirmed" wording is gone from that plan's Decided list). Confirmed 2026-10-18 (D01 to D03).
-- [x] The user confirms that Copy-Automation selects the full profile by default, which no longer copies .scriptanalyzer (check:
-      Copy-Automation.Tests.ps1 passes with the confirmed default). Confirmed 2026-10-18 (D04); the tests already hold that default.
+- [x] The user confirms that Copy-CatzcModule selects the full profile by default, which no longer copies .scriptanalyzer (check:
+      Copy-CatzcModule.Tests.ps1 passes with the confirmed default). Confirmed 2026-10-18 (D04); the tests already hold that default.
 - [x] Rule 6 of ADR-AUTO-MODULE gets code: build and test handler ids on the track, or the rule is narrowed to what exists (check:
       Test-AdrRegistry clean; a test names each handler id the rule lists). Read 2026-10-17 (its task): the checks side holds, every
       language's gates come from its `checks` list in languages.yml through `Get-ChangeCheckPlan`, and the ADR's enforcement section now

@@ -14,13 +14,36 @@ public sealed class ContractCommand
 
     public const string Suffix = ".command.yml";
 
-    private static readonly string[] AllowedKeys = { "parameters", "output" };
+    private static readonly string[] AllowedKeys = { "parameters", "output", "default_set" };
+
+    private static readonly System.Text.RegularExpressions.Regex SetNameRe = new System.Text.RegularExpressions.Regex("^[A-Za-z][A-Za-z0-9_]*$");
 
     // The parameters in the order the contract states them (snake_case: the YAML keys).
     public IReadOnlyList<ContractParameter> parameters { get; }
 
     // The output type: a contract type, with '[]' for a list, or void.
     public string output { get; }
+
+    // The parameter set a call that fits several resolves to; null when the command names none, the default.
+    public string default_set { get; }
+
+    // Every set the command has: the sets its parameters name and the default set, sorted; empty for a command with one set.
+    public IReadOnlyList<string> Sets
+    {
+        get
+        {
+            var sets = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (ContractParameter parameter in parameters)
+            {
+                sets.UnionWith(parameter.Sets);
+            }
+            if (default_set != null)
+            {
+                sets.Add(default_set);
+            }
+            return new List<string>(sets);
+        }
+    }
 
     // The asset the contract was read from, and the command it names; null and empty for a signature read from a command's file.
     public ContractAsset Asset { get; }
@@ -38,6 +61,10 @@ public sealed class ContractCommand
                 parts.Add(parameter.Name + ": " + parameter.Spec);
             }
             string text = parts.Count == 0 ? "no parameters" : string.Join(", ", parts);
+            if (default_set != null)
+            {
+                text += "; default set " + default_set;
+            }
             return output == DefaultOutput ? text : text + " -> " + output;
         }
     }
@@ -67,6 +94,7 @@ public sealed class ContractCommand
         var list = new List<ContractParameter>();
         var errors = new List<string>();
         string outputType = DefaultOutput;
+        string defaultSet = null;
 
         if (raw != null)
         {
@@ -113,6 +141,16 @@ public sealed class ContractCommand
                 }
                 outputType = value;
             }
+
+            if (raw.Contains("default_set") && raw["default_set"] != null)
+            {
+                string value = Convert.ToString(raw["default_set"], CultureInfo.InvariantCulture);
+                if (!SetNameRe.IsMatch(value))
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "default_set '{0}' is not a set name", value));
+                }
+                defaultSet = value;
+            }
         }
 
         if (errors.Count > 0)
@@ -121,15 +159,17 @@ public sealed class ContractCommand
         }
         parameters = list;
         output = outputType;
+        default_set = defaultSet;
         Name = "";
     }
 
     // The signature a checker read from a command's file, in the same shape as a contract, so the two compare.
-    public ContractCommand(IEnumerable<ContractParameter> parameterList, string outputType)
+    public ContractCommand(IEnumerable<ContractParameter> parameterList, string outputType, string defaultSet = null)
     {
         var list = new List<ContractParameter>(parameterList ?? Array.Empty<ContractParameter>());
         parameters = list;
         output = string.IsNullOrEmpty(outputType) ? DefaultOutput : outputType;
+        default_set = string.IsNullOrEmpty(defaultSet) ? null : defaultSet;
         Name = "";
     }
 
@@ -186,6 +226,18 @@ public sealed class ContractCommand
                 findings.Add(string.Format(CultureInfo.InvariantCulture, "parameter '{0}': the contract's default is {1}, the command's is {2}",
                     expected.Name, Describe(expected.Default), Describe(actual.Default)));
             }
+            string expectedSets = DescribeSets(expected.Sets);
+            string actualSets = DescribeSets(actual.Sets);
+            if (expectedSets != actualSets)
+            {
+                findings.Add(string.Format(CultureInfo.InvariantCulture, "parameter '{0}': the contract puts it in {1}, the command in {2}",
+                    expected.Name, expectedSets, actualSets));
+            }
+        }
+        if (contract.default_set != command.default_set)
+        {
+            findings.Add(string.Format(CultureInfo.InvariantCulture, "default_set: the contract says {0}, the command declares {1}",
+                Describe(contract.default_set), Describe(command.default_set)));
         }
         foreach (ContractParameter actual in command.parameters)
         {
@@ -202,4 +254,6 @@ public sealed class ContractCommand
     }
 
     private static string Describe(string value) => value == null ? "none" : "'" + value + "'";
+
+    private static string DescribeSets(IReadOnlyList<string> sets) => sets.Count == 0 ? "every set" : "the sets " + string.Join(",", sets);
 }

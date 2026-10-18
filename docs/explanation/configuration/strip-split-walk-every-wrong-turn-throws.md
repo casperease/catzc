@@ -21,9 +21,9 @@ splits the address, `Get-Config` reads the named config once and serves its cach
 segment at a time. Every wrong turn throws where it happens: at parameter binding, in the reader, or in the walk. The real example
 `global.azure.bicep_min_version` resolves to `'0.43.8'` on the typed `AzureConfig` object.
 
-![Strip, split, read once, walk one segment at a time](../.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png)
+![Strip, split, read once, walk one segment at a time](.assets/strip-split-walk-every-wrong-turn-throws/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](strip-split-walk-every-wrong-turn-throws.drawio.md).
+The diagram is described element by element in [its asset description](.assets/strip-split-walk-every-wrong-turn-throws/diagram.drawio.md).
 
 ## Walkthrough
 

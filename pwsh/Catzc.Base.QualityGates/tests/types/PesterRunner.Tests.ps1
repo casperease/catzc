@@ -94,6 +94,39 @@ exit 0
                 Should -BeGreaterOrEqual ([long][System.IO.File]::ReadAllText($leadEnd))
         }
 
+        It 'holds a worker whose cap is full and starts the next free worker in its place' {
+            $gadgetMarker = Join-Path $TestDrive 'gadget.marker'
+            $widgetEnd = Join-Path $TestDrive 'widget-end.txt'
+            $sprocketStart = Join-Path $TestDrive 'sprocket-start.txt'
+            $widget = Join-Path $TestDrive 'widget.ps1'
+            $sprocket = Join-Path $TestDrive 'sprocket.ps1'
+            $gadget = Join-Path $TestDrive 'gadget.ps1'
+            # The widget ends only once the gadget, submitted after the held sprocket, has started beside it.
+            [System.IO.File]::WriteAllText($widget, @"
+`$deadline = [DateTime]::UtcNow.AddSeconds(30)
+while (-not (Test-Path '$gadgetMarker')) {
+    if ([DateTime]::UtcNow -gt `$deadline) { exit 9 }
+    Start-Sleep -Milliseconds 100
+}
+[System.IO.File]::WriteAllText('$widgetEnd', [DateTimeOffset]::UtcNow.Ticks.ToString())
+"@)
+            [System.IO.File]::WriteAllText($sprocket, "[System.IO.File]::WriteAllText('$sprocketStart', [DateTimeOffset]::UtcNow.Ticks.ToString())")
+            [System.IO.File]::WriteAllText($gadget, "[System.IO.File]::WriteAllText('$gadgetMarker', 'here')")
+
+            $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
+                @($widget, $sprocket, $gadget), @('widget', 'sprocket', 'gadget'),
+                [string[][]] @([string[]] @('apart'), [string[]] @('apart'), [string[]] @()), @{ apart = 1 }, 3, $null, 120, $true)
+
+            @($runner.Results | ForEach-Object ExitCode) | Should -Be @(0, 0, 0)
+            [long][System.IO.File]::ReadAllText($sprocketStart) |
+                Should -BeGreaterOrEqual ([long][System.IO.File]::ReadAllText($widgetEnd))
+        }
+
+        It 'rejects a worker cap that capLimits does not declare' {
+            { [Catzc.Base.QualityGates.PesterRunner]::Run(@('a.ps1'), @('a'), [string[][]] @(, @('gizmo')), @{}, 1, $null, 60, $true) } |
+                Should -Throw "*names the cap 'gizmo'*"
+        }
+
         It 'replays a buffered worker after the live worker, preserving submission order on the console' {
             $fastDone = Join-Path $TestDrive 'fast-done.marker'
             $slow = Join-Path $TestDrive 'slow.ps1'
