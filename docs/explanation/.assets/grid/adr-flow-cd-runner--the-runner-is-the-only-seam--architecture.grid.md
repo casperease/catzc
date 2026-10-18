@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4d43c129df5a"
+    with_body_sha: "05f5a1c3c307"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md
     source: docs/explanation/.assets/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png

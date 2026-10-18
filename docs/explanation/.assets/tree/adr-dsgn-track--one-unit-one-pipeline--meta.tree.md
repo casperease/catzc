@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "57a7d94ce0e9"
+    with_body_sha: "65d942775174"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-track--one-unit-one-pipeline--meta.tree.md
     source: docs/explanation/.assets/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ca3ed51e43e2
+    with_body_sha: "1d8158c7a0e3"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-addressing--type-an-address-get-the-value--operations.grid.md
     source: docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png

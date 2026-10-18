@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "245a994610d7"
+    with_body_sha: a5854366950d
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.grid.md
     source: docs/explanation/.assets/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png

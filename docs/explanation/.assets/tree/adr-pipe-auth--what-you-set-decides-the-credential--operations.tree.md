@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4d348ba12239"
+    with_body_sha: "76f018886e59"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
     source: docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png

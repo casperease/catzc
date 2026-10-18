@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2e8672a526b6"
+    with_body_sha: df0c07f02006
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png

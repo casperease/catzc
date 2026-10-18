@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fdf757430f59
+    with_body_sha: "10dc37247353"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png

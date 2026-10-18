@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f31571c9e4c5
+    with_body_sha: "51b70f87cbca"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.tree.md
     source: docs/explanation/.assets/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png

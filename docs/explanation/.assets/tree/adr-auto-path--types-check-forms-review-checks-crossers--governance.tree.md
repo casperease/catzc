@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "28a11a603a0d"
+    with_body_sha: "80b052273b62"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-path--types-check-forms-review-checks-crossers--governance.tree.md
     source: docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png

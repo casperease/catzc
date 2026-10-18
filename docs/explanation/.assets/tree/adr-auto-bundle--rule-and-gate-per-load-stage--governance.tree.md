@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2f26f53e9504"
+    with_body_sha: e2f7471179fd
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: def13debc5ca
+    with_body_sha: ba372cd5c703
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-remote--clients-bridge-to-one-server--architecture.tree.md
     source: docs/explanation/.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png

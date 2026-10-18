@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d51af51c33b8
+    with_body_sha: "70e0b7127434"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.tree.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png

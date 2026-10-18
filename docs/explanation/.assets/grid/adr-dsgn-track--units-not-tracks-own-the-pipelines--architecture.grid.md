@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "50f00e0e52bf"
+    with_body_sha: e91daa1609bb
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.grid.md
     source: docs/explanation/.assets/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png

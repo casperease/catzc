@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7da51776dbe
+    with_body_sha: "579503c2ec92"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd--one-artifact-climbs-unchanged--meta.grid.md
     source: docs/explanation/.assets/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8fff1af5d1c3"
+    with_body_sha: "6a904f73217f"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.grid.md
     source: docs/explanation/.assets/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png

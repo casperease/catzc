@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c3664cd650f9
+    with_body_sha: "1daee19c7133"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.png

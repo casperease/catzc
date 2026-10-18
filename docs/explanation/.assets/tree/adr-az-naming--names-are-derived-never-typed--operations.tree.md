@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b8016756be3"
+    with_body_sha: f7b991bdb568
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-naming--names-are-derived-never-typed--operations.tree.md
     source: docs/explanation/.assets/adr-az-naming--names-are-derived-never-typed--operations.drawio.png

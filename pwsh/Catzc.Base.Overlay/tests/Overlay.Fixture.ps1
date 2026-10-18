@@ -1,6 +1,6 @@
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'
-$script:overlayRoot = Join-Path $fixtureRoot 'consumer/.catzc/automation'
+$script:overlayRoot = Join-Path $fixtureRoot 'consumer/.catzc/pwsh'
 foreach ($folder in 'Catzc.Base.Widget/configs', 'Catzc.Base.Widget/assets') {
     [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot $folder)) | Out-Null
 }

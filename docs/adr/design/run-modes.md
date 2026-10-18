@@ -4,7 +4,7 @@
 
 ### Rule ADR-DSGN-RUNMODE:1
 
-A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `automation/<Module>/` in a
+A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `pwsh/<Module>/` in a
 repository root, entered by `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's
 functions merged into one `<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1`, or by `Import-Module Catzc` for an
 installed package.
@@ -27,8 +27,8 @@ ever shares `$script:` state with another.
 
 ### Rule ADR-DSGN-RUNMODE:4
 
-The mode is derived, never stored: `Get-CatzcRunMode` answers `source` when the code root (`CatzcModulesRoot`) is
-`<RepositoryRoot>/automation`, and `build` otherwise.
+The mode is derived, never stored: `Get-CatzcRunMode` answers `source` when the code root (`CatzcModulesRoot`) is `<RepositoryRoot>/pwsh`,
+and `build` otherwise.
 
 - [Deriving the mode](#deriving-the-mode)
 
@@ -50,9 +50,9 @@ files up to L2, and a test opts out of the build run only with the `source-only`
 ### Rule ADR-DSGN-RUNMODE:7
 
 Build mode has three kinds, told apart by where the code root lives: **temporary** (a devbox build under
-`<RepositoryRoot>/out/automation/built/<bundle>/`, overwritten in place), **installed** (a package under a `PSModulePath` entry, put there
-by `Install-Catzc`), and **saved** (a package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root`
-calls after building). The kind is never stored, and every kind loads through the same importer.
+`<RepositoryRoot>/out/pwsh/built/<bundle>/`, overwritten in place), **installed** (a package under a `PSModulePath` entry, put there by
+`Install-Catzc`), and **saved** (a package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root` calls
+after building). The kind is never stored, and every kind loads through the same importer.
 
 - [Three kinds of build root](#three-kinds-of-build-root)
 
@@ -79,7 +79,7 @@ in one session, and are proven in both by running the same tests.
 
 | Mode   | Code root (`CatzcModulesRoot`)     | Entered by                                | A module on disk                          |
 | ------ | ---------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| source | `<RepositoryRoot>/automation`      | `importer.ps1`                            | a folder of one-function `.ps1` files     |
+| source | `<RepositoryRoot>/pwsh`            | `importer.ps1`                            | a folder of one-function `.ps1` files     |
 | build  | one of the three build roots below | `Import-Catzc.ps1`, `Import-Module Catzc` | a generated `.psd1` and one merged `.ps1` |
 
 Both entries are dot-sourced and run in the caller's scope. `importer.ps1` at the repository root loads the source mode. A temporary build —
@@ -100,11 +100,11 @@ Which mode a session is in is read from what actually loaded, never from a flag:
 "Build mode" says only that the modules come from a package and not from the source tree. Where that package sits says how long it lives and
 who owns it, and the three kinds name those places (`<v>` is the package version):
 
-| Kind      | Code root                                                   | Made by                     | Lifetime                             |
-| --------- | ----------------------------------------------------------- | --------------------------- | ------------------------------------ |
-| temporary | `<RepositoryRoot>/out/automation/built/<bundle>/Catzc/<v>/` | `Build-Modules` on a devbox | overwritten by the next devbox build |
-| installed | `<PSModulePath entry>/Catzc/<v>/`                           | `Install-Catzc -Scope`      | until uninstalled or replaced        |
-| saved     | `<root>/.vendor/Catzc/<v>/`                                 | `Install-Catzc -Root`       | versioned with that root             |
+| Kind      | Code root                                             | Made by                     | Lifetime                             |
+| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------ |
+| temporary | `<RepositoryRoot>/out/pwsh/built/<bundle>/Catzc/<v>/` | `Build-Modules` on a devbox | overwritten by the next devbox build |
+| installed | `<PSModulePath entry>/Catzc/<v>/`                     | `Install-Catzc -Scope`      | until uninstalled or replaced        |
+| saved     | `<root>/.vendor/Catzc/<v>/`                           | `Install-Catzc -Root`       | versioned with that root             |
 
 The kind is read from where the code root lives, so it cannot disagree with what loaded; `Get-CatzcRunMode` reports the mode only, and no
 function reports the kind, since nothing has needed it. All three enter through the package's `Import-Catzc.ps1` (or `Import-Module Catzc`
@@ -142,8 +142,8 @@ other's value, in either mode, and a scope-isolation test proves it.
 
 There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point
 ([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar5)), and the mode follows from it: when the code root is
-the repository's own `automation/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag could
-disagree with the code actually loaded; a derived one cannot.
+the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag could disagree
+with the code actually loaded; a derived one cannot.
 
 ### Switching modes in one session
 

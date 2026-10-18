@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1df197ea658b"
+    with_body_sha: "0d0eec39d0a9"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md
     source: docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png

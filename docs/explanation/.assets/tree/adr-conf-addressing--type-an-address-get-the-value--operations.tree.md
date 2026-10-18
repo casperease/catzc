@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2b41314933b2"
+    with_body_sha: "42b3b6320221"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-conf-addressing--type-an-address-get-the-value--operations.tree.md
     source: docs/explanation/.assets/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png

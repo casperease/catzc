@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cea6151d7cd9
+    with_body_sha: e3acb707eed2
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.grid.md
     source: docs/explanation/.assets/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1d212cbb370c"
+    with_body_sha: "0f08371a79ca"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.tree.md
     source: docs/explanation/.assets/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png

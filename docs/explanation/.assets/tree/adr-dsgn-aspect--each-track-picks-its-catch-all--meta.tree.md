@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "065abda7814a"
+    with_body_sha: "410b8963975a"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.tree.md
     source: docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png

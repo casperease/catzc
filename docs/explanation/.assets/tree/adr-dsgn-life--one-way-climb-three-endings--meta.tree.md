@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4fcbd9fe0c4e"
+    with_body_sha: ae27e20c2519
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-life--one-way-climb-three-endings--meta.tree.md
     source: docs/explanation/.assets/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png

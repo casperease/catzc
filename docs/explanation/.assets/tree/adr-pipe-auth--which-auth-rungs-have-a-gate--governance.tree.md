@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "895ad435322c"
+    with_body_sha: "41dec76af7e2"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.tree.md
     source: docs/explanation/.assets/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png

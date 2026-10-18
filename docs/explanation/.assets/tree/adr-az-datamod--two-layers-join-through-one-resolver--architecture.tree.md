@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a4e13f36248b
+    with_body_sha: cbc939da944f
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-datamod--two-layers-join-through-one-resolver--architecture.tree.md
     source: docs/explanation/.assets/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.png

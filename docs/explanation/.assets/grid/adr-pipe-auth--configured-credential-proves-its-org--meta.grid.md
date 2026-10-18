@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f3abc6d49a3f
+    with_body_sha: "127d161f06a5"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-pipe-auth--configured-credential-proves-its-org--meta.grid.md
     source: docs/explanation/.assets/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png

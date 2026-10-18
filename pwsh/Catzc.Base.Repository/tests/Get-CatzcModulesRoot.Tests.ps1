@@ -16,7 +16,7 @@ Describe 'Get-CatzcModulesRoot' -Tag 'L0', 'logic' {
     Context 'anchor is not set' {
         It 'falls back to pwsh/ under the repository root' {
             $env:CatzcModulesRoot = $null
-            $expected = Join-Path (Get-RepositoryRoot) 'automation'
+            $expected = Join-Path (Get-RepositoryRoot) 'pwsh'
             Get-CatzcModulesRoot | Should -Be $expected
         }
     }

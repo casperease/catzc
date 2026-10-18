@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9352abe2f52d"
+    with_body_sha: "3fc8c6de81b7"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--two-entries-feed-one-importer--architecture.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ee2c84823e4a
+    with_body_sha: "7345d8d93b25"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-bundle--build-then-place-with-one-command--operations.grid.md
     source: docs/explanation/.assets/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png

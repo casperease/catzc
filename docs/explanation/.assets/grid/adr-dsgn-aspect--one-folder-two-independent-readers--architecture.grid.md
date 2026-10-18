@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "270ffa4918ac"
+    with_body_sha: "2692068cb522"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png

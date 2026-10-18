@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c75f6430929d
+    with_body_sha: bee1e87a7f6b
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.tree.md
     source: docs/explanation/.assets/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png

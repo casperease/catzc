@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fd770189f439
+    with_body_sha: "45b7c9ce8c0c"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png

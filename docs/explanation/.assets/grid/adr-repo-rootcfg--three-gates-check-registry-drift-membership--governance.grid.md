@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2744ee75b2a4"
+    with_body_sha: "6926f510cf22"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.grid.md
     source: docs/explanation/.assets/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png

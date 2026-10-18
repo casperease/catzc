@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d4bf2057931f
+    with_body_sha: a001aee52d68
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--every-code-root-is-a-copy--architecture.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png

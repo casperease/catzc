@@ -34,7 +34,7 @@ shared modules and how a template references one.
 ## References point one way
 
 An article cites ADRs (`../../adr/...`), sibling articles (`foundation.md`), and the automation reference
-(`../automation/catzc-azure-templates.md`); an ADR or the code never links back to these articles. (Same rule as the ADR authoring
+(`../pwsh/catzc-azure-templates.md`); an ADR or the code never links back to these articles. (Same rule as the ADR authoring
 conventions.)
 
 ## Formatting & gates

@@ -94,6 +94,6 @@ making for. The numbers come from a benchmark that compiles the repository's own
 
 ## See also
 
-- [Automation explanations](index.md)
+- [Automation explanations](../automation/index.md)
 - [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)
 - [Explanation index: how to read the articles](../index.md)

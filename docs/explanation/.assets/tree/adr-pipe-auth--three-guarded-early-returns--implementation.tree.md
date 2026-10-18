@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4d101ac15481"
+    with_body_sha: "01310feaa828"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-pipe-auth--three-guarded-early-returns--implementation.tree.md
     source: docs/explanation/.assets/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0e0e6edee250"
+    with_body_sha: "1eda8439e4e2"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
     source: docs/explanation/.assets/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png

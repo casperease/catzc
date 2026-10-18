@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0719988ed209"
+    with_body_sha: f62deb2e6e62
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png

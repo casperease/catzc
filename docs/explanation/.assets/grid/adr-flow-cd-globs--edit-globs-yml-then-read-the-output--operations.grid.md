@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: adb9be2be815
+    with_body_sha: "51fe39cc66ad"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png

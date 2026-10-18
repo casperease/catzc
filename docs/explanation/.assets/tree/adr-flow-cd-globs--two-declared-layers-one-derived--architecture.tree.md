@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6ed1f8593be2"
+    with_body_sha: dcdd9a9e862c
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.tree.md
     source: docs/explanation/.assets/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png

@@ -31,7 +31,7 @@ Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
 
     Context 'a consumer overlay' {
         BeforeAll {
-            $script:overlay = Join-Path $TestDrive 'widget-consumer/.catzc/automation'
+            $script:overlay = Join-Path $TestDrive 'widget-consumer/.catzc/pwsh'
             [System.IO.Directory]::CreateDirectory((Join-Path $overlay 'Catzc.Base.Widget/assets')) | Out-Null
             [System.IO.Directory]::CreateDirectory((Join-Path $overlay 'Catzc.Base.Widget/configs')) | Out-Null
             Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/assets/gadget.txt') -Value 'overridden'

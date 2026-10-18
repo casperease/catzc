@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d04f37f9a4d5
+    with_body_sha: fe07a0e40a80
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png

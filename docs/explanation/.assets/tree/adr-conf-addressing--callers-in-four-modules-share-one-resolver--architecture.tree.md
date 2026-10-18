@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc9125d279be
+    with_body_sha: "17eb261e7338"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.tree.md
     source: docs/explanation/.assets/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png

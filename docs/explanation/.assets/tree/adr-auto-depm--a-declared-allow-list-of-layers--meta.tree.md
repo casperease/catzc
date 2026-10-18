@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "171e8fd0f97c"
+    with_body_sha: d2cd01d2ad8b
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
     source: docs/explanation/.assets/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e702d5f339d1
+    with_body_sha: "63696c5cabfa"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-depm--three-layers-edges-point-down--architecture.grid.md
     source: docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png

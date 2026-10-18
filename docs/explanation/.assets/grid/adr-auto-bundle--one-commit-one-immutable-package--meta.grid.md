@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "24df0af92c1f"
+    with_body_sha: b788d4bcd314
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md
     source: docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png

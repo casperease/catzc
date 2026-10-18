@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e9d22ba3412b
+    with_body_sha: "8aa2fd0f1cd6"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-pipe-auth--one-header-function-owns-precedence--architecture.grid.md
     source: docs/explanation/.assets/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c251287e5592
+    with_body_sha: "403eda2b2b0a"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md
     source: docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png

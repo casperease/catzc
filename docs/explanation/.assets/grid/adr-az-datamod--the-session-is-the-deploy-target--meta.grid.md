@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8e140c9bba38"
+    with_body_sha: "3c9204c8c9e6"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-datamod--the-session-is-the-deploy-target--meta.grid.md
     source: docs/explanation/.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png

@@ -39,7 +39,7 @@ pwsh/.compiled/** binary
 /.gitattributes text eol=lf
 /.gitignore     text eol=lf
 /importer.ps1   text eol=lf
-/automation/.internal/assets/Catzc.Types.csproj text eol=lf
+/pwsh/.internal/assets/Catzc.Types.csproj text eol=lf
 
 # Shell scripts run under bash or zsh, which read a carriage return as part of the command: every shell script is LF
 # everywhere, so a Windows checkout runs too (ADR-AUTO-ENGINE: the POSIX engines require LF). This also covers importer.sh.
@@ -67,7 +67,7 @@ pwsh/.compiled/** linguist-generated
 /importer.ps1   linguist-generated
 /importer.sh    linguist-generated
 /importer-commands.sh linguist-generated
-/automation/.internal/assets/Catzc.Types.csproj linguist-generated
+/pwsh/.internal/assets/Catzc.Types.csproj linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated
 /docs/adr/index.md    linguist-generated
@@ -122,7 +122,7 @@ pwsh/.compiled/** linguist-generated
 
 # catzc: the root-file sources are copied to the repository root under the head Build-RootConfig writes into each copy,
 # so a head here would sit beside it with the source's path (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#7).
-/automation/Catzc.Base.RootConfig/assets/root/** -catzc-meta
+/pwsh/Catzc.Base.RootConfig/assets/root/** -catzc-meta
 
 # catzc: the .gitkeep source is likewise copied into every .gitkeep under the head Build-GitKeep writes there.
-/automation/Catzc.Base.Docs/assets/gitkeep -catzc-meta
+/pwsh/Catzc.Base.Docs/assets/gitkeep -catzc-meta

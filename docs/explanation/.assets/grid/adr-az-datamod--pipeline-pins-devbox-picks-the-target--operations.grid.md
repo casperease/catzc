@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7dfee57ffb21"
+    with_body_sha: c62ea0b2e825
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.grid.md
     source: docs/explanation/.assets/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png

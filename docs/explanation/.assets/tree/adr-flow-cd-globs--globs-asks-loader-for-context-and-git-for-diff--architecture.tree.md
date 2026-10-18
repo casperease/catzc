@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2bbd0937e473"
+    with_body_sha: bf2f72229391
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.tree.md
     source: docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png

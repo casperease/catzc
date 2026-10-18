@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9650a45668c
+    with_body_sha: bcfb99e196b2
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-addressing--two-test-files-check-the-address-rules--governance.grid.md
     source: docs/explanation/.assets/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png

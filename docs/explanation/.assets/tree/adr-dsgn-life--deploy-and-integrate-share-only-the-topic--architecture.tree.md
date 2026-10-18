@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e0e66422b6c8
+    with_body_sha: "8ff78590fadd"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.tree.md
     source: docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png

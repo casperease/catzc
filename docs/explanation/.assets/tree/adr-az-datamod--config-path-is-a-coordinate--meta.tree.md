@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "05a7ffcec804"
+    with_body_sha: d6c4c54ae2fe
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-datamod--config-path-is-a-coordinate--meta.tree.md
     source: docs/explanation/.assets/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png

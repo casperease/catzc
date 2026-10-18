@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9ab37651cb7
+    with_body_sha: "973a06e32f30"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.tree.md
     source: docs/explanation/.assets/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a954e68fe02e
+    with_body_sha: "4b5e58da54cc"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png

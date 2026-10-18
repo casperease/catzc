@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: abae153f3680
+    with_body_sha: ea934fd052fe
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--callers-value-else-config-else-default--meta.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png

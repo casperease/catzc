@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7ad14c14f2ad"
+    with_body_sha: "21034e8bd7ed"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.tree.md
     source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.png

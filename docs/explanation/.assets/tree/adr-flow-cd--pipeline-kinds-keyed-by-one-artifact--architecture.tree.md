@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fd2a46a136ea
+    with_body_sha: e37b7987a556
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.tree.md
     source: docs/explanation/.assets/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.png

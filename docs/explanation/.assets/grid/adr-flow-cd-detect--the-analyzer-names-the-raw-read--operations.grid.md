@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d3f3baef343e
+    with_body_sha: "954854e21e42"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.grid.md
     source: docs/explanation/.assets/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png

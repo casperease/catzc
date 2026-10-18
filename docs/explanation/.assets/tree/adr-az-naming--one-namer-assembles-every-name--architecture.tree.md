@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "16c9c4f2495b"
+    with_body_sha: cb07306dd1a1
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-naming--one-namer-assembles-every-name--architecture.tree.md
     source: docs/explanation/.assets/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png

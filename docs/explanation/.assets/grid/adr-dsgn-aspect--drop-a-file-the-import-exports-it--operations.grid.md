@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9804b4fde154"
+    with_body_sha: "8d42eb99c18a"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png

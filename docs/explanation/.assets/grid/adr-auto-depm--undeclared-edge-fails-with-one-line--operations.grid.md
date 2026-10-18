@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a2b4f2101b5b
+    with_body_sha: "7327b1cd6bc9"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
     source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png

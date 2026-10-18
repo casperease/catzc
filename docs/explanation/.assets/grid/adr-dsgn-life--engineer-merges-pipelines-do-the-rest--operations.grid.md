@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c622517bcdab
+    with_body_sha: c2f2e3525aab
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png

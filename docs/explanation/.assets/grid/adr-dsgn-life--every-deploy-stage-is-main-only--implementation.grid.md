@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e620dcc322c4
+    with_body_sha: "7597acf6ead1"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png

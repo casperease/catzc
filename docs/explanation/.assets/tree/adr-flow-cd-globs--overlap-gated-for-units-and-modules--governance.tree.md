@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "33055ff860c0"
+    with_body_sha: "3a490c623aa9"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.tree.md
     source: docs/explanation/.assets/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png

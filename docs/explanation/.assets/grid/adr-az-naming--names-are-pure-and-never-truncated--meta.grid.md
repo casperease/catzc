@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71a26d573616"
+    with_body_sha: c533cede3752
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-naming--names-are-pure-and-never-truncated--meta.grid.md
     source: docs/explanation/.assets/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png

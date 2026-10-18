@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1ebe906962ac"
+    with_body_sha: "26299e542bf5"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.grid.md
     source: docs/explanation/.assets/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.png

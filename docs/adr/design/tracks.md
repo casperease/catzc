@@ -5,9 +5,9 @@
 ### Rule ADR-DSGN-TRACK:1
 
 A **track** is a named, on-disk cluster of module contents: the tracked files of one concern, selected by the **place** or places the track
-declares ([ADR-DSGN-TRACKTYPE#4](track-types.md#rule-adr-dsgn-tracktype4)). A place is a root folder (`automation`), a path inside one
-(`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by
-the longest place that contains it ([ADR-DSGN-TRACKTYPE#5](track-types.md#rule-adr-dsgn-tracktype5)), or is a root file (ADR-DSGN-TRACK#7);
+declares ([ADR-DSGN-TRACKTYPE#4](track-types.md#rule-adr-dsgn-tracktype4)). A place is a root folder (`pwsh`), a path inside one
+(`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by the
+longest place that contains it ([ADR-DSGN-TRACKTYPE#5](track-types.md#rule-adr-dsgn-tracktype5)), or is a root file (ADR-DSGN-TRACK#7);
 `out/` holds gitignored output and is in none. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
@@ -15,25 +15,25 @@ the longest place that contains it ([ADR-DSGN-TRACKTYPE#5](track-types.md#rule-a
 ### Rule ADR-DSGN-TRACK:2
 
 Every track has exactly one **track type** ([ADR-DSGN-TRACKTYPE#1](track-types.md#rule-adr-dsgn-tracktype1)), stated once and carrying no
-second classification beside it: `modules` (`automation`, the core the other tracks rest on), `infrastructure`, `pipelines`,
-`vendor-settings`, `vendored-code`, `contracts`, `documentation`, `verification`, or `unordered` (`.unordered`, ADR-DSGN-TRACK#17). The
-type's role is deployable or holder ([ADR-DSGN-TRACKTYPE#2](track-types.md#rule-adr-dsgn-tracktype2)). A **verification track** is a
-test-only track: it verifies the core from outside, ships nothing, and is out of every bundle by construction, because it lies outside
-`automation/`, where the builder reads its modules. `go`, the Go black-box tests, is the first; a repository without a `go/` root keeps the
-same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests, is the second, by the same
-convention: `.python` when the repository has no `python/` root. `bash`, the Bash black-box tests, is the third: `.bash` when the repository
-has no `bash/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across automation) are **scopes over tracks**, not
-tracks: they select through the roots rather than owning one.
+second classification beside it: `modules` (`pwsh`, the core the other tracks rest on), `infrastructure`, `pipelines`, `vendor-settings`,
+`vendored-code`, `contracts`, `documentation`, `verification`, or `unordered` (`.unordered`, ADR-DSGN-TRACK#17). The type's role is
+deployable or holder ([ADR-DSGN-TRACKTYPE#2](track-types.md#rule-adr-dsgn-tracktype2)). A **verification track** is a test-only track: it
+verifies the core from outside, ships nothing, and is out of every bundle by construction, because it lies outside `pwsh/`, where the
+builder reads its modules. `go`, the Go black-box tests, is the first; a repository without a `go/` root keeps the same tests in the
+dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests, is the second, by the same convention: `.python` when
+the repository has no `python/` root. `bash`, the Bash black-box tests, is the third: `.bash` when the repository has no `bash/` root.
+Cross-cutting slices (e.g. the cats configs — every yml/config file across the modules track) are **scopes over tracks**, not tracks: they
+select through the roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
 ### Rule ADR-DSGN-TRACK:3
 
-A track owns one coherent **tech-stack**, and a new tech-stack opens a new track — never a subfolder inside an existing one. `automation`'s
-stack is deliberately intricate: PowerShell, with the C# types it hosts, packaged as PowerShell modules. `infrastructure`'s stack is
-deliberately simple — Bicep plus PowerShell extension points and one configuration yml per subscription target — and rests on `automation`
-for context and execution. Future concerns follow the same shape: a `frontend` track for small front-apps, a `services` track for PaaS
-services and C# function apps.
+A track owns one coherent **tech-stack**, and a new tech-stack opens a new track — never a subfolder inside an existing one. `pwsh`'s stack
+is deliberately intricate: PowerShell, with the C# types it hosts, packaged as PowerShell modules. `infrastructure`'s stack is deliberately
+simple — Bicep plus PowerShell extension points and one configuration yml per subscription target — and rests on `pwsh` for context and
+execution. Future concerns follow the same shape: a `frontend` track for small front-apps, a `services` track for PaaS services and C#
+function apps.
 
 - [A track has a tech-stack](#a-track-has-a-tech-stack)
 
@@ -181,19 +181,19 @@ together, and the rules below keep them tied.
 
 ### What a track is
 
-The unit of "concern" in this repository is the cluster of module contents, and the root folder is its usual home. `automation/` is the
-automation platform; `infrastructure/` is the IaC tree; `pipelines/` holds the Azure DevOps pipelines and `.github/workflows` the GitHub
-ones; `docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>`
-configures exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A place may
-be narrower than a root (`.github/workflows`) so that two tracks share a root without sharing a file. `out/` is a root folder but not a
-concern: it holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping normative: the declared
-places are the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), and asking "which track does this file belong
-to?" always has exactly one answer. That single-answer property is what every consumer below builds on.
+The unit of "concern" in this repository is the cluster of module contents, and the root folder is its usual home. `pwsh/` is the automation
+platform; `infrastructure/` is the IaC tree; `pipelines/` holds the Azure DevOps pipelines and `.github/workflows` the GitHub ones; `docs/`
+is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>` configures
+exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A place may be narrower
+than a root (`.github/workflows`) so that two tracks share a root without sharing a file. `out/` is a root folder but not a concern: it
+holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping normative: the declared places are
+the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), and asking "which track does this file belong to?" always
+has exactly one answer. That single-answer property is what every consumer below builds on.
 
 ### The taxonomy
 
 Tracks are not peers in role, only in shape, and the track type says which shape ([track-types](track-types.md)). The `modules` track
-defines the internal ports — `automation` is the core track, and every other track rests on it. The holders hold the repository's side of an
+defines the internal ports — `pwsh` is the core track, and every other track rests on it. The holders hold the repository's side of an
 outside contract: `contracts/` for consumers of this repo and the platforms that read it, `docs/` for its human readers (the ADRs, reference
 articles, and guides, partly generated by the core), and a `vendor-settings` track per tool (`.github/`, `.cspell/`, `.claude/`) for the
 tools that read them. `infrastructure/` adapts the core to Azure through Bicep modules and named templates, and the `pipelines` tracks adapt
@@ -212,8 +212,8 @@ The stack is the reason tracks exist as _separate roots_ rather than folders ins
 verification, and its own failure modes. Keeping one stack per track keeps every gate honest — the automation tests verify PowerShell/C#,
 the infrastructure quality gates verify Bicep against its configuration model, the Go toolchain runs and vets the Go tests — and keeps the
 door open for new stacks (`frontend`, `services`) without disturbing the existing ones. The dependency between stacks is explicit and
-one-directional: adapters, ports, and verification tracks rest on the core (`infrastructure` consumes `automation` for context and
-execution, `go` starts it as a process), never the reverse.
+one-directional: adapters, ports, and verification tracks rest on the core (`infrastructure` consumes `pwsh` for context and execution, `go`
+starts it as a process), never the reverse.
 
 ### Subscription and coordination
 
@@ -241,10 +241,10 @@ customer's configuration surface.
 
 "One tech-stack per track" is only checkable when a stack is made of something countable. The countable part is the file language: every
 tracked file has exactly one, read off its extension, so the files of a track add up to the set of languages the track actually holds. A
-stack is that set as declared — `automation` holds PowerShell and C#, `infrastructure` holds Bicep and its configuration YAML — and a file
-whose language falls outside its track's declared set is the second stack the rule forbids, visible without reading the file. A file
-language is not a tech-stack: the stack adds the toolchain, verification, and failure modes around its languages, while the language is only
-the kind of text a file holds.
+stack is that set as declared — `pwsh` holds PowerShell and C#, `infrastructure` holds Bicep and its configuration YAML — and a file whose
+language falls outside its track's declared set is the second stack the rule forbids, visible without reading the file. A file language is
+not a tech-stack: the stack adds the toolchain, verification, and failure modes around its languages, while the language is only the kind of
+text a file holds.
 
 ### Root files and unlisted files
 

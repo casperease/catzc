@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a2978eb0cfbf
+    with_body_sha: c869e15a0f58
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png

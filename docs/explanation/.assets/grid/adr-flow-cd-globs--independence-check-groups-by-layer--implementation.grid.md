@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "76f6ed962e27"
+    with_body_sha: "8c1dc5c8dc16"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png

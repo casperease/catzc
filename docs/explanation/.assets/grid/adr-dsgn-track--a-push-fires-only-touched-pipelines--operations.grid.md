@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "934a052e96a5"
+    with_body_sha: "6df010d234b5"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png

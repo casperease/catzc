@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9167754bc278"
+    with_body_sha: "38cf36a21eb0"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.tree.md
     source: docs/explanation/.assets/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png

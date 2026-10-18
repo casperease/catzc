@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "632877360b37"
+    with_body_sha: fa7e4a85d893
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-path--output-root-first-then-repo-root--implementation.tree.md
     source: docs/explanation/.assets/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png

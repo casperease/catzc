@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7865f89a0203"
+    with_body_sha: d86880f7eb42
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.grid.md
     source: docs/explanation/.assets/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.drawio.png

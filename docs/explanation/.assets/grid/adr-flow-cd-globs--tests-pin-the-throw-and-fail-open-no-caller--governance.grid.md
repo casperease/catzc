@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04d570ad83bd"
+    with_body_sha: "78a63689ce35"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png

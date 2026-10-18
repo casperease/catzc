@@ -4,10 +4,10 @@
 
 ### Rule ADR-AUTO-PARITY:1
 
-The `automation` track **is a CLI**, and every command runs unchanged in two environments: **DEVBOX** — the developer's machine, where you
-_shoot_ (iterate fast; it just has to work) — and **PIPELINE** — CI/CD, where you _verify and deliver_ (deterministic and fast, through a
-few manual approvals to live users). Same code, same commands, same behaviour in both: there is no pipeline-only automation and no
-devbox-only automation.
+The `pwsh` track **is a CLI**, and every command runs unchanged in two environments: **DEVBOX** — the developer's machine, where you _shoot_
+(iterate fast; it just has to work) — and **PIPELINE** — CI/CD, where you _verify and deliver_ (deterministic and fast, through a few manual
+approvals to live users). Same code, same commands, same behaviour in both: there is no pipeline-only automation and no devbox-only
+automation.
 
 - [One CLI, two environments](#one-cli-two-environments)
 
@@ -34,7 +34,7 @@ crosses between devbox and pipeline: no shared runtime state, only the committed
 
 ## Context
 
-The value of the automation track is that it collapses the distance between "works on my machine" and "works in CI": one CLI, run the same
+The value of the pwsh track is that it collapses the distance between "works on my machine" and "works in CI": one CLI, run the same
 everywhere, so a problem is caught at the furthest-left point it can be. That only holds if parity is a rule, not an accident — the moment a
 command needs a pipeline to work, or behaves differently there, shift-left breaks and the pipeline becomes the first place failures appear.
 The single seam (`Test-IsRunningInPipeline`) keeps the _one_ legitimate difference in one auditable place; the version-controlled globsets

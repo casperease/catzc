@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "987aa9cfa2d7"
+    with_body_sha: "2234300e37ff"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--three-tests-prove-the-hook--governance.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png

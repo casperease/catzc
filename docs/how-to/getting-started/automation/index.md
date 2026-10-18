@@ -140,15 +140,15 @@ Short, focused how-to articles for the common jobs:
 
 | I want to…                                | Article                                                             |
 | ----------------------------------------- | ------------------------------------------------------------------- |
-| Add a public function to a module         | [Add a function](powershell/add-a-function.md)                      |
-| Create a brand-new module                 | [Add a module](add-a-module.md)                                     |
-| Add a native .NET type backed by C#       | [Add a C# type](BCL/add-a-dotnet-type.md)                           |
+| Add a public function to a module         | [Add a function](../pwsh/powershell/add-a-function.md)              |
+| Create a brand-new module                 | [Add a module](../pwsh/add-a-module.md)                             |
+| Add a native .NET type backed by C#       | [Add a C# type](../pwsh/BCL/add-a-dotnet-type.md)                   |
 | Add a deployable Bicep template           | [Add an infrastructure template](add-an-infrastructure-template.md) |
 | Define a deployable unit + trigger file   | [Add a deployable unit](add-a-deployable-unit.md)                   |
-| Run the tests, linters, and formatters    | [Run tests and checks](run-tests-and-checks.md)                     |
-| Set breakpoints and debug module code     | [Debug in VS Code](debug-in-vscode.md)                              |
-| Add or upgrade a CLI tool (az, dotnet, …) | [Add a CLI tool](add-a-cli-tool.md)                                 |
-| Vendor a third-party PowerShell module    | [Vendor a module](vendor-a-module.md)                               |
+| Run the tests, linters, and formatters    | [Run tests and checks](../pwsh/run-tests-and-checks.md)             |
+| Set breakpoints and debug module code     | [Debug in VS Code](../pwsh/debug-in-vscode.md)                      |
+| Add or upgrade a CLI tool (az, dotnet, …) | [Add a CLI tool](../pwsh/add-a-cli-tool.md)                         |
+| Vendor a third-party PowerShell module    | [Vendor a module](../pwsh/vendor-a-module.md)                       |
 | Write a new doc chapter or ADR            | [Add a doc chapter](add-a-doc-chapter.md)                           |
 
 Looking for what a specific module does rather than how to do a task? See the [module reference](../../../references/pwsh/index.md).

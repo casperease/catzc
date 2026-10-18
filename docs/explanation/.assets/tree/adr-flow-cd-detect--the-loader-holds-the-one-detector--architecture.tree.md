@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f84e88d6335c
+    with_body_sha: "60c543f7582b"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.tree.md
     source: docs/explanation/.assets/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png

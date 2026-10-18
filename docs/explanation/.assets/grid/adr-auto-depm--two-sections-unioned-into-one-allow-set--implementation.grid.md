@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "614ae6fc1b69"
+    with_body_sha: "758bf8b57b8c"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md
     source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png

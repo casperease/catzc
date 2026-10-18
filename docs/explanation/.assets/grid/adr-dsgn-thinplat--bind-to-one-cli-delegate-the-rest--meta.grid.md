@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1fc70f39d3a5"
+    with_body_sha: "07e0a0c21ebb"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png

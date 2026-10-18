@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f90cccda27a4
+    with_body_sha: "25bdc7aa8e5a"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png

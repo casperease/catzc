@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d39c8cad59c2
+    with_body_sha: "8dba1f233319"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-datamod--coordinate-rules-and-their-gates--governance.grid.md
     source: docs/explanation/.assets/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png

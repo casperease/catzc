@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1782208d02c6"
+    with_body_sha: f95cd8156718
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.tree.md
     source: docs/explanation/.assets/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png

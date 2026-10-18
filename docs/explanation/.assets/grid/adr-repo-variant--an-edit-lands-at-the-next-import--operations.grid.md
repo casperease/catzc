@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f3f2f6c4f687
+    with_body_sha: "1e76c574ebd6"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-repo-variant--an-edit-lands-at-the-next-import--operations.grid.md
     source: docs/explanation/.assets/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.png

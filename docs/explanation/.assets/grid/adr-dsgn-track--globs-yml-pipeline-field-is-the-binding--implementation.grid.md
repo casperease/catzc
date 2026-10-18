@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a7ec4b5f058"
+    with_body_sha: "884e7962b0dd"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.png

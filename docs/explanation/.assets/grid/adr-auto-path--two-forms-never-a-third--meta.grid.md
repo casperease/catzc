@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d02faea02166
+    with_body_sha: dc2fc0599169
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-path--two-forms-never-a-third--meta.grid.md
     source: docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png

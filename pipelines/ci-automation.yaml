@@ -457,7 +457,6 @@ jobs:
             }
             $config | ConvertTo-FlatSettingSet | Write-Object -Name 'FlatSettings'
 
-  # --- BVT: the post-merge run on main checks the built artifact (ADR-AUTO-TEST#24); PR runs skip it -------------------
   - job: BuildArtifact
     displayName: "Build artifact (BVT)"
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))

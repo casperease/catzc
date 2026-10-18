@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "585ff374738b"
+    with_body_sha: "79836857bbf4"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.tree.md
     source: docs/explanation/.assets/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png

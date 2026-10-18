@@ -5,13 +5,12 @@
 ### Rule ADR-AUTO-BUNDLE:1
 
 A **bundle** is the toolset's build: one installable, versioned `Catzc` package of one **named bundle** — an `exporter.yml` `bundles` entry
-with its own profile, version line, and vendor policy — under `out/automation/built/<bundle>/Catzc/<version>/`, built by `Build-Modules`
-from the bundle's profile (or, for an experiment or a test, explicit names and/or a profile), closure-expanded over `dependencies.yml`, that
-loads in a fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It
-is build mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it
-(through the `Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle`
-verifies it. This is the platform-level form of a reproducible, content-addressed, self-service artifact
-([self-service](../design/self-service.md)), built once.
+with its own profile, version line, and vendor policy — under `out/pwsh/built/<bundle>/Catzc/<version>/`, built by `Build-Modules` from the
+bundle's profile (or, for an experiment or a test, explicit names and/or a profile), closure-expanded over `dependencies.yml`, that loads in
+a fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It is build
+mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it (through the
+`Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle` verifies it. This is
+the platform-level form of a reproducible, content-addressed, self-service artifact ([self-service](../design/self-service.md)), built once.
 
 - [What a bundle is](#what-a-bundle-is)
 
@@ -117,8 +116,8 @@ installs to another root and loads there with no git and no compile, owned by `C
 A bundle is the platform, made portable. The repository declares its bundles by name in `exporter.yml` — `full`, and smaller ones such as
 `azure` or `minimal` — each a release identity of its own. `Build-Modules` takes a bundle's modules — its profile, or for an experiment
 modules named explicitly, by profile, or both — closure-expands them so every dependency comes along, and writes one installable package
-root, `out/automation/built/<bundle>/Catzc/<version>/` by default, so two bundles never share a folder. Inside it every selected module is
-**its own module of the same name**: same public functions, same private functions, same configs and assets, its own module state
+root, `out/pwsh/built/<bundle>/Catzc/<version>/` by default, so two bundles never share a folder. Inside it every selected module is **its
+own module of the same name**: same public functions, same private functions, same configs and assets, its own module state
 ([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged function file instead of a folder of
 function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no discovery drift), and
 sharable (one versioned folder). It is the platform-level form of the build-once artifact; the related flow decision is
@@ -139,14 +138,14 @@ relocated — a scan that anchored on `RepositoryRoot` would look in the wrong p
 
 `The bundle boots through the importer`
 
-A bundle does not carry its own loader. Its entry — a checked-in, authored file under `pwsh/.internal/assets/`, copied verbatim into
-the build — sets the two anchors and runs the same importer the mono repo's entry runs, in its bundle mode. This is not merely to avoid a
-second copy of the load logic — it is load-order-correct. The C# types the platform uses are registered by catzc's own code before any
-module loads, and a module that names one of them at load time needs it registered first. The importer sequences this — types, then the
-module loop — and a single declarative package description that listed every module as part of one package could not, besides collapsing
-every module's private state into one shared scope. So the bundle reuses the importer, and the bundle mode only changes what it does to the
-filesystem: janitors off, each module's prebuilt manifest read rather than generated, the prebuilt DLL loaded rather than compiled, the
-pre-set code root honoured.
+A bundle does not carry its own loader. Its entry — a checked-in, authored file under `pwsh/.internal/assets/`, copied verbatim into the
+build — sets the two anchors and runs the same importer the mono repo's entry runs, in its bundle mode. This is not merely to avoid a second
+copy of the load logic — it is load-order-correct. The C# types the platform uses are registered by catzc's own code before any module
+loads, and a module that names one of them at load time needs it registered first. The importer sequences this — types, then the module loop
+— and a single declarative package description that listed every module as part of one package could not, besides collapsing every module's
+private state into one shared scope. So the bundle reuses the importer, and the bundle mode only changes what it does to the filesystem:
+janitors off, each module's prebuilt manifest read rather than generated, the prebuilt DLL loaded rather than compiled, the pre-set code
+root honoured.
 
 ### The runtime payload
 

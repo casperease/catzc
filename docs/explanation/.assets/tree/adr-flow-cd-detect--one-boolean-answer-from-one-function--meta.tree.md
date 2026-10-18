@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "335ab256a07f"
+    with_body_sha: "591b7e3d799a"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.tree.md
     source: docs/explanation/.assets/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png

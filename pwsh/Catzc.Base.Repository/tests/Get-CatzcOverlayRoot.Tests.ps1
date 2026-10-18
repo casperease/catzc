@@ -4,9 +4,9 @@ Describe 'Get-CatzcOverlayRoot' -Tag 'L0', 'logic' {
         $script:originalRepositoryRoot = $env:RepositoryRoot
         # A consumer working root with an overlay, and a built bundle elsewhere.
         $script:consumer = Join-Path $TestDrive 'widget-consumer'
-        $script:overlay = Join-Path $consumer '.catzc/automation'
+        $script:overlay = Join-Path $consumer '.catzc/pwsh'
         [System.IO.Directory]::CreateDirectory($overlay) | Out-Null
-        [System.IO.Directory]::CreateDirectory((Join-Path $consumer 'automation')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $consumer 'pwsh')) | Out-Null
         $script:bundle = Join-Path $TestDrive 'gadget-store/Catzc/1.2.3'
     }
     AfterAll {
@@ -14,7 +14,7 @@ Describe 'Get-CatzcOverlayRoot' -Tag 'L0', 'logic' {
         $env:RepositoryRoot = $script:originalRepositoryRoot
     }
 
-    It 'is the working root''s .catzc/automation in build mode' {
+    It 'is the working root''s .catzc/pwsh in build mode' {
         $env:RepositoryRoot = $consumer
         $env:CatzcModulesRoot = $bundle
         Get-CatzcOverlayRoot | Should -Be ([System.IO.Path]::GetFullPath($overlay))
@@ -22,7 +22,7 @@ Describe 'Get-CatzcOverlayRoot' -Tag 'L0', 'logic' {
 
     It 'is nothing in source mode, even with a .catzc/ folder present' {
         $env:RepositoryRoot = $consumer
-        $env:CatzcModulesRoot = Join-Path $consumer 'automation'
+        $env:CatzcModulesRoot = Join-Path $consumer 'pwsh'
         Get-CatzcOverlayRoot | Should -BeNullOrEmpty
     }
 

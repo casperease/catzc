@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3641fdbec75e"
+    with_body_sha: "9ff3a6c54611"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.tree.md
     source: docs/explanation/.assets/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png

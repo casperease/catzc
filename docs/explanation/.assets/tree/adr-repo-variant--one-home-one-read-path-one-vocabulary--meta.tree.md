@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "32d3cd51d73c"
+    with_body_sha: c296f9d29373
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.tree.md
     source: docs/explanation/.assets/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.png

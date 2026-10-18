@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3f3e8c5e370a"
+    with_body_sha: "20b9df988daf"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-path--two-crossers-and-three-anchors--architecture.grid.md
     source: docs/explanation/.assets/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.png

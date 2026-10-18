@@ -1,6 +1,6 @@
 Describe 'Export-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
-        $script:buildRoot = Join-Path $TestDrive 'out/automation/built/widgets/Catzc/6.6.666'
+        $script:buildRoot = Join-Path $TestDrive 'out/pwsh/built/widgets/Catzc/6.6.666'
         Mock Build-Modules { [pscustomobject]@{ BuildRoot = $buildRoot; Version = '6.6.666' } } -ModuleName Catzc.Base.Exporter
         Mock Install-Catzc { [pscustomobject]@{ ModulePath = 'INSTALLED' } } -ModuleName Catzc.Base.Exporter
         Mock New-CatzcNuGetPackage {
@@ -31,7 +31,7 @@ Describe 'Export-Catzc' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'a nuget export builds, packs the build into out/automation/packages, and needs no root' {
+    It 'a nuget export builds, packs the build into out/pwsh/packages, and needs no root' {
         $package = Export-Catzc -To nuget
         Should -Invoke New-CatzcNuGetPackage -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
             $Source -eq $buildRoot -and $DestinationPath -eq (Join-Path (Join-Path $TestDrive 'out') 'pwsh/packages')

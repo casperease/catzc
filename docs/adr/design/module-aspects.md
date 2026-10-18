@@ -25,8 +25,8 @@ all prefixed by the unit root.
 
 ### Rule ADR-DSGN-ASPECT:3
 
-Which aspect is the catch-all remainder is each **track's** call. A **code** track (`automation`) keeps `live` closed and declares the
-non-live `tests` last, so a stray or unclassified file lands on the verification side and can **never silently ship** (default-deny). A
+Which aspect is the catch-all remainder is each **track's** call. A **code** track (`pwsh`) keeps `live` closed and declares the non-live
+`tests` last, so a stray or unclassified file lands on the verification side and can **never silently ship** (default-deny). A
 **deployment** track (`infrastructure`) declares `live` last, because everything under a template deploys, and only an explicit `tests/`
 folder is non-live. The `VariantsConfig` config type enforces the structure at load: the last aspect is the `**` catch-all, and no earlier
 aspect uses it.
@@ -48,8 +48,8 @@ degenerate one-aspect partition.
 ### Rule ADR-DSGN-ASPECT:5
 
 The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity check: a file claimed by two aspects, or by none,
-fails it (`AspectPartition.Validate`). The `module-leftovers` catch-all is the module-space complement — files under `automation/` that no
-module partition claims — and stays empty in a clean tree.
+fails it (`AspectPartition.Validate`). The `module-leftovers` catch-all is the module-space complement — files under `pwsh/` that no module
+partition claims — and stays empty in a clean tree.
 
 - [Decision](#decision)
 

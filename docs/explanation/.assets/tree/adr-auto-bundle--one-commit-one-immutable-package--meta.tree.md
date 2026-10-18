@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1e9d47b3c751"
+    with_body_sha: "62df7fe06ddf"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png

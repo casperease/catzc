@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8595f7a23e31"
+    with_body_sha: d6d8250f7182
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.tree.md
     source: docs/explanation/.assets/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.png

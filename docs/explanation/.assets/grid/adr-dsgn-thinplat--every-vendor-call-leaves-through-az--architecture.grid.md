@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "907a6864a092"
+    with_body_sha: d8ad3da01d7a
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png

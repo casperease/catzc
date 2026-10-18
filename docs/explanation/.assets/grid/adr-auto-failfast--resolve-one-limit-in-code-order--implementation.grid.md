@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6d6ebbce82e1"
+    with_body_sha: "863b2983c937"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.grid.md
     source: docs/explanation/.assets/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png

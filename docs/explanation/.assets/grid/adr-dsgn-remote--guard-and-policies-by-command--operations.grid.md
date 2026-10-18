@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f6ba5adc01fa
+    with_body_sha: ad0fefaaa5b1
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-remote--guard-and-policies-by-command--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png

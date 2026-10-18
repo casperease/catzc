@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "478b262d4f18"
+    with_body_sha: "7496c74c16f1"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-addressing--an-address-is-a-read-only-walk--meta.grid.md
     source: docs/explanation/.assets/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png

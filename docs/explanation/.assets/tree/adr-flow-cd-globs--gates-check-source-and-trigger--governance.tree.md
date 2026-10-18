@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "15bf9197171b"
+    with_body_sha: c46d7134b233
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md
     source: docs/explanation/.assets/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png

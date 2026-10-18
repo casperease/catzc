@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c33ff4dcd8a4
+    with_body_sha: "92918146b156"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-life--sync-point-rules-are-adr-only--governance.tree.md
     source: docs/explanation/.assets/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png

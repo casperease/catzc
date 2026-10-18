@@ -58,5 +58,5 @@ more ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)).
 
 | Article                                                                                                                                              |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Unboxing is cheap, the type tests and crossings around it are not](unboxing-is-cheap-and-crossings-are-not.md)                                      |
+| [Unboxing is cheap, the type tests and crossings around it are not](../pwsh/unboxing-is-cheap-and-crossings-are-not.md)                                      |
 | [A static table keyed by Type is not a session cache, so ADR-AUTO-CACHE does not govern it](a-type-keyed-reflection-table-is-not-a-session-cache.md) |

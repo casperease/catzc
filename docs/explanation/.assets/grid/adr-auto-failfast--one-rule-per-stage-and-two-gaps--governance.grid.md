@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3132374f51c7"
+    with_body_sha: "6662925546a0"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.grid.md
     source: docs/explanation/.assets/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png

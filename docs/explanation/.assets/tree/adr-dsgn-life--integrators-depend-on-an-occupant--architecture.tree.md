@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1d413a43e5d7"
+    with_body_sha: "51513b057378"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.tree.md
     source: docs/explanation/.assets/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png

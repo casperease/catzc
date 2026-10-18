@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4c4acd17029f"
+    with_body_sha: "9e66527fe4d0"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
     source: docs/explanation/.assets/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png

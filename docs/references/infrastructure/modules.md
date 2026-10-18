@@ -97,4 +97,4 @@ overrides one on purpose.
   - `backupStorageRedundancy` is `Geo`;
   - `backupRetentionDays` is `7`, the point-in-time restore window (Basic allows at most 7).
 
-See the [Catzc.Azure.Templates reference](../automation/catzc-azure-templates.md) for the templating system overview.
+See the [Catzc.Azure.Templates reference](../pwsh/catzc-azure-templates.md) for the templating system overview.

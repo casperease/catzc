@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd236efdfe95
+    with_body_sha: "8999c407c5da"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md
     source: docs/explanation/.assets/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png

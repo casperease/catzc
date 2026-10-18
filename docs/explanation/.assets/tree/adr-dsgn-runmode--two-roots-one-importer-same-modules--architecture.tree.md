@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af2623ad5cbe
+    with_body_sha: "6790e016d012"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.tree.md
     source: docs/explanation/.assets/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png

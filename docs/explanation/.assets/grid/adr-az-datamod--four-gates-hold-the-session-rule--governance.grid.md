@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "43a111f93eba"
+    with_body_sha: "1981ffbf7f56"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-az-datamod--four-gates-hold-the-session-rule--governance.grid.md
     source: docs/explanation/.assets/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png

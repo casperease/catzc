@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "718c301223f0"
+    with_body_sha: da0e38352f70
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.grid.md
     source: docs/explanation/.assets/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png

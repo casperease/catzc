@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7b2752ce7bed"
+    with_body_sha: "9d0ef91b9328"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png

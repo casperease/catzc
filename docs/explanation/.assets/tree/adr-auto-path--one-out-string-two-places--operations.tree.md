@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "68561daeac06"
+    with_body_sha: e714b3d1d87e
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-path--one-out-string-two-places--operations.tree.md
     source: docs/explanation/.assets/adr-auto-path--one-out-string-two-places--operations.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b721d0354e1f
+    with_body_sha: f717e92791bf
     repo_status: locked
     path: docs/index.md
     folder: docs
@@ -72,14 +72,14 @@ catzc:
       - docs/explanation/index.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/repository/index.md
-      - docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md
-      - docs/how-to/getting-started/pwsh/add-a-cli-tool.md
       - docs/how-to/getting-started/automation/add-a-doc-chapter.md
-      - docs/how-to/getting-started/pwsh/add-a-module.md
       - docs/how-to/getting-started/automation/add-an-infrastructure-template.md
-      - docs/how-to/getting-started/pwsh/debug-in-vscode.md
       - docs/how-to/getting-started/automation/faq.md
       - docs/how-to/getting-started/automation/index.md
+      - docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md
+      - docs/how-to/getting-started/pwsh/add-a-cli-tool.md
+      - docs/how-to/getting-started/pwsh/add-a-module.md
+      - docs/how-to/getting-started/pwsh/debug-in-vscode.md
       - docs/how-to/getting-started/pwsh/powershell/add-a-function.md
       - docs/how-to/getting-started/pwsh/run-tests-and-checks.md
       - docs/how-to/getting-started/pwsh/vendor-a-module.md

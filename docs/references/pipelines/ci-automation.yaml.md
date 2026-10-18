@@ -84,3 +84,12 @@ Python, Dotnet, NodeJs use native ADO tasks above.
 pip-based tools depend on Python being on PATH (activated above).
 apt-based tools use sudo (available on hosted agents).
 ```
+
+## comment:9
+
+Above `- job: BuildArtifact`, written with `#`.
+
+```text
+--- BVT: the post-merge run on main checks the built artifact
+([ADR-AUTO-TEST#24](/docs/adr/automation/test-automation.md#rule-adr-auto-test24)); PR runs skip it -------------------
+```

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "368bb183136a"
+    with_body_sha: "2e761ac10859"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7372be25bad5"
+    with_body_sha: "697b6f26de17"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.grid.md
     source: docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png

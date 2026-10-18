@@ -88,7 +88,7 @@ never its live aspect.
 
 ## comment:4
 
-Above `$internalRoot = [System.IO.Path]::Combine($automationRoot, '.internal')`, written with `#`.
+Above `foreach ($module in $codeModules.Where({ $_.shape -ceq 'file' })) {`, written with `#`.
 
 ```text
 The internal shared modules: one single-file set per pwsh/.internal/<Name>.psm1 — the file is

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3ee34f2ed3ff"
+    with_body_sha: "2184e20e877d"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.grid.md
     source: docs/explanation/.assets/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png

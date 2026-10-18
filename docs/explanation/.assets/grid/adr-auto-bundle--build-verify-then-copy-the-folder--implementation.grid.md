@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9d2d7d08695
+    with_body_sha: "530226e6d57f"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.grid.md
     source: docs/explanation/.assets/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png

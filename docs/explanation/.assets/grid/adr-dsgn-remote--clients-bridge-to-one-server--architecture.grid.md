@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4d492d053856"
+    with_body_sha: "8f6c26b2371e"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-remote--clients-bridge-to-one-server--architecture.grid.md
     source: docs/explanation/.assets/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png

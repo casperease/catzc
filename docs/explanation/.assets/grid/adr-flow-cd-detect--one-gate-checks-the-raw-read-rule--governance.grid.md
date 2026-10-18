@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ffb26878c74d
+    with_body_sha: "19e8b434382d"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.grid.md
     source: docs/explanation/.assets/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png

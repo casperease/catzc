@@ -461,7 +461,7 @@ module import runs from there to the last module loaded, the finalizer is the re
 
 ## comment:41
 
-Above `$script:modulesFolder = 'automation'`, written with `#`.
+Above `$script:modulesFolder = 'pwsh'`, written with `#`.
 
 ```text
 The one bootstrap constant: the folder under the repository root that holds the modules. It is read before any registry

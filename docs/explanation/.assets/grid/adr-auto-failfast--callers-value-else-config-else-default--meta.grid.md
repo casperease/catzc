@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6bbb4efefa7b"
+    with_body_sha: "57f4e0d042fe"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-auto-failfast--callers-value-else-config-else-default--meta.grid.md
     source: docs/explanation/.assets/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png

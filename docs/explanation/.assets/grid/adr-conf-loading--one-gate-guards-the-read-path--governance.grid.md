@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7882d1e3f5fb"
+    with_body_sha: e546576234a0
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-loading--one-gate-guards-the-read-path--governance.grid.md
     source: docs/explanation/.assets/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png

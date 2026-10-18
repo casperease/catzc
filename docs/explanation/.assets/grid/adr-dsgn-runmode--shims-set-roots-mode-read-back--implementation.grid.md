@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "046ff6354d17"
+    with_body_sha: "9d101cac1dd9"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.grid.md
     source: docs/explanation/.assets/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.png

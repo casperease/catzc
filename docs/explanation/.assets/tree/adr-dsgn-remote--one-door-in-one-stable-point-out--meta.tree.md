@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9137484d9584"
+    with_body_sha: d15bef1a6598
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.tree.md
     source: docs/explanation/.assets/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png

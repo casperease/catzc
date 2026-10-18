@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "26582bb4188c"
+    with_body_sha: "44dc62e1b503"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png

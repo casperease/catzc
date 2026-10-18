@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7044033cb89a"
+    with_body_sha: d7fb1872439a
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.grid.md
     source: docs/explanation/.assets/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png

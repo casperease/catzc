@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3252ce915442"
+    with_body_sha: a3270f705664
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.tree.md
     source: docs/explanation/.assets/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png

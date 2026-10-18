@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ebff8880e87d
+    with_body_sha: "5e4d081a6ce3"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.tree.md
     source: docs/explanation/.assets/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png

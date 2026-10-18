@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "88d298855655"
+    with_body_sha: e1a70bd18ae5
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8e81b8e74739"
+    with_body_sha: "6fa6480a65f4"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md
     source: docs/explanation/.assets/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png

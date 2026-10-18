@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: df8b08e748fc
+    with_body_sha: dc09a71475bb
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-loading--callers-depend-on-one-config-module--architecture.grid.md
     source: docs/explanation/.assets/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png

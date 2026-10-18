@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b7980827c3bd
+    with_body_sha: "1d9f2c7ed0c7"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.png

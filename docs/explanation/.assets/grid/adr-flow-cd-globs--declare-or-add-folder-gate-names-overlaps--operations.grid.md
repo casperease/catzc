@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cc0e5483f289
+    with_body_sha: "5f5f5c8edc0f"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.grid.md
     source: docs/explanation/.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png

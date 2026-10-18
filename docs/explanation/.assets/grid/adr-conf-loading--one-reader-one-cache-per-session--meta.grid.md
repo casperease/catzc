@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: feceedb7da3d
+    with_body_sha: "4f0cf40539ef"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-loading--one-reader-one-cache-per-session--meta.grid.md
     source: docs/explanation/.assets/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png

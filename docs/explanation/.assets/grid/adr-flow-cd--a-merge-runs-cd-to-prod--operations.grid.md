@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "00dce7f9144f"
+    with_body_sha: "1fb5725b743b"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-flow-cd--a-merge-runs-cd-to-prod--operations.grid.md
     source: docs/explanation/.assets/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png

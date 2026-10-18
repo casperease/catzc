@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "639225f2de53"
+    with_body_sha: "41aa576bd62a"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.tree.md
     source: docs/explanation/.assets/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png

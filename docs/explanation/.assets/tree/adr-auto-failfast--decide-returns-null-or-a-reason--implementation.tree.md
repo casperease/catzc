@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "32ee109261b8"
+    with_body_sha: "695fba569d74"
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png

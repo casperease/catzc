@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "58913b4b5993"
+    with_body_sha: "441b234415f3"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md
     source: docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png

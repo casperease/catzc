@@ -14,17 +14,17 @@ loaded against a root reads that root's `.catzc/` as its overlay; a fragment the
 
 ### Rule ADR-AUTO-OVERLAY:2
 
-A file under `.catzc/automation/` sits at the same relative path as the thing it changes under the bundle's code root. The path alone says
-what is changed; there is no list of overrides to keep in step with the files.
+A file under `.catzc/pwsh/` sits at the same relative path as the thing it changes under the bundle's code root. The path alone says what is
+changed; there is no list of overrides to keep in step with the files.
 
 - [The location is the meaning](#the-location-is-the-meaning)
 
 ### Rule ADR-AUTO-OVERLAY:3
 
-Under `.catzc/automation/<Module>/`, where `<Module>` is a bundled module, the only entries are a public function override (a public
-function file at the folder's root, named for its function), a private function override (a private function file under `private/`), a
-config fragment (`configs/<config>.yml`), an asset override (`assets/<path>`), and local tests (`tests/<path>`). Anything else there is
-rejected. A folder that names no bundled module is a local module ([ADR-AUTO-OVERLAY#9](#rule-adr-auto-overlay9)).
+Under `.catzc/pwsh/<Module>/`, where `<Module>` is a bundled module, the only entries are a public function override (a public function file
+at the folder's root, named for its function), a private function override (a private function file under `private/`), a config fragment
+(`configs/<config>.yml`), an asset override (`assets/<path>`), and local tests (`tests/<path>`). Anything else there is rejected. A folder
+that names no bundled module is a local module ([ADR-AUTO-OVERLAY#9](#rule-adr-auto-overlay9)).
 
 - [Override points](#override-points)
 
@@ -73,7 +73,7 @@ the shipped configs.
 
 ### Rule ADR-AUTO-OVERLAY:9
 
-A **local module** is a folder under `.catzc/automation/` that names no bundled module: the consumer's own module, following catzc's module
+A **local module** is a folder under `.catzc/pwsh/` that names no bundled module: the consumer's own module, following catzc's module
 conventions — folder = module, a public function per root function file, private function files under `private/`, `configs/` found by
 `Get-Config`, `assets/` found by the one content lookup. It never takes the reserved `Catzc.` prefix, carries no `types/`, and has no public
 function that takes the name of a command already loaded. It loads after the bundled modules and their overrides, so it calls the bundle as
@@ -103,7 +103,7 @@ output goes to the working root's `out/`, like every other output.
 
 ### The location is the meaning
 
-`.catzc/automation/` mirrors the bundle's code root, path for path. `.catzc/pwsh/Catzc.Azure/configs/azure.yml` changes the bundled
+`.catzc/pwsh/` mirrors the bundle's code root, path for path. `.catzc/pwsh/Catzc.Azure/configs/azure.yml` changes the bundled
 `Catzc.Azure/configs/azure.yml`; `.catzc/pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1` replaces the public function `Invoke-AzCli` of
 `Catzc.Azure.Cli`. Because the path is the declaration, there is nothing to register and nothing that can disagree with the files.
 `Get-CatzcOverlay` lists what the overlay holds, each entry classified by where it sits.
@@ -146,7 +146,7 @@ not exist, so they are sealed in the one place every config is registered.
 
 `Assert-CatzcOverlay` checks every entry against these rules and reports every violation at once; `Import-CatzcOverlay` runs it before it
 applies anything, so an overlay applies whole or not at all, and a consumer's pipeline can run it alone to fail early. In source mode there
-is no bundle to change — the catzc tree is `automation/` itself — so the overlay is not read.
+is no bundle to change — the catzc tree is `pwsh/` itself — so only the overlay's config fragments are read, merged by `Get-Config`.
 
 ### Local modules
 

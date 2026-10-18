@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04aa04723da5"
+    with_body_sha: d846019cd19c
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.grid.md
     source: docs/explanation/.assets/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png

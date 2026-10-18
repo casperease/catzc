@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b407a24d7b20
+    with_body_sha: "2f61db40bc8c"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-life--merging-to-main-is-what-deploys--operations.grid.md
     source: docs/explanation/.assets/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png

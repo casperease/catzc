@@ -65,6 +65,6 @@ from what the ADR and the type system define; the two are read here, and no rule
 
 ## See also
 
-- [Unboxing is cheap, the type tests and crossings around it are not](unboxing-is-cheap-and-crossings-are-not.md)
+- [Unboxing is cheap, the type tests and crossings around it are not](../pwsh/unboxing-is-cheap-and-crossings-are-not.md)
 - [caching](../../adr/automation/caching.md) and [script-scope-caching](../../adr/pwsh/script-scope-caching.md)
 - [Automation explanations](index.md)

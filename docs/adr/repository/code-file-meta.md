@@ -18,12 +18,12 @@ into the head's code.
 A head holds only facts the repository can compute and that change when the file's place or tier changes: `path` (the repository-relative
 path), `role` (the class of the file, the name of the file-kinds registry entry that selects it, never its language, track or module: a
 `type`, a `test`, a `gate`, a `function`), `language` (the file language, from the languages registry), `track` (the root concern that holds
-the file), `module` (the folder under `automation/`, when the file is placed in one), for a PowerShell file `visibility` (`private` or
-`public`, from the folder), all place facts under `immutable`, and the edges under `edges`: `cites`, the ADR codes that bind the file,
-sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`, and `page` and `test`
-([ADR-REPO-FILEMETA#10](file-meta.md#rule-adr-repo-filemeta10)). For a C# type file, a PowerShell function file and a PowerShell test file
-the head holds `cites`: each code the file and its comment page cite that the ADR index registers, so a fixture code or a placeholder named
-in prose is no citation, derived on every run and never read back from the head
+the file), `module` (the folder under the modules track's place, when the file is placed in one), for a PowerShell file `visibility`
+(`private` or `public`, from the folder), all place facts under `immutable`, and the edges under `edges`: `cites`, the ADR codes that bind
+the file, sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`, and `page` and
+`test` ([ADR-REPO-FILEMETA#10](file-meta.md#rule-adr-repo-filemeta10)). For a C# type file, a PowerShell function file and a PowerShell test
+file the head holds `cites`: each code the file and its comment page cite that the ADR index registers, so a fixture code or a placeholder
+named in prose is no citation, derived on every run and never read back from the head
 ([ADR-REPO-FILEMETA#14](file-meta.md#rule-adr-repo-filemeta14)). An authored code file never holds a hash of the body, which would change on
 every edit and make every edit a two-hunk diff; a generated one opens with it ([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)),
 since its writer rewrites the whole file and the stamp says which content it composed. The facts sit under `immutable` and `edges`, as in

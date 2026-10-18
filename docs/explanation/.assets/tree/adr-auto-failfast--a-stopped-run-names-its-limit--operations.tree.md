@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a5a6bc4d460d
+    with_body_sha: f082a83c2be7
     repo_status: locked
     path: docs/explanation/.assets/tree/adr-auto-failfast--a-stopped-run-names-its-limit--operations.tree.md
     source: docs/explanation/.assets/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.png

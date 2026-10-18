@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "53002bf6e503"
+    with_body_sha: "26accdd06cf8"
     repo_status: locked
     path: docs/explanation/.assets/grid/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.grid.md
     source: docs/explanation/.assets/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png
