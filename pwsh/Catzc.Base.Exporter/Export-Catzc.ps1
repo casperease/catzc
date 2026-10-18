@@ -38,7 +38,7 @@ function Export-Catzc {
     $built = Build-Modules @buildArguments
 
     if ($To -eq 'nuget') {
-        $package = New-CatzcNuGetPackage -Source $built.BuildRoot -DestinationPath (Join-Path (Get-OutputRoot -EnsureExists) 'automation/packages')
+        $package = New-CatzcNuGetPackage -Source $built.BuildRoot -DestinationPath (Join-Path (Get-OutputRoot -EnsureExists) 'pwsh/packages')
         if (-not $Silent) {
             Write-Message "Packed Catzc $($package.Version) ($($package.FunctionCount) functions) -> $(ConvertTo-RepoRelativePath $package.NuPkg)"
         }

@@ -6,22 +6,22 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc', 'widgets/.vendor', 'docs/references/automation') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null
         }
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/automation/catzc-azure-devops.md'), '# x')
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/automation/catzc-base-files.md'), '# x')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-azure-devops.md'), '# x')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-base-files.md'), '# x')
     }
 
     It 'derives a kebab source per matched non-dot folder whose source exists' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
             @($result.folder) | Should -Contain 'widgets/Catzc.Azure.DevOps'
             @($result.folder) | Should -Contain 'widgets/Catzc.Base.Files'
             ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source |
-                Should -Be 'docs/references/automation/catzc-azure-devops.md'
+                Should -Be 'docs/references/pwsh/catzc-azure-devops.md'
         }
     }
 
@@ -29,7 +29,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
@@ -41,7 +41,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })
                 mappings = @()
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
@@ -53,7 +53,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)
             $config = [pscustomobject]@{
-                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/automation/{kebab}.md' })
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })
                 mappings = @([pscustomobject]@{ folder = 'widgets/Catzc.Azure.DevOps'; source = 'docs/custom/override.md' })
             }
             $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root

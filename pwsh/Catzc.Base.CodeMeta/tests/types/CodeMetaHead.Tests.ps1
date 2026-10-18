@@ -54,7 +54,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
         }
 
         It 'rewrites a stale value and collapses the blank lines after the head, keeping the rest as written' {
-            $stale = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: automation/Old/Get-Gadget.ps1', '    module: Old', '---', '*/', '', '', '// The insight.', 'class Gadget { }', ''
+            $stale = & $script:lf '/*', '---', 'catzc:', '  immutable:', '    path: pwsh/Old/Get-Gadget.ps1', '    module: Old', '---', '*/', '', '', '// The insight.', 'class Gadget { }', ''
             & $script:head $stale | Should -BeExactly ($script:written + "`n`n" + (& $script:lf '// The insight.', 'class Gadget { }', ''))
         }
 
@@ -105,7 +105,7 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FIL
     Context 'stripping an old head' {
         It 'removes the whole run of an opener the form strips and writes the head once' {
             $form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/', [Catzc.Base.CodeMeta.HeadAnchor]::Start, 0, [string[]] @('// catzc:'))
-            $old = & $script:lf '// catzc:', '//   path: automation/Old/Get-Gadget.ps1', '//   module: Old', '', '// The insight.', 'class Gadget { }', ''
+            $old = & $script:lf '// catzc:', '//   path: pwsh/Old/Get-Gadget.ps1', '//   module: Old', '', '// The insight.', 'class Gadget { }', ''
             $result = & $script:head $old $form
             $result | Should -BeExactly ($script:written + "`n`n" + (& $script:lf '// The insight.', 'class Gadget { }', ''))
             & $script:head $result $form | Should -BeExactly $result

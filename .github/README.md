@@ -5,7 +5,7 @@
 **C**loud **A**utomation **T**oolkit, **Z**ero-**C**eremony — a PowerShell 7.4+ module system for monorepos, with Azure/Bicep
 infrastructure-as-code and Azure DevOps pipelines, built on one founding rule: **zero ceremony**.
 
-**Drop a file, get a function** — no manifests, no installers, no configuration. Copy `automation/` and `importer.ps1` into your repo and
+**Drop a file, get a function** — no manifests, no installers, no configuration. Copy `pwsh/` and `importer.ps1` into your repo and
 everything is self-contained: vendored dependencies, no network calls, no global state.
 
 In code the system is **catzc** — the `Catzc.*` modules and namespaces; in prose we call it **cats** ("ask cats").

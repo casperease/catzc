@@ -61,13 +61,11 @@ verification found.
 - [x] Decide the minimaps of the other slides: keep the rebuild or revert it (check: git status under docs/.assets/explanation lists only
       the slides meant to change). Decided 2026-10-18 (D05): keep the rebuild.
 - [ ] Test-Comments lists 36 issues in files outside this change and Test-Glossary flags bare terms in plan text; clear them in their
-      owners' plans (check: Test-Comments and Test-Glossary report none). Counted 2026-10-17 (its task): Test-Comments has 11 issues left,
-      every one a comment page whose section names a code line the file no longer has (`out/test-comments/20261017-175227`):
-      `PropertyHead.cs.md`, `MarkdownMetaBlock.cs.md` (2) and `file-meta.yml.md`, already context lines of
-      plan-file-head-immutable-edges-classes (Q48); `MarkdownDocument.cs.md`, `ConsoleText.cs.md` (2), `DictionaryRecord.cs.md`,
-      `Get-ModuleGlobSet.ps1.md`, `Catzc.Internal.Importer.psm1.md` and `Catzc.Internal.Builder.psm1.md`, whose sources peers edited today
-      and no plan owns; the fix is Export-Comments by whoever next holds each source. The glossary findings are one step of
-      plan-clear-actions, file by file.
+      owners' plans (check: Test-Comments and Test-Glossary report none). 2026-10-18: a peer re-pointed the PropertyHead, MarkdownDocument,
+      MarkdownMetaBlock and file-meta.yml sections and moved the ConsoleText and DictionaryRecord orphans to `TypeShape.cs.md`; reported
+      left, not re-run here: `Get-ModuleGlobSet.ps1.md` comment:4 (its `$internalRoot` line is gone) and `variants.yml.md` comment:4,
+      each a section naming a code line the file no longer has; the fix is Export-Comments by whoever next holds each source. The
+      glossary findings are one step of plan-clear-actions, file by file.
 - [ ] Delete this plan when the steps above are done and the decisions live in ADR-AUTO-MODULE (check: no file in .claude/plans names it).
 
 ## Refs

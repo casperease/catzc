@@ -9,7 +9,7 @@ Describe 'Get-CatsAdrIndex' -Tag 'L0', 'logic' {
             '| Code | ADR |'
             '| ---- | --- |'
             '| `ADR-ALPHA` | [alpha-thing](principles/alpha-thing.md) |'
-            '| `ADR-BETA`  | [beta-thing](automation/beta-thing.md) |'
+            '| `ADR-BETA`  | [beta-thing](pwsh/beta-thing.md) |'
             ''
             'Prose that mentions `ADR-ALPHA` inline is not a table row and must not be parsed.'
         ) -join "`n"

@@ -83,7 +83,7 @@ concepts:
     short:
       One file of tests that discovery maps to one catzc module — the unit a test run schedules, never split; in pwsh a Verb-Noun.Tests.ps1
       under tests/.
-    realized_by: { kind: file-pattern, pattern: "automation/*/tests/**/*.Tests.ps1" }
+    realized_by: { kind: file-pattern, pattern: "pwsh/*/tests/**/*.Tests.ps1" }
     contrasts:
       test block: A test block is a Describe or Context inside a test file; a test file is the file that holds them.
     avoid:
@@ -153,7 +153,7 @@ concepts:
     short:
       A named, declared selection of tests that runs as one unit — a globset's verify scope in globs.yml (modules up to a tier), run with
       Test-Automation -Suite.
-    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Globs/configs/globs.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs.yml" }
     contrasts:
       all tests: All tests is every test there is; a test suite is a named selection, usually a few modules up to a tier.
       test run: A test run executes a selection, a test suite or an ad-hoc one; a test suite is the declared selection at rest.

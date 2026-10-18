@@ -11,14 +11,14 @@ aspects:
     - live: ["**"]
 
 tracks:
-  automation:
+  pwsh:
     {
-      places: [automation],
+      places: [pwsh],
       type: modules,
       languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
       execution_engines: [pwsh],
     }
-  automation-vendor: { places: [automation/.vendor], type: vendored-code }
+  pwsh-vendor: { places: [pwsh/.vendor], type: vendored-code }
   infrastructure:
     { places: [infrastructure/templates, infrastructure/modules], type: infrastructure, vendor: azure, languages: [bicep, yaml] }
   pipelines: { places: [pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }

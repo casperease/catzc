@@ -37,9 +37,9 @@ sections:
       third-party modules ship their own authored manifests, and the authored analyzer config under .internal/assets is a config file that
       merely shares the extension, so both opt back in past the glob.
     patterns:
-      - automation/**/*.psd1
-      - { pattern: "!automation/.vendor/**/*.psd1", note: "vendored modules ship their own manifests" }
-      - { pattern: "!automation/.internal/assets/PSScriptAnalyzerSettings.psd1", note: "authored analyzer source" }
+      - pwsh/**/*.psd1
+      - { pattern: "!pwsh/.vendor/**/*.psd1", note: "vendored modules ship their own manifests" }
+      - { pattern: "!pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1", note: "authored analyzer source" }
 
   - id: root-config
     title: Managed root-config copies
@@ -59,8 +59,8 @@ sections:
     patterns:
       - "**/README.md"
       - "!.github/README.md"
-      - "!automation/.vendor/**/README.md"
-      - "!automation/Catzc.Azure.Templates/tests/assets/README.md"
+      - "!pwsh/.vendor/**/README.md"
+      - "!pwsh/Catzc.Azure.Templates/tests/assets/README.md"
       - {
           pattern: "!contracts/*/**/README.md",
           note: "a contract asset named README.md pins its target; contracts/README.md stays generated",
@@ -69,20 +69,20 @@ sections:
   - id: compiled-types
     title: Compiled C# types — transient temp only
     why: >
-      The combined compiled assembly (automation/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed prebuild that lets
+      The combined compiled assembly (pwsh/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed prebuild that lets
       a fresh checkout and CI load without compiling (see docs/adr/automation/caching.md). Only the concurrent-compile temp file is ignored.
     patterns:
-      - automation/.compiled/*.tmp
+      - pwsh/.compiled/*.tmp
 
   - id: ide-build
     title: IDE-only C# project build output
     why: >
-      The root catzc.sln references automation/.internal/assets/Catzc.Types.csproj for editor tooling, and MSBuild emits obj/bin next to
+      The root catzc.sln references pwsh/.internal/assets/Catzc.Types.csproj for editor tooling, and MSBuild emits obj/bin next to
       that project. The runtime never builds it (Add-Type compiles the type sources at import), so its MSBuild artifacts are transient and
       vscode consumed only. The automation types system builds via the internal builder, no csproj or sln involved.
     patterns:
-      - automation/.internal/assets/obj/
-      - automation/.internal/assets/bin/
+      - pwsh/.internal/assets/obj/
+      - pwsh/.internal/assets/bin/
 
   - id: agent-hook-build
     title: Agent hook build output

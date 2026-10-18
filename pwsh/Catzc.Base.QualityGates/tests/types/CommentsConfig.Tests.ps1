@@ -8,7 +8,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.IsKept('yaml', '# cspell:ignore widgt') | Should -BeTrue
         $config.KeepFor('gadget').Count | Should -Be 0
         $config.pages.Count | Should -Be 4
-        $config.pages[0].source | Should -Be 'automation/*'
+        $config.pages[0].source | Should -Be 'pwsh/*'
         $config.view | Should -Be 'out/annotated'
         $config.IsExcluded('test') | Should -BeTrue
         $config.IsExcluded('fixture') | Should -BeTrue
@@ -39,20 +39,20 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
 
     It 'maps a file to its comment page: the extension stays, the module folder is kebab-cased' -Tag 'ADR-REPO-COMMENTS#3' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
-        $config.PageFor('automation/Catzc.Widget.Gadgets/private/Get-Gadget.ps1') |
-            Should -Be 'docs/references/automation/catzc-widget-gadgets/private/Get-Gadget.ps1.md'
-        $config.PageFor('automation/Catzc.Widget.Gadgets/configs/gadgets.yml') |
-            Should -Be 'docs/references/automation/catzc-widget-gadgets/configs/gadgets.yml.md'
+        $config.PageFor('pwsh/Catzc.Widget.Gadgets/private/Get-Gadget.ps1') |
+            Should -Be 'docs/references/pwsh/catzc-widget-gadgets/private/Get-Gadget.ps1.md'
+        $config.PageFor('pwsh/Catzc.Widget.Gadgets/configs/gadgets.yml') |
+            Should -Be 'docs/references/pwsh/catzc-widget-gadgets/configs/gadgets.yml.md'
         $config.PageFor('pipelines/widget/build.yaml') | Should -Be 'docs/references/pipelines/widget/build.yaml.md'
-        $config.PageFor('.claude/hooks/Gadget/Program.cs') | Should -Be 'docs/references/automation/claude-hooks/Gadget/Program.cs.md'
+        $config.PageFor('.claude/hooks/Gadget/Program.cs') | Should -Be 'docs/references/pwsh/claude-hooks/Gadget/Program.cs.md'
     }
 
     It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-REPO-COMMENTS#3' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $config.PageFor('docs/adr/index.md') | Should -BeNullOrEmpty
-        $config.PageFor('automation/.vendor/Gadget/Gadget.psm1') | Should -BeNullOrEmpty
-        $config.PageFor('automation/importer.ps1') | Should -BeNullOrEmpty
-        $config.PageFor('automation/Catzc.Widget.Gadgets') | Should -BeNullOrEmpty
+        $config.PageFor('pwsh/.vendor/Gadget/Gadget.psm1') | Should -BeNullOrEmpty
+        $config.PageFor('pwsh/importer.ps1') | Should -BeNullOrEmpty
+        $config.PageFor('pwsh/Catzc.Widget.Gadgets') | Should -BeNullOrEmpty
         $config.PageFor('') | Should -BeNullOrEmpty
     }
 

@@ -7,29 +7,29 @@ default_line_limit: 140
 
 string_citations:
   exempt:
-    automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1: its fixtures carry the ':' form the aligner respells
-    automation/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1: its fixtures carry the ':' form the gate reports
-    automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1: a ':' test tag is the malformed tag it proves is refused
-    automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1: a ':' test tag is the malformed tag it proves is reported
-    automation/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1:
+    pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1: its fixtures carry the ':' form the aligner respells
+    pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1: its fixtures carry the ':' form the gate reports
+    pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1: a ':' test tag is the malformed tag it proves is refused
+    pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1: a ':' test tag is the malformed tag it proves is reported
+    pwsh/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1:
       a ':' citation is the malformed mapping it proves is refused
-    automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1: a ':' citation is the malformed defined_by it proves is refused
-    automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1:
+    pwsh/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1: a ':' citation is the malformed defined_by it proves is refused
+    pwsh/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1:
       its fixtures are rule ids in registry form, the '### Rule' heading key Get-CatsAdrRuleIds returns
-    automation/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1:
+    pwsh/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1:
       its fixtures are rule ids in registry form, the '### Rule' heading key Get-CatsAdrRules returns
-    automation/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1:
+    pwsh/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1:
       its fixtures are rule ids in registry form, the '### Rule' heading key its statements are keyed by
-    automation/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1:
+    pwsh/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1:
       its Get-CatsAdrRules mocks return rule ids in registry form, the '### Rule' heading key
-    automation/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1:
+    pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1:
       its Get-CatsAdrRuleIds mock returns rule ids in registry form, the '### Rule' heading key
-    automation/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1:
+    pwsh/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1:
       its Get-CatsAdrRuleIds mocks return rule ids in registry form, the '### Rule' heading key
-    automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1:
+    pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1:
       its rule-map fixtures carry rule ids in registry form, the '### Rule' heading key a rule map is keyed by
-    automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1: a ':' citation is the '### Rule' heading text it proves is slugged
-    automation/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1: a ':' citation is the form it proves is canonicalised to '#'
-    automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1: a ':' citation is the form it proves a highlight request accepts
-    automation/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1: a ':' citation is the form it proves the scan reads
-    automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1: a ':' citation is the form it proves a highlight request accepts
+    pwsh/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1: a ':' citation is the '### Rule' heading text it proves is slugged
+    pwsh/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1: a ':' citation is the form it proves is canonicalised to '#'
+    pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1: a ':' citation is the form it proves a highlight request accepts
+    pwsh/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1: a ':' citation is the form it proves the scan reads
+    pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1: a ':' citation is the form it proves a highlight request accepts

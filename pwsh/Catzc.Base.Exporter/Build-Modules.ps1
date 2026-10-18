@@ -25,7 +25,7 @@ function Build-Modules {
 
         [string] $Version = 'auto',
 
-        [string] $Destination = (Join-Path (Get-OutputRoot) "automation/built/$Bundle"),
+        [string] $Destination = (Join-Path (Get-OutputRoot) "pwsh/built/$Bundle"),
 
         [switch] $DryRun,
 

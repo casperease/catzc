@@ -79,8 +79,8 @@ kinds:
             - { paths: ["{page}"] }
         - name: test
           rules:
-            - { classes: [type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
-            - { classes: [function], paths: ["automation/{module}/tests/{stem}.Tests.ps1"] }
+            - { classes: [type], paths: ["pwsh/{module}/tests/types/{stem}.Tests.ps1"] }
+            - { classes: [function], paths: ["pwsh/{module}/tests/{stem}.Tests.ps1"] }
 
   # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
   adr-defines:

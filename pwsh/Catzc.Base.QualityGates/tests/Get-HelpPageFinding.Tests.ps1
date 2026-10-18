@@ -3,7 +3,7 @@ Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP#4' {
         $script:code = "function Get-Widget {`n    [CmdletBinding()]`n    [OutputType([string])]`n    param(`n        [string] `$Name,`n        [switch] `$Force`n    )`n}`n"
         $script:page = {
             param([string] $Body)
-            "# automation/Catzc.Widget/Get-Widget.ps1`n`nThe intro.`n`n## help`n`n$Body"
+            "# pwsh/Catzc.Widget/Get-Widget.ps1`n`nThe intro.`n`n## help`n`n$Body"
         }
         $script:find = {
             param([string] $Text, [string] $PageText)

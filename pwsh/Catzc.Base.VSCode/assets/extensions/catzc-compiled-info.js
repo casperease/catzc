@@ -1,5 +1,5 @@
-// A read-only editor for the committed automation/.compiled/Catzc.Types.<hash>.dll: a short note instead of the binary screen.
-// The current hash is computed from automation/<module>/types/*.cs with the algorithm of Import-CSharpTypes (ADR-AUTO-CACHE#8):
+// A read-only editor for the committed pwsh/.compiled/Catzc.Types.<hash>.dll: a short note instead of the binary screen.
+// The current hash is computed from pwsh/<module>/types/*.cs with the algorithm of Import-CSharpTypes (ADR-AUTO-CACHE#8):
 // per file the SHA-256 of the bytes without CR, upper-hex; one "<module>/<type>|<hex>\n" line per file in ordinal order;
 // the first 8 hex of the SHA-256 of that text, lower-cased.
 
@@ -39,7 +39,7 @@ function render(file) {
     const verdict = isCurrent
         ? `This is the current build for <code>${escape(name)}</code>.`
         : `This is <b>not</b> the current build. The sources need <code>Catzc.Types.${current}.dll</code>. ` +
-          "Dot-source <code>./importer.ps1</code>, then stage <code>automation/.compiled</code>.";
+          "Dot-source <code>./importer.ps1</code>, then stage <code>pwsh/.compiled</code>.";
     return `<!doctype html><html><head><meta charset="utf-8"><style>
         body { font-family: var(--vscode-font-family); color: var(--vscode-foreground); padding: 1.5rem; max-width: 60rem; line-height: 1.5; }
         h2 { font-weight: 600; } code, pre { font-family: var(--vscode-editor-font-family); }

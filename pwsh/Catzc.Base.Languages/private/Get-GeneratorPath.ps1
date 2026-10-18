@@ -11,7 +11,7 @@ function Get-GeneratorPath {
     $file = $command.ScriptBlock.File
     Assert-NotNull $file -ErrorText "Get-GeneratorPath: '$Name' was not loaded from a file, so a head cannot name its path."
     Assert-NotNull $command.Module -ErrorText "Get-GeneratorPath: '$Name' belongs to no module, so the root its code lives in is unknown."
-    # Relative to the root the code lives in (the parent of automation/), which is the working repository root only in the mono repo.
+    # Relative to the root the code lives in (the parent of pwsh/), which is the working repository root only in the mono repo.
     $codeRoot = Split-Path -Parent (Split-Path -Parent $command.Module.ModuleBase)
     [System.IO.Path]::GetRelativePath($codeRoot, $file) -replace '\\', '/'
 }

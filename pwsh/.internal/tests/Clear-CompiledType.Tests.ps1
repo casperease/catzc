@@ -10,7 +10,7 @@ Describe 'Clear-CompiledType' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap
 
-        # $root stands in for the automation/ dir; the combined assembly cache is its .compiled/ child.
+        # $root stands in for the pwsh/ dir; the combined assembly cache is its .compiled/ child.
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:compiled = Join-Path $root '.compiled'
         New-Item -Path $compiled -ItemType Directory -Force | Out-Null

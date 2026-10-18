@@ -3,7 +3,7 @@
 Describe 'CommentEngine' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
-        $script:page = 'docs/references/automation/catzc-widget/Get-Widget.ps1.md'
+        $script:page = 'docs/references/pwsh/catzc-widget/Get-Widget.ps1.md'
         $script:export = {
             param([string] $Text, [string] $Extension = '.ps1', [string] $Language = 'powershell', [string] $PageText = $null)
             [Catzc.Base.QualityGates.CommentEngine]::Export($Text, $Extension, $Language, 'widgets/Catzc.Widget/Get-Widget.ps1',

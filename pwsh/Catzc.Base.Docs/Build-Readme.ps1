@@ -12,7 +12,7 @@ function Build-Readme {
         [switch] $PassThru
     )
 
-    # The READMEs live in the source tree's folders (automation/<Module>/README.md and the like).
+    # The READMEs live in the source tree's folders (pwsh/<Module>/README.md and the like).
     Assert-SourceTree
 
     $config = Get-Config -Config readme

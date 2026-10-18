@@ -6,7 +6,7 @@ function Get-CatzcOverlayRoot {
     if ((Get-CatzcRunMode) -ne 'build') {
         return
     }
-    $overlayRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) '.catzc/automation'))
+    $overlayRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) '.catzc/pwsh'))
     if ([System.IO.Directory]::Exists($overlayRoot)) {
         $overlayRoot
     }

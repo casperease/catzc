@@ -1,6 +1,6 @@
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
-$script:modulesFolder = 'automation'
+$script:modulesFolder = 'pwsh'
 
 function Invoke-Importer {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Importer console output runs before the module system (Write-Message) is available')]
@@ -220,7 +220,7 @@ function Invoke-ConsumerOverlay {
     $overrides = @($applied | Where-Object { $_.Kind -eq 'FunctionOverride' }).Count
     $locals = @($applied | Where-Object { $_.Kind -eq 'LocalModule' }).Count
     if ($applied.Count -gt 0) {
-        Write-ImporterMessage "Overlay: $overrides function override(s) applied, $locals local module(s) loaded from .catzc/automation" -StateChange
+        Write-ImporterMessage "Overlay: $overrides function override(s) applied, $locals local module(s) loaded from .catzc/$($script:modulesFolder)" -StateChange
     }
 }
 

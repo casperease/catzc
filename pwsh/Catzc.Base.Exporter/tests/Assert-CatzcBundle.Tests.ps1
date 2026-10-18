@@ -16,7 +16,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             & $write '.internal/assets/types-load.yml' 'cells: {}'
             & $write '.vendor/powershell-yaml/0.4.12/Tests/yaml.Tests.ps1' '# vendored verbatim, allowed'
             & $write 'Catzc.Base.Widget/Catzc.Base.Widget.psd1' "@{ NestedModules = @('Catzc.Base.Widget.functions.ps1'); FunctionsToExport = @('Get-Widget') }"
-            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1' "# source: automation/Catzc.Base.Widget/private/Get-WidgetPart.ps1`nfunction Get-WidgetPart { 'part' }`n# source: automation/Catzc.Base.Widget/Get-Widget.ps1`nfunction Get-Widget { Get-WidgetPart }`n"
+            & $write 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1' "# source: pwsh/Catzc.Base.Widget/private/Get-WidgetPart.ps1`nfunction Get-WidgetPart { 'part' }`n# source: pwsh/Catzc.Base.Widget/Get-Widget.ps1`nfunction Get-Widget { Get-WidgetPart }`n"
             & $write 'Catzc.Base.Widget/configs/widget.yml' 'size: 1'
             & $write 'Catzc.Base.Widget/types/Widget.cs' 'namespace Catzc.Base.Widget; public class Widget { }'
             & $write '.compiled/types/Catzc.Base.Gadget/Gadget.cs' 'namespace Catzc.Base.Gadget; public class Gadget { }'

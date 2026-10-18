@@ -11,7 +11,7 @@ function Install-Catzc {
 
         [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
 
-        [string] $Source = (Join-Path (Get-OutputRoot) "automation/built/$Bundle/Catzc/$((Get-Config -Config exporter).direct_install_version)"),
+        [string] $Source = (Join-Path (Get-OutputRoot) "pwsh/built/$Bundle/Catzc/$((Get-Config -Config exporter).direct_install_version)"),
         [switch] $Force,
         [switch] $DryRun,
         [switch] $Silent

@@ -26,7 +26,7 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
             & $script:writeFile $root "$(Get-CatzcModulesFolder)/Catzc.Widget/assets/root/gadget.yml" "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
             $root
         }
-        $script:pageRelative = 'docs/references/automation/catzc-widget/Get-Widget.ps1.md'
+        $script:pageRelative = 'docs/references/pwsh/catzc-widget/Get-Widget.ps1.md'
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
     }
 

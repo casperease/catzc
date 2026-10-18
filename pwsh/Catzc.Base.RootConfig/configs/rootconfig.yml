@@ -1,16 +1,16 @@
 files:
   - target: PSScriptAnalyzerSettings.psd1
-    source: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+    source: pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
     copyAsLink: true
     optIn: true
   - target: importer.ps1
     generator: New-Importer
     sources:
-      - automation/.internal/Catzc.Internal.Importer.psm1
+      - pwsh/.internal/Catzc.Internal.Importer.psm1
     committed: true
     optIn: true
   - target: importer.sh
-    source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
+    source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
     committed: true
     optIn: true
   - target: importer-commands.sh
@@ -22,121 +22,121 @@ files:
   - target: .vscode/settings.json
     generator: New-VSCodeSettings
     sources:
-      - automation/Catzc.Base.VSCode/configs/vscode-settings.yml
-      - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
-      - automation/Catzc.Base.Languages/configs/languages.yml
+      - pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
+      - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Catzc.Base.Languages/configs/languages.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/extensions.json
     generator: New-VSCodeExtensions
     sources:
-      - automation/Catzc.Base.VSCode/configs/vscode-extensions.yml
-      - automation/Catzc.Base.Languages/configs/languages.yml
+      - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
+      - pwsh/Catzc.Base.Languages/configs/languages.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/launch.json
     generator: New-VSCodeLaunch
     sources:
-      - automation/Catzc.Base.VSCode/configs/vscode-launch.yml
+      - pwsh/Catzc.Base.VSCode/configs/vscode-launch.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/tasks.json
     generator: New-VSCodeTasks
     sources:
-      - automation/Catzc.Base.VSCode/configs/vscode-tasks.yml
+      - pwsh/Catzc.Base.VSCode/configs/vscode-tasks.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/azure-pipelines-schema.json
     generator: New-VSCodePipelineSchema
     sources:
-      - automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
+      - pwsh/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
     carrier: json-schema
     optIn: true
   - target: go.work
     generator: New-GoWorkspace
     sources:
-      - automation/Catzc.Base.Languages/configs/go.yml
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Catzc.Base.Languages/configs/go.yml
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
   - target: "*/tests/*/go.mod"
     generator: New-GoWorkspace
     sources:
-      - automation/Catzc.Base.Languages/configs/go.yml
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Catzc.Base.Languages/configs/go.yml
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
   - target: "*/pyproject.toml"
     generator: New-PythonProject
     sources:
-      - automation/Catzc.Base.Languages/configs/python.yml
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Catzc.Base.Languages/configs/python.yml
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: toml
     optIn: true
   - target: "*/tests/*/pyproject.toml"
     generator: New-PythonProject
     sources:
-      - automation/Catzc.Base.Languages/configs/python.yml
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Catzc.Base.Languages/configs/python.yml
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: toml
     optIn: true
   - target: .vscode/markdown-preview-dark.css
-    source: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
+    source: pwsh/Catzc.Base.VSCode/assets/markdown-preview-dark.css
     copyAsLink: true
     optIn: true
   - target: .editorconfig
-    source: automation/Catzc.Base.RootConfig/assets/root/.editorconfig
+    source: pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig
     copyAsLink: true
     optIn: true
   - target: .markdownlint.yml
-    source: automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+    source: pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
     copyAsLink: true
     optIn: true
   - target: .markdownlintignore
-    source: automation/Catzc.Base.RootConfig/assets/root/.markdownlintignore
+    source: pwsh/Catzc.Base.RootConfig/assets/root/.markdownlintignore
     carrier: dotfile
     optIn: true
   - target: .prettierrc.yml
-    source: automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
+    source: pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
     copyAsLink: true
     optIn: true
   - target: .prettierignore
-    source: automation/Catzc.Base.RootConfig/assets/root/.prettierignore
+    source: pwsh/Catzc.Base.RootConfig/assets/root/.prettierignore
     carrier: dotfile
     optIn: true
   - target: .cspell/.gitignore
-    source: automation/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
+    source: pwsh/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
     carrier: dotfile
     optIn: true
   - target: cspell.yml
-    source: automation/Catzc.Base.RootConfig/assets/root/cspell.yml
+    source: pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml
     optIn: true
   - target: dotnet-tools.json
-    source: automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
+    source: pwsh/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
     copyAsLink: true
     optIn: true
-  - target: automation/.internal/assets/Catzc.Types.csproj
-    source: automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
+  - target: pwsh/.internal/assets/Catzc.Types.csproj
+    source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
     carrier: msbuild-project
     committed: true
     optIn: true
   - target: catzc.sln
-    source: automation/Catzc.Base.RootConfig/assets/root/catzc.sln
+    source: pwsh/Catzc.Base.RootConfig/assets/root/catzc.sln
     copyAsLink: true
     optIn: true
   - target: .gitattributes
     generator: New-GitAttributes
     sources:
-      - automation/Catzc.Base.RootConfig/assets/root/.gitattributes-template
-      - automation/Catzc.Base.Globs/configs/file-kinds.yml
+      - pwsh/Catzc.Base.RootConfig/assets/root/.gitattributes-template
+      - pwsh/Catzc.Base.Globs/configs/file-kinds.yml
     carrier: dotfile
     committed: true
     optIn: true
   - target: .gitignore
     generator: New-GitIgnore
     sources:
-      - automation/Catzc.Base.Git/configs/gitignore.yml
-      - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Catzc.Base.Git/configs/gitignore.yml
+      - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
     carrier: dotfile
     committed: true
     optIn: true

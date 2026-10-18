@@ -164,7 +164,7 @@ def markdown_page(path, section):
 
 
 REPO = Path(__file__).resolve().parents[2]
-CARRIERS = REPO / "automation/Catzc.Base.Languages/configs/file-carriers.yml"
+CARRIERS = REPO / "pwsh/Catzc.Base.Languages/configs/file-carriers.yml"
 
 
 def sidecar_rules():

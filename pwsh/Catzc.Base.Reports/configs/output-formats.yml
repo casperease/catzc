@@ -59,17 +59,17 @@ formats:
     audience: a person, in a spreadsheet; a script
     validator: { kind: csv }
 
-  # ---- the toolset's build (out/automation/) ----
+  # ---- the toolset's build (out/pwsh/) ----
   catzc-bundle:
     area: build
-    patterns: ["automation/built/*/Catzc/*"]
+    patterns: ["pwsh/built/*/Catzc/*"]
     target: folder
     producer: Build-Modules
     audience: Install-Catzc, and a person installing the toolset
     validator: { kind: delegate, command: Assert-CatzcBundle }
   catzc-package:
     area: build
-    patterns: ["automation/packages/*.nupkg"]
+    patterns: ["pwsh/packages/*.nupkg"]
     producer: Export-Catzc -To nuget
     audience: a NuGet feed, and Install-Catzc
     validator: { kind: zip, required_entries: ["*.nuspec"] }

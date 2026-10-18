@@ -1,6 +1,6 @@
 patterns:
-  - glob: automation/*
-    source: docs/references/automation/{kebab}.md
+  - glob: pwsh/*
+    source: docs/references/pwsh/{kebab}.md
 mappings:
   - folder: docs/adr
     source: docs/adr/index.md

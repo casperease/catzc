@@ -21,7 +21,7 @@ carriers:
   xml: { carrier: none, reason: "an XML comment may not contain '--', so the front matter fence would make the file invalid" }
   html: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
   # An XML comment cannot hold the fence and an editor's project loader refuses a processing instruction, so the block is a CDATA property of the project's first labelled property group.
-  msbuild-project: { files: ["automation/.internal/assets/Catzc.Types.csproj"], carrier: property, property: CatzcMeta }
+  msbuild-project: { files: ["pwsh/.internal/assets/Catzc.Types.csproj"], carrier: property, property: CatzcMeta }
   css: { carrier: comment-head, block: ["/*", "*/"] }
   javascript: { carrier: comment-head, block: ["/*", "*/"] }
 
@@ -54,7 +54,7 @@ carriers:
   reference-diagram:
     files: ["docs/references/.assets/**/*.drawio.png"]
     carrier: sidecar
-    sidecar: "docs/references/automation/*/{stem}.drawio.md"
+    sidecar: "docs/references/pwsh/*/{stem}.drawio.md"
   dotfile:
     {
       files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],
@@ -73,7 +73,7 @@ carriers:
     { files: ["**/*.dll", "**/*.pdb", "**/*.p7s"], carrier: none, reason: "a compiled or signed binary whose identity is its hash" }
   compiled-manifest:
     {
-      files: ["automation/.compiled/*.json"],
+      files: ["pwsh/.compiled/*.json"],
       carrier: none,
       reason: "written whole beside its types DLL by the importer, before any head function loads; the hash in both names is its identity",
     }

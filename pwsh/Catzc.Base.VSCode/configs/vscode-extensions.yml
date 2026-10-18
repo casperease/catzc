@@ -55,5 +55,5 @@ extensions:
         - viewType: catzc.compiledInfo
           displayName: Catzc compiled build
           selector:
-            - filenamePattern: "**/automation/.compiled/*.dll"
+            - filenamePattern: "**/pwsh/.compiled/*.dll"
           priority: default

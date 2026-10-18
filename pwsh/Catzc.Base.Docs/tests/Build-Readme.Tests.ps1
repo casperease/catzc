@@ -8,10 +8,10 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
             'Prose with a [sibling link](catzc-base-asserts.md) that resolves at the source location.'
         ) -join "`n"
         $script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} } -Files @{
-            'docs/references/automation/foo.md' = ($sourceText + "`n")
+            'docs/references/pwsh/foo.md' = ($sourceText + "`n")
         }
         $script:readme = Join-Path $script:fake.Root "$(Get-CatzcModulesFolder)/Catzc.Fixture/README.md"
-        $script:source = Join-Path $script:fake.Root 'docs/references/automation/foo.md'
+        $script:source = Join-Path $script:fake.Root 'docs/references/pwsh/foo.md'
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
@@ -20,7 +20,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
             [pscustomobject]@{
                 patterns = @()
                 mappings = @(
-                    [pscustomobject]@{ folder = "$(Get-CatzcModulesFolder)/Catzc.Fixture"; source = 'docs/references/automation/foo.md' }
+                    [pscustomobject]@{ folder = "$(Get-CatzcModulesFolder)/Catzc.Fixture"; source = 'docs/references/pwsh/foo.md' }
                 )
             }
         }
@@ -46,9 +46,9 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
                 ''
                 '# Fixture Title'
                 ''
-                '> Generated from [docs/references/automation/foo.md](../../docs/references/automation/foo.md) — edit the source;'
+                '> Generated from [docs/references/pwsh/foo.md](../../docs/references/pwsh/foo.md) — edit the source;'
                 ''
-                'Prose with a [sibling link](../../docs/references/automation/catzc-base-asserts.md) that resolves at the source location.'
+                'Prose with a [sibling link](../../docs/references/pwsh/catzc-base-asserts.md) that resolves at the source location.'
                 ''
             ) -join "`n")
     }
@@ -147,7 +147,7 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only
         $mapped = @($script:results.Folder)
         $violations = foreach ($module in $modules) {
             if ("$modulesFolder/$module" -notin $mapped) {
-                "$modulesFolder/$module has no docs/references/automation/<kebab>.md reference article"
+                "$modulesFolder/$module has no docs/references/pwsh/<kebab>.md reference article"
             }
         }
         @($violations) | Should -BeNullOrEmpty

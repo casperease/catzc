@@ -1,8 +1,8 @@
 engine_set:
   exempt:
-    automation/Catzc.Base.Engines/types/**: the model itself, the one place the engines are declared
-    docs/references/automation/catzc-base-engines/types/**: the model's comment pages, its comments moved verbatim (ADR-REPO-COMMENTS#2)
-    automation/Catzc.Base.Engines/tests/**: the model's own tests pin the names it declares
+    pwsh/Catzc.Base.Engines/types/**: the model itself, the one place the engines are declared
+    docs/references/pwsh/catzc-base-engines/types/**: the model's comment pages, its comments moved verbatim (ADR-REPO-COMMENTS#2)
+    pwsh/Catzc.Base.Engines/tests/**: the model's own tests pin the names it declares
     "**/tests/assets/engine-cases/**": the engine-case tables carry one column per engine by design
     .unordered/**: imports not yet sorted, held to no domain rule until they move (the catzc-unordered class, ADR-DSGN-TRACK#17)
   count_phrases:
@@ -13,48 +13,48 @@ engine_set:
 
 neutral_codes:
   exempt:
-    automation/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1: it asserts the analyzer's exact message, which cites its real rule
-    automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1: it asserts the type's declared default, which is the real contract code
-    automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
-    automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1: it asserts the gate's exact messages, which cite its real rules
-    automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1:
+    pwsh/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1: it asserts the analyzer's exact message, which cites its real rule
+    pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1: it asserts the type's declared default, which is the real contract code
+    pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1: it asserts the gate's exact messages, which cite its real rules
+    pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1:
       an integrity test over the shipped templates; its -Because message names the real rule they meet
-    automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1:
+    pwsh/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1:
       it asserts the findings' exact messages, which cite their real rule
-    automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
-    automation/Catzc.Base.Docs/tests/Get-Glossary*Violations.Tests.ps1:
+    pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    pwsh/Catzc.Base.Docs/tests/Get-Glossary*Violations.Tests.ps1:
       they assert the glossary checks' exact messages, which cite their real rules
-    automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1: it asserts the config's exact errors, which cite their real rule
-    automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
-    automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
-    automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1:
+    pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1: it asserts the config's exact errors, which cite their real rule
+    pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    pwsh/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1:
       the citation a covering test carries is the real rule the function looks for
-    automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1: it asserts the gate's exact message, which names its real ADR
+    pwsh/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1: it asserts the gate's exact message, which names its real ADR
 
 track_root_literal:
   exempt:
-    automation/.internal/Catzc.Internal.Importer.psm1: the one bootstrap constant, read before any registry loads (ADR-AUTO-LAYERS)
+    pwsh/.internal/Catzc.Internal.Importer.psm1: the one bootstrap constant, read before any registry loads (ADR-AUTO-LAYERS)
     importer.ps1: the root shim New-Importer renders from the modules folder; it loads the loader before anything can resolve a place
-    automation/.internal/assets/PSScriptAnalyzerSettings.psd1:
+    pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1:
       the analyzer reads its custom rule path relative to the repository root, and a .psd1 data file cannot call a resolver
-    automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1: the resolver, whose fallback outside an import is the same constant
-    automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1:
+    pwsh/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1: the resolver, whose fallback outside an import is the same constant
+    pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1:
       it compares the loaded modules against the source modules folder, which is that constant
-    automation/Catzc.Base.Exporter/Build-Modules.ps1:
-      its out/ area automation/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
-    automation/Catzc.Base.Exporter/Export-Catzc.ps1:
-      its out/ area automation/packages is named after the track (Q6), renamed with the output-formats.yml areas in P4
-    automation/Catzc.Base.Exporter/Install-Catzc.ps1:
-      its out/ area automation/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
-    automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1: it proves the resolver's fallback is the bootstrap constant
-    automation/Catzc.Base.Repository/tests/Get-CatzcOverlayRoot.Tests.ps1:
+    pwsh/Catzc.Base.Exporter/Build-Modules.ps1:
+      its out/ area pwsh/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
+    pwsh/Catzc.Base.Exporter/Export-Catzc.ps1:
+      its out/ area pwsh/packages is named after the track (Q6), renamed with the output-formats.yml areas in P4
+    pwsh/Catzc.Base.Exporter/Install-Catzc.ps1:
+      its out/ area pwsh/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
+    pwsh/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1: it proves the resolver's fallback is the bootstrap constant
+    pwsh/Catzc.Base.Repository/tests/Get-CatzcOverlayRoot.Tests.ps1:
       its consumer fixture is a source tree and an overlay named by the bootstrap constant, which the run mode and the overlay compare with
-    automation/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1:
+    pwsh/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1:
       it proves the run mode compares against the source modules folder, the same constant
-    automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1: it asserts the out/automation/built area of its exempt code (Q6)
-    automation/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1: it asserts the out/automation/packages area of its exempt code (Q6)
-    automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1: it asserts the out/automation/built area of its exempt code (Q6)
-    automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1:
+    pwsh/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1: it asserts the out/pwsh/built area of its exempt code (Q6)
+    pwsh/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1: it asserts the out/pwsh/packages area of its exempt code (Q6)
+    pwsh/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1: it asserts the out/pwsh/built area of its exempt code (Q6)
+    pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1:
       it tests CommentsConfig.DefaultPages, which mirrors comments.yml and is renamed with it in P4
-    automation/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1:
+    pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1:
       it names the real globset key automation, renamed with the pipeline names in P6 (S6)

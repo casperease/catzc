@@ -2,13 +2,13 @@ trigger:
   branches:
     include: [main]
   paths:
-    include: [automation/**]
+    include: [pwsh/**]
 
 pr:
   branches:
     include: [main]
   paths:
-    include: [automation/**]
+    include: [pwsh/**]
 
 jobs:
   - job: UnitTests

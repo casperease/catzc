@@ -6,7 +6,7 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllBytes((Join-Path $vendor 'widget.dll'), [byte[]](77, 90, 0, 1))
         [System.IO.File]::WriteAllBytes((Join-Path $vendor 'gadget.dll'), [byte[]](77, 90, 0, 2))
         [System.IO.File]::WriteAllText((Join-Path $vendor 'widget.psd1'), '@{ }')
-        # A binary outside automation/: the gate scans every tracked file, not just the vendored and compiled trees.
+        # A binary outside pwsh/: the gate scans every tracked file, not just the vendored and compiled trees.
         $docs = Join-Path $root 'docs'
         [void][System.IO.Directory]::CreateDirectory($docs)
         [System.IO.File]::WriteAllBytes((Join-Path $docs 'widget.pdf'), [byte[]](37, 80, 68, 70, 0, 3))

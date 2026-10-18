@@ -103,7 +103,7 @@ Describe 'New-GitAttributes — shipped assets/root/.gitattributes-template' -Ta
     It 'renders the shipped template through the shipped file-kinds registry with the placeholder filled' {
         $text = New-GitAttributes
         $text | Should -Not -Match '\{\{'
-        $text | Should -Match '(?m)^automation/\.compiled/\*\* binary$'
+        $text | Should -Match '(?m)^pwsh/\.compiled/\*\* binary$'
         $text | Should -Match '(?m)^\S+ .*catzc-'
     }
 }

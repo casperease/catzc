@@ -66,7 +66,7 @@ function Get-UncoveredInternalAssetDependency {
         $false
     }
 
-    # The defining module is the folder the calling file sits in (File = automation/<Module>/...).
+    # The defining module is the folder the calling file sits in (File = pwsh/<Module>/...).
     $byFunction = $Dependency | Group-Object { "$(($_.File -split '/')[1])|$($_.Function)" }
 
     $ret = foreach ($group in ($byFunction | Sort-Object Name)) {

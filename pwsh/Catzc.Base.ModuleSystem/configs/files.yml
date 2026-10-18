@@ -6,7 +6,7 @@ modules:
   Catzc.Base.TypesSystem:
     packages:
       csproj:
-        - automation/.internal/assets/Catzc.Types.csproj
+        - pwsh/.internal/assets/Catzc.Types.csproj
         - catzc.sln
   Catzc.Base.Repository:
     packages:
@@ -17,7 +17,7 @@ modules:
         - .markdownlintignore
         - .prettierrc.yml
         - .prettierignore
-        - automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+        - pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
         - cspell.yml
         - .cspell
         - dotnet-tools.json

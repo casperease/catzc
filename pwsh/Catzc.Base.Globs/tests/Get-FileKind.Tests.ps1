@@ -27,12 +27,12 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }
         @{ Path = 'docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/references/.assets/automation/catzc-widget/gadget-spins.drawio.verify.md'; Class = 'asset-description' }
-        @{ Path = 'docs/references/automation/catzc-widget/gadget-spins.drawio.md'; Class = 'asset-description' }
-        @{ Path = 'docs/references/automation/catzc-widget.md'; Class = 'reference' }
+        @{ Path = 'docs/references/pwsh/catzc-widget/gadget-spins.drawio.md'; Class = 'asset-description' }
+        @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }
         @{ Path = 'docs/adr/index.md'; Class = 'index' }
         @{ Path = 'docs/adr/glossary.md'; Class = 'glossary' }
         @{ Path = 'docs/adr/repository/file-meta.md'; Class = 'adr' }
-        @{ Path = 'docs/references/automation/catzc-base-globs/Get-FileKind.ps1.md'; Class = 'comment-page' }
+        @{ Path = 'docs/references/pwsh/catzc-base-globs/Get-FileKind.ps1.md'; Class = 'comment-page' }
         @{ Path = 'infrastructure/templates/foundation/main.bicep'; Class = 'template' }
         @{ Path = 'infrastructure/templates/foundation/options.yml'; Class = 'template/config' }
         @{ Path = 'infrastructure/modules/storage.bicep'; Class = 'template/module' }

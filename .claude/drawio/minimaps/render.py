@@ -304,11 +304,11 @@ def group_of(f, track):
     if track in BUCKETS:
         return (track, track)
     parts = f.split("/")
-    if parts[0] == "automation":
+    if parts[0] == "pwsh":
         return (
-            ("automation", "automation/" + parts[1])
+            ("pwsh", "pwsh/" + parts[1])
             if len(parts) > 2
-            else ("automation", "automation")
+            else ("pwsh", "pwsh")
         )
     if parts[0] == "docs":
         if len(parts) > 2 and parts[1] == "adr":
@@ -413,7 +413,7 @@ ADR_SHORT = {
 
 
 def group_label(g):
-    if g.startswith("automation/"):
+    if g.startswith("pwsh/"):
         return short_module(g.split("/", 1)[1])
     if g.startswith("docs/adr/"):
         return "adr/" + g.split("/")[2]

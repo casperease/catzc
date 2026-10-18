@@ -3,6 +3,6 @@
 # authored Markdown we choose not to lint/gate (out/, docs/notes, …) is coded into the Test-Markdownlint
 # and Test-Spelling functions, not here. Prettier is the formatter and may be pointed at anything we
 # write, including scratch under out/.
-automation/.vendor/
+pwsh/.vendor/
 node_modules/
 .git/

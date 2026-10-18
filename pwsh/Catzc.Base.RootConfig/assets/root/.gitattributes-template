@@ -11,7 +11,7 @@
 # tools; neither changes any bytes.
 
 # Committed combined C# types assembly — whole directory, any extension, since it is byte-exact build output.
-automation/.compiled/** binary
+pwsh/.compiled/** binary
 
 # Binary file types (vendored module assemblies, debug symbols, signatures, native libraries, images, documents,
 # archives). *.png also covers the draw.io diagrams (*.drawio.png), whose editable XML rides inside the PNG. *.exe,
@@ -27,7 +27,7 @@ automation/.compiled/** binary
 *.gz     binary
 
 # C# type sources are the byte-exact key of the compiled-type cache — their combined hash names the committed
-# automation/.compiled/Catzc.Types.<hash>.dll. Pin them to LF so every clone/checkout materializes identical
+# pwsh/.compiled/Catzc.Types.<hash>.dll. Pin them to LF so every clone/checkout materializes identical
 # bytes regardless of core.autocrlf; otherwise a CRLF working tree diverges from the committed build and trips
 # the loader's "types changed since they were loaded" guard on re-import. See docs/adr/automation/caching.md.
 *.cs     text eol=lf
@@ -51,7 +51,7 @@ automation/.compiled/** binary
 
 # GitHub (linguist): third-party modules are vendored — out of the language statistics. Linguist only knows
 # `vendor/`, not this repository's `.vendor/`, so it is named here.
-automation/.vendor/** linguist-vendored
+pwsh/.vendor/** linguist-vendored
 **/.vendor/bats-core/** linguist-vendored
 # Microsoft's dotnet-install scripts, checked in as published: third-party code, so Format-Code leaves them as shipped.
 **/assets/scripts/dotnet-install.* linguist-vendored
@@ -62,7 +62,7 @@ automation/.vendor/** linguist-vendored
 # committed so GitHub has them — every ADR citation links the index — and Build-AdrIndex / Build-Glossary rewrite
 # them on import from adrs.yml and the glossary sources; Build-ContractReference rewrites the per-unit contract
 # pages from the contract assets; Build-GitKeep rewrites every .gitkeep from its one source.
-automation/.compiled/** linguist-generated
+pwsh/.compiled/** linguist-generated
 **/.gitkeep     linguist-generated
 /importer.ps1   linguist-generated
 /importer.sh    linguist-generated

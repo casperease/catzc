@@ -9,7 +9,7 @@
     # One entry rule runs every custom check once per file (PSScriptAnalyzer calls a script rule once per
     # ScriptBlockAst). Add a new check module to the list in CatzcRules.psm1, not here.
     CustomRulePath      = @(
-        'automation/.scriptanalyzer/CatzcRules.psm1'
+        'pwsh/.scriptanalyzer/CatzcRules.psm1'
     )
 
     ExcludeRules        = @(
@@ -92,7 +92,7 @@
         #     Install-VendorModule prunes the folder, so the rule has nothing to load
         #     ([ADR-PWSH-VENDOR#7](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor7)).
         #   - When it runs, PSScriptAnalyzer merges the target profiles into a single ~42 MB
-        #     union_<hash>.json written INSIDE automation/.vendor/PSScriptAnalyzer/.../
+        #     union_<hash>.json written INSIDE pwsh/.vendor/PSScriptAnalyzer/.../
         #     compatibility_profiles/, an untracked blob after every fresh run.
         #   - With PSUseCompatibleTypes it is the slowest thing here: enabling both took the L2 analyzer
         #     test from ~28 s to ~48 s.
@@ -214,7 +214,7 @@
         # Checks that .NET types used exist in target PowerShell profiles.
         # Off for the same reasons, and via the same re-introduction steps, as PSUseCompatibleCmdlets
         # above (read that block first). This is the rule that actually emits the ~42 MB union_<hash>.json
-        # type profile into automation/.vendor. Re-enable it together with PSUseCompatibleCmdlets.
+        # type profile into pwsh/.vendor. Re-enable it together with PSUseCompatibleCmdlets.
         PSUseCompatibleTypes                      = @{
             Enable         = $false  # OFF: emits 42 MB cache into .vendor; see PSUseCompatibleCmdlets
             TargetProfiles = @(

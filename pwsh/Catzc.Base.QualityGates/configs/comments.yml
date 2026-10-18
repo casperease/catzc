@@ -18,24 +18,24 @@ keep_run:
   bicep: ["// catzc:"]
 
 pages:
-  - source: automation/*
-    docs: docs/references/automation/{kebab}
+  - source: pwsh/*
+    docs: docs/references/pwsh/{kebab}
   - source: pipelines
     docs: docs/references/pipelines
   - source: infrastructure
     docs: docs/references/infrastructure
   - source: .claude/hooks
-    docs: docs/references/automation/claude-hooks
+    docs: docs/references/pwsh/claude-hooks
   - source: .claude/drawio
-    docs: docs/references/automation/claude-drawio
+    docs: docs/references/pwsh/claude-drawio
   - source: .claude/slides
-    docs: docs/references/automation/claude-slides
+    docs: docs/references/pwsh/claude-slides
   - source: .github/workflows
     docs: docs/references/pipelines/github-workflows
-  - source: automation/.scriptanalyzer
-    docs: docs/references/automation/scriptanalyzer
-  - source: automation/.internal
-    docs: docs/references/automation/internal
+  - source: pwsh/.scriptanalyzer
+    docs: docs/references/pwsh/scriptanalyzer
+  - source: pwsh/.internal
+    docs: docs/references/pwsh/internal
 
 exclude:
   asset: an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign

@@ -35,10 +35,10 @@ public sealed class CommentsConfig
     };
     public static readonly IReadOnlyList<(string source, string docs)> DefaultPages = new[]
     {
-        ("automation/*", "docs/references/automation/{kebab}"),
+        ("pwsh/*", "docs/references/pwsh/{kebab}"),
         ("pipelines", "docs/references/pipelines"),
         ("infrastructure", "docs/references/infrastructure"),
-        (".claude/hooks", "docs/references/automation/claude-hooks"),
+        (".claude/hooks", "docs/references/pwsh/claude-hooks"),
     };
 
     public IReadOnlyList<string> languages { get; }

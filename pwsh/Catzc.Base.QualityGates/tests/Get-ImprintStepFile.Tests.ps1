@@ -51,7 +51,7 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
 
     It 'returns the absolute paths of the files the comment scope covers for the comments step' {
         Mock Get-CommentScope -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ File = 'widget-modules/Widget/Get-Gadget.ps1'; Extension = '.ps1'; Language = 'powershell'; Page = 'docs/references/automation/widget/Get-Gadget.ps1.md' }
+            [pscustomobject]@{ File = 'widget-modules/Widget/Get-Gadget.ps1'; Extension = '.ps1'; Language = 'powershell'; Page = 'docs/references/pwsh/widget/Get-Gadget.ps1.md' }
         }
         $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             param($Root)

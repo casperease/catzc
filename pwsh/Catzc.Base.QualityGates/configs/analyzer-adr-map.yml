@@ -1,5 +1,5 @@
 analyzers:
-  # Custom rules (automation/.scriptanalyzer)
+  # Custom rules (pwsh/.scriptanalyzer)
   Measure-VariableCasing: [ADR-PWSH-FORMAT#4]
   Measure-NeverDependOnPwd: [ADR-AUTO-NOPWD#1, ADR-PWSH-PWD#2]
   Measure-FunctionLength: [ADR-AUTO-ONEJOB#4]

@@ -145,7 +145,7 @@ The user's standard, from the wave-1 review: the information must be **verified 
 picture must be **simple**. A diagram that is only true to the ADR prose is not done.
 
 1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the ADR,
-   the code (`automation/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write
+   the code (`pwsh/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write
    `<name>.drawio.verify.md` next to the XML: a table with the columns claim → source (`file:line`) → **confirmed / contradicted /
    ADR-only**.
 2. **Code wins on facts. The ADR wins on intent.**
@@ -204,7 +204,7 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
   error messages), found by grep, not guessed.
 - **Stem:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no ADR prefix and no lens suffix. It lands at
   `docs/references/.assets/automation/<module-kebab>/<stem>.drawio.png` with `<stem>.drawio.verify.md`, and its description at
-  `docs/references/automation/<module-kebab>/<stem>.drawio.md`. There is no `docs/explanation/` article: the module's reference article
+  `docs/references/pwsh/<module-kebab>/<stem>.drawio.md`. There is no `docs/explanation/` article: the module's reference article
   embeds the slide under `## What the module does` with a one-paragraph lead-in, and the `.drawio.md` carries the words (At a glance,
   Reading path, Glyphs, Edges, Legend, Where the code and the ADR differ).
 - **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips. With no
@@ -220,7 +220,7 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
   `flow: feeds (a result to its caller)`, so the reader doesn't take it for a call.
 - **Store access is its own edge kind.** A read or write of a store (a `$script:` map, a cache) is not a call. Draw it as a plain line with
   `endArrow=none`, legend `store access (reads or writes)`, and keep the flow edge for calls only. Don't stretch the flow phrase to "uses".
-- **`catzc module` covers `Catzc.Internal.*` too.** The `.psm1` modules under `automation/.internal/` get the same frame, labelled with the
+- **`catzc module` covers `Catzc.Internal.*` too.** The `.psm1` modules under `pwsh/.internal/` get the same frame, labelled with the
   module name (`Catzc.Internal.Loader`).
 - **Escaping and encoding.** A literal `<Tool>` inside an HTML value is double-escaped (`&amp;lt;Tool&amp;gt;`). A generator script reads
   and writes UTF-8 explicitly (`encoding="utf-8"`), or a replace on `·` silently misses on Windows.
@@ -277,7 +277,7 @@ under `docs/explanation/` (the articles the slides illustrate, their description
    ADR-DSGN-TRACK#7, #13), a column by a short horizontal code, the file language's first extension (`.ps1`, `.md`; `other` for the unlisted
    files, ADR-DSGN-TRACK#8). The codes of neighbouring lit columns alternate between two lines so they never touch.
 2. **Repository tree map** (`tree/<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
-   top-level folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). Every tile is
+   top-level folder (`pwsh/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). Every tile is
    idle grey; the files the highlight lights are lit (the lighter lit colour when lit only by passing mentions); a lit ADR file has a dark
    rim in the page colour.
 

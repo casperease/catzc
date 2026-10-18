@@ -7,7 +7,7 @@ function Get-ReadmeMappings {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
-    # The globs expand over the source tree's folders (automation/* and the like).
+    # The globs expand over the source tree's folders (pwsh/* and the like).
     Assert-SourceTree
 
     # Explicit mappings first — they win over any pattern that also matches their folder.

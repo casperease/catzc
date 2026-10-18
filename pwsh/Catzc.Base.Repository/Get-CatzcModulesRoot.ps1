@@ -5,5 +5,5 @@ function Get-CatzcModulesRoot {
         return $env:CatzcModulesRoot
     }
 
-    Join-Path (Get-RepositoryRoot) 'automation'
+    Join-Path (Get-RepositoryRoot) 'pwsh'
 }

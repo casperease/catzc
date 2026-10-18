@@ -34,7 +34,7 @@ Describe 'Export-Catzc' -Tag 'L0', 'logic' {
     It 'a nuget export builds, packs the build into out/automation/packages, and needs no root' {
         $package = Export-Catzc -To nuget
         Should -Invoke New-CatzcNuGetPackage -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $Source -eq $buildRoot -and $DestinationPath -eq (Join-Path (Join-Path $TestDrive 'out') 'automation/packages')
+            $Source -eq $buildRoot -and $DestinationPath -eq (Join-Path (Join-Path $TestDrive 'out') 'pwsh/packages')
         }
         Should -Invoke Install-Catzc -ModuleName Catzc.Base.Exporter -Times 0
         $package.Version | Should -Be '6.6.666'

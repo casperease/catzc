@@ -70,7 +70,7 @@ Open, in execution order:
 - config-defaults-postures -> task-config-defaults-postures.md (done 2026-10-18; plan-config-defaults has no open step, so
   task-closing-sweep deletes both): every typed config into a posture, the NoLiteralDefault analyzer rule, the ADR amendments, the assert
   ladder, two glossary terms.
-- layers-funnel -> task-layers-funnel.md (done 2026-10-18; delete once committed): layers P2 funnel: one bootstrap constant, about 45 sites
+- layers-funnel: done 2026-10-18, task file deleted (P2 ticked in plan-layers-vocabulary-rename-contracts): layers P2 funnel: one bootstrap constant, about 45 sites
   onto the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
 - layers-classification-flip -> task-layers-classification-flip.md (open; P3 done 2026-10-18; the user gave the go for P4 and P6, D24; P4
   waits for no peer-dirty file and the user's window, task step 3): P3 classification table and ADR wording drafts; P4 the flip by the user;
@@ -106,8 +106,9 @@ Open, in execution order:
   and D18 no sentence, 2026-10-18): unboxing closed: three leftover checks, two gate findings, P4 and P5 closed.
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md (open; the level-2 rerun is green 2026-10-17; the user's run of all
   tests, then the plan and prompt deleted): bounded enumeration closed.
-- diagram-folders -> plan-diagram-folders.md (open; no task file yet, decided 2026-10-18): every diagram one folder beside its article under
-  role names, rebuilt by `Build-Diagrams -Path <folder>`; kit first, then the configuration/ pilot for the user's review.
+- diagram-folders -> plan-diagram-folders.md (open; no task file yet; the kit and the out/ pilot done 2026-10-18, the user's pilot review
+  next): every diagram one folder beside its article under role names, rebuilt by `Build-Diagrams -Path <folder>`; then the move command
+  and the migration of all 150.
 - closing-sweep -> task-closing-sweep.md (open; runs after every batch and last): done plans deleted with one line each, the master and task
   files deleted when every chunk is done.
 

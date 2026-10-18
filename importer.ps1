@@ -37,7 +37,7 @@ $env:RepositoryRoot = $PSScriptRoot
 # Load the .internal shared-code loader (the one module imported by path), then the importer overlay, and
 # delegate. Catzc.Internal.Importer is import-time orchestration — remove it once the load returns. -Verbose is
 # for Invoke-Importer's state-change record, not these imports' per-function detail.
-Import-Module (Join-Path $PSScriptRoot 'automation/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force -Verbose:$false
+Import-Module (Join-Path $PSScriptRoot 'pwsh/.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force -Verbose:$false
 Import-InternalModule Importer -Force -Verbose:$false
 try {
     Invoke-Importer @PSBoundParameters

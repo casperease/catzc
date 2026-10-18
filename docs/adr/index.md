@@ -1,25 +1,25 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d60eea89b50f
-    with_inputs_sha: f26449250ffa39b12c02bee7a871befe979f3562308a4704c3ea9cc20d336f1d
+    with_body_sha: "216d7d1bf409"
+    with_inputs_sha: "3dd3f6a0870f3d337203fee3fd32a79a372ff8d3000c62ca81d1a03c5838de6e"
     repo_status: locked
     path: docs/adr/index.md
-    source: automation/Catzc.Base.Docs/configs/adrs.yml
+    source: pwsh/Catzc.Base.Docs/configs/adrs.yml
     role: index
     language: markdown
     filetype: md
     track: docs
     tracktype: documentation
-    generator: automation/Catzc.Base.Docs/Build-AdrIndex.ps1
+    generator: pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
 ---
 
 # ADR index and rule-citation registry
 
 Architecture Decision Records live under `docs/adr/`, grouped by domain — the sections below mirror the domains declared in
-`automation/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. The ADRs define the design principles this codebase must
-follow. **Read this index at the start of every session**, then read in full the ADRs that govern the files a task touches, and cite their
-rules by code.
+`pwsh/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. The ADRs define the design principles this codebase must follow.
+**Read this index at the start of every session**, then read in full the ADRs that govern the files a task touches, and cite their rules by
+code.
 
 ## Citing a rule
 
@@ -189,7 +189,7 @@ domains build on it.
 
 PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests, parameter and
 error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh, the
-analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines them.
+analyzer, and Pester. It applies the engine-agnostic `pwsh/` rules to one engine and never redefines them.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`.
 
@@ -390,7 +390,7 @@ validation — every other domain depends on it and it depends on none; the othe
 These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
 - **Decision and rationale, not config values.** An ADR owns the decision and the _why_; the root config files own the concrete rule values
-  (`.editorconfig`, `PSScriptAnalyzerSettings.psd1`, `.markdownlint.yml`, `.gitattributes`, `automation/.scriptanalyzer/*.psm1`). Name the
+  (`.editorconfig`, `PSScriptAnalyzerSettings.psd1`, `.markdownlint.yml`, `.gitattributes`, `pwsh/.scriptanalyzer/*.psm1`). Name the
   enforcing file as a pointer, but do not reproduce value tables, pasted `@{ }` rule blocks, or per-rule on/off lists — that duplication
   drifts. Naming a value in order to justify it (for example, "UTF-8, because a BOM breaks `git diff`") is fine; a bare value list with no
   rationale is not.

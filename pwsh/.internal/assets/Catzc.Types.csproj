@@ -1,16 +1,16 @@
 <!--
   IDE: It exists so VS Code's C# Dev Kit (and any Roslyn-based editor) compiles and analyzes
-  the repo's native type sources — automation/<Module>/types/*.cs — with the SAME rules the runtime honors.
+  the repo's native type sources — pwsh/<Module>/types/*.cs — with the SAME rules the runtime honors.
 
-  Location: this project lives at automation/.internal/assets/Catzc.Types.csproj; the root catzc.sln (a real
+  Location: this project lives at pwsh/.internal/assets/Catzc.Types.csproj; the root catzc.sln (a real
   solution, managed by Build-RootConfig and kept at the repo root so Dev Kit auto-loads it) references it by
   relative path. Every
-  path below is therefore project-relative: '../..' is the automation/ directory.
+  path below is therefore project-relative: '../..' is the pwsh/ directory.
   Each source declares its module's file-scoped namespace (Format-Types writes it, Test-Formatting checks it), so
   the analyzer sees real namespaces and never raises a false CA1050 "Declare types in namespaces".
 
   At import time Import-CSharpTypes compiles the very same sources with
-  Add-Type into one committed assembly (automation/.compiled/Catzc.Types.<hash>.dll); nothing here is shipped
+  Add-Type into one committed assembly (pwsh/.compiled/Catzc.Types.<hash>.dll); nothing here is shipped
   or required to run the toolset. The project's only job is to make the editor's feedback equal the runtime's
   — everything-as-code. To stay faithful, it mirrors Add-Type's compile: Nullable and ImplicitUsings OFF (the
   runtime enables neither). Build output (obj/, bin/) is gitignored. See ADR native-csharp-types (code types).
@@ -21,8 +21,8 @@
   immutable:
     with_body_sha: "3edf424a2b1d"
     repo_status: locked
-    path: automation/.internal/assets/Catzc.Types.csproj
-    source: automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
+    path: pwsh/.internal/assets/Catzc.Types.csproj
+    source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
     role: asset
     language: xml
     filetype: csproj
@@ -30,7 +30,7 @@
     tracktype: modules
     module: Catzc.Internal.Assets
     moduletype: pwsh-folder
-    generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1]]></CatzcMeta>
+    generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1]]></CatzcMeta>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -48,8 +48,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Broadest glob: every .cs in automation/ is a type source today (all under a module's types/ folder).
-         Project-relative ('../..' = automation/). Tighten to '../../*/types/*.cs' only if a non-type .cs is
+    <!-- Broadest glob: every .cs in pwsh/ is a type source today (all under a module's types/ folder).
+         Project-relative ('../..' = pwsh/). Tighten to '../../*/types/*.cs' only if a non-type .cs is
          ever added. -->
     <Compile Include="../../**/types/*.cs" />
   </ItemGroup>
@@ -82,7 +82,7 @@
 
   <!--
     Stamp this project's version from the sources' identity. The RUNTIME (Import-CSharpTypes) writes
-    automation/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
+    pwsh/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
     types/*.cs (ADR caching, [ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8)) — that
     hash IS the assembly's identity. The task computes
     the same hash from the sources with the SAME algorithm the loader uses (per file: SHA-256 of the bytes with
@@ -92,23 +92,23 @@
     sources always give the same version, whatever else lies on disk. The algorithm mirrors Import-CSharpTypes /
     Clear-ModuleTypeCache / the drift-guard tests and MUST stay in sync.
 
-    The editor never fails over automation/.compiled: whether the code compiles is the editor's question, and
+    The editor never fails over pwsh/.compiled: whether the code compiles is the editor's question, and
     the committed assembly is the importer's, the tests' and the bundle check's. It only WARNS when what git
-    will commit — the index's automation/.compiled, not the disk — does not hold exactly one
+    will commit — the index's pwsh/.compiled, not the disk — does not hold exactly one
     Catzc.Types.<hash>.dll named for the current sources. Untracked or unstaged leftovers (an old build another
-    pwsh still has loaded) never matter. Dot-source ./importer.ps1 and stage automation/.compiled when it warns.
+    pwsh still has loaded) never matter. Dot-source ./importer.ps1 and stage pwsh/.compiled when it warns.
   -->
   <UsingTask TaskName="StampCatzcTypesVersion" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <AutomationRoot ParameterType="System.String" Required="true" />
-      <!-- The index's automation/.compiled entries (git ls-files), ';'-separated; empty when git is unavailable. -->
+      <!-- The index's pwsh/.compiled entries (git ls-files), ';'-separated; empty when git is unavailable. -->
       <TrackedCompiled ParameterType="System.String" Required="false" />
       <GitAvailable ParameterType="System.Boolean" Required="false" />
       <CombinedHash ParameterType="System.String" Output="true" />
     </ParameterGroup>
     <Task>
       <Code Type="Fragment" Language="cs"><![CDATA[
-        // Gather automation/<module>/types/*.cs (skip dot-modules), keyed <module>/<bare-type>.
+        // Gather pwsh/<module>/types/*.cs (skip dot-modules), keyed <module>/<bare-type>.
         var files = new List<KeyValuePair<string, string>>();
         foreach (var moduleDir in Directory.EnumerateDirectories(AutomationRoot))
         {
@@ -167,7 +167,7 @@
   <!-- Run before anything reads $(Version): PrepareForBuild precedes GetAssemblyVersion (assembly
        attributes) and GenerateBuildDependencyFile (the deps.json project entry). -->
   <Target Name="StampCatzcTypesVersionFromSources" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateBuildDependencyFile">
-    <!-- What the index will commit under automation/.compiled. No git (or not a work tree): no hygiene warning. -->
+    <!-- What the index will commit under pwsh/.compiled. No git (or not a work tree): no hygiene warning. -->
     <Exec Command="git -C &quot;$(MSBuildProjectDirectory)/../..&quot; ls-files -- .compiled"
           ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" StandardErrorImportance="low" IgnoreExitCode="true">
       <Output TaskParameter="ConsoleOutput" ItemName="CatzcTrackedCompiled" />

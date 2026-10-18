@@ -7,7 +7,7 @@ concepts:
     domain: automation
     defined_by: ADR-AUTO-TEST#30
     short: A named folder of widget files.
-    realized_by: { kind: folder, pattern: "automation/*/tests/widgets/<name>/" }
+    realized_by: { kind: folder, pattern: "pwsh/*/tests/widgets/<name>/" }
     contrasts:
       gadget run: A gadget run executes; a widget suite is files at rest.
   alpha widget:

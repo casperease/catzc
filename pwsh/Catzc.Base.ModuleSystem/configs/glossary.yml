@@ -4,7 +4,7 @@ concepts:
     domain: design
     defined_by: ADR-DSGN-TRACK#5
     short: What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
-    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Globs/configs/globs.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs.yml" }
     contrasts:
       release candidate:
         A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit is the composition that ships,
@@ -63,7 +63,7 @@ concepts:
     short:
       The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads or
       falls back to it.
-    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Variants/configs/variants.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/variants.yml" }
   import:
     key: import
     domain: design
@@ -131,7 +131,7 @@ concepts:
     short:
       The one table of folders inside a module and what each holds, declared once under each file language and read by every command that
       reads a module's folders.
-    realized_by: { kind: config-key, pattern: "automation/Catzc.Base.Languages/configs/languages.yml" }
+    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Languages/configs/languages.yml" }
     contrasts:
       module type: A module type says where modules of a sort are found; a layout says what a module's own folders hold.
   track type:

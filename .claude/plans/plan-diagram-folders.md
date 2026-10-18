@@ -1,8 +1,9 @@
 ---
 plan:
-  status: active
+  status: blocked
   value: high
   reviewed: 2026-10-18
+  blocked_on: the user's review of the out/ pilot (out/diagram-pilot/configuration/.assets/)
   targets: [docs/explanation, .claude/drawio, automation/Catzc.Base.Slides, automation/Catzc.Base.Globs, docs/adr/repository]
 ---
 
@@ -55,12 +56,17 @@ Recorded 2026-10-18 with the user:
 
 ## Open steps
 
-- [ ] Kit, one layout: `drawio_forward.py --all <root>` finds every diagram folder under the root (a folder itself when it is one); codes
+- [x] Kit, one layout: `drawio_forward.py --all <root>` finds every diagram folder under the root (a folder itself when it is one); codes
       and lens from the `subtitle` cell, the lens set in `drawio.yml`; `render.py`, `join.py` and `describe.py` write beside each slide
-      under role names; `describe.py` finds the article by locality; `stamp.ps1` stamps each folder's pages; the file-name code and lens go
-      (check: the out/ pilot below renders clean).
+      under role names; `describe.py` finds the article by locality; `stamp.ps1` stamps each folder's pages from the slide list; the
+      file-name code and lens go (check: the out/ pilot below renders clean). Done 2026-10-18: also fixed the highlight stage, which ignored
+      its slice; W_SUBTITLE and W_SUPPORTS warnings; spelling, file-meta, comments and analyzer gates clean. Until the migration step,
+      `Build-Diagrams` and the kit cannot rebuild the flat `docs/explanation/.assets` slides; render none until then.
+- [ ] Kit tests: subtitle parsing, the lens set and the `Supports` drift, as Needed tests lists (check: the tests pass).
 - [ ] Pilot in out/: `out/diagram-pilot/` holds `configuration/` in the new layout (articles copied, each diagram assembled into its
-      folder), rendered by the new kit (check: exit 0; the user compares the slides with today's and approves).
+      folder), rendered by the new kit (check: exit 0; the user compares the slides with today's and approves). Rendered 2026-10-18 by
+      `out/diagram-pilot.py`: exit 0, 10 of 10 joined; each slide matches today's apart from the minimaps, which follow the current maps
+      (`out/diagram-pilot/sidebar-old-vs-new.png`). Open: the user's review.
 - [ ] Normalise the two subtitles still in the `:1,2,3` form (adr-dsgn-aspect--each-track-picks-its-catch-all--meta,
       adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta) through write-drawio-files (check: the subtitle parser reports none).
 - [ ] The move command: moves files with `git mv` and re-points relative links in and into them, with L0 tests on neutral fixtures (check:

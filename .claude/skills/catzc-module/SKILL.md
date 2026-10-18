@@ -5,7 +5,7 @@ description:
   the module folder and the brief's functions.
 user-invocable: false
 allowed-tools: Bash, Read, Glob, Grep, Write, Edit
-paths: automation/**
+paths: pwsh/**
 metadata:
   catzc:
     immutable:

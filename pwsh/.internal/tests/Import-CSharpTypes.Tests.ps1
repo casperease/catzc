@@ -452,7 +452,7 @@ Describe 'combined types assembly is committed and current' -Tag 'integrity' {
         # Build to an isolated output dir so we read THIS run's deps.json and never race the default bin/.
         $outputDirectory = Join-Path $TestDrive 'stamp-build'
         $log = & dotnet build $csproj -c Debug --output $outputDirectory -v minimal 2>&1
-        $LASTEXITCODE | Should -Be 0 -Because "dotnet build must succeed — the stamping target fails the build when the committed automation/.compiled/Catzc.Types.<hash>.dll is stale or missing:`n$($log -join "`n")"
+        $LASTEXITCODE | Should -Be 0 -Because "dotnet build must succeed — the stamping target fails the build when the committed pwsh/.compiled/Catzc.Types.<hash>.dll is stale or missing:`n$($log -join "`n")"
 
         $dependencies = Get-Content (Join-Path $outputDirectory 'Catzc.Types.deps.json') -Raw | ConvertFrom-Json
         # The project library entry key is "<AssemblyName>/<Version>"; the stamp makes Version = 1.0.0-<hash>.

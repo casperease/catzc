@@ -37,7 +37,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $paths | Should -Be @('docs/references/contracts/gadget.md', 'docs/references/contracts/widget.md')
 
         $page = Read-Page
-        $page | Should -Match ("(?s)^---`ncatzc:.*role: reference.*generator: automation/Catzc.Base.Contracts/Build-ContractReference\.ps1.*---`n`n" + [regex]::Escape("# docs/references/contracts/widget.md`n`n``The widget contracts```n"))
+        $page | Should -Match ("(?s)^---`ncatzc:.*role: reference.*generator: pwsh/Catzc.Base.Contracts/Build-ContractReference\.ps1.*---`n`n" + [regex]::Escape("# docs/references/contracts/widget.md`n`n``The widget contracts```n"))
         $sections = @([regex]::Matches($page, '(?m)^## (.+)$') | ForEach-Object { $_.Groups[1].Value })
         $sections | Should -Be @('0.0.0', '1.10.0', '1.2.0')
     }

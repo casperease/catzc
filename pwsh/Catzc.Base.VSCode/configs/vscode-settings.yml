@@ -26,7 +26,7 @@ settings:
   powershell.powerShellDefaultVersion: PowerShell (x64)
 
   # PowerShell: use project PSScriptAnalyzer settings for analysis (squiggles)
-  powershell.scriptAnalysis.settingsPath: ./automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+  powershell.scriptAnalysis.settingsPath: ./pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
 
   powershell.codeFormatting.pipelineIndentationStyle: IncreaseIndentationForFirstPipeline
   # Expand aliases on format — the psd1 enforces PSAvoidUsingCmdletAliases.
@@ -77,21 +77,21 @@ settings:
     "*/tests/*/go.sum": true
     "*/.venv": true
     "*/uv.lock": true
-    automation/.compiled/*.tmp: true
-    automation/.internal/assets/obj: true
-    automation/.internal/assets/bin: true
+    pwsh/.compiled/*.tmp: true
+    pwsh/.internal/assets/obj: true
+    pwsh/.internal/assets/bin: true
     .claude/hooks/bin: true
     .claude/hooks/Assert-BashTimeout/obj: true
     .claude/hooks/Assert-BashTimeout/bin: true
 
   search.exclude:
-    automation/.vendor: true
-    automation/**/*.psd1: true
-    automation/.internal/assets/PSScriptAnalyzerSettings.psd1: false
+    pwsh/.vendor: true
+    pwsh/**/*.psd1: true
+    pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1: false
 
   files.watcherExclude:
-    "**/automation/**/*.psd1": true
-    "**/automation/.internal/assets/PSScriptAnalyzerSettings.psd1": false
+    "**/pwsh/**/*.psd1": true
+    "**/pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1": false
     "**/python/.venv/**": true
     "**/node_modules/**": true
 

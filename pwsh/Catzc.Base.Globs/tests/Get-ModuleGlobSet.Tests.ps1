@@ -94,7 +94,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         # dot-folder infrastructure is the umbrellas' territory, not the catch-all's
         $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/.vendor/Pester/5.7.1/Pester.psd1') | Should -BeFalse
         $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') | Should -BeFalse
-        # a stray file at automation/'s root is what the catch-all is for
+        # a stray file at pwsh/'s root is what the catch-all is for
         $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/stray.ps1') | Should -BeTrue
     }
 

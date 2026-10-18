@@ -200,7 +200,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         It 'takes each file verbatim — its comment-based help stays right before its function' {
             $text = [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.functions.ps1'))
             $verbatim = $helpText.Replace("`r", '').TrimEnd("`n")
-            $text | Should -BeLike "*# source: automation/Catzc.Base.Widget/Get-Widget.ps1`n$verbatim`n`n*"
+            $text | Should -BeLike "*# source: pwsh/Catzc.Base.Widget/Get-Widget.ps1`n$verbatim`n`n*"
         }
 
         It 'writes canonical bytes: UTF-8 without BOM, LF only, one trailing newline' {
@@ -355,11 +355,11 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $destination = Join-Path $TestDrive 'gizmo'
             $failure = { Invoke-ModuleBuild @buildArguments -ModuleProfile gizmos -Destination $destination } | Should -Throw -PassThru
             $message = $failure.Exception.Message
-            $message | Should -BeLike '*automation/Catzc.Base.Gizmo/Get-GizmoPair.ps1: must hold exactly one top-level statement*'
-            $message | Should -BeLike "*automation/Catzc.Base.Gizmo/Get-GizmoName.ps1: defines function 'Get-SomethingElse'*"
-            $message | Should -BeLike '*automation/Catzc.Base.Gizmo/Get-GizmoAnchor.ps1:2: reads $PSScriptRoot*'
-            $message | Should -BeLike '*automation/Catzc.Base.Gizmo/private/Get-GizmoReq.ps1: carries a #requires statement*'
-            $message | Should -BeLike '*automation/Catzc.Base.Gizmo/private/Get-GizmoTop.ps1: must hold exactly one top-level statement*'
+            $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/Get-GizmoPair.ps1: must hold exactly one top-level statement*'
+            $message | Should -BeLike "*pwsh/Catzc.Base.Gizmo/Get-GizmoName.ps1: defines function 'Get-SomethingElse'*"
+            $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/Get-GizmoAnchor.ps1:2: reads $PSScriptRoot*'
+            $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/private/Get-GizmoReq.ps1: carries a #requires statement*'
+            $message | Should -BeLike '*pwsh/Catzc.Base.Gizmo/private/Get-GizmoTop.ps1: must hold exactly one top-level statement*'
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
 
@@ -373,7 +373,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $failure = { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination } | Should -Throw -PassThru
             $message = $failure.Exception.Message
             $message | Should -BeLike '*2 internal asset dependenc*'
-            $message | Should -BeLike '*Catzc.Base.Widget/assets/missing.txt (read by Get-Widget, automation/Catzc.Base.Widget/Get-Widget.ps1:5)*'
+            $message | Should -BeLike '*Catzc.Base.Widget/assets/missing.txt (read by Get-Widget, pwsh/Catzc.Base.Widget/Get-Widget.ps1:5)*'
             $message | Should -BeLike '*Catzc.Base.Gizmo/configs/gizmo.yml*'
             $message | Should -Not -BeLike '*Set-Widget*'
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
@@ -386,8 +386,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $failure = { Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Gadget' -Destination $destination } | Should -Throw -PassThru
             $message = $failure.Exception.Message
             $message | Should -BeLike '*2 call(s) or config read(s)*'
-            $message | Should -BeLike '*automation/Catzc.Base.Gadget/Get-GadgetWidget.ps1:2: Get-GadgetWidget calls Get-Widget, which Catzc.Base.Widget owns*'
-            $message | Should -BeLike "*automation/Catzc.Base.Gadget/Get-GadgetWidget.ps1:3: reads config 'widget', which Catzc.Base.Widget owns*"
+            $message | Should -BeLike '*pwsh/Catzc.Base.Gadget/Get-GadgetWidget.ps1:2: Get-GadgetWidget calls Get-Widget, which Catzc.Base.Widget owns*'
+            $message | Should -BeLike "*pwsh/Catzc.Base.Gadget/Get-GadgetWidget.ps1:3: reads config 'widget', which Catzc.Base.Widget owns*"
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
 

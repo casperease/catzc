@@ -7,19 +7,19 @@
 catzc:
   immutable:
     repo_status: clean
-    path: automation/Catzc.Widget/Get-Gadget.ps1
+    path: pwsh/Catzc.Widget/Get-Gadget.ps1
     name: get-gadget
     filetype: ps1
     role: function
     subkind: gate
     language: powershell
-    track: automation
+    track: pwsh
     tracktype: modules
     module: Catzc.Widget
     moduletype: pwsh-folder
     catzc_bundle: minimal
     visibility: public
   edges:
-    test: automation/Catzc.Widget/tests/Get-Gadget.Tests.ps1
+    test: pwsh/Catzc.Widget/tests/Get-Gadget.Tests.ps1
     cites:
       - ADR-WIDGET-GADGET#{1,3-5}

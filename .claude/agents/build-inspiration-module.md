@@ -30,7 +30,7 @@ catzc:
 
 # build-inspiration-module
 
-Build or extend `automation/Catzc.Tooling.Inspiration` to the decisions in `.claude/plans/` (the inspiration plan); stop and ask when the
+Build or extend `pwsh/Catzc.Tooling.Inspiration` to the decisions in `.claude/plans/` (the inspiration plan); stop and ask when the
 plan is missing or a decision there is open.
 
 1. Read the plan, then the ADRs catzc-module names, in full.

@@ -1,4 +1,4 @@
 # Generated cspell dictionaries (Build-TerminologyDictionary, Catzc.Base.QualityGates) — regenerated at the
-# importer tail from automation/Catzc.Base.QualityGates/configs/terminology.yml, the single source of truth.
+# importer tail from pwsh/Catzc.Base.QualityGates/configs/terminology.yml, the single source of truth.
 # They are build artifacts, never committed; only the folder's .gitkeep is tracked. See README.md.
 *.txt

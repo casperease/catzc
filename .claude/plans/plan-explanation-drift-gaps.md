@@ -85,6 +85,9 @@ crashes (Q5), and every gap stays visible in up to five lens articles until it c
     Test-AdoPipelineTriggerGlob report 0, and the four files parse.
   - Q2, wired in YAML: `ci-automation.yaml` has a `BuildArtifact` job that runs `Test-BuildArtifact` only on main, the post-merge BVT.
   - Five articles lost the "no pipeline calls it / runs it / sets fetchDepth" claims, and the step-template article counts seven parameters.
+  - Gate findings on the approvals work, fixed: help pages for the four private callers (Test-Comments 0); `[OutputType([pscustomobject])]`
+    on the apply; the Approval check-type id registered as external-facing `ado_approval_check_type` in guids.yml (Test-ManagedGuids 0);
+    "Graph scope" reworded (Test-Glossary 0); `subjectquery` and `vssgp` in terminology.yml's ado section (Test-Spelling 0).
 
 ## Decided (2026-10-18, the user took every recommendation)
 
@@ -125,14 +128,14 @@ When a step lands, remove its claim from every article that states it (search `d
 - [ ] Q3 `automation/Catzc.Azure.DevOps/configs/environment-approvals.yml`: the user lists the approvers under `approver_group.members` and
       runs the apply (`Sync-AdoEnvironmentApprovals -DryRun`, then without); then the lifecycle articles drop the "prod with no gate" claims
       (check: a second apply reports Unchanged for the group and all three checks, and a CD run to `shared-psub` waits for approval).
-- [ ] Q4 the three slides that draw what the run-modes ADR no longer names: `rule-and-gate-per-load-stage` (`build-catzc.ps1` and
-      `Write-CatzcLoadBanner` as markers 7 and 8), `what-gates-each-bundle-stage` (the cached root, marker 6) and
-      `which-run-mode-rules-have-a-gate` (four build kinds, marker 8); and, since Q1, the two globset slides whose titles say the
-      in-pipeline check has no caller: `drift-is-gated-generation-is-adr-only` (the "in-pipeline exact backstop" ADR-only box, marker 8, and
-      its title) and `tests-pin-the-throw-and-fail-open-no-caller` (the `fetchDepth: 0` ADR-only glyph, marker 7, and its title "…no
-      pipeline calls it"). Each needs those elements removed or relabelled, and the two globset articles a new title, with the article,
-      `.drawio.md` and minimaps following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check: the
-      articles' text blocks match their slides, and Test-Links passes).
+- [ ] Q4 the five slides that draw what is no longer true. Three draw what the run-modes ADR no longer names:
+      `rule-and-gate-per-load-stage` (`build-catzc.ps1` and `Write-CatzcLoadBanner`, markers 7 and 8), `what-gates-each-bundle-stage`
+      (the cached root, marker 6) and `which-run-mode-rules-have-a-gate` (four build kinds, marker 8). Two, since Q1, say the in-pipeline
+      check has no caller: `drift-is-gated-generation-is-adr-only` (the "in-pipeline exact backstop" ADR-only box, marker 8, and its
+      title) and `tests-pin-the-throw-and-fail-open-no-caller` (the `fetchDepth: 0` ADR-only glyph, marker 7, and its title "…no pipeline
+      calls it"). Each needs those elements removed or relabelled, and the two globset articles a new title, with the article, `.drawio.md`
+      and minimaps following; cell removal is diagram work for the user to ask for, not `write-drawio-files` (check: the articles' text
+      blocks match their slides, and Test-Links passes).
 
 ## Refs
 

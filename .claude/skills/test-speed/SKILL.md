@@ -5,7 +5,7 @@ description:
   test-optimization; input is the test file path and the roofs read from timeouts.yml.
 user-invocable: false
 allowed-tools: Bash, Read, Grep, Edit, Write
-paths: automation/**/tests/**
+paths: pwsh/**/tests/**
 metadata:
   catzc:
     immutable:

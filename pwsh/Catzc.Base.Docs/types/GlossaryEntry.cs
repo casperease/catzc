@@ -16,7 +16,7 @@ public sealed class GlossaryEntry
     // The module whose configs/glossary.yml declares the concept.
     public string Owner { get; }
 
-    // The declaring source's repo-relative path ('automation/<Owner>/configs/glossary.yml').
+    // The declaring source's repo-relative path ('pwsh/<Owner>/configs/glossary.yml').
     public string SourcePath { get; }
 
     // The declaring source's options, every key defaulted.

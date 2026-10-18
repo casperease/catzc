@@ -1,10 +1,10 @@
 globsets:
   automation:
-    description: The automation track - the automation module system under automation/.
+    description: The pwsh track - the module system under pwsh/.
     layer: loose-fileset
     pipeline: ci-automation
     include:
-      - automation/**
+      - pwsh/**
 
   infrastructure:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
@@ -112,7 +112,7 @@ globsets:
     exclude:
       - docs/notes/**
       - .unordered/**
-      - automation/.vendor/**
+      - pwsh/.vendor/**
 
   repository:
     description: The whole repository - every tracked file under every named root.

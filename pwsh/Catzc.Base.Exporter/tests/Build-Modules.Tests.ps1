@@ -49,7 +49,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
     It 'checks the build against its bundle''s footprint limits, and skips that on a dry run' {
         Build-Modules -Bundle gadgets | Out-Null
         Should -Invoke Assert-BundleFootprint -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $Bundle.name -eq 'gadgets' -and $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'automation/built/gadgets')/Catzc/6.6.666"
+            $Bundle.name -eq 'gadgets' -and $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/gadgets')/Catzc/6.6.666"
         }
         Build-Modules -DryRun | Out-Null
         Should -Invoke Assert-BundleFootprint -ModuleName Catzc.Base.Exporter -Times 1
@@ -77,9 +77,9 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Bundle -eq 'widgets' }
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
             $ModuleProfile -eq 'widget-set' -and -not $Module -and $VendorPolicy -eq 'runtime' -and $Bundle -eq 'widgets' -and
-            $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'automation/built/widgets') -and $Version -eq '6.6.666' -and -not $DryRun
+            $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/widgets') -and $Version -eq '6.6.666' -and -not $DryRun
         }
-        $result.BuildRoot | Should -Be "$(Join-Path (Join-Path $TestDrive 'out') 'automation/built/widgets')/Catzc/6.6.666"
+        $result.BuildRoot | Should -Be "$(Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/widgets')/Catzc/6.6.666"
     }
 
     It 'builds a named bundle from its own profile, vendor policy, version line and folder' {
@@ -87,7 +87,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Bundle -eq 'gadgets' }
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
             $ModuleProfile -eq 'gadget-set' -and $VendorPolicy -eq 'full' -and $Bundle -eq 'gadgets' -and
-            $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'automation/built/gadgets')
+            $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/gadgets')
         }
     }
 
@@ -131,7 +131,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
     It 'verifies the build it wrote' {
         Build-Modules | Out-Null
         Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'automation/built/widgets')/Catzc/6.6.666"
+            $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/widgets')/Catzc/6.6.666"
         }
     }
 

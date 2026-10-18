@@ -18,7 +18,7 @@ categories:
       "A LIVE Azure identity — a real customer, subscription, org, or shipped-template name that the demo config maps to (the live zone,
       ADR-REPO-LANG). Guarded by integrity tests; forbidden in a logic test."
     scope:
-      - "automation/Catzc.Azure*/configs/**"
+      - "pwsh/Catzc.Azure*/configs/**"
       - "infrastructure/**"
       - "docs/**"
   adr-example:
