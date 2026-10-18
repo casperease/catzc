@@ -9,15 +9,15 @@ task:
 
 # Task: the closing sweep
 
-ADR-REPO-PLANS-DONEPLANDELETED: a plan with no open step is deleted and value-of-plan.md keeps one "deleted, why" line. This task runs after
-any batch of tasks lands, as often as needed, and last of all. `git rm` is the user's; the sweep lists.
+ADR-REPO-PLANS-DONEPLANDELETED: a plan with no open step is deleted; git holds why. This task runs after any batch of tasks lands, as often
+as needed, and last of all. `git rm` is the user's (the permission layer blocks it for sessions); the sweep lists.
 
 ## Steps
 
 1. `grep -c '\- \[ \]' .claude/plans/plan-*.md`: every plan at zero is a delete candidate; read it once more for an open question or a
    "waits_on" that is not a checkbox (an open question keeps the plan). Check: a candidate list with one line per plan and its reason.
-2. For each candidate: one "deleted, why" line in `value-of-plan.md` under "Deleted", its row removed from the value table, its
-   `prompt-*-continue.md` companions listed with it. Check: Test-Links clean on value-of-plan.md.
+2. For each candidate: its row removed from the value table, and its `git rm` line (with its prompt and task companions) added to
+   `out/delete-done-plans.ps1`. Check: Test-Links clean on value-of-plan.md.
 3. `out/delete-done-plans.ps1`: the `git rm` lines, nothing else; the user runs it. Check: the files are gone.
 4. `plan-master.md`: each pointer line whose task is complete is marked (done); when every chunk is done, the master itself has no open
    chunk and is deleted with the task files, leaving the plans folder with only live plans and value-of-plan.md. Check: Test-Plans and

@@ -373,8 +373,8 @@ setting, never code.
 
 - **`Format-FileMeta`** imprints the `immutable` and `edges` parts and `Test-FileMeta` fails any difference, in scope and in form.
 - **`Test-FileMetaProcessors`** fails a kind without its function and a function without a kind.
-- **`FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an earlier
-  one that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA-ROLE).
+- **`Test-FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an
+  earlier one that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA-ROLE).
 - **`Test-ModuleDependency`** keeps the layers apart ([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)).
 
 ## Consequences

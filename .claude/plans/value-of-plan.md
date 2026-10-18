@@ -45,10 +45,6 @@ stale or superseded item is recorded as such, with the reason.
 | medium | plan-assert-wait                | none left; both rules written   | Test-Automation.Tests after the reachability git mv | all landed but that one check       |
 | medium | plan-bounded-folder-enumeration | none left; ADR-PWSH-ENUM exists | the final full run                                  | built and migrated; delete on green |
 
-## Open signals no plan carries yet
-
-- The next decision funnel batch: Q102 to Q126 of questionnaire-2026-10-16.md, run through the same funnel as F1 to F10.
-
 ## Pending deletion
 
 `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and landed prompts (plan-adr-code-language last); the
