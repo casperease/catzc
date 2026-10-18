@@ -59,6 +59,9 @@ runs `Test-Automation`.
    (`Get-AdrUsage (repository)` 19.3 s and 9.7 s at L1, roof 2 s; `Invoke-TestFile (real worker)` 25.0 s) and speed up the slowest files as
    test-optimization does, never raising a limit. Record which budget is the live one in the plan. Check: each sped-up file faster and with
    every test kept, under Invoke-TestFile.
+   **Verdict (2026-10-18, catzc-c4):** the enforced budget is 180 s (`TimeoutsConfig.cs:27`); 347 s is an older baseline. Get-AdrUsage.Tests
+   34 s to 15 s, 6 of 6 kept (`out/test-file/20261018-211459-238c40`); Invoke-TestFile's real-worker file left at 25 s (its cost is what it
+   proves). The rest of the gap to 180 s is plan-test-run-budget's open box.
 7. The user's re-run of `Test-Automation` (task-user-runs-and-commits, its last step). Check: 0 failed; then the closing sweep.
 
 ## Report

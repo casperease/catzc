@@ -38,9 +38,14 @@ none.
 
 ## Open steps
 
-- [ ] Read the final session's full run (`out/test-automation`), no run started for it: its wall clock and phase table against 347 s, phases
+- [x] Read the final session's full run (`out/test-automation`), no run started for it: its wall clock and phase table against 347 s, phases
       B and C overlapping A, and `Invoke-TestFile.Tests.ps1` apart from `Test-Formatting.Tests.ps1` (task-test-run-budget step 1) (check:
       the table and the verdict recorded here). The box stays open: the run read so far crashed, and a crashed run is no final run.
+  - Read 2026-10-18 (orchestrator, from catzc-c4's reading): the user's final run `out/test-automation/20261018-205956` finished in
+    221.05 s, no crash. The budget it enforces is 180 s (`TestRunDefaultSeconds` in `TimeoutsConfig.cs:27`, failed by
+    `Test-TestRunOverBudget`); `timeouts.yml` has no `run_seconds` key and 360 s is the pwsh roof. The 347 s figures below are the older
+    baseline. Get-AdrUsage.Tests went 34 s to 15 s (6 of 6 kept, `out/test-file/20261018-211459-238c40`); the Invoke-TestFile real-worker
+    file stays at 25 s, its cost being what it proves.
   - The user's run `out/test-automation/20261018-194315` crashed on the roof, "PesterRunner timed out after 360s with 1 worker(s)
     unfinished: shard-20", the whole run passing its wall clock (371 s against 360 s); shards 0 to 19 wrote results, and shard-20, the last
     scheduled (`python/tests/catzc-base-repository`), runs in 9 s alone. Read with `out/analyze-run.py` (a shard's start from its results
@@ -81,6 +86,10 @@ none.
       (150, `timeouts.yml` and the default on `TimeoutsConfig`) reaches every engine through `Get-EngineContract` as
       `CATZC_ENGINE_TIMEOUT_SECONDS`, and `test_repository.py` and `repository_test.go` read it (check: TimeoutsConfig.Tests and
       Get-EngineContract.Tests pass under Invoke-TestFile; the Python and Go folders pass alone; the user's next full run is the proof).
+
+- [ ] Bring the full run under its 180 s budget (221.05 s on 2026-10-18), one slow file at a time as test-optimization does, every test kept
+      and no limit raised; the next candidates are the slowest tests in the run's `summary.md` (check: the user's next full run reports
+      no budget overrun).
 
 ## Refs
 

@@ -50,7 +50,7 @@ is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines o
   proof run.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
   form's retirement, on the day the user re-points the external definitions.
-- test-run-budget -> task-test-run-budget.md: read the next full run's wall clock against the 347 s table.
+- test-run-budget -> task-test-run-budget.md: bring the full run under its 180 s budget (221 s on 2026-10-18).
 - module-model-closeout -> task-module-model-closeout.md: closes on the final full run.
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md: closes on the final full run, then the plan and its prompt are
   deleted.

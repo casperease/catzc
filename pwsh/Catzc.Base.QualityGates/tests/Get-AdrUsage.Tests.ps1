@@ -2,6 +2,9 @@ Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:rows = @(Get-AdrUsage)
         $script:map = Get-AdrCitationMap
+        # Narrowing and grouping run over one folder, not the whole tree.
+        $script:slicePath = Join-Path (Get-RepositoryRoot) 'docs/adr/repository'
+        $script:slice = @(Get-AdrUsage -Path $script:slicePath)
     }
 
     It 'lists citations and links from the tracked files' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
@@ -21,19 +24,19 @@ Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
     }
 
     It 'narrows to the codes and the source asked for' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
-        $code = $rows[0].Code
-        $narrowed = @(Get-AdrUsage -Code $code -Source $rows[0].Source)
+        $code = $slice[0].Code
+        $narrowed = @(Get-AdrUsage -Path $slicePath -Code $code -Source $slice[0].Source)
         $narrowed.Count | Should -BeGreaterThan 0
         @($narrowed.Code | Sort-Object -Unique) | Should -Be @($code)
-        @($narrowed.Source | Sort-Object -Unique) | Should -Be @($rows[0].Source)
+        @($narrowed.Source | Sort-Object -Unique) | Should -Be @($slice[0].Source)
     }
 
     It 'groups by rule and by document' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
-        $byRule = @(Get-AdrUsage -GroupBy Rule)
+        $byRule = @(Get-AdrUsage -Path $slicePath -GroupBy Rule)
         $byRule.Count | Should -BeGreaterThan 0
         $byRule | Where-Object { $_.Count -ne @($_.Documents).Count } | Should -BeNullOrEmpty
-        $byDocument = @(Get-AdrUsage -GroupBy Document)
-        $byDocument.Count | Should -Be @($rows.Path | Sort-Object -Unique).Count
+        $byDocument = @(Get-AdrUsage -Path $slicePath -GroupBy Document)
+        $byDocument.Count | Should -Be @($slice.Path | Sort-Object -Unique).Count
         $byDocument | Where-Object { $_.Count -ne @($_.Citations).Count } | Should -BeNullOrEmpty
     }
 

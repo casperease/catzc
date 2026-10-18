@@ -163,7 +163,10 @@ public class CliRunner
         }
 
         process.WaitForExit();
-        var drained = stdoutThread.Join(DrainLimit) & stderrThread.Join(DrainLimit);
+        var drainClock = System.Diagnostics.Stopwatch.StartNew();
+        var drained = stdoutThread.Join(DrainLimit);
+        var remaining = DrainLimit - drainClock.Elapsed;
+        drained &= stderrThread.Join(remaining > TimeSpan.Zero ? remaining : TimeSpan.Zero);
         if (!drained)
         {
             throw new IOException(
