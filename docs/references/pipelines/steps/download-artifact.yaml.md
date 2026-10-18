@@ -1,0 +1,13 @@
+# pipelines/steps/download-artifact.yaml
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## comment:1
+
+Above `parameters:`, written with `#`.
+
+```text
+One artifact into $(Pipeline.Workspace)/<Artifact>: from this run, or, when RunId is set, from that run of ArtifactPipeline (DEPLOY
+takes the exact artifact CI built, by run id; ADR-FLOW-CD#6).
+```

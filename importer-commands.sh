@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f2ea0f4fe6ea
+#     with_body_sha: "7550cc14ad28"
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
@@ -217,6 +217,31 @@ Test-ParameterConsistency	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base
 Test-Pipelines	Path	string	0	0	0	contracts/catzc/0.0.0/Catzc.Azure.DevOps/Test-Pipelines.command.yml		
 Test-Pipelines	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Azure.DevOps/Test-Pipelines.command.yml		
 Test-Pipelines	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Azure.DevOps/Test-Pipelines.command.yml		
+Test-PythonLint	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-PythonLint.command.yml		
+Test-PythonLint	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-PythonLint.command.yml		
+Test-PythonTypes	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-PythonTypes.command.yml		
+Test-PythonTypes	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-PythonTypes.command.yml		
+Test-RootAnalyzerSettings	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.command.yml		
+Test-RootAnalyzerSettings	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.command.yml		
+Test-RootConfigFiles	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.RootConfig/Test-RootConfigFiles.command.yml		
+Test-RootConfigFiles	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.RootConfig/Test-RootConfigFiles.command.yml		
+Test-ScriptAnalyzer	Path	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ScriptAnalyzer.command.yml		
+Test-ScriptAnalyzer	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ScriptAnalyzer.command.yml		
+Test-ScriptAnalyzer	NoCache	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ScriptAnalyzer.command.yml		
+Test-ScriptAnalyzer	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ScriptAnalyzer.command.yml		
+Test-ShellScripts	ShellCheckExclude	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ShellScripts.command.yml		
+Test-ShellScripts	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ShellScripts.command.yml		
+Test-ShellScripts	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ShellScripts.command.yml		
+Test-ShippedConfigs	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ShippedConfigs.command.yml		
+Test-ShippedConfigs	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-ShippedConfigs.command.yml		
+Test-ShippedTypes	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.TypesSystem/Test-ShippedTypes.command.yml		
+Test-ShippedTypes	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.TypesSystem/Test-ShippedTypes.command.yml		
+Test-Spelling	Path	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Spelling.command.yml		
+Test-Spelling	Exclude	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Spelling.command.yml		
+Test-Spelling	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Spelling.command.yml		
+Test-Spelling	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Spelling.command.yml		
+Test-Terminology	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Terminology.command.yml		
+Test-Terminology	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Terminology.command.yml		
 Test-ValueChainMap	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Maps/Test-ValueChainMap.command.yml		
 Test-ValueChainMap	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Maps/Test-ValueChainMap.command.yml		
 Test-WorldMap	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Maps/Test-WorldMap.command.yml		

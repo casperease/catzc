@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4a96aa90e4b2"
+    with_body_sha: "37a4c13b7eb2"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-az-datamod--the-session-is-the-deploy-target--meta.chain.md
-    source: docs/explanation/.assets/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
+    path: docs/explanation/azure/.assets/the-session-is-the-deploy-target/chain.md
+    source: docs/explanation/azure/.assets/the-session-is-the-deploy-target/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

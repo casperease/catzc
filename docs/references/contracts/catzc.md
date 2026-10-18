@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "12794e007fc3"
-    with_inputs_sha: df4c3e61f9e8dc7d52bc613e4dbb9f724c15d8e3a7a7f93fc52a11319189a760
+    with_body_sha: "4ceafa69c92d"
+    with_inputs_sha: "6417d82bc34b1487569225f7dd5740a2b5cee5b7bf4950e11c5bd5a34abddabd"
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
@@ -99,9 +99,20 @@ The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repos
 | `Catzc.Base.QualityGates`            | `Test-ManagedGuids.command.yml`                  | `pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1`                      | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
 | `Catzc.Base.QualityGates`            | `Test-MarkdownTitle.command.yml`                 | `pwsh/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1`                     | provided                | command contract | `Path: string[], RepositoryRoot: string, OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                            |
 | `Catzc.Base.QualityGates`            | `Test-Markdownlint.command.yml`                  | `pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1`                      | provided                | command contract | `Path: string[], OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                    |
+| `Catzc.Base.QualityGates`            | `Test-ParameterConsistency.command.yml`          | `pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1`              | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
+| `Catzc.Base.QualityGates`            | `Test-PythonLint.command.yml`                    | `pwsh/Catzc.Base.QualityGates/Test-PythonLint.ps1`                        | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
+| `Catzc.Base.QualityGates`            | `Test-PythonTypes.command.yml`                   | `pwsh/Catzc.Base.QualityGates/Test-PythonTypes.ps1`                       | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
+| `Catzc.Base.QualityGates`            | `Test-ScriptAnalyzer.command.yml`                | `pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1`                    | provided                | command contract | `Path: string[], OutputFolder: string, NoCache: switch, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                   |
+| `Catzc.Base.QualityGates`            | `Test-ShellScripts.command.yml`                  | `pwsh/Catzc.Base.QualityGates/Test-ShellScripts.ps1`                      | provided                | command contract | `ShellCheckExclude: string[], OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                       |
+| `Catzc.Base.QualityGates`            | `Test-ShippedConfigs.command.yml`                | `pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1`                    | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
+| `Catzc.Base.QualityGates`            | `Test-Spelling.command.yml`                      | `pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1`                          | provided                | command contract | `Path: string[], Exclude: string[], OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                 |
+| `Catzc.Base.QualityGates`            | `Test-Terminology.command.yml`                   | `pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1`                       | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
 | `Catzc.Base.QualityGates`            | `head.sample.yml`                                | none                                                                      | provided                | sample payload   | none                                                                                                                                                                |
 | `Catzc.Base.QualityGates`            | `head.schema.json`                               | `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml`           | provided                | schema           | none                                                                                                                                                                |
 | `Catzc.Base.Repository`              | `Get-RepositoryFile.command.yml`                 | `pwsh/Catzc.Base.Repository/Get-RepositoryFile.ps1`                       | provided                | command contract | `Path: string! -> string`                                                                                                                                           |
+| `Catzc.Base.RootConfig`              | `Test-RootAnalyzerSettings.command.yml`          | `pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1`                | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
+| `Catzc.Base.RootConfig`              | `Test-RootConfigFiles.command.yml`               | `pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1`                     | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
+| `Catzc.Base.TypesSystem`             | `Test-ShippedTypes.command.yml`                  | `pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1`                       | provided                | command contract | `OutputFolder: string, PassThru: switch -> Catzc.Base.Reports.QualityGateResult`                                                                                    |
 | `Catzc.Tooling.Github`               | `README.md`                                      | `.github/README.md`                                                       | depended-on             | presence         | none                                                                                                                                                                |
 | `Catzc.Tooling.Github`               | `Remove-TokenFromHistory.command.yml`            | `pwsh/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1`                   | provided                | command contract | `Token: string!, ReplaceWith: string = ***REMOVED***, SkipMessages: switch, RepositoryPath: string, DryRun: switch`                                                 |
 | `Catzc.Tooling.Github`               | `workflows/ci-automation.yml`                    | `.github/workflows/ci-automation.yml`                                     | depended-on             | fragment         | none                                                                                                                                                                |
@@ -330,6 +341,27 @@ Notes:
   its result under -PassThru.
 - `Catzc.Base.QualityGates/Test-Markdownlint.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
   Test-Markdownlint, the quality gate that lints the repository's Markdown with markdownlint-cli2 and returns its result under -PassThru.
+- `Catzc.Base.QualityGates/Test-ParameterConsistency.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-ParameterConsistency, the quality gate that checks one parameter name means one type across the public functions, and returns its
+  result under -PassThru.
+- `Catzc.Base.QualityGates/Test-PythonLint.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-PythonLint, the quality gate that lints every Python file the repository holds with ruff, and returns its result under -PassThru.
+- `Catzc.Base.QualityGates/Test-PythonTypes.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-PythonTypes, the quality gate that type-checks every Python file the repository holds with pyright, and returns its result under
+  -PassThru.
+- `Catzc.Base.QualityGates/Test-ScriptAnalyzer.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-ScriptAnalyzer, the quality gate that analyzes the PowerShell with PSScriptAnalyzer, and returns its result under -PassThru.
+- `Catzc.Base.QualityGates/Test-ShellScripts.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-ShellScripts, the quality gate that checks every shell script for LF line endings, the executable bit and its syntax check, and
+  returns its result under -PassThru.
+- `Catzc.Base.QualityGates/Test-ShippedConfigs.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-ShippedConfigs, the quality gate that checks every shipped config has a registered C# config type and loads through it, and returns
+  its result under -PassThru.
+- `Catzc.Base.QualityGates/Test-Spelling.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-Spelling, the quality gate that spell-checks the repository's known file types with cspell, and returns its result under -PassThru.
+- `Catzc.Base.QualityGates/Test-Terminology.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-Terminology, the quality gate that checks the terminology registry has no drift, no orphans and no unjustified entries, and returns
+  its result under -PassThru.
 - `Catzc.Base.QualityGates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the shape a tool may rely on when it reads the
   `catzc.immutable` and `catzc.edges` parts of a head, written by Format-FileMeta in the carrier of the file (a comment head, or Markdown
@@ -342,6 +374,15 @@ Notes:
   the file; the kind of the object the file belongs to is its track's type, tracktype.
 - `Catzc.Base.Repository/Get-RepositoryFile.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
   Get-RepositoryFile, which returns the full, normalized path to a file relative to the repository root.
+- `Catzc.Base.RootConfig/Test-RootAnalyzerSettings.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-RootAnalyzerSettings, the quality gate that checks the root analyzer settings parse as a settings hashtable through their link, and
+  returns its result under -PassThru.
+- `Catzc.Base.RootConfig/Test-RootConfigFiles.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-RootConfigFiles, the quality gate that checks every managed root config file agrees with rootconfig.yml on tracking, .gitignore and
+  link mechanism, and returns its result under -PassThru.
+- `Catzc.Base.TypesSystem/Test-ShippedTypes.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
+  Test-ShippedTypes, the quality gate that checks every shipped C# type resolves in the session by its module and file name, and returns its
+  result under -PassThru.
 - `Catzc.Tooling.Github/Remove-TokenFromHistory.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of
   Remove-TokenFromHistory, which scrubs a token from a git history's blob content and commit messages. RepositoryPath defaults to the
   repository root, a computed default the contract does not restate; SkipMessages leaves the commit messages alone, and DryRun reports what

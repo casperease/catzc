@@ -1,5 +1,3 @@
-# One artifact into $(Pipeline.Workspace)/<Artifact>: from this run, or, when RunId is set, from that run of ArtifactPipeline (DEPLOY
-# takes the exact artifact CI built, by run id; ADR-FLOW-CD#6).
 parameters:
   - name: Artifact
     type: string

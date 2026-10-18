@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-ShippedTypes, the quality gate that checks every shipped
+# C# type resolves in the session by its module and file name, and returns its result under -PassThru.
+parameters:
+  OutputFolder: string
+  PassThru: switch
+output: Catzc.Base.Reports.QualityGateResult
