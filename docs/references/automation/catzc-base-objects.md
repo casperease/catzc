@@ -62,8 +62,7 @@ The module's public functions, sorted into the responsibilities above.
 
 | Responsibility                                | Function                     |
 | --------------------------------------------- | ---------------------------- |
-| responsibility:1 — Object shaping and cloning | `ConvertTo-Dictionary`       |
-|                                               | `ConvertTo-FlatSettingSet`   |
+| responsibility:1 — Object shaping and cloning | `ConvertTo-FlatSettingSet`   |
 |                                               | `ConvertTo-SortedDictionary` |
 |                                               | `Copy-Object`                |
 | responsibility:2 — YAML-safe serialization    | `ConvertTo-YamlSafe`         |

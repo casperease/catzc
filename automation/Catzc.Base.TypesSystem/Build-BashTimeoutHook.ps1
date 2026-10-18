@@ -17,7 +17,8 @@ function Build-BashTimeoutHook {
 
     $sources = @(Get-ChildPath $project -File -Filter '*.cs', '*.csproj' -Depth 1 | Sort-Object { [System.IO.Path]::GetFileName($_) })
     Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
-    $linked = @($projectXml.SelectNodes('//Compile/@Include') | ForEach-Object Value | Sort-Object)
+    $modulesFolder = Get-CatzcModulesFolder
+    $linked = @($projectXml.SelectNodes('//Compile/@Include') | ForEach-Object { $_.Value.Replace('$(CatzcModulesFolder)', $modulesFolder) } | Sort-Object)
     $hashLines = @($sources | ForEach-Object { "$([System.IO.Path]::GetFileName($_)):$((Get-FileHash -LiteralPath $_ -Algorithm SHA256).Hash)" })
     foreach ($include in $linked) {
         $linkedPath = Join-Path $project $include
@@ -47,7 +48,7 @@ function Build-BashTimeoutHook {
         throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Build-BashTimeoutHook.'
     }
 
-    Invoke-Executable "dotnet publish `"$csproj`" --configuration Release --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers" -Silent
+    Invoke-Executable "dotnet publish `"$csproj`" --configuration Release --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers -p:CatzcModulesFolder=$modulesFolder" -Silent
     $program = & $findProgram
     Assert-NotNullOrWhitespace $program -ErrorText "dotnet publish succeeded but produced no runnable '$assemblyName' program in $OutputDirectory."
     Set-Content -LiteralPath $stamp -Value $sourceHash -NoNewline

@@ -60,7 +60,6 @@ The module's public functions, sorted into the responsibilities above.
 | --------------------------------------------------------- | ---------------------------- |
 | responsibility:1 — Value, nullness, and type checks       | `Assert-True`                |
 |                                                           | `Assert-False`               |
-|                                                           | `Assert-Null`                |
 |                                                           | `Assert-NotNull`             |
 |                                                           | `Assert-NotNullOrWhitespace` |
 |                                                           | `Test-NotNullOrWhitespace`   |
@@ -79,5 +78,4 @@ The module's public functions, sorted into the responsibilities above.
 |                                                           | `Test-IsAdministrator`       |
 |                                                           | `Assert-LastExitCodeWasZero` |
 | responsibility:3 — Pipeline-shape checks                  | `Assert-PipelineCount`       |
-|                                                           | `Assert-PipelineEmpty`       |
 | responsibility:4 — Configuration-shape checks             | `Assert-YmlNaming`           |

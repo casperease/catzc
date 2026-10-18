@@ -3,6 +3,8 @@
   to .claude/hooks/bin/ whenever its sources change — this folder's files and every linked <Compile> source below;
   obj/bin here and the published output are gitignored.
 
+  The modules folder is the CatzcModulesFolder property Build-BashTimeoutHook passes, so the project names no folder.
+
   The decision and the limits are the Catzc.Base.Timeouts module's own types, compiled in from their source files,
   so the hook can never drift from Get-TimeoutSeconds. YAML is read with the YamlDotNet the vendored powershell-yaml
   module ships, so the build needs no package download.
@@ -24,20 +26,23 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../../automation/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs" Link="linked/ConsoleDisplayAttribute.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Objects/types/TypeShape.cs" Link="linked/TypeShape.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Engines/types/ExecutionEngine.cs" Link="linked/ExecutionEngine.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Engines/types/ExecutionEngines.cs" Link="linked/ExecutionEngines.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Timeouts/types/TestTiers.cs" Link="linked/TestTiers.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
-    <Compile Include="../../../automation/Catzc.Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs" Link="linked/ConsoleDisplayAttribute.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/TypeShape.cs" Link="linked/TypeShape.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Engines/types/ExecutionEngine.cs" Link="linked/ExecutionEngine.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Engines/types/ExecutionEngines.cs" Link="linked/ExecutionEngines.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TestTiers.cs" Link="linked/TestTiers.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="YamlDotNet">
-      <HintPath>../../../automation/.vendor/powershell-yaml/0.4.12/lib/netstandard2.1/YamlDotNet.dll</HintPath>
+      <HintPath>../../../$(CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/lib/netstandard2.1/YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild" Condition="'$(CatzcModulesFolder)' == ''">
+    <Error Text="CatzcModulesFolder is not set: build the hook with Build-BashTimeoutHook, which passes the modules folder from Get-CatzcModulesFolder." />
+  </Target>
 </Project>

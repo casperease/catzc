@@ -8,8 +8,8 @@ public sealed class GlobsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The config's own repo-relative path (named in lookup errors).
-    public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
+    // The config, as lookup errors name it: by its module, so no modules folder is spelled.
+    public const string ConfigPath = "Catzc.Base.Globs/configs/globs.yml";
 
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 
