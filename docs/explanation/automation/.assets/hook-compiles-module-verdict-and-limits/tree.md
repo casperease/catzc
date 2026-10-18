@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "61d0e8a6af0d"
+    repo_status: locked
+    path: docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits/tree.md
+    source: docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree: the tree minimap
 
 ```text

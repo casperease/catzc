@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "4d6629a62d74"
+    repo_status: locked
+    path: docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits/grid.md
+    source: docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree: the world-map minimap
 
 ```text
