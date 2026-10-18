@@ -46,22 +46,22 @@ to ADR-AUTO-DEFAULT#6 that the ADR records. Only pwsh loads the DLL (ADR-AUTO-EN
        stays lazy until a command runs; if "keep", record that lazy pays off for bundle, `-SkipJanitors` and idle sessions only. One Decided
        line. Check: a `-DiagnoseLoadTime` import shows the DLL not loaded before the first prompt, or the line exists. Decided 2026-10-18
        (D09): after the first prompt. Done 2026-10-18: `Invoke-Importer` routes a console import (no caller script, not a pipeline) without
-       `-CleanClone` through `Enable-DeferredJanitors`; a headless import, every `pwsh -File` run included, keeps the janitors inline, and
-       a `-CleanClone` import runs them inline so the clean happens at import. Proof in a fresh `pwsh -Command` session
-       (`out/t-lazy-proof.ps1`, `out/t-lazy-probe.ps1`): the pending types record reads `loaded=False` after the import and after the
-       first prompt render, `loaded=True` after the second, when the janitors ran; the prompt is restored and the Importer module is gone
-       again. Timings, fresh process: 3.5 s before (three rounds 3.6, 3.5, 3.5 s) to 2.3 s after (2.3, 2.4, 2.3 s); the janitors' 2.9 s
-       is paid at the second prompt. The section "Loaded by the first use" of ADR-AUTO-TYPES says so; `ADRREG issues=0`, `LINKS issues=0`,
+       `-CleanClone` through `Enable-DeferredJanitors`; a headless import, every `pwsh -File` run included, keeps the janitors inline, and a
+       `-CleanClone` import runs them inline so the clean happens at import. Proof in a fresh `pwsh -Command` session
+       (`out/t-lazy-proof.ps1`, `out/t-lazy-probe.ps1`): the pending types record reads `loaded=False` after the import and after the first
+       prompt render, `loaded=True` after the second, when the janitors ran; the prompt is restored and the Importer module is gone again.
+       Timings, fresh process: 3.5 s before (three rounds 3.6, 3.5, 3.5 s) to 2.3 s after (2.3, 2.4, 2.3 s); the janitors' 2.9 s is paid at
+       the second prompt. The section "Loaded by the first use" of ADR-AUTO-TYPES says so; `ADRREG issues=0`, `LINKS issues=0`,
        `MDLINT issues=0`, `SPELL issues=0`, `GLOSSARY issues=0` on the page.
-2. [x] Phase 3 leftover, the console prompt hook: the hook registers once, removes itself after the first load. Test in Initialize-Types tests.
-       Check: the test passes. Done 2026-10-18 as `Enable-DeferredJanitors` and `Invoke-DeferredJanitorsPrompt` in `Catzc.Internal.Loader`
-       (the module that stays loaded): the hook wraps the global prompt once, leaves the first render untouched, and on the second render
-       restores the prompt first, then re-imports the Importer module, runs `Invoke-ImporterJanitors` inside it and removes it again.
-       Correction from the tree: the hook is a Loader function, so its test is `automation/.internal/tests/Enable-DeferredJanitors.Tests.ps1`
-       (three cases: render then run once then gone, a throwing action leaves a working prompt, the default action names the janitors),
-       not a case in Initialize-Types tests. `[Invoke-TestFile] Passed` (`out/test-file/20261018-105216-5e9f17`), `ANALYZER issues=0` on
-       the Loader, the Importer and the test; the test file is untracked, so `Format-FileMeta` stamps its head after the user's commit
-       (`FILEMETA` reports that one drift until then).
+2. [x] Phase 3 leftover, the console prompt hook: the hook registers once, removes itself after the first load. Test in Initialize-Types
+       tests. Check: the test passes. Done 2026-10-18 as `Enable-DeferredJanitors` and `Invoke-DeferredJanitorsPrompt` in
+       `Catzc.Internal.Loader` (the module that stays loaded): the hook wraps the global prompt once, leaves the first render untouched, and
+       on the second render restores the prompt first, then re-imports the Importer module, runs `Invoke-ImporterJanitors` inside it and
+       removes it again. Correction from the tree: the hook is a Loader function, so its test is
+       `automation/.internal/tests/Enable-DeferredJanitors.Tests.ps1` (three cases: render then run once then gone, a throwing action leaves
+       a working prompt, the default action names the janitors), not a case in Initialize-Types tests. `[Invoke-TestFile] Passed`
+       (`out/test-file/20261018-105216-5e9f17`), `ANALYZER issues=0` on the Loader, the Importer and the test; the test file is untracked,
+       so `Format-FileMeta` stamps its head after the user's commit (`FILEMETA` reports that one drift until then).
 3. [x] Phase 3 leftover, L1 test: through the real importer, after import no `Catzc.*` type is loaded
        (`[AppDomain]::CurrentDomain.GetAssemblies()` lists no Catzc.Types) and the first command loads it. Check: the L1 file passes under
        its limit. Corrected 2026-10-17: the importer derives the host kind from the interactive session, so a test run is headless and eager

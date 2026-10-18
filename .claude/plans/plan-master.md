@@ -100,9 +100,9 @@ Open, in execution order:
   measured run, the one conventions finding left is the user's `git mv` of FileKindReachability.Tests.ps1): Assert-Wait defaults on
   TimeoutsConfig, the lateness explained and removed (sleep until due), ADR-AUTO-FAILFAST#8 and ADR-PWSH-ASSERT#7, watchpoints retired into
   limits.
-- lazy-types-load -> task-lazy-types-load.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both): lazy
-  types Phases 3 to 5: the hash memo, the ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no second eager
-  path, the janitors behind the console prompt hook.
+- lazy-types-load -> task-lazy-types-load.md (done 2026-10-18; the plan's steps are all ticked, task-closing-sweep deletes both): lazy types
+  Phases 3 to 5: the hash memo, the ADR rule and exception, comment pages, the bundle and lazy tests in the tree, no second eager path, the
+  janitors behind the console prompt hook.
 - adr-auto-material -> task-adr-auto-material.md (open; D16 confirmed 2026-10-18, ready): ADR-AUTO-MATERIAL with seven rules, registry,
   dora-explains, glossary term.
 - adr-link-cleanup -> task-adr-link-cleanup.md (open; ready): HELP#3 relaxed, TryParse test, five gates, ledger rebuilt, F8 bold rules,

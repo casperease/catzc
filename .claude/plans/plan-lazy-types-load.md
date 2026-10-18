@@ -61,10 +61,10 @@ uses a type should never pay the load or hold the shadow copy.
 - [x] Phase 3 deferred load (`Register-DeferredTypes`, `Initialize-Types`, `Enable-DeferredTypesLoad`; Initialize-Types tests).
 - [x] Phase 3 leftovers: console prompt hook; decision on source-console janitors (below) (check: D09 is recorded here and, if it says
       "after the first prompt", the hook's test passes). Done 2026-10-18 (task-lazy-types-load steps 1 and 2): `Enable-DeferredJanitors` in
-      the Loader, `[Invoke-TestFile] Passed`; a fresh console import 3.5 s to 2.3 s, the janitors paid at the second prompt. 2026-10-17 (lazy task): the "not loaded after import" proof lives in
-      `Import-CSharpTypes.Tests.ps1` with `-HostKind console`, since a test run is headless and eager by the policy; no prompt hook exists,
-      it is the D09 branch. Decided 2026-10-18 (D09): the janitors run after the first prompt; the hook and its test are
-      task-lazy-types-load steps 1 and 2.
+      the Loader, `[Invoke-TestFile] Passed`; a fresh console import 3.5 s to 2.3 s, the janitors paid at the second prompt. 2026-10-17
+      (lazy task): the "not loaded after import" proof lives in `Import-CSharpTypes.Tests.ps1` with `-HostKind console`, since a test run is
+      headless and eager by the policy; no prompt hook exists, it is the D09 branch. Decided 2026-10-18 (D09): the janitors run after the
+      first prompt; the hook and its test are task-lazy-types-load steps 1 and 2.
 - [x] Phase 4 stat-stamp memo in front of `Get-CombinedTypeHash` (spike: hash 155 ms dominates the 41 ms load, so do it) (check: a warm
       import measures the hash below the load, numbers recorded here). Done 2026-10-17 (lazy task): `Get-CombinedTypeHash -StampPath`, the
       memo beside the shadow copies (`Get-TypesStampPath`, machine-local, self-validating by length and last write), used by the importer
