@@ -73,7 +73,7 @@ renamed yet. Every decision is made; do not re-ask them.
   background.
 - **No mutating git** (`add`, `commit`, `mv`, `reset`, ...) unless the user explicitly asks. `git mv` for the folder move needs the user's
   explicit go.
-- Never claim a test or gate passed unless you ran it and read the output. The user runs the full suite and handles commits; propose no
+- Never claim a test or gate passed unless you ran it and read the output. The user runs all tests and handles commits; propose no
   commit split. Known unrelated reds: `Test-Spelling` 5, `Test-Glossary` G4, `Test-Formatting` `.compiled/*.json`, about 37
   `Test-ScriptAnalyzer`.
 - One living version (`ADR-PRIN-ONELIVE`): no shims, aliases, fallbacks, legacy files or "we used to" notes. Say "domain rules" / "ADR

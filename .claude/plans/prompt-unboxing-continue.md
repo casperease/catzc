@@ -54,5 +54,5 @@ reverted.
 **Constraints.** Every foreground Bash call passes `timeout: 3000` and is one plain command; anything longer runs with
 `run_in_background: true` and one command prefixed `timeout <s>` (max 360), absolute paths, no `cd`, `;`, `&&` or pipes. Scripts live in
 `out/`. No mutating git commands. Edit one file at a time and verify it before the next. A `types/*.cs` edit needs a fresh pwsh process. The
-user runs the commits and the full suite; run per-file checks only and never claim a test passed unless you saw it pass. Render no diagram
+user runs the commits and all tests; run per-file checks only and never claim a test passed unless you saw it pass. Render no diagram
 unasked. Private functions are timed inside their module: `& (Get-Module <Module>) { ... }`.

@@ -118,7 +118,7 @@ catzc:
       KeepSandbox: Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
       DiagnoseBlocking: |-
         Stand a one-second watchpoint (Assert-Wait) at four places in the startup, before the workers launch: after discovery, after the
-        tag gate, after the run context, and just before the workers start. Each prints its ticks and ends with a warning naming how
+        tag filter, after the run context, and just before the workers start. Each prints its ticks and ends with a warning naming how
         late the thread ran, so a stall shows where it happens. Costs about four seconds, so it is off by default. A worker's own
         import does not carry the switch.
     examples:

@@ -8,7 +8,7 @@ catzc:
   edges:
     test: automation/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
   config:
-    synopsis: The slides gate; fails every slide file whose pattern, fields, cited codes or quoted rule text break the rules.
+    synopsis: The slides quality gate; fails every slide file whose pattern, fields, cited codes or quoted rule text break the rules.
     description: |-
       Runs the checks of Get-SlideFinding over each slide file, one at a time, and reports through the quality-gate report
       (ADR-REPO-SLIDES#4): the head names a pattern the kit holds and a whole-number order; every field fits its pattern and its

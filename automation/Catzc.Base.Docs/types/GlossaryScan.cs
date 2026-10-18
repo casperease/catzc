@@ -38,8 +38,9 @@ public static class GlossaryScan
     {
         "a", "an", "the", "this", "that", "these", "those", "each", "every", "any", "all", "no", "some", "both", "either",
         "neither", "its", "their", "our", "your", "my", "his", "her", "which", "whose", "what", "same", "other", "another",
-        "own", "one", "two", "three", "four", "five", "first", "second", "last", "next", "single", "per", "more", "most",
-        "many", "few", "several", "s", "and", "or", "nor", "but", "of", "for", "to", "in", "on", "at", "by", "with", "from",
+        "own", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "first",
+        "second", "last", "next", "later", "earlier", "further", "single", "per", "more", "most", "many", "few", "several",
+        "s", "and", "or", "nor", "but", "of", "for", "to", "in", "on", "at", "by", "with", "from",
         "into", "onto", "across", "between", "within", "without", "via", "than", "then", "as", "is", "are", "was", "be",
         "only", "also", "not", "just", "even", "against", "about", "over", "under", "after", "before", "behind", "through",
         "around", "along", "among", "beyond", "during", "except", "inside", "outside", "toward", "towards", "upon", "past",

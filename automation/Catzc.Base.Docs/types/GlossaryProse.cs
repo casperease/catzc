@@ -36,6 +36,10 @@ public static class GlossaryProse
 {
     static readonly Regex FenceMarker = new Regex("^(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex LinkDestination = new Regex(@"\]\(([^)\s]+)", RegexOptions.Compiled);
+    // A link label that is a bare repository path (no blanks, a folder, a file extension) is a name, not prose.
+    static readonly Regex PathLabel = new Regex(@"\[[^\]\s]*/[^\]\s]*\.[A-Za-z0-9]+\]", RegexOptions.Compiled);
+    // A reference-style link definition (`[3]: ../path.md`) holds a destination, not prose.
+    static readonly Regex LinkDefinition = new Regex(@"^\s{0,3}\[[^\]]+\]:\s*\S+", RegexOptions.Compiled);
     static readonly Regex HelpKeyword = new Regex(@"(?im)^\s*\.(SYNOPSIS|DESCRIPTION)\b", RegexOptions.Compiled);
     static readonly Regex Mentions = new Regex(Span("`", "`") + "|" + Span("\"", "\"") + "|" + Span("“", "”"), RegexOptions.Compiled);
     static readonly HashSet<string> Writers = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "Write-Message", "Write-Warning", "Write-Error", "Write-Host" };
@@ -84,6 +88,8 @@ public static class GlossaryProse
                 else
                 {
                     lines[i] = LinkDestination.Replace(lines[i], m => "](" + new string(' ', m.Groups[1].Length));
+                    lines[i] = PathLabel.Replace(lines[i], m => new string(' ', m.Length));
+                    lines[i] = LinkDefinition.Replace(lines[i], m => new string(' ', m.Length));
                 }
                 continue;
             }

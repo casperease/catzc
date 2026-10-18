@@ -261,7 +261,7 @@ Reading (say so if wrong; the plan is built so only the map in section 3 changes
 ## 4. Phases
 
 Each phase ends with its own stop condition. "Per file" always means: edit one file with the Edit tool, then run that file's own Pester test
-or gate in the background under `timeout` (CLAUDE.md: no batch edits; time safeguard). The user runs the full suite and handles commits
+or gate in the background under `timeout` (CLAUDE.md: no batch edits; time safeguard). The user runs all tests and handles commits
 (memory: user-handles-commits-and-tests); this plan proposes no commit split.
 
 ### P0 Decide (nothing changes)
@@ -330,7 +330,7 @@ Order (it follows the boot dependency; the importer must work before any generat
    follow with zero hand edits.
 6. **Hand waves** (section 5): per-module code, tests, ADR rule text, docs prose and links, contracts.
 7. Stop: Grep for `automation/` over tracked files minus the allowlist (S2 paths, `.unordered`, S8) is empty; `Test-GeneratedFiles`,
-   `Test-Links`, `Test-Contracts`, `Test-WorldMap`, `Test-FolderConventions` clean; every touched file's own test passes. The full suite is
+   `Test-Links`, `Test-Contracts`, `Test-WorldMap`, `Test-FolderConventions` clean; every touched file's own test passes. Running all tests is
    the user's.
 
 ### P5 Guards (makes the new meaning stick)
@@ -382,7 +382,7 @@ CLAUDE.md rule against script sweeps makes that the user's call (Q7). The defaul
 
 - Per file: its Pester test or gate, read before the next file. Never claim a gate passed unless it ran and the result was read.
 - Per phase: the stop conditions above, run in the background with `timeout`.
-- End: the user runs the full suite. The plan names which gates must be green and which were red at P0 (so unrelated reds are not blamed on
+- End: the user runs all tests. The plan names which gates must be green and which were red at P0 (so unrelated reds are not blamed on
   the rename): known unrelated reds from the last session notes are Test-Spelling 5, Test-Glossary G4, Test-Formatting `.compiled/*.json`,
   about 37 Test-ScriptAnalyzer.
 - Keep a residue scan as a standing check: `rg -i automation` over tracked files with the do-not-sweep allowlist, to the zero the allowlist

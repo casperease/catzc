@@ -432,7 +432,7 @@ Options: a) the next session reruns it in the background; b) the user runs it. D
 
 ### Q85 Delete the bounded-enumeration plan on green
 
-Options: a) yes; b) keep until the full suite ran. Decision:
+Options: a) yes; b) keep until all tests ran. Decision:
 
 ### Q86 Unboxing P4 and P5
 
@@ -609,7 +609,7 @@ contracts beyond the pilot; c) the services track; d) none planned, let the past
 
 ### Q119 The user as the only mutating-git actor
 
-No session commits; the user commits and runs the full suite. Options: a) confirm; b) allow a session to commit with an explicit go per
+No session commits; the user commits and runs all tests. Options: a) confirm; b) allow a session to commit with an explicit go per
 commit; c) allow commits in a session's own branch. Decision:
 
 ### Q120 This questionnaire's method

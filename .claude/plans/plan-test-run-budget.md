@@ -114,6 +114,6 @@ Blocked on the other session's `Get-MarkdownScope` refactor. Re-measure once it 
 
 ## Order
 
-1. Run the full suite twice and record shard durations and wall clock.
+1. Run all tests twice and record shard durations and wall clock.
 2. If still over 180 s: item 1, then item 4.
 3. Items 2 and 3 stay as they are unless the user decides otherwise.

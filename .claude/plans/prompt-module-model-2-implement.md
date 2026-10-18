@@ -70,7 +70,7 @@ type. The prompt-1 answers stand.
 10. Only then extend to `infrastructure`.
 
 For every file: edit, run that file's tests (and the gate that owns it) with the time safeguard, read the result, then the next file. Report
-faithfully: never say a gate passed that you did not run; report a red gate that is not yours as not yours. The user runs the full suite.
+faithfully: never say a gate passed that you did not run; report a red gate that is not yours as not yours. The user runs all tests.
 
 ## 4. Done when
 

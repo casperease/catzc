@@ -1,8 +1,18 @@
 ---
 catzc:
   immutable:
+    repo_status: clean
     path: docs/references/automation/catzc-base-slides.md
+    folder: docs/references/automation
+    name: catzc-base-slides
+    filetype: md
     kind: reference
+    language: markdown
+    track: docs
+    tracktype: documentation
+  edges:
+    links:
+      - docs/adr/repository/slides-as-markdown.md
 ---
 
 # Catzc.Base.Slides
@@ -17,7 +27,7 @@ render.
 | Responsibility   | Area   | Name                                                                   |
 | ---------------- | ------ | ---------------------------------------------------------------------- |
 | responsibility:1 | render | [Fail-forward deck render](#responsibility1--fail-forward-deck-render) |
-| responsibility:2 | gate   | [The slides gate](#responsibility2--the-slides-gate)                   |
+| responsibility:2 | gate   | [The slides quality gate](#responsibility2--the-slides-quality-gate)   |
 | responsibility:3 | kit    | [Reading the kit](#responsibility3--reading-the-kit)                   |
 
 ### responsibility:1 — Fail-forward deck render
@@ -28,7 +38,7 @@ in order, and a faults file. A missing or unknown field, an unknown pattern, a g
 cited code the ADR index does not know and a quoted rule that differs from the registry are each written beside the render with the file and
 the field; nothing shrinks and nothing is guessed. It never publishes.
 
-### responsibility:2 — The slides gate
+### responsibility:2 — The slides quality gate
 
 `Test-Slides` runs the same checks over slide files, one at a time, and fails through the quality-gate report. It takes slide files or deck
 folders, and with no path checks every slide file under `docs/`.
@@ -52,5 +62,5 @@ The functions the module exports, indexed by the responsibility each serves, and
 | Responsibility                              | Function          |
 | ------------------------------------------- | ----------------- |
 | responsibility:1 — Fail-forward deck render | `Build-SlideDeck` |
-| responsibility:2 — The slides gate          | `Test-Slides`     |
+| responsibility:2 — The slides quality gate  | `Test-Slides`     |
 | responsibility:3 — Reading the kit          | `slides.yml`      |

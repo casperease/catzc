@@ -425,7 +425,7 @@ Ordering matters: the model must exist before the ADR's enforcement can name it,
     Only after the automation track is stable, because it is the larger blast radius for the least gain.
 
 Verification for every step: run the affected file's tests and the relevant gate in the background with `timeout`, and report what actually
-ran. Per-file checks only; the user runs the full suite (memory: user handles commits and tests).
+ran. Per-file checks only; the user runs all tests (memory: user handles commits and tests).
 
 ## 5a. Missing work (closed by prompt 1 on 2026-10-16)
 

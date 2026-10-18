@@ -66,6 +66,16 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
+    It 'allows a spelled-out number above five, and a comparative such as later or further' -Tag 'ADR-REPO-VOCAB#8' {
+        $text = @('Twelve widgets, six widgets, a later widget, further widgets.')
+        & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
+    }
+
+    It 'reads no link label that is a bare repository path as prose' -Tag 'ADR-REPO-VOCAB#8' {
+        $text = @('# Alpha', '', '- [docs/plan-sprocket-widget.md][3]: selected by the rule.', '', '[3]: ../docs/plan-sprocket-widget.md')
+        & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
+    }
+
     It 'reports a hyphenated or line-wrapped qualifier, and the verb forms' -Tag 'ADR-REPO-VOCAB#8' {
         $found = & $script:scan @{ 'docs/alpha.md' = @('A pre-sprocket widget, a sprocket-widget, a sprocket', 'widget; it is widgeted, double-widgeting.') }
         $found | Should -HaveCount 4

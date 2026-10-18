@@ -71,7 +71,7 @@ The decisions are made; do not re-ask them.
 - **Time safeguard:** every Bash call passes `timeout: 3000`. Longer work runs with `run_in_background: true` and a GNU
   `timeout <s> <one command>` prefix (at most 360 s), no `cd`, pipes or `;`. Prefer Grep/Read/Glob. Start the importer only in the
   background; C# type edits need a fresh `pwsh` process.
-- **No mutating git** unless the user explicitly asks. The user runs the full suite and handles commits; propose no commit split; per-file
+- **No mutating git** unless the user explicitly asks. The user runs all tests and handles commits; propose no commit split; per-file
   checks only.
 - Never claim a test or gate passed unless you ran it and read the output. Known unrelated reds: `Test-Spelling` 5, `Test-Glossary` G4,
   `Test-Formatting` `.compiled/*.json`, about 37 `Test-ScriptAnalyzer`.
