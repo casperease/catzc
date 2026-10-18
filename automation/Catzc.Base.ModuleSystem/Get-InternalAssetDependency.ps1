@@ -13,6 +13,8 @@ function Get-InternalAssetDependency {
 
     Assert-SourceTree
     Assert-PathExist $AutomationRoot -PathType Container
+    # The repository-relative labels name the modules folder by the root's own name, never a literal.
+    $modulesFolder = [System.IO.Path]::GetFileName($AutomationRoot.TrimEnd('\', '/'))
 
     $helperName = 'Get-CatzcModuleRoot'
     $helperParameters = (Get-Command $helperName -CommandType Function).Parameters
@@ -42,12 +44,12 @@ function Get-InternalAssetDependency {
         $moduleDirectory = Join-Path $AutomationRoot $moduleName
         $files = [System.Collections.Generic.List[object]]::new()
         foreach ($path in [System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1')) {
-            $files.Add([pscustomobject]@{ Path = $path; Relative = "automation/$moduleName/$([System.IO.Path]::GetFileName($path))" })
+            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$([System.IO.Path]::GetFileName($path))" })
         }
         $privateDirectory = Join-Path $moduleDirectory 'private'
         if ([System.IO.Directory]::Exists($privateDirectory)) {
             foreach ($path in [System.IO.Directory]::EnumerateFiles($privateDirectory, '*.ps1')) {
-                $files.Add([pscustomobject]@{ Path = $path; Relative = "automation/$moduleName/private/$([System.IO.Path]::GetFileName($path))" })
+                $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/private/$([System.IO.Path]::GetFileName($path))" })
             }
         }
 

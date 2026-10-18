@@ -64,7 +64,8 @@ Open, in execution order:
   role through the registry and generators; tracks.md rule 19 one primary language; WorldMapBuilder links; Test-ShippedTypes.
 - config-defaults-variants -> task-config-defaults-variants.md (done 2026-10-18; every step ticked; the aspects default follows the tree and
   Q2 is reopened for the user in plan-config-defaults): config defaults Phase 1, VariantsConfig constants, getters lose -Default.
-- config-defaults-fragment -> task-config-defaults-fragment.md (open; ready): the .catzc fragment, config without a shipped file,
+- config-defaults-fragment -> task-config-defaults-fragment.md (open; steps 1 and 2 done 2026-10-18; steps 3 and 4 wait for the user's
+  choice of the .catzc track's type and vendor; steps 5 and 6 next): the .catzc fragment, config without a shipped file,
   Build-ConfigDefaultsContract.
 - config-defaults-postures -> task-config-defaults-postures.md (open; after config-defaults-fragment): every typed config into a posture,
   the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.

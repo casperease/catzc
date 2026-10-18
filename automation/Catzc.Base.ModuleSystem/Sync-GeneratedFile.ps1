@@ -5,9 +5,11 @@ function Sync-GeneratedFile {
         [switch] $DryRun
     )
 
-    # The generated paths the janitor owns, each with the commit-message subject naming it.
+    # The generated paths the janitor owns, each with the commit-message subject naming it; the modules folder comes from its resolver.
+    $modulesFolder = ConvertTo-RepoRelativePath (Get-CatzcModulesRoot)
+    $compiled = "$modulesFolder/.compiled"
     $generatedPaths = [ordered]@{
-        'automation/.compiled' = 'compiled types'
+        $compiled = 'compiled types'
     }
 
     if ((Get-CatzcRunMode) -eq 'build') {
@@ -45,18 +47,18 @@ function Sync-GeneratedFile {
 
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
 
-    if ($changed -contains 'automation/.compiled') {
+    if ($changed -contains $compiled) {
         $surplus = @(Clear-ModuleTypeCache -DryRun -Silent)
         if ($surplus.Count) {
             $names = ($surplus | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
-            Write-Message "Skipped automation/.compiled: superseded type assemblies remain ($names). Restart the session holding them, run Clear-ModuleTypeCache, then re-import." -ForegroundColor Red
-            $changed = @($changed | Where-Object { $_ -ne 'automation/.compiled' })
+            Write-Message "Skipped ${compiled}: superseded type assemblies remain ($names). Restart the session holding them, run Clear-ModuleTypeCache, then re-import." -ForegroundColor Red
+            $changed = @($changed | Where-Object { $_ -ne $compiled })
         }
     }
 
-    if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged 'automation/*/types/*.cs')) {
-        Write-Message 'Skipped automation/.compiled: type sources (types/*.cs) differ from HEAD, so this build is not the one HEAD produces. Commit the type sources, then re-import.' -ForegroundColor Yellow
-        $changed = @($changed | Where-Object { $_ -ne 'automation/.compiled' })
+    if ($changed -contains $compiled -and (Test-GitPathChanged "$modulesFolder/*/types/*.cs")) {
+        Write-Message "Skipped ${compiled}: type sources (types/*.cs) differ from HEAD, so this build is not the one HEAD produces. Commit the type sources, then re-import." -ForegroundColor Yellow
+        $changed = @($changed | Where-Object { $_ -ne $compiled })
     }
 
     if (-not $changed.Count) {

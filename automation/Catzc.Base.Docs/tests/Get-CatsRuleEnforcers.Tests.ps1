@@ -29,7 +29,7 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
             @{ analyzers = @{ 'Measure-Widget' = @('ADR-WI-TAG#1', 'ADR-WI-RULE#5') } }
         }
-        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'automation' } { Join-Path $script:repo 'automation' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Docs { Join-Path $script:repo 'automation' }
         Mock ConvertTo-RepoRelativePath -ModuleName Catzc.Base.Docs {
             $Path.Substring($script:repo.Length + 1).Replace('\', '/')
         }

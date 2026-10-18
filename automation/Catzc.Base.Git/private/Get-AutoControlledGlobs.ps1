@@ -4,6 +4,7 @@ function Get-AutoControlledGlobs {
     param()
 
     $ret = [System.Collections.Generic.List[string]]::new()
+    $modulesFolder = ConvertTo-RepoRelativePath (Get-CatzcModulesRoot)
 
     # The managed, gitignored root-config targets — the registry names them (generated-root-configs).
     $rootConfig = Get-Config -Config rootconfig
@@ -13,7 +14,7 @@ function Get-AutoControlledGlobs {
         }
     }
 
-    $ret.Add('automation/*/*.psd1')
+    $ret.Add("$modulesFolder/*/*.psd1")
 
     # Generated READMEs (generated-readmes): a gitignored README.md is a generated copy by construction.
     $ret.Add('README.md')
@@ -31,13 +32,13 @@ function Get-AutoControlledGlobs {
     $ret.Add('.vscode/*')
 
     # The IDE-only C# project's build output (native-csharp-types).
-    $ret.Add('automation/.internal/assets/bin')
-    $ret.Add('automation/.internal/assets/bin/*')
-    $ret.Add('automation/.internal/assets/obj')
-    $ret.Add('automation/.internal/assets/obj/*')
+    $ret.Add("$modulesFolder/.internal/assets/bin")
+    $ret.Add("$modulesFolder/.internal/assets/bin/*")
+    $ret.Add("$modulesFolder/.internal/assets/obj")
+    $ret.Add("$modulesFolder/.internal/assets/obj/*")
 
     # The compiled-type build scratch — only *.tmp is gitignored there; the hash-keyed DLL is committed.
-    $ret.Add('automation/.compiled/*.tmp')
+    $ret.Add("$modulesFolder/.compiled/*.tmp")
 
     $ret.Add('**/.$*.drawio.png.bkp')
 

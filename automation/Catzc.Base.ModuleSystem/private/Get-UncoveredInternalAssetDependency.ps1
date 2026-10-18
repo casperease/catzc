@@ -2,10 +2,12 @@ function Get-UncoveredInternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string] $AutomationRoot = (Join-Path (Get-RepositoryRoot) 'automation'),
+        [string] $AutomationRoot = (Get-CatzcModulesRoot),
 
         [object[]] $Dependency
     )
+
+    $modulesFolder = [System.IO.Path]::GetFileName($AutomationRoot.TrimEnd('\', '/'))
 
     if (-not $PSBoundParameters.ContainsKey('Dependency')) {
         $Dependency = @(Get-InternalAssetDependency -AutomationRoot $AutomationRoot)
@@ -110,7 +112,7 @@ function Get-UncoveredInternalAssetDependency {
             Module    = $definingModule
             Function  = $functionName
             ChildPath = $childPaths
-            TestFile  = [string[]] @($testFiles | ForEach-Object { "automation/$definingModule/tests/$([System.IO.Path]::GetFileName($_))" })
+            TestFile  = [string[]] @($testFiles | ForEach-Object { "$modulesFolder/$definingModule/tests/$([System.IO.Path]::GetFileName($_))" })
             Reason    = $reason
         }
     }

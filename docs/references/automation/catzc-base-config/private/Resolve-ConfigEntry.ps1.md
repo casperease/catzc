@@ -39,3 +39,12 @@ Above `$script:configIndex = @{}`, written with `#`.
 strict-clean probe of the lazy cache entry
 ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
 ```
+
+## comment:2
+
+Above `$registry = Get-ConfigRegistry`, written with `#`.
+
+```text
+A registered type with no shipped file is a config too: its type's namespace names the module, and it builds from {} plus the
+repository's fragment, so every key takes the default the type declares.
+```
