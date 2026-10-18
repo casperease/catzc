@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2871ea0c153c"
+    with_body_sha: "8fec1430e0f7"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md
-    source: docs/explanation/.assets/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
+    path: docs/explanation/configuration/.assets/ask-by-name-get-the-cached-object/chain.md
+    source: docs/explanation/configuration/.assets/ask-by-name-get-the-cached-object/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -51,7 +51,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#7' {
         }
     }
 
-    It 'reports an orphan and still renders it: the locality gate finds no article for a folder its page embeds from elsewhere' {
+    It 'reports an orphan and still renders it: found by locality, no page beside its .assets embeds it' {
         $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/gizmo'; Stage = 'prepare' })
         $runs.Status | Should -Be @('clean')
         $runs[0].Article | Should -BeNullOrEmpty

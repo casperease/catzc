@@ -91,8 +91,11 @@ is a rule, not a target; this task proposes no full run, the user runs them (mem
    Part 1 landed 2026-10-18 by session catzc-93, verdict: "the analyzer cache is split into two passes, rules and spelling, each keyed on
    every input it declares (ADR-AUTO-CACHE#10); a dictionary-only change re-runs only the spelling pass: 22.9 s against 151.7 s for a
    full cold run, and 4.1 s warm; repo-wide .internal Test-ScriptAnalyzer.Tests passes" (new CatzcSpelling.psm1 and private
-   Invoke-ScriptAnalyzerShards; settings re-linked). Part 2 written, unverified: blocked on the importer's compile error in
-   ContractParameter.cs:107 (catzc-f3's in-progress step 8).
+   Invoke-ScriptAnalyzerShards; settings re-linked). Part 2 landed 2026-10-18 by catzc-93, verdict: "one pool: greedy files take the
+   first slot a parallel shard frees, at most greedy_group_size at once and the greedy_apart build files one at a time, serial last;
+   PesterRunner.Tests, TestPolicyConfig.Tests, Invoke-TestRun.Tests and Invoke-TestFile.Tests pass under Invoke-TestFile;
+   Test-AdrRegistry 0 and Test-Links 0 on the ADR; no full run started, no limit raised, no test removed or re-tiered". The wall-clock
+   effect is read from the user's next full run against step 3's table.
 7. Tick the plan's steps; the carried draft goes; the plan is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
 
 ## Report

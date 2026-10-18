@@ -24,18 +24,22 @@ recorded with its projected outcome, then folded into the owning plan (ADR-REPO-
 change that lands it). The questions, with the plan that owns each:
 
 - plan-promotion-ladder Q1 to Q4: where main-uat lives; what certifies RC and RBC; pre-prod a new subscription or a staging slot; whether
-  DEPLOY takes the CI artifact by run id or tag.
+  DEPLOY takes the CI artifact by run id or tag. Answered 2026-10-18: every recommendation (the plan's Decided section).
 - plan-layers-vocabulary-rename-contracts P7: the twelve exported functions nothing calls and the 139 only docs name: contract, make
   internal, or delete each set (the frozen set then holds Test-Contracts clean).
 - plan-diagram-folders: approve the out/ pilot (`out/diagram-pilot/configuration/.assets/`, `out/diagram-pilot/sidebar-old-vs-new.png`) so
   the 150 diagrams move; or name what the pilot must change first. Answered 2026-10-18: approved.
-- plan-clear-actions: a yes to clear the 36 `out/test-links/20261016-2012*` report folders.
-- plan-out-artifacts: a yes for probe batch two (13 files), if not already given in task-user-runs-and-commits step 3.
+- plan-clear-actions: a yes to clear the 36 `out/test-links/20261016-2012*` report folders. Answered 2026-10-18: yes.
+- plan-out-artifacts: a yes for probe batch two (13 files), if not already given in task-user-runs-and-commits step 3. Answered
+  2026-10-18: yes; the user runs it (task-user-runs-and-commits step 3).
 - plan-assets-gallery-pdf: whether the drawio kit gets a test home (`.claude/drawio/tests/`) so the two-PNG fixture step can land, or the
-  step is dropped and the plan deleted.
+  step is dropped and the plan deleted. Answered 2026-10-18: yes, `.claude/drawio/tests/`.
 - plan-automation-word-residue, its two open questions: whether the how-to folders named `automation` (`docs/how-to/automation/`,
   `docs/how-to/getting-started/automation/`) keep the name as cross-track pages (recommended) or move; and whether the 31 test fixtures
   shaped like the old folder (`C:\repo\automation\M\...`) are renamed only when each test is next edited (recommended) or in one pass.
+  Decided 2026-10-18 by the orchestrator on the user's delegation: both recommendations (the how-to folders keep the name; fixtures are
+  renamed when each test is next edited).
+- plan-layers-vocabulary-rename-contracts P7: answered by D26 and D27 (task-command-contracts step 7).
 
 ## Steps
 

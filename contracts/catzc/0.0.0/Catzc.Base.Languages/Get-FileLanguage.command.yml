@@ -1,6 +1,7 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Get-FileLanguage, the file-language reader. One of
-# Name (the languages by name) or Path (the language of one file) is given; the command's two parameter sets make each mandatory.
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Get-FileLanguage, the file-language reader: every language
+# with no argument, the languages by name, or the language of one file by path.
 parameters:
-  Name: string[]!
-  Path: string!
+  Name: string[]! in Name
+  Path: string! in Path
+default_set: All
 output: Catzc.Base.Languages.FileLanguage

@@ -34,7 +34,7 @@ function Build-Diagrams {
             $found
         })
 
-    # The locality gate: a folder's article is the one page beside its .assets that embeds its diagram.drawio.png.
+    # Found by locality: a folder's article is the one page beside its .assets that embeds its diagram.drawio.png.
     $articles = @{}
     foreach ($folderPath in $folders) {
         $articleFolder = $folderPath.Substring(0, $folderPath.LastIndexOf('/.assets/'))

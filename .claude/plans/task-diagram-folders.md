@@ -3,7 +3,7 @@ task:
   status: open
   plans: [plan-diagram-folders]
   value: high
-  blocked_on: step 1 on the kit tests' home (task-decision-round); the pilot was approved 2026-10-18, so steps 3 onward can start now
+  blocked_on: nothing; the pilot and the kit test home (.claude/drawio/tests/) were decided 2026-10-18
   targets:
     [
       docs/explanation,

@@ -88,7 +88,8 @@ Open, in execution order:
 - bounded-enumeration-closeout -> task-bounded-enumeration-closeout.md (open; closes on the final full run, then the plan and its prompt are
   deleted).
 - out-artifacts -> task-out-artifacts.md (open; closes on the user's two probe deletions).
-- promotion-ladder -> plan-promotion-ladder.md (blocked on the decision round; its README step is task-loose-ends step 5; once Q1 to Q4 are
+- promotion-ladder -> plan-promotion-ladder.md (2026-10-18: Q1 to Q4 decided, the plan holds its five build steps, held by session
+  catzc-59 from the ADR step; earlier wording: blocked on the decision round; its README step is task-loose-ends step 5; once Q1 to Q4 are
   answered the plan gains its build steps, main-uat, release-uat behind RC, pre-prod behind RBC, the DEPLOY pipeline, and a task file is
   written for them at this position).
 - closing-sweep -> task-closing-sweep.md (open; runs after every batch): done plans deleted with one line each in value-of-plan.md. The

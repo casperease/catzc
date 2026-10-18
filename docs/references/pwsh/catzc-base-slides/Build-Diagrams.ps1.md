@@ -18,7 +18,7 @@ listed. For each folder it runs the draw.io kit's renderer (`drawio_forward.py -
 stamped sister pages; `join` lays out the sidebar and rebuilds the slide in place. A slide whose model names no ADR code has no minimaps and
 is left as it is.
 
-Before it renders, each folder passes the locality gate: its article is the one page beside the folder's `.assets` that embeds its
+Before it renders, each folder finds its article by locality: the one page beside the folder's `.assets` that embeds its
 `diagram.drawio.png`. A folder no page there embeds is an orphan, reported and still rendered; a folder two pages embed stops the run.
 
 The renderer's exit codes decide the result: 0 is clean, 2 is warnings with every artifact delivered (reported, the run goes on), 3 is

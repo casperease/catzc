@@ -146,12 +146,42 @@ _catzc_checked() {
                 ;;
         esac
     done
-    if [ "$_catzc_positional" -eq 0 ]; then
-        _catzc_missing="$(printf '%s\n' "$_catzc_table" | awk -F '\t' -v seen="$_catzc_seen" '$5 == "1" && $6 != "1" && index(seen, " " tolower($2) " ") == 0 { print $2; exit }')"
-        if [ -n "$_catzc_missing" ]; then
-            echo "cats: $_catzc_command needs -$_catzc_missing ($_catzc_asset)" >&2
+    # The parameter set the named parameters fit (column 8 lists a parameter's sets, empty for every set; column 9 is the default
+    # set): the one set they fit, or the default set when they fit several. A mandatory parameter counts only in that set.
+    _catzc_verdict="$(printf '%s\n' "$_catzc_table" | awk -F '\t' -v seen="$_catzc_seen" -v positional="$_catzc_positional" '
+        function member(sets, set) { return sets == "" || index("," sets ",", "," set ",") > 0 }
+        function add(set) { if (!(set in universe)) { universe[set] = 1; sets++ } }
+        { rows[NR] = $0; if ($9 != "") { add($9); fallback = $9 } n = split($8, named, ","); for (i = 1; i <= n; i++) add(named[i]) }
+        END {
+            chosen = ""; count = 0
+            for (set in universe) {
+                fits = 1
+                for (r = 1; r <= NR; r++) { split(rows[r], f, "\t"); if (f[2] != "" && index(seen, " " tolower(f[2]) " ") > 0 && !member(f[8], set)) fits = 0 }
+                if (fits) { count++; candidate[set] = 1; chosen = set }
+            }
+            if (sets > 0) {
+                if (count == 0) { print "conflict"; exit }
+                if (count > 1) { if (fallback in candidate) chosen = fallback; else { print "ambiguous"; exit } }
+            }
+            if (positional == 1) exit
+            for (r = 1; r <= NR; r++) {
+                split(rows[r], f, "\t")
+                if (f[5] == "1" && f[6] != "1" && index(seen, " " tolower(f[2]) " ") == 0 && (chosen == "" || member(f[8], chosen))) { print "missing " f[2]; exit }
+            }
+        }')"
+    case "$_catzc_verdict" in
+        conflict)
+            echo "cats: $_catzc_command: the parameters given belong to no one parameter set ($_catzc_asset)" >&2
             return 2
-        fi
-    fi
+            ;;
+        ambiguous)
+            echo "cats: $_catzc_command: the parameters given fit several parameter sets and the contract names no default ($_catzc_asset)" >&2
+            return 2
+            ;;
+        missing\ *)
+            echo "cats: $_catzc_command needs -${_catzc_verdict#missing } ($_catzc_asset)" >&2
+            return 2
+            ;;
+    esac
     printf '%s' "$_catzc_call"
 }

@@ -57,7 +57,9 @@ production via **DEPLOY** activities — a solo, manually-governed DEPLOY pipeli
 environment behind a manual gate ([ADR-FLOW-CD-TYPE#8–ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#deploy)). The boundary between CD and
 DEPLOY is the automated/manual-governance line: CD owns the automated non-prod direction; the human certification is a manual gate — **RC**
 at main-UAT or **RBC** at release-uat (ADR-FLOW-CD#9) — and **DEPLOY** is the pipeline that actuates the roll to prod once that gate clears.
-RC/RBC decide _whether_ to proceed; DEPLOY performs the advance.
+RC/RBC decide _whether_ to proceed; DEPLOY performs the advance. DEPLOY takes the exact artifact CI built, named by the **run id** of the CI
+run that built it, and never rebuilds it; the CD run that certified the artifact records that run id, so the artifact DEPLOY ships is the
+one the gates cleared.
 
 - [The boundary to prod is DEPLOY](#the-boundary-to-prod-is-deploy)
 
@@ -93,8 +95,10 @@ gate**, a human-owned certification, on an always-on environment: **RC** (Releas
 **main-AT** (AT against the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a
 commit must pass there (ADR-FLOW-CD#10) — with a human certifying the environment's occupant (ADR-DSGN-LIFE#5) before it may advance. The
 gate is distinct from the **DEPLOY** pipeline that actuates the advance once the gate clears (ADR-FLOW-CD#6): RC/RBC decide _whether_ to
-proceed, DEPLOY performs the roll. Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the gate
-(delivery) or the pipeline advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7.
+proceed, DEPLOY performs the roll. Each gate is an **approval check on the next environment**: RC on the unit's `release-uat` environment,
+RBC on its `pre-prod` environment, so a run promoting the occupant waits there for the certifier. The checks are configuration, applied like
+the prod approval gate (ADR-FLOW-CD#15). Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the
+gate (delivery) or the pipeline advances past it automatically (deployment) is the CD-vs-CDe posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7.
 
 - [RC and RBC](#rc-and-rbc)
 
@@ -127,9 +131,10 @@ differ; the tagged artifact is identical across both.
 **Deploy-to-prod is a two-environment activation: stage the artifact _inactive_ in pre-prod, validate the exact bytes, then activate it
 _live_ to production.** DEPLOY-Prod never deploys straight into the serving environment. It first deploys the RBC-cleared artifact to
 **pre-prod** — a production-grade environment that is **not serving live traffic** (the "inactive" environment) — where the identical bytes
-get a final rehearsal against production-shaped dependencies. Only then is that same artifact **activated to live production** (the inactive
-→ live cutover). The go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is what keeps the
-production cutover low-risk. When the new version goes live, the previous production occupant is superseded and steps down
+get a final rehearsal against production-shaped dependencies. Pre-prod is a **staging slot in the production subscription**, declared in the
+azure config and inactive until activated, not a subscription of its own. Only then is that same artifact **activated to live production**
+(the inactive → live cutover). The go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is
+what keeps the production cutover low-risk. When the new version goes live, the previous production occupant is superseded and steps down
 (ADR-DSGN-LIFE#3/ADR-DSGN-LIFE#4). Build-once holds throughout: pre-prod and production receive the identical tagged artifact
 (ADR-FLOW-CD#3).
 
@@ -158,7 +163,8 @@ run — CD's post-commit system test (ADR-FLOW-CD#5, ADR-FLOW-CD#8).
 Every prod-tier environment a pipeline deploys to carries an **approval gate**: an Approval check by one named approver group, so a run that
 reaches it waits for a person. The gate is configuration, never a portal setting: `environment-approvals.yml` declares the approver group,
 its members, the timeout and the environments, and one deterministic apply, `Sync-AdoEnvironmentApprovals`, makes the organization match it.
-An environment a pipeline deploys the prod tier to is listed there.
+An environment a pipeline deploys the prod tier to is listed there, and so are the RC and RBC checks of ADR-FLOW-CD#9 on each unit's
+`release-uat` and `pre-prod` environments.
 
 - [The prod approval gate](#the-prod-approval-gate)
 

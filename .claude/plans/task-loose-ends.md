@@ -10,7 +10,7 @@ task:
       plan-promotion-ladder,
     ]
   value: medium
-  blocked_on: step 4 on the decision round (test home); step 5 on the decision round (Q1 to Q4)
+  blocked_on: nothing; the test home and Q1 to Q4 were decided 2026-10-18
   targets:
     [
       docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md,

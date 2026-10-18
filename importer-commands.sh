@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "839e0661d341"
+#     with_body_sha: "6969d3784896"
 #     repo_status: locked
 #     path: importer-commands.sh
 #     source: contracts/catzc/0.0.0
@@ -28,6 +28,9 @@ Clear-GlobSetProtection			0	0	0	contracts/catzc/0.0.0/Catzc.Base.Globs/Clear-Glo
 Export-SpellingTriage	Path	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Export-SpellingTriage.command.yml		
 Export-SpellingTriage	Exclude	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Export-SpellingTriage.command.yml		
 Export-SpellingTriage	DryRun	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Export-SpellingTriage.command.yml		
+Export-WorldMapPdf	View	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.Maps/Export-WorldMapPdf.command.yml		Plain
+Export-WorldMapPdf	Adr	string	1	1	0	contracts/catzc/0.0.0/Catzc.Base.Maps/Export-WorldMapPdf.command.yml	Adr	Plain
+Export-WorldMapPdf	Path	string	1	1	0	contracts/catzc/0.0.0/Catzc.Base.Maps/Export-WorldMapPdf.command.yml	Path	Plain
 Format-MarkdownTitle	Path	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Format-MarkdownTitle.command.yml		
 Format-MarkdownTitle	RepositoryRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Format-MarkdownTitle.command.yml		
 Format-MarkdownTitle	DryRun	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Format-MarkdownTitle.command.yml		
@@ -41,8 +44,12 @@ Get-CommandContract	Version	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.Contra
 Get-CommandContract	RepositoryRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Contracts/Get-CommandContract.command.yml		
 Get-ContractCheckResults	Asset	Catzc.Base.Contracts.ContractAsset	1	0	1	contracts/catzc/0.0.0/Catzc.Base.Contracts/Get-ContractCheckResults.command.yml		
 Get-ContractCheckResults	RepositoryRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Contracts/Get-ContractCheckResults.command.yml		
-Get-FileLanguage	Name	string	1	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-FileLanguage.command.yml		
-Get-FileLanguage	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-FileLanguage.command.yml		
+Get-FileLanguage	Name	string	1	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-FileLanguage.command.yml	Name	All
+Get-FileLanguage	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-FileLanguage.command.yml	Path	All
+Get-Inspiration	Id	string	0	1	0	contracts/catzc/0.0.0/Catzc.Tooling.Inspiration/Get-Inspiration.command.yml	Id	All
+Get-Inspiration	Count	int	0	1	0	contracts/catzc/0.0.0/Catzc.Tooling.Inspiration/Get-Inspiration.command.yml	Random	All
+Get-Inspiration	Seed	int	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Inspiration/Get-Inspiration.command.yml	Random	All
+Get-Inspiration	IncludeUnavailable	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Inspiration/Get-Inspiration.command.yml	All,Random	All
 Get-PathFileType	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Get-PathFileType.command.yml		
 Get-RepositoryFile	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Repository/Get-RepositoryFile.command.yml		
 Install-AzCli	Version	string	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Install-AzCli.command.yml		

@@ -1,9 +1,9 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: high
   reviewed: 2026-10-18
-  blocked_on: the open questions below; each shapes the pipelines before any YAML changes
+  blocked_on: nothing; Q1 to Q4 decided 2026-10-18
   targets: [pipelines, docs/adr/design/commit-lifecycle.md, docs/adr/flow/cd-discipline-and-promotion-flow.md]
 ---
 
@@ -20,10 +20,26 @@ rest of the ladder.
 Until the ladder exists the ADRs' promotion rules are prose: no environment holds an occupant, nothing certifies RC or RBC, and pre-prod
 staging and the DEPLOY pipeline have no code. Every explanation article on the lifecycle carries those gaps.
 
+## Decided (2026-10-18, the user took every recommendation)
+
+- Q1 main-uat: a new ADO environment per unit (e.g. `shared-main-uat`); each rung its own environment and occupant.
+- Q2 RC and RBC: an approval check on the next environment, declared in config and applied by `Sync-AdoEnvironmentApprovals`.
+- Q3 pre-prod: a staging slot in the prod subscription, inactive until activated; no new subscription.
+- Q4 DEPLOY: takes the exact artifact CI built, by run id (immutable, never rebuilt); the CD run that certified it records the run id.
+
 ## Open steps
 
-- [ ] `pipelines/README.md`: name the ladder's environments and the pipeline that deploys each, as the answers below decide (check:
-      Test-Links passes and the README matches the decisions).
+- [ ] The decisions as rules: ADR-DSGN-LIFE (`docs/adr/design/commit-lifecycle.md`) and ADR-FLOW-CD
+      (`docs/adr/flow/cd-discipline-and-promotion-flow.md`) state Q1 to Q4, present tense, keeping today's rule numbers (ADR-REPO-PLANS#9)
+      (check: Test-AdrRegistry and Test-Links clean on both).
+- [ ] `pipelines/README.md`: name the ladder's environments and the pipeline that deploys each, as decided (check: Test-Links passes and
+      Test-Pipelines passes; task-loose-ends step 5).
+- [ ] The environments: the main-uat and release-uat environments per unit and their RC/RBC approval checks as config entries applied by
+      `Sync-AdoEnvironmentApprovals` (check: its L0 tests pass; the apply itself is the user's run).
+- [ ] Pre-prod: the staging slot in the prod subscription, declared in the azure config and inactive until activated (check: the
+      resolver's L0 tests pass; Test-Contracts clean).
+- [ ] The DEPLOY pipeline: takes a CI run id, resolves that run's artifact, deploys it to prod; the certifying CD run records the run id
+      (check: Test-Pipelines and the pipeline contract check clean; the first real run is the user's).
 
 ## Open questions
 

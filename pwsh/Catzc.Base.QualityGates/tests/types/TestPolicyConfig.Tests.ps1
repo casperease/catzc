@@ -58,7 +58,7 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws on <case>' -ForEach @(
-        @{ case = 'an unknown key'; data = @{ l5_mutation = @{} }; expected = "*unknown key 'l5_mutation'*(allowed: l4_mutation, greedy_group_size, duration_decay)*" }
+        @{ case = 'an unknown key'; data = @{ l5_mutation = @{} }; expected = "*unknown key 'l5_mutation'*(allowed: l4_mutation, greedy_group_size, greedy_apart, duration_decay)*" }
         @{ case = 'a mode that is not one'; data = @{ l4_mutation = @{ widget = 'destructive' } }; expected = "*l4_mutation.widget 'destructive' is not one of: read-only, synthetic*" }
         @{ case = 'a list instead of a map'; data = @{ l4_mutation = @('widget') }; expected = '*l4_mutation must be a map*' }
     ) {

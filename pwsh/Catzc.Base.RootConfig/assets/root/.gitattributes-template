@@ -101,6 +101,9 @@ pwsh/.compiled/** linguist-generated
 /docs/**/.assets/**/*.grid.md  linguist-generated
 /docs/**/.assets/**/*.tree.md  linguist-generated
 /docs/**/.assets/**/*.chain.md linguist-generated
+/docs/**/.assets/*/grid.md     linguist-generated
+/docs/**/.assets/*/tree.md     linguist-generated
+/docs/**/.assets/*/chain.md    linguist-generated
 
 # GitHub (linguist): the draw.io diagrams are documentation — the pictures the Markdown articles embed. They stay
 # binary (the *.png rule above: no line-ending conversion, since the editable XML rides inside the PNG), but their
