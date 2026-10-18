@@ -48,12 +48,11 @@ is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines o
   proof run.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
   form's retirement, on the day the user re-points the external definitions.
-- test-run-budget -> task-test-run-budget.md: bring the full run under its 180 s budget (214 s, 0 failed, on 2026-10-18).
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them. Closes the user-owned steps of the plans
   above.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned.
-- final-full-run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the next full run, after the user's steps, proves the
-  run budget.
+- final-full-run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget is proven by the user's run of 21:47
+  (155.8 s).
 - closing-sweep, last -> task-closing-sweep.md, its last step: the plans that closed on green deleted; the master and the task files deleted
   when every chunk is done.
 

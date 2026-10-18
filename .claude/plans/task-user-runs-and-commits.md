@@ -1,7 +1,7 @@
 ---
 task:
   status: open
-  plans: [plan-test-run-budget, plan-explanation-drift-gaps]
+  plans: [plan-explanation-drift-gaps]
   value: highest
   blocked_on: nothing; every step is the user's own commit, git operation or remote run, and the last is the final session's full run
   targets: [.claude/plans, out, pipelines]
@@ -28,8 +28,8 @@ Order: the commits and git operations first, the remote runs next, the final ful
    task-explanation-drift-gaps steps 1 and 2 ticked.
 3. After task-layers-classification-flip step 1 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
-4. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 7212 passed, 0 failed); its run budget stays open in
-   plan-test-run-budget, and the next run after the steps above is its proof.
+4. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget proven by the run of 21:47 (155.8
+   s).
 
 ## Report
 

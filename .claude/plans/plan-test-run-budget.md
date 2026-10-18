@@ -81,15 +81,19 @@ none.
   - The glossary: `Build-Glossary.Tests` "Passed" with a case pinning the wrap (`out/test-file/20261018-204120-31c271`); regenerated, a
     `Format-Code -DryRun` on the glossary changes 0 files, and `Test-GeneratedFiles -Generator Build-Glossary` reports 0.
 
-- [ ] One engine start of a black-box test is bounded under the shard roof (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT): the Python and Go tests
+- [x] One engine start of a black-box test is bounded under the shard roof (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT): the Python and Go tests
       bounded each of their two starts at 300 s, so the inner bound could never fire before the 360 s roof. `tests.engine_start_seconds`
       (150, `timeouts.yml` and the default on `TimeoutsConfig`) reaches every engine through `Get-EngineContract` as
       `CATZC_ENGINE_TIMEOUT_SECONDS`, and `test_repository.py` and `repository_test.go` read it (check: TimeoutsConfig.Tests and
       Get-EngineContract.Tests pass under Invoke-TestFile; the Python and Go folders pass alone; the user's next full run is the proof).
+      Proven 2026-10-18 by the user's full run `out/test-automation/20261018-214701`: 155.8 s, under the 180 s budget, 7217 passed; its one
+      failure, the two scheduler functions' missing help pages, is fixed (pages written, both test files Passed, Format-Code 0).
 
-- [ ] Bring the full run under its 180 s budget (221.05 s on 2026-10-18), one slow file at a time as test-optimization does, every test kept
+- [x] Bring the full run under its 180 s budget (221.05 s on 2026-10-18), one slow file at a time as test-optimization does, every test kept
       and no limit raised; the next candidates are the slowest tests in the run's `summary.md` (check: the user's next full run reports no
-      budget overrun).
+      budget overrun). Proven 2026-10-18 by the user's full run `out/test-automation/20261018-214701`: 155.8 s, under the 180 s budget, 7217
+      passed; its one failure, the two scheduler functions' missing help pages, is fixed (pages written, both test files Passed, Format-Code
+      0).
   - Round 1 (catzc-c4, 2026-10-18): Invoke-Executable's post-exit drain waited 5 s per pipe; `CliRunner.cs` Supervise now shares one 5 s
     deadline across stdout and stderr, the test 10.3 s to 5.25 s, Invoke-Executable.Tests 59 Passed
     (`out/test-file/20261018-211713-ad2558`). Left, their cost being what they prove: the real markdownlint run (13.1 s, already skipped on
