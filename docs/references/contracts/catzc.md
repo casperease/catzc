@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "092f92cdde6a"
-    with_inputs_sha: b02e26b00842dc9e24c7285300eccff061523b153237ebc3cea622c8fc7f7c05
+    with_body_sha: e7f6d36f1e28
+    with_inputs_sha: "9cb95d4f91431a362d3fb29ce5a1abef3ebebd1d55575c59638f33fa498e7485"
     repo_status: locked
     path: docs/references/contracts/catzc.md
     source: contracts/catzc
@@ -147,11 +147,13 @@ Notes:
 - `Catzc.Base.QualityGates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the shape a tool may rely on when it reads the
   `catzc.immutable` and `catzc.edges` parts of a head, written by Format-FileMeta in the carrier of the file (a comment head, or Markdown
-  front matter). Every key is optional except `path` and `kind`, and a fact a file has no value for is left out. Its schema,
+  front matter). Every key is optional except `path` and `role`, and a fact a file has no value for is left out. The role is the name of the
+  file-kinds entry that selects the file; the kind of the object it belongs to is its track's type, `tracktype`. Its schema,
   head.schema.json, lists the keys.
 - `Catzc.Base.QualityGates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
   (ADR-REPO-CONTRACT#6): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may rely on. A
-  fact a file has no value for is left out, so only path and kind are required.
+  fact a file has no value for is left out, so only path and role are required. The role is the name of the file-kinds entry that selects
+  the file; the kind of the object the file belongs to is its track's type, tracktype.
 - `Catzc.Tooling.Github/workflows/ci-automation.yml`: Depended-on fragment of .github/workflows/ci-automation.yml
   ([ADR-REPO-CONTRACT#6](../../adr/repository/api-contracts.md#rule-adr-repo-contract6)): the keys GitHub Actions requires to run the
   workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only that the key exists.

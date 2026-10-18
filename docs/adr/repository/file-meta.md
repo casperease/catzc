@@ -214,7 +214,7 @@ catzc:
   immutable:
     with_body_sha: 3fa91c0d2b7e
     path: .claude/agents/example-agent.md
-    kind: claude-agent
+    role: claude-agent
   edges:
     links:
       - docs/adr/repository/agent-definitions.md

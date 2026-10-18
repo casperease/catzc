@@ -42,8 +42,8 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
         $templates.Count | Should -BeGreaterThan 0 -Because 'the repository ships at least one bicep template under infrastructure/templates/'
     }
 
-    It "every shipped template's options.yml declares a short_name" {
-        $noShortName | Should -BeNullOrEmpty -Because "options.yml must declare short_name (the Azure id segment — ADR azure/naming-standard, ADR-AZ-NAMING#2):`n$($noShortName -join "`n")"
+    It 'every shipped template resolves a short_name' {
+        $noShortName | Should -BeNullOrEmpty -Because "a template must resolve a short_name, derived from its folder or overridden in its optional options.yml (the Azure id segment, ADR-AZ-NAMING#2):`n$($noShortName -join "`n")"
     }
 
     It 'short_names are globally unique across shipped templates' {

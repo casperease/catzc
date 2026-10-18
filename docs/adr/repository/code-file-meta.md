@@ -16,7 +16,7 @@ into the head's code.
 ### Rule ADR-REPO-CODEMETA:2
 
 A head holds only facts the repository can compute and that change when the file's place or tier changes: `path` (the repository-relative
-path), `kind` (the class of the file, a moniker of the file-kind registry entry that names its role and never its language, track or module:
+path), `role` (the class of the file, the name of the file-kinds registry entry that selects it, never its language, track or module:
 a `type`, a `test`, a `gate`, a `function`), `language` (the file language, from the languages registry), `track` (the root concern that
 holds the file), `module` (the folder under `automation/`, when the file is placed in one), for a PowerShell file `visibility` (`private` or
 `public`, from the folder), all place facts under `immutable`, and the edges under `edges`: `cites`, the ADR codes that bind the file,
@@ -38,7 +38,7 @@ The head is imprinted by the same engine, from the same registry, as a Markdown 
 ([ADR-REPO-FILEMETA#2](file-meta.md#rule-adr-repo-filemeta2), [ADR-REPO-FILEMETA#3](file-meta.md#rule-adr-repo-filemeta3)): a kind is a
 registry entry that selects code files by their class, and its processor is a function found by convention. The scope is every tracked file
 whose language the carrier registry gives a comment head and whose head policy calls for a block, tests and assets included, less the
-classes `.gitattributes` exempts ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). Every such file carries `path` and `kind`;
+classes `.gitattributes` exempts ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). Every such file carries `path` and `role`;
 `module` and `visibility` stay with the C# type files and PowerShell function files their kinds name, and the `cites` edge goes to those and
 to the PowerShell test files, whose prose moves to a comment page like any other file's.
 
@@ -87,7 +87,7 @@ Markdown. The head is small, because every key in it is a key that can drift.
 catzc:
   immutable:
     path: automation/Catzc.Base.Languages/types/FileLanguage.cs
-    kind: type
+    role: type
     module: Catzc.Base.Languages
   edges:
     cites:
@@ -106,7 +106,7 @@ using System;
 catzc:
   immutable:
     path: automation/Catzc.Base.QualityGates/private/Get-WidgetFact.ps1
-    kind: function
+    role: function
     module: Catzc.Base.QualityGates
     visibility: private
 ---
@@ -138,7 +138,7 @@ one checksum that fits code, and it needs a parser per language, so it is left o
 `Every tracked file that is not vendored`
 
 Every tracked file a reader can open says what it is and where it belongs, so a test, an asset, a script or a template carries the same
-`path` and `kind` as a function does. The carrier registry already knows each language's comment syntax, so the scope comes from it and no
+`path` and `role` as a function does. The carrier registry already knows each language's comment syntax, so the scope comes from it and no
 meta kind repeats a list of globs. The files the head would harm stay out through `.gitattributes`: vendored code is someone else's,
 contract assets and fixtures are compared byte for byte, and generated files carry the head their writer wrote
 ([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)). The richer keys stay with the files that have them: a module and a visibility

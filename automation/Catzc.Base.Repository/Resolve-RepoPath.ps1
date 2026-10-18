@@ -18,7 +18,7 @@ function Resolve-RepoPath {
     }
 
     if ([IO.Path]::IsPathRooted($Path)) {
-        return $Path
+        return [IO.Path]::GetFullPath($Path)
     }
 
     [IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) $Path))
