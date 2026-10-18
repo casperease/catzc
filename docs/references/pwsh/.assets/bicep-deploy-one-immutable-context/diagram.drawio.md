@@ -6,8 +6,8 @@ Glyphs: 7 code units, 3 C# types, 2 catzc module frames; 11 flow edges; 8 marker
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from
-the source of the `Catzc.Azure.Templates` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Azure.Templates` module. The module's reference
+article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -98,9 +98,10 @@ The legend panel spans the bottom of the drawing area in three columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD-CUSTOMERAXIS and ADR-AZ-DATAMOD-VALUEBYADDRESS, ADR-AZ-SESSION, ADR-AUTO-DRYRUN,
-ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS and ADR-PWSH-PREPOST: the rules the drawn code cites. The drawn code also cites ADR-PWSH-ERROR-STRICTCLEAN (the PrePost hooks and
-template builds run strict). Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD-CUSTOMERAXIS and
+ADR-AZ-DATAMOD-VALUEBYADDRESS, ADR-AZ-SESSION, ADR-AUTO-DRYRUN, ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS and ADR-PWSH-PREPOST: the rules the
+drawn code cites. The drawn code also cites ADR-PWSH-ERROR-STRICTCLEAN (the PrePost hooks and template builds run strict). Source-lens
+slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

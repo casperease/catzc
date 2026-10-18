@@ -6,16 +6,16 @@ Glyphs: 5 code units (slate), 3 gates; 3 flow edges; 6 rule chips (1 dashed); 8 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws,
-in the vocabulary of the diagram glyphs; what it means is in [the article](../../tests-pin-the-throw-and-fail-open-cd-calls-it.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../tests-pin-the-throw-and-fail-open-cd-calls-it.md).
 
 ## At a glance
 
 A 1572 × 760 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through four
 full-width bands, labelled `THE NAME AND THE ANSWER`, `THE RANGE`, `THE CONTEXT` and `NO GATE`. Each of the first three bands is one row: a
 slate code unit on the left and a gate rhombus on the right, joined by one flow edge pointing left. The last band holds two slate code units
-and no edge. Six rule chips sit on the top-right corners of the governed glyphs, eight markers on their top-left corners, and a
-legend panel runs along the bottom. The eye lands first on the three grey rhombi in the right column.
+and no edge. Six rule chips sit on the top-right corners of the governed glyphs, eight markers on their top-left corners, and a legend panel
+runs along the bottom. The eye lands first on the three grey rhombi in the right column.
 
 ## Reading path
 
@@ -28,10 +28,10 @@ legend panel runs along the bottom. The eye lands first on the three grey rhombi
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                                         |
-| --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                                                                                                                                                     |
+| --------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | code unit             | 5     | Test-GlobSetAffected (`THE NAME AND THE ANSWER`), Get-GlobSetChangeRange (`THE RANGE`), Test-IsRunningInPipeline (`THE CONTEXT`), left column; fetchDepth: 0 and Changes step (`NO GATE`) |
-| gate                  | 3     | Test-GlobSetAffected.Tests, Get-GlobSetChangeRange.Tests, Test-ScriptAnalyzer, right column, 3 px rims                                        |
+| gate                  | 3     | Test-GlobSetAffected.Tests, Get-GlobSetChangeRange.Tests, Test-ScriptAnalyzer, right column, 3 px rims                                                                                    |
 
 Code units are slate with white names, and the gates neutral rhombi.
 
@@ -42,8 +42,8 @@ Code units are slate with white names, and the gates neutral rhombi.
 | flow: checks | 3     | Test-GlobSetAffected.Tests → Test-GlobSetAffected; Get-GlobSetChangeRange.Tests → Get-GlobSetChangeRange; Test-ScriptAnalyzer → Test-IsRunningInPipeline |
 
 Every edge is straight and horizontal, and none crosses another. No edge carries a label. Six rule chips sit beside the glyphs they govern:
-`G9` and dashed `F4` on Test-GlobSetAffected, `G9` on Get-GlobSetChangeRange, `D1` on Test-IsRunningInPipeline, and a `G9` on each
-`NO GATE` code unit.
+`G9` and dashed `F4` on Test-GlobSetAffected, `G9` on Get-GlobSetChangeRange, `D1` on Test-IsRunningInPipeline, and a `G9` on each `NO GATE`
+code unit.
 
 ## Legend
 
@@ -64,13 +64,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-AUTO-FAILFAST, ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the
-reason for every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-AUTO-FAILFAST, ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

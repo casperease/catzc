@@ -6,8 +6,8 @@ Glyphs: 1 file (olive), 9 code units (slate); 6 downward edges; 10 markers; one 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in
-the vocabulary of the diagram glyphs; what it means is in [the article](../../five-keys-one-reader-twelve-primitives.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../five-keys-one-reader-twelve-primitives.md).
 
 ## At a glance
 
@@ -28,9 +28,9 @@ lands first on the olive file at the top of the column.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                                                                                                                                                                     |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| file                  | 1     | `variants.yml` (top band)                                                                                                                                                                                                                                                 |
+| Glyph (legend phrase) | Count | Where                                                                                                                                                                                                                                                                                |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| file                  | 1     | `variants.yml` (top band)                                                                                                                                                                                                                                                            |
 | code unit             | 9     | `Get-Config -Config variants`, `Get-Variant` (second band); `Get-AdoNaming`, `Get-GitWorkspace`, `Get-EnabledCustomers`, `Get-AspectDeclaration · Get-Track` (third band, in the frame); `Test-/Assert-AdoNaming`, `Test-GitWorkspace`, `Test-/Assert-HaveCustomer(s)` (bottom band) |
 
 The file is olive and the code units slate, all with light names. The frame around the accessor row is chrome: no fill, a thin dark rim.
@@ -61,13 +61,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-REPO-VARIANT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason
-for every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** IMPL, with "Supports ADR-REPO-VARIANT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

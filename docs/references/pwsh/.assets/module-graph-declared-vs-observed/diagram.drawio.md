@@ -6,8 +6,8 @@ Glyphs: 4 code units, 5 private helpers, 1 gate, 1 file, 1 catzc module frame; 9
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from
-the source of the `Catzc.Base.ModuleSystem` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Base.ModuleSystem` module. The module's reference
+article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -30,8 +30,8 @@ every function. The observed graph is checked twice: for cycles on its own, and 
    depend on. `Get-ModuleProfile` calls it to close a profile, and `Copy-Automation` and `Test-InIsolation` take their module sets from
    `Get-ModuleProfile`; those three are cut from the drawing.
 6. **`Get-FunctionDependency`** parses every `.ps1` file of every module under the modules root (dot folders, tests and `assets` excluded)
-   into an AST and lists each call from one function to another that the repository defines. Its result is cached (ADR-AUTO-CACHE-FILESYSTEMDERIVED, ADR-AUTO-CACHE-KEYEDBYINPUTS, ADR-AUTO-CACHE-READONLYVALUES,
-   ADR-AUTO-CACHE-IMPORTERINVALIDATES).
+   into an AST and lists each call from one function to another that the repository defines. Its result is cached
+   (ADR-AUTO-CACHE-FILESYSTEMDERIVED, ADR-AUTO-CACHE-KEYEDBYINPUTS, ADR-AUTO-CACHE-READONLYVALUES, ADR-AUTO-CACHE-IMPORTERINVALIDATES).
 7. **`Get-ModuleDependency`** collapses those calls into unique cross-module edges, `From` → `To`, with a call count.
 8. **`Get-ModuleDependencyViolations`** checks every observed edge from a constrained module against its allow-list, which it resolves
    itself straight from `Get-ModuleDependencyConfig` and the groups, not through the shared map. It also checks that every declared module
@@ -101,16 +101,17 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST-SAFESEAMSWAPS and ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-CACHE-FILESYSTEMDERIVED, ADR-AUTO-CACHE-KEYEDBYINPUTS, ADR-AUTO-CACHE-READONLYVALUES and ADR-AUTO-CACHE-IMPORTERINVALIDATES,
-ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS and ADR-DSGN-RUNMODE: the rules the drawn code cites, almost all from `Get-FunctionDependency`.
-Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST-SAFESEAMSWAPS and ADR-AUTO-TEST-QUALITYGATE,
+ADR-AUTO-CACHE-FILESYSTEMDERIVED, ADR-AUTO-CACHE-KEYEDBYINPUTS, ADR-AUTO-CACHE-READONLYVALUES and ADR-AUTO-CACHE-IMPORTERINVALIDATES,
+ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS and ADR-DSGN-RUNMODE: the rules the drawn code cites, almost all from
+`Get-FunctionDependency`. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-- **The test-order fallback swallows a fail-fast error.** ADR-AUTO-DEPM-GROUPAWAREINTEGRITY says the integrity of the declared graph fails fast.
-  `Get-TestAutomationTestPaths` catches any throw from `Get-ModuleOrder`, a cycle or a `dependencies.yml` that does not load, and carries on
-  in ordinal module order with only a verbose line. The ADR's load-time validation should stop a cyclic declaration first; that part is
-  ADR-only on this slide.
+- **The test-order fallback swallows a fail-fast error.** ADR-AUTO-DEPM-GROUPAWAREINTEGRITY says the integrity of the declared graph fails
+  fast. `Get-TestAutomationTestPaths` catches any throw from `Get-ModuleOrder`, a cycle or a `dependencies.yml` that does not load, and
+  carries on in ordinal module order with only a verbose line. The ADR's load-time validation should stop a cyclic declaration first; that
+  part is ADR-only on this slide.
 - **The drawn code never cites ADR-AUTO-DEPM**, the ADR that governs this graph, so it is missing from the Supports chips.
 - The allow-list's group expansion is written twice, in `Get-ModuleDependencyMap` and in `Get-ModuleDependencyViolations`. That is not an
   ADR drift, but the two must stay in step.

@@ -6,9 +6,8 @@ Glyphs: 4 code units (1 in a catzc module frame), 3 private helpers, 1 C# type, 
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from the source
-of the `Catzc.Base.Globs` module and the two `Catzc.Base.QualityGates` helpers that call it. The module's reference article embeds it and
-gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Base.Globs` module and the two
+`Catzc.Base.QualityGates` helpers that call it. The module's reference article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -20,26 +19,26 @@ nothing, so a pipeline never skips a module.
 
 ## Walkthrough
 
-1. **`Select-ProtectedTestFile`** is the protection decision of a test run (ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES). It asks `Test-IsRunningInPipeline` before
-   anything else, then, for each module that owns test files in the run, composes the identity and asks the gate. It drops the files of
-   every module the gate protects and returns the rest as candidates for promotion.
-2. **`Test-IsRunningInPipeline`** is the one pipeline detection of cats (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK), in `Catzc.Internal.Loader`.
-   `Select-ProtectedTestFile` asks it first, and in a pipeline returns every file, so nothing below runs. `Test-GlobSetProtection` and
-   `Protect-GlobSet` ask it too (answering false and recording nothing in a pipeline). Those two calls are not drawn, because on this path
-   the first check already decided.
+1. **`Select-ProtectedTestFile`** is the protection decision of a test run (ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES). It asks
+   `Test-IsRunningInPipeline` before anything else, then, for each module that owns test files in the run, composes the identity and asks
+   the gate. It drops the files of every module the gate protects and returns the rest as candidates for promotion.
+2. **`Test-IsRunningInPipeline`** is the one pipeline detection of cats (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK), in
+   `Catzc.Internal.Loader`. `Select-ProtectedTestFile` asks it first, and in a pipeline returns every file, so nothing below runs.
+   `Test-GlobSetProtection` and `Protect-GlobSet` ask it too (answering false and recording nothing in a pipeline). Those two calls are not
+   drawn, because on this path the first check already decided.
 3. **`Get-ModuleProtectionIdentity`** folds `set-name|set-hash` lines, sorted by name, into one hash. The sets are the module's own derived
    set, its declared dependency closure from `dependencies.yml`, the reserved infrastructure sets and the runner's set. A module with
    integrity tests, an unconstrained module or an infrastructure unit also folds in the whole `repository` set.
-4. **`Get-GlobSetHash`** computes one globset's durable hash from the tracked bytes of its member files (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY), so an
-   uncommitted edit inside the set changes it.
+4. **`Get-GlobSetHash`** computes one globset's durable hash from the tracked bytes of its member files
+   (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY), so an uncommitted edit inside the set changes it.
 5. **`DurableHash`** is the C# type behind both hashes: `HashFile` hashes a file with every carriage return stripped, and `HashFold` hashes
    the folded lines.
 6. **`Test-GlobSetProtection`** compares the identity with the one stored under the run's key in `protectedGlobSets`. On an exact match the
    module is skipped. Otherwise it stores the identity in `pendingGlobProtections` and the module runs.
 7. **`Protect-TestedModule`** runs after the workers. It promotes each candidate that produced at least one result row and no failed row,
    and promotes nothing when a failure cannot be attributed to a module.
-8. **`Protect-GlobSet`** moves the pending identity, computed before the tests ran, into `protectedGlobSets` (ADR-REPO-PROTGLOB-PROTECTIONKEY), so an
-   edit made while the tests ran is never protected.
+8. **`Protect-GlobSet`** moves the pending identity, computed before the tests ran, into `protectedGlobSets`
+   (ADR-REPO-PROTGLOB-PROTECTIONKEY), so an edit made while the tests ran is never protected.
 
 ## Reading path
 
@@ -105,8 +104,10 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-REPO-PROTGLOB-PROTECTIONKEY and ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES, ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY and ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT,
-ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-DSGN-ASPECT: the rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-REPO-PROTGLOB-PROTECTIONKEY and
+ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES, ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY and ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT,
+ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-DSGN-ASPECT: the rules the drawn code cites. Source-lens
+slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

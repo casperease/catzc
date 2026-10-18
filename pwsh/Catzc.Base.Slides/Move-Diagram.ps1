@@ -76,6 +76,15 @@ function Move-Diagram {
         foreach ($edit in $edits) {
             Write-FileIfChanged -Path (Join-Path $root $edit.Page) -Content $edit.Text | Out-Null
         }
+        # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository formats it.
+        $pages = @(foreach ($edit in $edits) {
+                if ($edit.Page.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)) {
+                    [System.IO.Path]::GetFullPath((Join-Path $root $edit.Page))
+                }
+            })
+        if ($pages.Count -gt 0) {
+            Format-Code -Language markdown -Path $pages | Out-Null
+        }
         Write-Message "Move-Diagram: $from -> $to, $($moves.Count) file(s) moved, the links of $($edits.Count) page(s) re-pointed."
     }
 

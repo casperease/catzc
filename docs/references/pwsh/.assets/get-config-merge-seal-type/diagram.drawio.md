@@ -6,8 +6,8 @@ Glyphs: 1 code unit, 4 private helpers, 1 C# type, 2 files, 1 gate, 1 failure; 7
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from the source of
-the `Catzc.Base.Config` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Base.Config` module. The module's reference
+article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -94,8 +94,8 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-OVERLAY, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY:
-the rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-OVERLAY, ADR-PWSH-CACHE-STRICTSAFEPROBE and
+ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY: the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

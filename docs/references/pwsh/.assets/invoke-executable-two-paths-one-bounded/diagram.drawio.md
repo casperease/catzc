@@ -7,8 +7,8 @@ Glyphs: 2 code units, 1 code unit in a catzc module frame, 2 private helpers, 1 
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws
-from the source of the `Catzc.Base.Execution` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Base.Execution` module. The module's reference
+article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -92,10 +92,11 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-AUTO-TEST and ADR-PWSH-ASSERT-DECLAREDTIMELIMIT: the
-rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-AUTO-TEST and
+ADR-PWSH-ASSERT-DECLAREDTIMELIMIT: the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-ADR-AUTO-FAILFAST-BOUNDEVERYWAIT states that `Invoke-Executable` kills a child process tree at its executable's limit. The code does that only on the
-default `Stream` path. The `-Direct` path runs `Invoke-Expression` with no limit and cannot be given one, by the code's own design.
+ADR-AUTO-FAILFAST-BOUNDEVERYWAIT states that `Invoke-Executable` kills a child process tree at its executable's limit. The code does that
+only on the default `Stream` path. The `-Direct` path runs `Invoke-Expression` with no limit and cannot be given one, by the code's own
+design.

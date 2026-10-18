@@ -6,8 +6,8 @@ Glyphs: 2 code units, 7 private helpers, 1 gate, 3 named sets, 1 file; 8 flow ed
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from
-the source of the `Catzc.Base.QualityGates` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Base.QualityGates` module. The module's reference
+article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -18,12 +18,12 @@ record of a run is truthful whether the run passes, fails or crashes.
 
 ## Walkthrough
 
-1. **`Invoke-TestRun`** is the shared core of `Test-Automation` and `Test-CatzcBuild`, the two kinds of test run (ADR-AUTO-TEST-SAMETESTSBOTHRUNS). Each
-   entry point passes its own name as `-EntryPoint`.
+1. **`Invoke-TestRun`** is the shared core of `Test-Automation` and `Test-CatzcBuild`, the two kinds of test run
+   (ADR-AUTO-TEST-SAMETESTSBOTHRUNS). Each entry point passes its own name as `-EntryPoint`.
 2. **`Get-TestDiscovery`** runs one discovery-only pass. The count chip says it feeds four later steps: the tag check, the file selection,
    the phase split and the protection decision. No step discovers the tests again.
-3. **`Assert-TestTagGate`** enforces the two mandatory tag axes on every test, whatever the level (ADR-AUTO-TEST-TWOMANDATORYTAGS). It runs before the run
-   directory exists, so a tag failure stops the run without writing `run.json`.
+3. **`Assert-TestTagGate`** enforces the two mandatory tag axes on every test, whatever the level (ADR-AUTO-TEST-TWOMANDATORYTAGS). It runs
+   before the run directory exists, so a tag failure stops the run without writing `run.json`.
 4. **`Split-TestAutomationFiles`** cuts the selected files into the three phases, `Parallel`, `Greedy` and `Serial`, which run in that order
    (ADR-AUTO-TEST-ONESCHEDULINGPOOL). `Select-TestRunFiles` narrows the files just before this step; it is cut from the drawing.
 5. **`Select-ProtectedTestFile`** drops the test files of every module whose composite identity is unchanged since its last green run in
@@ -93,8 +93,9 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST-TWOMANDATORYTAGS, ADR-AUTO-TEST-ONESCHEDULINGPOOL and ADR-AUTO-TEST-SAMETESTSBOTHRUNS, and ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES: the
-rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST-TWOMANDATORYTAGS,
+ADR-AUTO-TEST-ONESCHEDULINGPOOL and ADR-AUTO-TEST-SAMETESTSBOTHRUNS, and ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES: the rules the drawn code
+cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

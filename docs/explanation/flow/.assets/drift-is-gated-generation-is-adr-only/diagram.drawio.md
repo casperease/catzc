@@ -6,8 +6,8 @@ Glyphs: 3 results (green), 3 gates, 1 ADR-only; 5 flow edges, 1 ADR-only edge; 8
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../drift-is-gated-generation-is-adr-only.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../drift-is-gated-generation-is-adr-only.md).
 
 ## At a glance
 
@@ -50,16 +50,16 @@ on the program, `#6` on each projection and a dashed `#6` on the generated box, 
 
 A full-width panel at the bottom of the drawing area, in three columns, left to right:
 
-| Swatch            | Phrase                                                   |
-| ----------------- | -------------------------------------------------------- |
-| green rounded box | result                                                   |
-| neutral rhombus   | gate                                                     |
-| dashed box        | ADR-only (no code)                                       |
-| thin arrow        | flow: feeds                                              |
-| dashed arrow      | ADR-only (no code)                                       |
-| light disc `1`    | marker: a Walkthrough step                               |
+| Swatch            | Phrase                                                            |
+| ----------------- | ----------------------------------------------------------------- |
+| green rounded box | result                                                            |
+| neutral rhombus   | gate                                                              |
+| dashed box        | ADR-only (no code)                                                |
+| thin arrow        | flow: feeds                                                       |
+| dashed arrow      | ADR-only (no code)                                                |
+| light disc `1`    | marker: a Walkthrough step                                        |
 | pill `#6`         | rule chip: #n ADR-FLOW-CD-GLOBS#n · T35 ADR-AUTO-TEST-QUALITYGATE |
-| dashed pill `#4`  | dashed rule chip: ADR-only (no gate)                     |
+| dashed pill `#4`  | dashed rule chip: ADR-only (no gate)                              |
 
 ## Sidebar
 
@@ -67,13 +67,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-FLOW-CD-GLOBS): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for
-every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-FLOW-CD-GLOBS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

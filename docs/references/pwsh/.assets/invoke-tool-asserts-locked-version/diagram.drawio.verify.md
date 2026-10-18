@@ -34,15 +34,15 @@ landing. Paths are relative to `pwsh/` unless they start with `docs/`.
 
 ## Other claims
 
-| #   | Claim                                                                                                                         | Source (`file:line`)                                                                                                 | Status    |
-| --- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------- |
-| C1  | `-DryRun` skips the assert: 9 wrappers guard it with `if (-not $DryRun)`, `Invoke-Go` returns early                           | `Catzc.Tooling.Toolchain/Invoke-Terraform.ps1:33`; `Invoke-Go.ps1:33-34`                                             | confirmed |
-| C2  | Of the 10 wrapped tools only `go` declares probes, so 9 take the `Assert-ToolVersion` branch                                  | `Catzc.Base.Execution/configs/tools.yml` (probe lists under five tool keys, `go` among them)                         | confirmed |
-| C3  | The probe branch reads the version through `Find-Executable` → `Get-ExecutableVersion`, never `Get-ToolVersion`               | `Catzc.Base.Execution/Resolve-ToolExecutable.ps1:63`; `Find-Executable.ps1:98`                                       | confirmed |
-| C4  | Both version reads are cached per session                                                                                     | `Catzc.Tooling.Core/private/Assert-ToolVersion.ps1:18-28`; `Catzc.Base.Execution/Find-Executable.ps1:85-101`         | confirmed |
-| C5  | The accepted-prefix rule (locked `version`, plus `devbox_version` outside a pipeline) is written three times                  | `private/Assert-ToolVersion.ps1:40-46`; `Test-Tool.ps1:55-63`; `Resolve-ToolExecutable.ps1:43-48`                    | confirmed |
-| C6  | ADR-AUTO-DEPS-ASSERTBEFOREINVOKE: `Assert-Tool` runs `Assert-Command` and `Assert-ToolVersion`, or `Resolve-ToolExecutable` for a probed entry | `docs/adr/automation/controlling-systemwide-deps.md:24-26`; matches E3 and E4                                        | confirmed |
-| C7  | Supports: ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-CONF-LOADING-READINGISGLOBAL are cited by the drawn code                              | `Catzc.Base.Execution/Invoke-Executable.ps1:47`; `private/Assert-ToolVersion.ps1:20`; `Resolve-ToolExecutable.ps1:6` | confirmed |
+| #   | Claim                                                                                                                                             | Source (`file:line`)                                                                                                 | Status    |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------- |
+| C1  | `-DryRun` skips the assert: 9 wrappers guard it with `if (-not $DryRun)`, `Invoke-Go` returns early                                               | `Catzc.Tooling.Toolchain/Invoke-Terraform.ps1:33`; `Invoke-Go.ps1:33-34`                                             | confirmed |
+| C2  | Of the 10 wrapped tools only `go` declares probes, so 9 take the `Assert-ToolVersion` branch                                                      | `Catzc.Base.Execution/configs/tools.yml` (probe lists under five tool keys, `go` among them)                         | confirmed |
+| C3  | The probe branch reads the version through `Find-Executable` → `Get-ExecutableVersion`, never `Get-ToolVersion`                                   | `Catzc.Base.Execution/Resolve-ToolExecutable.ps1:63`; `Find-Executable.ps1:98`                                       | confirmed |
+| C4  | Both version reads are cached per session                                                                                                         | `Catzc.Tooling.Core/private/Assert-ToolVersion.ps1:18-28`; `Catzc.Base.Execution/Find-Executable.ps1:85-101`         | confirmed |
+| C5  | The accepted-prefix rule (locked `version`, plus `devbox_version` outside a pipeline) is written three times                                      | `private/Assert-ToolVersion.ps1:40-46`; `Test-Tool.ps1:55-63`; `Resolve-ToolExecutable.ps1:43-48`                    | confirmed |
+| C6  | ADR-AUTO-DEPS-ASSERTBEFOREINVOKE: `Assert-Tool` runs `Assert-Command` and `Assert-ToolVersion`, or `Resolve-ToolExecutable` for a probed entry    | `docs/adr/automation/controlling-systemwide-deps.md:24-26`; matches E3 and E4                                        | confirmed |
+| C7  | Supports: ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-CONF-LOADING-READINGISGLOBAL are cited by the drawn code | `Catzc.Base.Execution/Invoke-Executable.ps1:47`; `private/Assert-ToolVersion.ps1:20`; `Resolve-ToolExecutable.ps1:6` | confirmed |
 
 Counts: 24 claims, 24 confirmed, 0 contradicted, 0 ADR-only. The slide draws the code; the brief's sketch had two claims the code
 contradicts, corrected below.
@@ -59,10 +59,10 @@ contradicts, corrected below.
 
 ## Drift
 
-None between the slide and ADR-AUTO-DEPS-ASSERTBEFOREINVOKE (C6). Code note for the lead: the accepted-prefix rule lives in three places (C5), and
-`Test-Tool.ps1:58` says it "mirrors Assert-ToolVersion". Supports holds the codes the drawn code cites; ADR-AUTO-DEPS-TOOLTRIAD and ADR-AUTO-DEPS-ASSERTBEFOREINVOKE, which
-describe this mechanism, are cited by no drawn file. `tools.yml:44` cites ADR-AUTO-BASH-SHELLSCRIPTSCHECKED on the zsh entry; it is not about this finding, so
-it is left off Supports.
+None between the slide and ADR-AUTO-DEPS-ASSERTBEFOREINVOKE (C6). Code note for the lead: the accepted-prefix rule lives in three places
+(C5), and `Test-Tool.ps1:58` says it "mirrors Assert-ToolVersion". Supports holds the codes the drawn code cites; ADR-AUTO-DEPS-TOOLTRIAD
+and ADR-AUTO-DEPS-ASSERTBEFOREINVOKE, which describe this mechanism, are cited by no drawn file. `tools.yml:44` cites
+ADR-AUTO-BASH-SHELLSCRIPTSCHECKED on the zsh entry; it is not about this finding, so it is left off Supports.
 
 ## Cut
 

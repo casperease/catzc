@@ -6,15 +6,15 @@ Glyphs: 4 gates, 3 code units (slate), 1 ADR-only; 5 flow edges; 8 rule chips; 8
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../which-run-mode-rules-have-a-gate.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../which-run-mode-rules-have-a-gate.md).
 
 ## At a glance
 
 A 1572 × 690 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
 full-width bands, TEST RUNS, LOAD and AFTER THE LOAD. It holds eight glyphs, four gates, three code units and one ADR-only box, joined by
-five flow edges, with eight rule chips, eight markers and a legend panel along the bottom. The eye lands first on the
-wide rhombus, the gate, in the middle of the LOAD band, which two code units point into from either side.
+five flow edges, with eight rule chips, eight markers and a legend panel along the bottom. The eye lands first on the wide rhombus, the
+gate, in the middle of the LOAD band, which two code units point into from either side.
 
 ## Reading path
 
@@ -65,13 +65,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-DSGN-RUNMODE): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for every
-lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-DSGN-RUNMODE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

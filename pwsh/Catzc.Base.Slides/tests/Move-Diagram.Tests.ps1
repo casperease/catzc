@@ -56,6 +56,17 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Message -like 'Would move: *' } -Times 4 -Exactly
     }
 
+    It 'formats every page whose links it re-pointed, and nothing under -DryRun' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
+        Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun
+        Should -Invoke Format-Code -ModuleName Catzc.Base.Slides -Times 0 -Exactly
+
+        Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot
+        $expected = @('docs/gadgets/index.md', 'docs/widgets/index.md' | ForEach-Object { [System.IO.Path]::GetFullPath((Join-Path $script:widgetRoot $_)) })
+        Should -Invoke Format-Code -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
+            $Language -eq 'markdown' -and (@($Path | Sort-Object) -join '|') -eq (@($expected | Sort-Object) -join '|')
+        }
+    }
+
     It 'returns no pages under -PassThru when no page links the moved file' {
         $result = Move-Diagram docs/adr/index.md docs/adr/.assets/widget/index.md -RepositoryRoot $script:widgetRoot -DryRun -PassThru
 

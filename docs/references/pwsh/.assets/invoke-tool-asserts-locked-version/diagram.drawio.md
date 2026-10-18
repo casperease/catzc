@@ -6,8 +6,8 @@ Glyphs: 6 code units, 1 private helper, 1 named set, 1 file, 1 catzc module fram
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from the
-source of the `Catzc.Tooling.Core` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Tooling.Core` module. The module's reference
+article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -90,11 +90,11 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-CONF-LOADING-READINGISGLOBAL:
-the rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT,
+ADR-PWSH-CACHE-STRICTSAFEPROBE and ADR-CONF-LOADING-READINGISGLOBAL: the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-They don't differ on what this slide draws: ADR-AUTO-DEPS-ASSERTBEFOREINVOKE names both branches of `Assert-Tool`. The rule for which installed versions pass
-(the locked version, and outside a pipeline the optional `devbox_version`) is written out three times in the code, in `Assert-ToolVersion`,
-`Test-Tool` and `Resolve-ToolExecutable`; the ADR does not say where it lives.
+They don't differ on what this slide draws: ADR-AUTO-DEPS-ASSERTBEFOREINVOKE names both branches of `Assert-Tool`. The rule for which
+installed versions pass (the locked version, and outside a pipeline the optional `devbox_version`) is written out three times in the code,
+in `Assert-ToolVersion`, `Test-Tool` and `Resolve-ToolExecutable`; the ADR does not say where it lives.

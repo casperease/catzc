@@ -7,8 +7,8 @@ Edges: 10 flow edges (two joined by buses), 1 failure path; 9 markers; 1 count c
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from the
-source of the `Catzc.Tooling.Provisioning` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Tooling.Provisioning` module. The module's
+reference article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -107,8 +107,8 @@ The catzc module frames name themselves and have no legend row.
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DEPS-INSTALLORDERINCONFIG and ADR-AUTO-PKGMGR, then ADR-AUTO-ENGINE and
-ADR-AUTO-BASH-SHELLSCRIPTSCHECKED: the rules the drawn code and config cite. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-DEPS-INSTALLORDERINCONFIG and ADR-AUTO-PKGMGR, then
+ADR-AUTO-ENGINE and ADR-AUTO-BASH-SHELLSCRIPTSCHECKED: the rules the drawn code and config cite. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

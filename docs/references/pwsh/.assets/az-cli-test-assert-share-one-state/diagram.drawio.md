@@ -6,8 +6,8 @@ Glyphs: 7 code units, 2 named sets, 1 external tool, 1 catzc module frame; 11 fl
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from the
-source of the `Catzc.Azure.Cli` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Azure.Cli` module. The module's reference article
+embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -98,8 +98,9 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-CUSTOMER,
-ADR-AUTO-FAILFAST, ADR-AUTO-ENTERP and ADR-AUTO-PRELOG-SILENTSWITCH: the rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-DATAMOD-CUSTOMERAXIS,
+ADR-AZ-CUSTOMER, ADR-AUTO-FAILFAST, ADR-AUTO-ENTERP and ADR-AUTO-PRELOG-SILENTSWITCH: the rules the drawn code cites. Source-lens slides
+carry no minimaps.
 
 ## Where the code and the ADR differ
 

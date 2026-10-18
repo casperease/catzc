@@ -6,8 +6,8 @@ Glyphs: 3 code units, 1 private helper, 2 C# types, 1 gate, 2 files, 1 catzc mod
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from the
-source of the `Catzc.Azure.Templates` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Azure.Templates` module. The module's reference
+article embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -25,7 +25,8 @@ compiles `main.bicep` once.
    `deployment_mode`, `deployment_target`, `environment_kind` and `customer_deployment`. It collects every unknown key and invalid value and
    throws them together. A missing or empty file means no overrides.
 3. **`BicepShortName`** resolves the template's `short_name`: the override when `options.yml` gives one, otherwise the folder name
-   lower-cased, kept to letters and digits, and cut to the maximum length (ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS, ADR-AZ-NAMING-LOWERCASECOMPONENTS).
+   lower-cased, kept to letters and digits, and cut to the maximum length (ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS,
+   ADR-AZ-NAMING-LOWERCASECOMPONENTS).
 4. **`BicepTemplate`** is the descriptor built once per folder: the slots found under `configuration/`, the defaults, and the remaining
    `options.yml` overrides laid over them.
 5. **`Resolve-BicepParameterAddresses`** runs for each slot `Build-Bicep` targets. It renders every config-addressed parameter as the value
@@ -91,9 +92,11 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD-VALUEBYADDRESS, ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS and ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-CUSTOMER,
-ADR-CONF-ADDRESSING-GLOBALADDRESSFORM and ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, and ADR-AUTO-TYPES-NATIVETYPEDMODEL: the rules the drawn code cites. The drawn code also cites ADR-AUTO-CACHE,
-ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-PWSH-ERROR-STRICTCLEAN and ADR-PWSH-PREPOST, which govern parts the slide leaves out. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-DATAMOD-VALUEBYADDRESS,
+ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS and ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-CUSTOMER, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM and
+ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, and ADR-AUTO-TYPES-NATIVETYPEDMODEL: the rules the drawn code cites. The drawn code also cites
+ADR-AUTO-CACHE, ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-PWSH-ERROR-STRICTCLEAN and ADR-PWSH-PREPOST, which govern parts the slide leaves out.
+Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

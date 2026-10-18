@@ -7,8 +7,8 @@ Edges: 11 flow edges (feeds); 10 markers; 1 count chip.
 Sidebar: lens badge (SRC) and Supports chips; no minimaps.
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws from the source
-of the `Catzc.Azure` module. The module's reference article embeds it and gives the responsibility in prose.
+This describes what the [diagram](diagram.drawio.png) draws from the source of the `Catzc.Azure` module. The module's reference article
+embeds it and gives the responsibility in prose.
 
 ## At a glance
 
@@ -99,10 +99,13 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-SESSION, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY and ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE, and
-ADR-AZ-CUSTOMER-TWOBINDINGS and ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD: the rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AZ-SESSION, ADR-AZ-DATAMOD-CUSTOMERAXIS,
+ADR-AZ-DATAMOD-JOINSINPOWERSHELL, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY and ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE, and
+ADR-AZ-CUSTOMER-TWOBINDINGS and ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD: the rules the drawn code cites. Source-lens slides carry no
+minimaps.
 
 ## Where the code and the ADR differ
 
-ADR-AZ-SESSION-REVERSELOOKUP names one failure of the reverse lookup: a session on a subscription `azure.yml` does not declare. The code also throws
-when the session's id is declared more than once, a uniqueness that no ADR rule states and that `AzureConfig` does not check when it loads.
+ADR-AZ-SESSION-REVERSELOOKUP names one failure of the reverse lookup: a session on a subscription `azure.yml` does not declare. The code
+also throws when the session's id is declared more than once, a uniqueness that no ADR rule states and that `AzureConfig` does not check
+when it loads.
