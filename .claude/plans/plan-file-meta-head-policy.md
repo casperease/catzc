@@ -85,11 +85,17 @@ on whether a file was imprinted. The policy removes heads from authored source a
       sections for both. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/file-meta.md`) — 2026-10-18: rule 1 restated,
       rule 14 added with "A head shows the facts, never holds them" and "Head policy", rule 7 tells generated files by the writer registry
       and `linguist-generated`; Test-AdrRegistry, Test-Links, Test-FileMeta, Test-Markdownlint, Test-Spelling, Test-Glossary all pass.
-- [ ] `docs/adr/repository/code-file-meta.md`: say help lives in the `## help` section of the comment page, not in the head's `config` part.
-      (check: `Test-Links -Path docs/adr/repository/code-file-meta.md`)
-- [ ] `docs/adr/repository/comments-in-docs.md`: rule 1 finds the page through `comments.yml`, not a head edge; a new rule makes the page an
+- [x] `docs/adr/repository/code-file-meta.md`: say help lives in the `## help` section of the comment page, not in the head's `config` part.
+      (check: `Test-Links -Path docs/adr/repository/code-file-meta.md`) — 2026-10-18: rule 1 and 3 follow the head policy, rule 2 derives
+      `cites` without reading the head and gives a code head no `config` part, the example drops its `.SYNOPSIS` block; Test-Links,
+      Test-AdrRegistry, Test-FileMeta, Test-Markdownlint, Test-Spelling pass.
+- [x] `docs/adr/repository/function-help.md`: ADR-REPO-HELP restated: help is the comment page's `## help` section in the fixed shape
+      (rules 1 to 5, Context and Decision). (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/function-help.md`) —
+      2026-10-18: both pass, with Test-FileMeta, Test-Markdownlint, Test-Spelling.
+- [x] `docs/adr/repository/comments-in-docs.md`: rule 1 finds the page through `comments.yml`, not a head edge; a new rule makes the page an
       authored file whose `## help` section holds the help in the fixed shape, which `Export-Comments` never writes; rule 5 drops the page's
-      `kind` from its meta block. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/comments-in-docs.md`)
+      `kind` from its meta block. (check: `Test-AdrRegistry`, `Test-Links -Path docs/adr/repository/comments-in-docs.md`) — 2026-10-18:
+      rule 6 added with "An authored page"; both pass, with Test-FileMeta, Test-Markdownlint, Test-Spelling.
 - [ ] `automation/Catzc.Base.QualityGates/configs/file-meta.yml`: remove `comment-page` from `locked_classes`, from the `body-sha` selection
       and from the `generator` kind (which then selects nothing and goes, with `Get-GeneratorFileMetaFact.ps1` and its test, per
       ADR-REPO-FILEMETA#4); in the same change, `docs/adr/repository/file-meta.md` drops the comment page as the one generated page the

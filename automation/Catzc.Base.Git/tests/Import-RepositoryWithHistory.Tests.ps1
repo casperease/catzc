@@ -1,0 +1,110 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: automation/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
+    folder: tests
+    name: import-repository-with-history-tests
+    filetype: ps1
+    kind: test
+    language: powershell
+    track: automation
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-DSGN-TRACK#17
+---
+#>
+
+Describe 'Import-RepositoryWithHistory' -Tag 'L2', 'logic', 'ADR-DSGN-TRACK#17' {
+    BeforeAll {
+        Mock Write-Message { } -ModuleName Catzc.Base.Git
+
+        function New-WidgetRepository {
+            param([string] $Path, [string[]] $Messages)
+            [System.IO.Directory]::CreateDirectory($Path) | Out-Null
+            & git -C $Path init -b main *> $null
+            & git -C $Path config user.email 'widget@example.com' *> $null
+            & git -C $Path config user.name 'Widget' *> $null
+            & git -C $Path config commit.gpgsign false *> $null
+            $index = 0
+            foreach ($message in $Messages) {
+                $index++
+                [System.IO.File]::WriteAllText((Join-Path $Path "part-$index.txt"), "$message`n")
+                & git -C $Path add -A *> $null
+                & git -C $Path commit -m $message *> $null
+            }
+        }
+
+        $script:source = Join-Path $TestDrive 'widget-tools'
+        $script:sourceMessages = @('spin the widget', 'oil the gadget', 'tighten the sprocket')
+        New-WidgetRepository -Path $script:source -Messages $script:sourceMessages
+        $script:address = '.unordered/widget-tools'
+    }
+
+    BeforeEach {
+        $script:target = Join-Path $TestDrive ('gadget-home-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
+        New-WidgetRepository -Path $script:target -Messages @('seed the gadget home')
+        $script:head = (& git -C $script:target rev-parse HEAD)
+    }
+
+    It 'imports every source commit at the landing address and changes nothing outside it' {
+        $result = Import-RepositoryWithHistory -Source $script:source -RepositoryRoot $script:target
+
+        $result.Name | Should -Be 'widget-tools'
+        $result.Address | Should -Be $script:address
+        $result.Commits | Should -Be 3
+        $imported = @(& git -C $script:target log --format=%s 'HEAD^2')
+        $imported | Should -Be @($script:sourceMessages[2], $script:sourceMessages[1], $script:sourceMessages[0])
+        (& git -C $script:target rev-parse 'HEAD^1') | Should -Be $script:head
+        $changed = @(& git -C $script:target diff --name-only 'HEAD^1' HEAD)
+        $changed | Should -HaveCount 3
+        $changed | ForEach-Object { $_ | Should -BeLike "$($script:address)/*" }
+        @(& git -C $script:target status --porcelain) | Should -BeNullOrEmpty
+    }
+
+    It 'takes an explicit name as the landing address' {
+        $result = Import-RepositoryWithHistory -Source $script:source -Name 'gadget' -RepositoryRoot $script:target
+        $result.Address | Should -Be '.unordered/gadget'
+        Test-Path -LiteralPath (Join-Path $script:target '.unordered/gadget/part-1.txt') | Should -BeTrue
+    }
+
+    It 'refuses a landing address that is taken and adds no suffix' {
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:target $script:address)) | Out-Null
+        { Import-RepositoryWithHistory -Source $script:source -RepositoryRoot $script:target } | Should -Throw '*is taken*'
+        (& git -C $script:target rev-parse HEAD) | Should -Be $script:head
+        Test-Path -LiteralPath (Join-Path $script:target '.unordered/widget-tools-2') | Should -BeFalse
+    }
+
+    It 'refuses a name that is not a short kebab word' -ForEach @(
+        @{ Name = 'Widget_Tools' }
+        @{ Name = 'widget--tools' }
+        @{ Name = '-widget' }
+    ) {
+        { Import-RepositoryWithHistory -Source $script:source -Name $Name -RepositoryRoot $script:target } |
+            Should -Throw '*not a short kebab word*'
+        (& git -C $script:target rev-parse HEAD) | Should -Be $script:head
+    }
+
+    It 'refuses a source with uncommitted changes' {
+        $dirty = Join-Path $TestDrive 'sprocket-kit'
+        New-WidgetRepository -Path $dirty -Messages @('cut the sprocket')
+        [System.IO.File]::WriteAllText((Join-Path $dirty 'loose.txt'), "loose`n")
+        { Import-RepositoryWithHistory -Source $dirty -RepositoryRoot $script:target } | Should -Throw '*uncommitted changes*'
+        (& git -C $script:target rev-parse HEAD) | Should -Be $script:head
+    }
+
+    It 'writes nothing with -DryRun and reports the landing address' {
+        $result = Import-RepositoryWithHistory -Source $script:source -RepositoryRoot $script:target -DryRun
+        $result.Address | Should -Be $script:address
+        $result.Ref | Should -Be 'HEAD'
+        $result.Commits | Should -BeNullOrEmpty
+        (& git -C $script:target rev-parse HEAD) | Should -Be $script:head
+        Test-Path -LiteralPath (Join-Path $script:target '.unordered') | Should -BeFalse
+        @(& git -C $script:target status --porcelain) | Should -BeNullOrEmpty
+    }
+}

@@ -34,6 +34,10 @@ concepts:
       The network, guardrails, and cost control a workload lands in — the CAF application landing zone, deployed once per subscription at
       subscription scope by the discovery template.
     realized_by: { kind: prose-only }
+    contrasts:
+      landing address:
+        A landing address is the folder an import lands at under the unordered track; a landing zone is the Azure network and guardrails a
+        workload lands in.
   hub:
     key: hub
     domain: azure

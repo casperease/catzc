@@ -1,0 +1,8 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1 and #6): the call interface of Publish-ContractRelease, which freezes the
+# draft contracts of a unit as a released version folder. RepositoryRoot defaults to the repository root, a computed default the
+# contract does not restate.
+parameters:
+  Unit: string!
+  Version: string!
+  RepositoryRoot: string
+output: string

@@ -37,18 +37,29 @@ public sealed class FileMetaConfig
 
     public IReadOnlyList<FileMetaKind> kinds { get; }
 
+    public FileHeadPolicy head_policy { get; }
+
     public FileMetaConfig(IDictionary raw)
     {
         var list = new List<FileMetaKind>();
+        IDictionary policy = null;
         if (raw != null)
         {
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "kinds")
+                if (name != "kinds" && name != "head_policy")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "file-meta config: unknown key '{0}' (allowed: kinds)", name));
+                        "file-meta config: unknown key '{0}' (allowed: kinds, head_policy)", name));
+                }
+            }
+            if (raw.Contains("head_policy") && raw["head_policy"] != null)
+            {
+                policy = raw["head_policy"] as IDictionary;
+                if (policy == null)
+                {
+                    throw new ArgumentException("file-meta config: head_policy must be a map (default, classes)");
                 }
             }
             if (raw.Contains("kinds") && raw["kinds"] != null)
@@ -84,8 +95,11 @@ public sealed class FileMetaConfig
             }
         }
         kinds = list;
+        head_policy = new FileHeadPolicy(policy);
         foreach (FileMetaKind kind in list) { kind.registry = this; }
     }
+
+    public HeadPolicy PolicyFor(string fileClass) => head_policy.For(fileClass);
 
     public bool Selects(FileMetaKind kind, string fileClass, string language) => kind != null && kind.Selects(fileClass, language);
 

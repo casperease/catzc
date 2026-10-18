@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "34e47539008d"
-    with_inputs_sha: "1c877f507858eb35475be6906bb62a22d0f0a859cc80d02f552999e016b554ec"
+    with_body_sha: "7a617ade8383"
+    with_inputs_sha: "8da8181473af434e253bfbd828321041af3035cc80b245959ff8828c0f9f7b10"
     repo_status: locked
     path: docs/adr/glossary.md
     kind: glossary
@@ -697,6 +697,8 @@ modules the session loads.
 - **Contrasts:**
   - [automation](#automation): Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and
     modules into a session.
+  - [import](#import): An import brings an outside repository's files and history into this repository; the importer brings catzc's modules
+    into a session.
   - [run mode](#run-mode): A run mode says where the importer reads the modules from; the importer decides which modules, languages and
     engines load.
 
@@ -974,6 +976,9 @@ subscription scope by the discovery template.
 - **Defined by:** [ADR-AZ-LZ#1](azure/landing-zones.md#rule-adr-az-lz1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+- **Contrasts:**
+  - [landing address](#landing-address): A landing address is the folder an import lands at under the unordered track; a landing zone is the
+    Azure network and guardrails a workload lands in.
 
 ### management group
 

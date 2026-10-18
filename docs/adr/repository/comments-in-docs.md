@@ -12,16 +12,19 @@ catzc:
     tracktype: documentation
   edges:
     defines:
-      - ADR-REPO-COMMENTS#{1-5}
+      - ADR-REPO-COMMENTS#{1-6}
     cites:
-      - ADR-REPO-CODEMETA#{1,2}
-      - ADR-REPO-FILEMETA#{1,10}
+      - ADR-REPO-CODEMETA#1
+      - ADR-REPO-FILEMETA#{11,14}
       - ADR-REPO-FORMAT#8
+      - ADR-REPO-HELP#1
     links:
       - docs/adr/principles/configure-not-program.md
       - docs/adr/principles/one-living-version.md
       - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
-      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta11
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta14
+      - docs/adr/repository/function-help.md#rule-adr-repo-help1
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
 ---
 
@@ -34,8 +37,9 @@ catzc:
 A comment in a code or configuration file is at most one line of insight: what the code does not say itself — the invariant it keeps, the
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
 the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's ADR citations move with
-the rest of its prose, and the file's meta head lists them (ADR-REPO-CODEMETA#2). The file's meta head names the page as its
-`relatives.page` (ADR-REPO-FILEMETA#10), so the way from a file to its prose is derived front matter, never a line of code.
+the rest of its prose and are found there. The way from a file to its page is the `pages` map of `comments.yml`
+([ADR-REPO-COMMENTS#3](#rule-adr-repo-comments3)), so it is derived from the file's path, never a line of code and never a head
+([ADR-REPO-FILEMETA#14](file-meta.md#rule-adr-repo-filemeta14)).
 
 - [Nothing in the file](#nothing-in-the-file)
 
@@ -73,10 +77,20 @@ exported file reads as the file before the move, and exporting an exported file 
 
 The move is made by tool and checked by a gate: `Export-Comments` moves every long comment in scope, and `Format-Code` runs it as its
 `comments` imprint step ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)), so formatting a file also moves its prose.
-`Test-Comments` fails on a long comment left in a file and on a section whose code line the file no longer has. A comment page is marked as
-one in its meta block, whose `kind` is `comment-page` ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)).
+`Test-Comments` fails on a long comment left in a file and on a section whose code line the file no longer has. A comment page is told as
+one by its path, which the file-kinds registry names `comment-page` ([ADR-REPO-FILEMETA#11](file-meta.md#rule-adr-repo-filemeta11)), never
+by its head.
 
 - [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-REPO-COMMENTS:6
+
+A comment page is an authored file. Its `## comment:<n>` sections are the exporter's to append and the author's to edit
+([ADR-REPO-COMMENTS#2](#rule-adr-repo-comments2)), and the page of a PowerShell function file or script also holds the file's help in a
+`## help` section ([ADR-REPO-HELP#1](function-help.md#rule-adr-repo-help1)), which is the author's alone: `Export-Comments` never writes,
+moves or reorders it, and `Test-Comments` checks only the comment sections.
+
+- [An authored page](#an-authored-page)
 
 ## Context
 
@@ -91,9 +105,9 @@ rendered on GitHub, and linked from the module's reference article.
 ### Nothing in the file
 
 A marker in the code, even a short one, is still something the code carries on behalf of the prose: a line to keep in step, to keep within a
-length, to keep unlinked from the wrong page. The file's meta head already carries derived facts about the file, so the pointer to the page
-is one more of them (`relatives.page`), computed from the configured page map, and the code keeps only code and the comments that fit on one
-line. The page does the pairing instead: each section says which code line its comment sat above.
+length, to keep unlinked from the wrong page. The configured page map already turns the file's path into its page's path, so no pointer is
+needed anywhere, and the code keeps only code and the comments that fit on one line. The page does the pairing instead: each section says
+which code line its comment sat above.
 
 The price is that a section is addressed by the line beneath it, so editing that line can orphan the section. `Test-Comments` reports the
 orphan, and the fix is the same one-line edit of the section's context line a reviewer would make by hand.
@@ -118,10 +132,17 @@ A reader or an agent sometimes needs the file with its prose inline. The view su
 the gitignored output folder from the two sources that are reviewed — the file and its page — so it can never drift from them
 ([one-living-version](../principles/one-living-version.md)).
 
+### An authored page
+
+Once a comment has moved, the page is the only place its text lives, and an author edits it there, so the page is a source and not a copy:
+nothing regenerates it and nothing could. The exporter only adds new sections at the end. A function's help is prose of the same sort,
+written by an author about one file, so it lives on the same page in a section of its own, and the two owners never touch each other's
+sections.
+
 ## Decision
 
 A code or configuration file carries only comments of one line; a longer comment moves, verbatim and numbered, to the file's comment page
-under `docs/references/` and leaves nothing behind, and the file's meta head names the page. The full file is a generated view under `out/`.
+under `docs/references/` and leaves nothing behind, and the file's path names the page. The full file is a generated view under `out/`.
 Tools make the move and a gate holds it.
 
 ### How this is enforced

@@ -17,6 +17,17 @@
 #     page: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
 # ---
 
+# Whether a file of a class must, may or must not carry a block; the first class that matches decides, else the default (forbidden on the type).
+head_policy:
+  # Every in-scope file keeps its block until the one strip pass, which deletes this line so the type's default holds.
+  default: required
+  classes:
+    agent: required
+    capability: required
+    slide: required
+    index: required
+    glossary: required
+
 kinds:
   # The hash of the body below the head, first of the place facts: a generated tracked file carries it, written by its writer or imprinted on a generated page; an authored page carries none, and one an author keeps in the config part is left alone.
   body-sha:

@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT#1): the call interface of Test-GeneratedFileCurrent, which says whether a
+# generated file's head carries the given inputs stamp.
+parameters:
+  Path: string!
+  InputsSha: string!
+output: bool

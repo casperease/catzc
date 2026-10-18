@@ -16,18 +16,21 @@ catzc:
     cites:
       - ADR-AUTO-TYPES#1
       - ADR-REPO-COMMENTS#3
-      - ADR-REPO-FILEMETA#{1-3,5,7,10,13}
+      - ADR-REPO-FILEMETA#{1-3,5,7,10,13,14}
       - ADR-REPO-FORMAT#8
+      - ADR-REPO-HELP#1
     links:
       - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3
       - docs/adr/repository/file-meta.md
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta10
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta13
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta14
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5
       - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7
+      - docs/adr/repository/function-help.md#rule-adr-repo-help1
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
 ---
 
@@ -37,11 +40,12 @@ catzc:
 
 ### Rule ADR-REPO-CODEMETA:1
 
-A code file carries its meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) as a **meta head**: one comment at the top
-of the file whose text is a front matter document, the same `catzc:` block a Markdown file carries, written in the registry's order and
-followed by one blank line. The head is plain comment text in the language, so the compiler and `Get-Help` ignore it, and no language gains
-new syntax. A language with block comments wraps the front matter in its delimiters; a language without them prefixes each line. Which
-delimiters a language uses is asked from the one place that knows each language's comments, never written into the head's code.
+A code file whose head policy calls for a meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) carries it as a **meta
+head**: one comment at the top of the file whose text is a front matter document, the same `catzc:` block a Markdown file carries, written
+in the registry's order and followed by one blank line. The head is plain comment text in the language, so the compiler and `Get-Help`
+ignore it, and no language gains new syntax. A language with block comments wraps the front matter in its delimiters; a language without
+them prefixes each line. Which delimiters a language uses is asked from the one place that knows each language's comments, never written
+into the head's code.
 
 - [The head is front matter in a comment](#the-head-is-front-matter-in-a-comment)
 
@@ -54,12 +58,13 @@ holds the file), `module` (the folder under `automation/`, when the file is plac
 `public`, from the folder), all place facts under `immutable`, and the edges under `edges`: `cites`, the ADR codes that bind the file,
 sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`, and `page` and `test`
 ([ADR-REPO-FILEMETA#10](file-meta.md#rule-adr-repo-filemeta10)). For a C# type file, a PowerShell function file and a PowerShell test file
-the head holds `cites`: the formatter keeps every code the head lists and adds each code the file and its comment page cite that the ADR
-index registers, so a fixture code or a placeholder named in prose is no citation, and a code leaves the list only when a person deletes it
-from the head. An authored code file never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff; a
-generated one opens with it ([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)), since its writer rewrites the whole file and the
-stamp says which content it composed. The facts sit under `immutable` and `edges`, and a person's own keys, if any, sit under `config`, as
-in Markdown ([ADR-REPO-FILEMETA#13](file-meta.md#rule-adr-repo-filemeta13)).
+the head holds `cites`: each code the file and its comment page cite that the ADR index registers, so a fixture code or a placeholder named
+in prose is no citation, derived on every run and never read back from the head
+([ADR-REPO-FILEMETA#14](file-meta.md#rule-adr-repo-filemeta14)). An authored code file never holds a hash of the body, which would change on
+every edit and make every edit a two-hunk diff; a generated one opens with it ([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)),
+since its writer rewrites the whole file and the stamp says which content it composed. The facts sit under `immutable` and `edges`, as in
+Markdown ([ADR-REPO-FILEMETA#13](file-meta.md#rule-adr-repo-filemeta13)), and a code head has no `config` part: a code file's prose, its
+help included, lives on its comment page ([ADR-REPO-HELP#1](function-help.md#rule-adr-repo-help1)).
 
 - [What the head holds](#what-the-head-holds)
 
@@ -68,10 +73,10 @@ in Markdown ([ADR-REPO-FILEMETA#13](file-meta.md#rule-adr-repo-filemeta13)).
 The head is imprinted by the same engine, from the same registry, as a Markdown block
 ([ADR-REPO-FILEMETA#2](file-meta.md#rule-adr-repo-filemeta2), [ADR-REPO-FILEMETA#3](file-meta.md#rule-adr-repo-filemeta3)): a kind is a
 registry entry that selects code files by their class, and its processor is a function found by convention. The scope is every tracked file
-whose language the carrier registry gives a comment head, tests and assets included, less the classes `.gitattributes` exempts
-([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). Every such file carries `path` and `kind`; `module` and `visibility` stay
-with the C# type files and PowerShell function files their kinds name, and the `cites` edge goes to those and to the PowerShell test files,
-whose prose moves to a comment page like any other file's.
+whose language the carrier registry gives a comment head and whose head policy calls for a block, tests and assets included, less the
+classes `.gitattributes` exempts ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). Every such file carries `path` and `kind`;
+`module` and `visibility` stay with the C# type files and PowerShell function files their kinds name, and the `cites` edge goes to those and
+to the PowerShell test files, whose prose moves to a comment page like any other file's.
 
 - [Scope](#scope)
 
@@ -143,16 +148,13 @@ catzc:
 ---
 #>
 
-<#
-.SYNOPSIS
-    ...
-#>
+function Get-WidgetFact {
+}
 ```
 
 Without the comment delimiters the head is the front matter of a Markdown file, so one reader of the `catzc` block serves both and a tool
-that knows one knows the other. The head is a comment, so the compiler ignores it and `Get-Help` reads the help block next to the function
-unchanged. A blank line separates it from the file's own comment. The comment engine keeps the head because its front matter opens with a
-head listed to keep, whatever the language's delimiters are.
+that knows one knows the other. The head is a comment, so the compiler ignores it. A blank line separates it from the file's own comment.
+The comment engine keeps the head because its front matter opens with a head listed to keep, whatever the language's delimiters are.
 
 ### What the head holds
 

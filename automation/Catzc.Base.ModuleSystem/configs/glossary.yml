@@ -372,3 +372,6 @@ concepts:
       automation:
         Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and modules into a session.
       run mode: A run mode says where the importer reads the modules from; the importer decides which modules, languages and engines load.
+      import:
+        An import brings an outside repository's files and history into this repository; the importer brings catzc's modules into a
+        session.
