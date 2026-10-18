@@ -25,6 +25,7 @@ $checks = @(
     'NoUnboundedEnumeration'
     'NoOneLineHashtableIfElse'
     'NoTrackRootLiteral'
+    'NoLiteralDefault'
 )
 
 $script:measures = $null

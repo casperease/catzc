@@ -14,6 +14,8 @@ function Invoke-BuildArtifactProbe {
 
     $probe = @'
 param([string] $BuildRoot, [string] $RepositoryRoot, [string] $ObservationPath, [string] $ScopeModule)
+# The output becomes an issue text, and a test report is XML, which cannot carry an ANSI escape.
+$PSStyle.OutputRendering = 'PlainText'
 . (Join-Path $BuildRoot 'Import-Catzc.ps1') -RepositoryRoot $RepositoryRoot 6>$null
 
 $hasConfig = [bool] (Get-Command Get-Config -ErrorAction Ignore)

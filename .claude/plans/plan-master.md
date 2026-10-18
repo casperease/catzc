@@ -69,8 +69,8 @@ Open, in execution order:
   shipped file, the defaults check.
 - config-defaults-postures -> task-config-defaults-postures.md (open; ready, config-defaults-fragment is done): every typed config into a
   posture, the NoLiteralDefault analyzer rule, five ADR amendments, the assert ladder, three glossary terms.
-- layers-funnel -> task-layers-funnel.md (open; ready): layers P2 funnel: one bootstrap constant, about 45 sites onto the resolvers, S4
-  identifiers, the NoTrackRootLiteral guard.
+- layers-funnel -> task-layers-funnel.md (done 2026-10-18; delete once committed): layers P2 funnel: one bootstrap constant, about 45 sites
+  onto the resolvers, S4 identifiers, the NoTrackRootLiteral guard.
 - layers-classification-flip -> task-layers-classification-flip.md (open; the user gave the go for P4 and P6, D24; P4 runs once
   layers-funnel lands, D10's order, and layers-funnel is mid-way in session catzc-0a): P3 classification table and ADR wording drafts; P4
   the flip by the user; P5 retired-phrase guards; P6 pipeline names with the user's external re-pointing.

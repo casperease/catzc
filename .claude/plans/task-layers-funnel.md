@@ -53,28 +53,30 @@ first; C# edits need a fresh pwsh.
        Registry bypasses (worklist section 4, about 45 sites): move each onto `Get-CatzcModulesRoot` or `Get-Track`, one file per step with
        its test; C# constants such as `GlobsConfig.ConfigPath` read the track root through the config type's resolver where one exists
        (`AdrsConfig` is S3 and stays). Check: that file's Pester file; a grep of the literal in the file finds nothing.
-4. (in progress 2026-10-18, module by module, the user's choice) Done and green, guard 0 per file: Azure, Azure.Cli, Azure.Firewall,
-   CodeMeta, ConfigExtensions, Languages, RootConfig, TypesSystem, Vendor, Tooling.Github, Tooling.KeyHandler, Files, Git, ModuleSystem,
-   Objects, Contracts, Globs, Repository's path tests, Azure.Templates (26), Docs (16), QualityGates (52), .scriptanalyzer, .internal. The
-   rule per literal: a real path reads the resolver (`Get-CatzcModulesRoot`, `Get-CatzcModulesFolder`); a fixture TestKit builds, or code
-   that reads the resolver over a throwaway root, follows the real folder name or mocks `Get-CatzcModulesFolder` to a neutral one; pure data
-   takes a neutral `widgets` path. The bare place alone is flagged only where a path is built (Join-Path, Resolve-RepoPath, Get-ChildPath,
-   Path.Combine), so an ADR domain or layer named `automation` is no hit. Exempt with reasons: the two tests of the constant
-   (Get-CatzcModulesRoot, Get-CatzcRunMode), the three Exporter tests (Q6 out/ areas), PipelineTrigger-Integrity (the real globset key, S6).
-   Code sites the guard cannot see (the place inside a regex or a here-string) were fixed on the way: Get-ChangeTestFile,
-   Get-ImprintStepFile, Test-InIsolation, Test-Markdownlint. Still open: types/CommentsConfig.Tests.ps1 lines 11 and 42-55 test the C#
-   default `automation/*` and move with the C# constants (step 3); the messages that named the folder in prose now name the module and
-   config, or the resolved path (a message must not call `Get-CatzcModulesFolder`, which throws outside the source tree); Variants, VSCode
-   and Get-CatzcOverlayRoot's test wait for their holding sessions. Original step: Test fixtures that bake `<root>/automation`: a root from
-   the resolver or a neutral root (widget/gadget). Check: the fixture's tests pass.
+4. [x] (done 2026-10-18, module by module, the user's choice; Variants, VSCode and the overlay-root test followed once their sessions
+       released them, and the Docs and QualityGates `tests/types` files the first sweep missed) Done and green, guard 0 per file: Azure,
+       Azure.Cli, Azure.Firewall, CodeMeta, ConfigExtensions, Languages, RootConfig, TypesSystem, Vendor, Tooling.Github,
+       Tooling.KeyHandler, Files, Git, ModuleSystem, Objects, Contracts, Globs, Repository's path tests, Azure.Templates (26), Docs (16),
+       QualityGates (52), .scriptanalyzer, .internal. The rule per literal: a real path reads the resolver (`Get-CatzcModulesRoot`,
+       `Get-CatzcModulesFolder`); a fixture TestKit builds, or code that reads the resolver over a throwaway root, follows the real folder
+       name or mocks `Get-CatzcModulesFolder` to a neutral one; pure data takes a neutral `widgets` path. The bare place alone is flagged
+       only where a path is built (Join-Path, Resolve-RepoPath, Get-ChildPath, Path.Combine), so an ADR domain or layer named `automation`
+       is no hit. Exempt with reasons: the two tests of the constant (Get-CatzcModulesRoot, Get-CatzcRunMode), the three Exporter tests (Q6
+       out/ areas), PipelineTrigger-Integrity (the real globset key, S6). Code sites the guard cannot see (the place inside a regex or a
+       here-string) were fixed on the way: Get-ChangeTestFile, Get-ImprintStepFile, Test-InIsolation, Test-Markdownlint. Still open:
+       types/CommentsConfig.Tests.ps1 lines 11 and 42-55 test the C# default `automation/*` and move with the C# constants (step 3); the
+       messages that named the folder in prose now name the module and config, or the resolved path (a message must not call
+       `Get-CatzcModulesFolder`, which throws outside the source tree); Variants, VSCode and Get-CatzcOverlayRoot's test wait for their
+       holding sessions. Original step: Test fixtures that bake `<root>/automation`: a root from the resolver or a neutral root
+       (widget/gadget). Check: the fixture's tests pass.
 5. [x] Done 2026-10-18. `Get-AutomationFunctions` is `Get-ModuleFunction`, `Get-AutomationSourceFiles` is `Get-ModuleSourceFile`,
-       `Copy-Automation` is `Copy-CatzcModule` (beside `Get-CatzcModule`); `-AutomationRoot` is `-ModulesRoot` on all nine functions
-       that took it, the `$automationRoot` locals are `$modulesRoot`, and the TestKit fake repository's `Automation` key is `ModulesRoot`.
+       `Copy-Automation` is `Copy-CatzcModule` (beside `Get-CatzcModule`); `-AutomationRoot` is `-ModulesRoot` on all nine functions that
+       took it, the `$automationRoot` locals are `$modulesRoot`, and the TestKit fake repository's `Automation` key is `ModulesRoot`.
        `Get-AutomationModules` was already gone with the module model. Each file's tests pass, analyzer 0; the comment pages, the help
        sections and their anchors follow. Left for the diagram owner: the module-graph `.drawio.md` and `.drawio.verify.md` still name
-       Copy-Automation, and the generated explanation grids and trees (from describe.py) link the old Get-AutomationFunctions page until
-       the next minimap run. Original step: S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment
-       page regenerated. Check: Test-Links, Test-Comments on the touched files.
+       Copy-Automation, and the generated explanation grids and trees (from describe.py) link the old Get-AutomationFunctions page until the
+       next minimap run. Original step: S4 identifiers (worklist section 5), one function per step: file, test, call sites, comment page
+       regenerated. Check: Test-Links, Test-Comments on the touched files.
 6. [x] Guard, built first (the user's choice 2026-10-18, so its report is step 3's exact worklist):
        `automation/.scriptanalyzer/NoTrackRootLiteral.psm1` reports, at severity Information, a string literal or expandable string equal to
        the place of a `modules` track or starting with it plus `/` (help and comments are not strings, so they never count); the places come
@@ -86,9 +88,15 @@ first; C# edits need a fresh pwsh.
        string literal equal to any track root in code outside `variants.yml` and the resolvers is a finding citing ADR-AUTO-LAYERS;
        allowlist declared once in its config. Tests with fixtures; registered in `PSScriptAnalyzerSettings.psd1`. Check: its tests pass;
        Test-ScriptAnalyzer over automation reports only the allowlist.
-7. Stop: grep for the literal outside the registry returns only the allowlist; Test-GeneratedFiles unchanged from the P0 baseline. Record in
-   the plan. Check: both lines in the plan.
-8. Tick P2 in `plan-layers-vocabulary-rename-contracts.md`. Check: grep `- [ ]` counts P3 to P8.
+7. [x] Done 2026-10-18. The guard over every tracked `.ps1`/`.psm1` (1,641 files, out/funnel-stop.ps1): one hit, the orphan
+       `automation/Catzc.Base.RootConfig/assets/root/importer.ps1` for the user's delete; every other literal sits in an exempt file with
+       its reason, now also the root `importer.ps1` shim, the Get-CatzcOverlayRoot test and the CommentsConfig test. Test-GeneratedFiles: 0
+       issues, as at the P0 baseline. For P4 beyond the exempt list: `.catzc/automation` in Get-CatzcOverlayRoot (it must equal the
+       bootstrap constant in build mode), `CommentsConfig.DefaultPages`, and the configs that spell the place (comments.yml, readme.yml,
+       variants.yml, vscode-settings.yml). Original step: Stop: grep for the literal outside the registry returns only the allowlist;
+       Test-GeneratedFiles unchanged from the P0 baseline. Record in the plan. Check: both lines in the plan.
+8. [x] P2 ticked in `plan-layers-vocabulary-rename-contracts.md` 2026-10-18. Original step: Tick P2 in
+       `plan-layers-vocabulary-rename-contracts.md`. Check: grep `- [ ]` counts P3 to P8.
 
 ## Report
 

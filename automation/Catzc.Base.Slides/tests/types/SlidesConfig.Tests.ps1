@@ -8,6 +8,15 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES#6' {
         $config = [Catzc.Base.Slides.SlidesConfig]::new(@{})
         $config.drawio_kit | Should -Be '.claude/drawio'
         $config.diagram_batch | Should -Be 25
+        $config.diagram_folders | Should -Be @('docs/explanation/.assets')
+    }
+
+    It 'maps the diagram folders it is given, and rejects an empty list or a folder not in communication form' {
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets/', 'docs/gadgets') })).diagram_folders |
+            Should -Be @('docs/widgets/.assets', 'docs/gadgets')
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @() }) } | Should -Throw '*diagram_folders names no folder*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = 'docs/widgets' }) } | Should -Throw '*diagram_folders must be a list*'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('../widgets') }) } | Should -Throw '*communication form*'
     }
 
     It 'maps a draw.io kit and a batch it is given, and rejects a batch below one or a kit not in communication form' {

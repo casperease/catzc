@@ -139,7 +139,9 @@ by naming which of the 439 public functions are contracted. Every later plan spe
       pipeline and item cmdlets and the engine's common parameters as tokens. Check: Test-AdrRegistry, Test-AdrEngineNeutrality,
       Test-Terminology clean; Test-Glossary reports no finding on the touched files (verdicts in the git history of the layers doctrine task
       file, deleted as done).
-- [ ] P2 (check: guard rule gate). P3 (check: classification table, then stop).
+- [x] P2 done 2026-10-18 (task-layers-funnel): the NoTrackRootLiteral guard reports one file over 1,641 tracked PowerShell files, the orphan
+      root-config `importer.ps1` template listed for the user's delete; Test-GeneratedFiles 0 issues, as at the P0 baseline.
+- [ ] P3 (check: classification table, then stop).
 - [ ] P4 on the user's go (check: full baseline green again). P5 to P8 per the master plan.
 - [ ] P7 command contracts, task-command-contracts: C1 the ADR, C2 the kind and checker, C4 the reader and the signature column landed
       2026-10-17, C3 the pilot set landed 2026-10-18 (12 command assets, Test-Contracts clean; three commands outside the contract language

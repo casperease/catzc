@@ -24,6 +24,8 @@ analyzers:
   Measure-NoBareCacheEntryRead: [ADR-PWSH-CACHE#4]
   Measure-NoUnboundedEnumeration: [ADR-PWSH-ENUM#1, ADR-PWSH-ENUM#3]
   Measure-NoOneLineHashtableIfElse: [ADR-PWSH-FORMAT#10]
+  Measure-NoLiteralDefault: [ADR-AUTO-DEFAULT#6, ADR-PRIN-CONFIG#3]
+  Measure-NoTrackRootLiteral: [ADR-AUTO-LAYERS#3]
 
   # Enabled built-in rules that enforce an ADR
   PSUseApprovedVerbs: [ADR-PWSH-VERBS#1]

@@ -13,13 +13,23 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic' {
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 0; Output = '' } }
         Mock Write-Message -ModuleName Catzc.Base.Slides { }
+        Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'slides' } {
+            [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/gadgets/.assets', 'docs/widgets/.assets') })
+        }
         $script:build = {
             param([hashtable] $Arguments = @{})
             Build-Diagrams -Kit kit -RepositoryRoot $script:widgetRoot -PassThru @Arguments
         }
     }
 
-    It 'renders every folder that holds a tracked slide, prepare once, then highlight and join in slices of the batch' {
+    It 'renders only the folders diagram_folders names, so a slide without a sidebar keeps its picture' {
+        Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'slides' } {
+            [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets') })
+        }
+        @(& $script:build @{ Stage = 'prepare' }).Folder | Should -Be @('docs/widgets/.assets')
+    }
+
+    It 'renders every configured folder, prepare once, then highlight and join in slices of the batch' {
         $runs = @(& $script:build @{ Batch = 2 })
         @($runs | ForEach-Object { "$($_.Folder) $($_.Stage) $($_.Start)..$($_.End)" }) | Should -Be @(
             'docs/gadgets/.assets prepare ..', 'docs/gadgets/.assets highlight 0..1', 'docs/gadgets/.assets join 0..1',

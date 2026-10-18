@@ -35,10 +35,11 @@ required and how much each holds. A pattern's placeholders decide what a slide m
 
 ### responsibility:4 — Diagram render from source
 
-`Build-Diagrams` renders every draw.io slide from what the tree holds: the model embedded in each tracked `.drawio.png` and the repository's
-maps. It runs the draw.io kit's renderer (`drawio_forward.py`, `drawio_kit` in `slides.yml`, `.claude/drawio` by default) over every folder
-that holds a slide, stage by stage and in slices of `diagram_batch` slides, so no session decides anything and a rebuild from a clean
-checkout gives the same slides.
+`Build-Diagrams` renders the draw.io slides that carry a minimap sidebar from what the tree holds: the model embedded in each tracked
+`.drawio.png` and the repository's maps. It runs the draw.io kit's renderer (`drawio_forward.py`, `drawio_kit` in `slides.yml`,
+`.claude/drawio` by default) over the folders `diagram_folders` names, stage by stage and in slices of `diagram_batch` slides, so no session
+decides anything and a rebuild from a clean checkout gives the same slides. A slide with no sidebar keeps its picture until its own model is
+edited and rendered.
 
 ## What the module does
 
