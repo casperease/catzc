@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dec8cf38a006
-    with_inputs_sha: d80cb70022ce79ac0e733b496847ed77a007dd0156c87072903f0442892cf250
+    with_body_sha: "345703fae60a"
+    with_inputs_sha: d2690b7a4d5c8a07124ab6726ad552bdda3ed04b8dabd38f3b81c913354c0e1b
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -744,7 +744,7 @@ When a knowledge resource comes into being and how long it holds, on-demand (mad
 
 ### phase
 
-One of a test run's three scheduling stages, in order — parallel shards, greedy, serial — chosen per file by the serial/greedy tags.
+A test run's scheduling stage — parallel and greedy files share one pool, serial runs last — chosen per file by the serial/greedy tags.
 
 - **Defined by:** [ADR-AUTO-TEST#26](automation/test-automation.md#rule-adr-auto-test26)
 - **Realized by:** tag `serial|greedy`

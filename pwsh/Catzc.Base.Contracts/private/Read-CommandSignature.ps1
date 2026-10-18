@@ -97,7 +97,7 @@ function Read-CommandSignature {
             elseif ($null -ne $value) {
                 $default = [Catzc.Base.Contracts.ContractParameter]::ComputedDefault
             }
-            $memberOf = $inEverySet ? @() : [string[]] $sets
+            [string[]] $memberOf = $inEverySet ? @() : $sets.ToArray()
             $parameters.Add([Catzc.Base.Contracts.ContractParameter]::new($parameter.Name.VariablePath.UserPath, $type, $isList, $mandatory, $default, $pipeline, $memberOf))
         }
 

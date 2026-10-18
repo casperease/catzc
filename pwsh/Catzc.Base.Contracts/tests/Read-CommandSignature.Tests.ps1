@@ -81,6 +81,46 @@ function Get-Widget {
         $command.output | Should -Be 'string'
     }
 
+    It 'reads parameter sets: the sets a parameter names, every set when it names none, and the default set' -Tag 'ADR-REPO-CMDCONTRACT#2' {
+        $command = Read-Fixture @'
+function Get-Widget {
+    [CmdletBinding(DefaultParameterSetName = 'All')]
+    param(
+        [Parameter(Mandatory, Position = 0, ParameterSetName = 'Id')]
+        [string] $Id,
+
+        [Parameter(ParameterSetName = 'All')]
+        [Parameter(ParameterSetName = 'Random')]
+        [switch] $Spare,
+
+        [Parameter()]
+        [switch] $Quiet,
+
+        [int] $Depth
+    )
+}
+'@
+        $command.parameters[0].Spec | Should -Be 'string! in Id'
+        $command.parameters[1].Spec | Should -Be 'switch in All,Random'
+        $command.parameters[2].Spec | Should -Be 'switch'
+        $command.parameters[3].Spec | Should -Be 'int'
+        $command.default_set | Should -Be 'All'
+    }
+
+    It 'refuses a parameter that is mandatory in one set and optional in another' -Tag 'ADR-REPO-CMDCONTRACT#2' {
+        {
+            Read-Fixture @'
+function Get-Widget {
+    param(
+        [Parameter(Mandatory, ParameterSetName = 'Id')]
+        [Parameter(ParameterSetName = 'All')]
+        [string] $Id
+    )
+}
+'@
+        } | Should -Throw "*parameter 'Id' of 'Get-Widget' is mandatory in some parameter sets and optional in others*"
+    }
+
     It 'throws when the file defines no function of that name' {
         { Read-Fixture "function Get-Gadget {`n    param([string] `$Path)`n}`n" } | Should -Throw "*defines no function 'Get-Widget'*"
     }

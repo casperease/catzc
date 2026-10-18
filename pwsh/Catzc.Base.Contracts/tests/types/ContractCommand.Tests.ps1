@@ -75,6 +75,32 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
             { [Catzc.Base.Contracts.ContractCommand]::new(@{ parameters = 'Path' }) } | Should -Throw '*parameters must be a map*'
         }
 
+        It 'reads parameter sets: a parameter in named sets, one in every set, and the default set' {
+            $command = New-Command "parameters:`n  Id: string! in Id`n  Count: int! in Random`n  Spare: switch in Random,All`n  Quiet: switch`ndefault_set: All`n"
+            $command.parameters[0].Sets | Should -Be @('Id')
+            $command.parameters[2].Sets | Should -Be @('All', 'Random')
+            $command.parameters[3].Sets.Count | Should -Be 0
+            $command.parameters[3].IsInSet('Id') | Should -BeTrue
+            $command.parameters[0].IsInSet('Random') | Should -BeFalse
+            $command.default_set | Should -Be 'All'
+            $command.Sets | Should -Be @('All', 'Id', 'Random')
+            $command.parameters[2].Spec | Should -Be 'switch in All,Random'
+            $command.Signature | Should -Be 'Id: string! in Id, Count: int! in Random, Spare: switch in All,Random, Quiet: switch; default set All'
+            [Catzc.Base.Contracts.ContractParameter]::Parse('Item', "string[]! = 'a b' pipeline in Gadget").Spec | Should -Be "string[]! = 'a b' pipeline in Gadget"
+        }
+
+        It 'declares the set defaults once: every set, and no default set' -Tag 'ADR-AUTO-DEFAULT#6' {
+            $command = New-Command "parameters:`n  Path: string`n"
+            $command.parameters[0].Sets.Count | Should -Be 0
+            $command.default_set | Should -BeNullOrEmpty
+            $command.Sets.Count | Should -Be 0
+        }
+
+        It 'rejects a set that is not a name and a default set that is not a name' {
+            { New-Command "parameters:`n  Id: string in Id,`n" } | Should -Throw "*'string in Id,' is not a spec*"
+            { New-Command "default_set: 'two words'`n" } | Should -Throw "*default_set 'two words' is not a set name*"
+        }
+
         It 'takes void, a contract type or a list of one as the output' {
             [Catzc.Base.Contracts.ContractCommand]::IsOutputType('void') | Should -BeTrue
             [Catzc.Base.Contracts.ContractCommand]::IsOutputType('int[]') | Should -BeTrue
@@ -117,6 +143,10 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT#2' {
             @{ Contract = "parameters:`n  Path: string`n"; Command = "parameters:`n  Path: string pipeline`n"; Finding = "parameter 'Path': the contract says no pipeline, the command declares pipeline" }
             @{ Contract = "parameters:`n  Engine: string = auto`n"; Command = "parameters:`n  Engine: string`n"; Finding = "parameter 'Engine': the contract's default is 'auto', the command's is none" }
             @{ Contract = "output: void`n"; Command = "output: string`n"; Finding = 'output: the contract says void, the command declares string' }
+            @{ Contract = "parameters:`n  Id: string in Id`n"; Command = "parameters:`n  Id: string`n"; Finding = "parameter 'Id': the contract puts it in the sets Id, the command in every set" }
+            @{ Contract = "parameters:`n  Id: string in Id`n"; Command = "parameters:`n  Id: string in Id,Random`n"; Finding = "parameter 'Id': the contract puts it in the sets Id, the command in the sets Id,Random" }
+            @{ Contract = "default_set: All`n"; Command = "default_set: Id`n"; Finding = "default_set: the contract says 'All', the command declares 'Id'" }
+            @{ Contract = "default_set: All`n"; Command = "parameters: {}`n"; Finding = "default_set: the contract says 'All', the command declares none" }
         ) {
             [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command $Contract), (New-Command $Command)) | Should -Be @($Finding)
         }

@@ -10,9 +10,10 @@ Describe 'New-CatsCommandLookup — the real contracts' -Tag 'L1', 'integrity', 
         $script:text.TrimEnd() | Should -BeLike "*'"
     }
 
-    It 'writes one row per contracted parameter: command, parameter, type, list, mandatory, pipeline and asset' {
-        $script:rows | Should -Contain ("Get-PathFileType`tPath`tstring`t0`t1`t0`tcontracts/catzc/0.0.0/Catzc.Base.Languages/Get-PathFileType.command.yml")
-        $script:rows | Should -Contain ("Get-ContractCheckResults`tAsset`tCatzc.Base.Contracts.ContractAsset`t1`t0`t1`tcontracts/catzc/0.0.0/Catzc.Base.Contracts/Get-ContractCheckResults.command.yml")
+    It 'writes one row per contracted parameter: command, parameter, type, list, mandatory, pipeline, asset, sets and default set' {
+        $script:rows | Should -Contain ("Get-PathFileType`tPath`tstring`t0`t1`t0`tcontracts/catzc/0.0.0/Catzc.Base.Languages/Get-PathFileType.command.yml`t`t")
+        $script:rows | Should -Contain ("Get-ContractCheckResults`tAsset`tCatzc.Base.Contracts.ContractAsset`t1`t0`t1`tcontracts/catzc/0.0.0/Catzc.Base.Contracts/Get-ContractCheckResults.command.yml`t`t")
+        $script:rows | Should -Contain ("Get-Inspiration`tCount`tint`t0`t1`t0`tcontracts/catzc/0.0.0/Catzc.Tooling.Inspiration/Get-Inspiration.command.yml`tRandom`tAll")
     }
 
     It 'covers every command contract, and no row holds a quote that would end the variable' {
