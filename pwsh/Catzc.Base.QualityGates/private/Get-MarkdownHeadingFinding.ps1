@@ -45,6 +45,10 @@ function Get-MarkdownHeadingFinding {
     $fence = $null
     for ($index = $start; $index -lt $lines.Count; $index++) {
         $line = $lines[$index]
+        # A fence or heading starts with a space, backtick, tilde or hash.
+        if ($line.Length -eq 0 -or $line[0] -notin ' ', '`', '~', '#') {
+            continue
+        }
         if ($line -match '^ {0,3}(`{3,}|~{3,})') {
             $marker = $Matches[1]
             if ($null -eq $fence) {

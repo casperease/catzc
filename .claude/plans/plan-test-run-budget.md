@@ -90,6 +90,10 @@ none.
 - [ ] Bring the full run under its 180 s budget (221.05 s on 2026-10-18), one slow file at a time as test-optimization does, every test kept
       and no limit raised; the next candidates are the slowest tests in the run's `summary.md` (check: the user's next full run reports
       no budget overrun).
+  - Round 1 (catzc-c4, 2026-10-18): Invoke-Executable's post-exit drain waited 5 s per pipe; `CliRunner.cs` Supervise now shares one 5 s
+    deadline across stdout and stderr, the test 10.3 s to 5.25 s, Invoke-Executable.Tests 59 Passed (`out/test-file/20261018-211713-ad2558`).
+    Left, their cost being what they prove: the real markdownlint run (13.1 s, already skipped on an unchanged glob set) and the full-build
+    load of Import-Catzc (11.2 s).
 
 ## Refs
 

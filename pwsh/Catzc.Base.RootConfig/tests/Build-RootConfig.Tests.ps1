@@ -216,14 +216,17 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 }
 
 Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L1', 'integrity', 'source-only' {
-    It 'resolves every opted-in entry without writing (sources exist, generators render)' {
+    BeforeAll {
         # -DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator, throws.
-        $result = Build-RootConfig -DryRun -PassThru -Silent
-        @($result).Count | Should -BeGreaterThan 0
+        $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
+    }
+
+    It 'resolves every opted-in entry without writing (sources exist, generators render)' {
+        @($script:rendered).Count | Should -BeGreaterThan 0
     }
 
     It 'renders every managed root file drift-free, importer.ps1 included (Test-GeneratedFiles)' {
-        @(Build-RootConfig -DryRun -PassThru -Silent | Where-Object { $_.Target -eq 'importer.ps1' }) | Should -HaveCount 1
+        @($script:rendered | Where-Object { $_.Target -eq 'importer.ps1' }) | Should -HaveCount 1
         $result = Test-GeneratedFiles -Generator Build-RootConfig -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

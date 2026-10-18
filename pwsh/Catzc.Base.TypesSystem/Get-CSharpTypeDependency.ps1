@@ -10,7 +10,9 @@ function Get-CSharpTypeDependency {
     # Longest module name first, so 'Catzc.Azure.Templates.Foo' maps to Catzc.Azure.Templates, not Catzc.Azure.
     $byLength = @($modules | Sort-Object -Property Length -Descending)
 
-    $dotted = [regex] '[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)+'
+    # Only a token that starts with a module name's first segment can name a module, so the scan leaves every other dotted name unmatched.
+    $roots = @($modules | ForEach-Object { [regex]::Escape($_.Split('.')[0]) } | Sort-Object -Unique) -join '|'
+    $dotted = [regex] "(?<![A-Za-z0-9_.])(?:$roots)(?:\.[A-Za-z_][A-Za-z0-9_]*)+"
     $edges = [ordered]@{}   # "From|To" -> List[string] of reference descriptions
     $targetOf = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)
     $target = $null
