@@ -2,14 +2,14 @@
 
 ## Rules: ADR-AUTO-DRYRUN
 
-### Rule ADR-AUTO-DRYRUN:1
+### Rule ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN
 
 Every function that performs a side effect (deploy, install, delete, tag, CLI invocation) takes an explicit dry-run parameter, `DryRun`.
 
 - [An explicit parameter](#an-explicit-parameter)
 - [The idiom](#the-idiom)
 
-### Rule ADR-AUTO-DRYRUN:2
+### Rule ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
 
 Branch before the side effect: the dry-run path returns the planned action (command string, resolved target) and mutates nothing. The result
 must be observable by return value or captured output, never only narration written to the terminal.
@@ -17,14 +17,14 @@ must be observable by return value or captured output, never only narration writ
 - [The idiom](#the-idiom)
 - [Why not an implicit mode](#why-not-an-implicit-mode)
 
-### Rule ADR-AUTO-DRYRUN:3
+### Rule ADR-AUTO-DRYRUN-PROPAGATEEXPLICITLY
 
 Propagate the dry-run value explicitly down the call chain: a function passes its own value to every callee that takes one. No ambient
 setting, no implicit inheritance — pass the flag like any other argument.
 
 - [An explicit parameter](#an-explicit-parameter)
 
-### Rule ADR-AUTO-DRYRUN:4
+### Rule ADR-AUTO-DRYRUN-NOCONFIRMATION
 
 Do not ask for confirmation. A genuinely destructive operation makes itself safe by idempotent design (a no-op when there is nothing to
 remove), not by an interactive prompt.

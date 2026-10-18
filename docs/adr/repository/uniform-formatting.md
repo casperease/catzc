@@ -2,35 +2,35 @@
 
 ## Rules: ADR-REPO-FORMAT
 
-### Rule ADR-REPO-FORMAT:1
+### Rule ADR-REPO-FORMAT-TOOLSFORMAT
 
 Let the tools format your code; never hand-format. `.editorconfig` is the single source of truth for text formatting, across languages —
 configure your editor to honour it, and let each language's analyzers catch the rest.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-REPO-FORMAT:2
+### Rule ADR-REPO-FORMAT-NODEBATE
 
 Do not debate formatting. If a choice must change, change `.editorconfig` (and the relevant analyzers and tests) and reformat every affected
 file in one sweep — never adopt a new style partially.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-FORMAT:3
+### Rule ADR-REPO-FORMAT-CROSSLANGUAGEBASELINE
 
 Every text file in the repository, of every type, meets the cross-language baseline defined in `.editorconfig`'s `[*]` section (encoding,
 line endings, indentation kind, trailing-whitespace handling, and final newline).
 
 - [The cross-language baseline](#the-cross-language-baseline)
 
-### Rule ADR-REPO-FORMAT:4
+### Rule ADR-REPO-FORMAT-BASELINEISFLOOR
 
 The baseline is the floor, not the ceiling. Indent width and line-length limits are per-language `.editorconfig` sections, and each language
 layers its own formatting rules on top. No file falls below the baseline.
 
 - [Per-language layers](#per-language-layers)
 
-### Rule ADR-REPO-FORMAT:5
+### Rule ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
 
 An artifact the build generates — a module manifest, a compiled cache — is emitted in canonical, formatter-stable form: deterministic
 ordering, tool-computed layout, and the `.editorconfig` baseline, so every build of one commit is byte-identical and the artifact diffs
@@ -38,20 +38,20 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 - [Generated artifacts are canonical too](#generated-artifacts-are-canonical-too)
 
-### Rule ADR-REPO-FORMAT:6
+### Rule ADR-REPO-FORMAT-MARKDOWNTITLE
 
 Every git-tracked Markdown file opens — after any YAML front matter — with an H1 that is the document's title: words that say what it is,
 never its repository path. The path is a derived fact in the file's meta block (`path`,
-[ADR-REPO-FILEMETA#3](file-meta.md#rule-adr-repo-filemeta3)), written by `Format-FileMeta`. `Test-MarkdownTitle` checks the title, and a
+[ADR-REPO-FILEMETA-IMPRINTEDPARTS](file-meta.md#rule-adr-repo-filemeta-imprintedparts)), written by `Format-FileMeta`. `Test-MarkdownTitle` checks the title, and a
 file whose H1 is its own path, or that has no H1, is reported for its author to write, since no tool can invent a title. The scope follows
 the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
 `catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
-[ADR-REPO-CONTRACT#6](api-contracts.md#rule-adr-repo-contract6)). A new exception is declared in the `.gitattributes` source, never in a
+[ADR-REPO-CONTRACT-CONTRACTASSET](api-contracts.md#rule-adr-repo-contract-contractasset)). A new exception is declared in the `.gitattributes` source, never in a
 list of the gate's own.
 
 - [The H1 is the title](#the-h1-is-the-title)
 
-### Rule ADR-REPO-FORMAT:7
+### Rule ADR-REPO-FORMAT-PLAINHEADINGS
 
 A Markdown heading below the title is plain words with an anchor unique in its document. A trailing parenthesized group that holds only code
 spans and separators — a file name, a path, a citation — sits on its own line directly below the heading instead, groups joined by `·` and a
@@ -61,31 +61,31 @@ checks it.
 
 - [Headings are plain words](#headings-are-plain-words)
 
-### Rule ADR-REPO-FORMAT:8
+### Rule ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
 
 Each file language's formatter is configured, not coded: its entry in the file-language registry (`languages.yml`) names the formatter
 engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
 vendored code, contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
-[ADR-REPO-CONTRACT#5](api-contracts.md#rule-adr-repo-contract5)), and the files `.gitattributes` marks `binary`, such as the generated
+[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](api-contracts.md#rule-adr-repo-contract-releasedimmutable)), and the files `.gitattributes` marks `binary`, such as the generated
 output under `pwsh/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same entries — there is no formatting
-command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1). An engine's entry also lists its `settings:`, and those
+command per language and no list of formatters in a check (ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG). An engine's entry also lists its `settings:`, and those
 entries are its whole cache stamp: its own settings files and the `tools.yml` keys of the tools it runs, nothing else, so another tool's pin
-edit leaves its results warm ([ADR-AUTO-CACHE#10](../automation/caching.md#rule-adr-auto-cache10)). The registry lists, under `imprint:`,
+edit leaves its results warm ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). The registry lists, under `imprint:`,
 each **imprint step**: a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the top of the
-registry is global: it runs over every file whose carrier is not none ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)),
-whatever its language, as the meta block does ([ADR-REPO-CODEMETA#4](code-file-meta.md#rule-adr-repo-codemeta4)). A language's own entry
+registry is global: it runs over every file whose carrier is not none ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)),
+whatever its language, as the meta block does ([ADR-REPO-CODEMETA-IMPRINTSTEP](code-file-meta.md#rule-adr-repo-codemeta-imprintstep)). A language's own entry
 lists the steps that concern only its files, such as the C# namespace. A step may also write a companion file that belongs to the file it
 formats: the `comments` step moves a file's long comments into the file's comment page
-([ADR-REPO-COMMENTS#5](comments-in-docs.md#rule-adr-repo-comments5)), and that page carries its own meta block, whose `role` marks it as a
+([ADR-REPO-COMMENTS-MOVEDBYTOOL](comments-in-docs.md#rule-adr-repo-comments-movedbytool)), and that page carries its own meta block, whose `role` marks it as a
 comment page. `Test-Formatting` checks the same steps, and no check names one.
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 
-### Rule ADR-REPO-FORMAT:9
+### Rule ADR-REPO-FORMAT-METAIMPRINT
 
-The `immutable` and `edges` parts of a file's meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) are formatter output
+The `immutable` and `edges` parts of a file's meta block ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)) are formatter output
 like the title: `Format-FileMeta` writes it in canonical form the file's formatter leaves unchanged, byte-identical on every run, and
-`Test-FileMeta` checks it, over the files the scope rule selects ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). A hand edit
+`Test-FileMeta` checks it, over the files the scope rule selects ([ADR-REPO-FILEMETA-KINDSCOPE](file-meta.md#rule-adr-repo-filemeta-kindscope)). A hand edit
 to a derived value is overwritten.
 
 - [File meta is imprinted](#file-meta-is-imprinted)
@@ -156,7 +156,7 @@ Some files are not hand-authored but generated by the build — the module manif
 `<module>.psd1` from the module's files on every import. Because the same commit is built repeatedly — on every machine and in CI — the
 generated bytes must be reproducible, so "let the tools format it" binds the generator too. The emitter produces canonical output directly —
 keys ordered deterministically, the `=` column computed rather than hand-padded, LF endings and a final newline — and that output is
-formatter-stable: running the formatter over it changes nothing. A hand-padded string template is the same hand-formatting ADR-REPO-FORMAT#1
+formatter-stable: running the formatter over it changes nothing. A hand-padded string template is the same hand-formatting ADR-REPO-FORMAT-TOOLSFORMAT
 forbids, merely moved into code; it drifts the moment a field is added and churns the diff on every build.
 
 ### The H1 is the title
@@ -172,7 +172,7 @@ the meta block, so neither is typed twice.
 An H1 that is the file's own path says nothing a reader cannot already see, so it is not a title. A file with a path H1 and one code-span
 line below it takes that line's text as its title, and the line goes. A file with a path H1 and nothing to take, or with no H1, has no words
 to promote, so the gate reports it and the author writes the title. The file keeps one title and one heading normal form
-(ADR-REPO-FORMAT#7).
+(ADR-REPO-FORMAT-PLAINHEADINGS).
 
 The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
 generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored, generated, or a fixture (`catzc-fixture`

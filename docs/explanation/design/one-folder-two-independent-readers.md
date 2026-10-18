@@ -15,9 +15,9 @@ One module folder has two independent readers: the loader and the globs engine.
 Supports ADR-DSGN-ASPECT#1, #2 and #4 (architecture lens).
 ```
 
-A cats module is a folder under `pwsh/`, and nothing else declares what it contains. Two components read that folder, and neither
-reads the other: the loader decides what a module exports, and the globs engine decides which of its files ship. Both decisions come from
-where a file sits, so a module author shapes visibility and shipping identity with the same act, placing a file.
+A cats module is a folder under `pwsh/`, and nothing else declares what it contains. Two components read that folder, and neither reads the
+other: the loader decides what a module exports, and the globs engine decides which of its files ship. Both decisions come from where a file
+sits, so a module author shapes visibility and shipping identity with the same act, placing a file.
 
 ![One folder, two independent readers](.assets/one-folder-two-independent-readers/diagram.drawio.png)
 
@@ -25,8 +25,8 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Walkthrough
 
-1. **pwsh/&lt;Module&gt;/.** The folder is the module. Both readers start from it, and the location of each file inside it is all
-   either of them needs.
+1. **pwsh/&lt;Module&gt;/.** The folder is the module. Both readers start from it, and the location of each file inside it is all either of
+   them needs.
 2. **Catzc.Internal.Bootstrap.** The loader. On every import its `Import-AllModules` derives each module's manifest from the folder. It
    never reads the `aspects` variant.
 3. **&lt;Module&gt;.psd1.** The derived manifest. A `.ps1` file at the module root is exported; a file in `private/` is loaded into the

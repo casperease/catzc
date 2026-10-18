@@ -71,7 +71,7 @@ Where the code loads from decides the run mode ([run-modes](../../adr/design/run
 | architecture   | [Two code roots feed one importer, which loads the same modules](two-roots-one-importer-same-modules.md)                    |
 | implementation | [Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](shims-set-roots-mode-read-back.md) |
 | operations     | [Each run mode has one entry script, and a mixed session throws](one-entry-script-per-mode.md)                              |
-| governance     | [Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](which-run-mode-rules-have-a-gate.md)          |
+| governance     | [Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](which-run-mode-rules-have-a-gate.md)               |
 
 ## Module folder layout
 

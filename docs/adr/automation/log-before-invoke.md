@@ -2,29 +2,29 @@
 
 ## Rules: ADR-AUTO-PRELOG
 
-### Rule ADR-AUTO-PRELOG:1
+### Rule ADR-AUTO-PRELOG-LOGRESOLVEDCOMMAND
 
 Log the full, resolved command string (all variables expanded, all arguments in place) via `Write-Message` as the last step before
 invocation. The log entry must be copy-pasteable: the command itself, never a paraphrase of it
-([ADR-AUTO-CONSOLE#3](console-output-matters.md#rule-adr-auto-console3)).
+([ADR-AUTO-CONSOLE-LOGCOMMANDS](console-output-matters.md#rule-adr-auto-console-logcommands)).
 
 - [Automatic, not opt-in](#automatic-not-opt-in)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PRELOG:2
+### Rule ADR-AUTO-PRELOG-RUNNERLOGS
 
 The toolset's executable runner, `Invoke-Executable`, does this automatically, so a function that runs a tool through it gets the log line
 for free. A function that starts a tool any other way logs the command itself, before it starts it.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PRELOG:4
+### Rule ADR-AUTO-PRELOG-ALWAYSLOG
 
 Do not conditionally log: the command is logged on every run, on the always-shown status output, never only behind a diagnostic switch.
 
 - [Automatic, not opt-in](#automatic-not-opt-in)
 
-### Rule ADR-AUTO-PRELOG:5
+### Rule ADR-AUTO-PRELOG-SILENTSWITCH
 
 Use the `-Silent` switch (on `Invoke-Executable`, `Invoke-Python`, `Invoke-Poetry`, `Invoke-Dotnet`) to suppress the command log line for
 noisy plumbing calls or commands carrying a runtime secret ADO cannot mask.
@@ -72,7 +72,7 @@ Every function that invokes an external command must log the exact command strin
 
 - **`Invoke-Executable`** — logs the full command string via `Write-Message` before execution. All `Invoke-*` tool wrappers
   (`Invoke-Python`, `Invoke-Poetry`, `Invoke-Dotnet`) delegate to `Invoke-Executable` and inherit this behavior automatically. How pwsh logs
-  a tool started outside it, and on which stream, is [announce-state-changes](../pwsh/announce-state-changes.md#rule-adr-pwsh-announce10).
+  a tool started outside it, and on which stream, is [announce-state-changes](../pwsh/announce-state-changes.md#rule-adr-pwsh-announce-nativetoolcommand).
 
 ## Consequences
 

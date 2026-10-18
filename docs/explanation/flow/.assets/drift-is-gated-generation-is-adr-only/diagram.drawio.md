@@ -1,8 +1,8 @@
-# Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone: the diagram described
+# Three gates check the projection, while generation is held by the ADR alone: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.
-Glyphs: 3 results (green), 3 gates, 2 ADR-only; 5 flow edges, 2 ADR-only edges; 8 rule chips (2 dashed); 8 markers.
+Glyphs: 3 results (green), 3 gates, 1 ADR-only; 5 flow edges, 1 ADR-only edge; 8 rule chips (2 dashed); 7 markers.
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
@@ -12,8 +12,8 @@ vocabulary of the diagram glyphs; what it means is in [the article](../../drift-
 ## At a glance
 
 A 1572 × 700 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
-full-width bands, labelled `COMPOSE`, `PROJECTION` and `CHECKED BY`. It holds eight glyphs, three results, three gates and two dashed
-ADR-only boxes, joined by five flow edges and two dashed ADR-only edges, with eight rule chips, eight markers and a legend panel along the
+full-width bands, labelled `COMPOSE`, `PROJECTION` and `CHECKED BY`. It holds seven glyphs, three results, three gates and one dashed
+ADR-only box, joined by five flow edges and one dashed ADR-only edge, with eight rule chips, seven markers and a legend panel along the
 bottom. The eye lands first on the wide result in the top band, which spans most of the drawing area.
 
 ## Reading path
@@ -24,7 +24,6 @@ bottom. The eye lands first on the wide result in the top band, which spans most
 3. Right along the dashed edge to marker 4: the ADR-only box generated YAML filters, with a dashed `#6` chip at its bottom-right corner.
 4. Down three vertical edges into the bottom band: marker 5, the gate Test-GitHub…TriggerGlob; marker 6, the gate
    Test-AdoPipelineTriggerGlob; marker 7, the gate Test-GlobSetTriggerCoverage, each with a `T35` chip at its top-right.
-5. Right along the dashed edge from the last gate to marker 8: the ADR-only box in-pipeline exact backstop.
 
 ## Glyphs
 
@@ -32,9 +31,9 @@ bottom. The eye lands first on the wide result in the top band, which spans most
 | --------------------- | ----- | -------------------------------------------------------------------------------------------------------------- |
 | result                | 3     | flattened scan program (top band, wide); GitHub paths and ADO include and exclude (middle band)                |
 | gate                  | 3     | Test-GitHub…TriggerGlob, Test-AdoPipelineTriggerGlob, Test-GlobSetTriggerCoverage (bottom band, left to right) |
-| ADR-only (no code)    | 2     | generated YAML filters (middle band, right); in-pipeline exact backstop (bottom band, right)                   |
+| ADR-only (no code)    | 1     | generated YAML filters (middle band, right)                                                                    |
 
-Results are green with light names; gates are neutral rhombi with a thick light rim; the ADR-only boxes are dashed outlines on the page
+Results are green with light names; gates are neutral rhombi with a thick light rim; the ADR-only box is a dashed outline on the page
 colour.
 
 ## Edges
@@ -42,7 +41,7 @@ colour.
 | Edge kind          | Count | From → to                                                                                                                                                                                                                                     |
 | ------------------ | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | flow: feeds        | 5     | flattened scan program → GitHub paths, flattened scan program → ADO include and exclude, GitHub paths → Test-GitHub…TriggerGlob, ADO include and exclude → Test-AdoPipelineTriggerGlob, ADO include and exclude → Test-GlobSetTriggerCoverage |
-| ADR-only (no code) | 2     | ADO include and exclude → generated YAML filters, Test-GlobSetTriggerCoverage → in-pipeline exact backstop (both dashed, horizontal)                                                                                                          |
+| ADR-only (no code) | 1     | ADO include and exclude → generated YAML filters (dashed, horizontal)                                                                                                                                                                         |
 
 Every edge is horizontal or vertical, and none crosses another. Eight rule chips sit beside the glyphs they govern: `#8` and a dashed `#4`
 on the program, `#6` on each projection and a dashed `#6` on the generated box, and `T35` on each gate.

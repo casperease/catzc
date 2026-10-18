@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "68221c6edc1d"
+    with_body_sha: "83f693f23858"
     repo_status: locked
     path: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-no-caller/grid.md
     source: docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.png
@@ -12,19 +12,19 @@ catzc:
     tracktype: documentation
 ---
 
-# Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it: the world-map minimap
+# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated: the world-map minimap
 
 ```text
 Where the files that cite ADR-AUTO-FAILFAST, ADR-FLOW-CD-DETECT and ADR-FLOW-CD-GLOBS sit in the repository: tracks down, file languages across.
 6 of 342 cells lit, holding 116 files.
 ```
 
-![The world-map minimap of Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it](grid.png)
+![The world-map minimap of Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated](grid.png)
 
 This is the world-map minimap in the sidebar of the governance diagram of [Tests pin the throw and the fail-open, a rule pins detection, and
-no pipeline calls it][120], which explains [ADR-AUTO-FAILFAST][1], [ADR-FLOW-CD-DETECT][2] and [ADR-FLOW-CD-GLOBS][3]. It lights every cell
-of the world map that holds a file citing those codes, so it shows where the decision lives in the repository. Each lit cell has its reason
-below, naming the code that selects it.
+the CD stages call it ungated][120], which explains [ADR-AUTO-FAILFAST][1], [ADR-FLOW-CD-DETECT][2] and [ADR-FLOW-CD-GLOBS][3]. It lights
+every cell of the world map that holds a file citing those codes, so it shows where the decision lives in the repository. Each lit cell has
+its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -34,10 +34,10 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 9 lit of 89 files
-- docs × markdown: 87 lit of 2761 files
-- pipelines × pipeline-yaml: 3 lit of 13 files
+- docs × markdown: 87 lit of 2763 files
+- pipelines × pipeline-yaml: 3 lit of 14 files
 - pwsh × csharp: 3 lit of 293 files
-- pwsh × powershell: 9 lit of 1649 files
+- pwsh × powershell: 9 lit of 1651 files
 - pwsh × yaml: 5 lit of 115 files
 
 ## Key
@@ -247,24 +247,23 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
   citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 132 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 55
   (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 76 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text),
   `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47 (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line
-  64 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 585 (text),
-  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line
-  153 (text) and `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text); selected by [ADR-FLOW-CD-DETECT][2]: a pipeline that
-  cites nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 99 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text); selected by [ADR-FLOW-CD-GLOBS][3]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 101 (text),
-  `pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 42 (text), `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 2
-  (text), `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 4 (text),
-  `pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 58 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 9
-  (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 53 (text),
-  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 66 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line
-  77 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 89 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 23
-  (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 27 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 31 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 43 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 47 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text), `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1226 (text).
+  64 (text), `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text),
+  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 153 (text) and `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44
+  (text); selected by [ADR-FLOW-CD-DETECT][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 99 (text) and `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text);
+  selected by [ADR-FLOW-CD-GLOBS][3]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 101 (text), `pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 42 (text),
+  `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 2 (text), `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1`
+  line 4 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 58 (text),
+  `pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 9 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 53
+  (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 66 (text),
+  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 77 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line
+  89 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 23 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 27 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 31 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 43 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 47 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
 - [pipelines/extends/cd-customer.yaml][102]: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 21 (body comment) (a passing
   mention only).
 
@@ -310,8 +309,7 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][4]); th
 - [pwsh/Catzc.Base.Docs/configs/capabilities.yml][117]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 4 (text).
 - [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][118]: selected by [ADR-FLOW-CD-DETECT][2]: the file cites it at line 11
   (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][119]: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 585 (text);
-  selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 1226 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][119]: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 1076 (text).
 
 ## Keywords
 

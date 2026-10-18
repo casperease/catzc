@@ -6,8 +6,8 @@ Glyphs: 4 code units (slate), 1 file (olive), 2 named sets (mauve), 1 ADR-only; 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../one-folder-two-independent-readers.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../one-folder-two-independent-readers.md).
 
 ## At a glance
 
@@ -27,22 +27,22 @@ panel along the bottom. The eye lands first on the tall code unit on the left.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                                                            |
-| --------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                                                                                                                      |
+| --------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | code unit             | 4     | pwsh/&lt;Module&gt;/ (far left, outside the bands), Catzc.Internal.Bootstrap (VISIBILITY), Catzc.Base.Variants and Catzc.Base.Globs (ASPECTS, left column) |
-| file                  | 1     | &lt;Module&gt;.psd1 (VISIBILITY, right of Bootstrap)                                                                                                             |
-| named set             | 2     | &lt;module&gt;-live above &lt;module&gt;-tests (ASPECTS, middle column)                                                                                          |
-| ADR-only              | 1     | aspect sha locks (ASPECTS, right column; dashed white box, as tall as Globs)                                                                                     |
+| file                  | 1     | &lt;Module&gt;.psd1 (VISIBILITY, right of Bootstrap)                                                                                                       |
+| named set             | 2     | &lt;module&gt;-live above &lt;module&gt;-tests (ASPECTS, middle column)                                                                                    |
+| ADR-only              | 1     | aspect sha locks (ASPECTS, right column; dashed white box, as tall as Globs)                                                                               |
 
 Code units are slate, the file is olive and the named sets are mauve, all with white names.
 
 ## Edges
 
-| Edge kind              | Count | From → to                                                                                                                                                                     |
-| ---------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Edge kind              | Count | From → to                                                                                                                                                         |
+| ---------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | flow                   | 4     | pwsh/&lt;Module&gt;/ → Catzc.Internal.Bootstrap, Bootstrap → &lt;Module&gt;.psd1, pwsh/&lt;Module&gt;/ → Catzc.Base.Globs, Catzc.Base.Variants → Catzc.Base.Globs |
-| thick (to a named set) | 2     | Catzc.Base.Globs → &lt;module&gt;-live, Catzc.Base.Globs → &lt;module&gt;-tests                                                                                               |
-| ADR-only               | 2     | &lt;module&gt;-live → aspect sha locks, &lt;module&gt;-tests → aspect sha locks                                                                                               |
+| thick (to a named set) | 2     | Catzc.Base.Globs → &lt;module&gt;-live, Catzc.Base.Globs → &lt;module&gt;-tests                                                                                   |
+| ADR-only               | 2     | &lt;module&gt;-live → aspect sha locks, &lt;module&gt;-tests → aspect sha locks                                                                                   |
 
 Seven edges are straight and horizontal, pointing right; the Variants → Globs edge points straight down. None crosses another, and none
 carries a label.
@@ -68,13 +68,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-DSGN-ASPECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for
-every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

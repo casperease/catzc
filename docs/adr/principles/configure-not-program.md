@@ -2,14 +2,14 @@
 
 ## Rules: ADR-PRIN-CONFIG
 
-### Rule ADR-PRIN-CONFIG:1
+### Rule ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
 
 Behaviour that varies by instance — a language, a tool, a target, an environment, a file class — is a config entry. Code implements one
 mechanism for each kind of thing, never one function for each instance of it.
 
 - [Mechanisms and instances](#mechanisms-and-instances)
 
-### Rule ADR-PRIN-CONFIG:2
+### Rule ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
 
 Adding an instance of a kind the repository already handles is a config change. When it takes new code beyond a new engine adapter, the
 mechanism is missing or wrong: fix the mechanism, then add the instance as configuration.
@@ -17,21 +17,21 @@ mechanism is missing or wrong: fix the mechanism, then add the instance as confi
 - [Mechanisms and instances](#mechanisms-and-instances)
 - [Engines are the exception that proves it](#engines-are-the-exception-that-proves-it)
 
-### Rule ADR-PRIN-CONFIG:3
+### Rule ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE
 
 Every setting has a sensible default, declared once on its config type. A config file states only what deviates from the default, so the
 shortest config is the common case and every line in it is a decision someone made.
 
 - [Defaults carry the common case](#defaults-carry-the-common-case)
 
-### Rule ADR-PRIN-CONFIG:4
+### Rule ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
 
 An exception is a declared config entry, next to the instance it concerns, carrying its reason and validated by the config type. It is never
 a branch in code, a hard-coded list inside a command, or a convention known only to its author.
 
 - [Exceptions are entries](#exceptions-are-entries)
 
-### Rule ADR-PRIN-CONFIG:5
+### Rule ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
 
 A design question about one instance is answered by the default. Raise a question only about the default itself or about a missing mechanism
 — never ask whether an instance is worth supporting, because supporting it costs one config entry.
@@ -72,7 +72,7 @@ test is whether the second instance of the same engine needs code too; under thi
 ### Defaults carry the common case
 
 A setting resolves through the caller's value, then the module's configuration, then the default declared on the config type
-(ADR-AUTO-DEFAULT#6). This principle adds the authoring discipline on top: a registry entry states only its deviations. An entry that
+(ADR-AUTO-DEFAULT-ONERESOLUTIONORDER). This principle adds the authoring discipline on top: a registry entry states only its deviations. An entry that
 repeats the default is noise that hides the entries that matter, and a default that is restated in many entries can no longer be changed in
 one place.
 
@@ -97,7 +97,7 @@ configuration as programming, and leaves the repository with uneven coverage dec
 - **A hard-coded list in the consumer** (a `ValidateSet` of formatter names, a switch over languages). The list is a second registry that
   must be kept in step by hand.
 - **Configuration that can program** (script blocks or expressions in YAML). It hides code where it is neither analysed nor tested; a
-  setting that needs logic is a sign the mechanism is missing (ADR-PRIN-CONFIG#2).
+  setting that needs logic is a sign the mechanism is missing (ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE).
 
 ## Decision
 
@@ -107,7 +107,7 @@ the default, not decided case by case.
 
 ### How this is enforced
 
-- **Strict config types** validate every registry at load and reject unknown keys (ADR-CONF-LOADING#4), so an instance's behaviour is
+- **Strict config types** validate every registry at load and reject unknown keys (ADR-CONF-LOADING-CSHARPCONFIGTYPE), so an instance's behaviour is
   limited to what the mechanism supports, and an exception is a typed key with a required reason.
 - **Integrity tests** check that the consumers read the registry instead of keeping their own list: for example, that every formatter a
   language names is one the formatting mechanism provides.

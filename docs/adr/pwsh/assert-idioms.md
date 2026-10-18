@@ -2,48 +2,48 @@
 
 ## Rules: ADR-PWSH-ASSERT
 
-### Rule ADR-PWSH-ASSERT:1
+### Rule ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
 
 A function that bounds its own long-running work declares its limit beside its code, as a
 `[Catzc.Base.Timeouts.TimeLimit(<devbox seconds>, Pipeline = <seconds>)]` attribute on its param block, and takes it through
 `Get-TimeoutSeconds -Command <name>` — never a number literal as a parameter default. The limit resolves most specific first: an exemption
 for the decoration's budget GUID (`timeout-exemptions.yml`), then the command's entry under `commands` in `timeouts.yml`, then the
-decoration for the run environment, then the environment's pwsh default (ADR-AUTO-FAILFAST#7).
+decoration for the run environment, then the environment's pwsh default (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 
 - [The TimeLimit attribute](#the-timelimit-attribute)
 
-### Rule ADR-PWSH-ASSERT:2
+### Rule ADR-PWSH-ASSERT-ENTRYASSERTCALLS
 
-In pwsh, the entry assertions of ADR-AUTO-FAILFAST#1 are `Assert-*` calls at the top of the function body, directly after the `param` block
+In pwsh, the entry assertions of ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY are `Assert-*` calls at the top of the function body, directly after the `param` block
 and before any statement that uses a parameter, for what the `[Parameter]` and `Validate*` attributes do not express.
 
 - [Guard placement](#guard-placement)
 
-### Rule ADR-PWSH-ASSERT:3
+### Rule ADR-PWSH-ASSERT-EXTERNALCALLSTHROUGHRUNNER
 
-In pwsh, the external calls of ADR-AUTO-FAILFAST#2 are native tools run through `Invoke-Executable`, file reads such as `Get-Content`, and
+In pwsh, the external calls of ADR-AUTO-FAILFAST-ASSERTAFTEREXTERNALCALLS are native tools run through `Invoke-Executable`, file reads such as `Get-Content`, and
 REST and cloud calls. The result is held in a named local and asserted on the next line, before it is passed on or returned.
-`Invoke-Executable` asserts the exit code itself (ADR-PWSH-AUTOVAR#2), so its caller asserts the output.
+`Invoke-Executable` asserts the exit code itself (ADR-PWSH-AUTOVAR-EXITCODECYCLE), so its caller asserts the output.
 
 - [Guard placement](#guard-placement)
 
-### Rule ADR-PWSH-ASSERT:4
+### Rule ADR-PWSH-ASSERT-NOINLINETHROWCHECK
 
-In pwsh, the inline check ADR-AUTO-FAILFAST#4 rules out is `if (-not $x) { throw '...' }` around a precondition: the precondition is an
-`Assert-*` call instead. `throw` is for a failure that is not an assumption check (ADR-PWSH-ERROR#3).
+In pwsh, the inline check ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY rules out is `if (-not $x) { throw '...' }` around a precondition: the precondition is an
+`Assert-*` call instead. `throw` is for a failure that is not an assumption check (ADR-PWSH-ERROR-THROWNOTWRITEERROR).
 
 - [The Assert library](#the-assert-library)
 
-### Rule ADR-PWSH-ASSERT:5
+### Rule ADR-PWSH-ASSERT-NOCATCHAROUNDASSERT
 
-In pwsh, no `try`/`catch` or `trap` encloses an `Assert-*` call to absorb its failure (ADR-AUTO-FAILFAST#5). A test proves an assertion
+In pwsh, no `try`/`catch` or `trap` encloses an `Assert-*` call to absorb its failure (ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS). A test proves an assertion
 fires with `Should -Throw`, which is the one place an assertion failure is caught.
 
 - [Catching an assertion](#catching-an-assertion)
 
-### Rule ADR-PWSH-ASSERT:6
+### Rule ADR-PWSH-ASSERT-TWOWAITBOUNDS
 
-In pwsh, the waits ADR-AUTO-FAILFAST#7 bounds are bounded in two ways. A native tool runs through `Invoke-Executable`, which kills the child
+In pwsh, the waits ADR-AUTO-FAILFAST-BOUNDEVERYWAIT bounds are bounded in two ways. A native tool runs through `Invoke-Executable`, which kills the child
 process tree at its executable's limit. In-process work runs as a script block passed to `Invoke-WithTimeout`, `Assert-CompletesWithin`, or
 `Test-CompletesWithin`, with `-Budget <guid>` when it carries an exempted budget. No wait is left open: no `Wait-Job`, `WaitForExit()`, or
 polling loop without a limit.
@@ -71,7 +71,7 @@ Assert-NotNullOrWhitespace $name         # throws: "Assertion failed: value was 
 An inline `if (-not $x) { throw "..." }` checks the same thing but reads as control flow, and its message is whatever the author typed that
 day. The `Assert-*` call names its intent, carries the library's message, and is found by one search. `throw` keeps its place for a failure
 that is not an assumption check — an unsupported combination of arguments, a state the function has found and cannot proceed from
-([error-handling](error-handling.md#rule-adr-pwsh-error3)).
+([error-handling](error-handling.md#rule-adr-pwsh-error-thrownotwriteerror)).
 
 ### Guard placement
 
@@ -96,7 +96,7 @@ function Invoke-Poetry {
 
 The entry guards sit directly after the `param` block, so a reader sees the function's preconditions before its work. They cover what the
 parameter attributes cannot: `[Parameter(Mandatory)]` rejects a missing argument but not a whitespace one, and `[ValidateScript]` runs again
-on every reassignment ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar7)), so a check that has to hold
+on every reassignment ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-novalidatedreassignment)), so a check that has to hold
 once, at entry, is an assertion. The output guard follows the external call on the next line, before `$result` leaves the function.
 
 ### Catching an assertion
@@ -127,7 +127,7 @@ created: whole seconds above zero, and a pipeline limit at least the devbox one.
 
 ### Bounding a wait
 
-[fail-fast-with-asserts](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7) bounds every wait. In pwsh the two kinds of wait
+[fail-fast-with-asserts](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) bounds every wait. In pwsh the two kinds of wait
 have one helper each. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree when it is
 reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
 
@@ -153,7 +153,7 @@ test forms.
 
 - **`Catzc.Base.Asserts`** — the `Assert-*` library, the one way a precondition is checked.
 - **`Catzc.Base.Timeouts.TimeLimitAttribute`** — rejects a limit that is not a positive whole number of seconds, or a pipeline limit below
-  the devbox one, when the function is defined; **`Get-TimeoutSeconds -Command`** reads the decoration in the order of ADR-PWSH-ASSERT#1.
+  the devbox one, when the function is defined; **`Get-TimeoutSeconds -Command`** reads the decoration in the order of ADR-PWSH-ASSERT-DECLAREDTIMELIMIT.
 - **Code review** — guard placement, an inline `if`/`throw` that should be an assertion, a `try`/`catch` around an assertion, and a number
   literal as a timeout default are review concerns, against this ADR.
 

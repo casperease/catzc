@@ -10,7 +10,7 @@ Every stage of the bundle has a rule, and two gates check it.
 5  Checked again            the install verifies its source with the same gate (#6)
 6  Test-CatzcBuild          the build run: the same tests, against a fresh build (TEST#30)
 
-Supports ADR-AUTO-BUNDLE#1, #5, #6 and #7, ADR-PWSH-MANIFEST#5, ADR-AUTO-TEST#30 and #31, and ADR-DSGN-RUNMODE#7 (governance lens).
+Supports ADR-AUTO-BUNDLE#1, #5, #6 and #7, and ADR-PWSH-MANIFEST#5 (governance lens).
 ```
 
 ADR-AUTO-BUNDLE fixes every stage of a bundle, from the module selection to the place the build is copied to. Rules only hold when something

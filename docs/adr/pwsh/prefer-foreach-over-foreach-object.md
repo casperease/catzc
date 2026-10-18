@@ -2,21 +2,21 @@
 
 ## Rules: ADR-PWSH-FOREACH
 
-### Rule ADR-PWSH-FOREACH:1
+### Rule ADR-PWSH-FOREACH-FOREACHSTATEMENTDEFAULT
 
 Default to the `foreach` statement for all iteration: it has correct, predictable `return`/`break`/`continue` semantics and is faster.
 
 - [The control flow trap](#the-control-flow-trap)
 - [Performance](#performance)
 
-### Rule ADR-PWSH-FOREACH:2
+### Rule ADR-PWSH-FOREACH-FOREACHOBJECTFORTRANSFORMS
 
 Use `ForEach-Object` only for single-expression pipeline transforms with no control flow keywords. If you need `if`, `return`, `break`,
 `continue`, or `try`/`catch`, switch to `foreach`.
 
 - [When ForEach-Object fits](#when-foreach-object-fits)
 
-### Rule ADR-PWSH-FOREACH:3
+### Rule ADR-PWSH-FOREACH-NOCONTROLFLOWINFOREACHOBJECT
 
 Never use `return`, `break`, or `continue` inside `ForEach-Object`; they do not do what they appear to. If you need control flow, rewrite as
 `foreach`.
@@ -24,7 +24,7 @@ Never use `return`, `break`, or `continue` inside `ForEach-Object`; they do not 
 - [The control flow trap](#the-control-flow-trap)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-FOREACH:4
+### Rule ADR-PWSH-FOREACH-PARALLELISCONCURRENCY
 
 Treat `ForEach-Object -Parallel` as a concurrency primitive, not a faster loop: all variables need `$using:`, module functions are
 unavailable, shared state needs thread-safe collections, errors are batched. Default to sequential `foreach`.

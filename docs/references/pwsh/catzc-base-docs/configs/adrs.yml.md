@@ -34,16 +34,7 @@ this file (Build-AdrIndex) — see [ADR-REPO-README](/docs/adr/repository/genera
 
 ## comment:2
 
-Above `code: FLOW-CD`, written with `#`.
-
-```text
-compound domain code — the root ADR cites [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md), the
-rest `ADR-FLOW-CD-<NAME>`
-```
-
-## comment:3
-
-Above `reliability: { external: ADR-AZ-WAF-RE, terminology: wafre }`, written with `#`.
+Above `reliability: { external: ADR-AZ-WAF-RE }`, written with `#`.
 
 ```text
 Vendor recommendation, one rule per vendor item: the Well-Architected Framework pillars (azure/waf/) and the Cloud Adoption

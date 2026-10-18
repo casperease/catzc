@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "13811c7d793a"
+    with_body_sha: "03b5fc5c6a00"
     repo_status: locked
     path: docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives/grid.md
     source: docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png
@@ -12,16 +12,16 @@ catzc:
     tracktype: documentation
 ---
 
-# Five keys, one private reader, twelve exported primitives: the world-map minimap
+# Five keys, one private reader, fifteen exported primitives: the world-map minimap
 
 ```text
 Where the files that cite ADR-REPO-VARIANT sit in the repository: tracks down, file languages across.
 5 of 342 cells lit, holding 14 files.
 ```
 
-![The world-map minimap of Five keys, one private reader, twelve exported primitives](grid.png)
+![The world-map minimap of Five keys, one private reader, fifteen exported primitives](grid.png)
 
-This is the world-map minimap in the sidebar of the implementation diagram of [Five keys, one private reader, twelve exported
+This is the world-map minimap in the sidebar of the implementation diagram of [Five keys, one private reader, fifteen exported
 primitives][18], which explains [ADR-REPO-VARIANT][1]. It lights every cell of the world map that holds a file citing those codes, so it
 shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
@@ -33,9 +33,9 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 3 lit of 89 files
-- docs × markdown: 8 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
-- pwsh × powershell: 1 lit of 1649 files
+- docs × markdown: 8 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
+- pwsh × powershell: 1 lit of 1651 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key

@@ -2,28 +2,28 @@
 
 ## Rules: ADR-PROC-BUILTIN
 
-### Rule ADR-PROC-BUILTIN:1
+### Rule ADR-PROC-BUILTIN-QUALITYBUILTIN
 
 Quality is built into the process, not inspected in afterwards. Every step produces already-correct output; there is no separate stage that
 blesses defective work as finished. The definition of done includes green quality gates, not a later sign-off.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-BUILTIN:2
+### Rule ADR-PROC-BUILTIN-PREVENTORDETECT
 
 Prevent structurally where possible; otherwise detect immediately. A defect is either made impossible to express, or caught at authoring,
 build, or the first line of execution — never at production time and never silently ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)).
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-BUILTIN:3
+### Rule ADR-PROC-BUILTIN-GATESAREPARTOFWORK
 
 Tests and quality gates are part of producing the work, not a checkpoint bolted on after it. They run identically on the devbox and in the
 pipeline and must agree, so quality is proven where the work is done.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-PROC-BUILTIN:4
+### Rule ADR-PROC-BUILTIN-QUALITYFURTHESTLEFT
 
 Concentrate quality effort at the furthest-left point, because a defect's cost grows with the distance it travels from its origin
 ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md), the defects waste). A fault an assertion catches at entry is free; the same fault in

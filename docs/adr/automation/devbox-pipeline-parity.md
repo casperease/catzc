@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-PARITY
 
-### Rule ADR-AUTO-PARITY:1
+### Rule ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS
 
 The `pwsh` track **is a CLI**, and every command runs unchanged in two environments: **DEVBOX** — the developer's machine, where you _shoot_
 (iterate fast; it just has to work) — and **PIPELINE** — CI/CD, where you _verify and deliver_ (deterministic and fast, through a few manual
@@ -11,21 +11,21 @@ automation.
 
 - [One CLI, two environments](#one-cli-two-environments)
 
-### Rule ADR-AUTO-PARITY:2
+### Rule ADR-AUTO-PARITY-CHECKEDEQUALLY
 
 Both environments are **checked equally**: `Test-Automation` and its L0–L3 tiers run on the devbox AND in the pipeline, and must agree. A
 test that needs a pipeline to pass, or cannot run in one, is mis-tiered (`ADR-AUTO-TEST`), never a licence to fork behaviour.
 
 - [Checked equally](#checked-equally)
 
-### Rule ADR-AUTO-PARITY:3
+### Rule ADR-AUTO-PARITY-ONESEAM
 
 The **one seam** between the two is `Test-IsRunningInPipeline`. A command branches on the seam solely where the environments _genuinely_
 differ — where output goes (`Get-OutputRoot`), skipping the devbox auto-commit in CI — and never to change _what a command does_.
 
 - [The one seam](#the-one-seam)
 
-### Rule ADR-AUTO-PARITY:4
+### Rule ADR-AUTO-PARITY-CONNECTVIAEAC
 
 The two environments **connect only via the EAC** — the version-controlled globsets and their generated trigger projections. Nothing else
 crosses between devbox and pipeline: no shared runtime state, only the committed source.

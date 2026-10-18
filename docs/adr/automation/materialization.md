@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-MATERIAL
 
-### Rule ADR-AUTO-MATERIAL:1
+### Rule ADR-AUTO-MATERIAL-MATERIALIZATION
 
 **Materialization** names when a knowledge resource comes into being and how long it holds, and it takes one of two values. An on-demand
 resource is made when asked, a scan, a computation or a resolved config, and holds until the call ends or the session cache entry that holds
@@ -10,46 +10,46 @@ it is gone. A commit resource is made at commit, keyed by the scoped sha of its 
 
 - [The axis](#the-axis)
 
-### Rule ADR-AUTO-MATERIAL:2
+### Rule ADR-AUTO-MATERIAL-RESOLVEDFROMCONTEXT
 
 A resource whose kind declares no explicit value resolves its materialization from context into one of the two values, the way every setting
-resolves ([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)): a clean tree at a known scoped sha with a commit copy present
+resolves ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): a clean tree at a known scoped sha with a commit copy present
 uses the copy; anything else computes on-demand. The resolved value is never stored and never displayed; a display shows an explicitly
 declared value only.
 
 - [How the default resolves](#how-the-default-resolves)
 
-### Rule ADR-AUTO-MATERIAL:3
+### Rule ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY
 
 The commit key of a resource is the scoped sha of its own globset, the patterns of `globs.yml` that select its inputs
-([ADR-DSGN-TRACK#5](../design/tracks.md#rule-adr-dsgn-track5)), never the sha of the whole repository. A config variant of the globset is a
+([ADR-DSGN-TRACK-DEPLOYABLEUNIT](../design/tracks.md#rule-adr-dsgn-track-deployableunit)), never the sha of the whole repository. A config variant of the globset is a
 different resource with its own key.
 
 - [The commit key](#the-commit-key)
 
-### Rule ADR-AUTO-MATERIAL:4
+### Rule ADR-AUTO-MATERIAL-DECLAREDPERKIND
 
 Materialization is declared per resource kind, in a config entry with one default declared once on its config type
-([ADR-PRIN-CONFIG#3](../principles/configure-not-program.md#rule-adr-prin-config3)). An instance of the kind changes it only by an explicit
+([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). An instance of the kind changes it only by an explicit
 value of its own, and a resource that costs milliseconds to compute declares on-demand and never earns a commit copy.
 
 - [Declared per kind](#declared-per-kind)
 
-### Rule ADR-AUTO-MATERIAL:5
+### Rule ADR-AUTO-MATERIAL-DIRTYTREECOMPUTES
 
 A commit resource read on a dirty tree, or at a sha that has no commit copy, computes on-demand and announces that once, on the information
 stream, naming the resource and the reason. It never serves a copy whose key does not match the tree, and it never falls back in silence.
 
 - [The loud fallback](#the-loud-fallback)
 
-### Rule ADR-AUTO-MATERIAL:6
+### Rule ADR-AUTO-MATERIAL-GUARDSDECLAREONDEMAND
 
 A guard declares on-demand explicitly. Its verdict is a control, decided from the state in front of it on every call, so the default never
 resolves a guard to commit and no guard kind declares commit.
 
 - [Guards are controls](#guards-are-controls)
 
-### Rule ADR-AUTO-MATERIAL:7
+### Rule ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES
 
 A generated tracked file and the analyzer's result cache are commit resources, each keyed by its globset, and `body_sha` in a generated
 file's head is that key's visible form. Every other resource is on-demand unless its kind declares otherwise.
@@ -136,9 +136,9 @@ the commit set by declaring it, with its key and its check, never by a tool deci
 ### Fit with caching
 
 The session cache of [caching](caching.md) and a commit copy are the same idea at two durations. A cached value is read-only to its callers
-([ADR-AUTO-CACHE#5](caching.md#rule-adr-auto-cache5)), and so is a commit copy. The importer is the only invalidation of a session cache
-([ADR-AUTO-CACHE#6](caching.md#rule-adr-auto-cache6)), and git state that changes inside a session is keyed on its own content
-([ADR-AUTO-CACHE#9](caching.md#rule-adr-auto-cache9)); a commit resource is that content key made durable, so nothing ever invalidates it.
+([ADR-AUTO-CACHE-READONLYVALUES](caching.md#rule-adr-auto-cache-readonlyvalues)), and so is a commit copy. The importer is the only invalidation of a session cache
+([ADR-AUTO-CACHE-IMPORTERINVALIDATES](caching.md#rule-adr-auto-cache-importerinvalidates)), and git state that changes inside a session is keyed on its own content
+([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](caching.md#rule-adr-auto-cache-sessionchangedgitstate)); a commit resource is that content key made durable, so nothing ever invalidates it.
 One living version ([one-living-version](../principles/one-living-version.md)) holds per key: there is one shape of each resource, never an
 on-demand shape and a commit shape of the same data side by side.
 
@@ -150,9 +150,9 @@ loudly, hold guards on-demand, and make generated tracked files and the analyzer
 ### How this is enforced
 
 - **`Test-GeneratedFiles`** (`pwsh/Catzc.Base.QualityGates`) — compares every generated tracked file's `body_sha` with its body, the check
-  that a commit copy matches the tree (ADR-AUTO-MATERIAL#7).
+  that a commit copy matches the tree (ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES).
 - **`Test-Formatting`'s cache stamp tests** (`pwsh/Catzc.Base.QualityGates/tests`) — prove that every declared input of the analyzer's
-  result cache invalidates it (ADR-AUTO-MATERIAL#3, #7).
+  result cache invalidates it (ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY, ADR-AUTO-MATERIAL-GENERATEDFILESARECOMMITRESOURCES).
 - **Code review** — a kind that keeps a copy across sessions without declaring commit, a stored or displayed resolved value, a silent
   fallback, or a guard that remembers a verdict is a finding against the rule it breaks.
 

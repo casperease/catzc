@@ -2,21 +2,21 @@
 
 ## Rules: ADR-AUTO-ENVVAR
 
-### Rule ADR-AUTO-ENVVAR:1
+### Rule ADR-AUTO-ENVVAR-SETONLYFORTOOLS
 
 Set an environment variable only to meet an external tool's contract. When the consumer is our own code, the value travels as a parameter or
 in module state.
 
 - [Legitimate uses](#legitimate-uses)
 
-### Rule ADR-AUTO-ENVVAR:2
+### Rule ADR-AUTO-ENVVAR-READONLYOUTSIDEINPUT
 
 Read an environment variable only as an input from outside our boundary — CI detection, OS paths, and user-set toggles. CI detection reads
 its variables in one place, `Test-IsRunningInPipeline`, and every other caller asks that function.
 
 - [Legitimate uses](#legitimate-uses)
 
-### Rule ADR-AUTO-ENVVAR:3
+### Rule ADR-AUTO-ENVVAR-NEVERREQUIRED
 
 Never require an environment variable to be set for a function to work. A required input is a mandatory, typed parameter; the function
 signature is the contract, not a hidden environment variable.
@@ -24,7 +24,7 @@ signature is the contract, not a hidden environment variable.
 - [Prohibited uses](#prohibited-uses)
 - [Internal state instead](#internal-state-instead)
 
-### Rule ADR-AUTO-ENVVAR:4
+### Rule ADR-AUTO-ENVVAR-NOTFORCOMMUNICATION
 
 Never write an environment variable mid-execution to communicate between functions. That is invisible coupling through global state; pass
 values through parameters and return values.
@@ -32,26 +32,26 @@ values through parameters and return values.
 - [Global mutable state](#global-mutable-state)
 - [Prohibited uses](#prohibited-uses)
 
-### Rule ADR-AUTO-ENVVAR:5
+### Rule ADR-AUTO-ENVVAR-ANCHORSSETONCE
 
 The bootstrap anchors — the working root and the code root — are set once by the importer entry and never modified. They are treated as
 constants; modifying a bootstrap anchor means the design is wrong.
 
 - [Legitimate uses](#legitimate-uses)
 
-### Rule ADR-AUTO-ENVVAR:6
+### Rule ADR-AUTO-ENVVAR-NOSECRETSTATE
 
 Never store a secret in an environment variable as internal state our own code reads back — durable state, config, or a value our own code
 later reads. A secret may cross to a child or external process through the environment only via the single disciplined seam
-`Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7), never written ad hoc. The environment is visible to child processes, process-inspection tools,
+`Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS), never written ad hoc. The environment is visible to child processes, process-inspection tools,
 and crash dumps (CWE-526).
 
 - [They are a security surface](#they-are-a-security-surface)
 - [The secret hand-off](#the-secret-hand-off)
 
-### Rule ADR-AUTO-ENVVAR:7
+### Rule ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
 
-Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR#1), permitted
+Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR-SETONLYFORTOOLS), permitted
 only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes the secret as a protected value, never as plain text;
 never logs or returns the plaintext (it masks it as `***`); decrypts only at the moment it sets the variable; and defaults to a scoped set
 and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret stays prohibited.
@@ -115,7 +115,7 @@ Information in an Environment Variable" as CWE-526. Never store secrets, tokens,
 — for our own code, use secret managers, protected secret types, or secure parameter passing.
 
 There is one narrow exception, and it is a hand-off, not a store: when an external tool's contract is to read a secret from the environment
-(ADR-AUTO-ENVVAR#1), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
+(ADR-AUTO-ENVVAR-SETONLYFORTOOLS), the secret must reach it through the environment. That crossing is confined to a single disciplined seam
 ([the one sanctioned secret hand-off](#the-secret-hand-off)); an ad-hoc assignment of a plaintext secret remains prohibited.
 
 ### Inconsistent case sensitivity
@@ -150,7 +150,7 @@ behaves correctly. The key distinction: the _consumer_ of the variable is an ext
 **2. Reading variables that external systems set.** CI platforms, container runtimes, and operating systems communicate via environment
 variables — the Azure DevOps and GitHub Actions markers, the Windows system root. Reading these is fine — they are inputs from outside our
 boundary. The two CI markers are read only inside `Test-IsRunningInPipeline`; the related flow rule is
-[ADR-FLOW-CD-DETECT#1](../flow/pipeline-detection.md#rule-adr-flow-cd-detect1).
+[ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK](../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck).
 
 A small family of `CATZC_*` flags belongs to this category as well. They are deliberate external/diagnostic toggles — signals set by the
 outer environment (a developer's shell, a test harness) that our code _reads_ to alter a presentation or test-isolation behaviour, never to
@@ -173,18 +173,18 @@ Setting a variable for an external tool (legitimate use 1) covers non-secret con
 — the consumer is an outside process, not our code — but a secret crossing the boundary demands more discipline than a bare assignment,
 because the plaintext must not leak into a log, a return value, or a persisted variable that outlives the call.
 
-ADR-AUTO-ENVVAR#6 forbids using the environment as a secret **store** — durable or internal state, config, or any secret our own code reads
+ADR-AUTO-ENVVAR-NOSECRETSTATE forbids using the environment as a secret **store** — durable or internal state, config, or any secret our own code reads
 back out of the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret from the
-environment; that narrow, external-boundary crossing is ADR-AUTO-ENVVAR#7, and it is permitted through exactly one seam:
+environment; that narrow, external-boundary crossing is ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS, and it is permitted through exactly one seam:
 **`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`). It takes the secret as a protected value, never logs or returns the plaintext,
 decrypts only at the assignment that is the boundary, and by default removes the secret from the environment when the hand-off ends. Its
 PowerShell mechanics are [environment-variable-mechanics](../pwsh/environment-variable-mechanics.md#the-secret-hand-off).
 
 The plaintext does land in the environment for the instant the external tool reads it — that is unavoidable, because the tool's contract is
-to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR#7 guarantees is that this is the _only_
+to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS guarantees is that this is the _only_
 place the plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off.
 
-This _strengthens_ ADR-AUTO-ENVVAR#6 rather than weakening it: scattered ad-hoc plaintext assignments are replaced by one seam that carries
+This _strengthens_ ADR-AUTO-ENVVAR-NOSECRETSTATE rather than weakening it: scattered ad-hoc plaintext assignments are replaced by one seam that carries
 the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string assignment.
 
 ### Prohibited uses
@@ -258,5 +258,5 @@ Environment variables remain the right answer when your config is genuinely a fl
   external/diagnostic toggles, which are read (not written) as boundary inputs. Internal state flows through function contracts, not the
   environment.
 - Secrets reach an external tool through one auditable seam. A secret bound into the environment for a child process goes through
-  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7) — protected in, masked in logs, decrypted only at the assignment, scoped by default — so there
+  `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS) — protected in, masked in logs, decrypted only at the assignment, scoped by default — so there
   is a single function to review rather than scattered ad-hoc secret-into-environment writes.

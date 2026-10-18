@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-GUIDS
 
-### Rule ADR-AUTO-GUIDS:1
+### Rule ADR-AUTO-GUIDS-EVERYGUIDREGISTERED
 
 Every GUID literal in tracked text — code, configs, fixtures, pipelines, docs — is registered in the managed-GUID registry,
 `pwsh/Catzc.Base.QualityGates/configs/guids.yml`. No exceptions by location: a GUID in the tree is configuration
@@ -11,7 +11,7 @@ Every GUID literal in tracked text — code, configs, fixtures, pipelines, docs 
 - [The registry](#the-registry)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-GUIDS:2
+### Rule ADR-AUTO-GUIDS-NAMEKEYEDENTRY
 
 A registry entry is name-keyed and strict: `<snake_case_name>: { guid, description [, sentence] }`. The `guid` is canonical (lowercase,
 hyphenated), guid values are unique across entries — a GUID has exactly one registered name — and unknown keys are rejected. The registry
@@ -22,7 +22,7 @@ every violation into one throw.
 
 - [The registry](#the-registry)
 
-### Rule ADR-AUTO-GUIDS:3
+### Rule ADR-AUTO-GUIDS-TWOENTRYCLASSES
 
 Two entry classes, one table. An **external-facing** GUID — a well-known platform id, a real tenant or subscription id — is registered
 as-is, because its value is fixed by the outside world. A **placeholder** GUID — a fixture id, a demo value proving tooling loads and
@@ -32,15 +32,15 @@ the registry, not to generate identity at runtime.
 
 - [The mint](#the-mint)
 
-### Rule ADR-AUTO-GUIDS:4
+### Rule ADR-AUTO-GUIDS-LIVEENTRIESONLY
 
 The registry holds only live entries, and the gate enforces both directions: a GUID found in tracked text but absent from the registry fails
 the test run, and a registry entry no tracked file references is dead vocabulary and fails too — the same liveness discipline as the
-terminology registry ([spell-out-names](spell-out-names.md#rule-adr-auto-spell8)).
+terminology registry ([spell-out-names](spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
 
 - [The gate](#the-gate)
 
-### Rule ADR-AUTO-GUIDS:5
+### Rule ADR-AUTO-GUIDS-HYPHENATEDFORMONLY
 
 The scan matches the canonical hyphenated GUID form only, never bare 32-hex — bare hex would false-positive on hashes (the durable SHAs are
 64 hex and unhyphenated, so they never match). The universe is tracked files (`git ls-files`), minus vendored third-party code, the compiled
@@ -48,7 +48,7 @@ assembly, binary extensions, and the registry file itself — the registry is th
 
 - [The gate](#the-gate)
 
-### Rule ADR-AUTO-GUIDS:6
+### Rule ADR-AUTO-GUIDS-SPELLINGIGNORESGUIDS
 
 cspell never sees a GUID: the spelling config carries an `ignoreRegExpList` pattern for the hyphenated form, so GUID hex fragments generate
 no spelling noise and need no `cspell:ignore` comments. One gate owns words (cspell + the terminology registry); one owns GUIDs (this gate).
@@ -98,11 +98,11 @@ automation never calls it to generate identity at runtime, because a runtime-min
 
 `Get-RepositoryGuids` scans every tracked text file and returns one `@{ file; line; guid }` record per occurrence. Tracked files are the
 same universe a globset matches against; the related flow rule is
-[ADR-FLOW-CD-GLOBS#4](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs4). The `Test-ManagedGuids` quality gate, run by the managed-guid
+[ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly). The `Test-ManagedGuids` quality gate, run by the managed-guid
 integrity test, reports every found guid that is not registered and every registry entry not found — with the registry file itself excluded
 from the scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file under every named root of the repository
 plus its own config, so it protects against the whole-repository `repository` globset, which covers both
-([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob6)): repeat local runs skip until a tracked file anywhere in the
+([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob-includesownconfig)): repeat local runs skip until a tracked file anywhere in the
 repository changes, and CI always scans. The same gate reports a scanned file, or the registry, outside `repository`.
 
 ### Division of ownership
@@ -122,7 +122,7 @@ quality gate, and invisible to cspell.
 
 - **`GuidsConfig`** (the C# config type registered for `guids` in `configs.yml`) — validates the registry's shape, canonical guid form, guid
   uniqueness, and strict keys on every load.
-- **`Test-ManagedGuids`** — the quality gate ([ADR-AUTO-TEST#35](test-automation.md#rule-adr-auto-test35)) over the repository-wide scan
+- **`Test-ManagedGuids`** — the quality gate ([ADR-AUTO-TEST-QUALITYGATE](test-automation.md#rule-adr-auto-test-qualitygate)) over the repository-wide scan
   (`Get-RepositoryGuids`): every guid in tracked text is registered, none is denied, and every entry is referenced. The **managed-guid
   integrity test** (`Get-RepositoryGuids.Tests.ps1`) runs it, protected-globs-wrapped for the local inner loop.
 - **`Assert-ManagedGuid` / `Test-ManagedGuid`** — the one shared lookup (`Resolve-ManagedGuid`) behind the throwing and boolean checks, for

@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-DEFAULT
 
-### Rule ADR-AUTO-DEFAULT:1
+### Rule ADR-AUTO-DEFAULT-ZEROARGUMENTCALL
 
 The zero-argument call must work. If a function can do useful work without input, all parameters have defaults — `Install-Poetry` installs
 the locked version, `Test-Automation` runs every tier its location allows (L0–L3 in the working folder, L0–L2 in a snapshot) with detailed
@@ -10,25 +10,25 @@ output.
 
 - [Examples](#examples)
 
-### Rule ADR-AUTO-DEFAULT:2
+### Rule ADR-AUTO-DEFAULT-DEFAULTSFROMCONFIG
 
 Pull defaults from configuration, not hardcoded values. Tool versions, environment names, and other values that change over time come from
 config files; the function reads them internally so callers need not update.
 
 - [Where defaults come from](#where-defaults-come-from)
 
-### Rule ADR-AUTO-DEFAULT:5
+### Rule ADR-AUTO-DEFAULT-MANDATORYONLYWITHOUTDEFAULT
 
 Make parameters mandatory only when no default makes sense. If the function would do something wrong or meaningless without the value, it is
 mandatory; if it can derive a right value, derive it.
 
 - [The principle](#the-principle)
 
-### Rule ADR-AUTO-DEFAULT:6
+### Rule ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 
 A configurable setting resolves in one fixed order: the caller's explicit value; else the value in the owning module's configuration
 (`Get-Config`), which includes the config contributions gathered from Markdown files and, in build mode, a consumer overlay's fragment
-merged onto it ([consumer-overlay](consumer-overlay.md#rule-adr-auto-overlay4)); else the setting's sensible default. The sensible default
+merged onto it ([consumer-overlay](consumer-overlay.md#rule-adr-auto-overlay-configfragment)); else the setting's sensible default. The sensible default
 is programmed on the setting's config type, as its `Default<Key>` constant, and shown in the module's shipped config file, and the two agree
 unless the config's registry entry gives the reason they differ; so an omitted key and a fresh checkout behave identically, a reader of the
 file sees the default, and no function restates the value. Every key of a config type has one **posture**: defaulted (its `Default<Key>`
@@ -95,7 +95,7 @@ In order of preference:
    `Catzc.Azure/configs/azure.yml`. The function reads config internally — the caller does not need to know where the value lives.
 
 2. **Convention.** Output verbosity defaults to `Detailed`. A test run's top tier defaults to `3`, capped by its location
-   ([test-automation](test-automation.md#rule-adr-auto-test33)). These are values that are right 90% of the time.
+   ([test-automation](test-automation.md#rule-adr-auto-test-systemtestsatlthree)). These are values that are right 90% of the time.
 
 3. **The environment.** `Get-RepositoryRoot` provides the working root ([never-depend-on-pwd](never-depend-on-pwd.md)).
    `Get-CatzcModuleRoot` provides the module's own folder. The function uses these anchors instead of requiring a path parameter.
@@ -120,7 +120,7 @@ such as this repository enabling every customer, its entry in `configs.yml` name
 `Test-ShippedConfigs` fails any other difference and any reason whose values agree. This is not a fallback kept for an older shape
 ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an optional setting. How a PowerShell
 parameter expresses steps 1–2 is the language layer, [parameter-design](../pwsh/parameter-design.md#configurable-parameters)
-(`ADR-PWSH-PARAM#4`).
+(`ADR-PWSH-PARAM-RESOLUTIONORDER`).
 
 ## Decision
 

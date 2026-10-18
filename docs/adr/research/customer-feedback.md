@@ -2,35 +2,35 @@
 
 ## Rules: ADR-DORA-FEEDBACK
 
-### Rule ADR-DORA-FEEDBACK:1
+### Rule ADR-DORA-FEEDBACK-FEEDBACKBEFOREFEATURES
 
 Gather feedback from the customer before defining any candidate feature, and use it to validate that the problem is real before a solution
 is designed for it. A feature justified by an assumption about the customer, not by evidence from the customer, has not cleared the bar.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FEEDBACK:2
+### Rule ADR-DORA-FEEDBACK-ITERATETOWARDSOLUTION
 
 Once a real problem is confirmed, iterate toward a solution that solves that problem and nothing more, and check its business viability
 before committing further work to it. Scope grows from validated need, not from the size of the idea.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FEEDBACK:3
+### Rule ADR-DORA-FEEDBACK-OUTCOMEMETRICS
 
 Judge success by outcome metrics — for example acquisition, activation, retention, referral, and revenue (AARRR) — never by whether a
 feature shipped. Shipping is an input to the outcome, not the outcome itself.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-FEEDBACK:4
+### Rule ADR-DORA-FEEDBACK-REGULARSATISFACTION
 
 Collect customer satisfaction metrics on a regular cadence, and keep them updated and broadcast rather than gathered once and filed away. A
 metric nobody sees cannot inform a design decision.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-FEEDBACK:5
+### Rule ADR-DORA-FEEDBACK-ACTONFEEDBACK
 
 Act on feedback even when it is inconvenient, and never structure a team so that it is blocked from acting on what it learns. Feedback that
 cannot change a decision is a ritual, not a capability.
@@ -77,7 +77,7 @@ building a product for other teams, not a project delivered once and left alone.
 one the platform's own inspect-and-adapt loop applies ([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)): a change rests on signals
 observed in the real system, not on an assumption or on seniority, which is the "gather feedback, validate the problem" sequence this
 capability describes, applied to the platform's own process. The agile value of customer collaboration over contract negotiation
-([ADR-PROC-VALUES](../process/agile-values.md#rule-adr-proc-values3)) is the standing commitment behind it: a continuing relationship with
+([ADR-PROC-VALUES](../process/agile-values.md#rule-adr-proc-values-collaborationovercontracts)) is the standing commitment behind it: a continuing relationship with
 consuming teams, not a fixed specification agreed once, is what is allowed to steer what the platform builds next.
 
 ## Common pitfalls

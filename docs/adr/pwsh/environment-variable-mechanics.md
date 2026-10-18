@@ -2,89 +2,89 @@
 
 ## Rules: ADR-PWSH-ENV
 
-### Rule ADR-PWSH-ENV:1
+### Rule ADR-PWSH-ENV-BOUNDARYDOCTRINE
 
 PowerShell code applies the boundary doctrine of [environment-variables](../automation/environment-variables.md) (`ADR-AUTO-ENVVAR`) with
 the language mechanics below: `$env:` is the boundary-only channel, and everything internal flows through PowerShell's own scoping.
 
 - [The internal-state mechanisms](#the-internal-state-mechanisms)
 
-### Rule ADR-PWSH-ENV:2
+### Rule ADR-PWSH-ENV-SCOPEDINTERNALSTATE
 
 Internal state uses the language's scoped mechanisms — function parameters, return values, `$local:` locals, and module-scoped `$script:`
 state — never `$env:`. Each is destroyed or scoped automatically; `$env:` persists for the process lifetime with no scoped cleanup.
 
 - [The internal-state mechanisms](#the-internal-state-mechanisms)
 
-### Rule ADR-PWSH-ENV:3
+### Rule ADR-PWSH-ENV-SHAREDPROCESSENVIRONMENT
 
 Runspaces share one process environment block. Never read or write `$env:` inside `ForEach-Object -Parallel` or a runspace worker to
 coordinate work — concurrent access races. Pass values in with `$using:` and aggregate through pipeline output or a thread-safe collection.
 
 - [One environment block](#one-environment-block)
 
-### Rule ADR-PWSH-ENV:4
+### Rule ADR-PWSH-ENV-NOPESTERISOLATION
 
 Pester provides no `$env:` isolation. A test that must set an environment variable snapshots and restores it (`try`/`finally`, or
 `BeforeAll`/`AfterAll`), and never leaves a value behind for the next test — leaked `$env:` state creates order-dependent failures.
 
 - [No test isolation](#no-test-isolation)
 
-### Rule ADR-PWSH-ENV:5
+### Rule ADR-PWSH-ENV-ASSIGNMENTFORTOOLCONTRACT
 
 A `$env:` assignment in our code sets an external tool's contract variable — `$env:GIT_TERMINAL_PROMPT = '0'`,
 `$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'`, `$env:PSModulePath` — and nothing else
-([ADR-AUTO-ENVVAR#1](../automation/environment-variables.md#rule-adr-auto-envvar1)). A value our own code consumes is a parameter, a return
-value, or `$script:` state (ADR-PWSH-ENV#2).
+([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](../automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)). A value our own code consumes is a parameter, a return
+value, or `$script:` state (ADR-PWSH-ENV-SCOPEDINTERNALSTATE).
 
 - [Setting a contract variable](#setting-a-contract-variable)
 
-### Rule ADR-PWSH-ENV:6
+### Rule ADR-PWSH-ENV-READISOUTSIDEINPUT
 
-A `$env:` read is an input from outside the boundary ([ADR-AUTO-ENVVAR#2](../automation/environment-variables.md#rule-adr-auto-envvar2)): a
+A `$env:` read is an input from outside the boundary ([ADR-AUTO-ENVVAR-READONLYOUTSIDEINPUT](../automation/environment-variables.md#rule-adr-auto-envvar-readonlyoutsideinput)): a
 tool's contract variable (`$env:JAVA_HOME`, `$env:DOTNET_ROOT`), an OS location (`$env:SystemRoot`), or one of the `$env:CATZC_*` toggles a
 developer's shell or a test harness sets, which module code reads and never writes. Whether the code runs in a pipeline is never such a
 read: it goes through the detection function, `Test-IsRunningInPipeline`.
 
 - [Reading an external input](#reading-an-external-input)
 
-### Rule ADR-PWSH-ENV:7
+### Rule ADR-PWSH-ENV-REQUIREDINPUTISPARAMETER
 
 A required input is a `[Parameter(Mandatory)]` parameter, typed and validated (`[ValidateSet()]`, `[ValidateRange()]`), never a guard that
-throws when a `$env:` variable is unset ([ADR-AUTO-ENVVAR#3](../automation/environment-variables.md#rule-adr-auto-envvar3)).
+throws when a `$env:` variable is unset ([ADR-AUTO-ENVVAR-NEVERREQUIRED](../automation/environment-variables.md#rule-adr-auto-envvar-neverrequired)).
 
 - [A parameter, not a variable](#a-parameter-not-a-variable)
 
-### Rule ADR-PWSH-ENV:8
+### Rule ADR-PWSH-ENV-NOHANDOFF
 
 No function of ours assigns `$env:` for a later function of ours to read, as a hand-off, a cache, or a flag
-([ADR-AUTO-ENVVAR#4](../automation/environment-variables.md#rule-adr-auto-envvar4)). The value is returned and passed on as a parameter, and
+([ADR-AUTO-ENVVAR-NOTFORCOMMUNICATION](../automation/environment-variables.md#rule-adr-auto-envvar-notforcommunication)). The value is returned and passed on as a parameter, and
 a cache lives in `$script:` state ([script-scope-caching](script-scope-caching.md)).
 
 - [No hand-off through the environment](#no-hand-off-through-the-environment)
 
-### Rule ADR-PWSH-ENV:9
+### Rule ADR-PWSH-ENV-BOOTSTRAPANCHORS
 
-The bootstrap anchors of [ADR-AUTO-ENVVAR#5](../automation/environment-variables.md#rule-adr-auto-envvar5) are `$env:RepositoryRoot` (the
+The bootstrap anchors of [ADR-AUTO-ENVVAR-ANCHORSSETONCE](../automation/environment-variables.md#rule-adr-auto-envvar-anchorssetonce) are `$env:RepositoryRoot` (the
 working root) and `$env:CatzcModulesRoot` (the code root). The importer entry sets them once — `importer.ps1` in source mode, the build's
 `Import-Catzc.ps1` in build mode — and only a function whose job is the variable itself reassigns one, restoring it before it returns
 (`Test-InIsolation`). Module code reads the working root through `Get-RepositoryRoot`
-([ADR-AUTO-NOPWD#6](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd6)).
+([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)).
 
 - [The bootstrap anchors](#the-bootstrap-anchors)
 
-### Rule ADR-PWSH-ENV:10
+### Rule ADR-PWSH-ENV-NOSECRETSTATE
 
 A secret is never assigned to `$env:` as internal state — no `$env:TOKEN = $plaintext`
-([ADR-AUTO-ENVVAR#6](../automation/environment-variables.md#rule-adr-auto-envvar6)). Inside our code a secret travels as a `[SecureString]`
+([ADR-AUTO-ENVVAR-NOSECRETSTATE](../automation/environment-variables.md#rule-adr-auto-envvar-nosecretstate)). Inside our code a secret travels as a `[SecureString]`
 parameter.
 
 - [The secret hand-off](#the-secret-hand-off)
 
-### Rule ADR-PWSH-ENV:11
+### Rule ADR-PWSH-ENV-SECRETHANDOFF
 
 `Write-EnvironmentSet` realises the one secret hand-off of
-[ADR-AUTO-ENVVAR#7](../automation/environment-variables.md#rule-adr-auto-envvar7): it takes the secret as `[SecureString]`, masks it as
+[ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../automation/environment-variables.md#rule-adr-auto-envvar-secrettochildprocess): it takes the secret as `[SecureString]`, masks it as
 `***` in everything it writes or returns, decrypts it with `[System.Net.NetworkCredential]::new('', $secure).Password` only at the `$env:`
 assignment, and by default snapshots the variable, sets it, invokes its `-ScriptBlock`, and restores it in a `finally`; it persists the
 value past the call only on `-Persist`.
@@ -147,7 +147,7 @@ $env:SystemRoot        # set by Windows — where is the OS?
 
 The variables a CI platform sets to say "this is a pipeline run" are not read this way. They are read in one place,
 `Test-IsRunningInPipeline`, and every other caller asks that function
-([ADR-FLOW-CD-DETECT#1](../flow/pipeline-detection.md#rule-adr-flow-cd-detect1)).
+([ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK](../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)).
 
 The `$env:CATZC_*` flags are the same kind of input: deliberate external or diagnostic toggles that the outer environment sets and our code
 reads to alter a presentation or test-isolation behaviour.
@@ -221,7 +221,7 @@ function Get-Config {
 }
 ```
 
-The strict-clean form of that probe is [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache4).
+The strict-clean form of that probe is [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe).
 
 ### The bootstrap anchors
 
@@ -278,7 +278,7 @@ runspaces as a shared, race-prone namespace never used for coordination, and sna
 - **The doctrine layer** — which environment-variable uses are legitimate at all is
   [environment-variables](../automation/environment-variables.md) (`ADR-AUTO-ENVVAR`); this ADR only fixes the language mechanics.
 - **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** — flags a `$env:RepositoryRoot` read in a module function file
-  (ADR-PWSH-ENV#9, through [ADR-AUTO-NOPWD#6](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd6)).
+  (ADR-PWSH-ENV-BOOTSTRAPANCHORS, through [ADR-AUTO-NOPWD-ONEROOTACCESSOR](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)).
 - **Code review** — a `$env:` read or write that is not an external-boundary use per `ADR-AUTO-ENVVAR`, a `-Parallel` block touching
   `$env:`, a secret assigned to `$env:` outside `Write-EnvironmentSet`, or a test that sets `$env:` without restoring it is rejected against
   this ADR.

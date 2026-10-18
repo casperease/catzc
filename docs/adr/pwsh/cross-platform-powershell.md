@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PWSH-XPLAT
 
-### Rule ADR-PWSH-XPLAT:1
+### Rule ADR-PWSH-XPLAT-PWSHMEETSCROSSPLATFORM
 
 PowerShell code meets [cross-platform](../automation/cross-platform.md) (`ADR-AUTO-XPLAT`) through the rules below, enforced mechanically:
 PSScriptAnalyzer's compatibility rules validate cmdlets and .NET types against the target-platform profiles at analysis time, before the
@@ -10,46 +10,46 @@ code ever runs on the other OS.
 
 - [Analyzer coverage](#analyzer-coverage)
 
-### Rule ADR-PWSH-XPLAT:2
+### Rule ADR-PWSH-XPLAT-PATHJOINPRIMITIVE
 
-The path-joining primitive of [ADR-AUTO-XPLAT#3](../automation/cross-platform.md#rule-adr-auto-xplat3) is `Join-Path`: use it for all path
+The path-joining primitive of [ADR-AUTO-XPLAT-NOPLATFORMPATHS](../automation/cross-platform.md#rule-adr-auto-xplat-noplatformpaths) is `Join-Path`: use it for all path
 construction, and never concatenate strings with `/` or `\`. It uses the correct separator for the current platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-PWSH-XPLAT:3
+### Rule ADR-PWSH-XPLAT-NOPLATFORMCMDLETS
 
 Never use platform-specific cmdlets (`Get-Service`, `Get-WmiObject`, …) without a cross-platform alternative. If platform-specific behavior
 is unavoidable, branch on the built-in `$IsWindows` / `$IsLinux` automatic variables and always implement both branches.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-PWSH-XPLAT:4
+### Rule ADR-PWSH-XPLAT-NOPLATFORMSHELL
 
-PowerShell code meets [ADR-AUTO-XPLAT#9](../automation/cross-platform.md#rule-adr-auto-xplat9) with its native operations, or with the
+PowerShell code meets [ADR-AUTO-XPLAT-NOPLATFORMSHELL](../automation/cross-platform.md#rule-adr-auto-xplat-noplatformshell) with its native operations, or with the
 `Invoke-Executable` wrapper around a tool that exists on both platforms — never `cmd /c` or `/bin/sh -c`.
 
 - [What breaks the other way](#what-breaks-the-other-way)
 
-### Rule ADR-PWSH-XPLAT:6
+### Rule ADR-PWSH-XPLAT-PATHFROMANCHORS
 
-PowerShell code resolves a path from the anchors of [ADR-AUTO-XPLAT#3](../automation/cross-platform.md#rule-adr-auto-xplat3): the working
+PowerShell code resolves a path from the anchors of [ADR-AUTO-XPLAT-NOPLATFORMPATHS](../automation/cross-platform.md#rule-adr-auto-xplat-noplatformpaths): the working
 root through `Get-RepositoryRoot`, the code root through `Get-CatzcModuleRoot`, or the temp directory through `[IO.Path]::GetTempPath()`,
-then joined by ADR-PWSH-XPLAT#2. It never writes a literal `C:\` or `/tmp/`, and never reads a variable that one platform alone sets
+then joined by ADR-PWSH-XPLAT-PATHJOINPRIMITIVE. It never writes a literal `C:\` or `/tmp/`, and never reads a variable that one platform alone sets
 (`$env:APPDATA`, `$env:USERPROFILE`).
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-PWSH-XPLAT:7
+### Rule ADR-PWSH-XPLAT-INVARIANTCULTURE
 
-PowerShell code formats and parses a machine-bound string ([ADR-AUTO-XPLAT#6](../automation/cross-platform.md#rule-adr-auto-xplat6)) with
+PowerShell code formats and parses a machine-bound string ([ADR-AUTO-XPLAT-INVARIANTCULTURE](../automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)) with
 `[System.Globalization.CultureInfo]::InvariantCulture` passed to `ToString` or `ParseExact`.
 
 - [Culture in PowerShell](#culture-in-powershell)
 
-### Rule ADR-PWSH-XPLAT:8
+### Rule ADR-PWSH-XPLAT-PATHCOMPARISON
 
-PowerShell code compares paths ([ADR-AUTO-XPLAT#7](../automation/cross-platform.md#rule-adr-auto-xplat7)) as full paths, each passed through
+PowerShell code compares paths ([ADR-AUTO-XPLAT-CASESENSITIVEFILES](../automation/cross-platform.md#rule-adr-auto-xplat-casesensitivefiles)) as full paths, each passed through
 `[System.IO.Path]::GetFullPath()`, and compares them ordinally and case-insensitively with `[StringComparer]::OrdinalIgnoreCase` (or
 `[string]::Equals` with `[StringComparison]::OrdinalIgnoreCase`), never culture-sensitively. The hazards are a case-sensitive operator
 (`-ceq`, `-clike`), a `.Equals` or `.StartsWith` call without a `StringComparison` argument, and two paths compared before they are
@@ -57,18 +57,18 @@ normalised.
 
 - [Comparing paths](#comparing-paths)
 
-### Rule ADR-PWSH-XPLAT:9
+### Rule ADR-PWSH-XPLAT-ONECODEPATH
 
-The one code path of [ADR-AUTO-PARITY#1](../automation/devbox-pipeline-parity.md#rule-adr-auto-parity1) is, in PowerShell, the dot-sourced
+The one code path of [ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS](../automation/devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments) is, in PowerShell, the dot-sourced
 `importer.ps1` for the session and the per-tool `Install-*` functions over `tools.yml` for the tools
-([ADR-AUTO-DEPS#5](../automation/controlling-systemwide-deps.md#rule-adr-auto-deps5)), run unchanged on a workstation and in CI.
+([ADR-AUTO-DEPS-CISAMEINSTALLERS](../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-cisameinstallers)), run unchanged on a workstation and in CI.
 `Install-DevBoxTools` orchestrates those functions on a devbox; a pipeline calls the same functions directly.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-XPLAT:10
+### Rule ADR-PWSH-XPLAT-HANDBUILTCROSSINGS
 
-The hand-built crossings [ADR-AUTO-PATH#4](../automation/path-representation.md#rule-adr-auto-path4) forbids are, in PowerShell, a
+The hand-built crossings [ADR-AUTO-PATH-CENTRALNORMALIZATION](../automation/path-representation.md#rule-adr-auto-path-centralnormalization) forbids are, in PowerShell, a
 `Join-Path $env:RepositoryRoot …` (or `Join-Path (Get-RepositoryRoot) …`) whose result is stored, returned, or logged, and a
 `-replace '\\','/'` separator fix. A path leaves through `ConvertTo-RepoRelativePath` and binds through `Resolve-RepoPath`; `Join-Path` onto
 an anchor is correct only on the line that binds the result.
@@ -108,7 +108,7 @@ catches them before push.
 
 `ToString()` on a date or a number, and `[datetime]::Parse`, use the current culture, so a da-DK devbox and an invariant CI agent render and
 read the same value differently. Passing `[System.Globalization.CultureInfo]::InvariantCulture` makes the format explicit at the call site.
-Why the culture axis matters at all is the doctrine: [cross-platform](../automation/cross-platform.md#rule-adr-auto-xplat6).
+Why the culture axis matters at all is the doctrine: [cross-platform](../automation/cross-platform.md#rule-adr-auto-xplat-invariantculture).
 
 ### Comparing paths
 
@@ -150,7 +150,7 @@ profiles before push.
 - **L2 tests run locally** — developers run the same `Test-ScriptAnalyzer.Tests.ps1` test file that CI runs, so platform violations are
   caught before push, not in the pipeline queue.
 - **One entry, everywhere** — `importer.ps1` and the per-tool `Install-*` functions are the same files on a workstation and in CI; a
-  pipeline step calls them, never a CI-only script (ADR-PWSH-XPLAT#9).
+  pipeline step calls them, never a CI-only script (ADR-PWSH-XPLAT-ONECODEPATH).
 
 ## Consequences
 

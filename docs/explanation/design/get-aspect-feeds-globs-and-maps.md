@@ -18,9 +18,9 @@ Supports ADR-DSGN-ASPECT#2, #3 and #4 (implementation lens).
 ```
 
 One function, `Get-Aspect`, is the only way a convention reaches a caller, and two callers take it in different directions. In
-`Catzc.Base.Globs`, `Get-ModuleGlobSet` compiles the pwsh convention onto every module folder, so each aspect becomes a globset with a
-scan program. In `Catzc.Base.Maps`, `Get-WorldMap` reads the convention of every track and the builder answers one question per file: is it
-live? The code that validates the order sits in the config type, before either caller sees a list.
+`Catzc.Base.Globs`, `Get-ModuleGlobSet` compiles the pwsh convention onto every module folder, so each aspect becomes a globset with a scan
+program. In `Catzc.Base.Maps`, `Get-WorldMap` reads the convention of every track and the builder answers one question per file: is it live?
+The code that validates the order sits in the config type, before either caller sees a list.
 
 ![Get-Aspect feeds Globs and Maps](.assets/get-aspect-feeds-globs-and-maps/diagram.drawio.png)
 
@@ -28,14 +28,14 @@ The diagram is described element by element in [its asset description](.assets/g
 
 ## Walkthrough
 
-1. **variants.yml.** The `aspects` entry of the repo-wide variants: `infrastructure` lists `tests: ["**/tests/**"]` and then
-   `live: ["**"]`. Patterns are relative to the unit root. The code track `pwsh` declares no entry: its convention is the layout of
-   `languages.yml`, `live` with five patterns (`*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**`) and then `tests: ["**"]`.
+1. **variants.yml.** The `aspects` entry of the repo-wide variants: `infrastructure` lists `tests: ["**/tests/**"]` and then `live: ["**"]`.
+   Patterns are relative to the unit root. The code track `pwsh` declares no entry: its convention is the layout of `languages.yml`, `live`
+   with five patterns (`*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**`) and then `tests: ["**"]`.
 2. **VariantsConfig.** The config type that `Get-Config -Config variants` builds. For every track entry it checks each aspect name is
    kebab-case and unique, each has at least one non-empty pattern, the last aspect is the bare `**`, and no earlier aspect uses it.
 3. **The last aspect must be `**`.** The throw when a track's final aspect is not the remainder, naming the track and the aspect:
-   `aspects['infrastructure']: the last aspect ('tests') must be the '**' catch-all remainder`. An earlier aspect that uses the bare `**` fails
-   with its own message. Either stops the config from loading at all.
+   `aspects['infrastructure']: the last aspect ('tests') must be the '**' catch-all remainder`. An earlier aspect that uses the bare `**`
+   fails with its own message. Either stops the config from loading at all.
 4. **Get-Aspect.** The public reader in `Catzc.Base.Modules`. For a track of type `modules` it derives the convention from the layout of
    `languages.yml`; for any other track it returns the declared list, which it reads through `Get-AspectDeclaration` in
    `Catzc.Base.Variants`, in declared order. A track with no entry gets the layout's convention.

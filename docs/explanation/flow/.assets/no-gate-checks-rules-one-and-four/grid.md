@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3a192166ce29"
+    with_body_sha: "93639756f7cc"
     repo_status: locked
     path: docs/explanation/flow/.assets/no-gate-checks-rules-one-and-four/grid.md
     source: docs/explanation/flow/.assets/no-gate-checks-rules-one-and-four/diagram.drawio.png
@@ -34,9 +34,9 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 2 lit of 89 files
-- docs × markdown: 11 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
-- pwsh × powershell: 2 lit of 1649 files
+- docs × markdown: 11 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
+- pwsh × powershell: 2 lit of 1651 files
 - pwsh × yaml: 3 lit of 115 files
 
 ## Key

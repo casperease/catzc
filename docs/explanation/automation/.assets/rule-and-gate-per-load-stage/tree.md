@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6f65efd50c92"
+    with_body_sha: d7de8c84f4dc
     repo_status: locked
     path: docs/explanation/automation/.assets/rule-and-gate-per-load-stage/tree.md
     source: docs/explanation/automation/.assets/rule-and-gate-per-load-stage/diagram.drawio.png
@@ -78,7 +78,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 603 (text).
+- [docs/adr/glossary.md][16], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 611 (text).
 - [docs/adr/index.md][17], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 173 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
@@ -95,7 +95,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][19], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 142
   (text).
-- [pwsh/Catzc.Base.Docs/configs/glossary.yml][20], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 499
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][20], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 506
   (text).
 
 ### .claude (1 lit file)
@@ -111,7 +111,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 - [pipelines/ci-automation.yaml][22], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text),
-  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 499 (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text).
+  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 506 (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text).
 
 ### Exporter (pwsh/Catzc.Base.Exporter, 1 lit file)
 

@@ -1,7 +1,7 @@
-# Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it
+# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated
 
 ```text
-Logic tests pin the throw and the fail-open, an analyzer rule pins detection, and the pipeline-side rules have no gate.
+Logic tests pin the throw and the fail-open, an analyzer rule pins detection, and the CD stages call the check with no gate.
 
 1  Test-GlobSetAffected           governed by GLOBS#9: throw on an undeclared name, fail open on doubt
 2  Test-GlobSetAffected.Tests     the L0 logic test that pins both answers, both fail-open paths and the throw
@@ -9,8 +9,8 @@ Logic tests pin the throw and the fail-open, an analyzer rule pins detection, an
 4  Get-GlobSetChangeRange.Tests   the L0 logic test that pins all three ranges and the null signal
 5  Test-IsRunningInPipeline       governed by DETECT#1: the one place that reads the detection variables
 6  Test-ScriptAnalyzer            the quality gate that runs the NoRawPipelineDetection rule
-7  fetchDepth: 0                  required by GLOBS#9; no Azure DevOps pipeline sets it, no gate checks it
-8  a stage runs the check first   described by GLOBS#9; no pipeline calls the check, no gate checks it
+7  fetchDepth: 0                  required by GLOBS#9; set on the CD checkouts that diff, no gate checks it
+8  Changes step                   GLOBS#9's first step: the CD stages run the check, no gate requires it
 
 Supports ADR-FLOW-CD-GLOBS#9, ADR-FLOW-CD-DETECT#1 and ADR-AUTO-FAILFAST#4 (governance lens).
 ```
@@ -18,9 +18,9 @@ Supports ADR-FLOW-CD-GLOBS#9, ADR-FLOW-CD-DETECT#1 and ADR-AUTO-FAILFAST#4 (gove
 Three rules constrain the touched-unit check, and they are enforced unevenly. The behaviour inside the module, the throw on an undeclared
 name, the fail-open on an unresolved range or a failed diff, and the range chosen per context, is pinned by logic tests that run with every
 test run. The context detection is pinned by a custom analyzer rule. What the decision asks of the pipeline side, a deep checkout and a
-stage that runs the check first, has no gate and no caller in the repository.
+stage that runs the check first, is wired into the CD pipelines, and no gate checks it.
 
-![Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it](.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.png)
+![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it ungated](.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.png)
 
 The diagram is described element by element in [its asset description](.assets/tests-pin-the-throw-and-fail-open-no-caller/diagram.drawio.md).
 
@@ -40,10 +40,11 @@ The diagram is described element by element in [its asset description](.assets/t
    that function.
 6. **Test-ScriptAnalyzer.** The quality gate that runs the custom `NoRawPipelineDetection` rule, which flags any read of `TF_BUILD` or
    `GITHUB_ACTIONS` outside `Test-IsRunningInPipeline`.
-7. **fetchDepth: 0.** The decision requires a checkout deep enough to reach the base ref. The GitHub workflows set `fetch-depth: 0`; no
-   Azure DevOps pipeline sets `fetchDepth`, and no gate checks it. On a shallow clone the check fails open rather than skips.
-8. **A stage runs the check first.** The decision describes the check as the exact backstop a unit's stage runs first. No pipeline or
-   workflow calls it, and no gate requires the call; the shared CD pipeline names it in a comment.
+7. **fetchDepth: 0.** The decision requires a checkout deep enough to reach the base ref. The GitHub workflows set `fetch-depth: 0`, and
+   the CI stage of `cd-shared.yaml` and of `extends/cd-customer.yaml` sets `fetchDepth: 0` on the checkout that diffs. No gate checks it.
+   On a shallow clone the check fails open rather than skips.
+8. **Changes step.** The CI stage of each CD pipeline runs `Test-GlobSetAffected` as step `Changes` and publishes `AFFECTED`; the deploy
+   stages run only when it is true. No gate requires the step.
 
 ## Why it holds
 
@@ -54,7 +55,8 @@ The diagram is described element by element in [its asset description](.assets/t
 
 ## Where the code and the ADR differ
 
-No pipeline or workflow calls `Test-GlobSetAffected`, and no Azure DevOps pipeline sets `fetchDepth: 0`.
+The decision wants the check to gate a unit's stages; the CD pipelines run it, but no test or quality gate requires the `Changes` step or
+`fetchDepth: 0`, so a pipeline that drops them is not caught.
 
 ## See also
 

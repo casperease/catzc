@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-LINK
 
-### Rule ADR-REPO-LINK:1
+### Rule ADR-REPO-LINK-KINDBYFILE
 
 A link's kind is fixed by the file it lives in. A **markdown link** lives in a rendered `.md` file; a **code link** lives in a comment of
 any other tracked text file. Every function that reads or aligns links names the kinds it handles with the fixed `LinkKind` set (`Code`,
@@ -10,7 +10,7 @@ any other tracked text file. Every function that reads or aligns links names the
 
 - [Two kinds of link](#two-kinds-of-link)
 
-### Rule ADR-REPO-LINK:2
+### Rule ADR-REPO-LINK-MARKDOWNRELATIVE
 
 A markdown link is relative to its own file — no repository-root `/` and no absolute URL into this repository. Its target exists in the
 repository — tracked by git, not merely present on disk — and its `#fragment` names a heading or explicit anchor of that file as GitHub
@@ -19,7 +19,7 @@ slugs it.
 - [Markdown links are relative](#markdown-links-are-relative)
 - [Anchors are GitHub's](#anchors-are-githubs)
 
-### Rule ADR-REPO-LINK:3
+### Rule ADR-REPO-LINK-CODELINKS
 
 Every ADR citation in a comment is a code link: `[ADR-<CODE>](/docs/adr/<path>.md)` for a whole ADR, or
 `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)` for one rule. The text is the citation; the repository-rooted destination is
@@ -29,14 +29,14 @@ derived from it, so the same checked-in text resolves from any file depth wherev
 - [The citation decides](#the-citation-decides)
 - [Code links in the editor](#code-links-in-the-editor)
 
-### Rule ADR-REPO-LINK:4
+### Rule ADR-REPO-LINK-ONEWAY
 
 Code links point one way: out of code, into an ADR. A comment never links to a reference article or how-to, and an ADR never links into
 code: its "How this is enforced" section names the enforcing functions in code spans.
 
 - [References point one way](#references-point-one-way)
 
-### Rule ADR-REPO-LINK:5
+### Rule ADR-REPO-LINK-ONECITATIONSPELLING
 
 A rule citation is spelled `ADR-<CODE>#<n>` everywhere — code comments, test tags, configuration, and document prose — and names a code in
 the ADR index and a rule that ADR declares. The `:` form exists only in the rule's own `### Rule ADR-<CODE>:<n>` heading, and as the
@@ -44,21 +44,21 @@ registry form, the key `Get-CatzcAdrRuleIds` returns for that heading — a datu
 
 - [One citation spelling](#one-citation-spelling)
 
-### Rule ADR-REPO-LINK:6
+### Rule ADR-REPO-LINK-STRINGSAREDATA
 
 A string literal or configuration value that names a docs path or a citation is data, not a link: it stays a plain path or plain citation,
 and outside tests it names a file or rule that exists. Nothing wraps data in link syntax.
 
 - [Strings are data](#strings-are-data)
 
-### Rule ADR-REPO-LINK:7
+### Rule ADR-REPO-LINK-OFFREPOSITORYURLS
 
 A link that leaves the repository is an absolute `https://` URL. A relative link never climbs above the repository root, and an absolute URL
 into this repository appears only under `.github/`.
 
 - [Off-repository links](#off-repository-links)
 
-### Rule ADR-REPO-LINK:8
+### Rule ADR-REPO-LINK-ALIGNEDBYTOOL
 
 Links are aligned by tool, never by hand: `Format-Links` brings both kinds into canonical form — including every older spelling — and
 `Test-Links` fails on any off-form, dangling, or dead link or citation. How the aligner wraps a comment line that outgrows its limit is a
@@ -126,7 +126,7 @@ The leading `/` is link syntax meaning "the repository root"; the path after it 
 
 `The citation is the source of truth`
 
-The link text is the citation — `ADR-PWSH-ERROR#3`, or `ADR-PWSH-ERROR` for a whole ADR — and the destination is derived from it through the
+The link text is the citation — `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, or `ADR-PWSH-ERROR` for a whole ADR — and the destination is derived from it through the
 ADR index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links` run re-points every
 link to it; when a link's destination disagrees with its citation, the citation wins. A link to an ADR-folder document with no code of its
 own (the index, a domain's `dora-explains`) takes the file name as its text.
@@ -187,7 +187,7 @@ both kinds mechanically and `Test-Links` checks them.
   link in a `.md` file becomes relative; a prose `ADR-<CODE>:<n>` becomes `ADR-<CODE>#<n>`. `-Kind` takes the fixed `LinkKind` set.
 - **Wrapping is configured** — `configs/links.yml` sets how a comment line that outgrows its limit is wrapped (`break` or `off`, default
   `break`); the limit itself comes from `.editorconfig`'s `max_line_length`. The defaults are declared once on the config type, per
-  [sensible-defaults](../automation/sensible-defaults.md) (`ADR-AUTO-DEFAULT#6`).
+  [sensible-defaults](../automation/sensible-defaults.md) (`ADR-AUTO-DEFAULT-ONERESOLUTIONORDER`).
 - **`Test-Links`** — the gate. It runs the same engine read-only and fails on any off-form link, dangling target, bad anchor, unknown
   citation code or rule, link that climbs above the root, self-URL outside `.github/`, or missing docs path in a PowerShell string.
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map

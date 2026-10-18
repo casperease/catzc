@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9b94e32aab9a"
+    with_body_sha: b18230d5dd12
     repo_status: locked
     path: docs/explanation/automation/.assets/what-gates-each-bundle-stage/grid.md
     source: docs/explanation/automation/.assets/what-gates-each-bundle-stage/diagram.drawio.png
@@ -33,9 +33,9 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 21 lit of 2759 files
-- pipelines × pipeline-yaml: 1 lit of 9 files
-- pwsh × powershell: 2 lit of 1649 files
+- docs × markdown: 21 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
+- pwsh × powershell: 2 lit of 1651 files
 - pwsh × yaml: 2 lit of 115 files
 - Root files × powershell: 1 lit of 1 file
 

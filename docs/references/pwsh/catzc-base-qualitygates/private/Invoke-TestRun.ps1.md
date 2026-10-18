@@ -107,8 +107,8 @@ Keep the snapshot (when the run used one) after the run, for a post-mortem.
 
 ### parameter `DiagnoseBlocking`
 
-Stand a watchpoint (Assert-Wait) at four places in the startup, before the workers launch, to show where the thread or process stalls
-(Test-Automation's -DiagnoseBlocking). Each costs its full duration, so it is off by default.
+Test-Automation's -DiagnoseBlocking: the switch the startup's watchpoints stand behind (`if ($DiagnoseBlocking) { Watch-Blocking }`, added
+where a block is suspected and removed once it is bounded). No watchpoint stands today; the last measured run found no block.
 
 ## comment:1
 

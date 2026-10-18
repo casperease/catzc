@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-XPLAT
 
-### Rule ADR-AUTO-XPLAT:3
+### Rule ADR-AUTO-XPLAT-NOPLATFORMPATHS
 
 Never hardcode a platform-specific path: a drive letter (`C:\`), a Unix-only directory (`/tmp/`), or a variable that one platform alone sets
 (a Windows profile folder). Resolve every path from a known anchor — the working root, the code root, or the platform's temp directory — and
@@ -10,21 +10,21 @@ build it with the engine's path-joining primitive, never by writing a separator.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-AUTO-XPLAT:6
+### Rule ADR-AUTO-XPLAT-INVARIANTCULTURE
 
 Format and parse machine-bound strings (timestamps, numbers, dates) in the invariant culture, named explicitly at each format and parse,
 never in the current culture. Converting to UTC fixes the instant, not the rendering.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-AUTO-XPLAT:7
+### Rule ADR-AUTO-XPLAT-CASESENSITIVEFILES
 
 Respect case sensitivity in file operations — Linux filesystems are case-sensitive. A path comparison states its case rule explicitly, or
 compares canonical full paths; it never relies on a default that behaves differently per platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-AUTO-XPLAT:9
+### Rule ADR-AUTO-XPLAT-NOPLATFORMSHELL
 
 Never shell out to a platform's own shell or a binary only one platform ships (`cmd /c`, `/bin/sh -c`). Use the engine's own operations, or
 a tool that exists on every platform.
@@ -61,8 +61,8 @@ Four failure axes are platform-independent facts every language obeys:
 
 The concrete PowerShell breakage tables — Windows-isms that fail on Unix and Unix-isms that fail on Windows — live in
 [cross-platform-powershell](../pwsh/cross-platform-powershell.md), whose rules carry the PowerShell mechanics of each rule here: the path
-anchors and joins of rule 3 (ADR-PWSH-XPLAT#2, ADR-PWSH-XPLAT#6), the invariant culture of rule 6 (ADR-PWSH-XPLAT#7), the path comparison of
-rule 7 (ADR-PWSH-XPLAT#8), and the shell-outs of rule 9 (ADR-PWSH-XPLAT#4).
+anchors and joins of rule 3 (ADR-PWSH-XPLAT-PATHJOINPRIMITIVE, ADR-PWSH-XPLAT-PATHFROMANCHORS), the invariant culture of rule 6 (ADR-PWSH-XPLAT-INVARIANTCULTURE), the path comparison of
+rule 7 (ADR-PWSH-XPLAT-PATHCOMPARISON), and the shell-outs of rule 9 (ADR-PWSH-XPLAT-NOPLATFORMSHELL).
 
 ### How we enforce this
 
@@ -87,7 +87,7 @@ on Linux.
   push, not after.
 
 - **One entry, everywhere.** A pipeline step calls the same tool installers and importer entry a developer runs, never a script of its own —
-  the one code path of [devbox-pipeline-parity](devbox-pipeline-parity.md#rule-adr-auto-parity1).
+  the one code path of [devbox-pipeline-parity](devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments).
 
 ## Consequences
 

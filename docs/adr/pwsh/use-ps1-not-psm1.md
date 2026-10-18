@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PWSH-USEPS
 
-### Rule ADR-PWSH-USEPS:1
+### Rule ADR-PWSH-USEPS-SCRIPTFILESFORFUNCTIONS
 
 Use `.ps1` for all module function files — dot-sourced into the module's session state by the module's loader, they share it, so public and
 private functions see each other without imports.
@@ -10,7 +10,7 @@ private functions see each other without imports.
 - [Decision](#decision)
 - [Source and the generated build](#source-and-the-generated-build)
 
-### Rule ADR-PWSH-USEPS:2
+### Rule ADR-PWSH-USEPS-MODULEFILESRESERVED
 
 Reserve `.psm1` for genuine module or standalone files only — the `pwsh/.internal/*.psm1` shared modules, the `pwsh/.scriptanalyzer/*.psm1`
 analyzer rules, the `PrePost.psm1` starter, and per-template `PrePost.psm1`, the only `.psm1` under `infrastructure/` — never for a
@@ -76,11 +76,11 @@ parses each file in memory and dot-sources it into the module's session state
 ([dynamic-module-manifests](dynamic-module-manifests.md#regenerated-manifests)). In build mode `Build-Modules` concatenates the same files —
 `private/` first, then the root, each in ordinal order and each preceded by a `# source:` marker line naming its source path — into one
 `<Module>.functions.ps1`, and the built manifest lists that one file
-([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so the module's public
+([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests)). The merged file is a `.ps1` too, so the module's public
 and private functions share one session state in both modes, and it is one module per folder, so each module keeps its own `$script:` scope.
 It is output, not source: it exists only in a build under `out/pwsh/built/` and the installs copied from it, is rewritten on every build,
 and the rules of this ADR apply to the files it is generated from
-([one-function-per-file](one-function-per-file.md#rule-adr-pwsh-onefunc3)).
+([one-function-per-file](one-function-per-file.md#rule-adr-pwsh-onefunc-governssource)).
 
 ### How this is enforced
 

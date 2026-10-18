@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f26ac9e03022
+    with_body_sha: "721f9a685d26"
     repo_status: locked
     path: docs/explanation/flow/.assets/overlap-gated-for-units-and-modules/grid.md
     source: docs/explanation/flow/.assets/overlap-gated-for-units-and-modules/diagram.drawio.png
@@ -33,10 +33,10 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 63 lit of 2761 files
-- pipelines × pipeline-yaml: 3 lit of 13 files
+- docs × markdown: 63 lit of 2763 files
+- pipelines × pipeline-yaml: 3 lit of 14 files
 - pwsh × csharp: 3 lit of 293 files
-- pwsh × powershell: 5 lit of 1649 files
+- pwsh × powershell: 5 lit of 1651 files
 - pwsh × yaml: 2 lit of 115 files
 
 ## Key
@@ -197,7 +197,7 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
   `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 47 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text),
   `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1226 (text).
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
 - [pipelines/extends/cd-customer.yaml][70]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 21 (body comment) (a passing
   mention only).
 
@@ -231,7 +231,7 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); th
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][79]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 101 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][80]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1226 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][80]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1076 (text).
 
 ## Keywords
 

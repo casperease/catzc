@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-LANG
 
-### Rule ADR-REPO-LANG:1
+### Rule ADR-REPO-LANG-THREEREGISTERS
 
 The repository speaks in three registers that must not bleed together — each a **language zone** with its own **terminology** and
 **modelling language**: the **design** zone (ADRs and reference docs, whose examples are the discovery theme), the **test** zone (hermetic
@@ -11,7 +11,7 @@ real-customer-shaped names the demo deployment maps to). A token from one zone a
 
 - [The three zones](#the-three-zones)
 
-### Rule ADR-REPO-LANG:2
+### Rule ADR-REPO-LANG-LOGICUSESFIXTURES
 
 A **logic** test names **fixture** identities, never **live** ones. Using a real customer, subscription, org, template, or ADO-project name
 as a value in a logic test couples it to the shipped config and blurs the test/live vocabulary; it uses `acme`/`globex`, `alpha`/`beta`,
@@ -19,14 +19,14 @@ as a value in a logic test couples it to the shipped config and blurs the test/l
 
 - [The test/live boundary](#the-testlive-boundary)
 
-### Rule ADR-REPO-LANG:3
+### Rule ADR-REPO-LANG-INTEGRITYISBRIDGE
 
 An **integrity** test is the one sanctioned bridge: it binds the real shipped assets and therefore names live identities by design. Live
 identities are legitimate inside an `integrity`-tagged block and nowhere else in a logic-bearing test file.
 
 - [The test/live boundary](#the-testlive-boundary)
 
-### Rule ADR-REPO-LANG:4
+### Rule ADR-REPO-LANG-DESIGNZONETHEME
 
 The **design** zone uses the discovery theme (ADR-REPO-EXAMPLE) — `discovery`/`expedition`/`survey`, `Contoso`/`Globex`,
 `develop`/`preprod`. Test fixtures never appear as ADR examples. Live identities may appear in docs, but only where an ADR documents the
@@ -34,7 +34,7 @@ actual data model as its subject (`azure-data-model.md` naming `apex`/`nova`), n
 
 - [The design zone](#the-design-zone)
 
-### Rule ADR-REPO-LANG:5
+### Rule ADR-REPO-LANG-SEMANTICENFORCEMENT
 
 Enforcement is **semantic, not textual**: the tag-aware AST quality gate `Test-LogicTestIdentity` resolves each test's Pester tag and reads
 its **AST string literals** — comments, help, and here-doc trivia are not AST nodes, so illustration is invisible to it — forbidding a live
@@ -44,7 +44,7 @@ separation.
 
 - [Beyond a spell-checker](#beyond-a-spell-checker)
 
-### Rule ADR-REPO-LANG:6
+### Rule ADR-REPO-LANG-DERIVEDLIVESET
 
 The forbidden live-identity set is **derived from the shipped config** (`Get-LiveIdentityTokens` reads `customer.yml`, `azure.yml`,
 `ado.yml`, and the shipped templates), never hand-listed, so it is always current — add a customer and it is immediately banned from logic
@@ -53,7 +53,7 @@ tests. The terminology registry's per-category `scope` is the machine-readable *
 
 - [The forbidden set](#the-forbidden-set)
 
-### Rule ADR-REPO-LANG:7
+### Rule ADR-REPO-LANG-EXACTMATCHING
 
 Matching is **exact and conservative**. A distinctive live identity (customer, subscription, org, template, project) is flagged as a bare
 string literal that IS the token, not a substring or path segment (`'pwsh/Catzc.X'` never trips the deployable-unit name `automation`); an
@@ -68,7 +68,7 @@ and values (comment-blind) rather than its raw text.
 
 The repository's example vocabulary is governed in three separate places — the discovery theme for documentation
 ([documentation-examples](documentation-examples.md), `ADR-REPO-EXAMPLE`), the fixture identities for tests
-([test-automation](../automation/test-automation.md#rule-adr-auto-test3), `ADR-AUTO-TEST#3`), and the real identities of the data model
+([test-automation](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities), `ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES`), and the real identities of the data model
 ([data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
 [customer-model](../azure/azure-customer-model.md)). This ADR is the rule that ties them together: these are three faces of one discipline —
 a token belongs to exactly one zone, and it does not appear in the others. Without that rule, a logic test drifts into naming a real
@@ -111,8 +111,8 @@ therefore sharp: a live identity is legitimate **only** inside an `integrity`-ta
 point), and a leak anywhere else in a logic-bearing test file is a violation. This makes a mixed file — one `Describe` with both a `logic`
 and an `integrity` Context — work without being split: the integrity block's identities are carved out, and the rest is held to fixtures.
 The two test kinds are the automation rules': a logic test keeps to neutral fixtures
-([ADR-AUTO-TEST#3](../automation/test-automation.md#rule-adr-auto-test3)), and an integrity test binds the shipped assets
-([ADR-AUTO-TEST#1](../automation/test-automation.md#rule-adr-auto-test1)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), and an integrity test binds the shipped assets
+([ADR-AUTO-TEST-ONECATEGORY](../automation/test-automation.md#rule-adr-auto-test-onecategory)).
 
 ### The design zone
 
@@ -181,9 +181,9 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
   the test configs, and disjoint from the live set by construction.
 
 - **The terminology `scope` map** ([spell-out-names](../automation/spell-out-names.md)) records each category's zone, and `Test-Terminology`
-  keeps the registry honest — but cspell does not scope on it (ADR-REPO-LANG#5).
+  keeps the registry honest — but cspell does not scope on it (ADR-REPO-LANG-SEMANTICENFORCEMENT).
 
-- **Code review** covers the design-zone rules a gate does not — an ADR illustrating with a test fixture (ADR-REPO-LANG#4), or a live
+- **Code review** covers the design-zone rules a gate does not — an ADR illustrating with a test fixture (ADR-REPO-LANG-DESIGNZONETHEME), or a live
   identity in a doc that is not documenting that identity as its subject.
 
 ## Consequences
@@ -207,7 +207,7 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
 
 - [documentation-examples](documentation-examples.md) (`ADR-REPO-EXAMPLE`) — the design zone's discovery-theme vocabulary.
 - [test-automation](../automation/test-automation.md) (`ADR-AUTO-TEST`) — logic vs integrity, and the fixture-identity rule
-  (`ADR-AUTO-TEST#3`) this gate mechanizes.
+  (`ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES`) this gate mechanizes.
 - [data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
   [customer-model](../azure/azure-customer-model.md) — the live zone's real identities.
 - [spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`) — the terminology registry and the per-category `scope` map.

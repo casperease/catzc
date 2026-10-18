@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-INSPIRE
 
-### Rule ADR-REPO-INSPIRE:1
+### Rule ADR-REPO-INSPIRE-SIBLINGFORIDEAS
 
 A sibling repository of the same project family, such as `eac`, may be read for ideas on every aspect of catzc: module and command design,
 docs and ADR structure, contracts, testing, pipelines, and tooling. It is read only: nothing is written to it, and when it is absent the
@@ -10,28 +10,28 @@ work carries on without it.
 
 - [Ideas from a sibling](#ideas-from-a-sibling)
 
-### Rule ADR-REPO-INSPIRE:2
+### Rule ADR-REPO-INSPIRE-NEVERREFERENCE
 
 An inspiration is never a reference implementation. Its structure and code are never copied as the answer, and it is never cited as an
 authority for a catzc decision.
 
 - [Not a reference implementation](#not-a-reference-implementation)
 
-### Rule ADR-REPO-INSPIRE:3
+### Rule ADR-REPO-INSPIRE-CATZCADRSDECIDE
 
 Catzc's ADRs decide. An idea from an inspiration is weighed against the domain rules of the aspect it touches, and the work says where the
 idea came from. An idea in an area where catzc has made no decision, such as Go, opens a question for the user and is never a precedent.
 
 - [The domain rules decide](#the-domain-rules-decide)
 
-### Rule ADR-REPO-INSPIRE:4
+### Rule ADR-REPO-INSPIRE-REBUILTNOTPORTED
 
 An idea that is taken is rebuilt here to catzc's rules, never ported alongside the catzc shape
 ([ADR-PRIN-ONELIVE](../principles/one-living-version.md)): catzc carries one living version of each behaviour.
 
 - [Rebuilt, not ported](#rebuilt-not-ported)
 
-### Rule ADR-REPO-INSPIRE:5
+### Rule ADR-REPO-INSPIRE-DECLAREDINSPIRATION
 
 An **inspiration** is a sibling repository declared in `configs/inspiration.yml` of `Catzc.Tooling.Inspiration`, with its id, its root on
 the workspace anchor, what it is, and the folders worth reading. `Get-Inspiration` lists the inspirations and reports whether each is
@@ -57,7 +57,7 @@ citing it as an authority puts a second set of rules beside the ADRs. Both turn 
 The ADRs are where catzc decides. An idea is a candidate, and the ADR of the aspect it touches judges it:
 
 - **Module and command design:** [ADR-PWSH-ONEFUNC](../pwsh/one-function-per-file.md), [ADR-PWSH-PARAM](../pwsh/parameter-design.md), and
-  the one resolution order of a setting, [ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6).
+  the one resolution order of a setting, [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 - **Docs and ADR structure:** the [authoring conventions](../index.md#authoring-conventions).
 - **Contracts:** [ADR-REPO-CONTRACT](api-contracts.md).
 - **Testing:** [ADR-AUTO-TEST](../automation/test-automation.md).
@@ -76,7 +76,7 @@ version, so the idea lands as if catzc had always had it.
 ### Declared, not described
 
 A path written into prose drifts and differs per machine. Declaring each inspiration in config, its root on the workspace anchor
-([ADR-AUTO-PATH#11](../automation/path-representation.md#rule-adr-auto-path11)), gives one checked place to find it, and reporting
+([ADR-AUTO-PATH-WORKSPACEANCHOR](../automation/path-representation.md#rule-adr-auto-path-workspaceanchor)), gives one checked place to find it, and reporting
 availability as a value keeps the work going on a machine where the sibling is absent.
 
 ## Decision

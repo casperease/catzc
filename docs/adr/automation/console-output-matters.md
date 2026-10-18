@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-CONSOLE
 
-### Rule ADR-AUTO-CONSOLE:1
+### Rule ADR-AUTO-CONSOLE-EVERYLINEEARNSPLACE
 
 Console output is a first-class UX concern — every line must earn its place, so a reader understands what happened top-to-bottom, once,
 without re-running anything.
@@ -10,75 +10,75 @@ without re-running anything.
 - [What good output looks like](#what-good-output-looks-like)
 - [Two audiences](#two-audiences)
 
-### Rule ADR-AUTO-CONSOLE:3
+### Rule ADR-AUTO-CONSOLE-LOGCOMMANDS
 
 Log commands, not commentary — log the exact, copy-pasteable command (e.g. `uv python install 3.13 --default`) rather than a paraphrase like
 "Now installing…". A readable description may be added beside the command, never in its place.
 
 - [Output practice](#output-practice)
 
-### Rule ADR-AUTO-CONSOLE:4
+### Rule ADR-AUTO-CONSOLE-TOOLSSPEAK
 
 Let tools speak for themselves — an external tool's own output flows to the console as it arrives, unchanged; the toolset does not capture
 it to re-format it, prefix its lines, or re-write it as its own messages.
 
 - [Output practice](#output-practice)
 
-### Rule ADR-AUTO-CONSOLE:5
+### Rule ADR-AUTO-CONSOLE-REPORTOUTCOMES
 
 Report outcomes, not steps, and stay silent when there is nothing meaningful to report.
 
 - [Output practice](#output-practice)
 
-### Rule ADR-AUTO-CONSOLE:6
+### Rule ADR-AUTO-CONSOLE-SELFCONTAINEDERRORS
 
 Errors must be self-contained — the error message alone must diagnose the problem without reading the source.
 
 - [Output practice](#output-practice)
 
-### Rule ADR-AUTO-CONSOLE:7
+### Rule ADR-AUTO-CONSOLE-SPARINGCOLOUR
 
 Use color sparingly and consistently (red=error, yellow=warning, green=success, cyan=headers, default=everything else) — the default color
 is the signal that nothing is wrong.
 
 - [Output practice](#output-practice)
 
-### Rule ADR-AUTO-CONSOLE:8
+### Rule ADR-AUTO-CONSOLE-NOBOXDRAWING
 
 No side borders or box drawing (they break copy-paste) — vertical headers and blank-line separators are fine; and no progress bars — print a
 dot per interval instead.
 
 - [Output practice](#output-practice)
 
-### Rule ADR-AUTO-CONSOLE:9
+### Rule ADR-AUTO-CONSOLE-OPTINTIMESTAMPS
 
 Timestamps are opt-in through the `CATZC_MESSAGE_TIMESTAMPS` environment variable — CI platforms already timestamp every line, so they are
 never needed there.
 
 - [Output practice](#output-practice)
 
-### Rule ADR-AUTO-CONSOLE:10
+### Rule ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
 
 Announce work before it blocks. Before any operation that leaves the session unresponsive for more than ~5 seconds — a slow external tool, a
 scan or format pass over many files, a first-time lazy module load, a long cloud call — write a status line first, naming what is about to
-happen, so silence never reads as a hang. This refines ADR-AUTO-CONSOLE#5: staying silent is right for fast work, wrong for slow work.
+happen, so silence never reads as a hang. This refines ADR-AUTO-CONSOLE-REPORTOUTCOMES: staying silent is right for fast work, wrong for slow work.
 
 - [Announce work before it blocks](#announce-work-before-it-blocks)
 
-### Rule ADR-AUTO-CONSOLE:11
+### Rule ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
 
 Every lasting change a function makes to the state of the session is announced on the always-shown status output, where it happens, naming
 what changed and to what. The session's state is its environment variables (`PATH` and the module search path included), the binaries and
 libraries loaded into it, the modules loaded into or removed from it, its global variables and preferences, its working location, its line
 editor and display configuration, plus the user environment and profile it reads at start. Announce when something actually changes; a
 converge that finds everything in place changes nothing and says nothing. The toolset's own load sequence, which makes the same expected
-changes at every session start, records them on diagnostic output instead (ADR-AUTO-CONSOLE#5).
+changes at every session start, records them on diagnostic output instead (ADR-AUTO-CONSOLE-REPORTOUTCOMES).
 
 - [Session state changes](#session-state-changes)
 - [What counts as a state change](#what-counts-as-a-state-change)
 - [Announce where it happens](#announce-where-it-happens)
 
-### Rule ADR-AUTO-CONSOLE:12
+### Rule ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES
 
 A change that is not a lasting change of this session is not announced: a change the function restores before it returns, a change made in
 another process or concurrent worker (a background job, a parallel loop), the engine's own bookkeeping (such as the exit code it records
@@ -154,13 +154,13 @@ The distinction between status and diagnostic output is about audience, not impo
 ### Output practice
 
 **Log commands, not commentary.** Every wrapper around an external tool logs the exact command before it runs (see
-[log-before-invoke](log-before-invoke.md#rule-adr-auto-prelog1)). This is the most valuable output: it tells the user what ran, and they can
+[log-before-invoke](log-before-invoke.md#rule-adr-auto-prelog-logresolvedcommand)). This is the most valuable output: it tells the user what ran, and they can
 copy-paste it to reproduce. Do not add "Now installing Poetry..." before the command — the command itself is more informative.
 
 **Let tools speak for themselves.** When `poetry install` produces output, let it flow to the console. Do not capture and re-format it. Do
 not prefix each line. The user knows what poetry output looks like — wrapping it in your own formatting makes it harder to read and
 impossible to search for in documentation. How each engine relays a child's output is its own ADR's concern (for pwsh,
-[announce-state-changes](../pwsh/announce-state-changes.md#rule-adr-pwsh-announce4)).
+[announce-state-changes](../pwsh/announce-state-changes.md#rule-adr-pwsh-announce-childoutputrelayed)).
 
 **Report outcomes, not steps.** "Poetry 2.1 installed successfully" is an outcome. "Checking if poetry is installed... Poetry is
 installed... Checking version... Version matches... Running poetry install... Done" is step-by-step narration that nobody reads. Report the
@@ -232,8 +232,8 @@ long operation is itself an outcome worth reporting.
 
 The announcement goes _before_ the blocking call, not after — a message printed once the work is done cannot tell the user it is in
 progress. For an operation whose duration is open-ended, pair the up-front message with a dot-per-interval liveness signal
-(ADR-AUTO-CONSOLE#8) rather than leaving the console frozen. `Invoke-Executable` covers the common case: it logs the exact command before
-running it (ADR-AUTO-CONSOLE#3, [log-before-invoke](log-before-invoke.md)), so a function whose slow step _is_ a single external call
+(ADR-AUTO-CONSOLE-NOBOXDRAWING) rather than leaving the console frozen. `Invoke-Executable` covers the common case: it logs the exact command before
+running it (ADR-AUTO-CONSOLE-LOGCOMMANDS, [log-before-invoke](log-before-invoke.md)), so a function whose slow step _is_ a single external call
 inherits the announcement for free. The rule bites where the slow work is not a logged external call — a large in-process loop, a module
 import, an in-memory computation — where nothing else would print.
 
@@ -246,7 +246,7 @@ entries, and points environment variables at tool homes; an installer rewrites `
 its test framework. Each of these changes what the next command in that session does. When they happen silently, the user is left with
 questions the scrollback cannot answer: why does `dotnet` resolve from this folder, which build of the types is loaded, where did this
 module search path entry go. The only way to find out is to read the source or re-run with diagnostics, which is exactly what
-ADR-AUTO-CONSOLE#1 rules out.
+ADR-AUTO-CONSOLE-EVERYLINEEARNSPLACE rules out.
 
 So the scrollback is made a complete record of how the session reached its state. Every change is announced as it happens, with the value it
 set, and every announcement travels the same writer as every other line the toolset writes.
@@ -278,12 +278,12 @@ timing line printed only under a diagnostic switch for example, does not announc
 would make the change and print nothing. The line names the target and the value: `Session PATH: prepended 'C:\...\dotnet'`,
 `User environment: JAVA_HOME='...'`, `Loaded vendor module powershell-yaml 0.4.12`. A function that makes several related changes may
 announce them on one line built as it goes, and a function that only converges announces the changes it actually made: an installer re-run
-on a box that has the right `JAVA_HOME` writes nothing and says nothing. That keeps this rule consistent with ADR-AUTO-CONSOLE#5: a state
+on a box that has the right `JAVA_HOME` writes nothing and says nothing. That keeps this rule consistent with ADR-AUTO-CONSOLE-REPORTOUTCOMES: a state
 change is always worth reporting, and a no-op is not a change.
 
 Diagnostic output does not announce. A state change is a fact about the session, and the always-shown status output is where facts go;
 diagnostic output is for the detail behind them. The toolset's own load sequence is the one exception: it makes the same expected changes at
-every session start, so printing them at every shell open is noise (ADR-AUTO-CONSOLE#5), and its record of them is diagnostic output, one
+every session start, so printing them at every shell open is noise (ADR-AUTO-CONSOLE-REPORTOUTCOMES), and its record of them is diagnostic output, one
 switch away. The functions the load sequence calls announce on status output like any other caller's.
 
 ### Not a state change
@@ -319,10 +319,10 @@ is announced where it happens, naming what changed and to what; changes that are
   into test output and no test needs its own guard; a child process's relayed output honours the same flag.
 - **`Invoke-Executable`** — logs the exact command via `Write-Message` before execution. All `Invoke-*` wrappers inherit this.
 - **Analyzer rules** — `Measure-NoRawConsoleWrite` flags a write that goes around the writer, and `Measure-AnnounceStateChange` flags a
-  state change that no announcement covers and passes the exemptions of ADR-AUTO-CONSOLE#12. They check that a change is announced; what the
+  state change that no announcement covers and passes the exemptions of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES. They check that a change is announced; what the
   line says is a review concern.
 - **Console-ready C# types** — every catzc C# object interpolated into a message or shown in a table renders as one readable line, not its
-  type name ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types14)).
+  type name ([native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types-consolereadytostring)).
 - **Code review** — output quality is a review concern, same as logic correctness. A function that spams the console or swallows errors is a
   bug. An announcement names the target and its new value.
 

@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-ADRCODE
 
-### Rule ADR-REPO-ADRCODE:1
+### Rule ADR-REPO-ADRCODE-PATHOFSEGMENTS
 
 An ADR code is `ADR` followed by zero or more segments, each `-` plus an upper-case letter and then upper-case letters or digits. It reads
 from the most general part to the most specific: `ADR`, then the domain, then the ADR, then the rule. `ADR` is always the first part, so it
@@ -10,28 +10,28 @@ stays the one searchable marker for an ADR reference anywhere in the repository.
 
 - [One path for every level](#one-path-for-every-level)
 
-### Rule ADR-REPO-ADRCODE:2
+### Rule ADR-REPO-ADRCODE-DOMAINSEGMENT
 
 The second segment is the domain's `code` in `adrs.yml`, a closed set with one code per `docs/adr/<domain>/` folder. Every ADR code in a
 domain starts with that domain's segment.
 
 - [The domain comes first](#the-domain-comes-first)
 
-### Rule ADR-REPO-ADRCODE:3
+### Rule ADR-REPO-ADRCODE-ADRSEGMENT
 
 The segment after the domain names the ADR, unique within its parent. A vendor reference adds one group level before it, so the ADRs that
 answer the Cloud Adoption Framework are `ADR-AZ-CAF-<NAME>` and those that answer the Well-Architected Framework are `ADR-AZ-WAF-<NAME>`.
 
 - [Vendor references are a level](#vendor-references-are-a-level)
 
-### Rule ADR-REPO-ADRCODE:4
+### Rule ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
 
 A rule is named, never numbered: its last segment says what the rule says, as spelled-out words joined with no length cap (the rule "bound
 every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule that answers a vendor checklist item takes that item's id as its segment.
 
 - [Names, not numbers](#names-not-numbers)
 
-### Rule ADR-REPO-ADRCODE:5
+### Rule ADR-REPO-ADRCODE-CODEISSELECTOR
 
 Every code is also a selector: it selects itself and every code whose segments start with it. `ADR` selects every ADR and rule, `ADR-AUTO`
 the automation domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A match compares whole segments, so `ADR-AUTO-GO` never selects
@@ -39,14 +39,14 @@ the automation domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A mat
 
 - [Every string is a selector](#every-string-is-a-selector)
 
-### Rule ADR-REPO-ADRCODE:6
+### Rule ADR-REPO-ADRCODE-ONESTRINGONEFACT
 
 Under one parent, a child ADR and a rule never share a segment, so every code names exactly one ADR, rule, or domain. A retired name is never
 reused; a rule whose meaning changes takes a new name.
 
 - [One string, one fact](#one-string-one-fact)
 
-### Rule ADR-REPO-ADRCODE:7
+### Rule ADR-REPO-ADRCODE-NOSUBSETSPELLING
 
 A citation names a set only by a prefix. There is no group, list, or range syntax inside a code: several facts are several codes. A list
 that a tool derives (a file head's `adrs:`, a diagram subtitle) writes a code that covers every rule of an ADR as the ADR's code;
@@ -54,7 +54,7 @@ hand-written prose never collapses.
 
 - [No subset spelling](#no-subset-spelling)
 
-### Rule ADR-REPO-ADRCODE:8
+### Rule ADR-REPO-ADRCODE-AUTHOREDORDER
 
 A rule registry keeps the order its ADR writes the rules in. Rules are never sorted by name.
 

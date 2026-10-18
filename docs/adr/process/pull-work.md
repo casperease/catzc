@@ -2,28 +2,28 @@
 
 ## Rules: ADR-PROC-PULLWORK
 
-### Rule ADR-PROC-PULLWORK:1
+### Rule ADR-PROC-PULLWORK-PULLNOTPUSH
 
 Work is pulled, not pushed. A stage takes the next item only when it has the capacity to finish it; pushing work into a stage that is not
 ready creates queues and partially-done work ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md), the partially-done-work waste).
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-PULLWORK:2
+### Rule ADR-PROC-PULLWORK-SMALLESTBATCH
 
 Reduce batch size to the smallest increment that can move on its own. Small batches shorten feedback, lower the cost of any one change, and
 keep queues short ([ADR-PROC-QUEUECOST](queues-cost-money.md)); large batches do the opposite on every count.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-PULLWORK:3
+### Rule ADR-PROC-PULLWORK-DEFERCOMMITMENT
 
 Defer commitment to the last responsible moment. Decide when the most is known, and keep reversible options open where the cost of keeping
 them is low — but decide before the lack of a decision starts to cost more than the option is worth.
 
 - [Why](#why)
 
-### Rule ADR-PROC-PULLWORK:4
+### Rule ADR-PROC-PULLWORK-LIMITWORKINPROGRESS
 
 Limit work in progress. Finishing beats starting: a cap on concurrent work forces the queue down, exposes the real constraint, and reduces
 the task-switching waste ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)) — by Little's Law, less work-in-progress is directly less lead

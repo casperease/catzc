@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-FAILFAST
 
-### Rule ADR-AUTO-FAILFAST:1
+### Rule ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY
 
 Assert inputs at function entry. Before a function uses a value it receives, it validates that value through the toolset's assertion library
 (`Assert-NotNullOrWhitespace`, `Assert-True`, `Assert-PathExist`, `Assert-TypeIs`, and the other `Assert-*` functions), for everything its
@@ -11,7 +11,7 @@ parameter declaration cannot express.
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 - [In practice](#in-practice)
 
-### Rule ADR-AUTO-FAILFAST:2
+### Rule ADR-AUTO-FAILFAST-ASSERTAFTEREXTERNALCALLS
 
 Assert after every external call. After running an external tool, reading a file, calling an API, or any operation that talks to the outside
 world, assert the result meets expectations before passing it downstream.
@@ -20,7 +20,7 @@ world, assert the result meets expectations before passing it downstream.
 - [The assert ladder](#the-assert-ladder)
 - [In practice](#in-practice)
 
-### Rule ADR-AUTO-FAILFAST:3
+### Rule ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS
 
 Assert preconditions, not just inputs. `Assert-Tool` verifies a tool's command is present and at the expected version before doing work; it
 does not validate inputs and deliberately does not resolve `DependsOn` (an install-time concern handled by `Get-ToolInstallOrder`).
@@ -28,32 +28,32 @@ does not validate inputs and deliberately does not resolve `DependsOn` (an insta
 - [Why every fifth line](#why-every-fifth-line)
 - [Decision](#decision)
 
-### Rule ADR-AUTO-FAILFAST:4
+### Rule ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
 
 Use the assertion library, never an inline check that raises its own error. The library gives consistent, greppable error messages and makes
 assertion intent visible in review; a bare conditional that fails on its own terms obscures it.
 
 - [The inline assertion pattern](#the-inline-assertion-pattern)
 
-### Rule ADR-AUTO-FAILFAST:5
+### Rule ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS
 
 Never catch assertion failures. Assertions indicate a bug or unmet precondition, not a recoverable error; let them propagate. An error
 handler around an assertion means the assertion is wrong or the condition should be handled differently.
 
 - [Decision](#decision)
 
-### Rule ADR-AUTO-FAILFAST:6
+### Rule ADR-AUTO-FAILFAST-ASSERTIONSDOCUMENT
 
 Treat assertions as documentation. An assertion that a config path exists (`Assert-PathExist`) both checks at runtime and specifies the
 function's expectations — more reliable than a comment because it executes.
 
 - [Why every fifth line](#why-every-fifth-line)
 
-### Rule ADR-AUTO-FAILFAST:7
+### Rule ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
 
 Bound every wait. Every external call and every unbounded piece of work runs inside a time safeguard, so a hang fails fast with a message
 naming the limit instead of waiting forever. The limits live in one config (`timeouts.yml`, owned by `Catzc.Base.Timeouts`), keyed by run
-environment (devbox | pipeline) and execution engine ([ADR-AUTO-ENGINE#1](execution-engines.md#rule-adr-auto-engine1)), with sensible
+environment (devbox | pipeline) and execution engine ([ADR-AUTO-ENGINE-THREEENGINES](execution-engines.md#rule-adr-auto-engine-threeengines)), with sensible
 defaults declared on its config type — deliberately tight on a devbox — plus per-executable entries, and no "no limit" value.
 `Invoke-Executable` kills a child process tree at its executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` /
 `Test-CompletesWithin` stop a piece of in-process work at its limit. The bash limits bound every shell call an agent makes, foreground and
@@ -146,7 +146,7 @@ There is no "no limit" value, because an unbounded wait is exactly the failure t
 Two axes decide a limit, and both are read from the session rather than passed in. The run environment (devbox or pipeline,
 `Get-RunEnvironment`) sets how tight it is: a devbox has a person to tune with, a pipeline has nobody watching and longer ordinary builds.
 The shell (one of the execution engines) sets what it bounds: pwsh code bounds its own script blocks and processes, and the agent hook
-bounds bash calls ([assert-idioms](../pwsh/assert-idioms.md#rule-adr-pwsh-assert6) gives the pwsh forms). A caller can pin the environment
+bounds bash calls ([assert-idioms](../pwsh/assert-idioms.md#rule-adr-pwsh-assert-twowaitbounds) gives the pwsh forms). A caller can pin the environment
 with an `-EnvironmentAssertIs` guard, which verifies and never selects.
 
 An exemption is for work that is known to be slow while it is fixed. It names the work by an immutable budget GUID — registered in the
@@ -189,9 +189,9 @@ The hook compiles the module's own config and verdict types (`TimeoutsConfig`, `
 A configuration value is asserted at the first level that can see what is wrong, so each level checks only what the ones before it cannot:
 
 1. **Construct-time**, the config type's constructor: the shape, the enums and patterns, and each key's posture, so a required key that is
-   missing throws naming the key and where to add it ([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)).
+   missing throws naming the key and where to add it ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 2. **Load-time**, `Get-Config`: the fragment merged onto the shipped file, and a sealed config refusing one
-   ([ADR-AUTO-OVERLAY#4](consumer-overlay.md#rule-adr-auto-overlay4)).
+   ([ADR-AUTO-OVERLAY-CONFIGFRAGMENT](consumer-overlay.md#rule-adr-auto-overlay-configfragment)).
 3. **Cross-config**, the PowerShell validators and `Test-ConfigValidators`: what holds across configs, such as a name one config declares
    and another uses.
 4. **Contract-time**, `Test-Contracts`: a provided asset against what the code takes and gives.

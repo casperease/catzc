@@ -2,28 +2,28 @@
 
 ## Rules: ADR-PROC-VALUES
 
-### Rule ADR-PROC-VALUES:1
+### Rule ADR-PROC-VALUES-INDIVIDUALSOVERPROCESSES
 
 Value individuals and interactions over processes and tools — the people doing the work and how they communicate matter more than the
 machinery around them; a process serves the people, never the reverse.
 
 - [The four values](#the-four-values)
 
-### Rule ADR-PROC-VALUES:2
+### Rule ADR-PROC-VALUES-WORKINGSOFTWAREOVERDOCUMENTATION
 
 Value working software over comprehensive documentation — running, usable software is the primary evidence of progress; documentation is
 kept to what genuinely serves that end.
 
 - [The four values](#the-four-values)
 
-### Rule ADR-PROC-VALUES:3
+### Rule ADR-PROC-VALUES-COLLABORATIONOVERCONTRACTS
 
 Value customer collaboration over contract negotiation — a continuing working relationship with the customer adapts to what is learned,
 where a fixed contract fixes the wrong answer early.
 
 - [The four values](#the-four-values)
 
-### Rule ADR-PROC-VALUES:4
+### Rule ADR-PROC-VALUES-RESPONDINGOVERPLANNING
 
 Value responding to change over following a plan — a plan is a starting hypothesis; when reality diverges from it, the response to reality
 wins over adherence to the plan.

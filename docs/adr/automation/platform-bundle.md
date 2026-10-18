@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-BUNDLE
 
-### Rule ADR-AUTO-BUNDLE:1
+### Rule ADR-AUTO-BUNDLE-BUNDLEISBUILD
 
 A **bundle** is the toolset's build: one installable, versioned `Catzc` package of one **named bundle** — an `exporter.yml` `bundles` entry
 with its own profile, version line, and vendor policy — under `out/pwsh/built/<bundle>/Catzc/<version>/`, built by `Build-Modules` from the
@@ -14,17 +14,17 @@ the platform-level form of a reproducible, content-addressed, self-service artif
 
 - [What a bundle is](#what-a-bundle-is)
 
-### Rule ADR-AUTO-BUNDLE:2
+### Rule ADR-AUTO-BUNDLE-TWOROOTS
 
 The platform anchors on **two roots, not one**: `RepositoryRoot` — the **working root** (where `out/` goes and what repo-relative paths and
 git resolve against) — and `CatzcModulesRoot` — where the **loaded catzc code** lives, both environment variables. Config, type, and vendor
 discovery follow the code root (`Get-CatzcModulesRoot`), never `RepositoryRoot`. In the mono repo the importer sets them equal, so the split
 is a no-op; an install makes them differ, which is exactly what lets the code be carried out of the repo. `CatzcModulesRoot` is a well-known
-bootstrap anchor set once ([environment-variables](environment-variables.md#rule-adr-auto-envvar5)).
+bootstrap anchor set once ([environment-variables](environment-variables.md#rule-adr-auto-envvar-anchorssetonce)).
 
 - [The two roots](#the-two-roots)
 
-### Rule ADR-AUTO-BUNDLE:3
+### Rule ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
 
 A bundle loads by running the **one living importer** in its bundle mode, never a forked bootstrap
 ([one-living-version](../principles/one-living-version.md)). The bundle's entry sets the two roots and runs the same importer the mono
@@ -35,7 +35,7 @@ description cannot guarantee.
 
 - [Booting through the importer](#booting-through-the-importer)
 
-### Rule ADR-AUTO-BUNDLE:5
+### Rule ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 
 A build is **immutable and content-addressed**: the same commit yields a byte-identical build on any machine — merged files, manifests, and
 the types DLL — and an identical durable-SHA content hash over all of it. A build ships **the files git tracks** — and, on a devbox, the
@@ -46,7 +46,7 @@ type sources follow that set, as the DLL does, and the build copies the source t
 it compiles only when that DLL is missing. Before it writes anything the build proves its selection closed against the code itself, not only
 against `dependencies.yml`: every call a selected module makes to a catzc function, and every config it reads by a literal name, lands in a
 selected module (an owner-scoped read, which reads only the owners present, is exempt), and every inventoried internal asset is present
-([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Each bundle carries a `build.json` provenance
+([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)). Each bundle carries a `build.json` provenance
 record (bundle, version, content hash, `typesHash`, the type-source list, source commit, whether the tree differed from that commit,
 modules); a pipeline refuses to build a tree that differs from its commit. `Assert-CatzcBundle` is the integrity guard: it re-verifies the
 recorded hash, that no `tests/` leaked in, that exactly one types DLL is present and its name matches `typesHash`, that every module has its
@@ -55,7 +55,7 @@ violation. `Build-Modules` runs it as a self-check on its own output.
 
 - [The verified artifact](#the-verified-artifact)
 
-### Rule ADR-AUTO-BUNDLE:6
+### Rule ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
 
 An install is **two artifacts in two places**. `Export-Catzc -Root <dir>` copies the build to `<dir>/.vendor/Catzc/<version>/` and writes a
 root importer entry at the **destination root** that loads the installed build's entry with `<dir>` as the working root, so the working root
@@ -66,7 +66,7 @@ hash refreshes only the root importer entry — and the source build is verified
 
 - [The two-part install](#the-two-part-install)
 
-### Rule ADR-AUTO-BUNDLE:7
+### Rule ADR-AUTO-BUNDLE-AUTOVERSION
 
 `Build-Modules -Version` defaults to `auto`, resolved by `Resolve-CatzcBuildVersion`. A devbox (source-mode) build is the fixed **`6.6.666`
 placeholder** (`exporter.yml`'s `direct_install_version`), announced by a yellow `Write-Message` notice that real versions come only from
@@ -80,7 +80,7 @@ test can substitute a fixture config through the same seam.
 
 - [Versions](#versions)
 
-### Rule ADR-AUTO-BUNDLE:8
+### Rule ADR-AUTO-BUNDLE-BUNDLEISSESSION
 
 A bundle is a **session, not a passive library**. Loading it establishes the catzc session — the same session settings the mono importer
 sets, under which every error and every warning terminates, because catzc functions assume terminating semantics — and it writes only under
@@ -162,7 +162,7 @@ guard re-verifies the same hash in every build, and a session that switches betw
 DLL is copied from the source tree's `.compiled/` when its hash matches, and compiled only when it is missing. The vendored dependencies are
 copied verbatim from `.vendor/` per `vendor_policy`, and are never re-downloaded or republished. Default-deny keeps the verification surface
 out: no `tests/` tree travels. The exact form of the payload in pwsh is
-[dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5).
+[dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests).
 
 ### The verified artifact
 
@@ -176,7 +176,7 @@ a pipeline refuses a dirty tree, so a released bundle is always exactly its comm
 DLL's name proves, which on a clean tree is the commit's. `Build-Modules` writes its generated output canonically — UTF-8 without BOM, LF,
 one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same
 copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use (the related flow rule is
-[ADR-FLOW-CD-GLOBS#5](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)). The same commit therefore hashes the same on every OS, which
+[ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)). The same commit therefore hashes the same on every OS, which
 the CI pipeline proves by building on each and comparing.
 
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
@@ -215,12 +215,12 @@ it as a local package. The vendored dependencies ride inside the build's own `.v
 
 A build on a devbox is a local convenience, not a release, so it carries the fixed `6.6.666` placeholder and overwrites in place — an
 obviously-unreal number that reads as "built locally" — and `Build-Modules` says so with a yellow `Write-Message` line. It is never a
-warning, which terminates in a catzc session (ADR-AUTO-BUNDLE#8). A pipeline export gets a real version, and that version is **calculated,
+warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-BUNDLEISSESSION). A pipeline export gets a real version, and that version is **calculated,
 not chosen**: `MAJOR.MINOR` is the bundle's own reviewed `version` in `exporter.yml` — the repository is a mono repo, so each bundle has its
 own version line and no bundle's version moves another's — and `PATCH` is the first-parent commit count of the built commit
 (`git rev-list --first-parent --count HEAD`, which needs the full history the pipelines fetch,
-[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs9)). The same commit therefore always gets the same version — build
-once, version once ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd3)) — and versions
+[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit)). The same commit therefore always gets the same version — build
+once, version once ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)) — and versions
 increase monotonically along `main` without a counter to store. The placeholder never leaves a devbox: a pipeline build that names it
 explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is declared in one `exporter.yml` read through
 `Get-Config` — the single place the repository states how it wants to export itself, validated on load and substitutable by a fixture in

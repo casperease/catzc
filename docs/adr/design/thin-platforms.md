@@ -2,7 +2,7 @@
 
 ## Rules: ADR-DSGN-THINPLAT
 
-### Rule ADR-DSGN-THINPLAT:1
+### Rule ADR-DSGN-THINPLAT-THINPLATFORM
 
 catzc is a **thin platform**: a single, reusable API/CLI abstraction over a vendor substrate — Azure (the ARM control plane via Bicep, and
 the account/control-plane surface via a curated az CLI). It standardizes _how_ the organization uses the vendor; it does not reimplement the
@@ -11,7 +11,7 @@ Viable Platform** (TVP): the smallest set of APIs, tooling, and docs that measur
 
 - [What "thin platform" means](#what-thin-platform-means)
 
-### Rule ADR-DSGN-THINPLAT:2
+### Rule ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
 
 Thin is achieved by **delegation, not reimplementation**. The platform adds only what reduces a consumer's cognitive load, and delegates
 everything else to the vendor's own primitives — Bicep for ARM templating, the az CLI for control-plane actions. It wraps to _harmonize_
@@ -20,7 +20,7 @@ abstractions, not illusions — a thick wrapper that re-implements the cloud is 
 
 - [Delegation](#delegation)
 
-### Rule ADR-DSGN-THINPLAT:3
+### Rule ADR-DSGN-THINPLAT-PLATFORMASCLI
 
 The consumable surface is a **CLI** — platform-as-a-CLI, offered X-as-a-Service. PowerShell `Verb-Noun` functions plus their configuration
 _are_ the platform's API: a paved road with self-service defaults. Consumers edit configuration and compose functions; they never touch the
@@ -28,7 +28,7 @@ vendor wiring. The CLI is the boundary that lets the platform team change the su
 
 - [The surface is a CLI](#the-surface-is-a-cli)
 
-### Rule ADR-DSGN-THINPLAT:4
+### Rule ADR-DSGN-THINPLAT-REPRESENTEDASCODE
 
 Everything the platform covers is **represented as code** — the automation itself, the configs, the tooling versions, and the vendor
 bindings (Bicep modules and az invocations) — in exactly one living version (`ADR-PRIN-EAC`, `ADR-PRIN-ONELIVE`). There is no
@@ -37,7 +37,7 @@ Full EaC representation is what makes the thin abstraction reproducible and revi
 
 - [Everything is code](#everything-is-code)
 
-### Rule ADR-DSGN-THINPLAT:5
+### Rule ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
 
 The platform is a **product with a swappable substrate**, owned over its full lifecycle by the platform team whose job is to develop and
 manage it (Team Topologies). It is reusable across consumers and CD pipelines, and the vendor layer sits _behind_ the CLI — Azure or another
@@ -115,10 +115,10 @@ configuration, where they belong.
 
 ## Decision
 
-Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (ADR-DSGN-THINPLAT#1), kept thin by delegating to the
-vendor's own primitives rather than reimplementing them (ADR-DSGN-THINPLAT#2), consumed through a single CLI surface (ADR-DSGN-THINPLAT#3),
-fully represented as one living version of code (ADR-DSGN-THINPLAT#4), and owned as a reusable product over a substrate that stays swappable
-behind the CLI (ADR-DSGN-THINPLAT#5). This is our implementation of the EaC and CD principles as a Team-Topologies platform, covering Azure
+Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (ADR-DSGN-THINPLAT-THINPLATFORM), kept thin by delegating to the
+vendor's own primitives rather than reimplementing them (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT), consumed through a single CLI surface (ADR-DSGN-THINPLAT-PLATFORMASCLI),
+fully represented as one living version of code (ADR-DSGN-THINPLAT-REPRESENTEDASCODE), and owned as a reusable product over a substrate that stays swappable
+behind the CLI (ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE). This is our implementation of the EaC and CD principles as a Team-Topologies platform, covering Azure
 and Azure RM via Bicep plus a curated az CLI.
 
 ### How this holds together

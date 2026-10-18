@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-NONEST
 
-### Rule ADR-AUTO-NONEST:1
+### Rule ADR-AUTO-NONEST-ONEOPERATIONPERLINE
 
 One operation per line — a pipeline, a method call, or an indexing operation per assignment. Chaining two is often fine; three or more
 almost always needs splitting.
@@ -10,26 +10,26 @@ almost always needs splitting.
 - [Easier debugging](#easier-debugging)
 - [No performance cost](#no-performance-cost)
 
-### Rule ADR-AUTO-NONEST:2
+### Rule ADR-AUTO-NONEST-NAMEINTERMEDIATES
 
 Name the intermediate result — the variable name documents what the value represents (a variable named `active` over a filter buried inside
 a longer expression).
 
 - [Easier debugging](#easier-debugging)
 
-### Rule ADR-AUTO-NONEST:3
+### Rule ADR-AUTO-NONEST-ASSERTBETWEENSTEPS
 
 Assert between steps: once intermediate values have names, inject assertions that verify assumptions before the next step uses the value.
 
 - [Room for assertions](#room-for-assertions)
 
-### Rule ADR-AUTO-NONEST:4
+### Rule ADR-AUTO-NONEST-FLATCONDITIONALS
 
 Give conditionals the same treatment — do not bury logic inside a condition. Compute the value, optionally assert it, then test it.
 
 - [Room for assertions](#room-for-assertions)
 
-### Rule ADR-AUTO-NONEST:5
+### Rule ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT
 
 Simple expressions are exempt: a path join onto an anchor, a single property access, a straightforward cast, and other operations that
 cannot fail in surprising ways do not need their own line.
@@ -67,7 +67,7 @@ if ($scripts.Count -gt 5) {
 
 This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The examples
 here are PowerShell; the PowerShell spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are
-[powershell-formatting](../pwsh/powershell-formatting.md) (ADR-PWSH-FORMAT#8, ADR-PWSH-FORMAT#9).
+[powershell-formatting](../pwsh/powershell-formatting.md) (ADR-PWSH-FORMAT-STEPASSERTIONS, ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS).
 
 ### No performance cost
 

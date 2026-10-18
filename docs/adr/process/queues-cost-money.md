@@ -2,35 +2,35 @@
 
 ## Rules: ADR-PROC-QUEUECOST
 
-### Rule ADR-PROC-QUEUECOST:1
+### Rule ADR-PROC-QUEUECOST-QUEUETIMEDOMINATES
 
 The dominant cost in delivery is queue time, not work time. An item spends most of its lead time waiting between steps, so the largest lever
 on speed is shortening queues, not speeding up the work — the money is lost in the queues.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-QUEUECOST:2
+### Rule ADR-PROC-QUEUECOST-LITTLESLAW
 
 Little's Law governs flow: average flow time equals average work-in-progress divided by average throughput. Throughput is near-fixed in the
 short run, so lead time falls by cutting work-in-progress ([ADR-PROC-PULLWORK](pull-work.md)), not by exhortation to hurry.
 
 - [The arithmetic](#the-arithmetic)
 
-### Rule ADR-PROC-QUEUECOST:3
+### Rule ADR-PROC-QUEUECOST-DELAYHASAPRICE
 
 Delay has a measurable price. Cost of delay turns queue time into money and sets priority: work the highest cost-of-delay item first, and
 treat a long feedback queue as an ongoing expense rather than a neutral wait.
 
 - [The arithmetic](#the-arithmetic)
 
-### Rule ADR-PROC-QUEUECOST:4
+### Rule ADR-PROC-QUEUECOST-ATTENTIONISTHECONSTRAINT
 
 Machine time is cheap and follows Moore's law; human attention is the constraint. So spend compute to drain the human queue — parallel
 quality gates, eager caches, ephemeral environments, rebuild-don't-wait. A minute of CPU is cheaper than a minute of a person blocked.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-QUEUECOST:5
+### Rule ADR-PROC-QUEUECOST-BATCHSIZEDRIVESQUEUES
 
 Batch size drives queue size. Large batches inflate queues and their variability; small batches ([ADR-PROC-PULLWORK](pull-work.md)) keep
 both the queue and its cost of delay low. Reduce batch size before adding capacity.

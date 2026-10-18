@@ -4,7 +4,7 @@ Pairs with [`naming-standard`](azure-naming-standard.md), which defines the reso
 
 ## Rules: ADR-AZ-DATAMOD
 
-### Rule ADR-AZ-DATAMOD:1
+### Rule ADR-AZ-DATAMOD-TWOCONFIGLAYERS
 
 Two config layers — identity (`azure.yml`) and templating (`infrastructure/templates/`) — join through the conventional configuration tree:
 a config at the configuration ROOT is a shared-platform deployment, a config under a `configuration/<customer>/` subfolder is that
@@ -12,14 +12,14 @@ customer's; the subscription is always RESOLVED from that coordinate, never spel
 
 - [Layer 1 — Identity (`azure.yml`)](#layer-1--identity)
 
-### Rule ADR-AZ-DATAMOD:2
+### Rule ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
 
 One config file ⟷ one (customer?, env, **slot**) ⟷ one subscription ⟷ one Azure resource group; every config lives at
 `configuration/[<customer>/]<env>[-<slot>].yml`, and listing that tree is the resource-group inventory.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
-### Rule ADR-AZ-DATAMOD:3
+### Rule ADR-AZ-DATAMOD-NAMEKEYEDMAPS
 
 All named entities in `azure.yml` are maps keyed by name, so duplicate names are structurally impossible. A configuration subfolder is
 always a customer KEY (customer.yml), and every config's coordinate must resolve to exactly ONE subscription id: a root config's env is
@@ -29,7 +29,7 @@ at discovery and by integrity tests.
 - [Layer 1 — Identity (`azure.yml`)](#layer-1--identity)
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
-### Rule ADR-AZ-DATAMOD:4
+### Rule ADR-AZ-DATAMOD-CUSTOMERAXIS
 
 Customer is a first-class configuration axis — the subfolder — and at deploy time it is derived from the session subscription
 (`subscription.customer`), never a deploy arg: a customer-subscription session addresses the customer's subfolder config, a non-customer
@@ -37,21 +37,21 @@ session the root config, and the customer renders into resource names.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
-### Rule ADR-AZ-DATAMOD:5
+### Rule ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
 
 The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed; the name-component order is the `ado_naming` repo
 variant (`Get-AdoNaming`).
 
 - [The name builder](#the-name-builder)
 
-### Rule ADR-AZ-DATAMOD:6
+### Rule ADR-AZ-DATAMOD-STATICRESOURCENAMES
 
 Resource names for a template's own parameters are written statically in the per-slot config; the build passes them through unchanged (no
 generation or validation).
 
 - [Resource names](#resource-names)
 
-### Rule ADR-AZ-DATAMOD:7
+### Rule ADR-AZ-DATAMOD-JOINSINPOWERSHELL
 
 The cross-layer joins live in PowerShell, resolved on demand (`Get-AzureSubscription`, `Get-AzureEnvironment`,
 `Get-BicepDeploymentContext`). The deploy-time subscription is determined by the az session — in a pipeline, exactly what the service
@@ -61,7 +61,7 @@ The assert is a guard, never a selector — a mismatch means a mis-wired service
 
 - [Runtime resolution (the joins)](#runtime-resolution-the-joins)
 
-### Rule ADR-AZ-DATAMOD:8
+### Rule ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
 
 Per-record shape is schema-validated; cross-record integrity is owned by the `AzureConfig` config type (including per-customer environment
 disjointness — no two subscriptions of one customer serve the same env); the cross-layer link (a subfolder is a customer key; every config
@@ -70,7 +70,7 @@ coordinate resolves to exactly one subscription) is enforced at discovery by `Ge
 
 - [Validation](#validation)
 
-### Rule ADR-AZ-DATAMOD:9
+### Rule ADR-AZ-DATAMOD-PARAMETERCONTRACT
 
 Every parameters file a template build renders satisfies the parameter contract of the template's compiled `main.json`: each value has the
 declared type, lies within its `@allowed` values and its value and length bounds, and names a declared parameter; every parameter without a
@@ -79,7 +79,7 @@ Key Vault reference, never a literal value.
 
 - [Validation](#validation)
 
-### Rule ADR-AZ-DATAMOD:10
+### Rule ADR-AZ-DATAMOD-VALUEBYADDRESS
 
 A template config parameter may name its value by config address, `{ address: global.<config>.<key>… }`, instead of a literal `value` or a
 Key Vault `reference`. The build resolves it through `Get-ConfigValue` into `{ value: <resolved> }`, for any template. An address reaches
@@ -88,7 +88,7 @@ resolve, fails the build, naming the config file and the parameter.
 
 - [Config-addressed parameters](#config-addressed-parameters)
 
-### Rule ADR-AZ-DATAMOD:11
+### Rule ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE
 
 `azure.yml` carries the repository's policy enforcement mode, `policy_enforcement: { production, nonproduction }` — one entry per
 **environment class** — each `Default` or `DoNotEnforce`. The setting is optional; its sensible default,
@@ -97,7 +97,7 @@ an unknown key or mode. Templates read it by config address.
 
 - [Policy enforcement](#policy-enforcement)
 
-### Rule ADR-AZ-DATAMOD:12
+### Rule ADR-AZ-DATAMOD-STAGINGSLOT
 
 An environment may name the environment it stages, `staging_for: <environment>`: it is that environment's **staging slot**, inactive until
 activated, inside the same subscriptions (`preprod` stages `prod`). `AzureConfig` rejects a `staging_for` that names no environment, that
@@ -213,7 +213,7 @@ one key per environment class — `production` and `nonproduction` — each set 
 (enforce) or `DoNotEnforce` (audit only).
 
 The setting resolves in the one fixed order of a configurable setting
-([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default6)): the value in `azure.yml`, else the sensible default
+([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the value in `azure.yml`, else the sensible default
 `{ production: Default, nonproduction: DoNotEnforce }`. The default is declared once, on `AzureConfig`, so an omitted map, a partial map,
 and a fresh checkout behave alike: the type fills each key the file omits, and every reader sees a complete map. An unknown key or mode is
 rejected at load, with every other violation of the file, in one error. A template reads the mode by config address
@@ -244,7 +244,7 @@ sibling `infrastructure/modules/` — referenced by templates via a relative `mo
 `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY. The filename is `<env-name>[-<slot>]` —
 `develop.yml` (the base / index-0 slot) or `develop-blue.yml` (a special slot). Discovery parses the filename by splitting on the first `-`:
 the `name` part must be a defined environment, the remainder is the optional `slot` (≤3 alnum). The subscription is resolved per config from
-the coordinate and asserted unique (ADR-AZ-DATAMOD#3).
+the coordinate and asserted unique (ADR-AZ-DATAMOD-NAMEKEYEDMAPS).
 
 **Customer is the one path dimension.** A config's customer is its subfolder ('' for a root config) — "is this a customer config?" is
 answered by the path alone. Deploy/build name the env and slot as **distinct args** (`-Environment develop [-Slot blue]`); at deploy time
@@ -300,7 +300,7 @@ erDiagram
   **optional** and, when present, may **override** `short_name` and/or declare `deployment_mode` / `deployment_target` / `environment_kind`
   / `customer_deployment` (strict schema, validated at discovery by `Read-BicepTemplateOptions`; see
   [`customer-model`](azure-customer-model.md)). It does **not** declare which subscriptions the template targets — that follows from its
-  configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-az-naming2).
+  configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers).
 - `environment_kind` (`standard` | `subscription`, default `standard`) is the template's one classification bit: every config's env must
   match it — `subscription` ⇒ a `per_subscription` env (`nsub`/`psub`, deployed once per subscription), `standard` ⇒ an ordinary env
   (`dev`/`test`/…). Enforced per-config by `Get-BicepConfigClassViolations` (shared by discovery and `Assert-BicepTemplate`). The slot is
@@ -347,12 +347,12 @@ ParametersFile:
 ```
 
 `Build-Bicep` resolves every address through `Get-ConfigValue` before the PrePost hook runs and renders it as `{ "value": <resolved> }`, so
-the hook, the parameters file, and the parameter contract (ADR-AZ-DATAMOD#9) see only ARM entries. The resolution is generic: it serves any
+the hook, the parameters file, and the parameter contract (ADR-AZ-DATAMOD-PARAMETERCONTRACT) see only ARM entries. The resolution is generic: it serves any
 template and any config, with no per-template code, which is why a repository-wide value needs no PrePost hook to reach a template. A config
 value keeps one owner, and every template that needs it reads it there rather than holding a copy that drifts.
 
 An address reaches only committed config, so nothing it names is a secret
-([config-value-addressing](../configuration/config-value-addressing.md#rule-adr-conf-addressing3)); a secure parameter takes a Key Vault
+([config-value-addressing](../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)); a secure parameter takes a Key Vault
 `reference`, and the parameter contract rejects any literal for it, addressed or not. The build fails fast, with every violation of a config
 file in one error that names the file and each parameter: an `address` set together with `value`, `reference`, or any other key, an address
 that is not a string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
@@ -396,11 +396,11 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 - **Cross-record integrity** (FKs, env name/shortcode uniqueness, ≤1 per-subscription env per subscription, per-customer environment
   disjointness by raw token) and the `policy_enforcement` keys and modes are owned by the `AzureConfig` config type, checked at load; the
   `customer` reference into `customer.yml`, the normalized (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness
-  are shipped-asset integrity tests (see [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
+  are shipped-asset integrity tests (see [`customer-model`](azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
 - The **cross-layer** link is enforced at **discovery** (`Get-BicepTemplates`) and collected by `Assert-BicepTemplate`, sharing the
   per-config rule `Get-BicepSubscriptionConfigViolations`: a configuration subfolder is a **defined customer key**, and every config's
   (customer?, env) coordinate resolves to **exactly one subscription id** (`Get-BicepConfigSubscriptionCandidates`).
-- The **parameter contract** (ADR-AZ-DATAMOD#9) is checked against the compiler's view, not the source text. `Get-BicepParameterModel` reads
+- The **parameter contract** (ADR-AZ-DATAMOD-PARAMETERCONTRACT) is checked against the compiler's view, not the source text. `Get-BicepParameterModel` reads
   the parameters a template's compiled `main.json` declares — type, default, `@allowed` values, value and length bounds — and
   `Get-BicepParameterViolations` checks every rendered `parameters.[<customer>.]<config>.json` against it, so a value the PrePost hook
   merges in is checked like one the config carries. `Assert-BicepTemplate -Build` reports the violations, and an L2 integrity test

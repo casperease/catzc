@@ -2,27 +2,27 @@
 
 ## Rules: ADR-PWSH-NOSEMI
 
-### Rule ADR-PWSH-NOSEMI:1
+### Rule ADR-PWSH-NOSEMI-NOTRAILINGSEMICOLONS
 
 Never use trailing semicolons; statements end at the newline. A `;` at the end of a line with nothing after it is dead C#/dotnet syntax.
 
 - [The two patterns](#the-two-patterns)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-NOSEMI:2
+### Rule ADR-PWSH-NOSEMI-SINGLELINECHAINING
 
 Single-line chaining is allowed: `$x = 1; $y = 2` on one line chains two statements. The rule targets the habit of ending every line with
 `;`, not concise single-line expressions.
 
 - [The two patterns](#the-two-patterns)
 
-### Rule ADR-PWSH-NOSEMI:3
+### Rule ADR-PWSH-NOSEMI-FORHEADERSEXEMPT
 
 `for` loop headers are exempt: `for ($i = 0; $i -lt $n; $i++)` requires semicolons as syntactic separators.
 
 - [The two exceptions](#the-two-exceptions)
 
-### Rule ADR-PWSH-NOSEMI:4
+### Rule ADR-PWSH-NOSEMI-INLINEHASHTABLESEXEMPT
 
 Inline hash table literals are exempt: `@{ A = 1; B = 2 }` is idiomatic PowerShell.
 

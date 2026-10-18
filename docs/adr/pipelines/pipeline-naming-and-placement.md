@@ -2,48 +2,48 @@
 
 ## Rules: ADR-PIPE-NAME
 
-### Rule ADR-PIPE-NAME:1
+### Rule ADR-PIPE-NAME-TYPEPREFIX
 
 A pipeline's filename starts with its type — the first hyphen-delimited token is `cron`, `ci`, `cd`, `cde`, `deploy`, or `input`. No other
 prefixes.
 
 - [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-flat-pipelines)
 
-### Rule ADR-PIPE-NAME:2
+### Rule ADR-PIPE-NAME-FLATPIPELINESFOLDER
 
 Pipelines live flat in `pipelines/` — never nested into subfolders; the type prefix is the grouping. The per-kind folders hold templates
 only, never registrable pipelines.
 
 - [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-flat-pipelines)
 
-### Rule ADR-PIPE-NAME:3
+### Rule ADR-PIPE-NAME-TEMPLATEKINDFOLDER
 
 A template lives in the folder for its kind (`steps/`, `jobs/`, `stages/`, `variables/`, `extends/`); the folder name is the contract — do
 not invent other template folders.
 
 - [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
-### Rule ADR-PIPE-NAME:4
+### Rule ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH
 
 Templates are referenced by absolute path (`/pipelines/<kind>/<name>.yaml`) — fragments via `template:`, whole-pipeline templates via
 `extends:`.
 
 - [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
-### Rule ADR-PIPE-NAME:5
+### Rule ADR-PIPE-NAME-EXTENDSISNOTPIPELINE
 
 An `extends` template is not a pipeline — it defines structure, not an entry point. What gets registered is the thin root
 `<type>-<name>.yaml` pipeline that extends it.
 
 - [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
-### Rule ADR-PIPE-NAME:6
+### Rule ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION
 
 Executable YAML is `.yaml`; config/data our code parses is `.yml`. Never mix the two.
 
 - [`.yaml` = executable artifact, `.yml` = config data](#3-yaml-vs-yml)
 
-### Rule ADR-PIPE-NAME:7
+### Rule ADR-PIPE-NAME-RUNNERLOCATION
 
 The runner `Invoke-AdoScript.ps1` stays at the `pipelines/` root — a `.ps1`, not a pipeline or fragment, so it takes no type prefix and is
 exempt from the `.yaml` rule.
@@ -173,10 +173,10 @@ pipelines/
 - **The filename prefix is the authoring contract, not the classifier.** A pipeline's type is its filename prefix for readers and for the
   directory index; the tooling above derives Pipeline-vs-Template from YAML keys and ADO data. A pipeline whose prefix disagrees with its
   structure or its ADO registration is visible as a convention break at review.
-- **`Test-Pipelines`** — an offline quality gate ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)) that checks the
-  `pipelines/` tree against this ADR: the type prefix (ADR-PIPE-NAME#1), flat placement and the closed set of per-kind template folders with
-  matching fragment kinds (ADR-PIPE-NAME#2, ADR-PIPE-NAME#3), the `.yaml` extension (ADR-PIPE-NAME#6), and absolute `/pipelines/...`
-  template references (ADR-PIPE-NAME#4). It collects one issue per violation, each naming its rule code, and throws once listing them all;
+- **`Test-Pipelines`** — an offline quality gate ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the
+  `pipelines/` tree against this ADR: the type prefix (ADR-PIPE-NAME-TYPEPREFIX), flat placement and the closed set of per-kind template folders with
+  matching fragment kinds (ADR-PIPE-NAME-FLATPIPELINESFOLDER, ADR-PIPE-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension (ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION), and absolute `/pipelines/...`
+  template references (ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH). It collects one issue per violation, each naming its rule code, and throws once listing them all;
   its L1 integrity test requires zero issues over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
 
 ## Consequences

@@ -150,7 +150,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid executables.widget '0'*"
         }
 
-        It 'resolves the Assert-Wait defaults, one second and one millisecond, when wait is absent' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'resolves the Watch-Blocking defaults, one second and one millisecond, when wait is absent' -Tag 'ADR-AUTO-DEFAULT#6' {
             $config = New-TimeoutsConfig ([ordered]@{})
             $config.wait['seconds'] | Should -Be 1
             $config.wait['milliseconds'] | Should -Be 1

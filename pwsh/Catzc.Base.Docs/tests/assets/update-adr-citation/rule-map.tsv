@@ -1,3 +1,6 @@
 old_rule	new_rule	kind	why
 ADR-WIDGET-SPROCKET:5	ADR-GIZMO-LEVER:1	move	a fixture rule that moves to a new ADR
 ADR-WIDGET-GADGET:4	ADR-WIDGET-SPROCKET:9	collapse	a fixture duplicate that collapses into a kept rule
+ADR-WIDGET-COG:1	ADR-WIDGET-COG-TURNS	name	a fixture rule that takes its name
+ADR-WIDGET-COG:2	ADR-WIDGET-COG-MESHES	name	a fixture rule that takes its name
+ADR-WIDGET-COG:3	ADR-WIDGET-COG-GRIPS	name	a fixture rule that takes its name

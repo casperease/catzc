@@ -24,11 +24,10 @@ The diagram is described element by element in [its asset description](.assets/g
 
 ## Walkthrough
 
-1. **live, in the pwsh track.** The closed convention of ADR-DSGN-ASPECT#2: folder-scoped patterns that never reach `tests/`. The rule
-   is ADR-only in this respect: no gate checks that the patterns stay closed, and a pattern that reached `tests/` would load.
-2. **tests, in the pwsh track.** The remainder. That the code track's remainder is the non-live aspect, so that a stray file never
-   ships, is the track's own declaration in its `aspects` entry. A unit test proves it on a fixture module; no gate checks the real
-   convention for it.
+1. **live, in the pwsh track.** The closed convention of ADR-DSGN-ASPECT#2: folder-scoped patterns that never reach `tests/`. The rule is
+   ADR-only in this respect: no gate checks that the patterns stay closed, and a pattern that reached `tests/` would load.
+2. **tests, in the pwsh track.** The remainder. That the code track's remainder is the non-live aspect, so that a stray file never ships, is
+   the track's own declaration in its `aspects` entry. A unit test proves it on a fixture module; no gate checks the real convention for it.
 3. **VariantsConfig.** The gate, run per track entry when the config loads. The last aspect must be the single pattern `**`, and no earlier
    aspect may use the bare `**`; names must be kebab-case and unique, and every aspect needs a pattern. The same check runs for the
    infrastructure entry.
@@ -37,8 +36,8 @@ The diagram is described element by element in [its asset description](.assets/g
    the real tree it is ADR-only.
 5. **tests, in the infrastructure track.** The deployment track's closed head, `**/tests/**`. Only the gate's structural checks apply to it.
 6. **live, in the infrastructure track.** The deployment track's remainder, and the one that ships. Its liveness is a declaration like the
-   pwsh one, unchecked by any gate; and no code derives an infrastructure globset from it, so the partition check could not run there
-   even if it were wired.
+   pwsh one, unchecked by any gate; and no code derives an infrastructure globset from it, so the partition check could not run there even
+   if it were wired.
 
 ## Why it holds
 

@@ -1,12 +1,12 @@
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
-Describe 'Assert-Wait' -Tag 'L0', 'logic' {
+Describe 'Watch-Blocking' -Tag 'L0', 'logic' {
     # The chokepoint guard returns early during a run ($global:__PesterRunning); lift it so output can be asserted.
     BeforeAll {
         $global:__PesterRunning = $false
 
-        # Runs Assert-Wait with its sleeping replaced, and returns the written lines in order. -SleepMs 0 makes every tick instant.
+        # Runs Watch-Blocking with its sleeping replaced, and returns the written lines in order. -SleepMs 0 makes every tick instant.
         function Get-WaitLine {
             param([hashtable] $Arguments = @{}, [int] $SleepMs = 0)
 
@@ -16,7 +16,7 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
                     Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds $sleepMilliseconds
                 }
             }.GetNewClosure()
-            Assert-Wait @Arguments -InformationVariable iv -InformationAction SilentlyContinue
+            Watch-Blocking @Arguments -InformationVariable iv -InformationAction SilentlyContinue
             @($iv | ForEach-Object { if ($_.MessageData -is [string]) {
                         $_.MessageData
                     }
@@ -72,7 +72,7 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
 
         It 'names the place it stands, as file and line' {
             $lines = Get-WaitLine @{ Seconds = 0; Milliseconds = 30 }
-            $lines[0] | Should -Match 'Assert-Wait.Tests.ps1:\d+|Get-WaitLine'
+            $lines[0] | Should -Match 'Watch-Blocking.Tests.ps1:\d+|Get-WaitLine'
         }
 
         It 'writes the closing line yellow, as a warning line' {
@@ -97,7 +97,7 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
             $previous = $WarningPreference
             $WarningPreference = 'Stop'
             try {
-                { Assert-Wait -Seconds 0 -Milliseconds 30 -InformationAction SilentlyContinue } | Should -Not -Throw
+                { Watch-Blocking -Seconds 0 -Milliseconds 30 -InformationAction SilentlyContinue } | Should -Not -Throw
             }
             finally {
                 $WarningPreference = $previous
@@ -106,7 +106,7 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
 
         It 'returns nothing' {
             Mock Start-Sleep -ModuleName Catzc.Base.Timeouts { }
-            Assert-Wait -Seconds 0 -Milliseconds 30 -InformationAction SilentlyContinue | Should -BeNullOrEmpty
+            Watch-Blocking -Seconds 0 -Milliseconds 30 -InformationAction SilentlyContinue | Should -BeNullOrEmpty
         }
 
         It 'reports a late tick and still lets go, without throwing' {
@@ -119,15 +119,15 @@ Describe 'Assert-Wait' -Tag 'L0', 'logic' {
 
     Context 'invalid arguments' {
         It 'throws for a total of zero, with the assertion message' {
-            { Assert-Wait -Seconds 0 -Milliseconds 0 } | Should -Throw
+            { Watch-Blocking -Seconds 0 -Milliseconds 0 } | Should -Throw
         }
 
         It 'throws for a negative Seconds' {
-            { Assert-Wait -Seconds -1 } | Should -Throw
+            { Watch-Blocking -Seconds -1 } | Should -Throw
         }
 
         It 'throws for a negative Milliseconds' {
-            { Assert-Wait -Milliseconds -1 } | Should -Throw
+            { Watch-Blocking -Milliseconds -1 } | Should -Throw
         }
     }
 }

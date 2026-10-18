@@ -182,7 +182,7 @@ public class PesterRunner
                 // Start the next workers in submission order while a slot is free, skipping any whose cap is full.
                 while (running < maxParallel)
                 {
-                    int next = NextStartable(workers, limits);
+                    int next = NextToStart(workers, limits);
                     if (next < 0)
                     {
                         break;
@@ -246,7 +246,7 @@ public class PesterRunner
     }
 
     // The first worker not yet started whose every cap has room, or -1.
-    private static int NextStartable(Worker[] workers, Dictionary<string, int> limits)
+    private static int NextToStart(Worker[] workers, Dictionary<string, int> limits)
     {
         for (int i = 0; i < workers.Length; i++)
         {

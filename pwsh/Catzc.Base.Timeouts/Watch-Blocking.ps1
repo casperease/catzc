@@ -1,4 +1,4 @@
-function Assert-Wait {
+function Watch-Blocking {
     [CmdletBinding()]
     param(
         [ValidateRange(0, 3600)]
@@ -9,7 +9,7 @@ function Assert-Wait {
     )
 
     $totalMs = $Seconds * 1000 + $Milliseconds
-    Assert-True ($totalMs -gt 0) -ErrorText 'Assert-Wait: Seconds and Milliseconds add up to zero; stand for at least 1 ms.'
+    Assert-True ($totalMs -gt 0) -ErrorText 'Watch-Blocking: Seconds and Milliseconds add up to zero; stand for at least 1 ms.'
 
     $tickCount = 10
     $tickMs = [int][math]::Round($totalMs / $tickCount)

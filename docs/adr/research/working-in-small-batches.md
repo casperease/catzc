@@ -2,42 +2,42 @@
 
 ## Rules: ADR-DORA-SMALLBATCH
 
-### Rule ADR-DORA-SMALLBATCH:1
+### Rule ADR-DORA-SMALLBATCH-SMALLESTINDEPENDENTUNIT
 
 Break work into the smallest unit that is independent, negotiable, valuable, estimable, small, and testable (INVEST) — a slice that can be
 deployed and validated on its own rather than a fragment that only makes sense bundled with other work.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-SMALLBATCH:2
+### Rule ADR-DORA-SMALLBATCH-WEEKISTOOLARGE
 
 Treat a unit of work that takes longer than a week to complete as too large. Split it further; do not let a large pull request —
 AI-generated or hand-written — stand in for decomposition that was skipped.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-SMALLBATCH:3
+### Rule ADR-DORA-SMALLBATCH-DAILYCHECKIN
 
 Check releasable changes into trunk at least daily. Small batches only shorten the feedback loop when they are integrated continuously, not
 accumulated on a branch and merged in one motion.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-SMALLBATCH:4
+### Rule ADR-DORA-SMALLBATCH-TOGGLESFORINCOMPLETEWORK
 
 Use dark launching or feature toggles to merge incomplete work safely. Code completion and user-facing release are separate events; a batch
 can integrate today and activate later.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-SMALLBATCH:5
+### Rule ADR-DORA-SMALLBATCH-RELEASEEACHBATCH
 
 Release and validate each batch as it completes. Never regroup several small batches into one larger release before testing or shipping —
 that delays exactly the defect and user-validation feedback small batching exists to speed up.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-SMALLBATCH:6
+### Rule ADR-DORA-SMALLBATCH-HOLDBATCHSIZEWITHAI
 
 Hold batch size down deliberately when AI assistance raises throughput. Small batches are the safety net that keeps faster, machine-assisted
 change from turning into delivery instability.

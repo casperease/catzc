@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-ENTERP
 
-### Rule ADR-AUTO-ENTERP:4
+### Rule ADR-AUTO-ENTERP-NOLOCALADMIN
 
 Assume no local admin. Tool installers use `winget` (per-user), `brew`, or `apt-get`, and functions must not require elevation unless
 explicitly documented.
@@ -73,7 +73,7 @@ path, and no gallery at runtime — belongs to the pwsh rules: [module-path-hygi
 ### How this is enforced
 
 - **Vendoring** — every module dependency is committed under `pwsh/.vendor/`
-  ([controlling-module-dependencies](controlling-module-dependencies.md#rule-adr-auto-depm8)), so a run needs no network.
+  ([controlling-module-dependencies](controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored)), so a run needs no network.
 - **`Install-VendorModule`** — the only supported way to add a vendored module; it runs once at authoring time, not at runtime.
 - **User-space installers** — the tool installers use per-user package managers; `Test-ToolRequiresElevation` answers whether a tool's
   install needs elevation, and the provisioning loops skip and report such a tool.

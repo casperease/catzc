@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5d9e9c52a591"
+    with_body_sha: aed4c915da77
     repo_status: locked
     path: docs/explanation/design/.assets/only-automation-compiles-its-aspects/tree.md
     source: docs/explanation/design/.assets/only-automation-compiles-its-aspects/diagram.drawio.png
@@ -12,16 +12,16 @@ catzc:
     tracktype: documentation
 ---
 
-# Both tracks' conventions are read, but only the automation track's compiles into globsets: the tree minimap
+# Both tracks' conventions are read, but only the pwsh track's compiles into globsets: the tree minimap
 
 ```text
 Which files cite ADR-DSGN-ASPECT: every file of the world map is a tile, grouped by top-level folder.
 20 files lit in 8 groups.
 ```
 
-![The tree minimap of Both tracks' conventions are read, but only the automation track's compiles into globsets](tree.png)
+![The tree minimap of Both tracks' conventions are read, but only the pwsh track's compiles into globsets](tree.png)
 
-This is the tree minimap in the sidebar of the architecture diagram of [Both tracks' conventions are read, but only the automation track's
+This is the tree minimap in the sidebar of the architecture diagram of [Both tracks' conventions are read, but only the pwsh track's
 compiles into globsets][21], which explains [ADR-DSGN-ASPECT][1]. It lights every file that cites those codes, grouped by folder, so it
 shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 

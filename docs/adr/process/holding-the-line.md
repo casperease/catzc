@@ -2,28 +2,28 @@
 
 ## Rules: ADR-PROC-ANDON
 
-### Rule ADR-PROC-ANDON:1
+### Rule ADR-PROC-ANDON-FAILINGGATESTOPSLINE
 
 A gate that fails stops the line: the failing change goes no further, and restoring green takes priority over starting new work. This is the
 andon cord — anyone, or any gate, can and must halt the flow the moment a defect appears (jidoka).
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-ANDON:2
+### Rule ADR-PROC-ANDON-NOBROKENBASELINE
 
 Never build on a known-broken baseline. A red mainline is fixed or reverted before new work integrates on top of it; stacking work on a
 defect multiplies its blast radius and hides which change was at fault.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-ANDON:3
+### Rule ADR-PROC-ANDON-STOPPINGISCHEAP
 
 Stopping the line is cheap and expected, not a failure event. The best stop is the earliest and smallest — a gate on the devbox; the worst
 is a stop discovered in production. Optimise for stopping furthest left, not for never stopping.
 
 - [Why](#why)
 
-### Rule ADR-PROC-ANDON:4
+### Rule ADR-PROC-ANDON-STOPISAUTOMATIC
 
 The stop is automatic and unambiguous: the gate throws, the commit is coloured red, and there is no "warn and continue" path. A warning that
 does not stop the line is not holding the line.
@@ -51,7 +51,7 @@ When a gate fails, the line stops. Concretely:
 - No new work builds on the broken baseline. The fix goes in — or the offending change is reverted — before anything integrates on top.
 
 The mechanism is the same fail-fast jidoka the platform uses everywhere
-([ADR-PRIN-POKAYOKE#3](../principles/poka-yoke.md#rule-adr-prin-pokayoke3)): stop the moment a defect is detected, fix it at the source,
+([ADR-PRIN-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-failfast)): stop the moment a defect is detected, fix it at the source,
 then resume. "Holding the line" is that principle applied to the mainline and the promotion flow
 ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) rather than to a single function call [^2].
 

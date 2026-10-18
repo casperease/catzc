@@ -6,14 +6,14 @@ Pairs with [`data-model`](azure-data-model.md), which defines how these componen
 
 ## Rules: ADR-AZ-NAMING
 
-### Rule ADR-AZ-NAMING:1
+### Rule ADR-AZ-NAMING-DETERMINISTICNAMES
 
 Every Azure name is assembled deterministically from one canonical component set — no random suffixes or hashes — rendered two ways:
 hyphenated for relaxed types, concatenated for tight types.
 
 - [Components](#components)
 
-### Rule ADR-AZ-NAMING:2
+### Rule ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
 
 Each template carries two identifiers: a readable kebab-case folder name and a 2–5 char `short_name`. `short_name` is **derived** from the
 folder name (first 5 `[a-z0-9]`, hyphens dropped) by `BicepShortName`, and **optionally overridden** in the template's `options.yml`. All
@@ -21,42 +21,42 @@ Azure-facing identifiers use `short_name`, never the folder name.
 
 - [Two identifiers per template](#two-identifiers-per-template)
 
-### Rule ADR-AZ-NAMING:3
+### Rule ADR-AZ-NAMING-ENVIRONMENTFIRST
 
 Environment is the first segment (env-first sort); env and customer each render readable (name/key) in generous patterns and as a 2-char
 shortcode in the restricted `kv`/`storage`/`vm` patterns.
 
 - [Components](#components)
 
-### Rule ADR-AZ-NAMING:4
+### Rule ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
 
 Each resource type ties to one render/constraint pattern (`long`/`kv`/`storage`/`vm`) from the type registry, which fixes the separator, the
 length budget, and which env/customer form is used.
 
 - [Ordering & render forms](#ordering--render-forms)
 
-### Rule ADR-AZ-NAMING:5
+### Rule ADR-AZ-NAMING-ORDERISVARIANT
 
 Component order is the `ado_naming` repo variant (`Get-AdoNaming`, default `standard`), not a per-name argument; changing it re-spells every
 derived name.
 
 - [Ordering & render forms](#ordering--render-forms)
 
-### Rule ADR-AZ-NAMING:6
+### Rule ADR-AZ-NAMING-LOWERCASECOMPONENTS
 
 All components are lowercase with case-sensitive validation; `org`, `short_name`, `role`, env `name`, and customer `key` must start with a
 letter — only `slot` may be all-digit.
 
 - [Character & case rules](#character--case-rules)
 
-### Rule ADR-AZ-NAMING:7
+### Rule ADR-AZ-NAMING-NEVERTRUNCATE
 
 Never truncate to fit — the namer computes the render and throws at deploy time if it exceeds the type's limit, listing the components that
 can be shortened (silent truncation collides on globally-unique types).
 
 - [Length budget](#length-budget)
 
-### Rule ADR-AZ-NAMING:8
+### Rule ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
 
 The subscription is a resolution axis only and is never a name component; the customer that renders is derived from it
 (`subscription.customer`).

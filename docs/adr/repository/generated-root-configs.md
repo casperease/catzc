@@ -2,16 +2,16 @@
 
 ## Rules: ADR-REPO-ROOTCFG
 
-### Rule ADR-REPO-ROOTCFG:1
+### Rule ADR-REPO-ROOTCFG-FULLYMANAGED
 
 An opted-in repository-root config file is **fully managed by the source-of-truth automation**: it is materialised from exactly one in-repo
-source of truth — a `source` file (an authored config copied out, or linked out under `copyAsLink` — ADR-REPO-ROOTCFG#7) or a `generator`
+source of truth — a `source` file (an authored config copied out, or linked out under `copyAsLink` — ADR-REPO-ROOTCFG-FILESYSTEMLINK) or a `generator`
 function (e.g. `New-Importer`). Corrections go to the source: a reproduced copy is a rendering and is never hand-edited; a link target IS
 the source, so an edit through either path lands in the one authored file.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-ROOTCFG:2
+### Rule ADR-REPO-ROOTCFG-REGISTRY
 
 The registry is `pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml` — validated by the `RootConfigFiles` type, materialised by
 `Build-RootConfig`, the single writer. **Opt-out is the default**: an entry (or a root file) not opted in stays hand-authored and committed;
@@ -19,7 +19,7 @@ The registry is `pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml` — validate
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-ROOTCFG:3
+### Rule ADR-REPO-ROOTCFG-COMMITTEDFLAG
 
 Per entry, the `committed` boolean (default false) decides git membership and nothing else. `committed: false` → the target is a derived,
 gitignored artifact, materialised on import like the generated module manifests. `committed: true` → the target stays tracked because git or
@@ -28,20 +28,20 @@ reviewable diff. The difference between the two is one boolean, not two systems.
 
 - [One system, one boolean](#one-system-one-boolean)
 
-### Rule ADR-REPO-ROOTCFG:4
+### Rule ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
 
 Generation is idempotent and runs on every import (the importer tail). All content writes go through the one shared primitive
 `Write-FileIfChanged` (`Catzc.Base.Files`): canonical output (UTF-8 no BOM, LF, one trailing newline), an EOL-insensitive compare, write
 only on a real content change — so a clean tree is a fast no-op and a CRLF/LF flip never forces a rewrite. A changed write is
 delete-then-write, never in-place, so it can never write through a linked target into a source of truth. Link targets are materialised by
-`Set-FileLink` (ADR-REPO-ROOTCFG#7) instead of a content write.
+`Set-FileLink` (ADR-REPO-ROOTCFG-FILESYSTEMLINK) instead of a content write.
 
 - [Always current](#always-current)
 
-### Rule ADR-REPO-ROOTCFG:5
+### Rule ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
 
 A composed root file — a non-link `source` copy-in or a `generator`'s output — carries the unified generated-file head
-([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)): the `role` the file-kinds registry names for the target, the `generator`
+([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)): the `role` the file-kinds registry names for the target, the `generator`
 (`Build-RootConfig` for a copy), and the `source` it copies or the `sources` it renders from. `Build-RootConfig` writes the head, in the
 carrier its `carrier` key names (default: the carrier of the target's file language), so a generator renders its content bare and no entry
 hand-words a banner. The head is strictly a leading block: config formats have no portable in-body anchor. A `copyAsLink` entry carries no
@@ -49,7 +49,7 @@ head at all — nothing is generated, and where a format wants a managed-file ma
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-ROOTCFG:6
+### Rule ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
 
 The registry, `.gitignore`, and git's tracked set must agree, and an integrity test asserts it: every opted-in `committed: false` target is
 matched by an ignore rule and untracked; every `committed: true` target is tracked and not ignored; a generator target matches its
@@ -58,7 +58,7 @@ its source from the running OS, and no other managed target is a link.
 
 - [The integrity test](#the-integrity-test)
 
-### Rule ADR-REPO-ROOTCFG:7
+### Rule ADR-REPO-ROOTCFG-FILESYSTEMLINK
 
 A `copyAsLink: true` entry is materialised as a **filesystem link** to its source instead of a reproduced copy: the root file IS the
 authored source, so drift is impossible by construction and no generated content exists to compose or compare. Three constraints, validated
@@ -73,7 +73,7 @@ changing files on disk" contract.
 
 - [Copy-as-link](#copy-as-link)
 
-### Rule ADR-REPO-ROOTCFG:8
+### Rule ADR-REPO-ROOTCFG-WILDCARDGENERATOR
 
 A `generator` entry may name a wildcard target (`*/tests/*/go.mod`) and render one file per record: its generator returns one
 `{ Target; Content }` record per file, each target a repository-relative path the entry's pattern matches. `Build-RootConfig` writes and
@@ -90,7 +90,7 @@ syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth
 managed set covers the repository root and, below it, the `.vscode/` editor files (settings, extension recommendations, launch profiles, the
 Azure Pipelines schema, and the preview CSS) and `.cspell/.gitignore` — all of those `committed: false`, so the editor greys them and a
 fresh clone materialises them on its first import — the same contract as the generated cspell dictionaries
-([dedicated-output-directory](dedicated-output-directory.md#rule-adr-repo-outdir8)). The repository treats other per-folder derived files as
+([dedicated-output-directory](dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)). The repository treats other per-folder derived files as
 generated, gitignored artifacts — the module manifests and the README links ([generated-readmes](generated-readmes.md)) — and a root config
 file is the same pattern, given one registry and one writer.
 
@@ -117,7 +117,7 @@ and commit. This keeps the model honest — a copy-in and `importer.ps1` differ 
 Reproducing content is the honest form for a generator (there is no single file to point at) and for a target that must be a real tracked
 file. For a source-backed, gitignored target, a link is the stronger form: the root path and the authored source are **one file**, so there
 is no copy to drift, no injected header to explain, and an edit through the root path lands in the source of truth — which is the intent,
-not a hazard. `Set-FileLink` owns the mechanism (ADR-REPO-ROOTCFG#7): it verifies an existing artifact as a symbolic link resolving to the
+not a hazard. `Set-FileLink` owns the mechanism (ADR-REPO-ROOTCFG-FILESYSTEMLINK): it verifies an existing artifact as a symbolic link resolving to the
 source or a hard link with identical bytes, and deletes-and-recreates anything else — including a plain file whose content happens to match,
 because content equality is not the contract; being the same file is.
 
@@ -126,7 +126,7 @@ Two properties keep the link form honest across environments:
 - **Per-OS healing at the importer boundary.** The artifact a Windows session creates (typically a hard link — no privilege needed) and the
   one a Linux session creates (a relative symbolic link) are both verified _from the running OS_ by the importer tail on every load, and an
   artifact the current OS cannot follow is recreated with that OS's best mechanism. This is the same session-boundary contract as the caches
-  ([caching](../automation/caching.md#rule-adr-auto-cache6)): each session heals its own view when it starts.
+  ([caching](../automation/caching.md#rule-adr-auto-cache-importerinvalidates)): each session heals its own view when it starts.
 - **No silent degradation.** When neither link mechanism works, `Set-FileLink` throws. A content-copy fallback would quietly reintroduce the
   drift the link exists to remove, behind a registry entry that claims otherwise.
 
@@ -135,16 +135,16 @@ keeps the old bytes until the next import re-links it. That window is bounded by
 changing files on disk — and CI always starts from a fresh import.
 
 The reverse transition is guarded twice. `Write-FileIfChanged`'s delete-then-write means a content write can never tunnel through a link
-into a source (ADR-REPO-ROOTCFG#4), and `Build-RootConfig`'s copy branch treats a target that is currently a link as stale regardless of
+into a source (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and `Build-RootConfig`'s copy branch treats a target that is currently a link as stale regardless of
 content equality — a flipped-back entry reads the same bytes through the link as its source holds, which a content compare alone would call
-current, leaving the mechanism disagreeing with the registry. The inverse integrity assertion (ADR-REPO-ROOTCFG#6) is the backstop.
+current, leaving the mechanism disagreeing with the registry. The inverse integrity assertion (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT) is the backstop.
 
 ### One entry, many files
 
 `One entry, many files`
 
 Some generated files come in a set whose size the repository decides: the Go workspace has one `go.mod` per Go test module
-([go-test-artifacts](../automation/go/go-test-artifacts.md#rule-adr-auto-go4)), and a new test folder adds one. A registry entry per file
+([go-test-artifacts](../automation/go/go-test-artifacts.md#rule-adr-auto-go-generatedworkspace)), and a new test folder adds one. A registry entry per file
 would be a second list of those folders, kept by hand. A wildcard target states the set once — `*/tests/*/go.mod` — and the generator, which
 already discovers the folders, renders one record per file (`Get-RootConfigRenderedFile` normalises the two shapes). Every file then takes
 the same path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue when stale, and
@@ -177,7 +177,7 @@ names the remediation — re-run the importer), and no other managed target is a
   hand-kept root copy.
 - Taking over a root file is one registry entry plus its source; opting out is the default, so an unregistered file is simply not touched.
 - The root analyzer settings are an ordinary `source` entry with no bespoke builder, and `importer.ps1` is a `generator` entry whose
-  `New-Importer` drift guard also backs `ADR-REPO-ROOTCFG#6`.
+  `New-Importer` drift guard also backs `ADR-REPO-ROOTCFG-THREEWAYAGREEMENT`.
 - A reader never mistakes a managed root file for a source of truth: every composed copy carries the generated-file head; committed targets
   are named in the registry and drift-tested; a link target needs no disclaimer, because it IS the source of truth.
 - A `copyAsLink` target has zero drift surface and zero generated content — the honest cost is the hard-link orphan window after a git

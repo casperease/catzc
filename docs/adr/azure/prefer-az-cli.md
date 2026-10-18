@@ -2,19 +2,19 @@
 
 ## Rules: ADR-AZ-CLI
 
-### Rule ADR-AZ-CLI:1
+### Rule ADR-AZ-CLI-AZBYDEFAULT
 
 Default to `az` for all Azure operations; wrap calls in `Invoke-Executable` and parse output with `ConvertFrom-Json`.
 
 - [Why Az CLI](#why-az-cli)
 
-### Rule ADR-AZ-CLI:2
+### Rule ADR-AZ-CLI-ASSERTAZ
 
 Assert `az` availability with `Assert-Tool 'az_cli'` at the start of functions that call `az`.
 
 - [Why Az CLI](#why-az-cli)
 
-### Rule ADR-AZ-CLI:3
+### Rule ADR-AZ-CLI-NOAZMODULEIMPORT
 
 Never `Import-Module Az.*` in automation code. If an Az module is needed, the environment must provide it and the function must assert it
 with `Assert-PsModule`.
@@ -22,27 +22,27 @@ with `Assert-PsModule`.
 - [Az PowerShell problems](#az-powershell-problems)
 - [When Az PowerShell is unavoidable](#when-az-powershell-is-unavoidable)
 
-### Rule ADR-AZ-CLI:4
+### Rule ADR-AZ-CLI-NOVENDOREDAZMODULES
 
 Do not vendor Az modules; they are too large and their assembly dependencies make in-process versioning unsafe. Manage them via workstation
 provisioning and CI configuration.
 
 - [Az PowerShell problems](#az-powershell-problems)
 
-### Rule ADR-AZ-CLI:5
+### Rule ADR-AZ-CLI-PINNEDAZMODULES
 
 When Az modules are required, pin the exact version in the workstation or CI configuration. Never rely on whatever is installed.
 
 - [When Az PowerShell is unavoidable](#when-az-powershell-is-unavoidable)
 
-### Rule ADR-AZ-CLI:6
+### Rule ADR-AZ-CLI-DOCUMENTEDAZDEPENDENCIES
 
 Document Az module dependencies explicitly: any function requiring an Az module must state the module name and minimum version in its
 `.SYNOPSIS` or `.DESCRIPTION`.
 
 - [When Az PowerShell is unavoidable](#when-az-powershell-is-unavoidable)
 
-### Rule ADR-AZ-CLI:7
+### Rule ADR-AZ-CLI-AZURENOUNPREFIX
 
 Name an Azure-platform function `Verb-Azure<Noun>`, never `Verb-Az<Noun>`, which reads as an Az PowerShell module cmdlet. The only
 sanctioned `Az` prefixes are `AzCli` (the az CLI wrappers) and `AzBicep` (the az bicep checks).

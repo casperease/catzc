@@ -18,7 +18,7 @@ Describe 'Build-AdrCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-ADRCODE#4' {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         [void][System.IO.Directory]::CreateDirectory((Join-Path $root 'docs/adr/widget'))
         [System.IO.File]::WriteAllText((Join-Path $root 'docs/adr/widget/widget-spinner.md'),
-            "# Spinner`n`n## Rules: ADR-WI-SPINNER`n`n### Rule ADR-WI-SPINNER-SPINSFREELY`n`n### Rule ADR-WI-SPINNER:2`n`n``````text`n### Rule ADR-WI-SPINNER-INFENCE`n```````n")
+            "# Spinner`n`n## Rules: ADR-WI-SPINNER`n`n### Rule ADR-WI-SPINNER-SPINS`n`n### Rule ADR-WI-SPINNER:2`n`n``````text`n### Rule ADR-WI-SPINNER-HIDDEN`n```````n")
         [System.IO.File]::WriteAllText((Join-Path $root 'docs/adr/widget/widget-gadget.md'), "# Gadget`n`n## Rules: ADR-WI-GADGET`n")
         $script:root = $root
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
@@ -32,7 +32,7 @@ Describe 'Build-AdrCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-ADRCODE#4' {
         $result.Changed | Should -BeTrue
         $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/adr-codes.txt'))
         $words = @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' })
-        $words | Should -Be @('adr', 'gadget', 'infence', 'spinner', 'spinsfreely', 'wi')
+        $words | Should -Be @('adr', 'gadget', 'hidden', 'spinner', 'spins', 'wi')
         $result.WordCount | Should -Be 6
     }
 

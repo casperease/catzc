@@ -2,7 +2,7 @@
 
 ## Rules: ADR-DSGN-MODTYPE
 
-### Rule ADR-DSGN-MODTYPE:1
+### Rule ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT
 
 A **module** is a named unit placed in a track: a PowerShell module is a folder under `pwsh/` or one `psm1` file, a Bicep module is a
 template folder or one reusable `bicep` file, and a holder track's module is the holder itself (the vendor settings, the ADO pipelines, the
@@ -10,7 +10,7 @@ GitHub workflows). A file in no module, such as a documentation page, has neithe
 
 - [Modules](#modules)
 
-### Rule ADR-DSGN-MODTYPE:2
+### Rule ADR-DSGN-MODTYPE-MODULETYPEISSORT
 
 A **module type** is the sort of module, named without the word module (`pwsh-folder`, `pwsh-psm1`, `bicep`, `pipeline`, `settings`,
 `python`, `go`, `bash`), and the module-types registry (`module-types.yml`, `Catzc.Base.Variants`) declares it once: its definition and its
@@ -19,18 +19,18 @@ place's root). `module` and `moduletype` are read from the registry and never gu
 
 - [Module types](#module-types)
 
-### Rule ADR-DSGN-MODTYPE:3
+### Rule ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES
 
 Each track type **admits** a set of module types, declared on the track type
-([ADR-DSGN-TRACKTYPE#4](track-types.md#rule-adr-dsgn-tracktype4)), and a module's type must be admitted by the type of the track that holds
+([ADR-DSGN-TRACKTYPE-DECLAREDONCE](track-types.md#rule-adr-dsgn-tracktype-declaredonce)), and a module's type must be admitted by the type of the track that holds
 it: `modules` admits `pwsh-folder` and `pwsh-psm1`, `infrastructure` admits `bicep`, `pipelines` admits `pipeline` (the track's vendor says
 which platform), `vendor-settings` admits `settings`, `vendored-code` admits the module types of the track it is nested in, and
 `verification` admits `python`, `go` and `bash`. A module of a type its track does not admit is a load failure, so a second stack inside a
-track shows as a violation without reading the file ([ADR-DSGN-TRACK#3](tracks.md#rule-adr-dsgn-track3)).
+track shows as a violation without reading the file ([ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)).
 
 - [Types and tracks](#types-and-tracks)
 
-### Rule ADR-DSGN-MODTYPE:4
+### Rule ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE
 
 A deployable track's module is a unit of delivery; a holder track's module is the holder itself, one module per track, so its `module` is
 the track's name. A module's bundle (`catzc_bundle`) is read from the exporter registry for a module of a deployable track and is left out
@@ -60,9 +60,9 @@ looks for a module folder where none exists.
 
 ## Decision
 
-A module is a unit placed in a track; its type comes from the registry ([ADR-DSGN-MODTYPE#1](#rule-adr-dsgn-modtype1),
-[ADR-DSGN-MODTYPE#2](#rule-adr-dsgn-modtype2)); its track type must admit it ([ADR-DSGN-MODTYPE#3](#rule-adr-dsgn-modtype3)); a holder's
-module is the holder ([ADR-DSGN-MODTYPE#4](#rule-adr-dsgn-modtype4)).
+A module is a unit placed in a track; its type comes from the registry ([ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT](#rule-adr-dsgn-modtype-moduleisplacedunit),
+[ADR-DSGN-MODTYPE-MODULETYPEISSORT](#rule-adr-dsgn-modtype-moduletypeissort)); its track type must admit it ([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)); a holder's
+module is the holder ([ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE](#rule-adr-dsgn-modtype-deployableorholdermodule)).
 
 ### How this is enforced
 

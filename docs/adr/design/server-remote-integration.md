@@ -8,7 +8,7 @@ commit-lifecycle states it builds on — the stable sync point and the dirty HEA
 
 ## Rules: ADR-DSGN-REMOTE
 
-### Rule ADR-DSGN-REMOTE:1
+### Rule ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
 
 **The audited server git remote is the single source of truth; local and CI repositories are bridges to it.** The mainline (`main` /
 `master`) that governs is the one on the server remote — Azure DevOps or GitHub — where identity, branch-protection policy, and the
@@ -17,27 +17,27 @@ branch's view of "main" is provisional until it is what the server holds. The se
 
 - [The authoritative remote](#the-authoritative-remote)
 
-### Rule ADR-DSGN-REMOTE:2
+### Rule ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
 
 **Integrate from the last remote-verified commit, never from the current remote HEAD.** The tip of the server's main (its HEAD) may be a
-**dirty HEAD** — landed but still unverified, or verified-then-failed downstream (ADR-DSGN-LIFE#7). Any consumer that builds on the mainline
+**dirty HEAD** — landed but still unverified, or verified-then-failed downstream (ADR-DSGN-LIFE-DIRTYHEADUNSAFE). Any consumer that builds on the mainline
 — a developer starting work, a downstream deployable-unit, an upstream integrator — syncs against the **last commit the server proved
-verified** (the stable point of ADR-DSGN-LIFE#6), not the raw tip. "Latest" and "safe to build on" are different questions; this rule
+verified** (the stable point of ADR-DSGN-LIFE-SYNCFROMMAINUAT), not the raw tip. "Latest" and "safe to build on" are different questions; this rule
 answers the second.
 
 - [Integrate from verified](#integrate-from-verified)
 
-### Rule ADR-DSGN-REMOTE:3
+### Rule ADR-DSGN-REMOTE-NORECONCILINGTIPS
 
 **Integrating from verified avoids ever having to reconcile a fixed or superseded tip.** A dirty HEAD is provisional: it may be fixed
-forward by a successor or superseded by a newer commit that overtakes it; history is never rewritten (ADR-DSGN-LIFE#2). A consumer that
-built on the verified point never has to negotiate any of that, because the verified history is stable and monotonic (ADR-DSGN-LIFE#1) and
+forward by a successor or superseded by a newer commit that overtakes it; history is never rewritten (ADR-DSGN-LIFE-DISCARDISTERMINAL). A consumer that
+built on the verified point never has to negotiate any of that, because the verified history is stable and monotonic (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG) and
 does not move under it. A consumer that built on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
 Integrate from verified and the reconciliation problem does not exist.
 
 - [Why verified is stable](#why-verified-is-stable)
 
-### Rule ADR-DSGN-REMOTE:4
+### Rule ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
 
 **A pull request is the authenticated ingress engine, not merely a review.** In the audited regime (`git_workspace: main-via-pr`) the PR is
 the one sanctioned way a change enters the server's `main` / `master`: it **authenticates** the author against the server's identity model,
@@ -49,7 +49,7 @@ lets the `git log` audit trail be trusted as complete. Solo `main-direct` is the
 
 ## Context
 
-Trunk-based development ([one-living-version](../principles/one-living-version.md), `ADR-PRIN-ONELIVE#4`) puts one mainline at the centre,
+Trunk-based development ([one-living-version](../principles/one-living-version.md), `ADR-PRIN-ONELIVE-TRUNKBASED`) puts one mainline at the centre,
 and [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) rests its whole audit-and-approval story on that mainline living somewhere every
 change is attributed, passes its merge gate, and is recorded. That somewhere is the **server** git remote — the ADO or GitHub repository
 whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to it.
@@ -81,8 +81,8 @@ sanctioned path, is not "on main" in the sense that governs; it is working state
 `Integrate from verified, not HEAD`
 
 The server's main advances by landing commits, but landing is not the same as being verified. At any moment the tip may be a commit whose
-gates have not run, or one that ran them and failed — a dirty HEAD (ADR-DSGN-LIFE#7). Reading the tip therefore gives "the newest commit,"
-which is precisely not "the newest commit safe to build on." The last commit the server proved verified — the stable point ADR-DSGN-LIFE#6
+gates have not run, or one that ran them and failed — a dirty HEAD (ADR-DSGN-LIFE-DIRTYHEADUNSAFE). Reading the tip therefore gives "the newest commit,"
+which is precisely not "the newest commit safe to build on." The last commit the server proved verified — the stable point ADR-DSGN-LIFE-SYNCFROMMAINUAT
 names as the always-on environment's occupant — is the one to integrate from. A developer branches from it; a downstream unit builds against
 it; an upstream consumer syncs to it. The rule is uniform across every consumer of the mainline: integrate from the last verified commit,
 never the raw HEAD.
@@ -92,7 +92,7 @@ never the raw HEAD.
 `Why verified is stable and the tip is not`
 
 The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
-(ADR-DSGN-LIFE#1, `ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by
+(ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, `ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by
 a newer commit that overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the verified point is not. So
 the choice of integration base is a choice between a stable anchor and a moving one. Building on the stable anchor means a later fix to the
 tip is simply the next thing you pull; building on the moving tip means that same fix can rewrite the ground under your work and force a
@@ -104,22 +104,22 @@ downstream.
 `PR is authenticated ingress, not just review`
 
 It is easy to read a pull request as a review checkpoint — a second pair of eyes. That undersells it. In the audited regime
-(`git_workspace: main-via-pr`, [ADR-REPO-VARIANT#6](../repository/repo-variants.md#rule-adr-repo-variant6)) the PR is the **only** ingress
+(`git_workspace: main-via-pr`, [ADR-REPO-VARIANT-GITWORKSPACE](../repository/repo-variants.md#rule-adr-repo-variant-gitworkspace)) the PR is the **only** ingress
 into the server's mainline, and it is what makes ingress _safe_: it authenticates the change against the server's identity model (so every
 commit on main is attributable to an authenticated principal), runs the mandatory merge gates, and performs the merge itself — the change
 reaches `main` / `master` by no other route. Review is one of the gates a PR can carry; the load-bearing property is
 authentication-plus-merge. The PR is the audited doorway, and closing every other door (no direct push to the protected branch) is what lets
-the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT#6`) is the deliberate exception for a
+the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT-GITWORKSPACE`) is the deliberate exception for a
 single-author trunk, where the author _is_ the sole authenticated principal and the doorway collapses to a direct commit; the moment there
 is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## How this is enforced
 
 - **Server branch policy** — the protected `main` / `master` on the ADO / GitHub remote admits merges only through a PR, so ingress cannot
-  bypass the authenticate-and-merge path (`ADR-DSGN-REMOTE#4`).
-- **`git_workspace` variant** — `main-via-pr` vs `main-direct` (`ADR-REPO-VARIANT#6`) selects the audited-ingress regime;
+  bypass the authenticate-and-merge path (`ADR-DSGN-REMOTE-PULLREQUESTISINGRESS`).
+- **`git_workspace` variant** — `main-via-pr` vs `main-direct` (`ADR-REPO-VARIANT-GITWORKSPACE`) selects the audited-ingress regime;
   `Sync-GeneratedFile`'s branch guard is the local half.
-- **The stable sync point** — `ADR-DSGN-LIFE#6` (integrate from the always-on environment's occupant) and `ADR-DSGN-LIFE#7` (the dirty HEAD)
+- **The stable sync point** — `ADR-DSGN-LIFE-SYNCFROMMAINUAT` (integrate from the always-on environment's occupant) and `ADR-DSGN-LIFE-DIRTYHEADUNSAFE` (the dirty HEAD)
   supply the "last verified commit" this ADR tells consumers to integrate from.
 - **Code review** — a build or workflow that pins its integration base to the remote HEAD rather than the last verified commit, or a process
   that reaches the protected branch outside a PR, is rejected against this ADR.
@@ -135,10 +135,10 @@ is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## Related
 
-- [commit-lifecycle](commit-lifecycle.md) (`ADR-DSGN-LIFE`) — the stable sync point (`ADR-DSGN-LIFE#6`) and the dirty HEAD
-  (`ADR-DSGN-LIFE#7`) this ADR integrates from.
+- [commit-lifecycle](commit-lifecycle.md) (`ADR-DSGN-LIFE`) — the stable sync point (`ADR-DSGN-LIFE-SYNCFROMMAINUAT`) and the dirty HEAD
+  (`ADR-DSGN-LIFE-DIRTYHEADUNSAFE`) this ADR integrates from.
 - [one-living-version](../principles/one-living-version.md) (`ADR-PRIN-ONELIVE`) — trunk-based development and immutable history.
 - [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.
-- [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT#6`) — the `git_workspace` PR-vs-Direct integration mode.
+- [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT-GITWORKSPACE`) — the `git_workspace` PR-vs-Direct integration mode.
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`) — the verification the "verified commit"
   has cleared.

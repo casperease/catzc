@@ -5,24 +5,24 @@ subscriptions, the configuration tree, and the policy enforcement setting the pr
 
 ## Rules: ADR-AZ-CAF-PRIN
 
-### Rule ADR-AZ-CAF-PRIN:1
+### Rule ADR-AZ-CAF-PRIN-SUBSCRIPTIONDEMOCRATIZATION
 
 Partly adopted: the subscription is the unit of management, each customer holds its own non-production and production subscription pair
 declared in `azure.yml`, and a new subscription's landing zone is a config file reviewed as a pull request; subscription vending and a
 management group hierarchy are not adopted, because the repository deploys into subscriptions it is given
-([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)).
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)).
 
 - [1 — Subscription democratization](#1--subscription-democratization)
 
-### Rule ADR-AZ-CAF-PRIN:2
+### Rule ADR-AZ-CAF-PRIN-POLICYDRIVENGOVERNANCE
 
 Partly adopted: every landing zone assigns three built-in Azure Policy guardrails at subscription scope
-([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)), enforced or audited by the repository-wide `policy_enforcement` setting
-([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)); policies inherited from a management group are not adopted.
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), enforced or audited by the repository-wide `policy_enforcement` setting
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); policies inherited from a management group are not adopted.
 
 - [2 — Policy-driven governance](#2--policy-driven-governance)
 
-### Rule ADR-AZ-CAF-PRIN:3
+### Rule ADR-AZ-CAF-PRIN-SINGLECONTROLMANAGEMENTPLANE
 
 Adopted for the control plane, deviated for the management plane: every change is an Azure Resource Manager deployment through Bicep and the
 az CLI, with catzc as a thin command line over it, never a portal in front of it; monitoring goes to one Log Analytics workspace per
@@ -30,15 +30,15 @@ subscription (`foundation`), not to one central workspace.
 
 - [3 — Single control and management plane](#3--single-control-and-management-plane)
 
-### Rule ADR-AZ-CAF-PRIN:4
+### Rule ADR-AZ-CAF-PRIN-APPLICATIONCENTRICSERVICEMODEL
 
 Adopted: a workload is a template that lands in the landing zone of its subscription and owns none of it
-([ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)); workloads are segmented by customer subscription and environment class, not by a
+([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)); workloads are segmented by customer subscription and environment class, not by a
 management group archetype.
 
 - [4 — Application-centric service model](#4--application-centric-service-model)
 
-### Rule ADR-AZ-CAF-PRIN:5
+### Rule ADR-AZ-CAF-PRIN-ALIGNMENTAZURENATIVEDESIGNROADMAPS
 
 Adopted: the templates use Azure-native services only, written in Bicep from the shared modules in `infrastructure/modules/`, with Azure
 built-in policies and a pinned minimum Bicep CLI version; tracking new service capabilities and API versions is a manual review.
@@ -84,22 +84,22 @@ later is costly. Without a vending process and its automation, teams wait for su
 #### What 1 means here
 
 The subscription is the unit of management. `azure.yml` declares every subscription by name, and a customer subscription carries a
-`customer` key ([ADR-AZ-DATAMOD#1](../azure-data-model.md#rule-adr-az-datamod1),
-[ADR-AZ-CUSTOMER#2](../azure-customer-model.md#rule-adr-az-customer2)): the shared platform holds `shared_nonprod` and `shared_prod`, and
+`customer` key ([ADR-AZ-DATAMOD-TWOCONFIGLAYERS](../azure-data-model.md#rule-adr-az-datamod-twoconfiglayers),
+[ADR-AZ-CUSTOMER-TWOBINDINGS](../azure-customer-model.md#rule-adr-az-customer-twobindings)): the shared platform holds `shared_nonprod` and `shared_prod`, and
 each customer holds its own pair (`apex_nonprod`, `apex_prod`) or a non-production subscription alone (`nova_nonprod`, `flux_nonprod`). The
 unit of ownership is the customer, not a workload team: one customer subscription serves every workload of that customer and environment
 class.
 
 Environments are separated by subscription at the production boundary only. A non-production subscription serves `dev`, `test` and `nsub`, a
 production one `preprod`, `prod` and `psub`; `dev` and `test` share a subscription and are kept apart by resource group, one per
-configuration slot ([ADR-AZ-DATAMOD#2](../azure-data-model.md#rule-adr-az-datamod2)).
+configuration slot ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)).
 
-Self-service is a pull request, not a vending machine ([ADR-DSGN-SELFSERV#1](../../design/self-service.md#rule-adr-dsgn-selfserv1)). A team
+Self-service is a pull request, not a vending machine ([ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-adr-dsgn-selfserv-consumersprovisionthemselves)). A team
 adds a subscription entry to `azure.yml`, a network to `network.yml`, and one config per template; the CD pipeline of the customer then
 deploys `foundation`, `discovery` and `expedition` into it. Creating the subscription itself and placing it in a management group are not
 adopted: the repository deploys into subscriptions it is given and needs no rights above them
-([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)). The two kinds of landing zone, a hub for a shared subscription and a spoke for a
-customer subscription ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5)), are the repository's two product lines.
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The two kinds of landing zone, a hub for a shared subscription and a spoke for a
+customer subscription ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), are the repository's two product lines.
 
 The impact of deviation, here: subscriptions arrive from whoever administers the tenant, so a new customer waits for that person before its
 first deploy, and the subscription's place in a management group hierarchy is outside the configuration tree. Sharing one non-production
@@ -120,7 +120,7 @@ budget of each (`budgetAmount`, alerts to the subscription's `Owner` role) makes
 
 Not a subscription owner: its configs are per environment and slot (`dev.yml`, `test.yml`, `apex/dev.yml`, `apex/dev-blu.yml`,
 `apex/prod.yml`, `nova/dev.yml`), each a resource group inside the subscription its coordinate resolves to
-([ADR-AZ-DATAMOD#3](../azure-data-model.md#rule-adr-az-datamod3)).
+([ADR-AZ-DATAMOD-NAMEKEYEDMAPS](../azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)).
 
 ##### 1 status
 
@@ -143,14 +143,14 @@ Impact of deviation (ours): Without policy guardrails, keeping the estate compli
 #### What 2 means here
 
 Every landing zone assigns three Azure built-in policies at subscription scope: allowed locations, a required tag on resources, and no
-public IP address on a network interface ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). Whether they deny or only audit is one
+public IP address on a network interface ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Whether they deny or only audit is one
 repository-wide setting, `policy_enforcement` in `azure.yml`, whose sensible default enforces in production and audits outside it
-([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)). Because the policies are built-in definitions, they hold for any tool
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Because the policies are built-in definitions, they hold for any tool
 that writes to the subscription, which is the tool-agnostic property the principle asks for.
 
 The repository adds guardrails before deploy that Azure Policy cannot give: the CI pipeline compiles every template and checks every
-rendered parameters file against the compiled parameter model ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)), and the
-shared modules carry secure defaults ([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)). These guard what the repository deploys; the
+rendered parameters file against the compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), and the
+shared modules carry secure defaults ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). These guard what the repository deploys; the
 policies guard the subscription against everything else.
 
 The deviation is in breadth and in inheritance. Three policies cover location, tagging and public IP addresses, but not, for example, public
@@ -197,11 +197,11 @@ complexity and hidden dependencies; existing tooling investments should be revie
 
 The control plane is Azure Resource Manager. `Deploy-Bicep` runs `az deployment group create` or `az deployment sub create` with the
 compiled template, and `-DryRun` runs Azure's own `--what-if`; every Azure operation goes through the az CLI
-([ADR-AZ-CLI#1](../prefer-az-cli.md#rule-adr-az-cli1)). catzc is a command line in front of Azure, which the principle warns against, but a
+([ADR-AZ-CLI-AZBYDEFAULT](../prefer-az-cli.md#rule-adr-az-cli-azbydefault)). catzc is a command line in front of Azure, which the principle warns against, but a
 thin one: it harmonises how the organisation calls the vendor and delegates everything else to Bicep and the az CLI, never hiding or cloning
-the vendor's behaviour ([ADR-DSGN-THINPLAT#2](../../design/thin-platforms.md#rule-adr-dsgn-thinplat2)). Access is the subscription's own
-role-based access control, through the service connection that deploys it, and governance is Azure Policy (ADR-AZ-CAF-PRIN#2). The repository
-is the single place a change is made ([ADR-DSGN-SELFSERV#2](../../design/self-service.md#rule-adr-dsgn-selfserv2)), and what it changes is
+the vendor's behaviour ([ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT](../../design/thin-platforms.md#rule-adr-dsgn-thinplat-delegatenotreimplement)). Access is the subscription's own
+role-based access control, through the service connection that deploys it, and governance is Azure Policy (ADR-AZ-CAF-PRIN-POLICYDRIVENGOVERNANCE). The repository
+is the single place a change is made ([ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH](../../design/self-service.md#rule-adr-dsgn-selfserv-repositoryissourceoftruth)), and what it changes is
 plain Azure resources that the portal, the az CLI, and any Azure tool see as they are.
 
 The management plane deviates. Monitoring is per subscription: `foundation` gives every subscription its own Log Analytics workspace, and
@@ -247,14 +247,14 @@ development, test and production is covered in the landing zone FAQ.
 
 The application is the unit a template serves. `expedition` is a workload: it lands in the landing zone of its subscription, places its
 private endpoints in the spoke's `private-endpoints` subnet (the hub's `shared-services` subnet for the shared platform), registers them in
-the hub's private DNS zones, and creates no network, DNS zone, or policy ([ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)). Every
+the hub's private DNS zones, and creates no network, DNS zone, or policy ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). Every
 workload of a subscription therefore meets the same secure environment, whatever it contains; a second workload template would land the same
 way, with no network work. The shared modules include `vm.bicep`, so an IaaS workload would land in the same subnets under the same policies
 as the PaaS one.
 
 Workloads are segmented by customer subscription and by environment class, not by a management group archetype (the reference hierarchy's
 corp and online groups). The impact, here: the policies sit on each subscription, not on a group of them, so every landing zone carries the
-same three assignments. The duplication is a single template and a single setting ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)), so
+same three assignments. The duplication is a single template and a single setting ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so
 the copies cannot drift; an exception for one customer would be a config value, visible in review.
 
 ##### 4 in `foundation`
@@ -275,7 +275,7 @@ configuration slot. `apex/dev.yml` and its special slot `apex/dev-blu.yml` are t
 ##### 4 status
 
 realised — workloads land in a landing zone they do not own, segmented by customer subscription; management group archetypes are not adopted
-([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)).
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)).
 
 ### 5 — Alignment with Azure-native design and roadmaps
 
@@ -294,8 +294,8 @@ services. Sometimes they are unavoidable, so weigh the trade-off.
 Every resource the templates deploy is an Azure-native service, described in Bicep, Azure's own language for Resource Manager templates,
 from the shared modules in `infrastructure/modules/`. Governance uses Azure built-in policy definitions, monitoring Azure Monitor and Log
 Analytics, secrets Key Vault, name resolution Azure Private DNS, and SQL access Entra ID
-([ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)). Deployment runs through the az CLI
-([ADR-AZ-CLI#1](../prefer-az-cli.md#rule-adr-az-cli1)) from Azure DevOps pipelines. There is no third-party firewall, monitoring agent, or
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). Deployment runs through the az CLI
+([ADR-AZ-CLI-AZBYDEFAULT](../prefer-az-cli.md#rule-adr-az-cli-azbydefault)) from Azure DevOps pipelines. There is no third-party firewall, monitoring agent, or
 secret store.
 
 Following the roadmap is partly mechanised. `azure.yml` pins `bicep_min_version`, and `Assert-AzCliBicep` fails a Bicep build on an older
@@ -327,7 +327,7 @@ The repository takes the five principles as the frame of its landing zone and st
 follows the application-centric service model and Azure-native design in full, and the single control plane through a thin command line over
 Azure Resource Manager. It follows subscription democratization and policy-driven governance at subscription level only: the repository
 deploys into subscriptions it is given, so subscription vending, management groups, and inherited policy belong to whoever administers the
-tenant ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)). It deviates from a single management plane on purpose, keeping one workspace
+tenant ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). It deviates from a single management plane on purpose, keeping one workspace
 per subscription so that customers stay isolated.
 
 ### How this is enforced
@@ -335,13 +335,13 @@ per subscription so that customers stay isolated.
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for `foundation`, `discovery`, and `expedition` on every change
   under `infrastructure/`, so a template that does not compile, or a config address that does not resolve, fails the build; the
   parameter-model test checks every rendered parameters file against the compiled template
-  ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)).
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 - `AzureConfig` validates `azure.yml`: the subscriptions and their environments, and the `policy_enforcement` default and modes
-  ([ADR-AZ-DATAMOD#8](../azure-data-model.md#rule-adr-az-datamod8), [ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
+  ([ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../azure-data-model.md#rule-adr-az-datamod-schemaandintegrity), [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 - `Assert-AzCliBicep` fails a Bicep build on a Bicep CLI older than `bicep_min_version`.
 - The three policy assignments enforce or audit in Azure itself, per subscription.
-- Planned (follow-up): further built-in policy assignments in `discovery` (ADR-AZ-CAF-PRIN#2), and a quality gate that flags outdated or
-  preview API versions in `infrastructure/modules/` (ADR-AZ-CAF-PRIN#5). Neither exists.
+- Planned (follow-up): further built-in policy assignments in `discovery` (ADR-AZ-CAF-PRIN-POLICYDRIVENGOVERNANCE), and a quality gate that flags outdated or
+  preview API versions in `infrastructure/modules/` (ADR-AZ-CAF-PRIN-ALIGNMENTAZURENATIVEDESIGNROADMAPS). Neither exists.
 
 ## Consequences
 

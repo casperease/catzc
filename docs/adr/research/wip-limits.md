@@ -2,35 +2,35 @@
 
 ## Rules: ADR-DORA-WIP
 
-### Rule ADR-DORA-WIP:1
+### Rule ADR-DORA-WIP-WIPLIMIT
 
 A work in process (WIP) limit caps how much work is simultaneously assigned to a team member or sits in a workflow stage at once, so effort
 concentrates on finishing a small number of high-priority items rather than spreading across many concurrent ones.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-WIP:2
+### Rule ADR-DORA-WIP-VISUALIZEFIRST
 
 Visualize the work before limiting it. A board with a column per workflow stage — analysis, development, testing, operations — is the
 precondition a WIP limit needs, because a limit on invisible work cannot be enforced or checked.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-WIP:3
+### Rule ADR-DORA-WIP-SIZETOCAPACITY
 
 Size each column's limit to the real capacity of the people who work it, not to an aspirational or round number — for example, four pairs of
 developers implies a development-column limit of four, not more.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-WIP:4
+### Rule ADR-DORA-WIP-HOLDTHELIMIT
 
 Hold the limit once set, including through the idle time it sometimes produces. Idle time is a signal to fix the process causing the delay,
 never a reason to raise the limit back up.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-WIP:5
+### Rule ADR-DORA-WIP-IMPOSEDNOTMEASURED
 
 Treat the limit itself as something imposed, not measured. What gets measured is its effect — mean lead time and its variability, whether
 flow is increasing, whether obstacles surface, and whether the resulting actions target the real constraint.
@@ -76,11 +76,11 @@ capacity of the people who work it, not from an aspirational or round number. Wh
 and instead work on unblocking what is already in flight.
 
 Within this platform, the pull discipline this capability enforces is the general rule
-([ADR-PROC-PULLWORK](../process/pull-work.md#rule-adr-proc-pullwork4)): work is drawn into a stage only when it has capacity to finish it,
+([ADR-PROC-PULLWORK](../process/pull-work.md#rule-adr-proc-pullwork-limitworkinprogress)): work is drawn into a stage only when it has capacity to finish it,
 and limiting work in progress is what turns that pull into a mechanism rather than a slogan. The economic case for the cap follows Little's
-Law ([ADR-PROC-QUEUECOST](../process/queues-cost-money.md#rule-adr-proc-queuecost2)) — with throughput roughly fixed in the short run,
+Law ([ADR-PROC-QUEUECOST](../process/queues-cost-money.md#rule-adr-proc-queuecost-littleslaw)) — with throughput roughly fixed in the short run,
 cutting work in progress is what lowers lead time. And the storyboard itself depends on the work being observed and rendered rather than
-tracked from memory ([ADR-PROC-OBSERVEWIP](../process/observe-work.md#rule-adr-proc-observewip1)).
+tracked from memory ([ADR-PROC-OBSERVEWIP](../process/observe-work.md#rule-adr-proc-observewip-workstatevisible)).
 
 ## Common pitfalls
 

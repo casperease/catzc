@@ -2,37 +2,37 @@
 
 ## Rules: ADR-REPO-SLIDES
 
-### Rule ADR-REPO-SLIDES:1
+### Rule ADR-REPO-SLIDES-SLIDEFILE
 
 A **slide file** is one markdown file per slide, `<stem>.slide.md`, in a deck folder `docs/explanation/<domain>/<deck>/` beside the **deck
 file**, `deck.md`, which names the deck's title and its sections. The slide's level-one heading is its title, and each level-two heading is
 a **field** the slide's pattern fills. The head's `config` carries `pattern`, `deck` and `order`; the order is a head key, never a prefix in
-the name ([ADR-REPO-FOLDERS#12](conventional-folders.md#rule-adr-repo-folders12)), and a gap or a duplicate in a deck's orders is a render
+the name ([ADR-REPO-FOLDERS-STABLEFILENAMES](conventional-folders.md#rule-adr-repo-folders-stablefilenames)), and a gap or a duplicate in a deck's orders is a render
 failure.
 
 - [One file, one slide](#one-file-one-slide)
 
-### Rule ADR-REPO-SLIDES:2
+### Rule ADR-REPO-SLIDES-PATTERN
 
 A **pattern** is one file, `.claude/slides/patterns/<name>.html`: one section in the slide format whose placeholders name its fields and say
 which are required. A slide names its pattern in its head. Adding a layout is a new pattern file and one line in `.claude/slides/STYLE.md`,
-never a change to the renderer ([ADR-PRIN-CONFIG#1](../principles/configure-not-program.md#rule-adr-prin-config1),
-[ADR-PRIN-CONFIG#2](../principles/configure-not-program.md#rule-adr-prin-config2)). What every pattern shares, the dark tones, the faces,
+never a change to the renderer ([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig),
+[ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)). What every pattern shares, the dark tones, the faces,
 the type scale, the footer and the output folder, is declared once in `.claude/slides/slides.yml`
-([ADR-PRIN-CONFIG#3](../principles/configure-not-program.md#rule-adr-prin-config3)). A pattern is dark; no light background exists.
+([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). A pattern is dark; no light background exists.
 
 - [Patterns are configuration](#patterns-are-configuration)
 
-### Rule ADR-REPO-SLIDES:3
+### Rule ADR-REPO-SLIDES-FAILFORWARDRENDER
 
 The render is fail-forward. `Build-SlideDeck` always writes `out/slides/<deck>/`: the deck tree the Slides artifact type reads and
 `<deck>.script.md`, the speaker notes in order. A missing required field, a field the pattern does not know, a pattern that does not exist
 and a field with more items than the pattern holds are each reported with the file and the field; nothing shrinks and nothing is guessed
-([ADR-PRIN-POKAYOKE#2](../principles/poka-yoke.md#rule-adr-prin-pokayoke2)). The render never publishes.
+([ADR-PRIN-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-detectearliest)). The render never publishes.
 
 - [Render forward, publish by hand](#render-forward-publish-by-hand)
 
-### Rule ADR-REPO-SLIDES:4
+### Rule ADR-REPO-SLIDES-CHECKABLECLAIMS
 
 Every claim on a slide is checkable. Every code in the head's `cites` exists in the ADR index; a field that quotes a rule carries the
 registry's text verbatim, or the drift is reported with both texts; and every field's text is found in the rendered section. `Test-Slides`
@@ -40,30 +40,30 @@ is the gate over these checks, one file at a time.
 
 - [Claims are asserted, not trusted](#claims-are-asserted-not-trusted)
 
-### Rule ADR-REPO-SLIDES:5
+### Rule ADR-REPO-SLIDES-DECKISPROJECTION
 
 The published deck is a projection of the slide files. The files are the deck's one living version
-([ADR-PRIN-ONELIVE#1](../principles/one-living-version.md#rule-adr-prin-onelive1)), and no state of the deck lives outside them
-([ADR-PRIN-EAC#3](../principles/everything-as-code.md#rule-adr-prin-eac3)): the deck is replaced whole on publish, and an edit made in the
+([ADR-PRIN-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-adr-prin-onelive-oneversion)), and no state of the deck lives outside them
+([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)): the deck is replaced whole on publish, and an edit made in the
 deck's own editor is carried back into the slide file or discarded. No slide has a verify record of its own, because rule 4 derives what
 such a record would hold.
 
 - [One source of truth for a deck](#one-source-of-truth-for-a-deck)
 
-### Rule ADR-REPO-SLIDES:6
+### Rule ADR-REPO-SLIDES-SLIDEFILEKIND
 
 `file-kinds.yml` places a slide file in the kind `slide` (`docs/**/*.slide.md`), ahead of the two documentation trees as the diagram kinds
 are, and the kit in `slides-kit` (`.claude/slides/**`). The renderer, the gate and their types live in `Catzc.Base.Slides`, and their tests
-run on neutral fixture decks, never on a real one ([ADR-AUTO-TEST#3](../automation/test-automation.md#rule-adr-auto-test3)).
+run on neutral fixture decks, never on a real one ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 - [Kinds and home](#kinds-and-home)
 
-### Rule ADR-REPO-SLIDES:7
+### Rule ADR-REPO-SLIDES-ONEBUILDCOMMAND
 
 Every draw.io slide renders from the tree by one command on its diagram folder, `Build-Diagrams -Path <folder>`; the whole tree is that
 command repeated over every diagram folder found under `docs/**/.assets/**`, so no setting lists the folders. Its inputs are the model
 embedded in the folder's `diagram.drawio.png`, the one article beside the folder's `.assets` that embeds it, and the repository's maps, and
-no step of it asks a session or a model to decide anything ([ADR-PRIN-EAC#3](../principles/everything-as-code.md#rule-adr-prin-eac3)). A
+no step of it asks a session or a model to decide anything ([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)). A
 raster is never drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
 
 - [One command renders every diagram](#one-command-renders-every-diagram)

@@ -6,7 +6,7 @@ Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`nam
 
 ## Rules: ADR-AZ-NETWORK
 
-### Rule ADR-AZ-NETWORK:1
+### Rule ADR-AZ-NETWORK-ONEIPPLAN
 
 The IP plan lives only in `network.yml` — never duplicate vnet/subnet ranges into a template's per-slot config. A template that needs ranges
 reads them from `network.yml` at build time — in its prepare hook (`Get-Config -Config network`), or through a config address in its
@@ -17,27 +17,27 @@ parameter file — and never copies them.
 
 - [The asset](#the-asset)
 
-### Rule ADR-AZ-NETWORK:2
+### Rule ADR-AZ-NETWORK-KEYEDBYENVIRONMENT
 
 Key the plan by environment name, matching `azure.yml`; the two assets stay in sync through a quality gate, `Test-AzureNetworkPlan`, not by
 convention alone. Each config type checks only its own file; the join of the two is the gate's.
 
 - [Validation (`NetworkConfig`)](#validation)
 
-### Rule ADR-AZ-NETWORK:3
+### Rule ADR-AZ-NETWORK-ONEADDRESSSPACE
 
 One address space per environment — multi-region-per-environment is out of scope (each environment maps to one region).
 
 - [The asset](#the-asset)
 
-### Rule ADR-AZ-NETWORK:4
+### Rule ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK
 
 Per-subscription envs (`nsub`/`psub`) need no network entry — they carry no vnet, so the standard-env requirement skips them (a
 `nsub`/`psub` entry is not forbidden, just pointless).
 
 - [Validation (`NetworkConfig`)](#validation)
 
-### Rule ADR-AZ-NETWORK:5
+### Rule ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
 
 Every `azure.yml` subscription has one network in the plan's `subscriptions` block, keyed by the subscription name, and its kind follows
 from the subscription: a **hub** when the subscription has no `customer`, a **spoke** when it has one. A hub carries exactly `GatewaySubnet`
@@ -48,7 +48,7 @@ type's check; which kind a subscription needs, and which environments it serves,
 - [The subscription networks](#the-subscription-networks)
 - [Validation (`NetworkConfig`)](#validation)
 
-### Rule ADR-AZ-NETWORK:6
+### Rule ADR-AZ-NETWORK-NOOVERLAP
 
 No two networks in the plan overlap — every environment's and every subscription's vnet address space is disjoint from every other. Every
 range is an aligned IPv4 CIDR (no host bits set), every subnet lies inside its vnet, and no two subnets of one vnet overlap. `NetworkConfig`
@@ -83,7 +83,7 @@ environment and by subscription.
 `configs/network.yml` declares two entities — a per-environment IP plan, keyed by environment **name** (the same keys as `azure.yml`'s
 `environments`), and a per-subscription network, keyed by subscription **name** (the same keys as `azure.yml`'s `subscriptions`). It is
 loaded by `Get-Config -Config network`, which constructs its C# config type, `NetworkConfig` (every shipped config has one,
-[ADR-CONF-LOADING#4](../configuration/module-config-loading.md#rule-adr-conf-loading4)), so a bad file throws at read time. A template's
+[ADR-CONF-LOADING-CSHARPCONFIGTYPE](../configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)), so a bad file throws at read time. A template's
 parameter file can reach the same ranges through a config address ([config-value-addressing](../configuration/config-value-addressing.md))
 instead of a prepare hook.
 
@@ -140,7 +140,7 @@ The `subscriptions` block is the IP plan of the hub-and-spoke topology the subsc
 - **A spoke** belongs to a customer subscription. It carries `private-endpoints`, where every workload in the spoke places its private
   endpoints, and one workload subnet per standard environment the subscription serves, named for that environment (`dev`, `test`, …), so a
   workload finds its subnet from its own environment with no lookup table. The per-subscription identity environment (`nsub`/`psub`) gets no
-  workload subnet, for the same reason it gets no environment entry ([ADR-AZ-NETWORK#4](#rule-adr-az-network4)).
+  workload subnet, for the same reason it gets no environment entry ([ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK](#rule-adr-az-network-subscriptionenvironmentsnonetwork)).
 - **The kind is declared** (`kind: hub` or `kind: spoke`), even though it follows from `azure.yml`. A template reads it from the plan alone,
   and the gate checks that it agrees with the subscription, so the two can never silently disagree.
 
@@ -153,9 +153,9 @@ The `subscriptions` block is the IP plan of the hub-and-spoke topology the subsc
 - **Format.** Each environment and subscription name is a valid lower-snake_case identifier (`^[a-z][a-z0-9_]*$`); each range is an aligned
   IPv4 CIDR (`a.b.c.d/n`, `0 ≤ n ≤ 32`, no host bits set, because Azure rejects an address prefix with host bits set), validated with
   `[System.Net.IPAddress]`.
-- **Containment and overlap** ([ADR-AZ-NETWORK#6](#rule-adr-az-network6)). An environment's default subnet and every subscription subnet lie
+- **Containment and overlap** ([ADR-AZ-NETWORK-NOOVERLAP](#rule-adr-az-network-nooverlap)). An environment's default subnet and every subscription subnet lie
   inside their vnet; no two subnets of one vnet overlap; no two networks in the file overlap, whether environment or subscription.
-- **Kind** ([ADR-AZ-NETWORK#5](#rule-adr-az-network5)). A hub carries exactly `GatewaySubnet`, `AzureFirewallSubnet`, and `shared-services`;
+- **Kind** ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](#rule-adr-az-network-networkpersubscription)). A hub carries exactly `GatewaySubnet`, `AzureFirewallSubnet`, and `shared-services`;
   a spoke carries `private-endpoints`, and every other spoke subnet is named as an environment (a lower-snake_case identifier).
 - **Cross-asset integrity with `azure.yml`** (the join, checked by the quality gate `Test-AzureNetworkPlan`, not by the type):
   - every network environment is a **defined `azure.yml` environment** (no ghost entries);
@@ -175,7 +175,7 @@ requires an entry for every subscription of the shipped `azure.yml`.
 - `Get-Config -Config network` loads and validates the file through its registered config type, `NetworkConfig`.
 - `NetworkConfig` (with `NetworkEnvironment` and `NetworkSubscription` for each entry, and `NetworkCidr` for the range arithmetic) performs
   the shape, format, containment, overlap, and kind checks above, on `network.yml` alone.
-- `Test-AzureNetworkPlan` (a quality gate, [`test-automation`](../automation/test-automation.md) `ADR-AUTO-TEST#35`) performs the
+- `Test-AzureNetworkPlan` (a quality gate, [`test-automation`](../automation/test-automation.md) `ADR-AUTO-TEST-QUALITYGATE`) performs the
   cross-asset join over the two loaded configs and lists every violation; its integrity test runs it over the shipped files.
 - The shipped `network.yml` is exercised by the same integrity discipline as `azure.yml` (see
   [`test-automation`](../automation/test-automation.md)).

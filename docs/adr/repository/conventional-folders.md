@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-FOLDERS
 
-### Rule ADR-REPO-FOLDERS:1
+### Rule ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
 
 Every folder in the repository is conventional: its name infers its contents and purpose, for humans and for tooling. No folder needs a
 mapping file or a README to be understood — the name is the meaning. At the root this goes further: every root folder git tracks a file
@@ -11,7 +11,7 @@ adding a root folder is the decision to open a track (see [tracks](../design/tra
 
 - [The thesis](#the-thesis)
 
-### Rule ADR-REPO-FOLDERS:2
+### Rule ADR-REPO-FOLDERS-TWOKINDS
 
 Two kinds of conventional folder. **Contract** folders have their literal name hardcoded by tooling — a wrong name makes the content
 structurally invisible or non-functional. **Semantic** folders carry meaning a reader infers, with a freeform internal layout no tool
@@ -19,14 +19,14 @@ depends on. Know which kind a folder is before renaming it or adding to it.
 
 - [Contract folders and semantic folders](#contract-folders-and-semantic-folders)
 
-### Rule ADR-REPO-FOLDERS:3
+### Rule ADR-REPO-FOLDERS-CLOSEDROOTSET
 
 The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this ADR — not a casual act.
 `go/`, `python/`, and `bash/`, the roots of the repository's black-box tests, are such amendments.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
-### Rule ADR-REPO-FOLDERS:4
+### Rule ADR-REPO-FOLDERS-DOTMEANSTOOLING
 
 Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`, `.go/` (the default Go root
 when the repository has no `go/` folder), and `pwsh/.internal|.scriptanalyzer|.vendor|.compiled/`. Under `pwsh/` it is enforced mechanically
@@ -35,7 +35,7 @@ by `Import-AllModules` (dot-prefixed directories are excluded from module discov
 - [Level 1: Repository root](#level-1-repository-root)
 - [Level 2: `pwsh/`](#level-2-pwsh)
 
-### Rule ADR-REPO-FOLDERS:5
+### Rule ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
 
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
 `.md` files — except the dot-prefixed `.assets/` folders, which hold the diagrams the markdown embeds. An `.assets/` folder sits beside the
@@ -47,7 +47,7 @@ subfolder of `docs/adr/` is an ADR **domain**: a group of ADRs that `adrs.yml` d
 
 - [Level 1: Repository root](#level-1-repository-root)
 
-### Rule ADR-REPO-FOLDERS:6
+### Rule ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
 
 Module-internal folder names are fixed. Private helpers go in `private/`, tests in `tests/`, consumable assets in `assets/`, the module's
 own internal config in `configs/`, native C# sources in `types/` — never `internal/`, `helpers/`, `test/`, `spec/`, `resources/`, `config/`,
@@ -56,7 +56,7 @@ etc. The name is the contract; a different name means tooling will not find the 
 - [Level 3: Module internals](#level-3-module-internals)
 - [Violation patterns](#violation-patterns)
 
-### Rule ADR-REPO-FOLDERS:7
+### Rule ADR-REPO-FOLDERS-LITERALNAMES
 
 Tooling hardcodes the conventional names as literal strings, not parameters or configuration: `Join-Path $ModulePath 'private'`, not
 `Join-Path $ModulePath $privateFolderName`. One exception: the root of every test language is a setting, by one convention. Its conventional
@@ -69,48 +69,48 @@ declared once on the language's config type, and one resolver returns the root, 
 - [A test-language root as a setting](#a-test-language-root-as-a-setting)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-REPO-FOLDERS:8
+### Rule ADR-REPO-FOLDERS-NOMODULEOVERRIDE
 
 No module-level override of conventions. A module cannot opt out of the structure or rename a conventional folder; if `private/` means
 different things in different modules, tooling cannot rely on it.
 
 - [Why convention](#why-convention)
 
-### Rule ADR-REPO-FOLDERS:9
+### Rule ADR-REPO-FOLDERS-NEWFOLDERNEEDSADR
 
 New module-level folders require an ADR amendment. Adding a well-known folder name beyond `private/`, `tests/`, `assets/`, `configs/`,
 `types/` is a structural change to the contract all tooling programs against.
 
 - [Level 3: Module internals](#level-3-module-internals)
 
-### Rule ADR-REPO-FOLDERS:10
+### Rule ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED
 
 Unknown folders are ignored, not errors. A non-conventional folder is silently skipped by the bootstrap module and test runner; the module
 just cannot expect tooling to interact with it.
 
 - [Level 3: Module internals](#level-3-module-internals)
 
-### Rule ADR-REPO-FOLDERS:11
+### Rule ADR-REPO-FOLDERS-CONTRACTSFOLDER
 
 Contracts live under the root `contracts/` folder, laid out as `contracts/<unit>/<version>/<module>/<path>`: `<unit>` is the deployable-unit
-that carries the contracts (`catzc`, the bundle, [ADR-REPO-CONTRACT#2](api-contracts.md#rule-adr-repo-contract2)), `<version>` is that
+that carries the contracts (`catzc`, the bundle, [ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)), `<version>` is that
 unit's version (`MAJOR.MINOR.PATCH`), `<module>` is the owning catzc module, and `<path>` is the path of the real file a contract asset
 constrains, relative to the owning module's target root — the repository root unless `contracts.yml` declares another folder
-([ADR-REPO-CONTRACT#2](api-contracts.md#rule-adr-repo-contract2)) — and no folder under `contracts/` is dot-prefixed
-([ADR-REPO-CONTRACT#10](api-contracts.md#rule-adr-repo-contract10)). There is no repository-wide version folder. Each unit's `0.0.0` is its
+([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)) — and no folder under `contracts/` is dot-prefixed
+([ADR-REPO-CONTRACT-NODOTFOLDERS](api-contracts.md#rule-adr-repo-contract-nodotfolders)). There is no repository-wide version folder. Each unit's `0.0.0` is its
 one mutable draft, frozen only when that unit is released; every other version folder is frozen, a self-contained snapshot of that unit's
 contracts at that version — kept for a consumer that pins it, deliberately and equally live (see
-[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)), not legacy. The root carries a checked-in `.gitkeep`, so
+[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)), not legacy. The root carries a checked-in `.gitkeep`, so
 it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository boundary, in both
 directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
 
 - [Level 1: Repository root](#level-1-repository-root)
 
-### Rule ADR-REPO-FOLDERS:12
+### Rule ADR-REPO-FOLDERS-STABLEFILENAMES
 
 A file name is a **stable locator**: it never encodes an order, a rank or a priority. Sorting is an overlay, an index or a head key, never a
 prefix, and the delivered default sort of any folder is the semantic name order. There is no exception: an execution order, such as the
-order of the plans folder's task files ([ADR-REPO-PLANS#8](plans.md#rule-adr-repo-plans8)), is carried by the list that orders them.
+order of the plans folder's task files ([ADR-REPO-PLANS-MASTERANDTASKS](plans.md#rule-adr-repo-plans-masterandtasks)), is carried by the list that orders them.
 
 - [Stable locators](#stable-locators)
 
@@ -265,7 +265,7 @@ articles, including the sources the generated READMEs are copied from ([generate
 reference under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one
 diagram of how cats works and why, in a subfolder per ADR domain. These four are **markdown-only**; their subfolders are author-organized
 topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
-content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS#4). A diagram is one folder in the `.assets/` beside the
+content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/` beside the
 page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram's companions
 under role names: its description, so its words travel with the slide; its verify record, so every drawn claim stays checkable against the
 code; and its minimap images, each with a sister `.md` that gives the reason for every lit cell.
@@ -291,7 +291,7 @@ the module that talks to the outside party and holds the tests. The fourth repea
 asset and the file it constrains are found from each other without a mapping. Provided and depended-on contracts both version with their
 unit. A frozen version folder kept for a consumer that pins it is a separate, live set of contracts, not legacy: this is the one place the
 repo deliberately carries backwards compatibility, because here — unlike the internal code — external consumers genuinely exist (see
-[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive7)). The root carries a checked-in `.gitkeep`, so it stays
+[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)). The root carries a checked-in `.gitkeep`, so it stays
 tracked before any contract exists.
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
@@ -306,13 +306,13 @@ root elsewhere when declared; the two names are the sensible defaults of that on
 module, named for that module in kebab case, and the generated uv workspace — the root `pyproject.toml`, one member `pyproject.toml` per
 test folder, and the one environment and lock uv makes from them — all gitignored. A repository with no `python/` folder keeps the same
 layout under the dot-prefixed `.python/`, and `python.yml`'s `root` places the Python root elsewhere when declared, by the convention every
-test-language root follows ([rule 7](#rule-adr-repo-folders7)); the code that reads it is `PythonConfig.ResolveRoot`.
+test-language root follows ([rule 7](#rule-adr-repo-folders-literalnames)); the code that reads it is `PythonConfig.ResolveRoot`.
 
 **`bash/`** is the Bash root: the repository's Bash tests, which are black-box tests of the engine through `importer.sh` and `cats`, and
 never ship ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)). It holds `tests/<module>/`, one Bash test folder per catzc
 module, named for that module in kebab case, and the vendored bats-core runner under `.vendor/bats-core/`, committed. A repository with no
 `bash/` folder keeps the same layout under the dot-prefixed `.bash/`, and `bash.yml`'s `root` places the Bash root elsewhere when declared,
-by the convention every test-language root follows ([rule 7](#rule-adr-repo-folders7)); the code that reads it is `BashConfig.ResolveRoot`.
+by the convention every test-language root follows ([rule 7](#rule-adr-repo-folders-literalnames)); the code that reads it is `BashConfig.ResolveRoot`.
 
 **`out/`** is the single home for all generated and transient files, gitignored except `.gitkeep`. The _root_ is the contract
 (`Get-OutputRoot`); the subfolders inside are ad-hoc workspaces with no fixed names. Nothing under `out/` is source. See
@@ -394,7 +394,7 @@ scripts, templates, JSON schemas, reference data, embedded resources. Test-only 
 here. `Test-Automation` does not look here. The one-function-per-file validator does not look here. Module functions reference assets via
 `Get-CatzcModuleRoot` (e.g., `Get-CatzcModuleRoot -ChildPath 'assets/template.bicep'`, the same call from a root or a `private/` function),
 which resolves under the active code root in source mode and in the installed build alike
-([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4),
+([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent),
 [internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Module authors may create subdirectories inside `assets/` to
 organize content — the internal structure is freeform. The module's own configuration does **not** belong here; it lives in `configs/`.
 
@@ -437,7 +437,7 @@ A name that carries a rank, `01-first.md` or `plan-A-urgent.md`, is wrong the mo
 rename. A name that says what the file is stays true for the file's whole life, and the order a reader wants today is a view: a table that
 sorts by value, an index, a head key a tool reads. The folders of this repository therefore sort by name, and the name means the thing. The
 task files of the plans folder hold to it too: each is named by its topic, and the execution order is the master plan's list
-([plans](plans.md#rule-adr-repo-plans8)), so reordering the list renames nothing.
+([plans](plans.md#rule-adr-repo-plans-masterandtasks)), so reordering the list renames nothing.
 
 ### How this is enforced
 
@@ -460,8 +460,8 @@ task files of the plans folder hold to it too: each is named by its topic, and t
   `.yaml`); no module may have an `assets/config/` directory; and no module may have an `assets/test/` directory — test fixtures live in
   `tests/assets/`.
 
-- **Repo-wide conventions** — the closed root set (ADR-REPO-FOLDERS#3), the dot-prefixed roots (ADR-REPO-FOLDERS#4), the markdown-only rule
-  for `docs/` (ADR-REPO-FOLDERS#5), and the `contracts/<unit>/<version>/<module>/` layout with its root `.gitkeep` (ADR-REPO-FOLDERS#11) —
+- **Repo-wide conventions** — the closed root set (ADR-REPO-FOLDERS-CLOSEDROOTSET), the dot-prefixed roots (ADR-REPO-FOLDERS-DOTMEANSTOOLING), the markdown-only rule
+  for `docs/` (ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY), and the `contracts/<unit>/<version>/<module>/` layout with its root `.gitkeep` (ADR-REPO-FOLDERS-CONTRACTSFOLDER) —
   are enforced by **code review** against this ADR; the deep `pwsh/` conventions above are additionally enforced mechanically by the tooling
   listed here.
 

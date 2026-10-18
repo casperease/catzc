@@ -2,42 +2,42 @@
 
 ## Rules: ADR-PIPE-VAR
 
-### Rule ADR-PIPE-VAR:1
+### Rule ADR-PIPE-VAR-NORAWLOGGINGCOMMANDS
 
 Never write raw `##vso[task.setvariable]` strings. Use `Set-AdoPipelineVariable`, which handles name validation, flags, and logging.
 
 - [Why this needs a function](#why-this-needs-a-function)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PIPE-VAR:2
+### Rule ADR-PIPE-VAR-NOPUNCTUATIONINNAMES
 
 Variable names must not contain `.`, `-`, or `'` — ADO rewrites them during downstream resolution, so they are rejected by default. Use
 underscores directly; pass `-SanitizeName` only when such characters are unavoidable.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR:3
+### Rule ADR-PIPE-VAR-OUTPUTACROSSJOBS
 
 Always use `-IsOutput` when the variable must cross job boundaries; without it the variable is step-local and downstream jobs see an empty
 string.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR:4
+### Rule ADR-PIPE-VAR-SECRETSMASKED
 
 Always use `-IsSecret` for sensitive values to mask them in ADO logs; the function replaces the value with `***` in its own output when the
 flag is set.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR:5
+### Rule ADR-PIPE-VAR-PASCALCASENAMES
 
 Variable names use PascalCase: ADO names are case-insensitive, but PascalCase matches the parameter convention and reads clearly in YAML
 output references.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR:6
+### Rule ADR-PIPE-VAR-NOOPOUTSIDEPIPELINES
 
 Rely on the no-op-outside-pipelines behavior: `Set-AdoPipelineVariable` checks `Test-IsRunningInPipeline` and skips emission locally, so no
 `if (Test-IsRunningInPipeline)` guards are needed at call sites.
@@ -115,7 +115,7 @@ automation code portable: the same function runs locally (silently skipping the 
   `##vso[task.setvariable]` strings out of automation code: search for `Set-AdoPipelineVariable` to find every variable the automation sets,
   and for `##vso` to confirm no raw command bypasses the function.
 - **PSScriptAnalyzer.** The custom rule `Measure-NoRawVsoCommand` (`pwsh/.scriptanalyzer/NoRawVsoCommand.psm1`) flags any string literal
-  containing a raw `##vso[task.` command (ADR-PIPE-VAR#1).
+  containing a raw `##vso[task.` command (ADR-PIPE-VAR-NORAWLOGGINGCOMMANDS).
 
 ## Consequences
 

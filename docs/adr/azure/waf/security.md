@@ -1,46 +1,46 @@
 # ADR: Well-Architected security — what the repository does about each item of the WAF security checklist
 
-Pairs with [`landing-zones`](../landing-zones.md) (its Security line, [ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5), is the summary
+Pairs with [`landing-zones`](../landing-zones.md) (its Security line, [ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar), is the summary
 these rules expand), [`network-model`](../azure-network-model.md) (the segments the network rules rely on), and
 [`data-model`](../azure-data-model.md) (where a secret may and may not appear in a config).
 
 ## Rules: ADR-AZ-WAF-SE
 
-### Rule ADR-AZ-WAF-SE:1
+### Rule ADR-AZ-WAF-SE-SE01
 
-The security baseline is the set of secure module defaults, the three landing-zone policies, and the Security line of ADR-AZ-LZ#5; a
+The security baseline is the set of secure module defaults, the three landing-zone policies, and the Security line of ADR-AZ-LZ-EVERYPILLAR; a
 benchmark initiative and a check that reads the compiled templates against it are planned.
 
 - [SE:01 — Establish a security baseline](#se01--establish-a-security-baseline)
 
-### Rule ADR-AZ-WAF-SE:2
+### Rule ADR-AZ-WAF-SE-SE02
 
 Security is built into the delivery flow by the build checks that keep secrets and unregistered identifiers out of the tree; secret
 scanning, dependency scanning, and a threat model are planned.
 
 - [SE:02 — Align secure development lifecycle (SDL) throughout the software development lifecycle](#se02--align-secure-development-lifecycle-sdl-throughout-the-software-development-lifecycle)
 
-### Rule ADR-AZ-WAF-SE:3
+### Rule ADR-AZ-WAF-SE-SE03
 
 Every deployment carries a `data-classification` tag in its config; validating its values and letting it select controls is planned.
 
 - [SE:03 — Classify and consistently apply sensitivity and information type labels](#se03--classify-and-consistently-apply-sensitivity-and-information-type-labels)
 
-### Rule ADR-AZ-WAF-SE:4
+### Rule ADR-AZ-WAF-SE-SE04
 
 Segments are the subscription per customer and tier, the resource group per configuration slot, the hub-and-spoke network, and a network
 security group per workload subnet, each deployed by its own service connection; management groups are left to the tenant's administrators.
 
 - [SE:04 — Create intentional segmentation and perimeters](#se04--create-intentional-segmentation-and-perimeters)
 
-### Rule ADR-AZ-WAF-SE:5
+### Rule ADR-AZ-WAF-SE-SE05
 
 People reach data through Entra ID groups and services through managed identities, shared-key access is off, and the one non-identity
-credential is the break-glass SQL login of ADR-AZ-LZ#6; role assignments as code are planned.
+credential is the break-glass SQL login of ADR-AZ-LZ-SQLENTRAADMINS; role assignments as code are planned.
 
 - [SE:05 — Implement strict, conditional, and auditable identity and access management (IAM)](#se05--implement-strict-conditional-and-auditable-identity-and-access-management-iam)
 
-### Rule ADR-AZ-WAF-SE:6
+### Rule ADR-AZ-WAF-SE-SE06
 
 Data services have public network access off and are reached only through private endpoints resolved by the hub's private DNS zones, inbound
 internet traffic is denied at every workload subnet, and no network interface takes a public IP address; egress through a firewall and flow
@@ -48,41 +48,41 @@ logs are planned.
 
 - [SE:06 — Isolate, filter, and control network traffic](#se06--isolate-filter-and-control-network-traffic)
 
-### Rule ADR-AZ-WAF-SE:7
+### Rule ADR-AZ-WAF-SE-SE07
 
 Data is encrypted in transit with TLS 1.2 at minimum and HTTPS only, and at rest by the platform's own encryption; customer-managed keys are
 not adopted.
 
 - [SE:07 — Encrypt data by using modern, industry-standard methods](#se07--encrypt-data-by-using-modern-industry-standard-methods)
 
-### Rule ADR-AZ-WAF-SE:8
+### Rule ADR-AZ-WAF-SE-SE08
 
 Hardening is a secure default of each shared Bicep module, so every caller gets it unless it turns it off; the modules that miss it (the Key
 Vault, the virtual machine, the Data Factory) are planned to gain it.
 
 - [SE:08 — Harden all workload components](#se08--harden-all-workload-components)
 
-### Rule ADR-AZ-WAF-SE:9
+### Rule ADR-AZ-WAF-SE-SE09
 
 The repository holds no secret: a secure parameter is a Key Vault reference to `foundation`'s vault, a config address never carries a
 secret, and services authenticate as managed identities; automated rotation is planned.
 
 - [SE:09 — Protect application secrets](#se09--protect-application-secrets)
 
-### Rule ADR-AZ-WAF-SE:10
+### Rule ADR-AZ-WAF-SE-SE10
 
 The subscription's activity log and the diagnostics of every data and network resource go to `foundation`'s Log Analytics workspace; Key
 Vault and SQL audit logs and threat detection are planned.
 
 - [SE:10 — Implement a holistic monitoring strategy](#se10--implement-a-holistic-monitoring-strategy)
 
-### Rule ADR-AZ-WAF-SE:11
+### Rule ADR-AZ-WAF-SE-SE11
 
 The repository's checks run at build time on the templates and configs; security tests of a deployed workload are planned.
 
 - [SE:11 — Establish a comprehensive testing regimen](#se11--establish-a-comprehensive-testing-regimen)
 
-### Rule ADR-AZ-WAF-SE:12
+### Rule ADR-AZ-WAF-SE-SE12
 
 Incident response is not adopted, because it is an operating process of the tenant's security operations, not something a template deploys;
 the repository supplies what triage reads — the owner tag, the configuration tree as inventory, and the logs in one workspace.
@@ -125,12 +125,12 @@ code, and is measured continuously so drift is caught and gaps are prioritised.
 
 #### What SE:01 means here
 
-The baseline is written in three places, each the owner of one part. The Security line of [ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)
+The baseline is written in three places, each the owner of one part. The Security line of [ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)
 names what a workload gets: no public network access, private endpoints only, TLS 1.2 at minimum, a managed identity, and Entra ID
 authentication. The shared modules in `infrastructure/modules/` carry those settings as secure defaults, so a caller gets them without
-asking. The guardrails of [ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3) — allowed locations, a required tag, and no public IP address
+asking. The guardrails of [ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) — allowed locations, a required tag, and no public IP address
 on a network interface — turn part of the baseline into policy as code, and `policy_enforcement` in `pwsh/Catzc.Azure/configs/azure.yml`
-decides whether they deny or only audit ([ADR-AZ-DATAMOD#11](../azure-data-model.md#rule-adr-az-datamod11)).
+decides whether they deny or only audit ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 
 No external benchmark is assigned: the Microsoft cloud security benchmark initiative is not part of any landing zone, and nothing measures a
 deployed subscription against a benchmark continuously.
@@ -149,7 +149,7 @@ cloud security benchmark initiative in audit mode, so the baseline is measured a
 ##### SE:01 in `expedition`
 
 It takes every secure default of `storage-account.bicep` and `sql-server.bicep` and overrides only `entraOnlyAuthentication`, to keep the
-break-glass login of ADR-AZ-LZ#6.
+break-glass login of ADR-AZ-LZ-SQLENTRAADMINS.
 
 ##### SE:01 status
 
@@ -170,14 +170,14 @@ design choices and code from introducing exploitable weaknesses.
 #### What SE:02 means here
 
 The repository treats security as a property of every change
-([ADR-DORA-SECURITY#3](../../research/pervasive-security.md#rule-adr-dora-security3)), and its build checks hold part of it. Every
+([ADR-DORA-SECURITY-SECUREPATHAUTOMATED](../../research/pervasive-security.md#rule-adr-dora-security-securepathautomated)), and its build checks hold part of it. Every
 parameters file a build renders must satisfy the template's parameter contract, and a `secureString` parameter must be a Key Vault
-reference, never a literal ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)). A config address reaches only
+reference, never a literal ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). A config address reaches only
 version-controlled config, so it never carries a secret
-([ADR-CONF-ADDRESSING#3](../../configuration/config-value-addressing.md#rule-adr-conf-addressing3)). Every GUID in tracked text is a
-registered entry in the managed-GUID registry ([ADR-AUTO-GUIDS#1](../../automation/managed-guids.md#rule-adr-auto-guids1)), so a tenant or
+([ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)). Every GUID in tracked text is a
+registered entry in the managed-GUID registry ([ADR-AUTO-GUIDS-EVERYGUIDREGISTERED](../../automation/managed-guids.md#rule-adr-auto-guids-everyguidregistered)), so a tenant or
 subscription id cannot enter the tree unreviewed; a GUID is an identifier, not a credential, so this is not secret scanning. Logic tests
-never name a live identity ([ADR-AUTO-TEST#3](../../automation/test-automation.md#rule-adr-auto-test3)).
+never name a live identity ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 Deployment is staged: each CD pipeline deploys `foundation`, then `discovery`, then `expedition`, non-production before production, each
 through the service connection of its subscription and pinned by `-SubscriptionIdAssertIs`
@@ -251,13 +251,13 @@ adds to it; clear ownership of each segment speeds up incident response.
 
 The segments come from the data model and the network plan. Each customer has its own subscriptions, one per tier
 (`pwsh/Catzc.Azure/configs/azure.yml`), and each configuration slot is one resource group
-([ADR-AZ-DATAMOD#2](../azure-data-model.md#rule-adr-az-datamod2)). The landing zones form a hub-and-spoke network
-([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2), [ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5)) whose ranges never
-overlap ([ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)). The deploying identity is segmented too: each subscription has
+([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). The landing zones form a hub-and-spoke network
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke), [ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)) whose ranges never
+overlap ([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)). The deploying identity is segmented too: each subscription has
 its own service connection (`sc-apex-nonprod`, `sc-apex-prod`, …), and every deploy pins its subscription with `-SubscriptionIdAssertIs`.
 The `owner` tag names the team that owns each resource.
 
-Management groups are not adopted: the landing zone stops at the subscription ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)), so the
+Management groups are not adopted: the landing zone stops at the subscription ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)), so the
 hierarchy above it belongs to the tenant's administrators.
 
 ##### SE:04 in `foundation`
@@ -274,7 +274,7 @@ every peered network, so east-west traffic between a spoke and the hub is open; 
 ##### SE:04 in `expedition`
 
 Its own resource group per configuration slot; its private endpoints sit in its customer's `private-endpoints` subnet, or the hub's
-`shared-services` subnet for the shared platform ([ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)).
+`shared-services` subnet for the shared platform ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)).
 
 ##### SE:04 status
 
@@ -296,7 +296,7 @@ not identity-based, such as shared keys, is minimised and audited, and every act
 Microsoft Entra ID is the one identity provider. The storage account and the SQL server each have a system-assigned managed identity, the
 storage account refuses shared-key and SAS authorization (`allowSharedKeyAccess: false`), and the Key Vault authorizes through Azure RBAC
 (`enableRbacAuthorization: true`, no access policies). A SQL server's administrator is an Entra ID group, so access follows group membership
-([ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)).
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
 
 The templates make no role assignments: no Key Vault, storage, or SQL data role is granted in code, and the managed identities receive no
 role. Who may read a vault or a database is decided outside the repository. Conditional access, just-in-time access, and access reviews are
@@ -338,10 +338,10 @@ front of ingress, and log flows at the boundaries.
 
 The workload is private by default. `storage-account.bicep` and `sql-server.bicep` set `publicNetworkAccess: 'Disabled'`, the storage
 network rules deny by default, and the SQL "allow Azure services" rule exists only when public access is enabled. Each data service is
-reached through `private-endpoint.bicep`, registered in the hub's private DNS zones ([ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)).
+reached through `private-endpoint.bicep`, registered in the hub's private DNS zones ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)).
 The network plan lives in `pwsh/Catzc.Azure/configs/network.yml` and uses private ranges only
-([ADR-AZ-NETWORK#1](../azure-network-model.md#rule-adr-az-network1)). The policy against public IP addresses on network interfaces closes
-the most common way to expose a virtual machine ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)).
+([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)). The policy against public IP addresses on network interfaces closes
+the most common way to expose a virtual machine ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 
 The workload has no internet-facing endpoint, so a web application firewall and DDoS protection have nothing to protect; they become
 relevant with the first public ingress. Egress is not filtered: the hub reserves `AzureFirewallSubnet` but deploys no firewall, and the
@@ -442,7 +442,7 @@ The guardrails harden the subscription; the budget limits the cost of an abuse. 
 
 ##### SE:08 in `expedition`
 
-Takes every module default; its one relaxation is the break-glass SQL login of ADR-AZ-LZ#6.
+Takes every module default; its one relaxation is the break-glass SQL login of ADR-AZ-LZ-SQLENTRAADMINS.
 
 ##### SE:08 status
 
@@ -463,11 +463,11 @@ treated as compromised.
 #### What SE:09 means here
 
 The repository holds no secret. A `@secure()` parameter takes a Key Vault `reference`, and the parameter contract rejects a literal for it
-([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)); a config address reaches only committed config, so it cannot name a
-secret ([ADR-AZ-DATAMOD#10](../azure-data-model.md#rule-adr-az-datamod10),
-[ADR-CONF-ADDRESSING#3](../../configuration/config-value-addressing.md#rule-adr-conf-addressing3)). In automation, a secret travels as a
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)); a config address reaches only committed config, so it cannot name a
+secret ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress),
+[ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)). In automation, a secret travels as a
 protected value and reaches a child process only through one seam that masks it
-([ADR-AUTO-ENVVAR#7](../../automation/environment-variables.md#rule-adr-auto-envvar7)). Managed identities and Entra ID groups remove most
+([ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../../automation/environment-variables.md#rule-adr-auto-envvar-secrettochildprocess)). Managed identities and Entra ID groups remove most
 credentials before they exist (SE:05).
 
 Rotation is manual: the break-glass password is set in the vault by hand and read by Azure Resource Manager at the next deploy.
@@ -505,7 +505,7 @@ platform threat detection so alerts reach security operations quickly, and use t
 
 `foundation`'s Log Analytics workspace is the one sink of each subscription, outside every workload's resource group. The landing zone
 streams the subscription's activity log there, including the `Administrative`, `Security`, and `Policy` categories
-([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)), and `diagnostic-setting.bicep` sends each resource's logs (category group `allLogs`)
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), and `diagnostic-setting.bicep` sends each resource's logs (category group `allLogs`)
 and metrics to it. The workspace keeps 30 days (`retentionInDays` default of `log-analytics.bicep`).
 
 Threat detection is not deployed: no Microsoft Defender for Cloud plan, no Microsoft Sentinel, and no SQL auditing.
@@ -582,7 +582,7 @@ needed, communication, and post-incident learning, so time to detect and mitigat
 
 Incident response is an operating process of the organisation that runs the tenant, not a resource a template deploys. The repository
 supplies its inputs: the `owner` and `criticality` tags on every resource, the configuration tree as the deployment inventory
-([ADR-AZ-DATAMOD#2](../azure-data-model.md#rule-adr-az-datamod2)), and the logs of each subscription in one workspace (SE:10). Alerts that
+([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)), and the logs of each subscription in one workspace (SE:10). Alerts that
 route to a named contact are not deployed; the budget alerts, which go to the subscription's `Owner` role, are the only alerts the templates
 create.
 
@@ -608,21 +608,21 @@ inventory, and the logs that process reads.
 The repository adopts the WAF security checklist as a review list for its templates, item by item, and records for each item what it does,
 what it plans, and what it does not adopt and why. Security settings that every caller should share are secure defaults of the shared Bicep
 modules; settings that differ per subscription or environment class are config values; and the subscription-wide guardrails belong to the
-landing zone ([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)). Every `partly realised` or `planned` status names the module, template,
+landing zone ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Every `partly realised` or `planned` status names the module, template,
 or config that the change touches.
 
 ### How this is enforced
 
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for `foundation`, `discovery`, and `expedition`, so every rendered
   parameters file satisfies its template's contract, including a Key Vault reference for every secure parameter
-  ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)), and every config address resolves to committed, non-secret config
-  ([ADR-AZ-DATAMOD#10](../azure-data-model.md#rule-adr-az-datamod10)).
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), and every config address resolves to committed, non-secret config
+  ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)).
 - `Test-ManagedGuids` fails a GUID in tracked text that is not in the managed-GUID registry
-  ([ADR-AUTO-GUIDS#4](../../automation/managed-guids.md#rule-adr-auto-guids4)).
+  ([ADR-AUTO-GUIDS-LIVEENTRIESONLY](../../automation/managed-guids.md#rule-adr-auto-guids-liveentriesonly)).
 - `NetworkConfig` and `Test-AzureNetworkPlan` keep the network plan private and free of overlap
-  ([ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)).
+  ([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)).
 - In Azure, the landing zone's three policy assignments deny or audit non-compliant resources, by `policy_enforcement`
-  ([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)).
+  ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 - Every deploy verifies its subscription against `azure.yml` through `-SubscriptionIdAssertIs`
   ([az-session-verification](../az-session-verification.md)).
 - **Planned (follow-up):** a quality gate over the compiled templates for the module defaults of SE:06–SE:08 and the diagnostics of SE:10; a

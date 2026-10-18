@@ -2,23 +2,23 @@
 
 ## Rules: ADR-PWSH-ONEFUNC
 
-### Rule ADR-PWSH-ONEFUNC:1
+### Rule ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
 
 Each `.ps1` file contains exactly one exported function, and the file name matches the function name (`Get-Foo.ps1` must contain
-`function Get-Foo`). This is the mandatory file-name convention (ADR-AUTO-EXTEND#4) in PowerShell.
+`function Get-Foo`). This is the mandatory file-name convention (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS) in PowerShell.
 
 - [Decision](#decision)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-ONEFUNC:2
+### Rule ADR-PWSH-ONEFUNC-PAIREDTESTFILE
 
 Each function file pairs one-to-one with a test file named `Verb-Noun.Tests.ps1` (`Get-Foo.ps1` → `tests/Get-Foo.Tests.ps1`).
 
 - [Why one function per file](#why-one-function-per-file)
 
-### Rule ADR-PWSH-ONEFUNC:3
+### Rule ADR-PWSH-ONEFUNC-GOVERNSSOURCE
 
-This rule and the `.ps1` function files of ADR-PWSH-USEPS#1 govern **source** under `pwsh/<Module>/`. The installed build's merged
+This rule and the `.ps1` function files of ADR-PWSH-USEPS-SCRIPTFILESFORFUNCTIONS govern **source** under `pwsh/<Module>/`. The installed build's merged
 `<Module>.functions.ps1` — every function of one module in one file, the module's single `NestedModules` entry — is a generated artifact of
 `Build-Modules`, derived from the one-function source files, never edited by hand and never checked in. It keeps the `.ps1` extension, so
 the module's functions share one session state as they do in source; the build asserts the rule on its input and fails when a source file
@@ -29,8 +29,8 @@ breaks it.
 
 ## Context
 
-[open-closed-architecture](../automation/open-closed-architecture.md#rule-adr-auto-extend4) makes "file name = function name" a mandatory
-convention, and [zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md#rule-adr-auto-zero2) makes adding a function a matter of
+[open-closed-architecture](../automation/open-closed-architecture.md#rule-adr-auto-extend-mandatoryconventions) makes "file name = function name" a mandatory
+convention, and [zero-ceremony-poka-yoke](../automation/zero-ceremony-poka-yoke.md#rule-adr-auto-zero-zeroceremonyautomation) makes adding a function a matter of
 adding a file. This ADR is that convention in PowerShell. We need a convention for how functions map to files within a module. The two
 common approaches are:
 
@@ -71,7 +71,7 @@ Every reason above is about the code a developer reads, edits, reviews, and blam
 ([run-modes](../design/run-modes.md), [platform-bundle](../automation/platform-bundle.md)) serves a different reader: a machine that loads
 the toolset and pays a per-file antivirus scan on a cold import ([effective-in-enterprises](../automation/effective-in-enterprises.md)). For
 that reader `Build-Modules` merges a module's function files into one `<Module>.functions.ps1`
-([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)), each function preceded by a `# source:` marker line that
+([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests)), each function preceded by a `# source:` marker line that
 names the file it came from, so an error inside the merged file traces back to its source file. The export list of the built manifest is the
 file names of the module's root `.ps1` files — the rule is what makes the merged file's exports derivable without parsing it.
 

@@ -10,7 +10,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait" };
     private static readonly string[] TestKeys = { "level_ms", "run_seconds" };
 
-    // The default Assert-Wait: one second and one millisecond, one pair for every environment.
+    // The default Watch-Blocking: one second and one millisecond, one pair for every environment.
     private static readonly string[] WaitKeys = { "seconds", "milliseconds" };
     public const int WaitDefaultSeconds = 1;
     public const int WaitDefaultMilliseconds = 1;
@@ -55,7 +55,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds].
     public IDictionary tests { get; }
 
-    // The Assert-Wait defaults, defaults filled in: wait[seconds], wait[milliseconds].
+    // The Watch-Blocking defaults, defaults filled in: wait[seconds], wait[milliseconds].
     public IDictionary wait { get; }
 
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);

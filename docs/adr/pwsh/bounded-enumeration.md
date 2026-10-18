@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PWSH-ENUM
 
-### Rule ADR-PWSH-ENUM:1
+### Rule ADR-PWSH-ENUM-RAWDOTNETENUMERATION
 
 List the children of a folder, and anything deeper, with raw .NET only, through `Get-ChildPath` (the `Catzc.Base.Folders` module, backed by
 the compiled `FolderWalker` type). `Get-ChildItem`, `gci`, `dir`, and `ls` never enumerate the filesystem. A probe that asks only whether a
@@ -12,14 +12,14 @@ name is pruned and nothing is collected.
 - [Raw .NET, one way](#raw-net-one-way)
 - [Emptiness probes](#emptiness-probes)
 
-### Rule ADR-PWSH-ENUM:2
+### Rule ADR-PWSH-ENUM-SHALLOWBYDEFAULT
 
-Enumeration is shallow by default: the depth is 2, declared once on the `folder-walk` config type (ADR-AUTO-DEFAULT#6) and read in the
-parameter declaration (ADR-PWSH-PARAM#4). A deeper walk is an explicit `-Depth` at the call site, never a new default.
+Enumeration is shallow by default: the depth is 2, declared once on the `folder-walk` config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER) and read in the
+parameter declaration (ADR-PWSH-PARAM-RESOLUTIONORDER). A deeper walk is an explicit `-Depth` at the call site, never a new default.
 
 - [Shallow by default](#shallow-by-default)
 
-### Rule ADR-PWSH-ENUM:3
+### Rule ADR-PWSH-ENUM-ALWAYSBOUNDED
 
 Nothing is enumerated without a bound. `SearchOption.AllDirectories`, an unlimited depth, and a walk that builds a full list before it
 filters are all unbounded. A call site that walks a whole tree on purpose is a named exception: it states its depth, and the comment says
@@ -27,7 +27,7 @@ why that depth is needed.
 
 - [Nothing unbounded](#nothing-unbounded)
 
-### Rule ADR-PWSH-ENUM:4
+### Rule ADR-PWSH-ENUM-PRUNEFOLDERS
 
 A walk prunes the folders that are never the answer: the config's `exclude` names (`.git`, `node_modules`, `out`) and, while the global
 config value `prune_vendor_in_searches` is `true`, the vendor folder. A caller's explicit `-Exclude` or `-PruneVendor` wins over the config.
@@ -35,7 +35,7 @@ A walk lists a link and never enters it.
 
 - [Pruned, and never through a link](#pruned-and-never-through-a-link)
 
-### Rule ADR-PWSH-ENUM:5
+### Rule ADR-PWSH-ENUM-HOTENUMERATIONCOMPILED
 
 Enumeration that is hot, repeated, or deep is a compiled C# type (ADR-AUTO-TYPES), measured against the PowerShell form. `FolderWalker` is
 that type for folders. Code that needs a different walk extends the one type; it never carries a second copy of the stack walk
@@ -43,7 +43,7 @@ that type for folders. Code that needs a different walk extends the one type; it
 
 - [A compiled type for the hot path](#a-compiled-type-for-the-hot-path)
 
-### Rule ADR-PWSH-ENUM:6
+### Rule ADR-PWSH-ENUM-EARLYLOADINGCODE
 
 Code that loads before `Catzc.Base.Folders` exists (the internal bootstrap, vendor, and types modules, and the modules `Folders` itself
 depends on) lists one level with an inline, non-recursive `[System.IO.Directory]::Enumerate*` call. It never recurses inline.
@@ -58,13 +58,13 @@ The cost grows with the repository, so a command that is fast today slows down a
 
 The walker answers "what is on disk below this folder", which includes an untracked file and leaves out a deleted one. "Which files does git
 track" is a different question with its own seam, `Get-GitTrackedPath`
-([tracked-files-from-the-index](../automation/tracked-files-from-the-index.md), `ADR-AUTO-TRACKED#1`). Code that scopes itself by what is
+([tracked-files-from-the-index](../automation/tracked-files-from-the-index.md), `ADR-AUTO-TRACKED-ONESEAM`). Code that scopes itself by what is
 committed asks that seam and never walks the folder; code that needs what is actually present, such as a build input, a fixture tree, a
 report folder, or a freshly written file, walks.
 
 ### Raw .NET, one way
 
-On Windows the PowerShell file cmdlets carry per-call provider and AV/AMSI overhead that `System.IO` avoids (ADR-PWSH-PESTER#9 names the
+On Windows the PowerShell file cmdlets carry per-call provider and AV/AMSI overhead that `System.IO` avoids (ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS names the
 same effect for tests). `Get-ChildItem` also wraps every entry in a `PSObject`, so a large listing pays for properties the caller discards.
 Raw .NET returns plain strings.
 
@@ -131,8 +131,8 @@ pruned and links never entered. Back it with a compiled type. Code that loads be
   root, a tree deeper than the depth that is never entered, and a link that is listed and not followed.
 - **`folder-walk` config** — `Test-ShippedConfigs` validates the shipped values against the config type that declares the defaults.
 - **Custom PSScriptAnalyzer rule `Measure-NoUnboundedEnumeration`** (`pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1`, severity: Error) —
-  flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM#1) and `[System.IO.SearchOption]::AllDirectories`
-  (ADR-PWSH-ENUM#3). A literal provider path (`env:`, `function:`, `HKLM:`) is left alone, a provider listing through a variable carries a
+  flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM-RAWDOTNETENUMERATION) and `[System.IO.SearchOption]::AllDirectories`
+  (ADR-PWSH-ENUM-ALWAYSBOUNDED). A literal provider path (`env:`, `function:`, `HKLM:`) is left alone, a provider listing through a variable carries a
   justified suppression. Test files are covered like any other code.
 - **Code review** — a whole-tree walk whose depth or comment is not justified is checked against this ADR.
 

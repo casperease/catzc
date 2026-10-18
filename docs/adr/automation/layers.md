@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-LAYERS
 
-### Rule ADR-AUTO-LAYERS:1
+### Rule ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT
 
 **automation** is the abstract: the commands and behaviours the repository offers and the doctrine that governs them, the ADR domain
 `automation` (code `AUTO`), the value-chain row `AUTO` and the concern `automation`. The word names no language, no shell and no folder; a
@@ -11,38 +11,38 @@ sentence that means the PowerShell code names its track, a sentence that means a
 - [Five layers, one word each](#five-layers-one-word-each)
 - [What the word covers](#what-the-word-covers)
 
-### Rule ADR-AUTO-LAYERS:2
+### Rule ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
 
 A **command** is one public function of the module system, the unit a contract describes. A command is written in one **implementation
 language**: a file language of `languages.yml` whose entry sets `executable: true`, a flag that is false unless stated
-([ADR-DSGN-TRACK#3](../design/tracks.md#rule-adr-dsgn-track3), [ADR-AUTO-MODULE#3](module-model.md#rule-adr-auto-module3)); PowerShell with
+([ADR-DSGN-TRACK-ONETECHSTACK](../design/tracks.md#rule-adr-dsgn-track-onetechstack), [ADR-AUTO-MODULE-LANGUAGESFROMFILES](module-model.md#rule-adr-auto-module-languagesfromfiles)); PowerShell with
 the C# types it hosts is one such language, Bash, Python and Go are the others.
 
 - [Five layers, one word each](#five-layers-one-word-each)
 
-### Rule ADR-AUTO-LAYERS:3
+### Rule ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
 
-A command's tools run through an execution engine, one of the closed set ([ADR-AUTO-ENGINE#1](execution-engines.md#rule-adr-auto-engine1)),
+A command's tools run through an execution engine, one of the closed set ([ADR-AUTO-ENGINE-THREEENGINES](execution-engines.md#rule-adr-auto-engine-threeengines)),
 and a track is named by the stack it holds, never by the abstract: **pwsh** is the name of the PowerShell track, beside `go`, `python` and
 `bash`, the same word as the engine that runs it.
 
 - [Named by the stack](#named-by-the-stack)
 
-### Rule ADR-AUTO-LAYERS:4
+### Rule ADR-AUTO-LAYERS-IMPORTERDECIDESMIX
 
 The importer decides the mix a session loads, which languages, which engines and which modules, from one configuration with sensible
 defaults ([ADR-AUTO-IMPORTER](importer.md)); no command, test runner or builder decides it again.
 
 - [Five layers, one word each](#five-layers-one-word-each)
 
-### Rule ADR-AUTO-LAYERS:5
+### Rule ADR-AUTO-LAYERS-CONTRACTATBOUNDARY
 
 A public command's interface is stated at the repository boundary by its contract under `contracts/`, versioned with the unit that carries
 it; the command itself is the implementation of that contract in one language under one engine.
 
 - [Five layers, one word each](#five-layers-one-word-each)
 
-### Rule ADR-AUTO-LAYERS:6
+### Rule ADR-AUTO-LAYERS-REALISENEVERREDEFINE
 
 Each layer realises the one above it and never redefines it: automation, contract, language, engine, importer, read top down as what, its
 interface, how it is written, how it runs, how it is assembled. Every ADR of the automation domain records the layer it belongs to as data,
@@ -50,11 +50,11 @@ the `layer` key of its entry in `adrs.yml`, which defaults to `automation`; the 
 
 - [Layer membership is data](#layer-membership-is-data)
 
-### Rule ADR-AUTO-LAYERS:7
+### Rule ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN
 
 `auto` leaves a layer's choice open: for the engine it is the value that names none
-([ADR-AUTO-ENGINE#7](execution-engines.md#rule-adr-auto-engine7)), for the languages it is the languages of the loaded modules, and in every
-case it resolves in the one resolution order of a setting ([ADR-AUTO-DEFAULT#6](sensible-defaults.md#rule-adr-auto-default6)).
+([ADR-AUTO-ENGINE-AUTONAMESNOENGINE](execution-engines.md#rule-adr-auto-engine-autonamesnoengine)), for the languages it is the languages of the loaded modules, and in every
+case it resolves in the one resolution order of a setting ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 - [Five layers, one word each](#five-layers-one-word-each)
 
@@ -83,11 +83,11 @@ configuration. About ten thousand citations of `ADR-AUTO-*` codes stay as they a
 
 ### Named by the stack
 
-A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-adr-dsgn-track3)): `go`, `python` and `bash` are the
+A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-adr-dsgn-track-onetechstack)): `go`, `python` and `bash` are the
 test-artifact tracks, and the PowerShell track is `pwsh`, the name of the engine that runs it and of nothing else. The word automation then
 means the abstract wherever it appears, and a path that names a track names its stack. The code track's folder is the one place that still
 carries the old name; moving it is a single change, made in one quiet window, and every reader of the root reads it from the track registry
-([ADR-AUTO-MODULE#1](module-model.md#rule-adr-auto-module1)), so the move changes a folder and nothing else.
+([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](module-model.md#rule-adr-auto-module-deployabletrackmodule)), so the move changes a folder and nothing else.
 
 ### Layer membership is data
 

@@ -5,7 +5,7 @@ configuration tree and the config-addressed parameters it reads).
 
 ## Rules: ADR-AZ-LZ
 
-### Rule ADR-AZ-LZ:1
+### Rule ADR-AZ-LZ-LANDINGZONE
 
 A **landing zone** is the network, the guardrails, and the cost control a workload lands in, deployed once per subscription at subscription
 scope by the `discovery` template, the **Cloud Adoption Framework** (CAF) application landing zone. Its boundary is the subscription: it
@@ -14,7 +14,7 @@ owns no **management group** and deploys nothing at management-group or tenant l
 - [The subscription landing zone](#the-subscription-landing-zone)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-LZ:2
+### Rule ADR-AZ-LZ-HUBANDSPOKE
 
 The landing zones form a hub-and-spoke network. A **hub** is the landing zone of a shared subscription; a **spoke** is the landing zone of a
 customer subscription, peered to the hub of its tier. Peering is static and two-sided: a spoke's config names its hub, and a hub's config
@@ -24,18 +24,18 @@ of every range, and the landing zone reads the kind, the address space, and the 
 - [Hub and spoke](#hub-and-spoke)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-LZ:3
+### Rule ADR-AZ-LZ-THREEBUILTINPOLICIES
 
 Every landing zone assigns three built-in policies: allowed locations (its region), a required tag on resources, and no public IP address on
 a network interface. Whether they enforce or only audit is the repository-wide setting `policy_enforcement`, read by config address, with
-its sensible default declared once ([ADR-AZ-DATAMOD#11](azure-data-model.md#rule-adr-az-datamod11)). The subscription's activity log streams
+its sensible default declared once ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). The subscription's activity log streams
 to `foundation`'s Log Analytics workspace through a diagnostic setting the landing zone deploys, never through a deploy-if-not-exists
 policy.
 
 - [Guardrails](#guardrails)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AZ-LZ:4
+### Rule ADR-AZ-LZ-WORKLOADOWNSNONE
 
 A workload lands in its landing zone and owns none of it. `expedition` places its private endpoints in the `private-endpoints` subnet of its
 customer's spoke (the shared platform's in the hub's `shared-services` subnet) and registers them in the hub's private DNS zones; it creates
@@ -43,25 +43,25 @@ no network, peering, DNS zone, or policy.
 
 - [The workload in the landing zone](#the-workload-in-the-landing-zone)
 
-### Rule ADR-AZ-LZ:5
+### Rule ADR-AZ-LZ-EVERYPILLAR
 
 The workload realises every **pillar** of the Azure **Well-Architected Framework**, each as a module default or a config value. Reliability:
 zone-redundant storage, and in production a zone-redundant database with geo-redundant backups. Security: no public network access, private
-endpoints only, TLS 1.2 minimum, a managed identity, and Entra ID authentication (ADR-AZ-LZ#6). Cost optimisation: a serverless database
+endpoints only, TLS 1.2 minimum, a managed identity, and Entra ID authentication (ADR-AZ-LZ-SQLENTRAADMINS). Cost optimisation: a serverless database
 that pauses when idle outside production, a provisioned one in production. Operational excellence: diagnostics from every resource to
 `foundation`'s workspace, and the CAF tags on every resource. Performance efficiency: the database SKU, tier, and capacity per environment
 class, from the config.
 
 - [The Well-Architected checklist](#the-well-architected-checklist)
 
-### Rule ADR-AZ-LZ:6
+### Rule ADR-AZ-LZ-SQLENTRAADMINS
 
 A SQL server authenticates its administrators through an Entra ID group first. Beside it sits one **break-glass login**, a SQL login whose
 password is a Key Vault reference to `foundation`'s vault in the same subscription, so the repository holds no secret.
 
 - [SQL authentication](#sql-authentication)
 
-### Rule ADR-AZ-LZ:7
+### Rule ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS
 
 A peering and a DNS zone link need both virtual networks to exist. So a spoke is added in three steps: the hub deploys without listing the
 new spoke, the spoke deploys and peers to the hub, then the hub's config lists the spoke and the hub deploys again, adding its peering and
@@ -98,7 +98,7 @@ deploys it has rights.
 ### Hub and spoke
 
 Each tier of shared subscriptions (non-production, production) holds a hub; each customer subscription holds a spoke peered to the hub of
-its tier ([ADR-AZ-NETWORK#5](azure-network-model.md#rule-adr-az-network5)). The hub reserves `GatewaySubnet` and `AzureFirewallSubnet`, and
+its tier ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](azure-network-model.md#rule-adr-az-network-networkpersubscription)). The hub reserves `GatewaySubnet` and `AzureFirewallSubnet`, and
 nothing is deployed into them, so a gateway or a firewall can be added without renumbering. A spoke adds a route table on every subnet.
 
 Peering is declared on both sides because Azure models it on both sides: a peering is a child of one virtual network and points at the
@@ -107,10 +107,10 @@ other. Declaring both in configs keeps the topology readable from the configurat
 The private DNS zones of the private-link services the workloads use live once, in the hub, and are linked to every spoke the hub lists. A
 private endpoint in any spoke then resolves through the same zone, and no spoke carries a copy that could disagree.
 
-The ranges come from `network.yml` by config address ([ADR-AZ-NETWORK#1](azure-network-model.md#rule-adr-az-network1),
-[ADR-AZ-DATAMOD#10](azure-data-model.md#rule-adr-az-datamod10)): the kind, the address space, and the subnet map of the subscription. The
+The ranges come from `network.yml` by config address ([ADR-AZ-NETWORK-ONEIPPLAN](azure-network-model.md#rule-adr-az-network-oneipplan),
+[ADR-AZ-DATAMOD-VALUEBYADDRESS](azure-data-model.md#rule-adr-az-datamod-valuebyaddress)): the kind, the address space, and the subnet map of the subscription. The
 landing zone's config therefore holds names, never addresses, and the overlap check of the network plan
-([ADR-AZ-NETWORK#6](azure-network-model.md#rule-adr-az-network6)) guarantees that any hub can peer to any spoke.
+([ADR-AZ-NETWORK-NOOVERLAP](azure-network-model.md#rule-adr-az-network-nooverlap)) guarantees that any hub can peer to any spoke.
 
 ### Guardrails
 
@@ -120,7 +120,7 @@ interface keeps workloads behind private endpoints.
 
 Whether the assignments enforce is a property of the repository, not of a template. `azure.yml` holds it as `policy_enforcement`; its
 sensible default enforces in production and audits outside it, and a stricter repository overrides it in config
-([ADR-AZ-DATAMOD#11](azure-data-model.md#rule-adr-az-datamod11)). The landing zone's `psub` config reads the production mode and its `nsub`
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). The landing zone's `psub` config reads the production mode and its `nsub`
 config the non-production mode, by config address.
 
 Every resource the templates deploy carries the CAF tags, the required one among them, because the production assignment denies a resource
@@ -140,7 +140,7 @@ owns those, so every workload of a subscription meets the same network and the s
 
 ### The Well-Architected checklist
 
-The five pillars are a review checklist, and each line of ADR-AZ-LZ#5 is something the template does, not an aspiration. The settings that
+The five pillars are a review checklist, and each line of ADR-AZ-LZ-EVERYPILLAR is something the template does, not an aspiration. The settings that
 every caller should share — public access off, TLS 1.2, zone redundancy, a managed identity — are secure defaults of the shared Bicep
 modules, so `foundation` gets them too; the settings that differ by environment class — the SKU, the backup redundancy and retention, the
 serverless pause — are config values.
@@ -155,7 +155,7 @@ repository never holds it ([data-model](azure-data-model.md)).
 ### Adding a spoke
 
 A peering points at a remote virtual network, and a DNS zone link names one, so both networks must exist before either is created. The hub
-lists its spokes, so the order is fixed by ADR-AZ-LZ#7: the hub first without the new spoke, then the spoke, which peers to the existing
+lists its spokes, so the order is fixed by ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS: the hub first without the new spoke, then the spoke, which peers to the existing
 hub, then the hub again with the spoke listed. A hub deploy that lists a spoke whose network does not exist fails, naming the missing
 network; once the spoke is deployed, the next hub deploy completes it.
 
@@ -164,7 +164,7 @@ network; once the spoke is deployed, the next hub deploy completes it.
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for `discovery` and `expedition` on every change under
   `infrastructure/`, so a template or config that does not compile, or a config address that does not resolve, fails the build.
 - The parameter-model test binds every template `Get-BicepTemplates` finds and checks each rendered parameters file against the compiled
-  parameter model ([ADR-AZ-DATAMOD#9](azure-data-model.md#rule-adr-az-datamod9)).
+  parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 - `NetworkConfig` and `Test-AzureNetworkPlan` hold the network plan: the kind of each subscription's network, its subnets, and no overlap
   ([network-model](azure-network-model.md)).
 - `AzureConfig` declares the default of `policy_enforcement` and rejects an unknown key or mode.

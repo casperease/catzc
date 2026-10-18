@@ -2,21 +2,21 @@
 
 ## Rules: ADR-PRIN-NOWASTE
 
-### Rule ADR-PRIN-NOWASTE:1
+### Rule ADR-PRIN-NOWASTE-SEVENWASTES
 
 Identify and eliminate work that does not contribute to the outcome — the seven wastes: partially done work, extra features, relearning,
 handoffs, task switching, delays, and defects.
 
 - [Principle](#principle)
 
-### Rule ADR-PRIN-NOWASTE:2
+### Rule ADR-PRIN-NOWASTE-DROPUNNEEDEDSTEPS
 
 For any step, ask "could I deliver the same outcome without this step?" — if yes, the step is waste; eliminate it, or address the structural
 constraint that makes it necessary.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-PRIN-NOWASTE:3
+### Rule ADR-PRIN-NOWASTE-PREFERLEANDEFAULTS
 
 Prefer automation over manual steps, convention over configuration, self-service over approvals, small batches over large, and fast feedback
 over deferred validation.

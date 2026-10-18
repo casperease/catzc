@@ -2,23 +2,23 @@
 
 ## Rules: ADR-AUTO-NOPWD
 
-### Rule ADR-AUTO-NOPWD:1
+### Rule ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS
 
 Never use relative paths that depend on the process working directory. Resolve every path from a known anchor — the code root for content
-that ships with the code, and the working root for the working tree ([rule 6](#rule-adr-auto-nopwd6)) — and join it with the engine's
+that ships with the code, and the working root for the working tree ([rule 6](#rule-adr-auto-nopwd-onerootaccessor)) — and join it with the engine's
 path-joining primitive. Module code reaches the code root through its one accessor, never through the folder its own file sits in.
 
 - [Rejected alternatives](#rejected-alternatives)
 - [The code root](#the-code-root)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-NOPWD:4
+### Rule ADR-AUTO-NOPWD-TESTSBUILDABSOLUTEPATHS
 
 Tests must not assume the working directory: test setup builds absolute paths from the working root or from the test file's own location.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-NOPWD:6
+### Rule ADR-AUTO-NOPWD-ONEROOTACCESSOR
 
 Module code reads the working-tree anchor only through its one accessor, `Get-RepositoryRoot`, never the bootstrap variable directly — the
 variable is the importer's hand-off, the accessor is the one reader, so a change to where the root comes from lands in one place. A function
@@ -66,8 +66,8 @@ never through the folder its file happens to sit in.
   Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **The language layer** — the anchor idioms, the code-root and working-root analyzer rules, and the one safe way to change directory
   (`Push-Location`/`Pop-Location` in `try`/`finally`) are [working-directory-mechanics](../pwsh/working-directory-mechanics.md)
-  (`ADR-PWSH-PWD`): the anchors of rule 1 in ADR-PWSH-PWD#1 and ADR-PWSH-PWD#4, the test paths of rule 4 in ADR-PWSH-PWD#5, and the
-  working-root accessor of rule 6 in ADR-PWSH-PWD#6.
+  (`ADR-PWSH-PWD`): the anchors of rule 1 in ADR-PWSH-PWD-NEVERDEPENDONPWD and ADR-PWSH-PWD-MODULELOCATESCONTENT, the test paths of rule 4 in ADR-PWSH-PWD-TESTABSOLUTEPATHS, and the
+  working-root accessor of rule 6 in ADR-PWSH-PWD-ROOTTHROUGHACCESSOR.
 
 ## Consequences
 

@@ -40,7 +40,10 @@ Order: the commits and git operations first, the remote runs next, the final ful
 4. Bind a key to the "Push dirty" task (`workbench.action.tasks.runTask`, args `Push dirty`) and run `Push-Dirty` once against the real
    remote. Check: one real run reported; plan-fast-push-followups' last step ticked, the plan a closing-sweep candidate;
    task-root-config-fixtures step 5 ticked.
-5. The first measured watchpoint run, cheap and direct: `importer.ps1 -DiagnoseBlocking` once, its four watchpoint lines kept in `out/`. The
+5. Done 2026-10-18 by session catzc-93 on the user's leave, verdict: "importer.ps1 -DiagnoseBlocking, one background run,
+   out/diagnose-blocking.txt (52 lines). Worst ticks: Importer.psm1:136 late 12 ms (1.004 s measured), :141 12 ms (1.014 s), :166 13 ms
+   (1.002 s), :183 14 ms (1.008 s); every watchpoint found no block" (12-14 ms is the Windows timer resolution). Original step: The first
+   measured watchpoint run, cheap and direct: `importer.ps1 -DiagnoseBlocking` once, its four watchpoint lines kept in `out/`. The
    Test-Automation watchpoints are read only if the final session (step 9) adds `-DiagnoseBlocking`; nothing waits on that. Check: each
    importer watchpoint's worst tick is in the report; task-assert-wait steps 7 and 8 unblock.
 6. `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`: list the approvers under `approver_group.members`, run
@@ -48,7 +51,7 @@ Order: the commits and git operations first, the remote runs next, the final ful
    CD run to `shared-psub` waits for approval; task-explanation-drift-gaps step 4 ticked. Since 2026-10-18 the config lists 11
    environments (release-uat with RC and pre-prod with RBC for shared, apex, nova and flux, plus the three prod-tier ones), and the apply
    creates a missing environment (Kind=Environment, Created); the second apply reports Unchanged for all 11.
-6b. Delete the 35 `out/test-links/20261016-2012*` report folders (the user said yes 2026-10-18; a session's permission check refused the
+6b. Done 2026-10-18 (the check lists nothing). Delete the 35 `out/test-links/20261016-2012*` report folders (the user said yes 2026-10-18; a session's permission check refused the
    `rm -rf`, so it is the user's): `rm -rf out/test-links/20261016-2012*`. Check: `ls -d out/test-links/20261016-2012*` lists nothing;
    plan-clear-actions' step ticked.
 7. One CD run on main touching only `apex`, one main run and one PR run of `pipelines/ci-automation.yaml`. Check: `AFFECTED=True` in

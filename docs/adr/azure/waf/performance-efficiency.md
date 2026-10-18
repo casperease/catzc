@@ -1,32 +1,32 @@
 # ADR: Performance efficiency — the Well-Architected checklist PE:01 to PE:12, rule by rule, against foundation, discovery and expedition
 
-Pairs with [`landing-zones`](../landing-zones.md) (ADR-AZ-LZ#5 names the performance-efficiency line of the workload) and
+Pairs with [`landing-zones`](../landing-zones.md) (ADR-AZ-LZ-EVERYPILLAR names the performance-efficiency line of the workload) and
 [`data-model`](../azure-data-model.md) (the configuration tree that carries every SKU and capacity per environment class).
 
 ## Rules: ADR-AZ-WAF-PE
 
-### Rule ADR-AZ-WAF-PE:1
+### Rule ADR-AZ-WAF-PE-PE01
 
 Not adopted: the example templates set no numeric performance targets, because they deploy no application with users or flows to measure; a
 workload built on them sets its own targets before it is deployed.
 
 - [PE:01 — Define performance targets](#pe01--define-performance-targets)
 
-### Rule ADR-AZ-WAF-PE:2
+### Rule ADR-AZ-WAF-PE-PE02
 
 Capacity is a config value per environment class — the database SKU, vCore count, and serverless floor in each `expedition` config, the
 budget per subscription in each `discovery` config — and no demand forecast or service-limit check stands behind it.
 
 - [PE:02 — Conduct capacity planning](#pe02--conduct-capacity-planning)
 
-### Rule ADR-AZ-WAF-PE:3
+### Rule ADR-AZ-WAF-PE-PE03
 
 The templates choose platform services over custom builds — Azure SQL Database and StorageV2 behind private endpoints, a Log Analytics
 workspace, a Key Vault — in one region, with zone-redundant storage and the database tier per environment class from the config.
 
 - [PE:03 — Select the right services](#pe03--select-the-right-services)
 
-### Rule ADR-AZ-WAF-PE:4
+### Rule ADR-AZ-WAF-PE-PE04
 
 The workload's data services and the landing zone's network send their logs and metrics through a diagnostic setting to `foundation`'s Log
 Analytics workspace of the same subscription, so production and non-production signals never mix; baselines, alerts, and dashboards are not
@@ -34,7 +34,7 @@ part of the templates.
 
 - [PE:04 — Establish consistent performance measurement](#pe04--establish-consistent-performance-measurement)
 
-### Rule ADR-AZ-WAF-PE:5
+### Rule ADR-AZ-WAF-PE-PE05
 
 Outside production the database scales itself between a serverless floor and ceiling from the config and pauses when idle; in production it
 is provisioned at a fixed capacity. The unit of scale-out is a configuration slot, a whole deployment of the workload in its own resource
@@ -42,49 +42,49 @@ group; no autoscale rule and no data partitioning exist.
 
 - [PE:05 — Optimize scaling and partitioning](#pe05--optimize-scaling-and-partitioning)
 
-### Rule ADR-AZ-WAF-PE:6
+### Rule ADR-AZ-WAF-PE-PE06
 
 Not adopted: no load, stress, or soak test runs against a deployment, because the example workload carries no application or traffic to
 load; the test tiers verify the code and the compiled templates, not a deployment's performance.
 
 - [PE:06 — Optimize your workload's performance by regularly testing in a production-like environment](#pe06--optimize-your-workloads-performance-by-regularly-testing-in-a-production-like-environment)
 
-### Rule ADR-AZ-WAF-PE:7
+### Rule ADR-AZ-WAF-PE-PE07
 
 Not adopted for code, because the templates deploy no application code; on the infrastructure side the templates hand transport security,
 identity, and backups to the platform rather than building them.
 
 - [PE:07 — Optimize code and infrastructure](#pe07--optimize-code-and-infrastructure)
 
-### Rule ADR-AZ-WAF-PE:8
+### Rule ADR-AZ-WAF-PE-PE08
 
 Not adopted: the example database holds no schema, data, or queries to tune; the database's query and wait signals reach the workspace
-through its diagnostic setting (ADR-AZ-WAF-PE#4), ready for the workload that owns a schema.
+through its diagnostic setting (ADR-AZ-WAF-PE-PE04), ready for the workload that owns a schema.
 
 - [PE:08 — Optimize data usage](#pe08--optimize-data-usage)
 
-### Rule ADR-AZ-WAF-PE:9
+### Rule ADR-AZ-WAF-PE-PE09
 
 Not adopted at the level of flows, because the workload has none; each deployment carries a `criticality` tag, and each customer gets its
 own subscription, landing zone, and workload resources, which isolates customers from one another.
 
 - [PE:09 — Prioritize the performance of critical flows](#pe09--prioritize-the-performance-of-critical-flows)
 
-### Rule ADR-AZ-WAF-PE:10
+### Rule ADR-AZ-WAF-PE-PE10
 
 The routine tasks the templates carry run on the platform: deployments are declarative and incremental, backups are the database's automated
 backups and the storage account's soft delete, and the break-glass password lives in Key Vault. No task is scheduled off-peak.
 
 - [PE:10 — Optimize operational tasks](#pe10--optimize-operational-tasks)
 
-### Rule ADR-AZ-WAF-PE:11
+### Rule ADR-AZ-WAF-PE-PE11
 
-Not adopted: no performance alert, triage plan, or on-call rota exists, because there is no baseline to deviate from (ADR-AZ-WAF-PE#1,
-ADR-AZ-WAF-PE#4); the activity log's service-health and resource-health records reach the workspace through the landing zone.
+Not adopted: no performance alert, triage plan, or on-call rota exists, because there is no baseline to deviate from (ADR-AZ-WAF-PE-PE01,
+ADR-AZ-WAF-PE-PE04); the activity log's service-health and resource-health records reach the workspace through the landing zone.
 
 - [PE:11 — Respond to live performance issues](#pe11--respond-to-live-performance-issues)
 
-### Rule ADR-AZ-WAF-PE:12
+### Rule ADR-AZ-WAF-PE-PE12
 
 Not adopted: no continuous performance review runs, because it needs the targets and baselines the templates do not set; changes to the
 templates go through the same build and verification as every other change.
@@ -108,7 +108,7 @@ The [WAF reference](../../../references/waf/index.md) lists the five pillar reco
 cites.
 
 The examples are the three templates under `infrastructure/templates/`: `foundation` (the Log Analytics workspace and Key Vault of each
-subscription), `discovery` (the landing zone, ADR-AZ-LZ#1), and `expedition` (the workload that lands in it, ADR-AZ-LZ#4). Every takeaway
+subscription), `discovery` (the landing zone, ADR-AZ-LZ-LANDINGZONE), and `expedition` (the workload that lands in it, ADR-AZ-LZ-WORKLOADOWNSNONE). Every takeaway
 below points at one of them.
 
 ### PE:01 — Define performance targets
@@ -160,7 +160,7 @@ reaches them. Good planning avoids both under-provisioning, which hurts performa
 #### What PE:02 means here
 
 Capacity is configuration, not code: every capacity a template uses is a parameter, and its value per environment class is written in the
-per-slot config ([ADR-AZ-DATAMOD#2](../azure-data-model.md#rule-adr-az-datamod2)). That makes the capacity of every deployment readable from
+per-slot config ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). That makes the capacity of every deployment readable from
 the configuration tree. What stands behind those values is a choice, not a plan: no utilisation history, forecast, or record of service
 limits backs them.
 
@@ -171,7 +171,7 @@ The workspace uses the `PerGB2018` pay-as-you-go tier and a 30-day retention, th
 
 ##### PE:02 in `discovery`
 
-The network's ranges come from `network.yml` by config address ([ADR-AZ-DATAMOD#10](../azure-data-model.md#rule-adr-az-datamod10)): one
+The network's ranges come from `network.yml` by config address ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)): one
 `/16` per subscription, and a `/24` for the private endpoints and for each environment, which caps the private endpoints a spoke can hold.
 The budget per subscription is the one capacity-like number in the configs: 1000 for the production hub, 300 for the apex non-production
 spoke.
@@ -200,9 +200,9 @@ per requirement; use private networking for latency; and set a sensible tier and
 #### What PE:03 means here
 
 The templates use managed services throughout and no virtual machine. Every resource is in one region, `westeurope`, for every environment
-in `azure.yml`, and the landing zone's allowed-locations policy keeps it there (ADR-AZ-LZ#3), so the workload, its private endpoints, and
+in `azure.yml`, and the landing zone's allowed-locations policy keeps it there (ADR-AZ-LZ-THREEBUILTINPOLICIES), so the workload, its private endpoints, and
 its workspace never cross a region. The settings every caller should share are module defaults (zone-redundant storage, a zone-redundant
-database where its tier supports it); the settings that differ by environment class are config values (ADR-AZ-LZ#5).
+database where its tier supports it); the settings that differ by environment class are config values (ADR-AZ-LZ-EVERYPILLAR).
 
 ##### PE:03 in `foundation`
 
@@ -211,7 +211,7 @@ A managed Log Analytics workspace and a Key Vault, from `log-analytics.bicep` an
 ##### PE:03 in `discovery`
 
 Virtual network peering on the Azure backbone between each spoke and its hub, and private DNS zones in the hub, so a workload reaches its
-data services over private addresses (ADR-AZ-LZ#2). The hub reserves `GatewaySubnet` and `AzureFirewallSubnet`, so a gateway or firewall can
+data services over private addresses (ADR-AZ-LZ-HUBANDSPOKE). The hub reserves `GatewaySubnet` and `AzureFirewallSubnet`, so a gateway or firewall can
 join later without renumbering.
 
 ##### PE:03 in `expedition`
@@ -242,7 +242,7 @@ thin.
 Measurement is a diagnostic setting per resource, from the shared `diagnostic-setting.bicep` module, which picks the log and metric
 categories each resource kind exposes, into the workspace `foundation` deploys in the same subscription. Since each subscription has its own
 workspace and production and non-production run in different subscriptions (`azure.yml`), production and non-production signals land in
-different workspaces by construction. The subscription's activity log arrives through `subscription-diagnostic-setting.bicep` (ADR-AZ-LZ#3).
+different workspaces by construction. The subscription's activity log arrives through `subscription-diagnostic-setting.bicep` (ADR-AZ-LZ-THREEBUILTINPOLICIES).
 No alert, dashboard, baseline, or synthetic transaction is deployed.
 
 ##### PE:04 in `foundation`
@@ -281,7 +281,7 @@ as stamps; and plan data partitioning early, testing it for skew.
 Two scaling mechanisms exist, both by configuration. The first is the serverless database outside production: Azure scales its vCores
 between the `databaseMinCapacity` floor and the `databaseSkuCapacity` ceiling and pauses it after `databaseAutoPauseDelay` minutes idle, so
 the ceiling is the upper limit the checklist asks for. The second is the configuration slot: a special slot deploys a whole second copy of
-the workload into its own resource group beside the base slot ([ADR-AZ-DATAMOD#2](../azure-data-model.md#rule-adr-az-datamod2)), and a new
+the workload into its own resource group beside the base slot ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)), and a new
 customer gets its own subscription and landing zone, so the templates scale out by deployment unit, much as the Deployment Stamps pattern
 does. Production capacity is fixed, no autoscale rule exists, and there is no data to partition.
 
@@ -291,7 +291,7 @@ Not applicable: the workspace and the vault scale with use on the platform side 
 
 ##### PE:05 in `discovery`
 
-Each new customer subscription gets its own spoke, peered to its tier's hub through the three-step rollout of ADR-AZ-LZ#7; the address plan
+Each new customer subscription gets its own spoke, peered to its tier's hub through the three-step rollout of ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS; the address plan
 in `network.yml` reserves a `/16` per spoke, so the number of spokes, not their size, is what grows.
 
 ##### PE:05 in `expedition`
@@ -318,7 +318,7 @@ use load, stress, spike, and soak tests with realistic data, compare a baseline 
 #### What PE:06 means here
 
 The repository's tests verify code, configs, and compiled templates; testing in production, the L4 tier
-([ADR-AUTO-TEST#41](../../automation/test-automation.md#rule-adr-auto-test41)), observes a released system but measures no performance. A
+([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../automation/test-automation.md#rule-adr-auto-test-testinginproduction)), observes a released system but measures no performance. A
 production-like place to test exists in the model: `azure.yml` gives each production subscription a `preprod` environment, and `network.yml`
 gives the apex production spoke a `preprod` subnet. No `expedition` config targets `preprod`, so nothing is deployed there to test.
 
@@ -352,9 +352,9 @@ batching, lean queries, compression, and a CDN for static content.
 
 #### What PE:07 means here
 
-The code half does not apply: no template deploys application code. The infrastructure half follows from ADR-AZ-WAF-PE#3: the templates build
+The code half does not apply: no template deploys application code. The infrastructure half follows from ADR-AZ-WAF-PE-PE03: the templates build
 no service the platform offers. TLS ends at the managed services, identity is a managed identity and Entra ID rather than stored credentials
-(ADR-AZ-LZ#6), and backups are platform features, so no component of ours does that work.
+(ADR-AZ-LZ-SQLENTRAADMINS), and backups are platform features, so no component of ours does that work.
 
 ##### PE:07 in `foundation`
 
@@ -371,7 +371,7 @@ No code. The storage account and database expose only private endpoints, so traf
 
 ##### PE:07 status
 
-Not adopted, because the templates deploy no application code; the infrastructure half is realised through ADR-AZ-WAF-PE#3.
+Not adopted, because the templates deploy no application code; the infrastructure half is realised through ADR-AZ-WAF-PE-PE03.
 
 ### PE:08 — Optimize data usage
 
@@ -387,7 +387,7 @@ replicas, archive and purge, place data near its users, and keep transactional a
 #### What PE:08 means here
 
 Data tuning needs data, and the example database is empty. What the templates provide is the signal a tuning effort reads: the database's
-diagnostic setting sends the `allLogs` category group, which carries its query-store and wait statistics, to the workspace (ADR-AZ-WAF-PE#4).
+diagnostic setting sends the `allLogs` category group, which carries its query-store and wait statistics, to the workspace (ADR-AZ-WAF-PE-PE04).
 Index design, query rewriting, and partitioning belong to the workload that owns the schema.
 
 ##### PE:08 in `foundation`
@@ -420,7 +420,7 @@ use priority queues.
 
 #### What PE:09 means here
 
-The CAF tags on every resource include `criticality` (ADR-AZ-LZ#5), and the configs rate each deployment with it: `high` for the shared
+The CAF tags on every resource include `criticality` (ADR-AZ-LZ-EVERYPILLAR), and the configs rate each deployment with it: `high` for the shared
 subscriptions and for production, `medium` for `foundation` and `discovery` in a customer's non-production subscription, and `low` for the
 non-production workload. That is a rating per deployment, not per flow, and nothing reserves capacity or limits traffic by it. Isolation
 comes from the customer model: each customer has its own subscriptions, spokes, and workload resources, so one customer's load never shares
@@ -459,7 +459,7 @@ incremental or platform backups and lightweight logging.
 The operational tasks the templates carry are all the platform's. A deployment is `Deploy-Bicep`, an `az deployment group create` (or
 `sub create` for `discovery`) in Azure's default incremental mode, so a redeploy changes only what differs and removes nothing. Backups are
 the database's automated backups and the storage account's soft delete, which run inside the services. The break-glass password is a Key
-Vault reference resolved at deploy time (ADR-AZ-LZ#6), so rotating it touches no running resource. A special slot can run a second copy of
+Vault reference resolved at deploy time (ADR-AZ-LZ-SQLENTRAADMINS), so rotating it touches no running resource. A special slot can run a second copy of
 the workload beside the base slot, but no traffic shifts between them. No maintenance window or off-peak schedule is set.
 
 ##### PE:10 in `foundation`
@@ -468,7 +468,7 @@ The vault holds the password every `expedition` config references; the workspace
 
 ##### PE:10 in `discovery`
 
-Each deploy reapplies the network, the policies, and the budget; adding a spoke takes three deploys in a fixed order (ADR-AZ-LZ#7).
+Each deploy reapplies the network, the policies, and the budget; adding a spoke takes three deploys in a fixed order (ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS).
 
 ##### PE:10 in `expedition`
 
@@ -492,7 +492,7 @@ alert.
 
 #### What PE:11 means here
 
-The data an investigation would read is collected (ADR-AZ-WAF-PE#4), and the activity log's `ServiceHealth` and `ResourceHealth` records
+The data an investigation would read is collected (ADR-AZ-WAF-PE-PE04), and the activity log's `ServiceHealth` and `ResourceHealth` records
 reach the workspace, so a platform incident is visible beside the workload's own signals. The architecture is documented in the reference
 articles under `docs/references/infrastructure/`. No alert, triage plan, or on-call rota exists, and access to the workspace is whatever
 role the subscription grants.
@@ -526,7 +526,7 @@ the database and tiering its data.
 
 #### What PE:12 means here
 
-Continuous optimisation measures against targets and baselines, which the templates do not set (ADR-AZ-WAF-PE#1). What the repository does
+Continuous optimisation measures against targets and baselines, which the templates do not set (ADR-AZ-WAF-PE-PE01). What the repository does
 continuously is change the templates through the same build and verification as any code: `ci-infrastructure.yaml` compiles and verifies
 every template on every change under `infrastructure/`, and `azure.yml` pins the minimum Bicep version (`bicep_min_version`), so a newer
 platform feature arrives as a reviewed template change.
@@ -559,16 +559,16 @@ These checks exist:
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for `foundation`, `discovery`, and `expedition` on every change
   under `infrastructure/`, so a template or config that does not compile, or whose config address does not resolve, fails the build.
 - The parameter-model test checks every rendered parameters file against the compiled template
-  ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)): a database tier outside the `@allowed` list or a retention outside 1 to
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)): a database tier outside the `@allowed` list or a retention outside 1 to
   35 days fails.
-- The landing zone's allowed-locations policy keeps every resource in its region (ADR-AZ-LZ#3).
+- The landing zone's allowed-locations policy keeps every resource in its region (ADR-AZ-LZ-THREEBUILTINPOLICIES).
 
 The follow-up to the CAF and WAF work plans these checks; they are not part of the repository:
 
 - A check over the compiled templates (`main.json`) that every resource kind `diagnostic-setting.bicep` supports carries a diagnostic
-  setting, citing ADR-AZ-WAF-PE#4.
+  setting, citing ADR-AZ-WAF-PE-PE04.
 - An integrity test over the `expedition` configs that a production-class config names a provisioned SKU and an explicit capacity, citing
-  ADR-AZ-WAF-PE#2.
+  ADR-AZ-WAF-PE-PE02.
 
 ## Consequences
 

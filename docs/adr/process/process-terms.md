@@ -2,14 +2,14 @@
 
 ## Rules: ADR-PROC-LEANTERMS
 
-### Rule ADR-PROC-LEANTERMS:1
+### Rule ADR-PROC-LEANTERMS-ONECANONICALMEANING
 
 Every process term in this repository has one canonical meaning, fixed here. The process ADRs use these terms identically; a term used with
 a private or shifting meaning is a defect, the same way an undeclared identifier is.
 
 - [The terms](#the-terms)
 
-### Rule ADR-PROC-LEANTERMS:2
+### Rule ADR-PROC-LEANTERMS-CONSTRAINTSETSTHROUGHPUT
 
 The constraint (bottleneck) is the single step that sets the throughput of the whole system. Time saved at a non-constraint is not saved by
 the system, and time lost at the constraint is lost by the system — so improvement effort goes to the constraint, not to whichever step is
@@ -17,21 +17,21 @@ easiest to speed up.
 
 - [The constraint](#the-constraint)
 
-### Rule ADR-PROC-LEANTERMS:3
+### Rule ADR-PROC-LEANTERMS-OPTIMISETHEWHOLE
 
 Optimise the whole, not the part. A local optimum that does not lift the system constraint delivers no system gain and often harms the whole
 (a faster non-constraint just piles work in front of the constraint). "This step got faster" is not an outcome; "the system got faster" is.
 
 - [The constraint](#the-constraint)
 
-### Rule ADR-PROC-LEANTERMS:4
+### Rule ADR-PROC-LEANTERMS-FLOWISMEASURED
 
 Flow is measured, not felt. Throughput, work-in-progress, and lead time are defined quantities related by Little's Law
 ([ADR-PROC-LEAN](lean.md)); decisions about batch size and work-in-progress rest on those measures, never on "we feel slow".
 
 - [Flow primitives](#flow-primitives)
 
-### Rule ADR-PROC-LEANTERMS:5
+### Rule ADR-PROC-LEANTERMS-AUTOMATEDORMANUAL
 
 Work is classified by who acts: an automated step runs to completion with no human action, a manual step requires a person. Human attention
 is the scarce constraint and machine time is cheap and falling (Moore's Law, [ADR-PROC-LEAN](lean.md)), so the platform's direction of

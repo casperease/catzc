@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ab49b597de5"
+    with_body_sha: "385e4e33231a"
     repo_status: locked
     path: docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives/tree.md
     source: docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png
@@ -12,16 +12,16 @@ catzc:
     tracktype: documentation
 ---
 
-# Five keys, one private reader, twelve exported primitives: the tree minimap
+# Five keys, one private reader, fifteen exported primitives: the tree minimap
 
 ```text
 Which files cite ADR-REPO-VARIANT: every file of the world map is a tile, grouped by top-level folder.
 14 files lit in 7 groups.
 ```
 
-![The tree minimap of Five keys, one private reader, twelve exported primitives](tree.png)
+![The tree minimap of Five keys, one private reader, fifteen exported primitives](tree.png)
 
-This is the tree minimap in the sidebar of the implementation diagram of [Five keys, one private reader, twelve exported primitives][15],
+This is the tree minimap in the sidebar of the implementation diagram of [Five keys, one private reader, fifteen exported primitives][15],
 which explains [ADR-REPO-VARIANT][1]. It lights every file that cites those codes, grouped by folder, so it shows which files carry the
 decision. Each lit group has its reason below, naming the code that selects it.
 

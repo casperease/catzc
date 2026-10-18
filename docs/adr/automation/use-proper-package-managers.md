@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-PKGMGR
 
-### Rule ADR-AUTO-PKGMGR:1
+### Rule ADR-AUTO-PKGMGR-WINGETONWINDOWS
 
 Use `winget` for Windows package installations, never Chocolatey. No tool in `tools.yml` carries a `ChocolateyId` and no installer shells
 out to `choco`; Windows installs use winget, pip, or a vendored script.
@@ -10,34 +10,34 @@ out to `choco`; Windows installs use winget, pip, or a vendored script.
 - [Winget's security model](#wingets-security-model)
 - [Chocolatey's security model](#chocolateys-security-model)
 
-### Rule ADR-AUTO-PKGMGR:2
+### Rule ADR-AUTO-PKGMGR-NOCHOCOLATEYDEPENDENCY
 
 Do not introduce Chocolatey as a dependency. No function should shell out to `choco`, reference a Chocolatey package, or assume Chocolatey
 is installed.
 
 - [Chocolatey's security model](#chocolateys-security-model)
 
-### Rule ADR-AUTO-PKGMGR:3
+### Rule ADR-AUTO-PKGMGR-REMOVECHOCOLATEY
 
 Remove Chocolatey from target machines. `Uninstall-Chocolatey` removes the install, its env vars, and PATH entries; it is idempotent and
 `Install-DevBoxTools` calls it first, so any Chocolatey install on a target machine is removed before provisioning proceeds.
 
 - [Decision](#decision)
 
-### Rule ADR-AUTO-PKGMGR:4
+### Rule ADR-AUTO-PKGMGR-CHOCOLATEYREPORTEDUNWANTED
 
 `Get-ToolsStatus` reports Chocolatey as unwanted. If `choco` is on PATH, the status output lists a Chocolatey entry with status `Unwanted`
 and action `Run Uninstall-Chocolatey`.
 
 - [Decision](#decision)
 
-### Rule ADR-AUTO-PKGMGR:5
+### Rule ADR-AUTO-PKGMGR-PLATFORMNATIVEMANAGERS
 
 Use platform-native managers on other platforms — `brew` on macOS, `apt-get` on Linux. This ADR only constrains the Windows choice.
 
 - [Other platforms](#other-platforms)
 
-### Rule ADR-AUTO-PKGMGR:6
+### Rule ADR-AUTO-PKGMGR-VERIFYDOWNLOADS
 
 Verify integrity of every direct download. Outside a package manager, the `Install-*` function verifies the artifact through
 `Save-VerifiedDownload` (download → SHA-256 → reject + delete on mismatch); never execute an unverified binary outside the documented

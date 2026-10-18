@@ -2,47 +2,47 @@
 
 ## Rules: ADR-PWSH-AUTOVAR
 
-### Rule ADR-PWSH-AUTOVAR:1
+### Rule ADR-PWSH-AUTOVAR-NOQUESTIONMARKVARIABLE
 
 Never use `$?` for control flow — every statement (including the read itself) overwrites it; rely on `-ErrorAction Stop` plus `try`/`catch`
 instead.
 
 - [The `$?` flag](#the--flag)
 
-### Rule ADR-PWSH-AUTOVAR:2
+### Rule ADR-PWSH-AUTOVAR-EXITCODECYCLE
 
 With `$LASTEXITCODE`: reset → invoke → assert → reset. Prefer `Invoke-Executable` (or its `-PassThru` result's `ExitCode`) so you never read
 the variable directly.
 
 - [`$LASTEXITCODE`](#lastexitcode)
 
-### Rule ADR-PWSH-AUTOVAR:3
+### Rule ADR-PWSH-AUTOVAR-CAPTUREMATCHES
 
 Capture `$Matches` into a named local on the very next line after a `-match` — the next match silently clobbers it.
 
 - [`$Matches`](#matches)
 
-### Rule ADR-PWSH-AUTOVAR:4
+### Rule ADR-PWSH-AUTOVAR-CAPTUREPIPELINEITEM
 
 Capture `$_`/`$PSItem` into a named local before nesting pipelines or mixing pipeline with `catch`/`switch` — the scopes nested inside
 shadow it.
 
 - [`$_` / `$PSItem`](#_--psitem)
 
-### Rule ADR-PWSH-AUTOVAR:5
+### Rule ADR-PWSH-AUTOVAR-NOERRORVARIABLE
 
 Never use `$Error` for control flow — it is a global session-wide list; handle errors with `try`/`catch`.
 
 - [`$Error`](#error)
 
-### Rule ADR-PWSH-AUTOVAR:6
+### Rule ADR-PWSH-AUTOVAR-NOCOALESCEONSTRINGS
 
 Never use `??` to default a `[string]` parameter or variable — `[string]` coerces `$null` to `''`, so the default never fires; guard with
 `if`/`IsNullOrEmpty` and reserve `??` for genuinely nullable operands.
 
 - [`??` on a `[string]`](#-on-a-string)
 
-### Rule ADR-PWSH-AUTOVAR:7
+### Rule ADR-PWSH-AUTOVAR-NOVALIDATEDREASSIGNMENT
 
 Never reassign a parameter variable that carries a `Validate*` attribute (`[ValidateScript]`, `[ValidateSet]`, `[ValidateRange]`, …) — the
 validator re-fires on every assignment, not just at binding, so assigning a different-shaped value into that name throws
@@ -101,7 +101,7 @@ There is no reliable way to use `$?` in general-purpose code.
 **What to do instead:**
 
 - For **cmdlets and functions**: `-ErrorAction Stop` (set globally by the importer) so failures throw. Catch with `try`/`catch`. See
-  [error-handling](error-handling.md#rule-adr-pwsh-error1).
+  [error-handling](error-handling.md#rule-adr-pwsh-error-stoponerror).
 - For **native executables**: use `$LASTEXITCODE` (see below) or `Invoke-Executable` which handles the entire cycle.
 
 **Enforced by:** PSScriptAnalyzer custom rule `Measure-NoAutomaticVariableMisuse` (severity: Error).

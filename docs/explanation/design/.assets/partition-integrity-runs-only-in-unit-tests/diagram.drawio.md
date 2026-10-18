@@ -6,8 +6,8 @@ Glyphs: 4 gates, 2 code units (slate), 2 ADR-only; 6 edges; 11 rule chips; 8 mar
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in
-the vocabulary of the diagram glyphs; what it means is in [the article](../../partition-integrity-runs-only-in-unit-tests.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../partition-integrity-runs-only-in-unit-tests.md).
 
 ## At a glance
 
@@ -30,17 +30,17 @@ the top of FOLDER.
 | Glyph (legend phrase) | Count | Where                                                                                                                                                                           |
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | gate                  | 4     | Test-SourceConventions and Test-FolderConventions (FOLDER, bottom row), Assert-Unique…FunctionName (VISIBILITY, top), VariantsConfig (ASPECT, top); grey rhombi with a 3 px rim |
-| code unit             | 2     | pwsh/&lt;Module&gt;/ (FOLDER, top, band-wide), New-DynamicManifest (VISIBILITY, bottom)                                                                                   |
+| code unit             | 2     | pwsh/&lt;Module&gt;/ (FOLDER, top, band-wide), New-DynamicManifest (VISIBILITY, bottom)                                                                                         |
 | ADR-only              | 2     | AspectPartition.Validate (ASPECT, bottom; a white dashed rhombus inside a dashed frame), aspect sha lock (SHA LOCK, top; a dashed white box)                                    |
 
 Code units are slate with white names; the gates are grey with dark text.
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                                                                                |
-| --------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Edge kind | Count | From → to                                                                                                                                          |
+| --------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | flow      | 4     | pwsh/\<Module/> → Test-SourceConventions, → Test-FolderConventions, → Assert-Unique…FunctionName; Assert-Unique…FunctionName → New-DynamicManifest |
-| ADR-only  | 2     | VariantsConfig → AspectPartition.Validate, VariantsConfig → aspect sha lock                                                                              |
+| ADR-only  | 2     | VariantsConfig → AspectPartition.Validate, VariantsConfig → aspect sha lock                                                                        |
 
 Every edge is straight; three point down and three point right. None crosses another, and none carries a label.
 
@@ -68,13 +68,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-DSGN-ASPECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason
-for every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** GOV, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

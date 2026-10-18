@@ -2,28 +2,28 @@
 
 ## Rules: ADR-PROC-AGILE
 
-### Rule ADR-PROC-AGILE:1
+### Rule ADR-PROC-AGILE-DEFINEDBYMANIFESTO
 
 Agile is defined by the Agile Manifesto — its four values ([ADR-PROC-VALUES](agile-values.md)) and twelve principles
 ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)) — not by any framework, ceremony, role, or tool.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-AGILE:2
+### Rule ADR-PROC-AGILE-RESPONDTOCHANGE
 
 Agility is the ability to respond to change: to alter direction quickly and cheaply as understanding grows. A process that makes change
 expensive is not agile, whatever it is called.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-AGILE:3
+### Rule ADR-PROC-AGILE-VALUESOVERFRAMEWORKS
 
 The values and principles are authoritative; a framework (Scrum, Kanban, XP) is one implementation of them and yields to them on conflict —
 when a practice contradicts a value, the value governs and the practice changes.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-PROC-AGILE:4
+### Rule ADR-PROC-AGILE-PROVENBYOUTCOMES
 
 Agility is proven by outcomes — working software delivered frequently and direction changed cheaply — never by conformance to a process. A
 team that follows every ceremony yet cannot absorb change is not agile.

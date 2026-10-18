@@ -234,5 +234,47 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             { Update-AdrCitation -Path $target -CodeMap $script:codeMap -RuleMap $full -RepositoryRoot $script:root } |
                 Should -Throw '*rule map*'
         }
+
+        It 'fails on a name row whose name is not one segment below the rule''s own code' -ForEach @(
+            @{ Name = 'ADR-GIZMO-COG-TURNS' }
+            @{ Name = 'ADR-WIDGET-COG-turns' }
+        ) {
+            $rows = @(
+                @('old_rule', 'new_rule', 'kind', 'why') -join "`t"
+                @('ADR-WIDGET-COG:1', $Name, 'name', 'a name under the wrong code or in lower case') -join "`t"
+            )
+            $full = & $script:writeText "maps/bad-name-map-$([guid]::NewGuid().ToString('N')).tsv" (($rows -join "`n") + "`n")
+            $target = & $script:writeText 'maps/target-name.md' 'text'
+            { Update-AdrCitation -Path $target -CodeMap $script:codeMap -RuleMap $full -RepositoryRoot $script:root } |
+                Should -Throw '*is not ADR-<CODE>:<n> -> ADR-<CODE>-<NAME>*'
+        }
+    }
+
+    Context 'named rules' -Tag 'ADR-REPO-ADRCODE#4' {
+        It 'writes a named rule''s code for its citation and its heading' {
+            & $script:update 'notes/named.md' "See ADR-WIDGET-COG#1.`n### Rule ADR-WIDGET-COG:2`n" |
+                Should -BeExactly "See ADR-WIDGET-COG-TURNS.`n### Rule ADR-WIDGET-COG-MESHES`n"
+        }
+
+        It 'spells each named rule of a list in full and keeps a numbered one numbered' {
+            & $script:update 'notes/named-list.md' 'ADR-WIDGET-COG#1, #3 and #7' |
+                Should -BeExactly 'ADR-WIDGET-COG-TURNS, ADR-WIDGET-COG-GRIPS and ADR-WIDGET-COG#7'
+        }
+
+        It 'rewrites a code link''s text and its anchor to the named rule' -Tag 'ADR-REPO-LINK#3' {
+            & $script:update 'src/named.ps1' '# [ADR-WIDGET-COG#2](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog2)' |
+                Should -BeExactly '# [ADR-WIDGET-COG-MESHES](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-meshes)'
+        }
+
+        It 'reports a group and a range over named rules as Unhandled and leaves them as written' {
+            & $script:update 'notes/named-group.md' 'ADR-WIDGET-COG#{1-3} and ADR-WIDGET-COG#1 to #3' |
+                Should -BeExactly 'ADR-WIDGET-COG#{1-3} and ADR-WIDGET-COG#1 to #3'
+            @($script:changes | Where-Object Kind -EQ ([Catzc.Base.Docs.AdrCitationChangeKind]::Unhandled)).Old |
+                Should -Be @('ADR-WIDGET-COG#{1-3}', 'ADR-WIDGET-COG#1 to #3')
+        }
+
+        It 'renames the code of a group whose rules have no names' {
+            & $script:update 'notes/group-rename.md' 'ADR-WIDGET-GADGET#{1,2}' | Should -BeExactly 'ADR-GIZMO-GADGET#{1,2}'
+        }
     }
 }

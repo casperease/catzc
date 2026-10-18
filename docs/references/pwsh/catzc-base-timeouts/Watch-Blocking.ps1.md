@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Timeouts/Assert-Wait.ps1
+# pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -34,19 +34,19 @@ Milliseconds added to Seconds. Default: the registry's wait.milliseconds, one mi
 ### example 1
 
 ```powershell
-Assert-Wait
+Watch-Blocking
 ```
 
 ### example 2
 
 ```powershell
-Assert-Wait -Seconds 2
+Watch-Blocking -Seconds 2
 ```
 
 ### example 3
 
 ```powershell
-Assert-Wait -Seconds 0 -Milliseconds 250
+Watch-Blocking -Seconds 0 -Milliseconds 250
 ```
 
 ## comment:1

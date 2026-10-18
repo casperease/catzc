@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-CACHE
 
-### Rule ADR-AUTO-CACHE:1
+### Rule ADR-AUTO-CACHE-STATICCONFIGREADS
 
 Cache static config reads: a function that loads + parses (+ validates) a checked-in file returns the parsed object from a session cache on
 repeat calls.
@@ -11,44 +11,44 @@ Exemplar: `Get-Config` — every config read routes through it, keyed on the res
 
 - [The storage idiom](#the-storage-idiom)
 
-### Rule ADR-AUTO-CACHE:2
+### Rule ADR-AUTO-CACHE-FILESYSTEMDERIVED
 
 Cache filesystem-derived information: a function that scans the repo and derives a convention-based result computes it once and returns the
 stored result thereafter. Exemplar: `Get-BicepTemplates`.
 
 - [The cost of not caching](#the-cost-of-not-caching)
 
-### Rule ADR-AUTO-CACHE:4
+### Rule ADR-AUTO-CACHE-KEYEDBYINPUTS
 
 Key the cache by the function's inputs: no parameters → a single cache entry; parameters → a cache keyed on them; a resolved-input function
 keys on that input. Keys must be session-stable values, never mutable objects.
 
 - [The storage idiom](#the-storage-idiom)
 
-### Rule ADR-AUTO-CACHE:5
+### Rule ADR-AUTO-CACHE-READONLYVALUES
 
 Cached values are read-only to callers — a cached function returns the same object reference every call, so callers must treat it as
 immutable. A result intended to be mutated downstream is not a caching candidate.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 
-### Rule ADR-AUTO-CACHE:6
+### Rule ADR-AUTO-CACHE-IMPORTERINVALIDATES
 
 The only invalidation is re-running the importer — no mtime/hash checks, TTLs, file watchers, or refresh parameter. The runtime contract
 makes the importer the single sufficient knob. Git state that changes inside a session is not invalidated at all: it is keyed on its own
-content (ADR-AUTO-CACHE#9).
+content (ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE).
 
 - [The cache boundary](#the-cache-boundary)
 - [Two runtimes fix the file set](#two-runtimes-fix-the-file-set)
 
-### Rule ADR-AUTO-CACHE:7
+### Rule ADR-AUTO-CACHE-LAZYBYDEFAULT
 
 Lazy cache-on-first-use is the default; eager compute-at-import is reserved for the bootstrap module alone. A cached function populates its
 cache entry on first call, never at import, because importer time is a protected budget.
 
 - [Importer run-time budget](#importer-run-time-budget)
 
-### Rule ADR-AUTO-CACHE:8
+### Rule ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
 
 The compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, committed as
 `pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI load it
@@ -60,7 +60,7 @@ assembly, so no session ever locks `pwsh/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 
-### Rule ADR-AUTO-CACHE:9
+### Rule ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE
 
 Git state that a session itself changes — the tracked-file set a `git add` or a commit rewrites — is cached only under a key computed from
 its bytes on disk on every call, never under a session-lifetime cache entry. Exemplar: `Get-GitTrackedPath` reads the index in-process and
@@ -69,7 +69,7 @@ keys the parsed listing on the SHA-256 of the index file, so the answer always e
 
 - [Content-keyed git state](#content-keyed-git-state)
 
-### Rule ADR-AUTO-CACHE:10
+### Rule ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 
 A quality check that runs an expensive tool over many files may keep, across sessions, which files the tool last found clean — keyed on each
 file's SHA-256 together with a stamp of every input that decides the tool's verdict (its declared settings files and the pins of the tools
@@ -122,7 +122,7 @@ inputs are stable, and the importer is the one knob.
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
 by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
 module to discover and import modules. It even **defers** expensive vendor modules (Pester, PSScriptAnalyzer) via lazy loading rather than
-pay for them at startup (see [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5)), and it reports
+pay for them at startup (see [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)), and it reports
 its own load time so regressions are visible.
 
 This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
@@ -152,7 +152,7 @@ The rule has a sharp boundary. Do **not** cache:
 
 - **Runtime / mutable state.** Anything not derived from the static repo: `az account show`, access tokens, deployment outputs, the current
   subscription context. These change _within_ a run, so a cached value would be wrong. (See
-  [dual-authentication](../pipelines/dual-authentication.md#rule-adr-pipe-auth7): tokens are acquired fresh per call, never cached.)
+  [dual-authentication](../pipelines/dual-authentication.md#rule-adr-pipe-auth-nostoredtokens): tokens are acquired fresh per call, never cached.)
 - **Objects that callers mutate.** The per-slot parameter set returned by `Get-BicepTemplateConfiguration` is read fresh per build and then
   **mutated** by the `Invoke-BicepPrepareParameterSet` merge hook (which writes resolved values into `ParametersFile.parameters`). Caching a
   caller-mutated object would leak one build's mutations into the next. It is also cheap (one small file per slot per build), so it stays
@@ -166,7 +166,7 @@ The rule has a sharp boundary. Do **not** cache:
 The tracked-file set is not part of the file set the importer fixes: the session's own `Invoke-GitCommit`, a developer's `git add`, or a
 parallel session's commit rewrites the git index while the session runs. A session-lifetime cache entry would serve the listing from before
 that change, and a gate that scopes itself by tracked files would then check the wrong set. Launching `git ls-files` on every call is
-correct but slow, and it is a real process that a unit test cannot run (ADR-AUTO-TEST#10).
+correct but slow, and it is a real process that a unit test cannot run (ADR-AUTO-TEST-PROCESSTRIPWIRE).
 
 Plain `git ls-files` is exactly the index's entry list, so the index file's bytes determine the answer completely. Hashing those bytes is
 cheap next to parsing them, so `Get-GitTrackedPath` hashes the file on every call and reuses the parsed listing only while the hash is
@@ -190,7 +190,7 @@ pipeline's fresh checkout checks every file.
 Cache, for the lifetime of the session, the results of (a) **static config-file reads** and (b) **filesystem-scan-derived information**.
 Store the cache in module state per the language layer ([script-scope-caching](../pwsh/script-scope-caching.md)). Invalidate only by
 re-running the importer. Never cache runtime state or objects callers mutate. Across sessions, cache only a quality check's clean verdicts,
-keyed on the file's content and every declared input of the check (ADR-AUTO-CACHE#10).
+keyed on the file's content and every declared input of the check (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 ### The storage idiom
 
@@ -199,8 +199,8 @@ keyed on the file's content and every declared input of the check (ADR-AUTO-CACH
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function belong to the pwsh rules,
 [script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
 `Get-Config` and `Get-BicepTemplates` as the exemplars. Its rules map onto the ones here: the importer as the only invalidation
-(ADR-AUTO-CACHE#6) is module state discarded on re-import (ADR-PWSH-CACHE#1), and the compiled-type prebuild (ADR-AUTO-CACHE#8) is loaded by
-the bootstrap functions of ADR-PWSH-CACHE#5. How the prebuild is compiled and when a session must restart because a source changed live with
+(ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on re-import (ADR-PWSH-CACHE-SCRIPTSCOPESTATE), and the compiled-type prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by
+the bootstrap functions of ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD. How the prebuild is compiled and when a session must restart because a source changed live with
 the type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
 
 ### How this is enforced

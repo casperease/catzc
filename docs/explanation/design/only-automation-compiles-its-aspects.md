@@ -16,8 +16,9 @@ Supports ADR-DSGN-ASPECT#2, #3 and #4 (architecture lens).
 
 A track's aspect convention is declared in the `aspects` variant, read by one module, `Catzc.Base.Variants`, or for the code track derived
 from the layout of `languages.yml`. Two other modules take the conventions, and they use them differently. `Catzc.Base.Globs` compiles the
-pwsh track's convention onto every module folder and derives two globsets per module. `Catzc.Base.Maps` reads every track's entry, the infrastructure one included, but only to decide
-whether a file is live for the world map. No part of cats derives a globset from the infrastructure convention.
+pwsh track's convention onto every module folder and derives two globsets per module. `Catzc.Base.Maps` reads every track's entry, the
+infrastructure one included, but only to decide whether a file is live for the world map. No part of cats derives a globset from the
+infrastructure convention.
 
 ![Only pwsh compiles its aspects](.assets/only-automation-compiles-its-aspects/diagram.drawio.png)
 
@@ -31,8 +32,8 @@ The diagram is described element by element in [its asset description](.assets/o
 2. **Catzc.Base.Variants.** The module that owns the file. Nothing else reads it: the private `Get-Variant` reads the typed config, which
    the session caches, and `Get-AspectDeclaration` returns the declared lists, so a change to the file takes effect when the importer runs
    again. `Get-Aspect -Track <track>` in `Catzc.Base.Modules` answers a track's list from them, or from the layout for the code track.
-3. **Catzc.Base.Globs.** The aspect engine. `Get-ModuleGlobSet` asks for the pwsh convention and compiles it onto every module folder
-   under `pwsh/` with `AspectPartition`, so each aspect becomes a scan program over that one unit root.
+3. **Catzc.Base.Globs.** The aspect engine. `Get-ModuleGlobSet` asks for the pwsh convention and compiles it onto every module folder under
+   `pwsh/` with `AspectPartition`, so each aspect becomes a scan program over that one unit root.
 4. **The module's live set.** One derived globset per module, named `<module>-live` in kebab form. It is the module's shippable surface, and
    it carries an identity of its own.
 5. **The module's tests set.** The second derived globset, `<module>-tests`: everything under the module that `live` did not claim, plus the

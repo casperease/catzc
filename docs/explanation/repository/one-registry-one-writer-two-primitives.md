@@ -26,8 +26,8 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Walkthrough
 
-1. **Authored source files.** A `source` entry names a config file kept under `pwsh/`, most of them in
-   `Catzc.Base.RootConfig/assets/root/`. The root path is reproduced from it, as a copy with a generated-file header or as a link.
+1. **Authored source files.** A `source` entry names a config file kept under `pwsh/`, most of them in `Catzc.Base.RootConfig/assets/root/`.
+   The root path is reproduced from it, as a copy with a generated-file header or as a link.
 2. **Generator functions.** A `generator` entry names a function that renders the whole file, header included: `New-Importer`,
    `New-GitIgnore`, the four `New-VSCode*` writers, `New-GoWorkspace` and `New-PythonProject`. `Invoke-RootConfigGenerator` is the one place
    a name is bound to its call, so an unknown name fails loudly.

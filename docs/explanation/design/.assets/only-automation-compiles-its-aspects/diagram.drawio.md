@@ -1,4 +1,4 @@
-# Both tracks' conventions are read, but only the automation track's compiles into globsets: the diagram described
+# Both tracks' conventions are read, but only the pwsh track's compiles into globsets: the diagram described
 
 ```text
 A 1572 x 654 diagram, read top to bottom from a file and a wide code unit into two side-by-side column bands.
@@ -6,16 +6,16 @@ Glyphs: 1 file (olive), 3 code units (slate), 2 named sets (mauve), 1 result; 4 
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../only-automation-compiles-its-aspects.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../only-automation-compiles-its-aspects.md).
 
 ## At a glance
 
 A 1572 × 654 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom. A file glyph
-sits centred at the top, a wide code unit spans the drawing area below it, and under that two column bands sit side by side, labelled
-`AUTOMATION` on the left and `INFRASTRUCTURE` on the right. The left band holds a code unit above a frame with two named sets side by side;
-the right band holds a code unit above a result. Five edges point down, seven markers number the glyphs, and a legend panel runs along the
-bottom. The eye lands first on the wide slate code unit across the top.
+sits centred at the top, a wide code unit spans the drawing area below it, and under that two column bands sit side by side, labelled `PWSH`
+on the left and `INFRASTRUCTURE` on the right. The left band holds a code unit above a frame with two named sets side by side; the right
+band holds a code unit above a result. Five edges point down, seven markers number the glyphs, and a legend panel runs along the bottom. The
+eye lands first on the wide slate code unit across the top.
 
 ## Reading path
 
@@ -66,13 +66,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-DSGN-ASPECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for
-every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

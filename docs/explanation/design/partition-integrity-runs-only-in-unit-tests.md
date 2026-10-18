@@ -22,12 +22,13 @@ where a mistake would slip through.
 
 ![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.md).
+The diagram is described element by element in
+[its asset description](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.md).
 
 ## Walkthrough
 
-1. **pwsh/&lt;Module&gt;/.** The module folder every stage starts from. Two quality gates read it, and the import guard reads it
-   before anything loads.
+1. **pwsh/&lt;Module&gt;/.** The module folder every stage starts from. Two quality gates read it, and the import guard reads it before
+   anything loads.
 2. **Test-SourceConventions.** A quality gate. It checks that each source file holds exactly one top-level function named for the file
    (ADR-PWSH-ONEFUNC#1), and that every function name, public or private, is defined in exactly one file, the integrity half of
    ADR-PWSH-MANIFEST#4.

@@ -76,15 +76,9 @@ function Invoke-TestRun {
 
     $discovery = Get-TestDiscovery -TestPath $testPaths
     Write-Message '.' -NoHeader -NoNewline
-    if ($DiagnoseBlocking) {
-        Assert-Wait
-    }
 
     # Enforce the two mandatory tag axes on every test, regardless of -Level (Assert-TestTagGate).
     Assert-TestTagGate -Discovery $discovery
-    if ($DiagnoseBlocking) {
-        Assert-Wait
-    }
 
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $entryPointKey
@@ -107,9 +101,6 @@ function Invoke-TestRun {
 
         $context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript $EntryScript -Location $location -MinLevel $MinLevel `
             -RequestedMaxLevel $requestedMaxLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Suite $Suite -Rule $Rule
-        if ($DiagnoseBlocking) {
-            Assert-Wait
-        }
 
         $excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
 
@@ -155,9 +146,6 @@ function Invoke-TestRun {
         Write-Message '' -NoHeader   # ends the dot line
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Title $Title
         Write-TestRunContext -Context $context
-        if ($DiagnoseBlocking) {
-            Assert-Wait
-        }
 
         $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {
             $nothingToRun = if ($testFiles.Count -eq 0) {

@@ -2,41 +2,41 @@
 
 ## Rules: ADR-FLOW-CD-TYPE
 
-### Rule ADR-FLOW-CD-TYPE:1
+### Rule ADR-FLOW-CD-TYPE-SIXTYPES
 
 Every ADO artifact is exactly one of the six types — CRON, CI, CD, CDe, DEPLOY, or INPUT. An artifact that does not fit is a design problem
 to resolve, not a seventh type to invent.
 
 - [Decision](#decision)
 
-### Rule ADR-FLOW-CD-TYPE:2
+### Rule ADR-FLOW-CD-TYPE-ALLTHROUGHRUNNER
 
 All six types invoke automation through the runner (`Invoke-AdoScript.ps1`); YAML stays declarative and logic lives in `pwsh/`. (One
 sanctioned exception: the `ci-automation-expected-failures` guardrail pipeline.)
 
 - [Decision](#decision)
 
-### Rule ADR-FLOW-CD-TYPE:3
+### Rule ADR-FLOW-CD-TYPE-ONECIENGINE
 
 CI and CD share one CI engine — the pre-commit build validation and the post-commit build-and-verify on master are the same component; do
 not fork a second build path for CD.
 
 - [CD](#cd)
 
-### Rule ADR-FLOW-CD-TYPE:4
+### Rule ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
 
 The pre-commit budget is 5–10 minutes; anything slower belongs post-commit, in a CD pipeline's deploy path, not in pre-commit validation.
 
 - [CI](#ci)
 
-### Rule ADR-FLOW-CD-TYPE:5
+### Rule ADR-FLOW-CD-TYPE-CRONISSCHEDULER
 
 CRON is a scheduler, not a pipeline — a schedule plus a `RunCommand` invoking an idempotent automation function; no build, artifact, or
 deploy in the YAML.
 
 - [CRON](#cron)
 
-### Rule ADR-FLOW-CD-TYPE:6
+### Rule ADR-FLOW-CD-TYPE-CONFIGENTERSTHROUGHINPUT
 
 Configuration that reaches the cloud enters only through INPUT, which writes it to version control; it never arrives as a run parameter.
 CRON takes no parameters, or a bounded set with automatic defaults that select a control (which environment a certificate rotation targets,
@@ -47,14 +47,14 @@ already git-resident, and the artifact it deploys is the immutable, tagged outpu
 - [INPUT](#input)
 - [DEPLOY](#deploy)
 
-### Rule ADR-FLOW-CD-TYPE:7
+### Rule ADR-FLOW-CD-TYPE-INPUTPRODUCESCOMMITS
 
 INPUT produces commits, never deployments — its terminal output is a version-controlled change; deploying that change is CD's or DEPLOY's
 job.
 
 - [INPUT](#input)
 
-### Rule ADR-FLOW-CD-TYPE:8
+### Rule ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
 
 DEPLOY is the deploy-and-verify tail of CD, extracted into its own human-governed pipeline. It consumes an immutable artifact built
 elsewhere (the CI engine's build-once output) pinned to an explicit commit, trust that it has passed the AT gate (the L3 system test in the
@@ -63,44 +63,44 @@ change-management approval, a human sign-off. It builds nothing and re-runs no C
 
 - [DEPLOY](#deploy)
 
-### Rule ADR-FLOW-CD-TYPE:9
+### Rule ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
 
 DEPLOY and CD share one deploy-and-verify path — the same deploy orchestration and the same system tests. Extracting the deploy into a
-DEPLOY pipeline must never fork a second deploy implementation, exactly as CI and CD share one CI engine (ADR-FLOW-CD-TYPE#3).
+DEPLOY pipeline must never fork a second deploy implementation, exactly as CI and CD share one CI engine (ADR-FLOW-CD-TYPE-ONECIENGINE).
 
 - [DEPLOY](#deploy)
 
-### Rule ADR-FLOW-CD-TYPE:10
+### Rule ADR-FLOW-CD-TYPE-DEPLOYISPINNED
 
 DEPLOY is pinned and deterministic — it deploys the artifact of one chosen commit, so the same commit deploys the same bytes on every run,
 which is what makes a locked release commit certifiable. It never deploys from a floating `latest` and never renders config at deploy time.
 
 - [DEPLOY](#deploy)
 
-### Rule ADR-FLOW-CD-TYPE:11
+### Rule ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
 
 DEPLOY exists to make an environment's governance a first-class pipeline construct — one place for access control, isolation, and audit
 history over an environment behind a manual gate. It **splits by target** on the one build-once artifact
-([ADR-FLOW-CD#11](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd11)): **DEPLOY-Non-Prod** drives it into the non-prod AT
+([ADR-FLOW-CD-PREPRODRUNG](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-preprodrung)): **DEPLOY-Non-Prod** drives it into the non-prod AT
 environments (the on-demand environments, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through
 **pre-prod** into **production**. The human certifications are the two hands-on release gates of
-[ADR-FLOW-CD#9](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9): **RC** clears when `main-AT` — acceptance testing against
-`main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. Each is a gate (ADR-FLOW-CD#13) — the human
+[ADR-FLOW-CD-TWORELEASEGATES](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates): **RC** clears when `main-AT` — acceptance testing against
+`main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. Each is a gate (ADR-FLOW-CD-GATEDEFINED) — the human
 certification that decides _whether_ to proceed; DEPLOY is only the **actuator** that drives the pinned artifact onward once that gate
 clears. DEPLOY never owns the decision.
 
 - [DEPLOY](#deploy)
 
-### Rule ADR-FLOW-CD-TYPE:12
+### Rule ADR-FLOW-CD-TYPE-CDEAUTOMATESPRODROLL
 
 CDe (Continuous Deployment) is a CD that **internalizes and automates the roll to production**. It runs the same CI engine and the same
-deploy-and-verify path as CD (ADR-FLOW-CD-TYPE#3, ADR-FLOW-CD-TYPE#9), builds nothing new, and drives the CI engine's tagged, commit-pinned
+deploy-and-verify path as CD (ADR-FLOW-CD-TYPE-ONECIENGINE, ADR-FLOW-CD-TYPE-ONEDEPLOYPATH), builds nothing new, and drives the CI engine's tagged, commit-pinned
 artifact all the way to prod. Its defining trait: the promotion of a locked commit-and-build to production is an **automated activity of the
 pipeline**, not a separately-triggered DEPLOY.
 
 - [CDe](#cde)
 
-### Rule ADR-FLOW-CD-TYPE:13
+### Rule ADR-FLOW-CD-TYPE-CDEINTERNALGATES
 
 A CDe may contain **internal** manual gates — an approval before the production stage — but they are checkpoints _inside_ an automated
 promotion. Such a gate does not make it a DEPLOY: what separates CDe (deployment) from CD → DEPLOY (delivery) is that the roll-to-prod
@@ -108,9 +108,9 @@ activity is automatically determined, not human-initiated.
 
 - [CDe](#cde)
 
-### Rule ADR-FLOW-CD-TYPE:14
+### Rule ADR-FLOW-CD-TYPE-CDESHARESDEPLOYPATH
 
-CDe shares the one deploy-and-verify path with CD and DEPLOY (ADR-FLOW-CD-TYPE#9) — never a second deploy implementation. A deployable
+CDe shares the one deploy-and-verify path with CD and DEPLOY (ADR-FLOW-CD-TYPE-ONEDEPLOYPATH) — never a second deploy implementation. A deployable
 unit's production promotion is governed as **either** CD → DEPLOY (delivery, human-governed prod) **or** CDe (deployment, automated prod),
 never both; the choice is a per-unit governance posture.
 
@@ -192,7 +192,7 @@ deployable unit downstream of it.
 This is "the CI pipeline" and, identically, "the CI part of the CD pipeline."
 
 - **Trigger:** ADO build validation on the PR branch (pre-commit) and a master trigger (post-commit), registered on the native path-filter
-  projection of the unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-adr-flow-cd-globs6)) — generated from `globs.yml`, never
+  projection of the unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)) — generated from `globs.yml`, never
   hand-authored.
 - **Example — CI-automation:** "builds" by running `importer.ps1` and "tests" via `Test-Automation` (see
   [test-automation](../automation/test-automation.md)). It produces no artifact; it simply verifies that the pwsh modules load and are
@@ -225,13 +225,13 @@ _then_, once that is green, it orchestrates **deployment** of the deployable uni
 A DEPLOY pipeline is **CD's deploy-and-verify tail lifted out into its own pipeline**. Where a CD pipeline chains its deploy automatically
 after the post-commit build, a DEPLOY pipeline is triggered on its own — usually by a human — and drives an already-built, already-verified
 artifact into an environment whose gate is **manual and organizational**: a standard operating procedure, an ITSM change-management
-approval, a human sign-off. It runs the same deploy orchestration and system tests as CD (ADR-FLOW-CD-TYPE#9) — it simply owns them as a
-separate construct — and it **builds nothing** (ADR-FLOW-CD-TYPE#8): the artifact it deploys was built once by a CI engine and is pinned to
+approval, a human sign-off. It runs the same deploy orchestration and system tests as CD (ADR-FLOW-CD-TYPE-ONEDEPLOYPATH) — it simply owns them as a
+separate construct — and it **builds nothing** (ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL): the artifact it deploys was built once by a CI engine and is pinned to
 an explicit commit.
 
 The reason to extract it is that the environment's governance is itself the thing being modelled. Folding a production or certification
 deploy behind a manual gate into a continuous CD pipeline buries the gate inside a pipeline whose whole point is to run automatically;
-pulling it out makes the governance a first-class pipeline construct (ADR-FLOW-CD-TYPE#11), which buys four concrete things:
+pulling it out makes the governance a first-class pipeline construct (ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE), which buys four concrete things:
 
 - **Access control.** Who may deploy to the governed environment is a permission on one pipeline, not a stage condition tangled into the CD
   definition.
@@ -239,13 +239,13 @@ pulling it out makes the governance a first-class pipeline construct (ADR-FLOW-C
   they choose, not on every merge.
 - **History.** Every deployment to the governed environment is one auditable pipeline's run history: which commit, who ran it, when, which
   approval cleared it — the record an SOP/ITSM regime requires.
-- **Determinism.** It deploys the artifact of one chosen commit (ADR-FLOW-CD-TYPE#10), so a locked release commit deploys the same bytes
+- **Determinism.** It deploys the artifact of one chosen commit (ADR-FLOW-CD-TYPE-DEPLOYISPINNED), so a locked release commit deploys the same bytes
   every time — the precondition for certifying it.
 
 Concretely:
 
 - **Trigger:** manual, or chained from an upstream pipeline, but always **pinned to an explicit commit** (a release-branch head, a specific
-  `main` commit) — never a floating `latest`. Its parameters select _which commit_ and _which governed target_ (ADR-FLOW-CD-TYPE#6); they
+  `main` commit) — never a floating `latest`. Its parameters select _which commit_ and _which governed target_ (ADR-FLOW-CD-TYPE-CONFIGENTERSTHROUGHINPUT); they
   are version-control meta-selection, not config.
 - **Components:** the deploy stages and the system-level tests, over the immutable artifact the CI engine built once — build-once,
   deploy-many, the same artifact CD flows.
@@ -254,14 +254,14 @@ Concretely:
 
 **Two canonical targets:**
 
-1. **The certification environments — the RC and RBC gates** (main-UAT and release-uat, ADR-FLOW-CD#9). **DEPLOY-Non-Prod** rolls the pinned
+1. **The certification environments — the RC and RBC gates** (main-UAT and release-uat, ADR-FLOW-CD-TWORELEASEGATES). **DEPLOY-Non-Prod** rolls the pinned
    artifact onto an always-on certification environment, locked to a specific commit so the environment holds **stable** while it is
    certified against exactly that commit. At **main-UAT** the occupant is a `main` commit, `main-AT` runs against it, and **RC** is the
    human certification there; at **release-uat** the occupant is a release-branch head or a `main` commit, `release-AT` runs against it, and
    **RBC** is the human certification there — the deploy half of release-branch stabilization. Because DEPLOY is deterministic
-   (ADR-FLOW-CD-TYPE#10), re-running it re-materialises the same artifact, which is what "certified at commit X" means. Each gate decides;
+   (ADR-FLOW-CD-TYPE-DEPLOYISPINNED), re-running it re-materialises the same artifact, which is what "certified at commit X" means. Each gate decides;
    DEPLOY is the actuator once it clears.
-2. **Pre-prod rollover, then a manual production gate** (past RBC, ADR-FLOW-CD#11). **DEPLOY-Prod** **automatically** rolls pre-prod over to
+2. **Pre-prod rollover, then a manual production gate** (past RBC, ADR-FLOW-CD-PREPRODRUNG). **DEPLOY-Prod** **automatically** rolls pre-prod over to
    the RBC-cleared artifact and runs its L3 / end-to-end system tests there, then **chains to a manual approval gate** before
    deploy-to-prod. The green pre-prod run is the evidence the production approval reviews, and the production cutover itself is
    human-approved. One pipeline construct carries the prod tail — automated where it can be, human where the organization requires it.
@@ -272,12 +272,12 @@ Concretely:
 
 A CDe pipeline is a **CD pipeline that internalizes and automates the roll to production**. Where a CD pipeline stops at non-prod and hands
 the production cutover to a separately-triggered, human-governed DEPLOY — Continuous _Delivery_ — a CDe pipeline continues past non-prod and
-drives the same tagged artifact into production **automatically** — Continuous _Deployment_. It runs the same CI engine (ADR-FLOW-CD-TYPE#3)
-and the same deploy-and-verify path (ADR-FLOW-CD-TYPE#9, ADR-FLOW-CD-TYPE#14) as CD and DEPLOY — it forks neither — and it **builds
+drives the same tagged artifact into production **automatically** — Continuous _Deployment_. It runs the same CI engine (ADR-FLOW-CD-TYPE-ONECIENGINE)
+and the same deploy-and-verify path (ADR-FLOW-CD-TYPE-ONEDEPLOYPATH, ADR-FLOW-CD-TYPE-CDESHARESDEPLOYPATH) as CD and DEPLOY — it forks neither — and it **builds
 nothing** new: the artifact it rolls to prod is the CI engine's build-once output, pinned to the locked commit.
 
 What makes it CDe rather than CD → DEPLOY is **where the promotion decision lives**. In CD → DEPLOY the decision to go to prod is external —
-a human starts, or approves the cutover inside, a DEPLOY pipeline (ADR-FLOW-CD-TYPE#8). In CDe the decision is internalized: for a locked
+a human starts, or approves the cutover inside, a DEPLOY pipeline (ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL). In CDe the decision is internalized: for a locked
 commit and its verified build, the pipeline advances to prod **automatically**. A CDe may still pause at an **internal** approval gate
 before its production stage, but that gate is a checkpoint _inside_ an automated promotion, not a separate construct someone must trigger;
 the activity — "roll this locked artifact to prod" — is determined by the pipeline.

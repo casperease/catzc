@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "72cbd67dae42"
+    with_body_sha: "40fc821eae79"
     repo_status: locked
     path: docs/explanation/flow/.assets/overlap-gated-for-units-and-modules/tree.md
     source: docs/explanation/flow/.assets/overlap-gated-for-units-and-modules/diagram.drawio.png
@@ -208,7 +208,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text), `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1226 (text).
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
 - [pipelines/extends/cd-customer.yaml][72], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
   line 21 (body comment) (a passing mention only).
 
@@ -245,7 +245,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][77], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
-  at line 1226 (text).
+  at line 1076 (text).
 
 ## Keywords
 

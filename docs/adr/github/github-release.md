@@ -2,7 +2,7 @@
 
 ## Rules: ADR-GH-RELEASE
 
-### Rule ADR-GH-RELEASE:1
+### Rule ADR-GH-RELEASE-MANUALONLY
 
 A release is **manual only**. `.github/workflows/release-automation.yml` triggers on `workflow_dispatch` and nothing else — its trigger is
 deliberately not wired to push, tag, or a globset projection (unlike CI, [durable-sha-globs](../flow/durable-sha-globs.md)). Publishing an
@@ -10,7 +10,7 @@ artifact to the outside world is a deliberate act, so a human starts it.
 
 - [A manual act](#a-manual-act)
 
-### Rule ADR-GH-RELEASE:2
+### Rule ADR-GH-RELEASE-BUILDTHENOPTINPUBLISH
 
 Every run **builds the artifact and uploads it; publishing is separate and opt-in**. The build step runs `Export-Catzc -To nuget` to produce
 the `.nupkg` and the PSGallery module manifest and uploads them as a workflow artifact unconditionally; each publish step is guarded by its
@@ -18,7 +18,7 @@ own input and no-ops without its token. A run with no publish inputs simply prod
 
 - [Build always, publish on purpose](#build-always-publish-on-purpose)
 
-### Rule ADR-GH-RELEASE:3
+### Rule ADR-GH-RELEASE-GITHUBPRIMARYTARGET
 
 **GitHub is the primary target, published with the built-in `GITHUB_TOKEN`** — no PowerShell Gallery key required. A GitHub Release (with
 the `.nupkg` attached) is created with the `gh` CLI, and GitHub Packages is pushed with `dotnet nuget push`; both authenticate with the
@@ -26,7 +26,7 @@ Actions-provided `github.token`. Consumers install from the GitHub NuGet feed as
 
 - [GitHub first](#github-first)
 
-### Rule ADR-GH-RELEASE:4
+### Rule ADR-GH-RELEASE-GALLERYOPTIN
 
 **PowerShell Gallery is opt-in and needs its own key.** The PSGallery publish runs only when its input is set, reads `PSGALLERY_API_KEY`
 from secrets, and — when that secret is empty — **skips with a warning rather than failing**, leaving the built `.nupkg` and manifest in
@@ -34,11 +34,11 @@ place. The GitHub token can never publish to PSGallery; that is the one place a 
 
 - [PowerShell Gallery is opt-in](#powershell-gallery-is-opt-in)
 
-### Rule ADR-GH-RELEASE:5
+### Rule ADR-GH-RELEASE-CALCULATEDVERSION
 
 The **published version is the calculated pipeline version** — `MAJOR.MINOR` from `exporter.yml`'s `version`, `PATCH` the first-parent
 commit count of the built commit — distinct from the `6.6.666` local-build placeholder
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle7)). Package identity — the stable module GUID and the
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)). Package identity — the stable module GUID and the
 author/description/tags of the manifest — is that same one export config, so what the package claims about itself is reviewed data, not
 workflow literals.
 

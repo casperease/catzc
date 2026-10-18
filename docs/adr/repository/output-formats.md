@@ -2,7 +2,7 @@
 
 ## Rules: ADR-REPO-OUTFMT
 
-### Rule ADR-REPO-OUTFMT:1
+### Rule ADR-REPO-OUTFMT-OUTPUTFORMAT
 
 An **output format** is one declared kind of file a producer writes under the output root, listed once in the catalogue
 `Catzc.Base.Reports/configs/output-formats.yml` with its id, its file patterns relative to the output root, its producer, its audience, its
@@ -12,14 +12,14 @@ exactly one output format; a file that matches none is an orphan and an error.
 
 - [The catalogue](#the-catalogue)
 
-### Rule ADR-REPO-OUTFMT:2
+### Rule ADR-REPO-OUTFMT-REVIEWABLEFORMATS
 
 A format a person reviews opens without developer tools: it is PNG, PDF, or Markdown. HTML is not a local output format. A page meant for a
-browser is published as a review page (ADR-REPO-OUTFMT#6) instead of written to the output root.
+browser is published as a review page (ADR-REPO-OUTFMT-REVIEWPAGE) instead of written to the output root.
 
 - [Formats for people](#formats-for-people)
 
-### Rule ADR-REPO-OUTFMT:3
+### Rule ADR-REPO-OUTFMT-VALIDATORISCODE
 
 Every output format has a validator, and the validator is code. It checks structure, never taste: a file's signature and end marker, an
 embedded model that decodes, pixel dimensions against the format's limits, required keys, and the columns and vocabulary of a table. The
@@ -28,28 +28,28 @@ proves names that check as its validator and never re-implements it.
 
 - [Validators](#validators)
 
-### Rule ADR-REPO-OUTFMT:4
+### Rule ADR-REPO-OUTFMT-DETERMINISTICPRODUCER
 
 A producer is deterministic and re-runnable from its declared inputs, and it writes only the files of its own formats. A producer never
 edits another producer's files.
 
 - [Producers](#producers)
 
-### Rule ADR-REPO-OUTFMT:5
+### Rule ADR-REPO-OUTFMT-LIMITSINCATALOGUE
 
 A format's limits — sizes, maximum dimensions, text limits — are fields in the catalogue. Prose (this ADR, agent guidance) gives the reason
 for a limit and points at the catalogue; it never restates the value.
 
 - [The catalogue](#the-catalogue)
 
-### Rule ADR-REPO-OUTFMT:6
+### Rule ADR-REPO-OUTFMT-REVIEWPAGE
 
 A **review page** is a page published to claude.ai that bundles output files for a person to review. It is never called an artifact: a
 published artifact is a file that crosses a stage boundary, and a review page crosses none.
 
 - [Formats for people](#formats-for-people)
 
-### Rule ADR-REPO-OUTFMT:7
+### Rule ADR-REPO-OUTFMT-PYTHONPRODUCER
 
 A producer written in Python ships in its owning module's `assets/`, runs through uv, and declares each package it needs with a pinned
 version, once. A public function runs it; no caller reaches a producer script by its path.
@@ -87,7 +87,7 @@ entry, not code, as long as an existing validator kind fits it.
 A person reviews PNG, PDF, and Markdown with the tools every machine has. HTML needs a browser opened on a local file, which not every
 reader has or wants; a page that needs a browser is published as a review page, where it opens from a link. A review page has its own name
 because "artifact" already means a file handed between pipeline stages
-([ADR-AUTO-PATH#10](../automation/path-representation.md#rule-adr-auto-path10)), and one word carries one meaning
+([ADR-AUTO-PATH-PUBLISHEDARTIFACT](../automation/path-representation.md#rule-adr-auto-path-publishedartifact)), and one word carries one meaning
 ([controlled-vocabulary](controlled-vocabulary.md)).
 
 ### Validators

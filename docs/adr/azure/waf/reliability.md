@@ -5,28 +5,28 @@ Pairs with [`landing-zones`](../landing-zones.md) (the landing zone and the work
 
 ## Rules: ADR-AZ-WAF-RE
 
-### Rule ADR-AZ-WAF-RE:1
+### Rule ADR-AZ-WAF-RE-RE01
 
 Every resource a template deploys is a managed platform service built from a shared module with secure, redundant defaults, and each
 template deploys only what its stated purpose needs; no template runs self-managed compute.
 
 - [RE:01 — Focus your workload design on simplicity and efficiency](#re01--focus-your-workload-design-on-simplicity-and-efficiency)
 
-### Rule ADR-AZ-WAF-RE:2
+### Rule ADR-AZ-WAF-RE-RE02
 
 Every deployment rates its business criticality in the CAF `criticality` tag (`low`, `medium`, `high`) of its config; a catalogue of user
 and system flows belongs to a workload that has users, and the example templates carry none.
 
 - [RE:02 — Identify and rate user and system flows](#re02--identify-and-rate-user-and-system-flows)
 
-### Rule ADR-AZ-WAF-RE:3
+### Rule ADR-AZ-WAF-RE-RE03
 
 This record classes each template's dependencies as strong or weak; a failure mode analysis per user flow is not adopted, because the
 example templates carry no user flows to analyse.
 
 - [RE:03 — Use failure mode analysis (FMA) to identify potential failures in your workload](#re03--use-failure-mode-analysis-fma-to-identify-potential-failures-in-your-workload)
 
-### Rule ADR-AZ-WAF-RE:4
+### Rule ADR-AZ-WAF-RE-RE04
 
 The recovery targets of each environment class — the recovery point objective (RPO) and the recovery time objective (RTO) — are planned as
 stated values beside the `expedition` settings that realise them; availability SLOs are not adopted, because the example deployments serve
@@ -34,22 +34,22 @@ no users to measure.
 
 - [RE:04 — Define reliability and recovery targets](#re04--define-reliability-and-recovery-targets)
 
-### Rule ADR-AZ-WAF-RE:5
+### Rule ADR-AZ-WAF-RE-RE05
 
 Redundancy stays inside one region: storage is zone-redundant in every environment, and a production database is zone-redundant with
-geo-redundant backups. A second region is not adopted ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)); delete locks on
+geo-redundant backups. A second region is not adopted ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)); delete locks on
 the resources every spoke depends on are planned.
 
 - [RE:05 — Add redundancy at different levels, especially for critical flows](#re05--add-redundancy-at-different-levels-especially-for-critical-flows)
 
-### Rule ADR-AZ-WAF-RE:6
+### Rule ADR-AZ-WAF-RE-RE06
 
 The templates deploy no compute to scale. A non-production database scales itself inside a serverless range capped by `databaseSkuCapacity`;
 a production database scales by a config change and a deploy.
 
 - [RE:06 — Implement a timely and reliable scaling strategy at the application, data, and infrastructure levels](#re06--implement-a-timely-and-reliable-scaling-strategy-at-the-application-data-and-infrastructure-levels)
 
-### Rule ADR-AZ-WAF-RE:7
+### Rule ADR-AZ-WAF-RE-RE07
 
 A failure stays contained by isolation and platform failover: each customer subscription holds its own `foundation`, landing zone and
 workload, zone-redundant services fail over inside Azure, and soft delete keeps a deleted blob or container recoverable. Automated
@@ -57,22 +57,22 @@ remediation is planned.
 
 - [RE:07 — Strengthen the resiliency of your workload by implementing self-preservation and self-healing measures](#re07--strengthen-the-resiliency-of-your-workload-by-implementing-self-preservation-and-self-healing-measures)
 
-### Rule ADR-AZ-WAF-RE:8
+### Rule ADR-AZ-WAF-RE-RE08
 
 Resiliency testing by fault injection, failover drills and restore tests is not adopted, because the example deployments target placeholder
 subscriptions; the CI pipeline tests what needs no Azure: that every template and config compiles and binds.
 
 - [RE:08 — Test for resiliency and availability scenarios by applying the principles of chaos engineering](#re08--test-for-resiliency-and-availability-scenarios-by-applying-the-principles-of-chaos-engineering)
 
-### Rule ADR-AZ-WAF-RE:9
+### Rule ADR-AZ-WAF-RE-RE09
 
 Recovery is a redeploy and a restore: the templates are idempotent and rebuild a subscription in the order `foundation`, `discovery`,
 `expedition`, and a production database restores from its geo-redundant backups. A written disaster recovery plan is planned; a prepared
-secondary region is not adopted ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
+secondary region is not adopted ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)).
 
 - [RE:09 — Implement structured, tested, and documented disaster recovery (DR) plans](#re09--implement-structured-tested-and-documented-disaster-recovery-dr-plans)
 
-### Rule ADR-AZ-WAF-RE:10
+### Rule ADR-AZ-WAF-RE-RE10
 
 The landing zone and the workload send their diagnostics to `foundation`'s Log Analytics workspace, and the subscription's activity log, its
 Service Health and Resource Health events included, streams there too. Alerts on those signals, a health model, and diagnostics for
@@ -112,9 +112,9 @@ such as authentication belong in one shared service; and code nothing uses is re
 
 Simplicity is the shape of the templates. Every resource comes from one of the shared modules in `infrastructure/modules/`, and the settings
 every caller shares — zone redundancy, public access off, TLS 1.2, a managed identity — are module defaults, so a template states only what
-differs ([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)). Cross-cutting concerns live once: secrets in `foundation`'s Key Vault, logs in
-its workspace, the network and the private DNS zones in the landing zone ([ADR-AZ-LZ#4](../landing-zones.md#rule-adr-az-lz4)), and SQL
-access through an Entra ID group ([ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)).
+differs ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Cross-cutting concerns live once: secrets in `foundation`'s Key Vault, logs in
+its workspace, the network and the private DNS zones in the landing zone ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)), and SQL
+access through an Entra ID group ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
 
 ##### RE:01 in `foundation`
 
@@ -199,9 +199,9 @@ that sends diagnostics: a workspace outage loses telemetry, not function.
 ##### RE:03 in `discovery`
 
 A spoke depends strongly on its hub for name resolution: the private DNS zones live only in the hub
-([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)), so a deleted or broken DNS zone breaks every private endpoint of that tier. The
+([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)), so a deleted or broken DNS zone breaks every private endpoint of that tier. The
 peering is a strong dependency of anything in a spoke that calls the hub's `shared-services` subnet. The region is a strong dependency of
-all of it ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
+all of it ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)).
 
 ##### RE:03 in `expedition`
 
@@ -266,9 +266,9 @@ stamps for whole-workload copies, and a resilient network with room to grow and 
 The shared modules make zone-redundant deployment the default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and
 `sql-database.bicep` turns `zoneRedundant` on for every tier that supports it and defaults `backupStorageRedundancy` to `Geo`. A template
 weakens that only by a config value, and only outside production, where the cost saving outweighs a zone outage
-([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)).
+([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)).
 
-Every environment maps to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3),
+Every environment maps to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace),
 [ADR-AZ-NAMING](../azure-naming-standard.md)), so a second active region is not adopted; geo-redundant backups are the only copy outside the
 region. The network follows the recommended hub-and-spoke shape, and each hub reserves `GatewaySubnet` and `AzureFirewallSubnet` so a
 gateway or firewall is added without renumbering. No module places a resource lock, so the hub's DNS zones and network can be deleted by
@@ -309,7 +309,7 @@ services and data stores, and log every scaling event.
 #### What RE:06 means here
 
 None of the templates deploys compute, so application scaling does not arise; storage scales inside the platform. The one scaling choice is
-the database, and it is a config value per environment class ([ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5)). Outside production the
+the database, and it is a config value per environment class ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Outside production the
 serverless SKU scales automatically between `databaseMinCapacity` and `databaseSkuCapacity`, which is the cap the recommendation asks for,
 kept in the config. In production the database is provisioned at a fixed capacity, so more capacity is a config change and a deploy, and
 nothing signals that one is needed.
@@ -321,7 +321,7 @@ Not applicable: a Log Analytics workspace and a Key Vault scale inside the platf
 ##### RE:06 in `discovery`
 
 Not applicable to scaling; the network's room to grow is the address plan. Each spoke has a `/16` with `/24` subnets
-([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5)), so its `private-endpoints` subnet has room for many more private
+([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), so its `private-endpoints` subnet has room for many more private
 endpoints and the address space for more subnets.
 
 ##### RE:06 in `expedition`
@@ -349,7 +349,7 @@ mode that keeps the essential functions running.
 
 The repository's isolation unit is the customer subscription. Each customer subscription gets its own `foundation`, its own spoke from
 `discovery`, and its own `expedition` deployments, so a fault or a bad deploy in one customer's subscription does not reach another's; this
-is the bulkhead the recommendation describes, drawn at the subscription boundary ([ADR-AZ-LZ#1](../landing-zones.md#rule-adr-az-lz1)). The
+is the bulkhead the recommendation describes, drawn at the subscription boundary ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The
 hub is the one shared part of a tier (RE:03). Failover inside a region is the platform's: zone-redundant storage and a zone-redundant
 database fail over without a deploy. No template deploys an alert, an action group, or a runbook, so no failure triggers an automated
 action; retries, checkpoints and a degraded mode belong to application code, which the examples do not have.
@@ -388,7 +388,7 @@ start outside production, and feed the results back into the analysis and the re
 
 Fault injection needs a running deployment, and the example deployments target the placeholder subscriptions in `azure.yml`. What the
 repository tests is what can be tested without Azure: `ci-infrastructure.yaml` compiles every template, renders every config, and checks
-each rendered parameters file against the compiled parameter model ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)), so a
+each rendered parameters file against the compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)), so a
 reliability setting outside its `@allowed` values or bounds — a `databaseBackupStorageRedundancy` that is not `Geo`, `GeoZone`, `Zone` or
 `Local`, a `databaseBackupRetentionDays` above 35 — fails the build. `Deploy-Bicep -DryRun` runs Azure's `--what-if` preview against a real
 subscription. A deployment that adopts the templates for real starts with a timed restore of its production database.
@@ -424,22 +424,22 @@ keep it in step with the architecture, and store it where a regional outage cann
 
 The means of recovery exist; the plan does not. Every template is infrastructure as code with its full configuration in the repository, and
 an incremental deploy is idempotent, so a lost subscription is rebuilt by deploying `foundation`, `discovery`, and `expedition` in that
-order — the order the customer CD pipelines encode ([ADR-AZ-LZ#7](../landing-zones.md#rule-adr-az-lz7) adds the hub-spoke-hub order for
+order — the order the customer CD pipelines encode ([ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks) adds the hub-spoke-hub order for
 peerings). Data comes back from backups: a production database restores from its geo-redundant backups, into another region when its own is
-down. Because every environment maps to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)), there is no
+down. Because every environment maps to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)), there is no
 prepared secondary region: a regional recovery means changing the environment's `region` and `region_code` in `azure.yml`, re-spelling the
-region-coded resource names written in every config ([ADR-AZ-DATAMOD#6](../azure-data-model.md#rule-adr-az-datamod6)), and redeploying. A
+region-coded resource names written in every config ([ADR-AZ-DATAMOD-STATICRESOURCENAMES](../azure-data-model.md#rule-adr-az-datamod-staticresourcenames)), and redeploying. A
 written plan, with the recovery order, the decision roles, and the restore steps, is planned.
 
 ##### RE:09 in `foundation`
 
 Rebuilt by deploying its config again. The secrets in the vault are not in the repository by design
-([ADR-AZ-LZ#6](../landing-zones.md#rule-adr-az-lz6)), so the plan names who restores the break-glass password.
+([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), so the plan names who restores the break-glass password.
 
 ##### RE:09 in `discovery`
 
 Rebuilt by deploying its configs again, hubs first; peerings and DNS zone links follow the three-step order of
-[ADR-AZ-LZ#7](../landing-zones.md#rule-adr-az-lz7).
+[ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks).
 
 ##### RE:09 in `expedition`
 
@@ -467,7 +467,7 @@ enough for incident analysis.
 Telemetry collection is in place; detection is not. Diagnostics flow to `foundation`'s workspace through `diagnostic-setting.bicep` (logs by
 the `allLogs` category group plus the metrics each resource kind exposes), and the subscription's activity log flows there through
 `subscription-diagnostic-setting.bicep`, whose categories include `ServiceHealth` and `ResourceHealth`
-([ADR-AZ-LZ#3](../landing-zones.md#rule-adr-az-lz3)). Nothing turns those signals into an alert, there is no health model, and the workspace
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Nothing turns those signals into an alert, there is no health model, and the workspace
 keeps data for the module default of 30 days. The planned work is an alert module and an action group, Service Health and Resource Health
 alerts per subscription, and diagnostics for the vault.
 
@@ -495,23 +495,23 @@ diagnostics are planned.
 
 The repository adopts the reliability checklist as a review list for its templates, with one status per item. Redundancy, scaling, and
 failover inside one region are realised through the shared modules' defaults and the per-environment-class config values of
-[ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5): zone redundancy is the default, and only a non-production config turns it off. Items
+[ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar): zone redundancy is the default, and only a non-production config turns it off. Items
 that need a running workload with users — flow catalogues, failure mode analysis per flow, SLOs, chaos testing — are not adopted while the
 examples target placeholder subscriptions. The items a template or module can carry — delete locks on the hub, stated recovery targets,
 alerts and an action group, the vault's diagnostics, a written recovery plan — are planned. A second region is not adopted, because every
-environment maps to one region ([ADR-AZ-NETWORK#3](../azure-network-model.md#rule-adr-az-network3)).
+environment maps to one region ([ADR-AZ-NETWORK-ONEADDRESSSPACE](../azure-network-model.md#rule-adr-az-network-oneaddressspace)).
 
 ### How this is enforced
 
 - `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and `Build-Bicep` for `foundation`, `discovery`, and `expedition` on every change
   under `infrastructure/`, and the parameter-model test checks every rendered parameters file against the compiled template
-  ([ADR-AZ-DATAMOD#9](../azure-data-model.md#rule-adr-az-datamod9)). The `@allowed` and range bounds on `databaseBackupStorageRedundancy`,
+  ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). The `@allowed` and range bounds on `databaseBackupStorageRedundancy`,
   `databaseBackupRetentionDays`, and `databaseTier` are therefore checked; the values a production config chooses are not.
 - The module defaults (`Standard_ZRS`, `zoneRedundant`, `backupStorageRedundancy: Geo`, blob soft delete) hold for every caller that does
   not override them; a pull request that overrides one shows in review, not in a check.
 - Planned (follow-up): a quality gate that reads the compiled templates and their rendered parameters and fails a production config without
-  zone redundancy or with `Local` backups, citing ADR-AZ-WAF-RE#5; and a check that the vault, the virtual network, and every data resource
-  carries a diagnostic setting, citing ADR-AZ-WAF-RE#10. Neither exists.
+  zone redundancy or with `Local` backups, citing ADR-AZ-WAF-RE-RE05; and a check that the vault, the virtual network, and every data resource
+  carries a diagnostic setting, citing ADR-AZ-WAF-RE-RE10. Neither exists.
 
 ## Consequences
 

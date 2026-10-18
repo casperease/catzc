@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: becc250124e9
+    with_body_sha: "47063a63ac42"
     repo_status: locked
     path: docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives/chain.md
     source: docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png
@@ -12,16 +12,16 @@ catzc:
     tracktype: documentation
 ---
 
-# Five keys, one private reader, twelve exported primitives: the value-chain minimap
+# Five keys, one private reader, fifteen exported primitives: the value-chain minimap
 
 ```text
 Where ADR-REPO-VARIANT sits in the value chain: value-chain stack down, value-chain concerns across.
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Five keys, one private reader, twelve exported primitives](chain.png)
+![The value-chain minimap of Five keys, one private reader, fifteen exported primitives](chain.png)
 
-This is the value-chain minimap in the sidebar of the implementation diagram of [Five keys, one private reader, twelve exported
+This is the value-chain minimap in the sidebar of the implementation diagram of [Five keys, one private reader, fifteen exported
 primitives][2], which explains [ADR-REPO-VARIANT][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
 land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
 

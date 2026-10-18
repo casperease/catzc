@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7fbc2ed8f79c"
+    with_body_sha: b86f181329f4
     repo_status: locked
     path: docs/explanation/design/.assets/local-guard-and-server-policies/grid.md
     source: docs/explanation/design/.assets/local-guard-and-server-policies/diagram.drawio.png
@@ -32,8 +32,8 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- docs × markdown: 3 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
+- docs × markdown: 3 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key

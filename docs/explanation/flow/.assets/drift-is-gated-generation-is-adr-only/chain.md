@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "80620d380c2c"
+    with_body_sha: "7fb629ef1c53"
     repo_status: locked
     path: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/chain.md
     source: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png
@@ -12,19 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone: the value-chain minimap
+# Three gates check the projection, while generation is held by the ADR alone: the value-chain minimap
 
 ```text
 Where ADR-FLOW-CD-GLOBS sits in the value chain: value-chain stack down, value-chain concerns across.
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone](chain.png)
+![The value-chain minimap of Three gates check the projection, while generation is held by the ADR alone](chain.png)
 
-This is the value-chain minimap in the sidebar of the governance diagram of [Three gates check the projection, while generation and the
-in-pipeline backstop are held by the ADR alone][2], which explains [ADR-FLOW-CD-GLOBS][1]. It lights the cells of the value-chain map where
-the cited ADRs' value-chain concerns land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason
-follows.
+This is the value-chain minimap in the sidebar of the governance diagram of [Three gates check the projection, while generation is held by
+the ADR alone][2], which explains [ADR-FLOW-CD-GLOBS][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
+concerns land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
 
 ## What the minimap shows
 

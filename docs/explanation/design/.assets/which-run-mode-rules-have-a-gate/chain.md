@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5cf9e9d91810"
+    with_body_sha: "965494ebffa5"
     repo_status: locked
     path: docs/explanation/design/.assets/which-run-mode-rules-have-a-gate/chain.md
     source: docs/explanation/design/.assets/which-run-mode-rules-have-a-gate/diagram.drawio.png
@@ -12,17 +12,17 @@ catzc:
     tracktype: documentation
 ---
 
-# Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the value-chain minimap
+# Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none: the value-chain minimap
 
 ```text
 Where ADR-DSGN-RUNMODE sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 
-![The value-chain minimap of Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](chain.png)
+![The value-chain minimap of Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](chain.png)
 
-This is the value-chain minimap in the sidebar of the governance diagram of [Run-mode rules 1 to 6 each have a gate; the build kinds of rule
-7 have none][5], which explains [ADR-DSGN-RUNMODE][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
+This is the value-chain minimap in the sidebar of the governance diagram of [Run-mode rules 1 to 6 each have a gate; rule 7's build kinds
+need none][5], which explains [ADR-DSGN-RUNMODE][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
 land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows

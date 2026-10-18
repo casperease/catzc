@@ -6,8 +6,8 @@ Glyphs: 5 code units (slate), 2 stores (slate), 1 named set (mauve); 4 flow edge
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../two-roots-one-importer-same-modules.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../two-roots-one-importer-same-modules.md).
 
 ## At a glance
 
@@ -30,7 +30,7 @@ bottom. The eye lands first on the full-width code unit in the ONE IMPORTER band
 | Glyph (legend phrase) | Count | Where                                                                                                                                                           |
 | --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | code unit             | 5     | importer.ps1 (SOURCE), Import-Catzc.ps1 and Catzc.Base.Exporter (BUILD), Catzc.Internal (ONE IMPORTER, full width), Catzc.Base.Repository (SAME MODULES, right) |
-| store                 | 2     | `<RepositoryRoot>/pwsh` (SOURCE), `Catzc/<v>` (BUILD, right)                                                                                              |
+| store                 | 2     | `<RepositoryRoot>/pwsh` (SOURCE), `Catzc/<v>` (BUILD, right)                                                                                                    |
 | named set             | 1     | Catzc.\* modules (SAME MODULES, left)                                                                                                                           |
 
 Code units and stores are slate and the named set is mauve, all with white names. Catzc.Base.Exporter is the one glyph with no edge.
@@ -64,13 +64,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-DSGN-RUNMODE): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for
-every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-RUNMODE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

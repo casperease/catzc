@@ -2,7 +2,7 @@
 
 ## Rules: ADR-FLOW-CD-GLOBS
 
-### Rule ADR-FLOW-CD-GLOBS:1
+### Rule ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
 
 One source of truth: named globsets in `globs.yml` (owned by `Catzc.Base.Globs`) map each area-of-control — a deployable unit, a track
 (`ADR-DSGN-TRACK`), or a scan scope — onto its files under version control. The globset is the mechanism; it plays three roles, all
@@ -13,7 +13,7 @@ touches, computed from git (`Get-ChangedGlobSet`); and **test blast-radius / pro
 - [One configuration point](#one-configuration-point)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-FLOW-CD-GLOBS:2
+### Rule ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
 
 A pattern is repo-relative and `/`-separated. `**` is the only cross-segment operator and matches zero or more whole segments; a segment is
 either exactly `**` or contains no `**`. Within a segment, semantics are exactly PowerShell wildcards (`*`, `?`, `[abc]`, `[a-z]`) as
@@ -21,14 +21,14 @@ implemented by `System.Management.Automation.WildcardPattern`, matched case-sens
 
 - [The dialect](#the-dialect)
 
-### Rule ADR-FLOW-CD-GLOBS:3
+### Rule ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED
 
 A pattern containing `\`, a leading `/`, an empty segment, a `.` or `..` segment, or a backtick is rejected at config load. The dialect has
 no escape character: every pattern must be expressible without one.
 
 - [The dialect](#the-dialect)
 
-### Rule ADR-FLOW-CD-GLOBS:4
+### Rule ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
 
 A globset selects from tracked files only (`git ls-files`, the non-gitignored universe). Membership is decided by an ordered **scan
 program**: a sequence of `+ <pattern>` (select) and `- <pattern>` (drop) rules, evaluated **last-match-wins** with a default of not-selected
@@ -38,21 +38,21 @@ then its `exclude:` patterns as `-` — excludes come last and win, the include-
 
 - [The matching universe](#the-matching-universe)
 
-### Rule ADR-FLOW-CD-GLOBS:5
+### Rule ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
 
 A globset's **identity** is its durable SHA: per member file, SHA-256 over the CR-stripped bytes; the per-file digests folded as
 `<repo-relative-path>|<digest>` lines, ordinal-sorted by path, into one combined SHA-256. This identity is computed **live**
 (`Get-GlobSetHash`) and is **never committed**: it keys the session-memory protection map and answers "did these inputs change?" for the
 local inner loop. It is not a trigger and not a committed artifact — a committed whole-set hash is a lockfile that serializes writers and
-false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters (ADR-FLOW-CD-GLOBS#6) and
-reflects git (ADR-FLOW-CD-GLOBS#9) instead.
+false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER) and
+reflects git (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT) instead.
 
 - [A live identity](#a-live-identity)
 
-### Rule ADR-FLOW-CD-GLOBS:6
+### Rule ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
 
 A pipeline, workflow, or build-validation policy triggers on the globset's **native path-filter projection** (`Get-GlobSetTrigger`): the
-flattened scan program (ADR-FLOW-CD-GLOBS#4/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered `!`
+flattened scan program (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY/8) rendered into the vendor's own `paths` dialect — GitHub `on.*.paths` with ordered `!`
 negation (exact, the same last-match-wins evaluator as `GlobSet.Matches`); Azure DevOps `trigger.paths.include`/`exclude` and branch-policy
 `filenamePatterns` (order-independent — union include minus union exclude — so each pattern is collapsed to its last select, and a compose
 re-add becomes a deeper-folder include ADO keeps). Modern vendors (ADO Services / Server 2022+, GitHub) accept wildcards anywhere in a path
@@ -63,7 +63,7 @@ no longer equals its projection, or whose file is missing.
 - [Native projection: the no-start trigger](#native-projection-the-no-start-trigger)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-FLOW-CD-GLOBS:7
+### Rule ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
 
 Every globset carries a **layer** — the kind of thing it maps. Two are declared in `globs.yml`: `deployable-unit` (a configurable unit that
 ships) and `loose-fileset` (a cross-cutting check surface that deliberately overlaps the boundaries it cuts across — a track's root concern
@@ -77,7 +77,7 @@ A deployable unit takes one of two shapes: a **configured** unit — a base plus
 a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which
 ships only through the configured units that compose it yet still carries an area-of-control (its `verify:` scope and its review surface).
 
-Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`ADR-FLOW-CD-GLOBS#10`): a module never
+Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER`): a module never
 consumes another module's files, a unit never another unit's — each is a boundary. The `module` layer carries a **catch-all**
 (`module-leftovers`) so it covers its whole space with nothing unmapped; the catch-all is the complement of the explicit sets, hence still
 disjoint from them. `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are
@@ -88,20 +88,20 @@ globset earns its cost.
 
 - [One configuration point](#one-configuration-point)
 
-### Rule ADR-FLOW-CD-GLOBS:8
+### Rule ADR-FLOW-CD-GLOBS-COMPOSESETS
 
-A globset may **compose** other declared sets (`compose:`): its scan program (ADR-FLOW-CD-GLOBS#4) is the composed sets' programs first — in
+A globset may **compose** other declared sets (`compose:`): its scan program (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY) is the composed sets' programs first — in
 dependency order, deepest base first, each set once — then the set's own `+`/`-` rules **last**, so the set's own rules override its base. A
 unit re-adds a slice its base dropped exactly this way (`+ configuration/contoso/**` after the base's `- configuration/*/**`). References
 resolve to declared sets only, never to the set itself, and the reference graph must be acyclic — all validated at config load. Composition
 is how a configured deployable-unit shares a base (e.g. every customer/platform unit composing `template-azure-subscription-foundation`, the
 config-free foundation surface) without one deployment's configuration change firing another's pipeline. The flattened program is what both
-the native projection (ADR-FLOW-CD-GLOBS#6) and the durable SHA (ADR-FLOW-CD-GLOBS#5) are computed from — no reference-chasing at trigger or
+the native projection (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER) and the durable SHA (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY) are computed from — no reference-chasing at trigger or
 hash time.
 
 - [One configuration point](#one-configuration-point)
 
-### Rule ADR-FLOW-CD-GLOBS:9
+### Rule ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
 
 Whether a change touches a unit is **computed from git at real refs**, never from a committed hash. `Get-ChangedGlobSet` diffs a commit
 range (`Get-ChangedFile`, `git diff --name-only --no-renames`) and matches the changed paths against the registry; `Test-GlobSetAffected`
@@ -114,10 +114,10 @@ committed hash suffers, and correct across renames (a rename is split into both 
 
 - [Git reflection: the in-pipeline check and the PR report](#git-reflection-the-in-pipeline-check-and-the-pr-report)
 
-### Rule ADR-FLOW-CD-GLOBS:10
+### Rule ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
 
 Within a layer, no two globsets may select a common file on their **OWN contribution** — the set's own `include`/`exclude` program with
-`compose` ignored (`ADR-FLOW-CD-GLOBS#4`). Two that do contain parts of each other and are not independent — the boundary leaks. Validation
+`compose` ignored (`ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY`). Two that do contain parts of each other and are not independent — the boundary leaks. Validation
 is **per layer, never across**: a deployable-unit deliberately contains the base it composes, and every module file also sits in a
 loose-fileset track (`automation`), so cross-layer overlap is expected and correct — the rule is defined on OWN membership within one layer,
 never on effective membership or across layers. The `deployable-unit` and `module` layers are each pairwise-disjoint on OWN membership; the
@@ -131,7 +131,7 @@ declared registry and the derived module sets alike; a violation names both sets
 ## Context
 
 A deployable unit is a high-level composition of modules in the modular repository — a whole track or a reduced slice of one (see
-[tracks](../design/tracks.md), `ADR-DSGN-TRACK#5`) — mapped onto actual files under version control. Both Azure DevOps (`trigger:`/`pr:`
+[tracks](../design/tracks.md), `ADR-DSGN-TRACK-DEPLOYABLEUNIT`) — mapped onto actual files under version control. Both Azure DevOps (`trigger:`/`pr:`
 `paths:`, build-validation policies) and GitHub (`on.*.paths`) decide whether to run by matching changed paths against filter lists. Writing
 those lists directly into every pipeline and workflow by hand scatters one fact — "which files compose this unit" — across the pipeline and
 workflow definitions, in two vendor dialects, where drift is invisible until a deploy silently does not fire.
@@ -146,19 +146,19 @@ committed per set, so there is no whole-set hash to go stale.
 
 ### One configuration point
 
-`globs.yml` holds every globset: a kebab-case name, a description, its layer (`ADR-FLOW-CD-GLOBS#7`), an `include:` pattern list and
-optional `exclude:` list, optional `compose:` references (`ADR-FLOW-CD-GLOBS#8`), an optional `verify:` blast-radius scope, and — on a
-configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none, `ADR-FLOW-CD-GLOBS#7`). `Catzc.Base.Globs`
+`globs.yml` holds every globset: a kebab-case name, a description, its layer (`ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER`), an `include:` pattern list and
+optional `exclude:` list, optional `compose:` references (`ADR-FLOW-CD-GLOBS-COMPOSESETS`), an optional `verify:` blast-radius scope, and — on a
+configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none, `ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER`). `Catzc.Base.Globs`
 owns the file, the dialect, the durable SHA, the native projection, and the git-reflection query; nothing else parses the config. Adding or
 removing files from a unit — or adding a whole customer — is a config edit; the projected triggers regenerate from it. Test blast-radius and
 protection derive from the same identities ([ADR-REPO-PROTGLOB](../repository/protected-globs.md)), and the `module` layer's sets are
 derived from the module folders, never declared in `globs.yml`
-([ADR-REPO-PROTGLOB#7](../repository/protected-globs.md#rule-adr-repo-protglob7)).
+([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).
 
 ### The dialect
 
 Vendor path-filter dialects need not leak into ours: membership is decided in our own code against the tracked-file list, and only the
-**projection** (ADR-FLOW-CD-GLOBS#6) crosses into a vendor dialect, mechanically. That frees the authoring dialect to be the one this
+**projection** (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER) crosses into a vendor dialect, mechanically. That frees the authoring dialect to be the one this
 repository's users already know — within a segment, a pattern means exactly what it means to PowerShell's `-like` operator, delegated to
 `System.Management.Automation.WildcardPattern` (a host-guaranteed type; see
 [native-csharp-types](../automation/BCL/native-csharp-types.md)). Matching is case-sensitive because tracked paths are case-sensitive
@@ -187,7 +187,7 @@ or ignored file can never change a globset's membership.
 
 `Why the identity is live, never committed`
 
-The durable SHA (ADR-FLOW-CD-GLOBS#5) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a rename or move
+The durable SHA (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a rename or move
 changes it even when content does not), and order-free (lines ordinal-sorted). It is exactly right for the one job it keeps: keying the
 session-memory protection map (`ADR-REPO-PROTGLOB`), where "this session already proved this input state green" is a live, in-process fact.
 
@@ -196,12 +196,12 @@ requests that touch different files of the same set both freeze the hash against
 merge the mainline holds the union while each frozen hash saw only its own half — an integrity quality gate recomputing the set would red
 the mainline with neither change individually wrong, and no merge conflict to warn anyone. Because the squash commit is a tree the client
 never hashed, any client-frozen hash is suspect. So the identity stays live and local; the trigger is a native projection
-(ADR-FLOW-CD-GLOBS#6) and the "did this change?" question is answered from git at the real refs (ADR-FLOW-CD-GLOBS#9), both of which see the
+(ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER) and the "did this change?" question is answered from git at the real refs (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT), both of which see the
 merged tree as it actually is.
 
 ### Native projection: the no-start trigger
 
-`Get-GlobSetTrigger` projects a globset's flattened scan program (ADR-FLOW-CD-GLOBS#4/8) into each vendor's native path-filter dialect:
+`Get-GlobSetTrigger` projects a globset's flattened scan program (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY/8) into each vendor's native path-filter dialect:
 
 - **GitHub** `on.*.paths`: the program in order, each `-` rule rendered as a `!` negation. GitHub paths are ordered and last-match-wins —
   the same evaluator as `GlobSet.Matches` — so the projection is **exact**.
@@ -269,7 +269,7 @@ correct heart of the design — two real commits that exist server-side after th
 
 A layer is a set of peers that partition one concern into boundaries: the `module` layer partitions module-space, the `deployable-unit`
 layer partitions what ships. Overlap between peers means one boundary consumes another's files. So within a layer the sets are
-pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`ADR-FLOW-CD-GLOBS#10`). The distinction is what
+pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER`). The distinction is what
 makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it composes, so on effective membership every
 customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a base" — not a peer collision.
 On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and the base owns the shared
@@ -280,22 +280,22 @@ one file. Cross-layer overlap is never a violation; only same-layer overlap is.
 A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
 in a clean tree, a tripwire for a file dropped at `pwsh/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt
 because its sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared
-registry and the derived module sets ([ADR-REPO-PROTGLOB#7](../repository/protected-globs.md#rule-adr-repo-protglob7)) together, so a
+registry and the derived module sets ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)) together, so a
 mis-scoped module include, a deployable-unit that reaches into another's files, or an umbrella mistakenly declared a `module` fails as a
 named pair.
 
 ### How this is enforced
 
-- `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns (`ADR-FLOW-CD-GLOBS#3`),
-  and cyclic or self-referential compose (`ADR-FLOW-CD-GLOBS#8`).
+- `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns (`ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED`),
+  and cyclic or self-referential compose (`ADR-FLOW-CD-GLOBS-COMPOSESETS`).
 - `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` are quality gates
-  ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)): each recomputes the native projection of its pipeline-bound
+  ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)): each recomputes the native projection of its pipeline-bound
   globsets and compares it to what the bound pipeline/workflow actually declares, reporting one issue per drifted or missing pipeline. Their
   integrity tests require zero issues, so a hand-edited or drifted `paths:` filter fails `Test-Automation` locally and in CI.
 - The `Test-GlobSetTriggerCoverage` quality gate confirms every member of a pipeline-bound set is covered by an ADO include pattern — an
   include-only projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
 - Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees with
-  the projection is findable by the drift quality gates and wrong by rule (`ADR-FLOW-CD-GLOBS#6`).
+  the projection is findable by the drift quality gates and wrong by rule (`ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER`).
 
 ## Consequences
 

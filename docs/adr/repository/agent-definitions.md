@@ -2,14 +2,14 @@
 
 ## Rules: ADR-REPO-AGENTS
 
-### Rule ADR-REPO-AGENTS:1
+### Rule ADR-REPO-AGENTS-ONEFILEPERAGENT
 
 Each sub-agent is defined in one file, `.claude/agents/<name>.md`. Its front matter carries `name`, equal to the file name without `.md`; a
 `description` that says when to use the agent and, in a `Do NOT` clause, when not to; and `tools`, the tools the agent may use.
 
 - [One file per agent](#one-file-per-agent)
 
-### Rule ADR-REPO-AGENTS:2
+### Rule ADR-REPO-AGENTS-BACKEDBYRULE
 
 Every sub-agent exists because an ADR rule supports it. It is registered in `pwsh/Catzc.Base.Docs/configs/agents.yml` with `supported_by`,
 the rule citations (`ADR-<CODE>#<n>`) that justify it, and `checks`, the gate and check functions it runs or guards. An agent that runs and
@@ -17,14 +17,14 @@ guards no catzc check declares `checks: []`, so the absence is stated, never imp
 
 - [A rule for every agent](#a-rule-for-every-agent)
 
-### Rule ADR-REPO-AGENTS:3
+### Rule ADR-REPO-AGENTS-LISTEDINCLAUDEFILE
 
 Every registered agent is listed in the `## Sub-agents` section of `.claude/CLAUDE.md`, as a bullet that opens with its name in bold code
 (``**`<name>`**``). The section lists no agent the registry lacks.
 
 - [Listed where sessions start](#listed-where-sessions-start)
 
-### Rule ADR-REPO-AGENTS:4
+### Rule ADR-REPO-AGENTS-STANDARDWORKER
 
 `catzc-worker` is the standard sub-agent: delegated work goes to it unless a specialised agent fits. The registry names it as `standard`. A
 specialised agent exists only when a rule justifies its specialised job, and the standard agent's `description` names every specialised
@@ -32,14 +32,14 @@ agent, so a reader of the standard agent knows where each specialised job goes.
 
 - [One standard agent](#one-standard-agent)
 
-### Rule ADR-REPO-AGENTS:5
+### Rule ADR-REPO-AGENTS-QUALITYGATE
 
 `Test-AgentDefinitions` is the quality gate for these rules. It keeps the agent files, the registry, and the `.claude/CLAUDE.md` list in
 step, and it resolves every `supported_by` citation to a real rule and every `checks` entry to an existing command.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-REPO-AGENTS:6
+### Rule ADR-REPO-AGENTS-ROBOTBODYLIMIT
 
 A sub-agent is a **robot**: its file's body, everything after the front matter, has at most `roofs.agent_body_lines` lines (20, declared
 once on `AgentsConfig` and set in `agents.yml`), a line being one that starts something of its own, so a wrapped continuation counts with
@@ -50,7 +50,7 @@ line, numbered steps of one action each, and the report line. The contracts ever
 
 - [Robots and capabilities](#robots-and-capabilities)
 
-### Rule ADR-REPO-AGENTS:7
+### Rule ADR-REPO-AGENTS-NAMEDMODEL
 
 Every robot names its `model`, never `inherit`. The default is `haiku`; a robot above it carries a `model_reason` in the registry; and no
 robot runs below the highest **model floor** of the capabilities it preloads, the floor being the lowest model that performs a capability's
@@ -58,26 +58,26 @@ steps reliably.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
-### Rule ADR-REPO-AGENTS:8
+### Rule ADR-REPO-AGENTS-CAPABILITYFILE
 
 A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase letters, digits and hyphens, the only characters the
 harness accepts in a skill name) that a robot preloads through its `skills` list: at most `roofs.capability_lines` lines outside its catzc
 head (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`,
 `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet` or `opus`, declared there once and nowhere else. The catzc
 head of a capability nests under `metadata`, the one front-matter key the editors that validate a skill file leave free, at the key path the
-carrier registry declares ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)), and the floor is the author's line in that head's
+carrier registry declares ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and the floor is the author's line in that head's
 `config` part, so every imprint keeps it.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
-### Rule ADR-REPO-AGENTS:9
+### Rule ADR-REPO-AGENTS-NOORPHANNOGHOST
 
 No orphan and no ghost: every capability is preloaded by at least one robot, and every name in a `skills` list is a capability file. A
 capability exists because a robot loads it, as a robot exists because a rule supports it.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
-### Rule ADR-REPO-AGENTS:10
+### Rule ADR-REPO-AGENTS-CAPABILITYREGISTERED
 
 Every capability is registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml` with `supported_by` and `checks`, the way an agent is in
 `agents.yml`; neither registry repeats the model floor or the `skills` list, which live in their one file each. `Test-AgentDefinitions`
@@ -101,7 +101,7 @@ pulls in work that belongs to a neighbour. The `Do NOT` clause is where each age
 
 An agent is code that runs with the session's permissions, so it answers to the domain rules like any function does. The registry records
 the reason for each agent as rule citations, the same `ADR-<CODE>#<n>` spelling a test tag uses
-([ADR-REPO-LINK#5](markdown-links.md#rule-adr-repo-link5)). It also records the gates and checks the agent runs or guards. A renumbered rule
+([ADR-REPO-LINK-ONECITATIONSPELLING](markdown-links.md#rule-adr-repo-link-onecitationspelling)). It also records the gates and checks the agent runs or guards. A renumbered rule
 or a renamed quality gate then fails a check instead of leaving an agent that points at nothing.
 
 ### Listed where sessions start
@@ -144,7 +144,7 @@ in capabilities under `.claude/skills/`, each registered in `capabilities.yml` a
   type, `AgentsConfig`, with one `AgentEntry` per agent ([ADR-CONF-LOADING](../configuration/module-config-loading.md)). The type rejects an
   unknown key, a malformed or repeated name, an empty `supported_by`, a citation without a rule number, a missing `checks` list, and a
   `standard` that names no entry, and reports every violation at once.
-- **`Test-AgentDefinitions`** is the quality gate ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)). It reports:
+- **`Test-AgentDefinitions`** is the quality gate ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)). It reports:
   - an agent file with no registry entry, and an entry with no file;
   - front matter that does not parse, a `name` that differs from the file name, and a missing `description`, `Do NOT` clause, or `tools`;
   - a `supported_by` citation that names no rule (resolved through `Get-CatsAdrRuleIds`);

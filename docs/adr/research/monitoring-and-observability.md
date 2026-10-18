@@ -2,7 +2,7 @@
 
 ## Rules: ADR-DORA-OBSERV
 
-### Rule ADR-DORA-OBSERV:1
+### Rule ADR-DORA-OBSERV-TWOCAPABILITIES
 
 Monitoring and observability are two distinct capabilities and both are required — monitoring watches predefined metrics and logs for known
 conditions, and observability lets a team explore properties and patterns that were never defined in advance. Neither substitutes for the
@@ -10,28 +10,28 @@ other.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-OBSERV:2
+### Rule ADR-DORA-OBSERV-LEADINGINDICATOR
 
 Build monitoring to serve as a leading indicator — it must surface a degradation before it becomes an outage, not only confirm an outage
 after the fact, and installing a tool is not the goal; every developer proficient with it is.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-OBSERV:3
+### Rule ADR-DORA-OBSERV-MONITORINGASCODE
 
 Treat monitoring and alerting configuration as code — changes to it go through the same review and version control as application code, not
 an unaudited side channel.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-OBSERV:4
+### Rule ADR-DORA-OBSERV-ALERTONSYMPTOMS
 
 Alert on symptoms, not causes — build alerting around a visible or predicted user-facing symptom, never around an enumerated list of every
 conceivable failure cause, and route each alert to a specific responsible party rather than a broad distribution list.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-OBSERV:5
+### Rule ADR-DORA-OBSERV-SHAREDOWNERSHIP
 
 Never centralize monitoring ownership in one person or team, and keep alerts actionable — an alert that produces no action is a candidate
 for removal, not a permanent fixture, because unactionable noise is what buries the alert that matters.

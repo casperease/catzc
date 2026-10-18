@@ -128,7 +128,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     Context 'the blocking watchpoints (-DiagnoseBlocking)' {
         BeforeEach {
             $script:steps = [System.Collections.Generic.List[string]]::new()
-            Mock Assert-Wait -ModuleName Catzc.Base.QualityGates { $script:steps.Add('wait') }
+            Mock Watch-Blocking -ModuleName Catzc.Base.QualityGates { $script:steps.Add('wait') }
             Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
                 $script:steps.Add('workers')
                 [pscustomobject]@{
@@ -138,18 +138,13 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'stands four watchpoints in the startup, the last one just before the workers launch' {
+        # The measured run found no block, so no watchpoint stands; the switch stays for the next suspected block.
+        It 'accepts the switch and stands no watchpoint, with it or without it' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false; DiagnoseBlocking = $true } | Out-Null
-
-            Should -Invoke Assert-Wait -ModuleName Catzc.Base.QualityGates -Times 4 -Exactly
-            $script:steps -join ',' | Should -Be 'wait,wait,wait,wait,workers'
-        }
-
-        It 'stands none by default' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } | Out-Null
 
-            Should -Invoke Assert-Wait -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
-            $script:steps -join ',' | Should -Be 'workers'
+            Should -Invoke Watch-Blocking -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+            $script:steps -join ',' | Should -Be 'workers,workers'
         }
     }
 

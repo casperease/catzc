@@ -2,28 +2,28 @@
 
 ## Rules: ADR-PROC-OBSERVEWIP
 
-### Rule ADR-PROC-OBSERVEWIP:1
+### Rule ADR-PROC-OBSERVEWIP-WORKSTATEVISIBLE
 
 Make the state of the work visible at all times. Where each commit sits in the flow — and what state it has reached — is rendered, not
 inferred from memory or a status meeting.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-OBSERVEWIP:2
+### Rule ADR-PROC-OBSERVEWIP-GOANDSEE
 
 Go and see the real artifact. Decisions rest on the actual running software and real signals — genchi genbutsu, "go and see for yourself" —
 not on proxies like tasks-marked-done or hours spent; working software is the measure of progress ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)).
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-OBSERVEWIP:3
+### Rule ADR-PROC-OBSERVEWIP-SURFACEPROBLEMSATORIGIN
 
 Surface problems loudly, at their origin. Console output is a first-class concern that reports outcomes and announces work before it blocks;
 a problem is made visible where it happens, never buried or deferred.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-PROC-OBSERVEWIP:4
+### Rule ADR-PROC-OBSERVEWIP-OBSERVEWHOLESTREAM
 
 Observe the whole value stream, not one local step. Optimise concept-to-cash end to end and guard against a local optimum that speeds one
 station while starving the whole (optimise the whole; [ADR-PROC-LEAN](lean.md)).

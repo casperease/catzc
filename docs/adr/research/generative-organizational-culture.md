@@ -2,35 +2,35 @@
 
 ## Rules: ADR-DORA-CULTURE
 
-### Rule ADR-DORA-CULTURE:1
+### Rule ADR-DORA-CULTURE-INFORMATIONFLOW
 
 Organizational culture is classified by how information flows through it, using Ron Westrum's typology of pathological (power-oriented),
 bureaucratic (rule-oriented), and generative (performance-oriented) cultures — not by any other axis of team behavior.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-CULTURE:2
+### Rule ADR-DORA-CULTURE-SIXTRAITS
 
 A generative culture is defined by six concrete traits, not a slogan: high cooperation, trained messengers, shared risk, encouraged bridging
 across roles, failure met with inquiry, and novelty implemented rather than resisted. Treat all six as the working definition.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-CULTURE:3
+### Rule ADR-DORA-CULTURE-BEHAVIOURFIRST
 
 Change behavior first and let belief follow. Culture shifts by changing what people do — how a postmortem runs, who owns a system in
 production, how an idea gets tried — not by first trying to change how people think.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-CULTURE:4
+### Rule ADR-DORA-CULTURE-FAILUREISINFORMATION
 
 Treat a failure as information about the system, never as a reason to find someone to blame. Punishing the messenger, or the person nearest
 the incident, teaches people to hide problems instead of surfacing them.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-CULTURE:5
+### Rule ADR-DORA-CULTURE-MEASUREPERCEPTION
 
 Measure culture as a perception, not an artifact count. Westrum's six survey items, scored on a Likert scale and averaged into one score,
 are the validated instrument for this capability — not a proxy derived from delivery metrics.

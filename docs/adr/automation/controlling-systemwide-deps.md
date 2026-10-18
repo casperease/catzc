@@ -2,22 +2,22 @@
 
 ## Rules: ADR-AUTO-DEPS
 
-### Rule ADR-AUTO-DEPS:1
+### Rule ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS
 
 Lock every tool version in `pwsh/Catzc.Base.Execution/configs/tools.yml`. Pinned tools install an explicit, reviewable version; a small
 allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies integrity against the publisher's published hash.
 
 - [1. Lock versions in configuration](#1-lock-versions-in-configuration)
 
-### Rule ADR-AUTO-DEPS:2
+### Rule ADR-AUTO-DEPS-TOOLTRIAD
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule ADR-AUTO-DEPS#8): it is asserted, never
+and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED): it is asserted, never
 installed by its own entry, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 
-### Rule ADR-AUTO-DEPS:3
+### Rule ADR-AUTO-DEPS-ASSERTBEFOREINVOKE
 
 Assert before every invocation. `Assert-Tool` runs `Assert-Command` and `Assert-ToolVersion` (presence and version only) before every
 external tool call — or, for a tool whose entry declares candidate paths, the fast, timed existence check (`Resolve-ToolExecutable`), which
@@ -25,29 +25,29 @@ probes those paths and PATH before starting any process; it does not resolve `de
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
-### Rule ADR-AUTO-DEPS:4
+### Rule ADR-AUTO-DEPS-INSTALLORDERINCONFIG
 
 Declare install-order dependencies in config. If a tool must be installed after another, add `depends_on` to its `tools.yml` entry;
 `Get-ToolInstallOrder` topologically sorts installs, and it is not a runtime assertion.
 
 - [3b. Tool dependencies in config](#3b-tool-dependencies-in-config)
 
-### Rule ADR-AUTO-DEPS:5
+### Rule ADR-AUTO-DEPS-CISAMEINSTALLERS
 
 CI provisions tools with the same per-tool `Install-*` functions against the same `tools.yml` — the installer side of the one code path
-([ADR-AUTO-PARITY#1](devbox-pipeline-parity.md#rule-adr-auto-parity1)), with no separate CI setup script. It activates the agent's cached
+([ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS](devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments)), with no separate CI setup script. It activates the agent's cached
 toolchains through native ADO version tasks first, and calls the per-tool functions rather than the `Install-DevBoxTools` orchestrator.
 
 - [5. CI uses the same functions](#5-ci-uses-the-same-functions)
 
-### Rule ADR-AUTO-DEPS:6
+### Rule ADR-AUTO-DEPS-NOPREINSTALLEDTOOLS
 
 Do not assume tools are pre-installed. Even on CI runners with pre-installed tools, assert the version — runner images change without
 notice.
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
-### Rule ADR-AUTO-DEPS:7
+### Rule ADR-AUTO-DEPS-TWODEPENDENCYKINDS
 
 Two kinds of dependency, two names. A **system dependency** (`ADR-AUTO-DEPS`) is an external runtime or CLI the automation runs _against_ —
 `pwsh`, Python, `dotnet`, the Azure CLI, git — installed at the OS level and covered by the Tooling layer (`tools.yml`, the `Install-*` /
@@ -58,7 +58,7 @@ split: `ADR-AUTO-DEPS` (SYS = system) and `ADR-AUTO-DEPM` (MOD = module). This A
 
 - [System vs module dependencies](#system-vs-module-dependencies)
 
-### Rule ADR-AUTO-DEPS:8
+### Rule ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED
 
 A platform-provided prerequisite is asserted, never installed by its own entry. "Provided by the platform" means the operating system —
 winget (the Windows App Installer), `/bin/bash` on Linux — or a base tool the devbox installs unpinned: git, and Git Bash with it, which is
@@ -136,7 +136,7 @@ tool:
 - **uv-managed Python family** — Python itself and the CLIs written in Python (the Azure CLI, Poetry, PySpark) install user-space through
   uv, keyed by `uv_python` / `uv_tool` / `pip_package`; see [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`).
 - **platform-provided prerequisites** (`winget`, `bash`) set `system_provided: true` — asserted, never installed by their own entry (Rule
-  ADR-AUTO-DEPS#8).
+  ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED).
 
 All entries share `version`, `command`, `version_command`, and `version_pattern` — the fields used for version-locking and runtime
 assertion.
@@ -153,7 +153,7 @@ The Python family is the exception: Python and the CLIs written in it install us
 manager — see [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`).
 
 The installer is idempotent — if the tool is already installed, it returns immediately (see
-[idempotent-state-functions](idempotent-state-functions.md#rule-adr-auto-idem1)).
+[idempotent-state-functions](idempotent-state-functions.md#rule-adr-auto-idem-checkbeforeacting)).
 
 #### 3. Assert at runtime
 
@@ -218,7 +218,7 @@ Some tools the toolchain never installs through their own entry — the platform
 them. The platform is the operating system, or a base tool the devbox installs unpinned. winget (the Windows App Installer) is the first
 kind: it is the platform package manager the winget-based installs run against, so it cannot itself be a winget install. `bash` is both
 kinds: Linux ships it as `/bin/bash`, and on Windows it is Git Bash, which arrives with git — a base tool `Install-Git` installs at its
-latest release (Rule ADR-AUTO-DEPS#1), user-space on Windows. A second installer for Git Bash would be a second owner of git. Such a tool is
+latest release (Rule ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS), user-space on Windows. A second installer for Git Bash would be a second owner of git. Such a tool is
 declared with `system_provided: true` (and `windows_only: true` for winget, which exists only on Windows). It is a prerequisite, not a
 target:
 

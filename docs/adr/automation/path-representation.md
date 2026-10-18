@@ -2,33 +2,33 @@
 
 ## Rules: ADR-AUTO-PATH
 
-### Rule ADR-AUTO-PATH:1
+### Rule ADR-AUTO-PATH-TWOFORMS
 
 A path value is in one of two forms, never a third. **Communication form** is repository-root-relative (or anchored on the output root,
-ADR-AUTO-PATH#9, or the workspace, ADR-AUTO-PATH#11), `/`-separated, and fully normalized — no `.` or `..` segments, no leading `./`, no
+ADR-AUTO-PATH-OUTANCHOR, or the workspace, ADR-AUTO-PATH-WORKSPACEANCHOR), `/`-separated, and fully normalized — no `.` or `..` segments, no leading `./`, no
 backslashes, no duplicate separators. **Binding form** is a normalized absolute path that exists only transiently at the point of use. A
 hybrid such as `{root}/./sub` is neither and is always a bug.
 
 - [The two forms](#the-two-forms)
 
-### Rule ADR-AUTO-PATH:2
+### Rule ADR-AUTO-PATH-COMMUNICATIONFORM
 
 A path that is stored or transported is in communication form: returned to a caller, held on a record, or written into an artifact or
 source-controlled config. The canonical representation a type holds and a record serializes is relative. `ConvertTo-RepoRelativePath`
-produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-AUTO-PATH#8), not a property of
+produces this form. How a path is _rendered_ to a log or console is a separate, per-channel decision (ADR-AUTO-PATH-OUTPUTFORMATS), not a property of
 how it is stored.
 
 - [The two forms](#the-two-forms)
 - [The boundary, concretely](#the-boundary-concretely)
 
-### Rule ADR-AUTO-PATH:3
+### Rule ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
 
 A path is in binding form only at the point of binding — the line that performs a filesystem read or write, or hands the path to an external
 tool. Resolve to absolute immediately before that side effect with `Resolve-RepoPath`; never store, return, or log the absolute result.
 
 - [The point of binding](#the-point-of-binding)
 
-### Rule ADR-AUTO-PATH:4
+### Rule ADR-AUTO-PATH-CENTRALNORMALIZATION
 
 Normalization is mandatory and centralized. Cross the boundary through `ConvertTo-RepoRelativePath` and `Resolve-RepoPath` — the only
 sanctioned crossers. Do not hand-build a communicated path by joining the working root onto a raw argument, and do not normalize separators
@@ -37,22 +37,22 @@ ad hoc with a string replace; both skip the normalization the converters guarant
 - [Two functions](#two-functions)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PATH:5
+### Rule ADR-AUTO-PATH-FOREIGNPATHS
 
 A path under neither the output root nor the repository root — the system temp directory, an unrelated absolute path, a foreign drive —
 degrades to a normalized absolute path, never to a hybrid. `ConvertTo-RepoRelativePath` does exactly this: a path under the output root
-comes back `out/`-anchored (ADR-AUTO-PATH#9), a path under the repo root comes back repo-relative, a path under neither comes back absolute.
+comes back `out/`-anchored (ADR-AUTO-PATH-OUTANCHOR), a path under the repo root comes back repo-relative, a path under neither comes back absolute.
 
 - [Degradation](#degradation)
 
-### Rule ADR-AUTO-PATH:6
+### Rule ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM
 
 Source-controlled config and long-lived records store communication-form paths only. A generated production artifact may embed absolute
 paths, because it is consumed at binding time on the machine that runs it — but the source that generates it holds relative paths.
 
 - [Source is relative; the bound artifact may be absolute](#relative-source-absolute-artifact)
 
-### Rule ADR-AUTO-PATH:7
+### Rule ADR-AUTO-PATH-NAMEBYFORM
 
 Name a path by its form. `ConvertTo-RepoRelativePath` and `Resolve-RepoPath` are the boundary crossers; `Get-RepositoryFile` /
 `Get-RepositoryFolder` are binding helpers (relative in, normalized absolute out). A record property that carries a path is named for the
@@ -60,7 +60,7 @@ form it holds (`RelativePath`, `*_file`) and the type documents that form, so a 
 
 - [The point of binding](#the-point-of-binding)
 
-### Rule ADR-AUTO-PATH:8
+### Rule ADR-AUTO-PATH-OUTPUTFORMATS
 
 Logging, console, and other output channels are output _formats_: the path form rendered to each is a deliberate choice, not a fixed rule. A
 path-bearing type validates once in its constructor and exposes both forms, holding both or deriving the absolute on demand, so a channel
@@ -69,7 +69,7 @@ that channel's consumer binds the path) without re-deriving it. The stored field
 
 - [Logging is an output format](#logging-is-an-output-format)
 
-### Rule ADR-AUTO-PATH:9
+### Rule ADR-AUTO-PATH-OUTANCHOR
 
 `out/` is a reserved anchor, not an ordinary segment. A path under the output root (`Get-OutputRoot`) takes the form `out/<remainder>`, and
 `Resolve-RepoPath` re-anchors that `out/` sentinel against `Get-OutputRoot` — not the repository root. Because the output root is
@@ -79,7 +79,7 @@ machine-specific absolute.
 
 - [The output anchor](#the-output-anchor)
 
-### Rule ADR-AUTO-PATH:10
+### Rule ADR-AUTO-PATH-PUBLISHEDARTIFACT
 
 A **published artifact** is a file that crosses a stage boundary — a build stage produces it, a later deploy stage (often a different agent)
 downloads and consumes it. It is an immutable object that serializes **both** forms and is **created by the controlled type**
@@ -93,7 +93,7 @@ simply not the cross-stage anchor.)
 
 - [The output anchor](#the-output-anchor)
 
-### Rule ADR-AUTO-PATH:11
+### Rule ADR-AUTO-PATH-WORKSPACEANCHOR
 
 `{workspace}` is a reserved anchor for a folder beside the repository: the parent folder of the repository root, where sibling checkouts
 live. A path to such a folder takes the form `{workspace}/<remainder>` in source-controlled config, never an absolute path and never a `..`
@@ -116,7 +116,7 @@ known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
 [never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never `$PWD`),
-[cross-platform-powershell](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat2) (`Join-Path` and `[IO.Path]::GetFullPath`, forward
+[cross-platform-powershell](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (`Join-Path` and `[IO.Path]::GetFullPath`, forward
 slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths take the same relative
 form).
 
@@ -172,7 +172,7 @@ Every path that crosses a boundary going out goes through `ConvertTo-RepoRelativ
 Centralizing on the two functions is what makes normalization a guarantee rather than a hope — a hand-built
 `Join-Path $env:RepositoryRoot $Path` preserves a caller's `.\` and produces `{root}/./sub`, and a hand-rolled `-replace '\\','/'` fixes
 separators but not `..` segments. The converters fix both, in one place, so the rule cannot be half-applied. The PowerShell spellings of the
-two hand-built crossings are ADR-PWSH-XPLAT#10.
+two hand-built crossings are ADR-PWSH-XPLAT-HANDBUILTCROSSINGS.
 
 ### Degradation
 
@@ -205,7 +205,7 @@ paths, relative-only); the cross-stage artifact is the separate, dual-form case.
 
 Some config names a folder beside the repository rather than inside it, such as a sibling checkout read for ideas
 ([inspiration](../repository/inspiration.md)). Neither plain form fits: a repository-relative path would need a `..` segment, which
-communication form forbids, and an absolute path is machine-specific, which source-controlled config forbids (ADR-AUTO-PATH#6). The
+communication form forbids, and an absolute path is machine-specific, which source-controlled config forbids (ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM). The
 `{workspace}` anchor names the one place siblings share, the folder that holds the repository, so `{workspace}/eac` means the `eac` checkout
 beside this one wherever the repository is checked out. It is spelled as a brace token, unlike `out/`, because `workspace` is an ordinary
 folder name and stays one. A sibling that is not checked out resolves to a path that does not exist, and the caller reports that rather than

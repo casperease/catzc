@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d416d23c8d00
+    with_body_sha: "7190784fc032"
     repo_status: locked
     path: docs/explanation/automation/.assets/rule-and-gate-per-load-stage/grid.md
     source: docs/explanation/automation/.assets/rule-and-gate-per-load-stage/diagram.drawio.png
@@ -33,9 +33,9 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 18 lit of 2759 files
-- pipelines × pipeline-yaml: 1 lit of 9 files
-- pwsh × powershell: 1 lit of 1649 files
+- docs × markdown: 18 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
+- pwsh × powershell: 1 lit of 1651 files
 - pwsh × yaml: 2 lit of 115 files
 
 ## Key
@@ -63,7 +63,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 
 - [docs/adr/automation/dora-explains.md][6]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 437 (text).
 - [docs/adr/automation/platform-bundle.md][1]: selected by [ADR-AUTO-BUNDLE][1]: the ADR's own file.
-- [docs/adr/glossary.md][7]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 603 (text).
+- [docs/adr/glossary.md][7]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 611 (text).
 - [docs/adr/index.md][8]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 173 (text).
 - [docs/references/pipelines/github-workflows/ci-automation.yml.md][9]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 42
   (text).
@@ -97,7 +97,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][23]: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 499
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 506
   (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text).
 
 ### pwsh × powershell (1 lit file)
@@ -113,7 +113,7 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); th
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][25]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 142 (text).
-- [pwsh/Catzc.Base.Docs/configs/glossary.yml][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 499 (text).
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 506 (text).
 
 ## Keywords
 

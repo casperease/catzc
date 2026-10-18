@@ -2,18 +2,18 @@
 
 ## Rules: ADR-AUTO-ASSETDEP
 
-### Rule ADR-AUTO-ASSETDEP:1
+### Rule ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
 
 An **internal asset dependency** is any read, by a module's own code, of content that ships inside the code tree: the module's `configs/`
 and `assets/`, another module's (a cross-module edge declared in `dependencies.yml`), `.internal/assets/`, `.vendor/`, and `.compiled/`. It
 is located only through the code-root helper — `Get-CatzcModuleRoot` with a literal child path, or `Get-CatzcModulesRoot` for the
 dot-prefixed infrastructure — never through the folder of the executing file, the working root (`Get-RepositoryRoot`), or a hand-built
-`automation/...` path. It is the code-root anchor of [ADR-AUTO-NOPWD#1](never-depend-on-pwd.md#rule-adr-auto-nopwd1) applied to shipped
+`automation/...` path. It is the code-root anchor of [ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths) applied to shipped
 content.
 
 - [One helper](#one-helper)
 
-### Rule ADR-AUTO-ASSETDEP:2
+### Rule ADR-AUTO-ASSETDEP-LITERALCHILDPATH
 
 The child path is a string literal at every call site of the code-root helper, so the full set of internal asset dependencies — one (module,
 function, child path) entry per call site — is derived from the code by `Get-InternalAssetDependency`. The code is the registration; there
@@ -21,23 +21,23 @@ is no separate list to keep in step.
 
 - [The code is the inventory](#the-code-is-the-inventory)
 
-### Rule ADR-AUTO-ASSETDEP:3
+### Rule ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
 
 Every function with an internal asset dependency is covered by at least one test that reads the real asset (the read is not mocked away),
-carries the citation tag `ADR-AUTO-ASSETDEP#3`, and is not tagged `source-only`, so it runs in both the source run and the build run.
-Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST#1); the function's logic tests keep using fixtures.
+carries the citation tag `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST`, and is not tagged `source-only`, so it runs in both the source run and the build run.
+Because it reads a shipped asset, it is an `integrity` test (ADR-AUTO-TEST-ONECATEGORY); the function's logic tests keep using fixtures.
 
 - [A real-asset test in both runs](#a-real-asset-test-in-both-runs)
 
-### Rule ADR-AUTO-ASSETDEP:4
+### Rule ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY
 
 The rule is enforced mechanically. A coverage check fails the run when a function listed by `Get-InternalAssetDependency` has no test that
-satisfies ADR-AUTO-ASSETDEP#3, naming the function and its uncovered child paths. A presence check fails `Build-Modules` when any listed
+satisfies ADR-AUTO-ASSETDEP-COVEREDBYREALTEST, naming the function and its uncovered child paths. A presence check fails `Build-Modules` when any listed
 (module, child path) is absent from the built output.
 
 - [Two checks: coverage and presence](#two-checks-coverage-and-presence)
 
-### Rule ADR-AUTO-ASSETDEP:5
+### Rule ADR-AUTO-ASSETDEP-LANDSWITHTEST
 
 A new internal asset dependency lands together with its covering test in the same change. Adding the read without the test turns the
 coverage check red, so the omission cannot merge.
@@ -80,9 +80,9 @@ defaults to the caller's own; an explicit `-Module` reads another module's conte
 in `dependencies.yml` ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a
 module — the `.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. The analyzer
 rule `Measure-NoScriptRootAnchor` bans `$PSScriptRoot` in module function files
-([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4)), which leaves the helper as the only way a
-function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD#4, and the literal child path the inventory reads
-is ADR-PWSH-PWD#7.
+([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), which leaves the helper as the only way a
+function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT, and the literal child path the inventory reads
+is ADR-PWSH-PWD-LITERALCHILDPATH.
 
 ### The code is the inventory
 
@@ -99,16 +99,16 @@ list would drift from the code it describes, and the code says everything the ch
 A function that reads a shipped asset is covered by a test that lets the read happen: it loads the module, calls the function, and asserts
 on what the real asset produced. Mocking the read away would test the mock, which is the one thing that does not change between the modes.
 The test reads the shipped file, so it is an `integrity` test, and it is never `source-only`, so the build run executes it against the built
-module ([test-automation](test-automation.md#rule-adr-auto-test31)). The citation tag `ADR-AUTO-ASSETDEP#3` is what lets the coverage check
+module ([test-automation](test-automation.md#rule-adr-auto-test-sourceonlytag)). The citation tag `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` is what lets the coverage check
 find it. The function's other behaviour stays in its logic tests, on fixtures, as usual — the real-asset test exists to prove the lookup,
 not to re-test the logic.
 
 ### Two checks: coverage and presence
 
 The **coverage check** is an integrity test that runs in both test runs: for every function in the inventory it looks in that function's
-`Verb-Noun.Tests.ps1` for a test that cites `ADR-AUTO-ASSETDEP#3` and is not `source-only`, and fails with the function and its uncovered
+`Verb-Noun.Tests.ps1` for a test that cites `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` and is not `source-only`, and fails with the function and its uncovered
 child paths when there is none. The **presence check** is part of `Build-Modules`' self-check
-([platform-bundle](platform-bundle.md#rule-adr-auto-bundle5)): every inventoried (module, child path) must exist in the built output, so a
+([platform-bundle](platform-bundle.md#rule-adr-auto-bundle-immutablebuild)): every inventoried (module, child path) must exist in the built output, so a
 side folder the build forgot to copy fails the build, not a user's session.
 
 Together they make the rule self-maintaining. A new asset read appears in the inventory the moment it is written; without its covering test
@@ -119,9 +119,9 @@ the coverage check is red, so the change cannot merge ([poka-yoke](../principles
 - **`Get-CatzcModuleRoot`** (`Catzc.Base.Repository`) — the one helper for a module's own content.
 - **`Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
-- **The coverage check** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP#4).
-- **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP#4).
-- **`Test-CatzcBuild`** — runs every `ADR-AUTO-ASSETDEP#3` test against the build.
+- **The coverage check** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY).
+- **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY).
+- **`Test-CatzcBuild`** — runs every `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` test against the build.
 
 ## Consequences
 

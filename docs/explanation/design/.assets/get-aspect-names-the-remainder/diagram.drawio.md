@@ -6,21 +6,21 @@ Glyphs: 1 file (olive), 2 code units (slate), 4 named sets (mauve), 1 failure; 2
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../get-aspect-names-the-remainder.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../get-aspect-names-the-remainder.md).
 
 ## At a glance
 
 A 1572 × 654 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom. A wide file
-glyph spans most of the top, with a failure to its right, and below them two column bands sit side by side, labelled `AUTOMATION` on the
-left and `INFRASTRUCTURE` on the right. Each band stacks a code unit above two named sets. Seven edges join the glyphs, eight markers number
-them, and a legend panel runs along the bottom. The eye lands first on the red failure at the top right.
+glyph spans most of the top, with a failure to its right, and below them two column bands sit side by side, labelled `PWSH` on the left and
+`INFRASTRUCTURE` on the right. Each band stacks a code unit above two named sets. Seven edges join the glyphs, eight markers number them,
+and a legend panel runs along the bottom. The eye lands first on the red failure at the top right.
 
 ## Reading path
 
 1. Marker 1, top: the wide file variants.yml; right along the failure path to marker 2, the failure the last aspect must be '**'.
-2. Down the left flow edge into the left band: marker 3, the code unit Get-Aspect -Track automation; then down two thick edges to marker 4,
-   the named set live, and marker 5, the named set tests.
+2. Down the left flow edge into the left band: marker 3, the code unit Get-Aspect -Track pwsh; then down two thick edges to marker 4, the
+   named set live, and marker 5, the named set tests.
 3. Down the right flow edge into the right band: marker 6, the code unit Get-Aspect…infrastructure; then down two thick edges to marker 7,
    the named set tests, and marker 8, the named set live.
 
@@ -29,7 +29,7 @@ them, and a legend panel runs along the bottom. The eye lands first on the red f
 | Glyph (legend phrase) | Count | Where                                                                                         |
 | --------------------- | ----- | --------------------------------------------------------------------------------------------- |
 | file                  | 1     | variants.yml (top, spanning both columns)                                                     |
-| code unit             | 2     | Get-Aspect -Track automation (left band, top), Get-Aspect…infrastructure (right band, top)    |
+| code unit             | 2     | Get-Aspect -Track pwsh (left band, top), Get-Aspect…infrastructure (right band, top)          |
 | named set             | 4     | live and tests (left band, middle and bottom), tests and live (right band, middle and bottom) |
 | failure               | 1     | the last aspect must be '**' (top right, beside the file)                                     |
 
@@ -38,11 +38,11 @@ band's code unit name is elided in the middle; the article gives it in full.
 
 ## Edges
 
-| Edge kind              | Count | From → to                                                                                          |
-| ---------------------- | ----- | -------------------------------------------------------------------------------------------------- |
-| flow                   | 2     | variants.yml → Get-Aspect -Track automation; variants.yml → Get-Aspect…infrastructure              |
-| thick (to a named set) | 4     | Get-Aspect -Track automation → live, live → tests; Get-Aspect…infrastructure → tests, tests → live |
-| failure path           | 1     | variants.yml → the last aspect must be '**'                                                        |
+| Edge kind              | Count | From → to                                                                                    |
+| ---------------------- | ----- | -------------------------------------------------------------------------------------------- |
+| flow                   | 2     | variants.yml → Get-Aspect -Track pwsh; variants.yml → Get-Aspect…infrastructure              |
+| thick (to a named set) | 4     | Get-Aspect -Track pwsh → live, live → tests; Get-Aspect…infrastructure → tests, tests → live |
+| failure path           | 1     | variants.yml → the last aspect must be '**'                                                  |
 
 The failure path is horizontal, pointing right, from the file's right edge; the other six edges are vertical, pointing down, and the two
 that leave the file start at its lower edge above each column's centre. None crosses another, and none carries a label.
@@ -68,13 +68,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-DSGN-ASPECT): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for every
-lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-DSGN-ASPECT" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

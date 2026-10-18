@@ -4,55 +4,55 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ## Rules: ADR-REPO-AI
 
-### Rule ADR-REPO-AI:1
+### Rule ADR-REPO-AI-READCONTRACTFIRST
 
-**Read this contract first, every start.** Then the ADR index and only the rules your brief cites, by code. (ADR-REPO-LINK#5)
+**Read this contract first, every start.** Then the ADR index and only the rules your brief cites, by code. (ADR-REPO-LINK-ONECITATIONSPELLING)
 
-### Rule ADR-REPO-AI:2
+### Rule ADR-REPO-AI-TRUSTTHETREE
 
 **Trust the tree; verify cheaply.** A fact is checked by a read, a grep or a listing, never by a tool run. The tree is the truth.
 
-### Rule ADR-REPO-AI:3
+### Rule ADR-REPO-AI-TESTSATTHEEND
 
 **Tests cost; postpone them to the end.** Run no test or gate while working; list the checks owed and report them as a warning.
 
-### Rule ADR-REPO-AI:4
+### Rule ADR-REPO-AI-SMALLTESTSDIRECTLY
 
 **A small test may run directly.** One Pester file or one gate on one file, in the background; Test-Automation is the user's.
 
-### Rule ADR-REPO-AI:5
+### Rule ADR-REPO-AI-NEVERMUTATEGIT
 
 **Never mutate git.** No add, commit, mv, rm, reset, checkout, stash, rebase; the user commits. Query git only when a read cannot.
 
-### Rule ADR-REPO-AI:6
+### Rule ADR-REPO-AI-WORKFORWARD
 
 **Working forward is safe.** Downstream is quality-controlled; do not re-verify what a gate will verify. (ADR-AUTO-TEST)
 
-### Rule ADR-REPO-AI:7
+### Rule ADR-REPO-AI-SHORTFOREGROUNDCALLS
 
-**Foreground shell calls take at most 3 seconds.** Longer work runs in the background with a timeout prefix. (ADR-AUTO-FAILFAST#7)
+**Foreground shell calls take at most 3 seconds.** Longer work runs in the background with a timeout prefix. (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
 
-### Rule ADR-REPO-AI:8
+### Rule ADR-REPO-AI-ONEFILEATATIME
 
 **One file at a time; read it back.** No script sweeps, no batch replace. (ADR-PRIN-ONELIVE)
 
-### Rule ADR-REPO-AI:9
+### Rule ADR-REPO-AI-EDITONLYBRIEF
 
-**Edit only what the brief names.** A shared file gets an entry request; a peer's dirty file is left alone. (ADR-REPO-AGENTS#4)
+**Edit only what the brief names.** A shared file gets an entry request; a peer's dirty file is left alone. (ADR-REPO-AGENTS-STANDARDWORKER)
 
-### Rule ADR-REPO-AI:10
+### Rule ADR-REPO-AI-NEVERDECIDEFORUSER
 
 **Never decide for the user.** An open question stays open and is reported; a recommendation is labelled as one.
 
-### Rule ADR-REPO-AI:11
+### Rule ADR-REPO-AI-FIXEDREPORT
 
 **End with the fixed report.** Files touched; checks owed and not run; checks run with output verbatim; what was left undone.
 
-### Rule ADR-REPO-AI:12
+### Rule ADR-REPO-AI-DOMAINWORDS
 
 **Use the domain's words.** Domain rules, never "house rules"; cats the product, catzc the inner namespace. (ADR-PRIN-CATS)
 
-### Rule ADR-REPO-AI:13
+### Rule ADR-REPO-AI-OUTISOUTPUT
 
 **out/ is output, never input; render nothing unasked.** Plans live in .claude/plans; no diagram without an ask. (ADR-REPO-OUTDIR)
 
@@ -61,7 +61,7 @@ Every agent and every skill reads this first, at every start and after every cle
 Agents start cold on small models. Test runs are the largest cost of a session, and a mutating git command by an agent cannot be undone by
 the user. The time safeguard bounds every call; this contract bounds what a call is spent on.
 
-A robot's front matter is a closed key set (ADR-REPO-AGENTS#6), and a value identical on every file is a constant, declared once
+A robot's front matter is a closed key set (ADR-REPO-AGENTS-ROBOTBODYLIMIT), and a value identical on every file is a constant, declared once
 (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
 `contracts` entry of agents.yml, which Test-AgentDefinitions reads, and in the CLAUDE.md session-start line.
 

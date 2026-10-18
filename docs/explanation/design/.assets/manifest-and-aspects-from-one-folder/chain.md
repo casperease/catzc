@@ -1,17 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "4170213f1fe5"
-    repo_status: locked
-    path: docs/explanation/design/.assets/manifest-and-aspects-from-one-folder/chain.md
-    source: docs/explanation/design/.assets/manifest-and-aspects-from-one-folder/diagram.drawio.png
-    role: asset-description
-    language: markdown
-    filetype: md
-    track: docs
-    tracktype: documentation
----
-
 # The manifest and the aspects both come from one folder: the value-chain minimap
 
 ```text

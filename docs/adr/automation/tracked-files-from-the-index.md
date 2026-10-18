@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-TRACKED
 
-### Rule ADR-AUTO-TRACKED:1
+### Rule ADR-AUTO-TRACKED-ONESEAM
 
 One seam answers "which files does git track": `Get-GitTrackedPath`. No other code launches `git ls-files` to list tracked files or to test
 whether a path is tracked. A domain function that names a tracked universe of its own (`Get-TrackedFile`, the globset matching universe;
@@ -10,15 +10,15 @@ whether a path is tracked. A domain function that names a tracked universe of it
 
 - [One question, one answer](#one-question-one-answer)
 
-### Rule ADR-AUTO-TRACKED:2
+### Rule ADR-AUTO-TRACKED-INPROCESSINDEX
 
 The seam reads the git index file in-process (the native type `Catzc.Base.Files.GitIndex`) and launches no process. Code that scopes itself
-by tracked files is therefore pure file reading, which a logic test at L0 or L1 may run (ADR-AUTO-TEST#10).
+by tracked files is therefore pure file reading, which a logic test at L0 or L1 may run (ADR-AUTO-TEST-PROCESSTRIPWIRE).
 
 - [Plain git ls-files is the index](#plain-git-ls-files-is-the-index)
 - [Why not launch git](#why-not-launch-git)
 
-### Rule ADR-AUTO-TRACKED:3
+### Rule ADR-AUTO-TRACKED-SAMEASLSFILES
 
 The answer is exactly what plain `git ls-files` prints: every index entry, repo-relative and `/`-separated, in index order, with non-ASCII
 paths literal. A file deleted from the working tree but still in the index is listed; so are skip-worktree and intent-to-add entries. An
@@ -26,7 +26,7 @@ unmerged path, which the index holds once per conflict stage, is listed once.
 
 - [Plain git ls-files is the index](#plain-git-ls-files-is-the-index)
 
-### Rule ADR-AUTO-TRACKED:4
+### Rule ADR-AUTO-TRACKED-LITERALRELATIVEPATHS
 
 Paths passed to the seam are literal and repository-relative: a path selects itself and everything under it, `.` selects the whole
 repository, and a sibling that only shares a name prefix is never selected. A rooted path, or one that climbs out of the repository, throws.
@@ -34,28 +34,28 @@ There are no wildcards.
 
 - [One question, one answer](#one-question-one-answer)
 
-### Rule ADR-AUTO-TRACKED:5
+### Rule ADR-AUTO-TRACKED-UNREADABLEINDEXREFUSED
 
 An index the reader cannot read correctly is refused with an error that names the remedy, never answered with a partial list: a split index,
 a sparse index, an index version outside 2–4, and a checksum mismatch (a corrupt file, or a repository using the SHA-256 object format).
 
 - [Refuse rather than guess](#refuse-rather-than-guess)
 
-### Rule ADR-AUTO-TRACKED:6
+### Rule ADR-AUTO-TRACKED-CACHEDBYINDEXHASH
 
-The parsed index is cached under the SHA-256 of the index file's bytes, recomputed on every call (ADR-AUTO-CACHE#9). The key is computed by
+The parsed index is cached under the SHA-256 of the index file's bytes, recomputed on every call (ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE). The key is computed by
 the seam, not taken from the checksum git writes at the end of the file, because git writes that checksum as zeros under `index.skipHash`.
 
 - [Following the index](#following-the-index)
 
-### Rule ADR-AUTO-TRACKED:7
+### Rule ADR-AUTO-TRACKED-READERTESTEDONBUILTBYTES
 
 The reader is tested at L0 against index bytes the test builds itself, covering every shape it reads and every shape it refuses; one L2 test
 pins it to real `git ls-files` on the repository's own index, for the whole repository and for a pathspec.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-TRACKED:8
+### Rule ADR-AUTO-TRACKED-OTHERQUESTIONSTOGIT
 
 Questions the index cannot answer stay with real git: which untracked files are not ignored (`git ls-files --others --exclude-standard`),
 whether a path is ignored (`git check-ignore`), and what `.gitattributes` says about a path (`git check-attr`, `git ls-files --eol`). They
@@ -63,16 +63,16 @@ are real process launches, so a test that runs one is L2.
 
 - [What the index cannot answer](#what-the-index-cannot-answer)
 
-### Rule ADR-AUTO-TRACKED:9
+### Rule ADR-AUTO-TRACKED-INPROCESSREFS
 
 Git's refs are read in-process too, through the native type `Catzc.Base.Git.GitRefs`: a checkout's git directory (following a `gitdir:`
 pointer and a linked worktree's `commondir`), the index path, the commit `HEAD`, a branch or a tag names, and the branch `HEAD` is on. No
 code launches `git rev-parse` for those. A revision expression (`HEAD~3`, `--all`) stays with git. A ref store the reader cannot read
-correctly, a reftable or a loose annotated tag, is refused by name (ADR-AUTO-TRACKED#5).
+correctly, a reftable or a loose annotated tag, is refused by name (ADR-AUTO-TRACKED-UNREADABLEINDEXREFUSED).
 
 - [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
 
-### Rule ADR-AUTO-TRACKED:10
+### Rule ADR-AUTO-TRACKED-ONEPASSHISTORYSCAN
 
 A scan over a history reads every object once, from one `git cat-file --batch-all-objects --batch` stream, through the native type
 `Catzc.Base.Git.GitHistoryScan`. It never reads an object once per revision that contains it, as `git grep <revisions>` or a per-commit loop
@@ -80,10 +80,10 @@ does. The stream is git's own decompression: catzc carries no reader of git's co
 
 - [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
 
-### Rule ADR-AUTO-TRACKED:11
+### Rule ADR-AUTO-TRACKED-WRITESTHROUGHCLI
 
 Git is written through the git CLI (`clone`, `push`, `commit`, `remote set-url`) via `Invoke-Executable`, inside its time limit
-(ADR-AUTO-FAILFAST#7). Reading in-process never extends to writing a repository.
+(ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). Reading in-process never extends to writing a repository.
 
 - [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
 
@@ -111,7 +111,7 @@ optional extensions, and a trailing checksum. Reading it directly gives the same
 ### Why not launch git
 
 Launching git costs a process start on every call, and the tracked set is asked for many times in one run. A real process is also exactly
-what a logic test may not do: the L0/L1 tripwire (ADR-AUTO-TEST#10) blocks it, so a gate that scopes itself through a launched
+what a logic test may not do: the L0/L1 tripwire (ADR-AUTO-TEST-PROCESSTRIPWIRE) blocks it, so a gate that scopes itself through a launched
 `git ls-files` must be mocked at the git call or run at L2, even when all it does is read files. Reading the index in-process removes both
 costs: the call is a file read, and the gates that use it run as ordinary L1 integrity tests on the real repository.
 
@@ -121,8 +121,8 @@ costs: the call is a file read, and the gates that use it run as ordinary L1 int
 
 The tracked set changes while a session runs: a commit, a `git add`, or a parallel session's commit rewrites the index. So the seam cannot
 keep a listing for the session's lifetime, which is the default for filesystem-derived information
-([caching](caching.md#rule-adr-auto-cache6)). It hashes the index file on every call — cheap next to parsing it — and parses again only when
-the hash differs. Equal bytes give an equal answer, so the cached listing can never be stale (ADR-AUTO-CACHE#9).
+([caching](caching.md#rule-adr-auto-cache-importerinvalidates)). It hashes the index file on every call — cheap next to parsing it — and parses again only when
+the hash differs. Equal bytes give an equal answer, so the cached listing can never be stale (ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE).
 
 ### Refuse rather than guess
 
@@ -170,7 +170,7 @@ index shapes it cannot read correctly. Questions about untracked, ignored, or at
 - **`GitHistoryScan`** (`Catzc.Base.Git/types/GitHistoryScan.cs`) — the one-pass history scan behind `Test-GitHistoryClean`, with L0 tests
   on a hand-built object stream and L2 tests on a real history.
 - **`Get-GitTrackedPath.Tests.ps1`** — L0 tests for the seam and its content-keyed cache, and the one L2 test against real `git ls-files`.
-- **The L0/L1 tripwire** (ADR-AUTO-TEST#10) — a stray `git ls-files` launched from a logic test fails the run.
+- **The L0/L1 tripwire** (ADR-AUTO-TEST-PROCESSTRIPWIRE) — a stray `git ls-files` launched from a logic test fails the run.
 - **Code review** — a new `git ls-files` call for tracked membership is rejected in favour of the seam.
 
 ## Consequences

@@ -2,43 +2,43 @@
 
 ## Rules: ADR-AUTO-OVERLAY
 
-### Rule ADR-AUTO-OVERLAY:1
+### Rule ADR-AUTO-OVERLAY-OVERLAYFOLDER
 
 A consumer's **overlay** is the `.catzc/` folder at its `RepositoryRoot`: the only place a consumer changes what a built bundle does. The
 bundle it runs is read-only and never edited. The overlay is optional, and so is every file in it; with none, the bundle runs exactly as
 built. The overlay is the consumer's source — committed and reviewed by the consumer, and never written by catzc. The folder has one name,
-`.catzc/` ([ADR-PRIN-CATS#5](../principles/cats-and-catzc.md#rule-adr-prin-cats5)), in a consumer and in the catzc repository alike, so every bundle
+`.catzc/` ([ADR-PRIN-CATS-FOLDERSUSECATZC](../principles/cats-and-catzc.md#rule-adr-prin-cats-foldersusecatzc)), in a consumer and in the catzc repository alike, so every bundle
 loaded against a root reads that root's `.catzc/` as its overlay; a fragment there may name only modules each such bundle carries.
 
 - [The overlay](#the-overlay)
 
-### Rule ADR-AUTO-OVERLAY:2
+### Rule ADR-AUTO-OVERLAY-SAMERELATIVEPATH
 
 A file under `.catzc/pwsh/` sits at the same relative path as the thing it changes under the bundle's code root. The path alone says what is
 changed; there is no list of overrides to keep in step with the files.
 
 - [The location is the meaning](#the-location-is-the-meaning)
 
-### Rule ADR-AUTO-OVERLAY:3
+### Rule ADR-AUTO-OVERLAY-MODULEOVERRIDEENTRIES
 
 Under `.catzc/pwsh/<Module>/`, where `<Module>` is a bundled module, the only entries are a public function override (a public function file
 at the folder's root, named for its function), a private function override (a private function file under `private/`), a config fragment
 (`configs/<config>.yml`), an asset override (`assets/<path>`), and local tests (`tests/<path>`). Anything else there is rejected. A folder
-that names no bundled module is a local module ([ADR-AUTO-OVERLAY#9](#rule-adr-auto-overlay9)).
+that names no bundled module is a local module ([ADR-AUTO-OVERLAY-LOCALMODULE](#rule-adr-auto-overlay-localmodule)).
 
 - [Override points](#override-points)
 
-### Rule ADR-AUTO-OVERLAY:4
+### Rule ADR-AUTO-OVERLAY-CONFIGFRAGMENT
 
 A **config fragment** states only the keys that differ, and is merged onto the bundled config before the config's own type validates the
 result: a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's
 declared default applies. In build mode a setting therefore resolves the caller's explicit value, then the overlay fragment, then the config
 contributions gathered from Markdown files, then the bundled config, then the type's default
-([sensible-defaults](sensible-defaults.md#rule-adr-auto-default6)). A fragment merges only onto a config the module ships.
+([sensible-defaults](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A fragment merges only onto a config the module ships.
 
 - [Config fragments](#config-fragments)
 
-### Rule ADR-AUTO-OVERLAY:5
+### Rule ADR-AUTO-OVERLAY-FUNCTIONOVERRIDE
 
 A function override is one function named for its file, under the shape rules every function file loaded away from its folder follows. It
 replaces a function the bundled module has, with the same visibility, inside that module: every caller — the session, the module itself,
@@ -47,14 +47,14 @@ with the same type; no new mandatory parameter; the same declared output type. A
 
 - [Function overrides](#function-overrides)
 
-### Rule ADR-AUTO-OVERLAY:6
+### Rule ADR-AUTO-OVERLAY-ASSETOVERRIDE
 
 An asset override replaces an asset the bundled module ships: the one lookup of a module's content returns the overlay's file for that asset
 path. A new asset belongs in a local module.
 
 - [Asset overrides](#asset-overrides)
 
-### Rule ADR-AUTO-OVERLAY:7
+### Rule ADR-AUTO-OVERLAY-SEALEDENGINECONFIGS
 
 The engine-intrinsic configs are sealed — the config registry, the dependency graph, the profiles, the export config, and the glossary
 sources — declared once in the config registry (`overridable: false`). A fragment of a sealed config is rejected. Sealing more is a reviewed
@@ -62,7 +62,7 @@ edit to the registry, never code.
 
 - [Sealed configs](#sealed-configs)
 
-### Rule ADR-AUTO-OVERLAY:8
+### Rule ADR-AUTO-OVERLAY-CHECKEDASWHOLE
 
 The overlay is checked as a whole before any of it applies, and every violation is reported in one failure. It applies in build mode, where
 a bundle loaded against a root with an overlay must carry the module that applies it, and the importer refuses one that does not. In source
@@ -71,7 +71,7 @@ the shipped configs.
 
 - [Checked as a whole](#checked-as-a-whole)
 
-### Rule ADR-AUTO-OVERLAY:9
+### Rule ADR-AUTO-OVERLAY-LOCALMODULE
 
 A **local module** is a folder under `.catzc/pwsh/` that names no bundled module: the consumer's own module, following catzc's module
 conventions — folder = module, a public function per root function file, private function files under `private/`, `configs/` found by
@@ -132,7 +132,7 @@ session and every other module. Its script block stays bound to the module, so i
 
 ### Asset overrides
 
-A module finds its own content through one lookup ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep1)),
+A module finds its own content through one lookup ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)),
 so an asset override needs no step of its own: that lookup returns the overlay's file when the overlay replaces the asset. Only assets are
 looked up there; configs merge through `Get-Config`, and nothing else a module ships is replaced wholesale.
 

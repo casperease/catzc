@@ -2,42 +2,42 @@
 
 ## Rules: ADR-AUTO-ONEJOB
 
-### Rule ADR-AUTO-ONEJOB:1
+### Rule ADR-AUTO-ONEJOB-ASSERTDONTFIX
 
 Assert, don't fix. If a function needs a prerequisite, assert it with `Assert-Tool` (or `Assert-Command`); never silently install,
 configure, or repair prerequisites. Assertions are guard clauses, part of the contract.
 
 - [Violations](#violations)
 
-### Rule ADR-AUTO-ONEJOB:2
+### Rule ADR-AUTO-ONEJOB-NAMEISCONTRACT
 
 The function name is the contract. `Get-Config` must not modify state; `Invoke-Poetry` must not install Poetry. If the name does not cover
 what the function does, rename it or remove the behavior.
 
 - [Composition vs mixing](#composition-vs-mixing)
 
-### Rule ADR-AUTO-ONEJOB:3
+### Rule ADR-AUTO-ONEJOB-EXPLICITORCHESTRATION
 
 Orchestration functions are explicit: higher-level functions that chain a sequence are fine when the name and purpose make the composition
 obvious (`Install-DevBoxTools`, `Publish-Module`).
 
 - [Composition vs mixing](#composition-vs-mixing)
 
-### Rule ADR-AUTO-ONEJOB:4
+### Rule ADR-AUTO-ONEJOB-NOHIDDENBUNDLING
 
 Hidden bundling is the anti-pattern — not composition itself, but composition that surprises the caller. If the caller must read the
 implementation to learn what the function does, it is doing too much for its name.
 
 - [Composition vs mixing](#composition-vs-mixing)
 
-### Rule ADR-AUTO-ONEJOB:5
+### Rule ADR-AUTO-ONEJOB-CALLERHANDLESERRORS
 
 Error handling is the caller's job. Functions throw on failure; whether to retry, log, or continue is the caller's decision. Functions do
 not catch-and-retry/log/continue unless error handling is their single stated purpose.
 
 - [Violations](#violations)
 
-### Rule ADR-AUTO-ONEJOB:6
+### Rule ADR-AUTO-ONEJOB-EXPLICITSTATECHANGES
 
 State changes are explicit. Functions do not mutate ambient global state — error preferences, the working directory, environment variables —
 as a side effect; a temporary change is restored before the function returns, on the failure path as well as the success path.
@@ -98,7 +98,7 @@ part they need because they cannot use the function without the part they do not
 | Function creates a resource, then configures it            | Partial failure leaves orphaned resource         | Separate `New-*` and `Set-*`; caller composes them                       |
 | Function logs before/after its work                        | Logging concerns change independently            | Use `Write-Verbose`/`Write-Debug` (built-in), or wrap at the call site   |
 
-The pwsh forms of a temporary state change and of a retry wrapper are in [error-handling](../pwsh/error-handling.md#rule-adr-pwsh-error9).
+The pwsh forms of a temporary state change and of a retry wrapper are in [error-handling](../pwsh/error-handling.md#rule-adr-pwsh-error-preferencesareambientstate).
 
 ### Composition vs mixing
 

@@ -2,28 +2,28 @@
 
 ## Rules: ADR-REPO-README
 
-### Rule ADR-REPO-README:1
+### Rule ADR-REPO-README-GENERATEDCOPY
 
 A `README.md` in a mapped conventional folder is a **generated copy** of an authored docs source, never hand-kept: the source is the one
 authored file, and the README is rewritten from it, so the two cannot drift.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-README:2
+### Rule ADR-REPO-README-GITIGNORED
 
 Generated READMEs are derived artifacts, gitignored globally (`**/README.md`) exactly like the generated `.psd1` manifests — regenerated on
 import, never committed. History and the authored text live elsewhere (git; the source).
 
 - [Derived, not committed](#derived-not-committed)
 
-### Rule ADR-REPO-README:3
+### Rule ADR-REPO-README-OPTOUT
 
 A folder keeps a hand-authored, committed README by opting out: omit it from the map and un-ignore it in `.gitignore` (`!path/README.md`). A
 folder is therefore either generated (mapped, ignored) or committed (unmapped, opted-in) — never both.
 
 - [Explicit opt-out](#explicit-opt-out)
 
-### Rule ADR-REPO-README:4
+### Rule ADR-REPO-README-ONEMAP
 
 The map from a target folder to its source lives only in `pwsh/Catzc.Base.Docs/configs/readme.yml` — a glob `patterns` list whose matched
 folders derive their source by convention, plus explicit `mappings` for the exceptions — validated by the `DocsConfig` type and expanded by
@@ -31,7 +31,7 @@ folders derive their source by convention, plus explicit `mappings` for the exce
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-README:5
+### Rule ADR-REPO-README-IDEMPOTENTGENERATION
 
 Generation is idempotent and runs on every import (the importer tail): `Build-Readme` composes each README (`Get-ReadmeContent`) and writes
 it through `Write-FileIfChanged`, which rewrites only a README whose content differs (line endings ignored) and writes by delete-then-write,
@@ -39,17 +39,17 @@ so a README that is a filesystem link is severed, never written through into its
 
 - [Always current](#always-current)
 
-### Rule ADR-REPO-README:6
+### Rule ADR-REPO-README-WORKINGLINKS
 
 Every link in a generated README works where the README is opened. Each relative link target is resolved at the source's folder and
 rewritten relative to the README's folder (`MarkdownLinkRebaser`); code spans, fenced blocks, URLs, in-file `#anchors`, and
 repository-rooted `/` targets are left as written. A line under the title links back to the source as the one place to edit. The source's
-front matter, its meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) included, is left out of the copy. The copy opens
+front matter, its meta block ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)) included, is left out of the copy. The copy opens
 with a meta block of its own, `role: readme`, the role the file-kinds registry names for it, and then its title.
 
 - [Readable where it is opened](#readable-where-it-is-opened)
 
-### Rule ADR-REPO-README:7
+### Rule ADR-REPO-README-AUTHOREDSOURCES
 
 Authored sources live under `docs/references/` — pwsh modules as the responsibilities-first reference articles in
 `docs/references/pwsh/<kebab>.md`, and other folders (pipelines, infrastructure, `out/`, `.cspell/`, `contracts/`) under `docs/references/`.
@@ -64,7 +64,7 @@ artifact the quality gates check; the README is outside the markdown quality gat
 
 A `README.md` is what a reader sees first in a folder in an editor. Kept by hand, each drifts from the documentation it duplicates, and the
 same content is maintained in two places. The repository treats other per-folder, convention-derived files as generated, gitignored
-artifacts ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md), `ADR-PWSH-MANIFEST#3`). A README is the same shape: one authored
+artifacts ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md), `ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED`). A README is the same shape: one authored
 source under `docs/`, one derived artifact per folder, regenerated from the source so it cannot drift.
 
 The artifact is read in the folder it documents. An editor opens `pwsh/<Module>/README.md` and resolves its relative links from that folder,

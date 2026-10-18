@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bc52c67bdcd3
+    with_body_sha: "177ade53be4e"
     repo_status: locked
     path: docs/explanation/design/.assets/which-run-mode-rules-have-a-gate/grid.md
     source: docs/explanation/design/.assets/which-run-mode-rules-have-a-gate/diagram.drawio.png
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the world-map minimap
+# Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none: the world-map minimap
 
 ```text
 Where the files that cite ADR-DSGN-RUNMODE sit in the repository: tracks down, file languages across.
-6 of 342 cells lit, holding 45 files.
+6 of 342 cells lit, holding 44 files.
 ```
 
-![The world-map minimap of Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none](grid.png)
+![The world-map minimap of Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](grid.png)
 
-This is the world-map minimap in the sidebar of the governance diagram of [Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7
-have none][50], which explains [ADR-DSGN-RUNMODE][1]. It lights every cell of the world map that holds a file citing those codes, so it
-shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
+This is the world-map minimap in the sidebar of the governance diagram of [Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need
+none][49], which explains [ADR-DSGN-RUNMODE][1]. It lights every cell of the world map that holds a file citing those codes, so it shows
+where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -33,10 +33,10 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 3 lit of 89 files
-- docs × markdown: 34 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
-- pwsh × powershell: 3 lit of 1649 files
-- pwsh × yaml: 3 lit of 115 files
+- docs × markdown: 34 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
+- pwsh × powershell: 3 lit of 1651 files
+- pwsh × yaml: 2 lit of 115 files
 - Root files × powershell: 1 lit of 1 file
 
 ## Key
@@ -137,8 +137,8 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][41]: selected by [ADR-DSGN-RUNMODE][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml`
-  line 80 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 622 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line
-  577 (text), `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` line 1 (text) and
+  line 80 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 622 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` line 1 (text) and
   `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1` line 1 (text).
 
 ### pwsh × powershell (3 lit files)
@@ -152,43 +152,42 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); th
 - [pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1][44]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at
   line 1 (text).
 
-### pwsh × yaml (3 lit files)
+### pwsh × yaml (2 lit files)
 
 Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][45]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 80 (text).
 - [pwsh/Catzc.Base.Docs/configs/glossary.yml][46]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 622 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][47]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 577 (text).
 
 ### Root files × powershell (1 lit file)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][48]); the extension `.ps1` names the file
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][47]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [importer.ps1][49]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
+- [importer.ps1][48]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text).
 
 ## Keywords
 
-- [world map][51]
-- [track][52]
-- [file language][53]
-- [cell][54]
-- [lit cell][55]
-- [root file][56]
-- [.claude][57]: a track
-- [docs][57]: a track
-- [pipelines][57]: a track
-- [pwsh][57]: a track
-- [markdown][58]: a file language
-- [pipeline-yaml][58]: a file language
-- [powershell][58]: a file language
-- [yaml][58]: a file language
+- [world map][50]
+- [track][51]
+- [file language][52]
+- [cell][53]
+- [lit cell][54]
+- [root file][55]
+- [.claude][56]: a track
+- [docs][56]: a track
+- [pipelines][56]: a track
+- [pwsh][56]: a track
+- [markdown][57]: a file language
+- [pipeline-yaml][57]: a file language
+- [powershell][57]: a file language
+- [yaml][57]: a file language
 
 Terms the cited ADRs define:
 
-- [run mode][59], defined by [ADR-DSGN-RUNMODE#1][60]
+- [run mode][58], defined by [ADR-DSGN-RUNMODE#1][59]
 
 [1]: ../../../../adr/design/run-modes.md
 [2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -236,17 +235,16 @@ Terms the cited ADRs define:
 [44]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
 [45]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [46]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
-[47]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[48]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track7
-[49]: ../../../../../importer.ps1
-[50]: ../../which-run-mode-rules-have-a-gate.md
-[51]: ../../../../adr/glossary.md#world-map
-[52]: ../../../../adr/glossary.md#track
-[53]: ../../../../adr/glossary.md#file-language
-[54]: ../../../../adr/glossary.md#cell
-[55]: ../../../../adr/glossary.md#lit-cell
-[56]: ../../../../adr/glossary.md#root-file
-[57]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[58]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[59]: ../../../../adr/glossary.md#run-mode
-[60]: ../../../../adr/design/run-modes.md#rule-adr-dsgn-runmode1
+[47]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track7
+[48]: ../../../../../importer.ps1
+[49]: ../../which-run-mode-rules-have-a-gate.md
+[50]: ../../../../adr/glossary.md#world-map
+[51]: ../../../../adr/glossary.md#track
+[52]: ../../../../adr/glossary.md#file-language
+[53]: ../../../../adr/glossary.md#cell
+[54]: ../../../../adr/glossary.md#lit-cell
+[55]: ../../../../adr/glossary.md#root-file
+[56]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[57]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[58]: ../../../../adr/glossary.md#run-mode
+[59]: ../../../../adr/design/run-modes.md#rule-adr-dsgn-runmode1

@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-GO
 
-### Rule ADR-AUTO-GO:1
+### Rule ADR-AUTO-GO-TESTARTIFACTSONLY
 
 Go code in the repository is test artifacts and nothing else: `*_test.go` files that verify the engine from outside. No module, function, or
 tool is written in Go, and no Go file ships — the Go root lies outside `automation/`, so `Build-Modules` never sees it and no bundle holds a
@@ -10,7 +10,7 @@ Go file, by construction.
 
 - [Test artifacts only](#test-artifacts-only)
 
-### Rule ADR-AUTO-GO:2
+### Rule ADR-AUTO-GO-ONEGOROOT
 
 The Go tests live under one Go root, a repository-relative folder declared by `go.yml`'s `root` with a sensible default: `go` when the
 repository has a `go/` folder (the `go` verification track), else the dot-prefixed `.go`. A **Go test module** is the folder
@@ -20,17 +20,17 @@ command runs inside its module folder, so every editor loads either layout with 
 
 - [The layout](#the-layout)
 
-### Rule ADR-AUTO-GO:3
+### Rule ADR-AUTO-GO-BLACKBOXTESTS
 
-A Go test is a black-box test: it starts the engine from the contract its runner sets (ADR-AUTO-ENGINE#4) — `CATZC_ENGINE_EXECUTABLE`, with
+A Go test is a black-box test: it starts the engine from the contract its runner sets (ADR-AUTO-ENGINE-STARTENVIRONMENT) — `CATZC_ENGINE_EXECUTABLE`, with
 the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's command — runs commands, and asserts on their output
 and exit codes, never on the engine's internals. The entry is the repository's importer entry in a source run and the build's entry script
-in a build run (ADR-AUTO-TEST#30); `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-GoTest` sets them for its go commands only and
+in a build run (ADR-AUTO-TEST-SAMETESTSBOTHRUNS); `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-GoTest` sets them for its go commands only and
 restores them afterwards, so the same Go test proves both run modes unchanged.
 
 - [The engine start environment](#the-engine-start-environment)
 
-### Rule ADR-AUTO-GO:4
+### Rule ADR-AUTO-GO-GENERATEDWORKSPACE
 
 The Go workspace is generated and gitignored: nothing Go-specific is committed but the `*_test.go` files. `New-GoWorkspace` renders
 `go.work` and every `go.mod` from `go.yml` — pure text, offline, and byte-stable — and `Build-RootConfig` writes them on import through a
@@ -39,7 +39,7 @@ makes first. A test dependency is declared in `go.yml` with its version, never a
 
 - [A generated workspace](#a-generated-workspace)
 
-### Rule ADR-AUTO-GO:5
+### Rule ADR-AUTO-GO-ONEGOVERSION
 
 The repository has one Go version: the `go` tool's pin in `tools.yml`. The go directive of `go.work` and every `go.mod` is that pin, read by
 address (`global.tools.go.version`), and `go.yml` declares no Go version of its own, so the workspace never asks for a toolchain newer than
@@ -47,27 +47,27 @@ the managed one.
 
 - [One Go version](#one-go-version)
 
-### Rule ADR-AUTO-GO:6
+### Rule ADR-AUTO-GO-MANAGEDTOOLCHAIN
 
-A Go test run uses the managed toolchain, located through the existence check (`Resolve-ToolExecutable`, ADR-AUTO-DEPS#3) and run by its
+A Go test run uses the managed toolchain, located through the existence check (`Resolve-ToolExecutable`, ADR-AUTO-DEPS-ASSERTBEFOREINVOKE) and run by its
 path, never a bare `go` off `PATH`, with `GOTOOLCHAIN=local` so it never switches to a toolchain it downloads itself. A missing `go`, or one
 whose version misses the pin, stops `Invoke-GoTest` with the remedy `Install-Go`, which installs the pinned release user-space from the
 go.dev archive; a machine-wide Go is left in place, and the managed copy is found first.
 
 - [The managed toolchain](#the-managed-toolchain)
 
-### Rule ADR-AUTO-GO:7
+### Rule ADR-AUTO-GO-LANGUAGEBRIDGE
 
 `Test-Automation` runs the Go tests through a bridge: discovery maps each Go test module to its catzc module, so ordering, protection,
 `-Modules`, `-Suite`, the tiers, and both runs apply as to the module's own tests, and the bridge turns every top-level Go test into one
-test of the run (ADR-AUTO-TEST#42). Every Go test is tagged `L2` — a real tool and a real engine (ADR-AUTO-TEST#9) — plus a category from
+test of the run (ADR-AUTO-TEST-TEST). Every Go test is tagged `L2` — a real tool and a real engine (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) — plus a category from
 its name: `TestIntegrity*` is `integrity`, every other test is `logic`. The run's source session locates the managed `go` once and hands its
 path to the bridge beside the engine entry; a worker never locates `go` itself, so a build run tests the build without carrying the tools
-config. Without the managed `go`, the bridge skips with `tool_go_missing` (ADR-AUTO-TEST#8).
+config. Without the managed `go`, the bridge skips with `tool_go_missing` (ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
 
 - [The bridge](#the-bridge)
 
-### Rule ADR-AUTO-GO:8
+### Rule ADR-AUTO-GO-GOCHECKS
 
 Go code takes the repository's checks where a check reads Go: `gofmt` through `Test-Formatting`, `go vet` before every Go test run, and the
 spelling check over `*.go`. The glossary checks read PowerShell and markdown, so Go comments are outside their reach.
@@ -88,15 +88,15 @@ Go-specific but the tests generated, and run the tests through the harness every
 
 ### Test artifacts only
 
-Go code exists only as tests. The engine is PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track3)); a Go test verifies it
+Go code exists only as tests. The engine is PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Go test verifies it
 from outside, as a black box, and nothing in the engine calls Go. Because the Go root lies outside `automation/`, the builder's input holds
 no Go file, so no check is needed to keep Go out of a bundle — the layout is the guarantee ([platform-bundle](../platform-bundle.md)).
 
 ### The layout
 
 The Go root is the one folder every Go file lives under. When the repository has a `go/` folder, that folder is the root, and it is the `go`
-track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track2)). Otherwise the root is `.go/`, dot-prefixed as the
-tooling folders are ([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders4)). The default is declared once,
+track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.go/`, dot-prefixed as the
+tooling folders are ([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)). The default is declared once,
 on the `GoConfig` type ([sensible-defaults](../sensible-defaults.md)), and `go.yml` declares a `root` only to place the Go root elsewhere.
 
 Under the root, `tests/<module>/` holds one Go test module per catzc module, named for that module in kebab case — the same convention that
@@ -115,12 +115,12 @@ A Go test knows two things about the engine, both from the environment: how to s
 ([execution-engines](../execution-engines.md)): it starts the engine non-interactively, loads the entry with its output discarded, and ends
 in the command text, where the test puts its command in place of `{command}`. The test never builds a command line of its own, so it holds
 no engine's quoting rule and runs unchanged under either engine. The variables are an external contract between the run and the go processes
-it starts ([environment-variables](../environment-variables.md#rule-adr-auto-envvar1)), so `Invoke-GoTest` sets them for its go commands
+it starts ([environment-variables](../environment-variables.md#rule-adr-auto-envvar-setonlyfortools)), so `Invoke-GoTest` sets them for its go commands
 only and restores the session's values afterwards.
 
 The entry is the only difference between the two runs ([run-modes](../../design/run-modes.md)). A source run names the repository's
 `importer.ps1`; a build run names the build's `Import-Catzc.ps1`. The Go tests are the same files in both, exactly as the Pester tests are
-(ADR-AUTO-TEST#30), so "works in both modes" holds for the engine as a process too.
+(ADR-AUTO-TEST-SAMETESTSBOTHRUNS), so "works in both modes" holds for the engine as a process too.
 
 ### A generated workspace
 
@@ -129,7 +129,7 @@ their module paths are, which Go version they use (the `tools.yml` pin), and whi
 `go.work` and the `go.mod` files would state those facts a second time, where they drift. So `New-GoWorkspace` renders them — the go
 directive, one sorted `use` entry per Go test module, and each module's path and sorted requires — as pure text with no go call, offline and
 byte-stable, and the root-config registry names it as their generator
-([generated-root-configs](../../repository/generated-root-configs.md#rule-adr-repo-rootcfg8)). They are gitignored copies, written on every
+([generated-root-configs](../../repository/generated-root-configs.md#rule-adr-repo-rootcfg-wildcardgenerator)). They are gitignored copies, written on every
 import and drift-checked like every other generated file.
 
 The `go.mod` files are rendered and never tidied, so a dependency's own requirements are declared in `go.yml` too, and `go get` or
@@ -139,7 +139,7 @@ offline: `go mod download`, the first step of every Go test run, records `go.sum
 ### One Go version
 
 The Go version is a tool version, and tool versions are locked in `tools.yml`
-([controlling-systemwide-deps](../controlling-systemwide-deps.md#rule-adr-auto-deps1)). The go directive in the workspace is that pin, read
+([controlling-systemwide-deps](../controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). The go directive in the workspace is that pin, read
 by its address ([config-value-addressing](../../configuration/config-value-addressing.md)), so raising Go is one line in `tools.yml`: the
 next import renders the new directive, and `Install-Go` installs the new release. A second version in `go.yml` would be a second source of
 truth, and one that could ask for a toolchain the managed install does not have.
@@ -160,14 +160,14 @@ Go stays where it is, and the managed copy, found first, is the one the run uses
 
 A Go test is a test of the repository like any other, so it runs where every other test runs: in a `Test-Automation` test run, in both run
 modes, under the same selection, ordering, protection, tiers, categories, and report
-([test-automation](../test-automation.md#rule-adr-auto-test40)). The one language bridge every test language shares (Go and Python,
+([test-automation](../test-automation.md#rule-adr-auto-test-languagetestmodules)). The one language bridge every test language shares (Go and Python,
 [python-test-artifacts](../python/python-test-artifacts.md)) runs `Invoke-GoTest` once per mapped module — `go mod download`, `go vet`, then
 `go test -json` — and turns each top-level Go test into one test of the run, with its subtests folded into it. In pwsh that test is a Pester
-`It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester20)).
+`It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
 
 A Go test starts a real engine through a real toolchain, so the bridge tags every one `L2`, with no per-test choice to make. Its category
 comes from its name, decided in one place (the `GoTestResult` type): a `TestIntegrity*` test reads the shipped artifacts and is `integrity`;
-every other test is `logic`. Both axes stay mandatory and checked, exactly as for a Pester test (ADR-AUTO-TEST#13).
+every other test is `logic`. Both axes stay mandatory and checked, exactly as for a Pester test (ADR-AUTO-TEST-TWOMANDATORYTAGS).
 
 `go` is a tool of the harness, not part of the engine under test. A build run's workers load the build, which holds only the selected
 modules and so not the `tools` config that `Resolve-ToolExecutable` reads. The run's source session therefore locates `go` once
@@ -185,10 +185,10 @@ the spelling check reads `*.go`. The glossary checks read PowerShell, through it
 
 ## Decision
 
-Go is the repository's black-box test language and nothing else (ADR-AUTO-GO#1). Its tests live in one Go test module per catzc module under
-the Go root (ADR-AUTO-GO#2), start the engine from the entry the run names (ADR-AUTO-GO#3), build against a generated, gitignored workspace
-(ADR-AUTO-GO#4) at the one pinned Go version (ADR-AUTO-GO#5) with the managed toolchain (ADR-AUTO-GO#6), and run through `Test-Automation`
-as `L2` tests (ADR-AUTO-GO#7), under the checks that read Go (ADR-AUTO-GO#8).
+Go is the repository's black-box test language and nothing else (ADR-AUTO-GO-TESTARTIFACTSONLY). Its tests live in one Go test module per catzc module under
+the Go root (ADR-AUTO-GO-ONEGOROOT), start the engine from the entry the run names (ADR-AUTO-GO-BLACKBOXTESTS), build against a generated, gitignored workspace
+(ADR-AUTO-GO-GENERATEDWORKSPACE) at the one pinned Go version (ADR-AUTO-GO-ONEGOVERSION) with the managed toolchain (ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation`
+as `L2` tests (ADR-AUTO-GO-LANGUAGEBRIDGE), under the checks that read Go (ADR-AUTO-GO-GOCHECKS).
 
 ### How this is enforced
 

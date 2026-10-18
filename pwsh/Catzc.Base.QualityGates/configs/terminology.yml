@@ -551,8 +551,6 @@ terms:
       meaning: "'az cli' as one token (Invoke-AzCli, the prefer-az-cli decision of ADR-AZ-CLI)"
     - term: poka
       meaning: "the 'poka' of poka-yoke (prose)"
-    - term: sesverify
-      meaning: "'session verification', the az-session-verification decision of ADR-AZ-SESSION"
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
@@ -870,7 +868,7 @@ terms:
     - term: apos
       meaning: "the &apos; HTML character reference SlidePattern decodes"
     - term: watchpoint
-      meaning: "a watchpoint — a place where Assert-Wait stands to show where a thread or process may be blocked"
+      meaning: "a watchpoint — a place where Watch-Blocking stands to show where a thread or process may be blocked"
     - term: watchpoints
       meaning: "the plural of watchpoint"
     - term: consolas

@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-IDEM
 
-### Rule ADR-AUTO-IDEM:1
+### Rule ADR-AUTO-IDEM-CHECKBEFOREACTING
 
 Check before acting. Before creating, installing, or modifying, check whether the desired state already exists; if it does, return early or
 silently succeed.
@@ -10,28 +10,28 @@ silently succeed.
 - [Idempotency patterns](#idempotency-patterns)
 - [Idempotent in practice](#idempotent-in-practice)
 
-### Rule ADR-AUTO-IDEM:2
+### Rule ADR-AUTO-IDEM-ALREADYDONEISFINE
 
 Prefer graceful handling of "already exists" or "already removed". A function that throws on a no-op re-run is still idempotent, but guard
 clauses with early returns make re-runs seamless and spare callers from handling expected errors.
 
 - [Idempotent in practice](#idempotent-in-practice)
 
-### Rule ADR-AUTO-IDEM:3
+### Rule ADR-AUTO-IDEM-OVERWRITENOTAPPEND
 
 Prefer overwrite over append. Write the whole desired content rather than adding to what is there, `PUT` not `POST`, create-or-update over
 create-only. Appending is inherently non-idempotent.
 
 - [Idempotency patterns](#idempotency-patterns)
 
-### Rule ADR-AUTO-IDEM:4
+### Rule ADR-AUTO-IDEM-RETURNRESULTINGSTATE
 
 Return the resulting state. An idempotent function returns the same result whether it did work or short-circuited — `New-ServicePrincipal`
 returns the SP object whether it created it or found it already present.
 
 - [Idempotent in practice](#idempotent-in-practice)
 
-### Rule ADR-AUTO-IDEM:5
+### Rule ADR-AUTO-IDEM-DOCUMENTCONTRACT
 
 Document the idempotency contract. A function's help states that it is idempotent, and notes when it wraps a non-idempotent external
 command.

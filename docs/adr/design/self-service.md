@@ -2,7 +2,7 @@
 
 ## Rules: ADR-DSGN-SELFSERV
 
-### Rule ADR-DSGN-SELFSERV:1
+### Rule ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES
 
 Self-service is the platform's mode of use: a consumer provisions and changes managed infrastructure themselves, through the CLI
 (`ADR-DSGN-THINPLAT`), without filing a ticket to a central gatekeeper. This is only defensible because every self-service action is a
@@ -11,7 +11,7 @@ what make self-service safe in tightly controlled and managed settings, rather t
 
 - [Self-service, not free-for-all](#self-service-not-free-for-all)
 
-### Rule ADR-DSGN-SELFSERV:2
+### Rule ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH
 
 The repository is the **single source of truth** for everything the platform manages — automation, configuration, infrastructure, and pinned
 tooling — all represented as code (`ADR-PRIN-EAC`). Self-service means editing that source and letting the platform apply it; it never means
@@ -21,7 +21,7 @@ reproduce, or review what is not written down.
 
 - [One source of truth, or none](#one-source-of-truth-or-none)
 
-### Rule ADR-DSGN-SELFSERV:3
+### Rule ADR-DSGN-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT
 
 What ships is an **immutable, content-addressed artifact** built **reproducibly** from a source commit that is known and carrying
 **provenance** from source to deployed state. The globset durable-SHA identities content-address each shippable unit; a build is a
@@ -31,7 +31,7 @@ the Reproducible Builds project on the source-to-binary verification path, and S
 
 - [Immutable artifacts and provenance](#immutable-artifacts-and-provenance)
 
-### Rule ADR-DSGN-SELFSERV:4
+### Rule ADR-DSGN-SELFSERV-TRUNKWITHGUARDRAILS
 
 Changes reach production through **trunk-based development with automated guardrails**. Work lands on trunk in small batches behind
 short-lived branches that must pass the CI gate and are deleted after merge; there are no long-lived divergent branches and no legacy
@@ -41,7 +41,7 @@ a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 - [Trunk-based development](#trunk-based-development)
 
-### Rule ADR-DSGN-SELFSERV:5
+### Rule ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY
 
 In tightly managed settings — regulated, compliance-bound, provenance-critical — self-service is acceptable **only when reproducibility,
 provenance, and an audit trail are intrinsic to the mechanism**, not bolted on as process. Here they are structural: the git history _is_
@@ -98,7 +98,7 @@ create other long-lived development branches". The practices that matter here ar
 short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
 automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert
 (`ADR-AUTO-FAILFAST`), or leaves a generated file stale
-([generated-root-configs](../repository/generated-root-configs.md#rule-adr-repo-rootcfg6)). The branching discipline and the no-legacy rule
+([generated-root-configs](../repository/generated-root-configs.md#rule-adr-repo-rootcfg-threewayagreement)). The branching discipline and the no-legacy rule
 (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version, on trunk, always releasable.
 
 ### Safe where control matters
@@ -109,17 +109,17 @@ The domains where self-service seems most dangerous — regulated, audited, comp
 it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`:
 every change is attributed, timestamped, and justified in its commit and review. The provenance record is the build's `build.json` with the
 content hash it carries: every deployed unit names its exact content and the commit it was built from
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle5)). The change-approval control is the pull request: no change
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). The change-approval control is the pull request: no change
 reaches trunk unreviewed. None of these is an extra step a busy engineer might skip under deadline — they are the only path, so the record
 is always complete. That is what "safe by construction" means: the fast path and the compliant path are the same path.
 
 ## Decision
 
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
-of truth** (ADR-DSGN-SELFSERV#2), applied only through the **thin CLI** (ADR-DSGN-SELFSERV#1), shipped as an **immutable, reproducibly-built
-artifact with provenance** (ADR-DSGN-SELFSERV#3), landed via **trunk-based development behind automated, mandatory guardrails**
-(ADR-DSGN-SELFSERV#4). In controlled settings this makes self-service and auditability the same mechanism rather than competing ones
-(ADR-DSGN-SELFSERV#5).
+of truth** (ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI** (ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES), shipped as an **immutable, reproducibly-built
+artifact with provenance** (ADR-DSGN-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via **trunk-based development behind automated, mandatory guardrails**
+(ADR-DSGN-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes self-service and auditability the same mechanism rather than competing ones
+(ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
 
 ### How this is enforced
 

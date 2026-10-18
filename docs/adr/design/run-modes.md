@@ -2,7 +2,7 @@
 
 ## Rules: ADR-DSGN-RUNMODE
 
-### Rule ADR-DSGN-RUNMODE:1
+### Rule ADR-DSGN-RUNMODE-TWORUNMODES
 
 A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `pwsh/<Module>/` in a
 repository root, entered by `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's
@@ -11,28 +11,28 @@ installed package.
 
 - [Two modes, two entry points](#two-modes-two-entry-points)
 
-### Rule ADR-DSGN-RUNMODE:2
+### Rule ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
 
 Every module works in both modes and is the same module in both: the same name, public functions, private functions, configs, and assets.
 Only its on-disk form differs.
 
 - [The same module in both modes](#the-same-module-in-both-modes)
 
-### Rule ADR-DSGN-RUNMODE:3
+### Rule ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
 
 Each module keeps its own script scope in both modes. Built modules are separate PowerShell modules inside the one package, so no module
 ever shares `$script:` state with another.
 
 - [One scope per module](#one-scope-per-module)
 
-### Rule ADR-DSGN-RUNMODE:4
+### Rule ADR-DSGN-RUNMODE-MODEISDERIVED
 
 The mode is derived, never stored: `Get-CatzcRunMode` answers `source` when the code root (`CatzcModulesRoot`) is `<RepositoryRoot>/pwsh`,
 and `build` otherwise.
 
 - [Deriving the mode](#deriving-the-mode)
 
-### Rule ADR-DSGN-RUNMODE:5
+### Rule ADR-DSGN-RUNMODE-NEVERCOEXIST
 
 The two modes never coexist in one session. Entering either mode first removes every module loaded from the other mode's root, then asserts
 that every loaded catzc module comes from the active root. Switching works in any order and any number of times; the one thing that cannot
@@ -40,14 +40,14 @@ be swapped is the loaded C# types assembly, which is reused when both modes' typ
 
 - [Switching modes in one session](#switching-modes-in-one-session)
 
-### Rule ADR-DSGN-RUNMODE:6
+### Rule ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
 
 Both modes are tested by the same tests: the source run (`Test-Automation`) and the build run (`Test-CatzcBuild`) execute the same test
 files up to L2, and a test opts out of the build run only with the `source-only` tag.
 
 - [One body of tests](#one-body-of-tests)
 
-### Rule ADR-DSGN-RUNMODE:7
+### Rule ADR-DSGN-RUNMODE-THREEBUILDKINDS
 
 Build mode has three kinds, told apart by where the code root lives: **temporary** (a devbox build under
 `<RepositoryRoot>/out/pwsh/built/<bundle>/`, overwritten in place), **installed** (a package under a `PSModulePath` entry, put there by
@@ -86,12 +86,12 @@ Both entries are dot-sourced and run in the caller's scope. `importer.ps1` at th
 written by `Build-Modules`, which runs in a source-mode session — is entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot`
 set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build. An installed build is
 entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module dot-sources that file. Every
-entry point ends in the one living importer ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle3)), so the load
+entry point ends in the one living importer ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)), so the load
 sequence — preferences, vendored modules, types and accelerators, then modules — is the same in both modes.
 
 Which mode a session is in is read from what actually loaded, never from a flag: `Get-CatzcRunMode` derives it from the code root
 ([Deriving the mode](#deriving-the-mode)), and a build's `build.json` names the version and the commit it was built from
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle5)).
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
 
 ### Three kinds of build root
 
@@ -120,7 +120,7 @@ validator in its owning module's scope ([module-config-loading](../configuration
 `Mock -ModuleName` or `InModuleScope` — resolves the same way in both modes.
 
 What makes this hold for content as well as code is that a module locates its own files only through the code root (`Get-CatzcModuleRoot`,
-[working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4)), never through the folder its source file sits in,
+[working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), never through the folder its source file sits in,
 and that every such lookup is inventoried and tested in both modes
 ([internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Tools whose job is the source tree itself — formatters,
 dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert that they run in
@@ -141,7 +141,7 @@ other's value, in either mode, and a scope-isolation test proves it.
 `The mode is derived from the code root`
 
 There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point
-([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar5)), and the mode follows from it: when the code root is
+([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar-anchorssetonce)), and the mode follows from it: when the code root is
 the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag could disagree
 with the code actually loaded; a derived one cannot.
 
@@ -171,9 +171,9 @@ importer enforces mutual exclusion:
 
 "Every module works in both modes" is a checked property, not a hope. The source run and the build run execute the **same** test files — no
 copy, no second set to drift — through the same harness, differing only in the entry script each worker loads
-([test-automation](../automation/test-automation.md#rule-adr-auto-test30)). Tests whose answer cannot depend on the mode, because they read
+([test-automation](../automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). Tests whose answer cannot depend on the mode, because they read
 only the repository's files, carry `source-only` and run once, in the source run
-([test-automation](../automation/test-automation.md#rule-adr-auto-test31)); everything that exercises loaded code runs in both. Switching
+([test-automation](../automation/test-automation.md#rule-adr-auto-test-sourceonlytag)); everything that exercises loaded code runs in both. Switching
 itself is tested by child-process sequences — source to build, build to source, each mode twice in a row, and a longer alternation — each
 asserting the derived mode, the exclusivity check, a call into each module, and a fresh script cache.
 
@@ -184,7 +184,7 @@ asserting the derived mode, the exclusivity check, a call into each module, and 
 - **`Catzc.Internal.Bootstrap` / `Catzc.Internal.Importer`** — the eviction sweep before a load, `Assert-CatzcRunModeExclusive` after it,
   and the cross-root types guard.
 - **`Build-Modules`** — builds same-named modules with their own manifests and merged files, and self-checks the result
-  ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle5)).
+  ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
 - **`Test-Automation` and `Test-CatzcBuild`** — the two test runs over one body of tests; the scope-isolation test, the parity test (each
   built module's public and private function sets equal its source folder's), and the switch-sequence tests.
 - **`Measure-NoScriptRootAnchor`** — the analyzer rule that keeps module code from anchoring on its own file's folder.

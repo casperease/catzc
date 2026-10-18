@@ -2,7 +2,7 @@
 
 ## Rules: ADR-CONF-MDCONTRIB
 
-### Rule ADR-CONF-MDCONTRIB:1
+### Rule ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
 
 A **config contribution** is one config value, a key path and its value, that an author states in the `config` part of a tracked Markdown
 file's meta block and that `Get-Config` gathers into the named config. A contribution is authored and source-controlled; a derived value is
@@ -11,53 +11,53 @@ never a contribution. The value lives beside the prose it describes, and the con
 - [Decision](#decision)
 - [What a contribution is](#what-a-contribution-is)
 
-### Rule ADR-CONF-MDCONTRIB:2
+### Rule ADR-CONF-MDCONTRIB-GATHEREDINSIDEREADER
 
-Contributions are gathered inside the one reader, never beside it ([ADR-CONF-LOADING#1](module-config-loading.md#rule-adr-conf-loading1)).
+Contributions are gathered inside the one reader, never beside it ([ADR-CONF-LOADING-ONEREADER](module-config-loading.md#rule-adr-conf-loading-onereader)).
 `Get-Config` merges them key by key with the same merge an overlay fragment uses, so one mechanism joins every source. A setting resolves in
 this order: the caller's explicit value; the consumer overlay fragment; the contributions, in ordinal order of their file paths; the bundled
-`configs/<name>.yml`; the setting's declared default ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)).
+`configs/<name>.yml`; the setting's declared default ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 - [One reader, one order](#one-reader-one-order)
 
-### Rule ADR-CONF-MDCONTRIB:3
+### Rule ADR-CONF-MDCONTRIB-OPTIN
 
 A config takes contributions only when it opts in. Its entry in the config registry (`configs.yml`) lists the `markdown_sources` globs it
 gathers from, and a contribution outside those globs is rejected. A sealed config
-([ADR-AUTO-OVERLAY#7](../automation/consumer-overlay.md#rule-adr-auto-overlay7)) never opts in, so the registry itself cannot be changed by
+([ADR-AUTO-OVERLAY-SEALEDENGINECONFIGS](../automation/consumer-overlay.md#rule-adr-auto-overlay-sealedengineconfigs)) never opts in, so the registry itself cannot be changed by
 prose and the reader never gathers while it loads its own registry.
 
 - [Opt in, by glob](#opt-in-by-glob)
 
-### Rule ADR-CONF-MDCONTRIB:4
+### Rule ADR-CONF-MDCONTRIB-NOSHAREDKEYPATH
 
 Two contributions never state the same key path. The load fails and names both files and the key path; it never keeps the last one. A list
 is replaced whole and never appended to, as for an overlay fragment
-([ADR-AUTO-OVERLAY#4](../automation/consumer-overlay.md#rule-adr-auto-overlay4)), so a list stated by one file is the whole list.
+([ADR-AUTO-OVERLAY-CONFIGFRAGMENT](../automation/consumer-overlay.md#rule-adr-auto-overlay-configfragment)), so a list stated by one file is the whole list.
 
 - [Conflicts fail](#conflicts-fail)
 
-### Rule ADR-CONF-MDCONTRIB:5
+### Rule ADR-CONF-MDCONTRIB-TYPEVALIDATESMERGE
 
 The config's own type validates the merged result, exactly as for a config without contributions
-([ADR-CONF-LOADING#4](module-config-loading.md#rule-adr-conf-loading4)). A rejected value reports the file, the line and the key path of the
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). A rejected value reports the file, the line and the key path of the
 contribution that carries it. A contribution never bypasses the type.
 
 - [Validated by the config's type](#validated-by-the-configs-type)
 
-### Rule ADR-CONF-MDCONTRIB:6
+### Rule ADR-CONF-MDCONTRIB-CACHEKEYSTAMPSFILES
 
 The cache key of a config with contributions carries the stamp of every contributing file, so an edited file is never served from a stale
-merge ([ADR-CONF-LOADING#3](module-config-loading.md#rule-adr-conf-loading3)). Contributions are tracked content, so nothing a contribution
-states is a secret ([ADR-CONF-ADDRESSING#3](config-value-addressing.md#rule-adr-conf-addressing3)).
+merge ([ADR-CONF-LOADING-CACHEBYPATH](module-config-loading.md#rule-adr-conf-loading-cachebypath)). Contributions are tracked content, so nothing a contribution
+states is a secret ([ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)).
 
 - [Cached and committed](#cached-and-committed)
 
-### Rule ADR-CONF-MDCONTRIB:7
+### Rule ADR-CONF-MDCONTRIB-GATHERKINDNAMESCONFIG
 
 A contribution belongs to a gather meta kind, and the kind names the config it feeds. A module subscribes a reader for a kind by shipping a
 function named for it, found by convention, as a config validator is
-([ADR-CONF-LOADING#5](module-config-loading.md#rule-adr-conf-loading5)). `Get-Config` names no kind and no module.
+([ADR-CONF-LOADING-POWERSHELLVALIDATOR](module-config-loading.md#rule-adr-conf-loading-powershellvalidator)). `Get-Config` names no kind and no module.
 
 - [Kinds and readers](#kinds-and-readers)
 
@@ -90,7 +90,7 @@ meta-block decision's to define; this decision defines only what happens to a co
 `Contributions join the existing merge`
 
 The overlay fragment merges onto the bundled config key by key before the config's type validates the result
-([consumer-overlay](../automation/consumer-overlay.md#rule-adr-auto-overlay4)). Contributions use the same merge, placed between the bundled
+([consumer-overlay](../automation/consumer-overlay.md#rule-adr-auto-overlay-configfragment)). Contributions use the same merge, placed between the bundled
 file and the overlay, so a consumer's overlay has the last word and the bundled file is the base. The order is fixed and written once, so a
 value never depends on which file the reader happened to open first: contributions apply in the ordinal order of their repository paths.
 
@@ -131,7 +131,7 @@ for addresses: nothing a contribution states is secret.
 
 A kind is declared in the meta-kind registry, and its reader is a function found by convention, so a new kind is a registry entry and a
 function file, with no edit to `Get-Config`. The loader stays content-agnostic
-([ADR-AUTO-EXTEND#3](../automation/open-closed-architecture.md#rule-adr-auto-extend3)).
+([ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE](../automation/open-closed-architecture.md#rule-adr-auto-extend-contentagnosticinfrastructure)).
 
 ### How this is enforced
 

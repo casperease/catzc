@@ -2,22 +2,22 @@
 
 ## Rules: ADR-AUTO-TEST
 
-### Rule ADR-AUTO-TEST:1
+### Rule ADR-AUTO-TEST-ONECATEGORY
 
-Classify every test into one **category**, logic or integrity, and carry it as a mandatory `logic`/`integrity` tag (see ADR-AUTO-TEST#13). A
+Classify every test into one **category**, logic or integrity, and carry it as a mandatory `logic`/`integrity` tag (see ADR-AUTO-TEST-TWOMANDATORYTAGS). A
 logic test must not read a shipped asset; an integrity test exists precisely to read them. A single test is one or the other — a test file
 needing both puts each kind in its own group of tests, each group tagged.
 
 - [Logic vs integrity tests](#logic-vs-integrity-tests)
 
-### Rule ADR-AUTO-TEST:3
+### Rule ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 
 Fixtures own their inputs and use deliberately distinct identities under `tests/assets/` (envs `alpha`/`beta`, customers `acme`/`globex`,
 org `tst`) so they cannot collide with production.
 
 - [Isolation through seams](#isolation-through-seams)
 
-### Rule ADR-AUTO-TEST:4
+### Rule ADR-AUTO-TEST-SAFESEAMSWAPS
 
 Seam swaps are safe because `Get-Config` and `Get-BicepTemplates` key their session caches on the resolved path/root, so a fixture path and
 the real path get separate cache entries. A test varies a cached function's behaviour by replacing the whole function, never its internals,
@@ -26,24 +26,24 @@ one entry it exercises.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-TEST:6
+### Rule ADR-AUTO-TEST-NOOVERMOCKING
 
 Do not mock the unit under test, and do not over-mock. Let the pure logic run for real; mock only the genuine boundaries (filesystem
 location, external CLIs, git, pipeline detection).
 
 - [Isolation through seams](#isolation-through-seams)
 
-### Rule ADR-AUTO-TEST:7
+### Rule ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER
 
 The category (`logic`/`integrity`) is orthogonal to the L0–L4 tier — an L2 test may be either — and there is no required pairing of one
 integrity test per logic test. Pure-logic tests use fixtures via the seams; tests that deliberately read the shipped assets to verify real
-templates are legitimate and stay on the shipped files — but they bind to the template _set_, never to a named template (ADR-AUTO-TEST#17).
+templates are legitimate and stay on the shipped files — but they bind to the template _set_, never to a named template (ADR-AUTO-TEST-GENERICTEMPLATETESTS).
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
-### Rule ADR-AUTO-TEST:8
+### Rule ADR-AUTO-TEST-TAGBYOUTERMOSTRING
 
-Tag the vertical tests by their outermost ring (ADR-AUTO-TEST#38) — local-tool tests `L2`, system tests `L3` (ADR-AUTO-TEST#33) — each in
+Tag the vertical tests by their outermost ring (ADR-AUTO-TEST-ONIONOFRINGS) — local-tool tests `L2`, system tests `L3` (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE) — each in
 its own group of tests, and make both skip themselves, with a recorded reason, when the tool, the platform, or cloud access is missing. The
 reason is a **constrained skip key** — lowercase alnum segments joined by `_`, never free prose — so the skip report groups by a stable,
 sortable vocabulary: platform skips are `<os>_<only|not>_<detail>` (os = `windows`|`unix`; `only` = runs only there, `not` = cannot run
@@ -51,7 +51,7 @@ there), tool skips are `tool_<name>_missing`. The `Test-SourceConventions` quali
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
-### Rule ADR-AUTO-TEST:9
+### Rule ADR-AUTO-TEST-NOCLOUDBELOWLTHREE
 
 No test below L3 may depend on cloud connectivity or change state outside the repository (the user's environment, installed tools). Unit
 tests mock those boundaries; L2 needs only the local CLI tool. A test failing because `az` was not connected is a mis-tiered test, not a
@@ -60,14 +60,14 @@ is a prerequisite of every source-tree L2 run rather than a tool its tests skip 
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
-### Rule ADR-AUTO-TEST:10
+### Rule ADR-AUTO-TEST-PROCESSTRIPWIRE
 
 A runtime tripwire enforces "L0/L1 launches no real process": `Test-Automation` sets the `CATZC_BLOCK_REAL_PROCESS` environment variable and
 `Invoke-Executable` throws instead of launching, so a mock that fails to intercept fails loudly.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-TEST:13
+### Rule ADR-AUTO-TEST-TWOMANDATORYTAGS
 
 Every test carries two mandatory, orthogonal tags, resolved through the groups that enclose it (the nearest contributing group wins):
 exactly one **tier** `L0|L1|L2|L3|L4` and exactly one category `logic|integrity`. There is no default for either — a test resolving to zero,
@@ -76,51 +76,51 @@ file mixes tiers or categories — never two tags of the same axis on one group.
 
 - [Two mandatory tag axes](#mandatory-tag-axes)
 
-### Rule ADR-AUTO-TEST:14
+### Rule ADR-AUTO-TEST-LOGICANDINTEGRITY
 
 `logic` = verifies a function's logic on mocks and/or its own fixtures, independent of shipped config; `integrity` = verifies the actual
 repository contents (shipped `azure.yml`/`network.yml`/`tools.yml`/…, real templates, the module/type/function graph, checked-in binaries,
-file/folder conventions). This is the category axis of ADR-AUTO-TEST#13.
+file/folder conventions). This is the category axis of ADR-AUTO-TEST-TWOMANDATORYTAGS.
 
 - [Two mandatory tag axes](#mandatory-tag-axes)
 
-### Rule ADR-AUTO-TEST:15
+### Rule ADR-AUTO-TEST-TAGSENFORCED
 
-`Test-Automation` enforces ADR-AUTO-TEST#13 on every invocation: a discovery-only pass (`Get-TestTagViolations`), which finds every test
+`Test-Automation` enforces ADR-AUTO-TEST-TWOMANDATORYTAGS on every invocation: a discovery-only pass (`Get-TestTagViolations`), which finds every test
 without running any, inspects every test regardless of `-Level`, and the run throws if any test is missing — or ambiguous on — a tier or
 category tag.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-TEST:16
+### Rule ADR-AUTO-TEST-INTEGRITYREADSFILES
 
 An integrity test derives its fact by reading the repository's files directly — enumerate and parse them (a syntax tree, or a file name) —
 never by booting the importer or inspecting a loaded session. A static property of the files on disk is checked by reading the files.
 
 - [Integrity tests read files](#integrity-tests-read-files)
 
-### Rule ADR-AUTO-TEST:17
+### Rule ADR-AUTO-TEST-GENERICTEMPLATETESTS
 
 An integrity test that exercises shipped templates must be **generic**: discover the set with `Get-BicepTemplateNames`/`Get-BicepTemplates`
 and assert invariants that hold for _every_ template. It must **never** bind to a specific production template name, nor assert a
 production-derived magic value (a rendered secret name, resource name, or parameter-file name). Binding a test to a production identity
 makes that test veto the identity's rename or removal — a test must never block a production refactor. Positive, template-specific behaviour
 (e.g. a PrePost hook injecting a particular Key Vault reference) is verified as a **logic** test against a **fixture** template
-(ADR-AUTO-TEST#3), not against the shipped one; the generic integrity test asserts only the structural invariant — "any reference present is
+(ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES), not against the shipped one; the generic integrity test asserts only the structural invariant — "any reference present is
 well-formed" — across all shipped templates.
 
 - [Generic integrity tests](#generic-integrity-tests)
 
-### Rule ADR-AUTO-TEST:19
+### Rule ADR-AUTO-TEST-SETUPONCE
 
-Do expensive setup once, not per test. Discovery and config caches key on the resolved root/path (ADR-AUTO-TEST#4), so a per-test setup that
+Do expensive setup once, not per test. Discovery and config caches key on the resolved root/path (ADR-AUTO-TEST-SAFESEAMSWAPS), so a per-test setup that
 hands each test a fresh root or clears a config cache forces a cold re-derive on every test. Copy the fixture tree and reset the cache
 **once** for the group of tests that shares them; share one warm import across tests that do not conflict (read-only, or each writing a
 distinct path), and give a fresh root only to tests that mutate-and-collide.
 
 - [Fast logic tests](#fast-logic-tests)
 
-### Rule ADR-AUTO-TEST:20
+### Rule ADR-AUTO-TEST-ONEIMPORTPERCASE
 
 When the unit is a pure function of the filesystem (the importer; discovery), spawn one import per distinct tree shape, not per assertion.
 Capture a rich observation from a single import and assert it across separate tests. Minimize the spawn count — a test file's tests run one
@@ -129,7 +129,7 @@ narrative into more tests in one file parallelizes nothing; fewer, richer import
 
 - [Fast logic tests](#fast-logic-tests)
 
-### Rule ADR-AUTO-TEST:21
+### Rule ADR-AUTO-TEST-MEASUREFIRST
 
 Measure before optimizing a slow test, and compare like workloads. Mock interception is cheap (about a millisecond per call), so "slow
 because of mocks" is almost always wrong — time the sub-steps, count the calls through the mocks, and make sure A/B variants do the same
@@ -137,7 +137,7 @@ work (a redirect that silently falls through to the real tree is measuring a sma
 
 - [Fast logic tests](#fast-logic-tests)
 
-### Rule ADR-AUTO-TEST:22
+### Rule ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
 
 A cluster of slow integration tests that differ only by input — each re-proving the _same_ cross-boundary wiring for a different case — is a
 design signal, not a cost to accept: **push the per-case assertions left** into fast, deterministic, mocked **L0** logic tests, and leave
@@ -148,7 +148,7 @@ those artifacts rather than a slow tool or cloud round-trip.
 
 - [Shift checks left](#shift-checks-left)
 
-### Rule ADR-AUTO-TEST:23
+### Rule ADR-AUTO-TEST-FEWINTEGRATIONTESTS
 
 Keep **a very few** integration tests (L2/L3) — one per _distinct_ integration concern, a capability the mock necessarily fakes away (a real
 compiler resolving and inlining a referenced module, a subscription-scoped template actually compiling, a CLI's exit-code contract) —
@@ -158,7 +158,7 @@ redundant copy; collapse them.
 
 - [Shift checks left](#shift-checks-left)
 
-### Rule ADR-AUTO-TEST:24
+### Rule ADR-AUTO-TEST-BUILDVERIFICATIONTEST
 
 The **Build Verification Test** (BVT) is the verification that precedes every promotion and every creation of release artifacts, and the
 verification the commit gate runs, with one aggregate verdict: it runs every selected test up to the target level together with the
@@ -167,7 +167,7 @@ master only when its BVT is green, and the canonical module-manifest artifact a 
 
 - [Build Verification Test](#build-verification-test)
 
-### Rule ADR-AUTO-TEST:25
+### Rule ADR-AUTO-TEST-FILEPARALLELISM
 
 `Test-Automation` parallelizes at whole-file granularity across worker **processes**: the run's test files are sharded across workers
 (pooled live output — one worker's stream live while later workers buffer and replay in order), each worker loads the modules through its
@@ -183,7 +183,7 @@ report folder (`Set-AbandonedTestRun`), never left `running`.
 
 - [Parallel harness](#parallel-harness)
 
-### Rule ADR-AUTO-TEST:26
+### Rule ADR-AUTO-TEST-ONESCHEDULINGPOOL
 
 A **phase** is one of a test run's three scheduling stages: the parallel shards and the greedy phase share one worker pool, and the serial
 phase runs after both. Two phase tags, both optional (block-chain resolution like the two mandatory axes, via `Get-TestBlockTag`), name tests that must not share
@@ -201,14 +201,14 @@ its whole file (serial wins over greedy):
   can overlap the last parallel shards and inflate their L0/L1 timings, so over-limit timings stay report-only in a full run.
 
 A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the run's location decides
-whether it runs (ADR-AUTO-TEST#33).
+whether it runs (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE).
 
 A parallel-run flake root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying
-(ADR-AUTO-RETRY#1).
+(ADR-AUTO-RETRY-NEVERINTESTS).
 
 - [Parallel harness](#parallel-harness)
 
-### Rule ADR-AUTO-TEST:27
+### Rule ADR-AUTO-TEST-PROVENANCETAGS
 
 An **optional third, provenance dimension**: a test MAY carry `ADR-<CODE>#<n>` citation tags naming the ADR rule(s) it enforces — the
 `docs/adr/index.md` `#` citation form, so the `ADR-` marker greps to both a rule's prose and its enforcing tests. Absence is never a
@@ -219,7 +219,7 @@ own tags and every group that encloses it, so a broad rule on the outermost grou
 
 - [Provenance and rule coverage](#provenance-and-rule-coverage)
 
-### Rule ADR-AUTO-TEST:28
+### Rule ADR-AUTO-TEST-COVERAGEREPORTEDONLY
 
 Rule-enforcement **coverage is reported and never blocks a run**, and counts **two enforcer kinds run in the same `Test-Automation`
 invocation**: a test tagged with the rule's citation (the `Rules` column of `tests.csv` is the backtrack table, filterable by a citation to
@@ -229,29 +229,29 @@ report-only because a rule may be enforced structurally or by review, so "no mec
 
 - [Provenance and rule coverage](#provenance-and-rule-coverage)
 
-### Rule ADR-AUTO-TEST:30
+### Rule ADR-AUTO-TEST-SAMETESTSBOTHRUNS
 
-The same tests run in two kinds of test run (ADR-AUTO-TEST#34), one per run mode ([run-modes](../design/run-modes.md)): the source run
+The same tests run in two kinds of test run (ADR-AUTO-TEST-TESTRUN), one per run mode ([run-modes](../design/run-modes.md)): the source run
 (`Test-Automation`) loads the modules from `automation/` through the source entry script, and the build run (`Test-CatzcBuild`) builds the
 selected modules and loads them through the build's entry script. Both run the same test files of every module at every tier their location
-allows by default (ADR-AUTO-TEST#33), with the same discovery, tag checks, sharding, and reports — the build run swaps only the entry script
+allows by default (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE), with the same discovery, tag checks, sharding, and reports — the build run swaps only the entry script
 each shard worker loads, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build run.
 
 - [Source and build runs](#source-and-build-runs)
 
-### Rule ADR-AUTO-TEST:31
+### Rule ADR-AUTO-TEST-SOURCEONLYTAG
 
 **`source-only`** is the one tag by which a test opts out of the build run. It marks a test whose answer cannot differ between the modes —
 an integrity test that reads only the repository's files (folder conventions, syntax-tree scans, globsets, the ADR registry, managed GUIDs,
 spelling) — or a logic test of a source-tree tool that needs per-function files. It is optional, resolved along the chain of groups like
 `serial`/`greedy`, and validated by `Get-TestTagViolations`; the build run counts and lists every test it excludes this way, so the
 exclusion is visible, never silent. A test that inspects the loaded code — exports resolve, configs validate through `Get-Config`, types and
-accelerators load, an internal asset is read ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep3)) — is
+accelerators load, an internal asset is read ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)) — is
 never `source-only`.
 
 - [Source and build runs](#source-and-build-runs)
 
-### Rule ADR-AUTO-TEST:32
+### Rule ADR-AUTO-TEST-RUNSNEVERWAIT
 
 A test run never waits for another. The first run owns the working folder and runs in place; a run that starts while another holds it runs
 in a **verified snapshot** of the working folder instead — HEAD plus every uncommitted change, staged and unstaged, plus the untracked files
@@ -259,11 +259,11 @@ git does not ignore, byte-identical, checked by `git status` equality before any
 generated files. Both entry points (`Test-Automation`, `Invoke-TestFile`) claim their location the same way (`Enter-TestRunLocation`), a
 busy working folder is announced together with the run that holds it, the report lands in the working folder's `out/` either way, and
 `run.json` records where the run executed. `-Isolated` asks for a snapshot up front. State outside the repository, which no snapshot
-isolates, is the L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST#33).
+isolates, is the L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE).
 
 - [Working folder and snapshots](#working-folder-and-snapshots)
 
-### Rule ADR-AUTO-TEST:33
+### Rule ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 
 **L3 holds the vertical system tests**: a test that changes or depends on state outside the repository — the cloud, the user's environment
 (the user `PATH`, other persistent environment variables, the registry), installed tools — is L3, and only the run that owns the working
@@ -276,10 +276,10 @@ mocks that seam.
 
 - [System tests](#system-tests)
 
-### Rule ADR-AUTO-TEST:34
+### Rule ADR-AUTO-TEST-TESTRUN
 
 A **test run** is one invocation of a test entry point — `Test-Automation`, `Test-CatzcBuild`, or `Invoke-TestFile` — over one selection of
-test files (by module, tier, and category): it claims one location (ADR-AUTO-TEST#32), runs the selection once, and records it in one report
+test files (by module, tier, and category): it claims one location (ADR-AUTO-TEST-RUNSNEVERWAIT), runs the selection once, and records it in one report
 under `out/`. A test run in source mode is a **source run** (`Test-Automation`, `Invoke-TestFile`); one in build mode is a **build run**
 (`Test-CatzcBuild`). The test files at rest are not a run: a run is the act of executing them. A run states its **context** — entry point
 and code root, location and why, the tiers asked for and running (and why they differ), the actor, which local tools are present, and the
@@ -287,7 +287,7 @@ selection — in a block under its banner and under `context` in `run.json`, so 
 
 - [Source and build runs](#source-and-build-runs)
 
-### Rule ADR-AUTO-TEST:35
+### Rule ADR-AUTO-TEST-QUALITYGATE
 
 A **quality gate** is a gate, decided automatically, that checks one property of the whole repository (or its declared scope): one public
 `Test-<subject>` function that collects every issue, writes its report through `Write-QualityGateReport` (`out/test-<subject>/`, settings in
@@ -301,36 +301,36 @@ quality gate: its `Test-*` answers a bool and its `Assert-*` throws.
 
 - [Build Verification Test](#build-verification-test)
 
-### Rule ADR-AUTO-TEST:36
+### Rule ADR-AUTO-TEST-ALLTESTS
 
 **All tests** means every test in the repository: every test file of every module, at every tier and category. It is what a test run selects
-at its defaults (a source run, less only the tiers its location cannot run, ADR-AUTO-TEST#33), and what "every test passes" claims; a
+at its defaults (a source run, less only the tiers its location cannot run, ADR-AUTO-TEST-SYSTEMTESTSATLTHREE), and what "every test passes" claims; a
 narrower selection — some modules, some tiers, one test file — is named by what it selects, never called all tests.
 
 - [Source and build runs](#source-and-build-runs)
 
-### Rule ADR-AUTO-TEST:37
+### Rule ADR-AUTO-TEST-TESTSUITE
 
 A **test suite** is a named, declared selection of tests that runs as one unit: a set of modules and a top tier, declared in configuration
 rather than typed at a prompt. A test suite is a globset's `verify:` scope in `globs.yml` (`modules` + `level`, the globset's test
 blast-radius scope), named by its globset and run with `Test-Automation -Suite <globset>`; a pipeline runs it when that set changes. A test
-suite is configuration at rest: executing it is a test run (ADR-AUTO-TEST#34), and it is narrower than all tests (ADR-AUTO-TEST#36) unless
+suite is configuration at rest: executing it is a test run (ADR-AUTO-TEST-TESTRUN), and it is narrower than all tests (ADR-AUTO-TEST-ALLTESTS) unless
 it names every module. Not every test run executes a test suite: an ad-hoc selection is named by what it selects.
 
 - [Source and build runs](#source-and-build-runs)
 
-### Rule ADR-AUTO-TEST:38
+### Rule ADR-AUTO-TEST-ONIONOFRINGS
 
 Tests sit in an onion of rings around the code. The **core** is the code alone — L0/L1, every boundary mocked; the L2 ring adds the local
 tools the code drives (`git`, `az bicep build`, `python`, `dotnet`, the test runner); the L3 ring adds the state outside the repository (the
-cloud, the user's environment, installed tools); the L4 ring is the released system itself (ADR-AUTO-TEST#41). A **vertical test** cuts from
+cloud, the user's environment, installed tools); the L4 ring is the released system itself (ADR-AUTO-TEST-TESTINGINPRODUCTION). A **vertical test** cuts from
 an outer ring through to the core: an L2 vertical test crosses the local-tool ring, an L3 vertical system test crosses both inner rings. A
 test's tier is its outermost ring, and a run's top tier is the outermost ring it includes — the BVT includes the core and the L2 ring, the
 in-place devbox run the core and the L2 and L3 rings, and only a run that asks for L4 includes the released system.
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
-### Rule ADR-AUTO-TEST:39
+### Rule ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES
 
 An L3 test names every scratch resource it creates outside the repository per run — a variable, a registry value, a file in the user's
 profile, a cloud resource — with a suffix no other run shares (`CATZC_L3_WIDGET_<guid>`), and removes it whatever happens. A fixed name is
@@ -338,19 +338,19 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 - [System tests](#system-tests)
 
-### Rule ADR-AUTO-TEST:40
+### Rule ADR-AUTO-TEST-LANGUAGETESTMODULES
 
-A Go test module ([go-test-artifacts](go/go-test-artifacts.md#rule-adr-auto-go2)), a Python test folder
-([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py2)) and a Bash test folder
-([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash2)) are the second kind of test file, beside a module's own test files,
+A Go test module ([go-test-artifacts](go/go-test-artifacts.md#rule-adr-auto-go-onegoroot)), a Python test folder
+([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot)) and a Bash test folder
+([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)) are the second kind of test file, beside a module's own test files,
 under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites, ordering,
 protection, both runs, and the report treat its tests as that module's; one shared bridge, the language bridge, runs them all inside the
-test run, and every test they hold is one test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO#7, ADR-AUTO-PY#7,
-ADR-AUTO-BASH#5).
+test run, and every test they hold is one test with both mandatory tags — `L2`, and a category from its name (ADR-AUTO-GO-LANGUAGEBRIDGE, ADR-AUTO-PY-LANGUAGEBRIDGE,
+ADR-AUTO-BASH-LANGUAGEBRIDGE).
 
 - [Go test modules](#go-test-modules)
 
-### Rule ADR-AUTO-TEST:41
+### Rule ADR-AUTO-TEST-TESTINGINPRODUCTION
 
 **Testing in production** is the L4 tier: tests of the released system itself, after final approval — the release-candidate artifact that
 cleared the RBC gate, where it runs: pre-prod, then production once activated. It is the only tier that reaches a serving environment, and
@@ -358,32 +358,32 @@ it creates nothing of its own there: an L4 test observes the system, or, where `
 synthetic transactions the system is built to accept and clean up (`read-only` is the default). L4 is opt-in: a run includes it only when
 asked (`-Level 4`). It may run anywhere — the only limit is the security context of the console running it — so each L4 test self-skips
 through `Get-TestTargetSkipReason` when the console cannot reach its target or the target does not allow the mode the test needs
-(ADR-AUTO-TEST#8). A gate exists only in a pipeline: an L4 run from a console is a run of that gate outside its pipeline, and its result is
+(ADR-AUTO-TEST-TAGBYOUTERMOSTRING). A gate exists only in a pipeline: an L4 run from a console is a run of that gate outside its pipeline, and its result is
 information, never a gate verdict.
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
-### Rule ADR-AUTO-TEST:42
+### Rule ADR-AUTO-TEST-TEST
 
 A **test** is the smallest unit of verification that passes or fails on its own: the one every report row, rule citation, skip, and timing
-counts, and the one that carries the two mandatory tags (ADR-AUTO-TEST#13). Every test language maps its own smallest unit to one test, so a
-run counts tests the same way whatever language they are written in (ADR-AUTO-TEST#40).
+counts, and the one that carries the two mandatory tags (ADR-AUTO-TEST-TWOMANDATORYTAGS). Every test language maps its own smallest unit to one test, so a
+run counts tests the same way whatever language they are written in (ADR-AUTO-TEST-LANGUAGETESTMODULES).
 
 - [Tests and test files](#tests-and-test-files)
 
-### Rule ADR-AUTO-TEST:43
+### Rule ADR-AUTO-TEST-TESTFILE
 
 A **test file** is one file of tests that discovery maps to one catzc module — a module's own test file under its `tests/` folder, or a test
-folder of another test language (ADR-AUTO-TEST#40). It is the unit a test run schedules: sharded whole, never split across workers
-(ADR-AUTO-TEST#25), and moved whole to the phase any of its tests asks for (ADR-AUTO-TEST#26). Its test language decides its name and form.
+folder of another test language (ADR-AUTO-TEST-LANGUAGETESTMODULES). It is the unit a test run schedules: sharded whole, never split across workers
+(ADR-AUTO-TEST-FILEPARALLELISM), and moved whole to the phase any of its tests asks for (ADR-AUTO-TEST-ONESCHEDULINGPOOL). Its test language decides its name and form.
 
 - [Tests and test files](#tests-and-test-files)
 
-### Rule ADR-AUTO-TEST:44
+### Rule ADR-AUTO-TEST-DEVBOXRUNBUDGET
 
 A devbox run must fit its whole-run budget: `Test-Automation` fails a devbox run whose workers take longer than `tests.run_seconds` in
 `timeouts.yml`, and names the run's time and the budget. The budget is a roof, never raised to make a run pass; a run over it is fixed by
-making its slowest test files faster (ADR-AUTO-FAILFAST#7). A pipeline run is bounded by its stage's own limit instead.
+making its slowest test files faster (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). A pipeline run is bounded by its stage's own limit instead.
 
 - [The whole-run budget](#the-whole-run-budget)
 
@@ -438,7 +438,7 @@ magic rendered value (a secret name, a resource name, a parameter-file name) tak
 Vault, or delete it, and a green test run turns red for a change that is correct. A test must never be the reason a production refactor
 cannot happen.
 
-The design is two-layered, and the split falls out of [ADR-AUTO-TEST#1](#rule-adr-auto-test1)'s logic-vs-integrity line:
+The design is two-layered, and the split falls out of [ADR-AUTO-TEST-ONECATEGORY](#rule-adr-auto-test-onecategory)'s logic-vs-integrity line:
 
 - **Generic integrity** (`Build-Bicep.Integrity.Tests.ps1`) loops `Get-BicepTemplateNames` and asserts, for _every_ shipped template: it
   builds, it renders one parameter file per slot, each is valid, and **any** Key Vault reference present is well-formed (ARM vault-id shape,
@@ -448,7 +448,7 @@ The design is two-layered, and the split falls out of [ADR-AUTO-TEST#1](#rule-ad
   PrePost hook's contract ("`sqlAdminPassword` becomes a reference to `<short>-sql-admin-password` in the foundation vault") lives as
   imperative code in that template's `PrePost.psm1`, not as data a generic test could read. So the mechanism is proven once, on the
   `sample-with-prepost` fixture, which injects a Key Vault reference whose secret name is derived from the _fixture's_ own `short_name` and
-  whose vault id is built from the _fixture's_ resolved subscription — fixture identities (ADR-AUTO-TEST#3), asserted against the fixture,
+  whose vault id is built from the _fixture's_ resolved subscription — fixture identities (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES), asserted against the fixture,
   binding to nothing in production.
 
 This is the same coupling-break as the rest of this ADR (logic tests own their inputs; integrity tests read reality), applied to the
@@ -484,15 +484,15 @@ Each axis is also a run filter on `Test-Automation`: `-Level` bounds the tier (L
 subset by category (omit it to run both). Both work by excluding the unwanted tags, so a mixed file's per-group category tags filter
 correctly — the outermost group carries only the tier.
 
-Beyond the two mandatory axes there are **optional** tags: the phase tags `serial` and `greedy` (ADR-AUTO-TEST#26), the provenance citations
-of the next section, and the `source-only` build-run opt-out (ADR-AUTO-TEST#31).
+Beyond the two mandatory axes there are **optional** tags: the phase tags `serial` and `greedy` (ADR-AUTO-TEST-ONESCHEDULINGPOOL), the provenance citations
+of the next section, and the `source-only` build-run opt-out (ADR-AUTO-TEST-SOURCEONLYTAG).
 
 ### Provenance and rule coverage
 
 `The optional provenance axis and rule-enforcement coverage`
 
 A test may also declare **which ADR rule(s) it enforces**, so the tests are traceable both ways: from a test to the rule behind it, and from
-a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md` `#` form — `ADR-AUTO-CACHE#5` — chosen so the one reserved
+a rule to the tests that pin it. The citation is a tag in the `docs/adr/index.md` `#` form — `ADR-AUTO-CACHE-READONLYVALUES` — chosen so the one reserved
 `ADR-` marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier and category in
 two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is never a violation
 — a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
@@ -510,15 +510,15 @@ the run report, mapping every rule to its enforcers and listing the genuinely-un
 two mechanisms run inside the one `Test-Automation` invocation: a tagged test (the `tests.csv` `Rules` column is the backtrack table) and an
 analyzer rule that enforces the rule on every build. Counting the analyzer rules is what makes the uncovered list honest: a rule like
 `ADR-AUTO-NOPWD` reads as covered because its custom analyzer fails the build, not falsely bare for lack of a tagged test. How each kind is
-written and mapped for pwsh is [pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester19). The report never fails the run — many
+written and mapped for pwsh is [pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-enforcerkinds). The report never fails the run — many
 rules are enforced structurally or by review, so a missing mechanical enforcer is a prompt, not a defect — but the data is shaped so making
 it a quality gate is one flag away.
 
 ### Test tiers: the test onion
 
 Vendor test tooling is lazy-loaded to protect importer time (see
-[vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5)). Tests are tagged by **what they integrate
-with**, not by speed — and what a test integrates with is a ring of an onion around the code (ADR-AUTO-TEST#38). The core holds the code
+[vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)). Tests are tagged by **what they integrate
+with**, not by speed — and what a test integrates with is a ring of an onion around the code (ADR-AUTO-TEST-ONIONOFRINGS). The core holds the code
 alone; each ring outward adds a kind of dependency; a vertical test cuts from its outermost ring through to the core, and a run includes
 every ring up to its top tier:
 
@@ -539,18 +539,18 @@ flowchart TB
 ```
 
 - **L0 / L1 — the core.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
-  change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST#13.)
+  change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST-TWOMANDATORYTAGS.)
 - **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`,
   Pester, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is
   absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
 - **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud APIs (maybe through
   a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It **self-skips** when
-  its prerequisite (cloud access, the platform) is missing, and runs only in the working folder itself (ADR-AUTO-TEST#33), so a devbox run
+  its prerequisite (cloud access, the platform) is missing, and runs only in the working folder itself (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE), so a devbox run
   that owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md) argues you cannot
   rely on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the persistent-environment seam's
   real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool inside the repository is L2.
 - **L4 — the released system, after final approval.** Checks the RBC-cleared artifact where it runs: pre-prod, then production
-  (ADR-AUTO-TEST#41), the stages [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) owns. L3 creates and
+  (ADR-AUTO-TEST-TESTINGINPRODUCTION), the stages [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) owns. L3 creates and
   removes its own scratch resources; L4 creates nothing of its own and only observes, or drives the synthetic transactions `test-policy.yml`
   allows for that environment. It runs only when a run asks for it (`-Level 4`), in the DEPLOY-Prod pipeline after the RBC gate, or from any
   console whose identity can reach the target. Each test self-skips through `Get-TestTargetSkipReason` when it cannot reach its target or
@@ -562,13 +562,13 @@ flowchart TB
 
 Logic tests run on every change, so their speed compounds. Three effects dominate, and the fixes are cheap:
 
-- **Don't redo expensive setup per test (ADR-AUTO-TEST#19).** `Get-BicepTemplates`/`Get-Config` key their session cache on the resolved
-  root/path (ADR-AUTO-TEST#4). A per-test setup that assigns each test a fresh root, or clears the config cache, defeats that cache and pays
+- **Don't redo expensive setup per test (ADR-AUTO-TEST-SETUPONCE).** `Get-BicepTemplates`/`Get-Config` key their session cache on the resolved
+  root/path (ADR-AUTO-TEST-SAFESEAMSWAPS). A per-test setup that assigns each test a fresh root, or clears the config cache, defeats that cache and pays
   a full cold re-derive **every test** — on the order of a second per test for template-configuration tests. The fixture copy **and** the
   one-time cache reset run once for the group of tests that shares them, with the few mutating tests pointed at distinct config paths so
   they can share one tree and one warm import. Reset a cache per test only when the test mutates the cached input.
 
-- **One import per input, not per assertion (ADR-AUTO-TEST#20).** When the unit under test re-derives its result from the filesystem on each
+- **One import per input, not per assertion (ADR-AUTO-TEST-ONEIMPORTPERCASE).** When the unit under test re-derives its result from the filesystem on each
   run — the importer, discovery — every distinct tree shape needs its own cold import, but every _assertion_ does not. A narrative of many
   steps over the importer collapses to the few tree shapes that are actually distinct (empty, a populated tree, a
   re-derive-after-add/change/delete, a duplicate-name collision, a vendor shadow), each capturing a rich observation that many tests assert
@@ -576,13 +576,13 @@ Logic tests run on every change, so their speed compounds. Three effects dominat
   concurrency — a test file's tests run one after another, the harness parallelizes whole test files across worker processes (a single
   file's tests never split across workers), and these narratives are stateful besides.
 
-- **Measure; mocks are rarely the cause (ADR-AUTO-TEST#21).** The instinct to blame slowness on mocking is almost always wrong: interception
+- **Measure; mocks are rarely the cause (ADR-AUTO-TEST-MEASUREFIRST).** The instinct to blame slowness on mocking is almost always wrong: interception
   costs about a millisecond per call. An apparent "mock penalty" is usually a measurement artifact — a no-mock comparison that silently
   falls through to a smaller real tree times a different workload. The real cost shows up when the unmocked path is timed step by step and
   the calls through the mocks are counted, and it is usually the filesystem.
 
 How each of these is written in pwsh, and the engine's own filesystem cost, are [pester-testing](../pwsh/pester-testing.md)
-(ADR-PWSH-PESTER#9, ADR-PWSH-PESTER#14 to ADR-PWSH-PESTER#16). Cold-import isolation is the one case that legitimately needs a separate
+(ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS, ADR-PWSH-PESTER-SETUPONCEPERBLOCK to ADR-PWSH-PESTER-MEASURESLOWTESTS). Cold-import isolation is the one case that legitimately needs a separate
 **process** rather than an isolated session inside the test's own process: process-global state — environment variables, loaded assemblies —
 leaks out of anything less.
 
@@ -603,7 +603,7 @@ which slots a config set discovers. None of that needs a tool or the cloud to de
 L0 test checks it in milliseconds, deterministically, on every change. The one thing the real tool decides that the files do not is the
 _integration concern itself_ — what the compiler, CLI, or cloud actually does with those artifacts — and that is exactly, and only, what the
 walking skeleton covers. [Fail-fast](fail-fast-with-asserts.md) argues that confidence comes from the integration run; this keeps that run
-thin and pushes everything it does not uniquely prove down to the fast tiers (ADR-AUTO-TEST#7, ADR-AUTO-TEST#8), which is also where
+thin and pushes everything it does not uniquely prove down to the fast tiers (ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER, ADR-AUTO-TEST-TAGBYOUTERMOSTRING), which is also where
 [reduce-waste](../principles/reduce-waste.md) points — the inner loop pays for the slow tier on every change.
 
 The walking-skeleton set is **one test per distinct integration concern, never one per case**. A concern is something the mock necessarily
@@ -639,8 +639,8 @@ could not finish it.
 Results cross the process boundary as **rows**, not a test framework's objects: each worker reduces its own live result — where the chain of
 groups still exists for tier/category/skip-reason resolution — to plain per-test rows in a JSON sidecar, and the parent aggregates them for
 the timing check and every report. Each shard writes its own results file; summary.md and tests.csv are the merged artifacts. How a pwsh
-worker does this is [pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester17). Files containing a `greedy`-tagged test
-(ADR-AUTO-TEST#26) follow the parallel shards as single-file shards through the pool, one per worker; files containing a `serial`-tagged
+worker does this is [pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-pooledworkers). Files containing a `greedy`-tagged test
+(ADR-AUTO-TEST-ONESCHEDULINGPOOL) follow the parallel shards as single-file shards through the pool, one per worker; files containing a `serial`-tagged
 test run last in a one-worker phase, alone.
 
 Two deliberate consequences: workers run tests **under strict mode** (parity — the code under test is strict in its module scope, so the
@@ -692,7 +692,7 @@ says so, naming who holds the folder, so a missing tier is never silent; the sys
 The tier stays thin because the logic it touches is covered below it. Code reaches outside state only through a mockable seam —
 `Set-EnvironmentPath` for the user `PATH`, `Set-PermanentEnvironmentVariable` for other persistent variables — and the logic tests mock the
 seam, so an L1 test proves what the code asks for and the one L3 test per seam proves the real round trip. A test below L3 that writes real
-outside state is a mis-tiered test (ADR-AUTO-TEST#9): its logic moves to L1 against the seam, and only the real round trip stays at L3.
+outside state is a mis-tiered test (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE): its logic moves to L1 against the seam, and only the real round trip stays at L3.
 
 The working folder's lock is keyed on the checkout, but the state a system test touches belongs to the user: two clones of the repository,
 or a clone and an installed build, each own their own working folder and would run L3 against the same user `PATH` at once. So L3 also needs
@@ -701,7 +701,7 @@ takes the working folder tries it without waiting: taken, the run executes L3; h
 and names the holder and its checkout. One run per user account runs system tests at a time, and no run ever waits. A system test still
 works on state it owns and removes it whatever happens, never on a shared value such as the user's real `JAVA_HOME`: the lock serialises the
 system tests the harness starts, not the user's own shell, a direct `Invoke-Pester`, or the leftover of a run that died before its cleanup.
-So it names each scratch resource per run (ADR-AUTO-TEST#39) — a fixed name would let one of those meet the test's own state, and the test
+So it names each scratch resource per run (ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES) — a fixed name would let one of those meet the test's own state, and the test
 would pass or fail depending on what else ran.
 
 ### Source and build runs
@@ -717,7 +717,7 @@ into resolves the same way in both runs.
 `Test-CatzcBuild` builds the selected modules into a fresh temporary destination with the `full` vendor policy (so the test and analyzer
 tools ship with the build), then runs the parallel harness above unchanged in shape. The single seam is the entry script a shard worker
 loads: the repository's source entry for the source run, the build's own entry for the build run
-([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester18)). Test files come from the source tree, limited to the built modules'
+([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-shardentryscript)). Test files come from the source tree, limited to the built modules'
 `tests/`. The `Catzc.Internal.TestKit` build helpers (`New-BuiltCatzcRoot`, `Invoke-InBuiltCatzc`, `Remove-BuiltCatzcRoot`) give an
 individual test the same build in a child process — process isolation is mandatory, because loaded assemblies and environment variables are
 process-global.
@@ -727,8 +727,8 @@ loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-w
 skips it — and lists it, so a reader sees exactly what the build run does not execute. Everything that exercises loaded code runs in both.
 Both runs execute in CI on every push, so "works in both modes" is checked before anything merges.
 
-A test suite (ADR-AUTO-TEST#37) is the `verify:` scope a globset declares: the test blast-radius of a change to that globset, as
-[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs7) defines it for the pipelines that run it.
+A test suite (ADR-AUTO-TEST-TESTSUITE) is the `verify:` scope a globset declares: the test blast-radius of a change to that globset, as
+[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer) defines it for the pipelines that run it.
 
 ### Go test modules
 
@@ -742,11 +742,11 @@ the protected-glob skip — applies to the Go tests exactly as to that module's 
 once and turns every top-level Go test into one test of the run, so the tag check, the timing check, `tests.csv`, and `run.json` read Go
 tests as rows like any other.
 
-The tags follow from what a Go test is. It drives a real toolchain and a real engine, so its tier is `L2` (ADR-AUTO-TEST#9), always. Its
+The tags follow from what a Go test is. It drives a real toolchain and a real engine, so its tier is `L2` (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE), always. Its
 category comes from its name: `TestIntegrity*` reads the shipped artifacts and is `integrity`, every other Go test is `logic`
-(ADR-AUTO-TEST#14). When the managed `go` is missing, the bridge skips with `tool_go_missing`, the same constrained skip key as any other
-tool skip (ADR-AUTO-TEST#8). In a build run the bridge hands the Go tests the build's entry script, the same single seam the shard workers
-use (ADR-AUTO-TEST#30).
+(ADR-AUTO-TEST-LOGICANDINTEGRITY). When the managed `go` is missing, the bridge skips with `tool_go_missing`, the same constrained skip key as any other
+tool skip (ADR-AUTO-TEST-TAGBYOUTERMOSTRING). In a build run the bridge hands the Go tests the build's entry script, the same single seam the shard workers
+use (ADR-AUTO-TEST-SAMETESTSBOTHRUNS).
 
 A Python test folder runs the same way through the same bridge ([python-test-artifacts](python/python-test-artifacts.md)): discovery maps
 `python/tests/<module>/` to its catzc module, each top-level `test*` function is one test, `test_integrity*` is `integrity` and the rest
@@ -755,21 +755,21 @@ A Python test folder runs the same way through the same bridge ([python-test-art
 on the vendored bats under the bash engine only, and without bash the bridge skips with `tool_bash_missing`. The Go and Python tests run
 once per execution engine, each title ending in `[pwsh]`, `[bash]` or `[zsh]` ([execution-engines](execution-engines.md)). The bridge is one
 mechanism with one entry per language, so a further test language adds an entry, not a second bridge; in pwsh it is one Pester container
-([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester20)).
+([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
 
 ### Tests and test files
 
 `The unit that passes or fails, and the unit a run schedules`
 
 Two units carry the whole run model, and every other term is built from them. A test is what passes or fails: the report counts it, a rule
-citation names it, a skip and a timing belong to it, and it carries the two mandatory tags (ADR-AUTO-TEST#42). Each test language has its
+citation names it, a skip and a timing belong to it, and it carries the two mandatory tags (ADR-AUTO-TEST-TEST). Each test language has its
 own smallest unit, and each maps that unit to exactly one test, so a run that mixes languages still counts in one currency.
 
-A test file is what a run schedules (ADR-AUTO-TEST#43). It belongs to one catzc module, which is how a selection by module reaches it, and
+A test file is what a run schedules (ADR-AUTO-TEST-TESTFILE). It belongs to one catzc module, which is how a selection by module reaches it, and
 it is never split: a whole file goes to one worker, and a phase tag on any of its tests moves the whole file. A module's own test files live
-in its `tests/` folder, one per function in pwsh ([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester5)); a Go, Python, or Bash
+in its `tests/` folder, one per function in pwsh ([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile)); a Go, Python, or Bash
 test folder counts as one test file of the module it maps to. Between the two, a test language may group tests inside a file, and the tags
-resolve along those groups (ADR-AUTO-TEST#13).
+resolve along those groups (ADR-AUTO-TEST-TWOMANDATORYTAGS).
 
 ### Build Verification Test
 
@@ -780,13 +780,13 @@ facet (`-Facet` selects): **`Types`** (the committed `.compiled` assembly is the
 process — every module, the types and their accelerators, every shipped config), **`Parity`** (every built module exports exactly its source
 folder's public functions and defines exactly its private ones), and **`Manifest`** (every built manifest is formatter-stable, so a
 published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet. Because everything is a
-static, hermetic property of the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same commit yields the same
+static, hermetic property of the committed artifacts (ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS), that verdict is reproducible: the same commit yields the same
 result on a devbox and in CI.
 
-Each check the BVT includes is a quality gate (ADR-AUTO-TEST#35): a gate in the delivery flow's sense
-([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)) that a machine decides.
+Each check the BVT includes is a quality gate (ADR-AUTO-TEST-QUALITYGATE): a gate in the delivery flow's sense
+([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-gatedefined)) that a machine decides.
 
-In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive4)) the commit gate runs the BVT
+In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-trunkbased)) the commit gate runs the BVT
 on both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not passed
 it. Its gold output is the canonical module-manifest artifact a passing build produces — the reproducible encapsulation of what the commit
 built, byte-identical for a given commit.
@@ -796,7 +796,7 @@ built, byte-identical for a given commit.
 `A slow run fails, so it gets fixed rather than waited out`
 
 A devbox run is the loop a person waits on, and it shares a fixed window with the slower work that follows it, so its length is a limit, not
-a trend to watch (ADR-AUTO-TEST#44). The budget is `tests.run_seconds` in `timeouts.yml`, measured over the workers' run — the wall clock
+a trend to watch (ADR-AUTO-TEST-DEVBOXRUNBUDGET). The budget is `tests.run_seconds` in `timeouts.yml`, measured over the workers' run — the wall clock
 the run already reports. A devbox run that takes longer fails like any other gate, naming its time and the budget, and the fix is the same
 as for a slow test: measure where the time goes, make the slowest files faster without weakening what they prove, and keep the roof where it
 is. The duration history the scheduler keeps (`out/test-automation/durations.json`) names the files to look at first.
@@ -826,20 +826,20 @@ Pester, and the engine gotchas that repeatedly bite — that is [pester-testing]
   limit reads it.
 - **L4 is opt-in and self-skipping** — `Get-TestExcludeTag` leaves L4 out of every run that does not ask for `-Level 4`, and an L4 test asks
   `Get-TestTargetSkipReason` (reachability through its probe, the mode through `test-policy.yml`) before it touches its target
-  (ADR-AUTO-TEST#41).
+  (ADR-AUTO-TEST-TESTINGINPRODUCTION).
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
   config — see [module-config-loading](../configuration/module-config-loading.md)), so isolation is a mock away and production has a single
-  pristine default. The mock idioms are [pester-testing](../pwsh/pester-testing.md) (ADR-PWSH-PESTER#2 to ADR-PWSH-PESTER#4).
-- **`Test-SourceConventions`** — the quality gate that validates the test-file conventions (ADR-PWSH-PESTER#5) and reads every skip reason
+  pristine default. The mock idioms are [pester-testing](../pwsh/pester-testing.md) (ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS to ADR-PWSH-PESTER-PRIVATETHROUGHMODULE).
+- **`Test-SourceConventions`** — the quality gate that validates the test-file conventions (ADR-PWSH-PESTER-TESTFILE) and reads every skip reason
   from the syntax tree, failing any reason that is not a constrained skip key (lowercase alnum segments joined by `_`); an integrity test in
   `Test-Automation.Tests.ps1` runs it.
 - **Seam-mocking isolates pure-logic tests;** the tests that bind to shipped assets (the cross-layer reference check and the generic
   template-build integrity check) are the sanctioned exceptions — an input-source choice, not a tier — and they bind to the template _set_,
-  never to a named template (ADR-AUTO-TEST#17). The fixtures under `tests/assets/` are the patterns new logic tests copy (see
+  never to a named template (ADR-AUTO-TEST-GENERICTEMPLATETESTS). The fixtures under `tests/assets/` are the patterns new logic tests copy (see
   [conventional-folders](../repository/conventional-folders.md)).
 - **Two test runs** — `Test-Automation` and `Test-CatzcBuild` share the harness; `Get-TestTagViolations` accepts and validates `source-only`
-  (ADR-AUTO-TEST#31), and the build run reports the excluded count and list. Each run claims one location and writes one report
-  (ADR-AUTO-TEST#34).
+  (ADR-AUTO-TEST-SOURCEONLYTAG), and the build run reports the excluded count and list. Each run claims one location and writes one report
+  (ADR-AUTO-TEST-TESTRUN).
 - **Code review** decides whether a new test verifies _pure logic_ (seam-isolated, hermetic) or _shipped templates_ (binds to assets, only
   external tools mocked), and checks it mocks the right boundaries — not too few, not too many (testing the mock).
 
@@ -848,7 +848,7 @@ Pester, and the engine gotchas that repeatedly bite — that is [pester-testing]
 - Editing the shipped `azure.yml`/`network.yml`/templates cannot break a _hermetic logic_ test — only the tests that deliberately bind to
   shipped assets (the cross-layer reference check and the generic template-build integrity check), which is exactly where such a change
   _should_ be felt. _Renaming or removing_ a template, however, must not break a test either: the integrity check binds to the template set,
-  not to a name (ADR-AUTO-TEST#17).
+  not to a name (ADR-AUTO-TEST-GENERICTEMPLATETESTS).
 - Logic tests are fast and hermetic: no `az`, no network, no dependence on what happens to be in the shipped config. They run on every
   change.
 - The shipped configuration has a guardian: the generic integrity tests fail loudly if a real template references an undefined

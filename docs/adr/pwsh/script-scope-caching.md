@@ -2,15 +2,15 @@
 
 ## Rules: ADR-PWSH-CACHE
 
-### Rule ADR-PWSH-CACHE:1
+### Rule ADR-PWSH-CACHE-SCRIPTSCOPESTATE
 
 A session cache lives in module `$script:` state, which the importer boundary of
-[ADR-AUTO-CACHE#6](../automation/caching.md#rule-adr-auto-cache6) maps onto exactly: `$script:` state is established at import and destroyed
+[ADR-AUTO-CACHE-IMPORTERINVALIDATES](../automation/caching.md#rule-adr-auto-cache-importerinvalidates) maps onto exactly: `$script:` state is established at import and destroyed
 on re-import, so "re-run the importer" is the literal and only invalidation.
 
 - [The `$script:` scope](#the-script-scope)
 
-### Rule ADR-PWSH-CACHE:2
+### Rule ADR-PWSH-CACHE-NOENVORGLOBAL
 
 Use module-scoped `$script:` variables for the cache — never `$env:` or `$global:`. `$env:` leaks to child processes and is stringly-typed
 ([environment-variable-mechanics](environment-variable-mechanics.md)); `$global:` survives re-import and couples modules through shared
@@ -18,7 +18,7 @@ session state.
 
 - [The `$script:` scope](#the-script-scope)
 
-### Rule ADR-PWSH-CACHE:4
+### Rule ADR-PWSH-CACHE-STRICTSAFEPROBE
 
 A function probes its cache entry with `$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`, never with a bare
 `$script:<entry>` read, and initialises the cache entry when the probe returns `$null`. The `script:` qualifier is required: an unqualified
@@ -26,9 +26,9 @@ name falls through to `$global:` when the module's cache entry is unset.
 
 - [Probing an unset cache entry](#probing-an-unset-cache-entry)
 
-### Rule ADR-PWSH-CACHE:5
+### Rule ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD
 
-The compiled-type prebuild of [ADR-AUTO-CACHE#8](../automation/caching.md#rule-adr-auto-cache8) is realised by the bootstrap:
+The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild) is realised by the bootstrap:
 `Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and loads the committed
 `Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
 (`Catzc.Internal.Types.psm1`) is the one load path, through the per-user shadow copy, for the bootstrap and the `SpellOutIdentifiers`
@@ -113,7 +113,7 @@ The probe costs a few microseconds per call, a small share of even the hottest c
 - **`Get-Variable -Scope Script -ValueOnly`** and **`Test-Path variable:script:x`** are correct but cost two to three times the probe, on
   the path every cache hit takes.
 - **`try { $script:x } catch { }`** is the cheapest, but it is a catch-and-continue inside a function, which
-  [single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob5) forbids.
+  [single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors) forbids.
 
 Only the probe changes: once the cache entry is initialised in the same function, the function reads and writes `$script:<entry>` directly.
 
@@ -124,7 +124,7 @@ fires. A test therefore mocks the **whole boundary function** and lets the cache
 whose subject _is_ the cache: it resets the module-scope cache entry first
 (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and pays the cold derive deliberately. Resetting per test everywhere
 else defeats the cache and multiplies test-run time (see [test-automation](../automation/test-automation.md)). The mocking rule, with this
-one exception, is [ADR-PWSH-PESTER#3](pester-testing.md#rule-adr-pwsh-pester3).
+one exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries).
 
 ### The compiled-type prebuild
 
@@ -146,7 +146,7 @@ loaded through the shadow copy.
 - **The exemplars** — `Get-Config` (`Catzc.Base.Config`) and `Get-BicepTemplates` (`Catzc.Azure.Templates`) are the patterns every new
   cached function copies.
 - **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
-  read before the function assigns it (ADR-PWSH-CACHE#4).
+  read before the function assigns it (ADR-PWSH-CACHE-STRICTSAFEPROBE).
 - **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../automation/caching.md) (`ADR-AUTO-CACHE`);
   this ADR only fixes the storage idiom.
 - **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this ADR.

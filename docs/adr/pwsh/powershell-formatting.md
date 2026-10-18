@@ -2,34 +2,34 @@
 
 ## Rules: ADR-PWSH-FORMAT
 
-### Rule ADR-PWSH-FORMAT:1
+### Rule ADR-PWSH-FORMAT-UNIFORMBASELINE
 
 PowerShell formatting builds on the repo-wide uniform-formatting baseline ([Context](#context)) and adds the PowerShell-specific rules
 below, enforced by PSScriptAnalyzer (`PSScriptAnalyzerSettings.psd1`) plus custom analyzer rules, run in the L2 tests.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-FORMAT:2
+### Rule ADR-PWSH-FORMAT-KANDRBRACES
 
 Brace style is K&R — the opening brace on the same line — enforced by `PSPlaceOpenBrace`.
 
 - [Brace style](#brace-style)
 
-### Rule ADR-PWSH-FORMAT:3
+### Rule ADR-PWSH-FORMAT-FOURSPACEINDENT
 
 Indentation is 4 spaces (the PowerShell community default), set by `.editorconfig`'s `[*.{ps1,psm1,psd1}]` section on top of the repo
 baseline.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-FORMAT:4
+### Rule ADR-PWSH-FORMAT-VARIABLECASING
 
 Variable casing: PascalCase for parameters and scoped variables, camelCase for locals — enforced by the custom `Measure-VariableCasing` rule
 (scriptblock params and automatic variables excluded).
 
 - [Variable casing](#variable-casing)
 
-### Rule ADR-PWSH-FORMAT:5
+### Rule ADR-PWSH-FORMAT-EVERYFILECOVERED
 
 Every authored PowerShell file the repository ships or runs is covered by the formatting and analysis quality gates — including the root
 `importer.ps1` and authored `.psd1` config — resolved through one shared selector so no file escapes by living outside the module tree.
@@ -37,7 +37,7 @@ Generated module manifests are excluded: they are build output, made canonical b
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-FORMAT:6
+### Rule ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 
 A multi-line predicate passed to `.FindAll(...)` (or any method call) is bound to a local variable first, never written inline inside the
 call's parentheses. A paren-nested multi-line scriptblock is the one construct where PSScriptAnalyzer versions compute
@@ -47,7 +47,7 @@ version indents it identically.
 
 - [Scriptblock arguments](#scriptblock-arguments)
 
-### Rule ADR-PWSH-FORMAT:7
+### Rule ADR-PWSH-FORMAT-ANALYZERADRMAPPING
 
 The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`,
 each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
@@ -57,23 +57,23 @@ renumber breaks the build. Id existence is checked by that gate, not at load, ke
 
 - [The analyzer map](#the-analyzer-map)
 
-### Rule ADR-PWSH-FORMAT:8
+### Rule ADR-PWSH-FORMAT-STEPASSERTIONS
 
-The step assertions of [ADR-AUTO-NONEST#3](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest3) are `Assert-*` calls on the named
+The step assertions of [ADR-AUTO-NONEST-ASSERTBETWEENSTEPS](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest-assertbetweensteps) are `Assert-*` calls on the named
 intermediate, on the line after the step that produced it. Inside a pipeline that must stay one statement, `Assert-PipelineCount` asserts
 mid-pipeline and passes the items through.
 
 - [Flat steps](#flat-steps)
 
-### Rule ADR-PWSH-FORMAT:9
+### Rule ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS
 
-The simple expressions [ADR-AUTO-NONEST#5](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest5) exempts are, in PowerShell, a
+The simple expressions [ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest-simpleexpressionsexempt) exempts are, in PowerShell, a
 `Join-Path` onto an anchor, a single property access (`$moduleDir.Name`), a straightforward cast, and a short pipeline of two obvious stages
 (`Get-ChildPath … | Sort-Object`).
 
 - [Flat steps](#flat-steps)
 
-### Rule ADR-PWSH-FORMAT:10
+### Rule ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE
 
 A hashtable literal that holds an `if`/`else` is written on several lines, or its value is bound to a local first, never written on one
 line. PSScriptAnalyzer's `Invoke-Formatter` throws on the one-line form, and because `Format-Code` and `Test-Formatting` format every file
@@ -182,7 +182,7 @@ from analyzer rule to citation sits with the analyzer quality gate (`Test-Script
 a custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
 `Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
 in the gate rather than at config load is the same split the Azure customer catalogue uses
-([azure-customer-model](../azure/azure-customer-model.md#rule-adr-az-customer3)): the load stays hermetic, and the cross-reference is a
+([azure-customer-model](../azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)): the load stays hermetic, and the cross-reference is a
 quality gate.
 
 ### Flat steps
@@ -225,7 +225,7 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
   `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored
   source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped
   `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
-- **`Test-AnalyzerAdrMap`** — the quality gate over `analyzer-adr-map.yml` (ADR-PWSH-FORMAT#7), run by its integrity test.
+- **`Test-AnalyzerAdrMap`** — the quality gate over `analyzer-adr-map.yml` (ADR-PWSH-FORMAT-ANALYZERADRMAPPING), run by its integrity test.
 
 ## Consequences
 

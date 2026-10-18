@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9b6cb3c0c525"
+    with_body_sha: "516b31edbb2b"
     repo_status: locked
     path: docs/explanation/flow/.assets/the-runner-is-the-only-seam/grid.md
     source: docs/explanation/flow/.assets/the-runner-is-the-only-seam/diagram.drawio.png
@@ -33,8 +33,8 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 2 lit of 89 files
-- docs × markdown: 4 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
+- docs × markdown: 4 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key

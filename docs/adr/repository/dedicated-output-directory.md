@@ -2,66 +2,66 @@
 
 ## Rules: ADR-REPO-OUTDIR
 
-### Rule ADR-REPO-OUTDIR:1
+### Rule ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION
 
 Use `Get-OutputRoot` for every output path (reports, exports, generated configs, build artifacts, test results); it resolves to
 `{RepositoryRoot}/out` locally and `$env:BUILD_ARTIFACTSTAGINGDIRECTORY` in a pipeline. Pass `-EnsureExists` to create it.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-OUTDIR:2
+### Rule ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER
 
 Functions that produce multiple or recurring files create a subdirectory under the output root rather than dumping into it directly.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-OUTDIR:3
+### Rule ADR-REPO-OUTDIR-TEMPFORSCRATCH
 
 Use `[IO.Path]::GetTempPath()` for scratch files — intermediate files consumed and discarded within the same call belong in the system temp
 directory, not the repository.
 
 - [Scratch vs. output](#scratch-vs-output)
 
-### Rule ADR-REPO-OUTDIR:4
+### Rule ADR-REPO-OUTDIR-NOOUTPUTELSEWHERE
 
 Never write output files to the repository root, the script directory (`$PSScriptRoot`), or any source folder. Output does not belong next
 to source.
 
 - [Context](#context)
 
-### Rule ADR-REPO-OUTDIR:5
+### Rule ADR-REPO-OUTDIR-COMPILEDPREBUILD
 
 The combined compiled-type prebuild at `pwsh/.compiled/` is not transient output: it is a committed, deterministic, hash-keyed vendored
 artifact (one assembly for the whole repository) and lives there on purpose. Only the `*.tmp` compile scratch is gitignored.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-OUTDIR:6
+### Rule ADR-REPO-OUTDIR-OUTGITIGNORED
 
 `out/` is gitignored: the directory exists via `.gitkeep` but its contents are never committed, so generated files never appear in
 `git status`.
 
 - [Consequences](#consequences)
 
-### Rule ADR-REPO-OUTDIR:7
+### Rule ADR-REPO-OUTDIR-ONECLEANCOMMAND
 
-Cleaning all output is one command: `Clear-Output -All`, which keeps only the folder's `.gitkeep` and the plan files (ADR-REPO-OUTDIR#10).
+Cleaning all output is one command: `Clear-Output -All`, which keeps only the folder's `.gitkeep` and the plan files (ADR-REPO-OUTDIR-PLANNOTES).
 CI and developers use the same command.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-OUTDIR:8
+### Rule ADR-REPO-OUTDIR-DICTIONARIESGENERATED
 
 The spell-checker dictionaries generated from the terminology registry are NOT committed: like the `.psd1` manifests they are generated (one
 `<category>.txt` per vocabulary category under the root `.cspell/`), gitignored, and regenerated at the importer tail from
 `configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at a
 fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
 word lists, the folder's `.gitignore` (a managed root-config copy), and its `README.md` (a generated link); only the `.gitkeep` keeping the
-folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-REPO-OUTDIR#5.
+folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-REPO-OUTDIR-COMPILEDPREBUILD.
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-OUTDIR:9
+### Rule ADR-REPO-OUTDIR-BUILDUNDEROUTPUT
 
 The toolset's own build lives under the output root: `out/pwsh/built/<bundle>/` is the **build root** of each named bundle, where
 `Build-Modules` writes that bundle's installable `Catzc/<version>/` module, and `out/pwsh/packages/` holds the packed packages
@@ -70,7 +70,7 @@ output, not source: it is never committed, never edited, and regenerated from th
 
 - [The toolset's build](#the-toolsets-build)
 
-### Rule ADR-REPO-OUTDIR:10
+### Rule ADR-REPO-OUTDIR-PLANNOTES
 
 The plan files `out/plan-*.md` are authored working notes, not output: the whitelisted clean (`Reset-GitCleanFxd`,
 `importer.ps1 -cleanClone`) keeps and reports them instead of deleting them. They stay gitignored and uncommitted like the rest of `out/`. A
@@ -79,14 +79,14 @@ change, never half-landed (ADR-PRIN-ONELIVE).
 
 - [Plan files](#plan-files)
 
-### Rule ADR-REPO-OUTDIR:11
+### Rule ADR-REPO-OUTDIR-PDFISOUTPUT
 
 A PDF is output: it is rendered from a source, so it belongs under the output root. Git ignores `*.pdf` everywhere in the repository, and a
 PDF that must be committed opts out with its own `!` line, and a note saying why, in the gitignore registry (`gitignore.yml`).
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-OUTDIR:12
+### Rule ADR-REPO-OUTDIR-EVERYFILEHASFORMAT
 
 Every file under the output root belongs to one format of `output-formats.yml`, and its format's **area** (`run`, `build`, `cache`,
 `review`, `session`, `log`) sets how long it stays: the newest stamps of a run, the newest build, every cache entry and review artifact,
@@ -131,14 +131,14 @@ Locally this is `{RepositoryRoot}/out`; in an Azure DevOps pipeline it is `$env:
 Scratch files use the system temp directory.
 
 Two classes of generated file live in the source tree rather than under `out/`. One is committed: the combined compiled-type prebuild
-(ADR-REPO-OUTDIR#5), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the deliberate
-exception to ADR-REPO-OUTDIR#4. The other is gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and
-the spell-checker dictionaries (ADR-REPO-OUTDIR#8; the terminology registry they are generated from is
-[ADR-AUTO-SPELL#5](../automation/spell-out-names.md#rule-adr-auto-spell5)) — cheap to reproduce, so they are never committed and the
+(ADR-REPO-OUTDIR-COMPILEDPREBUILD), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the deliberate
+exception to ADR-REPO-OUTDIR-NOOUTPUTELSEWHERE. The other is gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and
+the spell-checker dictionaries (ADR-REPO-OUTDIR-DICTIONARIESGENERATED; the terminology registry they are generated from is
+[ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)) — cheap to reproduce, so they are never committed and the
 authored source stays the single source of truth.
 
 A PDF is output by its nature: every PDF here is rendered from a source, such as a diagram, a world map or a review bundle. So the ignore
-rule is by file type, not by folder: `*.pdf` is ignored everywhere (ADR-REPO-OUTDIR#11). Committing a PDF is a deliberate exception, made
+rule is by file type, not by folder: `*.pdf` is ignored everywhere (ADR-REPO-OUTDIR-PDFISOUTPUT). Committing a PDF is a deliberate exception, made
 visible as its own opt-out line in the gitignore registry.
 
 ### The toolset's build

@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-DEPM
 
-### Rule ADR-AUTO-DEPM:1
+### Rule ADR-AUTO-DEPM-CODEBUILTFROM
 
 A module dependency (`ADR-AUTO-DEPM`) is code the toolset is built from. Its internal edges — module A needing module B among the
 repository's own modules — are declared in `pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and
@@ -10,7 +10,7 @@ an actual edge with no declaration fails the build.
 
 - [The declared graph](#the-declared-graph)
 
-### Rule ADR-AUTO-DEPM:2
+### Rule ADR-AUTO-DEPM-UNIFIEDGRAPH
 
 The graph is unified across both kinds of module content. A cross-module function call and a cross-module C# type reference are the same
 relationship — module A needs module B — so they live in one graph, not two: each kind has its extractor of actual edges, and the
@@ -18,7 +18,7 @@ relationship — module A needs module B — so they live in one graph, not two:
 
 - [One graph, two kinds of edge](#one-graph-two-kinds-of-edge)
 
-### Rule ADR-AUTO-DEPM:3
+### Rule ADR-AUTO-DEPM-TWOSECTIONS
 
 `dependencies.yml` has two sections. `groups:` declares a named set of on-disk modules with its own internal member→member DAG — a group is
 a logical concept, not a disk module. `modules:` declares, per consumer, the names it may depend on: a GROUP (loose — an edge to any member)
@@ -26,7 +26,7 @@ or a specific MODULE (tight). A module absent from `modules:` is unconstrained.
 
 - [Groups and modules](#groups-and-modules)
 
-### Rule ADR-AUTO-DEPM:4
+### Rule ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
 
 Integrity is group-aware and fails fast. At load, the `DependenciesConfig` type checks the declaration's shape: every target resolves to a
 declared module or group, each group is closed over its own members, and the module graph and each group's internal DAG are acyclic. Against
@@ -35,7 +35,7 @@ actual edge falls within the resolved allow-set, and that actual intra-group edg
 
 - [Enforcement](#enforcement)
 
-### Rule ADR-AUTO-DEPM:5
+### Rule ADR-AUTO-DEPM-EXTENDBYDECLARING
 
 Extend by declaring, not by importing. A new module dependency is a new declared edge in `dependencies.yml`, landed in the **same** change
 as the code that introduces it — never an ad-hoc cross-module call or type reference that merely resolves at runtime or compiles into the
@@ -43,7 +43,7 @@ combined assembly.
 
 - [Extend by declaring](#extend-by-declaring)
 
-### Rule ADR-AUTO-DEPM:6
+### Rule ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY
 
 A module dependency (`ADR-AUTO-DEPM`) is not a system dependency (`ADR-AUTO-DEPS`). A `ADR-AUTO-DEPM` is code the toolset is built _from_ —
 pinned, and stitched into the build (whether it is internal code the repository already holds or an external package a feed supplies); a
@@ -52,7 +52,7 @@ governed by [controlling-systemwide-deps](controlling-systemwide-deps.md). Keep 
 
 - [Not a system dependency](#not-a-system-dependency)
 
-### Rule ADR-AUTO-DEPM:7
+### Rule ADR-AUTO-DEPM-EXACTVERSIONPINS
 
 Pin every module dependency to an exact version. An internal dependency is pinned by the commit — its code is in-tree, so a checkout builds
 against exactly the code that commit holds. An external dependency is pinned to an exact version in config, never a floating range or
@@ -60,15 +60,15 @@ against exactly the code that commit holds. An external dependency is pinned to 
 
 - [Pinning: an exact version](#pinning-an-exact-version)
 
-### Rule ADR-AUTO-DEPM:8
+### Rule ADR-AUTO-DEPM-INTERNALVENDORED
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
-`pwsh/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM#1). The repository alone is the internal
+`pwsh/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM-CODEBUILTFROM). The repository alone is the internal
 dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
 
-### Rule ADR-AUTO-DEPM:9
+### Rule ADR-AUTO-DEPM-EXTERNALSTITCHEDATBUILD
 
 External module dependencies are stitched in at build time by the package manager named in config. A capability not worth reimplementing and
 not appropriate to vendor is pulled — at build, never at runtime — from its feed: NuGet, an Artifactory repository, an artifact an upstream
@@ -76,7 +76,7 @@ pipeline uploaded, or another feed, chosen per dependency under [use-proper-pack
 
 - [External: stitched at build time](#external-stitched-at-build-time)
 
-### Rule ADR-AUTO-DEPM:10
+### Rule ADR-AUTO-DEPM-STITCHISCONFIG
 
 The stitch is config, and the config is ours. Which external dependencies exist, at which pinned versions, from which feeds is declared as
 config in the repository — a reviewed change, not an ambient fact of a build machine — so the whole graph, internal and external, is
@@ -117,9 +117,9 @@ A module's content is of two kinds — `pwsh` functions and C# types — but a d
 which kind carries it. A cross-module function call and a cross-module type reference both mean "module A needs module B," so they are
 unified in one graph rather than split across two declarations. `Get-ModuleDependency` extracts the function-call edges and
 `Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not — see
-[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types4)); `Test-ModuleDependency` unions the two sets and checks them against
+[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types-referencesfollowdependencies)); `Test-ModuleDependency` unions the two sets and checks them against
 the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync. How the PowerShell function-call edges are
-extracted is [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest10).
+extracted is [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-crossmodulecalls).
 
 ### Groups and modules
 
@@ -142,7 +142,7 @@ The graph is checked at two moments, and both fail fast:
 - **At load** — the `DependenciesConfig` type (with `ModuleGroup` for each group) validates `dependencies.yml` itself, without reading the
   disk: every target resolves to a declared module or group; each group is closed over its members; and the module graph and each group's
   internal member→member graph are acyclic.
-- **Against the real repository** — the `Test-ModuleDependency` quality gate ([ADR-AUTO-TEST#35](test-automation.md#rule-adr-auto-test35))
+- **Against the real repository** — the `Test-ModuleDependency` quality gate ([ADR-AUTO-TEST-QUALITYGATE](test-automation.md#rule-adr-auto-test-qualitygate))
   reports every declared module and group member that does not exist on disk (`UnknownModule`), and compares the extracted edges
   (`Get-ModuleDependency` + `Get-CSharpTypeDependency`) to the resolved allow-set: each actual edge must fall within it, and actual
   intra-group edges must be a subset of the group's declared internal map. Its L1 integrity test fails on any finding.
@@ -207,11 +207,11 @@ describes, and adding or moving a dependency is a reviewed change.
 - **`Test-ModuleDependency`** — the quality gate that checks the declaration against the repository (every declared module and group member
   exists on disk) and the extracted edges against the declaration (allow-set membership and the group's internal-map subset rule), failing
   its L1 integrity test on any finding.
-- **Code review** — enforces `ADR-AUTO-DEPM#5`: a new edge is declared in the same change as the code, not deferred.
+- **Code review** — enforces `ADR-AUTO-DEPM-EXTENDBYDECLARING`: a new edge is declared in the same change as the code, not deferred.
 - **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](../pwsh/vendor-toolset-dependencies.md)) — pin a vendored internal
-  dependency by its `pwsh/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM#8`).
+  dependency by its `pwsh/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM-INTERNALVENDORED`).
 - **Pinning** — the commit pins every internal dependency; an external dependency carries its exact version in the stitch config, reviewed
-  in the diff (`ADR-AUTO-DEPM#7`).
+  in the diff (`ADR-AUTO-DEPM-EXACTVERSIONPINS`).
 
 ## Consequences
 

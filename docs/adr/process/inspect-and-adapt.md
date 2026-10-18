@@ -2,28 +2,28 @@
 
 ## Rules: ADR-PROC-KAIZEN
 
-### Rule ADR-PROC-KAIZEN:1
+### Rule ADR-PROC-KAIZEN-CONTINUOUSIMPROVEMENT
 
 Improvement is continuous and built into the process, not a periodic event bolted on. The team regularly inspects how it works and adapts it
 — kaizen — so getting better is a standing activity ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md), reflect and adjust).
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-KAIZEN:2
+### Rule ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE
 
 Adapt from evidence, not opinion. A decision to change the process rests on observed signals — gate results, flow and queue measures,
 incidents — read off the real system ([ADR-PROC-OBSERVEWIP](observe-work.md)), not on assertion or seniority.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-KAIZEN:3
+### Rule ADR-PROC-KAIZEN-AMPLIFYLEARNING
 
 Amplify learning: development is a knowledge-creating process. Capture what is learned in the system itself — a convention, a gate, an ADR —
 so the knowledge holds and is not relearned ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md), the relearning waste).
 
 - [Why](#why)
 
-### Rule ADR-PROC-KAIZEN:4
+### Rule ADR-PROC-KAIZEN-COMMITCADENCEFEEDBACK
 
 Feedback loops run continuously, at commit cadence. Every push recomputes the gates and the flow state, so inspect-and-adapt operates on
 every change, not only at a sprint boundary.

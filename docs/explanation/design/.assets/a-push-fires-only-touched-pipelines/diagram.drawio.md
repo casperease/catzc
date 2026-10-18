@@ -6,8 +6,8 @@ Glyphs: 3 named sets (mauve), 3 runners (slate), 1 gate, 1 failure; 5 edges; 7 m
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
-This describes what the [diagram](diagram.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../a-push-fires-only-touched-pipelines.md).
+This describes what the [diagram](diagram.drawio.png) draws, in the vocabulary of the diagram glyphs; what it means is in
+[the article](../../a-push-fires-only-touched-pipelines.md).
 
 ## At a glance
 
@@ -27,22 +27,22 @@ first on the tall named set in the YOU CHANGE band.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                      |
-| --------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                                                                                |
+| --------------------- | ----- | -------------------------------------------------------------------------------------------------------------------- |
 | named set             | 3     | pwsh/\*\*, infrastructure/\*\* (YOU CHANGE, the second tall); nova · apex · flux · shared (DEPLOYABLE-UNITS, bottom) |
-| runner                | 3     | ci-automation, ci-infrastructure, cd-&lt;unit&gt; (PIPELINES, one per row)                                                 |
-| gate                  | 1     | Test-AdoPipelineTriggerGlob (TRIGGER DRIFT, centre right)                                                                  |
-| failure               | 1     | trigger drifted (TRIGGER DRIFT, right)                                                                                     |
+| runner                | 3     | ci-automation, ci-infrastructure, cd-&lt;unit&gt; (PIPELINES, one per row)                                           |
+| gate                  | 1     | Test-AdoPipelineTriggerGlob (TRIGGER DRIFT, centre right)                                                            |
+| failure               | 1     | trigger drifted (TRIGGER DRIFT, right)                                                                               |
 
 Named sets are mauve and runners slate, both with white names; the gate is a grey rhombus with a thick rim, the failure red.
 
 ## Edges
 
-| Edge kind    | Count | From → to                                                                                                               |
-| ------------ | ----- | ----------------------------------------------------------------------------------------------------------------------- |
+| Edge kind    | Count | From → to                                                                                                         |
+| ------------ | ----- | ----------------------------------------------------------------------------------------------------------------- |
 | flow         | 3     | pwsh/\*\* → ci-automation, infrastructure/\*\* → ci-infrastructure, nova · apex · flux · shared → cd-&lt;unit&gt; |
-| thick        | 1     | infrastructure/\*\* → nova · apex · flux · shared (marker 4)                                                            |
-| failure path | 1     | Test-AdoPipelineTriggerGlob → trigger drifted                                                                           |
+| thick        | 1     | infrastructure/\*\* → nova · apex · flux · shared (marker 4)                                                      |
+| failure path | 1     | Test-AdoPipelineTriggerGlob → trigger drifted                                                                     |
 
 Every edge is straight and horizontal, and none crosses another.
 
@@ -67,13 +67,10 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 (ADR-DSGN-TRACK): what `Get-WorldMapHighlight` and `Get-ValueChainHighlight` return today
 ([Catzc.Base.Maps](../../../../references/pwsh/catzc-base-maps.md), the lit-cells and value-chain responsibilities; placement by
 [Get-WorldMap](../../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md); citations by
-[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
-minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
-highlights, draws the three minimaps and writes their sister descriptions,
-[world map](grid.md),
-[tree](tree.md) and
-[value-chain map](chain.md), which hold the reason for
-every lit cell or group as of that build.
+[Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer
+with minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
+highlights, draws the three minimaps and writes their sister descriptions, [world map](grid.md), [tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group as of that build.
 
 - **Lens badge:** OPS, with "Supports ADR-DSGN-TRACK" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

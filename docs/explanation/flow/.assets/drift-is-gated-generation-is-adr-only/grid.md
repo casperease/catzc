@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ce61ff00efb5
+    with_body_sha: "991c26611477"
     repo_status: locked
     path: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/grid.md
     source: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png
@@ -12,19 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone: the world-map minimap
+# Three gates check the projection, while generation is held by the ADR alone: the world-map minimap
 
 ```text
 Where the files that cite ADR-FLOW-CD-GLOBS sit in the repository: tracks down, file languages across.
 6 of 342 cells lit, holding 77 files.
 ```
 
-![The world-map minimap of Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone](grid.png)
+![The world-map minimap of Three gates check the projection, while generation is held by the ADR alone](grid.png)
 
-This is the world-map minimap in the sidebar of the governance diagram of [Three gates check the projection, while generation and the
-in-pipeline backstop are held by the ADR alone][81], which explains [ADR-FLOW-CD-GLOBS][1]. It lights every cell of the world map that holds
-a file citing those codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that
-selects it.
+This is the world-map minimap in the sidebar of the governance diagram of [Three gates check the projection, while generation is held by the
+ADR alone][81], which explains [ADR-FLOW-CD-GLOBS][1]. It lights every cell of the world map that holds a file citing those codes, so it
+shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -34,10 +33,10 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 1 lit of 89 files
-- docs × markdown: 63 lit of 2761 files
-- pipelines × pipeline-yaml: 3 lit of 13 files
+- docs × markdown: 63 lit of 2763 files
+- pipelines × pipeline-yaml: 3 lit of 14 files
 - pwsh × csharp: 3 lit of 293 files
-- pwsh × powershell: 5 lit of 1649 files
+- pwsh × powershell: 5 lit of 1651 files
 - pwsh × yaml: 2 lit of 115 files
 
 ## Key
@@ -198,7 +197,7 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
   `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 47 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text),
   `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text),
-  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1226 (text).
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
 - [pipelines/extends/cd-customer.yaml][70]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 21 (body comment) (a passing
   mention only).
 
@@ -232,7 +231,7 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); th
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][79]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 101 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][80]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1226 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][80]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 1076 (text).
 
 ## Keywords
 

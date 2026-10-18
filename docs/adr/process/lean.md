@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PROC-LEAN
 
-### Rule ADR-PROC-LEAN:1
+### Rule ADR-PROC-LEAN-TOYOTAPRODUCTIONSYSTEM
 
 Lean is here the Toyota Production System applied to software delivery: its two pillars are just-in-time flow (make value move without
 waiting) and jidoka (build quality in, stop the line on a defect). Its goal is the fastest _sustainable_ flow from concept to cash with
@@ -10,7 +10,7 @@ quality built in, never inspected in.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-LEAN:2
+### Rule ADR-PROC-LEAN-POPPENDIECKPRINCIPLES
 
 The seven Poppendieck principles are authoritative here — eliminate waste, build quality in, create knowledge, defer commitment, deliver
 fast, respect people, and optimise the whole — and each is realised by concrete rules elsewhere in this repository rather than left as
@@ -18,7 +18,7 @@ slogans.
 
 - [The seven principles](#the-seven-principles)
 
-### Rule ADR-PROC-LEAN:3
+### Rule ADR-PROC-LEAN-LEANISQUANTITATIVE
 
 Lean is quantitative, not merely cultural: Little's Law makes flow time a function of work-in-progress and throughput, and cost of delay
 makes queue time money. The platform manages batch size and work-in-progress on that basis, not by intuition
@@ -26,7 +26,7 @@ makes queue time money. The platform manages batch size and work-in-progress on 
 
 - [The two laws](#the-two-laws)
 
-### Rule ADR-PROC-LEAN:4
+### Rule ADR-PROC-LEAN-SPENDCOMPUTESAVEATTENTION
 
 Machine time is cheap and falls on a Moore's-law cadence while human attention is the scarce constraint, so the platform spends compute
 freely — parallel quality gates, eager caches, ephemeral environments — to drain the human queue. A minute of CPU is cheaper than a minute
@@ -34,7 +34,7 @@ of a person blocked ([ADR-PROC-QUEUECOST](queues-cost-money.md)).
 
 - [The two laws](#the-two-laws)
 
-### Rule ADR-PROC-LEAN:5
+### Rule ADR-PROC-LEAN-LEANANDAGILE
 
 Lean and agile ([ADR-PROC-AGILE](agile.md)) describe the same responsiveness from two directions — flow of value and response to change —
 and reinforce rather than compete; where a lean rule and an agile principle meet, they say the same thing in different words.

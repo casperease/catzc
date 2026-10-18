@@ -2,7 +2,7 @@
 
 ## Rules: ADR-DSGN-ASPECT
 
-### Rule ADR-DSGN-ASPECT:1
+### Rule ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
 
 Every module (and, at track granularity, every delivery package) **partitions** its tracked files into named **aspects** that are pairwise
 **disjoint** and jointly **exhaustive** — a true partition, no file in two aspects and no file in none. The aspect set is an ordered
@@ -13,7 +13,7 @@ variant (`Catzc.Base.Variants`).
 - [Context](#context)
 - [Decision](#decision)
 
-### Rule ADR-DSGN-ASPECT:2
+### Rule ADR-DSGN-ASPECT-ASPECTSAREDERIVED
 
 Aspects are **auto-derived** from folder conventions, never hand-declared. `live` is a **closed** convention (the folder-scoped patterns of
 the layout's live rows — `*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**` — that never reach `tests/`, and are what the builder
@@ -23,7 +23,7 @@ all prefixed by the unit root.
 
 - [Decision](#decision)
 
-### Rule ADR-DSGN-ASPECT:3
+### Rule ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
 
 Which aspect is the catch-all remainder is each **track's** call. A **code** track (`pwsh`) keeps `live` closed and declares the non-live
 `tests` last, so a stray or unclassified file lands on the verification side and can **never silently ship** (default-deny). A
@@ -34,7 +34,7 @@ aspect uses it.
 - [Decision](#decision)
 - [Consequences](#consequences)
 
-### Rule ADR-DSGN-ASPECT:4
+### Rule ADR-DSGN-ASPECT-ASPECTISAGLOBSET
 
 Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live durable-SHA identity and nothing committed per set. A unit's
 two aspects are therefore **two independent identities** — one `live`, one `tests`: a `tests`-only change never re-keys `live`, and a
@@ -45,7 +45,7 @@ degenerate one-aspect partition.
 - [Context](#context)
 - [Consequences](#consequences)
 
-### Rule ADR-DSGN-ASPECT:5
+### Rule ADR-DSGN-ASPECT-PARTITIONISCHECKED
 
 The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity check: a file claimed by two aspects, or by none,
 fails it (`AspectPartition.Validate`). The `module-leftovers` catch-all is the module-space complement — files under `pwsh/` that no module
@@ -66,8 +66,8 @@ does not claim — tests, docs, editor droppings, a file dropped at a module's r
 Shipping code is therefore default-deny: a new file can only enter `live` by an explicit convention change, never by accident. A deployment
 track inverts the remainder: a template ships whole, so its `tests` is the closed, explicit head and `live` is the remainder. The two
 aspects partition the module exactly (ordered first-match with a `**` remainder guarantees it), and each carries an identity of its own: its
-live durable SHA ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)), folded into the module's protection identity
-([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob8)).
+live durable SHA ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)), folded into the module's protection identity
+([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob-compositeidentity)).
 
 The convention lives in the `aspects` variant so the vocabulary can evolve (a future `config`/`docs` aspect is one more ordered rule, and
 each track still names its own remainder) without touching the engine. `Catzc.Base.Globs` reads it through `Get-Aspect` and compiles per
@@ -86,8 +86,8 @@ unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `<module>-live` / 
 
 ## Related
 
-- [durable-sha-globs](../flow/durable-sha-globs.md) — the live identity (`ADR-FLOW-CD-GLOBS#5`), the scan program (`ADR-FLOW-CD-GLOBS#4`),
-  and the layers (`ADR-FLOW-CD-GLOBS#7`)
+- [durable-sha-globs](../flow/durable-sha-globs.md) — the live identity (`ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY`), the scan program (`ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY`),
+  and the layers (`ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER`)
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-REPO-VARIANT`)
 - [protected-globs](../repository/protected-globs.md) — the `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate

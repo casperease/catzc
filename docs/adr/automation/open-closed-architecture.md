@@ -2,7 +2,7 @@
 
 ## Rules: ADR-AUTO-EXTEND
 
-### Rule ADR-AUTO-EXTEND:1
+### Rule ADR-AUTO-EXTEND-ADDNOTEDIT
 
 Extend by adding, not editing: new functions, modules, and dependencies are new files and folders. Never modify the infrastructure — the
 importer entries and the bootstrap loader — to accommodate new content. The same shape holds one level up: a new root concern is a new
@@ -11,21 +11,21 @@ importer entries and the bootstrap loader — to accommodate new content. The sa
 
 - [How the platform does it](#how-the-platform-does-it)
 
-### Rule ADR-AUTO-EXTEND:3
+### Rule ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE
 
 Keep infrastructure content-agnostic: the importer and bootstrap module must not reference specific module names, function names, or
 business logic. They operate on conventions and treat all conforming content identically.
 
 - [Violations](#violations)
 
-### Rule ADR-AUTO-EXTEND:4
+### Rule ADR-AUTO-EXTEND-MANDATORYCONVENTIONS
 
 Conventions are mandatory, not suggestions: file name = function name, folder = module, root = public. Code that does not conform is not
 discovered; the fix is to make the code conform, not to special-case the infrastructure.
 
 - [Convention over configuration](#convention-over-configuration)
 
-### Rule ADR-AUTO-EXTEND:5
+### Rule ADR-AUTO-EXTEND-SPECIALCASESINMODULE
 
 Special cases go in the module, not the loader: a module needing custom initialization handles it internally (e.g. a private helper). The
 loader never gains module-specific branches.
@@ -77,8 +77,8 @@ The open/closed guarantee rests on conventions:
 - **Folder = module.** A directory under `pwsh/` with `.ps1` files is a module. No registration needed.
 - **Root = public, `private/` = private.** Export visibility is determined by file location. No attribute or annotation needed.
 
-In PowerShell these conventions are [one-function-per-file](../pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc1) and the location-based
-exports of [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest9).
+In PowerShell these conventions are [one-function-per-file](../pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-onefunctionperfile) and the location-based
+exports of [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-visibilityislocation).
 
 These conventions are rigid by design. Rigidity is what makes the system predictable and extensible. If every module followed its own
 structure, the bootstrap module could not derive registrations automatically, and you would be back to hand-maintained configuration.
@@ -104,13 +104,13 @@ The platform must remain open for extension and closed for modification. Concret
 
 - **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `pwsh/`, a new vendor dependency
   is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap module, or any
-  other module's files (ADR-AUTO-EXTEND#1).
+  other module's files (ADR-AUTO-EXTEND-ADDNOTEDIT).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
-  from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND#3).
+  from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE).
 - **Non-conforming code is fixed, not accommodated.** Code that does not follow file name = function name, folder = module, and root =
-  public is not discovered; the remedy is to rename or move it, never to teach the loader an exception (ADR-AUTO-EXTEND#4).
+  public is not discovered; the remedy is to rename or move it, never to teach the loader an exception (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS).
 - **Special needs stay inside the module.** A module that needs custom initialization or extra wiring implements it with its own private
-  helpers; the loader gains no module-specific branch (ADR-AUTO-EXTEND#5).
+  helpers; the loader gains no module-specific branch (ADR-AUTO-EXTEND-SPECIALCASESINMODULE).
 
 ### How this is enforced
 

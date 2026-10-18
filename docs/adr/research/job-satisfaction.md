@@ -2,21 +2,21 @@
 
 ## Rules: ADR-DORA-JOBSAT
 
-### Rule ADR-DORA-JOBSAT:1
+### Rule ADR-DORA-JOBSAT-MEANINGFULWORK
 
 Job satisfaction is treated as the product of challenging, meaningful work and the room to exercise skill and judgment — not as a proxy for
 compensation. Employees rate meaningful work as being about as important as salary, so work design carries as much weight as pay.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-JOBSAT:2
+### Rule ADR-DORA-JOBSAT-EMPOWERINGTOOLS
 
 Empowerment includes the tools people use to do their work. Teams that can choose their own tools do better at continuous delivery, so
 mandating a fixed toolset from a central authority works against the capability rather than for it.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-JOBSAT:3
+### Rule ADR-DORA-JOBSAT-UPSTREAMOFPERFORMANCE
 
 Job satisfaction sits upstream of performance, not downstream of it: satisfied people produce better work, better work lifts software
 delivery performance, and delivery performance lifts organizational performance. Treat it as a leading driver to invest in, not a perk to
@@ -24,21 +24,21 @@ hand out once performance is already high.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-JOBSAT:4
+### Rule ADR-DORA-JOBSAT-NOTFROMTELEMETRY
 
 Never infer job satisfaction from system telemetry. There is no reliable proxy for it in commit logs, ticket counts, or deployment metrics —
 it is measured by asking people directly, and it stays a perceptual measure even where every other DORA capability has a system-data signal.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-JOBSAT:5
+### Rule ADR-DORA-JOBSAT-RELUCTANCEISFINDING
 
 Treat reluctance to answer job-satisfaction questions honestly as a finding in itself, not as missing data to work around. When people will
 not say how they feel about the work, that reluctance points at an organizational problem worth investigating on its own.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-JOBSAT:6
+### Rule ADR-DORA-JOBSAT-BUDGETFORCHANGE
 
 Budget real time and resources for people to adjust during a technology or process change. A transformation that changes tools or ways of
 working without giving people time to build the new skills spends the change against job satisfaction rather than for it.

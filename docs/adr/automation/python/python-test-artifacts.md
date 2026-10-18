@@ -2,18 +2,18 @@
 
 ## Rules: ADR-AUTO-PY
 
-### Rule ADR-AUTO-PY:1
+### Rule ADR-AUTO-PY-TESTARTIFACTSONLY
 
 Python code in the repository is test artifacts and nothing else: `test_*.py` files that verify the engine from outside. No module,
 function, or tool of the engine is written in Python, and no Python test file ships — the Python root lies outside `automation/`, so
 `Build-Modules` never sees it and no bundle holds a Python test, by construction. Python-based tools the repository uses (the Azure CLI,
-Poetry) are tools, installed through uv (ADR-AUTO-UVPY#2); they are not code of the repository. The agent helpers under `.claude/` (the
+Poetry) are tools, installed through uv (ADR-AUTO-UVPY-TWOINSTALLSHAPES); they are not code of the repository. The agent helpers under `.claude/` (the
 draw.io scripts) are configuration of the agent tool, outside every track, and outside this rule; they take every Python check
-(ADR-AUTO-PY#8).
+(ADR-AUTO-PY-EVERYFILELINTED).
 
 - [Test artifacts only](#test-artifacts-only)
 
-### Rule ADR-AUTO-PY:2
+### Rule ADR-AUTO-PY-ONEPYTHONROOT
 
 The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
 test language's root takes: `python` when the repository has a `python/` folder (the `python` verification track), else the dot-prefixed
@@ -23,16 +23,16 @@ a parametrised test is one test.
 
 - [The layout](#the-layout)
 
-### Rule ADR-AUTO-PY:3
+### Rule ADR-AUTO-PY-BLACKBOXTESTS
 
-A Python test is a black-box test under the contract the Go tests follow (ADR-AUTO-GO#3, ADR-AUTO-ENGINE#4): it starts the engine from
+A Python test is a black-box test under the contract the Go tests follow (ADR-AUTO-GO-BLACKBOXTESTS, ADR-AUTO-ENGINE-STARTENVIRONMENT): it starts the engine from
 `CATZC_ENGINE_EXECUTABLE` with the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's command, and asserts on
 output and exit codes, never on the engine's internals; `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-PythonTest` sets them for
 its uv commands only and restores them afterwards.
 
 - [The engine start environment](#the-engine-start-environment)
 
-### Rule ADR-AUTO-PY:4
+### Rule ADR-AUTO-PY-GENERATEDWORKSPACE
 
 The Python tests form one generated, gitignored uv workspace — uv's monorepo layout, and the Python form of `go.work` with a `go.mod` per
 module: nothing Python-specific is committed but the `test_*.py` files. `New-PythonProject` renders the workspace root
@@ -44,33 +44,33 @@ version, never added by `uv add`.
 
 - [A generated workspace](#a-generated-workspace)
 
-### Rule ADR-AUTO-PY:5
+### Rule ADR-AUTO-PY-ONEPYTHONVERSION
 
 The repository has one Python version: the `python` tool's pin in `tools.yml`. The project's `requires-python` is that pin, read by address
 (`global.tools.python.version`), and `python.yml` declares no Python version of its own.
 
 - [One Python version](#one-python-version)
 
-### Rule ADR-AUTO-PY:6
+### Rule ADR-AUTO-PY-MANAGEDTOOLS
 
-A Python test run uses the managed tools: uv, located through the existence check (`Resolve-ToolExecutable`, ADR-AUTO-DEPS#3) and run by its
-path, and the uv-managed interpreter at the pin (ADR-AUTO-UVPY#1). uv runs with `UV_PYTHON_DOWNLOADS=never`, so it never fetches an
+A Python test run uses the managed tools: uv, located through the existence check (`Resolve-ToolExecutable`, ADR-AUTO-DEPS-ASSERTBEFOREINVOKE) and run by its
+path, and the uv-managed interpreter at the pin (ADR-AUTO-UVPY-UVHANDLESPYTHON). uv runs with `UV_PYTHON_DOWNLOADS=never`, so it never fetches an
 interpreter itself. A missing or off-pin uv stops `Invoke-PythonTest` with the remedy `Install-Uv`; a missing interpreter stops `uv sync`
 with the remedy `Install-Python`.
 
 - [The managed tools](#the-managed-tools)
 
-### Rule ADR-AUTO-PY:7
+### Rule ADR-AUTO-PY-LANGUAGEBRIDGE
 
-`Test-Automation` runs the Python tests through the language bridge the Go tests run through (ADR-AUTO-GO#7): discovery maps each Python
-test folder to its catzc module, and the bridge turns every top-level Python test into one test of the run (ADR-AUTO-TEST#42), tagged `L2`
-(ADR-AUTO-TEST#9) plus a category from its name — `test_integrity*` is `integrity`, every other test is `logic`. The run's source session
+`Test-Automation` runs the Python tests through the language bridge the Go tests run through (ADR-AUTO-GO-LANGUAGEBRIDGE): discovery maps each Python
+test folder to its catzc module, and the bridge turns every top-level Python test into one test of the run (ADR-AUTO-TEST-TEST), tagged `L2`
+(ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) plus a category from its name — `test_integrity*` is `integrity`, every other test is `logic`. The run's source session
 locates uv once and hands its path to the bridge; without uv or the interpreter at the pin, the bridge skips with `tool_uv_missing`
-(ADR-AUTO-TEST#8).
+(ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
 
 - [The bridge](#the-bridge)
 
-### Rule ADR-AUTO-PY:8
+### Rule ADR-AUTO-PY-EVERYFILELINTED
 
 Every `.py` file the repository holds — the Python tests and the agent helpers under `.claude/` alike — takes the repository's checks where
 a check reads Python, with the pinned ruff and the workspace's settings: `ruff format` through `Test-Formatting` (`Format-Code`, the `ruff`
@@ -79,7 +79,7 @@ glossary checks read PowerShell and markdown, so Python comments are outside the
 
 - [The checks](#the-checks)
 
-### Rule ADR-AUTO-PY:9
+### Rule ADR-AUTO-PY-EVERYFILETYPECHECKED
 
 Every `.py` file the repository holds is type-checked by pyright, the engine of the Pylance editor extension, in one mode for the gate and
 the editor alike: `python.yml`'s `type_checking`, `standard` by default, declared once on `PythonConfig`. The pinned pyright runs through
@@ -102,7 +102,7 @@ environment for every test folder, and run the tests through the same bridge as 
 
 ### Test artifacts only
 
-Python code exists only as tests. The engine is PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track3)); a Python test
+Python code exists only as tests. The engine is PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Python test
 verifies it from outside, as a black box. Because the Python root lies outside `automation/`, the builder's input holds no Python test, so
 no check is needed to keep one out of a bundle ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox installs are a
 separate matter: they are tools, each installed in isolation through uv, and nothing here changes how.
@@ -110,9 +110,9 @@ separate matter: they are tools, each installed in isolation through uv, and not
 ### The layout
 
 The Python root is the one folder every Python test lives under. When the repository has a `python/` folder, that folder is the root, and it
-is the `python` track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track2)). Otherwise the root is `.python/`,
+is the `python` track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.python/`,
 dot-prefixed as the tooling folders are. This is the one convention every test language's root follows, Go's included
-([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders7)): the default is declared once, on the
+([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-literalnames)): the default is declared once, on the
 `PythonConfig` type ([sensible-defaults](../sensible-defaults.md)), `PythonConfig.ResolveRoot` is the one resolver every caller asks, and
 `python.yml` declares a `root` only to place the Python root elsewhere.
 
@@ -133,7 +133,7 @@ source run and the build's `Import-Catzc.ps1` in a build run.
 The Python test workspace is configuration the repository states elsewhere: which folders are Python test folders (the folders on disk),
 which Python version they use (the `tools.yml` pin), and which test dependencies they need (`python.yml`). `New-PythonProject` renders it,
 and the root-config registry names it as the generator of the workspace files
-([generated-root-configs](../../repository/generated-root-configs.md#rule-adr-repo-rootcfg8)).
+([generated-root-configs](../../repository/generated-root-configs.md#rule-adr-repo-rootcfg-wildcardgenerator)).
 
 The layout is uv's own for a monorepo: a workspace. Its root, `<root>/pyproject.toml`, is virtual — it has no project of its own — and names
 every member explicitly, as `go.work`'s `use` entries do; it also carries the ruff settings, which apply to every member (a 140-column line,
@@ -146,7 +146,7 @@ not committed, so `python.yml` pins exact versions: two machines resolve the sam
 ### One Python version
 
 The Python version is a tool version, locked in `tools.yml` ([controlling-systemwide-deps](../controlling-systemwide-deps.md)), where the
-uv-managed interpreter's pin already lives (ADR-AUTO-UVPY#4). The project's `requires-python` is that minor version, read by address
+uv-managed interpreter's pin already lives (ADR-AUTO-UVPY-AUTHORITATIVEPIN). The project's `requires-python` is that minor version, read by address
 ([config-value-addressing](../../configuration/config-value-addressing.md)), so raising Python is one line in `tools.yml`.
 
 ### The managed tools
@@ -154,7 +154,7 @@ uv-managed interpreter's pin already lives (ADR-AUTO-UVPY#4). The project's `req
 A test run runs uv by the path the existence check returns, never a bare `uv` off `PATH`, and uv runs the interpreter it manages at the pin.
 uv would otherwise download a matching interpreter on demand; a test run sets `UV_PYTHON_DOWNLOADS=never`, so a missing interpreter is a
 precondition failure with one remedy, `Install-Python`, rather than a silent network fetch — the Python form of `GOTOOLCHAIN=local`
-(ADR-AUTO-GO#6). Python writes no bytecode into the tree during a run.
+(ADR-AUTO-GO-MANAGEDTOOLCHAIN). Python writes no bytecode into the tree during a run.
 
 ### The bridge
 
@@ -162,7 +162,7 @@ A Python test runs where every other test runs: in a `Test-Automation` test run,
 protection, tiers, categories, and report ([test-automation](../test-automation.md)). The one language bridge runs `Invoke-PythonTest` once
 per mapped module — `uv sync`, `ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and turns each
 top-level test function into one test of the run, its parametrised cases folded into it, as Go folds subtests; in pwsh that test is a Pester
-`It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester20)). Discovery reads the `test_*.py` files without running Python,
+`It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Discovery reads the `test_*.py` files without running Python,
 so it is fast, offline, and works where uv is missing.
 
 A Python test starts a real engine through a real toolchain, so every one is `L2`. Its category comes from its name, decided in one place
@@ -194,11 +194,11 @@ never a gap.
 
 ## Decision
 
-Python is a black-box test language and nothing else (ADR-AUTO-PY#1). Its tests live in one Python test folder per catzc module under the
-Python root (ADR-AUTO-PY#2), start the engine from the entry the run names (ADR-AUTO-PY#3), run in one generated, gitignored uv workspace
-(ADR-AUTO-PY#4) at the one pinned Python version (ADR-AUTO-PY#5) with the managed tools (ADR-AUTO-PY#6), and run through `Test-Automation`
-as `L2` tests through the language bridge (ADR-AUTO-PY#7), under the checks that read Python (ADR-AUTO-PY#8) and one type check shared with
-the editor (ADR-AUTO-PY#9).
+Python is a black-box test language and nothing else (ADR-AUTO-PY-TESTARTIFACTSONLY). Its tests live in one Python test folder per catzc module under the
+Python root (ADR-AUTO-PY-ONEPYTHONROOT), start the engine from the entry the run names (ADR-AUTO-PY-BLACKBOXTESTS), run in one generated, gitignored uv workspace
+(ADR-AUTO-PY-GENERATEDWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the managed tools (ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation`
+as `L2` tests through the language bridge (ADR-AUTO-PY-LANGUAGEBRIDGE), under the checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with
+the editor (ADR-AUTO-PY-EVERYFILETYPECHECKED).
 
 ### How this is enforced
 

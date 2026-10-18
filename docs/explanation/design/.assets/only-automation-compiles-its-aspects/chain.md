@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d9292c4ef3c6
+    with_body_sha: "27f463060128"
     repo_status: locked
     path: docs/explanation/design/.assets/only-automation-compiles-its-aspects/chain.md
     source: docs/explanation/design/.assets/only-automation-compiles-its-aspects/diagram.drawio.png
@@ -12,17 +12,17 @@ catzc:
     tracktype: documentation
 ---
 
-# Both tracks' conventions are read, but only the automation track's compiles into globsets: the value-chain minimap
+# Both tracks' conventions are read, but only the pwsh track's compiles into globsets: the value-chain minimap
 
 ```text
 Where ADR-DSGN-ASPECT sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 
-![The value-chain minimap of Both tracks' conventions are read, but only the automation track's compiles into globsets](chain.png)
+![The value-chain minimap of Both tracks' conventions are read, but only the pwsh track's compiles into globsets](chain.png)
 
-This is the value-chain minimap in the sidebar of the architecture diagram of [Both tracks' conventions are read, but only the automation
-track's compiles into globsets][5], which explains [ADR-DSGN-ASPECT][1]. It lights the cells of the value-chain map where the cited ADRs'
+This is the value-chain minimap in the sidebar of the architecture diagram of [Both tracks' conventions are read, but only the pwsh track's
+compiles into globsets][5], which explains [ADR-DSGN-ASPECT][1]. It lights the cells of the value-chain map where the cited ADRs'
 value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code
 that selects it.
 

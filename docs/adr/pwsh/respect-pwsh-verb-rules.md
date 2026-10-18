@@ -2,7 +2,7 @@
 
 ## Rules: ADR-PWSH-VERBS
 
-### Rule ADR-PWSH-VERBS:1
+### Rule ADR-PWSH-VERBS-APPROVEDVERBS
 
 Use only verbs from `Get-Verb`. If the verb you want is not in the list, find the approved verb that matches the semantics (e.g. `New-` not
 `Create-`).
@@ -10,46 +10,46 @@ Use only verbs from `Get-Verb`. If the verb you want is not in the list, find th
 - [Common mistakes](#common-mistakes)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-VERBS:2
+### Rule ADR-PWSH-VERBS-SEMANTICCONTRACT
 
 Respect the semantic contract: a `Get-` function must not modify state, a `Test-` function must return `[bool]`, an `Assert-` function must
 throw on failure. The verb is a promise to the caller.
 
 - [Why this matters](#why-this-matters)
 
-### Rule ADR-PWSH-VERBS:3
+### Rule ADR-PWSH-VERBS-TESTANDASSERT
 
 Use `Test-` for boolean queries and `Assert-` for preconditions. `Test-` returns true/false for the caller to decide; `Assert-` throws
 immediately. Never name a function `Test-` and throw, or `Assert-` and return false. (The repository quality gates are the one sanctioned
-exception — see ADR-PWSH-VERBS#7.)
+exception — see ADR-PWSH-VERBS-GATESARETEST.)
 
 - [Why this matters](#why-this-matters)
 
-### Rule ADR-PWSH-VERBS:4
+### Rule ADR-PWSH-VERBS-INVOKEWRAPPERS
 
 Use `Invoke-` for transparent command wrappers (`Invoke-Python`, `Invoke-Poetry`): they run the underlying tool without deciding what to run
 or interpreting output. The caller controls the command.
 
 - [Why this matters](#why-this-matters)
 
-### Rule ADR-PWSH-VERBS:5
+### Rule ADR-PWSH-VERBS-CONVERTVERBS
 
 Use `ConvertTo-`/`ConvertFrom-` for format transformations — not `Parse-`, `Serialize-`, `Transform-`, or `Format-` (which means "arranges
 for display").
 
 - [Common mistakes](#common-mistakes)
 
-### Rule ADR-PWSH-VERBS:6
+### Rule ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS
 
 Use a **plural** noun for a function that returns a collection (`Get-AdoYamlFiles`, `Get-BicepTemplates`) and a singular noun for one that
 returns exactly one object (`Get-BicepTemplate`), so the cardinality is visible from the name.
 
 - [Plural nouns](#plural-nouns)
 
-### Rule ADR-PWSH-VERBS:7
+### Rule ADR-PWSH-VERBS-GATESARETEST
 
 The repository quality gates — `Test-Automation` and the `Test-*` gates it aggregates (`Test-Spelling`, `Test-ScriptAnalyzer`,
-`Test-Markdownlint`, `Test-Formatting`) — are the sanctioned exception to ADR-PWSH-VERBS#2/ADR-PWSH-VERBS#3: each throws on failure so it
+`Test-Markdownlint`, `Test-Formatting`) — are the sanctioned exception to ADR-PWSH-VERBS-SEMANTICCONTRACT/ADR-PWSH-VERBS-TESTANDASSERT: each throws on failure so it
 can fail the build, and returns a result object under `-PassThru`. Their noun names a body of work to verify and enforce, not a boolean
 condition; a plain predicate (`Test-Path`, `Test-Command`) returns `[bool]` and never throws.
 
@@ -65,7 +65,7 @@ one of the language's true strengths.
 
 **Verbs are a shared vocabulary.** When a user sees `Get-`, they know it reads without modifying. When they see `Set-`, they know it writes.
 When they see `Test-`, they know it either answers a value or state question with a boolean, or is a quality gate
-([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35), ADR-PWSH-VERBS#7) that reports every issue and throws. When they
+([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate), ADR-PWSH-VERBS-GATESARETEST) that reports every issue and throws. When they
 see `Assert-`, they know it throws on failure. This contract is universal across every PowerShell module, every vendor, every team. A user
 who has never seen your code can predict what `Get-Config` does from the verb alone.
 
@@ -74,7 +74,7 @@ who has never seen your code can predict what `Get-Config` does from the verb al
 | Verb                                       | Guarantee                                                                                          | Will not                                        |
 | ------------------------------------------ | -------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
 | `Get-`                                     | Safe to call, read-only                                                                            | Change state                                    |
-| `Test-`                                    | Returns `[bool]` — or, as a quality gate (`ADR-AUTO-TEST#35`), reports every issue and throws once | Throw on the negative case (a value/state test) |
+| `Test-`                                    | Returns `[bool]` — or, as a quality gate (`ADR-AUTO-TEST-QUALITYGATE`), reports every issue and throws once | Throw on the negative case (a value/state test) |
 | `Assert-`                                  | Throws on failure                                                                                  | Return false                                    |
 | `New-`                                     | Creates a resource                                                                                 | Update existing resources                       |
 | `Set-`                                     | Replaces data on existing, or creates if missing                                                   |                                                 |
@@ -208,7 +208,7 @@ This is a deliberate clarity choice over PowerShell's default lean toward singul
 
 `The sanctioned quality-gate exception`
 
-Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-PWSH-VERBS#2: they answer a
+Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-PWSH-VERBS-SEMANTICCONTRACT: they answer a
 boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`, `Test-ScriptAnalyzer`,
 `Test-Markdownlint`, and `Test-Formatting` each run a body of checks and exist to **fail the build** when those checks fail — throwing is
 their job, not a broken contract. They expose the boolean-shaped answer through `-PassThru`, which returns a result object (issue counts,

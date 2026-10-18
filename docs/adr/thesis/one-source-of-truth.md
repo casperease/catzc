@@ -2,7 +2,7 @@
 
 ## Rules: ADR-THES-ONETRUTH
 
-### Rule ADR-THES-ONETRUTH:1
+### Rule ADR-THES-ONETRUTH-ONESTOREDECIDES
 
 A **source of truth** is the one store whose content decides what is true about the delivered system. Delivery is slow because that truth is
 spread across disjoint stores that drift apart — servers, databases, CMDBs, deployment engines, ticket systems, requirement databases.
@@ -12,7 +12,7 @@ synchronisation between stores.
 - [The problem](#the-problem)
 - [One source of truth, one change process](#one-source-of-truth-one-change-process)
 
-### Rule ADR-THES-ONETRUTH:2
+### Rule ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 
 The repository is the configuration record of everything it delivers. Infrastructure is reproducible from a commit, so no second database is
 kept in parity with it, and nothing about delivery state lives outside it. An **adjacent store** is the one legitimate second store: a
@@ -22,7 +22,7 @@ pipelines, never edited beside it.
 - [The repository is the configuration record](#the-repository-is-the-configuration-record)
 - [Adjacent stores](#adjacent-stores)
 
-### Rule ADR-THES-ONETRUTH:3
+### Rule ADR-THES-ONETRUTH-TRUTHISQUERYABLE
 
 The source of truth is queryable: every question about the system's state is answered by reading the repository through the tooling. The
 **query surface** is the tooling's `Get-*` cmdlets, each of which also emits its answer as data (JSON), so a service-management tool reads
@@ -30,7 +30,7 @@ the truth without PowerShell.
 
 - [The truth is queryable](#the-truth-is-queryable)
 
-### Rule ADR-THES-ONETRUTH:4
+### Rule ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
 
 A **product mono-repository** is one repository that several teams contribute to for one product, bounded into tracks and deployable-units
 by path filters; catzc is one. The **trunk** is its one mainline, and inside it everything is at HEAD: modules depend on each other
@@ -41,7 +41,7 @@ dependency that crosses the repository boundary inward, stitched into an immutab
 - [Inside the trunk, only HEAD](#inside-the-trunk-only-head)
 - [Pins at the repository boundary](#pins-at-the-repository-boundary)
 
-### Rule ADR-THES-ONETRUTH:5
+### Rule ADR-THES-ONETRUTH-NOREPOSITORYVERSION
 
 There is no repository-wide version. A version exists only where something crosses the repository boundary, and each unit that crosses it
 versions on its own. Catzc's one provided pin point is the whole bundle: a consumer either pins a released bundle or keeps its own clone of
@@ -50,7 +50,7 @@ catzc, a trunk of its own with its own history, and never consumes catzc implici
 - [Versions only at the boundary](#versions-only-at-the-boundary)
 - [Pin the bundle, or own a clone](#pin-the-bundle-or-own-a-clone)
 
-### Rule ADR-THES-ONETRUTH:6
+### Rule ADR-THES-ONETRUTH-PROCESSESFOLLOWDELIVERY
 
 Service-management processes align to the delivery mechanism, never the reverse. Change management, approvals, audit, and higher-level
 release processes read the repository and act through its one change process, instead of keeping a separate model of delivery.
@@ -97,8 +97,8 @@ research is the authority it rests on. Audit and retrospection are answered once
 
 The code takes the place of the CMDBs. Infrastructure is reproducible from a commit, so the repository is the configuration record in its
 totality, and no second database has to be kept in parity with it. [everything-as-code](../principles/everything-as-code.md) holds the
-mechanics: every artifact lives in version control (ADR-PRIN-EAC#1), what can be diffed belongs there (ADR-PRIN-EAC#2), and no configuration
-or operational state lives outside it (ADR-PRIN-EAC#3).
+mechanics: every artifact lives in version control (ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL), what can be diffed belongs there (ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL), and no configuration
+or operational state lives outside it (ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL).
 
 ### Adjacent stores
 
@@ -124,7 +124,7 @@ seen from inside the trunk. The tracks and deployable-units that bound a product
 Synchronisation exists in one place, the repository boundary, and in one form, a pin. A dependency that crosses the boundary inward is
 pinned to an explicit version the consumer controls: tool versions in `tools.yml`, vendored modules in `pwsh/.vendor/`, and depended-on
 contracts. It is then stitched into an immutable artifact at build time: the bundle ([platform-bundle](../automation/platform-bundle.md))
-and the release candidate (ADR-FLOW-CD#14).
+and the release candidate (ADR-FLOW-CD-RELEASECANDIDATE).
 
 ### Versions only at the boundary
 
@@ -158,8 +158,8 @@ A process that keeps its own model of delivery recreates the disjoint store this
 
 ## Related
 
-- [everything-as-code](../principles/everything-as-code.md) — the mechanics of [ADR-THES-ONETRUTH#2](#rule-adr-thes-onetruth2).
-- [one-living-version](../principles/one-living-version.md) — [ADR-THES-ONETRUTH#4](#rule-adr-thes-onetruth4) seen from inside the trunk.
+- [everything-as-code](../principles/everything-as-code.md) — the mechanics of [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](#rule-adr-thes-onetruth-repositoryisconfigurationrecord).
+- [one-living-version](../principles/one-living-version.md) — [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](#rule-adr-thes-onetruth-productmonorepository) seen from inside the trunk.
 - [platform-bundle](../automation/platform-bundle.md) — the bundle, catzc's one provided pin point.
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the release candidate and the releasable trunk.
 - [tracks](../design/tracks.md) — the tracks and deployable-units that bound the product mono-repository.

@@ -10,7 +10,7 @@ lifecycle states and the upstream/downstream sync semantics.
 
 ## Rules: ADR-DSGN-LIFE
 
-### Rule ADR-DSGN-LIFE:1
+### Rule ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG
 
 **A commit holds one lifecycle state at a time; the state advances one rung along the promotion ladder or leaves it, and never moves
 backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT / main-AT-verified
@@ -21,7 +21,7 @@ superseded). It never regresses to an earlier rung — a commit is not "re-verif
 
 - [The ladder](#the-ladder)
 
-### Rule ADR-DSGN-LIFE:2
+### Rule ADR-DSGN-LIFE-DISCARDISTERMINAL
 
 **Discard is terminal rejection at a named stage, and the discarded commit stays in history.** A process rejects a candidate: **BVT** and
 **L3** discard automatically, **release-uat** discards through its manual gate (**RBC**), and **main-UAT** can kill a commit that fails
@@ -31,7 +31,7 @@ different facts about the same outcome.
 
 - [Discard](#discard)
 
-### Rule ADR-DSGN-LIFE:3
+### Rule ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD
 
 **Retirement is a successful end-of-life, and it is not a discard.** A commit that reached production, served there, and was then superseded
 by a newer production commit is **retired** — it did its job and was decommissioned. Retirement and discard both mean "no longer live", but
@@ -40,7 +40,7 @@ diagram that paints a retired commit the same red as a discarded one erases that
 
 - [Retirement](#retirement)
 
-### Rule ADR-DSGN-LIFE:4
+### Rule ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN
 
 **Supersession (rollover) abandons a still-valid commit that a newer commit overtook.** When a newer commit rolls over an older one that was
 still progressing toward the same environment, the older is **superseded**: it was never rejected — it was valid — but a fresher commit
@@ -49,19 +49,19 @@ and "delivered then retired": valid, but not chosen.
 
 - [Supersession](#supersession)
 
-### Rule ADR-DSGN-LIFE:5
+### Rule ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
 
 **Each always-on environment hosts exactly one commit, plus a history.** `main-UAT`, `release-uat`, `pre-prod`, and `production` are
 stateful, not pass-through: at any moment each holds one **occupant** — the commit deployed there, as the release candidate built from it —
 and a trail of the commits it held before. Each rung is its own Azure DevOps environment per deployable-unit (`<unit>-main-uat`,
 `<unit>-release-uat`), so each has its own occupant and its own deployment history. `pre-prod` is a **staging slot** inside the production
 subscription, inactive until it is activated, not a separate subscription. An environment box in the diagram is a neutral container naming
-its occupant, drawn in that commit's state colour (ADR-DSGN-VISUAL#13), so reading the occupant tells you the true state of that environment
+its occupant, drawn in that commit's state colour (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER), so reading the occupant tells you the true state of that environment
 right now.
 
 - [One occupant per environment](#one-occupant-per-environment)
 
-### Rule ADR-DSGN-LIFE:6
+### Rule ADR-DSGN-LIFE-SYNCFROMMAINUAT
 
 **The stable integration point is the current `main-UAT` commit, and upstream integrators sync from it — never from HEAD.** `main-UAT` holds
 the latest commit certified onto the always-on non-prod environment; that commit, not the raw tip of main, is what external or upstream
@@ -70,17 +70,17 @@ machine decides, up to and including the always-on environment.
 
 - [Sync from main-UAT, not HEAD](#sync-from-main-uat-not-head)
 
-### Rule ADR-DSGN-LIFE:7
+### Rule ADR-DSGN-LIFE-DIRTYHEADUNSAFE
 
 **The dirty HEAD is the latest commit on main and is not a source that is safe to sync or promote from.** HEAD is simply the newest commit;
 it may have _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but
 it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the stable `main-UAT`
-occupant (ADR-DSGN-LIFE#6). "Latest" and "safe to build on" are different questions, and the model keeps them separate. A newest commit that
-no stage has judged yet is _landed_, not dirty (ADR-DSGN-LIFE#12).
+occupant (ADR-DSGN-LIFE-SYNCFROMMAINUAT). "Latest" and "safe to build on" are different questions, and the model keeps them separate. A newest commit that
+no stage has judged yet is _landed_, not dirty (ADR-DSGN-LIFE-LANDEDUNTILFAILED).
 
 - [The dirty HEAD](#the-dirty-head)
 
-### Rule ADR-DSGN-LIFE:8
+### Rule ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
 
 **A commit that fails a stage cannot go downstream.** Failure at any environment stops both _promotion_ (it will not advance to a later
 environment) and _downstream consumption_ (nothing may build on it). Downstream flow proceeds only from the last successful state, so a
@@ -88,7 +88,7 @@ failure is a hard stop, not a soft warning.
 
 - [Failure stops downstream](#failure-stops-downstream)
 
-### Rule ADR-DSGN-LIFE:9
+### Rule ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND
 
 **A topic commit can be deployed out-of-band by a workflow without integrating into main/master.** A workflow or pipeline may deploy a
 commit that still lives on a topic branch — a hotfix or an experiment — even though it has not reached main/master. That deploy is
@@ -97,29 +97,29 @@ state on the mainline.
 
 - [Out-of-band topic deploys](#out-of-band-topic-deploys)
 
-### Rule ADR-DSGN-LIFE:10
+### Rule ADR-DSGN-LIFE-NUMBERISIDENTITY
 
 **A commit's number is its time-ordered identity, and its terminal appearance is where its story ends.** Numbers run in commit time (`0`
 before `1` … before `10`); the same number reappears in each lane in its state-of-the-moment colour, and its last appearance names its
 ending — discarded, retired, superseded, in-process, an environment's occupant, or the dirty HEAD. The numbered worked examples are the
-canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUAL#12](visual-design.md#rule-adr-dsgn-visual12)).
+canonical encoding of this lifecycle (they render the grammar of [ADR-DSGN-VISUAL-ONLYGITLANEISTIME](visual-design.md#rule-adr-dsgn-visual-onlygitlaneistime)).
 
 - [One number, one story](#one-number-one-story)
 
-### Rule ADR-DSGN-LIFE:11
+### Rule ADR-DSGN-LIFE-FASTPUSHLANDS
 
 **In `main-direct`, the client lands a commit by one fast push to main, and a push is never a history change.** Every commit reaches the
 server as a single push from the client, carrying the text-field message or `...` when the field is empty. The push fast-forwards the
 server's main; a rejected push (main moved) stops and reports, and the client integrates by hand. A force push, an amend of a pushed commit,
-and an administrator's history change are not supported (ADR-DSGN-LIFE#2). In `main-via-pr` the push is refused locally while standing on
+and an administrator's history change are not supported (ADR-DSGN-LIFE-DISCARDISTERMINAL). In `main-via-pr` the push is refused locally while standing on
 main/master, the `git_workspace` variant's one stop condition.
 
 - [Fast push to main](#fast-push-to-main)
 
-### Rule ADR-DSGN-LIFE:12
+### Rule ADR-DSGN-LIFE-LANDEDUNTILFAILED
 
 **A pushed head is _landed_ until a stage fails it; only a failed head is the dirty HEAD.** A head on main that no stage has verified yet is
-**landed** (grey, ADR-DSGN-LIFE#1). It becomes the dirty HEAD (ADR-DSGN-LIFE#7) only when a downstream stage fails it, and the repair is a
+**landed** (grey, ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG). It becomes the dirty HEAD (ADR-DSGN-LIFE-DIRTYHEADUNSAFE) only when a downstream stage fails it, and the repair is a
 successor commit that fixes forward, never a rewrite of the failed one.
 
 - [Landed, then dirty](#landed-then-dirty)
@@ -135,8 +135,8 @@ is L3-verified") rather than a mutable label, and it is why the three ways off t
 terminal.
 
 The RC and RBC gates and the acceptance testing that clears them belong to the flow model:
-[ADR-FLOW-CD#9](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9) defines the gates, and
-[ADR-FLOW-CD#10](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10) separates the acceptance testing from the environment it
+[ADR-FLOW-CD-TWORELEASEGATES](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates) defines the gates, and
+[ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat) separates the acceptance testing from the environment it
 runs in.
 
 ![A commit only climbs — it ends discarded, retired or superseded](../../.assets/commits-quality/commit-lifecycle-states.drawio.png)
@@ -149,7 +149,7 @@ Every gate exists to reject, and the diagram records not just that a commit was 
 diagnosis. BVT and L3 reject automatically the moment their checks fail; release-uat rejects only when a human opens its manual gate (RBC)
 the wrong way; `main-UAT` rejects a commit that cannot stand up on the always-on environment, or that a human holds at its gate (RC).
 Keeping the rejection point in the record turns "it was discarded" into "it was discarded at L3", which is the difference between a shrug
-and a lead. The RC and RBC gates are defined by [ADR-FLOW-CD#9](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9).
+and a lead. The RC and RBC gates are defined by [ADR-FLOW-CD-TWORELEASEGATES](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates).
 
 ## Retirement
 
@@ -177,7 +177,7 @@ An always-on environment is a place, and a place holds one thing at a time. `mai
 have exactly one current commit deployed, and treating them as stateful — occupant plus history — is what makes questions like "what is in
 production right now" and "what should I sync from" answerable by pointing at a single dot. A pass-through mental model, where commits
 merely flow through, cannot answer those questions; the occupant model can. What is deployed as the occupant is the release candidate built
-from its commit ([ADR-FLOW-CD#14](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14)).
+from its commit ([ADR-FLOW-CD-RELEASECANDIDATE](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-releasecandidate)).
 
 ## Sync from main-UAT, not HEAD
 
@@ -212,7 +212,7 @@ nonetheless reached an environment captures that a deploy and an integration are
 ## One number, one story
 
 A single commit is hard to follow across stage-organised lanes, so each traced commit carries a time-ordered number and the number is the
-thread. Because git is the only true left-to-right timeline (ADR-DSGN-VISUAL#12), the numbers restore both identity and chronology
+thread. Because git is the only true left-to-right timeline (ADR-DSGN-VISUAL-ONLYGITLANEISTIME), the numbers restore both identity and chronology
 everywhere else: the same digit appears in each lane at its state-of-the-moment colour, and its final appearance is the verdict. The worked
 examples below are the canonical set.
 
@@ -224,9 +224,9 @@ Integration here is continuous, so the cheapest landing wins: the client commits
 the commit after it is on main, not before. That only works if a push can never damage what the server already holds, hence the two
 refusals: no force, no amend of a pushed commit. The one sanctioned failure is a rejected push, where another client landed first; the
 tooling stops and reports rather than rebasing, because rebasing builds the commit on the server's tip, which may be a dirty HEAD
-([ADR-DSGN-REMOTE#2](server-remote-integration.md#rule-adr-dsgn-remote2)). The shortcut belongs to the solo `main-direct` regime
-([ADR-REPO-VARIANT#6](../repository/repo-variants.md#rule-adr-repo-variant6)); once the repo is `main-via-pr`, the PR is the only ingress
-([ADR-DSGN-REMOTE#4](server-remote-integration.md#rule-adr-dsgn-remote4)).
+([ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED](server-remote-integration.md#rule-adr-dsgn-remote-integratefromverified)). The shortcut belongs to the solo `main-direct` regime
+([ADR-REPO-VARIANT-GITWORKSPACE](../repository/repo-variants.md#rule-adr-repo-variant-gitworkspace)); once the repo is `main-via-pr`, the PR is the only ingress
+([ADR-DSGN-REMOTE-PULLREQUESTISINGRESS](server-remote-integration.md#rule-adr-dsgn-remote-pullrequestisingress)).
 
 ## Landed, then dirty
 
@@ -235,7 +235,7 @@ tooling stops and reports rather than rebasing, because rebasing builds the comm
 Pushing before verifying means the tip of main is often a commit nobody has judged. Calling that commit "dirty" would claim a failure that
 has not happened, so the model names it _landed_ and keeps "dirty HEAD" for the commit a stage actually failed. The distinction matters for
 the response: a landed head waits for its gate; a dirty head gets a fix-forward commit, and consumers stay on the verified point meanwhile
-([ADR-DSGN-REMOTE#3](server-remote-integration.md#rule-adr-dsgn-remote3)).
+([ADR-DSGN-REMOTE-NORECONCILINGTIPS](server-remote-integration.md#rule-adr-dsgn-remote-noreconcilingtips)).
 
 ## Worked lifecycle examples
 

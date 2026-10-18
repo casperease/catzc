@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "98ddaf574933"
+    with_body_sha: "9051d129d812"
     repo_status: locked
     path: docs/explanation/design/.assets/unit-to-pipeline-rule-is-review-only/tree.md
     source: docs/explanation/design/.assets/unit-to-pipeline-rule-is-review-only/diagram.drawio.png
@@ -16,24 +16,24 @@ catzc:
 
 ```text
 Which files cite ADR-DSGN-TRACK, ADR-FLOW-CD-GLOBS and ADR-REPO-FOLDERS: every file of the world map is a tile, grouped by top-level folder.
-193 files lit in 15 groups.
+192 files lit in 15 groups.
 ```
 
 ![The tree minimap of Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone](tree.png)
 
 This is the tree minimap in the sidebar of the governance diagram of [Tracks and deployable-units have a gate in code, but one unit to one
-pipeline is held by review alone][194], which explains [ADR-DSGN-TRACK][1], [ADR-FLOW-CD-GLOBS][2] and [ADR-REPO-FOLDERS][3]. It lights
+pipeline is held by review alone][193], which explains [ADR-DSGN-TRACK][1], [ADR-FLOW-CD-GLOBS][2] and [ADR-REPO-FOLDERS][3]. It lights
 every file that cites those codes, grouped by folder, so it shows which files carry the decision. Each lit group has its reason below,
 naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 193 files in 15 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 192 files in 15 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 121 lit files
-- .claude: 14 lit files
+- .claude: 13 lit files
 - Maps (pwsh/Catzc.Base.Maps): 12 lit files
 - Variants (pwsh/Catzc.Base.Variants): 9 lit files
 - Globs (pwsh/Catzc.Base.Globs): 8 lit files
@@ -300,7 +300,7 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/claude-drawio/minimaps/highlights.ps1.md][124], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 51 (text).
 
-### .claude (14 lit files)
+### .claude (13 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
@@ -332,129 +332,127 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
   62 (text).
 - [.claude/plans/task-layers-classification-flip.md][137], in the cell .claude × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 23 (text), line 31 (text) and line 33 (text); selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 31 (text).
-- [.claude/plans/value-of-plan.md][138], in the cell .claude × markdown: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 34
-  (text).
 
 ### Maps (pwsh/Catzc.Base.Maps, 12 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1][139], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1][138], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 15 (text), line 16 (text), line 26 (text), line 29 (text) and line 46 (text).
-- [pwsh/Catzc.Base.Maps/Test-WorldMap.ps1][140], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [pwsh/Catzc.Base.Maps/Test-WorldMap.ps1][139], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   26 (text), line 45 (text), line 62 (text), line 66 (text) and line 67 (text).
-- [pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1][141], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
+- [pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1][140], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 17 (text), line 23 (text) and line 42 (text).
-- [pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1][142], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
+- [pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1][141], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 17 (text), line 36 (text) and line 36 (body comment).
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1][143], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1][142], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 89 (text).
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][144], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][143], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 74 (text).
-- [pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][145], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
+- [pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][144], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 49 (text), line 49 (body comment), line 53 (text), line 54 (text), line 55 (text), line 56 (text), line 60 (text), line
   63 (text), line 80 (text), line 80 (body comment) and line 80 (body comment).
-- [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][146], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][145], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 57 (text), line 61 (text), line 64 (text), line 68 (text), line 69 (text), line 73 (text), line 82 (text), line 83 (text), line
   87 (text), line 91 (text), line 92 (text), line 111 (text), line 111 (body comment) and line 111 (body comment).
-- [pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1][147], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
+- [pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1][146], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 15 (text), line 22 (text), line 28 (text), line 45 (text) and line 45 (body comment).
-- [pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1][148], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
+- [pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1][147], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 17 (text), line 26 (text), line 31 (text) and line 39 (text).
-- [pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1][149], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
+- [pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1][148], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 69 (text), line 113 (text) and line 127 (text).
-- [pwsh/Catzc.Base.Maps/types/ValueChainCell.cs][150], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [pwsh/Catzc.Base.Maps/types/ValueChainCell.cs][149], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   9 (body comment) and line 12 (body comment) (a passing mention only).
 
 ### Variants (pwsh/Catzc.Base.Variants, 9 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Variants; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Variants/configs/track-types.yml][151], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.Variants/configs/track-types.yml][150], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 42 (text).
-- [pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1][152], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
+- [pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1][151], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 1 (text) and line 52 (text).
-- [pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1][153], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1][152], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 71 (text).
-- [pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1][154], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]:
+- [pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1][153], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]:
   the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.Variants/types/ModulePlace.cs][155], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.Variants/types/ModulePlace.cs][154], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 6 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs][156], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs][155], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 5 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs][157], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
+- [pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs][156], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
   at line 10 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Variants/types/PathModule.cs][158], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [pwsh/Catzc.Base.Variants/types/PathModule.cs][157], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   3 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs][159], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs][158], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 265 (text).
 
 ### Globs (pwsh/Catzc.Base.Globs, 8 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][160], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][159], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 42 (text).
-- [pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1][161], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
+- [pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1][160], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
   file cites it at line 2 (text) and line 4 (text).
-- [pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1][162], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
+- [pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1][161], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the
   file cites it at line 58 (text).
-- [pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1][163], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1][162], in the cell pwsh × powershell: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 9 (text).
-- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][164], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
+- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][163], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 41 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 53 (text), line 66 (text), line 77 (text) and
   line 89 (text).
-- [pwsh/Catzc.Base.Globs/types/GlobPattern.cs][165], in the cell pwsh × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [pwsh/Catzc.Base.Globs/types/GlobPattern.cs][164], in the cell pwsh × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 23 (text), line 27 (text), line 31 (text), line 43 (text), line 47 (text) and line 56 (text).
-- [pwsh/Catzc.Base.Globs/types/GlobSet.cs][166], in the cell pwsh × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 54
+- [pwsh/Catzc.Base.Globs/types/GlobSet.cs][165], in the cell pwsh × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 54
   (text).
-- [pwsh/Catzc.Base.Globs/types/GlobsConfig.cs][167], in the cell pwsh × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [pwsh/Catzc.Base.Globs/types/GlobsConfig.cs][166], in the cell pwsh × csharp: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 73 (text), line 136 (text), line 140 (text) and line 154 (text).
 
 ### QualityGates (pwsh/Catzc.Base.QualityGates, 7 lit files)
 
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.QualityGates/Test-Plans.ps1][168], in the cell pwsh × powershell: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
+- [pwsh/Catzc.Base.QualityGates/Test-Plans.ps1][167], in the cell pwsh × powershell: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
   line 45 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml][169], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file
+- [pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml][168], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 7 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][170], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it
-  at line 299 (text) and line 302 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 1226 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1][171], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][169], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it
+  at line 299 (text) and line 302 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 1076 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1][170], in the cell pwsh × powershell: selected by
   [ADR-DSGN-TRACK][1]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1][172], in the cell pwsh × powershell: selected by
+- [pwsh/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1][171], in the cell pwsh × powershell: selected by
   [ADR-DSGN-TRACK][1]: the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1][173], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]:
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1][172], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]:
   the file cites it at line 1 (text).
-- [pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1][174], in the cell pwsh × powershell: selected by [ADR-REPO-FOLDERS][3]: the file
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1][173], in the cell pwsh × powershell: selected by [ADR-REPO-FOLDERS][3]: the file
   cites it at line 47 (body comment), line 89 (body comment) and line 93 (body comment) (a passing mention only).
 
 ### Docs (pwsh/Catzc.Base.Docs, 6 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][175], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 74
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][174], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 74
   (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 101 (text); selected by [ADR-REPO-FOLDERS][3]: the file cites it at
   line 294 (text).
-- [pwsh/Catzc.Base.Docs/configs/agents.yml][176], in the cell pwsh × yaml: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 28
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][175], in the cell pwsh × yaml: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 28
   (body comment), line 34 (body comment) and line 39 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][177], in the cell pwsh × yaml: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][176], in the cell pwsh × yaml: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
   line 67 (body comment) and line 77 (body comment) (a passing mention only).
-- [pwsh/Catzc.Base.Docs/configs/glossary.yml][178], in the cell pwsh × yaml: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 43
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][177], in the cell pwsh × yaml: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 43
   (text).
-- [pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1][179], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
+- [pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1][178], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 108 (text) and line 108 (body comment).
-- [pwsh/Catzc.Base.Docs/types/AdrsConfig.cs][180], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
+- [pwsh/Catzc.Base.Docs/types/AdrsConfig.cs][179], in the cell pwsh × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
   (body comment) (a passing mention only).
 
 ### pipelines (3 lit files)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/cd-shared.yaml][181], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 45
+- [pipelines/cd-shared.yaml][180], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 45
   (body comment) (a passing mention only).
-- [pipelines/ci-automation.yaml][182], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-TRACK][1]: a pipeline that cites nothing
+- [pipelines/ci-automation.yaml][181], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-TRACK][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 74 (text),
   `pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1` line 108 (text), `pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1` line 108
   (body comment), `pwsh/Catzc.Base.Docs/types/AdrsConfig.cs` line 15 (body comment),
@@ -531,7 +529,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text), `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1226 (text); selected by [ADR-REPO-FOLDERS][3]: a pipeline that cites nothing
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text); selected by [ADR-REPO-FOLDERS][3]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 294 (text),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 34 (body comment),
   `pwsh/Catzc.Base.Docs/configs/agents.yml` line 39 (body comment), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 67 (body comment),
@@ -539,36 +537,36 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.QualityGates/Test-Plans.ps1` line 45 (text), `pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 47 (body
   comment), `pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 89 (body comment) and
   `pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 93 (body comment).
-- [pipelines/extends/cd-customer.yaml][183], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [pipelines/extends/cd-customer.yaml][182], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 21 (body comment) (a passing mention only).
 
 ### Languages (pwsh/Catzc.Base.Languages, 3 lit files)
 
 The group holds the files of pwsh/Catzc.Base.Languages; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Languages/configs/glossary.yml][184], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [pwsh/Catzc.Base.Languages/configs/glossary.yml][183], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   5 (text).
-- [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1][185], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
+- [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1][184], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 111 (text), line 123 (text) and line 161 (text).
-- [pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1][186], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
+- [pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1][185], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 1 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][187], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 134 (text), line 161
+- [docs/adr/glossary.md][186], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 134 (text), line 161
   (text), line 178 (text), line 210 (text), line 221 (text), line 233 (text), line 290 (text), line 300 (text), line 323 (text), line 329
   (text), line 331 (text), line 354 (text), line 394 (text), line 408 (text), line 417 (text), line 431 (text), line 444 (text), line 478
   (text) and line 490 (text); selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 1202 (text).
-- [docs/adr/index.md][188], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 108 (text); selected by
+- [docs/adr/index.md][187], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 108 (text); selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 133 (text); selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 318 (text).
 
 ### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/dora-explains.md][189], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 11
+- [docs/adr/design/dora-explains.md][188], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 11
   (text).
 - [docs/adr/design/tracks.md][1], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the ADR's own file.
 
@@ -576,7 +574,7 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
 
-- [docs/adr/flow/dora-explains.md][190], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 92
+- [docs/adr/flow/dora-explains.md][189], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 92
   (text).
 - [docs/adr/flow/durable-sha-globs.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][2]: the ADR's own file.
 
@@ -585,63 +583,63 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
 The group holds the files of docs/adr/repository; each sits in its world-map cell and is lit by:
 
 - [docs/adr/repository/conventional-folders.md][3], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][3]: the ADR's own file.
-- [docs/adr/repository/dora-explains.md][191], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 11
+- [docs/adr/repository/dora-explains.md][190], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 11
   (text).
 
 ### Git (pwsh/Catzc.Base.Git, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Git; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1][192], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]:
+- [pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1][191], in the cell pwsh × powershell: selected by [ADR-DSGN-TRACK][1]:
   the file cites it at line 1 (text).
 
 ### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][193], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][192], in the cell pwsh × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 5 (text), line 62 (text), line 70 (text), line 79 (text), line 88 (text), line 94 (text), line 190 (text), line 200 (text), line 211
   (text), line 234 (text), line 247 (text), line 261 (text), line 276 (text), line 289 (text), line 301 (text), line 314 (text), line 316
   (text) and line 328 (text).
 
 ## Keywords
 
-- [world map][195]
-- [track][196]
-- [file language][197]
-- [cell][198]
-- [lit cell][199]
-- [.claude][200]: a track
-- [docs][200]: a track
-- [pipelines][200]: a track
-- [pwsh][200]: a track
-- [csharp][201]: a file language
-- [markdown][201]: a file language
-- [pipeline-yaml][201]: a file language
-- [powershell][201]: a file language
-- [yaml][201]: a file language
+- [world map][194]
+- [track][195]
+- [file language][196]
+- [cell][197]
+- [lit cell][198]
+- [.claude][199]: a track
+- [docs][199]: a track
+- [pipelines][199]: a track
+- [pwsh][199]: a track
+- [csharp][200]: a file language
+- [markdown][200]: a file language
+- [pipeline-yaml][200]: a file language
+- [powershell][200]: a file language
+- [yaml][200]: a file language
 
 Terms the cited ADRs define:
 
-- [cell][198], defined by [ADR-DSGN-TRACK#10][202]
-- [deployable-unit][203], defined by [ADR-DSGN-TRACK#5][204]
-- [domain][205], defined by [ADR-REPO-FOLDERS#5][206]
-- [file language][197], defined by [ADR-DSGN-TRACK#6][207]
-- [import][208], defined by [ADR-DSGN-TRACK#17][209]
-- [landing address][210], defined by [ADR-DSGN-TRACK#17][209]
-- [lit cell][199], defined by [ADR-DSGN-TRACK#12][211]
-- [place][212], defined by [ADR-DSGN-TRACK#1][213]
-- [root file][214], defined by [ADR-DSGN-TRACK#7][215]
-- [sorting][216], defined by [ADR-DSGN-TRACK#17][209]
-- [stack violation][217], defined by [ADR-DSGN-TRACK#11][218]
-- [track][196], defined by [ADR-DSGN-TRACK#1][213]
-- [unlisted file][219], defined by [ADR-DSGN-TRACK#8][220]
-- [unordered track][221], defined by [ADR-DSGN-TRACK#17][209]
-- [value-chain concern][222], defined by [ADR-DSGN-TRACK#15][223]
-- [value-chain map][224], defined by [ADR-DSGN-TRACK#16][225]
-- [value-chain stack][226], defined by [ADR-DSGN-TRACK#14][227]
-- [verification track][228], defined by [ADR-DSGN-TRACK#2][229]
-- [world map][195], defined by [ADR-DSGN-TRACK#9][230]
+- [cell][197], defined by [ADR-DSGN-TRACK#10][201]
+- [deployable-unit][202], defined by [ADR-DSGN-TRACK#5][203]
+- [domain][204], defined by [ADR-REPO-FOLDERS#5][205]
+- [file language][196], defined by [ADR-DSGN-TRACK#6][206]
+- [import][207], defined by [ADR-DSGN-TRACK#17][208]
+- [landing address][209], defined by [ADR-DSGN-TRACK#17][208]
+- [lit cell][198], defined by [ADR-DSGN-TRACK#12][210]
+- [place][211], defined by [ADR-DSGN-TRACK#1][212]
+- [root file][213], defined by [ADR-DSGN-TRACK#7][214]
+- [sorting][215], defined by [ADR-DSGN-TRACK#17][208]
+- [stack violation][216], defined by [ADR-DSGN-TRACK#11][217]
+- [track][195], defined by [ADR-DSGN-TRACK#1][212]
+- [unlisted file][218], defined by [ADR-DSGN-TRACK#8][219]
+- [unordered track][220], defined by [ADR-DSGN-TRACK#17][208]
+- [value-chain concern][221], defined by [ADR-DSGN-TRACK#15][222]
+- [value-chain map][223], defined by [ADR-DSGN-TRACK#16][224]
+- [value-chain stack][225], defined by [ADR-DSGN-TRACK#14][226]
+- [verification track][227], defined by [ADR-DSGN-TRACK#2][228]
+- [world map][194], defined by [ADR-DSGN-TRACK#9][229]
 
 [1]: ../../../../adr/design/tracks.md
 [2]: ../../../../adr/flow/durable-sha-globs.md
@@ -780,96 +778,95 @@ Terms the cited ADRs define:
 [135]: ../../../../../.claude/plans/questionnaire-fundamental-2-2026-10-16.md
 [136]: ../../../../../.claude/plans/task-diagram-folders.md
 [137]: ../../../../../.claude/plans/task-layers-classification-flip.md
-[138]: ../../../../../.claude/plans/value-of-plan.md
-[139]: ../../../../../pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
-[140]: ../../../../../pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
-[141]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
-[142]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
-[143]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
-[144]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[145]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
-[146]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-[147]: ../../../../../pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
-[148]: ../../../../../pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
-[149]: ../../../../../pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
-[150]: ../../../../../pwsh/Catzc.Base.Maps/types/ValueChainCell.cs
-[151]: ../../../../../pwsh/Catzc.Base.Variants/configs/track-types.yml
-[152]: ../../../../../pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
-[153]: ../../../../../pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-[154]: ../../../../../pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
-[155]: ../../../../../pwsh/Catzc.Base.Variants/types/ModulePlace.cs
-[156]: ../../../../../pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
-[157]: ../../../../../pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
-[158]: ../../../../../pwsh/Catzc.Base.Variants/types/PathModule.cs
-[159]: ../../../../../pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-[160]: ../../../../../pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-[161]: ../../../../../pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
-[162]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
-[163]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
-[164]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-[165]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobPattern.cs
-[166]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobSet.cs
-[167]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-[168]: ../../../../../pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
-[169]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
-[170]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[171]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
-[172]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
-[173]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
-[174]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
-[175]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[176]: ../../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
-[177]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
-[178]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
-[179]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
-[180]: ../../../../../pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-[181]: ../../../../../pipelines/cd-shared.yaml
-[182]: ../../../../../pipelines/ci-automation.yaml
-[183]: ../../../../../pipelines/extends/cd-customer.yaml
-[184]: ../../../../../pwsh/Catzc.Base.Languages/configs/glossary.yml
-[185]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-[186]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
-[187]: ../../../../adr/glossary.md
-[188]: ../../../../adr/index.md
-[189]: ../../../../adr/design/dora-explains.md
-[190]: ../../../../adr/flow/dora-explains.md
-[191]: ../../../../adr/repository/dora-explains.md
-[192]: ../../../../../pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
-[193]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[194]: ../../unit-to-pipeline-rule-is-review-only.md
-[195]: ../../../../adr/glossary.md#world-map
-[196]: ../../../../adr/glossary.md#track
-[197]: ../../../../adr/glossary.md#file-language
-[198]: ../../../../adr/glossary.md#cell
-[199]: ../../../../adr/glossary.md#lit-cell
-[200]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[201]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[202]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track10
-[203]: ../../../../adr/glossary.md#deployable-unit
-[204]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track5
-[205]: ../../../../adr/glossary.md#domain
-[206]: ../../../../adr/repository/conventional-folders.md#rule-adr-repo-folders5
-[207]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[208]: ../../../../adr/glossary.md#import
-[209]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track17
-[210]: ../../../../adr/glossary.md#landing-address
-[211]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[212]: ../../../../adr/glossary.md#place
-[213]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[214]: ../../../../adr/glossary.md#root-file
-[215]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track7
-[216]: ../../../../adr/glossary.md#sorting
-[217]: ../../../../adr/glossary.md#stack-violation
-[218]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track11
-[219]: ../../../../adr/glossary.md#unlisted-file
-[220]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track8
-[221]: ../../../../adr/glossary.md#unordered-track
-[222]: ../../../../adr/glossary.md#value-chain-concern
-[223]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[224]: ../../../../adr/glossary.md#value-chain-map
-[225]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track16
-[226]: ../../../../adr/glossary.md#value-chain-stack
-[227]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[228]: ../../../../adr/glossary.md#verification-track
-[229]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track2
-[230]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track9
+[138]: ../../../../../pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
+[139]: ../../../../../pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+[140]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
+[141]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
+[142]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
+[143]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[144]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+[145]: ../../../../../pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+[146]: ../../../../../pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
+[147]: ../../../../../pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
+[148]: ../../../../../pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
+[149]: ../../../../../pwsh/Catzc.Base.Maps/types/ValueChainCell.cs
+[150]: ../../../../../pwsh/Catzc.Base.Variants/configs/track-types.yml
+[151]: ../../../../../pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
+[152]: ../../../../../pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+[153]: ../../../../../pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+[154]: ../../../../../pwsh/Catzc.Base.Variants/types/ModulePlace.cs
+[155]: ../../../../../pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
+[156]: ../../../../../pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+[157]: ../../../../../pwsh/Catzc.Base.Variants/types/PathModule.cs
+[158]: ../../../../../pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+[159]: ../../../../../pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+[160]: ../../../../../pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
+[161]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
+[162]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+[163]: ../../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+[164]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+[165]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobSet.cs
+[166]: ../../../../../pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+[167]: ../../../../../pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+[168]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
+[169]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[170]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
+[171]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
+[172]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
+[173]: ../../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+[174]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[175]: ../../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
+[176]: ../../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
+[177]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
+[178]: ../../../../../pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
+[179]: ../../../../../pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+[180]: ../../../../../pipelines/cd-shared.yaml
+[181]: ../../../../../pipelines/ci-automation.yaml
+[182]: ../../../../../pipelines/extends/cd-customer.yaml
+[183]: ../../../../../pwsh/Catzc.Base.Languages/configs/glossary.yml
+[184]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+[185]: ../../../../../pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
+[186]: ../../../../adr/glossary.md
+[187]: ../../../../adr/index.md
+[188]: ../../../../adr/design/dora-explains.md
+[189]: ../../../../adr/flow/dora-explains.md
+[190]: ../../../../adr/repository/dora-explains.md
+[191]: ../../../../../pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
+[192]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[193]: ../../unit-to-pipeline-rule-is-review-only.md
+[194]: ../../../../adr/glossary.md#world-map
+[195]: ../../../../adr/glossary.md#track
+[196]: ../../../../adr/glossary.md#file-language
+[197]: ../../../../adr/glossary.md#cell
+[198]: ../../../../adr/glossary.md#lit-cell
+[199]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[200]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[201]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track10
+[202]: ../../../../adr/glossary.md#deployable-unit
+[203]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track5
+[204]: ../../../../adr/glossary.md#domain
+[205]: ../../../../adr/repository/conventional-folders.md#rule-adr-repo-folders5
+[206]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[207]: ../../../../adr/glossary.md#import
+[208]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track17
+[209]: ../../../../adr/glossary.md#landing-address
+[210]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[211]: ../../../../adr/glossary.md#place
+[212]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[213]: ../../../../adr/glossary.md#root-file
+[214]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track7
+[215]: ../../../../adr/glossary.md#sorting
+[216]: ../../../../adr/glossary.md#stack-violation
+[217]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track11
+[218]: ../../../../adr/glossary.md#unlisted-file
+[219]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track8
+[220]: ../../../../adr/glossary.md#unordered-track
+[221]: ../../../../adr/glossary.md#value-chain-concern
+[222]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[223]: ../../../../adr/glossary.md#value-chain-map
+[224]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track16
+[225]: ../../../../adr/glossary.md#value-chain-stack
+[226]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[227]: ../../../../adr/glossary.md#verification-track
+[228]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track2
+[229]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track9

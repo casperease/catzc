@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "47512dc8b888"
+    with_body_sha: "3c4b439fa134"
     repo_status: locked
     path: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/tree.md
     source: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone: the tree minimap
+# Three gates check the projection, while generation is held by the ADR alone: the tree minimap
 
 ```text
 Which files cite ADR-FLOW-CD-GLOBS: every file of the world map is a tile, grouped by top-level folder.
 77 files lit in 8 groups.
 ```
 
-![The tree minimap of Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone](tree.png)
+![The tree minimap of Three gates check the projection, while generation is held by the ADR alone](tree.png)
 
-This is the tree minimap in the sidebar of the governance diagram of [Three gates check the projection, while generation and the in-pipeline
-backstop are held by the ADR alone][78], which explains [ADR-FLOW-CD-GLOBS][1]. It lights every file that cites those codes, grouped by
-folder, so it shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
+This is the tree minimap in the sidebar of the governance diagram of [Three gates check the projection, while generation is held by the ADR
+alone][78], which explains [ADR-FLOW-CD-GLOBS][1]. It lights every file that cites those codes, grouped by folder, so it shows which files
+carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -208,7 +208,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text), `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text),
   `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1226 (text).
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1076 (text).
 - [pipelines/extends/cd-customer.yaml][72], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
   line 21 (body comment) (a passing mention only).
 
@@ -245,7 +245,7 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
 - [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][77], in the cell pwsh × yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
-  at line 1226 (text).
+  at line 1076 (text).
 
 ## Keywords
 

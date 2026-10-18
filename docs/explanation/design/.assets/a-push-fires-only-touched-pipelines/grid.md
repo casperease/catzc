@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2cc823ca3570"
+    with_body_sha: e8c64a7c5cf7
     repo_status: locked
     path: docs/explanation/design/.assets/a-push-fires-only-touched-pipelines/grid.md
     source: docs/explanation/design/.assets/a-push-fires-only-touched-pipelines/diagram.drawio.png
@@ -33,10 +33,10 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 9 lit of 89 files
-- docs × markdown: 59 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 11 files
+- docs × markdown: 59 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × csharp: 7 lit of 293 files
-- pwsh × powershell: 22 lit of 1649 files
+- pwsh × powershell: 22 lit of 1651 files
 - pwsh × yaml: 6 lit of 115 files
 
 ## Key

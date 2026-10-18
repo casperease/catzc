@@ -2,14 +2,14 @@
 
 ## Rules: ADR-CONF-LOADING
 
-### Rule ADR-CONF-LOADING:1
+### Rule ADR-CONF-LOADING-ONEREADER
 
 All config reads go through `Get-Config -Config <name>` (public, in `Catzc.Base.Config`) — no function re-reads a `configs/*.yml` file
 directly or keeps its own `$script:` config cache.
 
 - [Decision](#decision)
 
-### Rule ADR-CONF-LOADING:2
+### Rule ADR-CONF-LOADING-EXISTENCEDISCOVERED
 
 Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`) scans `pwsh/*/configs/` for `<name>.yml` and resolves it to
 its owning module. A name is global; `-Module` is only for disambiguating the same name in several modules, and
@@ -17,14 +17,14 @@ its owning module. A name is global; `-Module` is only for disambiguating the sa
 
 - [Discovery](#discovery)
 
-### Rule ADR-CONF-LOADING:3
+### Rule ADR-CONF-LOADING-CACHEBYPATH
 
 Parse ordered, cache by resolved file path (`$script:configCache`), and invalidate only by re-import — the path key means a fixture path and
 the real path never collide.
 
 - [Decision](#decision)
 
-### Rule ADR-CONF-LOADING:4
+### Rule ADR-CONF-LOADING-CSHARPCONFIGTYPE
 
 Every shipped config has a **C# config type**, registered in `Catzc.Base.Config/configs/configs.yml` as `<name>: { type: <C# FQN> }`.
 `Get-Config` constructs `[type]::new($dict)` once, on the cache miss; the constructor both maps and validates, and reports every violation
@@ -33,7 +33,7 @@ resolves, and every shipped config loads.
 
 - [Typed configs](#typed-configs)
 
-### Rule ADR-CONF-LOADING:5
+### Rule ADR-CONF-LOADING-POWERSHELLVALIDATOR
 
 A config that cannot ship a C# type validates with a **PowerShell validator** through `Invoke-ConfigValidator`
 (`Catzc.Base.ConfigExtensions`): `Assert-<TitleCase(name)>Config` by convention, or a function named with `-Validator`, run in the owning
@@ -42,7 +42,7 @@ it. `Test-ConfigValidators` is its gate: every `Assert-<TitleCase(name)>Config` 
 
 - [The PowerShell extension point](#the-powershell-extension-point)
 
-### Rule ADR-CONF-LOADING:6
+### Rule ADR-CONF-LOADING-READINGISGLOBAL
 
 Reading a config is global access — never guarded by dependencies. Only `Get-Config` is public; the config types live in the owning module's
 `types/`, and a PowerShell validator stays **private** to its owning module.
@@ -112,7 +112,7 @@ config, a type that does not resolve, and a shipped config that does not load ar
 `Invoke-ConfigValidator, for owners without a C# type`
 
 Not every owner of a config can ship a C# type: types compile only from `pwsh/<module>/types/`, and a track or deployable-unit that
-carries its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK#3`). For those, `Catzc.Base.ConfigExtensions`
+carries its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK-ONETECHSTACK`). For those, `Catzc.Base.ConfigExtensions`
 keeps the PowerShell validator form. `Invoke-ConfigValidator -Config <dict> -Name <name> -Module <owner>` finds the validator by convention
 (`Assert-<TitleCase(name)>Config`, so `widget-parts` → `Assert-WidgetPartsConfig`) or by `-Validator`, and runs it **in the owning module's
 scope** — `& (Get-Module $owner) { … }` — so a private validator resolves. A conventional validator that does not exist is a no-op; a named

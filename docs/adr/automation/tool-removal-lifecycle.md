@@ -2,16 +2,16 @@
 
 ## Rules: ADR-AUTO-REMOVE
 
-### Rule ADR-AUTO-REMOVE:1
+### Rule ADR-AUTO-REMOVE-THREEVERBS
 
 Three verbs, three jobs, per tool: `Install-<Tool>` converges the machine to the configured, pinned install through the configured manager;
 `Uninstall-<Tool>` reverses it through that **same** manager; `Remove-<Tool>` destructively evicts an **off-config** install the managed
-path cannot touch. Install- and Uninstall- are the managed pair (the `ADR-AUTO-DEPS#2` triad); Remove- is the source-agnostic escape hatch
+path cannot touch. Install- and Uninstall- are the managed pair (the `ADR-AUTO-DEPS-TOOLTRIAD` triad); Remove- is the source-agnostic escape hatch
 beside them.
 
 - [The three verbs](#the-three-verbs)
 
-### Rule ADR-AUTO-REMOVE:2
+### Rule ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY
 
 `Uninstall-<Tool>` is managed-only and reversible in kind: it removes exactly what the configured manager installed (winget / brew / apt /
 uv / script) and nothing else. It cannot evict a foreign install — winget does not know an apt package, a uv venv does not know a `pip`
@@ -19,7 +19,7 @@ leftover — and it does not try; that is `Remove-<Tool>`'s job.
 
 - [Uninstall vs Remove](#uninstall-vs-remove)
 
-### Rule ADR-AUTO-REMOVE:3
+### Rule ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
 
 `Remove-<Tool>` refuses a **managed** install and redirects to `Uninstall-<Tool>`. Whether an install is managed is decided by the single
 oracle `Test-ExpectedPackageManager`, which both verbs consult — so Remove- only ever acts on an install the configured manager does not
@@ -29,7 +29,7 @@ stray install managed and leave it unremovable.
 
 - [Uninstall vs Remove](#uninstall-vs-remove)
 
-### Rule ADR-AUTO-REMOVE:4
+### Rule ADR-AUTO-REMOVE-DOUBLYGUARDED
 
 Destructive removal is **doubly guarded**. `-Force` confirms the action — without it the function reports the plan and changes nothing (the
 dry-run discipline of `ADR-AUTO-DRYRUN`), so the destructive step never runs on host narration alone. Through the escalation, a separate
@@ -37,7 +37,7 @@ dry-run discipline of `ADR-AUTO-DRYRUN`), so the destructive step never runs on 
 
 - [Default-safe by construction](#default-safe-by-construction)
 
-### Rule ADR-AUTO-REMOVE:5
+### Rule ADR-AUTO-REMOVE-ONECALLESCALATION
 
 The escalation is one call: **`Uninstall-<Tool> -Remove -Force`** runs the managed uninstall and then falls through to `Remove-<Tool>`,
 evicting whatever the configured manager did not own. It is the sanctioned path when a plain `Uninstall-<Tool>` is unsuccessful or leaves a
@@ -45,7 +45,7 @@ shadowing binary — the operator escalates in place instead of hunting the fore
 
 - [The escalation in one call](#the-escalation-in-one-call)
 
-### Rule ADR-AUTO-REMOVE:6
+### Rule ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
 
 Elevation follows the mechanism, never the verb. A removal asserts Administrator / root only for the step that needs it — the Windows
 machine `PATH`, an `apt-get remove` — while user-space evictions (`uv pip uninstall --system`, deleting a stray `~/.local/bin` binary)
@@ -54,7 +54,7 @@ the all-user-space goal (`ADR-AUTO-UVPY`).
 
 - [Elevation](#elevation)
 
-### Rule ADR-AUTO-REMOVE:7
+### Rule ADR-AUTO-REMOVE-THREEPLATFORMCORES
 
 Three platform cores carry the destructive mechanics, and `Remove-<Tool>` delegates to the one for the running OS:
 `Remove-SystemInstallation` (Windows — delete the install directory, strip it from the machine `PATH`, clear its env vars),
@@ -67,10 +67,10 @@ the same "evict by the mechanism that placed it" the Unix cores follow.
 
 - [The platform cores](#the-platform-cores)
 
-### Rule ADR-AUTO-REMOVE:8
+### Rule ADR-AUTO-REMOVE-OFFCONFIGTOOLSONLY
 
 `Remove-<Tool>` exists only for tools that are **historically installed off-config** — a distro package, a `pip install`, an OS stub, a
-hand-built binary — that would shadow the managed build. It is not minted for every tool (the `ADR-AUTO-DEPS#2` triad is); it is added where
+hand-built binary — that would shadow the managed build. It is not minted for every tool (the `ADR-AUTO-DEPS-TOOLTRIAD` triad is); it is added where
 an eviction hole exists. `Get-ToolsStatus` names the correct verb per state: `Uninstall-` for a managed wrong version, `Remove- -Force` for
 an off-config shadow.
 
@@ -177,7 +177,7 @@ installer.
 
 `Not every tool needs a destructive Remove`
 
-The `Install-` / `Uninstall-` pair is universal (the `ADR-AUTO-DEPS#2` triad); `Remove-<Tool>` is not. It is added only where a tool has
+The `Install-` / `Uninstall-` pair is universal (the `ADR-AUTO-DEPS-TOOLTRIAD` triad); `Remove-<Tool>` is not. It is added only where a tool has
 **historically been installed off-config** and so has a real eviction hole — the tools a machine tends to already carry a foreign copy of: a
 distro `nodejs`, a `pip`-installed CLI, a Store `python`, a system `dotnet`. Minting a `Remove-` for a tool that only ever arrives through
 its configured manager would be dead ceremony ([one-living-version](../principles/one-living-version.md)). `Get-ToolsStatus` is the guide:

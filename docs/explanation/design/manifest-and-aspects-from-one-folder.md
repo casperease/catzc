@@ -27,8 +27,8 @@ The diagram is described element by element in [its asset description](.assets/m
 
 ## Walkthrough
 
-1. **pwsh/&lt;Module&gt;/.** The unit root both paths read. The import walks every module folder, and the aspects compile per folder
-   with `pwsh/<Module>` as the root.
+1. **pwsh/&lt;Module&gt;/.** The unit root both paths read. The import walks every module folder, and the aspects compile per folder with
+   `pwsh/<Module>` as the root.
 2. **Assert-UniqueModuleFunctionName.** Shown shortened as `Assert-Unique…FunctionName`. `Import-AllModules` calls it before any module or
    C# type loads, reached from `importer.ps1` through `Invoke-Importer`. A duplicate name throws "Function name collision(s) detected before
    import".
@@ -40,8 +40,8 @@ The diagram is described element by element in [its asset description](.assets/m
    live rows, `*.ps1`, `private/**`, `types/**`, `configs/**` and `assets/**`, and `tests` is the `**` remainder.
 6. **Get-Aspect.** `Get-ModuleGlobSet` calls `Get-Aspect -Track pwsh`. For a track of type `modules` it derives the convention from that
    layout; a track with its own `aspects` entry in `variants.yml`, as `infrastructure` has, is read through `Get-AspectDeclaration` instead.
-7. **AspectPartition.Compile.** Called per module with the root `pwsh/<Module>`: aspect _k_ gets its own patterns, prefixed by the
-   root, and excludes every earlier aspect's patterns.
+7. **AspectPartition.Compile.** Called per module with the root `pwsh/<Module>`: aspect _k_ gets its own patterns, prefixed by the root, and
+   excludes every earlier aspect's patterns.
 8. **&lt;kebab&gt;-live.** The live set, named for the folder lower-cased with dots turned to dashes, plus `-live`.
 9. **&lt;kebab&gt;-tests.** The tests set. It also takes `<go|python|bash root>/tests/<kebab>/**`. `tests/` and `README.md` match no live
    pattern, so they fall to this `**` remainder.

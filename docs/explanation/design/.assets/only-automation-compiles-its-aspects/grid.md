@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "36e6efa64e7b"
+    with_body_sha: d4aced252b42
     repo_status: locked
     path: docs/explanation/design/.assets/only-automation-compiles-its-aspects/grid.md
     source: docs/explanation/design/.assets/only-automation-compiles-its-aspects/diagram.drawio.png
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# Both tracks' conventions are read, but only the automation track's compiles into globsets: the world-map minimap
+# Both tracks' conventions are read, but only the pwsh track's compiles into globsets: the world-map minimap
 
 ```text
 Where the files that cite ADR-DSGN-ASPECT sit in the repository: tracks down, file languages across.
 5 of 342 cells lit, holding 20 files.
 ```
 
-![The world-map minimap of Both tracks' conventions are read, but only the automation track's compiles into globsets](grid.png)
+![The world-map minimap of Both tracks' conventions are read, but only the pwsh track's compiles into globsets](grid.png)
 
-This is the world-map minimap in the sidebar of the architecture diagram of [Both tracks' conventions are read, but only the automation
-track's compiles into globsets][24], which explains [ADR-DSGN-ASPECT][1]. It lights every cell of the world map that holds a file citing
-those codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
+This is the world-map minimap in the sidebar of the architecture diagram of [Both tracks' conventions are read, but only the pwsh track's
+compiles into globsets][24], which explains [ADR-DSGN-ASPECT][1]. It lights every cell of the world map that holds a file citing those
+codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -33,9 +33,9 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - .claude × markdown: 3 lit of 89 files
-- docs × markdown: 13 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
-- pwsh × powershell: 2 lit of 1649 files
+- docs × markdown: 13 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
+- pwsh × powershell: 2 lit of 1651 files
 - pwsh × yaml: 1 lit of 115 files
 
 ## Key

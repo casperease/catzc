@@ -2,14 +2,14 @@
 
 ## Rules: ADR-PWSH-ERROR
 
-### Rule ADR-PWSH-ERROR:1
+### Rule ADR-PWSH-ERROR-STOPONERROR
 
 Set `$ErrorActionPreference = 'Stop'` globally (the importer does this); never change it inside a function.
 
 - [Why no Write-Error](#why-no-write-error)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-ERROR:2
+### Rule ADR-PWSH-ERROR-STOPONWARNING
 
 Set `$WarningPreference = 'Stop'` globally so every warning terminates; suppress an unavoidable third-party warning with
 `-WarningAction SilentlyContinue` on that one call only.
@@ -17,27 +17,27 @@ Set `$WarningPreference = 'Stop'` globally so every warning terminates; suppress
 - [Why no warnings](#why-no-warnings)
 - [The -AllowWarnings escape hatch](#the--allowwarnings-escape-hatch)
 
-### Rule ADR-PWSH-ERROR:3
+### Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR
 
 Use `throw` for errors, never `Write-Error` — `throw` always terminates, while `Write-Error` depends on the caller's preference and may not
 stop execution.
 
 - [Why no Write-Error](#why-no-write-error)
 
-### Rule ADR-PWSH-ERROR:5
+### Rule ADR-PWSH-ERROR-NOWRITEWARNING
 
 Never use `Write-Warning`. If something is wrong, throw; if it is informational, use `Write-Message` or `Write-Verbose`.
 
 - [Why no warnings](#why-no-warnings)
 
-### Rule ADR-PWSH-ERROR:7
+### Rule ADR-PWSH-ERROR-SCRIPTTRAP
 
 In scripts, add `trap { Write-Exception $_; break }` after the importer for full stack traces on unhandled errors, matching the interactive
 prompt hook.
 
 - [Interactive error diagnostics](#interactive-error-diagnostics)
 
-### Rule ADR-PWSH-ERROR:8
+### Rule ADR-PWSH-ERROR-STRICTCLEAN
 
 All code is written strict-clean, because it runs under `Set-StrictMode -Version Latest`: take the first element of a result that may be
 empty with `<result> | Select-Object -First 1`, never `@(<result>)[0]`; wrap a producer in `@()` before reading `.Count`; read an optional
@@ -45,28 +45,28 @@ key through `.Contains()`, an indexer, or the typed config record, never as a ba
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-ERROR:9
+### Rule ADR-PWSH-ERROR-PREFERENCESAREAMBIENTSTATE
 
-In pwsh, the ambient state ADR-AUTO-ONEJOB#6 protects is the preference variables (`$ErrorActionPreference` first), the location, `$env:`
+In pwsh, the ambient state ADR-AUTO-ONEJOB-EXPLICITSTATECHANGES protects is the preference variables (`$ErrorActionPreference` first), the location, `$env:`
 variables, and `$global:` variables. A function that needs a different error behaviour for one call passes `-ErrorAction` to that call. A
 temporary change is made inside `try` and undone in its `finally` — `Push-Location` paired with `Pop-Location`, a saved value written back —
 so it is restored when the body throws too.
 
 - [Temporary state](#temporary-state)
 
-### Rule ADR-PWSH-ERROR:10
+### Rule ADR-PWSH-ERROR-NORETRYINTESTS
 
-In pwsh, a test never retries (ADR-AUTO-RETRY#1): no loop or retry wrapper around a call inside an `It`, and no re-run of a failed Pester
+In pwsh, a test never retries (ADR-AUTO-RETRY-NEVERINTESTS): no loop or retry wrapper around a call inside an `It`, and no re-run of a failed Pester
 run. An external dependency is replaced with `Mock`, or the test is tagged `L3` and marks itself skipped with
 `Set-ItResult -Skipped -Because '<reason>'` when its dependency is unavailable.
 
 - [Retry](#retry)
 
-### Rule ADR-PWSH-ERROR:11
+### Rule ADR-PWSH-ERROR-RETRYWRAPPERFUNCTION
 
-In pwsh, the retry wrapper of ADR-AUTO-RETRY#6 is its own function that takes the one operation to repeat as a `[scriptblock]` parameter,
-with an explicit attempt count and delay, writes each retry with `Write-Message -Warning` (ADR-AUTO-RETRY#5; never `Write-Warning`,
-ADR-PWSH-ERROR#5), and rethrows the last error unchanged when the attempts run out. The function that does the work holds no retry loop and
+In pwsh, the retry wrapper of ADR-AUTO-RETRY-DEDICATEDWRAPPER is its own function that takes the one operation to repeat as a `[scriptblock]` parameter,
+with an explicit attempt count and delay, writes each retry with `Write-Message -Warning` (ADR-AUTO-RETRY-BOUNDEDANDVISIBLE; never `Write-Warning`,
+ADR-PWSH-ERROR-NOWRITEWARNING), and rethrows the last error unchanged when the attempts run out. The function that does the work holds no retry loop and
 no `catch` that repeats a call.
 
 - [Retry](#retry)
@@ -115,8 +115,8 @@ non-terminating error mechanism internally) also terminate. Between `throw` and 
 ### The Assert-* pattern
 
 A precondition is checked with the `Assert-*` library, not an inline `if ($bad) { throw "message" }`
-([ADR-AUTO-FAILFAST#4](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast4); the pwsh idiom is
-[assert-idioms](assert-idioms.md#rule-adr-pwsh-assert4)):
+([ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-useassertionlibrary); the pwsh idiom is
+[assert-idioms](assert-idioms.md#rule-adr-pwsh-assert-noinlinethrowcheck)):
 
 ```powershell
 Assert-Command python                    # throws: "'python' is not installed"
@@ -144,11 +144,11 @@ catch {
 ```
 
 Functions never catch-and-continue internally. If `Invoke-Poetry` fails, it throws. Whether to retry, fall back, or abort is the caller's
-decision ([single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob5)).
+decision ([single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors)).
 
 ### Temporary state
 
-[single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob6) rules out a function that changes
+[single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-explicitstatechanges) rules out a function that changes
 ambient state as a side effect. In pwsh that state is mostly variables the caller cannot see being changed: `$ErrorActionPreference` and the
 other preferences, the location, `$env:` and `$global:` variables. Setting `$ErrorActionPreference` inside a function changes error handling
 for every call it makes and, in a dot-sourced script, for its caller too; the per-call `-ErrorAction` parameter changes it for the one call
@@ -207,11 +207,11 @@ its own scriptblock-taking wrapper and never in a test.
   inherits it, in the source tree and in an installed bundle alike), each `.internal` module and custom analyzer rule declares it at its
   top, and `Build-Bicep`/`Deploy-Bicep` set it in a template's `PrePost.psm1` scope after importing it. A pipeline or workflow step that
   runs PowerShell is strict too: dot-sourcing the importer sets it for the step's scope, and a step that runs without the importer declares
-  `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR#8); a lazy `$script:` cache
-  entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache4) prescribes.
+  `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR-STRICTCLEAN); a lazy `$script:` cache
+  entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe) prescribes.
 - **Custom analyzer rules** — `Measure-NoWriteErrorOrWarning` flags `Write-Error` and `Write-Warning`; `Measure-NoUnsafeFirstIndex` flags
   `@(<result>)[0]` and `(<a | b>)[0]`; and `Measure-NoBareCacheEntryRead` flags a function file reading a `$script:` cache entry it has
-  neither assigned nor probed. The `.Count` and optional-key forms of ADR-PWSH-ERROR#8 need type knowledge an AST does not carry, so code
+  neither assigned nor probed. The `.Count` and optional-key forms of ADR-PWSH-ERROR-STRICTCLEAN need type knowledge an AST does not carry, so code
   review owns them.
 - **Interactive prompt hook** — `Write-Exception` fires automatically after every failed command, providing full diagnostics.
 

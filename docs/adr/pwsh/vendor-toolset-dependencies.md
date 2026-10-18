@@ -2,34 +2,34 @@
 
 ## Rules: ADR-PWSH-VENDOR
 
-### Rule ADR-PWSH-VENDOR:1
+### Rule ADR-PWSH-VENDOR-VERSIONEDVENDORFOLDER
 
 Vendor modules into `pwsh/.vendor/<ModuleName>/<Version>/`; the version folder fixes the load path and makes upgrades visible in diffs. This
-is how a third-party PowerShell module becomes an internal module dependency, vendored and named (ADR-AUTO-DEPM#8).
+is how a third-party PowerShell module becomes an internal module dependency, vendored and named (ADR-AUTO-DEPM-INTERNALVENDORED).
 
 - [Vendoring solves all three](#vendoring-solves-all-three)
 
-### Rule ADR-PWSH-VENDOR:3
+### Rule ADR-PWSH-VENDOR-INSTALLVENDORMODULE
 
 Add new modules only with `Install-VendorModule` (in `Catzc.Base.Vendor`), which downloads from the configured source into the correct
 structure; commit the result.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-VENDOR:4
+### Rule ADR-PWSH-VENDOR-DELIBERATEUPGRADE
 
 Upgrade deliberately: remove the old version folder, run `Install-VendorModule` for the new version, run tests, then commit. Never
 auto-upgrade.
 
 - [Vendoring solves all three](#vendoring-solves-all-three)
 
-### Rule ADR-PWSH-VENDOR:5
+### Rule ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE
 
 Lazy-load expensive modules (Pester, PSScriptAnalyzer) via the `Lazy` parameter in `Import-VendorModules` so they do not slow shell startup.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-VENDOR:6
+### Rule ADR-PWSH-VENDOR-CONFIGURABLESOURCE
 
 The vendor source is configurable in `vendor.yml` (`source`, default `PSGallery`; optional `sourceUrl` for a custom feed). Remove vendored
 modules only with `Remove-VendorModules`, which refuses to delete anything the source cannot restore — so the committed set stays
@@ -37,16 +37,16 @@ reproducible.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-VENDOR:7
+### Rule ADR-PWSH-VENDOR-ONLYWHATLOADS
 
 A vendored module carries only what the toolset loads. Folders it never loads are pruned at install time by `Install-VendorModule`, never by
-hand, so a reinstall or upgrade (ADR-PWSH-VENDOR#4) reproduces the same trimmed copy. A folder comes back only by removing it from the prune
+hand, so a reinstall or upgrade (ADR-PWSH-VENDOR-DELIBERATEUPGRADE) reproduces the same trimmed copy. A folder comes back only by removing it from the prune
 list and reinstalling.
 
 - [Pruned folders](#pruned-folders)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-VENDOR:8
+### Rule ADR-PWSH-VENDOR-NORUNTIMEGALLERY
 
 Never call the PowerShell Gallery at runtime. `Install-Module` and `Find-Module` need network and gallery availability; all module
 dependencies are vendored, and the gallery (or the configured feed) is reached only when an author runs `Install-VendorModule`.
@@ -56,7 +56,7 @@ dependencies are vendored, and the gallery (or the configured feed) is reached o
 
 ## Context
 
-[controlling-module-dependencies](../automation/controlling-module-dependencies.md#rule-adr-auto-depm8) makes every internal module
+[controlling-module-dependencies](../automation/controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal module
 dependency vendored and named, committed in the tree with nothing to fetch, and
 [effective-in-enterprises](../automation/effective-in-enterprises.md) assumes a machine with no network access at runtime. This ADR is how
 the PowerShell modules the toolset depends on are vendored.
@@ -76,7 +76,7 @@ gallery resolved a different patch version on a different machine. This causes t
 ### Vendoring solves all three
 
 Vendoring means checking the module's files directly into the repository under `pwsh/.vendor/<ModuleName>/<Version>/`, committed as every
-internal dependency is (ADR-AUTO-DEPM#8). The module loads from disk with no network call, no version resolution, and no surprises.
+internal dependency is (ADR-AUTO-DEPM-INTERNALVENDORED). The module loads from disk with no network call, no version resolution, and no surprises.
 
 - **Deterministic.** Every developer and every CI run uses exactly the same files. The version is locked by the commit, not by a gallery
   query.
@@ -131,7 +131,7 @@ PowerShell modules are excluded.
 - **`Import-VendorModules`** — the internal, pre-module-system loader (`Catzc.Internal.Vendor`) the importer runs before any module exists.
   Loads only from the `.vendor` directory; system-installed versions are removed from `$env:PSModulePath` to prevent auto-loading from
   outside the vendor folder ([module-path-hygiene](module-path-hygiene.md)).
-- **Git** — vendored modules are checked in (ADR-AUTO-DEPM#8). Version changes are visible as diffs in pull requests.
+- **Git** — vendored modules are checked in (ADR-AUTO-DEPM-INTERNALVENDORED). Version changes are visible as diffs in pull requests.
 
 ## Consequences
 

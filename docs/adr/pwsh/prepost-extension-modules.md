@@ -2,38 +2,38 @@
 
 ## Rules: ADR-PWSH-PREPOST
 
-### Rule ADR-PWSH-PREPOST:2
+### Rule ADR-PWSH-PREPOST-STARTERREFERENCE
 
 `Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under
-`pwsh/` (ADR-PWSH-USEPS#2), but it is data authors copy, not an imported module.
+`pwsh/` (ADR-PWSH-USEPS-MODULEFILESRESERVED), but it is data authors copy, not an imported module.
 
 - [The copy-in starter](#the-copy-in-starter)
 - [No conflict with use-ps1-not-psm1](#no-conflict-with-use-ps1-not-psm1)
 
-### Rule ADR-PWSH-PREPOST:3
+### Rule ADR-PWSH-PREPOST-FIXEDFILENAME
 
 The file name is exactly `PrePost.psm1` at the template-folder root — one `.psm1` holding the template's hooks, the only `.psm1` under
-`infrastructure/` (ADR-PWSH-USEPS#2). Discovery in `Get-BicepTemplates` looks for that exact filename.
+`infrastructure/` (ADR-PWSH-USEPS-MODULEFILESRESERVED). Discovery in `Get-BicepTemplates` looks for that exact filename.
 
 - [Per-template hooks](#per-template-hooks)
 - [One `.psm1`](#one-psm1)
 - [Not three `.ps1` files](#not-three-ps1-files)
 
-### Rule ADR-PWSH-PREPOST:4
+### Rule ADR-PWSH-PREPOST-ANYHOOKSUBSET
 
 A template's `PrePost.psm1` may export any subset of the three hooks. Hooks it does not export are no-ops (skipped) — there is no
 fall-through to a default.
 
 - [Per-template hooks](#per-template-hooks)
 
-### Rule ADR-PWSH-PREPOST:5
+### Rule ADR-PWSH-PREPOST-LOCALSCOPEIMPORT
 
 `Build-Bicep` / `Deploy-Bicep` import the template's module with `Import-Module -Scope Local -Force -PassThru` and invoke each hook only if
 it appears in the module's `ExportedCommands`.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PWSH-PREPOST:6
+### Rule ADR-PWSH-PREPOST-COPIEDINTOBUILD
 
 `Build-Bicep` copies the per-template `PrePost.psm1` into the build output so `Deploy-Bicep` can re-import it from the artifacts folder on a
 pipeline agent, where `Get-BicepDeploymentContext` re-keys its path into `ctx.artifacts.prepost_module`.
