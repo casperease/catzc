@@ -11,7 +11,7 @@ A person turns on the local guard with one variant; an admin syncs the server po
 6  ADO branch policy         one blocking build validation on main per globset
 7  Get-AdoBuildValidations   lists what the server now holds
 
-Supports ADR-DSGN-REMOTE#2 and #4, and ADR-REPO-VARIANT#6 (operations lens).
+Supports ADR-DSGN-REMOTE#2 and #4 (operations lens).
 ```
 
 Two people put the ingress rule into effect in cats, and each has one thing to do. On a clone, a person flips the `git_workspace` variant

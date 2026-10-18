@@ -20,7 +20,7 @@ the bottom band.
 
 ## Reading path
 
-1. Marker 1, SOURCE band: the code unit importer.ps1, with an edge down to marker 2, the store `<RepositoryRoot>/automation`.
+1. Marker 1, SOURCE band: the code unit importer.ps1, with an edge down to marker 2, the store `<RepositoryRoot>/pwsh`.
 2. Marker 3, BUILD band: the code unit Import-Catzc.ps1, with an edge down to marker 4, the store `Catzc/<v>`.
 3. Down the two edges from the stores to marker 5, the code unit Invoke-Importer, and right to marker 6, the code unit Get-CatzcRunMode.
 4. Down from Invoke-Importer into the frame in the LOAD SEQUENCE band, then left to right inside it: marker 7, the code unit
@@ -32,7 +32,7 @@ the bottom band.
 | Glyph (legend phrase) | Count | Where                                                                                                                                                               |
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | code unit             | 6     | importer.ps1 (SOURCE), Import-Catzc.ps1 (BUILD), Invoke-Importer and Get-CatzcRunMode (INVOKE-IMPORTER), Import-VendorModules and Import-AllModules (LOAD SEQUENCE) |
-| store                 | 2     | `<RepositoryRoot>/automation` (SOURCE), `Catzc/<v>` (BUILD)                                                                                                         |
+| store                 | 2     | `<RepositoryRoot>/pwsh` (SOURCE), `Catzc/<v>` (BUILD)                                                                                                         |
 | gate                  | 1     | Assert-CatzcRunModeExclusive (LOAD SEQUENCE)                                                                                                                        |
 | failure               | 1     | Exclusivity violated (LOAD SEQUENCE, right)                                                                                                                         |
 

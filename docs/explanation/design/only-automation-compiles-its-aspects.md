@@ -1,36 +1,37 @@
-# Both tracks' conventions are read, but only the automation track's compiles into globsets
+# Both tracks' conventions are read, but only the pwsh track's compiles into globsets
 
 ```text
-Both tracks' conventions are read, but only the automation track's compiles into globsets.
+Both tracks' conventions are read, but only the pwsh track's compiles into globsets.
 
-1  variants.yml         the one home of the aspects variant, one ordered entry per track
-2  Catzc.Base.Variants  reads the file once per session and answers Get-Aspect per track
-3  Catzc.Base.Globs     compiles the automation convention onto every module folder
+1  variants.yml         the home of the declared aspects: the infrastructure entry
+2  Catzc.Base.Variants  reads the file once per session and answers the declared aspects
+3  Catzc.Base.Globs     compiles the pwsh convention, from languages.yml, per module
 4  <module>-live        the derived globset of a module's live aspect
 5  <module>-tests       the derived globset of a module's tests aspect, the remainder
 6  Catzc.Base.Maps      reads every track's convention to classify each file live or not
 7  world map            what Maps produces; it derives no globset
 
-Supports ADR-DSGN-ASPECT#2, #3 and #4, ADR-REPO-VARIANT#1 and #2, and ADR-DSGN-TRACK#3 (architecture lens).
+Supports ADR-DSGN-ASPECT#2, #3 and #4 (architecture lens).
 ```
 
-The aspect convention of cats is declared once, in the `aspects` variant, and read by one module, `Catzc.Base.Variants`. Two other modules
-depend on that reader, and they use the convention differently. `Catzc.Base.Globs` compiles the automation track's entry onto every module
-folder and derives two globsets per module. `Catzc.Base.Maps` reads every track's entry, the infrastructure one included, but only to decide
+A track's aspect convention is declared in the `aspects` variant, read by one module, `Catzc.Base.Variants`, or for the code track derived
+from the layout of `languages.yml`. Two other modules take the conventions, and they use them differently. `Catzc.Base.Globs` compiles the
+pwsh track's convention onto every module folder and derives two globsets per module. `Catzc.Base.Maps` reads every track's entry, the infrastructure one included, but only to decide
 whether a file is live for the world map. No part of cats derives a globset from the infrastructure convention.
 
-![Only automation compiles its aspects](.assets/only-automation-compiles-its-aspects/diagram.drawio.png)
+![Only pwsh compiles its aspects](.assets/only-automation-compiles-its-aspects/diagram.drawio.png)
 
 The diagram is described element by element in [its asset description](.assets/only-automation-compiles-its-aspects/diagram.drawio.md).
 
 ## Walkthrough
 
 1. **variants.yml.** The configuration file of `Catzc.Base.Variants` and the one home of every repo-wide variant. Its `aspects` entry is a
-   map from track to an ordered list of aspects: `automation` lists `live` then `tests`, `infrastructure` lists `tests` then `live`.
+   map from track to an ordered list of aspects: `infrastructure` lists `tests` then `live`. The code track `pwsh` declares no entry; its
+   convention is the layout of `languages.yml`, `live` then `tests`.
 2. **Catzc.Base.Variants.** The module that owns the file. Nothing else reads it: the private `Get-Variant` reads the typed config, which
-   the session caches, and `Get-Aspect -Track <track>` returns that track's list in declared order, so a change to the file takes effect
-   when the importer runs again.
-3. **Catzc.Base.Globs.** The aspect engine. `Get-ModuleGlobSet` asks for the automation convention and compiles it onto every module folder
+   the session caches, and `Get-AspectDeclaration` returns the declared lists, so a change to the file takes effect when the importer runs
+   again. `Get-Aspect -Track <track>` in `Catzc.Base.Modules` answers a track's list from them, or from the layout for the code track.
+3. **Catzc.Base.Globs.** The aspect engine. `Get-ModuleGlobSet` asks for the pwsh convention and compiles it onto every module folder
    under `pwsh/` with `AspectPartition`, so each aspect becomes a scan program over that one unit root.
 4. **The module's live set.** One derived globset per module, named `<module>-live` in kebab form. It is the module's shippable surface, and
    it carries an identity of its own.

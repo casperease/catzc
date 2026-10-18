@@ -1,0 +1,42 @@
+# pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Generates the spell-checker word list of ADR code segments from the ADR registry.
+
+### description
+
+Reads the ADR registry (configs/adrs.yml, via Get-Config -Config adrs) and the rule headings of every ADR file under docs/adr/, and writes
+every segment of every ADR code and rule heading, lower-cased, de-duplicated and ordinal-sorted, to `.cspell/adr-codes.txt` at the
+repository root, the word list cspell.yml loads as `catzc-adr-codes`. A rule is named by a segment of spelled-out words joined, so the spell
+checker takes the names from the registry rather than from one hand-written terminology entry per rule
+([adr-code-language](../../../adr/repository/adr-code-language.md), and the page on the removed
+[terminology key](../../adr-terminology-key.md)). The list carries the generated-file head, is gitignored like the terminology lists, and is
+regenerated at the importer tail; Test-GeneratedFiles fails when it is stale.
+
+### parameter `DryRun`
+
+Report whether the list would change without writing it. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+
+### parameter `Silent`
+
+Suppress the status line (used by the importer tail).
+
+### parameter `PassThru`
+
+Return one result object ({ Path, WordCount, Changed, DryRun }) instead of the path.
+
+### outputs
+
+`[string]` The path to the generated list (with -PassThru, the result object instead).
+
+### example 1
+
+```powershell
+Build-AdrCodeDictionary -DryRun -PassThru
+```

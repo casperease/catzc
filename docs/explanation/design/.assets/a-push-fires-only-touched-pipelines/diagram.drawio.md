@@ -18,7 +18,7 @@ first on the tall named set in the YOU CHANGE band.
 
 ## Reading path
 
-1. Marker 1, YOU CHANGE band, top: the named set automation/\*\*, with a long edge right to marker 2, the runner ci-automation.
+1. Marker 1, YOU CHANGE band, top: the named set pwsh/\*\*, with a long edge right to marker 2, the runner ci-automation.
 2. Marker 3, PIPELINES band, middle: the runner ci-infrastructure, reached by a long edge from the tall named set infrastructure/\*\*.
 3. Marker 4, just below the thick edge from infrastructure/\*\* to the named set nova · apex · flux · shared.
 4. Marker 5, PIPELINES band, bottom: the runner cd-&lt;unit&gt;.
@@ -29,7 +29,7 @@ first on the tall named set in the YOU CHANGE band.
 
 | Glyph (legend phrase) | Count | Where                                                                                                                      |
 | --------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------- |
-| named set             | 3     | automation/\*\*, infrastructure/\*\* (YOU CHANGE, the second tall); nova · apex · flux · shared (DEPLOYABLE-UNITS, bottom) |
+| named set             | 3     | pwsh/\*\*, infrastructure/\*\* (YOU CHANGE, the second tall); nova · apex · flux · shared (DEPLOYABLE-UNITS, bottom) |
 | runner                | 3     | ci-automation, ci-infrastructure, cd-&lt;unit&gt; (PIPELINES, one per row)                                                 |
 | gate                  | 1     | Test-AdoPipelineTriggerGlob (TRIGGER DRIFT, centre right)                                                                  |
 | failure               | 1     | trigger drifted (TRIGGER DRIFT, right)                                                                                     |
@@ -40,7 +40,7 @@ Named sets are mauve and runners slate, both with white names; the gate is a gre
 
 | Edge kind    | Count | From → to                                                                                                               |
 | ------------ | ----- | ----------------------------------------------------------------------------------------------------------------------- |
-| flow         | 3     | automation/\*\* → ci-automation, infrastructure/\*\* → ci-infrastructure, nova · apex · flux · shared → cd-&lt;unit&gt; |
+| flow         | 3     | pwsh/\*\* → ci-automation, infrastructure/\*\* → ci-infrastructure, nova · apex · flux · shared → cd-&lt;unit&gt; |
 | thick        | 1     | infrastructure/\*\* → nova · apex · flux · shared (marker 4)                                                            |
 | failure path | 1     | Test-AdoPipelineTriggerGlob → trigger drifted                                                                           |
 

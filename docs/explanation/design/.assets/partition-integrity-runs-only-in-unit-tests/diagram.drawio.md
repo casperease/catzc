@@ -18,7 +18,7 @@ the top of FOLDER.
 
 ## Reading path
 
-1. Marker 1, FOLDER, top: the wide code unit automation/&lt;Module&gt;/.
+1. Marker 1, FOLDER, top: the wide code unit pwsh/&lt;Module&gt;/.
 2. Down two edges to markers 2 and 3, FOLDER, bottom row: the gates Test-SourceConventions and Test-FolderConventions.
 3. Right along the edge from the code unit into VISIBILITY: marker 4, the gate Assert-Unique…FunctionName, then down to marker 5, the code
    unit New-DynamicManifest.
@@ -30,7 +30,7 @@ the top of FOLDER.
 | Glyph (legend phrase) | Count | Where                                                                                                                                                                           |
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | gate                  | 4     | Test-SourceConventions and Test-FolderConventions (FOLDER, bottom row), Assert-Unique…FunctionName (VISIBILITY, top), VariantsConfig (ASPECT, top); grey rhombi with a 3 px rim |
-| code unit             | 2     | automation/&lt;Module&gt;/ (FOLDER, top, band-wide), New-DynamicManifest (VISIBILITY, bottom)                                                                                   |
+| code unit             | 2     | pwsh/&lt;Module&gt;/ (FOLDER, top, band-wide), New-DynamicManifest (VISIBILITY, bottom)                                                                                   |
 | ADR-only              | 2     | AspectPartition.Validate (ASPECT, bottom; a white dashed rhombus inside a dashed frame), aspect sha lock (SHA LOCK, top; a dashed white box)                                    |
 
 Code units are slate with white names; the gates are grey with dark text.
@@ -39,7 +39,7 @@ Code units are slate with white names; the gates are grey with dark text.
 
 | Edge kind | Count | From → to                                                                                                                                                |
 | --------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow      | 4     | automation/\<Module/> → Test-SourceConventions, → Test-FolderConventions, → Assert-Unique…FunctionName; Assert-Unique…FunctionName → New-DynamicManifest |
+| flow      | 4     | pwsh/\<Module/> → Test-SourceConventions, → Test-FolderConventions, → Assert-Unique…FunctionName; Assert-Unique…FunctionName → New-DynamicManifest |
 | ADR-only  | 2     | VariantsConfig → AspectPartition.Validate, VariantsConfig → aspect sha lock                                                                              |
 
 Every edge is straight; three point down and three point right. None crosses another, and none carries a label.

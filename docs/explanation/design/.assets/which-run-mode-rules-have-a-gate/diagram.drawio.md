@@ -1,8 +1,8 @@
-# Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the diagram described
+# Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands.
-Glyphs: 4 gates, 3 code units (slate), 1 ADR-only; 5 flow edges, 1 ADR-only edge; 8 rule chips; 8 markers.
+Glyphs: 4 gates, 3 code units (slate), 1 ADR-only; 5 flow edges; 8 rule chips; 8 markers.
 Sidebar: three minimaps and the map key, generated from the current maps (see Sidebar).
 ```
 
@@ -13,7 +13,7 @@ vocabulary of the diagram glyphs; what it means is in [the article](../../which-
 
 A 1572 × 690 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
 full-width bands, TEST RUNS, LOAD and AFTER THE LOAD. It holds eight glyphs, four gates, three code units and one ADR-only box, joined by
-five flow edges and one ADR-only edge, with eight rule chips, eight markers and a legend panel along the bottom. The eye lands first on the
+five flow edges, with eight rule chips, eight markers and a legend panel along the bottom. The eye lands first on the
 wide rhombus, the gate, in the middle of the LOAD band, which two code units point into from either side.
 
 ## Reading path
@@ -22,8 +22,7 @@ wide rhombus, the gate, in the middle of the LOAD band, which two code units poi
 2. Down from each gate to the LOAD band: marker 3, the code unit importer.ps1 (left), and marker 5, the code unit Import-Catzc.ps1 (right).
 3. Marker 4, LOAD band, centre: the gate Assert-CatzcRunModeExclusive, which both code units point into.
 4. Markers 6, 7 and 8, AFTER THE LOAD band, left to right: the gate Assert-SourceTree, the code unit Get-CatzcRunMode, and the ADR-only box
-   Build kind. A flow edge runs from Assert-SourceTree right to Get-CatzcRunMode, and a dashed edge runs on from Get-CatzcRunMode to Build
-   kind.
+   Three build kinds. A flow edge runs from Assert-SourceTree right to Get-CatzcRunMode; the ADR-only box stands alone.
 
 ## Glyphs
 
@@ -31,7 +30,7 @@ wide rhombus, the gate, in the middle of the LOAD band, which two code units poi
 | --------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | gate                  | 4     | Test-Automation and Test-CatzcBuild (TEST RUNS), Assert-CatzcRunModeExclusive (LOAD, centre), Assert-SourceTree (AFTER THE LOAD, left) |
 | code unit             | 3     | importer.ps1 and Import-Catzc.ps1 (LOAD, left and right), Get-CatzcRunMode (AFTER THE LOAD, centre)                                    |
-| ADR-only              | 1     | Build kind (AFTER THE LOAD, right)                                                                                                     |
+| ADR-only              | 1     | Three build kinds (AFTER THE LOAD, right)                                                                                              |
 
 Gates are the neutral grey rhombus with a 3 px rim; code units are slate with white names; the ADR-only box is white with a dashed rim.
 
@@ -40,12 +39,11 @@ Gates are the neutral grey rhombus with a 3 px rim; code units are slate with wh
 | Edge kind | Count | From → to                                                                                                                                                                                              |
 | --------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | flow      | 5     | Test-Automation → importer.ps1; Test-CatzcBuild → Import-Catzc.ps1; importer.ps1 → Assert-CatzcRunModeExclusive; Import-Catzc.ps1 → Assert-CatzcRunModeExclusive; Assert-SourceTree → Get-CatzcRunMode |
-| ADR-only  | 1     | Get-CatzcRunMode → Build kind                                                                                                                                                                          |
 
 Every edge is straight, vertical or horizontal, and none crosses another.
 
 Rule chips: `#2 · #3 · #6` beside Test-Automation, `#3 · #6` beside Test-CatzcBuild, `#1` on importer.ps1 and on Import-Catzc.ps1, `#5` on
-Assert-CatzcRunModeExclusive, `#2` above Assert-SourceTree, `#4` on Get-CatzcRunMode, and `#7` on Build kind.
+Assert-CatzcRunModeExclusive, `#2` above Assert-SourceTree, `#4` on Get-CatzcRunMode, and `#7` on Three build kinds.
 
 ## Legend
 
@@ -57,7 +55,6 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 | slate rounded box       | code unit                          |
 | dashed white box        | ADR-only                           |
 | thin arrow              | flow: calls                        |
-| dashed arrow            | ADR-only (no code)                 |
 | white pill `#3`         | rule chip: #n = ADR-DSGN-RUNMODE#n |
 | dark disc `1`           | marker: a Walkthrough step         |
 | grey band               | band: a stage                      |

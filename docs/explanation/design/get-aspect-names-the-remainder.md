@@ -12,7 +12,7 @@ Get-Aspect names each track's remainder, and a wrong order fails when the varian
 7  tests                            first: the explicit tests/ folders, the only non-live part
 8  live                             last: the remainder, it ships
 
-Supports ADR-DSGN-ASPECT#3, ADR-REPO-VARIANT#1 and #2 (operations lens).
+Supports ADR-DSGN-ASPECT#3 (operations lens).
 ```
 
 A person who wants to know which aspect a track's stray files fall into asks `Get-Aspect`. The command returns the track's aspects in their

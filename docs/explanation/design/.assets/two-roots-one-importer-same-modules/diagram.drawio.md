@@ -18,7 +18,7 @@ bottom. The eye lands first on the full-width code unit in the ONE IMPORTER band
 
 ## Reading path
 
-1. Marker 1, SOURCE band: the code unit importer.ps1, with an edge down to marker 2, the store `<RepositoryRoot>/automation`.
+1. Marker 1, SOURCE band: the code unit importer.ps1, with an edge down to marker 2, the store `<RepositoryRoot>/pwsh`.
 2. Marker 3, BUILD band, right: the code unit Import-Catzc.ps1, with an edge down to marker 5, the store `Catzc/<v>`.
 3. Marker 4, BUILD band, centre: the code unit Catzc.Base.Exporter, between the two stores, with no edge.
 4. Down the two edges from the stores to marker 6, the code unit Catzc.Internal.
@@ -30,7 +30,7 @@ bottom. The eye lands first on the full-width code unit in the ONE IMPORTER band
 | Glyph (legend phrase) | Count | Where                                                                                                                                                           |
 | --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | code unit             | 5     | importer.ps1 (SOURCE), Import-Catzc.ps1 and Catzc.Base.Exporter (BUILD), Catzc.Internal (ONE IMPORTER, full width), Catzc.Base.Repository (SAME MODULES, right) |
-| store                 | 2     | `<RepositoryRoot>/automation` (SOURCE), `Catzc/<v>` (BUILD, right)                                                                                              |
+| store                 | 2     | `<RepositoryRoot>/pwsh` (SOURCE), `Catzc/<v>` (BUILD, right)                                                                                              |
 | named set             | 1     | Catzc.\* modules (SAME MODULES, left)                                                                                                                           |
 
 Code units and stores are slate and the named set is mauve, all with white names. Catzc.Base.Exporter is the one glyph with no edge.

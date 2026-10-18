@@ -23,7 +23,7 @@ public sealed class AdrsConfig
 
     private static readonly string[] AllowedKeys = { "domains" };
     private static readonly string[] AllowedDomainKeys = { "code", "role", "description", "depends_on", "stack", "concern", "rulesets" };
-    private static readonly string[] AllowedRuleSetKeys = { "external", "code", "terminology", "concern", "layer" };
+    private static readonly string[] AllowedRuleSetKeys = { "external", "code", "concern", "layer" };
 
     // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS#6](/docs/adr/automation/layers.md#rule-adr-auto-layers6)).
     private static readonly string[] LayerNames = { "automation", "contract", "language", "engine", "importer" };
@@ -162,7 +162,6 @@ public sealed class AdrsConfig
                         errors.Add(string.Format("ruleset '{0}/{1}': code override '{2}' must be 2-4 uppercase letters", name, slug, leaf));
                     }
                     string effective = leaf != null ? leaf : code;
-                    string terminology = r.Contains("terminology") && r["terminology"] != null ? r["terminology"].ToString() : null;
 
                     string expectedPrefix = "ADR-" + effective;
                     bool hasDomainSegment = external.IndexOf('-', 4) >= 0;
@@ -197,7 +196,7 @@ public sealed class AdrsConfig
                         }
                     }
 
-                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, terminology, stack, concerns, domainConcerns, layer);
+                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, stack, concerns, domainConcerns, layer);
                     ruleSets.Add(one);
                     allRuleSets.Add(one);
                 }

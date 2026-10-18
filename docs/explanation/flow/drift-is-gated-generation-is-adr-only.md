@@ -1,7 +1,7 @@
-# Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone
+# Three gates check the projection, while generation is held by the ADR alone
 
 ```text
-Three gates check the projection; generation and the in-pipeline backstop are ADR-only.
+Three gates check the projection; generation is ADR-only.
 
 1  flattened scan program         #8 checked at config load; #4 held by no gate
 2  GitHub paths                   #6: exact, ordered, ! negation
@@ -10,17 +10,16 @@ Three gates check the projection; generation and the in-pipeline backstop are AD
 5  Test-GitHubWorkflowTriggerGlob quality gate: the workflow's ordered paths equal the projection
 6  Test-AdoPipelineTriggerGlob    quality gate: the pipeline's four lists equal the projection
 7  Test-GlobSetTriggerCoverage    quality gate: every member hits an ADO include
-8  in-pipeline exact backstop     the ADR's Test-GlobSetAffected step; no pipeline calls it
 
 Supports ADR-FLOW-CD-GLOBS#4, #6 and #8, and ADR-AUTO-TEST#35 (governance lens).
 ```
 
 The projection of a globset into vendor path filters is the stage of the globset rules in cats that quality gates cover best: three gates
-check that every bound workflow and pipeline declares its projection and that the Azure DevOps includes cover every member. Two things the
-ADR states around the projection have no code behind them: that the YAML filters are generated rather than written by hand, and that
-`Test-GlobSetAffected` runs first in every pipeline as the exact backstop. Both are worth knowing before relying on them.
+check that every bound workflow and pipeline declares its projection and that the Azure DevOps includes cover every member. One thing the
+ADR states around the projection has no code behind it: that the YAML filters are generated rather than written by hand. It is worth
+knowing before relying on it.
 
-![Three gates check the projection; generation and the backstop are ADR-only](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png)
+![Three gates check the projection; generation is ADR-only](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png)
 
 The diagram is described element by element in [its asset description](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.md).
 
@@ -43,8 +42,6 @@ The diagram is described element by element in [its asset description](.assets/d
 7. **Test-GlobSetTriggerCoverage.** A quality gate: every member of a pipeline-bound set matches one of its Azure DevOps include patterns,
    so an include-only trigger is a superset that never under-triggers. It checks includes only, so a set whose root `.yml` an equal-depth
    exclude may drop passes it; `cd-shared.yaml` documents such a set.
-8. **In-pipeline exact backstop.** The ADR has `Test-GlobSetAffected` run first in the pipeline to supply exactness on top of the superset.
-   The function exists and fails open, but no pipeline or workflow step calls it; `cd-shared.yaml` names it only in a comment.
 
 The three gates each collect every issue, write a report through `Write-QualityGateReport` and throw once, and an L2 integrity test of each
 requires zero issues, so a drifted filter fails `Test-Automation` locally and in CI.
@@ -65,7 +62,6 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 - The ADR says a set whose Azure DevOps projection cannot reproduce exact membership is caught at generation time; `Get-GlobSetTrigger`
   defers it to `Test-GlobSetTriggerCoverage`, which checks includes only, and `cd-shared.yaml` documents a set where Azure DevOps may drop a
   root `.yml`.
-- The ADR calls `Test-GlobSetAffected` the exact backstop the pipeline runs first; no pipeline or workflow step calls it.
 - The ADR says branch-policy `filenamePatterns` use the Azure DevOps projection; `Get-BuildValidationPathFilter` anchors the GitHub list
   instead.
 

@@ -12,7 +12,7 @@ domains:
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # the thesis spans the whole value chain
     rulesets:
-      one-source-of-truth: { external: ADR-THES-ONETRUTH, terminology: onetruth }
+      one-source-of-truth: { external: ADR-THES-ONETRUTH }
 
   principles:
     code: PRIN # domain default — composes ADR-PRIN-<NAME>
@@ -26,12 +26,12 @@ domains:
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # axioms every concern specialises
     rulesets:
-      everything-as-code: { external: ADR-PRIN-EAC, terminology: eac }
+      everything-as-code: { external: ADR-PRIN-EAC }
       configure-not-program: { external: ADR-PRIN-CONFIG, concern: [automation] }
-      reduce-variability: { external: ADR-PRIN-REDUCEVAR, terminology: reducevar }
-      reduce-waste: { external: ADR-PRIN-NOWASTE, terminology: nowaste }
-      poka-yoke: { external: ADR-PRIN-POKAYOKE, terminology: pokayoke, concern: [quality-control] }
-      one-living-version: { external: ADR-PRIN-ONELIVE, terminology: onelive, concern: [release] }
+      reduce-variability: { external: ADR-PRIN-REDUCEVAR }
+      reduce-waste: { external: ADR-PRIN-NOWASTE }
+      poka-yoke: { external: ADR-PRIN-POKAYOKE, concern: [quality-control] }
+      one-living-version: { external: ADR-PRIN-ONELIVE, concern: [release] }
       cats-and-catzc: { external: ADR-PRIN-CATS }
 
   process:
@@ -49,15 +49,15 @@ domains:
     rulesets:
       agile: { external: ADR-PROC-AGILE }
       agile-values: { external: ADR-PROC-VALUES }
-      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES, terminology: agileprinciples }
-      process-terms: { external: ADR-PROC-LEANTERMS, terminology: leanterms }
+      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES }
+      process-terms: { external: ADR-PROC-LEANTERMS }
       lean: { external: ADR-PROC-LEAN }
-      holding-the-line: { external: ADR-PROC-ANDON, terminology: andon, concern: [quality-control] }
+      holding-the-line: { external: ADR-PROC-ANDON, concern: [quality-control] }
       build-quality-in: { external: ADR-PROC-BUILTIN, concern: [quality-control] }
-      observe-work: { external: ADR-PROC-OBSERVEWIP, terminology: observewip }
-      pull-work: { external: ADR-PROC-PULLWORK, terminology: pullwork }
-      queues-cost-money: { external: ADR-PROC-QUEUECOST, terminology: queuecost }
-      inspect-and-adapt: { external: ADR-PROC-KAIZEN, terminology: kaizen }
+      observe-work: { external: ADR-PROC-OBSERVEWIP }
+      pull-work: { external: ADR-PROC-PULLWORK }
+      queues-cost-money: { external: ADR-PROC-QUEUECOST }
+      inspect-and-adapt: { external: ADR-PROC-KAIZEN }
 
   design:
     code: DSGN
@@ -72,12 +72,12 @@ domains:
     concern: [automation] # the shape of the platform itself
     rulesets:
       tracks: { external: ADR-DSGN-TRACK }
-      thin-platforms: { external: ADR-DSGN-THINPLAT, terminology: thinplat, concern: [automation, deploy] }
-      self-service: { external: ADR-DSGN-SELFSERV, terminology: selfserv, concern: [deploy, access] }
+      thin-platforms: { external: ADR-DSGN-THINPLAT, concern: [automation, deploy] }
+      self-service: { external: ADR-DSGN-SELFSERV, concern: [deploy, access] }
       visual-design: { external: ADR-DSGN-VISUAL, concern: [quality-control, release, deploy] }
       commit-lifecycle: { external: ADR-DSGN-LIFE, concern: [quality-control, release, deploy] }
       server-remote-integration: { external: ADR-DSGN-REMOTE, concern: [build, quality-control] }
-      run-modes: { external: ADR-DSGN-RUNMODE, terminology: runmode, concern: [automation, build] }
+      run-modes: { external: ADR-DSGN-RUNMODE, concern: [automation, build] }
       track-types: { external: ADR-DSGN-TRACKTYPE }
       module-types: { external: ADR-DSGN-MODTYPE }
       module-aspects: { external: ADR-DSGN-ASPECT, concern: [automation, build] }
@@ -115,36 +115,36 @@ domains:
     concern: [automation] # the module system: loading, configuration, globsets
     rulesets:
       devbox-pipeline-parity: { external: ADR-AUTO-PARITY }
-      uv-python-handler: { external: ADR-AUTO-UVPY, terminology: uvpy, layer: language }
-      log-before-invoke: { external: ADR-AUTO-PRELOG, terminology: prelog }
+      uv-python-handler: { external: ADR-AUTO-UVPY, layer: language }
+      log-before-invoke: { external: ADR-AUTO-PRELOG }
       retry-as-last-resort: { external: ADR-AUTO-RETRY }
       open-closed-architecture: { external: ADR-AUTO-EXTEND }
       zero-ceremony-poka-yoke: { external: ADR-AUTO-ZERO }
-      never-depend-on-pwd: { external: ADR-AUTO-NOPWD, terminology: nopwd }
-      avoid-deep-nesting: { external: ADR-AUTO-NONEST, terminology: nonest }
+      never-depend-on-pwd: { external: ADR-AUTO-NOPWD }
+      avoid-deep-nesting: { external: ADR-AUTO-NONEST }
       test-automation: { external: ADR-AUTO-TEST, concern: [quality-control] }
-      cross-platform: { external: ADR-AUTO-XPLAT, terminology: xplat }
-      single-responsibility-functions: { external: ADR-AUTO-ONEJOB, terminology: onejob }
+      cross-platform: { external: ADR-AUTO-XPLAT }
+      single-responsibility-functions: { external: ADR-AUTO-ONEJOB }
       caching: { external: ADR-AUTO-CACHE, layer: importer }
       materialization: { external: ADR-AUTO-MATERIAL, concern: [quality-control] }
       tracked-files-from-the-index: { external: ADR-AUTO-TRACKED }
       sensible-defaults: { external: ADR-AUTO-DEFAULT }
-      fail-fast-with-asserts: { external: ADR-AUTO-FAILFAST, terminology: failfast }
-      idempotent-state-functions: { external: ADR-AUTO-IDEM, terminology: idem }
-      use-proper-package-managers: { external: ADR-AUTO-PKGMGR, terminology: pkgmgr }
-      effective-in-enterprises: { external: ADR-AUTO-ENTERP, terminology: enterp }
-      controlling-systemwide-deps: { external: ADR-AUTO-DEPS, terminology: deps }
+      fail-fast-with-asserts: { external: ADR-AUTO-FAILFAST }
+      idempotent-state-functions: { external: ADR-AUTO-IDEM }
+      use-proper-package-managers: { external: ADR-AUTO-PKGMGR }
+      effective-in-enterprises: { external: ADR-AUTO-ENTERP }
+      controlling-systemwide-deps: { external: ADR-AUTO-DEPS }
       tool-removal-lifecycle: { external: ADR-AUTO-REMOVE }
-      controlling-module-dependencies: { external: ADR-AUTO-DEPM, terminology: depm, layer: importer }
-      environment-variables: { external: ADR-AUTO-ENVVAR, terminology: envvar }
+      controlling-module-dependencies: { external: ADR-AUTO-DEPM, layer: importer }
+      environment-variables: { external: ADR-AUTO-ENVVAR }
       path-representation: { external: ADR-AUTO-PATH }
-      managed-guids: { external: ADR-AUTO-GUIDS, terminology: guids }
+      managed-guids: { external: ADR-AUTO-GUIDS }
       platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release], layer: importer }
       consumer-overlay: { external: ADR-AUTO-OVERLAY, concern: [build, release], layer: importer }
-      internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, terminology: assetdep, concern: [automation, build], layer: importer }
+      internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, concern: [automation, build], layer: importer }
       console-output-matters: { external: ADR-AUTO-CONSOLE }
       spell-out-names: { external: ADR-AUTO-SPELL, concern: [quality-control] }
-      dry-run: { external: ADR-AUTO-DRYRUN, terminology: dryrun }
+      dry-run: { external: ADR-AUTO-DRYRUN }
       native-csharp-types: { external: ADR-AUTO-TYPES, concern: [automation, build], layer: language }
       go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control], layer: language }
       python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control], layer: language }
@@ -167,18 +167,18 @@ domains:
     concern: [automation] # the pwsh engine of the module system
     rulesets:
       pwsh-engine: { external: ADR-PWSH-ENGINE }
-      one-function-per-file: { external: ADR-PWSH-ONEFUNC, terminology: onefunc }
-      use-ps1-not-psm1: { external: ADR-PWSH-USEPS, terminology: useps }
+      one-function-per-file: { external: ADR-PWSH-ONEFUNC }
+      use-ps1-not-psm1: { external: ADR-PWSH-USEPS }
       dynamic-module-manifests: { external: ADR-PWSH-MANIFEST }
-      module-path-hygiene: { external: ADR-PWSH-MODPATH, terminology: modpath }
+      module-path-hygiene: { external: ADR-PWSH-MODPATH }
       vendor-toolset-dependencies: { external: ADR-PWSH-VENDOR }
-      prepost-extension-modules: { external: ADR-PWSH-PREPOST, terminology: prepost }
+      prepost-extension-modules: { external: ADR-PWSH-PREPOST }
       error-handling: { external: ADR-PWSH-ERROR }
       assert-idioms: { external: ADR-PWSH-ASSERT }
       announce-state-changes: { external: ADR-PWSH-ANNOUNCE }
-      avoid-using-semicolons: { external: ADR-PWSH-NOSEMI, terminology: nosemi }
+      avoid-using-semicolons: { external: ADR-PWSH-NOSEMI }
       prefer-foreach-over-foreach-object: { external: ADR-PWSH-FOREACH }
-      automatic-variable-pitfalls: { external: ADR-PWSH-AUTOVAR, terminology: autovar }
+      automatic-variable-pitfalls: { external: ADR-PWSH-AUTOVAR }
       respect-pwsh-verb-rules: { external: ADR-PWSH-VERBS }
       prefer-dryrun-over-shouldprocess: { external: ADR-PWSH-DRYRUN }
       identifier-names: { external: ADR-PWSH-NAMES }
@@ -207,7 +207,7 @@ domains:
     rulesets:
       module-config-loading: { external: ADR-CONF-LOADING }
       config-value-addressing: { external: ADR-CONF-ADDRESSING }
-      markdown-config-contributions: { external: ADR-CONF-MDCONTRIB, terminology: mdcontrib }
+      markdown-config-contributions: { external: ADR-CONF-MDCONTRIB }
 
   pipelines:
     code: PIPE
@@ -252,30 +252,30 @@ domains:
     stack: CLOUD
     concern: [deploy] # the substrate catzc deploys onto
     rulesets:
-      azure-data-model: { external: ADR-AZ-DATAMOD, terminology: datamod, concern: [deploy, access] }
+      azure-data-model: { external: ADR-AZ-DATAMOD, concern: [deploy, access] }
       azure-network-model: { external: ADR-AZ-NETWORK }
       azure-naming-standard: { external: ADR-AZ-NAMING }
       prefer-az-cli: { external: ADR-AZ-CLI, concern: [deploy, access] }
-      az-session-verification: { external: ADR-AZ-SESSION, terminology: sesverify, concern: [access] }
+      az-session-verification: { external: ADR-AZ-SESSION, concern: [access] }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
-      reliability: { external: ADR-AZ-WAF-RE, terminology: wafre }
-      security: { external: ADR-AZ-WAF-SE, terminology: wafse }
-      cost-optimization: { external: ADR-AZ-WAF-CO, terminology: wafco }
-      operational-excellence: { external: ADR-AZ-WAF-OE, terminology: wafoe }
-      performance-efficiency: { external: ADR-AZ-WAF-PE, terminology: wafpe }
-      design-principles: { external: ADR-AZ-CAF-PRIN, terminology: cafprin }
-      billing-and-tenant: { external: ADR-AZ-CAF-BILL, terminology: cafbill }
-      identity-and-access: { external: ADR-AZ-CAF-IAM, terminology: cafiam }
-      resource-organization: { external: ADR-AZ-CAF-RESORG, terminology: resorg }
-      network-topology: { external: ADR-AZ-CAF-NETTOP, terminology: nettop }
-      network-connectivity: { external: ADR-AZ-CAF-NETCON, terminology: netcon }
-      network-private-access: { external: ADR-AZ-CAF-NETPRV, terminology: netprv }
-      landing-zone-security: { external: ADR-AZ-CAF-SEC, terminology: cafsec }
-      management: { external: ADR-AZ-CAF-MGMT, terminology: cafmgmt }
-      governance: { external: ADR-AZ-CAF-GOV, terminology: cafgov }
-      naming-and-tagging: { external: ADR-AZ-CAF-NAME, terminology: cafname }
-      platform-automation-and-devops: { external: ADR-AZ-CAF-DEVOPS, terminology: cafdevops }
+      reliability: { external: ADR-AZ-WAF-RE }
+      security: { external: ADR-AZ-WAF-SE }
+      cost-optimization: { external: ADR-AZ-WAF-CO }
+      operational-excellence: { external: ADR-AZ-WAF-OE }
+      performance-efficiency: { external: ADR-AZ-WAF-PE }
+      design-principles: { external: ADR-AZ-CAF-PRIN }
+      billing-and-tenant: { external: ADR-AZ-CAF-BILL }
+      identity-and-access: { external: ADR-AZ-CAF-IAM }
+      resource-organization: { external: ADR-AZ-CAF-RESORG }
+      network-topology: { external: ADR-AZ-CAF-NETTOP }
+      network-connectivity: { external: ADR-AZ-CAF-NETCON }
+      network-private-access: { external: ADR-AZ-CAF-NETPRV }
+      landing-zone-security: { external: ADR-AZ-CAF-SEC }
+      management: { external: ADR-AZ-CAF-MGMT }
+      governance: { external: ADR-AZ-CAF-GOV }
+      naming-and-tagging: { external: ADR-AZ-CAF-NAME }
+      platform-automation-and-devops: { external: ADR-AZ-CAF-DEVOPS }
 
   repository:
     code: REPO
@@ -292,27 +292,27 @@ domains:
     concern: [automation] # the repository tree the tooling lays out and generates
     rulesets:
       conventional-folders: { external: ADR-REPO-FOLDERS }
-      dedicated-output-directory: { external: ADR-REPO-OUTDIR, terminology: outdir }
-      output-formats: { external: ADR-REPO-OUTFMT, terminology: outfmt }
+      dedicated-output-directory: { external: ADR-REPO-OUTDIR }
+      output-formats: { external: ADR-REPO-OUTFMT }
       uniform-formatting: { external: ADR-REPO-FORMAT, concern: [quality-control] }
       api-contracts: { external: ADR-REPO-CONTRACT, concern: [release] }
       command-contracts: { external: ADR-REPO-CMDCONTRACT, concern: [release] }
       generated-readmes: { external: ADR-REPO-README }
-      generated-root-configs: { external: ADR-REPO-ROOTCFG, terminology: rootcfg }
+      generated-root-configs: { external: ADR-REPO-ROOTCFG }
       documentation-examples: { external: ADR-REPO-EXAMPLE }
       repo-variants: { external: ADR-REPO-VARIANT }
       domain-language-separation: { external: ADR-REPO-LANG }
       controlled-vocabulary: { external: ADR-REPO-VOCAB, concern: [quality-control] }
       markdown-links: { external: ADR-REPO-LINK, concern: [quality-control] }
-      adr-code-language: { external: ADR-REPO-ADRCODE, terminology: adrcode, concern: [quality-control] }
+      adr-code-language: { external: ADR-REPO-ADRCODE, concern: [quality-control] }
       comments-in-docs: { external: ADR-REPO-COMMENTS, concern: [quality-control] }
-      file-meta: { external: ADR-REPO-FILEMETA, terminology: filemeta, concern: [quality-control] }
-      code-file-meta: { external: ADR-REPO-CODEMETA, terminology: codemeta, concern: [quality-control] }
+      file-meta: { external: ADR-REPO-FILEMETA, concern: [quality-control] }
+      code-file-meta: { external: ADR-REPO-CODEMETA, concern: [quality-control] }
       function-help: { external: ADR-REPO-HELP, concern: [quality-control] }
       agent-definitions: { external: ADR-REPO-AGENTS }
       ai-agent-contract: { external: ADR-REPO-AI }
       inspiration: { external: ADR-REPO-INSPIRE }
-      protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }
+      protected-globs: { external: ADR-REPO-PROTGLOB }
       plans: { external: ADR-REPO-PLANS }
       slides-as-markdown: { external: ADR-REPO-SLIDES, concern: [quality-control] }
 
@@ -327,7 +327,6 @@ domains:
     depends_on: []
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # capabilities measured across the whole chain
-    # terminology tokens (the shared `dora` code token + any non-word name bodies) are reconciled in Stage 2.
     rulesets:
       ai-accessible-internal-data: { external: ADR-DORA-AIDATA, concern: [access] }
       clear-and-communicated-ai-stance: { external: ADR-DORA-AISTANCE }

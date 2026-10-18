@@ -18,7 +18,7 @@ panel along the bottom. The eye lands first on the tall code unit on the left.
 
 ## Reading path
 
-1. Marker 1, left of the bands: the code unit automation/&lt;Module&gt;/.
+1. Marker 1, left of the bands: the code unit pwsh/&lt;Module&gt;/.
 2. Right along the top edge into VISIBILITY: marker 2, the code unit Catzc.Internal.Bootstrap, then marker 3, the file &lt;Module&gt;.psd1.
 3. Back to the left, along the lower edge into ASPECTS: marker 4, the code unit Catzc.Base.Variants, with an edge down to marker 5, the tall
    code unit Catzc.Base.Globs.
@@ -29,7 +29,7 @@ panel along the bottom. The eye lands first on the tall code unit on the left.
 
 | Glyph (legend phrase) | Count | Where                                                                                                                                                            |
 | --------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| code unit             | 4     | automation/&lt;Module&gt;/ (far left, outside the bands), Catzc.Internal.Bootstrap (VISIBILITY), Catzc.Base.Variants and Catzc.Base.Globs (ASPECTS, left column) |
+| code unit             | 4     | pwsh/&lt;Module&gt;/ (far left, outside the bands), Catzc.Internal.Bootstrap (VISIBILITY), Catzc.Base.Variants and Catzc.Base.Globs (ASPECTS, left column) |
 | file                  | 1     | &lt;Module&gt;.psd1 (VISIBILITY, right of Bootstrap)                                                                                                             |
 | named set             | 2     | &lt;module&gt;-live above &lt;module&gt;-tests (ASPECTS, middle column)                                                                                          |
 | ADR-only              | 1     | aspect sha locks (ASPECTS, right column; dashed white box, as tall as Globs)                                                                                     |
@@ -40,7 +40,7 @@ Code units are slate, the file is olive and the named sets are mauve, all with w
 
 | Edge kind              | Count | From → to                                                                                                                                                                     |
 | ---------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow                   | 4     | automation/&lt;Module&gt;/ → Catzc.Internal.Bootstrap, Bootstrap → &lt;Module&gt;.psd1, automation/&lt;Module&gt;/ → Catzc.Base.Globs, Catzc.Base.Variants → Catzc.Base.Globs |
+| flow                   | 4     | pwsh/&lt;Module&gt;/ → Catzc.Internal.Bootstrap, Bootstrap → &lt;Module&gt;.psd1, pwsh/&lt;Module&gt;/ → Catzc.Base.Globs, Catzc.Base.Variants → Catzc.Base.Globs |
 | thick (to a named set) | 2     | Catzc.Base.Globs → &lt;module&gt;-live, Catzc.Base.Globs → &lt;module&gt;-tests                                                                                               |
 | ADR-only               | 2     | &lt;module&gt;-live → aspect sha locks, &lt;module&gt;-tests → aspect sha locks                                                                                               |
 

@@ -18,7 +18,7 @@ panel along the bottom. The eye lands first on the tall code unit on the left.
 
 ## Reading path
 
-1. Marker 1, left of the bands: the code unit automation/&lt;Module&gt;/.
+1. Marker 1, left of the bands: the code unit pwsh/&lt;Module&gt;/.
 2. Right along the top edge through EVERY IMPORT: marker 2, the gate Assert-Unique…FunctionName; marker 3, the code unit
    New-DynamicManifest; marker 4, the file &lt;Module&gt;.psd1.
 3. DERIVED SETS, top row: marker 5, the file variants.yml, then marker 6, the code unit Get-Aspect.
@@ -29,7 +29,7 @@ panel along the bottom. The eye lands first on the tall code unit on the left.
 
 | Glyph (legend phrase) | Count | Where                                                                                                                                                   |
 | --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| code unit             | 4     | automation/&lt;Module&gt;/ (far left), New-DynamicManifest (EVERY IMPORT, centre), Get-Aspect and AspectPartition.Compile (DERIVED SETS, centre column) |
+| code unit             | 4     | pwsh/&lt;Module&gt;/ (far left), New-DynamicManifest (EVERY IMPORT, centre), Get-Aspect and AspectPartition.Compile (DERIVED SETS, centre column) |
 | gate                  | 1     | Assert-Unique…FunctionName (EVERY IMPORT, left; grey rhombus with a 3 px rim)                                                                           |
 | file                  | 2     | &lt;Module&gt;.psd1 (EVERY IMPORT, right), variants.yml (DERIVED SETS, top left)                                                                        |
 | named set             | 2     | &lt;kebab&gt;-live above &lt;kebab&gt;-tests (DERIVED SETS, right column)                                                                               |
@@ -40,7 +40,7 @@ Code units are slate, files olive and named sets mauve, all with white names; th
 
 | Edge kind              | Count | From → to                                                                                                                                                                                                                  |
 | ---------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow                   | 6     | automation/&lt;Module&gt;/ → Assert-Unique…FunctionName → New-DynamicManifest → &lt;Module&gt;.psd1; variants.yml → Get-Aspect; Get-Aspect → AspectPartition.Compile; automation/&lt;Module&gt;/ → AspectPartition.Compile |
+| flow                   | 6     | pwsh/&lt;Module&gt;/ → Assert-Unique…FunctionName → New-DynamicManifest → &lt;Module&gt;.psd1; variants.yml → Get-Aspect; Get-Aspect → AspectPartition.Compile; pwsh/&lt;Module&gt;/ → AspectPartition.Compile |
 | thick (to a named set) | 2     | AspectPartition.Compile → &lt;kebab&gt;-live, AspectPartition.Compile → &lt;kebab&gt;-tests                                                                                                                                |
 
 Seven edges are straight and horizontal, pointing right; the Get-Aspect → Compile edge points straight down. None crosses another, and none

@@ -14,7 +14,7 @@ The code carries both halves of ingress, but nothing finds the last verified com
 9   ADO branch policy             a build validation on main; blocking stops the merge
 10  Get-AdoBuildValidations       reads the policies back, so registration is idempotent
 
-Supports ADR-DSGN-REMOTE#2 and #4, and ADR-REPO-VARIANT#6 (implementation lens).
+Supports ADR-DSGN-REMOTE#2 and #4 (implementation lens).
 ```
 
 Cats implements the way in from both sides. On the clone, a `git_workspace` variant feeds a guard that keeps automation from committing
