@@ -145,6 +145,7 @@ domains:
       cross-platform: { external: ADR-AUTO-XPLAT, terminology: xplat }
       single-responsibility-functions: { external: ADR-AUTO-ONEJOB, terminology: onejob }
       caching: { external: ADR-AUTO-CACHE, layer: importer }
+      materialization: { external: ADR-AUTO-MATERIAL, concern: [quality-control] }
       tracked-files-from-the-index: { external: ADR-AUTO-TRACKED }
       sensible-defaults: { external: ADR-AUTO-DEFAULT }
       fail-fast-with-asserts: { external: ADR-AUTO-FAILFAST, terminology: failfast }

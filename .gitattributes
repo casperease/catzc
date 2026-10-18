@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: cb6e650d7430
+#     with_body_sha: "7f1a348b04ce"
 #     repo_status: locked
 #     path: ".gitattributes"
 #     source:
@@ -136,6 +136,10 @@ contracts/*/*/** catzc-contract text eol=lf
 
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
 **/tests/**/assets/** catzc-fixture
+
+# catzc: files under the unordered track are imports not yet sorted, held to no domain rule until they move — the
+# content tools (links, Markdown titles, source conventions) leave them as they landed (ADR-DSGN-TRACK#17).
+.unordered/** catzc-unordered
 
 # catzc: these files are read verbatim by another tool, so they carry no meta block: the session instructions are
 # injected as written into every Claude session, the repository landing page is what GitHub renders first, and the

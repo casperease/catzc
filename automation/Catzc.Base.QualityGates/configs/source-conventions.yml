@@ -23,7 +23,7 @@ engine_set:
     docs/references/automation/catzc-base-engines/types/**: the model's comment pages, its comments moved verbatim (ADR-REPO-COMMENTS#2)
     automation/Catzc.Base.Engines/tests/**: the model's own tests pin the names it declares
     "**/tests/assets/engine-cases/**": the engine-case tables carry one column per engine by design
-    .unordered/**: working notes, not product docs (the catzc-notes class)
+    .unordered/**: imports not yet sorted, held to no domain rule until they move (the catzc-unordered class, ADR-DSGN-TRACK#17)
   count_phrases:
     - '\b{count} (?:execution )?engines\b'
   name_phrases:

@@ -32,7 +32,7 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
             'contracts/widget/0.0.0/Gadget/.github/README.md'
             'docs/gadget.md'
             'docs/sprocket.md'
-            'notes/widget-plan.md'
+            'landed/widget-plan.md'
         )
     }
 
@@ -46,12 +46,12 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
                 'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' }
                 'docs/gadget.md'                                  = @{ 'catzc-contract' = 'unset' }
                 'docs/sprocket.md'                                = @{ 'catzc-meta' = 'unset' }
-                'notes/widget-plan.md'                            = @{ 'catzc-notes' = 'set' }
+                'landed/widget-plan.md'                           = @{ 'catzc-unordered' = 'set' }
             }
         } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'names the vendored, generated, fixture, contract, and notes files, in the given order' {
+    It 'names the vendored, generated, fixture, contract, and unordered files, in the given order' {
         $exempt = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Paths = $script:paths } {
             param($Root, $Paths)
             Get-ContentExemptPath -RepositoryRoot $Root -Path $Paths
@@ -61,7 +61,7 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
             'docs/generated-widget.md'
             'automation/Widget/tests/assets/fixture.md'
             'contracts/widget/0.0.0/Gadget/.github/README.md'
-            'notes/widget-plan.md'
+            'landed/widget-plan.md'
         )
     }
 
@@ -82,7 +82,7 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
         } | Out-Null
         Should -Invoke Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Attribute.Count -eq 5 -and 'linguist-vendored' -in $Attribute -and 'linguist-generated' -in $Attribute -and
-            'catzc-fixture' -in $Attribute -and 'catzc-contract' -in $Attribute -and 'catzc-notes' -in $Attribute
+            'catzc-fixture' -in $Attribute -and 'catzc-contract' -in $Attribute -and 'catzc-unordered' -in $Attribute
         }
     }
 

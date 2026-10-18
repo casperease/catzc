@@ -269,6 +269,24 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   obvious when information is recomputed versus memoized.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Materialization
+
+`Materialization — when a knowledge resource comes into being and how long it holds`
+
+[ADR-AUTO-MATERIAL](materialization.md)
+
+> DORA ties fast feedback to delivery performance: a check that reads a warm commit copy answers in the time of a read, and a copy keyed by
+> the resource's own inputs stays warm across the commits that do not touch it. The loud fallback keeps the feedback honest, since a check
+> that got slower says why instead of reading a copy the tree no longer matches.
+
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a commit copy keyed by its globset makes the
+  checks of an unrelated commit as cheap as a read.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — a generated tracked file's stamp proves the copy matches the
+  tree, so a stale copy never passes a check.
+- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the one announced fallback line
+  tells a person when and why a resource was computed instead of read.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Tracked files from the index
 
 `Tracked files are read from the git index, in-process, through one seam`
