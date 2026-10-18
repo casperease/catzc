@@ -58,6 +58,15 @@ run on neutral fixture decks, never on a real one ([ADR-AUTO-TEST#3](../automati
 
 - [Kinds and home](#kinds-and-home)
 
+### Rule ADR-REPO-SLIDES:7
+
+Every draw.io slide renders from the tree by one command, `Build-Diagrams`. Its inputs are the model embedded in each tracked `.drawio.png`
+and the repository's maps, the folders it covers and its slice size are settings of `slides.yml`, and no step of it asks a session or a
+model to decide anything ([ADR-PRIN-EAC#3](../principles/everything-as-code.md#rule-adr-prin-eac3)). A raster is never drawn by hand or by
+the draw.io CLI: a session edits a model, and the kit renders it.
+
+- [One command renders every diagram](#one-command-renders-every-diagram)
+
 ## Context
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are
@@ -121,11 +130,20 @@ The slide kind comes before the documentation trees in the kind registry so a sl
 are a module because that is where cats keeps a command with its types, its tests and its help; the draw.io kit is a Python folder because
 draw.io's own tooling is, and nothing here needs Python.
 
+### One command renders every diagram
+
+`A picture is a build output`
+
+A slide whose raster only a session can make is a slide nobody can rebuild: the next checkout, the next pipeline and the next person get
+whatever picture was last committed, and the model and the picture drift apart unseen. With one command over the tree, a clean checkout
+gives the same slides, a changed map or a changed rule reaches every slide that shows it, and an agent's part ends at editing a model.
+
 ### How this is enforced
 
 - **`Build-SlideDeck`** renders a deck forward into `out/slides/<deck>/` and reports every fault (rule 3).
 - **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break rules 1, 2 and 4.
 - **`Get-FileKind`** places slide files and the kit by rule 6, and the file-kind reachability test keeps both kinds reachable.
+- **`Build-Diagrams`** renders every slide of the `diagram_folders` from the tree through the kit's renderer, stage by stage (rule 7).
 
 ## Consequences
 

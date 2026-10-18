@@ -8,7 +8,8 @@ Describe 'Import-Catzc loads a full build (walking skeleton)' -Tag 'L2', 'integr
 
 Describe 'Import-Catzc loads a reduced build' -Tag 'L2', 'integrity', 'greedy', 'source-only' {
     It 'a reduced build ships the full type set and loads exactly its modules (Test-BuildArtifact)' {
-        $result = Test-BuildArtifact -Module 'Catzc.Base.Config' -Facet Load -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
+        # The repository carries its own overlay (.catzc), and a bundle loaded against it must carry the module that applies it.
+        $result = Test-BuildArtifact -Module 'Catzc.Base.Config', 'Catzc.Base.Overlay' -Facet Load -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
         $result.Modules | Should -BeLessThan (Get-ChildPath (Get-CatzcModulesRoot) -Directory -Depth 1 | Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }).Count
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

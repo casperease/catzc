@@ -6,7 +6,9 @@
 
 A consumer's **overlay** is the `.catzc/` folder at its `RepositoryRoot`: the only place a consumer changes what a built bundle does. The
 bundle it runs is read-only and never edited. The overlay is optional, and so is every file in it; with none, the bundle runs exactly as
-built. The overlay is the consumer's source — committed and reviewed by the consumer, and never written by catzc.
+built. The overlay is the consumer's source — committed and reviewed by the consumer, and never written by catzc. The catzc repository is
+its own first consumer: its own config fragments sit in the same folder, `.catzc/<modules folder>/`, with no other name for it
+([ADR-CATS#5](../principles/cats-and-catzc.md#rule-adr-cats5)).
 
 - [The overlay](#the-overlay)
 
@@ -62,8 +64,10 @@ edit to the registry, never code.
 
 ### Rule ADR-AUTO-OVERLAY:8
 
-The overlay is checked as a whole before any of it applies, and every violation is reported in one failure. It applies in build mode only:
-in source mode the catzc tree is changed directly, and a `.catzc/` folder there is not read.
+The overlay is checked as a whole before any of it applies, and every violation is reported in one failure. It applies in build mode, where
+a bundle loaded against a root with an overlay must carry the module that applies it, and the importer refuses one that does not. In source
+mode the catzc tree is changed directly, and only the config fragments of `.catzc/<modules folder>/` are read, merged by `Get-Config` onto
+the shipped configs.
 
 - [Checked as a whole](#checked-as-a-whole)
 

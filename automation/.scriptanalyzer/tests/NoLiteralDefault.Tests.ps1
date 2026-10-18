@@ -22,7 +22,7 @@ Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT#6', 'A
         @{ Description = 'a literal after ?? on a variable filled from config'; Text = "`$size ?? 'small'"; Code = "function Get-WidgetSize {`n    `$size = (Get-Config -Config widgets).size`n    `$size ?? 'small'`n}" }
         @{ Description = 'an emptiness fallback to a literal'; Text = "if (-not `$size) {"; Code = "function Get-WidgetSize {`n    `$size = (Get-Config -Config widgets).size`n    if (-not `$size) {`n        `$size = 'small'`n    }`n    `$size`n}" }
     ) {
-        $diagnostics = Test-DefaultFile -Code $Code
+        $diagnostics = @(Test-DefaultFile -Code $Code)
         $diagnostics.Count | Should -Be 1
         $diagnostics[0].RuleName | Should -Be 'Measure-NoLiteralDefault'
         $diagnostics[0].Extent.Text | Should -BeLike "*$Text*"

@@ -12,11 +12,11 @@ Renders every draw.io slide of the repository from its source: the model embedde
 ### description
 
 One command, no session in the loop: for every folder `diagram_folders` of `slides.yml` names (the folders whose slides carry the minimap
-sidebar), or the folders `-Folder` names, it runs the
-draw.io kit's renderer (`drawio_forward.py --all`, through uv with Pillow) stage by stage. `prepare` extracts each slide's model and writes
-the folder's slide list; `highlight` runs the map processors and renders each slide's three minimaps and their stamped sister pages; `join`
-lays out the sidebar and rebuilds each slide in place. The per-slide stages run in slices of `-Batch` slides, so each renderer call stays
-inside the uv time limit of `timeouts.yml`. A slide whose model names no ADR code has no minimaps and is left as it is.
+sidebar), or the folders `-Folder` names, it runs the draw.io kit's renderer (`drawio_forward.py --all`, through uv with Pillow) stage by
+stage. `prepare` extracts each slide's model and writes the folder's slide list; `highlight` runs the map processors and renders each
+slide's three minimaps and their stamped sister pages; `join` lays out the sidebar and rebuilds each slide in place. The per-slide stages
+run in slices of `-Batch` slides, so each renderer call stays inside the uv time limit of `timeouts.yml`. A slide whose model names no ADR
+code has no minimaps and is left as it is.
 
 The renderer's exit codes decide the result: 0 is clean, 2 is warnings with every artifact delivered (reported, the run goes on), 3 is
 nothing to render, and anything else stops the run with the renderer's last lines. The kit and the slice size are `drawio_kit` and
@@ -24,8 +24,8 @@ nothing to render, and anything else stops the run with the renderer's last line
 
 ### parameter `Folder`
 
-Repository-relative folders to render. Default: `diagram_folders` of `slides.yml`. A folder whose slides have no sidebar is not one to
-name: the `join` stage would lay a sidebar out on every slide whose model names an ADR code.
+Repository-relative folders to render. Default: `diagram_folders` of `slides.yml`. A folder whose slides have no sidebar is not one to name:
+the `join` stage would lay a sidebar out on every slide whose model names an ADR code.
 
 ### parameter `Stage`
 

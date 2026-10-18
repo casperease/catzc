@@ -31,7 +31,9 @@ A configurable setting resolves in one fixed order: the caller's explicit value;
 merged onto it ([consumer-overlay](consumer-overlay.md#rule-adr-auto-overlay4)); else the setting's sensible default. The sensible default
 is programmed on the setting's config type, as its `Default<Key>` constant, and shown in the module's shipped config file, and the two agree
 unless the config's registry entry gives the reason they differ; so an omitted key and a fresh checkout behave identically, a reader of the
-file sees the default, and no function restates the value.
+file sees the default, and no function restates the value. Every key of a config type has one **posture**: defaulted (its `Default<Key>`
+constant), empty-is-valid (an empty list or map is its value when the file states none), or required (the type's constructor throws, naming
+the key and where to add it); a function that reads the config adds no literal fallback of its own.
 
 - [Where defaults come from](#where-defaults-come-from)
 - [One resolution order](#one-resolution-order)
